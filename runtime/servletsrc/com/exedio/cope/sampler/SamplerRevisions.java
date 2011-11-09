@@ -38,6 +38,28 @@ final class SamplerRevisions implements RevisionsFuture
 	private Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(2, "use SamplerTypeId",
+				"create table `SamplerTypeId`(" +
+					"`this` int," +
+					"`id` varchar(80) character set utf8 collate utf8_bin not null," +
+					"constraint `SamplerTypeId_Pk` primary key(`this`)," +
+					"constraint `SamplerTypeId_this_CkPk` check((`this`>=0) AND (`this`<=2147483647))," +
+					"constraint `SamplerTypeId_id_Ck` check((CHAR_LENGTH(`id`)>=1) AND (CHAR_LENGTH(`id`)<=80))," +
+					"constraint `SamplerTypeId_id_Unq` unique(`id`)" +
+				") engine=innodb",
+				"set @a=0",
+				"insert into `SamplerTypeId` (`this`,`id`) " +
+					"select distinct if(@a, @a:=@a+1, @a:=1) as `this`, type as id from SamplerItemCache",
+				"alter table `SamplerItemCache` " +
+					"drop index `SampItemCach_daAndTyp_Unq`," +
+					"change `type` `typeId` varchar(80) character set utf8 collate utf8_bin," +
+					"add column `type` int," +
+					"add constraint `SamplerItemCache_type_Fk` foreign key (`type`) references `SamplerTypeId`(`this`)",
+				"update `SamplerItemCache` v join `SamplerTypeId` i on v.`typeId`=i.`id` set v.`type`=i.`this`",
+				"alter table `SamplerItemCache` " +
+					"modify `type` int not null," +
+					"add constraint `SampItemCach_daAndTyp_Unq` unique(`date`,`type`)"
+			),
 			new Revision(1, "use composite SamplerClusterListener",
 				"alter table `SamplerModel` " +
 					"change `clusterListenerException`  `clusterListener_exception` bigint, " +

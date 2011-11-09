@@ -69,6 +69,7 @@ public final class Sampler
 		this.samplerModel =
 			new Model(
 				new SamplerRevisions(),
+				SamplerTypeId.TYPE,
 				SamplerModel.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
@@ -317,7 +318,7 @@ public final class Sampler
 		{
 			for(final Type type : samplerModel.getTypes())
 				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-					SamplerPurge.TYPE!=type)
+						SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
 				{
 					SamplerPurge.purge(type, limit, ctx, samplerString);
 				}

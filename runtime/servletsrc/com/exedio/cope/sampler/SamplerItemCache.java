@@ -32,7 +32,6 @@ import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
@@ -40,7 +39,7 @@ import com.exedio.cope.UniqueConstraint;
 final class SamplerItemCache extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
-	private static final StringField type = new StringField().toFinal();
+	private static final ItemField<SamplerTypeId> type = ItemField.create(SamplerTypeId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal();
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
@@ -90,7 +89,7 @@ final class SamplerItemCache extends Item
 	static List<SetValue> map(final ItemCacheInfo info)
 	{
 		return Arrays.asList((SetValue)
-			type  .map(info.getType().getID()),
+			type  .map(SamplerTypeId.get(info.getType())),
 			limit .map(info.getLimit()),
 			level .map(info.getLevel()),
 			hits  .map(info.getHits()),
@@ -128,7 +127,7 @@ final class SamplerItemCache extends Item
 
 	String getType()
 	{
-		return type.get(this);
+		return type.get(this).getID();
 	}
 
 	Date getDate()
