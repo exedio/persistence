@@ -108,7 +108,7 @@
 								failonerror="true"
 								output="build/@{name}-catalina-start.log">
 							<arg value="run" />
-							<env key="CATALINA_OPTS" value="-enableassertions -Dcom.exedio.cope.media.imagemagick=true -Dcom.exedio.cope.media.convertcommand=${com.exedio.cope.media.convertcommand}" />
+							<env key="CATALINA_OPTS" value="-enableassertions -Dcom.exedio.cope.media.imagemagick=true -Dcom.exedio.cope.media.convertcommand=${com.exedio.cope.media.convertcommand} -XX:MaxPermSize=150M" />
 						</exec>
 					</forget>
 					<echo message="tomcat (@{name}): waiting to be ready ..." />
@@ -137,6 +137,14 @@
 			</trycatch>
 		</sequential>
 	</macrodef>
+	
+	<target name="sleepInTomcat" depends="tomcat" description="for inspecting tomcat manually">
+		<runInTomcat name="sleepInTomcat">
+			<body>
+				<sleep seconds="60" />
+			</body>
+		</runInTomcat>
+	</target>
 	
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-6.0.16" />
