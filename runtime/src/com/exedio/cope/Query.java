@@ -830,6 +830,7 @@ public final class Query<R> implements Serializable
 				transaction.getConnection(),
 				transaction.connect.executor,
 				totalOnly,
+				(StringBuilder)null,
 				transaction.queryInfos);
 	}
 
@@ -838,10 +839,11 @@ public final class Query<R> implements Serializable
 		return c==Condition.TRUE ? null : c;
 	}
 
-	private ArrayList<Object> search(
+	ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
 			final boolean totalOnly,
+			final StringBuilder sqlOnlyBuffer,
 			final ArrayList<QueryInfo> queryInfos)
 	{
 		executor.testListener().search(connection, this, totalOnly);
@@ -856,7 +858,7 @@ public final class Query<R> implements Serializable
 			throw new RuntimeException();
 
 		final ArrayList<Join> joins = this.joins;
-		final Statement bf = executor.newStatement(this);
+		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
 		if (totalOnly && distinct)
 		{
@@ -954,6 +956,13 @@ public final class Query<R> implements Serializable
 		QueryInfo queryInfo = null;
 		if(queryInfos!=null)
 			queryInfos.add(queryInfo = new QueryInfo(toString()));
+
+		if(sqlOnlyBuffer!=null)
+		{
+			assert bf.getParameters()==null;
+			sqlOnlyBuffer.append(bf.getText());
+			return null;
+		}
 
 		//System.out.println(bf.toString());
 

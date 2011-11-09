@@ -70,7 +70,7 @@ final class Statement
 		this.qualifyTable = false;
 	}
 
-	Statement(final Executor executor, final Query<? extends Object> query)
+	Statement(final Executor executor, final Query<? extends Object> query, final boolean sqlOnly)
 	{
 		if(executor==null)
 			throw new NullPointerException();
@@ -78,7 +78,7 @@ final class Statement
 		this.dialect = executor.dialect;
 		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
-		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
+		this.parameters = (!sqlOnly && executor.prepare) ? new ArrayList<Object>() : null;
 
 		this.tc = query.check();
 

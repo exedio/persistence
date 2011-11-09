@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.Query;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.junit.CopeAssert;
 
 public class DifferentiateTest extends ConnectedTest
@@ -178,6 +179,10 @@ public class DifferentiateTest extends ConnectedTest
 					"AND s1.running=(running+1)) " +
 				"order by this",
 			mediaQuery.toString());
+		assertQuery(modelQuery);
+		assertQuery(itemQuery);
+		assertQuery(clusterQuery);
+		assertQuery(mediaQuery);
 
 		samplerModel.startTransaction("SampleTest#differentiate");
 		{
@@ -240,6 +245,14 @@ public class DifferentiateTest extends ConnectedTest
 
 		samplerModel.commit();
 
+	}
+
+	private void assertQuery(final Query query)
+	{
+		final String search = SchemaInfo.search(query);
+		assertTrue(search, search.startsWith("select "));
+		final String total = SchemaInfo.total(query);
+		assertTrue(total, total.startsWith("select count(*) from "));
 	}
 
 	/**

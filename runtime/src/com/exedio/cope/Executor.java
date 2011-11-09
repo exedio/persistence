@@ -82,9 +82,9 @@ final class Executor
 		return new Statement(this, qualifyTable);
 	}
 
-	protected Statement newStatement(final Query<? extends Object> query)
+	protected Statement newStatement(final Query<? extends Object> query, final boolean sqlOnly)
 	{
-		return new Statement(this, query);
+		return new Statement(this, query, sqlOnly);
 	}
 
 	static interface ResultSetHandler<R>

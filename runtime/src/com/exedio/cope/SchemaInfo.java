@@ -218,6 +218,24 @@ public final class SchemaInfo
 		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
 	}
 
+	public static String search(final Query<?> query)
+	{
+		return search(query, false);
+	}
+
+	public static String total(final Query<?> query)
+	{
+		return search(query, true);
+	}
+
+	private static String search(final Query<?> query, final boolean totalOnly)
+	{
+		final StringBuilder bf = new StringBuilder();
+		query.search(null, query.getType().getModel().connect().executor, totalOnly, bf, null);
+		return bf.toString();
+	}
+
+
 	private SchemaInfo()
 	{
 		// prevent instantiation

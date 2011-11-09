@@ -61,6 +61,13 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(c1.equals(c2));
 		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
+
+		{
+			final String search = SchemaInfo.search(q);
+			assertTrue(search, search.startsWith("select "));
+			final String total = SchemaInfo.total(q);
+			assertTrue(total, total.startsWith("select count(*) from "));
+		}
 	}
 
 	public void testSetSelect()
