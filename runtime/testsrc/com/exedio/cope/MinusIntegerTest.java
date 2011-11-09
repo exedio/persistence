@@ -68,9 +68,9 @@ public class MinusIntegerTest extends AbstractRuntimeTest
 		assertNotEquals(viewAB, numB.minus(numA));
 
 		// test normal operation
-		assertEquals(i7, item.getNumA());
-		assertEquals(i9, item.getNumB());
-		assertEquals(i3, item.getNumC());
+		assertEquals(valueOf(7), item.getNumA());
+		assertEquals(valueOf(9), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal(7)));
 		assertContains(item, TYPE.search(numB.equal(9)));
 		assertContains(item, TYPE.search(numC.equal(3)));
@@ -86,8 +86,8 @@ public class MinusIntegerTest extends AbstractRuntimeTest
 		item.setNumA(null);
 
 		assertEquals(null, item.getNumA());
-		assertEquals(i9, item.getNumB());
-		assertEquals(i3, item.getNumC());
+		assertEquals(valueOf(9), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal((Integer)null)));
 		assertContains(item, TYPE.search(numB.equal(9)));
 		assertContains(item, TYPE.search(numC.equal(3)));

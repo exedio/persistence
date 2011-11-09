@@ -68,9 +68,9 @@ public class MinusLongTest extends AbstractRuntimeTest
 		assertNotEquals(viewAB, numB.minus(numA));
 
 		// test normal operation
-		assertEquals(l7, item.getNumA());
-		assertEquals(l9, item.getNumB());
-		assertEquals(l3, item.getNumC());
+		assertEquals(valueOf(7), item.getNumA());
+		assertEquals(valueOf(9), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal(7l)));
 		assertContains(item, TYPE.search(numB.equal(9l)));
 		assertContains(item, TYPE.search(numC.equal(3l)));
@@ -86,8 +86,8 @@ public class MinusLongTest extends AbstractRuntimeTest
 		item.setNumA(null);
 
 		assertEquals(null, item.getNumA());
-		assertEquals(l9, item.getNumB());
-		assertEquals(l3, item.getNumC());
+		assertEquals(valueOf(9), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal((Long)null)));
 		assertContains(item, TYPE.search(numB.equal(9l)));
 		assertContains(item, TYPE.search(numC.equal(3l)));
