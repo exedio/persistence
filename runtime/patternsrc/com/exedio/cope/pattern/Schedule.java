@@ -59,6 +59,8 @@ public final class Schedule extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
+	static final Clock clock = new Clock();
+
 	public enum Interval
 	{
 		DAILY,
@@ -191,12 +193,7 @@ public final class Schedule extends Pattern
 	public void run(
 			@Parameter("ctx") final JobContext ctx)
 	{
-		run(ctx, new Date());
-	}
-
-	void run(final JobContext ctx, final Date now)
-	{
-		run(getType(), ctx, now);
+		run(getType(), ctx, new Date(clock.currentTimeMillis()));
 	}
 
 	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
@@ -437,18 +434,12 @@ public final class Schedule extends Pattern
 	public int run(
 			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return run(interrupter, new Date());
-	}
-
-	@Deprecated
-	private int run(final com.exedio.cope.util.Interrupter interrupter, final Date now)
-	{
 		final Schedule s = this;
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
 			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
-				s.run(ctx, now);
+				s.run(ctx);
 			}}
 		);
 	}

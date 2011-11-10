@@ -52,6 +52,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	}
 
 	ScheduleItem item;
+	AbsoluteMockClockSource clock;
 	ArrayList<ExpectedRun> expectedRuns;
 
 	@Override
@@ -59,7 +60,16 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		item = deleteOnTearDown(new ScheduleItem());
+		clock = new AbsoluteMockClockSource();
+		Schedule.clock.setSource(clock);
 		expectedRuns = new ArrayList<ExpectedRun>();
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Schedule.clock.removeSource();
+		super.tearDown();
 	}
 
 	public void testIt()
@@ -198,11 +208,13 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		try
 		{
-			report.run((JobContext)null, null);
+			clock.add(new Date(1234)); // TODO remove when date is fetched later
+			report.run((JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
+			clock.assertEmpty(); // TODO remove when TODO above is removed
 			assertEquals("ctx", e.getMessage());
 		}
 	}
@@ -344,7 +356,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		try
 		{
 			model.commit();
-			report.run(ctx, now);
+			clock.add(now);
+			report.run(ctx);
 		}
 		catch(final JobStop js)
 		{
@@ -354,6 +367,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		{
 			model.startTransaction("ScheduleTest");
 		}
+		clock.assertEmpty();
 	}
 
 	static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
