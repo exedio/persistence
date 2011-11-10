@@ -190,17 +190,14 @@ public final class Schedule extends Pattern
 	}
 
 	@Wrap(order=60)
-	public void run(
+	public <P extends Item & Scheduleable> void run(
+			final Class<P> parentClass,
 			@Parameter("ctx") final JobContext ctx)
-	{
-		run(getType(), ctx);
-	}
-
-	private <P extends Item> void run(final Type<P> type, final JobContext ctx)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");
 
+		final Type<P> type = getType().as(parentClass);
 		final Runs.Mount mount = runs.mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
@@ -252,7 +249,6 @@ public final class Schedule extends Pattern
 		for(final P item : toRun)
 		{
 			ctx.stopIfRequested();
-			final Scheduleable itemCasted = (Scheduleable)item;
 			final String itemID = item.getCopeID();
 			try
 			{
@@ -276,7 +272,7 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, ctx);
+				item.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
 				runs.newItem(item, from, until, now, toMillies(elapsedEnd, elapsedStart));
 				model.commit();
@@ -421,20 +417,10 @@ public final class Schedule extends Pattern
 	/**
 	 * @deprecated Use {@link #run(com.exedio.cope.util.Interrupter)} instead.
 	 */
-	@Deprecated
-	public <P extends Item> int run(
-			@SuppressWarnings("unused") final Class<P> parentClass,
-			final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return run(interrupter);
-	}
-
-	/**
-	 * @deprecated Use {@link #run(JobContext)} instead.
-	 */
 	@Wrap(order=50)
 	@Deprecated
-	public int run(
+	public <P extends Item & Scheduleable> int run(
+			@SuppressWarnings("unused") final Class<P> parentClass,
 			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		final Schedule s = this;
@@ -442,7 +428,7 @@ public final class Schedule extends Pattern
 			interrupter,
 			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
-				s.run(ctx);
+				s.run(parentClass, ctx);
 			}}
 		);
 	}

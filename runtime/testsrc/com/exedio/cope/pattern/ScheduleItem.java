@@ -131,7 +131,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	@Deprecated
 	static final int runReport(final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return ScheduleItem.report.run(interrupter);
+		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
 	}/**
 
 	 **
@@ -140,7 +140,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	static final void runReport(final com.exedio.cope.util.JobContext ctx)
 	{
-		ScheduleItem.report.run(ctx);
+		ScheduleItem.report.run(ScheduleItem.class,ctx);
 	}/**
 
 	 **
