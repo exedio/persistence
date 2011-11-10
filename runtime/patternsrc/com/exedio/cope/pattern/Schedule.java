@@ -193,10 +193,10 @@ public final class Schedule extends Pattern
 	public void run(
 			@Parameter("ctx") final JobContext ctx)
 	{
-		run(getType(), ctx, new Date(clock.currentTimeMillis()));
+		run(getType(), ctx);
 	}
 
-	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
+	private <P extends Item> void run(final Type<P> type, final JobContext ctx)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");
@@ -206,6 +206,7 @@ public final class Schedule extends Pattern
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
+		final Date now = new Date(clock.currentTimeMillis());
 		cal.setTime(now);
 		cal.set(MILLISECOND, 0);
 		cal.set(SECOND, 0);

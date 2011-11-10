@@ -208,13 +208,11 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		try
 		{
-			clock.add(new Date(1234)); // TODO remove when date is fetched later
 			report.run((JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
-			clock.assertEmpty(); // TODO remove when TODO above is removed
 			assertEquals("ctx", e.getMessage());
 		}
 	}
