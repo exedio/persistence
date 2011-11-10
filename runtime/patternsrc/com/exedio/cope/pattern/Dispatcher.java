@@ -188,7 +188,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
-	public <P extends Item> void dispatch(
+	public <P extends Item & Dispatchable> void dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
 			@Parameter("ctx") final JobContext ctx)
@@ -208,7 +208,7 @@ public final class Dispatcher extends Pattern
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
-	public <P extends Item> void dispatch(
+	public <P extends Item & Dispatchable> void dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
 			@Parameter("probe") final Runnable probe,
@@ -242,7 +242,6 @@ public final class Dispatcher extends Pattern
 			}
 
 			final P item = iterator.next();
-			final Dispatchable itemCasted = (Dispatchable)item;
 			final String itemID = item.getCopeID();
 			try
 			{
@@ -261,7 +260,7 @@ public final class Dispatcher extends Pattern
 				final long nanoStart = nanoTime();
 				try
 				{
-					itemCasted.dispatch(this);
+					item.dispatch(this);
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					pending.set(item, false);
@@ -481,7 +480,7 @@ public final class Dispatcher extends Pattern
 			doc="Dispatch by {0}.",
 			docReturn="the number of successfully dispatched items")
 	@Deprecated
-	public <P extends Item> int dispatch(
+	public <P extends Item & Dispatchable> int dispatch(
 			final Class<P> parentClass,
 			@Parameter("config") final Config config,
 			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)

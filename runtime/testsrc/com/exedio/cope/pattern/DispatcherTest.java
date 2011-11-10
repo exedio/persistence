@@ -108,10 +108,14 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
+	}
 
+	@SuppressWarnings("unchecked") // OK: test bad api usage
+	public void testUnchecked()
+	{
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -120,7 +124,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null, (JobContext)null);
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -129,7 +133,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)

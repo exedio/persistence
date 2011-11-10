@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Dispatcher#dispatch enforces parentClass to implement Dispatchable.
+	This was previously a runtime constraint.
 * SchemaInfo gets methods search(Query) and total(Query).
 * Sampler#differentiate added.
 * CopeAssert.reserialize deduplicates strings
