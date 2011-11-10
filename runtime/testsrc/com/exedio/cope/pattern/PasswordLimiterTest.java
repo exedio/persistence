@@ -36,7 +36,7 @@ public class PasswordLimiterTest extends CopeTest
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
-	PasswordLimiterMockClockSource clock;
+	MockClockSource clock;
 
 	@Override
 	protected void setUp() throws Exception
@@ -44,7 +44,7 @@ public class PasswordLimiterTest extends CopeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
 		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
-		clock = new PasswordLimiterMockClockSource();
+		clock = new MockClockSource();
 		PasswordLimiter.clock.setSource(clock);
 	}
 

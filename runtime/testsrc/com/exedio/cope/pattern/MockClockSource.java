@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 import org.junit.Assert;
 
-final class PasswordLimiterMockClockSource implements Clock.Source
+final class MockClockSource implements Clock.Source
 {
 	private final LinkedList<Long> events = new LinkedList<Long>();
 	private long date = 1000*60*60*24*1000;

@@ -43,7 +43,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	PasswordLimiterMockClockSource clock;
+	MockClockSource clock;
 
 	@Override
 	public void setUp() throws Exception
@@ -53,7 +53,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new DispatcherItem("item2", true));
 		item3 = deleteOnTearDown(new DispatcherItem("item3", false));
 		item4 = deleteOnTearDown(new DispatcherItem("item4", true));
-		clock = new PasswordLimiterMockClockSource();
+		clock = new MockClockSource();
 		Dispatcher.clock.setSource(clock);
 	}
 

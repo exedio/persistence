@@ -44,14 +44,14 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	}
 
 	PasswordRecoveryItem i;
-	PasswordLimiterMockClockSource clock;
+	MockClockSource clock;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
-		clock = new PasswordLimiterMockClockSource();
+		clock = new MockClockSource();
 		PasswordRecovery.clock.setSource(clock);
 	}
 
