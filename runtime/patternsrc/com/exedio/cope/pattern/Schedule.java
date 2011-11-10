@@ -422,7 +422,9 @@ public final class Schedule extends Pattern
 	 * @deprecated Use {@link #run(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final com.exedio.cope.util.Interrupter interrupter)
+	public <P extends Item> int run(
+			@SuppressWarnings("unused") final Class<P> parentClass,
+			final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return run(interrupter);
 	}
