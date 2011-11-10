@@ -415,7 +415,7 @@ public final class Schedule extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #run(com.exedio.cope.util.Interrupter)} instead.
+	 * @deprecated Use {@link #run(Class,JobContext)} instead.
 	 */
 	@Wrap(order=50)
 	@Deprecated
