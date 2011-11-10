@@ -423,12 +423,11 @@ public final class Schedule extends Pattern
 			@SuppressWarnings("unused") final Class<P> parentClass,
 			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
-		final Schedule s = this;
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
 			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
-				s.run(parentClass, ctx);
+				Schedule.this.run(parentClass, ctx);
 			}}
 		);
 	}
