@@ -208,7 +208,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		try
 		{
-			report.run((JobContext)null);
+			ScheduleItem.runReport((JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -355,7 +355,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		{
 			model.commit();
 			clock.add(now);
-			report.run(ctx);
+			ScheduleItem.runReport(ctx);
 		}
 		catch(final JobStop js)
 		{
