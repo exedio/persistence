@@ -71,39 +71,39 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
 
-		final Date[] d1 = dispatch(4, 4);
+		final Date[] d1 = dispatch(4);
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertPending(item4, 0, list(d1[3]));
 
-		final Date[] d2 = dispatch(2, 2);
+		final Date[] d2 = dispatch(2);
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertPending(item4, 0, list(d1[3], d2[1]));
 
 		DispatcherItem.logs.get(item2).fail = false;
-		final Date[] d3 = dispatch(2, 2);
+		final Date[] d3 = dispatch(2);
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
-		dispatch(0, 0);
+		dispatch(0);
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
 		item1.setToTargetPending(true);
-		final Date[] d4 = dispatch(1, 1);
+		final Date[] d4 = dispatch(1);
 		assertSuccess(item1, 2, d4[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
-		dispatch(0, 0);
+		dispatch(0);
 		assertSuccess(item1, 2, d4[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
@@ -144,7 +144,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop0()
 	{
-		dispatch(0, 0, 0);
+		dispatch(0, 0);
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
@@ -153,7 +153,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop1()
 	{
-		final Date[] d = dispatch(1, 1, 1);
+		final Date[] d = dispatch(1, 1);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
@@ -162,7 +162,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop2()
 	{
-		final Date[] d = dispatch(2, 2, 2);
+		final Date[] d = dispatch(2, 2);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertPending(item3, 0, list());
@@ -171,7 +171,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop3()
 	{
-		final Date[] d = dispatch(3, 3, 3);
+		final Date[] d = dispatch(3, 3);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -180,7 +180,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop4()
 	{
-		final Date[] d = dispatch(4, 4, 4, 4);
+		final Date[] d = dispatch(4, 4, 4);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -189,17 +189,17 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop5()
 	{
-		final Date[] d = dispatch(4, 4, 5, 4);
+		final Date[] d = dispatch(4, 5, 4);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
 		assertPending(item4, 0, list(d[3]));
 	}
 
-	private Date[] dispatch(final int expectedDates, final int expectedProgress)
+	private Date[] dispatch(final int expectedProgress)
 	{
 		final JC ci = new JC(Integer.MAX_VALUE);
-		final Date[] result = dispatch(expectedDates, ci);
+		final Date[] result = dispatch(expectedProgress, ci);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
@@ -247,25 +247,22 @@ public class DispatcherTest extends AbstractRuntimeTest
 	}
 
 	private Date[] dispatch(
-			final int expectedDates,
 			final int expectedProgress,
 			final int requestsBeforeStop)
 	{
 		return dispatch(
-				expectedDates,
 				expectedProgress,
 				requestsBeforeStop,
 				requestsBeforeStop+1);
 	}
 
 	private Date[] dispatch(
-			final int expectedDates,
 			final int expectedProgress,
 			final int requestsBeforeStop,
 			final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
-		final Date[] result = dispatch(expectedDates, ci);
+		final Date[] result = dispatch(expectedProgress, ci);
 		assertEquals(expectedRequestsToStop, ci.requestsToStop);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
