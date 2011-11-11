@@ -93,16 +93,14 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			tx.setQueryInfoEnabled(true);
 			assertEquals(listg(item0), l(iterate(TYPE, intx.less(1), 3)));
 			assertEquals(list(
-					pre + "where intx<'1'" + post,
-					pre + "where (intx<'1' AND this>'" + item0 + "')" + post), // TODO avoid useless query
+					pre + "where intx<'1'" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
 			assertEquals(listg(item0, item1), l(iterate(TYPE, intx.less(2), 3)));
 			assertEquals(list(
-					pre + "where intx<'2'" + post,
-					pre + "where (intx<'2' AND this>'" + item1 + "')" + post), // TODO avoid useless query
+					pre + "where intx<'2'" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
@@ -118,8 +116,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			assertEquals(listg(item0, item1, item2, item3), l(iterate(TYPE, intx.less(4), 3)));
 			assertEquals(list(
 					pre + "where intx<'4'" + post,
-					pre + "where (intx<'4' AND this>'" + item2 + "')" + post,
-					pre + "where (intx<'4' AND this>'" + item3 + "')" + post), // TODO avoid useless query
+					pre + "where (intx<'4' AND this>'" + item2 + "')" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 		}

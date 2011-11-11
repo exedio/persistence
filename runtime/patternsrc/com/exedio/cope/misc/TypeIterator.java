@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -72,6 +73,7 @@ public final class TypeIterator
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
+		private boolean limitExhausted;
 
 		Iter(
 				final Type<E> type,
@@ -102,9 +104,16 @@ public final class TypeIterator
 
 			if(!iterator.hasNext())
 			{
+				if(limitExhausted)
+				{
 				final Condition c = typeThis.greater(result);
 				query.setCondition(condition!=null ? condition.and(c) : c);
 				this.iterator = search();
+				}
+				else
+				{
+					this.iterator = Iter.<E>empty();
+				}
 			}
 
 			return result;
@@ -133,6 +142,8 @@ public final class TypeIterator
 				result = query.search();
 			}
 
+			limitExhausted = (result.size()==query.getLimit());
+
 			return result.iterator();
 		}
 
@@ -140,6 +151,30 @@ public final class TypeIterator
 		{
 			throw new UnsupportedOperationException();
 		}
+
+		@SuppressWarnings("unchecked") // OK: universal object
+		private static final <E> Iterator<E> empty()
+		{
+			return EMPTY;
+		}
+
+		private static final Iterator EMPTY = new Iterator(){
+
+			public boolean hasNext()
+			{
+				return false;
+			}
+
+			public Object next()
+			{
+				throw new NoSuchElementException();
+			}
+
+			public void remove()
+			{
+				throw new RuntimeException();
+			}
+		};
 	}
 
 
