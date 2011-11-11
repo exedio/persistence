@@ -271,7 +271,6 @@ public final class Dispatcher extends Pattern
 							runSuccess.map(true));
 
 					model.commit();
-					ctx.incrementProgress();
 				}
 				catch(final Exception cause)
 				{
@@ -315,6 +314,7 @@ public final class Dispatcher extends Pattern
 			{
 				model.rollbackIfNotCommitted();
 			}
+			ctx.incrementProgress();
 		}
 	}
 

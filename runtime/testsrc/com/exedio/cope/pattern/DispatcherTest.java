@@ -71,20 +71,20 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
 
-		final Date[] d1 = dispatch(4, 2);
+		final Date[] d1 = dispatch(4, 4);
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertPending(item4, 0, list(d1[3]));
 
-		final Date[] d2 = dispatch(2, 0);
+		final Date[] d2 = dispatch(2, 2);
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertPending(item4, 0, list(d1[3], d2[1]));
 
 		DispatcherItem.logs.get(item2).fail = false;
-		final Date[] d3 = dispatch(2, 1);
+		final Date[] d3 = dispatch(2, 2);
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
@@ -162,7 +162,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop2()
 	{
-		final Date[] d = dispatch(2, 1, 2);
+		final Date[] d = dispatch(2, 2, 2);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertPending(item3, 0, list());
@@ -171,7 +171,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop3()
 	{
-		final Date[] d = dispatch(3, 2, 3);
+		final Date[] d = dispatch(3, 3, 3);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -180,7 +180,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop4()
 	{
-		final Date[] d = dispatch(4, 2, 4, 4);
+		final Date[] d = dispatch(4, 4, 4, 4);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -189,7 +189,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop5()
 	{
-		final Date[] d = dispatch(4, 2, 5, 4);
+		final Date[] d = dispatch(4, 4, 5, 4);
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
