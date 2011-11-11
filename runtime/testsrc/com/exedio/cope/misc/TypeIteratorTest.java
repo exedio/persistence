@@ -29,6 +29,8 @@ import java.util.NoSuchElementException;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
+import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 
 public class TypeIteratorTest extends AbstractRuntimeTest
 {
@@ -75,6 +77,37 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 		assertIt(listg(item0, item1, item2, item3, item4), intx.greater(-1));
 		assertIt(listg(item2, item3, item4), intx.greater(1));
 		assertIt(listg(item0, item1), intx.less(2));
+
+		{
+			final Transaction tx = model.currentTransaction();
+			final String pre = "select this from QueryAggregatorItem ";
+			final String post = " order by this limit '3'";
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1), l(iterate(TYPE, intx.less(2), 3)));
+			assertEquals(list(
+					pre + "where intx<'2'" + post,
+					pre + "where (intx<'2' AND this>'" + item1 + "')" + post), // TODO avoid useless query
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1, item2), l(iterate(TYPE, intx.less(3), 3)));
+			assertEquals(list(
+					pre + "where intx<'3'" + post,
+					pre + "where (intx<'3' AND this>'" + item2 + "')" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1, item2, item3), l(iterate(TYPE, intx.less(4), 3)));
+			assertEquals(list(
+					pre + "where intx<'4'" + post,
+					pre + "where (intx<'4' AND this>'" + item2 + "')" + post,
+					pre + "where (intx<'4' AND this>'" + item3 + "')" + post), // TODO avoid useless query
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+		}
 	}
 
 	private void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
@@ -101,6 +134,14 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 		{
 			assertEquals(null, e.getMessage());
 		}
+		return result;
+	}
+
+	private static List<String> toString(final List<QueryInfo> l)
+	{
+		final ArrayList<String> result = new ArrayList<String>(l.size());
+		for(final QueryInfo q : l)
+			result.add(q.getText());
 		return result;
 	}
 }
