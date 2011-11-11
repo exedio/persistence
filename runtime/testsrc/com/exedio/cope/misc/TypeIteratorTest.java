@@ -84,7 +84,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			final String post = " order by this limit '3'";
 
 			tx.setQueryInfoEnabled(true);
-			assertEquals(listg(), l(iterate(TYPE, intx.less(0), 3)));
+			assertEquals(list(), l(iterate(TYPE, intx.less(0), 3)));
 			assertEquals(list(
 					pre + "where intx<'0'" + post),
 				toString(tx.getQueryInfos()));
