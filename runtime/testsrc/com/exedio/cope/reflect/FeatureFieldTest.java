@@ -26,6 +26,7 @@ import static com.exedio.cope.reflect.FeatureFieldItem.featureRenamed;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
+import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 import static com.exedio.cope.reflect.FeatureFieldItem.string3;
@@ -72,7 +73,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				featureFinal, featureFinal.getIdField(),
 				featureOptional, featureOptional.getIdField(),
 				featureRenamed, featureRenamed.getIdField(),
-				item.string, item.string.getIdField()
+				string, string.getIdField()
 			), TYPE.getFeatures());
 
 		assertEquals(TYPE, feature.getType());
@@ -91,7 +92,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				featureFinal.getIdField(),
 				featureOptional.getIdField(),
 				featureRenamed.getIdField(),
-				item.string.getIdField()), item.string.getValues());
+				string.getIdField()), string.getValues());
 
 		try
 		{
@@ -179,7 +180,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		}
 		item.setFeature(string1);
 
-		item.string.getIdField().set(item, integer1.getID());
+		string.getIdField().set(item, integer1.getID());
 		try
 		{
 			item.getString();
