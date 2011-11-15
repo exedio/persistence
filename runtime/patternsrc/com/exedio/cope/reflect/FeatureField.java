@@ -104,12 +104,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return !optional;
 	}
 
-	@Deprecated
-	public Class getInitialType()
-	{
-		return valueClass;
-	}
-
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return idField.getInitialExceptions();
@@ -196,6 +190,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	public Class getInitialType()
+	{
+		return valueClass;
+	}
 
 	/**
 	 * @deprecated Use {@link #create()} instead
