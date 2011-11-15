@@ -19,6 +19,10 @@
 package com.exedio.cope.reflect;
 
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
+import static com.exedio.cope.reflect.FeatureFieldItem.feature;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureRenamed;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
@@ -64,29 +68,29 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				TYPE.getThis(),
 				integer1, integer2, integer3,
 				string1,  string2,  string3,
-				item.feature, item.feature.getIdField(),
-				item.featureFinal, item.featureFinal.getIdField(),
-				item.featureOptional, item.featureOptional.getIdField(),
-				item.featureRenamed, item.featureRenamed.getIdField(),
+				feature, feature.getIdField(),
+				featureFinal, featureFinal.getIdField(),
+				featureOptional, featureOptional.getIdField(),
+				featureRenamed, featureRenamed.getIdField(),
 				item.string, item.string.getIdField()
 			), TYPE.getFeatures());
 
-		assertEquals(TYPE, item.feature.getType());
-		assertEquals("feature", item.feature.getName());
-		assertTrue(item.feature.getIdField().isAnnotationPresent(Computed.class));
+		assertEquals(TYPE, feature.getType());
+		assertEquals("feature", feature.getName());
+		assertTrue(feature.getIdField().isAnnotationPresent(Computed.class));
 
-		assertEquals(true, item.feature.isMandatory());
-		assertEquals(false, item.featureOptional.isMandatory());
+		assertEquals(true, feature.isMandatory());
+		assertEquals(false, featureOptional.isMandatory());
 
 		assertSerializedSame(FeatureFieldItem.feature, 389);
 
-		assertEqualsUnmodifiable(TYPE.getFeatures(), item.feature.getValues());
+		assertEqualsUnmodifiable(TYPE.getFeatures(), feature.getValues());
 		assertEqualsUnmodifiable(list(
 				string1, string2, string3,
-				item.feature.getIdField(),
-				item.featureFinal.getIdField(),
-				item.featureOptional.getIdField(),
-				item.featureRenamed.getIdField(),
+				feature.getIdField(),
+				featureFinal.getIdField(),
+				featureOptional.getIdField(),
+				featureRenamed.getIdField(),
 				item.string.getIdField()), item.string.getValues());
 
 		try
@@ -140,7 +144,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.feature, e.getFeature());
+			assertEquals(feature, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertSame(FeatureFieldItem.string1, item.getFeature());
@@ -150,12 +154,12 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.featureFinal.set(item, integer1);
+			featureFinal.set(item, integer1);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.featureFinal, e.getFeature());
+			assertEquals(featureFinal, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertSame(FeatureFieldItem.string1, item.getFeature());
@@ -163,7 +167,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
 
-		item.feature.getIdField().set(item, "zack");
+		feature.getIdField().set(item, "zack");
 		try
 		{
 			item.getFeature();
