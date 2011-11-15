@@ -18,6 +18,7 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
@@ -51,16 +52,16 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
-		assertEquals(FeatureFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
+		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
+		assertEquals(FeatureFieldItem.class, TYPE.getJavaClass());
+		assertEquals(true, TYPE.isBound());
+		assertEquals(null, TYPE.getPattern());
 		assertEqualsUnmodifiable(list(FeatureFieldItem.feature.getIdField()), FeatureFieldItem.feature.getSourceFeatures());
 		assertEqualsUnmodifiable(list(), FeatureFieldItem.feature.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
+				TYPE.getThis(),
 				integer1, integer2, integer3,
 				string1,  string2,  string3,
 				item.feature, item.feature.getIdField(),
@@ -68,9 +69,9 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 				item.featureOptional, item.featureOptional.getIdField(),
 				item.featureRenamed, item.featureRenamed.getIdField(),
 				item.string, item.string.getIdField()
-			), item.TYPE.getFeatures());
+			), TYPE.getFeatures());
 
-		assertEquals(item.TYPE, item.feature.getType());
+		assertEquals(TYPE, item.feature.getType());
 		assertEquals("feature", item.feature.getName());
 		assertTrue(item.feature.getIdField().isAnnotationPresent(Computed.class));
 
@@ -79,7 +80,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 
 		assertSerializedSame(FeatureFieldItem.feature, 389);
 
-		assertEqualsUnmodifiable(item.TYPE.getFeatures(), item.feature.getValues());
+		assertEqualsUnmodifiable(TYPE.getFeatures(), item.feature.getValues());
 		assertEqualsUnmodifiable(list(
 				string1, string2, string3,
 				item.feature.getIdField(),
