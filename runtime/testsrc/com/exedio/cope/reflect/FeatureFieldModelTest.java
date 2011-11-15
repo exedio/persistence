@@ -23,6 +23,7 @@ import static com.exedio.cope.reflect.FeatureFieldItem.feature;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureRenamed;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
@@ -62,6 +63,7 @@ public class FeatureFieldModelTest extends CopeAssert
 				feature, feature.getIdField(),
 				featureFinal, featureFinal.getIdField(),
 				featureOptional, featureOptional.getIdField(),
+				featureUnique, featureUnique.getIdField(), featureUnique.getImplicitUniqueConstraint(),
 				featureRenamed, featureRenamed.getIdField(),
 				string, string.getIdField()
 			), TYPE.getFeatures());
@@ -72,6 +74,7 @@ public class FeatureFieldModelTest extends CopeAssert
 
 		assertEquals(true, feature.isMandatory());
 		assertEquals(false, featureOptional.isMandatory());
+		assertEquals(list(featureUnique.getIdField()), featureUnique.getImplicitUniqueConstraint().getFields());
 
 		AbstractRuntimeTest.assertSerializedSame(FeatureFieldItem.feature, 394);
 
@@ -81,6 +84,7 @@ public class FeatureFieldModelTest extends CopeAssert
 				feature.getIdField(),
 				featureFinal.getIdField(),
 				featureOptional.getIdField(),
+				featureUnique.getIdField(),
 				featureRenamed.getIdField(),
 				string.getIdField()), string.getValues());
 

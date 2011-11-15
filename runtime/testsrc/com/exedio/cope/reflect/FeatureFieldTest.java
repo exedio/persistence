@@ -20,6 +20,7 @@ package com.exedio.cope.reflect;
 
 import static com.exedio.cope.reflect.FeatureFieldItem.feature;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.forFeatureUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
@@ -127,5 +128,20 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
 		}
 		item.setString(null);
+
+		assertEquals(null, forFeatureUnique(string1));
+		assertEquals(null, forFeatureUnique(string2));
+		item.setFeatureUnique(string1);
+		assertEquals(item, forFeatureUnique(string1));
+		assertEquals(null, forFeatureUnique(string2));
+		try
+		{
+			forFeatureUnique(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }

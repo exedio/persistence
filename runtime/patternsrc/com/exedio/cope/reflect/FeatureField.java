@@ -32,7 +32,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
@@ -79,6 +81,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return new FeatureField<E>(valueClass, idField.optional());
 	}
 
+	public FeatureField<E> unique()
+	{
+		return new FeatureField<E>(valueClass, idField.unique());
+	}
+
 	public Class<E> getValueClass()
 	{
 		return valueClass;
@@ -107,6 +114,14 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return idField.getInitialExceptions();
+	}
+
+	/**
+	 * @see StringField#getImplicitUniqueConstraint()
+	 */
+	public UniqueConstraint getImplicitUniqueConstraint()
+	{
+		return idField.getImplicitUniqueConstraint();
 	}
 
 	@Override
@@ -187,6 +202,30 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 					result.add(valueClass.cast(feature));
 
 		return Collections.unmodifiableList(result);
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @throws NullPointerException if value is null.
+	 */
+	@Wrap(order=30, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide=NonUniqueGetter.class)
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final E value)
+	{
+		return idField.searchUnique(typeClass, value.getID());
+	}
+
+	private static final class NonUniqueGetter implements BooleanGetter<FeatureField>
+	{
+		public boolean get(final FeatureField feature)
+		{
+			return feature.getIdField().getImplicitUniqueConstraint()==null;
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------
