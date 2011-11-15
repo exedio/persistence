@@ -382,6 +382,7 @@
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
+				activationConstructorOnBottom="false"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				verbose="false">
@@ -597,6 +598,7 @@
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
+				activationConstructorOnBottom="false"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				verbose="false">
@@ -759,6 +761,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				encoding="ascii"
+				activationConstructorOnBottom="false"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				verbose="false">
