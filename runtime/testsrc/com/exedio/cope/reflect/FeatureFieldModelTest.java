@@ -47,9 +47,9 @@ public class FeatureFieldModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		final Model model = MODEL;
-		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
+
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 		assertEquals(FeatureFieldItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
