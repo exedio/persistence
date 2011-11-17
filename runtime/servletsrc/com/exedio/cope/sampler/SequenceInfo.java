@@ -34,7 +34,7 @@ final class SequenceInfo extends Composite
 	private static final IntegerField late       = new IntegerField().min(0);
 	private static final IntegerField pending    = new IntegerField().min(0);
 
-	public SequenceInfo(final SequenceChecker.Info info)
+	SequenceInfo(final SequenceChecker.Info info)
 	{
 		this(
 			inOrder   .map(info.getInOrder()),
