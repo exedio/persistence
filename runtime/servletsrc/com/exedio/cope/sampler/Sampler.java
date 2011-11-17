@@ -40,6 +40,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
@@ -51,7 +52,7 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 
-public final class Sampler
+public class Sampler
 {
 	private final Model samplerModel;
 
@@ -71,6 +72,7 @@ public final class Sampler
 				new SamplerRevisions(),
 				SamplerTypeId.TYPE,
 				SamplerModel.TYPE,
+				SamplerTransaction.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
@@ -84,12 +86,12 @@ public final class Sampler
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
-	public Model getModel()
+	public final Model getModel()
 	{
 		return samplerModel;
 	}
 
-	public static Properties.Source maskConnectSource(final Properties.Source original)
+	public static final Properties.Source maskConnectSource(final Properties.Source original)
 	{
 		return new Properties.Source(){
 
@@ -121,7 +123,7 @@ public final class Sampler
 		};
 	}
 
-	public ConnectToken connect(final String tokenName)
+	public final ConnectToken connect(final String tokenName)
 	{
 		final ConnectToken result = ConnectToken.issue(samplerModel, tokenName);
 
@@ -145,7 +147,7 @@ public final class Sampler
 	 * @deprecated Use {@link #connect(String)} for connecting AND checking instead
 	 */
 	@Deprecated
-	public void check()
+	public final void check()
 	{
 		checkInternal();
 	}
@@ -165,7 +167,7 @@ public final class Sampler
 		}
 	}
 
-	public void sample()
+	public final void sample()
 	{
 		sampleInternal();
 	}
@@ -183,6 +185,7 @@ public final class Sampler
 		final Pool.Info connectionPoolInfo = sampledModel.getConnectionPoolInfo();
 		final long nextTransactionId = sampledModel.getNextTransactionId();
 		final TransactionCounters transactionCounters = sampledModel.getTransactionCounters();
+		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
 		final ItemCacheInfo[] itemCacheInfos = sampledModel.getItemCacheInfo();
 		final QueryCacheInfo queryCacheInfo = sampledModel.getQueryCacheInfo();
 		final ChangeListenerInfo changeListenerInfo = sampledModel.getChangeListenersInfo();
@@ -228,6 +231,19 @@ public final class Sampler
 				model = SamplerModel.TYPE.newItem(sv);
 			}
 			{
+				final long threshold = date.getTime() - getTransactionDuration();
+				for(final Transaction transaction : openTransactions)
+				{
+					if(transaction.getStartDate().getTime()<threshold)
+					{
+						sv.clear();
+						sv.addAll(SamplerTransaction.map(model));
+						sv.addAll(SamplerTransaction.map(transaction));
+						SamplerTransaction.TYPE.newItem(sv);
+					}
+				}
+			}
+			{
 				for(final ItemCacheInfo info : itemCacheInfos)
 				{
 					sv.clear();
@@ -262,6 +278,16 @@ public final class Sampler
 		{
 			samplerModel.rollbackIfNotCommitted();
 		}
+	}
+
+	/**
+	 * Return the minimum duration (in milliseconds)
+	 * for a transaction to be recorded by the sampler.
+	 * This default implementation returns 10 seconds.
+	 */
+	public long getTransactionDuration()
+	{
+		return (10*1000);
 	}
 
 	int analyzeCount(final Type type)
@@ -300,7 +326,7 @@ public final class Sampler
 			};
 	}
 
-	public void purge(final int days, final JobContext ctx)
+	public final void purge(final int days, final JobContext ctx)
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
@@ -311,7 +337,7 @@ public final class Sampler
 		purge(cal.getTime(), ctx);
 	}
 
-	public void purge(final Date limit, final JobContext ctx)
+	public final void purge(final Date limit, final JobContext ctx)
 	{
 		final String samplerString = toString();
 		try
@@ -331,18 +357,18 @@ public final class Sampler
 		}
 	}
 
-	public List<Query<List<Object>>> differentiate()
+	public final List<Query<List<Object>>> differentiate()
 	{
 		return differentiate(null, null);
 	}
 
-	public List<Query<List<Object>>> differentiate(final Date from, final Date until)
+	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		return Differentiate.differentiate(from, until);
 	}
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		// NOTE:
 		// The result of sampledModel.toString() may not be

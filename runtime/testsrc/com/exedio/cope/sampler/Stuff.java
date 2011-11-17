@@ -29,6 +29,20 @@ public final class Stuff
 		MODEL.enableSerialization(Stuff.class, "MODEL");
 	}
 
-	static final Sampler sampler = new Sampler(MODEL);
+	static final Sampler sampler = new MySampler(MODEL);
 	public static final Model samplerModel = sampler.getModel();
+
+	private static class MySampler extends Sampler
+	{
+		MySampler(final Model sampledModel)
+		{
+			super(sampledModel);
+		}
+
+		@Override
+		public long getTransactionDuration()
+		{
+			return 0;
+		}
+	}
 }

@@ -34,27 +34,31 @@ public class PurgeTest extends ConnectedTest
 		sampler.checkInternal();
 
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertPurge(new Date(), 0, 0, 0, 0);
+		assertPurge(new Date(), 0, 0, 0, 0, 0);
 
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertPurge(new Date(), c?2:0, 0, 2, 1);
+		assertPurge(new Date(), 1, c?2:0, 0, 2, 1);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		sleepLongerThan(1);
-		assertPurge(new Date(), 0, 0, 0, 0);
+		assertPurge(new Date(), 0, 0, 0, 0, 0);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
@@ -64,7 +68,7 @@ public class PurgeTest extends ConnectedTest
 	{
 		final MockJobContext ctx = new MockJobContext();
 		sampler.purge(date, ctx);
-		assertEquals(4, ctx.getRequestedToStopCount());
+		assertEquals(5, ctx.getRequestedToStopCount());
 		final ArrayList<Integer> progressList = new ArrayList<Integer>();
 		for(final int p : progress)
 			progressList.add(p);

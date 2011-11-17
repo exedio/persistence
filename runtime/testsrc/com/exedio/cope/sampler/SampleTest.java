@@ -28,6 +28,7 @@ import java.util.Iterator;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 
@@ -61,6 +62,12 @@ public class SampleTest extends ConnectedTest
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = SamplerModel.date.get(model55);
+		final SamplerTransaction transaction55;
+		{
+			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
+			transaction55 = assertIt(model55, sampler, iter.next());
+			assertFalse(iter.hasNext());
+		}
 		final SamplerItemCache itemCache55a;
 		final SamplerItemCache itemCache55b;
 		{
@@ -99,6 +106,12 @@ public class SampleTest extends ConnectedTest
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = SamplerModel.date.get(model66);
+		{
+			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
+			assertEquals(transaction55, iter.next());
+			assertIt(model66, sampler, iter.next());
+			assertFalse(iter.hasNext());
+		}
 		{
 			final Iterator<SamplerItemCache> iter = iter(SamplerItemCache.TYPE);
 			if(c)
@@ -160,6 +173,25 @@ public class SampleTest extends ConnectedTest
 		assertEquals(System.identityHashCode(sampler), SamplerModel.sampler.getMandatory(model));
 		assertEquals(running, SamplerModel.running.getMandatory(model));
 		return model;
+	}
+
+	private static final SamplerTransaction assertIt(
+			final SamplerModel model,
+			final Sampler sampler,
+			final SamplerTransaction transaction)
+	{
+		assertEquals(model, transaction.getModel());
+		assertEquals(SamplerModel.date.get(model), transaction.getDate());
+		assertEquals(MODEL.getInitializeDate(), transaction.getInitalizeDate());
+		assertEquals(MODEL.getConnectDate(), transaction.getConnectDate());
+		assertEquals(System.identityHashCode(sampler), transaction.getSampler());
+		assertEquals(SamplerModel.running.getMandatory(model), transaction.getRunning());
+		final Transaction tx = MODEL.currentTransaction();
+		assertEquals(tx.getID(), transaction.getID());
+		assertEquals(tx.getName(), transaction.getName());
+		assertEquals(tx.getStartDate(), transaction.getStartDate());
+		assertNotNull(transaction.getThread());
+		return transaction;
 	}
 
 	private static final SamplerItemCache assertIt(
