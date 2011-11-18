@@ -138,11 +138,17 @@ public final class ClusterListenerInfo
 			return new Date(firstEncounter);
 		}
 
+		/**
+		 * @see java.net.DatagramPacket#getAddress()
+		 */
 		public InetAddress getAddress()
 		{
 			return address;
 		}
 
+		/**
+		 * @see java.net.DatagramPacket#getPort()
+		 */
 		public int getPort()
 		{
 			return port;
