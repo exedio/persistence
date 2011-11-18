@@ -69,7 +69,6 @@ performance / memory consumption
 - QueryCache:
 	* implement similar compact representation as for Cache
 	* special handling for empty/singleton results saving memory
-	* API for enabling cache for single Query, also dependent on result size
 	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 - ActivationCache
 	cache instance of subclasses of Item independently of ItemCache,
