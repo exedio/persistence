@@ -87,6 +87,7 @@ public final class CheckConstraint extends Constraint
 	@Override
 	void createInTable(final StringBuilder bf)
 	{
+		assert isSupported() : getRequiredCondition();
 		bf.append(",constraint ").
 			append(quoteName(name)).
 			append(" check(").
