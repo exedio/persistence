@@ -18,20 +18,35 @@
 
 package com.exedio.cope.sampler;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
 
-public class PackageTest extends TestCase
+final class StringUtil
 {
-	public static Test suite()
+	static final SetValue<String> cutAndMap(final StringField f, final String s)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(StringUtilTest.class);
-		suite.addTestSuite(SampleTest.class);
-		suite.addTestSuite(SamplerTest.class);
-		suite.addTestSuite(PurgeTest.class);
-		suite.addTestSuite(DifferentiateTest.class);
-		return suite;
+		return f.map(shortify(f, s));
+	}
+
+	private static final String shortify(final StringField f, final String s)
+	{
+		assert f.getMinimumLength()==1 : f;
+		assert f.getMaximumLength()>=POSTFIX.length() : f;
+
+		if(s==null || s.isEmpty())
+			return null;
+
+		final int max = f.getMaximumLength();
+		if(s.length()>max)
+			return s.substring(0, max-POSTFIX.length()) + POSTFIX;
+
+		return s;
+	}
+
+	private static final String POSTFIX = " ...";
+
+	private StringUtil()
+	{
+		// prevent instantiation
 	}
 }

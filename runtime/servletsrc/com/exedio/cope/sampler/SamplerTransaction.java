@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.cutAndMap;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +76,7 @@ final class SamplerTransaction extends Item
 	{
 		return Arrays.asList((SetValue)
 			id       .map(transaction.getID()),
-			name     .map(transaction.getName()),
+			cutAndMap(name, transaction.getName()),
 			startDate.map(transaction.getStartDate()),
 			thread   .map(SamplerThread.create(transaction.getBoundThread())));
 	}

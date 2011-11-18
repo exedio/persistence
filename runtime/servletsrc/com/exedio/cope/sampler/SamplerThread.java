@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.cutAndMap;
+
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
@@ -44,10 +46,10 @@ final class SamplerThread extends Composite
 	{
 		this(
 			id.map(thread.getId()),
-			name.map(thread.getName()),
+			cutAndMap(name, thread.getName()),
 			priority.map(thread.getPriority()),
 			state.map(thread.getState()),
-			stackTrace.map(toString(thread.getStackTrace())));
+			cutAndMap(stackTrace, toString(thread.getStackTrace())));
 	}
 
 	private static String toString(final StackTraceElement[] trace)

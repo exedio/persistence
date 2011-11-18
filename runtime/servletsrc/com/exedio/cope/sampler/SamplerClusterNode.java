@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.cutAndMap;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,7 +81,7 @@ final class SamplerClusterNode extends Item
 		return Arrays.asList((SetValue)
 				id            .map(node.getID()),
 				firstEncounter.map(node.getFirstEncounter()),
-				fromAddress   .map(node.getAddress().toString()),
+				cutAndMap(fromAddress, node.getAddress().toString()),
 				fromPort      .map(node.getPort()),
 
 				invalidate.map(new SequenceInfo(node.getInvalidateInfo())),
