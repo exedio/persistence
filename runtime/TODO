@@ -1,10 +1,6 @@
 
 TODO for cope runtime
 
-- constraints
-	- precision (number of fractional digits) for doubles (see PriceField)
-	- unique constraints over multiple fields:
-		strictly define what happens with null
 - search API
 	- oracle statistics
 	- group by
