@@ -997,6 +997,7 @@
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
+			<fileset file="${basedir}/build/exedio-cope-instrument-annotations.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/exedio-cope-log.txt" />
 		</copy>
