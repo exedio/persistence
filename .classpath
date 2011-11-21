@@ -13,9 +13,9 @@
 	<classpathentry excluding="log4j.properties" kind="src" path="runtime/testsrc"/>
 	<classpathentry kind="src" path="runtime/mysqlsrc"/>
 	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
-	<classpathentry kind="src" path="instrument/antsrc"/>
 	<classpathentry kind="src" path="instrument/annosrc"/>
 	<classpathentry kind="src" path="instrument/src"/>
+	<classpathentry kind="src" path="instrument/antsrc"/>
 	<classpathentry kind="src" path="instrument/testfeaturesrc"/>
 	<classpathentry kind="src" path="instrument/testsrc"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
