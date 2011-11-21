@@ -14,6 +14,26 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar" />
 
+	<macrodef name="ljarn">
+		<attribute name="jarfile" />
+		<attribute name="name" />
+		<element name="fileset" optional="true" implicit="true" />
+		<sequential>
+			<!--echo message="local jar @{jarfile}" /-->
+			<jar jarfile="@{jarfile}" filesonly="true" duplicate="fail" strict="fail" level="9">
+				<fileset />
+				<manifest>
+					<attribute name="Specification-Title" value="exedio @{name}" />
+					<attribute name="Specification-Version" value="${build.tag}" />
+					<attribute name="Specification-Vendor" value="exedio GmbH" />
+					<attribute name="Implementation-Title" value="exedio @{name}" />
+					<attribute name="Implementation-Version" value="${build.tag}" />
+					<attribute name="Implementation-Vendor" value="exedio GmbH" />
+				</manifest>
+			</jar>
+		</sequential>
+	</macrodef>
+
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
@@ -220,10 +240,11 @@
 	
 	<!-- runtime -->
 	
-	<target name="runtime.core.compile" depends="dsmf.compile">
+	<target name="runtime.core.compile" depends="dsmf.compile, instrument.anno.compile">
 		<compile srcdir="runtime/src">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/log4j.jar" />
@@ -259,10 +280,11 @@
 		</for>
 	</target>
 
-	<target name="runtime.pattern.compile" depends="runtime.core.compile">
+	<target name="runtime.pattern.compile" depends="runtime.core.compile, instrument.anno.compile">
 		<compile srcdir="runtime/patternsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -270,12 +292,13 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.servlet.compile" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile">
+	<target name="runtime.servlet.compile" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="runtime/servletsrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
@@ -684,11 +707,22 @@
 	
 	<!-- instrument -->
 	
-	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile">
+	<target name="instrument.anno.compile">
+		<compile srcdir="instrument/annosrc" />
+	</target>
+
+	<target name="instrument.anno.jar" depends="instrument.anno.compile">
+		<ljarn name="cope instrumentor annotations" jarfile="build/exedio-cope-instrument-annotations.jar">
+			<fileset dir="build/classes/instrument/annosrc" />
+		</ljarn>
+	</target>
+	
+	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="instrument/src">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
@@ -710,7 +744,7 @@
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope.jar bsh-core.jar cojen.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope-instrument-annotations.jar exedio-cope.jar bsh-core.jar cojen.jar">
 			<fileset dir="build/classes/instrument/src" />
 			<fileset dir="build/classes/instrument/antsrc" />
 		</ljar>
@@ -722,6 +756,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -741,6 +776,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
 				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
@@ -823,7 +859,7 @@
 			  runtime.test.compile,
 			  instrument.compile" />
 	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.jar" />
+	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.anno.jar, instrument.jar" />
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
@@ -872,6 +908,7 @@
 			<fileset file="runtime/patternsrc/com" includes="**/*.java" />
 			<fileset file="runtime/servletsrc/com" includes="**/*.java" />
 			<fileset file="runtime/junitsrc/com" includes="**/*.java" />
+			<fileset file="instrument/annosrc/com" includes="**/*.java" />
 			<fileset file="instrument/src/com" includes="**/*.java" />
 			<fileset file="instrument/antsrc/com" includes="**/*.java" />
 			<classpath>

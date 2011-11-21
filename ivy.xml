@@ -25,6 +25,7 @@
 		<artifact name="exedio-cope" />
 		<artifact name="exedio-cope" type="src" ext="zip" />
 		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
 		<artifact name="exedio-cope-test" conf="test" />
 	</publications>
