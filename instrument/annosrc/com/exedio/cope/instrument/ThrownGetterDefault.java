@@ -18,16 +18,16 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
+import java.util.Set;
 
-final class StringGetterDefault implements StringGetter
+final class ThrownGetterDefault implements ThrownGetter
 {
-	public String get(final Feature feature)
+	public Set<Class<? extends Throwable>> get(final Object feature)
 	{
 		throw new RuntimeException();
 	}
 
-	private StringGetterDefault()
+	private ThrownGetterDefault()
 	{
 		throw new RuntimeException();
 	}

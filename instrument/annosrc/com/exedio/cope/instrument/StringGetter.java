@@ -18,9 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
-
-public interface BooleanGetter<F extends Feature>
+public interface StringGetter<F>
 {
-	boolean get(F feature);
+	String get(F feature);
 }

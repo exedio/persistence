@@ -18,11 +18,15 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Set;
-
-import com.exedio.cope.Feature;
-
-public interface ThrownGetter<F extends Feature>
+final class StringGetterDefault implements StringGetter
 {
-	Set<Class<? extends Throwable>> get(F feature);
+	public String get(final Object feature)
+	{
+		throw new RuntimeException();
+	}
+
+	private StringGetterDefault()
+	{
+		throw new RuntimeException();
+	}
 }

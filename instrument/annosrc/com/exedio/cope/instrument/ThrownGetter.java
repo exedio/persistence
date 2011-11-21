@@ -18,9 +18,9 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
+import java.util.Set;
 
-public interface StringGetter<F extends Feature>
+public interface ThrownGetter<F>
 {
-	String get(F feature);
+	Set<Class<? extends Throwable>> get(F feature);
 }

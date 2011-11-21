@@ -18,19 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Set;
-
-import com.exedio.cope.Feature;
-
-final class ThrownGetterDefault implements ThrownGetter
+public interface BooleanGetter<F>
 {
-	public Set<Class<? extends Throwable>> get(final Feature feature)
-	{
-		throw new RuntimeException();
-	}
-
-	private ThrownGetterDefault()
-	{
-		throw new RuntimeException();
-	}
+	boolean get(F feature);
 }
