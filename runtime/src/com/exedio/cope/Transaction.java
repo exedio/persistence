@@ -28,15 +28,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.dsmf.SQLRuntimeException;
-
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+
+import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {
 	private static final Logger logger = Logger.getLogger(Transaction.class);
-	
+
 	final Connect connect;
 	final long id;
 	final String name;
