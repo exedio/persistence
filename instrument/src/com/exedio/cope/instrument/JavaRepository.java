@@ -105,23 +105,26 @@ final class JavaRepository
 					if(typeClass==null)
 						continue feature;
 
-					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
+					if(Feature.class.isAssignableFrom(typeClass))
 					{
-						if(
-							EnumField.class.equals(typeClass)||
-							ItemField.class.equals(typeClass))
+						if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 						{
-							new CopeObjectAttribute(type, javaField);
+							if(
+								EnumField.class.equals(typeClass)||
+								ItemField.class.equals(typeClass))
+							{
+								new CopeObjectAttribute(type, javaField);
+							}
+							else
+							{
+								new CopeNativeAttribute(type, javaField, typeClass);
+							}
 						}
+						else if(UniqueConstraint.class.isAssignableFrom(typeClass))
+							new CopeUniqueConstraint(type, javaField);
 						else
-						{
-							new CopeNativeAttribute(type, javaField, typeClass);
-						}
+							new CopeFeature(type, javaField);
 					}
-					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-						new CopeUniqueConstraint(type, javaField);
-					else if(Feature.class.isAssignableFrom(typeClass))
-						new CopeFeature(type, javaField);
 				}
 			}
 		}
