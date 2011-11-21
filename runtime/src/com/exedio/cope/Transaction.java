@@ -30,8 +30,13 @@ import java.util.List;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 public final class Transaction
 {
+	private static final Logger logger = Logger.getLogger(Transaction.class);
+	
 	final Connect connect;
 	final long id;
 	final String name;
@@ -317,7 +322,18 @@ public final class Transaction
 				}
 				catch(final SQLException e)
 				{
+					logger.warn( "commit or rollback failed", e );
 					throw new SQLRuntimeException(e, rollback ? "rollback" : "commit");
+				}
+				catch(final RuntimeException e)
+				{
+					logger.warn( "commit or rollback failed", e );
+					throw e;
+				}
+				catch(final Error e)
+				{
+					logger.warn( "commit or rollback failed", e );
+					throw e;
 				}
 			}
 		}
