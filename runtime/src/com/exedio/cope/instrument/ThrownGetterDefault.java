@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.util.Set;
 
-
 final class ThrownGetterDefault implements ThrownGetter
 {
 	public Set<Class<? extends Throwable>> get(final Object feature)
