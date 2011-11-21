@@ -20,11 +20,10 @@ package com.exedio.cope.instrument;
 
 import java.util.Set;
 
-import com.exedio.cope.Feature;
 
 final class ThrownGetterDefault implements ThrownGetter
 {
-	public Set<Class<? extends Throwable>> get(final Feature feature)
+	public Set<Class<? extends Throwable>> get(final Object feature)
 	{
 		throw new RuntimeException();
 	}

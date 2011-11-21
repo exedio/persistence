@@ -18,11 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
 
 final class StringGetterDefault implements StringGetter
 {
-	public String get(final Feature feature)
+	public String get(final Object feature)
 	{
 		throw new RuntimeException();
 	}
