@@ -213,9 +213,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(valueClass.isInstance(feature))
-					conditions.add(idField.equal(feature.getID()));
+					conditions.add(idField.notEqual(feature.getID()));
 
-		return Cope.or(conditions).not();
+		return Cope.and(conditions);
 	}
 
 	/**
