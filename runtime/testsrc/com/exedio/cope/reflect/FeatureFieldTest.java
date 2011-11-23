@@ -18,8 +18,10 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.feature;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
 import static com.exedio.cope.reflect.FeatureFieldItem.forFeatureUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string;
@@ -56,12 +58,14 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(integer1, item.getFeatureOptional());
 		assertSame(null, item.getString());
+		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
 
 		item.setFeatureOptional(null);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
 
 		item.setString(string2);
 		assertSame(FeatureFieldItem.string1, item.getFeature());

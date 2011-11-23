@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
@@ -202,6 +203,16 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 					result.add(valueClass.cast(feature));
 
 		return Collections.unmodifiableList(result);
+	}
+
+	public Condition isInvalid()
+	{
+		final ArrayList<String> ids = new ArrayList<String>();
+
+		for(final Feature feature : getValues())
+			ids.add(feature.getID());
+
+		return getIdField().in(ids).not();
 	}
 
 	/**

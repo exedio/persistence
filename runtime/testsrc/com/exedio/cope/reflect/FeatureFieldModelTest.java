@@ -88,6 +88,44 @@ public class FeatureFieldModelTest extends CopeAssert
 				featureRenamed.getIdField(),
 				string.getIdField()), string.getValues());
 
+		assertEquals(
+				"!((" +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.this' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.integer1' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.integer2' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.integer3' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.string1' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.string2' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.string3' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.feature' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.feature-id' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureFinal' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureFinal-id' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureOptional' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureOptional-id' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureUnique' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureUnique-id' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureUnique-idImplicitUnique' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureRenamed' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.featureRenamed-id' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.string' OR " +
+					"FeatureFieldItem.feature-id='FeatureFieldItem.string-id'" +
+				"))",
+			feature.isInvalid().toString());
+		assertEquals(
+				"!((" +
+					"FeatureFieldItem.string-id='FeatureFieldItem.string1' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.string2' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.string3' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.feature-id' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.featureFinal-id' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.featureOptional-id' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.featureUnique-id' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.featureRenamed-id' OR " +
+					"FeatureFieldItem.string-id='FeatureFieldItem.string-id'" +
+				"))",
+			string.isInvalid().toString());
+
 		try
 		{
 			FeatureField.create(null);

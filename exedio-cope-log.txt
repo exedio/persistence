@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* FeatureField#isInvalid added
 * Split exedio-cope-instrument-annotations.jar off exedio-cope.jar
 	- exedio-cope-instrument-annotations.jar is needed at compile-time, but not at runtime.
 	- methods "get" of StringGetter, BooleanGetter, and ThrownGetter
