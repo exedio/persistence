@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
@@ -207,12 +208,14 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public Condition isInvalid()
 	{
-		final ArrayList<String> ids = new ArrayList<String>();
+		final ArrayList<Condition> conditions = new ArrayList<Condition>();
 
-		for(final Feature feature : getValues())
-			ids.add(feature.getID());
+		for(final Type<?> type : getType().getModel().getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(valueClass.isInstance(feature))
+					conditions.add(idField.equal(feature.getID()));
 
-		return getIdField().in(ids).not();
+		return Cope.or(conditions).not();
 	}
 
 	/**
