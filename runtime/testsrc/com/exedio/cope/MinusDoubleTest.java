@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MinusDoubleItem.TYPE;
-import static com.exedio.cope.MinusDoubleItem.viewAB;
-import static com.exedio.cope.MinusDoubleItem.viewAC;
-import static com.exedio.cope.MinusDoubleItem.viewBC;
 import static com.exedio.cope.MinusDoubleItem.numA;
 import static com.exedio.cope.MinusDoubleItem.numB;
 import static com.exedio.cope.MinusDoubleItem.numC;
+import static com.exedio.cope.MinusDoubleItem.viewAB;
+import static com.exedio.cope.MinusDoubleItem.viewAC;
+import static com.exedio.cope.MinusDoubleItem.viewBC;
 
 public class MinusDoubleTest extends AbstractRuntimeTest
 {

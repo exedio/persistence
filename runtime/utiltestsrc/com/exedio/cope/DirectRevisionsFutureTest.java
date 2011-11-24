@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.DirectRevisionsFuture.make;
 
 import java.sql.SQLException;
 
-import com.exedio.cope.Revisions;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.DirectRevisionsFuture;
 

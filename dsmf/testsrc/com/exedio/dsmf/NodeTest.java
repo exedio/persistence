@@ -22,12 +22,6 @@ import java.sql.Connection;
 
 import junit.framework.TestCase;
 
-import com.exedio.dsmf.Column;
-import com.exedio.dsmf.ConnectionProvider;
-import com.exedio.dsmf.HsqldbDialect;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
-
 public class NodeTest extends TestCase
 {
 	public void testColumn()

@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
-import static java.lang.System.nanoTime;
 import static com.exedio.cope.pattern.DispatcherModelTest.MODEL;
+import static java.lang.System.nanoTime;
 
 import java.io.IOException;
 import java.util.ArrayList;

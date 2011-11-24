@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-
 import gnu.trove.TIntHashSet;
+
+import java.util.ArrayList;
 
 final class Cluster
 {

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.newType;
 
 import java.util.Date;
+
 import org.apache.log4j.Level;
 
 import com.exedio.cope.junit.CopeAssert;
