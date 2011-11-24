@@ -30,11 +30,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Graph
 {
-	private static final Logger logger = Logger.getLogger(Graph.class);
+	private static final Logger logger = LoggerFactory.getLogger(Graph.class);
 
 	private final ArrayList<Node> nodesOrdered;
 	private final LinkedHashSet<Edge> edgesBroken;

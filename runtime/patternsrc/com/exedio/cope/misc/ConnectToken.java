@@ -27,14 +27,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
 public final class ConnectToken
 {
-	public static final Logger logger = Logger.getLogger(ConnectToken.class.getName());
+	public static final Logger logger = LoggerFactory.getLogger(ConnectToken.class.getName());
 
 	private final Manciple manciple;
 	private final Model model;

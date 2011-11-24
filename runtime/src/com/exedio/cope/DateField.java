@@ -19,19 +19,17 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.Wrapper;
 
 public final class DateField extends FunctionField<Date>
 {
-	static final Logger logger = Logger.getLogger(DateField.class.getName());
+	static final org.slf4j.Logger logger = LoggerFactory.getLogger(DateField.class.getName());
 
 	private static final long serialVersionUID = 1l;
 
@@ -137,11 +135,11 @@ public final class DateField extends FunctionField<Date>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow() && logger.isEnabledFor(Level.WARN))
-			logger.warn( MessageFormat.format(
+		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
+			logger.warn(
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
-					getID() ) );
+					getID());
 	}
 
 	private boolean suspiciousForWrongDefaultNow()

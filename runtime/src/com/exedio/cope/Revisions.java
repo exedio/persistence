@@ -30,7 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
@@ -60,7 +61,7 @@ import com.exedio.dsmf.UniqueConstraint;
  */
 public final class Revisions
 {
-	static final Logger logger = Logger.getLogger(Revisions.class);
+	static final Logger logger = LoggerFactory.getLogger(Revisions.class);
 
 	private final int number;
 	private final Revision[] revisions;

@@ -26,12 +26,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ChangeListeners
 {
-	static final Logger logger = Logger.getLogger(ChangeListeners.class);
+	static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
@@ -160,7 +160,7 @@ final class ChangeListeners
 			final Throwable throwable)
 	{
 		failed++;
-		if(logger.isEnabledFor(Level.ERROR))
+		if(logger.isErrorEnabled())
 			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
 }

@@ -30,7 +30,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -53,7 +54,7 @@ import com.exedio.cope.util.JobContext;
 
 public final class Dispatcher extends Pattern
 {
-	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName());
 
 	private static final long serialVersionUID = 1l;
 

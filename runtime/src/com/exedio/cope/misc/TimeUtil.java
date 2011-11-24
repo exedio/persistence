@@ -20,19 +20,19 @@ package com.exedio.cope.misc;
 
 import java.text.MessageFormat;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class TimeUtil
 {
-	static final Logger logger = Logger.getLogger(TimeUtil.class.getName());
+	static final Logger logger = LoggerFactory.getLogger(TimeUtil.class.getName());
 
 	/**
 	 *	Never returns a negative value.
 	 */
 	public static long toMillies(final long endNanos, final long startNanos)
 	{
-		if ( logger.isEnabledFor(Level.ERROR) && endNanos<startNanos )
+		if ( logger.isErrorEnabled() && endNanos<startNanos )
 			logger.error(MessageFormat.format( "backwards nanos {0} {1}" , startNanos, endNanos ));
 
 		final long diff = endNanos - startNanos;

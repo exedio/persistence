@@ -22,11 +22,12 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ThreadSwarm
 {
-	static final Logger logger = Logger.getLogger(ThreadSwarm.class);
+	static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
 
 	private final ThreadController[] threads;
 
