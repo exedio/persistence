@@ -22,6 +22,7 @@ import static junit.framework.Assert.assertNotNull;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.TextUrlFilter;
@@ -38,6 +39,21 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 			final Media pasteValue)
 	{
 		super(raw, supportedContentType, encoding, "<paste>", "</paste>", pasteKey, pasteValue);
+	}
+
+	@Override
+	protected void appendKey(
+			final StringBuilder bf,
+			final Item item,
+			final String key,
+			final HttpServletRequest request)
+	{
+		assertNotNull(item);
+		assertNotNull(request);
+		if("EXTRA".equals(key))
+			bf.append("<extra/>");
+		else
+			super.appendKey(bf, item, key, request);
 	}
 
 	@Override

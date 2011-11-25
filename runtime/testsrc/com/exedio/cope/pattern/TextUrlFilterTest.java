@@ -102,6 +102,9 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item.setFertigRaw("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 		assertGet("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 
+		item.setFertigRaw("<eins><paste>EXTRA</paste><zwei>");
+		assertGet("<eins><extra/><zwei>");
+
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
 		{

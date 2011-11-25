@@ -238,7 +238,7 @@ public class TextUrlFilter extends MediaFilter
 				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop);
 
 			bf.append(srcString.substring(nextStart, start));
-			appendURL(bf, getPaste(item, srcString.substring(start + pasteStartLen, stop)), request);
+			appendKey(bf, item, srcString.substring(start + pasteStartLen, stop), request);
 
 			nextStart = stop + pasteStopLen;
 		}
@@ -268,6 +268,15 @@ public class TextUrlFilter extends MediaFilter
 		{
 			out.close();
 		}
+	}
+
+	protected void appendKey(
+			final StringBuilder bf,
+			final Item item,
+			final String key,
+			final HttpServletRequest request)
+	{
+		appendURL(bf, getPaste(item, key), request);
 	}
 
 	private final Paste getPaste(final Item item, final String key)
