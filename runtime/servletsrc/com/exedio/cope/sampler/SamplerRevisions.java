@@ -38,6 +38,8 @@ final class SamplerRevisions implements RevisionsFuture
 	private Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(4, "bugfix: SamplerTransaction#date must not be unique",
+				"alter table `SamplerTransaction` drop index `SamplerTransacti_date_Unq`"),
 			new Revision(3, "sample transactions",
 				"create table `SamplerTransaction`(" +
 					"`this` int," +

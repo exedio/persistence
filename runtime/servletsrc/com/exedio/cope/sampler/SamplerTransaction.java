@@ -43,7 +43,7 @@ final class SamplerTransaction extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 
-	private static final DateField date = new DateField().toFinal().unique();
+	private static final DateField date = new DateField().toFinal();
 	private static final DateField initializeDate = new DateField().toFinal();
 	private static final DateField connectDate = new DateField().toFinal();
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
