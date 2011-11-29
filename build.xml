@@ -253,7 +253,7 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile">
+	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile, instrument.anno.compile">
 		<for param="dialect.file">
 			<path>
 				<fileset dir="${basedir}" includes="*.dialect.properties" />
@@ -267,6 +267,7 @@
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
+						<pathelement location="build/classes/instrument/annosrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
@@ -389,12 +390,13 @@
 	</target>
 	
 	<target name="runtime.test.feature.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testfeaturesrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -445,7 +447,7 @@
 	</target>
 	
 	<target name="runtime.test.compile"
-			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile">
+			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
@@ -454,6 +456,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -632,12 +635,13 @@
 	</target>
 
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.pattern.compile">
+			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
