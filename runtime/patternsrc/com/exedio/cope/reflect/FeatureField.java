@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
@@ -124,12 +123,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public UniqueConstraint getImplicitUniqueConstraint()
 	{
 		return idField.getImplicitUniqueConstraint();
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(FeatureField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -44,7 +43,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
@@ -98,12 +96,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 			throw new RuntimeException("no jpeg encoder found");
 
 		this.imageWriterSpi = imageWriterSpi;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaImageioFilter.class, this, super.getWrappers());
 	}
 
 	@Override

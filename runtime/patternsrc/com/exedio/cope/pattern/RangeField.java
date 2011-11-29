@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CheckConstraint;
@@ -74,12 +73,6 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	public CheckConstraint getUnison()
 	{
 		return unison;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(RangeField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

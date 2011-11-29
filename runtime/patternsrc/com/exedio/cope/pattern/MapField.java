@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Cope;
@@ -36,7 +35,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class MapField<K,V> extends Pattern
 {
@@ -145,12 +143,6 @@ public final class MapField<K,V> extends Pattern
 	}
 
 	private static final String KEY = "k";
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MapField.class, this, super.getWrappers());
-	}
 
 	@Wrap(order=10,
 			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")

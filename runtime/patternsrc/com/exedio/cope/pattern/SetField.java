@@ -40,7 +40,6 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class SetField<E> extends Pattern
@@ -139,12 +138,6 @@ public final class SetField<E> extends Pattern
 	}
 
 	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(SetField.class, this, super.getWrappers());
-	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Set<E> get(final Item item)

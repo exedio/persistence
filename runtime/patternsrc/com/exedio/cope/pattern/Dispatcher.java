@@ -47,7 +47,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 
@@ -179,12 +178,6 @@ public final class Dispatcher extends Pattern
 	public Type<Run> getRunType()
 	{
 		return mount().runType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=20, doc="Dispatch by {0}.")

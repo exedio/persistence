@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 /**
  * Represents a field within a {@link Type type},
@@ -205,12 +203,6 @@ public final class IntegerField extends NumberField<Integer>
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(IntegerField.class, this, super.getWrappers());
 	}
 
 	@Override

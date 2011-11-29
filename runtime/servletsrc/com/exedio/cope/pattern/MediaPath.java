@@ -21,8 +21,6 @@ package com.exedio.cope.pattern;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,7 +32,6 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
@@ -95,12 +92,6 @@ public abstract class MediaPath extends Pattern
 			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
 
 		return mediaRootUrl;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaPath.class, this, super.getWrappers());
 	}
 
 	public boolean isContentTypeWrapped()

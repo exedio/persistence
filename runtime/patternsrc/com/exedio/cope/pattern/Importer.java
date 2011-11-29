@@ -28,7 +28,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 
@@ -61,12 +60,6 @@ public final class Importer<K extends Object> extends Pattern
 	public FunctionField<K> getKey()
 	{
 		return key;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Importer.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")

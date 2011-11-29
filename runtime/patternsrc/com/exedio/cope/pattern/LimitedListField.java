@@ -38,7 +38,6 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
@@ -131,12 +130,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	public int getMaximumSize()
 	{
 		return sources.length;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(LimitedListField.class, this, super.getWrappers());
 	}
 
 	public boolean isInitial()

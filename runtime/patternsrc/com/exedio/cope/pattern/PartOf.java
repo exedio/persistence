@@ -33,7 +33,6 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class PartOf<C extends Item> extends Pattern
@@ -73,12 +72,6 @@ public final class PartOf<C extends Item> extends Pattern
 	public FunctionField getOrder()
 	{
 		return order;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PartOf.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the container this item is part of by {0}.")

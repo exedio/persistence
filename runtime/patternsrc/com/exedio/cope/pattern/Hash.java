@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -39,7 +38,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -233,12 +231,6 @@ public class Hash extends Pattern implements Settable<String>
 	public final Hash optional()
 	{
 		return new Hash(storage.optional(), algorithm, encoding);
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Hash.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=30,

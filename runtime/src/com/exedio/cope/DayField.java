@@ -21,13 +21,10 @@ package com.exedio.cope;
 import java.lang.reflect.AnnotatedElement;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.List;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
@@ -113,12 +110,6 @@ public final class DayField extends FunctionField<Day>
 	public SelectType<Day> getValueType()
 	{
 		return SimpleSelectType.DAY;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DayField.class, this, super.getWrappers());
 	}
 
 	@Override

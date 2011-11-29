@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -38,7 +37,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
@@ -119,12 +117,6 @@ public class MediaImageMagickFilter extends MediaFilter
 			throw new RuntimeException(); // TODO test
 		if(outputExtension==null)
 			throw new RuntimeException(outputContentType); // TODO test
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaImageMagickFilter.class, this, super.getWrappers());
 	}
 
 	@Override

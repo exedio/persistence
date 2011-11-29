@@ -51,7 +51,6 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 
@@ -153,12 +152,6 @@ public final class Schedule extends Pattern
 	public Type<Run> getRunType()
 	{
 		return runs.mount().type;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Schedule.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

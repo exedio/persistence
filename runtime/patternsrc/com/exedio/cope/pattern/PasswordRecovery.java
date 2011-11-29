@@ -34,7 +34,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
@@ -108,12 +107,6 @@ public final class PasswordRecovery extends Pattern
 	public Type<Token> getTokenType()
 	{
 		return tokenType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
 
 	/**

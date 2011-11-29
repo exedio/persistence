@@ -39,7 +39,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
 
@@ -190,12 +189,6 @@ public final class History extends Pattern
 	{
 		assert featureType!=null;
 		return featureType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(History.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the events of the history {0}.")

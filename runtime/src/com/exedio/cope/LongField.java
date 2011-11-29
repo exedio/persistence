@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class LongField extends NumberField<Long>
 {
@@ -134,12 +132,6 @@ public final class LongField extends NumberField<Long>
 	public SelectType<Long> getValueType()
 	{
 		return SimpleSelectType.LONG;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(LongField.class, this, super.getWrappers());
 	}
 
 	@Override

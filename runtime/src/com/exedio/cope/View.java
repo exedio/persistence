@@ -26,7 +26,6 @@ import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 
 /**
@@ -89,12 +88,6 @@ public abstract class View<E> extends Feature
 	{
 		for(final Function<?> source : sources)
 			source.check(tc, join);
-	}
-
-	@Override
-	public final List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(View.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives

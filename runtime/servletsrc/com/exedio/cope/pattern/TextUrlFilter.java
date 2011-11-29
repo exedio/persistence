@@ -23,7 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -40,7 +39,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 
 public class TextUrlFilter extends MediaFilter
@@ -149,12 +147,6 @@ public class TextUrlFilter extends MediaFilter
 	public final String getPasteURL( final Item item, final String key )
 	{
 		return pasteValue.getURL(getPaste(item, key));
-	}
-
-	@Override
-	public final List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(TextUrlFilter.class, this, super.getWrappers());
 	}
 
 	@Override

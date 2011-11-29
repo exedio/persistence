@@ -18,13 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaFilter extends CachedMedia
 {
@@ -45,12 +43,6 @@ public abstract class MediaFilter extends CachedMedia
 	}
 
 	public abstract Set<String> getSupportedSourceContentTypes();
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaFilter.class, this, super.getWrappers());
-	}
 
 	@Override
 	public final long getLastModified(final Item item)

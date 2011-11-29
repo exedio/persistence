@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.FinalViolationException;
@@ -31,7 +30,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class PriceField extends Pattern implements Settable<Price>
@@ -129,12 +127,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return integer.getInitialExceptions();
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PriceField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

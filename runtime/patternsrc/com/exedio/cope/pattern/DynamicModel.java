@@ -40,7 +40,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class DynamicModel<L> extends Pattern
 {
@@ -277,12 +276,6 @@ public final class DynamicModel<L> extends Pattern
 	public Type<L> getType(final String code)
 	{
 		return mount().typeType.searchSingleton(typeCode.equal(code));
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DynamicModel.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")

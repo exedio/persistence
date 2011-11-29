@@ -49,7 +49,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 
@@ -269,12 +268,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Media.class, this, super.getWrappers());
 	}
 
 	@Override

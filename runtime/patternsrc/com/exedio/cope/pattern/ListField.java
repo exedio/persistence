@@ -35,7 +35,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -140,12 +139,6 @@ public final class ListField<E> extends AbstractListField<E>
 	public Type<? extends Item> getRelationType()
 	{
 		return mount().relationType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(ListField.class, this, super.getWrappers());
 	}
 
 	/**

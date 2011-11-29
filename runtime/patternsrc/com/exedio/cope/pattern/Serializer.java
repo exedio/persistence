@@ -23,7 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.DataField;
@@ -40,7 +39,6 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
 
@@ -121,12 +119,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return source.getInitialExceptions();
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Serializer.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

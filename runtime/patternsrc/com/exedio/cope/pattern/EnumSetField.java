@@ -20,8 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
-import java.util.List;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -29,7 +27,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern
 {
@@ -73,12 +70,6 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	public BooleanField getField(final E element)
 	{
 		return fields.get(element);
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(EnumSetField.class, this, super.getWrappers());
 	}
 
 	private void assertElement(final E element)

@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -151,12 +149,6 @@ public final class DoubleField extends NumberField<Double>
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DoubleField.class, this, super.getWrappers());
 	}
 
 	@Override
