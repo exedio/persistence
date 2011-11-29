@@ -563,13 +563,13 @@ final class Generator
 		return getWrappers(feature.getClass(), feature);
 	}
 
-	private List<WrapperX> getWrappers(final Class clazz, final Feature feature)
+	private List<WrapperX> getWrappers(final Class<? extends Feature> clazz, final Feature feature)
 	{
 		return WrapperByAnnotations.make(
 				clazz,
 				feature,
 				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
-				? getWrappers(clazz.getSuperclass(), feature)
+				? getWrappers(clazz.getSuperclass().asSubclass(Feature.class), feature)
 				: Collections.<WrapperX>emptyList());
 	}
 

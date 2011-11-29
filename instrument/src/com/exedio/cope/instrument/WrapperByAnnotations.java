@@ -40,9 +40,9 @@ import com.exedio.cope.misc.Compare;
 
 final class WrapperByAnnotations
 {
-	static <F extends Feature> List<WrapperX> make(
-			final Class<F> clazz,
-			final F feature,
+	static List<WrapperX> make(
+			final Class<? extends Feature> clazz,
+			final Feature feature,
 			final List<WrapperX> superResult)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
