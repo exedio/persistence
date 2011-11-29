@@ -18,9 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -32,7 +30,6 @@ import com.exedio.cope.Feature;
 public final class Wrapper
 {
 	private final String name;
-	private final Method method;
 
 	/**
 	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
@@ -41,8 +38,6 @@ public final class Wrapper
 	public Wrapper(final String name)
 	{
 		this.name = name;
-		this.method = null;
-
 		if(name==null)
 			throw new NullPointerException("name");
 	}
@@ -348,11 +343,12 @@ public final class Wrapper
 	 * @deprecated Not needed anymore by framework.
 	 */
 	@Deprecated
-	public boolean matchesMethod(final String name, final Class<?>... parameterTypes)
+	public boolean matchesMethod(final String name, @SuppressWarnings("unused") final Class<?>... parameterTypes)
 	{
-		return
-			this.name.equals(name) &&
-			Arrays.equals(this.method.getParameterTypes(), parameterTypes);
+		if(this.name.equals(name))
+			return true;
+
+		throw new NullPointerException(); // member variable method was always null
 	}
 
 
