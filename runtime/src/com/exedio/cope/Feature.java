@@ -26,7 +26,6 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -225,9 +224,17 @@ public abstract class Feature implements Serializable
 			: getName();
 	}
 
+	/**
+	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
+	 * Not used anymore by the framework,
+	 * equivalent of
+	 * {@link Wrapper#getByAnnotations(Class, Feature, List)}
+	 * is fixed now.
+	 */
+	@Deprecated
 	public List<Wrapper> getWrappers()
 	{
-		return Collections.<Wrapper>emptyList();
+		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
 	}
 
 	/**

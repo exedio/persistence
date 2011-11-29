@@ -40,13 +40,13 @@ import com.exedio.cope.misc.Compare;
 
 final class WrapperByAnnotations
 {
-	static <F extends Feature> List<Wrapper> make(
+	static <F extends Feature> List<WrapperX> make(
 			final Class<F> clazz,
 			final F feature,
-			final List<Wrapper> superResult)
+			final List<WrapperX> superResult)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		final ArrayList<WrapperX> result = new ArrayList<WrapperX>();
 		result.addAll(superResult);
 		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
@@ -62,7 +62,7 @@ final class WrapperByAnnotations
 		this.feature = instance;
 	}
 
-	private void makeAll(final List<Wrapper> list)
+	private void makeAll(final List<WrapperX> list)
 	{
 		final TreeMap<Wrap, Method> methods = new TreeMap<Wrap, Method>(ORDER_COMPARATOR);
 
@@ -135,9 +135,9 @@ final class WrapperByAnnotations
 		return true;
 	};
 
-	private Wrapper make(final Method method, final Wrap annotation)
+	private WrapperX make(final Method method, final Wrap annotation)
 	{
-		final Wrapper result = new Wrapper(method);
+		final WrapperX result = new WrapperX(method);
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
 		final Class<?> parameterType0 = parameterTypes.length>0 ? parameterTypes[0] : null;

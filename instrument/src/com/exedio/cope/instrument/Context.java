@@ -33,7 +33,7 @@ final class Context
 {
 	private final CopeFeature feature;
 	private final boolean fullyQualified;
-	private final Wrapper wrapper;
+	private final WrapperX wrapper;
 
 	Context(final CopeFeature feature, final boolean fullyQualified)
 	{
@@ -42,7 +42,7 @@ final class Context
 		this.wrapper = null;
 	}
 
-	Context(final CopeFeature feature, final Wrapper wrapper)
+	Context(final CopeFeature feature, final WrapperX wrapper)
 	{
 		this.feature = feature;
 		this.fullyQualified = false;
@@ -66,11 +66,11 @@ final class Context
 
 	private String write(final Class c)
 	{
-		if(Wrapper.ClassVariable.class.equals(c))
+		if(WrapperX.ClassVariable.class.equals(c))
 			return getClassToken();
-		else if(Wrapper.TypeVariable0.class.equals(c))
+		else if(WrapperX.TypeVariable0.class.equals(c))
 			return getGenericFieldParameter(0);
-		else if(Wrapper.TypeVariable1.class.equals(c))
+		else if(WrapperX.TypeVariable1.class.equals(c))
 			return getGenericFieldParameter(1);
 		else
 			return c.getCanonicalName();
@@ -217,7 +217,7 @@ final class Context
 		}
 	}
 
-	private String write(final Wrapper.ExtendsType t)
+	private String write(final WrapperX.ExtendsType t)
 	{
 		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
 		bf.append('<');
@@ -241,8 +241,8 @@ final class Context
 	{
 		if(t instanceof Class)
 			return write((Class)t);
-		else if(t instanceof Wrapper.ExtendsType)
-			return write((Wrapper.ExtendsType)t);
+		else if(t instanceof WrapperX.ExtendsType)
+			return write((WrapperX.ExtendsType)t);
 		else if(t instanceof GenericArrayType)
 			return write((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)

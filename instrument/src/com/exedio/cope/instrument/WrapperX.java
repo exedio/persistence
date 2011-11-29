@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +30,7 @@ import java.util.Map;
 
 import com.exedio.cope.Feature;
 
-public final class Wrapper
+final class WrapperX
 {
 	private final String name;
 	private final Method method;
@@ -38,7 +39,7 @@ public final class Wrapper
 	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
 	 */
 	@Deprecated
-	public Wrapper(final String name)
+	public WrapperX(final String name)
 	{
 		this.name = name;
 		this.method = null;
@@ -52,19 +53,32 @@ public final class Wrapper
 		return name;
 	}
 
+	WrapperX(final Method method)
+	{
+		this.name = method.getName();
+		this.method = method;
+	}
+
+	Method getMethod()
+	{
+		return method;
+	}
+
 
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
+	private TypeVariable staticToken = null;
 
-	public Wrapper setStatic()
+	public WrapperX setStatic()
 	{
 		return setStatic(true);
 	}
 
-	public Wrapper setStatic(final boolean classToken)
+	public WrapperX setStatic(final boolean classToken)
 	{
 		isStatic = true;
 		hasStaticClassToken = classToken;
+		staticToken = null;
 
 		return this;
 	}
@@ -79,21 +93,36 @@ public final class Wrapper
 		return hasStaticClassToken;
 	}
 
+	WrapperX setStatic(final TypeVariable token)
+	{
+		setStatic(true);
+		staticToken = token;
+		return this;
+	}
+
+	boolean matchesStaticToken(final TypeVariable token)
+	{
+		if(token==null)
+			throw new NullPointerException();
+
+		return token==staticToken;
+	}
+
 
 	private java.lang.reflect.Type returnType = null;
 	private String[] returnComment = EMPTY_STRING_ARRAY;
 
-	public Wrapper setReturn(final java.lang.reflect.Type type)
+	public WrapperX setReturn(final java.lang.reflect.Type type)
 	{
 		return setReturn(type, EMPTY_STRING_ARRAY);
 	}
 
-	public Wrapper setReturn(final java.lang.reflect.Type type, final String comment)
+	public WrapperX setReturn(final java.lang.reflect.Type type, final String comment)
 	{
 		return setReturn(type, new String[]{comment});
 	}
 
-	private Wrapper setReturn(final java.lang.reflect.Type type, final String[] comment)
+	WrapperX setReturn(final java.lang.reflect.Type type, final String[] comment)
 	{
 		if(type==null)
 			throw new NullPointerException("type");
@@ -178,32 +207,32 @@ public final class Wrapper
 
 	private ArrayList<Parameter> parameters;
 
-	public Wrapper addParameter(final java.lang.reflect.Type type)
+	public WrapperX addParameter(final java.lang.reflect.Type type)
 	{
 		return addParameter(type, "{1}", EMPTY_STRING_ARRAY);
 	}
 
-	public Wrapper addParameter(final java.lang.reflect.Type type, final String name)
+	public WrapperX addParameter(final java.lang.reflect.Type type, final String name)
 	{
 		return addParameter(type, name, EMPTY_STRING_ARRAY);
 	}
 
-	public Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String comment)
+	public WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String comment)
 	{
 		return addParameter(type, name, new String[]{comment});
 	}
 
-	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
+	WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
 	{
 		return addParameter(type, name, comment, false);
 	}
 
-	public Wrapper addParameterVararg(final Class type, final String name)
+	public WrapperX addParameterVararg(final Class type, final String name)
 	{
 		return addParameter(type, name, null, true);
 	}
 
-	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
+	private WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
 	{
 		final Parameter p = new Parameter(type, name, comment, vararg);
 		if(parameters==null)
@@ -224,7 +253,7 @@ public final class Wrapper
 
 	private LinkedHashMap<Class<? extends Throwable>, String[]> throwsClause;
 
-	public Wrapper addThrows(final Collection<Class<? extends Throwable>> throwables)
+	public WrapperX addThrows(final Collection<Class<? extends Throwable>> throwables)
 	{
 		for(final Class<? extends Throwable> throwable : throwables)
 			addThrows(throwable, EMPTY_STRING_ARRAY);
@@ -232,17 +261,17 @@ public final class Wrapper
 		return this;
 	}
 
-	public Wrapper addThrows(final Class<? extends Throwable> throwable)
+	public WrapperX addThrows(final Class<? extends Throwable> throwable)
 	{
 		return addThrows(throwable, EMPTY_STRING_ARRAY);
 	}
 
-	public Wrapper addThrows(final Class<? extends Throwable> throwable, final String comment)
+	public WrapperX addThrows(final Class<? extends Throwable> throwable, final String comment)
 	{
 		return addThrows(throwable, new String[]{comment});
 	}
 
-	private Wrapper addThrows(final Class<? extends Throwable> throwable, final String[] comment)
+	WrapperX addThrows(final Class<? extends Throwable> throwable, final String[] comment)
 	{
 		if(throwable==null)
 			throw new NullPointerException("throwable");
@@ -268,7 +297,7 @@ public final class Wrapper
 
 	private String methodWrapperPattern;
 
-	public Wrapper setMethodWrapperPattern(final String pattern)
+	public WrapperX setMethodWrapperPattern(final String pattern)
 	{
 		this.methodWrapperPattern = pattern;
 
@@ -283,7 +312,7 @@ public final class Wrapper
 
 	private ArrayList<String> comments = null;
 
-	public Wrapper addComment(final String comment)
+	public WrapperX addComment(final String comment)
 	{
 		assertComment(comment);
 
@@ -302,13 +331,22 @@ public final class Wrapper
 			: Collections.<String>emptyList();
 	}
 
+	String[] getCommentArray()
+	{
+		// TODO use String[] from the beginning
+		return
+			comments!=null
+			? comments.toArray(new String[comments.size()])
+			: new String[0];
+	}
+
 
 	/**
 	 * @deprecated not supported anymore, does nothing
 	 */
 	@Deprecated
 	@SuppressWarnings("unused")
-	public Wrapper deprecate(final String comment)
+	public WrapperX deprecate(final String comment)
 	{
 		return this;
 	}
@@ -331,6 +369,10 @@ public final class Wrapper
 		return null;
 	}
 
+	boolean isMethodDeprecated()
+	{
+		return method!=null && method.isAnnotationPresent(Deprecated.class);
+	}
 
 
 	static final void assertComment(final String comment)
@@ -404,15 +446,11 @@ public final class Wrapper
 
 	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
 
-	/**
-	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
-	 */
-	@Deprecated
-	public static <F extends Feature> List<Wrapper> getByAnnotations(
-			@SuppressWarnings("unused") final Class<F> clazz,
-			@SuppressWarnings("unused") final F feature,
-			@SuppressWarnings("unused") final List<Wrapper> superResult)
+	public static <F extends Feature> List<WrapperX> getByAnnotations(
+			final Class<F> clazz,
+			final F feature,
+			final List<WrapperX> superResult)
 	{
-		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
+		return WrapperByAnnotations.make(clazz, feature, superResult);
 	}
 }

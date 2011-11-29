@@ -27,6 +27,7 @@ import static java.text.MessageFormat.format;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -359,7 +360,7 @@ final class Generator
 	throws ParserException
 	{
 		final Feature instance = feature.getInstance();
-		for(final Wrapper wrapper : instance.getWrappers())
+		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
@@ -377,7 +378,7 @@ final class Generator
 			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
-			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
+			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
@@ -393,7 +394,7 @@ final class Generator
 				writeCommentHeader();
 				writeCommentParagraph("", " ", wrapper.getCommentArray(), arguments);
 
-				for(final Wrapper.Parameter parameter : wrapper.getParameters())
+				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
 					writeCommentParagraph(
 							"@param " + format(parameter.getName(), arguments),
@@ -478,7 +479,7 @@ final class Generator
 			write('(');
 			{
 				final CharSeparator comma = new CharSeparator(',');
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					comma.appendTo(output);
 					write(finalArgPrefix);
@@ -511,7 +512,7 @@ final class Generator
 				write(feature.parent.name);
 				write('.');
 				write(feature.name);
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
 					write(format(parameter.getName(), arguments));
@@ -543,7 +544,7 @@ final class Generator
 					comma.appendTo(output);
 					write("this");
 				}
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					comma.appendTo(output);
 					write(format(parameter.getName(), arguments));
@@ -555,6 +556,21 @@ final class Generator
 			write(lineSeparator);
 			write("\t}");
 		}
+	}
+
+	private List<WrapperX> getWrappers(final Feature feature)
+	{
+		return getWrappers(feature.getClass(), feature);
+	}
+
+	private List<WrapperX> getWrappers(final Class clazz, final Feature feature)
+	{
+		return WrapperByAnnotations.make(
+				clazz,
+				feature,
+				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
+				? getWrappers(clazz.getSuperclass(), feature)
+				: Collections.<WrapperX>emptyList());
 	}
 
 	private void writeName(final String methodName, final String featureName)

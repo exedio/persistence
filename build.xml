@@ -776,9 +776,10 @@
 		</copy>
 	</target>
 	
-	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
+	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
+				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
 				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
