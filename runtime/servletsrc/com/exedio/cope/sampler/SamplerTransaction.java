@@ -68,7 +68,7 @@ final class SamplerTransaction extends Item
 
 
 	private static final LongField id  = new LongField().toFinal().min(0);
-	private static final StringField name = new StringField().toFinal().optional();
+	private static final StringField name = new StringField().toFinal().optional().lengthMax(500);
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 

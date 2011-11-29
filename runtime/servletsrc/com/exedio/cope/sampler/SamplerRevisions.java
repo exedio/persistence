@@ -38,6 +38,8 @@ final class SamplerRevisions implements RevisionsFuture
 	private Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(5, "more length for SamplerTransaction#name",
+				"alter table `SamplerTransaction` modify `name` text character set utf8 collate utf8_bin"),
 			new Revision(4, "bugfix: SamplerTransaction#date must not be unique",
 				"alter table `SamplerTransaction` drop index `SamplerTransacti_date_Unq`"),
 			new Revision(3, "sample transactions",
