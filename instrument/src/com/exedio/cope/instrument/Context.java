@@ -64,11 +64,6 @@ final class Context
 		return feature.getInstance().getClass();
 	}
 
-	private String write(final Class c)
-	{
-		return c.getCanonicalName();
-	}
-
 	private String write(final ParameterizedType t)
 	{
 		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
@@ -213,7 +208,7 @@ final class Context
 	String write(final Type t)
 	{
 		if(t instanceof Class)
-			return write((Class)t);
+			return ((Class)t).getCanonicalName();
 		else if(t instanceof GenericArrayType)
 			return write((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)
