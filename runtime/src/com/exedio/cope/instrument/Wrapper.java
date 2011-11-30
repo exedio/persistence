@@ -27,14 +27,14 @@ import java.util.Map;
 
 import com.exedio.cope.Feature;
 
+/**
+ * @deprecated Use {@link Wrap} annotations instead.
+ */
+@Deprecated
 public final class Wrapper
 {
 	private final String name;
 
-	/**
-	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
-	 */
-	@Deprecated
 	public Wrapper(final String name)
 	{
 		this.name = name;

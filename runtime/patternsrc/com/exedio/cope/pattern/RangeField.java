@@ -30,7 +30,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -175,7 +174,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
-		return Wrapper.generic(Range.class, from.getValueClass());
+		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

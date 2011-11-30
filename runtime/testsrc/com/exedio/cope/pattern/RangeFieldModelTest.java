@@ -32,7 +32,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.junit.CopeAssert;
 
 public class RangeFieldModelTest extends CopeAssert
@@ -83,7 +82,7 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(false, valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
+		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
 		assertContains(valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
@@ -92,7 +91,7 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(true, text.isMandatory());
 		assertEquals(true, text.getFrom().isFinal());
 		assertEquals(true, text.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, String.class), getInitialType(text));
+		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, String.class), getInitialType(text));
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
 		assertSerializedSame(text, 387);
 
