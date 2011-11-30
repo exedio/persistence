@@ -359,8 +359,11 @@ public final class Wrapper
 	}
 
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC")
 	public class ClassVariable { /* OK, just a placeholder */ }
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC")
 	public class TypeVariable0 { /* OK, just a placeholder */ }
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC")
 	public class TypeVariable1 { /* OK, just a placeholder */ }
 
 	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
