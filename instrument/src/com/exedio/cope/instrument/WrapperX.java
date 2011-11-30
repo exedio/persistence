@@ -33,7 +33,7 @@ final class WrapperX
 	private final String name;
 	private final Method method;
 
-	public String getName()
+	String getName()
 	{
 		return name;
 	}
@@ -54,7 +54,7 @@ final class WrapperX
 	private boolean hasStaticClassToken = false;
 	private TypeVariable staticToken = null;
 
-	public WrapperX setStatic(final boolean classToken)
+	WrapperX setStatic(final boolean classToken)
 	{
 		isStatic = true;
 		hasStaticClassToken = classToken;
@@ -63,12 +63,12 @@ final class WrapperX
 		return this;
 	}
 
-	public boolean isStatic()
+	boolean isStatic()
 	{
 		return isStatic;
 	}
 
-	public boolean hasStaticClassToken()
+	boolean hasStaticClassToken()
 	{
 		return hasStaticClassToken;
 	}
@@ -109,12 +109,12 @@ final class WrapperX
 		return this;
 	}
 
-	public java.lang.reflect.Type getReturnType()
+	java.lang.reflect.Type getReturnType()
 	{
 		return returnType!=null ? returnType : void.class;
 	}
 
-	public String[] getReturnComment()
+	String[] getReturnComment()
 	{
 		return com.exedio.cope.misc.Arrays.copyOf(returnComment);
 	}
@@ -148,28 +148,28 @@ final class WrapperX
 			this.vararg = vararg;
 		}
 
-		public java.lang.reflect.Type getType()
+		java.lang.reflect.Type getType()
 		{
 			return type;
 		}
 
-		public String getName()
+		String getName()
 		{
 			return name;
 		}
 
-		public String[] getComment()
+		String[] getComment()
 		{
 			return com.exedio.cope.misc.Arrays.copyOf(comment);
 		}
 
-		public boolean isVararg()
+		boolean isVararg()
 		{
 			return vararg;
 		}
 
 		@Override
-		public String toString()
+		String toString()
 		{
 			return type.toString();
 		}
@@ -177,7 +177,7 @@ final class WrapperX
 
 	private ArrayList<Parameter> parameters;
 
-	public WrapperX addParameter(final java.lang.reflect.Type type)
+	WrapperX addParameter(final java.lang.reflect.Type type)
 	{
 		return addParameter(type, "{1}", EMPTY_STRING_ARRAY);
 	}
@@ -197,7 +197,7 @@ final class WrapperX
 		return this;
 	}
 
-	public List<Parameter> getParameters()
+	List<Parameter> getParameters()
 	{
 		return
 			parameters!=null
@@ -208,7 +208,7 @@ final class WrapperX
 
 	private LinkedHashMap<Class<? extends Throwable>, String[]> throwsClause;
 
-	public WrapperX addThrows(final Class<? extends Throwable> throwable)
+	WrapperX addThrows(final Class<? extends Throwable> throwable)
 	{
 		return addThrows(throwable, EMPTY_STRING_ARRAY);
 	}
@@ -228,7 +228,7 @@ final class WrapperX
 		return this;
 	}
 
-	public Map<Class<? extends Throwable>, String[]> getThrowsClause()
+	Map<Class<? extends Throwable>, String[]> getThrowsClause()
 	{
 		return
 			throwsClause!=null
@@ -239,14 +239,14 @@ final class WrapperX
 
 	private String methodWrapperPattern;
 
-	public WrapperX setMethodWrapperPattern(final String pattern)
+	WrapperX setMethodWrapperPattern(final String pattern)
 	{
 		this.methodWrapperPattern = pattern;
 
 		return this;
 	}
 
-	public String getMethodWrapperPattern()
+	String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;
 	}
@@ -254,7 +254,7 @@ final class WrapperX
 
 	private ArrayList<String> comments = null;
 
-	public WrapperX addComment(final String comment)
+	WrapperX addComment(final String comment)
 	{
 		assertComment(comment);
 
@@ -301,7 +301,7 @@ final class WrapperX
 
 	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
 
-	public static <F extends Feature> List<WrapperX> getByAnnotations(
+	static <F extends Feature> List<WrapperX> getByAnnotations(
 			final Class<F> clazz,
 			final F feature,
 			final List<WrapperX> superResult)
