@@ -982,6 +982,7 @@
 			<class location="${basedir}/build/classes/runtime/patternsrc" />
 			<class location="${basedir}/build/classes/runtime/servletsrc" />
 			<class location="${basedir}/build/classes/runtime/junitsrc" />
+			<class location="${basedir}/build/classes/instrument/annosrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
