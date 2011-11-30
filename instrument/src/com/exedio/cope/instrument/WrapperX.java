@@ -405,45 +405,6 @@ final class WrapperX
 	}
 
 
-	public class ClassVariable { /* OK, just a placeholder */ }
-	public class TypeVariable0 { /* OK, just a placeholder */ }
-	public class TypeVariable1 { /* OK, just a placeholder */ }
-
-	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
-	{
-		return sun.reflect.generics.reflectiveObjects.
-			ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
-	}
-
-	static final class ExtendsType implements java.lang.reflect.Type
-	{
-		private final Class rawType;
-		private final Class[] actualTypeArguments;
-
-		ExtendsType(
-				final Class rawType,
-				final Class[] actualTypeArguments)
-		{
-			this.rawType = rawType;
-			this.actualTypeArguments = actualTypeArguments;
-		}
-
-		public Class getRawType()
-		{
-			return rawType;
-		}
-
-		public Class[] getActualTypeArguments()
-		{
-			return com.exedio.cope.misc.Arrays.copyOf(actualTypeArguments);
-		}
-	}
-
-	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
-	{
-		return new ExtendsType(rawType, actualTypeArguments);
-	}
-
 	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
 
 	public static <F extends Feature> List<WrapperX> getByAnnotations(

@@ -66,14 +66,7 @@ final class Context
 
 	private String write(final Class c)
 	{
-		if(WrapperX.ClassVariable.class.equals(c))
-			return getClassToken();
-		else if(WrapperX.TypeVariable0.class.equals(c))
-			return getGenericFieldParameter(0);
-		else if(WrapperX.TypeVariable1.class.equals(c))
-			return getGenericFieldParameter(1);
-		else
-			return c.getCanonicalName();
+		return c.getCanonicalName();
 	}
 
 	private String write(final ParameterizedType t)
@@ -217,32 +210,10 @@ final class Context
 		}
 	}
 
-	private String write(final WrapperX.ExtendsType t)
-	{
-		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
-		bf.append('<');
-		boolean first = true;
-		for(final Type a : t.getActualTypeArguments())
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append("? extends ");
-			bf.append(write(a));
-		}
-		bf.append('>');
-
-		return bf.toString();
-	}
-
 	String write(final Type t)
 	{
 		if(t instanceof Class)
 			return write((Class)t);
-		else if(t instanceof WrapperX.ExtendsType)
-			return write((WrapperX.ExtendsType)t);
 		else if(t instanceof GenericArrayType)
 			return write((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)
