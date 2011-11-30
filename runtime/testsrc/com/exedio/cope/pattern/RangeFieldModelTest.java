@@ -82,7 +82,6 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(false, valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
-		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
 		assertContains(valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
@@ -91,7 +90,6 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(true, text.isMandatory());
 		assertEquals(true, text.getFrom().isFinal());
 		assertEquals(true, text.getTo().isFinal());
-		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, String.class), getInitialType(text));
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
 		assertSerializedSame(text, 387);
 
@@ -126,5 +124,12 @@ public class RangeFieldModelTest extends CopeAssert
 		{
 			assertEquals("right", e.getMessage());
 		}
+	}
+
+	@Deprecated // OK testing deprecated api
+	public void testDeprecated()
+	{
+		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
+		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, String.class), getInitialType(text));
 	}
 }
