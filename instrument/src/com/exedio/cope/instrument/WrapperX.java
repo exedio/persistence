@@ -21,8 +21,6 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,19 +32,6 @@ final class WrapperX
 {
 	private final String name;
 	private final Method method;
-
-	/**
-	 * @deprecated Use {@link #getByAnnotations(Class, Feature, List)} and {@link Wrap} annotations instead.
-	 */
-	@Deprecated
-	public WrapperX(final String name)
-	{
-		this.name = name;
-		this.method = null;
-
-		if(name==null)
-			throw new NullPointerException("name");
-	}
 
 	public String getName()
 	{
@@ -68,11 +53,6 @@ final class WrapperX
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
 	private TypeVariable staticToken = null;
-
-	public WrapperX setStatic()
-	{
-		return setStatic(true);
-	}
 
 	public WrapperX setStatic(final boolean classToken)
 	{
@@ -111,16 +91,6 @@ final class WrapperX
 
 	private java.lang.reflect.Type returnType = null;
 	private String[] returnComment = EMPTY_STRING_ARRAY;
-
-	public WrapperX setReturn(final java.lang.reflect.Type type)
-	{
-		return setReturn(type, EMPTY_STRING_ARRAY);
-	}
-
-	public WrapperX setReturn(final java.lang.reflect.Type type, final String comment)
-	{
-		return setReturn(type, new String[]{comment});
-	}
 
 	WrapperX setReturn(final java.lang.reflect.Type type, final String[] comment)
 	{
@@ -212,24 +182,9 @@ final class WrapperX
 		return addParameter(type, "{1}", EMPTY_STRING_ARRAY);
 	}
 
-	public WrapperX addParameter(final java.lang.reflect.Type type, final String name)
-	{
-		return addParameter(type, name, EMPTY_STRING_ARRAY);
-	}
-
-	public WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String comment)
-	{
-		return addParameter(type, name, new String[]{comment});
-	}
-
 	WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
 	{
 		return addParameter(type, name, comment, false);
-	}
-
-	public WrapperX addParameterVararg(final Class type, final String name)
-	{
-		return addParameter(type, name, null, true);
 	}
 
 	private WrapperX addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
@@ -253,22 +208,9 @@ final class WrapperX
 
 	private LinkedHashMap<Class<? extends Throwable>, String[]> throwsClause;
 
-	public WrapperX addThrows(final Collection<Class<? extends Throwable>> throwables)
-	{
-		for(final Class<? extends Throwable> throwable : throwables)
-			addThrows(throwable, EMPTY_STRING_ARRAY);
-
-		return this;
-	}
-
 	public WrapperX addThrows(final Class<? extends Throwable> throwable)
 	{
 		return addThrows(throwable, EMPTY_STRING_ARRAY);
-	}
-
-	public WrapperX addThrows(final Class<? extends Throwable> throwable, final String comment)
-	{
-		return addThrows(throwable, new String[]{comment});
 	}
 
 	WrapperX addThrows(final Class<? extends Throwable> throwable, final String[] comment)
@@ -323,14 +265,6 @@ final class WrapperX
 		return this;
 	}
 
-	public List<String> getComments()
-	{
-		return
-			comments!=null
-			? Collections.unmodifiableList(comments)
-			: Collections.<String>emptyList();
-	}
-
 	String[] getCommentArray()
 	{
 		// TODO use String[] from the beginning
@@ -340,34 +274,6 @@ final class WrapperX
 			: new String[0];
 	}
 
-
-	/**
-	 * @deprecated not supported anymore, does nothing
-	 */
-	@Deprecated
-	@SuppressWarnings("unused")
-	public WrapperX deprecate(final String comment)
-	{
-		return this;
-	}
-
-	/**
-	 * @deprecated not supported anymore, always returns false
-	 */
-	@Deprecated
-	public boolean isDeprecated()
-	{
-		return false;
-	}
-
-	/**
-	 * @deprecated not supported anymore, always returns null
-	 */
-	@Deprecated
-	public String getDeprecationComment()
-	{
-		return null;
-	}
 
 	boolean isMethodDeprecated()
 	{
@@ -383,18 +289,6 @@ final class WrapperX
 			throw new IllegalArgumentException("comment must not start with space, but was '" + comment + '\'');
 		if(comment.startsWith("@"))
 			throw new IllegalArgumentException("comment must not contain tag, but was " + comment);
-	}
-
-
-	/**
-	 * @deprecated Not needed anymore by framework.
-	 */
-	@Deprecated
-	public boolean matchesMethod(final String name, final Class<?>... parameterTypes)
-	{
-		return
-			this.name.equals(name) &&
-			Arrays.equals(this.method.getParameterTypes(), parameterTypes);
 	}
 
 
