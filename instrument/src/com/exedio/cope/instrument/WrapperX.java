@@ -169,7 +169,7 @@ final class WrapperX
 		}
 
 		@Override
-		String toString()
+		public String toString()
 		{
 			return type.toString();
 		}
