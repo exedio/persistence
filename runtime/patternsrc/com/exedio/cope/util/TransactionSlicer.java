@@ -35,7 +35,7 @@ public final class TransactionSlicer
 
 	public boolean biteOff()
 	{
-		return ts.biteOff();
+		return ts.commitAndStartPossibly();
 	}
 
 	public int getSliceCount()

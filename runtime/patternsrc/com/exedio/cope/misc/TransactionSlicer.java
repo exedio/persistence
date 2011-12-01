@@ -43,7 +43,7 @@ public final class TransactionSlicer
 			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
 	}
 
-	public boolean biteOff()
+	public boolean commitAndStartPossibly()
 	{
 		if((--bitsLeft)>0)
 			return false;
@@ -64,5 +64,16 @@ public final class TransactionSlicer
 	public int getSliceCount()
 	{
 		return sliceCount;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #commitAndStartPossibly()} instead
+	 */
+	@Deprecated
+	public boolean biteOff()
+	{
+		return commitAndStartPossibly();
 	}
 }
