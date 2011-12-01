@@ -18,19 +18,25 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
+import com.exedio.cope.DataField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -51,7 +57,7 @@ public class TextUrlFilter extends MediaFilter
 	private final String pasteStart;
 	private final String pasteStop;
 
-	private final StringField pasteKey;
+	final StringField pasteKey;
 	final Media pasteValue;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
@@ -107,6 +113,11 @@ public class TextUrlFilter extends MediaFilter
 		addSource(raw, "Raw", preventUrlGuessingProxy);
 	}
 
+	Type<Paste> getPasteType()
+	{
+		return mount().pasteType;
+	}
+
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
 			final Item item,
@@ -137,6 +148,31 @@ public class TextUrlFilter extends MediaFilter
 	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
+	}
+
+	@Wrap(order=50, thrown=@Wrap.Thrown(IOException.class))
+	public final Paste putPaste(
+			final Item item,
+			@Parameter("key") final String key,
+			@Parameter("value") final Media.Value value)
+	throws IOException
+	{
+		final Mount mount = mount();
+		final Paste existing =
+			mount.pasteType.searchSingleton(Cope.and(
+				Cope.equalAndCast(mount.pasteParent, item),
+				pasteKey.equal(key)));
+
+		if(existing==null)
+			return mount.pasteType.newItem(
+					this.pasteKey.map(key),
+					this.pasteValue.map(value),
+					Cope.mapAndCast(mount.pasteParent, item));
+		else
+		{
+			pasteValue.set(existing, value);
+			return existing;
+		}
 	}
 
 	public final Locator getPasteLocator(final Item item, final String key)
@@ -307,6 +343,11 @@ public class TextUrlFilter extends MediaFilter
 			super(ap);
 		}
 
+		String getKey()
+		{
+			return getPattern().pasteKey.get(this);
+		}
+
 		public MediaPath.Locator getLocator()
 		{
 			return getPattern().pasteValue.getLocator(this);
@@ -315,6 +356,16 @@ public class TextUrlFilter extends MediaFilter
 		public String getURL()
 		{
 			return getPattern().pasteValue.getURL(this);
+		}
+
+		String getContentType()
+		{
+			return getPattern().pasteValue.getContentType(this);
+		}
+
+		byte[] getBody()
+		{
+			return getPattern().pasteValue.getBody(this);
 		}
 
 		private TextUrlFilter getPattern()
@@ -360,6 +411,40 @@ public class TextUrlFilter extends MediaFilter
 		public String toString()
 		{
 			return TextUrlFilter.this.toString() + "-preventUrlGuessingAnnotations";
+		}
+	}
+
+	@Wrap(order=100, thrown=@Wrap.Thrown(value=IOException.class))
+	public final void putPastesFromZip(
+			final Item item,
+			@Parameter("file") final File file)
+		throws IOException
+	{
+		final ZipFile zipFile = new ZipFile(file);
+		try
+		{
+			for(final Enumeration<? extends ZipEntry> entries = zipFile.entries();
+					entries.hasMoreElements(); )
+			{
+				final ZipEntry entry = entries.nextElement();
+				final String name = entry.getName();
+				try
+				{
+					final MediaType contentType = MediaType.forFileName(name);
+					if(contentType==null)
+						throw new IllegalArgumentException("unknown content type for entry " + name);
+
+					putPaste(item, name, Media.toValue(DataField.toValue(zipFile, entry), contentType.getName()));
+				}
+				catch(final ConstraintViolationException e)
+				{
+					throw new IllegalArgumentException(name, e);
+				}
+			}
+		}
+		finally
+		{
+			zipFile.close();
 		}
 	}
 

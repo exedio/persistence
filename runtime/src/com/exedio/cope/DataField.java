@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
@@ -347,6 +349,14 @@ public final class DataField extends Field<DataField.Value>
 		return file!=null ? new FileValue(file) : null;
 	}
 
+	/**
+	 * Returns null, if <code>file</code> is null.
+	 */
+	public static Value toValue(final ZipFile file, final ZipEntry entry)
+	{
+		return file!=null ? new ZipValue(file, entry) : null;
+	}
+
 	public SetValue map(final byte[] array)
 	{
 		return map(toValue(array));
@@ -623,6 +633,42 @@ public final class DataField extends Field<DataField.Value>
 		public String toString()
 		{
 			return "DataField.Value:" + file.toString();
+		}
+	}
+
+	final static class ZipValue extends AbstractStreamValue
+	{
+		private final ZipFile file;
+		private final ZipEntry entry;
+
+		ZipValue(final ZipFile file, final ZipEntry entry)
+		{
+			this.file = file;
+			this.entry = entry;
+
+			assert file!=null;
+			assert entry!=null;
+		}
+
+		@Override
+		long estimateLength()
+		{
+			// NOTICE
+			// The following code is needed to avoid the zip bomb,
+			// see http://en.wikipedia.org/wiki/Zip_bomb
+			return entry.getSize();
+		}
+
+		@Override
+		InputStream openStream() throws IOException
+		{
+			return file.getInputStream(entry);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "DataField.Value:" + file.toString() + '#' + entry.getName();
 		}
 	}
 

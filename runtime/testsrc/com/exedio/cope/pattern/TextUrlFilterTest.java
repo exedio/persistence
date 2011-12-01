@@ -34,7 +34,7 @@ import com.exedio.cope.UniqueViolationException;
 
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	public TextUrlFilterTest()
 	{
