@@ -23,6 +23,7 @@
 			</javac>
 			<copy todir="build/classes/@{srcdir}">
 				<fileset dir="@{srcdir}">
+					<include name="**/*.zip" />
 					<include name="**/*.gif" />
 					<include name="**/*.png" />
 					<include name="**/*.jpg" />
