@@ -173,6 +173,7 @@ public final class MediaType
 			),
 	};
 
+	private static final HashMap<String, MediaType> typesByExtension    = new HashMap<String, MediaType>();
 	private static final HashMap<String, MediaType> typesByName         = new HashMap<String, MediaType>();
 	private static final HashMap<String, MediaType> typesByNameAndAlias = new HashMap<String, MediaType>();
 
@@ -180,6 +181,7 @@ public final class MediaType
 	{
 		for(final MediaType type : types)
 		{
+			put(typesByExtension, type.extension, type);
 			put(typesByName, type.name, type);
 			put(typesByNameAndAlias, type.name, type);
 			for(final String alias : type.aliases)
@@ -203,6 +205,18 @@ public final class MediaType
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i] = typesWithMagic[i].mismatchesInstance(media);
 		return Cope.or(conditions);
+	}
+
+	/**
+	 * @param fileName the file name where to look for the extension
+	 */
+	public static MediaType forFileName(final String fileName)
+	{
+		final int pos = fileName.lastIndexOf('.');
+		if(pos<=0) // dot at start is not an extension
+			return null;
+
+		return typesByExtension.get(fileName.substring(pos));
 	}
 
 	public static MediaType forName(final String name)

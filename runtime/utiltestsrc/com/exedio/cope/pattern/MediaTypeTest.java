@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaType.forFileName;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
@@ -40,6 +41,25 @@ public class MediaTypeTest extends CopeAssert
 	private static final String JPEG = "ffd8ff";
 	private static final String PNG = "89504e470d0a1a0a";
 	private static final String ZIP = "504b0304";
+
+	public void testForFileName()
+	{
+		final MediaType jpg = forName("image/jpeg");
+		final MediaType png = forName("image/png");
+		final MediaType js  = forName("application/javascript");
+
+		assertSame(jpg, forFileName("eins.jpg"));
+		assertSame(png, forFileName("zwei.png"));
+		assertSame(js,  forFileName("drei.js"));
+
+		assertSame(null, forFileName("drei.zack"));
+		assertSame(jpg, forFileName("e.jpg"));
+		assertSame(null, forFileName(".jpg")); // this is ok, its not a extension
+		assertSame(null, forFileName("jpg"));
+		assertSame(null, forFileName("g"));
+		assertSame(null, forFileName(""));
+		assertSame(null, forFileName("."));
+	}
 
 	public void testForName()
 	{

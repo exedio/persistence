@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaType#forFilename added
 * remove support for deprecated Wrapper API,
 	which has been replaced by @Wrap annotation for a while.
 	- Feature#getWrappers and Wrapper#getByAnnotations do throw a NoSuchMethodError
