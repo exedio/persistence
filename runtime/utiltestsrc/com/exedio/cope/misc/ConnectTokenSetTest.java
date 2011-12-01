@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
@@ -50,13 +51,16 @@ public class ConnectTokenSetTest extends CopeAssert
 	public void testIt()
 	{
 		assertFalse(model.isConnected());
+		assertSame(null, getProperties(model));
 		assertNotSet();
 
 		final ConnectProperties properties = new ConnectProperties(new File("runtime/utiltest.properties"));
 		setProperties(model, properties);
+		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
 
 		assertSame(properties, removeProperties(model));
+		assertSame(null, getProperties(model));
 		assertNotSet();
 	}
 

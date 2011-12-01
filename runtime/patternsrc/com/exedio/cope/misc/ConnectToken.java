@@ -253,6 +253,21 @@ public final class ConnectToken
 		}
 	}
 
+	public static final ConnectProperties getProperties(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+
+		final Manciple manciple;
+
+		synchronized(manciples)
+		{
+			manciple = manciples.get(model);
+		}
+
+		return manciple!=null ? manciple.properties : null;
+	}
+
 	/**
 	 * @see #setProperties(Model, ConnectProperties)
 	 */
