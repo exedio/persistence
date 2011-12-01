@@ -39,9 +39,9 @@ public class ConnectTokenSetTest extends CopeAssert
 	{
 		private AnItem(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 	}
-	private static final Model model = new Model(AnItem.TYPE);
+	private static final Type<AnItem> type = TypesBound.newType(AnItem.class);
+	private static final Model model = new Model(type);
 
 	static
 	{
