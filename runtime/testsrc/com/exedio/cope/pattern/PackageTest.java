@@ -53,6 +53,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(TextUrlFilterTest.class);
+		suite.addTestSuite(TextUrlFilterZipTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
 		suite.addTestSuite(SerializerTest.class);
