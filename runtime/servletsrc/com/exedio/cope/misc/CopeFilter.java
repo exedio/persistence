@@ -58,7 +58,7 @@ public final class CopeFilter implements Filter
 	private ConnectToken connectToken = null;
 	private Model model;
 
-	public void init(final FilterConfig config) throws ServletException
+	public void init(final FilterConfig config)
 	{
 		connectToken = ServletUtil.getConnectedModel(this, config);
 		model = connectToken.getModel();

@@ -26,7 +26,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Cope;
@@ -96,7 +95,6 @@ public final class ServletUtil
 	}
 
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(
 				wrap(servlet.getServletConfig()),
@@ -104,7 +102,6 @@ public final class ServletUtil
 	}
 
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(
 				wrap(config),
@@ -114,7 +111,6 @@ public final class ServletUtil
 	private static final ConnectToken getConnectedModel(
 					final Config config,
 					final Object nameObject)
-	throws ServletException
 	{
 		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
@@ -132,7 +128,7 @@ public final class ServletUtil
 		{
 			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
-				throw new ServletException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+				throw new IllegalArgumentException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
 			modelName = contextParam;
 			modelNameSource = "context-param";
 		}
@@ -149,7 +145,7 @@ public final class ServletUtil
 		}
 		catch(final IllegalArgumentException e)
 		{
-			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
+			throw new IllegalArgumentException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
 		return ConnectToken.issue(result, description);
 	}
@@ -240,7 +236,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(servlet);
 	}
@@ -250,7 +245,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(filter, config);
 	}

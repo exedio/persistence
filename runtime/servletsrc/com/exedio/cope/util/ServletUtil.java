@@ -23,7 +23,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 import com.exedio.cope.Model;
 
@@ -43,7 +42,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
-	throws ServletException
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(servlet));
 	}
@@ -53,7 +51,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(filter, config));
 	}
@@ -88,7 +85,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(servlet);
 	}
@@ -98,7 +94,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(filter, config);
 	}

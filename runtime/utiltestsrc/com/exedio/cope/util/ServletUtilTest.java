@@ -34,7 +34,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
@@ -69,7 +68,7 @@ public class ServletUtilTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt() throws ServletException
+	public void testIt()
 	{
 		assertFalse(modelOk.isConnected());
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.util.ServletUtilTest#modelOk", "nameOk"));
@@ -109,7 +108,6 @@ public class ServletUtilTest extends CopeAssert
 			final Model model,
 			final String tokenName,
 			final MockServlet servlet)
-	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
@@ -125,7 +123,6 @@ public class ServletUtilTest extends CopeAssert
 			final String tokenName,
 			final MockFilter filter,
 			final MockFilterConfig config)
-	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
@@ -146,7 +143,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(servlet);
 			fail();
 		}
-		catch(final ServletException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"servlet \"" + name + "\" " +
@@ -167,7 +164,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(filter, config);
 			fail();
 		}
-		catch(final ServletException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"filter \"" + name + "\" " +
