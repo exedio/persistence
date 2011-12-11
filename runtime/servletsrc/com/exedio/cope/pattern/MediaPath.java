@@ -398,7 +398,7 @@ public abstract class MediaPath extends Pattern
 		final Model model = getType().getModel();
 		try
 		{
-			model.startTransaction("MediaServlet");
+			model.startTransaction("MediaPath#doGet " + pathInfo);
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
 			{
