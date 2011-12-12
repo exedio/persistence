@@ -63,7 +63,7 @@ final class SamplerThread extends Composite
 				append(e.getMethodName()).
 				append(" (").append(e.getFileName()).
 				append(':').
-				append(e.getLineNumber());
+				append(e.getLineNumber()).append(")\n");
 		}
 		return bf.length()!=0 ? bf.toString() : null;
 	}
