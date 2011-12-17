@@ -753,6 +753,12 @@ public final class Query<R> implements Serializable
 		return toString(false, false);
 	}
 
+	/**
+	 * BEWARE:
+	 * The results of this method determinates,
+	 * whether to queries are equal for a hit in the query cache.
+	 * Do not forget anything !!!
+	 */
 	String toString(final boolean key, final boolean totalOnly)
 	{
 		final Type type = this.type;
