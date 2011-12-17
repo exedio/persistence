@@ -755,7 +755,7 @@ public final class Query<R> implements Serializable
 
 	/**
 	 * BEWARE:
-	 * The results of this method determinates,
+	 * The results of this method also determinates,
 	 * whether to queries are equal for a hit in the query cache.
 	 * Do not forget anything !!!
 	 */
