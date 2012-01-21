@@ -294,4 +294,30 @@ public final class Revisions
 			) +
 			')';
 	}
+
+	/**
+	 * If you supply an instance of {@link Factory} to a {@link Model}
+	 * via {@link Model#Model(Factory, Type...)} etc.
+	 * the model takes care, that {@link #get(EnvironmentInfo)}
+	 * is called only while the model is connected and only once for each connect.
+	 */
+	public static interface Factory
+	{
+		Revisions get(Context ctx);
+
+		public static final class Context
+		{
+			private final EnvironmentInfo environment;
+
+			Context(final EnvironmentInfo environment)
+			{
+				this.environment = environment;
+			}
+
+			public EnvironmentInfo getEnvironment()
+			{
+				return environment;
+			}
+		}
+	}
 }

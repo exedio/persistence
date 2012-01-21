@@ -19,12 +19,10 @@
 package com.exedio.cope;
 
 /**
- * If you supply an instance of {@link RevisionsFuture} to a {@link Model}
- * via {@link Model#Model(RevisionsFuture, Type...)} etc.
- * the model takes care, that {@link #get(EnvironmentInfo)}
- * is called only while the model is connected and only once for each connect.
+ * @deprecated Use {@link Revisions.Factory} instead.
  */
-public interface RevisionsFuture // TODO rename to RevisionsFactory or Revisions.Factory
+@Deprecated
+public interface RevisionsFuture
 {
 	Revisions get(EnvironmentInfo environment);
 }

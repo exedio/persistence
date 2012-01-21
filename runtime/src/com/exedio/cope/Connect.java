@@ -57,7 +57,7 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final RevisionsFuture revisionsFuture,
+			final Revisions.Factory revisionsFuture,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{

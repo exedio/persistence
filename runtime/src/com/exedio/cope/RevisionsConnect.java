@@ -22,7 +22,7 @@ final class RevisionsConnect
 {
 	static RevisionsConnect wrap(
 			final EnvironmentInfo environment,
-			final RevisionsFuture future)
+			final Revisions.Factory future)
 	{
 		return
 			future!=null
@@ -32,14 +32,14 @@ final class RevisionsConnect
 
 
 	private final EnvironmentInfo environment;
-	private final RevisionsFuture future;
+	private final Revisions.Factory future;
 
 	private Revisions value = null;
 	private final Object valueLock = new Object();
 
 	private RevisionsConnect(
 			final EnvironmentInfo environment,
-			final RevisionsFuture future)
+			final Revisions.Factory future)
 	{
 		this.environment = environment;
 		this.future = future;
@@ -53,7 +53,7 @@ final class RevisionsConnect
 		synchronized(valueLock)
 		{
 			if(value==null)
-				value = future.get(environment);
+				value = future.get(new Revisions.Factory.Context(environment));
 
 			return value;
 		}
