@@ -20,9 +20,12 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.Revisions;
-import com.exedio.cope.RevisionsFuture;
 
-public final class DirectRevisionsFuture implements RevisionsFuture
+/**
+ * @deprecated since {@link com.exedio.cope.RevisionsFuture} has been deprecated.
+ */
+@Deprecated
+public final class DirectRevisionsFuture implements com.exedio.cope.RevisionsFuture
 {
 	public static DirectRevisionsFuture make(final Revisions revisions)
 	{

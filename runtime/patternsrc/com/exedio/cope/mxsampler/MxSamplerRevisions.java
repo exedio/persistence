@@ -18,15 +18,13 @@
 
 package com.exedio.cope.mxsampler;
 
-import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.Revisions;
-import com.exedio.cope.RevisionsFuture;
 
-final class MxSamplerRevisions implements RevisionsFuture
+final class MxSamplerRevisions implements Revisions.Factory
 {
-	public Revisions get(final EnvironmentInfo environment)
+	public Revisions create(final Context ctx)
 	{
-		final String db = environment.getDatabaseProductName();
+		final String db = ctx.getEnvironment().getDatabaseProductName();
 
 		if("mysql".equalsIgnoreCase(db))
 			return getMysql();

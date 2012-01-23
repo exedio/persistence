@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.log4j.Logger;
 
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
@@ -46,7 +46,7 @@ public final class Model implements Serializable
 	private static final Logger logger = Logger.getLogger(Model.class);
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final RevisionsFuture revisions;
+	private final Revisions.Factory revisions;
 	private final Object reviseLock = new Object();
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -71,15 +71,15 @@ public final class Model implements Serializable
 
 	public Model(final Type... types)
 	{
-		this((RevisionsFuture)null, types);
+		this((Revisions.Factory)null, types);
 	}
 
-	public Model(final RevisionsFuture revisions, final Type... types)
+	public Model(final Revisions.Factory revisions, final Type... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
-	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type... types)
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
@@ -1067,20 +1067,53 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), types);
+		this(DirectRevisionsFactory.make(revisions), types);
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), typeSets, types);
+		this(DirectRevisionsFactory.make(revisions), typeSets, types);
+	}
+
+	/**
+	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final RevisionsFuture revisions, final Type... types)
+	{
+		this(wrap(revisions), types);
+	}
+
+	/**
+	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type... types)
+	{
+		this(wrap(revisions), typeSets, types);
+	}
+
+	@Deprecated
+	private static final Revisions.Factory wrap(final RevisionsFuture revisions)
+	{
+		if(revisions==null)
+			return null;
+
+		return new Revisions.Factory()
+		{
+			public Revisions create(final Revisions.Factory.Context ctx)
+			{
+				return revisions.get(ctx.getEnvironment());
+			}
+		};
 	}
 }

@@ -18,11 +18,32 @@
 
 package com.exedio.cope;
 
-public interface RevisionsFuture
+import static com.exedio.cope.misc.DirectRevisionsFactory.make;
+
+import java.sql.SQLException;
+
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.DirectRevisionsFactory;
+
+public class DirectRevisionsFactoryTest extends CopeAssert
 {
-	/**
-	 * @deprecated Use {@link Revisions.Factory} instead.
-	 */
-	@Deprecated
-	Revisions get(EnvironmentInfo environment);
+	@Deprecated // OK: tests deprecated API
+	public void testIt() throws SQLException
+	{
+		assertEquals(null, make(null));
+
+		final Revisions r = new Revisions(0);
+		final DirectRevisionsFactory f = make(r);
+		assertSame(r, f.create(new Revisions.Factory.Context(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2)))));
+
+		try
+		{
+			f.create(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
 }

@@ -57,7 +57,7 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final RevisionsFuture revisionsFuture,
+			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
 			final ChangeListeners changeListeners)
 	{
@@ -103,7 +103,7 @@ final class Connect
 				}
 			}
 		}
-		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFuture);
+		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(

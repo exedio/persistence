@@ -16,13 +16,33 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.misc;
 
-public interface RevisionsFuture
+import com.exedio.cope.Revisions;
+
+public final class DirectRevisionsFactory implements Revisions.Factory
 {
-	/**
-	 * @deprecated Use {@link Revisions.Factory} instead.
-	 */
-	@Deprecated
-	Revisions get(EnvironmentInfo environment);
+	public static DirectRevisionsFactory make(final Revisions revisions)
+	{
+		return
+			revisions!=null
+			? new DirectRevisionsFactory(revisions)
+			: null;
+	}
+
+
+	private final Revisions revisions;
+
+	private DirectRevisionsFactory(final Revisions revisions)
+	{
+		this.revisions = revisions;
+	}
+
+	public Revisions create(final Context ctx)
+	{
+		if(ctx==null)
+			throw new NullPointerException();
+
+		return revisions;
+	}
 }
