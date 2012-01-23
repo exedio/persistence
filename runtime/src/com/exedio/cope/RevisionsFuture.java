@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * @deprecated Use {@link Revisions.Factory} instead.
- */
-@Deprecated
 public interface RevisionsFuture
 {
+	/**
+	 * @deprecated Use {@link Revisions.Factory} instead.
+	 */
+	@Deprecated
 	Revisions get(EnvironmentInfo environment);
 }
