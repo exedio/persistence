@@ -27,6 +27,7 @@ import com.exedio.cope.misc.DirectRevisionsFuture;
 
 public class DirectRevisionsFutureTest extends CopeAssert
 {
+	@Deprecated // OK: tests deprecated API
 	public void testIt() throws SQLException
 	{
 		assertEquals(null, make(null));

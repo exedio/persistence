@@ -21,12 +21,12 @@ package com.exedio.cope;
 import java.util.Date;
 import java.util.Map;
 
-import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 
 public class DeleteSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(
-			DirectRevisionsFuture.make(new Revisions(5)),
+			DirectRevisionsFactory.make(new Revisions(5)),
 			DeleteSchemaItem.TYPE);
 
 	public DeleteSchemaTest()

@@ -512,7 +512,7 @@ public class ReviseTest extends CopeAssert
 		return result;
 	}
 
-	private static final class TestRevisionsFuture implements RevisionsFuture
+	private static final class TestRevisionsFuture implements Revisions.Factory
 	{
 		private Revisions revisions = null;
 
@@ -533,9 +533,10 @@ public class ReviseTest extends CopeAssert
 			assertNull(revisions);
 		}
 
-		public Revisions get(final EnvironmentInfo environment)
+		public Revisions get(final Context ctx)
 		{
-			assertNotNull(environment);
+			assertNotNull(ctx);
+			assertNotNull(ctx.getEnvironment());
 			assertNotNull(this.revisions);
 			final Revisions revisions = this.revisions;
 			this.revisions = null;

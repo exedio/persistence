@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.log4j.Logger;
 
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
@@ -1067,21 +1067,21 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), types);
+		this(DirectRevisionsFactory.make(revisions), types);
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), typeSets, types);
+		this(DirectRevisionsFactory.make(revisions), typeSets, types);
 	}
 
 	/**
