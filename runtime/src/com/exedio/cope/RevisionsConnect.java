@@ -22,30 +22,30 @@ final class RevisionsConnect
 {
 	static RevisionsConnect wrap(
 			final EnvironmentInfo environment,
-			final Revisions.Factory future)
+			final Revisions.Factory factory)
 	{
 		return
-			future!=null
-			? new RevisionsConnect(environment, future)
+			factory!=null
+			? new RevisionsConnect(environment, factory)
 			: null;
 	}
 
 
 	private final EnvironmentInfo environment;
-	private final Revisions.Factory future;
+	private final Revisions.Factory factory;
 
 	private Revisions value = null;
 	private final Object valueLock = new Object();
 
 	private RevisionsConnect(
 			final EnvironmentInfo environment,
-			final Revisions.Factory future)
+			final Revisions.Factory factory)
 	{
 		this.environment = environment;
-		this.future = future;
+		this.factory = factory;
 
 		assert environment!=null;
-		assert future!=null;
+		assert factory!=null;
 	}
 
 	Revisions get()
@@ -53,7 +53,7 @@ final class RevisionsConnect
 		synchronized(valueLock)
 		{
 			if(value==null)
-				value = future.create(new Revisions.Factory.Context(environment));
+				value = factory.create(new Revisions.Factory.Context(environment));
 
 			return value;
 		}
