@@ -1067,7 +1067,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFactory} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final Type... types)
@@ -1076,7 +1076,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
 	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
