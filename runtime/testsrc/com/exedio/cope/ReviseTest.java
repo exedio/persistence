@@ -40,14 +40,14 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final TestRevisionsFuture revisionsFuture5 = new TestRevisionsFuture();
+	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();
 
-	private static final Model model5 = new Model(revisionsFuture5, ReviseItem1.TYPE);
+	private static final Model model5 = new Model(revisionsFactory5, ReviseItem1.TYPE);
 
 
-	private static final TestRevisionsFuture revisionsFuture7 = new TestRevisionsFuture();
+	private static final TestRevisionsFactory revisionsFactory7 = new TestRevisionsFactory();
 
-	private static final Model model7 = new Model(revisionsFuture7, ReviseItem2.TYPE);
+	private static final Model model7 = new Model(revisionsFactory7, ReviseItem2.TYPE);
 
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
@@ -86,7 +86,7 @@ public class ReviseTest extends CopeAssert
 	{
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUser();
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 
 		try
 		{
@@ -102,9 +102,9 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions5 = new Revisions(
 				new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 			);
-		revisionsFuture5.put(revisions5);
+		revisionsFactory5.put(revisions5);
 		assertSame(revisions5, model5.getRevisions());
-		revisionsFuture5.assertEmpty();
+		revisionsFactory5.assertEmpty();
 		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
@@ -138,9 +138,9 @@ public class ReviseTest extends CopeAssert
 		final Revisions revisions7Missing = new Revisions(
 				new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 			);
-		revisionsFuture7.put(revisions7Missing);
+		revisionsFactory7.put(revisions7Missing);
 		assertSame(revisions7Missing, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -199,9 +199,9 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisionsFuture7.put(revisions7);
+		revisionsFactory7.put(revisions7);
 		assertSame(revisions7, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 
 		log.assertEmpty();
 		final Date reviseBefore = new Date();
@@ -237,9 +237,9 @@ public class ReviseTest extends CopeAssert
 		// even after reconnect
 		model7.disconnect();
 		model7.connect(props);
-		revisionsFuture7.put(revisions7Missing);
+		revisionsFactory7.put(revisions7Missing);
 		model7.revise();
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -256,9 +256,9 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisionsFuture7.put(revisions8);
+		revisionsFactory7.put(revisions8);
 		assertSame(revisions8, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 
 		final Date failBefore = new Date();
 		try
@@ -305,7 +305,7 @@ public class ReviseTest extends CopeAssert
 
 		model7.tearDownSchema();
 		log.assertEmpty();
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 	}
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
@@ -512,11 +512,11 @@ public class ReviseTest extends CopeAssert
 		return result;
 	}
 
-	private static final class TestRevisionsFuture implements Revisions.Factory
+	private static final class TestRevisionsFactory implements Revisions.Factory
 	{
 		private Revisions revisions = null;
 
-		TestRevisionsFuture()
+		TestRevisionsFactory()
 		{
 			// make non-private
 		}
