@@ -22,7 +22,7 @@ import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.Revisions;
 
 /**
- * @deprecated since {@link RevisionsFuture} has been deprecated.
+ * @deprecated since {@link com.exedio.cope.RevisionsFuture} has been deprecated.
  */
 @Deprecated
 public final class DirectRevisionsFuture implements com.exedio.cope.RevisionsFuture
