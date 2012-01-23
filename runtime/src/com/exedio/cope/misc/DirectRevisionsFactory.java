@@ -38,7 +38,7 @@ public final class DirectRevisionsFactory implements Revisions.Factory
 		this.revisions = revisions;
 	}
 
-	public Revisions get(final Context ctx)
+	public Revisions create(final Context ctx)
 	{
 		if(ctx==null)
 			throw new NullPointerException();

@@ -34,11 +34,11 @@ public class DirectRevisionsFactoryTest extends CopeAssert
 
 		final Revisions r = new Revisions(0);
 		final DirectRevisionsFactory f = make(r);
-		assertSame(r, f.get(new Revisions.Factory.Context(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2)))));
+		assertSame(r, f.create(new Revisions.Factory.Context(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2)))));
 
 		try
 		{
-			f.get(null);
+			f.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)

@@ -533,7 +533,7 @@ public class ReviseTest extends CopeAssert
 			assertNull(revisions);
 		}
 
-		public Revisions get(final Context ctx)
+		public Revisions create(final Context ctx)
 		{
 			assertNotNull(ctx);
 			assertNotNull(ctx.getEnvironment());

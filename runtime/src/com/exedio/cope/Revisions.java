@@ -298,12 +298,12 @@ public final class Revisions
 	/**
 	 * If you supply an instance of {@link Factory} to a {@link Model}
 	 * via {@link Model#Model(Revisions.Factory, Type...)} etc.
-	 * the model takes care, that {@link #get(Context)}
+	 * the model takes care, that {@link #create(Context)}
 	 * is called only while the model is connected and only once for each connect.
 	 */
 	public static interface Factory
 	{
-		Revisions get(Context ctx);
+		Revisions create(Context ctx);
 
 		public static final class Context
 		{

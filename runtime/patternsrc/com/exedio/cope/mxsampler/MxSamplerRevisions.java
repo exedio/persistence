@@ -22,7 +22,7 @@ import com.exedio.cope.Revisions;
 
 final class MxSamplerRevisions implements Revisions.Factory
 {
-	public Revisions get(final Context ctx)
+	public Revisions create(final Context ctx)
 	{
 		final String db = ctx.getEnvironment().getDatabaseProductName();
 

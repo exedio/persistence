@@ -53,7 +53,7 @@ final class RevisionsConnect
 		synchronized(valueLock)
 		{
 			if(value==null)
-				value = future.get(new Revisions.Factory.Context(environment));
+				value = future.create(new Revisions.Factory.Context(environment));
 
 			return value;
 		}
