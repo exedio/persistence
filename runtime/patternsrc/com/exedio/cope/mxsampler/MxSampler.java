@@ -181,7 +181,7 @@ public class MxSampler
 				sv.add(MxSamplerGlobal.classUnloaded.map(classUnloaded));
 				sv.add(MxSamplerGlobal.objectPendingFinalizationCount.map(objectPendingFinalizationCount));
 				sv.add(MxSamplerGlobal.totalCompilationTime.map(totalCompilationTime));
-				sv.add(MxSamplerGlobal.systemLoadAverage.map(systemLoadAverage));
+				sv.add(MxSamplerGlobal.systemLoadAverage.map(systemLoadAverage==-1?null:systemLoadAverage));
 
 				model = MxSamplerGlobal.TYPE.newItem(sv);
 			}

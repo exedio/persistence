@@ -41,7 +41,7 @@ final class MxSamplerGlobal extends Item
 	static final LongField classUnloaded = new LongField().toFinal().min(0);
 	static final IntegerField objectPendingFinalizationCount = new IntegerField().toFinal().min(0);
 	static final LongField totalCompilationTime = new LongField().toFinal().min(0);
-	static final DoubleField systemLoadAverage = new DoubleField().toFinal().min(0);
+	static final DoubleField systemLoadAverage = new DoubleField().optional().toFinal().min(0);
 
 
 	static <F extends FunctionField> F replaceByCopy(final F field, final Type<?> type)
