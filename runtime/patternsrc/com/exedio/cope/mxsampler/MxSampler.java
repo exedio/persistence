@@ -22,6 +22,7 @@ import java.lang.management.ClassLoadingMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
+import java.lang.management.OperatingSystemMXBean;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -156,7 +157,9 @@ public class MxSampler
 		final long classUnloaded = classLoading.getUnloadedClassCount();
 		final int objectPendingFinalizationCount = ManagementFactory.getMemoryMXBean().getObjectPendingFinalizationCount();
 		final long totalCompilationTime = ManagementFactory.getCompilationMXBean().getTotalCompilationTime();
-		final double systemLoadAverage = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
+		final OperatingSystemMXBean operatingSystem = ManagementFactory.getOperatingSystemMXBean();
+		final int availableProcessors = operatingSystem.getAvailableProcessors();
+		final double systemLoadAverage = operatingSystem.getSystemLoadAverage();
 
 		final long duration = System.nanoTime() - start;
 
@@ -181,6 +184,7 @@ public class MxSampler
 				sv.add(MxSamplerGlobal.classUnloaded.map(classUnloaded));
 				sv.add(MxSamplerGlobal.objectPendingFinalizationCount.map(objectPendingFinalizationCount));
 				sv.add(MxSamplerGlobal.totalCompilationTime.map(totalCompilationTime));
+				sv.add(MxSamplerGlobal.availableProcessors.map(availableProcessors));
 				sv.add(MxSamplerGlobal.systemLoadAverage.map(systemLoadAverage==-1?null:systemLoadAverage));
 
 				model = MxSamplerGlobal.TYPE.newItem(sv);
