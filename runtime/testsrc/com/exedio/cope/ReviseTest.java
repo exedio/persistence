@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
+import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
@@ -71,7 +72,7 @@ public class ReviseTest extends CopeAssert
 		hostname = InetAddress.getLocalHost().getHostName();
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
-		props = new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		log = new TestLogAppender();
 		Revisions.logger.addAppender(log);
 	}
@@ -378,7 +379,7 @@ public class ReviseTest extends CopeAssert
 		revisionsFactory5.put( new Revisions(0) );
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect(new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE));
+		model5.connect(new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE));
 		model5.createSchema();
 		model5.reviseIfSupportedAndAutoEnabled();
 		model5.disconnect();
@@ -386,7 +387,7 @@ public class ReviseTest extends CopeAssert
 		revisionsFactory5.assertEmpty();
 
 		testSource.putOverride("revise.auto.enabled", "false");
-		final ConnectProperties cp = new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		final ConnectProperties cp = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		model5.connect(cp);
 		assertEquals( false, cp.autoReviseEnabled.booleanValue() );
 		revisionsFactory5.put( new Revisions(0) );
@@ -394,7 +395,7 @@ public class ReviseTest extends CopeAssert
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
 
-		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
+		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{
@@ -409,7 +410,7 @@ public class ReviseTest extends CopeAssert
 		model5.disconnect();
 
 		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
+		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{
