@@ -402,7 +402,7 @@ public class ReviseTest extends CopeAssert
 			model5.reviseIfSupportedAndAutoEnabled();
 			fail();
 		}
-		catch ( IllegalStateException e )
+		catch ( final IllegalStateException e )
 		{
 			assertEquals( "Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and 1 revisions pending (last revision in DB: 0; last revision in model: 1)", e.getMessage() );
 		}
@@ -417,7 +417,7 @@ public class ReviseTest extends CopeAssert
 			model5.reviseIfSupportedAndAutoEnabled();
 			fail();
 		}
-		catch ( SQLRuntimeException e )
+		catch ( final SQLRuntimeException e )
 		{
 			// fine
 		}
@@ -615,16 +615,16 @@ public class ReviseTest extends CopeAssert
 		}
 
 		@Override()
-		public String get( String key )
+		public String get( final String key )
 		{
-			String override = overrides.get( key );
+			final String override = overrides.get( key );
 			return override==null ? fallback.get( key ) : override;
 		}
 
 		@Override()
 		public Collection<String> keySet()
 		{
-			Set<String> keys = new HashSet<String>();
+			final Set<String> keys = new HashSet<String>();
 			keys.addAll( overrides.keySet() );
 			keys.addAll( fallback.keySet() );
 			return keys;
@@ -636,7 +636,7 @@ public class ReviseTest extends CopeAssert
 			return "TestSource";
 		}
 
-		void putOverride( String key, String value )
+		void putOverride( final String key, final String value )
 		{
 			overrides.put( key, value );
 		}
