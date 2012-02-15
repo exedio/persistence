@@ -70,7 +70,9 @@ public class ReviseTest extends CopeAssert
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		final TestSource testSource = new TestSource();
+		testSource.putOverride("revise.auto.enabled", "true");
+		props = new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 		log = new TestLogAppender();
 		Revisions.logger.addAppender(log);
 	}
@@ -376,6 +378,7 @@ public class ReviseTest extends CopeAssert
 	{
 		revisionsFactory5.put( new Revisions(0) );
 		final TestSource testSource = new TestSource();
+		testSource.putOverride("revise.auto.enabled", "true");
 		model5.connect(new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE));
 		model5.createSchema();
 		model5.reviseIfSupportedAndAutoEnabled();
@@ -406,7 +409,7 @@ public class ReviseTest extends CopeAssert
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
 		
-		testSource.removeOverrides("revise.auto.enabled");
+		testSource.putOverride("revise.auto.enabled", "true");
 		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
