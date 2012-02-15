@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
-import com.exedio.cope.Revisions.Factory.Context;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
