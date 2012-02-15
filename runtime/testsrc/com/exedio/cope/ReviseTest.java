@@ -614,7 +614,6 @@ public class ReviseTest extends CopeAssert
 		public String get( String key )
 		{
 			String override = overrides.get( key );
-			System.out.println( "get "+key+" "+override );
 			return override==null ? fallback.get( key ) : override;
 		}
 

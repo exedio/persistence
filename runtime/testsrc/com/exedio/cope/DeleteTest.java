@@ -324,6 +324,6 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
-		model.reviseIfSupported();
+		model.reviseIfSupportedAndAutoEnabled();
 	}
 }

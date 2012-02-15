@@ -154,7 +154,7 @@ public class Sampler
 
 	void checkInternal()
 	{
-		samplerModel.reviseIfSupported();
+		samplerModel.reviseIfSupportedAndAutoEnabled();
 		try
 		{
 			samplerModel.startTransaction("check");

@@ -98,7 +98,7 @@ public class MediaServlet extends HttpServlet
 	private void initConnected()
 	{
 		final Model model = connectToken.getModel();
-		model.reviseIfSupported();
+		model.reviseIfSupportedAndAutoEnabled();
 		for(final Type<?> type : model.getTypes())
 		{
 			for(final Feature feature : type.getDeclaredFeatures())

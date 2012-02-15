@@ -116,7 +116,7 @@ public class MxSampler
 
 	void check()
 	{
-		samplerModel.reviseIfSupported();
+		samplerModel.reviseIfSupportedAndAutoEnabled();
 		try
 		{
 			samplerModel.startTransaction("check");

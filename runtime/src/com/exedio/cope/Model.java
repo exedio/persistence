@@ -863,12 +863,12 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #reviseIfSupported()} instead
+	 * @deprecated Use {@link #reviseIfSupportedAndAutoEnabled()} instead
 	 */
 	@Deprecated
 	public void migrateIfSupported()
 	{
-		reviseIfSupported();
+		reviseIfSupportedAndAutoEnabled();
 	}
 
 	/**
