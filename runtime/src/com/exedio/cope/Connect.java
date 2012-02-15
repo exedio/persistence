@@ -222,12 +222,12 @@ final class Connect
 		return revisions!=null ? revisions.get() : null;
 	}
 
-	void revise()
+	void revise(final boolean explicitRequest)
 	{
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
+		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters, explicitRequest);
 
 		revised = true;
 	}

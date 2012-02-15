@@ -251,13 +251,22 @@ public final class Revisions
 			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final DialectParameters dialectParameters)
+			final DialectParameters dialectParameters,
+			final boolean explicitRequest)
 	{
 		final int actualNumber = getActualNumber(properties, connectionPool, executor);
 		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 		if(!revisionsToRun.isEmpty())
 		{
+			if ( !explicitRequest && !properties.autoReviseEnabled.booleanValue() )
+			{
+				throw new IllegalStateException(
+					"Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and " +
+					revisionsToRun.size()+" revisions pending " +
+					"(last revision in DB: "+actualNumber+"; last revision in model: "+number+")"
+				);
+			}
 			final Date date = new Date();
 			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
 			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);

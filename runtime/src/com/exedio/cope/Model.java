@@ -168,20 +168,41 @@ public final class Model implements Serializable
 
 	public void revise()
 	{
+		revise(true);
+	}
+	
+	private void revise(final boolean explicitRequest)
+	{
 		assertRevisionEnabled();
 
 		synchronized(reviseLock)
 		{
-			connect().revise();
+			connect().revise(explicitRequest);
 		}
 	}
-
+	
+	/**
+	 * calls {@link #reviseIfSupportedAndAutoEnabled}
+	 * @deprecated use {@link #reviseIfSupportedAndAutoEnabled} instead
+	 */
+	@Deprecated
 	public void reviseIfSupported()
+	{
+		reviseIfSupportedAndAutoEnabled();
+	}
+	
+	/**
+	 * If this method returns successfully, the model's revisions (if any) have been executed.
+	 * 
+	 * Automatic execution of revisions is controlled by connect property revise.auto.enabled.
+	 * This method will throw an exception if auto-revisions are not enabled and revisions are pending.
+	 */
+	public void reviseIfSupportedAndAutoEnabled()
 	{
 		if(revisions==null)
 			return;
 
-		revise();
+		revise(false);
 	}
 
 	/**

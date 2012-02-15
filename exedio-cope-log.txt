@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* automatic revision execution can be disabled
+	Model#reviseIfSupported() is replaced by Model#reviseIfSupportedAndAutoEnabled()
 * MxSampler added
 * ServletUtil methods do not throw ServletException any longer
 * TextUrlFilter#putPaste and #putPastesFromZip and

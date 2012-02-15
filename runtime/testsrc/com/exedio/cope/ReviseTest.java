@@ -19,20 +19,26 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
+import com.exedio.cope.Revisions.Factory.Context;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.Properties.Source;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -151,7 +157,7 @@ public class ReviseTest extends CopeAssert
 
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -205,7 +211,7 @@ public class ReviseTest extends CopeAssert
 
 		log.assertEmpty();
 		final Date reviseBefore = new Date();
-		model7.reviseIfSupported();
+		model7.reviseIfSupportedAndAutoEnabled();
 		final Date reviseAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		final Date reviseDate;
@@ -263,7 +269,7 @@ public class ReviseTest extends CopeAssert
 		final Date failBefore = new Date();
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 		}
 		catch(final SQLRuntimeException e)
 		{
@@ -285,7 +291,7 @@ public class ReviseTest extends CopeAssert
 
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 		}
 		catch(final IllegalStateException e)
 		{
@@ -366,6 +372,57 @@ public class ReviseTest extends CopeAssert
 		assertEquals(true, revisionTable.exists());
 	}
 
+	public void testAutoRevise()
+	{
+		revisionsFactory5.put( new Revisions(0) );
+		final TestSource testSource = new TestSource();
+		model5.connect(new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE));
+		model5.createSchema();
+		model5.reviseIfSupportedAndAutoEnabled();
+		model5.disconnect();
+		assertEquals( true, props.autoReviseEnabled.booleanValue() );
+		revisionsFactory5.assertEmpty();
+		
+		testSource.putOverride("revise.auto.enabled", "false");
+		final ConnectProperties cp = new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		model5.connect(cp);
+		assertEquals( false, cp.autoReviseEnabled.booleanValue() );
+		revisionsFactory5.put( new Revisions(0) );
+		model5.reviseIfSupportedAndAutoEnabled();
+		revisionsFactory5.assertEmpty();
+		model5.disconnect();
+		
+		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
+		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
+		try
+		{
+			model5.reviseIfSupportedAndAutoEnabled();
+			fail();
+		}
+		catch ( IllegalStateException e )
+		{
+			assertEquals( "Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and 1 revisions pending (last revision in DB: 0; last revision in model: 1)", e.getMessage() );
+		}
+		revisionsFactory5.assertEmpty();
+		model5.disconnect();
+		
+		testSource.removeOverrides("revise.auto.enabled");
+		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
+		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
+		try
+		{
+			model5.reviseIfSupportedAndAutoEnabled();
+			fail();
+		}
+		catch ( SQLRuntimeException e )
+		{
+			// fine
+		}
+		revisionsFactory5.assertEmpty();
+		model5.tearDownSchema();
+		model5.disconnect();
+	}
+	
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
@@ -543,4 +600,47 @@ public class ReviseTest extends CopeAssert
 			return revisions;
 		}
 	}
+	
+	static final class TestSource implements Source
+	{
+		Source fallback;
+		Map<String,String> overrides = new HashMap<String, String>();
+
+		TestSource()
+		{
+			fallback = com.exedio.cope.util.Properties.getSource(ConnectProperties.getDefaultPropertyFile());
+		}
+		
+		public String get( String key )
+		{
+			String override = overrides.get( key );
+			System.out.println( "get "+key+" "+override );
+			return override==null ? fallback.get( key ) : override;
+		}
+
+		public Collection<String> keySet()
+		{
+			Set<String> keys = new HashSet<String>();
+			keys.addAll( overrides.keySet() );
+			keys.addAll( fallback.keySet() );
+			return keys;
+		}
+
+		public String getDescription()
+		{
+			return "TestSource";
+		}
+
+		private void removeOverrides( String key )
+		{
+			overrides.remove( key );
+		}
+
+		private void putOverride( String key, String value )
+		{
+			overrides.put( key, value );
+		}
+		
+	}
+	
 }
