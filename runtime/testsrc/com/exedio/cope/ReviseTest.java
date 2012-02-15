@@ -613,13 +613,15 @@ public class ReviseTest extends CopeAssert
 		{
 			fallback = com.exedio.cope.util.Properties.getSource(ConnectProperties.getDefaultPropertyFile());
 		}
-		
+
+		@Override()
 		public String get( String key )
 		{
 			String override = overrides.get( key );
 			return override==null ? fallback.get( key ) : override;
 		}
 
+		@Override()
 		public Collection<String> keySet()
 		{
 			Set<String> keys = new HashSet<String>();
@@ -628,17 +630,13 @@ public class ReviseTest extends CopeAssert
 			return keys;
 		}
 
+		@Override()
 		public String getDescription()
 		{
 			return "TestSource";
 		}
 
-		private void removeOverrides( String key )
-		{
-			overrides.remove( key );
-		}
-
-		private void putOverride( String key, String value )
+		void putOverride( String key, String value )
 		{
 			overrides.put( key, value );
 		}
