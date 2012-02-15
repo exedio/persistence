@@ -63,14 +63,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final StringField revisionTableName = new StringField("schema.revision.table", "while");
 
 	/**
-	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
-	 * of revisions if necessary;
-	 * if false, it will throw an exception if revisions are pending.
-	 * Default is true.
-	 */
-	final BooleanField autoReviseEnabled = new BooleanField("revise.auto.enabled", true );
-
-	/**
 	 * The name of the unique constraint
 	 * on the table for the revision information.
 	 * The value "protected" prevents name collisions
@@ -81,6 +73,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
+
+	/**
+	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
+	 * of revisions if necessary;
+	 * if false, it will throw an exception if revisions are pending.
+	 * Default is true.
+	 */
+	final BooleanField autoReviseEnabled = new BooleanField("revise.auto.enabled", true);
 
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
