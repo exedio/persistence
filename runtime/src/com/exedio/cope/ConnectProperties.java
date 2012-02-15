@@ -61,10 +61,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * which cannot be used for java classes.
 	 */
 	final StringField revisionTableName = new StringField("schema.revision.table", "while");
-	
+
 	/**
-	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution 
-	 * of revisions if necessary; 
+	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
+	 * of revisions if necessary;
 	 * if false, it will throw an exception if revisions are pending.
 	 * Default is true.
 	 */

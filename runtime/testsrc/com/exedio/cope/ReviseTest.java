@@ -385,7 +385,7 @@ public class ReviseTest extends CopeAssert
 		model5.disconnect();
 		assertEquals( true, props.autoReviseEnabled.booleanValue() );
 		revisionsFactory5.assertEmpty();
-		
+
 		testSource.putOverride("revise.auto.enabled", "false");
 		final ConnectProperties cp = new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 		model5.connect(cp);
@@ -394,7 +394,7 @@ public class ReviseTest extends CopeAssert
 		model5.reviseIfSupportedAndAutoEnabled();
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
-		
+
 		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
@@ -408,7 +408,7 @@ public class ReviseTest extends CopeAssert
 		}
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
-		
+
 		testSource.putOverride("revise.auto.enabled", "true");
 		model5.connect( new ConnectProperties(testSource, ConnectProperties.SYSTEM_PROPERTY_SOURCE) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
@@ -425,7 +425,7 @@ public class ReviseTest extends CopeAssert
 		model5.tearDownSchema();
 		model5.disconnect();
 	}
-	
+
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
@@ -603,7 +603,7 @@ public class ReviseTest extends CopeAssert
 			return revisions;
 		}
 	}
-	
+
 	static final class TestSource implements Source
 	{
 		Source fallback;
@@ -640,7 +640,7 @@ public class ReviseTest extends CopeAssert
 		{
 			overrides.put( key, value );
 		}
-		
+
 	}
-	
+
 }

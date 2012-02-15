@@ -294,7 +294,7 @@ public final class PriceTest extends CopeAssert
 	{
 		return BigDecimal.valueOf(unscaledVal, scale);
 	}
-	
+
 	public void testLessThan()
 	{
 		assertEquals(true, storeOf(122).lessThan(storeOf(123)));

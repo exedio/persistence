@@ -158,7 +158,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return Compare.compare(store, o.store);
 	}
-	
+
 	public boolean lessThan(final Price o)
 	{
 		return store<o.store;
@@ -178,7 +178,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return store>=o.store;
 	}
-	
+
 	/** @return this if this price is lower than the other one; otherwise the other one */
 	public Price getLower(final Price o)
 	{
@@ -204,7 +204,7 @@ public final class Price implements Serializable, Comparable<Price>
 			return o;
 		}
 	}
-	
+
 	@Override
 	public String toString()
 	{
