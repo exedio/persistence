@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SetField#create forbids optional element fields.
+	This breaks backwards API compatibility.
 * MapField#create forbids optional key fields.
 	This causes DynamicModel#create to forbid optional locale fields as well.
 	This breaks backwards API compatibility.

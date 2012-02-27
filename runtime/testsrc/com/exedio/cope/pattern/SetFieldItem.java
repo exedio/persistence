@@ -26,7 +26,7 @@ import com.exedio.cope.StringField;
 
 public class SetFieldItem extends Item
 {
-	static final SetField<String> strings = SetField.create(new StringField().optional().lengthRange(4, 8));
+	static final SetField<String> strings = SetField.create(new StringField().lengthRange(4, 8));
 	static final SetField<Date> dates = SetField.create(new DateField());
 
 
@@ -90,6 +90,7 @@ public class SetFieldItem extends Item
 	 */
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
@@ -104,6 +105,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean addToStrings(final String element)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
@@ -118,6 +120,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean removeFromStrings(final String element)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{

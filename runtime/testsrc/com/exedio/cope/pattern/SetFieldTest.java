@@ -177,6 +177,15 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
+			SetField.create(new StringField().optional());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("element must be mandatory", e.getMessage());
+		}
+		try
+		{
 			SetField.create(new StringField().unique());
 			fail();
 		}
@@ -256,11 +265,11 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("zack2", r1x.get(stringsElement));
 		assertEquals("zack3", r2.get(stringsElement));
 
-		item.setStrings(listg("null1", null, "null3", "null4"));
-		assertContainsUnmodifiable("null1", null, "null3", "null4", item.getStrings());
+		item.setStrings(listg("null1", "null2", "null3", "null4"));
+		assertContainsUnmodifiable("null1", "null2", "null3", "null4", item.getStrings());
 		assertContains(item, item.getParentsOfStrings("null1"));
-		assertContains(item, item.getParentsOfStrings(null));
-		assertContains(item.getParentsOfStrings("null2"));
+		assertContains(item.getParentsOfStrings(null));
+		assertContains(item, item.getParentsOfStrings("null2"));
 		final Item r3;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -272,7 +281,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		assertEquals("null1", r0.get(stringsElement));
 		assertFalse(r1.existsCopeItem());
-		assertEquals(null, r1x.get(stringsElement));
+		assertEquals("null2", r1x.get(stringsElement));
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
@@ -422,15 +431,15 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertContains(item.getParentsOfStrings(gelb));
 		assertContains(item.getParentsOfStrings(null));
 
-		item.setStrings(listg(rot, null, blau));
-		assertContainsUnmodifiable(rot, blau, null, item.getStrings());
-		otherItem.setStrings(listg((String)null));
-		assertContainsUnmodifiable(null, otherItem.getStrings());
+		item.setStrings(listg(rot, gelb, blau));
+		assertContainsUnmodifiable(rot, blau, gelb, item.getStrings());
+		otherItem.setStrings(listg(gelb));
+		assertContainsUnmodifiable(gelb, otherItem.getStrings());
 
 		assertContains(item, item.getParentsOfStrings(rot));
 		assertContains(item, item.getParentsOfStrings(blau));
-		assertContains(item.getParentsOfStrings(gelb));
-		assertContains(item, otherItem, item.getParentsOfStrings(null));
+		assertContains(item, otherItem, item.getParentsOfStrings(gelb));
+		assertContains(item.getParentsOfStrings(null));
 	}
 
 	public void testEmpty() throws Exception
