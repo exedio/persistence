@@ -51,6 +51,8 @@ public final class MapField<K,V> extends Pattern
 		this.value = value;
 		if(key==null)
 			throw new NullPointerException("key");
+		if(!key.isMandatory())
+			throw new IllegalArgumentException("key must be mandatory");
 		if(key.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("key must not be unique");
 		if(value==null)
