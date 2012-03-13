@@ -48,7 +48,7 @@ public class DatabaseLogListener implements DatabaseListener
 		return threshold;
 	}
 
-	public String getSql()
+	public String getSQL()
 	{
 		return sql;
 	}
