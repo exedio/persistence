@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class DatabaseLogListener implements DatabaseListener
+public final class DatabaseLogListener implements DatabaseListener
 {
 	private final long date;
 	private final int threshold;
