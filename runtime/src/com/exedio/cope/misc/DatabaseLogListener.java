@@ -43,6 +43,11 @@ public class DatabaseLogListener implements DatabaseListener
 		this.out = out;
 	}
 
+	public Date getDate()
+	{
+		return new Date(date);
+	}
+
 	public int getThreshold()
 	{
 		return threshold;
@@ -51,11 +56,6 @@ public class DatabaseLogListener implements DatabaseListener
 	public String getSQL()
 	{
 		return sql;
-	}
-
-	public Date getDate()
-	{
-		return new Date(date);
 	}
 
 	public void onStatement(
