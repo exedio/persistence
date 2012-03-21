@@ -26,8 +26,8 @@ import java.util.List;
 public class DatabaseLogListener implements DatabaseListener
 {
 	private final long date;
-	final int threshold;
-	final String sql;
+	private final int threshold;
+	private final String sql;
 	private final PrintStream out;
 
 	public DatabaseLogListener(final int threshold, final String sql, final PrintStream out)
