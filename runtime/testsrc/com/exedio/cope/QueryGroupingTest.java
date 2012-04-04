@@ -106,8 +106,8 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testUngroupedSelect()
 	{
-		final GroupItem item1 = deleteOnTearDown( new GroupItem(day1, 1) );
-		final GroupItem item2 = deleteOnTearDown( new GroupItem(day2, 2) );
+		deleteOnTearDown( new GroupItem(day1, 1) );
+		deleteOnTearDown( new GroupItem(day2, 2) );
 		final Query<?> query = Query.newQuery( new Selectable[]{GroupItem.day, GroupItem.number}, GroupItem.TYPE, Condition.TRUE );
 		query.setGroupBy( GroupItem.number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
@@ -190,6 +190,12 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.search()
 		);
 
-
+		query.setGroupBy( GroupItem.day );
+		query.setSelects( GroupItem.day, new CountSelectable() );
+		assertContains(
+			list(day1, 4), list(day2, 1),
+			query.search()
+		);
 	}
+
 }
