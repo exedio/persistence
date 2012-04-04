@@ -232,6 +232,6 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	boolean supportsSelectingUngrouped()
 	{
-		return true;
+		return false;
 	}
 }
