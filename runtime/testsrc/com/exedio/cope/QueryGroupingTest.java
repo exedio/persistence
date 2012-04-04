@@ -198,4 +198,51 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		);
 	}
 
+	public void testSorting()
+	{
+		final GroupItem item2 = deleteOnTearDown( new GroupItem(day1, 1) );
+		item2.setOptionalDouble( 2.0 );
+		final GroupItem item1 = deleteOnTearDown( new GroupItem(day1, 2) );
+		item1.setOptionalDouble( 1.0 );
+		deleteOnTearDown( new GroupItem(day2, 3) );
+
+		final Query<?> query = Query.newQuery(
+			new Selectable[]{GroupItem.optionalDouble, GroupItem.number.sum(), new CountSelectable()}, GroupItem.TYPE, Condition.TRUE
+		);
+		query.setGroupBy( GroupItem.optionalDouble );
+		query.setOrderBy( GroupItem.optionalDouble, true );
+		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble", query.toString() );
+		if ( model.nullsAreSortedLow() )
+		{
+			assertContains(
+				list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1),
+				query.search()
+			);
+		}
+		else
+		{
+			assertContains(
+				list(1.0, 2, 1), list(2.0, 1, 1), list(null, 3, 1),
+				query.search()
+			);
+		}
+
+		query.setOrderBy( GroupItem.optionalDouble, false );
+		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble desc", query.toString() );
+		if ( model.nullsAreSortedLow() )
+		{
+			assertContains(
+				list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1),
+				query.search()
+			);
+		}
+		else
+		{
+			assertContains(
+				list(2.0, 1, 1), list(1.0, 2, 1), list(null, 3, 1),
+				query.search()
+			);
+		}
+	}
+
 }
