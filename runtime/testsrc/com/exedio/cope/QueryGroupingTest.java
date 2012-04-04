@@ -189,5 +189,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			list(day1, 1, 2), list(day1, 2, 1), list(day1, 1, 1), list(day1, 2, 2), list(day2, 3, 3),
 			query.search()
 		);
+
+
 	}
 }

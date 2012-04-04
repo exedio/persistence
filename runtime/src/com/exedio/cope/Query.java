@@ -946,7 +946,7 @@ public final class Query<R> implements Serializable
 				{
 					bf.append(',');
 				}
-				this.groupBy[i].append( bf, null);
+				bf.appendSelect(groupBy[i], null);
 			}
 		}
 
