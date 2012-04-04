@@ -35,6 +35,7 @@ import java.util.Date;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
+import java.util.List;
 
 public class CompareConditionTest extends AbstractRuntimeTest
 {
@@ -306,5 +307,41 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		}
 
 		model.checkUnsupportedConstraints();
+	}
+	
+	public void testGroup()
+	{
+		deleteOnTearDown( new CompareConditionItem( "s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1 ) );
+		deleteOnTearDown( new CompareConditionItem( "s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1 ) );
+		final Query<List<Object>> q = Query.newQuery( new Selectable[]{day, intx/*.sum()*/}, CompareConditionItem.TYPE, Condition.TRUE );
+		
+		assertContainsList( 
+			list(
+				list(day(-2), 1),
+				list(day(-1), 2),
+				list(day(0), 3),
+				list(day(0), 10),
+				list(day(1), 4),
+				list(day(2), 5),
+				list(day(2), 20),
+				list(null, null)
+			),
+			q.search()
+		);
+		
+		q.setGroupBy( day );
+		q.setSelects( day, intx.sum() );
+		assertEquals( "select day,sum(intx) from CompareConditionItem group by day", q.toString() );
+		assertContains( 
+			list(day(-2), 1),
+			list(day(-1), 2),
+			list(day(0), 13),
+			list(day(1), 4),
+			list(day(2), 25),
+			list(null, null),
+			q.search()
+		);
+		
+		
 	}
 }

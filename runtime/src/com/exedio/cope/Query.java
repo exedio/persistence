@@ -39,6 +39,7 @@ public final class Query<R> implements Serializable
 	final Model model;
 	private Selectable<? extends R> selectSingle;
 	private Selectable[] selectsMulti;
+	private Selectable[] groupBy;
 	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
@@ -161,6 +162,14 @@ public final class Query<R> implements Serializable
 			throw new IllegalStateException("use setSelect instead");
 		assert selectSingle==null;
 		this.selectsMulti = selectsCopy;
+	}
+
+	/** grouping functionality is 'beta' - API may change */
+	public void setGroupBy( final Selectable... groupBy )
+	{
+		if(selectsMulti==null)
+			throw new IllegalStateException("grouping not supported for single-select queries");
+		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
 	}
 
 	private static final Selectable[] checkAndCopy(final Selectable[] selects)
@@ -799,6 +808,18 @@ public final class Query<R> implements Serializable
 			bf.append(" where ");
 			condition.toString(bf, key, type);
 		}
+		
+		if(groupBy!=null)
+		{
+			bf.append(" group by ");
+			for(int i = 0; i<groupBy.length; i++)
+			{
+				if(i>0)
+					bf.append(',');
+
+				groupBy[i].toString(bf, type);
+			}
+		}
 
 		if(!totalOnly)
 		{
@@ -914,6 +935,19 @@ public final class Query<R> implements Serializable
 		{
 			bf.append(" where ");
 			this.condition.append(bf);
+		}
+		
+		if (this.groupBy!=null)
+		{
+			bf.append(" group by ");
+			for ( int i=0; i<groupBy.length; i++ )
+			{
+				if ( i>0 )
+				{
+					bf.append(',');
+				}
+				this.groupBy[i].append( bf, null);
+			}
 		}
 
 		if(!totalOnly)

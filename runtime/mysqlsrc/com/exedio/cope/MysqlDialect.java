@@ -421,4 +421,14 @@ final class MysqlDialect extends Dialect
 
 		return message.substring(infixEnd, postfixPosition);
 	}
+
+	@Override
+	boolean supportsSelectingUngrouped()
+	{
+		// TODO:
+		// MySQL supports this in the default configuration, but it can be disabled
+		// http://dev.mysql.com/doc/refman/5.0/en/server-sql-mode.html#sqlmode_only_full_group_by
+		return true;
+	}
+
 }

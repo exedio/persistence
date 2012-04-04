@@ -301,6 +301,18 @@ public final class Model implements Serializable
 	}
 
 	/**
+	 * Returns true if, in a group-by query, the database allows selecting values
+	 * that are neither group-by values nor aggregates.
+	 * <p>
+	 * MySQL allows such selections and returns the values of a random line
+	 * matching the respective grouping.
+	 */
+	public boolean supportsSelectingUngrouped()
+	{
+		return connect().dialect.supportsSelectingUngrouped();
+	}
+
+	/**
 	 * @see Random
 	 */
 	public boolean supportsRandom()

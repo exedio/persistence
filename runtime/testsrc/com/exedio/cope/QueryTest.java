@@ -336,4 +336,24 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(actual.equals(expected));
 		assertFalse(actual.hashCode()==expected.hashCode());
 	}
+
+	public void testGroupBy()
+	{
+		final DayItem item1 = deleteOnTearDown( new DayItem(d1) );
+		final DayItem item2a = deleteOnTearDown( new DayItem(d2) );
+		final DayItem item2b = deleteOnTearDown( new DayItem(d2) );
+		final DayItem item3 = deleteOnTearDown( new DayItem(d3) );
+
+		assertContains(
+			item1, item2a, item2b, item3,
+			DayItem.TYPE.search()
+		);
+		final Query<?> query = Query.newQuery( new Selectable[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
+		query.setGroupBy( DayItem.day );
+
+		assertContains(
+			list(d1, d1), list(d2, d2), list(d3, d3),
+			query.search()
+		);
+	}
 }

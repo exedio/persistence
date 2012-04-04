@@ -1019,4 +1019,46 @@
 		</copy>
 	</target>
 
+	<target name="single.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
+		<fail unless="testpath">provide test class path name</fail>
+		<propertyregex property="testclass"
+							input="${testpath}"
+							regexp="(.*testsrc\.)?(.*)"
+							select="\2"/>
+		<mkdir dir="build/testresults" />
+		<foreachEnvironment skipSwitch="runtime.test">
+			<body>
+				<junit taskname="junit @{env}" fork="yes"
+						 haltonerror="true" haltonfailure="true"
+						 dir="${basedir}"
+						 showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<formatter type="xml" />
+					<classpath>
+						<pathelement location="build/classes/dsmf/src" />
+						<pathelement location="build/classes/runtime/src" />
+						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/patternsrc" />
+						<pathelement location="build/classes/runtime/servletsrc" />
+						<pathelement location="build/classes/runtime/junitsrc" />
+						<pathelement location="build/classes/runtime/testfeaturesrc" />
+						<pathelement location="build/classes/runtime/testsrc" />
+						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/exedio-cope-util.jar" />
+					</classpath>
+					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
+					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
+					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
+					<assertions><enable/></assertions>
+				</junit>
+			</body>
+		</foreachEnvironment>
+	</target>
+
 </project>
