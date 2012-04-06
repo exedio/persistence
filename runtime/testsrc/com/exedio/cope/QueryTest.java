@@ -349,8 +349,10 @@ public class QueryTest extends AbstractRuntimeTest
 			DayItem.TYPE.search()
 		);
 		final Query<?> query = Query.newQuery( new Selectable[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
-		query.setGroupBy( DayItem.day );
+		assertEquals("select day,day from DayItem", query.toString());
 
+		query.setGroupBy( DayItem.day );
+		assertEquals("select day,day from DayItem group by day", query.toString());
 		assertContains(
 			list(d1, d1), list(d2, d2), list(d3, d3),
 			query.search()
