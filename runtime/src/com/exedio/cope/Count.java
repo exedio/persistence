@@ -23,7 +23,7 @@ package com.exedio.cope;
  * <p>
  * Grouping functionality is 'beta' - API may change
  */
-public class CountSelectable implements Selectable<Integer>
+public class Count implements Selectable<Integer>
 {
 	private static final long serialVersionUID = 1l;
 

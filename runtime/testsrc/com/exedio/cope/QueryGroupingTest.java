@@ -97,7 +97,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.optionalDouble.sum(), new CountSelectable() );
+		query.setSelects( GroupItem.day, GroupItem.optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day2, 4.5, 2),
 			query.search()
@@ -188,7 +188,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum(), new CountSelectable() );
+		query.setSelects( GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day1, 1, 10.0, 1), list(day2, 2, 20.0, 1), list(day2, 3, 52.0, 2),
 			query.search()
@@ -213,7 +213,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		);
 
 		query.setGroupBy( GroupItem.day );
-		query.setSelects( GroupItem.day, new CountSelectable() );
+		query.setSelects( GroupItem.day, new Count() );
 		assertContains(
 			list(day1, 4), list(day2, 1),
 			query.search()
@@ -229,7 +229,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		deleteOnTearDown( new GroupItem(day2, 3) );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable[]{GroupItem.optionalDouble, GroupItem.number.sum(), new CountSelectable()}, GroupItem.TYPE, Condition.TRUE
+			new Selectable[]{GroupItem.optionalDouble, GroupItem.number.sum(), new Count()}, GroupItem.TYPE, Condition.TRUE
 		);
 		query.setGroupBy( GroupItem.optionalDouble );
 		query.setOrderBy( GroupItem.optionalDouble, true );
