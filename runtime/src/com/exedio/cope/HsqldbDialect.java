@@ -280,10 +280,4 @@ final class HsqldbDialect extends Dialect
 			}
 		});
 	}
-
-	@Override
-	boolean supportsSelectingUngrouped()
-	{
-		return false;
-	}
 }

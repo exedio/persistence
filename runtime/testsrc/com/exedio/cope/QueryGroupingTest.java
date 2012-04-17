@@ -133,23 +133,13 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		final Query<?> query = Query.newQuery( new Selectable[]{GroupItem.day, GroupItem.number}, GroupItem.TYPE, Condition.TRUE );
 		query.setGroupBy( GroupItem.number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
-		if ( model.supportsSelectingUngrouped() )
+		try
 		{
-			assertContains(
-				list(day1, 1), list(day2, 2),
-				query.search()
-			);
+			fail( query.search().toString() );
 		}
-		else
+		catch ( SQLRuntimeException e )
 		{
-			try
-			{
-				fail( query.search().toString() );
-			}
-			catch ( SQLRuntimeException e )
-			{
-				// fine
-			}
+			// fine
 		}
 	}
 

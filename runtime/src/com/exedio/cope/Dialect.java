@@ -152,8 +152,6 @@ abstract class Dialect
 		return false;
 	}
 
-	abstract boolean supportsSelectingUngrouped();
-
 	boolean fakesSupportTransactionIsolationReadCommitted()
 	{
 		return false;

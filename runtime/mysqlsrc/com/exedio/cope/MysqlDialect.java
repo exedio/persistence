@@ -96,7 +96,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	private static final String CHARSET = "utf8";
-	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES";
+	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES,ONLY_FULL_GROUP_BY";
 	private static final String TRUE = "true";
 
 	@Override
@@ -421,14 +421,4 @@ final class MysqlDialect extends Dialect
 
 		return message.substring(infixEnd, postfixPosition);
 	}
-
-	@Override
-	boolean supportsSelectingUngrouped()
-	{
-		// TODO:
-		// MySQL supports this in the default configuration, but it can be disabled
-		// http://dev.mysql.com/doc/refman/5.0/en/server-sql-mode.html#sqlmode_only_full_group_by
-		return true;
-	}
-
 }

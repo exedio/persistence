@@ -459,10 +459,4 @@ final class OracleDialect extends Dialect
 			}
 		});
 	}
-
-	@Override
-	boolean supportsSelectingUngrouped()
-	{
-		return false;
-	}
 }
