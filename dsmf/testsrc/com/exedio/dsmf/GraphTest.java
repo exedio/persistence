@@ -37,8 +37,8 @@ public class GraphTest extends TestCase
 
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
 			public Connection getConnection() { throw new RuntimeException(); }
-			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }
+			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 		});
 	}
 
