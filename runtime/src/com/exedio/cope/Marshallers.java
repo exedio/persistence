@@ -38,17 +38,17 @@ final class Marshallers
 	{
 		put(SimpleSelectType.STRING, new Marshaller<String>(1) {
 			@Override
-			public String unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			String unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				return row.getString(columnIndex);
 			}
 			@Override
-			public String marshal(final String value)
+			String marshal(final String value)
 			{
 				return StringColumn.cacheToDatabaseStatic(value);
 			}
 			@Override
-			public Object marshalPrepared(final String value)
+			Object marshalPrepared(final String value)
 			{
 				return value;
 			}
@@ -56,7 +56,7 @@ final class Marshallers
 		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
 			@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
-			public Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final Object cell = row.getObject(columnIndex);
 				if(cell==null)
@@ -73,19 +73,19 @@ final class Marshallers
 				}
 			}
 			@Override
-			public String marshal(final Boolean value)
+			String marshal(final Boolean value)
 			{
 				return value.booleanValue() ? "1" : "0";
 			}
 			@Override
-			public Object marshalPrepared(final Boolean value)
+			Object marshalPrepared(final Boolean value)
 			{
 				return value.booleanValue() ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
 		put(SimpleSelectType.INTEGER, new Marshaller<Integer>(1) {
 			@Override
-			public Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final Object cell = row.getObject(columnIndex);
 				return
@@ -96,19 +96,19 @@ final class Marshallers
 						: Integer.valueOf(((Number)cell).intValue());
 			}
 			@Override
-			public String marshal(final Integer value)
+			String marshal(final Integer value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Integer value)
+			Object marshalPrepared(final Integer value)
 			{
 				return value;
 			}
 		});
 		put(SimpleSelectType.LONG, new Marshaller<Long>(1) {
 			@Override
-			public Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final Object cell = row.getObject(columnIndex);
 				return (cell!=null) ? convert(cell) : null;
@@ -123,19 +123,19 @@ final class Marshallers
 			}
 
 			@Override
-			public String marshal(final Long value)
+			String marshal(final Long value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Long value)
+			Object marshalPrepared(final Long value)
 			{
 				return value;
 			}
 		});
 		put(SimpleSelectType.DOUBLE, new Marshaller<Double>(1) {
 			@Override
-			public Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final Object cell = row.getObject(columnIndex);
 				//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
@@ -151,12 +151,12 @@ final class Marshallers
 			}
 
 			@Override
-			public String marshal(final Double value)
+			String marshal(final Double value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Double value)
+			Object marshalPrepared(final Double value)
 			{
 				return value;
 			}
@@ -165,14 +165,14 @@ final class Marshallers
 		put(SimpleSelectType.DATE, supportsNativeDate
 			? new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
 					final Timestamp cell = row.getTimestamp(columnIndex);
 					return (cell!=null) ? new Date(cell.getTime()) : null;
 				}
 
 				@Override
-				public String marshal(final Date value)
+				String marshal(final Date value)
 				{
 					// Don't use a static instance,
 					// since then access must be synchronized
@@ -180,25 +180,25 @@ final class Marshallers
 				}
 
 				@Override
-				public Object marshalPrepared(final Date value)
+				Object marshalPrepared(final Date value)
 				{
 					return new Timestamp(value.getTime());
 				}
 			}
 			: new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
 					final Object cell = row.getObject(columnIndex);
 					return (cell!=null) ? new Date(((Number)cell).longValue()) : null;
 				}
 				@Override
-				public String marshal(final Date value)
+				String marshal(final Date value)
 				{
 					return String.valueOf(value.getTime());
 				}
 				@Override
-				public Object marshalPrepared(final Date value)
+				Object marshalPrepared(final Date value)
 				{
 					return value.getTime();
 				}
@@ -206,13 +206,13 @@ final class Marshallers
 
 		put(SimpleSelectType.DAY, new Marshaller<Day>(1) {
 			@Override
-			public Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final java.sql.Date cell = row.getDate(columnIndex);
 				return (cell!=null) ? new Day(cell) : null;
 			}
 			@Override
-			public String marshal(final Day value)
+			String marshal(final Day value)
 			{
 				// Don't use a static instance,
 				// since then access must be synchronized
@@ -221,7 +221,7 @@ final class Marshallers
 				return "{d '"+value.getYear()+'-'+nf.format(value.getMonth())+'-'+nf.format(value.getDay())+"'}";
 			}
 			@Override
-			public Object marshalPrepared(final Day value)
+			Object marshalPrepared(final Day value)
 			{
 				return new Timestamp(value.getTimeInMillisFrom());
 			}

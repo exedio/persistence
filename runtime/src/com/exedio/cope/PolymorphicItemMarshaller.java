@@ -34,7 +34,7 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
 		final Object pkCell = row.getObject(columnIndex);
 		final String typeCell = row.getString(columnIndex + 1);
@@ -53,13 +53,13 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 	}
 
 	@Override
-	public String marshal(final E value)
+	String marshal(final E value)
 	{
 		return String.valueOf(value.pk);
 	}
 
 	@Override
-	public Object marshalPrepared(final E value)
+	Object marshalPrepared(final E value)
 	{
 		return value.pk;
 	}
