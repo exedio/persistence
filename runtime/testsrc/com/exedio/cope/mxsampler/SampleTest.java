@@ -40,25 +40,25 @@ public class SampleTest extends ConnectedTest
 		samplerModel.commit();
 
 		final Date before55 = new Date();
-		final MxSamplerGlobal model55 = sampler.sampleInternal();
+		final MxSamplerGlobal global55 = sampler.sampleInternal();
 		final Date after55 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<MxSamplerGlobal> iter = MxSamplerGlobal.TYPE.search().iterator();
-			assertIt(model55, sampler, before55, after55, 0, iter.next());
+			assertIt(global55, sampler, before55, after55, 0, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
 
 		waitForSystemTimeChange();
 		final Date before66 = new Date();
-		final MxSamplerGlobal model66 = sampler.sampleInternal();
+		final MxSamplerGlobal global66 = sampler.sampleInternal();
 		final Date after66 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<MxSamplerGlobal> iter = iter(MxSamplerGlobal.TYPE);
-			assertEquals(model55, iter.next());
-			assertIt(model66, sampler, before66, after66, 1, iter.next());
+			assertEquals(global55, iter.next());
+			assertIt(global66, sampler, before66, after66, 1, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
