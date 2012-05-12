@@ -36,11 +36,11 @@ final class Marshallers
 
 	Marshallers(final boolean supportsNativeDate)
 	{
-		put(SimpleSelectType.STRING, new Marshaller<String>() {
+		put(SimpleSelectType.STRING, new Marshaller<String>(1) {
 			@Override
-			public String unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public String unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				return row.getString(columnIndex.value++);
+				return row.getString(columnIndex);
 			}
 			@Override
 			public String marshal(final String value)
@@ -53,12 +53,12 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>() {
+		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
 			@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
-			public Boolean unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				if(cell==null)
 					return null;
 
@@ -83,11 +83,11 @@ final class Marshallers
 				return value.booleanValue() ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
-		put(SimpleSelectType.INTEGER, new Marshaller<Integer>() {
+		put(SimpleSelectType.INTEGER, new Marshaller<Integer>(1) {
 			@Override
-			public Integer unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				return
 					(cell==null)
 					? null
@@ -106,11 +106,11 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.LONG, new Marshaller<Long>() {
+		put(SimpleSelectType.LONG, new Marshaller<Long>(1) {
 			@Override
-			public Long unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				return (cell!=null) ? convert(cell) : null;
 			}
 
@@ -133,11 +133,11 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.DOUBLE, new Marshaller<Double>() {
+		put(SimpleSelectType.DOUBLE, new Marshaller<Double>(1) {
 			@Override
-			public Double unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
 				return (cell!=null) ? convert(cell) : null;
 			}
@@ -163,11 +163,11 @@ final class Marshallers
 		});
 
 		put(SimpleSelectType.DATE, supportsNativeDate
-			? new Marshaller<Date>() {
+			? new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+				public Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Timestamp cell = row.getTimestamp(columnIndex.value++);
+					final Timestamp cell = row.getTimestamp(columnIndex);
 					return (cell!=null) ? new Date(cell.getTime()) : null;
 				}
 
@@ -185,11 +185,11 @@ final class Marshallers
 					return new Timestamp(value.getTime());
 				}
 			}
-			: new Marshaller<Date>() {
+			: new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+				public Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Object cell = row.getObject(columnIndex.value++);
+					final Object cell = row.getObject(columnIndex);
 					return (cell!=null) ? new Date(((Number)cell).longValue()) : null;
 				}
 				@Override
@@ -204,11 +204,11 @@ final class Marshallers
 				}
 			});
 
-		put(SimpleSelectType.DAY, new Marshaller<Day>() {
+		put(SimpleSelectType.DAY, new Marshaller<Day>(1) {
 			@Override
-			public Day unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			public Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final java.sql.Date cell = row.getDate(columnIndex.value++);
+				final java.sql.Date cell = row.getDate(columnIndex);
 				return (cell!=null) ? new Day(cell) : null;
 			}
 			@Override

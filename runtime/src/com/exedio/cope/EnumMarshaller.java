@@ -21,19 +21,20 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
+final class EnumMarshaller<E extends Enum<E>> extends Marshaller<E>
 {
 	private final EnumFieldType<E> type;
 
 	EnumMarshaller(final EnumFieldType<E> type)
 	{
+		super(1);
 		this.type = type;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	public E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object cell = row.getObject(columnIndex.value++);
+		final Object cell = row.getObject(columnIndex);
 		if(cell==null)
 			return null;
 

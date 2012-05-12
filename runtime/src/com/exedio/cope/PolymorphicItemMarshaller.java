@@ -22,21 +22,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-final class PolymorphicItemMarshaller<E extends Item> implements Marshaller<E>
+final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 {
 	private final HashMap<String, Type<? extends E>> typesOfInstancesMap;
 
 	PolymorphicItemMarshaller(final HashMap<String, Type<? extends E>> typesOfInstancesMap)
 	{
+		super(2);
 		this.typesOfInstancesMap = typesOfInstancesMap;
 		assert typesOfInstancesMap!=null;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	public E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object pkCell = row.getObject(columnIndex.value++);
-		final String typeCell = row.getString(columnIndex.value++);
+		final Object pkCell = row.getObject(columnIndex);
+		final String typeCell = row.getString(columnIndex + 1);
 
 		if((pkCell==null)!=(typeCell==null))
 			throw new RuntimeException("inconsistent type column " + pkCell + '/' + typeCell);

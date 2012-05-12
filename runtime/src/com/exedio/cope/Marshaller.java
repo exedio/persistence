@@ -21,15 +21,23 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-interface Marshaller<E>
+abstract class Marshaller<E>
 {
+	final int columns;
+
+	Marshaller(final int columns)
+	{
+		this.columns = columns;
+		assert columns>0;
+	}
+
 	/**
 	 * @param resultSet
 	 *        For any implementor it is strictly forbidden
 	 *        to change the position of the cursor of the result set.
 	 */
-	E unmarshal(ResultSet resultSet, IntHolder columnIndex) throws SQLException;
+	abstract E unmarshal(ResultSet resultSet, int columnIndex) throws SQLException;
 
-	String marshal(final E value);
-	Object marshalPrepared(final E value);
+	abstract String marshal(final E value);
+	abstract Object marshalPrepared(final E value);
 }

@@ -808,7 +808,7 @@ public final class Query<R> implements Serializable
 			bf.append(" where ");
 			condition.toString(bf, key, type);
 		}
-		
+
 		if(groupBy!=null)
 		{
 			bf.append(" group by ");
@@ -936,7 +936,7 @@ public final class Query<R> implements Serializable
 			bf.append(" where ");
 			this.condition.append(bf);
 		}
-		
+
 		if (this.groupBy!=null)
 		{
 			bf.append(" group by ");
@@ -1026,13 +1026,14 @@ public final class Query<R> implements Serializable
 					if((--sizeLimitCountDown)<0)
 						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
 
-					final IntHolder columnIndex = new IntHolder(1);
+					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
 						final Object resultCell =
 							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
+						columnIndex += selectMarshallers[selectIndex].columns;
 						if(resultRow!=null)
 							resultRow[selectIndex] = resultCell;
 						else

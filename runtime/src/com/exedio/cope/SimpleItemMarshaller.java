@@ -21,20 +21,21 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-final class SimpleItemMarshaller<E extends Item> implements Marshaller<E>
+final class SimpleItemMarshaller<E extends Item> extends Marshaller<E>
 {
 	private final Type<? extends E> onlyPossibleTypeOfInstances;
 
 	SimpleItemMarshaller(final Type<? extends E> onlyPossibleTypeOfInstances)
 	{
+		super(1);
 		this.onlyPossibleTypeOfInstances = onlyPossibleTypeOfInstances;
 		assert onlyPossibleTypeOfInstances!=null;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	public E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object cell = row.getObject(columnIndex.value++);
+		final Object cell = row.getObject(columnIndex);
 		if(cell==null)
 			return null;
 
