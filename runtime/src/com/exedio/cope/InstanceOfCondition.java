@@ -108,7 +108,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				throw new IllegalArgumentException("type " + type + " is not assignable from type " + t);
 
 			for(final Type ti : t.getTypesOfInstances())
-				typeIds.add(ti.id);
+				typeIds.add(ti.schemaId);
 		}
 
 		if(typeIds.isEmpty())

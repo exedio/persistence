@@ -74,6 +74,11 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		model.clearCache();
 		assertEquals(item, refItem.getRef());
 		assertEquals(list(item), new Query<SchemaNamePolymorphicSuperItem>(SchemaNamePolymorphicRefItem.ref).search());
+		// test whether InstanceOfCondition actually uses schemaId
+		assertEquals(list(refItem), SchemaNamePolymorphicRefItem.TYPE.search(SchemaNamePolymorphicRefItem.ref.instanceOf(SchemaNamePolymorphicSuperItem.TYPE)));
+		assertEquals(list(refItem), SchemaNamePolymorphicRefItem.TYPE.search(SchemaNamePolymorphicRefItem.ref.instanceOf(SchemaNamePolymorphicSubItem.TYPE)));
+		assertEquals(list(item), SchemaNamePolymorphicSuperItem.TYPE.search(SchemaNamePolymorphicSuperItem.TYPE.getThis().instanceOf(SchemaNamePolymorphicSuperItem.TYPE)));
+		assertEquals(list(item), SchemaNamePolymorphicSuperItem.TYPE.search(SchemaNamePolymorphicSuperItem.TYPE.getThis().instanceOf(SchemaNamePolymorphicSubItem.TYPE)));
 
 		restartTransaction();
 		{
