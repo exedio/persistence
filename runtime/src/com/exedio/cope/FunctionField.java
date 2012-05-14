@@ -216,18 +216,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		final Row dummyRow = new Row();
-		set(dummyRow, value);
-		final Column column = getColumn();
-		bf.appendParameter(column, dummyRow.get(column));
-	}
-
-	/**
 	 * Returns the unique constraint of this field,
 	 * that has been created implicitly when creating this field.
 	 * Does return null, if there is no such unique constraint.
