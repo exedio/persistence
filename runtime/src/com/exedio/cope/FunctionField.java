@@ -212,8 +212,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
-		final Column column = getColumn();
-		bf.append(column, join);
+		bf.append(getColumn(), join);
 	}
 
 	/**
