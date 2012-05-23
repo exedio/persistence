@@ -16,6 +16,12 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
+                    <label>instrument/annosrc</label>
+                    <type>java</type>
+                    <location>instrument/annosrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>instrument/src</label>
                     <type>java</type>
                     <location>instrument/src</location>
@@ -163,6 +169,10 @@
             <view>
                 <items>
                     <source-folder style="packages">
+                        <label>instrument/annosrc</label>
+                        <location>instrument/annosrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>instrument/src</label>
                         <location>instrument/src</location>
                     </source-folder>
@@ -235,7 +245,7 @@
                         <location>runtime/mysqlsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/postgresqlsrc</label>
+                        <label>runtime\postgresqlsrc</label>
                         <location>runtime/postgresqlsrc</location>
                     </source-folder>
                     <source-file>
@@ -268,6 +278,7 @@
                 <package-root>runtime/servlettestsrc</package-root>
                 <package-root>runtime/servlettestweb</package-root>
                 <package-root>runtime/junitsrc</package-root>
+                <package-root>runtime/testfeaturesrc</package-root>
                 <package-root>copernica/webtestsrc</package-root>
                 <package-root>copernica/testsrc</package-root>
                 <package-root>console/src</package-root>
@@ -275,11 +286,11 @@
                 <package-root>console/testsrc</package-root>
                 <package-root>dsmf/src</package-root>
                 <package-root>dsmf/testsrc</package-root>
-                <package-root>runtime/testfeaturesrc</package-root>
                 <package-root>runtime/utiltestsrc</package-root>
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar;lib/commons-fileupload.jar;lib/commons-io.jar;lib/cojen-sources.jar;lib/bsh-core.jar;lib/cojen.jar;lib/servlet-api.jar;lib/exedio-cope-util.jar;lib/exedio-cope-util.jar-src.zip;lib/junit.jar;lib/jdbc/hsqldb.jar;lib/jdbc/mysql-connector-java-5.0.3-bin.jar;lib/jdbc/postgresql-8.1-404.jdbc3.jar;lib/exedio-cops.jar;lib/ant-contrib.jar;lib/bsh-core.jar;lib/bsh-src.jar;lib/cojen-sources.jar;lib/cojen.jar;lib/exedio-cope-console.jar;lib/exedio-cope-util.jar;lib/exedio-cope-util.jar-src.zip;lib/exedio-cops.jar;lib/exedio-cops.jar-src.zip;lib/exedio-jspm.jar;lib/junit.jar;lib/log4j.jar;lib/servlet-api.jar;lib/servlet-api.jar-src.zip;lib/trove-src.jar;lib/trove.jar</classpath>
+                <package-root>instrument/annosrc</package-root>
+                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

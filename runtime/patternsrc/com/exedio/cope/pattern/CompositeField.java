@@ -34,6 +34,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -293,9 +294,19 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return isNullComponent.isNull();
 	}
 
+	public final Condition isNull(final Join join)
+	{
+		return isNullComponent.bind(join).isNull();
+	}
+
 	public IsNullCondition isNotNull()
 	{
 		return isNullComponent.isNotNull();
+	}
+
+	public final Condition isNotNull(final Join join)
+	{
+		return isNullComponent.bind(join).isNotNull();
 	}
 
 	// ------------------- deprecated stuff -------------------
