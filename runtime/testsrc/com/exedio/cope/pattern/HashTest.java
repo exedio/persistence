@@ -21,14 +21,16 @@ package com.exedio.cope.pattern;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Join;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.misc.Computed;
 
 public class HashTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(HashItem.TYPE);
+	public static final Model MODEL = new Model(HashItem.TYPE, HashItemHolder.TYPE);
 
 	public HashTest()
 	{
@@ -158,5 +160,42 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
+	}
+
+	public void testConditions()
+	{
+		HashItem item2 = deleteOnTearDown(new HashItem());
+		item2.setImplicitExternal("123");
+		HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
+		HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
+
+		assertEquals(list(item), HashItem.TYPE.search(HashItem.implicitExternal.isNull()));
+		assertEquals(list(item2), HashItem.TYPE.search(HashItem.implicitExternal.isNotNull()));
+
+		{
+			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			Join join1 = query.join(HashItem.TYPE);
+			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
+			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNull() );
+
+			Join join2 = query.join(HashItem.TYPE);
+			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
+			query.narrow( HashItem.implicitExternal.isNull(join2) );
+
+			assertEquals( list(h1), query.search() );
+		}
+
+		{
+			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			Join join1 = query.join(HashItem.TYPE);
+			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
+			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNotNull() );
+
+			Join join2 = query.join(HashItem.TYPE);
+			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
+			query.narrow( HashItem.implicitExternal.isNotNull(join2) );
+
+			assertEquals( list(h2), query.search() );
+		}
 	}
 }

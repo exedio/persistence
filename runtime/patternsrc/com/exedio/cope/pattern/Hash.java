@@ -360,6 +360,12 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.isNotNull();
 	}
 
+	public final Condition isNotNull(final Join join)
+	{
+		return storage.bind(join).isNotNull();
+	}
+
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

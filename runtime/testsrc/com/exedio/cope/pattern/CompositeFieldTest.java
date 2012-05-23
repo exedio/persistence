@@ -470,7 +470,6 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 			assertTrue( query.search().isEmpty() );
 		}
 
-
 		target1.setUno( null );
 	}
 }
