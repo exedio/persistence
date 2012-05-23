@@ -22,6 +22,7 @@ import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.instrument.Wrap;
 
 public abstract class MediaFilter extends CachedMedia
@@ -64,8 +65,20 @@ public abstract class MediaFilter extends CachedMedia
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		return source.isNull(join); // TODO check for getSupportedSourceContentTypes
+	}
+
+	@Override
 	public final Condition isNotNull()
 	{
 		return source.isNotNull(); // TODO check for getSupportedSourceContentTypes
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
+	{
+		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
 	}
 }

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
@@ -463,9 +464,19 @@ public abstract class MediaPath extends Pattern
 	public abstract Condition isNull();
 
 	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 */
+	public abstract Condition isNull(final Join join);
+
+	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
 	 */
 	public abstract Condition isNotNull();
+
+	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 */
+	public abstract Condition isNotNull(final Join join);
 
 
 	public final static class Log

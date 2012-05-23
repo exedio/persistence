@@ -24,12 +24,14 @@ import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Join;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 
 public final class MediaTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(MediaItem.TYPE);
+	static final Model MODEL = new Model(MediaItem.TYPE, MediaItemHolder.TYPE);
 
 	static
 	{
@@ -147,6 +149,43 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(1, item.photo.notModified.get());
 		assertEquals(1, item.photo.delivered.get());
 	}
+
+	public void testConditions()
+	{
+		MediaItem item2 = deleteOnTearDown(new MediaItem("other media item"));
+		deleteOnTearDown(new MediaItemHolder(item));
+		MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
+
+		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull()));
+		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));
+
+		{
+			Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			Join join1 = query.join(MediaItem.TYPE);
+			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+
+			Join join2 = query.join(MediaItem.TYPE);
+			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			query.narrow( MediaItem.photo.isNull(join2) );
+
+			assertEquals( list(m2), query.search() );
+		}
+
+		{
+			Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			Join join1 = query.join(MediaItem.TYPE);
+			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+
+			Join join2 = query.join(MediaItem.TYPE);
+			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			query.narrow( MediaItem.photo.isNotNull(join2) );
+
+			assertEquals( list(), query.search() );
+		}
+	}
+
 
 	@Deprecated
 	public void testDeprecated()

@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 
 /**
@@ -66,7 +67,19 @@ final class MediaCustom extends MediaPath
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		throw new RuntimeException();
+	}
+
+	@Override
 	public Condition isNotNull()
+	{
+		throw new RuntimeException();
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
 	{
 		throw new RuntimeException();
 	}
