@@ -439,7 +439,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 	public void testBindingInConditions()
 	{
 		final CompositeItemHolder h1 = deleteOnTearDown(new CompositeItemHolder(target1));
-		final CompositeItemHolder h2 = deleteOnTearDown(new CompositeItemHolder(target2));
+		deleteOnTearDown(new CompositeItemHolder(target2));
 
 		final CompositeValue uno1 = new CompositeValue("uno1", 1, AnEnumClass.anEnumConstant1, target1);
 		target1.setUno( uno1 );
