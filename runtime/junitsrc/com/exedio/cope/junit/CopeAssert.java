@@ -196,7 +196,7 @@ public abstract class CopeAssert extends TestCase
 			}
 			catch(final UnsupportedOperationException e) {/*OK*/}
 
-			final Iterator iterator = c.iterator();
+			final Iterator<?> iterator = c.iterator();
 			try
 			{
 				iterator.next();
@@ -206,7 +206,7 @@ public abstract class CopeAssert extends TestCase
 			catch(final UnsupportedOperationException e) {/*OK*/}
 		}
 
-		if(c instanceof List)
+		if(c instanceof List<?>)
 		{
 			final List<T> l = (List<T>)c;
 
@@ -369,11 +369,11 @@ public abstract class CopeAssert extends TestCase
 	 * Calls {@link Query#search()} on the given query and returns the result.
 	 * Prints the statement info to standard out.
 	 */
-	public static final Collection infoSearch(final Query query)
+	public static final Collection<?> infoSearch(final Query<?> query)
 	{
 		final Transaction transaction = query.getType().getModel().currentTransaction();
 		transaction.setQueryInfoEnabled(true);
-		final Collection result = query.search();
+		final Collection<?> result = query.search();
 		System.out.println("INFO-------------------");
 		final List<QueryInfo> infos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);
