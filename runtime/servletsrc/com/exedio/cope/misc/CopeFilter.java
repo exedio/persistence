@@ -96,7 +96,10 @@ public final class CopeFilter implements Filter
 
 	public void destroy()
 	{
-		connectToken.returnIt();
-		connectToken = null;
+		if(connectToken!=null)
+		{
+			connectToken.returnIt();
+			connectToken = null;
+		}
 	}
 }

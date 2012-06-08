@@ -80,16 +80,19 @@ public class MediaServlet extends HttpServlet
 
 		connectToken = ServletUtil.getConnectedModel(this);
 
-		boolean mustDestroy = true;
+		boolean mustReturn = true;
 		try
 		{
 			initConnected();
-			mustDestroy = false;
+			mustReturn = false;
 		}
 		finally
 		{
-			if(mustDestroy)
-				destroy();
+			if(mustReturn)
+			{
+				connectToken.returnIt();
+				connectToken = null;
+			}
 		}
 		// DO NOT WRITE ANYTHING HERE, BUT IN initConnected ONLY
 		// OTHERWISE ConnectTokens MAY BE LOST
@@ -167,8 +170,11 @@ public class MediaServlet extends HttpServlet
 	@Override
 	public final void destroy()
 	{
-		connectToken.returnIt();
-		connectToken = null;
+		if(connectToken!=null)
+		{
+			connectToken.returnIt();
+			connectToken = null;
+		}
 		pathes.clear();
 		pathesRedirectFrom.clear();
 		super.destroy();
