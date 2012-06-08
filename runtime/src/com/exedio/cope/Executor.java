@@ -472,7 +472,7 @@ final class Executor
 		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
-		public void search(final Connection connection, final Query query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 

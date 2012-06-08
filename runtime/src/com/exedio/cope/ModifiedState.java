@@ -32,7 +32,7 @@ final class ModifiedState extends State
 	}
 
 	@Override
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
 		return field.get(row);
 	}

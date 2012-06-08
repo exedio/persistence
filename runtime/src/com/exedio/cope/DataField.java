@@ -90,7 +90,7 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final Type type = getType();
+		final Type<?> type = getType();
 		this.model = type.getModel();
 		final ConnectProperties properties = model.getConnectProperties();
 		column = new BlobColumn(table, name, optional, maximumLength);
@@ -120,7 +120,7 @@ public final class DataField extends Field<DataField.Value>
 
 	@Override
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)
 	}
@@ -357,17 +357,17 @@ public final class DataField extends Field<DataField.Value>
 		return file!=null ? new ZipValue(file, entry) : null;
 	}
 
-	public SetValue map(final byte[] array)
+	public SetValue<?> map(final byte[] array)
 	{
 		return map(toValue(array));
 	}
 
-	public SetValue map(final InputStream stream)
+	public SetValue<?> map(final InputStream stream)
 	{
 		return map(toValue(stream));
 	}
 
-	public SetValue map(final File file)
+	public SetValue<?> map(final File file)
 	{
 		return map(toValue(file));
 	}

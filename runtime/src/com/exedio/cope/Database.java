@@ -323,7 +323,7 @@ final class Database
 	{
 		buildStage = false;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 
 		executor.testListener().load(connection, item);
 
@@ -331,7 +331,7 @@ final class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table table = currentType.getTable();
 
@@ -368,7 +368,7 @@ final class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
@@ -380,7 +380,7 @@ final class Database
 
 		bf.append(" where ");
 		first = true;
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
@@ -405,7 +405,7 @@ final class Database
 				final Row row = new Row();
 				int columnIndex = 1;
 				int updateCount = Integer.MIN_VALUE;
-				for(Type superType = type; superType!=null; superType = superType.supertype)
+				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
 
@@ -464,7 +464,7 @@ final class Database
 		buildStage = false;
 		assert present || incrementUpdateCounter;
 
-		final Type supertype = type.supertype;
+		final Type<?> supertype = type.supertype;
 		if(supertype!=null)
 			store(connection, state, present, incrementUpdateCounter, blobs, supertype);
 

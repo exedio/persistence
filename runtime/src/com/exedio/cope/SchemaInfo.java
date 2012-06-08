@@ -93,7 +93,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Type#getID() id} of the type.
 	 */
-	public static String getTableName(final Type type)
+	public static String getTableName(final Type<?> type)
 	{
 		return type.table.idLower;
 	}
@@ -103,7 +103,7 @@ public final class SchemaInfo
 	 * If not configured otherwise
 	 * the name equals "this".
 	 */
-	public static String getPrimaryKeyColumnName(final Type type)
+	public static String getPrimaryKeyColumnName(final Type<?> type)
 	{
 		return type.table.primaryKey.id;
 	}
@@ -126,7 +126,7 @@ public final class SchemaInfo
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final Type type)
+	public static String getTypeColumnName(final Type<?> type)
 	{
 		final StringColumn column = type.table.typeColumn;
 		if(column==null)
@@ -142,7 +142,7 @@ public final class SchemaInfo
 	 * @see #getTypeColumnName(Type)
 	 * @see #getTypeColumnName(ItemField)
 	 */
-	public static String getTypeColumnValue(final Type type)
+	public static String getTypeColumnValue(final Type<?> type)
 	{
 		return type.schemaId;
 	}
@@ -166,7 +166,7 @@ public final class SchemaInfo
 	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
 	 */
-	public static String getUpdateCounterColumnName(final Type type)
+	public static String getUpdateCounterColumnName(final Type<?> type)
 	{
 		final IntegerColumn column = type.table.updateCounter;
 		if(column==null)
@@ -181,7 +181,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field.
 	 */
-	public static String getColumnName(final Field field)
+	public static String getColumnName(final Field<?> field)
 	{
 		return field.getColumn().id;
 	}
@@ -198,7 +198,7 @@ public final class SchemaInfo
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final ItemField field)
+	public static String getTypeColumnName(final ItemField<?> field)
 	{
 		final Column column = field.getTypeColumn();
 		if(column==null)
@@ -265,7 +265,7 @@ public final class SchemaInfo
 	 * @deprecated Use {@link #getUpdateCounterColumnName(Type)} instead
 	 */
 	@Deprecated
-	public static String getModificationCounterColumnName(final Type type)
+	public static String getModificationCounterColumnName(final Type<?> type)
 	{
 		return getUpdateCounterColumnName(type);
 	}

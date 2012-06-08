@@ -23,7 +23,7 @@ public final class AsStringView extends StringView
 	private static final long serialVersionUID = 1l;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final NumberFunction source;
+	private final NumberFunction<?> source;
 
 	/**
 	 * Creates a new LengthView.
@@ -31,7 +31,7 @@ public final class AsStringView extends StringView
 	 * you may want to use the more convenient wrapper method
 	 * {@link NumberFunction#asString()}.
 	 */
-	public AsStringView(final NumberFunction source)
+	public AsStringView(final NumberFunction<?> source)
 	{
 		super(new NumberFunction[]{source}, "asString");
 		this.source = source;

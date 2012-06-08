@@ -94,10 +94,10 @@ public class BindFunction<E> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof BindFunction))
+		if(!(other instanceof BindFunction<?>))
 			return false;
 
-		final BindFunction o = (BindFunction)other;
+		final BindFunction<?> o = (BindFunction<?>)other;
 
 		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}
@@ -114,7 +114,7 @@ public class BindFunction<E> implements Function<E>
 		return join.getToStringAlias() + '.' + function.toString();
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(join.getToStringAlias()).
 			append('.');

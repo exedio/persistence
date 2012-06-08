@@ -168,7 +168,7 @@ public abstract class Condition implements java.io.Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+		void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 		{
 			bf.append(name);
 		}
@@ -216,5 +216,5 @@ public abstract class Condition implements java.io.Serializable
 		return bf.toString();
 	}
 
-	abstract void toString(StringBuilder bf, boolean key, Type defaultType);
+	abstract void toString(StringBuilder bf, boolean key, Type<?> defaultType);
 }

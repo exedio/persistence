@@ -175,7 +175,7 @@ final class ItemCache
 
 	private static final class Cachlet
 	{
-		private final Type type;
+		private final Type<?> type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
 		private final TIntLongHashMap invalidateLastNanos;
@@ -191,7 +191,7 @@ final class ItemCache
 		private long invalidateLastHits = 0;
 		private long invalidateLastPurged = 0;
 
-		Cachlet(final Type type, final int limit, final boolean invalidateLast)
+		Cachlet(final Type<?> type, final int limit, final boolean invalidateLast)
 		{
 			assert !type.isAbstract;
 			assert limit>0;

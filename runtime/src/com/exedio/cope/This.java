@@ -72,7 +72,7 @@ public final class This<E extends Item> extends Feature
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
-		final Type selectType = getType();
+		final Type<?> selectType = getType();
 		bf.appendPK(selectType, join);
 
 		final IntegerColumn column = selectType.getTable().primaryKey;
@@ -227,12 +227,12 @@ public final class This<E extends Item> extends Feature
 		return new BindItemFunction<E>(this, join);
 	}
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -257,6 +257,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -282,6 +283,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -314,6 +316,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -344,6 +347,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

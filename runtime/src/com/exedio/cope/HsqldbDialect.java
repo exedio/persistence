@@ -117,7 +117,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	protected void appendOrderBy(final Statement bf, final Function<?> function, final boolean ascending)
 	{
 		super.appendOrderBy(bf, function, ascending);
 		if(ascending)
@@ -159,7 +159,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").
 			append(source, join).

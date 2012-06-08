@@ -48,9 +48,9 @@ final class MxSamplerMemoryPool extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final MxSamplerGlobal m)
+	static List<SetValue<?>> map(final MxSamplerGlobal m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(MxSamplerGlobal.date.get(m)),
 			sampler       .map(MxSamplerGlobal.sampler.get(m)),

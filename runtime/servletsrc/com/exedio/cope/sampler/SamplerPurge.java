@@ -61,7 +61,7 @@ final class SamplerPurge extends Item
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
 	static void purge(
-			final Type type,
+			final Type<?> type,
 			final Date limit,
 			final JobContext ctx,
 			final String samplerString)
@@ -114,7 +114,7 @@ final class SamplerPurge extends Item
 
 
 	SamplerPurge(
-			final Type type,
+			final Type<?> type,
 			final Date limit,
 			final int rows,
 			final long elapsed)

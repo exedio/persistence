@@ -117,7 +117,7 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 		final int pk = item.pk;
 
 		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
@@ -253,7 +253,7 @@ public final class Transaction
 		invalidationsForType.add(item.pk);
 	}
 
-	Entity getEntityIfActive(final Type type, final int pk)
+	Entity getEntityIfActive(final Type<?> type, final int pk)
 	{
 		assert !closed : name;
 

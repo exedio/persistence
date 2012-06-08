@@ -29,7 +29,7 @@ final class SamplerTypeId extends Item
 	private static final StringField id = new StringField().toFinal().unique();
 
 
-	static SamplerTypeId get(final Type type)
+	static SamplerTypeId get(final Type<?> type)
 	{
 		final String id = type.getID();
 		SamplerTypeId result = forId(id);

@@ -201,7 +201,7 @@ public class Sampler
 		// process data
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
-		final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
 		final int running = runningSource.getAndIncrement();
 
 		// save data
@@ -290,7 +290,7 @@ public class Sampler
 		return (10*1000);
 	}
 
-	int analyzeCount(final Type type)
+	int analyzeCount(final Type<?> type)
 	{
 		final int result;
 		try
@@ -306,10 +306,10 @@ public class Sampler
 		return result;
 	}
 
-	Date[] analyzeDate(final Type type)
+	Date[] analyzeDate(final Type<?> type)
 	{
 		final DateField date = (DateField)type.getFeature("date");
-		final List dates;
+		final List<?> dates;
 		try
 		{
 			samplerModel.startTransaction("sampler analyzeDate");
@@ -342,7 +342,7 @@ public class Sampler
 		final String samplerString = toString();
 		try
 		{
-			for(final Type type : samplerModel.getTypes())
+			for(final Type<?> type : samplerModel.getTypes())
 				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 						SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
 				{

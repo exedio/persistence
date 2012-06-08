@@ -162,7 +162,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private Type<E> valueType = null;
 
-	void resolveValueType(final Set<Type> typesAllowed)
+	void resolveValueType(final Set<Type<?>> typesAllowed)
 	{
 		if(!isMountedToType())
 			throw new RuntimeException();
@@ -338,7 +338,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
-		final Type type = getType();
+		final Type<?> type = getType();
 		final Transaction tx = type.getModel().currentTransaction();
 		final Connection connection = tx.getConnection();
 		final Executor executor = tx.connect.executor;
@@ -375,12 +375,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -411,6 +411,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -436,6 +437,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -486,6 +488,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -516,6 +519,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

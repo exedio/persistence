@@ -79,7 +79,7 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append("!(");
 		argument.toString(bf, key, defaultType);

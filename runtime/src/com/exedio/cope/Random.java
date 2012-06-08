@@ -77,7 +77,7 @@ public class Random implements NumberFunction<Double>
 		return type.hashCode() ^ seed;
 	}
 
-	public void toString(final StringBuilder bf, final Type defaultType)
+	public void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		if(defaultType!=type)
 			bf.append(type.id).

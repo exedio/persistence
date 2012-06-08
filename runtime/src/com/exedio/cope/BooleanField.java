@@ -82,7 +82,7 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	@Override
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Boolean.class : boolean.class;
 	}

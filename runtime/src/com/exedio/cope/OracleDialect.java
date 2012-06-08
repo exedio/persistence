@@ -156,7 +156,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("TO_CHAR(").
 			append(source, join).

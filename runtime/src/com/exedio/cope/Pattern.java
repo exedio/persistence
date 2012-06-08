@@ -353,12 +353,12 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceFeatures()} instead
 	 */
 	@Deprecated
-	public List<? extends Field> getSourceFields()
+	public List<? extends Field<?>> getSourceFields()
 	{
-		final ArrayList<Field> result = new ArrayList<Field>();
+		final ArrayList<Field<?>> result = new ArrayList<Field<?>>();
 		for(final Feature f : getSourceFeatures())
-			if(f instanceof Field)
-				result.add((Field)f);
+			if(f instanceof Field<?>)
+				result.add((Field<?>)f);
 		return ListUtil.trimUnmodifiable(result);
 	}
 
@@ -366,7 +366,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceFields()} instead
 	 */
 	@Deprecated
-	public final List<? extends Field> getSources()
+	public final List<? extends Field<?>> getSources()
 	{
 		return getSourceFields();
 	}
@@ -384,7 +384,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #addSource(Feature,String)} instead
 	 */
 	@Deprecated
-	protected final void registerSource(final Field field, final String postfix)
+	protected final void registerSource(final Field<?> field, final String postfix)
 	{
 		addSource(field, postfix);
 	}

@@ -24,10 +24,10 @@ public final class CopyConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
-	private final ItemField target;
-	private final FunctionField copy;
+	private final ItemField<?> target;
+	private final FunctionField<?> copy;
 
-	public CopyConstraint(final ItemField target, final FunctionField copy)
+	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
 		if(target==null)
 			throw new NullPointerException("target");
@@ -42,19 +42,19 @@ public final class CopyConstraint extends Feature
 		this.copy = copy;
 	}
 
-	public ItemField getTarget()
+	public ItemField<?> getTarget()
 	{
 		return target;
 	}
 
-	public FunctionField getCopy()
+	public FunctionField<?> getCopy()
 	{
 		return copy;
 	}
 
-	private FunctionField template = null;
+	private FunctionField<?> template = null;
 
-	public FunctionField getTemplate()
+	public FunctionField<?> getTemplate()
 	{
 		if(template!=null)
 			return template;
@@ -62,9 +62,9 @@ public final class CopyConstraint extends Feature
 		final Feature feature = target.getValueType().getFeature(copy.getName());
 		if(feature==null)
 			throw new RuntimeException("not found on copy: " + this);
-		if(!(feature instanceof FunctionField))
+		if(!(feature instanceof FunctionField<?>))
 			throw new ClassCastException("not a FunctionField on copy: " + this + '/' + feature + '/' + feature.getClass().getName());
-		final FunctionField result = (FunctionField)feature;
+		final FunctionField<?> result = (FunctionField<?>)feature;
 		if(!result.isfinal)
 			throw new RuntimeException("not final on copy: " + this + '/' + result);
 
@@ -72,7 +72,7 @@ public final class CopyConstraint extends Feature
 		return result;
 	}
 
-	void check(final Map<Field, Object> fieldValues)
+	void check(final Map<Field<?>, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
@@ -92,7 +92,7 @@ public final class CopyConstraint extends Feature
 
 	public int check()
 	{
-		final Query q = getType().newQuery();
+		final Query<?> q = getType().newQuery();
 		final Join j = q.join(target.getValueType());
 		j.setCondition(target.equalTarget(j));
 		q.setCondition(notEqual(copy, getTemplate().bind(j)));

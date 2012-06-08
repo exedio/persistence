@@ -81,9 +81,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal;
 	}
 
-	static final class FinalGetter implements BooleanGetter<Field>
+	static final class FinalGetter implements BooleanGetter<Field<?>>
 	{
-		public boolean get(final Field feature)
+		public boolean get(final Field<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -106,7 +106,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -145,7 +145,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return SetValue.map(this, null);
 	}
 
-	public final SetValue[] execute(final E value, final Item exceptionItem)
+	public final SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue[]{ map(value) };
 	}

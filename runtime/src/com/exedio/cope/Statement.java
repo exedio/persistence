@@ -95,7 +95,7 @@ final class Statement
 		this.joinTables = new HashMap<JoinTable, JoinTable>();
 		for(final JoinType joinType : joinTypes)
 		{
-			for(Type type = joinType.type; type!=null; type=type.supertype)
+			for(Type<?> type = joinType.type; type!=null; type=type.supertype)
 			{
 				final Table table = type.getTable();
 				final Object previous = tableToJoinTables.get(table);
@@ -126,11 +126,11 @@ final class Statement
 		{
 			final Table table = entry.getKey();
 			final Object value = entry.getValue();
-			if(value instanceof ArrayList)
+			if(value instanceof ArrayList<?>)
 			{
-				final ArrayList list = (ArrayList)value;
+				final ArrayList<?> list = (ArrayList<?>)value;
 				int aliasNumber = 0;
-				for(final Iterator j = list.iterator(); j.hasNext(); )
+				for(final Iterator<?> j = list.iterator(); j.hasNext(); )
 				{
 					final JoinTable joinType = (JoinTable)j.next();
 					joinType.alias = table.id + (aliasNumber++);
@@ -165,7 +165,7 @@ final class Statement
 	}
 
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
-	Statement append(final Selectable select, final Join join)
+	Statement append(final Selectable<?> select, final Join join)
 	{
 		select.append(this, join);
 		return this;
@@ -178,7 +178,7 @@ final class Statement
 		return this;
 	}
 
-	Statement appendPK(final Type type, final Join join)
+	Statement appendPK(final Type<?> type, final Join join)
 	{
 		return append(type.getTable().primaryKey, join);
 	}
@@ -200,7 +200,7 @@ final class Statement
 	 * the command will return "0 rows affected"
 	 * and executeSQLUpdate will fail.
 	 */
-	Statement appendTypeCheck(final Table table, final Type type)
+	Statement appendTypeCheck(final Table table, final Type<?> type)
 	{
 		final StringColumn column = table.typeColumn;
 		if(column!=null)
@@ -236,7 +236,7 @@ final class Statement
 	<E> Statement appendParameterAny(final E value)
 	{
 		@SuppressWarnings("unchecked")
-		final Marshaller<E> marshaller = marshallers.getByValue(value);
+		final Marshaller<E> marshaller = (Marshaller)marshallers.getByValue(value);
 
 		if(parameters==null)
 			text.append(marshaller.marshal(value));
@@ -354,7 +354,7 @@ final class Statement
 			final StringBuilder result = new StringBuilder();
 
 			int lastPos = 0;
-			final Iterator pi = parameters.iterator();
+			final Iterator<?> pi = parameters.iterator();
 			for(int pos = text.indexOf(QUESTION_MARK); pos>=0&&pi.hasNext(); pos = text.indexOf(QUESTION_MARK, lastPos))
 			{
 				result.append(text.substring(lastPos, pos));
@@ -425,9 +425,9 @@ final class Statement
 	private static class JoinType
 	{
 		final Join join;
-		final Type type;
+		final Type<?> type;
 
-		JoinType(final Join join, final Type type)
+		JoinType(final Join join, final Type<?> type)
 		{
 			this.join = join;
 			this.type = type;
@@ -446,15 +446,15 @@ final class Statement
 		return this;
 	}
 
-	void appendTypeDefinition(final Join join, final Type type, final boolean hasJoins)
+	void appendTypeDefinition(final Join join, final Type<?> type, final boolean hasJoins)
 	{
-		final Type supertype = type.supertype;
+		final Type<?> supertype = type.supertype;
 		final Table table = type.getTable();
 
 		ArrayList<Table> superTables = null;
 		if(supertype!=null)
 		{
-			for(Type iType = supertype; iType!=null; iType=iType.supertype)
+			for(Type<?> iType = supertype; iType!=null; iType=iType.supertype)
 			{
 				final Table iTable = iType.getTable();
 				if(tc.containsTable(join, iTable))
@@ -512,7 +512,7 @@ final class Statement
 		}
 	}
 
-	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)
+	static final StringColumn assertTypeColumn(final StringColumn tc, final Type<?> t)
 	{
 		if(tc==null)
 			throw new IllegalArgumentException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");

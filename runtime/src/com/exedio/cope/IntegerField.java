@@ -195,7 +195,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Integer.class : int.class;
 	}

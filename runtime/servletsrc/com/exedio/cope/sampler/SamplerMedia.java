@@ -54,9 +54,9 @@ final class SamplerMedia extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
@@ -77,9 +77,9 @@ final class SamplerMedia extends Item
 	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final MediaInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			media        .map(info.getPath().getID()),
 			redirectFrom .map(info.getRedirectFrom()),
 			exception    .map(info.getException()),

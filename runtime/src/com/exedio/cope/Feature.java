@@ -63,7 +63,7 @@ public abstract class Feature implements Serializable
 				: null;
 		}
 
-		abstract void toString(StringBuilder bf, Type defaultType);
+		abstract void toString(StringBuilder bf, Type<?> defaultType);
 	}
 
 	private static final class MountType extends Mount
@@ -84,7 +84,7 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type defaultType)
+		void toString(final StringBuilder bf, final Type<?> defaultType)
 		{
 			bf.append((defaultType==type) ? name : id);
 		}
@@ -109,7 +109,7 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type defaultType)
+		void toString(final StringBuilder bf, final Type<?> defaultType)
 		{
 			bf.append(string);
 		}
@@ -239,7 +239,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * @param defaultType is used by subclasses
 	 */
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(super.toString());
 	}
@@ -260,7 +260,7 @@ public abstract class Feature implements Serializable
 		}
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount!=null)
@@ -322,7 +322,7 @@ public abstract class Feature implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
 
-		private final Type type;
+		private final Type<?> type;
 		private final String name;
 
 		Serialized(final MountType mount)

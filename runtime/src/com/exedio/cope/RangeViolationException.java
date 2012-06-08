@@ -34,7 +34,7 @@ public abstract class RangeViolationException extends ConstraintViolationExcepti
 {
 	private static final long serialVersionUID = 1l;
 
-	private final FunctionField feature;
+	private final FunctionField<? extends Number> feature;
 	private final Number value;
 	private final boolean isTooSmall;
 	private final Number border;
@@ -62,7 +62,7 @@ public abstract class RangeViolationException extends ConstraintViolationExcepti
 	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
-	public FunctionField getFeature()
+	public FunctionField<? extends Number> getFeature()
 	{
 		return feature;
 	}

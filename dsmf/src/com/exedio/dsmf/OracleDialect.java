@@ -85,12 +85,12 @@ public final class OracleDialect extends Dialect
 		}
 	}
 
-	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
+	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList<?> columns)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		boolean first = true;
-		for(final Iterator i = columns.iterator(); i.hasNext(); )
+		for(final Iterator<?> i = columns.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;

@@ -29,7 +29,7 @@ public interface Selectable<E extends Object> extends java.io.Serializable
 
 	Type<? extends Item> getType();
 
-	void toString(StringBuilder bf, Type defaultType);
+	void toString(StringBuilder bf, Type<?> defaultType);
 
 	/**
 	 * @deprecated For internal use within COPE only.

@@ -80,10 +80,10 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompareCondition))
+		if(!(other instanceof CompareCondition<?>))
 			return false;
 
-		final CompareCondition o = (CompareCondition)other;
+		final CompareCondition<?> o = (CompareCondition<?>)other;
 
 		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
@@ -95,7 +95,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		left.toString(bf, defaultType);
 		bf.append(operator.sql).

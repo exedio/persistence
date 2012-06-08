@@ -42,10 +42,10 @@ final class Types
 	final List<Type<?>> typeList;
 	final List<Type<?>> typeListSorted;
 	final List<Type<?>> concreteTypeList;
-	private final HashMap<String, Type> typesByID = new HashMap<String, Type>();
+	private final HashMap<String, Type<?>> typesByID = new HashMap<String, Type<?>>();
 	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
 
-	Types(final Model model, final TypeSet[] typeSets, final Type[] typesWithoutSets)
+	Types(final Model model, final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
 	{
 		final Type<?>[] types = unify(typeSets, typesWithoutSets);
 		TypeSet.check(types);
@@ -66,7 +66,7 @@ final class Types
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : typesL)
 		{
-			final Type collisionType = typesByID.put(type.id, type);
+			final Type<?> collisionType = typesByID.put(type.id, type);
 			if(collisionType!=null)
 				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			if(!type.isAbstract)
@@ -84,7 +84,7 @@ final class Types
 		for(final Type<?> type : typesSorted)
 			type.testActivation();
 
-		final HashMap<Type, MountParameters> parametersMap = new HashMap<Type, MountParameters>();
+		final HashMap<Type<?>, MountParameters> parametersMap = new HashMap<Type<?>, MountParameters>();
 		int typeCount = 0;
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
@@ -92,7 +92,7 @@ final class Types
 			parametersMap.put(type, new MountParameters(type, typeCount++, type.isAbstract ? abstractTypeCount-- : concreteTypeCount++));
 		for(final Type<?> type : typesSorted)
 		{
-			final Type supertype = type.getSupertype();
+			final Type<?> supertype = type.getSupertype();
 			if(supertype!=null)
 				parametersMap.get(supertype).addSubtype(type);
 		}
@@ -100,12 +100,12 @@ final class Types
 		{
 			final MountParameters c = parametersMap.get(type);
 			c.recurse(parametersMap, c, 10);
-			for(final Field f : type.getDeclaredFields())
-				if(f instanceof ItemField)
+			for(final Field<?> f : type.getDeclaredFields())
+				if(f instanceof ItemField<?>)
 				{
-					final ItemField<?> ff = (ItemField)f;
+					final ItemField<?> ff = (ItemField<?>)f;
 					ff.resolveValueType(parametersMap.keySet());
-					final Type valueType = ff.getValueType();
+					final Type<?> valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);
 				}
 		}
@@ -162,18 +162,18 @@ final class Types
 
 	private static final Type<?>[] sort(final Type<?>[] types)
 	{
-		final HashSet<Type> typeSet = new HashSet<Type>(Arrays.asList(types));
-		final HashSet<Type> done = new HashSet<Type>();
+		final HashSet<Type<?>> typeSet = new HashSet<Type<?>>(Arrays.asList(types));
+		final HashSet<Type<?>> done = new HashSet<Type<?>>();
 		//System.out.println(">--------------------"+Arrays.asList(types));
 
-		final ArrayList<Type> result = new ArrayList<Type>();
+		final ArrayList<Type<?>> result = new ArrayList<Type<?>>();
 		for(final Type<?> type2 : types)
 		{
-			final ArrayList<Type> stack = new ArrayList<Type>();
+			final ArrayList<Type<?>> stack = new ArrayList<Type<?>>();
 
 			//System.out.println("------------------------------ "+types[i].getID());
 
-			for(Type type = type2; type!=null; type=type.supertype)
+			for(Type<?> type = type2; type!=null; type=type.supertype)
 			{
 				//System.out.println("-------------------------------> "+type.getID());
 				if(!typeSet.contains(type))
@@ -181,9 +181,9 @@ final class Types
 				stack.add(type);
 			}
 
-			for(final ListIterator<Type> j = stack.listIterator(stack.size()); j.hasPrevious(); )
+			for(final ListIterator<Type<?>> j = stack.listIterator(stack.size()); j.hasPrevious(); )
 			{
-				final Type type = j.previous();
+				final Type<?> type = j.previous();
 				//System.out.println("-------------------------------) "+type.getID());
 
 				if(!done.contains(type))
@@ -219,15 +219,15 @@ final class Types
 
 	static final class MountParameters
 	{
-		final Type type;
+		final Type<?> type;
 		final int orderIdTransiently;
 		final int cacheIdTransiently;
-		private ArrayList<Type> subtypes;
-		private ArrayList<Type> subtypesTransitively;
-		private ArrayList<Type> typesOfInstances;
-		private ArrayList<ItemField> references;
+		private ArrayList<Type<?>> subtypes;
+		private ArrayList<Type<?>> subtypesTransitively;
+		private ArrayList<Type<?>> typesOfInstances;
+		private ArrayList<ItemField<?>> references;
 
-		MountParameters(final Type type, final int orderIdTransiently, final int cacheIdTransiently)
+		MountParameters(final Type<?> type, final int orderIdTransiently, final int cacheIdTransiently)
 		{
 			this.type = type;
 			this.orderIdTransiently = orderIdTransiently;
@@ -235,26 +235,26 @@ final class Types
 			assert (cacheIdTransiently<0) == type.isAbstract;
 		}
 
-		void addSubtype(final Type type)
+		void addSubtype(final Type<?> type)
 		{
 			if(subtypes==null)
-				subtypes = new ArrayList<Type>();
+				subtypes = new ArrayList<Type<?>>();
 			subtypes.add(type);
 		}
 
-		void addSubtypeTransitively(final Type type)
+		void addSubtypeTransitively(final Type<?> type)
 		{
 			if(subtypesTransitively==null)
 			{
-				subtypesTransitively = new ArrayList<Type>();
-				typesOfInstances = new ArrayList<Type>();
+				subtypesTransitively = new ArrayList<Type<?>>();
+				typesOfInstances = new ArrayList<Type<?>>();
 			}
 			subtypesTransitively.add(type);
 			if(!type.isAbstract)
 				typesOfInstances.add(type);
 		}
 
-		void recurse(final HashMap<Type, MountParameters> parametersMap, final MountParameters target, int hopCount)
+		void recurse(final HashMap<Type<?>, MountParameters> parametersMap, final MountParameters target, int hopCount)
 		{
 			hopCount--;
 			if(hopCount<0)
@@ -262,33 +262,33 @@ final class Types
 
 			target.addSubtypeTransitively(type);
 			if(subtypes!=null)
-				for(final Type type : subtypes)
+				for(final Type<?> type : subtypes)
 					parametersMap.get(type).recurse(parametersMap, target, hopCount);
 		}
 
-		void addReference(final ItemField reference)
+		void addReference(final ItemField<?> reference)
 		{
 			if(references==null)
-				references = new ArrayList<ItemField>();
+				references = new ArrayList<ItemField<?>>();
 			references.add(reference);
 		}
 
-		List<Type> getSubtypes()
+		List<Type<?>> getSubtypes()
 		{
 			return finish(subtypes);
 		}
 
-		List<Type> getSubtypesTransitively()
+		List<Type<?>> getSubtypesTransitively()
 		{
 			return finish(subtypesTransitively);
 		}
 
-		List<Type> getTypesOfInstances()
+		List<Type<?>> getTypesOfInstances()
 		{
 			return finish(typesOfInstances);
 		}
 
-		List<ItemField> getReferences()
+		List<ItemField<?>> getReferences()
 		{
 			return finish(references);
 		}
@@ -302,7 +302,7 @@ final class Types
 		}
 	}
 
-	boolean containsTypeSet(final Type... typeSet)
+	boolean containsTypeSet(final Type<?>... typeSet)
 	{
 		if(typeSet==null)
 			throw new NullPointerException("typeSet");
@@ -312,16 +312,16 @@ final class Types
 			if(typeSet[i]==null)
 				throw new NullPointerException("typeSet[" + i + ']');
 
-		final HashSet<Type> typesAsSet = new HashSet<Type>(Arrays.asList(typesSorted));
+		final HashSet<Type<?>> typesAsSet = new HashSet<Type<?>>(Arrays.asList(typesSorted));
 		if(typesAsSet.containsAll(Arrays.asList(typeSet)))
 			return true;
 
-		for(final Type t : typeSet)
+		for(final Type<?> t : typeSet)
 			if(typesAsSet.contains(t))
 			{
 				final StringBuilder bf = new StringBuilder("inconsistent type set: ");
 				boolean first = true;
-				for(final Type tx : typeSet)
+				for(final Type<?> tx : typeSet)
 				{
 					if(first)
 						first = false;
@@ -347,13 +347,13 @@ final class Types
 		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
 		for(final Type<?> t : types)
 		{
-			final Type st = t.getSupertype();
+			final Type<?> st = t.getSupertype();
 			if(st==null)
 				continue;
 
 			for(final Feature f : t.getDeclaredFeatures())
 			{
-				if(f instanceof This)
+				if(f instanceof This<?>)
 					continue;
 
 				final Feature hidden = st.getFeature(f.getName());
@@ -367,7 +367,7 @@ final class Types
 		return result;
 	}
 
-	Type getType(final String id)
+	Type<?> getType(final String id)
 	{
 		return typesByID.get(id);
 	}
@@ -377,9 +377,9 @@ final class Types
 		return featuresByID.get(id);
 	}
 
-	private Type getConcreteType(final int transientNumber)
+	private Type<?> getConcreteType(final int transientNumber)
 	{
-		final Type result = typesByCacheIdTransiently[transientNumber];
+		final Type<?> result = typesByCacheIdTransiently[transientNumber];
 		assert result.cacheIdTransiently==transientNumber : String.valueOf(result.cacheIdTransiently) + '/' + result.id + '/' + transientNumber;
 		return result;
 	}
@@ -391,7 +391,7 @@ final class Types
 			throw new NoSuchIDException(id, true, "no separator '" + Item.ID_SEPARATOR + "' in id");
 
 		final String typeID = id.substring(0, pos);
-		final Type type = getType(typeID);
+		final Type<?> type = getType(typeID);
 		if(type==null)
 			throw new NoSuchIDException(id, true, "type <" + typeID + "> does not exist");
 		if(type.isAbstract)
@@ -428,13 +428,13 @@ final class Types
 		for(final Type<?> t : typesSorted)
 		{
 			checkTypeColumn(t.thisFunction);
-			for(final Field a : t.getDeclaredFields())
-				if(a instanceof ItemField)
-					checkTypeColumn((ItemField)a);
+			for(final Field<?> a : t.getDeclaredFields())
+				if(a instanceof ItemField<?>)
+					checkTypeColumn((ItemField<?>)a);
 		}
 	}
 
-	private static final void checkTypeColumn(final ItemFunction f)
+	private static final void checkTypeColumn(final ItemFunction<?> f)
 	{
 		if(f.needsCheckTypeColumn())
 		{
@@ -446,13 +446,13 @@ final class Types
 
 	void connect(final Database db)
 	{
-		for(final Type type : typesSorted)
+		for(final Type<?> type : typesSorted)
 			type.connect(db);
 	}
 
 	void disconnect()
 	{
-		for(final Type type : typesSorted)
+		for(final Type<?> type : typesSorted)
 			type.disconnect();
 	}
 

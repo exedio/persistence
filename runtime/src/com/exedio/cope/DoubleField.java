@@ -141,7 +141,7 @@ public final class DoubleField extends NumberField<Double>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Double.class : double.class;
 	}

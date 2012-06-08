@@ -56,9 +56,9 @@ final class SamplerClusterNode extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
@@ -76,9 +76,9 @@ final class SamplerClusterNode extends Item
 	private static final CompositeField<SequenceInfo> ping = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> pong = CompositeField.create(SequenceInfo.class).toFinal();
 
-	static List<SetValue> map(final ClusterListenerInfo.Node node)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ClusterListenerInfo.Node node)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 				id            .map(node.getID()),
 				firstEncounter.map(node.getFirstEncounter()),
 				cutAndMap(fromAddress, node.getAddress().toString()),

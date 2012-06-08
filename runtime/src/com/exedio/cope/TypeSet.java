@@ -38,7 +38,7 @@ public final class TypeSet
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
-		final HashSet<Type> set = new HashSet<Type>();
+		final HashSet<Type<?>> set = new HashSet<Type<?>>();
 		for(final Type<?> type : types)
 		{
 			if(type==null)

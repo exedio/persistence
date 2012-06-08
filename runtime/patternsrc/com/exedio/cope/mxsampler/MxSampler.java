@@ -164,7 +164,7 @@ public class MxSampler
 		final long duration = System.nanoTime() - start;
 
 		// process data
-		final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
 		final int running = runningSource.getAndIncrement();
 
 		// save data

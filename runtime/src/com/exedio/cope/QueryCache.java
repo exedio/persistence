@@ -245,7 +245,7 @@ final class QueryCache
 			if(joins!=null)
 			{
 				for(final Join join : joins)
-					for(final Type t : join.type.getTypesOfInstances())
+					for(final Type<?> t : join.type.getTypesOfInstances())
 						typeSet.add(t.cacheIdTransiently);
 			}
 			this.invalidationTypesTransiently = typeSet.toArray();

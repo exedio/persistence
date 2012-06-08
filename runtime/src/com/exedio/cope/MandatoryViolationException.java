@@ -55,7 +55,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @deprecated Use {@link #create(Feature, Item)} instead.
 	 */
 	@Deprecated
-	public MandatoryViolationException(final Feature feature, final Settable settable, final Item item)
+	public MandatoryViolationException(final Feature feature, final Settable<?> settable, final Item item)
 	{
 		super(item, null);
 		if(feature!=settable)

@@ -45,7 +45,7 @@ public class Count implements Selectable<Integer>
 	}
 
 	@Override
-	public void toString( final StringBuilder bf, final Type defaultType )
+	public void toString( final StringBuilder bf, final Type<?> defaultType )
 	{
 		bf.append( "count(*)" );
 	}

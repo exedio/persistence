@@ -125,7 +125,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -141,10 +141,10 @@ public abstract class View<E> extends Feature
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof View))
+		if(!(other instanceof View<?>))
 			return false;
 
-		final View o = (View)other;
+		final View<?> o = (View<?>)other;
 
 		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;

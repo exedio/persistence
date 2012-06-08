@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 final class ItemFunctionUtil
 {
-	static void checkTypeColumnNeeded(final ItemFunction function)
+	static void checkTypeColumnNeeded(final ItemFunction<?> function)
 	{
 		if(!function.needsCheckTypeColumn())
 			throw new IllegalArgumentException("no check for type column needed for " + function);

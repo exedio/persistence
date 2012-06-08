@@ -48,7 +48,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @deprecated Use {@link #create(Feature, Item)} instead.
 	 */
 	@Deprecated
-	public FinalViolationException(final Feature feature, final Settable settable, final Item item)
+	public FinalViolationException(final Feature feature, final Settable<?> settable, final Item item)
 	{
 		super(item, null);
 

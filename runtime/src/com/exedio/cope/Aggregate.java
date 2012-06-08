@@ -104,10 +104,10 @@ public abstract class Aggregate<E> implements Selectable<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof Aggregate))
+		if(!(other instanceof Aggregate<?>))
 			return false;
 
-		final Aggregate a = (Aggregate)other;
+		final Aggregate<?> a = (Aggregate<?>)other;
 
 		return name.equals(a.name) && source.equals(a.source);
 	}
@@ -124,7 +124,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name + '(' + source + ')';
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name).
 			append('(');

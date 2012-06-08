@@ -91,7 +91,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.marshaller = new EnumMarshaller<E>(this);
 	}
 
-	private static final <A extends Annotation> A getAnnotation(final Enum e, final Class<A> annotationClass)
+	private static final <A extends Annotation> A getAnnotation(final Enum<?> e, final Class<A> annotationClass)
 	{
 		try
 		{
@@ -113,7 +113,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		if(value==null)
 			return true;
 
-		final Class actualValueClass = value.getClass();
+		final Class<?> actualValueClass = value.getClass();
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
 
@@ -152,7 +152,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	// static registry
 
-	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+	private static final HashMap<Class<?>, EnumFieldType<?>> types = new HashMap<Class<?>, EnumFieldType<?>>();
 
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
@@ -162,7 +162,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		synchronized(types)
 		{
 			@SuppressWarnings("unchecked")
-			EnumFieldType<E> result = types.get(valueClass);
+			EnumFieldType<E> result = (EnumFieldType)types.get(valueClass);
 			if(result==null)
 			{
 				result = new EnumFieldType<E>(valueClass);

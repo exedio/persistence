@@ -96,7 +96,7 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		field.toString(bf, defaultType);
 		bf.append(" startsWith '");

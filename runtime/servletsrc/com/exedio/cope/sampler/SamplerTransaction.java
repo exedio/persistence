@@ -55,9 +55,9 @@ final class SamplerTransaction extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
@@ -72,9 +72,9 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
-	static List<SetValue> map(final Transaction transaction)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final Transaction transaction)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			id       .map(transaction.getID()),
 			cutAndMap(name, transaction.getName()),
 			startDate.map(transaction.getStartDate()),

@@ -54,9 +54,9 @@ final class SamplerItemCache extends Item
 	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
 	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
 
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
@@ -86,9 +86,9 @@ final class SamplerItemCache extends Item
 	private static final LongField invalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField invalidateLastPurged = new LongField().toFinal().min(0);
 
-	static List<SetValue> map(final ItemCacheInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ItemCacheInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			type  .map(SamplerTypeId.get(info.getType())),
 			limit .map(info.getLimit()),
 			level .map(info.getLevel()),

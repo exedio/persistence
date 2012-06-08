@@ -34,7 +34,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 1l;
 
-	private final ItemField feature;
+	private final ItemField<?> feature;
 
 	/**
 	 * Creates a new IntegrityViolationException with the neccessary information about the violation.
@@ -42,7 +42,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>item</tt> or <tt>feature</tt> is null.
 	 */
-	IntegrityViolationException(final ItemField feature, final Item item)
+	IntegrityViolationException(final ItemField<?> feature, final Item item)
 	{
 		super(item, null);
 
@@ -57,7 +57,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * Returns null, if the violated constraint is unknown.
 	 */
 	@Override
-	public ItemField getFeature()
+	public ItemField<?> getFeature()
 	{
 		return feature;
 	}
@@ -74,7 +74,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
 	@Deprecated
-	public ItemField getAttribute()
+	public ItemField<?> getAttribute()
 	{
 		return feature;
 	}

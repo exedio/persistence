@@ -60,11 +60,11 @@ final class Differentiate
 		final Join join = query.join(type);
 
 		final DateField dateField = replaceByCopy(SamplerModel.date, type);
-		final ArrayList<FunctionField> byDateUnique = new ArrayList<FunctionField>();
+		final ArrayList<FunctionField<?>> byDateUnique = new ArrayList<FunctionField<?>>();
 		final IntegerField sampler = replaceByCopy(SamplerModel.sampler, type);
 		final IntegerField running = replaceByCopy(SamplerModel.running, type);
 		{
-			final ArrayList<Function> selects = new ArrayList<Function>();
+			final ArrayList<Function<?>> selects = new ArrayList<Function<?>>();
 			{
 				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
 				switch(constraints.size())
@@ -73,7 +73,7 @@ final class Differentiate
 						break;
 					case 1:
 						final UniqueConstraint constraint = constraints.get(0);
-						for(final FunctionField field : constraint.getFields())
+						for(final FunctionField<?> field : constraint.getFields())
 							if(field!=dateField)
 							{
 								selects.add(field);
@@ -89,7 +89,7 @@ final class Differentiate
 
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				if(feature instanceof NumberField &&
+				if(feature instanceof NumberField<?> &&
 					!feature.isAnnotationPresent(NoDifferentiate.class) &&
 					feature!=sampler && feature!=running &&
 					!byDateUnique.contains(feature))
@@ -133,7 +133,7 @@ final class Differentiate
 	/**
 	 * helper method for generics
 	 */
-	private static <N> CompareFunctionCondition equal(final Join j, final FunctionField<N> field)
+	private static <N> CompareFunctionCondition<N> equal(final Join j, final FunctionField<N> field)
 	{
 		return field.bind(j).equal(field);
 	}

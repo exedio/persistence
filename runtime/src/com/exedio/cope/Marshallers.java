@@ -32,7 +32,7 @@ import com.exedio.cope.util.Day;
 
 final class Marshallers
 {
-	private final HashMap<Class, Marshaller> marshallers = new HashMap<Class, Marshaller>();
+	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<Class<?>, Marshaller<?>>();
 
 	Marshallers(final boolean supportsNativeDate)
 	{
@@ -234,21 +234,21 @@ final class Marshallers
 			throw new RuntimeException(selectType.javaClass.getName());
 	}
 
-	Marshaller get(final Selectable select)
+	Marshaller<?> get(final Selectable<?> select)
 	{
 		final SelectType<?> valueType = select.getValueType();
 
-		if(valueType instanceof SimpleSelectType)
+		if(valueType instanceof SimpleSelectType<?>)
 			return get(valueType.getJavaClass());
-		else if(valueType instanceof Type)
-			return ((Type)valueType).getMarshaller();
-		else if(valueType instanceof EnumFieldType)
-			return ((EnumFieldType)valueType).marshaller;
+		else if(valueType instanceof Type<?>)
+			return ((Type<?>)valueType).getMarshaller();
+		else if(valueType instanceof EnumFieldType<?>)
+			return ((EnumFieldType<?>)valueType).marshaller;
 		else
 			throw new RuntimeException(valueType.toString());
 	}
 
-	Marshaller getByValue(final Object value)
+	Marshaller<?> getByValue(final Object value)
 	{
 		if(value instanceof Item)
 		{
@@ -275,7 +275,7 @@ final class Marshallers
 	private <E> Marshaller<E> get(final Class<E> javaClass)
 	{
 		@SuppressWarnings("unchecked")
-		final Marshaller<E> result = marshallers.get(javaClass);
+		final Marshaller<E> result = (Marshaller)marshallers.get(javaClass);
 		if(result==null)
 			throw new NullPointerException(javaClass.getName());
 		return result;

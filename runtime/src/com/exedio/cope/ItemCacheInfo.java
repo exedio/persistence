@@ -22,7 +22,7 @@ import java.util.Date;
 
 public final class ItemCacheInfo
 {
-	private final Type type;
+	private final Type<?> type;
 	private final int limit;
 	private final int level;
 	private final long hits;
@@ -41,7 +41,7 @@ public final class ItemCacheInfo
 	private final long invalidateLastPurged;
 
 	ItemCacheInfo(
-			final Type type,
+			final Type<?> type,
 			final int limit,
 			final int level,
 			final long hits, final long misses,
@@ -71,7 +71,7 @@ public final class ItemCacheInfo
 		this.invalidateLastPurged = invalidateLastPurged;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
 	}

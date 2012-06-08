@@ -74,7 +74,7 @@ public final class TypesBound
 		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 
 		// supertype
-		final Class superclass = javaClass.getSuperclass();
+		final Class<?> superclass = javaClass.getSuperclass();
 
 		final Type<? super T> supertype;
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
@@ -102,7 +102,7 @@ public final class TypesBound
 				supertype,
 				features);
 
-		final Type previous = types.put(javaClass, result);
+		final Type<?> previous = types.put(javaClass, result);
 		if(previous!=null)
 			throw new RuntimeException(javaClass.getName());
 
@@ -116,7 +116,7 @@ public final class TypesBound
 	}
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-	public static SortedMap<Feature, Field> getFeatures(final Class clazz)
+	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, Field> result =

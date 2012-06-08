@@ -142,7 +142,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -303,25 +303,25 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 
-	private static final class PrimitiveGetter implements BooleanGetter<FunctionField>
+	private static final class PrimitiveGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.isPrimitive();
 		}
 	}
 
-	static final class OptionalGetter implements BooleanGetter<FunctionField>
+	static final class OptionalGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return !feature.isMandatory();
 		}
 	}
 
-	static final class NonUniqueGetter implements BooleanGetter<FunctionField>
+	static final class NonUniqueGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.getImplicitUniqueConstraint()==null;
 		}

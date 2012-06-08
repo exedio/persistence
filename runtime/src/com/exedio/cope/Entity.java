@@ -31,7 +31,7 @@ final class Entity
 		this.state = state;
 	}
 
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
 		return state.get(field);
 	}
@@ -42,9 +42,9 @@ final class Entity
 	}
 
 	@SuppressWarnings("unchecked") // TODO dont know how
-	void put(final Map<Field, Object> fieldValues)
+	void put(final Map<Field<?>, Object> fieldValues)
 	{
-		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
 			final Field f = e.getKey();
 			if(f instanceof FunctionField)

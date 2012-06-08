@@ -42,19 +42,21 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	BindItemFunction<E> bind(Join join);
 
-	CompareFunctionCondition equalTarget();
-	CompareFunctionCondition equalTarget(Join targetJoin);
+	CompareFunctionCondition<?> equalTarget();
+	CompareFunctionCondition<?> equalTarget(Join targetJoin);
 
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	@SuppressWarnings("unchecked")
 	InstanceOfCondition<E> instanceOf(final Type[] types);
 
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
+	@SuppressWarnings("unchecked")
 	InstanceOfCondition<E> notInstanceOf(final Type[] types);
 
 	/**
@@ -81,6 +83,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #instanceOf(Type[])}.
 	 */
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	InstanceOfCondition<E> typeIn(final Type[] types);
 
 	/**
@@ -107,5 +110,6 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type[])}.
 	 */
 	@Deprecated
+	@SuppressWarnings("unchecked")
 	InstanceOfCondition<E> typeNotIn(final Type[] types);
 }

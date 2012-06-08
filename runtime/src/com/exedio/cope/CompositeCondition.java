@@ -129,7 +129,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append('(');
 		conditions[0].toString(bf, key, defaultType);

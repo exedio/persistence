@@ -41,7 +41,7 @@ public final class Join implements java.io.Serializable
 	final Type<?> type;
 	private Condition condition;
 
-	Join(final int index, final Kind kind, final Type type, final Condition condition)
+	Join(final int index, final Kind kind, final Type<?> type, final Condition condition)
 	{
 		this.index = index;
 		this.kind = kind;
@@ -64,7 +64,7 @@ public final class Join implements java.io.Serializable
 		return kind;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
 	}
@@ -101,7 +101,7 @@ public final class Join implements java.io.Serializable
 		return bf.toString();
 	}
 
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append(' ').
 			append(kind.sql).

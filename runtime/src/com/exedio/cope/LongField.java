@@ -124,7 +124,7 @@ public final class LongField extends NumberField<Long>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Long.class : long.class;
 	}

@@ -70,10 +70,10 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof IsNullCondition))
+		if(!(other instanceof IsNullCondition<?>))
 			return false;
 
-		final IsNullCondition o = (IsNullCondition)other;
+		final IsNullCondition<?> o = (IsNullCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not;
 	}
@@ -85,7 +85,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
 		bf.append(sql());

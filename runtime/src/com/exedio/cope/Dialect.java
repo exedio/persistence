@@ -218,7 +218,7 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
-	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	protected void appendOrderBy(final Statement bf, final Function<?> function, final boolean ascending)
 	{
 		bf.append(function, (Join)null);
 		if(!ascending)
@@ -253,7 +253,7 @@ abstract class Dialect
 	 */
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
-	abstract void appendAsString(Statement bf, NumberFunction source, Join join);
+	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 

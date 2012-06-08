@@ -30,13 +30,13 @@ final class DeletedState extends State
 	}
 
 	@Override
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
 		throw new NoSuchItemException(item);
 	}
 
 	@Override
-	State put(final Transaction transaction, final FunctionField field, final Object value)
+	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		throw new NoSuchItemException(item);
 	}
@@ -58,7 +58,7 @@ final class DeletedState extends State
 
 	private void doDelete(final Connection connection, final Executor executor)
 	{
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
 			final Statement bf = executor.newStatement();

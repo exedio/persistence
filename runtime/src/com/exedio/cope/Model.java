@@ -69,17 +69,17 @@ public final class Model implements Serializable
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
-	public Model(final Type... types)
+	public Model(final Type<?>... types)
 	{
 		this((Revisions.Factory)null, types);
 	}
 
-	public Model(final Revisions.Factory revisions, final Type... types)
+	public Model(final Revisions.Factory revisions, final Type<?>... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
-	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
@@ -93,7 +93,7 @@ public final class Model implements Serializable
 		return containsTypeSet(typeSet.getTypes());
 	}
 
-	public boolean containsTypeSet(final Type... typeSet)
+	public boolean containsTypeSet(final Type<?>... typeSet)
 	{
 		return types.containsTypeSet(typeSet);
 	}
@@ -911,7 +911,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #getType(String)} instead
 	 */
 	@Deprecated
-	public Type findTypeByID(final String id)
+	public Type<?> findTypeByID(final String id)
 	{
 		return getType(id);
 	}
@@ -1001,7 +1001,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(int)}.
 	 */
 	@Deprecated
-	public Model(final int revisionNumber, final Type... types)
+	public Model(final int revisionNumber, final Type<?>... types)
 	{
 		this(new Revisions(revisionNumber), types);
 	}
@@ -1010,7 +1010,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[])}.
 	 */
 	@Deprecated
-	public Model(final Revision[] revisions, final Type... types)
+	public Model(final Revision[] revisions, final Type<?>... types)
 	{
 		this(new Revisions(revisions), types);
 	}
@@ -1091,7 +1091,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
-	public Model(final Revisions revisions, final Type... types)
+	public Model(final Revisions revisions, final Type<?>... types)
 	{
 		this(DirectRevisionsFactory.make(revisions), types);
 	}
@@ -1100,7 +1100,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
-	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
 		this(DirectRevisionsFactory.make(revisions), typeSets, types);
 	}
@@ -1109,7 +1109,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} instead.
 	 */
 	@Deprecated
-	public Model(final RevisionsFuture revisions, final Type... types)
+	public Model(final RevisionsFuture revisions, final Type<?>... types)
 	{
 		this(wrap(revisions), types);
 	}
@@ -1118,7 +1118,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} instead.
 	 */
 	@Deprecated
-	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
 		this(wrap(revisions), typeSets, types);
 	}

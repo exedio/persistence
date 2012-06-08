@@ -28,7 +28,7 @@ public interface Settable<E>
 	  */
 	SetValue<E> map(E value);
 
-	SetValue[] execute(E value, Item exceptionItem);
+	SetValue<?>[] execute(E value, Item exceptionItem);
 
 	/**
 	 * Returns true, if a value for the settable can be specified

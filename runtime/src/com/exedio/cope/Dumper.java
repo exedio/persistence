@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Dumper
 {
-	private final HashMap<Type, AtomicInteger> pks = new HashMap<Type, AtomicInteger>();
+	private final HashMap<Type<?>, AtomicInteger> pks = new HashMap<Type<?>, AtomicInteger>();
 
 	public void prepare(
 			final Appendable out,
@@ -51,16 +51,16 @@ public final class Dumper
 	public <E extends Item> E newItem(
 			final Appendable out,
 			final Type<E> type,
-			final SetValue... setValues)
+			final SetValue<?>... setValues)
 	throws IOException
 	{
-		final LinkedHashMap<Field, Object> fieldValues = type.executeCreate(setValues);
+		final LinkedHashMap<Field<?>, Object> fieldValues = type.executeCreate(setValues);
 		final Row row = new Row();
-		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
-			final Field field = e.getKey();
-			if(field instanceof FunctionField)
-				set(row, (FunctionField)field, e.getValue());
+			final Field<?> field = e.getKey();
+			if(field instanceof FunctionField<?>)
+				set(row, (FunctionField<?>)field, e.getValue());
 		}
 		final int pk = nextPk(type);
 		final E result = type.activate(pk);
@@ -70,9 +70,9 @@ public final class Dumper
 		return result;
 	}
 
-	private int nextPk(final Type type)
+	private int nextPk(final Type<?> type)
 	{
-		Type pkType = type;
+		Type<?> pkType = type;
 		while(pkType.getSupertype()!=null)
 			pkType = pkType.getSupertype();
 
@@ -95,14 +95,14 @@ public final class Dumper
 			final Dialect dialect,
 			final Marshallers marshallers,
 			final Map<BlobColumn, byte[]> blobs,
-			final Type type,
+			final Type<?> type,
 			final int pk,
 			final Row row,
-			final Type tableType,
+			final Type<?> tableType,
 			final Appendable out)
 	throws IOException
 	{
-		final Type supertype = tableType.supertype;
+		final Type<?> supertype = tableType.supertype;
 		if(supertype!=null)
 			insert(dialect, marshallers, blobs, type, pk, row, supertype, out);
 

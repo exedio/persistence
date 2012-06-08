@@ -71,7 +71,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			final boolean isfinal,
 			final boolean optional,
 			final long bodyMaximumLength,
-			final ContentType contentType)
+			final ContentType<?> contentType)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
@@ -80,7 +80,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				"body",
 				ComputedElement.get());
 		this.contentType = contentType;
-		final FunctionField contentTypeField = contentType.field;
+		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
 			addSource(
 					contentTypeField,
@@ -256,7 +256,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return Value.class;
 	}
@@ -557,7 +557,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return toValue(DataField.toValue(body), contentType);
 	}
 
-	public SetValue[] execute(final Value value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value!=null)
 		{
@@ -566,8 +566,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(!this.contentType.check(contentType))
 				throw new IllegalContentTypeException(this, exceptionItem, contentType);
 
-			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-			final FunctionField contentTypeField = this.contentType.field;
+			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
+			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
 			values.add(this.lastModified.map(new Date()));
@@ -580,7 +580,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(!optional)
 				throw MandatoryViolationException.create(this, exceptionItem);
 
-			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
+			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(null));

@@ -23,7 +23,7 @@ import java.util.Map;
 abstract class State
 {
 	final Item item;
-	final Type type;
+	final Type<?> type;
 	final int pk;
 	final int updateCount;
 
@@ -37,7 +37,7 @@ abstract class State
 		assert PK.isValid(pk) : pk;
 	}
 
-	abstract Object get(FunctionField field);
+	abstract Object get(FunctionField<?> field);
 
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
 

@@ -37,7 +37,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 {
 	private static final long serialVersionUID = 1l;
 
-	private final AbstractListField feature;
+	private final AbstractListField<?> feature;
 	private final int size;
 	private final int border;
 

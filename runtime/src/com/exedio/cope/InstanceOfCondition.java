@@ -46,7 +46,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	public InstanceOfCondition(
 			final ItemFunction<E> function,
 			final boolean not,
-			final Type[] types)
+			final Type<?>[] types)
 	{
 		if(function==null)
 			throw new NullPointerException("function");
@@ -107,7 +107,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 			if(!type.isAssignableFrom(t))
 				throw new IllegalArgumentException("type " + type + " is not assignable from type " + t);
 
-			for(final Type ti : t.getTypesOfInstances())
+			for(final Type<?> ti : t.getTypesOfInstances())
 				typeIds.add(ti.schemaId);
 		}
 
@@ -134,7 +134,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		if(value==null)
 			return false;
 
-		final Type valueType = value.getCopeType();
+		final Type<?> valueType = value.getCopeType();
 		for(final Type<?> t : types)
 			if(t.isAssignableFrom(valueType))
 				return !not;
@@ -150,10 +150,10 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof InstanceOfCondition))
+		if(!(other instanceof InstanceOfCondition<?>))
 			return false;
 
-		final InstanceOfCondition o = (InstanceOfCondition)other;
+		final InstanceOfCondition<?> o = (InstanceOfCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not && equals(types, o.types);
 	}
@@ -165,7 +165,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
 

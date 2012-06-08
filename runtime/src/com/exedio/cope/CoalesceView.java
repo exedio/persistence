@@ -74,7 +74,7 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append("coalesce(");
 		boolean first = true;
