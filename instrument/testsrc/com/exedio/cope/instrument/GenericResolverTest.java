@@ -173,7 +173,7 @@ public class GenericResolverTest extends CopeAssert
 		}
 	}
 
-	private ParameterizedType generic(final Class rawType, final Type... actualTypeArguments)
+	private ParameterizedType generic(final Class<?> rawType, final Type... actualTypeArguments)
 	{
 		assert rawType!=null;
 		assert rawType.getTypeParameters().length==actualTypeArguments.length;

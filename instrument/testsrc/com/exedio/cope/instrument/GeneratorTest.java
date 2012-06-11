@@ -58,30 +58,30 @@ public class GeneratorTest extends InstrumentorTest
 {
 	public static final int VARARGS = 0x00000080;
 
-	final static Class STRING = String.class;
-	final static Class DOUBLE = Double.class;
-	final static Class BYTE_ARRAY = byte[].class;
-	final static Class INPUT_STREAM = InputStream.class;
-	final static Class OUTPUT_STREAM = OutputStream.class;
-	final static Class IO_EXCEPTION = IOException.class;
+	final static Class<?> STRING = String.class;
+	final static Class<?> DOUBLE = Double.class;
+	final static Class<?> BYTE_ARRAY = byte[].class;
+	final static Class<?> INPUT_STREAM = InputStream.class;
+	final static Class<?> OUTPUT_STREAM = OutputStream.class;
+	final static Class<?> IO_EXCEPTION = IOException.class;
 
-	final static Class SET_VALUE_ARRAY = SetValue[].class;
-	final static Class MANDATORY_VIOLATION = MandatoryViolationException.class;
-	final static Class UNIQUE_VIOLATION = UniqueViolationException.class;
-	final static Class LENGTH_VIOLATION = StringLengthViolationException.class;
-	final static Class DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
-	final static Class ACTIVATION = ActivationParameters.class;
+	final static Class<?> SET_VALUE_ARRAY = SetValue[].class;
+	final static Class<?> MANDATORY_VIOLATION = MandatoryViolationException.class;
+	final static Class<?> UNIQUE_VIOLATION = UniqueViolationException.class;
+	final static Class<?> LENGTH_VIOLATION = StringLengthViolationException.class;
+	final static Class<?> DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
+	final static Class<?> ACTIVATION = ActivationParameters.class;
 
-	final static Class STANDARD = Standard.class;
-	final static Class TYPE_NONE = TypeNone.class;
-	final static Class TYPE_PRIVATE = TypePrivate.class;
-	final static Class DOUBLE_UNIQUE = DoubleUnique.class;
-	final static Class SUB_TARGET = SubTarget.class;
-	final static Class SUPER = Super.class;
-	final static Class SUB = Sub.class;
-	final static Class INPUT = Input.class;
-	final static Class INPUT_SUB = DefaultTextInput.class;
-	final static Class INPUT_SUB2 = FullQualifyInput.class;
+	final static Class<?> STANDARD = Standard.class;
+	final static Class<?> TYPE_NONE = TypeNone.class;
+	final static Class<?> TYPE_PRIVATE = TypePrivate.class;
+	final static Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
+	final static Class<?> SUB_TARGET = SubTarget.class;
+	final static Class<?> SUPER = Super.class;
+	final static Class<?> SUB = Sub.class;
+	final static Class<?> INPUT = Input.class;
+	final static Class<?> INPUT_SUB = DefaultTextInput.class;
+	final static Class<?> INPUT_SUB2 = FullQualifyInput.class;
 
 	public void testStandard()
 	{
@@ -354,8 +354,8 @@ public class GeneratorTest extends InstrumentorTest
 	}
 
 	void assertField(
-			final Class javaClass, final String name,
-			final Class returnType, final int modifiers)
+			final Class<?> javaClass, final String name,
+			final Class<?> returnType, final int modifiers)
 	{
 		final Field field;
 		try
@@ -370,7 +370,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(modifiers, field.getModifiers());
 	}
 
-	void assertNoField(final Class javaClass, final String name)
+	void assertNoField(final Class<?> javaClass, final String name)
 	{
 		try
 		{
@@ -383,29 +383,29 @@ public class GeneratorTest extends InstrumentorTest
 		}
 	}
 
-	void assertMethod(final Class javaClass, final String name, final Class returnType, final int modifiers)
+	void assertMethod(final Class<?> javaClass, final String name, final Class<?> returnType, final int modifiers)
 	{
 		assertMethod(javaClass, name, null, returnType, modifiers, new Class[]{});
 	}
 
-	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers)
+	void assertMethod(final Class<?> javaClass, final String name, final Class<?>[] parameterTypes, final int modifiers)
 	{
 		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers, new Class[]{});
 	}
 
-	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
+	void assertMethod(final Class<?> javaClass, final String name, final Class<?>[] parameterTypes, final int modifiers, final Class<?>[] exceptionTypes)
 	{
 		assertMethod(javaClass, name, parameterTypes, Void.TYPE, modifiers, exceptionTypes);
 	}
 
-	void assertMethod(final Class javaClass, final String name, final Class[] parameterTypes, final Class returnType, final int modifiers)
+	void assertMethod(final Class<?> javaClass, final String name, final Class<?>[] parameterTypes, final Class<?> returnType, final int modifiers)
 	{
 		assertMethod(javaClass, name, parameterTypes, returnType, modifiers, new Class[]{});
 	}
 
 	void assertMethod(
-			final Class<?> javaClass, final String name, final Class[] parameterTypes,
-			final Class returnType, final int modifiers, final Class[] exceptionTypes)
+			final Class<?> javaClass, final String name, final Class<?>[] parameterTypes,
+			final Class<?> returnType, final int modifiers, final Class<?>[] exceptionTypes)
 	{
 		final Method method;
 		try
@@ -421,12 +421,12 @@ public class GeneratorTest extends InstrumentorTest
 		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(method.getExceptionTypes()));
 	}
 
-	void assertNoMethod(final Class javaClass, final String name)
+	void assertNoMethod(final Class<?> javaClass, final String name)
 	{
 		assertNoMethod(javaClass, name, null);
 	}
 
-	void assertNoMethod(final Class<?> javaClass, final String name, final Class[] parameterTypes)
+	void assertNoMethod(final Class<?> javaClass, final String name, final Class<?>[] parameterTypes)
 	{
 		try
 		{
@@ -440,15 +440,15 @@ public class GeneratorTest extends InstrumentorTest
 	}
 
 	void assertConstructor(
-			final Class javaClass, final Class[] parameterTypes, final int modifiers)
+			final Class<?> javaClass, final Class<?>[] parameterTypes, final int modifiers)
 	{
 		assertConstructor(javaClass, parameterTypes, modifiers, new Class[]{});
 	}
 
 	void assertConstructor(
-			final Class<?> javaClass, final Class[] parameterTypes, final int modifiers, final Class[] exceptionTypes)
+			final Class<?> javaClass, final Class<?>[] parameterTypes, final int modifiers, final Class<?>[] exceptionTypes)
 	{
-		final Constructor constructor;
+		final Constructor<?> constructor;
 		try
 		{
 			constructor = javaClass.getDeclaredConstructor(parameterTypes);
