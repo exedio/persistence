@@ -31,7 +31,7 @@ public @interface Wrap
 	int order();
 
 	String name() default "";
-	Class<? extends StringGetter> nameGetter() default StringGetterDefault.class;
+	Class<? extends StringGetter<?>> nameGetter() default StringGetterDefault.class;
 
 	public @interface Thrown
 	{
@@ -39,10 +39,10 @@ public @interface Wrap
 		String[] doc() default {};
 	}
 	Thrown[] thrown() default {};
-	Class<? extends ThrownGetter> thrownGetter() default ThrownGetterDefault.class;
+	Class<? extends ThrownGetter<?>> thrownGetter() default ThrownGetterDefault.class;
 
 	String[] doc() default {};
 	String[] docReturn() default {};
 
-	Class<? extends BooleanGetter>[] hide() default {};
+	Class<? extends BooleanGetter<?>>[] hide() default {};
 }

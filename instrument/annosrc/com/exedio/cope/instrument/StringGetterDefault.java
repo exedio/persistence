@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-final class StringGetterDefault implements StringGetter
+final class StringGetterDefault implements StringGetter<Object>
 {
 	public String get(final Object feature)
 	{
