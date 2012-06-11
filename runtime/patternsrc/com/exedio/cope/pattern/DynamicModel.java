@@ -299,17 +299,17 @@ public final class DynamicModel<L> extends Pattern
 		return mount().enumType;
 	}
 
-	public com.exedio.cope.Type getTypeLocalizationType()
+	public com.exedio.cope.Type<?> getTypeLocalizationType()
 	{
 		return typeLocalization.getRelationType();
 	}
 
-	public com.exedio.cope.Type getFieldLocalizationType()
+	public com.exedio.cope.Type<?> getFieldLocalizationType()
 	{
 		return fieldLocalization.getRelationType();
 	}
 
-	public com.exedio.cope.Type getEnumLocalizationType()
+	public com.exedio.cope.Type<?> getEnumLocalizationType()
 	{
 		return enumLocalization.getRelationType();
 	}
@@ -329,7 +329,7 @@ public final class DynamicModel<L> extends Pattern
 					"dynamic model mismatch: new type has model " + type.getModel() +
 					", but must be " + toString());
 
-		final SetValue[] values = new SetValue[1+fields.length];
+		final SetValue<?>[] values = new SetValue[1+fields.length];
 		values[0] = mount().type.map(type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
@@ -354,9 +354,9 @@ public final class DynamicModel<L> extends Pattern
 		return getField(valueType, pos, field);
 	}
 
-	FunctionField<?> getField(final ValueType valueType, final int pos, final Field field)
+	FunctionField<?> getField(final ValueType valueType, final int pos, final Field<?> field)
 	{
-		final FunctionField[] array = array(valueType);
+		final FunctionField<?>[] array = array(valueType);
 
 		// make a more verbose exception instead
 		// of the ArrayIndexOutOfBoundException
@@ -409,11 +409,11 @@ public final class DynamicModel<L> extends Pattern
 		assertType(item, field);
 
 		if(value!=null &&
-			value instanceof DynamicModel.Enum &&
+			value instanceof DynamicModel.Enum<?> &&
 			field.getValueType()==ValueType.ENUM)
 		{
-			final Enum enumValue = (Enum)value;
-			final Field enumValueParent = enumValue.getParent();
+			final Enum<?> enumValue = (Enum<?>)value;
+			final Field<?> enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
 		}
@@ -429,14 +429,14 @@ public final class DynamicModel<L> extends Pattern
 		DOUBLE (Double.class),
 		ENUM   (DynamicModel.Enum.class);
 
-		final Class valueClass;
+		final Class<?> valueClass;
 
-		ValueType(final Class valueClass)
+		ValueType(final Class<?> valueClass)
 		{
 			this.valueClass = valueClass;
 		}
 
-		public final Class getValueClass()
+		public final Class<?> getValueClass()
 		{
 			return valueClass;
 		}
@@ -526,12 +526,12 @@ public final class DynamicModel<L> extends Pattern
 						p.fieldCode.equal(code)));
 		}
 
-		public com.exedio.cope.Type getParentType()
+		public com.exedio.cope.Type<?> getParentType()
 		{
 			return getPattern().getType();
 		}
 
-		public DynamicModel getModel()
+		public DynamicModel<?> getModel()
 		{
 			return getPattern();
 		}
@@ -628,7 +628,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getModel()} instead
 		 */
 		@Deprecated
-		public DynamicModel getDtypeSystem()
+		public DynamicModel<?> getDtypeSystem()
 		{
 			return getModel();
 		}

@@ -45,7 +45,7 @@ final class MxSamplerGlobal extends Item
 	static final DoubleField systemLoadAverage = new DoubleField().optional().toFinal().min(0);
 
 
-	static <F extends FunctionField> F replaceByCopy(final F field, final Type<?> type)
+	static <F extends FunctionField<?>> F replaceByCopy(final F field, final Type<?> type)
 	{
 		if(field.getType()!=TYPE)
 			throw new IllegalArgumentException(field.getID());

@@ -100,9 +100,9 @@ public final class Importer<K extends Object> extends Pattern
 	private <P extends Item> P doImportInitial(
 			final Class<P> parentClass,
 			final K keyValue,
-			final SetValue... setValues)
+			final SetValue<?>... setValues)
 	{
-		final SetValue[] setValuesNew = prepend(key.map(keyValue), setValues);
+		final SetValue<?>[] setValuesNew = prepend(key.map(keyValue), setValues);
 		final Type<P> type = getType().as(parentClass);
 
 		try
@@ -128,9 +128,9 @@ public final class Importer<K extends Object> extends Pattern
 		this.hintInitial = hintInitial;
 	}
 
-	private static SetValue[] prepend(final SetValue head, final SetValue[] tail)
+	private static SetValue<?>[] prepend(final SetValue<?> head, final SetValue<?>[] tail)
 	{
-		final SetValue[] result = new SetValue[tail.length + 1];
+		final SetValue<?>[] result = new SetValue[tail.length + 1];
 		result[0] = head;
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;

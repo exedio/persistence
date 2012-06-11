@@ -224,7 +224,7 @@ public class MxSampler
 		final String samplerString = toString();
 		try
 		{
-			for(final Type type : samplerModel.getTypes())
+			for(final Type<?> type : samplerModel.getTypes())
 				if(MxSamplerGlobal.TYPE!=type && // purge SamplerModel at the end
 						MxSamplerMemoryPoolName.TYPE!=type && MxSamplerPurge.TYPE!=type)
 				{

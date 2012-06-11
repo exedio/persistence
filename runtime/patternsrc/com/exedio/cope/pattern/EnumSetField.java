@@ -118,7 +118,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	@Wrap(order=50)
 	public void set(final Item item, final EnumSet<E> value)
 	{
-		final SetValue[] setValues = new SetValue[fields.size()];
+		final SetValue<?>[] setValues = new SetValue[fields.size()];
 		int i = 0;
 		for(final E key : fields.keySet())
 			setValues[i++] = fields.get(key).map(value.contains(key));

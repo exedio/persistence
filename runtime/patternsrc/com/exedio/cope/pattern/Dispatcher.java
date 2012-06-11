@@ -150,7 +150,7 @@ public final class Dispatcher extends Pattern
 		return mount().runParent.as(parentClass);
 	}
 
-	public PartOf getRunRuns()
+	public PartOf<?> getRunRuns()
 	{
 		return mount().runRuns;
 	}

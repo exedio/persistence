@@ -129,7 +129,7 @@ public class Hash extends Pattern implements Settable<String>
 	}
 
 	@Deprecated
-	public final Class getInitialType()
+	public final Class<?> getInitialType()
 	{
 		return String.class;
 	}
@@ -298,7 +298,7 @@ public class Hash extends Pattern implements Settable<String>
 		return SetValue.map(this, value);
 	}
 
-	public final SetValue[] execute(final String value, final Item exceptionItem)
+	public final SetValue<?>[] execute(final String value, final Item exceptionItem)
 	{
 		return new SetValue[]{ storage.map(hash(value)) };
 	}

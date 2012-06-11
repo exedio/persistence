@@ -99,7 +99,7 @@ public final class History extends Pattern
 		return eventParent.as(parentClass);
 	}
 
-	public PartOf getEventEvents()
+	public PartOf<?> getEventEvents()
 	{
 		return eventEvents;
 	}
@@ -149,12 +149,12 @@ public final class History extends Pattern
 		return featureEvent;
 	}
 
-	public PartOf getFeatureFeatures()
+	public PartOf<?> getFeatureFeatures()
 	{
 		return featureFeatures;
 	}
 
-	public FeatureField getFeature()
+	public FeatureField<?> getFeature()
 	{
 		return featureId;
 	}
@@ -273,7 +273,7 @@ public final class History extends Pattern
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 
-		private static final SetValue cut(final StringField f, final Object o)
+		private static final SetValue<?> cut(final StringField f, final Object o)
 		{
 			final String result;
 

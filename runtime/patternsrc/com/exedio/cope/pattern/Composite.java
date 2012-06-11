@@ -42,12 +42,12 @@ public abstract class Composite implements Serializable
 
 	private final Object[] values;
 
-	protected Composite(final SetValue... setValues)
+	protected Composite(final SetValue<?>... setValues)
 	{
 		final CompositeType<?> type = type();
 		values = new Object[type.componentSize];
 		final boolean[] valueSet = new boolean[values.length];
-		for(final SetValue v : setValues)
+		for(final SetValue<?> v : setValues)
 		{
 			final Integer position = type.templatePositions.get(v.settable);
 			if(position==null)
@@ -61,7 +61,7 @@ public abstract class Composite implements Serializable
 				values[i] = type.templateList.get(i).getDefaultConstant();
 
 		int i = 0;
-		for(final FunctionField ff : type.templateList)
+		for(final FunctionField<?> ff : type.templateList)
 			check(ff, values[i++]);
 	}
 

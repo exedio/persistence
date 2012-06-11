@@ -37,9 +37,9 @@ import com.exedio.cope.instrument.InstrumentContext;
 final class CompositeType<X>
 {
 	private final Constructor<X> constructor;
-	final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
-	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
-	final List<FunctionField> templateList;
+	final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
+	final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
+	final List<FunctionField<?>> templateList;
 	final int componentSize;
 
 	private CompositeType(final Class<X> valueClass)
@@ -65,9 +65,9 @@ final class CompositeType<X>
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = classID + '#' + field.getName();
-				if(!(feature instanceof FunctionField))
+				if(!(feature instanceof FunctionField<?>))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
-				final FunctionField template = (FunctionField)feature;
+				final FunctionField<?> template = (FunctionField<?>)feature;
 				if(template.isFinal())
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
 				templates.put(field.getName(), template);
@@ -75,16 +75,16 @@ final class CompositeType<X>
 				template.mount(fieldID, field);
 			}
 		}
-		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
+		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templates.values()));
 		this.componentSize = templates.size();
 	}
 
-	public List<FunctionField> getTemplates()
+	public List<FunctionField<?>> getTemplates()
 	{
 		return templateList;
 	}
 
-	public X newValue(final SetValue... setValues)
+	public X newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
@@ -116,7 +116,7 @@ final class CompositeType<X>
 
 	// static registry
 
-	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
+	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<Class<?>, CompositeType<?>>();
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
@@ -130,7 +130,7 @@ final class CompositeType<X>
 		synchronized(types)
 		{
 			@SuppressWarnings("unchecked")
-			CompositeType<E> result = types.get(valueClass);
+			CompositeType<E> result = (CompositeType)types.get(valueClass);
 			if(result==null)
 			{
 				result = new CompositeType<E>(valueClass);
