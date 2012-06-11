@@ -52,7 +52,7 @@ public class InitServlet extends HttpServlet
 			throw new RuntimeException(e);
 		}
 
-		final Class thisClass = InitServlet.class;
+		final Class<?> thisClass = InitServlet.class;
 		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();
 		try
