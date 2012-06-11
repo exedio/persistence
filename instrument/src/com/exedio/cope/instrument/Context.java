@@ -163,6 +163,10 @@ final class Context
 		if(upper.length==1)
 		{
 			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
+
+			if(Object.class.equals(upper[0]))
+				return "?";
+
 			return "? extends " + write(upper[0]);
 		}
 
