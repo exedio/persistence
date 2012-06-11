@@ -91,7 +91,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final SetValue[] setValues)
+		private AnItem(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
