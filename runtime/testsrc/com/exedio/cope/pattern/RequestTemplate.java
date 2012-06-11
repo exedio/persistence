@@ -59,12 +59,12 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getHeaderNames()
+	public Enumeration<?> getHeaderNames()
 	{
 		throw new RuntimeException();
 	}
 
-	public Enumeration getHeaders(final String name)
+	public Enumeration<?> getHeaders(final String name)
 	{
 		throw new RuntimeException();
 	}
@@ -165,7 +165,7 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getAttributeNames()
+	public Enumeration<?> getAttributeNames()
 	{
 		throw new RuntimeException();
 	}
@@ -210,7 +210,7 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getLocales()
+	public Enumeration<?> getLocales()
 	{
 		throw new RuntimeException();
 	}
@@ -220,12 +220,12 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Map getParameterMap()
+	public Map<?,?> getParameterMap()
 	{
 		throw new RuntimeException();
 	}
 
-	public Enumeration getParameterNames()
+	public Enumeration<?> getParameterNames()
 	{
 		throw new RuntimeException();
 	}

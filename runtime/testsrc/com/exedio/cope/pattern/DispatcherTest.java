@@ -272,7 +272,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
 			final Date date,
-			final List failures)
+			final List<?> failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -286,7 +286,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertPending(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -297,7 +297,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertFailed(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -308,7 +308,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertIt(
 			final int dispatchCountCommitted,
 			final int dispatchCount,
-			final List failures,
+			final List<?> failures,
 			final DispatcherItem item,
 			final int notifyFinalFailureCount)
 	{
@@ -323,7 +323,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(failures.size(), failuresElapsed.size());
 		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
 
-		final Iterator expectedFailureIter = failures.iterator();
+		final Iterator<?> expectedFailureIter = failures.iterator();
 		for(final Run actual : actualFailures)
 		{
 			final Long failureElapsed = failureElapsedIter.next();

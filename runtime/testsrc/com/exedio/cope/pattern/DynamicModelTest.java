@@ -56,7 +56,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		en = deleteOnTearDown(new DynamicModelLocalizationItem("en"));
 	}
 
-	private static final void assertIt(final Pattern pattern, final Field field, final String postfix)
+	private static final void assertIt(final Pattern pattern, final Field<?> field, final String postfix)
 	{
 		assertEquals(pattern.getType(), field.getType());
 		assertEquals(pattern.getName() + '-' + postfix, field.getName());
@@ -229,7 +229,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, item2.getFeatures(color));
 		assertSame(color.getFieldEnum(), color.getField());
 
-		final Enum colorRed = color.addEnumValue("red");
+		final Enum<?> colorRed = color.addEnumValue("red");
 		assertEquals(color, colorRed.getParent());
 		assertEquals(0, colorRed.getPosition());
 		assertEquals("red", colorRed.getCode());
@@ -258,7 +258,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, item2.getFeatures(manufacturer));
 		assertSame(manufacturer.getFieldEnum(), manufacturer.getField());
 
-		final Enum manufacturer1 = manufacturer.addEnumValue("manufacturer1");
+		final Enum<?> manufacturer1 = manufacturer.addEnumValue("manufacturer1");
 		assertEquals(manufacturer, manufacturer1.getParent());
 		assertEquals(0, manufacturer1.getPosition());
 		assertEquals("manufacturer1", manufacturer1.getCode());

@@ -102,7 +102,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final List<FunctionField<Date>> dateSources = item.dates.getListSources();
 		assertEquals(2, dateSources.size());
 		assertUnmodifiable(dateSources);
-		final Iterator dateSourcesIterator = dateSources.iterator();
+		final Iterator<?> dateSourcesIterator = dateSources.iterator();
 		final DateField date0 = assertDate(dateSourcesIterator, 0);
 		final DateField date1 = assertDate(dateSourcesIterator, 1);
 		assertTrue(!dateSourcesIterator.hasNext());
@@ -120,7 +120,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final List<FunctionField<String>> stringSources = item.strings.getListSources();
 		assertEquals(4, stringSources.size());
 		assertUnmodifiable(stringSources);
-		final Iterator stringSourcesIterator = stringSources.iterator();
+		final Iterator<?> stringSourcesIterator = stringSources.iterator();
 		final StringField string0 = assertString(stringSourcesIterator, 0);
 		final StringField string1 = assertString(stringSourcesIterator, 1);
 		final StringField string2 = assertString(stringSourcesIterator, 2);
@@ -348,7 +348,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final DateField assertDate(final Iterator i, final int num)
+	private final DateField assertDate(final Iterator<?> i, final int num)
 	{
 		final DateField date = (DateField)i.next();
 		assertEquals(item.TYPE, date.getType());
@@ -358,7 +358,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		return date;
 	}
 
-	private final StringField assertString(final Iterator i, final int num)
+	private final StringField assertString(final Iterator<?> i, final int num)
 	{
 		final StringField string = (StringField)i.next();
 		assertEquals(item.TYPE, string.getType());
