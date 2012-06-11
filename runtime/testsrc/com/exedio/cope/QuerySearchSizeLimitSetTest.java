@@ -31,7 +31,7 @@ public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQuerySearchSizeLimit();
-		final Query q = TYPE.newQuery();
+		final Query<?> q = TYPE.newQuery();
 		assertEquals(defaulT, q.getSearchSizeLimit());
 
 		// limit 5

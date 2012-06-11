@@ -31,7 +31,7 @@ public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQueryCacheSizeLimit();
-		final Query q = TYPE.newQuery();
+		final Query<?> q = TYPE.newQuery();
 		assertEquals(defaulT, q.getSearchSizeCacheLimit());
 
 		// limit 5

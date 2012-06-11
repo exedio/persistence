@@ -27,7 +27,7 @@ public class QueryCopyTest extends CopeAssert
 
 	public void testSimple()
 	{
-		final Query query = CompareConditionItem.TYPE.newQuery();
+		final Query<?> query = CompareConditionItem.TYPE.newQuery();
 		assertEquals(false, query.isDistinct());
 		assertSame(CompareConditionItem.TYPE, query.getType());
 		assertEquals(list(), query.getJoins());
@@ -37,7 +37,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(0, query.getOffset());
 		assertEquals(-1, query.getLimit());
 
-		final Query copy = new Query<String>(CompareConditionItem.string, query);
+		final Query<?> copy = new Query<String>(CompareConditionItem.string, query);
 		assertEquals(false, copy.isDistinct());
 		assertSame(CompareConditionItem.TYPE, copy.getType());
 		assertEquals(list(), copy.getJoins());
@@ -75,7 +75,7 @@ public class QueryCopyTest extends CopeAssert
 
 	public void testAdvanced()
 	{
-		final Query query = CompareConditionItem.TYPE.newQuery();
+		final Query<?> query = CompareConditionItem.TYPE.newQuery();
 		assertEquals(false, query.isDistinct());
 		assertSame(CompareConditionItem.TYPE, query.getType());
 		assertEquals(list(), query.getJoins());
@@ -101,7 +101,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
 
-		final Query copy = new Query<String>(CompareConditionItem.string, query);
+		final Query<?> copy = new Query<String>(CompareConditionItem.string, query);
 		assertEquals(true, copy.isDistinct());
 		assertSame(CompareConditionItem.TYPE, copy.getType());
 		assertEquals(list(joinQuery), copy.getJoins());

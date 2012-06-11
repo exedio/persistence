@@ -31,7 +31,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
-		final Query query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
+		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> infos = transaction.getQueryInfos();

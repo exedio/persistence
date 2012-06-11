@@ -33,7 +33,7 @@ public class RandomTest extends AbstractRuntimeTest
 
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	List<Long> expected5, expected6;
-	List expected6Sort;
+	List<?> expected6Sort;
 
 	@Override
 	public void setUp() throws Exception
@@ -192,7 +192,7 @@ public class RandomTest extends AbstractRuntimeTest
 		assertEquals(result, q.search());
 	}
 
-	private static void assertNotSupported(final Query q)
+	private static void assertNotSupported(final Query<?> q)
 	{
 		try
 		{

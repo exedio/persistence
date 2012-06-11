@@ -87,7 +87,7 @@ public class SearchTest extends TestmodelTest
 		// test Query#searchSingleton
 		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
 		assertEquals(item, item.TYPE.searchSingleton(item.someNotNullString.equal("someString")));
-		final Query q = item.TYPE.newQuery();
+		final Query<?> q = item.TYPE.newQuery();
 		q.setOrderBy(item.TYPE.getThis(), true);
 		try
 		{

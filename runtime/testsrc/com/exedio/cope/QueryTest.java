@@ -39,7 +39,7 @@ public class QueryTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Query q = DayItem.TYPE.newQuery(null);
+		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
@@ -140,7 +140,7 @@ public class QueryTest extends AbstractRuntimeTest
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
 		{
-			final Query q = DayItem.TYPE.newQuery(TRUE);
+			final Query<?> q = DayItem.TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);
@@ -160,7 +160,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertSame(FALSE, q.getCondition());
 		}
 		{
-			final Query q = DayItem.TYPE.newQuery(FALSE);
+			final Query<?> q = DayItem.TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);

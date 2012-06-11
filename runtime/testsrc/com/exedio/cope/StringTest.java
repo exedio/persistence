@@ -668,7 +668,7 @@ public class StringTest extends AbstractRuntimeTest
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 
-		final Type type = item.getCopeType();
+		final Type<?> type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
 		restartTransaction();

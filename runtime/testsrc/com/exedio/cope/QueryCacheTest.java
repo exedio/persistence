@@ -55,8 +55,8 @@ public class QueryCacheTest extends AbstractRuntimeTest
 
 		final DBL l = new DBL();
 		model.setTestDatabaseListener(l);
-		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
-		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
+		final Query<?> q1 = item.TYPE.newQuery(item.text.equal("someString"));
+		final Query<?> q2 = item.TYPE.newQuery(item.text.equal("someString2"));
 
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
@@ -104,17 +104,17 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
-	private SC sc(final Query query, final boolean totalOnly)
+	private SC sc(final Query<?> query, final boolean totalOnly)
 	{
 		return new SC(query, totalOnly);
 	}
 
 	private static final class SC
 	{
-		final Query query;
+		final Query<?> query;
 		final boolean totalOnly;
 
-		SC(final Query query, final boolean totalOnly)
+		SC(final Query<?> query, final boolean totalOnly)
 		{
 			this.query = query;
 			this.totalOnly = totalOnly;
@@ -160,7 +160,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			throw new RuntimeException();
 		}
 
-		public void search(final Connection connection, final Query query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{
 			scs.add(new SC(query, totalOnly));
 		}

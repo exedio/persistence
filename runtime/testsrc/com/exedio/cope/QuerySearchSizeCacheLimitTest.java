@@ -37,7 +37,7 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeTest
 	static final Day d3 = new Day(2006, 02, 21);
 
 	private boolean cacheEnabled;
-	private Query q;
+	private Query<?> q;
 	private DayItem i1, i2, i3, i4, i5;
 
 	@Override

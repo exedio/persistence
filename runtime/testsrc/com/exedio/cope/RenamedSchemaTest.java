@@ -82,7 +82,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 			assertEquals(list(), sequences);
 	}
 
-	private final String q(final Field f)
+	private final String q(final Field<?> f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}

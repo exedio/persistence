@@ -130,7 +130,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(Schema.Color.OK, table.getCumulativeColor());
 	}
 
-	private final String q(final Field f)
+	private final String q(final Field<?> f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
