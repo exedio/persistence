@@ -50,7 +50,7 @@ public abstract class CachedMedia extends MediaPath
 			final String[] tokens = request.getParameterValues(URL_TOKEN);
 			if(tokens!=null&&tokens.length>1)
 				return notAnItem;
-			for(final Enumeration e = request.getParameterNames(); e.hasMoreElements(); )
+			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
 				if(!URL_TOKEN.equals(e.nextElement()))
 					return notAnItem;
 		}

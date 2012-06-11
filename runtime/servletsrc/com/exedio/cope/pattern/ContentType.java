@@ -52,9 +52,9 @@ abstract class ContentType<B>
 		assert name!=null;
 	}
 
-	abstract ContentType copy();
-	abstract ContentType toFinal();
-	abstract ContentType optional();
+	abstract ContentType<B> copy();
+	abstract ContentType<B> toFinal();
+	abstract ContentType<B> optional();
 	abstract boolean check(String contentType);
 	abstract String describe();
 	abstract List<String> getAllowed();
