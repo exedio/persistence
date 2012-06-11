@@ -183,7 +183,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
 
-	private static final void assertNotSerializable(final Serializable value, final Class exceptionMessage) throws IOException
+	private static final void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		final ObjectOutputStream oos = new ObjectOutputStream(bos);

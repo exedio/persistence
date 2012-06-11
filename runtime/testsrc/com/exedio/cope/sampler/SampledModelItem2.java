@@ -29,7 +29,7 @@ public class SampledModelItem2 extends Item
 {
 	static final StringField code = new StringField();
 
-	SampledModelItem2(final SetValue... values)
+	SampledModelItem2(final SetValue<?>... values)
 	{
 		super(values);
 	}

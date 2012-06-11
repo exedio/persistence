@@ -257,7 +257,7 @@ public class DifferentiateTest extends ConnectedTest
 
 	}
 
-	private void assertQuery(final Query query)
+	private void assertQuery(final Query<?> query)
 	{
 		final String search = SchemaInfo.search(query);
 		assertTrue(search, search.startsWith("select "));

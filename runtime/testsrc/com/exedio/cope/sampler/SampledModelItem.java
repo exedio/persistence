@@ -32,7 +32,7 @@ public class SampledModelItem extends Item
 	static final Media mediaA= new Media();
 	static final Media mediaB = new Media();
 
-	SampledModelItem(final SetValue... values)
+	SampledModelItem(final SetValue<?>... values)
 	{
 		super(values);
 	}
