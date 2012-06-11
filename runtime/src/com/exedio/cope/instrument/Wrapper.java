@@ -135,8 +135,8 @@ public final class Wrapper
 				throw new NullPointerException("name");
 			for(final String c : comment)
 				assertComment(c);
-			if(vararg && !((Class)type).isArray())
-				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
+			if(vararg && !((Class<?>)type).isArray())
+				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class<?>)type).getName());
 
 			this.type = type;
 			this.name = name;
@@ -193,7 +193,7 @@ public final class Wrapper
 		return addParameter(type, name, comment, false);
 	}
 
-	public Wrapper addParameterVararg(final Class type, final String name)
+	public Wrapper addParameterVararg(final Class<?> type, final String name)
 	{
 		return addParameter(type, name, null, true);
 	}
@@ -366,7 +366,7 @@ public final class Wrapper
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC")
 	public class TypeVariable1 { /* OK, just a placeholder */ }
 
-	public static final java.lang.reflect.Type generic(final Class rawType, final Class... actualTypeArguments)
+	public static final java.lang.reflect.Type generic(final Class<?> rawType, final Class<?>... actualTypeArguments)
 	{
 		return sun.reflect.generics.reflectiveObjects.
 			ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
@@ -374,29 +374,29 @@ public final class Wrapper
 
 	static final class ExtendsType implements java.lang.reflect.Type
 	{
-		private final Class rawType;
-		private final Class[] actualTypeArguments;
+		private final Class<?> rawType;
+		private final Class<?>[] actualTypeArguments;
 
 		ExtendsType(
-				final Class rawType,
-				final Class[] actualTypeArguments)
+				final Class<?> rawType,
+				final Class<?>[] actualTypeArguments)
 		{
 			this.rawType = rawType;
 			this.actualTypeArguments = actualTypeArguments;
 		}
 
-		public Class getRawType()
+		public Class<?> getRawType()
 		{
 			return rawType;
 		}
 
-		public Class[] getActualTypeArguments()
+		public Class<?>[] getActualTypeArguments()
 		{
 			return com.exedio.cope.misc.Arrays.copyOf(actualTypeArguments);
 		}
 	}
 
-	public static final java.lang.reflect.Type genericExtends(final Class rawType, final Class... actualTypeArguments)
+	public static final java.lang.reflect.Type genericExtends(final Class<?> rawType, final Class<?>... actualTypeArguments)
 	{
 		return new ExtendsType(rawType, actualTypeArguments);
 	}

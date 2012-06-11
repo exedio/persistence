@@ -20,7 +20,7 @@ package com.exedio.cope.misc;
 
 public final class PrimitiveUtil
 {
-	public static Class toPrimitive(final Class clazz)
+	public static Class<?> toPrimitive(final Class<?> clazz)
 	{
 		     if(clazz==Boolean  .class) return boolean.class;
 		else if(clazz==Character.class) return char   .class;
