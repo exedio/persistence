@@ -155,10 +155,10 @@ public final class TypeIterator
 		@SuppressWarnings("unchecked") // OK: universal object
 		private static final <E> Iterator<E> empty()
 		{
-			return EMPTY;
+			return (Iterator)EMPTY;
 		}
 
-		private static final Iterator EMPTY = new Iterator(){
+		private static final Iterator<Object> EMPTY = new Iterator<Object>(){
 
 			public boolean hasNext()
 			{
