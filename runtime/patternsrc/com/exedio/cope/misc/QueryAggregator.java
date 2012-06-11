@@ -110,7 +110,7 @@ public final class QueryAggregator<R>
 	 */
 	public Result<R> searchAndTotal()
 	{
-		for(final Query q : queries)
+		for(final Query<?> q : queries)
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
 

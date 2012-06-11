@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
@@ -32,12 +33,12 @@ public final class SerializationCheck
 {
 	public static List<Field> check(final Model model)
 	{
-		final LinkedHashSet<Class> classes = new LinkedHashSet<Class>();
-		for(final Type type : model.getTypesSortedByHierarchy())
+		final LinkedHashSet<Class<? extends Item>> classes = new LinkedHashSet<Class<? extends Item>>();
+		for(final Type<?> type : model.getTypesSortedByHierarchy())
 			classes.add(type.getJavaClass());
 
 		ArrayList<Field> result = null;
-		for(final Class clazz : classes)
+		for(final Class<? extends Item> clazz : classes)
 		{
 			for(final Field field : clazz.getDeclaredFields())
 			{
