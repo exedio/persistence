@@ -21,10 +21,10 @@ package com.exedio.dsmf;
 
 public class ConstraintTest extends SchemaReadyTest
 {
-	private static final Class CHECK = CheckConstraint.class;
-	private static final Class PK = PrimaryKeyConstraint.class;
-	private static final Class FK = ForeignKeyConstraint.class;
-	private static final Class UNIQUE = UniqueConstraint.class;
+	private static final Class<?> CHECK = CheckConstraint.class;
+	private static final Class<?> PK = PrimaryKeyConstraint.class;
+	private static final Class<?> FK = ForeignKeyConstraint.class;
+	private static final Class<?> UNIQUE = UniqueConstraint.class;
 
 	private static final String TABLE = "ConstraintTable";
 
@@ -154,7 +154,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(clause, constraint.getClause());
 	}
 
-	private Constraint assertConstraint(final Table table, final Class constraintType, final String constraintName, final String requiredCondition)
+	private Constraint assertConstraint(final Table table, final Class<?> constraintType, final String constraintName, final String requiredCondition)
 	{
 		final Constraint constraint = table.getConstraint(constraintName);
 		if(supportsCheckConstraints || constraintType!=CHECK)
