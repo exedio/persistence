@@ -196,7 +196,7 @@ public class PackageTest extends TestCase
 		}
 		else if(test instanceof TestSuite)
 		{
-			for(final Enumeration e = ((TestSuite)test).tests(); e.hasMoreElements(); )
+			for(final Enumeration<?> e = ((TestSuite)test).tests(); e.hasMoreElements(); )
 				collectModels((Test)e.nextElement(), models);
 		}
 	}

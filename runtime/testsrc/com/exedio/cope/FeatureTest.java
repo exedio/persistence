@@ -82,7 +82,7 @@ public class FeatureTest extends CopeAssert
 		}
 	}
 
-	private static final String toString(final Feature f, final Type defaultType)
+	private static final String toString(final Feature f, final Type<?> defaultType)
 	{
 		final StringBuilder bf = new StringBuilder();
 		f.toString(bf, defaultType);

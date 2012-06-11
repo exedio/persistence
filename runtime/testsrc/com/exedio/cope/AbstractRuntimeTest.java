@@ -243,7 +243,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
-	protected static void assertEquals(final Function f1, final Function f2)
+	protected static void assertEquals(final Function<?> f1, final Function<?> f2)
 	{
 		assertEquals((Object)f1, (Object)f2);
 		assertEquals((Object)f2, (Object)f1);
@@ -251,7 +251,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(f1.hashCode(), f2.hashCode());
 	}
 
-	protected static void assertNotEquals(final Function f1, final Function f2)
+	protected static void assertNotEquals(final Function<?> f1, final Function<?> f2)
 	{
 		assertTrue(!f1.equals(f2));
 		assertTrue(!f2.equals(f1));
@@ -307,12 +307,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertTrue(!item.existsCopeItem());
 	}
 
-	void assertDeleteFails(final Item item, final ItemField attribute)
+	void assertDeleteFails(final Item item, final ItemField<?> attribute)
 	{
 		assertDeleteFails(item, attribute, item);
 	}
 
-	void assertDeleteFails(final Item item, final ItemField attribute, final Item itemToBeDeleted)
+	void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted)
 	{
 		try
 		{
@@ -517,7 +517,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return type.cast(constraint);
 	}
 
-	protected void assertCacheInfo(final Type[] types, final int[] limitWeigths)
+	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
 		assertEquals(types.length, limitWeigths.length);
 
@@ -540,12 +540,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 
-	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info)
+	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfo(type, count, first, last, info, 0);
 	}
 
-	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 		if(!hsqldb)
@@ -581,7 +581,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals(last, info.getLast());
 	}
 
-	protected void assertInfo(final Type type, final SequenceInfo info)
+	protected void assertInfo(final Type<?> type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 		if(!hsqldb)
@@ -691,7 +691,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	final void assertCheckUpdateCounters()
 	{
-		for(final Type type : model.getTypes())
+		for(final Type<?> type : model.getTypes())
 		{
 			if(isUpdateCounterEnabled(model))
 			{
@@ -708,7 +708,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	private static final void assertCheckUpdateCounterFails(final Type type)
+	private static final void assertCheckUpdateCounterFails(final Type<?> type)
 	{
 		try
 		{
@@ -787,7 +787,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	}
 
 	@SuppressWarnings("deprecation")
-	public static java.lang.reflect.Type getInitialType(final Settable settable)
+	public static java.lang.reflect.Type getInitialType(final Settable<?> settable)
 	{
 		return settable.getInitialType();
 	}

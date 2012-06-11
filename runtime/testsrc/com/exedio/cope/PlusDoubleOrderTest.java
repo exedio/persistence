@@ -61,9 +61,9 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 		assertOrder(list(item1, item3, item2), item1.multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
+	private void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query query = item1.TYPE.newQuery(null);
+		final Query<PlusDoubleItem> query = item1.TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 

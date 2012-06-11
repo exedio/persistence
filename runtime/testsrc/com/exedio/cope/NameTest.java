@@ -52,14 +52,14 @@ public class NameTest extends AbstractRuntimeTest
 
 	public void test()
 	{
-		final Field NameLongItem_codeLongName =
+		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
-		final ItemField NameLongItem_pointerLongName =
+		final ItemField<NameLongItem> NameLongItem_pointerLongName =
 			NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 
-		final Field NameCollisionlongaItem_collisionlongaNumber =
+		final IntegerField NameCollisionlongaItem_collisionlongaNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber;
-		final Field NameCollisionlongaItem_collisionlongbNumber =
+		final IntegerField NameCollisionlongaItem_collisionlongbNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber;
 
 		// test model

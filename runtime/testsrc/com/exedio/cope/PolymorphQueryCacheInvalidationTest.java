@@ -37,7 +37,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Query q = itema.TYPE.newQuery(null);
+		final Query<InstanceOfAItem> q = itema.TYPE.newQuery(null);
 		assertContains(itema, q.search());
 
 		final InstanceOfB1Item itemb1a = deleteOnTearDown(new InstanceOfB1Item("itemb1a"));

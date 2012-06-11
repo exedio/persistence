@@ -77,7 +77,7 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			// test join needed for orderby only
-			final Query query = PointerItem.TYPE.newQuery(null);
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			query.setOrderBy(PointerTargetItem.code, true);
 			assertEquals(list(item1b, item1a), query.search());

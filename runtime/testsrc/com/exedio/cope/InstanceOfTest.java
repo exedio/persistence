@@ -153,18 +153,18 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	public void testPolymorphicJoinCondition()
 	{
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.ref.equalTarget());
 			assertContains(reffa, reffb1, reffb2, reffc1, q.search());
 		}
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.refb2.equalTarget());
 			assertContains(q.search());
 		}
 
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, InstanceOfRefItem.refb2.equalTarget());
 			try
 			{
@@ -180,7 +180,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			}
 		}
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equalTarget());
 			try
 			{
@@ -210,7 +210,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	public void testPolymorphicJoinCondition2()
 	{
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfB2Item.TYPE, InstanceOfRefItem.ref.equal(InstanceOfB2Item.TYPE.getThis()));
 			assertContains(reffb2, q.search());
 		}

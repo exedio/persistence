@@ -180,17 +180,17 @@ public class DumperTest extends AbstractRuntimeTest
 	}
 
 
-	private String tab(final Type type)
+	private String tab(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getTableName(type));
 	}
 
-	private String pk(final Type type)
+	private String pk(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getPrimaryKeyColumnName(type));
 	}
 
-	private String cls(final Type type)
+	private String cls(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getTypeColumnName(type));
 	}
@@ -200,7 +200,7 @@ public class DumperTest extends AbstractRuntimeTest
 		return SchemaInfo.isUpdateCounterEnabled(model) ? s : "";
 	}
 
-	private String upd(final Type type)
+	private String upd(final Type<?> type)
 	{
 		if(!SchemaInfo.isUpdateCounterEnabled(model))
 			return "XXXX";
@@ -208,7 +208,7 @@ public class DumperTest extends AbstractRuntimeTest
 		return SchemaInfo.quoteName(model, SchemaInfo.getUpdateCounterColumnName(type));
 	}
 
-	private String col(final Field field)
+	private String col(final Field<?> field)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field));
 	}

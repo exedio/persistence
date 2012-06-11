@@ -48,7 +48,7 @@ public class OrderByTest extends TestmodelTest
 	public void testOrderBy()
 	{
 		{
-			final Query q = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> q = item1.TYPE.newQuery(null);
 			assertEquals(list(), q.getOrderByFunctions());
 			assertEquals(list(), q.getOrderByAscending());
 
@@ -98,13 +98,13 @@ public class OrderByTest extends TestmodelTest
 
 		// order by this only
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(true);
 			assertEquals(list(item1, item2, item3, item4, item5), query.search());
 			assertEquals("select this from AttributeItem order by this", query.toString());
 		}
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderByThis(false);
 			assertEquals(list(item5, item4, item3, item2, item1), query.search());
 			assertEquals("select this from AttributeItem order by this desc", query.toString());
@@ -118,7 +118,7 @@ public class OrderByTest extends TestmodelTest
 
 		// order with multiple functions
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
 			assertEquals(list(item5, item4, item3, item1, item2), query.search());
 			assertEquals("select this from AttributeItem order by " + item1.someNotNullBoolean.getName() + ", " + item.someNotNullInteger.getName(), query.toString());
@@ -162,7 +162,7 @@ public class OrderByTest extends TestmodelTest
 
 		// limit
 		{
-			final Query q = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> q = item1.TYPE.newQuery(null);
 			try
 			{
 				q.setLimit(-1, 10);
@@ -217,7 +217,7 @@ public class OrderByTest extends TestmodelTest
 		assertOrder(list(), list(), item.someNotNullInteger, 0, 0);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final FunctionField orderFunction)
+	private void assertOrder(final List<? extends Object> expectedOrder, final FunctionField<?> orderFunction)
 	{
 		final List<? extends Object> expectedReverseOrder = new ArrayList<Object>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
@@ -225,11 +225,11 @@ public class OrderByTest extends TestmodelTest
 	}
 
 	private void assertOrder(final List<? extends Object> expectedOrder, final List<? extends Object> expectedReverseOrder,
-													final FunctionField orderFunction,
+													final FunctionField<?> orderFunction,
 													final int offset, final int limit)
 	{
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
@@ -243,7 +243,7 @@ public class OrderByTest extends TestmodelTest
 			assertNotNull(query.toString());
 		}
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, false);
 
 			if(limit==-1)
@@ -256,7 +256,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(expectedReverseOrder, query.search());
 		}
 		{
-			final Query query2 = new Query<String>(item.someNotNullString, item1.TYPE, null);
+			final Query<String> query2 = new Query<String>(item.someNotNullString, item1.TYPE, null);
 			query2.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
@@ -274,7 +274,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(expected, query2.search());
 		}
 		{
-			final Query query = item1.TYPE.newQuery(null);
+			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
 			query.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
@@ -285,13 +285,13 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(offset, query.getOffset());
 			assertEquals(limit, query.getLimit());
 
-			final Query.Result resultAndTotal = query.searchAndTotal();
+			final Query.Result<AttributeItem> resultAndTotal = query.searchAndTotal();
 			assertEquals(expectedOrder, resultAndTotal.getData());
 			assertEquals(5, resultAndTotal.getTotal());
 			assertEquals(offset, resultAndTotal.getOffset());
 			assertEquals(limit, resultAndTotal.getLimit());
 			query.setLimit(0);
-			final Collection resultWithoutLimit = query.search();
+			final Collection<AttributeItem> resultWithoutLimit = query.search();
 			assertEquals(5, resultWithoutLimit.size());
 		}
 	}

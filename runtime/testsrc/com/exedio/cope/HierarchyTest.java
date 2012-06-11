@@ -293,8 +293,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 	{
 		final HierarchyFirstSub item = deleteOnTearDown(new HierarchyFirstSub(10));
 
-		final Query q1 = HierarchySuper.TYPE.newQuery(item.superInt.equal(10));
-		final Query q2 = HierarchySuper.TYPE.newQuery(item.superInt.equal(20));
+		final Query<?> q1 = HierarchySuper.TYPE.newQuery(item.superInt.equal(10));
+		final Query<?> q2 = HierarchySuper.TYPE.newQuery(item.superInt.equal(20));
 		assertEquals(list(item), q1.search());
 		assertEquals(list(), q2.search());
 

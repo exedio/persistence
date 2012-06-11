@@ -40,7 +40,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 	}
 
-	public void search(final Connection connection, final Query query, final boolean totalOnly)
+	public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
 	}
@@ -65,7 +65,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		getExpectedCalls().add( new LoadCall(tx, item) );
 	}
 
-	public void expectSearch( final Transaction tx, final Type type )
+	public void expectSearch( final Transaction tx, final Type<?> type )
 	{
 		getExpectedCalls().add( new SearchCall(tx, type) );
 	}
@@ -121,7 +121,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		 * @param connection used in subclasses
 		 * @param query used in subclasses
 		 */
-		void checkSearch( final Connection connection, final Query query )
+		void checkSearch( final Connection connection, final Query<?> query )
 		{
 			throw new RuntimeException( "search in "+toString() );
 		}
@@ -164,16 +164,16 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 
 	static class SearchCall extends Call
 	{
-		final Type type;
+		final Type<?> type;
 
-		SearchCall( final Transaction tx, final Type type )
+		SearchCall( final Transaction tx, final Type<?> type )
 		{
 			super( tx );
 			this.type = type;
 		}
 
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( final Connection connection, final Query query )
+		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( final Connection connection, final Query<?> query )
 		{
 			checkConnection( connection );
 			if ( !type.equals(query.getType()) )

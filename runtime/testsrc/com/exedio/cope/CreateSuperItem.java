@@ -27,7 +27,7 @@ class CreateSuperItem extends Item
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused")
-	private static final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+	private static final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		assertEquals(1, setValues.length);
 		assertSame(text, setValues[0].settable);

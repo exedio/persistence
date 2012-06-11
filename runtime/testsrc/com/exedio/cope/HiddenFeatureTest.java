@@ -30,8 +30,8 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 
 	public void testHierarchy()
 	{
-		final This spt = HiddenFeatureSuperItem.TYPE.getThis();
-		final This sbt = HiddenFeatureSubItem.TYPE.getThis();
+		final This<?> spt = HiddenFeatureSuperItem.TYPE.getThis();
+		final This<?> sbt = HiddenFeatureSubItem.TYPE.getThis();
 
 		// test model
 		assertNotSame(HiddenFeatureSuperItem.hiddenSame,  HiddenFeatureSubItem.hiddenSame);
