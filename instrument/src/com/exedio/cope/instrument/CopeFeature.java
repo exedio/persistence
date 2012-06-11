@@ -78,7 +78,7 @@ class CopeFeature
 			return true;
 
 		final Feature instance = getInstance();
-		return instance instanceof Settable && ((Settable)instance).isInitial();
+		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
 	}
 
 	final Type getInitialType()
@@ -101,15 +101,15 @@ class CopeFeature
 
 	private void makeInitialTypeAndExceptions()
 	{
-		final Settable<?> instance = (Settable)getInstance();
+		final Settable<?> instance = (Settable<?>)getInstance();
 
 		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
 		final Type initialType;
 		final boolean primitive;
-		if(initialTypeX instanceof Class)
+		if(initialTypeX instanceof Class<?>)
 		{
-			final Class initialClass = (Class)initialTypeX;
-			final Class initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
+			final Class<?> initialClass = (Class<?>)initialTypeX;
+			final Class<?> initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
 			if(initialClassPrimitive!=null && instance.isMandatory())
 			{
 				initialType = initialClassPrimitive;

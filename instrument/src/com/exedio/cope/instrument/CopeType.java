@@ -108,7 +108,7 @@ final class CopeType
 		}
 		else
 		{
-			final Class externalType = javaClass.file.findTypeExternally(extname);
+			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
 			if(externalType==Item.class)
 			{
 				supertype = null;
@@ -237,9 +237,9 @@ final class CopeType
 		return constructorExceptions;
 	}
 
-	static final Comparator<Class> CLASS_COMPARATOR = new Comparator<Class>()
+	static final Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
 	{
-		public int compare(final Class c1, final Class c2)
+		public int compare(final Class<?> c1, final Class<?> c2)
 		{
 			return c1.getName().compareTo(c2.getName());
 		}

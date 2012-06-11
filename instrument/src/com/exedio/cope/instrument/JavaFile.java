@@ -132,7 +132,7 @@ final class JavaFile
 		}
 	}
 
-	public final Class findTypeExternally(final String typename)
+	public final Class<?> findTypeExternally(final String typename)
 	{
 		//System.out.println("findtype: >"+typename+"<");
 

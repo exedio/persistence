@@ -100,7 +100,7 @@ final class WrapperByAnnotations
 		bf.append('(');
 
 		boolean first = true;
-		for(final Class parameter : method.getParameterTypes())
+		for(final Class<?> parameter : method.getParameterTypes())
 		{
 			if(first)
 				first = false;
@@ -127,7 +127,7 @@ final class WrapperByAnnotations
 
 	private boolean isNotHidden(final Wrap annotation)
 	{
-		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
+		for(final Class<? extends BooleanGetter<?>> hideGetterClass : annotation.hide())
 		{
 			if(getBoolean(hideGetterClass))
 				return false;
@@ -154,9 +154,9 @@ final class WrapperByAnnotations
 				assert pt.getActualTypeArguments().length==1 : pt.getActualTypeArguments(); // because Class has one generic parameter
 
 				final Type argument = pt.getActualTypeArguments()[0];
-				if(argument instanceof TypeVariable)
+				if(argument instanceof TypeVariable<?>)
 				{
-					result.setStatic((TypeVariable)argument);
+					result.setStatic((TypeVariable<?>)argument);
 					parameterOffset = 1;
 				}
 				else
@@ -237,7 +237,7 @@ final class WrapperByAnnotations
 		return result;
 	}
 
-	private boolean getBoolean(final Class<? extends BooleanGetter> clazz)
+	private boolean getBoolean(final Class<? extends BooleanGetter<?>> clazz)
 	{
 		final BooleanGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
@@ -245,7 +245,7 @@ final class WrapperByAnnotations
 		return result;
 	};
 
-	private String getString(final Class<? extends StringGetter> clazz)
+	private String getString(final Class<? extends StringGetter<?>> clazz)
 	{
 		if(clazz==StringGetterDefault.class)
 			return null;

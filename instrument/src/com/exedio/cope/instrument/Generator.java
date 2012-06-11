@@ -147,7 +147,7 @@ final class Generator
 		{
 			write("\t\t\tthrows");
 			final CharSeparator comma = new CharSeparator(',');
-			for(final Class e : exceptions)
+			for(final Class<? extends Throwable> e : exceptions)
 			{
 				comma.appendTo(output);
 				write(lineSeparator);
@@ -485,7 +485,7 @@ final class Generator
 					write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
-						write(((Class)parameter.getType()).getComponentType().getCanonicalName());
+						write(((Class<?>)parameter.getType()).getComponentType().getCanonicalName());
 						write("...");
 					}
 					else

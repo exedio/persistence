@@ -101,7 +101,7 @@ final class JavaRepository
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
-					final Class typeClass = javaField.file.findTypeExternally(javaField.type);
+					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.type);
 					if(typeClass==null)
 						continue feature;
 
@@ -156,7 +156,7 @@ final class JavaRepository
 
 			//System.out.println("--------------**"+javaClass.getFullName());
 			{
-				final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+				final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 				//System.out.println("--------------*1"+extendsClass);
 				if(extendsClass!=null)
 					return Item.class.isAssignableFrom(extendsClass);
@@ -181,7 +181,7 @@ final class JavaRepository
 		if(classExtends==null)
 			return false;
 
-		final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 		if(extendsClass!=null)
 			return Composite.class.isAssignableFrom(extendsClass);
 
@@ -270,11 +270,11 @@ final class JavaRepository
 		}
 
 		@Override
-		public Class getClass(final String name) throws UtilEvalError
+		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
 
-			final Class superResult = super.getClass(name);
+			final Class<?> superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
 
@@ -301,7 +301,7 @@ final class JavaRepository
 			return null;
 		}
 
-		private final Class define(final ClassFile cf)
+		private final Class<?> define(final ClassFile cf)
 		{
 			return ClassInjector.createExplicit(
 					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
@@ -330,7 +330,7 @@ final class JavaRepository
 
 	static class DummyComposite extends Composite
 	{
-		protected DummyComposite(final SetValue... setValues)
+		protected DummyComposite(final SetValue<?>... setValues)
 		{
 			super(setValues);
 		}

@@ -52,7 +52,7 @@ final class WrapperX
 
 	private boolean isStatic = false;
 	private boolean hasStaticClassToken = false;
-	private TypeVariable staticToken = null;
+	private TypeVariable<?> staticToken = null;
 
 	WrapperX setStatic(final boolean classToken)
 	{
@@ -73,14 +73,14 @@ final class WrapperX
 		return hasStaticClassToken;
 	}
 
-	WrapperX setStatic(final TypeVariable token)
+	WrapperX setStatic(final TypeVariable<?> token)
 	{
 		setStatic(true);
 		staticToken = token;
 		return this;
 	}
 
-	boolean matchesStaticToken(final TypeVariable token)
+	boolean matchesStaticToken(final TypeVariable<?> token)
 	{
 		if(token==null)
 			throw new NullPointerException();
@@ -139,8 +139,8 @@ final class WrapperX
 				throw new NullPointerException("name");
 			for(final String c : comment)
 				assertComment(c);
-			if(vararg && !((Class)type).isArray())
-				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class)type).getName());
+			if(vararg && !((Class<?>)type).isArray())
+				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class<?>)type).getName());
 
 			this.type = type;
 			this.name = name;
