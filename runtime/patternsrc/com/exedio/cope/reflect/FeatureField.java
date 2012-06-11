@@ -158,9 +158,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	private static final class FinalGetter implements BooleanGetter<FeatureField>
+	private static final class FinalGetter implements BooleanGetter<FeatureField<?>>
 	{
-		public boolean get(final FeatureField feature)
+		public boolean get(final FeatureField<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -179,7 +179,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
@@ -227,9 +227,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.searchUnique(typeClass, value.getID());
 	}
 
-	private static final class NonUniqueGetter implements BooleanGetter<FeatureField>
+	private static final class NonUniqueGetter implements BooleanGetter<FeatureField<?>>
 	{
-		public boolean get(final FeatureField feature)
+		public boolean get(final FeatureField<?> feature)
 		{
 			return feature.getIdField().getImplicitUniqueConstraint()==null;
 		}
@@ -238,7 +238,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	// ------------------- deprecated stuff -------------------
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}

@@ -32,7 +32,7 @@ final class CustomAnnotatedElement
 			throw new NullPointerException("annotations");
 		if(annotations.length==0)
 			throw new IllegalArgumentException("annotations must not be empty");
-		final HashMap<Class, Annotation> annotationMap = new HashMap<Class, Annotation>();
+		final HashMap<Class<?>, Annotation> annotationMap = new HashMap<Class<?>, Annotation>();
 		for(int i = 0; i<annotations.length; i++)
 		{
 			final Annotation a = annotations[i];
@@ -48,9 +48,9 @@ final class CustomAnnotatedElement
 	private static final class AnnotationSource implements AnnotatedElement
 	{
 		private final Annotation[] annotations;
-		private final HashMap<Class, Annotation> annotationMap;
+		private final HashMap<Class<?>, Annotation> annotationMap;
 
-		AnnotationSource(final Annotation[] annotations, final HashMap<Class, Annotation> annotationMap)
+		AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
 		{
 			this.annotations = annotations;
 			this.annotationMap = annotationMap;
