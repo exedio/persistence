@@ -29,39 +29,39 @@ import com.exedio.cope.misc.ListUtil;
 
 final class PartOfReverse
 {
-	private static final HashMap<Type<?>, List<PartOf>> cache = new HashMap<Type<?>, List<PartOf>>();
-	private static final HashMap<Type<?>, List<PartOf>> cacheDeclared = new HashMap<Type<?>, List<PartOf>>();
+	private static final HashMap<Type<?>, List<PartOf<?>>> cache = new HashMap<Type<?>, List<PartOf<?>>>();
+	private static final HashMap<Type<?>, List<PartOf<?>>> cacheDeclared = new HashMap<Type<?>, List<PartOf<?>>>();
 
-	static final List<PartOf> get(final Type<?> type)
+	static final List<PartOf<?>> get(final Type<?> type)
 	{
 		return get(false, cache, type);
 	}
 
-	static final List<PartOf> getDeclared(final Type<?> type)
+	static final List<PartOf<?>> getDeclared(final Type<?> type)
 	{
 		return get(true, cacheDeclared, type);
 	}
 
-	private static final List<PartOf> get(final boolean declared, final HashMap<Type<?>, List<PartOf>> cache, final Type<?> type)
+	private static final List<PartOf<?>> get(final boolean declared, final HashMap<Type<?>, List<PartOf<?>>> cache, final Type<?> type)
 	{
 		synchronized(cache)
 		{
 			{
-				final List<PartOf> cachedResult = cache.get(type);
+				final List<PartOf<?>> cachedResult = cache.get(type);
 				if(cachedResult!=null)
 					return cachedResult;
 			}
 
-			final ArrayList<PartOf> resultModifiable = new ArrayList<PartOf>();
+			final ArrayList<PartOf<?>> resultModifiable = new ArrayList<PartOf<?>>();
 
 			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{
 				final Pattern pattern = field.getPattern();
-				if(pattern instanceof PartOf)
-					resultModifiable.add((PartOf)pattern);
+				if(pattern instanceof PartOf<?>)
+					resultModifiable.add((PartOf<?>)pattern);
 			}
 
-			final List<PartOf> result = ListUtil.trimUnmodifiable(resultModifiable);
+			final List<PartOf<?>> result = ListUtil.trimUnmodifiable(resultModifiable);
 			cache.put(type, result);
 			return result;
 		}

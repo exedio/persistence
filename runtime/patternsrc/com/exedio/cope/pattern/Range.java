@@ -88,10 +88,10 @@ public final class Range<E extends Comparable<E>>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Range))
+		if(!(other instanceof Range<?>))
 			return false;
 
-		final Range o = (Range)other;
+		final Range<?> o = (Range<?>)other;
 		return equals(from, o.from) && equals(to, o.to);
 	}
 

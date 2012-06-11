@@ -35,7 +35,7 @@ public final class JavaView extends Pattern
 	private static final class Mount
 	{
 		final Method getter;
-		final Class valueType;
+		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
 		Mount(final Type<? extends Item> type, final String name)
@@ -75,7 +75,7 @@ public final class JavaView extends Pattern
 		return result;
 	}
 
-	public Class getValueType()
+	public Class<?> getValueType()
 	{
 		return mount().valueType;
 	}

@@ -129,7 +129,7 @@ public final class PasswordLimiter extends Pattern
 		return mount().parent.as(parentClass);
 	}
 
-	public PartOf getRefusals()
+	public PartOf<?> getRefusals()
 	{
 		return mount().refusals;
 	}
@@ -297,7 +297,7 @@ public final class PasswordLimiter extends Pattern
 	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final com.exedio.cope.util.Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
 	}

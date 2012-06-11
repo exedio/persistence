@@ -148,7 +148,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return List.class;
 	}
@@ -196,7 +196,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		assertValue(value, item);
 		int i = 0;
-		final SetValue[] setValues = new SetValue[sources.length];
+		final SetValue<?>[] setValues = new SetValue[sources.length];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
@@ -223,11 +223,11 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Collection value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Collection<E> value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);
 		int i = 0;
-		final SetValue[] result = new SetValue[sources.length];
+		final SetValue<?>[] result = new SetValue[sources.length];
 
 		for(final Object v : value)
 			result[i] = Cope.mapAndCast(sources[i++], v);

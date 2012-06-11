@@ -238,7 +238,7 @@ public final class MapField<K,V> extends Pattern
 		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
 	}
 
-	public Join join(final Query q, final K key)
+	public Join join(final Query<?> q, final K key)
 	{
 		return q.joinOuterLeft(
 				getRelationType(),

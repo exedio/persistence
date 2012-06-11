@@ -111,7 +111,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -180,9 +180,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 
-	private static final class FinalGetter implements BooleanGetter<Serializer>
+	private static final class FinalGetter implements BooleanGetter<Serializer<?>>
 	{
-		public boolean get(final Serializer feature)
+		public boolean get(final Serializer<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -201,7 +201,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue[]{ source.map(serialize(value)) };
 	}

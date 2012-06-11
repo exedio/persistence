@@ -89,7 +89,7 @@ public final class PasswordRecovery extends Pattern
 		return parent.as(parentClass);
 	}
 
-	public PartOf getTokens()
+	public PartOf<?> getTokens()
 	{
 		return tokens;
 	}
@@ -263,7 +263,7 @@ public final class PasswordRecovery extends Pattern
 	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final com.exedio.cope.util.Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
 	}

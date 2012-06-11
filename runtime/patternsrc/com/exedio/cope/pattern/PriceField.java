@@ -119,7 +119,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return Price.class;
 	}
@@ -170,7 +170,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Price value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);

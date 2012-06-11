@@ -46,7 +46,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		addSource(unison = new CheckConstraint(Cope.or(isNull(from), isNull(to), from.lessOrEqual(to))), "unison");
 	}
 
-	private static Condition isNull(final FunctionField field)
+	private static Condition isNull(final FunctionField<?> field)
 	{
 		return field.isMandatory() ? Condition.FALSE : field.isNull();
 	}
@@ -129,9 +129,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return true;
 	}
 
-	private static final class FinalGetter implements BooleanGetter<RangeField>
+	private static final class FinalGetter implements BooleanGetter<RangeField<?>>
 	{
-		public boolean get(final RangeField feature)
+		public boolean get(final RangeField<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -149,7 +149,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		return new SetValue[]{
 				from.map(value.getFrom()),
