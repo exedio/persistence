@@ -23,6 +23,7 @@ import gnu.trove.TIntObjectHashMap;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -67,6 +68,9 @@ public final class Transaction
 		this.name = name;
 		this.startDate = startDate;
 		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
 	}
 
 	@SuppressWarnings("unchecked") // OK: no generic array creation
@@ -366,6 +370,9 @@ public final class Transaction
 		}
 
 		transactionCounter.count(rollback, hadConnection);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (rollback ? "rollback" : "commit")));
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup

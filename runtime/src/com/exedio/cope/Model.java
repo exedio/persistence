@@ -577,9 +577,6 @@ public final class Model implements Serializable
 			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		transactions.add(result);
 
-		if(logger.isDebugEnabled())
-			logger.debug("startTransaction " + id + ' ' + name);
-
 		return result;
 	}
 
@@ -651,9 +648,6 @@ public final class Model implements Serializable
 			final long oldestNanos = transactions.getOldestConnectionNanos();
 			connect().itemCache.purgeInvalidateLast(oldestNanos);
 		}
-
-		if(logger.isDebugEnabled())
-			logger.debug(rollback ? "rollback" : "commit");
 	}
 
 	/**
