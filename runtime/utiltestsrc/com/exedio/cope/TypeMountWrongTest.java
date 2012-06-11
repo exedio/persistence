@@ -24,8 +24,8 @@ public class TypeMountWrongTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final Type type1 = Item1.TYPE;
-		final Type type2 = Item2.TYPE;
+		final Type<Item1> type1 = Item1.TYPE;
+		final Type<Item2> type2 = Item2.TYPE;
 
 		try
 		{
@@ -128,12 +128,12 @@ public class TypeMountWrongTest extends CopeAssert
 		}
 
 		private static final long serialVersionUID = 1l;
-		static final Type TYPE = TypesBound.newType(Item1.class);
+		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 	}
 
 	static class Item2 extends Item
 	{
-		static final ItemField f = ItemField.create(Item1.class);
+		static final ItemField<Item1> f = ItemField.create(Item1.class);
 
 		Item2(final ActivationParameters ap)
 		{
@@ -141,6 +141,6 @@ public class TypeMountWrongTest extends CopeAssert
 		}
 
 		private static final long serialVersionUID = 1l;
-		static final Type TYPE = TypesBound.newType(Item2.class);
+		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
 	}
 }

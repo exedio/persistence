@@ -200,7 +200,7 @@ public class CompositeMountTest extends CopeAssert
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		Value(final SetValue[] setValues)
+		Value(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -213,5 +213,5 @@ public class CompositeMountTest extends CopeAssert
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField field = CompositeField.create(Value.class);
+	static final CompositeField<?> field = CompositeField.create(Value.class);
 }

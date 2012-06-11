@@ -200,7 +200,7 @@ public class ServletUtilTest extends CopeAssert
 					return name;
 				}
 
-				public Enumeration getInitParameterNames()
+				public Enumeration<?> getInitParameterNames()
 				{
 					throw new RuntimeException();
 				}
@@ -296,7 +296,7 @@ public class ServletUtilTest extends CopeAssert
 			return name;
 		}
 
-		public Enumeration getInitParameterNames()
+		public Enumeration<?> getInitParameterNames()
 		{
 			throw new RuntimeException();
 		}
@@ -331,7 +331,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException(name);
 		}
 
-		public Set getResourcePaths(final String name)
+		public Set<?> getResourcePaths(final String name)
 		{
 			throw new RuntimeException(name);
 		}
@@ -363,13 +363,13 @@ public class ServletUtilTest extends CopeAssert
 		}
 
 		@Deprecated // OK: implementing external api
-		public Enumeration getServlets()
+		public Enumeration<?> getServlets()
 		{
 			throw new RuntimeException();
 		}
 
 		@Deprecated // OK: implementing external api
-		public Enumeration getServletNames()
+		public Enumeration<?> getServletNames()
 		{
 			throw new RuntimeException();
 		}
@@ -416,7 +416,7 @@ public class ServletUtilTest extends CopeAssert
 			}
 		}
 
-		public Enumeration getInitParameterNames()
+		public Enumeration<?> getInitParameterNames()
 		{
 			throw new RuntimeException();
 		}
@@ -426,7 +426,7 @@ public class ServletUtilTest extends CopeAssert
 			throw new RuntimeException(name);
 		}
 
-		public Enumeration getAttributeNames()
+		public Enumeration<?> getAttributeNames()
 		{
 			throw new RuntimeException();
 		}

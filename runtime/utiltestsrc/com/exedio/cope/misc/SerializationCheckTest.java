@@ -62,7 +62,7 @@ public class SerializationCheckTest extends CopeAssert
 
 		private ItemOk(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
-		static final Type TYPE = TypesBound.newType(ItemOk.class);
+		static final Type<ItemOk> TYPE = TypesBound.newType(ItemOk.class);
 	}
 
 	private static Model MODEL_OK = new Model(ItemOk.TYPE);
@@ -79,7 +79,7 @@ public class SerializationCheckTest extends CopeAssert
 
 		private Item1(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
-		static final Type TYPE = TypesBound.newType(Item1.class);
+		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 	}
 
 	static class Item2 extends Item
@@ -93,7 +93,7 @@ public class SerializationCheckTest extends CopeAssert
 
 		private Item2(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
-		static final Type TYPE = TypesBound.newType(Item2.class);
+		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
 	}
 
 	private static Model MODEL = new Model(Item1.TYPE, Item2.TYPE);

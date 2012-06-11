@@ -79,7 +79,7 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 
 	private static Media pasteValue(final TextUrlFilter filter)
 	{
-		final Type type = filter.getSourceTypes().get(0);
+		final Type<?> type = filter.getSourceTypes().get(0);
 		assertNotNull(type);
 		final Media value = (Media)type.getFeature("value");
 		assertNotNull(value);

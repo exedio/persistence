@@ -26,7 +26,7 @@ public class QuerySerializeTest extends CopeAssert
 {
 	public void testSerialize()
 	{
-		final Query q = Item1.TYPE.newQuery(null);
+		final Query<?> q = Item1.TYPE.newQuery(null);
 		assertSerializedEquals(q, 794);
 
 		q.setCondition(Item1.field1.isNotNull());
@@ -48,7 +48,7 @@ public class QuerySerializeTest extends CopeAssert
 		assertSerializedEquals(qMulti, 864);
 	}
 
-	private static final void assertSerializedEquals(final Query value, final int expectedSize)
+	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
 	{
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
 	}

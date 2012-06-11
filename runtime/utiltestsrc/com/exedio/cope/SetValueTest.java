@@ -37,7 +37,7 @@ public class SetValueTest extends TestCase
 			this.toString = toString;
 		}
 
-		public SetValue[] execute(final String value, final Item exceptionItem)
+		public SetValue<?>[] execute(final String value, final Item exceptionItem)
 		{
 			throw new RuntimeException();
 		}
@@ -74,7 +74,7 @@ public class SetValueTest extends TestCase
 		}
 
 		@Override
-		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type defaultType)
+		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type<?> defaultType)
 		{
 			bf.append(toString);
 		}
@@ -83,15 +83,15 @@ public class SetValueTest extends TestCase
 	public void testIt()
 	{
 		final MockSettable alpha = new MockSettable("alpha");
-		final SetValue alphaValue = SetValue.map(alpha, "alphaValue");
+		final SetValue<?> alphaValue = SetValue.map(alpha, "alphaValue");
 		assertEquals("alpha=alphaValue", alphaValue.toString());
 
 		final MockSettable beta = new MockSettable("beta");
-		final SetValue betaValue = SetValue.map(beta, "betaValue");
+		final SetValue<?> betaValue = SetValue.map(beta, "betaValue");
 		assertEquals("beta=betaValue", betaValue.toString());
 
 		final MockSettable nulla = new MockSettable(null);
-		final SetValue nullValue = SetValue.map(nulla, null);
+		final SetValue<?> nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
 
 		assertEquals(

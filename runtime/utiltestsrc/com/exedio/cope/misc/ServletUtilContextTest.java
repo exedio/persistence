@@ -118,7 +118,7 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public Enumeration getAttributeNames()
+		public Enumeration<?> getAttributeNames()
 		{
 			throw new RuntimeException();
 		}
@@ -133,7 +133,7 @@ public class ServletUtilContextTest extends CopeAssert
 			return contextPath;
 		}
 
-		public Enumeration getInitParameterNames()
+		public Enumeration<?> getInitParameterNames()
 		{
 			throw new RuntimeException();
 		}
@@ -178,7 +178,7 @@ public class ServletUtilContextTest extends CopeAssert
 			throw new RuntimeException();
 		}
 
-		public Set getResourcePaths(final String arg0)
+		public Set<?> getResourcePaths(final String arg0)
 		{
 			throw new RuntimeException();
 		}
@@ -195,13 +195,13 @@ public class ServletUtilContextTest extends CopeAssert
 		}
 
 		@Deprecated
-		public Enumeration getServletNames()
+		public Enumeration<?> getServletNames()
 		{
 			throw new RuntimeException();
 		}
 
 		@Deprecated
-		public Enumeration getServlets()
+		public Enumeration<?> getServlets()
 		{
 			throw new RuntimeException();
 		}

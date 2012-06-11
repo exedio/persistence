@@ -35,7 +35,7 @@ public final class SetValueUtil
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> E getFirst(final List<SetValue> setValues, final Settable<E> settable)
+	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
 		for(final SetValue setValue : setValues)
 			if(settable==setValue.settable)

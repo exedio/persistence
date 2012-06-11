@@ -65,7 +65,7 @@ public class TypesBoundErrorTest extends CopeAssert
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-		final Type wrongActivationConstructor = newType(WrongActivationConstructor.class);
+		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
 		try
 		{
 			new Model(wrongActivationConstructor);
@@ -103,7 +103,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		{
 			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
-		final Type nonResolvingItemField = newType(NonResolvingItemField.class);
+		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -185,7 +185,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		static final ItemField itemField = ItemField.create(NullFeature.class);
+		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
 
 		NonResolvingItemField(final ActivationParameters ap)
 		{
@@ -198,7 +198,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings("unused")
-		private final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+		private final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return setValues;
 		}
@@ -214,7 +214,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings("unused")
-		private static final String beforeNewCopeItem(final SetValue[] setValues)
+		private static final String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return "";
 		}

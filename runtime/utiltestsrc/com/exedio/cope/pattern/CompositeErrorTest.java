@@ -121,7 +121,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private NoFields(final SetValue[] setValues)
+		private NoFields(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -131,19 +131,19 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private NullField(final SetValue[] setValues)
+		private NullField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
 
-		static final Field nullField = null;
+		static final Field<?> nullField = null;
 	}
 
 	static class PatternField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
-		private PatternField(final SetValue[] setValues)
+		private PatternField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -155,7 +155,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private FinalField(final SetValue[] setValues)
+		private FinalField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}

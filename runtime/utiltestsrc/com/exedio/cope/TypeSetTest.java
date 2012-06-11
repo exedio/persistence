@@ -97,7 +97,7 @@ public class TypeSetTest extends CopeAssert
 			super(ap);
 		}
 
-		static final Type TYPE = TypesBound.newType(Item1.class);
+		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 	}
 
 	static class Item2 extends Item
@@ -111,7 +111,7 @@ public class TypeSetTest extends CopeAssert
 			super(ap);
 		}
 
-		static final Type TYPE = TypesBound.newType(Item2.class);
+		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
 	}
 
 	static class ItemX extends Item
@@ -125,6 +125,6 @@ public class TypeSetTest extends CopeAssert
 			super(ap);
 		}
 
-		static final Type TYPE = TypesBound.newType(ItemX.class);
+		static final Type<ItemX> TYPE = TypesBound.newType(ItemX.class);
 	}
 }
