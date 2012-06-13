@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 /**
  * @cope.generic.constructor package
  */
+@SuppressWarnings("rawtypes")
 public class SerializerItem extends Item
 {
 	static final Serializer<Integer> integer = Serializer.create(Integer.class).optional();
