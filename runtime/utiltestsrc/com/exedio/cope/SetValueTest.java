@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -93,9 +92,5 @@ public class SetValueTest extends TestCase
 		final MockSettable nulla = new MockSettable(null);
 		final SetValue<?> nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
-
-		assertEquals(
-				"[alpha=alphaValue, beta=betaValue, null=null]",
-				Arrays.asList(alphaValue, betaValue, nullValue).toString());
 	}
 }
