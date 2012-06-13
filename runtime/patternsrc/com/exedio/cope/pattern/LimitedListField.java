@@ -95,7 +95,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return new LimitedListField<E>(template, maximumSize);
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;

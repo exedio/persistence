@@ -31,8 +31,6 @@ import com.exedio.cope.util.MessageDigestUtil;
  */
 public final class MessageDigestAlgorithm implements Hash.Algorithm
 {
-	private static final long serialVersionUID = 1l;
-
 	private final String digest;
 	private final int digestLength;
 

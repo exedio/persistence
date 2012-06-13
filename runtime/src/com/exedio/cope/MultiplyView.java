@@ -111,7 +111,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	/**
 	 * @deprecated Use {@link MultiplyView#MultiplyView(Function[])} instead.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Deprecated
 	public MultiplyView(final NumberFunction[] multipliers)
 	{

@@ -502,7 +502,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(new Day(), value.getDay());
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage
 	public void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);

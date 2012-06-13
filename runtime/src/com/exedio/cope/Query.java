@@ -498,7 +498,7 @@ public final class Query<R> implements Serializable
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
 
-	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
 		return o;
@@ -680,7 +680,7 @@ public final class Query<R> implements Serializable
 			return EMPTY;
 		}
 
-		@SuppressWarnings("unchecked") // OK: for singleton property
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: for singleton property
 		private static final Result EMPTY = new Result(Collections.EMPTY_LIST, 0, 0);
 
 		// ------------------- deprecated stuff -------------------

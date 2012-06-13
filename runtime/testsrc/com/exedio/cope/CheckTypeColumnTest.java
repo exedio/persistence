@@ -139,7 +139,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing unchecked usage of api
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing unchecked usage of api
 	public void testUnchecked()
 	{
 		try

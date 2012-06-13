@@ -94,7 +94,7 @@ public class FieldDateTest extends FieldTest
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

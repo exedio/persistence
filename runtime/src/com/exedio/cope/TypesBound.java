@@ -109,7 +109,7 @@ public final class TypesBound
 		return result;
 	}
 
-	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: Class.getSuperclass() does not support generics
 	private static Class<Item> castSupertype(final Class o)
 	{
 		return o;

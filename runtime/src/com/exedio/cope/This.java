@@ -25,7 +25,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
 
 public final class This<E extends Item> extends Feature
-	implements Function<E>, ItemFunction<E>
+	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -257,7 +257,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -283,7 +283,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -316,7 +316,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -347,7 +347,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

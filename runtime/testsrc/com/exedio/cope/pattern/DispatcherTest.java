@@ -110,7 +110,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
 		try

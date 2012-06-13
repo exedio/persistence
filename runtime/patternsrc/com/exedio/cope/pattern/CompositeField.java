@@ -184,7 +184,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(final Item item)
 	{
 		if(mandatoryComponent!=null && mandatoryComponent.get(item)==null)
@@ -208,7 +208,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			doc="Sets a new value for {0}.",
 			thrownGetter=Thrown.class,
 			hide=FinalGetter.class)
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void set(final Item item, final E value)
 	{
 		final SetValue[] setValues = new SetValue[componentSize];
@@ -234,7 +234,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		final SetValue[] result = new SetValue[componentSize];

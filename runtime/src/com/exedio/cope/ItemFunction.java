@@ -49,14 +49,14 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	InstanceOfCondition<E> instanceOf(final Type[] types);
 
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3);
 	InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4);
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	InstanceOfCondition<E> notInstanceOf(final Type[] types);
 
 	/**
@@ -83,7 +83,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #instanceOf(Type[])}.
 	 */
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	InstanceOfCondition<E> typeIn(final Type[] types);
 
 	/**
@@ -110,6 +110,6 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type[])}.
 	 */
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	InstanceOfCondition<E> typeNotIn(final Type[] types);
 }

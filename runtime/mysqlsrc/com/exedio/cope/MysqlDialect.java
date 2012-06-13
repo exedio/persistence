@@ -125,9 +125,6 @@ final class MysqlDialect extends Dialect
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
 		final int maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
 
-		assert TWOPOW8==256;
-		assert TWOPOW16==65536;
-
 		// TODO 255 (TWOPOW8) is needed for unique columns only,
 		//      non-unique can have more,
 		//      and for longer unique columns you may specify a shorter key length

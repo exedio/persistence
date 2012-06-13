@@ -85,7 +85,7 @@ public final class Dumper
 		return pkSource.getAndIncrement();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static void set(final Row row, final FunctionField field, final Object value)
 	{
 		field.set(row, value);

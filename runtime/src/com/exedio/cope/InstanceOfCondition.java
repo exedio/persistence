@@ -60,7 +60,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		this.types = InstanceOfCondition.<E>cast(types);
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private final static <T extends Item> Type<T>[] cast(final Type[] o)
 	{
 		return o;

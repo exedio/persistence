@@ -104,7 +104,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -130,7 +130,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -161,7 +161,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	}
 
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -192,7 +192,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	}
 
 	@Deprecated
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

@@ -152,7 +152,7 @@ public final class TypeIterator
 			throw new UnsupportedOperationException();
 		}
 
-		@SuppressWarnings("unchecked") // OK: universal object
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: universal object
 		private static final <E> Iterator<E> empty()
 		{
 			return (Iterator)EMPTY;

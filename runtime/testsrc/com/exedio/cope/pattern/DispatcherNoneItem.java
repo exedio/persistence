@@ -32,7 +32,7 @@ public class DispatcherNoneItem extends Item
 	 */
 	static final Dispatcher wrong = new Dispatcher();
 
-	@SuppressWarnings("unchecked") // because instrumentor fails on correct version
+	@SuppressWarnings({"unchecked", "rawtypes"}) // because instrumentor fails on correct version
 	static final Type<?> newTypeAccessible(final Class javaClass)
 	{
 		return TypesBound.newType(javaClass);

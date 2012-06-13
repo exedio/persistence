@@ -473,7 +473,7 @@ public class DataTest extends AbstractRuntimeTest
 		assertNull(item.getData10Array());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		item.data.set(item, data8);

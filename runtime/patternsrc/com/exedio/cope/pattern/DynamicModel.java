@@ -245,19 +245,19 @@ public final class DynamicModel<L> extends Pattern
 		return mount;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
 	{
 		return t;
@@ -643,7 +643,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();
@@ -759,7 +759,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();

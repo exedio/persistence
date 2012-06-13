@@ -136,7 +136,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	/**
 	 * @deprecated Use {@link PlusView#PlusView(Function[])} instead.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Deprecated
 	public PlusView(final NumberFunction[] addends)
 	{

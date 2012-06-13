@@ -197,7 +197,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "cast"})
+	@SuppressWarnings({"unchecked", "cast", "rawtypes"})
 	public void testPolymorphicJoinConditionUnchecked()
 	{
 		{
@@ -216,7 +216,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

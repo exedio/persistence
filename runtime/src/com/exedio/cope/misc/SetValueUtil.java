@@ -34,7 +34,7 @@ public final class SetValueUtil
 			: null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
 		for(final SetValue setValue : setValues)

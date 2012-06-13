@@ -161,7 +161,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 		synchronized(types)
 		{
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({"unchecked", "rawtypes"})
 			EnumFieldType<E> result = (EnumFieldType)types.get(valueClass);
 			if(result==null)
 			{

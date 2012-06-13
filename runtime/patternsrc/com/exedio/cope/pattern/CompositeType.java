@@ -129,7 +129,7 @@ final class CompositeType<X>
 
 		synchronized(types)
 		{
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({"unchecked", "rawtypes"})
 			CompositeType<E> result = (CompositeType)types.get(valueClass);
 			if(result==null)
 			{

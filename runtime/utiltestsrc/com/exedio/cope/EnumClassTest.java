@@ -50,7 +50,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 
-	@SuppressWarnings({"unchecked"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
 		try
@@ -78,7 +78,7 @@ public class EnumClassTest extends CopeAssert
 		assertEquals(list(Subclass.Eins, Subclass.Zwei), f.getValues());
 	}
 
-	@SuppressWarnings({"unchecked"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSubclassWrong()
 	{
 		try

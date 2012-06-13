@@ -127,7 +127,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getOptionalDay());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

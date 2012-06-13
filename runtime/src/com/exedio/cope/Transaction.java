@@ -73,7 +73,7 @@ public final class Transaction
 			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
 	{
 		return o;

@@ -77,7 +77,7 @@ public class FieldIntegerTest extends FieldTest
 		assertEquals(null, item.getSomeInteger());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

@@ -257,7 +257,7 @@ public class LongTest extends AbstractRuntimeTest
 		model.checkUnsupportedConstraints();
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

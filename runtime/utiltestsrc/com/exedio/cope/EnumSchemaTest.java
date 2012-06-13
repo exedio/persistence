@@ -57,7 +57,7 @@ public class EnumSchemaTest extends CopeAssert
 		Eins, Zwei;
 	}
 
-	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
 	public void testUnchecked()
 	{

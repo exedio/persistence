@@ -120,7 +120,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);

@@ -78,7 +78,7 @@ public class FieldLongTest extends FieldTest
 		assertEquals(null, item.getSomeLong());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

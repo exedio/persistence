@@ -118,7 +118,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		assert optional == (unison!=null);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	static final <F extends Field> F applyConstraints(
 			F field,
 			final boolean isfinal,

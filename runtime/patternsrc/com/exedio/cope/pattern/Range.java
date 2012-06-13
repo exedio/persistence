@@ -40,7 +40,7 @@ public final class Range<E extends Comparable<E>>
 		return all;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static final Range all = new Range(null, null, true);
 
 

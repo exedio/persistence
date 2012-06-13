@@ -65,7 +65,7 @@ public abstract class Composite implements Serializable
 			check(ff, values[i++]);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static final <E> void check(final FunctionField field, final Object value)
 	{
 		field.check(value);
