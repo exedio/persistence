@@ -239,6 +239,7 @@ final class WrapperByAnnotations
 
 	private boolean getBoolean(final Class<? extends BooleanGetter<?>> clazz)
 	{
+		@SuppressWarnings("rawtypes")
 		final BooleanGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final boolean result = getter.get(feature);
@@ -250,12 +251,14 @@ final class WrapperByAnnotations
 		if(clazz==StringGetterDefault.class)
 			return null;
 
+		@SuppressWarnings("rawtypes")
 		final StringGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final String result = getter.get(feature);
 		return result;
 	};
 
+	@SuppressWarnings("rawtypes")
 	private Set<Class<? extends Throwable>> getThrows(final Class<? extends ThrownGetter> clazz)
 	{
 		if(clazz==ThrownGetterDefault.class)

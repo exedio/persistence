@@ -34,6 +34,7 @@ public class GenericResolverTest extends CopeAssert
 {
 	public void testIt()
 	{
+		@SuppressWarnings("rawtypes")
 		final GenericResolver<Interface> gr = neW(Interface.class);
 		final Type type1 = new MyType("type1");
 		final Type type2 = new MyType("type2");
