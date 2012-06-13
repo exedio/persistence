@@ -154,7 +154,7 @@ final class Context
 
 			result++;
 		}
-		throw new RuntimeException("" + Arrays.asList(typeParameter) + '/' + typeParameter);
+		throw new RuntimeException("" + Arrays.asList(typeParameters) + '/' + typeParameter);
 	}
 
 	private String write(final WildcardType t)
