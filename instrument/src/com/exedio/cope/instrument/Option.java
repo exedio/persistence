@@ -30,12 +30,14 @@ final class Option
 	static final String TEXT_VISIBILITY_PUBLIC = "public";
 	static final String TEXT_BOOLEAN_AS_IS = "boolean-as-is";
 	static final String TEXT_NON_FINAL = "non-final";
+	private static final String TEXT_OVERRIDE = "override";
 
 	final boolean exists;
 	final Visibility visibility;
 	final String suffix;
 	final boolean booleanAsIs;
 	final boolean isFinal;
+	final boolean override;
 
 	Option(final String optionString, final boolean allowFinal)
 	{
@@ -46,6 +48,7 @@ final class Option
 			suffix = "";
 			booleanAsIs = false;
 			isFinal = allowFinal;
+			override = false;
 		}
 		else
 		{
@@ -97,6 +100,7 @@ final class Option
 				this.isFinal = (optionString.indexOf(TEXT_NON_FINAL)<0);
 			else
 				this.isFinal = false;
+			override = (optionString.indexOf(TEXT_OVERRIDE)>=0);
 		}
 	}
 

@@ -47,6 +47,7 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
+	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -435,6 +436,14 @@ final class Generator
 			}
 
 			write('\t');
+
+			if(option.override)
+			{
+				write('@');
+				write(OVERRIDE);
+				write(' ');
+			}
+
 			writeModifier(
 				(
 					option!=null

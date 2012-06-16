@@ -36,6 +36,8 @@ public abstract class Super extends Item
 
 	public static final DayField superNonInitial = new DayField().optional();
 
+	abstract java.lang.Long getOverride();
+
 /**
 
 	 **
