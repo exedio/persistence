@@ -49,12 +49,10 @@ public abstract class Composite implements Serializable
 		final boolean[] valueSet = new boolean[values.length];
 		for(final SetValue<?> v : setValues)
 		{
-			final Integer position = type.templatePositions.get(v.settable);
-			if(position==null)
-				throw new IllegalArgumentException("not a member");
+			final int position = type.position((FunctionField<?>)v.settable);
 
-			values[position.intValue()] = v.value;
-			valueSet[position.intValue()] = true;
+			values[position] = v.value;
+			valueSet[position] = true;
 		}
 		for(int i = 0; i<valueSet.length; i++)
 			if(!valueSet[i])
@@ -140,11 +138,7 @@ public abstract class Composite implements Serializable
 
 	private final int position(final FunctionField<?> member)
 	{
-		final CompositeType<?> type = type();
-		final Integer result = type.templatePositions.get(member);
-		if(result==null)
-			throw new IllegalArgumentException("not a member");
-		return result.intValue();
+		return type().position(member);
 	}
 
 	public static final String getTemplateName(final FunctionField<?> template)

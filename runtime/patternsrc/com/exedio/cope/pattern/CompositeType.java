@@ -38,7 +38,7 @@ final class CompositeType<X>
 {
 	private final Constructor<X> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
-	final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
+	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
 	final List<FunctionField<?>> templateList;
 	final int componentSize;
 
@@ -90,6 +90,14 @@ final class CompositeType<X>
 	Map<String,FunctionField<?>> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
+	}
+
+	int position(final FunctionField<?> member)
+	{
+		final Integer result = templatePositions.get(member);
+		if(result==null)
+			throw new IllegalArgumentException("not a member");
+		return result.intValue();
 	}
 
 	public X newValue(final SetValue<?>... setValues)
