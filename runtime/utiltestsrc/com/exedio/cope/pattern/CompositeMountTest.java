@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static java.lang.annotation.ElementType.FIELD;
 
 import java.lang.annotation.Retention;
@@ -96,6 +97,33 @@ public class CompositeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
+		}
+	}
+
+	public void testTemplateName()
+	{
+		assertEquals("string4", getTemplateName(Value.string4));
+		assertEquals("intMax4", getTemplateName(Value.intMax4));
+
+		try
+		{
+			getTemplateName(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("template", e.getMessage());
+		}
+
+		final LongField negative = new LongField();
+		try
+		{
+			getTemplateName(negative);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("feature not mounted to a composite: " + negative, e.getMessage());
 		}
 	}
 

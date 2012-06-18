@@ -147,6 +147,11 @@ public abstract class Composite implements Serializable
 		return result.intValue();
 	}
 
+	public static final String getTemplateName(final FunctionField<?> template)
+	{
+		return CompositeType.getTemplateName(template);
+	}
+
 	@Override
 	public final boolean equals(final Object other)
 	{

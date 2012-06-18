@@ -42,6 +42,8 @@ final class CompositeType<X>
 	final List<FunctionField<?>> templateList;
 	final int componentSize;
 
+	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<FunctionField<?>, String>();
+
 	private CompositeType(final Class<X> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
@@ -73,6 +75,7 @@ final class CompositeType<X>
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
 				template.mount(fieldID, field);
+				templateNames.put(template, field.getName());
 			}
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templates.values()));
@@ -142,5 +145,17 @@ final class CompositeType<X>
 
 			return result;
 		}
+	}
+
+	static String getTemplateName(final FunctionField<?> template)
+	{
+		if(template==null)
+			throw new NullPointerException("template");
+
+		final String result = templateNames.get(template);
+		if(result==null)
+			throw new IllegalStateException("feature not mounted to a composite: " + template);
+
+		return result;
 	}
 }
