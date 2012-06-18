@@ -50,7 +50,6 @@ public abstract class Composite implements Serializable
 		for(final SetValue<?> v : setValues)
 		{
 			final int position = type.position((FunctionField<?>)v.settable);
-
 			values[position] = v.value;
 			valueSet[position] = true;
 		}
