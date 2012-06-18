@@ -30,19 +30,19 @@ import com.exedio.cope.junit.CopeAssert;
 
 public final class PriceTest extends CopeAssert
 {
-	public void testIt()
+	public static void testIt()
 	{
 		assertEquals(5, new Price(5).store());
 		assertEquals(0, new Price(0).store());
 	}
 
-	public void testZero()
+	public static void testZero()
 	{
 		assertEquals(0, ZERO.store());
 		assertEquals(0.0, ZERO.doubleValue());
 	}
 
-	public void testStoreOfInt()
+	public static void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
 		assertNotSame(storeOf(1), storeOf(1));
@@ -52,7 +52,7 @@ public final class PriceTest extends CopeAssert
 		assertSame(MAX_VALUE, storeOf(Integer.MAX_VALUE));
 	}
 
-	public void testStoreOfInteger()
+	public static void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
 		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
@@ -60,7 +60,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(null, storeOf((Integer)null));
 	}
 
-	public void testValueOfDouble()
+	public static void testValueOfDouble()
 	{
 		assertEquals( 222, valueOf( 2.22).store());
 		assertEquals(-222, valueOf(-2.22).store());

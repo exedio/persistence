@@ -152,20 +152,20 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	public void testConditions()
 	{
-		MediaItem item2 = deleteOnTearDown(new MediaItem("other media item"));
+		final MediaItem item2 = deleteOnTearDown(new MediaItem("other media item"));
 		deleteOnTearDown(new MediaItemHolder(item));
-		MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
+		final MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
 
 		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull()));
 		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));
 
 		{
-			Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			Join join1 = query.join(MediaItem.TYPE);
+			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(MediaItem.TYPE);
 			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
 			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
 
-			Join join2 = query.join(MediaItem.TYPE);
+			final Join join2 = query.join(MediaItem.TYPE);
 			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
 			query.narrow( MediaItem.photo.isNull(join2) );
 
@@ -173,12 +173,12 @@ public final class MediaTest extends AbstractRuntimeTest
 		}
 
 		{
-			Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			Join join1 = query.join(MediaItem.TYPE);
+			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(MediaItem.TYPE);
 			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
 			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
 
-			Join join2 = query.join(MediaItem.TYPE);
+			final Join join2 = query.join(MediaItem.TYPE);
 			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
 			query.narrow( MediaItem.photo.isNotNull(join2) );
 
@@ -188,7 +188,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 
 	@Deprecated
-	public void testDeprecated()
+	public static void testDeprecated()
 	{
 		try
 		{

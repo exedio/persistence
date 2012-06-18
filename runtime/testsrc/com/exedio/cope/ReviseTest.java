@@ -533,7 +533,7 @@ public class ReviseTest extends CopeAssert
 		return props.filterTableName(name);
 	}
 
-	private void reconnect()
+	private static void reconnect()
 	{
 		final ConnectProperties c = model7.getConnectProperties();
 		model7.disconnect();

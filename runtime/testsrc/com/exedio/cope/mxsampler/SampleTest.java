@@ -71,7 +71,7 @@ public class SampleTest extends ConnectedTest
 	 * a low system time resolution.
 	 * @see MxSampler#sample()
 	 */
-	private void waitForSystemTimeChange()
+	private static void waitForSystemTimeChange()
 	{
 		try
 		{

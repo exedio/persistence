@@ -61,7 +61,7 @@ public final class MysqlDialect extends Dialect
 		throw new RuntimeException();
 	}
 
-	String unQuoteName(final String quotedName)
+	static String unQuoteName(final String quotedName)
 	{
 		final int length = quotedName.length();
 		if(length<3)

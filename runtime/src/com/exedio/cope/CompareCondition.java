@@ -104,7 +104,7 @@ public final class CompareCondition<E> extends Condition
 		bf.append('\'');
 	}
 
-	private void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
+	private static void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
 	{
 		if(o instanceof Item)
 		{

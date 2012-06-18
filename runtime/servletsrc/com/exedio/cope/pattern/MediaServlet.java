@@ -193,7 +193,7 @@ public class MediaServlet extends HttpServlet
 		// TODO make 500 error page without stack trace
 	}
 
-	private void serveError(
+	private static void serveError(
 			final HttpServletResponse response,
 			final Media.Log log)
 		throws IOException
