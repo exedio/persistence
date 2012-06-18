@@ -204,6 +204,7 @@ public final class ItemCacheSummary
 	 * @return Always returns 0.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getInvalidationBucketHits()
 	{
 		return 0l;

@@ -312,6 +312,7 @@ public final class Wrapper
 	 * @deprecated not supported anymore, always returns false
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean isDeprecated()
 	{
 		return false;
@@ -321,6 +322,7 @@ public final class Wrapper
 	 * @deprecated not supported anymore, always returns null
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public String getDeprecationComment()
 	{
 		return null;
