@@ -96,6 +96,7 @@ public abstract class CopeModelTest extends CopeAssert
 	 * deletes the contents of the database.
 	 * Does not do anything.
 	 */
+	@SuppressWarnings("static-method")
 	@Deprecated
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
