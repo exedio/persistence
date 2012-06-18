@@ -168,7 +168,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public List<FunctionField<?>> getTemplates()
 	{
-		return valueType.getTemplates();
+		return valueType.templateList;
 	}
 
 	public List<FunctionField<?>> getComponents()
@@ -245,7 +245,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
-		for(final FunctionField<?> member : valueType.getTemplates())
+		for(final FunctionField<?> member : valueType.templateList)
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)
 			result.add(FinalViolationException.class);

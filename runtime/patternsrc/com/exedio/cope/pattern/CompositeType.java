@@ -82,11 +82,6 @@ final class CompositeType<X>
 		this.componentSize = templates.size();
 	}
 
-	public List<FunctionField<?>> getTemplates()
-	{
-		return templateList;
-	}
-
 	Map<String,FunctionField<?>> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
