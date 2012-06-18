@@ -498,7 +498,7 @@ public final class Query<R> implements Serializable
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO: Database#search does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
 		return o;

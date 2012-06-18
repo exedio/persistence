@@ -59,7 +59,7 @@ final class TransactionInfoRemote extends TransactionInfo
 		throw newRemoteException();
 	}
 
-	private ChangeEvent.NotAvailableException newRemoteException()
+	private static ChangeEvent.NotAvailableException newRemoteException()
 	{
 		return new ChangeEvent.NotAvailableException("remote");
 	}
