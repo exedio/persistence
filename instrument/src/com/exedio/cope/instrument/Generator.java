@@ -712,7 +712,7 @@ final class Generator
 	}
 
 	@SuppressWarnings("deprecation")
-	private String getBoxedType(final CopeAttribute a)
+	private static String getBoxedType(final CopeAttribute a)
 	{
 		return a.getBoxedType();
 	}
