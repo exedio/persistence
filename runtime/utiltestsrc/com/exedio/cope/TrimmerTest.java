@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class TrimmerTest extends TestCase
 {
-	private void assertTrim(final String expected, final String actualLongString, final int maxLength)
+	private static void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{
 		final String actual = new Trimmer(maxLength).trimString(actualLongString);
 		assertEquals(">"+expected+"< >"+actual+"<", expected, actual);

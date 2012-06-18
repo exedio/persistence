@@ -197,7 +197,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings("unused")
+		@SuppressWarnings({"unused", "static-method"})
 		private final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return setValues;
