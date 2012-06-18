@@ -411,6 +411,8 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		final CompositeValue serializedValue = reserialize(value, 491);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
+		assertEquals("firstString1X", value.getAString());
+		assertEquals("firstString1X", serializedValue.getAString());
 	}
 
 	public void testConditions()
@@ -445,12 +447,12 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		target1.setUno( uno1 );
 
 		{
-			Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
-			Join join1 = query.join(CompositeOptionalItem.TYPE);
+			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(CompositeOptionalItem.TYPE);
 			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
 			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
 
-			Join join2 = query.join(CompositeOptionalItem.TYPE);
+			final Join join2 = query.join(CompositeOptionalItem.TYPE);
 			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
 			query.narrow( CompositeOptionalItem.duo.isNull(join2) );
 
@@ -458,12 +460,12 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 
 		{
-			Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
-			Join join1 = query.join(CompositeOptionalItem.TYPE);
+			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(CompositeOptionalItem.TYPE);
 			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
 			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
 
-			Join join2 = query.join(CompositeOptionalItem.TYPE);
+			final Join join2 = query.join(CompositeOptionalItem.TYPE);
 			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
 			query.narrow( CompositeOptionalItem.duo.isNotNull(join2) );
 
