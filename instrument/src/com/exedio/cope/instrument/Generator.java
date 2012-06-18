@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
-import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
@@ -366,14 +365,12 @@ final class Generator
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option =
-				modifierTag!=null
-				? new Option(Tags.getLine(
+				new Option(Tags.getLine(
 									feature.docComment,
 									CopeFeature.TAG_PREFIX + modifierTag),
-						true)
-				: null;
+						true);
 
-			if(option!=null && !option.exists)
+			if(!option.exists)
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -437,7 +434,7 @@ final class Generator
 
 			write('\t');
 
-			if(option!=null && option.override)
+			if(option.override)
 			{
 				write('@');
 				write(OVERRIDE);
@@ -446,15 +443,13 @@ final class Generator
 
 			writeModifier(
 				(
-					option!=null
-					? option.getModifier(modifier)
-					: ((modifier & (PUBLIC|PROTECTED|PRIVATE)) | FINAL)
+					option.getModifier(modifier)
 				)
 				|
 				(isStatic ? STATIC : 0)
 			);
 			write(ctx.write(methodReturnType));
-			if(option!=null && useIs && option.booleanAsIs)
+			if(useIs && option.booleanAsIs)
 			{
 				write(" is");
 				write(featureNameCamelCase);
@@ -483,8 +478,7 @@ final class Generator
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
-			if(option!=null)
-				write(option.suffix);
+			write(option.suffix);
 			write('(');
 			{
 				final CharSeparator comma = new CharSeparator(',');
