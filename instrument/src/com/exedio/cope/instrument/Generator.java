@@ -364,11 +364,7 @@ final class Generator
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
-			final Option option =
-				new Option(Tags.getLine(
-									feature.docComment,
-									CopeFeature.TAG_PREFIX + modifierTag),
-						true);
+			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
 
 			if(!option.exists)
 				continue;
@@ -441,13 +437,7 @@ final class Generator
 				write(' ');
 			}
 
-			writeModifier(
-				(
-					option.getModifier(modifier)
-				)
-				|
-				(isStatic ? STATIC : 0)
-			);
+			writeModifier(option.getModifier(modifier) | (isStatic ? STATIC : 0));
 			write(ctx.write(methodReturnType));
 			if(useIs && option.booleanAsIs)
 			{
