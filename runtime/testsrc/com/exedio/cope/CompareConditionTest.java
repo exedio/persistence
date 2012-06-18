@@ -50,12 +50,12 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	static final Date aDate = new Date(1087365298214l);
 	static final Day aDay = new Day(2007, 4, 28);
 
-	private Date date(final long offset)
+	private static Date date(final long offset)
 	{
 		return new Date(aDate.getTime()+offset);
 	}
 
-	private Day day(final int offset)
+	private static Day day(final int offset)
 	{
 		return aDay.add(offset);
 	}
@@ -308,14 +308,14 @@ public class CompareConditionTest extends AbstractRuntimeTest
 
 		model.checkUnsupportedConstraints();
 	}
-	
+
 	public void testGroup()
 	{
 		deleteOnTearDown( new CompareConditionItem( "s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1 ) );
 		deleteOnTearDown( new CompareConditionItem( "s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1 ) );
 		final Query<List<Object>> q = Query.newQuery( new Selectable[]{day, intx/*.sum()*/}, CompareConditionItem.TYPE, Condition.TRUE );
-		
-		assertContainsList( 
+
+		assertContainsList(
 			list(
 				list(day(-2), 1),
 				list(day(-1), 2),
@@ -328,11 +328,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			),
 			q.search()
 		);
-		
+
 		q.setGroupBy( day );
 		q.setSelects( day, intx.sum() );
 		assertEquals( "select day,sum(intx) from CompareConditionItem group by day", q.toString() );
-		assertContains( 
+		assertContains(
 			list(day(-2), 1),
 			list(day(-1), 2),
 			list(day(0), 13),
@@ -341,7 +341,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			list(null, null),
 			q.search()
 		);
-		
-		
+
+
 	}
 }

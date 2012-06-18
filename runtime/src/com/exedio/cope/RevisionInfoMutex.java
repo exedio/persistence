@@ -85,7 +85,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 				Integer.valueOf(p.getProperty(ACTUAL)));
 	}
 
-	final void delete(
+	static final void delete(
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor)

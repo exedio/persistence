@@ -94,7 +94,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		model.setTestDatabaseListener(null);
 	}
 
-	private QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
+	private static QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
 		return new QueryCacheHistogram(query, resultSize, hits);
 	}
@@ -104,7 +104,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
-	private SC sc(final Query<?> query, final boolean totalOnly)
+	private static SC sc(final Query<?> query, final boolean totalOnly)
 	{
 		return new SC(query, totalOnly);
 	}
