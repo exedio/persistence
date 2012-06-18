@@ -29,6 +29,7 @@ public final class Dumper
 {
 	private final HashMap<Type<?>, AtomicInteger> pks = new HashMap<Type<?>, AtomicInteger>();
 
+	@SuppressWarnings("static-method")
 	public void prepare(
 			final Appendable out,
 			final Model model)
@@ -37,6 +38,7 @@ public final class Dumper
 		model.connect().dialect.prepareDumperConnection(out);
 	}
 
+	@SuppressWarnings("static-method")
 	public void unprepare(
 			final Appendable out,
 			final Model model)
