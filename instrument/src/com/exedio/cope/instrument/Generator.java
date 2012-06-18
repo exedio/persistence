@@ -437,7 +437,7 @@ final class Generator
 
 			write('\t');
 
-			if(option.override)
+			if(option!=null && option.override)
 			{
 				write('@');
 				write(OVERRIDE);
