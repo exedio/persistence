@@ -82,6 +82,33 @@ final class CompositeType<X>
 		this.componentSize = templates.size();
 	}
 
+	Object[] values(final SetValue<?>... setValues)
+	{
+		final Object[] values = new Object[componentSize];
+		final boolean[] valueSet = new boolean[values.length];
+		for(final SetValue<?> v : setValues)
+		{
+			final int position = position((FunctionField<?>)v.settable);
+			values[position] = v.value;
+			valueSet[position] = true;
+		}
+		for(int i = 0; i<valueSet.length; i++)
+			if(!valueSet[i])
+				values[i] = templateList.get(i).getDefaultConstant();
+
+		int i = 0;
+		for(final FunctionField<?> ff : templateList)
+			check(ff, values[i++]);
+
+		return values;
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private static final <E> void check(final FunctionField field, final Object value)
+	{
+		field.check(value);
+	}
+
 	Map<String,FunctionField<?>> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);

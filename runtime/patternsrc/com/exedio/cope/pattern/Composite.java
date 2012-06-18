@@ -44,28 +44,7 @@ public abstract class Composite implements Serializable
 
 	protected Composite(final SetValue<?>... setValues)
 	{
-		final CompositeType<?> type = type();
-		values = new Object[type.componentSize];
-		final boolean[] valueSet = new boolean[values.length];
-		for(final SetValue<?> v : setValues)
-		{
-			final int position = type.position((FunctionField<?>)v.settable);
-			values[position] = v.value;
-			valueSet[position] = true;
-		}
-		for(int i = 0; i<valueSet.length; i++)
-			if(!valueSet[i])
-				values[i] = type.templateList.get(i).getDefaultConstant();
-
-		int i = 0;
-		for(final FunctionField<?> ff : type.templateList)
-			check(ff, values[i++]);
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static final <E> void check(final FunctionField field, final Object value)
-	{
-		field.check(value);
+		values = type().values(setValues);
 	}
 
 	@SuppressWarnings("unchecked")
