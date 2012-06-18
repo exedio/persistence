@@ -97,7 +97,7 @@ public class StableQueryIteratorTest extends AbstractRuntimeTest
 		assertIt(listg(item2, item3, item4, item5, item6), q);
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
 	{
 		assertEquals(expected, l(iterate(q,  1)));
 		assertEquals(expected, l(iterate(q,  2)));

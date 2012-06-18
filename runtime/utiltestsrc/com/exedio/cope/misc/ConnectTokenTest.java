@@ -262,7 +262,7 @@ public class ConnectTokenTest extends CopeAssert
 		}
 	}
 
-	private void assertNotConnected()
+	private static void assertNotConnected()
 	{
 		assertFalse(model.isConnected());
 		try
@@ -278,7 +278,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), getTokens(model));
 	}
 
-	private void assertToken(
+	private static void assertToken(
 			final int id,
 			final Date before,
 			final Date after,

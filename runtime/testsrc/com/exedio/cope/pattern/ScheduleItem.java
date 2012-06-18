@@ -48,7 +48,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 			throw new RuntimeException("schedule test failure");
 	}
 
-	void assertLogs(final List<Log> expected)
+	static void assertLogs(final List<Log> expected)
 	{
 		assertEquals(expected, logs);
 		logs.clear();

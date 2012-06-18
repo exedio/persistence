@@ -228,7 +228,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than mimimum, but was " + MAX_VALUE + " and " + MAX_VALUE + ".");
 	}
 
-	private void assertIllegalRange(final int minimum, final int maximum, final String message)
+	private static void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		try
 		{

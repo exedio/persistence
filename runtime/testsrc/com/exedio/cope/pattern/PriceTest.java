@@ -135,7 +135,7 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public void testValueOfBigDecimal()
+	public static void testValueOfBigDecimal()
 	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
 		assertEquals(-222, valueOf(bd(-222, 2)).store());
@@ -191,7 +191,7 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public void testDoubleValue()
+	public static void testDoubleValue()
 	{
 		assertEquals( 2.22, storeOf( 222).doubleValue());
 		assertEquals(-2.22, storeOf(-222).doubleValue());
@@ -200,7 +200,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 0.0,  storeOf(   0).doubleValue());
 	}
 
-	public void testBigValue()
+	public static void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
 		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
@@ -211,7 +211,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
 	}
 
-	public void testAdd()
+	public static void testAdd()
 	{
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
@@ -219,7 +219,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 	}
 
-	public void testSubtract()
+	public static void testSubtract()
 	{
 		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).store());
 		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
@@ -227,7 +227,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
 	}
 
-	public void testMultiplyInt()
+	public static void testMultiplyInt()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
@@ -235,7 +235,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
 	}
 
-	public void testMultiplyPrice()
+	public static void testMultiplyPrice()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3d).store());
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
@@ -243,7 +243,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
 	}
 
-	public void testEquals()
+	public static void testEquals()
 	{
 		assertEquals(storeOf( 123), storeOf( 123));
 		assertEquals(storeOf(-123), storeOf(-123));
@@ -255,7 +255,7 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).equals(null));
 	}
 
-	public void testHashCode()
+	public static void testHashCode()
 	{
 		assertEquals(storeOf( 123).hashCode(), storeOf( 123).hashCode());
 		assertEquals(storeOf(-123).hashCode(), storeOf(-123).hashCode());
@@ -263,7 +263,7 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
 	}
 
-	public void testCompareTo()
+	public static void testCompareTo()
 	{
 		assertEquals(-1, storeOf(122).compareTo(storeOf(123)));
 		assertEquals( 0, storeOf(123).compareTo(storeOf(123)));
@@ -273,7 +273,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
 	}
 
-	public void testToString()
+	public static void testToString()
 	{
 		assertEquals( "1.23", storeOf( 123).toString());
 		assertEquals("-1.23", storeOf(-123).toString());
@@ -295,7 +295,7 @@ public final class PriceTest extends CopeAssert
 		return BigDecimal.valueOf(unscaledVal, scale);
 	}
 
-	public void testLessThan()
+	public static void testLessThan()
 	{
 		assertEquals(true, storeOf(122).lessThan(storeOf(123)));
 		assertEquals(false, storeOf(123).lessThan(storeOf(123)));
@@ -305,7 +305,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(true, storeOf(-124).lessThan(storeOf(-123)));
 	}
 
-	public void testGreaterThan()
+	public static void testGreaterThan()
 	{
 		assertEquals(false, storeOf(122).greaterThan(storeOf(123)));
 		assertEquals(false, storeOf(123).greaterThan(storeOf(123)));
@@ -315,7 +315,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(false, storeOf(-124).greaterThan(storeOf(-123)));
 	}
 
-	public void testLessThanOrEqual()
+	public static void testLessThanOrEqual()
 	{
 		assertEquals(true, storeOf(122).lessThanOrEqual(storeOf(123)));
 		assertEquals(true, storeOf(123).lessThanOrEqual(storeOf(123)));
@@ -325,7 +325,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(true, storeOf(-124).lessThanOrEqual(storeOf(-123)));
 	}
 
-	public void testGreaterThanOrEqual()
+	public static void testGreaterThanOrEqual()
 	{
 		assertEquals(false, storeOf(122).greaterThanOrEqual(storeOf(123)));
 		assertEquals(true, storeOf(123).greaterThanOrEqual(storeOf(123)));
@@ -335,7 +335,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(false, storeOf(-124).greaterThanOrEqual(storeOf(-123)));
 	}
 
-	public void testGetLower()
+	public static void testGetLower()
 	{
 		assertEquals(storeOf(122), storeOf(122).getLower(storeOf(123)));
 		assertEquals(storeOf(123), storeOf(123).getLower(storeOf(123)));
@@ -345,7 +345,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-124), storeOf(-124).getLower(storeOf(-123)));
 	}
 
-	public void testGetGreater()
+	public static void testGetGreater()
 	{
 		assertEquals(storeOf(123), storeOf(122).getGreater(storeOf(123)));
 		assertEquals(storeOf(123), storeOf(123).getGreater(storeOf(123)));

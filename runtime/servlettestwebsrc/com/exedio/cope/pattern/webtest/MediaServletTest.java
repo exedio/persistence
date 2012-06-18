@@ -264,22 +264,22 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
 
-	private long assertTxt(final String url) throws IOException
+	private static long assertTxt(final String url) throws IOException
 	{
 		return assertTxt(url, -1, false);
 	}
 
-	private long assertTxt(final String url, final String contentType) throws IOException
+	private static long assertTxt(final String url, final String contentType) throws IOException
 	{
 		return assertTxt(url, contentType, -1, false);
 	}
 
-	private long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		return assertTxt(url, "text/plain", ifModifiedSince, expectNotModified);
 	}
 
-	private long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -318,7 +318,7 @@ public class MediaServletTest extends TestCase
 		return lastModified;
 	}
 
-	private String getContentAsString( final InputStream is ) throws IOException
+	private static String getContentAsString( final InputStream is ) throws IOException
 	{
 		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		final StringBuilder builder = new StringBuilder();
@@ -331,7 +331,7 @@ public class MediaServletTest extends TestCase
 		return builder.toString();
 	}
 
-	private void assertMoved(final String url, final String target) throws IOException
+	private static void assertMoved(final String url, final String target) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -351,7 +351,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private void assertNotFound(final String url, final String detail) throws IOException
+	private static void assertNotFound(final String url, final String detail) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -383,7 +383,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private long assertBin(final String url, final String contentType) throws IOException
+	private static long assertBin(final String url, final String contentType) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -407,7 +407,7 @@ public class MediaServletTest extends TestCase
 		return lastModified;
 	}
 
-	private void assertInternalError(final String url) throws IOException
+	private static void assertInternalError(final String url) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -439,7 +439,7 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private void assertNameURL(final String url) throws IOException
+	private static void assertNameURL(final String url) throws IOException
 	{
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		conn.setFollowRedirects(false);
@@ -454,7 +454,7 @@ public class MediaServletTest extends TestCase
 		is.close();
 	}
 
-	private void print(final HttpURLConnection conn, final String url) throws IOException
+	private static void print(final HttpURLConnection conn, final String url) throws IOException
 	{
 		System.out.println("--------------------------------");
 		System.out.println("url="+url);
@@ -469,7 +469,7 @@ public class MediaServletTest extends TestCase
 		System.out.println("--------------------------------");
 	}
 
-	private void print(final InputStream in) throws IOException
+	private static void print(final InputStream in) throws IOException
 	{
 		if(in==null)
 		{
@@ -523,7 +523,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 
-	private String lines( final String... lines )
+	private static String lines( final String... lines )
 	{
 		final StringBuilder builder = new StringBuilder();
 		for ( final String line: lines )

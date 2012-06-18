@@ -122,7 +122,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 		}
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
 	{
 		assertEquals(expected, l(iterate(TYPE, c, 1)));
 		assertEquals(expected, l(iterate(TYPE, c, 2)));

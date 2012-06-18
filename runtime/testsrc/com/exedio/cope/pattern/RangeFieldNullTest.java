@@ -70,7 +70,7 @@ public class RangeFieldNullTest extends AbstractRuntimeTest
 		}
 	}
 
-	private void assertContainsCondition(final int value, final RangeFieldItem... actual)
+	private static void assertContainsCondition(final int value, final RangeFieldItem... actual)
 	{
 		final List<RangeFieldItem> actualList = Arrays.asList(actual);
 		assertEquals(actualList, TYPE.search(valid.contains(value), TYPE.getThis(), true));

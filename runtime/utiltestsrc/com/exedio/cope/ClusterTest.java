@@ -43,7 +43,7 @@ public abstract class ClusterTest extends CopeAssert
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
 
-	private ClusterProperties getProperties(final int node)
+	private static ClusterProperties getProperties(final int node)
 	{
 		return ClusterProperties.get(
 				new Properties.Source()
@@ -771,14 +771,14 @@ public abstract class ClusterTest extends CopeAssert
 		assertEquals(expected.length, actual.size());
 	}
 
-	private void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
+	private static void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
 		assertEquals(expectedData.length, actualData.length);
 	}
 
-	private void assertEqualsBytes(final byte[] actualData, final String expectedData)
+	private static void assertEqualsBytes(final byte[] actualData, final String expectedData)
 	{
 		assertEquals(expectedData, Hex.encodeLower(actualData));
 	}

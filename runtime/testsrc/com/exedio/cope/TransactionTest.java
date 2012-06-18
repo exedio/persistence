@@ -55,7 +55,7 @@ public class TransactionTest extends TestmodelTest
 		model.rollback();
 	}
 
-	private void assertSomeString(final AttributeItem actualItem, final String someString)
+	private static void assertSomeString(final AttributeItem actualItem, final String someString)
 	{
 		assertEquals(someString, actualItem.getSomeString());
 		assertTrue(actualItem.TYPE.search(actualItem.someString.equal(someString)).contains(actualItem));
@@ -67,7 +67,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(item, someString);
 	}
 
-	private void assertNotExists(final AttributeItem actualItem)
+	private static void assertNotExists(final AttributeItem actualItem)
 	{
 		assertTrue(!actualItem.existsCopeItem());
 		try

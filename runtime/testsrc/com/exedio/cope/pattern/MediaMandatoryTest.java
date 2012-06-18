@@ -204,7 +204,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
 
-	private final void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException
+	private static final void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException
 	{
 		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
 		delete(tempFile);

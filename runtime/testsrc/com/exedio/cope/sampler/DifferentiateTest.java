@@ -257,7 +257,7 @@ public class DifferentiateTest extends ConnectedTest
 
 	}
 
-	private void assertQuery(final Query<?> query)
+	private static void assertQuery(final Query<?> query)
 	{
 		final String search = SchemaInfo.search(query);
 		assertTrue(search, search.startsWith("select "));
@@ -270,7 +270,7 @@ public class DifferentiateTest extends ConnectedTest
 	 * a low system time resolution.
 	 * @see Sampler#sample()
 	 */
-	private void waitForSystemTimeChange()
+	private static void waitForSystemTimeChange()
 	{
 		try
 		{

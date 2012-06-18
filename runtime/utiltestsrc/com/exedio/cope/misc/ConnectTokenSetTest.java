@@ -64,7 +64,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertNotSet();
 	}
 
-	private void assertNotSet()
+	private static void assertNotSet()
 	{
 		final String message =
 			"No properties set for model " +

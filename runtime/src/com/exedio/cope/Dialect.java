@@ -257,7 +257,7 @@ abstract class Dialect
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
-	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
+	protected static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" like ").

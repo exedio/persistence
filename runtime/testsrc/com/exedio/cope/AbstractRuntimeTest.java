@@ -376,19 +376,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	protected final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
 	{
 		assertCondition(Collections.<T>emptyList(), type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -396,7 +396,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -405,7 +405,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -415,7 +415,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -426,7 +426,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -438,7 +438,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	private final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
+	private static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
 		final List<T> actualResult = type.search(actual);
 		assertContainsList(expected, actualResult);
@@ -569,7 +569,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
 	}
 
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
+	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(start, info.getStart());
@@ -605,7 +605,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
 
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
+	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
 		assertSame(feature, info.getFeature());
 		assertEquals(start, info.getStart());

@@ -107,7 +107,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 		assertIt(listg(item0, item1), intx.less(2));
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
 	{
 		assertEquals(expected, l(iterateTransactionally(TYPE, c, 1)));
 		assertEquals(expected, l(iterateTransactionally(TYPE, c, 2)));

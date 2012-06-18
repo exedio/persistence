@@ -58,12 +58,12 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
+	private static final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
 	{
 		assertCreate(date, date, logs, revision);
 	}
 
-	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
+	private static final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);

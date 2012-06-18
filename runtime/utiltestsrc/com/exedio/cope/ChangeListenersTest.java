@@ -104,7 +104,7 @@ public class ChangeListenersTest extends CopeAssert
 		}
 	}
 
-	private void assertInfo(final int cleared, final int removed)
+	private static void assertInfo(final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
 		assertEquals(cleared, info.getCleared());
