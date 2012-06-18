@@ -133,7 +133,7 @@ final class WrapperByAnnotations
 				return false;
 		}
 		return true;
-	};
+	}
 
 	private WrapperX make(final Method method, final Wrap annotation)
 	{
@@ -244,7 +244,7 @@ final class WrapperByAnnotations
 		@SuppressWarnings("unchecked")
 		final boolean result = getter.get(feature);
 		return result;
-	};
+	}
 
 	private String getString(final Class<? extends StringGetter<?>> clazz)
 	{
@@ -256,7 +256,7 @@ final class WrapperByAnnotations
 		@SuppressWarnings("unchecked")
 		final String result = getter.get(feature);
 		return result;
-	};
+	}
 
 	@SuppressWarnings("rawtypes")
 	private Set<Class<? extends Throwable>> getThrows(final Class<? extends ThrownGetter> clazz)
@@ -268,7 +268,7 @@ final class WrapperByAnnotations
 		@SuppressWarnings("unchecked")
 		final Set<Class<? extends Throwable>> result = getter.get(feature);
 		return result;
-	};
+	}
 
 	private static <E> E instantiate(final Class<E> clazz)
 	{

@@ -149,7 +149,7 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	private static final class Context extends AssertionErrorJobContext
 	{
-		private int progress = 0;;
+		private int progress = 0;
 		private final int maximumProgress;
 
 		Context(final int maximumProgress)

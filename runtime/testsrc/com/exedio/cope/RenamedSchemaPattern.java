@@ -86,7 +86,7 @@ class RenamedSchemaPattern extends Pattern
 		{
 			throw new RuntimeException();
 		}
-	};
+	}
 
 	@Override
 	protected void onMount()

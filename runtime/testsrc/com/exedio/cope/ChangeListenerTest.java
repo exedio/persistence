@@ -100,14 +100,14 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEquals("item1", item1.getText());
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
 		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(list(item2), t3);
 
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");

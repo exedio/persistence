@@ -209,5 +209,5 @@ final class GenericResolver<T>
 				getRawType().toString() +
 				'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
 		}
-	};
+	}
 }

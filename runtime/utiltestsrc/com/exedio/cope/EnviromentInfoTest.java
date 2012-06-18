@@ -52,7 +52,7 @@ public class EnviromentInfoTest extends TestCase
 			assertEquals(expected, i.asProperties());
 		}
 		{
-			final HashMap<String, String> expected = new HashMap<String, String>();;
+			final HashMap<String, String> expected = new HashMap<String, String>();
 			expected.put("database.name", "getDatabaseProductName");
 			expected.put("database.version", "getDatabaseProductVersion");
 			expected.put("database.version.major", "5");
