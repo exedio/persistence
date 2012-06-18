@@ -215,7 +215,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		return result;
 	}
 
-	private final List<Refusal> getRefusals()
+	private static final List<Refusal> getRefusals()
 	{
 		return passwordLimited.getRefusalType().search(null, passwordLimited.getRefusalType().getThis(), true);
 	}

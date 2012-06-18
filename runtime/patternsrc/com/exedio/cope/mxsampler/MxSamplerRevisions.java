@@ -32,14 +32,14 @@ final class MxSamplerRevisions implements Revisions.Factory
 			return getOthers();
 	}
 
-	private Revisions getMysql()
+	private static Revisions getMysql()
 	{
 		return new Revisions(
 			0
 		);
 	}
 
-	private Revisions getOthers()
+	private static Revisions getOthers()
 	{
 		return new Revisions(0);
 	}

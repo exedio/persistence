@@ -175,7 +175,7 @@ final class JavaRepository
 		}
 	}
 
-	boolean isComposite(final JavaClass javaClass)
+	static boolean isComposite(final JavaClass javaClass)
 	{
 		final String classExtends = javaClass.classExtends;
 		if(classExtends==null)

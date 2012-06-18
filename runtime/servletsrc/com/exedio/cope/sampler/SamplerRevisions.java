@@ -33,7 +33,7 @@ final class SamplerRevisions implements Revisions.Factory
 			return getOthers();
 	}
 
-	private Revisions getMysql()
+	private static Revisions getMysql()
 	{
 		return new Revisions(
 			new Revision(5, "more length for SamplerTransaction#name",
@@ -110,7 +110,7 @@ final class SamplerRevisions implements Revisions.Factory
 		);
 	}
 
-	private Revisions getOthers()
+	private static Revisions getOthers()
 	{
 		return new Revisions(0);
 	}

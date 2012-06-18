@@ -56,7 +56,7 @@ import com.exedio.cope.sampler.Stuff;
  */
 public final class PropertiesInitializer implements ServletContextListener
 {
-	private Model[] models()
+	private static final Model[] models()
 	{
 		return new Model[]{
 				IntegerModelTest.MODEL,

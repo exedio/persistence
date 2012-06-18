@@ -130,7 +130,7 @@ final class ChangeListenerDispatcher implements Runnable
 			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 
-	private void logTerminate()
+	private static void logTerminate()
 	{
 		if(ThreadSwarm.logger.isInfoEnabled())
 		{
