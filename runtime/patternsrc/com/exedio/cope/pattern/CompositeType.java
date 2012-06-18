@@ -37,7 +37,7 @@ import com.exedio.cope.instrument.InstrumentContext;
 final class CompositeType<X>
 {
 	private final Constructor<X> constructor;
-	final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
+	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
 	final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
 	final List<FunctionField<?>> templateList;
 	final int componentSize;
@@ -85,6 +85,11 @@ final class CompositeType<X>
 	public List<FunctionField<?>> getTemplates()
 	{
 		return templateList;
+	}
+
+	Map<String,FunctionField<?>> getTemplateMap()
+	{
+		return Collections.unmodifiableMap(templates);
 	}
 
 	public X newValue(final SetValue<?>... setValues)

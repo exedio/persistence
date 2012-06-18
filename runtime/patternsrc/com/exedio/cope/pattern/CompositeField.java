@@ -55,7 +55,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CompositeType<E> valueType;
-	private final LinkedHashMap<String, FunctionField<?>> templates;
 	private final int componentSize;
 
 	private final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent;
@@ -72,7 +71,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.valueClass = valueClass;
 
 		this.valueType = CompositeType.get(valueClass);
-		this.templates = valueType.templates;
 		this.componentSize = valueType.componentSize;
 
 		if(!InstrumentContext.isRunning())
@@ -85,7 +83,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
 			final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
 
-			for(final Map.Entry<String, FunctionField<?>> e : templates.entrySet())
+			for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
 			{
 				final FunctionField<?> template = e.getValue();
 				final FunctionField<?> component = copy(template);
@@ -247,7 +245,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
-		for(final FunctionField<?> member : templates.values())
+		for(final FunctionField<?> member : valueType.getTemplates())
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)
 			result.add(FinalViolationException.class);
