@@ -369,6 +369,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * @deprecated Replaced by org.apache.log4j. Always returns true.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean isLoggingEnabled()
 	{
 		return true;
@@ -407,6 +408,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns false.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getTransactionLog()
 	{
 		return false;
@@ -418,6 +420,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns true.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getOracleVarchar()
 	{
 		return true;
@@ -429,6 +432,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns false.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getDatabaseDontSupportLimit()
 	{
 		return false;
