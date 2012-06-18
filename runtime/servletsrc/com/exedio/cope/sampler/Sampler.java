@@ -362,6 +362,7 @@ public class Sampler
 		return differentiate(null, null);
 	}
 
+	@SuppressWarnings("static-method")
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		return Differentiate.differentiate(from, until);

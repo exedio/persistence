@@ -335,7 +335,7 @@ public final class MysqlDialect extends Dialect
 		initializeSequence(bf, sequenceName, startWith);
 	}
 
-	private void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	private static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
 		// From the MySQL documentation:
 		//

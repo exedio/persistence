@@ -103,7 +103,7 @@ public abstract class Dialect
 			});
 	}
 
-	protected final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(
 			sql,
@@ -157,7 +157,7 @@ public abstract class Dialect
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	private static final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("alter table ").
 			append(tableName).

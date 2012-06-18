@@ -425,7 +425,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final ExpectedRun ern(final Date from, final Date until, final Date run)
+	private static final ExpectedRun ern(final Date from, final Date until, final Date run)
 	{
 		return new ExpectedRun(from, until, run);
 	}

@@ -145,7 +145,7 @@ public final class Revisions
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
-	void makeSchema(
+	static void makeSchema(
 			final Schema result,
 			final ConnectProperties properties,
 			final Dialect dialect)
@@ -156,7 +156,7 @@ public final class Revisions
 		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
-	private int getActualNumber(
+	private static int getActualNumber(
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor)
@@ -184,7 +184,7 @@ public final class Revisions
 		}
 	}
 
-	Map<Integer, byte[]> getLogs(
+	static Map<Integer, byte[]> getLogs(
 			final boolean withMutex,
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,

@@ -68,7 +68,7 @@ public abstract class ParserTest extends InstrumentorTest
 		return parseEvents.removeFirst();
 	}
 
-	private String format(final String s)
+	private static String format(final String s)
 	{
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}

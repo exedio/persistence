@@ -125,7 +125,7 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	private InetAddress getAddress(final StringField field)
+	private static InetAddress getAddress(final StringField field)
 	{
 		final String value = field.stringValue();
 		try

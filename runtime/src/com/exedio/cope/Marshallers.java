@@ -268,7 +268,7 @@ final class Marshallers
 		}
 	}
 
-	private <E extends Enum<E>> Marshaller<E> get(final E value)
+	private static <E extends Enum<E>> Marshaller<E> get(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).marshaller;
 	}
