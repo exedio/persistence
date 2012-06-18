@@ -553,6 +553,8 @@ final class Parser
 			return; // TODO this is a bug, should push back the token
 
 		while(!lexer.readToken().contains(')'))
-			;
+		{
+			// do nothing
+		}
 	}
 }

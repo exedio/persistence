@@ -193,14 +193,20 @@ final class Lexer
 					if (read() != '*')
 						continue;
 					char c;
-					while ((c = read()) == '*');
+					while ((c = read()) == '*')
+					{
+						// do nothing
+					}
 					if (c == '/')
 						break;
 				}
 				break;
 			case '/' :
 				// this is a '//' comment
-				do;
+				do
+				{
+					// do nothing
+				}
 				while (read() != '\n');
 				break;
 			default :
