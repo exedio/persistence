@@ -148,7 +148,7 @@ public class BindFunction<E> implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

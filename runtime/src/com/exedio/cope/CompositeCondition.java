@@ -162,7 +162,7 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	public static final <E> Condition in(final Function<E> function, final Collection<E> values)
+	public static final <E> Condition in(final Function<E> function, final Collection<? extends E> values)
 	{
 		switch(values.size())
 		{

@@ -147,7 +147,7 @@ public final class This<E extends Item> extends Feature
 		return CompositeCondition.in(this, values);
 	}
 
-	public Condition in(final Collection<E> values)
+	public Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

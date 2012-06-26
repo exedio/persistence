@@ -151,7 +151,7 @@ public class Random implements NumberFunction<Double>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<Double> values)
+	public final Condition in(final Collection<? extends Double> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

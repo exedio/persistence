@@ -354,7 +354,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
