@@ -12,7 +12,7 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
 					 includeAntRuntime="@{includeAntRuntime}"
-					 source="1.5"
+					 source="1.6"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
