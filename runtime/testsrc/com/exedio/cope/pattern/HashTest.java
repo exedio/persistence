@@ -18,15 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Arrays;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Join;
-import com.exedio.cope.Model;
-import com.exedio.cope.Query;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.*;
 import com.exedio.cope.misc.Computed;
+
+import java.util.Arrays;
 
 public class HashTest extends AbstractRuntimeTest
 {
@@ -196,6 +191,93 @@ public class HashTest extends AbstractRuntimeTest
 			query.narrow( HashItem.implicitExternal.isNotNull(join2) );
 
 			assertEquals( list(h2), query.search() );
+		}
+	}
+
+	/** @see MessageDigestHashTest#testValidator() */
+	public void testValidatorValidate()
+	{
+		// try null as validator
+		try
+		{
+			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), (Hash.PlainTextValidator)null);
+			fail();
+		}
+		catch (NullPointerException e)
+		{
+			assertEquals("validator", e.getMessage());
+		}
+
+		// use default validator
+		Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), new Hash.DefaultPlainTextValidator());
+		assertNull(hash.hash(null));
+		assertNotNull(hash.hash(""));
+		assertNotNull(hash.hash("sdsidh"));
+
+		// use digit pin validator
+		hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), new Hash.DigitPinValidator(/*pin len */3));
+		assertNotNull(hash.hash("123"));
+
+		// test error handling
+		try
+		{
+			hash.hash("12");
+			fail();
+		}
+		catch (IllegalArgumentException e)
+		{
+			assertEquals("Pin less than 3 digits", e.getMessage());
+		}
+		try
+		{
+			hash.hash("1234");
+			fail();
+		}
+		catch (IllegalArgumentException e)
+		{
+			assertEquals("Pin greater than 3 digits", e.getMessage());
+		}
+		try
+		{
+			hash.hash("12a");
+			fail();
+		}
+		catch (NumberFormatException e)
+		{
+			assertEquals("Pin '12a' is not a number", e.getMessage());
+		}
+	}
+
+	public void testValidatorNewRandomPlainText()
+	{
+		for (int pinLen = 1; pinLen < 6; pinLen++)
+		{
+			Hash.DigitPinValidator pinValidator = new Hash.DigitPinValidator(pinLen);
+			for (int i=0; i<1000; i++)
+			{
+				String newPin = pinValidator.newRandomPlainText();
+				assertEquals(pinLen, newPin.length());
+			}
+		}
+
+		try
+		{
+			new Hash.DigitPinValidator(0);
+			fail();
+		}
+		catch (IllegalArgumentException e)
+		{
+			assertEquals("pinLen must be greater 0", e.getMessage());
+		}
+
+		try
+		{
+			new Hash.DigitPinValidator(24);
+			fail();
+		}
+		catch (IllegalArgumentException e)
+		{
+			assertEquals("pinLen exceeds limit of max 10", e.getMessage());
 		}
 	}
 }

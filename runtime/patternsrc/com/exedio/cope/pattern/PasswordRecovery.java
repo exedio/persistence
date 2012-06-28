@@ -18,25 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-import java.util.Date;
-import java.util.List;
-
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.Cope;
-import com.exedio.cope.DateField;
-import com.exedio.cope.Features;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.LongField;
-import com.exedio.cope.Pattern;
-import com.exedio.cope.Query;
-import com.exedio.cope.Type;
+import com.exedio.cope.*;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
+
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.List;
 
 public final class PasswordRecovery extends Pattern
 {
@@ -54,13 +45,24 @@ public final class PasswordRecovery extends Pattern
 	Type<Token> tokenType = null;
 
 	private final SecureRandom random = new SecureRandom();
+	private final Hash.PlainTextValidator validator;
+
+	public PasswordRecovery(final Hash password, final Hash.PlainTextValidator validator)
+	{
+		if(password==null)
+			throw new NullPointerException("password");
+		this.password = password;
+
+		if (validator==null)
+			throw new NullPointerException("validator");
+		this.validator = validator;
+	}
 
 	public PasswordRecovery(final Hash password)
 	{
-		this.password = password;
-		if(password==null)
-			throw new NullPointerException("password");
+		this(password, new Hash.DefaultPlainTextValidator());
 	}
+
 
 	@Override
 	protected void onMount()
@@ -164,7 +166,7 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
+			final String newPassword = validator.newRandomPlainText();
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();

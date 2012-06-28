@@ -18,22 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.Set;
-
-import com.exedio.cope.Condition;
-import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Item;
-import com.exedio.cope.Join;
-import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Pattern;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
-import com.exedio.cope.StringCharSetViolationException;
-import com.exedio.cope.StringField;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.*;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.ThrownGetter;
@@ -41,6 +26,11 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+
+import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Set;
 
 public class Hash extends Pattern implements Settable<String>
 {
@@ -50,8 +40,9 @@ public class Hash extends Pattern implements Settable<String>
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Algorithm algorithm;
 	private final String encoding;
+	private final PlainTextValidator validator;
 
-	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding, PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
@@ -59,6 +50,8 @@ public class Hash extends Pattern implements Settable<String>
 			throw new NullPointerException("algorithm");
 		if(encoding==null)
 			throw new NullPointerException("encoding");
+		if (validator==null)
+			throw new NullPointerException("validator");
 
 		this.algorithm = algorithm;
 		final String algorithmName = algorithm.name();
@@ -76,21 +69,28 @@ public class Hash extends Pattern implements Settable<String>
 		{
 			throw new IllegalArgumentException(e);
 		}
+
+		this.validator = validator;
 	}
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, algorithm, "utf8");
+		this(storage, algorithm, "utf8", new DefaultPlainTextValidator());
 	}
 
 	public Hash(final Algorithm algorithm, final String encoding)
 	{
-		this(newStorage(algorithm), algorithm, encoding);
+		this(newStorage(algorithm), algorithm, encoding, new DefaultPlainTextValidator());
 	}
 
 	public Hash(final Algorithm algorithm)
 	{
 		this(newStorage(algorithm), algorithm);
+	}
+
+	public Hash(MessageDigestAlgorithm algorithm, PlainTextValidator validator)
+	{
+		this(newStorage(algorithm), algorithm, "utf8", validator);
 	}
 
 	public final StringField getStorage()
@@ -151,10 +151,9 @@ public class Hash extends Pattern implements Settable<String>
 		return result;
 	}
 
-	private String algorithmHash(final String plainText)
+	private String algorithmHash(final String plainText) throws IllegalArgumentException
 	{
-		if(plainText==null)
-			throw new NullPointerException();
+		validator.validate(plainText);
 
 		try
 		{
@@ -201,7 +200,7 @@ public class Hash extends Pattern implements Settable<String>
 		 * The result is not required to be deterministic -
 		 * this means, multiple calls for the same plain text
 		 * do not have to return the same hash.
-		 * This is especially true for salted hashs.
+		 * This is especially true for salted hashes.
 		 * @param plainText the text to be hashed. Is never null.
 		 * @return the hash of plainText. Must never return null.
 		 */
@@ -225,12 +224,12 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final Hash toFinal()
 	{
-		return new Hash(storage.toFinal(), algorithm, encoding);
+		return new Hash(storage.toFinal(), algorithm, encoding, validator);
 	}
 
 	public final Hash optional()
 	{
-		return new Hash(storage.optional(), algorithm, encoding);
+		return new Hash(storage.optional(), algorithm, encoding, validator);
 	}
 
 	@Wrap(order=30,
@@ -300,7 +299,24 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue<?>[] execute(final String value, final Item exceptionItem)
 	{
-		return new SetValue[]{ storage.map(hash(value)) };
+		try
+		{
+			return new SetValue[]{ storage.map(hash(value)) };
+		}
+		catch (final IllegalArgumentException e)
+		{
+			throw new ConstraintViolationException(exceptionItem, e)
+			{
+				@Override public Feature getFeature()
+				{
+					return Hash.this;
+				}
+				@Override protected String getMessage(boolean withFeature)
+				{
+					return e.getMessage();
+				}
+			};
+		}
 	}
 
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
@@ -365,6 +381,89 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
+	/** Validate plain text for potential limits, to be specified in sub classes */
+	protected abstract static class PlainTextValidator
+	{
+		protected final static SecureRandom secureRandom = new SecureRandom();
+
+		abstract void validate(String plainText) throws IllegalArgumentException;
+
+		/** create a plain text variant to redeem an existing password (password forgotten) */
+		abstract String newRandomPlainText();
+	}
+
+	/** Default implementation  */
+	static final class DefaultPlainTextValidator extends PlainTextValidator
+	{
+		@Override void validate(String plainText) throws IllegalArgumentException
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+		}
+
+		@Override String newRandomPlainText()
+		{
+			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
+		}
+	}
+
+	/** Allow only digits as pin, pin len can be specified, reference implementation */
+	public final static class DigitPinValidator extends PlainTextValidator
+	{
+		private static final int MAX_PIN_LEN = Integer.toString(Integer.MAX_VALUE).length();
+
+		private final int pinLen;
+		private final int min;
+		private final int max;
+
+		public DigitPinValidator(int pinLen)
+		{
+			if (pinLen<1)
+				throw new IllegalArgumentException("pinLen must be greater 0");
+
+			if (pinLen>MAX_PIN_LEN)
+				throw new IllegalArgumentException("pinLen exceeds limit of max " + MAX_PIN_LEN);
+
+			this.pinLen = pinLen;
+			this.min = (int) Math.pow(10, pinLen -1);
+			this.max = (int) Math.pow(10, pinLen); // exclusive
+		}
+
+		@Override void validate(String plainText) throws IllegalArgumentException
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+
+			plainText = plainText.trim();
+
+			if (plainText.length() < pinLen)
+				throw new IllegalArgumentException("Pin less than " + pinLen + " digits");
+
+			if (plainText.length() > pinLen)
+				throw new IllegalArgumentException("Pin greater than " + pinLen + " digits");
+
+			// throws an number format exception the text contains others than digits
+			try
+			{
+				Integer.parseInt(plainText);
+			}
+			catch (NumberFormatException e)
+			{
+				// use another message than the default one, is displayed in copaiba
+				throw new NumberFormatException("Pin '"+plainText+"' is not a number");
+			}
+		}
+
+		@Override String newRandomPlainText()
+		{
+			int l = 0;
+
+			while (l < min)
+				l = Math.abs(secureRandom.nextInt(max));
+
+			return  Integer.toString(l);
+		}
+	}
 
 	// ------------------- deprecated stuff -------------------
 
