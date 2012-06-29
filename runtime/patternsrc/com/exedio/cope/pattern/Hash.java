@@ -94,7 +94,7 @@ public class Hash extends Pattern implements Settable<String>
 		this(newStorage(algorithm), algorithm);
 	}
 
-	public Hash(MessageDigestAlgorithm algorithm, PlainTextValidator validator)
+	public Hash(Algorithm algorithm, PlainTextValidator validator)
 	{
 		this(newStorage(algorithm), algorithm, "utf8", validator);
 	}
@@ -284,7 +284,6 @@ public class Hash extends Pattern implements Settable<String>
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
-	// todo use validator with random password to waste time
 	public final void blind(final String actualPlainText)
 	{
 		if(actualPlainText!=null)

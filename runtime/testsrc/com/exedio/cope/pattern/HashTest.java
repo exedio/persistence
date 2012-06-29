@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.*;
 import com.exedio.cope.misc.Computed;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 public class HashTest extends AbstractRuntimeTest
@@ -50,7 +51,9 @@ public class HashTest extends AbstractRuntimeTest
 				item.implicitExternal,
 				item.implicitExternal.getStorage(),
 				item.internal,
-				item.internal.getStorage()
+				item.internal.getStorage(),
+				item.withCorruptValidator,
+				item.withCorruptValidator.getStorage()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
@@ -215,4 +218,42 @@ public class HashTest extends AbstractRuntimeTest
 
 		// todo test construction, set, and set...
 	}
+
+	/**
+	 * Check(..) must not call validator: why? Check(..) compares the password sent over http with the persistent hash
+	 * stored in the database. It does never change on the database. In opposite to this, the validator is used to ensure
+	 * that a password, when storing it (the hash) to the database, fulfills the expected format and length. Example
+	 * 4-digit-pin: numeric, length==4. The validator should only be called when the user changes its password or a
+	 * new random password is generated.
+	 *
+	 * @see Hash#blind(String)
+	 * @see Hash#check(com.exedio.cope.Item, String)
+	 */
+	public void testCheckMustNotCallValidator() throws Exception
+	{
+		// validator must not be called from check(..)
+		item.withCorruptValidator.check(item, "");
+		item.withCorruptValidator.check(item, "sd232");
+
+		// counter example - were the validator has been called
+		try
+		{
+			item.withCorruptValidator.hash("sdsadd");
+		}
+		catch (IllegalStateException e)
+		{
+			assertEquals("validate", e.getMessage());
+		}
+
+		try
+		{
+			item.withCorruptValidator.newRandomPassword(new SecureRandom());
+		}
+		catch (IllegalStateException e)
+		{
+			assertEquals("newRandomPlainText", e.getMessage());
+		}
+
+	}
+
 }

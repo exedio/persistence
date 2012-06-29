@@ -18,11 +18,13 @@
 
 package com.exedio.cope.testmodel;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
+import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
+
+import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
+import java.util.Arrays;
 
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.
@@ -40,6 +42,11 @@ public class WrapHash extends Hash
 	public WrapHash()
 	{
 		super(ALGORITHM);
+	}
+
+	public WrapHash(PlainTextValidator validator)
+	{
+		super(ALGORITHM, validator);
 	}
 
 	private static final Algorithm ALGORITHM = new Algorithm()
@@ -96,4 +103,18 @@ public class WrapHash extends Hash
 			throw new RuntimeException();
 		}
 	};
+
+	/** this validator throws an exception whatever member method is called */
+	public static final class CorruptValidator extends PlainTextValidator
+	{
+		@Override protected void validate(String plainText, Item exceptionItem, Hash hash)
+			throws InvalidPlainTextException
+		{
+			throw new IllegalStateException("validate");
+		}
+		@Override protected String newRandomPlainText(SecureRandom secureRandom)
+		{
+			throw new IllegalStateException("newRandomPlainText");
+		}
+	}
 }
