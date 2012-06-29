@@ -235,7 +235,7 @@ public class HashTest extends AbstractRuntimeTest
 		item.withCorruptValidator.check(item, "");
 		item.withCorruptValidator.check(item, "sd232");
 
-		// counter example - were the validator has been called
+		// counter example - where the validator will be called
 		try
 		{
 			item.withCorruptValidator.hash("sdsadd");
