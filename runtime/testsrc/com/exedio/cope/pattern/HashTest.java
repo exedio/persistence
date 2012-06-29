@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.*;
 import com.exedio.cope.misc.Computed;
 
-import java.security.SecureRandom;
 import java.util.Arrays;
 
 public class HashTest extends AbstractRuntimeTest
@@ -195,7 +194,6 @@ public class HashTest extends AbstractRuntimeTest
 		}
 	}
 
-	/** @see MessageDigestHashTest#testValidator() */
 	public void testValidatorValidate()
 	{
 		// try null as validator
@@ -215,71 +213,6 @@ public class HashTest extends AbstractRuntimeTest
 		assertNotNull(hash.hash(""));
 		assertNotNull(hash.hash("sdsidh"));
 
-		// use digit pin validator
-		hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), new Hash.DigitPinValidator(/*pin len */3));
-		assertNotNull(hash.hash("123"));
-
-		// test error handling
-		try
-		{
-			hash.hash("12");
-			fail();
-		}
-		catch (Hash.InvalidPlainTextException e)
-		{
-			assertEquals("Pin less than 3 digits", e.getMessage());
-		}
-		try
-		{
-			hash.hash("1234");
-			fail();
-		}
-		catch (Hash.InvalidPlainTextException e)
-		{
-			assertEquals("Pin greater than 3 digits", e.getMessage());
-		}
-		try
-		{
-			hash.hash("12a");
-			fail();
-		}
-		catch (Hash.InvalidPlainTextException e)
-		{
-			assertEquals("Pin '12a' is not a number", e.getMessage());
-		}
-	}
-
-	public void testValidatorNewRandomPlainText()
-	{
-		SecureRandom random = new SecureRandom();
-		for (int pinLen = 1; pinLen < 6; pinLen++)
-		{
-			Hash.DigitPinValidator pinValidator = new Hash.DigitPinValidator(pinLen);
-			for (int i=0; i<1000; i++)
-			{
-				String newPin = pinValidator.newRandomPlainText(random);
-				assertEquals(pinLen, newPin.length());
-			}
-		}
-
-		try
-		{
-			new Hash.DigitPinValidator(0);
-			fail();
-		}
-		catch (IllegalArgumentException e)
-		{
-			assertEquals("pinLen must be greater 0", e.getMessage());
-		}
-
-		try
-		{
-			new Hash.DigitPinValidator(24);
-			fail();
-		}
-		catch (IllegalArgumentException e)
-		{
-			assertEquals("pinLen exceeds limit of max 10", e.getMessage());
-		}
+		// todo test construction, set, and set...
 	}
 }

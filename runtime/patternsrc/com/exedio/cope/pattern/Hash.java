@@ -35,6 +35,7 @@ import java.util.Set;
 public class Hash extends Pattern implements Settable<String>
 {
 	private static final long serialVersionUID = 1l;
+	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 
 	private final StringField storage;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -42,7 +43,7 @@ public class Hash extends Pattern implements Settable<String>
 	private final String encoding;
 	private final PlainTextValidator validator;
 
-	public Hash(final StringField storage, final Algorithm algorithm, final String encoding, PlainTextValidator validator)
+	private Hash(final StringField storage, final Algorithm algorithm, final String encoding, final PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
@@ -73,14 +74,19 @@ public class Hash extends Pattern implements Settable<String>
 		this.validator = validator;
 	}
 
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	{
+		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
+	}
+
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, algorithm, "utf8", new DefaultPlainTextValidator());
+		this(storage, algorithm, "utf8", DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm, final String encoding)
 	{
-		this(newStorage(algorithm), algorithm, encoding, new DefaultPlainTextValidator());
+		this(newStorage(algorithm), algorithm, encoding, DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm)
@@ -296,7 +302,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
-		String hash = hash(value, exceptionItem, this);
+		String hash = hash(value, exceptionItem);
 		return new SetValue[]{ storage.map(hash) };
 	}
 
@@ -334,15 +340,15 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final String hash(final String plainText)
 	{
-		return hash(plainText, null, null);
+		return hash(plainText, null);
 	}
 
-	private String hash(final String plainText, Item exceptionItem, Feature exceptionFeature)
+	private String hash(final String plainText, Item exceptionItem)
 	{
 		if(plainText==null)
 			return null;
 
-		validator.validate(plainText, exceptionItem, exceptionFeature);
+		validator.validate(plainText, exceptionItem, this);
 
 		final String result = algorithmHash(plainText);
 		if(result==null)
@@ -370,92 +376,34 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
-	/** Validate plain text for potential limits, to be specified in sub classes */
-	protected abstract static class PlainTextValidator
+	protected String newRandomPassword(SecureRandom random)
 	{
-		abstract void validate(String plainText, Item exceptionItem, Feature exceptionFeature)  throws
+		return validator.newRandomPlainText(random);
+	}
+
+	/** Validate plain text for potential limits, to be specified in sub classes */
+	public abstract static class PlainTextValidator
+	{
+		abstract protected void validate(String plainText, Item exceptionItem, Hash hash) throws
 			InvalidPlainTextException;
 
 		/** create a plain text variant to redeem an existing password (password forgotten) */
-		abstract String newRandomPlainText(SecureRandom secureRandom);
+		abstract protected String newRandomPlainText(SecureRandom secureRandom);
 	}
 
 	/** Default implementation  */
 	static final class DefaultPlainTextValidator extends PlainTextValidator
 	{
-		@Override void validate(String plainText, Item exceptionItem, Feature exceptionFeature) throws
+		@Override protected void validate(String plainText, Item exceptionItem, Hash hash) throws
 			InvalidPlainTextException
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 		}
 
-		@Override String newRandomPlainText(SecureRandom secureRandom)
+		@Override protected String newRandomPlainText(SecureRandom secureRandom)
 		{
 			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
-		}
-	}
-
-	// todo exract class to upper level
-	/** Allow only digits as pin, pin len can be specified, reference implementation */
-	public final static class DigitPinValidator extends PlainTextValidator
-	{
-		private static final int MAX_PIN_LEN = Integer.toString(Integer.MAX_VALUE).length();
-
-		private final int pinLen;
-		private final int min;
-		private final int max;
-
-		public DigitPinValidator(int pinLen)
-		{
-			if (pinLen<1)
-				throw new IllegalArgumentException("pinLen must be greater 0");
-
-			if (pinLen>MAX_PIN_LEN)
-				throw new IllegalArgumentException("pinLen exceeds limit of max " + MAX_PIN_LEN);
-
-			this.pinLen = pinLen;
-			this.min = (int) Math.pow(10, pinLen -1);
-			this.max = (int) Math.pow(10, pinLen); // exclusive
-		}
-
-		@Override void validate(String plainText, Item exceptionItem, Feature exceptionFeature) throws
-			InvalidPlainTextException
-		{
-			if(plainText==null)
-				throw new NullPointerException();
-
-			plainText = plainText.trim();
-
-			if (plainText.length() < pinLen)
-				throw new InvalidPlainTextException("Pin less than " + pinLen + " digits",
-					exceptionItem, exceptionFeature);
-
-			if (plainText.length() > pinLen)
-				throw new InvalidPlainTextException("Pin greater than " + pinLen + " digits",
-					exceptionItem, exceptionFeature);
-
-			// throws an number format exception the text contains others than digits
-			try
-			{
-				Integer.parseInt(plainText);
-			}
-			catch (NumberFormatException e)
-			{
-				// use another message than the default one, is displayed in copaiba
-				throw new InvalidPlainTextException("Pin '"+plainText+"' is not a number",
-					exceptionItem, exceptionFeature);
-			}
-		}
-
-		@Override String newRandomPlainText(SecureRandom secureRandom)
-		{
-			int l = 0;
-
-			while (l < min)
-				l = Math.abs(secureRandom.nextInt(max));
-
-			return  Integer.toString(l);
 		}
 	}
 
@@ -464,16 +412,16 @@ public class Hash extends Pattern implements Settable<String>
 	public static final class InvalidPlainTextException extends ConstraintViolationException
 	{
 		private final String message;
-		private final Feature feature;
+		private final Hash feature;
 
-		public InvalidPlainTextException(String message, Item item, Feature feature)
+		public InvalidPlainTextException(String message, Item item, Hash feature)
 		{
 			super(item, /*cause*/ null);
 			this.message = message;
 			this.feature = feature;
 		}
 
-		@Override public Feature getFeature()
+		@Override public Hash getFeature()
 		{
 			return feature;
 		}

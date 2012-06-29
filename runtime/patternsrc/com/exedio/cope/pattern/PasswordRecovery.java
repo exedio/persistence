@@ -45,24 +45,13 @@ public final class PasswordRecovery extends Pattern
 	Type<Token> tokenType = null;
 
 	private final SecureRandom random = new SecureRandom();
-	private final Hash.PlainTextValidator validator;
 
-	public PasswordRecovery(final Hash password, final Hash.PlainTextValidator validator)
+	public PasswordRecovery(final Hash password)
 	{
 		if(password==null)
 			throw new NullPointerException("password");
 		this.password = password;
-
-		if (validator==null)
-			throw new NullPointerException("validator");
-		this.validator = validator;
 	}
-
-	public PasswordRecovery(final Hash password)
-	{
-		this(password, new Hash.DefaultPlainTextValidator());
-	}
-
 
 	@Override
 	protected void onMount()
@@ -166,7 +155,7 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = validator.newRandomPlainText(random);
+			final String newPassword = password.newRandomPassword(random);
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();

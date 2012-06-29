@@ -265,43 +265,4 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.password.isNull()));
 		assertContains(item.TYPE.search(item.password.isNotNull()));
 	}
-
-	/** @see com.exedio.cope.pattern.HashTest#testValidatorValidate()   too */
-	public void testValidator()
-	{
-		// use default validator
-		assertNotNull(new MessageDigestHash(3).hash("plain"));
-
-		// try null as validator
-		try
-		{
-			new MessageDigestHash(3, (Hash.PlainTextValidator)null);
-			fail();
-		}
-		catch (NullPointerException e)
-		{
-			assertEquals("validator", e.getMessage());
-		}
-
-		// use special pin validator
-		Hash hash = new MessageDigestHash(3, new Hash.DigitPinValidator(4));
-
-		for (String validPin : new String[] {"1233", "0000", "9999", "8376"})
-		{
-			assertNotNull(hash.hash(validPin));
-		}
-
-		for (String invalidPin : new String[] {"", "1", "12", "384e", "39394", "999", "000", "0.0", "00.0", "000."})
-		{
-			try
-			{
-				hash.hash(invalidPin);
-				fail();
-			}
-			catch (Hash.InvalidPlainTextException e)
-			{
-				assertNotNull(e.getMessage());
-			}
-		}
-	}
 }

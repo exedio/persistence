@@ -38,6 +38,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CompareTest.class);
 		suite.addTestSuite(SetValueUtilTest.class);
 		suite.addTestSuite(SerializationCheckTest.class);
+		suite.addTestSuite(DigitPinValidatorTest.class);
 		return suite;
 	}
 }
