@@ -166,7 +166,7 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = validator.newRandomPlainText();
+			final String newPassword = validator.newRandomPlainText(random);
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();

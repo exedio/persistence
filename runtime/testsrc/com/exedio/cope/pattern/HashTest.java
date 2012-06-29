@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.*;
 import com.exedio.cope.misc.Computed;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 public class HashTest extends AbstractRuntimeTest
@@ -224,7 +225,7 @@ public class HashTest extends AbstractRuntimeTest
 			hash.hash("12");
 			fail();
 		}
-		catch (IllegalArgumentException e)
+		catch (Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin less than 3 digits", e.getMessage());
 		}
@@ -233,7 +234,7 @@ public class HashTest extends AbstractRuntimeTest
 			hash.hash("1234");
 			fail();
 		}
-		catch (IllegalArgumentException e)
+		catch (Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin greater than 3 digits", e.getMessage());
 		}
@@ -242,7 +243,7 @@ public class HashTest extends AbstractRuntimeTest
 			hash.hash("12a");
 			fail();
 		}
-		catch (NumberFormatException e)
+		catch (Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin '12a' is not a number", e.getMessage());
 		}
@@ -250,12 +251,13 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testValidatorNewRandomPlainText()
 	{
+		SecureRandom random = new SecureRandom();
 		for (int pinLen = 1; pinLen < 6; pinLen++)
 		{
 			Hash.DigitPinValidator pinValidator = new Hash.DigitPinValidator(pinLen);
 			for (int i=0; i<1000; i++)
 			{
-				String newPin = pinValidator.newRandomPlainText();
+				String newPin = pinValidator.newRandomPlainText(random);
 				assertEquals(pinLen, newPin.length());
 			}
 		}

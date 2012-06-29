@@ -298,7 +298,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 				hash.hash(invalidPin);
 				fail();
 			}
-			catch (IllegalArgumentException e)
+			catch (Hash.InvalidPlainTextException e)
 			{
 				assertNotNull(e.getMessage());
 			}

@@ -144,17 +144,13 @@ public class Hash extends Pattern implements Settable<String>
 
 	private static StringField newStorage(final Algorithm algorithm)
 	{
-		final StringField result =
-			new StringField().
+		return new StringField().
 				charSet(CharSet.HEX_LOWER).
 				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
-		return result;
 	}
 
 	private String algorithmHash(final String plainText) throws IllegalArgumentException
 	{
-		validator.validate(plainText);
-
 		try
 		{
 			final byte[] resultBytes = algorithm.hash(encode(plainText));
@@ -282,6 +278,7 @@ public class Hash extends Pattern implements Settable<String>
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
+	// todo use validator with random password to waste time
 	public final void blind(final String actualPlainText)
 	{
 		if(actualPlainText!=null)
@@ -297,26 +294,10 @@ public class Hash extends Pattern implements Settable<String>
 		return SetValue.map(this, value);
 	}
 
-	public final SetValue<?>[] execute(final String value, final Item exceptionItem)
+	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
-		try
-		{
-			return new SetValue[]{ storage.map(hash(value)) };
-		}
-		catch (final IllegalArgumentException e)
-		{
-			throw new ConstraintViolationException(exceptionItem, e)
-			{
-				@Override public Feature getFeature()
-				{
-					return Hash.this;
-				}
-				@Override protected String getMessage(boolean withFeature)
-				{
-					return e.getMessage();
-				}
-			};
-		}
+		String hash = hash(value, exceptionItem, this);
+		return new SetValue[]{ storage.map(hash) };
 	}
 
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
@@ -353,8 +334,16 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final String hash(final String plainText)
 	{
+		return hash(plainText, null, null);
+	}
+
+	private String hash(final String plainText, Item exceptionItem, Feature exceptionFeature)
+	{
 		if(plainText==null)
 			return null;
+
+		validator.validate(plainText, exceptionItem, exceptionFeature);
+
 		final String result = algorithmHash(plainText);
 		if(result==null)
 			throw new NullPointerException();
@@ -384,29 +373,30 @@ public class Hash extends Pattern implements Settable<String>
 	/** Validate plain text for potential limits, to be specified in sub classes */
 	protected abstract static class PlainTextValidator
 	{
-		protected final static SecureRandom secureRandom = new SecureRandom();
-
-		abstract void validate(String plainText) throws IllegalArgumentException;
+		abstract void validate(String plainText, Item exceptionItem, Feature exceptionFeature)  throws
+			InvalidPlainTextException;
 
 		/** create a plain text variant to redeem an existing password (password forgotten) */
-		abstract String newRandomPlainText();
+		abstract String newRandomPlainText(SecureRandom secureRandom);
 	}
 
 	/** Default implementation  */
 	static final class DefaultPlainTextValidator extends PlainTextValidator
 	{
-		@Override void validate(String plainText) throws IllegalArgumentException
+		@Override void validate(String plainText, Item exceptionItem, Feature exceptionFeature) throws
+			InvalidPlainTextException
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 		}
 
-		@Override String newRandomPlainText()
+		@Override String newRandomPlainText(SecureRandom secureRandom)
 		{
 			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
 		}
 	}
 
+	// todo exract class to upper level
 	/** Allow only digits as pin, pin len can be specified, reference implementation */
 	public final static class DigitPinValidator extends PlainTextValidator
 	{
@@ -429,7 +419,8 @@ public class Hash extends Pattern implements Settable<String>
 			this.max = (int) Math.pow(10, pinLen); // exclusive
 		}
 
-		@Override void validate(String plainText) throws IllegalArgumentException
+		@Override void validate(String plainText, Item exceptionItem, Feature exceptionFeature) throws
+			InvalidPlainTextException
 		{
 			if(plainText==null)
 				throw new NullPointerException();
@@ -437,10 +428,12 @@ public class Hash extends Pattern implements Settable<String>
 			plainText = plainText.trim();
 
 			if (plainText.length() < pinLen)
-				throw new IllegalArgumentException("Pin less than " + pinLen + " digits");
+				throw new InvalidPlainTextException("Pin less than " + pinLen + " digits",
+					exceptionItem, exceptionFeature);
 
 			if (plainText.length() > pinLen)
-				throw new IllegalArgumentException("Pin greater than " + pinLen + " digits");
+				throw new InvalidPlainTextException("Pin greater than " + pinLen + " digits",
+					exceptionItem, exceptionFeature);
 
 			// throws an number format exception the text contains others than digits
 			try
@@ -450,11 +443,12 @@ public class Hash extends Pattern implements Settable<String>
 			catch (NumberFormatException e)
 			{
 				// use another message than the default one, is displayed in copaiba
-				throw new NumberFormatException("Pin '"+plainText+"' is not a number");
+				throw new InvalidPlainTextException("Pin '"+plainText+"' is not a number",
+					exceptionItem, exceptionFeature);
 			}
 		}
 
-		@Override String newRandomPlainText()
+		@Override String newRandomPlainText(SecureRandom secureRandom)
 		{
 			int l = 0;
 
@@ -462,6 +456,31 @@ public class Hash extends Pattern implements Settable<String>
 				l = Math.abs(secureRandom.nextInt(max));
 
 			return  Integer.toString(l);
+		}
+	}
+
+	/**
+	 * A plain text is either too short, too long or doesn't match the format requirement */
+	public static final class InvalidPlainTextException extends ConstraintViolationException
+	{
+		private final String message;
+		private final Feature feature;
+
+		public InvalidPlainTextException(String message, Item item, Feature feature)
+		{
+			super(item, /*cause*/ null);
+			this.message = message;
+			this.feature = feature;
+		}
+
+		@Override public Feature getFeature()
+		{
+			return feature;
+		}
+
+		@Override protected String getMessage(boolean withFeature)
+		{
+			return message;
 		}
 	}
 
