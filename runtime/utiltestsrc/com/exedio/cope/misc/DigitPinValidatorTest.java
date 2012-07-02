@@ -30,7 +30,7 @@ public class DigitPinValidatorTest extends TestCase
 {
 	private DigitPinValidator validator;
 
-	public void setUp() throws Exception
+	@Override public void setUp() throws Exception
 	{
 		super.setUp();
 		this.validator = new DigitPinValidator(4);
