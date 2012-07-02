@@ -48,9 +48,9 @@ public final class PasswordRecovery extends Pattern
 
 	public PasswordRecovery(final Hash password)
 	{
+		this.password = password;
 		if(password==null)
 			throw new NullPointerException("password");
-		this.password = password;
 	}
 
 	@Override
