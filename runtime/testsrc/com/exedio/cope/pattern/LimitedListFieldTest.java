@@ -26,7 +26,6 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
 {
@@ -52,12 +51,6 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final Iterator<?> dateSourcesIterator = dateSources.iterator();
 		final DateField date0 = (DateField)dateSourcesIterator.next();
 		final DateField date1 = (DateField)dateSourcesIterator.next();
-		final List<FunctionField<String>> stringSources = item.strings.getListSources();
-		final Iterator<?> stringSourcesIterator = stringSources.iterator();
-		final StringField string0 = (StringField)stringSourcesIterator.next();
-		final StringField string1 = (StringField)stringSourcesIterator.next();
-		final StringField string2 = (StringField)stringSourcesIterator.next();
-		final StringField string3 = (StringField)stringSourcesIterator.next();
 
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -144,10 +137,10 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
-		assertEquals("hallo", item.get(string0));
-		assertEquals("bello", item.get(string1));
-		assertEquals(null, item.get(string2));
-		assertEquals(null, item.get(string3));
+		assertEquals("hallo", item.getString0());
+		assertEquals("bello", item.getString1());
+		assertEquals(null, item.getString2());
+		assertEquals(null, item.getString3());
 		assertContains(item.TYPE.search(item.strings.equal(LimitedListFieldTest.<String>listg())));
 		assertContains(item.TYPE.search(item.strings.equal(listg("hallo"))));
 		assertContains(item, item.TYPE.search(item.strings.equal(listg("hallo", "bello"))));
@@ -165,23 +158,23 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 
 		item.set(item.strings.map(listg("zicko", "zacko", "zocko")));
 		assertEquals(list("zicko", "zacko", "zocko"), item.getStrings());
-		assertEquals("zicko", item.get(string0));
-		assertEquals("zacko", item.get(string1));
-		assertEquals("zocko", item.get(string2));
-		assertEquals(null, item.get(string3));
+		assertEquals("zicko", item.getString0());
+		assertEquals("zacko", item.getString1());
+		assertEquals("zocko", item.getString2());
+		assertEquals(null, item.getString3());
 
 		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
-		assertEquals("lets1", item2.get(string0));
-		assertEquals("lets2", item2.get(string1));
-		assertEquals("lets3", item2.get(string2));
-		assertEquals("lets4", item2.get(string3));
+		assertEquals("lets1", item2.getString0());
+		assertEquals("lets2", item2.getString1());
+		assertEquals("lets3", item2.getString2());
+		assertEquals("lets4", item2.getString3());
 
 		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
 		assertEquals(list("fetz1"), item3.getStrings());
-		assertEquals("fetz1", item3.get(string0));
-		assertEquals(null, item3.get(string1));
-		assertEquals(null, item3.get(string2));
-		assertEquals(null, item3.get(string3));
+		assertEquals("fetz1", item3.getString0());
+		assertEquals(null, item3.getString1());
+		assertEquals(null, item3.getString2());
+		assertEquals(null, item3.getString3());
 	}
 }

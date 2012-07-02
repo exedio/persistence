@@ -56,6 +56,31 @@ public class LimitedListFieldItem extends Item
 			num3.map(initialNum3));
 	}
 
+	String getString0()
+	{
+		return getString(0);
+	}
+
+	String getString1()
+	{
+		return getString(1);
+	}
+
+	String getString2()
+	{
+		return getString(2);
+	}
+
+	String getString3()
+	{
+		return getString(3);
+	}
+
+	private String getString(final int i)
+	{
+		return strings.getListSources().get(i).get(this);
+	}
+
 /**
 
 	 **
