@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Arrays;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
-
-import java.util.Arrays;
 
 public class MessageDigestHashTest extends AbstractRuntimeTest
 {
@@ -42,14 +42,19 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	MessageDigestHashItem item;
+
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
+	}
+
 	public void testMD5()
 	{
-		MessageDigestHashItem item;
-
-		((MockSecureRandom2)((MessageDigestAlgorithm)MessageDigestHashItem.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
-		((MockSecureRandom2)((MessageDigestAlgorithm)MessageDigestHashItem.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
-		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
-
 		assertEquals(Arrays.asList(
 				item.TYPE.getThis(),
 				item.password,
