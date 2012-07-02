@@ -202,5 +202,19 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("b", item.getString1());
 		assertEquals("c", item.getString2());
 		assertEquals(null, item.getString3());
+
+		item.setStrings(listg(null, "b", null));
+		assertEquals(list("b"), item.getStrings()); // TODO preserve null
+		assertEquals(null, item.getString0());
+		assertEquals("b", item.getString1());
+		assertEquals(null, item.getString2());
+		assertEquals(null, item.getString3());
+
+		item.setStrings(listg((String)null, null, null));
+		assertEquals(list(), item.getStrings()); // TODO preserve null
+		assertEquals(null, item.getString0());
+		assertEquals(null, item.getString1());
+		assertEquals(null, item.getString2());
+		assertEquals(null, item.getString3());
 	}
 }
