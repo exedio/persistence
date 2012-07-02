@@ -19,6 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
+import static com.exedio.cope.pattern.LimitedListFieldItem.dates;
+import static com.exedio.cope.pattern.LimitedListFieldItem.num1;
+import static com.exedio.cope.pattern.LimitedListFieldItem.num2;
+import static com.exedio.cope.pattern.LimitedListFieldItem.num3;
+import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
+import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -43,7 +50,6 @@ public class LimitedListFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(LimitedListFieldModelTest.class, "MODEL");
 	}
 
-	LimitedListFieldItem item;
 	protected static final Integer i0 = Integer.valueOf(0);
 	protected static final Integer i1 = Integer.valueOf(1);
 	protected static final Integer i2 = Integer.valueOf(2);
@@ -53,64 +59,64 @@ public class LimitedListFieldModelTest extends CopeAssert
 	public void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.num1,
-				item.num2,
-				item.num3,
-				item.nums,
-				item.dates,
-				item.dates.getListSources().get(0),
-				item.dates.getListSources().get(1),
-				item.strings,
-				item.strings.getListSources().get(0),
-				item.strings.getListSources().get(1),
-				item.strings.getListSources().get(2),
-				item.strings.getListSources().get(3),
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				num1,
+				num2,
+				num3,
+				nums,
+				dates,
+				dates.getListSources().get(0),
+				dates.getListSources().get(1),
+				strings,
+				strings.getListSources().get(0),
+				strings.getListSources().get(1),
+				strings.getListSources().get(2),
+				strings.getListSources().get(3),
+			}), TYPE.getFeatures());
 
-		assertEquals(item.TYPE, item.num1.getType());
-		assertEquals(item.TYPE, item.num2.getType());
-		assertEquals(item.TYPE, item.num3.getType());
-		assertEquals("num1", item.num1.getName());
-		assertEquals("num2", item.num2.getName());
-		assertEquals("num3", item.num3.getName());
-		assertEquals(item.TYPE, item.nums.getType());
-		assertEquals("nums", item.nums.getName());
-		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getSourceFeatures());
-		assertEquals(item.nums, item.num1.getPattern());
-		assertEquals(item.nums, item.num2.getPattern());
-		assertEquals(item.nums, item.num3.getPattern());
-		assertEqualsUnmodifiable(list(item.num1, item.num2, item.num3), item.nums.getListSources());
-		assertEquals(false, item.nums.isInitial());
-		assertEquals(false, item.nums.isFinal());
-		assertEquals(true,  item.nums.isMandatory());
-		assertContains(item.nums.getInitialExceptions());
+		assertEquals(TYPE, num1.getType());
+		assertEquals(TYPE, num2.getType());
+		assertEquals(TYPE, num3.getType());
+		assertEquals("num1", num1.getName());
+		assertEquals("num2", num2.getName());
+		assertEquals("num3", num3.getName());
+		assertEquals(TYPE, nums.getType());
+		assertEquals("nums", nums.getName());
+		assertEqualsUnmodifiable(list(num1, num2, num3), nums.getSourceFeatures());
+		assertEquals(nums, num1.getPattern());
+		assertEquals(nums, num2.getPattern());
+		assertEquals(nums, num3.getPattern());
+		assertEqualsUnmodifiable(list(num1, num2, num3), nums.getListSources());
+		assertEquals(false, nums.isInitial());
+		assertEquals(false, nums.isFinal());
+		assertEquals(true,  nums.isMandatory());
+		assertContains(nums.getInitialExceptions());
 
-		assertEquals(3, item.nums   .getMaximumSize());
-		assertEquals(2, item.dates  .getMaximumSize());
-		assertEquals(4, item.strings.getMaximumSize());
+		assertEquals(3, nums   .getMaximumSize());
+		assertEquals(2, dates  .getMaximumSize());
+		assertEquals(4, strings.getMaximumSize());
 
-		assertEquals(item.TYPE, item.dates.getType());
-		assertEquals("dates", item.dates.getName());
-		final List<FunctionField<Date>> dateSources = item.dates.getListSources();
+		assertEquals(TYPE, dates.getType());
+		assertEquals("dates", dates.getName());
+		final List<FunctionField<Date>> dateSources = dates.getListSources();
 		assertEquals(2, dateSources.size());
 		assertUnmodifiable(dateSources);
 		final Iterator<?> dateSourcesIterator = dateSources.iterator();
 		final DateField date0 = assertDate(dateSourcesIterator, 0);
 		final DateField date1 = assertDate(dateSourcesIterator, 1);
 		assertTrue(!dateSourcesIterator.hasNext());
-		assertEquals(item.dates, date0.getPattern());
-		assertEquals(item.dates, date1.getPattern());
-		assertEqualsUnmodifiable(list(date0, date1), item.dates.getSourceFeatures());
-		assertEqualsUnmodifiable(list(date0, date1), item.dates.getListSources());
-		assertEquals(false, item.dates.isInitial());
-		assertEquals(false, item.dates.isFinal());
-		assertEquals(true,  item.dates.isMandatory());
-		assertContains(item.dates.getInitialExceptions());
+		assertEquals(dates, date0.getPattern());
+		assertEquals(dates, date1.getPattern());
+		assertEqualsUnmodifiable(list(date0, date1), dates.getSourceFeatures());
+		assertEqualsUnmodifiable(list(date0, date1), dates.getListSources());
+		assertEquals(false, dates.isInitial());
+		assertEquals(false, dates.isFinal());
+		assertEquals(true,  dates.isMandatory());
+		assertContains(dates.getInitialExceptions());
 
-		assertEquals(item.TYPE, item.strings.getType());
-		assertEquals("strings", item.strings.getName());
-		final List<FunctionField<String>> stringSources = item.strings.getListSources();
+		assertEquals(TYPE, strings.getType());
+		assertEquals("strings", strings.getName());
+		final List<FunctionField<String>> stringSources = strings.getListSources();
 		assertEquals(4, stringSources.size());
 		assertUnmodifiable(stringSources);
 		final Iterator<?> stringSourcesIterator = stringSources.iterator();
@@ -119,24 +125,24 @@ public class LimitedListFieldModelTest extends CopeAssert
 		final StringField string2 = assertString(stringSourcesIterator, 2);
 		final StringField string3 = assertString(stringSourcesIterator, 3);
 		assertTrue(!stringSourcesIterator.hasNext());
-		assertEquals(item.strings, string0.getPattern());
-		assertEquals(item.strings, string1.getPattern());
-		assertEquals(item.strings, string2.getPattern());
-		assertEquals(item.strings, string3.getPattern());
-		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getSourceFeatures());
-		assertEqualsUnmodifiable(list(string0, string1, string2, string3), item.strings.getListSources());
-		assertEquals(false, item.strings.isInitial());
-		assertEquals(false, item.strings.isFinal());
-		assertEquals(true,  item.strings.isMandatory());
-		assertContains(StringLengthViolationException.class, item.strings.getInitialExceptions());
+		assertEquals(strings, string0.getPattern());
+		assertEquals(strings, string1.getPattern());
+		assertEquals(strings, string2.getPattern());
+		assertEquals(strings, string3.getPattern());
+		assertEqualsUnmodifiable(list(string0, string1, string2, string3), strings.getSourceFeatures());
+		assertEqualsUnmodifiable(list(string0, string1, string2, string3), strings.getListSources());
+		assertEquals(false, strings.isInitial());
+		assertEquals(false, strings.isFinal());
+		assertEquals(true,  strings.isMandatory());
+		assertContains(StringLengthViolationException.class, strings.getInitialExceptions());
 
 		assertEquals(
-				list(item.num1, item.num2, item.num3, date0, date1, string0, string1, string2, string3),
-				item.TYPE.getDeclaredFields());
+				list(num1, num2, num3, date0, date1, string0, string1, string2, string3),
+				TYPE.getDeclaredFields());
 
-		assertFalse(item.num1.isAnnotationPresent(Computed.class));
-		assertFalse(item.num2.isAnnotationPresent(Computed.class));
-		assertFalse(item.num3.isAnnotationPresent(Computed.class));
+		assertFalse(num1.isAnnotationPresent(Computed.class));
+		assertFalse(num2.isAnnotationPresent(Computed.class));
+		assertFalse(num3.isAnnotationPresent(Computed.class));
 		assertTrue (date0    .isAnnotationPresent(Computed.class));
 		assertTrue (date1    .isAnnotationPresent(Computed.class));
 		assertTrue (string0  .isAnnotationPresent(Computed.class));
@@ -144,9 +150,9 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertTrue (string2  .isAnnotationPresent(Computed.class));
 		assertTrue (string3  .isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.nums   , 399);
-		assertSerializedSame(item.dates  , 400);
-		assertSerializedSame(item.strings, 402);
+		assertSerializedSame(nums   , 399);
+		assertSerializedSame(dates  , 400);
+		assertSerializedSame(strings, 402);
 
 		// test persistence
 		final Date ts1 = new Date(8172541283976l);
@@ -155,7 +161,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		// TODO return Condition.FALSE instead
 		try
 		{
-			item.nums.equal(listg(i1, i2, i3, i4));
+			nums.equal(listg(i1, i2, i3, i4));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -164,7 +170,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			item.dates.equal(listg(ts1, ts2, ts1));
+			dates.equal(listg(ts1, ts2, ts1));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -173,7 +179,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			item.strings.equal(listg("one", "two", "three", "four", "five"));
+			strings.equal(listg("one", "two", "three", "four", "five"));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -183,7 +189,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		// TODO return Condition.TRUE instead
 		try
 		{
-			item.nums.notEqual(listg(i1, i2, i3, i4));
+			nums.notEqual(listg(i1, i2, i3, i4));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -192,7 +198,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			item.dates.notEqual(listg(ts1, ts2, ts1));
+			dates.notEqual(listg(ts1, ts2, ts1));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -201,7 +207,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			item.strings.notEqual(listg("one", "two", "three", "four", "five"));
+			strings.notEqual(listg("one", "two", "three", "four", "five"));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -219,20 +225,20 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 	}
 
-	private final DateField assertDate(final Iterator<?> i, final int num)
+	private static final DateField assertDate(final Iterator<?> i, final int num)
 	{
 		final DateField date = (DateField)i.next();
-		assertEquals(item.TYPE, date.getType());
+		assertEquals(TYPE, date.getType());
 		assertEquals("dates-"+num, date.getName());
 		assertEquals(false, date.isMandatory());
 		assertEquals(false, date.isFinal());
 		return date;
 	}
 
-	private final StringField assertString(final Iterator<?> i, final int num)
+	private static final StringField assertString(final Iterator<?> i, final int num)
 	{
 		final StringField string = (StringField)i.next();
-		assertEquals(item.TYPE, string.getType());
+		assertEquals(TYPE, string.getType());
 		assertEquals("strings-"+num, string.getName());
 		assertEquals(false, string.isMandatory());
 		assertEquals(false, string.isFinal());
@@ -240,5 +246,4 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertEquals(11, string.getMaximumLength());
 		return string;
 	}
-
 }
