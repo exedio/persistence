@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 package com.exedio.cope.misc;
 
 import com.exedio.cope.Item;
@@ -17,7 +35,7 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 	private final int pinLen;
 	private final int max;
 
-	public DigitPinValidator(int pinLen)
+	public DigitPinValidator(final int pinLen)
 	{
 		if (pinLen<1)
 			throw new IllegalArgumentException("pinLen must be greater 0");
@@ -29,7 +47,7 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 		this.max = (int) Math.pow(10, pinLen); // exclusive
 	}
 
-	@Override public void validate(String pinString, Item exceptionItem, Hash hash) throws
+	@Override public void validate(String pinString, final Item exceptionItem, final Hash hash) throws
 		Hash.InvalidPlainTextException
 	{
 		if(pinString==null)
@@ -45,16 +63,16 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 			throw new Hash.InvalidPlainTextException("Pin greater than " + pinLen + " digits",
 				pinString, exceptionItem, hash);
 
-		for (char c : pinString.toCharArray())
+		for (final char c : pinString.toCharArray())
 		{
 			if (!Character.isDigit(c))
 				throw new Hash.InvalidPlainTextException("Pin is not a number",	pinString, exceptionItem, hash);
 		}
 	}
 
-	@Override public String newRandomPlainText(SecureRandom secureRandom)
+	@Override public String newRandomPlainText(final SecureRandom secureRandom)
 	{
-		StringBuilder s = new StringBuilder( Math.abs(secureRandom.nextInt(max) ));
+		final StringBuilder s = new StringBuilder( Math.abs(secureRandom.nextInt(max) ));
 
 		while (s.length() < pinLen)
 			s.insert(0, '0');
