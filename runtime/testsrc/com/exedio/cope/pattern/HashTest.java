@@ -286,7 +286,7 @@ public class HashTest extends AbstractRuntimeTest
 			}
 
 			// test with validator that accepts the given pin string
-			SetValue setValue = this.item.with3PinValidator.map("978");
+			SetValue<?> setValue = this.item.with3PinValidator.map("978");
 			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
 			assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
 		}
