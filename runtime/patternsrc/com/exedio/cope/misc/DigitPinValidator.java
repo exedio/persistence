@@ -15,7 +15,6 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 	private static final int MAX_PIN_LEN = Integer.toString(Integer.MAX_VALUE).length();
 
 	private final int pinLen;
-	private final int min;
 	private final int max;
 
 	public DigitPinValidator(int pinLen)
@@ -27,46 +26,39 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 			throw new IllegalArgumentException("pinLen exceeds limit of max " + MAX_PIN_LEN);
 
 		this.pinLen = pinLen;
-		this.min = (int) Math.pow(10, pinLen -1);
 		this.max = (int) Math.pow(10, pinLen); // exclusive
 	}
 
-	@Override public void validate(String plainText, Item exceptionItem, Hash hash) throws
+	@Override public void validate(String pinString, Item exceptionItem, Hash hash) throws
 		Hash.InvalidPlainTextException
 	{
-		if(plainText==null)
+		if(pinString==null)
 			throw new NullPointerException();
 
-		plainText = plainText.trim();
+		pinString = pinString.trim();
 
-		if (plainText.length() < pinLen)
+		if (pinString.length() < pinLen)
 			throw new Hash.InvalidPlainTextException("Pin less than " + pinLen + " digits",
-				exceptionItem, hash);
+				pinString, exceptionItem, hash);
 
-		if (plainText.length() > pinLen)
+		if (pinString.length() > pinLen)
 			throw new Hash.InvalidPlainTextException("Pin greater than " + pinLen + " digits",
-				exceptionItem, hash);
+				pinString, exceptionItem, hash);
 
-		// throws an number format exception the text contains others than digits
-		try
+		for (char c : pinString.toCharArray())
 		{
-			Integer.parseInt(plainText);
-		}
-		catch (NumberFormatException e)
-		{
-			// use another message than the default one, is displayed in copaiba
-			throw new Hash.InvalidPlainTextException("Pin '"+plainText+"' is not a number",
-				exceptionItem, hash);
+			if (!Character.isDigit(c))
+				throw new Hash.InvalidPlainTextException("Pin is not a number",	pinString, exceptionItem, hash);
 		}
 	}
 
 	@Override public String newRandomPlainText(SecureRandom secureRandom)
 	{
-		int l = 0;
+		StringBuilder s = new StringBuilder( Math.abs(secureRandom.nextInt(max) ));
 
-		while (l < min)
-			l = Math.abs(secureRandom.nextInt(max));
+		while (s.length() < pinLen)
+			s.insert(0, '0');
 
-		return  Integer.toString(l);
+		return s.toString();
 	}
 }
