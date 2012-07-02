@@ -25,22 +25,14 @@ import java.util.List;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FunctionField;
-import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(LimitedListFieldTest.class, "MODEL");
-	}
-
 	public LimitedListFieldTest()
 	{
-		super(MODEL);
+		super(LimitedListFieldModelTest.MODEL);
 	}
 
 	LimitedListFieldItem item;
