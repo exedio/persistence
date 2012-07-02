@@ -35,7 +35,7 @@ import java.util.Set;
 public class Hash extends Pattern implements Settable<String>
 {
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
-	private static final long serialVersionUID = -2777921476415106990L;
+	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -94,7 +94,7 @@ public class Hash extends Pattern implements Settable<String>
 		this(newStorage(algorithm), algorithm);
 	}
 
-	public Hash(Algorithm algorithm, PlainTextValidator validator)
+	public Hash(final Algorithm algorithm, final PlainTextValidator validator)
 	{
 		this(newStorage(algorithm), algorithm, "utf8", validator);
 	}
@@ -301,7 +301,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
-		String hash = hash(value, exceptionItem);
+		final String hash = hash(value, exceptionItem);
 		return new SetValue[]{ storage.map(hash) };
 	}
 
@@ -342,7 +342,7 @@ public class Hash extends Pattern implements Settable<String>
 		return hash(plainText, null);
 	}
 
-	private String hash(final String plainText, Item exceptionItem)
+	private String hash(final String plainText, final Item exceptionItem)
 	{
 		if(plainText==null)
 			return null;
@@ -375,7 +375,7 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
-	protected String newRandomPassword(SecureRandom random)
+	protected String newRandomPassword(final SecureRandom random)
 	{
 		return validator.newRandomPlainText(random);
 	}
@@ -393,14 +393,14 @@ public class Hash extends Pattern implements Settable<String>
 	/** Default implementation  */
 	static final class DefaultPlainTextValidator extends PlainTextValidator
 	{
-		@Override protected void validate(String plainText, Item exceptionItem, Hash hash) throws
+		@Override protected void validate(final String plainText, final Item exceptionItem, final Hash hash) throws
 			InvalidPlainTextException
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 		}
 
-		@Override protected String newRandomPlainText(SecureRandom secureRandom)
+		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
 		{
 			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
 		}
@@ -415,7 +415,7 @@ public class Hash extends Pattern implements Settable<String>
 		private final String message;
 		private final Hash feature;
 
-		public InvalidPlainTextException(String message, String plainText, Item item, Hash feature)
+		public InvalidPlainTextException(final String message, final String plainText, final Item item, final Hash feature)
 		{
 			super(item, /*cause*/ null);
 			this.message = message;
@@ -428,7 +428,7 @@ public class Hash extends Pattern implements Settable<String>
 			return feature;
 		}
 
-		@Override public String getMessage(boolean withFeature)
+		@Override public String getMessage(final boolean withFeature)
 		{
 			String message = this.message;
 			if (withFeature)
