@@ -19,12 +19,8 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.DateField;
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
@@ -45,13 +41,6 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final List<FunctionField<Date>> dateSources = item.dates.getListSources();
-		assertEquals(2, dateSources.size());
-		assertUnmodifiable(dateSources);
-		final Iterator<?> dateSourcesIterator = dateSources.iterator();
-		final DateField date0 = (DateField)dateSourcesIterator.next();
-		final DateField date1 = (DateField)dateSourcesIterator.next();
-
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
@@ -132,8 +121,8 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final Date ts2 = new Date(3874656234632l);
 		item.setDates(listg(ts1, ts2));
 		assertEquals(list(ts1, ts2), item.getDates());
-		assertEquals(ts1, item.get(date0));
-		assertEquals(ts2, item.get(date1));
+		assertEquals(ts1, item.getDate0());
+		assertEquals(ts2, item.getDate1());
 
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());

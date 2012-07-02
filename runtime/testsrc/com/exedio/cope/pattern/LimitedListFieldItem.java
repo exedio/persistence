@@ -56,6 +56,21 @@ public class LimitedListFieldItem extends Item
 			num3.map(initialNum3));
 	}
 
+	Date getDate0()
+	{
+		return getDate(0);
+	}
+
+	Date getDate1()
+	{
+		return getDate(1);
+	}
+
+	private Date getDate(final int i)
+	{
+		return dates.getListSources().get(i).get(this);
+	}
+
 	String getString0()
 	{
 		return getString(0);
