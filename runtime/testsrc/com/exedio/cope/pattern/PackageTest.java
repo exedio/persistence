@@ -33,6 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MessageDigestHashTest.class);
 		suite.addTestSuite(PartOfModelTest.class);
 		suite.addTestSuite(PartOfTest.class);
+		suite.addTestSuite(LimitedListFieldModelTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);
 		suite.addTestSuite(ListFieldTest2.class);
