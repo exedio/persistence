@@ -34,9 +34,4 @@ public final class MessageDigestHash extends Hash
 	{
 		super(new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations));
 	}
-
-	public MessageDigestHash(final int iterations, PlainTextValidator validator)
-	{
-		super(new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations), validator);
-	}
 }
