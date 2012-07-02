@@ -51,6 +51,7 @@ public class LimitedListFieldItem extends Item
 	LimitedListFieldItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
 		super(
+			nums.getLength().map(3),
 			num1.map(initialNum1),
 			num2.map(initialNum2),
 			num3.map(initialNum3));
@@ -94,6 +95,11 @@ public class LimitedListFieldItem extends Item
 	private String getString(final int i)
 	{
 		return strings.getListSources().get(i).get(this);
+	}
+
+	int getStringLength()
+	{
+		return strings.getLength().getMandatory(this);
 	}
 
 /**

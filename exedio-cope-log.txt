@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* LimitedListField gets explicit length field.
+	This breaks backwards API compatibility without changing compiler signatures -
+		getter will not forget null elements anymore.
+	This affects database schema:
+		- a new column is added
+		- a new check constraint is added (where supported)
 * Function#in takes Collection<? extends E>
 * Composite#getTemplateName added.
 * instrumentor supports /** @cope.xxx override */

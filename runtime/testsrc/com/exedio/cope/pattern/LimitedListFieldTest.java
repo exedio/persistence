@@ -97,25 +97,17 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.nums.contains(i3)));
 		assertContains(item, item.TYPE.search(item.nums.contains(null)));
 
-		item.setNum1(i1);
-		item.setNum2(i2);
-		item.setNum3(i3);
+		item.setNums(listg(i1, i2, i3));
 		assertEquals(list(i1, i2, i3), item.getNums());
 
-		item.setNum1(null);
-		item.setNum2(i2);
-		item.setNum3(i3);
-		assertEquals(list(i2, i3), item.getNums());
+		item.setNums(listg(null, i2, i3));
+		assertEquals(list(null, i2, i3), item.getNums());
 
-		item.setNum1(i1);
-		item.setNum2(null);
-		item.setNum3(i3);
-		assertEquals(list(i1, i3), item.getNums());
+		item.setNums(listg(i1, null, i3));
+		assertEquals(list(i1, null, i3), item.getNums());
 
-		item.setNum1(null);
-		item.setNum2(null);
-		item.setNum3(null);
-		assertEquals(list(), item.getNums());
+		item.setNums(listg((Integer)null, null, null));
+		assertEquals(list(null, null, null), item.getNums());
 	}
 
 	public void testDate()
@@ -157,6 +149,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("zacko", item.getString1());
 		assertEquals("zocko", item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 
 		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEquals(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
@@ -164,13 +157,15 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("lets2", item2.getString1());
 		assertEquals("lets3", item2.getString2());
 		assertEquals("lets4", item2.getString3());
+		assertEquals(4, item2.getStringLength());
 
 		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
-		assertEquals(list("fetz1"), item3.getStrings());
+		assertEquals(list("fetz1", null, null, null), item3.getStrings());
 		assertEquals("fetz1", item3.getString0());
 		assertEquals(null, item3.getString1());
 		assertEquals(null, item3.getString2());
 		assertEquals(null, item3.getString3());
+		assertEquals(4, item3.getStringLength());
 	}
 
 	public void testNull()
@@ -178,38 +173,43 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(list(), item.getStrings());
 
 		item.setStrings(listg("a", "b", null));
-		assertEquals(list("a", "b"), item.getStrings()); // TODO preserve null
+		assertEquals(list("a", "b", null), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals("b", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 
 		item.setStrings(listg("a", null, "c"));
-		assertEquals(list("a", "c"), item.getStrings()); // TODO preserve null
+		assertEquals(list("a", null, "c"), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals(null, item.getString1());
 		assertEquals("c", item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 
 		item.setStrings(listg(null, "b", "c"));
-		assertEquals(list("b", "c"), item.getStrings()); // TODO preserve null
+		assertEquals(list(null, "b", "c"), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
 		assertEquals("c", item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 
 		item.setStrings(listg(null, "b", null));
-		assertEquals(list("b"), item.getStrings()); // TODO preserve null
+		assertEquals(list(null, "b", null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 
 		item.setStrings(listg((String)null, null, null));
-		assertEquals(list(), item.getStrings()); // TODO preserve null
+		assertEquals(list(null, null, null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals(null, item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
+		assertEquals(3, item.getStringLength());
 	}
 }

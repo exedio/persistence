@@ -32,9 +32,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
@@ -58,20 +60,33 @@ public class LimitedListFieldModelTest extends CopeAssert
 
 	public void testIt()
 	{
+		final IntegerField numsL = nums.getLength();
+		final IntegerField datesL = dates.getLength();
+		final IntegerField stringsL = strings.getLength();
+		final CheckConstraint numsU = nums.getUnison();
+		final CheckConstraint datesU = dates.getUnison();
+		final CheckConstraint stringsU = strings.getUnison();
+
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				num1,
 				num2,
 				num3,
 				nums,
+				numsL,
+				numsU,
 				dates,
+				datesL,
 				dates.getListSources().get(0),
 				dates.getListSources().get(1),
+				datesU,
 				strings,
+				stringsL,
 				strings.getListSources().get(0),
 				strings.getListSources().get(1),
 				strings.getListSources().get(2),
 				strings.getListSources().get(3),
+				stringsU,
 			}), TYPE.getFeatures());
 
 		assertEquals(TYPE, num1.getType());
@@ -82,7 +97,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertEquals("num3", num3.getName());
 		assertEquals(TYPE, nums.getType());
 		assertEquals("nums", nums.getName());
-		assertEqualsUnmodifiable(list(num1, num2, num3), nums.getSourceFeatures());
+		assertEqualsUnmodifiable(list(numsL, num1, num2, num3, numsU), nums.getSourceFeatures());
 		assertEquals(nums, num1.getPattern());
 		assertEquals(nums, num2.getPattern());
 		assertEquals(nums, num3.getPattern());
@@ -107,7 +122,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertTrue(!dateSourcesIterator.hasNext());
 		assertEquals(dates, date0.getPattern());
 		assertEquals(dates, date1.getPattern());
-		assertEqualsUnmodifiable(list(date0, date1), dates.getSourceFeatures());
+		assertEqualsUnmodifiable(list(datesL, date0, date1, datesU), dates.getSourceFeatures());
 		assertEqualsUnmodifiable(list(date0, date1), dates.getListSources());
 		assertEquals(false, dates.isInitial());
 		assertEquals(false, dates.isFinal());
@@ -129,7 +144,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertEquals(strings, string1.getPattern());
 		assertEquals(strings, string2.getPattern());
 		assertEquals(strings, string3.getPattern());
-		assertEqualsUnmodifiable(list(string0, string1, string2, string3), strings.getSourceFeatures());
+		assertEqualsUnmodifiable(list(stringsL, string0, string1, string2, string3, stringsU), strings.getSourceFeatures());
 		assertEqualsUnmodifiable(list(string0, string1, string2, string3), strings.getListSources());
 		assertEquals(false, strings.isInitial());
 		assertEquals(false, strings.isFinal());
@@ -137,7 +152,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertContains(StringLengthViolationException.class, strings.getInitialExceptions());
 
 		assertEquals(
-				list(num1, num2, num3, date0, date1, string0, string1, string2, string3),
+				list(num1, num2, num3, numsL, datesL, date0, date1, stringsL, string0, string1, string2, string3),
 				TYPE.getDeclaredFields());
 
 		assertFalse(num1.isAnnotationPresent(Computed.class));
@@ -149,6 +164,14 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertTrue (string1  .isAnnotationPresent(Computed.class));
 		assertTrue (string2  .isAnnotationPresent(Computed.class));
 		assertTrue (string3  .isAnnotationPresent(Computed.class));
+
+		assertEquals(
+			"select this from LimitedListFieldItem where (" +
+				"(nums-Len>'0' OR num1 is null) AND " +
+				"(nums-Len>'1' OR num2 is null) AND " +
+				"(nums-Len>'2' OR num3 is null)" +
+			")",
+			TYPE.newQuery(nums.getUnison().getCondition()).toString());
 
 		assertSerializedSame(nums   , 399);
 		assertSerializedSame(dates  , 400);

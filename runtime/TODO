@@ -33,7 +33,6 @@ TODO for cope runtime
 	* make revisions cluster aware
 	* test configuration of tomcat
 - move DateField#touch into separate pattern Timestamp
-- LimitedListField: allow length terminated instead of null terminated as well
 - SetFieldOrdered: SetField with explicit order
 - patterns such as PriceField as function for select and orderBy
 - Copy Constraint for non-final fields
