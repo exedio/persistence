@@ -39,7 +39,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new LimitedListFieldItem(1, 2, 3));
 	}
 
-	public void testIt()
+	public void testNum()
 	{
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -116,14 +116,20 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		item.setNum2(null);
 		item.setNum3(null);
 		assertEquals(list(), item.getNums());
+	}
 
+	public void testDate()
+	{
 		final Date ts1 = new Date(8172541283976l);
 		final Date ts2 = new Date(3874656234632l);
 		item.setDates(listg(ts1, ts2));
 		assertEquals(list(ts1, ts2), item.getDates());
 		assertEquals(ts1, item.getDate0());
 		assertEquals(ts2, item.getDate1());
+	}
 
+	public void testString()
+	{
 		item.setStrings(listg("hallo", "bello"));
 		assertEquals(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.getString0());
