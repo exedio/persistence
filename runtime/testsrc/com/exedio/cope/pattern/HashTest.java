@@ -53,7 +53,9 @@ public class HashTest extends AbstractRuntimeTest
 				item.internal,
 				item.internal.getStorage(),
 				item.withCorruptValidator,
-				item.withCorruptValidator.getStorage()
+				item.withCorruptValidator.getStorage(),
+				item.with3PinValidator,
+				item.with3PinValidator.getStorage()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
@@ -256,4 +258,104 @@ public class HashTest extends AbstractRuntimeTest
 
 	}
 
+	public void testValidatorAndSetValue()
+	{
+		{	// testing construction
+
+			// test with a validator which always throws an exception
+			try
+			{
+				deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
+				fail();
+			}
+			catch (IllegalStateException ise)
+			{
+				assertEquals("validate", ise.getMessage());
+			}
+
+			// testing  with validator that discards the given pin string
+			try
+			{
+				deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
+				fail();
+			}
+			catch (Hash.InvalidPlainTextException e)
+			{
+				assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
+				assertEquals("99x", e.getPlainText());
+			}
+
+			// test with validator that accepts the given pin string
+			SetValue setValue = this.item.with3PinValidator.map("978");
+			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
+			assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
+		}
+
+		{
+			// testing mass set
+
+			// with success
+			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			assertNotNull(anItem);
+			anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
+			assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
+
+			// fails because invalid data
+			try
+			{
+				anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
+				fail();
+			}
+			catch (Hash.InvalidPlainTextException e)
+			{
+				assertEquals("1", e.getPlainText());
+				assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
+			}
+
+			// fails because validator throws always an exception
+			try
+			{
+				anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
+				fail();
+			}
+			catch (IllegalStateException e)
+			{
+				assertEquals("validate", e.getMessage());
+			}
+		}
+
+		{
+			// single setValue
+
+			// with success
+			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			anItem.setWith3PinValidator("452");
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap());
+
+			// with invalid input data
+			try
+			{
+				anItem.setWith3PinValidator("4544");
+				fail();
+			}
+			catch (Hash.InvalidPlainTextException e)
+			{
+				assertEquals("4544", e.getPlainText());
+				assertEquals("Pin greater than 3 digits for HashItem.with3PinValidator", e.getMessage());
+			}
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+
+			// with corrupt validator
+			try
+			{
+				anItem.setWithCorruptValidator("4544");
+				fail();
+			}
+			catch (IllegalStateException e)
+			{
+				assertEquals("validate", e.getMessage());
+			}
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+		}
+	}
 }
