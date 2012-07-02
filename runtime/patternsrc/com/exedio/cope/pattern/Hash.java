@@ -43,6 +43,11 @@ public class Hash extends Pattern implements Settable<String>
 	private final String encoding;
 	private final PlainTextValidator validator;
 
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	{
+		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
+	}
+
 	private Hash(final StringField storage, final Algorithm algorithm, final String encoding, final PlainTextValidator validator)
 	{
 		if(storage==null)
@@ -72,11 +77,6 @@ public class Hash extends Pattern implements Settable<String>
 		}
 
 		this.validator = validator;
-	}
-
-	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
-	{
-		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final StringField storage, final Algorithm algorithm)
