@@ -34,8 +34,8 @@ import java.util.Set;
 
 public class Hash extends Pattern implements Settable<String>
 {
-	private static final long serialVersionUID = 1l;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
+	private static final long serialVersionUID = -2777921476415106990L;
 
 	private final StringField storage;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -410,13 +410,16 @@ public class Hash extends Pattern implements Settable<String>
 	 * A plain text is either too short, too long or doesn't match the format requirement */
 	public static final class InvalidPlainTextException extends ConstraintViolationException
 	{
+		private static final long serialVersionUID = 4561239972318807611L;
+		private final String plainText;
 		private final String message;
 		private final Hash feature;
 
-		public InvalidPlainTextException(String message, Item item, Hash feature)
+		public InvalidPlainTextException(String message, String plainText, Item item, Hash feature)
 		{
 			super(item, /*cause*/ null);
 			this.message = message;
+			this.plainText = plainText;
 			this.feature = feature;
 		}
 
@@ -425,9 +428,17 @@ public class Hash extends Pattern implements Settable<String>
 			return feature;
 		}
 
-		@Override protected String getMessage(boolean withFeature)
+		@Override public String getMessage(boolean withFeature)
 		{
+			String message = this.message;
+			if (withFeature)
+				message += " for " + feature;
 			return message;
+		}
+
+		public String getPlainText()
+		{
+			return plainText;
 		}
 	}
 
