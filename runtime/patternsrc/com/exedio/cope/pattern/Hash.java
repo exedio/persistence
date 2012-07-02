@@ -410,7 +410,7 @@ public class Hash extends Pattern implements Settable<String>
 	 * A plain text is either too short, too long or doesn't match the format requirement */
 	public static final class InvalidPlainTextException extends ConstraintViolationException
 	{
-		private static final long serialVersionUID = 4561239972318807611L;
+		private static final long serialVersionUID = 1l;
 		private final String plainText;
 		private final String message;
 		private final Hash feature;
