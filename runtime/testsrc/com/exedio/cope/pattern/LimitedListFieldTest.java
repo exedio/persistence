@@ -58,14 +58,14 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(2, dateSources.size());
 		assertUnmodifiable(dateSources);
 		final Iterator<?> dateSourcesIterator = dateSources.iterator();
-		final DateField date0 = assertDate(dateSourcesIterator, 0);
-		final DateField date1 = assertDate(dateSourcesIterator, 1);
+		final DateField date0 = (DateField)dateSourcesIterator.next();
+		final DateField date1 = (DateField)dateSourcesIterator.next();
 		final List<FunctionField<String>> stringSources = item.strings.getListSources();
 		final Iterator<?> stringSourcesIterator = stringSources.iterator();
-		final StringField string0 = assertString(stringSourcesIterator, 0);
-		final StringField string1 = assertString(stringSourcesIterator, 1);
-		final StringField string2 = assertString(stringSourcesIterator, 2);
-		final StringField string3 = assertString(stringSourcesIterator, 3);
+		final StringField string0 = (StringField)stringSourcesIterator.next();
+		final StringField string1 = (StringField)stringSourcesIterator.next();
+		final StringField string2 = (StringField)stringSourcesIterator.next();
+		final StringField string3 = (StringField)stringSourcesIterator.next();
 
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -192,27 +192,4 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item3.get(string2));
 		assertEquals(null, item3.get(string3));
 	}
-
-	private final DateField assertDate(final Iterator<?> i, final int num)
-	{
-		final DateField date = (DateField)i.next();
-		assertEquals(item.TYPE, date.getType());
-		assertEquals("dates-"+num, date.getName());
-		assertEquals(false, date.isMandatory());
-		assertEquals(false, date.isFinal());
-		return date;
-	}
-
-	private final StringField assertString(final Iterator<?> i, final int num)
-	{
-		final StringField string = (StringField)i.next();
-		assertEquals(item.TYPE, string.getType());
-		assertEquals("strings-"+num, string.getName());
-		assertEquals(false, string.isMandatory());
-		assertEquals(false, string.isFinal());
-		assertEquals(1, string.getMinimumLength());
-		assertEquals(11, string.getMaximumLength());
-		return string;
-	}
-
 }
