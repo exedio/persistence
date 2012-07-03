@@ -44,11 +44,6 @@ public class WrapHash extends Hash
 		super(ALGORITHM);
 	}
 
-	public WrapHash(PlainTextValidator validator)
-	{
-		super(ALGORITHM, validator);
-	}
-
 	private static final Algorithm ALGORITHM = new Algorithm()
 	{
 		public String name()

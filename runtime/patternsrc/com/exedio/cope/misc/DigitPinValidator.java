@@ -65,14 +65,14 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 
 		for (final char c : pinString.toCharArray())
 		{
-			if (!Character.isDigit(c))
+			if (c < '0' || c > '9')
 				throw new Hash.InvalidPlainTextException("Pin is not a number",	pinString, exceptionItem, hash);
 		}
 	}
 
 	@Override public String newRandomPlainText(final SecureRandom secureRandom)
 	{
-		final StringBuilder s = new StringBuilder( Math.abs(secureRandom.nextInt(max) ));
+		final StringBuilder s = new StringBuilder( "" + Math.abs(secureRandom.nextInt(max) ));
 
 		while (s.length() < pinLen)
 			s.insert(0, '0');

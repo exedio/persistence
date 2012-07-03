@@ -48,6 +48,32 @@ public class Hash extends Pattern implements Settable<String>
 		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
 	}
 
+	public Hash(final StringField storage, final Algorithm algorithm)
+	{
+		this(storage, algorithm, "utf8", DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final Algorithm algorithm, final String encoding)
+	{
+		this(newStorage(algorithm), algorithm, encoding, DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final Algorithm algorithm)
+	{
+		this(newStorage(algorithm), algorithm);
+	}
+
+	protected Hash(final Algorithm algorithm, final PlainTextValidator validator)
+	{
+		this(newStorage(algorithm), algorithm, "utf8", validator);
+	}
+
+	public Hash validateWith(PlainTextValidator validator)
+	{
+		return new Hash(this.storage.optional(), this.algorithm, this.encoding, validator);
+	}
+
+
 	private Hash(final StringField storage, final Algorithm algorithm, final String encoding, final PlainTextValidator validator)
 	{
 		if(storage==null)
@@ -77,26 +103,6 @@ public class Hash extends Pattern implements Settable<String>
 		}
 
 		this.validator = validator;
-	}
-
-	public Hash(final StringField storage, final Algorithm algorithm)
-	{
-		this(storage, algorithm, "utf8", DEFAULT_VALIDATOR);
-	}
-
-	public Hash(final Algorithm algorithm, final String encoding)
-	{
-		this(newStorage(algorithm), algorithm, encoding, DEFAULT_VALIDATOR);
-	}
-
-	public Hash(final Algorithm algorithm)
-	{
-		this(newStorage(algorithm), algorithm);
-	}
-
-	public Hash(final Algorithm algorithm, final PlainTextValidator validator)
-	{
-		this(newStorage(algorithm), algorithm, "utf8", validator);
 	}
 
 	public final StringField getStorage()

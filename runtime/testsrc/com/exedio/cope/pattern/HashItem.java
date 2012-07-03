@@ -35,9 +35,9 @@ public class HashItem extends Item
 
 	static final Hash internal = new WrapHash().optional();
 
-	static final Hash withCorruptValidator = new WrapHash(new WrapHash.CorruptValidator()).optional();
+	static final Hash withCorruptValidator = new WrapHash().validateWith(new WrapHash.CorruptValidator()).optional();
 
-	static final Hash with3PinValidator = new WrapHash(new DigitPinValidator(3)).optional();
+	static final Hash with3PinValidator = new WrapHash().validateWith(new DigitPinValidator(3)).optional();
 
 /**
 

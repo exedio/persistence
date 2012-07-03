@@ -101,7 +101,7 @@ public class DigitPinValidatorTest extends TestCase
 		for (int pinLen = 1; pinLen < 6; pinLen++)
 		{
 			final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
-			for (int i=0; i<1000; i++)
+			for (int i=0; i<100; i++)
 			{
 				final String newPin = pinValidator.newRandomPlainText(random);
 				assertEquals(pinLen, newPin.length());

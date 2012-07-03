@@ -18,7 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.*;
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Join;
+import com.exedio.cope.Model;
+import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.misc.Computed;
 
 import java.security.SecureRandom;
@@ -204,7 +209,7 @@ public class HashTest extends AbstractRuntimeTest
 		// try null as validator
 		try
 		{
-			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), (Hash.PlainTextValidator)null);
+			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validateWith(null);
 			fail();
 		}
 		catch (NullPointerException e)
@@ -213,7 +218,8 @@ public class HashTest extends AbstractRuntimeTest
 		}
 
 		// use default validator
-		Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1), new Hash.DefaultPlainTextValidator());
+		Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validateWith(
+			new Hash.DefaultPlainTextValidator());
 		assertNull(hash.hash(null));
 		assertNotNull(hash.hash(""));
 		assertNotNull(hash.hash("sdsidh"));
