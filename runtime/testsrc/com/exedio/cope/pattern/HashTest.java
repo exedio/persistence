@@ -169,21 +169,21 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testConditions()
 	{
-		HashItem item2 = deleteOnTearDown(new HashItem());
+		final HashItem item2 = deleteOnTearDown(new HashItem());
 		item2.setImplicitExternal("123");
-		HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
-		HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
+		final HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
+		final HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
 
 		assertEquals(list(item), HashItem.TYPE.search(HashItem.implicitExternal.isNull()));
 		assertEquals(list(item2), HashItem.TYPE.search(HashItem.implicitExternal.isNotNull()));
 
 		{
-			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			Join join1 = query.join(HashItem.TYPE);
+			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(HashItem.TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
 			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNull() );
 
-			Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(HashItem.TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
 			query.narrow( HashItem.implicitExternal.isNull(join2) );
 
@@ -191,12 +191,12 @@ public class HashTest extends AbstractRuntimeTest
 		}
 
 		{
-			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			Join join1 = query.join(HashItem.TYPE);
+			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(HashItem.TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
 			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNotNull() );
 
-			Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(HashItem.TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
 			query.narrow( HashItem.implicitExternal.isNotNull(join2) );
 
@@ -212,13 +212,13 @@ public class HashTest extends AbstractRuntimeTest
 			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validateWith(null);
 			fail();
 		}
-		catch (NullPointerException e)
+		catch (final NullPointerException e)
 		{
 			assertEquals("validator", e.getMessage());
 		}
 
 		// use default validator
-		Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validateWith(
+		final Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validateWith(
 			new Hash.DefaultPlainTextValidator());
 		assertNull(hash.hash(null));
 		assertNotNull(hash.hash(""));
@@ -248,7 +248,7 @@ public class HashTest extends AbstractRuntimeTest
 		{
 			item.withCorruptValidator.hash("sdsadd");
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("validate", e.getMessage());
 		}
@@ -257,7 +257,7 @@ public class HashTest extends AbstractRuntimeTest
 		{
 			item.withCorruptValidator.newRandomPassword(new SecureRandom());
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("newRandomPlainText", e.getMessage());
 		}
@@ -274,7 +274,7 @@ public class HashTest extends AbstractRuntimeTest
 				deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
 				fail();
 			}
-			catch (IllegalStateException ise)
+			catch (final IllegalStateException ise)
 			{
 				assertEquals("validate", ise.getMessage());
 			}
@@ -285,15 +285,17 @@ public class HashTest extends AbstractRuntimeTest
 				deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
 				fail();
 			}
-			catch (Hash.InvalidPlainTextException e)
+			catch (final Hash.InvalidPlainTextException e)
 			{
 				assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
 				assertEquals("99x", e.getPlainText());
+				assertEquals(item.with3PinValidator, e.getFeature());
+				assertEquals(null, e.getItem());
 			}
 
 			// test with validator that accepts the given pin string
-			SetValue<?> setValue = this.item.with3PinValidator.map("978");
-			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
+			final SetValue<?> setValue = this.item.with3PinValidator.map("978");
+			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
 			assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
 		}
 
@@ -301,7 +303,7 @@ public class HashTest extends AbstractRuntimeTest
 			// testing mass set
 
 			// with success
-			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
 			assertNotNull(anItem);
 			anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
 			assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
@@ -312,10 +314,12 @@ public class HashTest extends AbstractRuntimeTest
 				anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
 				fail();
 			}
-			catch (Hash.InvalidPlainTextException e)
+			catch (final Hash.InvalidPlainTextException e)
 			{
 				assertEquals("1", e.getPlainText());
 				assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
+				assertEquals(item.with3PinValidator, e.getFeature());
+				assertEquals(anItem, e.getItem());
 			}
 
 			// fails because validator throws always an exception
@@ -324,7 +328,7 @@ public class HashTest extends AbstractRuntimeTest
 				anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
 				fail();
 			}
-			catch (IllegalStateException e)
+			catch (final IllegalStateException e)
 			{
 				assertEquals("validate", e.getMessage());
 			}
@@ -334,7 +338,7 @@ public class HashTest extends AbstractRuntimeTest
 			// single setValue
 
 			// with success
-			HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
 			anItem.setWith3PinValidator("452");
 			assertEquals("340000045243", anItem.getWith3PinValidatorwrap());
 
@@ -344,10 +348,12 @@ public class HashTest extends AbstractRuntimeTest
 				anItem.setWith3PinValidator("4544");
 				fail();
 			}
-			catch (Hash.InvalidPlainTextException e)
+			catch (final Hash.InvalidPlainTextException e)
 			{
 				assertEquals("4544", e.getPlainText());
 				assertEquals("Pin greater than 3 digits for HashItem.with3PinValidator", e.getMessage());
+				assertEquals(item.with3PinValidator, e.getFeature());
+				assertEquals(anItem, e.getItem());
 			}
 			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
 
@@ -357,7 +363,7 @@ public class HashTest extends AbstractRuntimeTest
 				anItem.setWithCorruptValidator("4544");
 				fail();
 			}
-			catch (IllegalStateException e)
+			catch (final IllegalStateException e)
 			{
 				assertEquals("validate", e.getMessage());
 			}
