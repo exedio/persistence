@@ -59,6 +59,11 @@ public final class Join implements java.io.Serializable
 		this.condition = condition;
 	}
 
+	public Condition getCondition()
+	{
+		return condition;
+	}
+
 	public Kind getKind()
 	{
 		return kind;
