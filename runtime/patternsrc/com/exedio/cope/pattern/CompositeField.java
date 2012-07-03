@@ -59,6 +59,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	private final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent;
 	private final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> componentList;
 	private final FunctionField<?> mandatoryComponent;
 	private final FunctionField<?> isNullComponent;
