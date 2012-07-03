@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -55,7 +56,11 @@ public class HashTest extends AbstractRuntimeTest
 				item.implicitExternal,
 				item.implicitExternal.getStorage(),
 				item.internal,
-				item.internal.getStorage()
+				item.internal.getStorage(),
+				item.withCorruptValidator,
+				item.withCorruptValidator.getStorage(),
+				item.with3PinValidator,
+				item.with3PinValidator.getStorage()
 			), item.TYPE.getFeatures());
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
@@ -164,21 +169,21 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testConditions()
 	{
-		HashItem item2 = deleteOnTearDown(new HashItem());
+		final HashItem item2 = deleteOnTearDown(new HashItem());
 		item2.setImplicitExternal("123");
-		HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
-		HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
+		final HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
+		final HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
 
 		assertEquals(list(item), HashItem.TYPE.search(HashItem.implicitExternal.isNull()));
 		assertEquals(list(item2), HashItem.TYPE.search(HashItem.implicitExternal.isNotNull()));
 
 		{
-			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			Join join1 = query.join(HashItem.TYPE);
+			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(HashItem.TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
 			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNull() );
 
-			Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(HashItem.TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
 			query.narrow( HashItem.implicitExternal.isNull(join2) );
 
@@ -186,16 +191,192 @@ public class HashTest extends AbstractRuntimeTest
 		}
 
 		{
-			Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			Join join1 = query.join(HashItem.TYPE);
+			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(HashItem.TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
 			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNotNull() );
 
-			Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(HashItem.TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
 			query.narrow( HashItem.implicitExternal.isNotNull(join2) );
 
 			assertEquals( list(h2), query.search() );
 		}
+	}
+
+	public void testValidatorValidate()
+	{
+		// try null as validator
+		try
+		{
+			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validate(null);
+			fail();
+		}
+		catch (final NullPointerException e)
+		{
+			assertEquals("validator", e.getMessage());
+		}
+
+		// use default validator
+		final Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validate(
+			new Hash.DefaultPlainTextValidator());
+		assertNull(hash.hash(null));
+		assertNotNull(hash.hash(""));
+		assertNotNull(hash.hash("sdsidh"));
+	}
+
+	/**
+	 * Check(..) must not call validator: why? Check(..) compares the password sent over http with the persistent hash
+	 * stored in the database. It does never change on the database. In opposite to this, the validator is used to ensure
+	 * that a password, when storing it (the hash) to the database, fulfills the expected format and length. Example
+	 * 4-digit-pin: numeric, length==4. The validator should only be called when the user changes its password or a
+	 * new random password is generated.
+	 *
+	 * @see Hash#blind(String)
+	 * @see Hash#check(com.exedio.cope.Item, String)
+	 */
+	public void testCheckMustNotCallValidator() throws Exception
+	{
+		// validator must not be called from check(..)
+		item.withCorruptValidator.check(item, "");
+		item.withCorruptValidator.check(item, "sd232");
+
+		// counter example - where the validator will be called
+		try
+		{
+			item.withCorruptValidator.hash("sdsadd");
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("validate", e.getMessage());
+		}
+
+		try
+		{
+			item.withCorruptValidator.newRandomPassword(new SecureRandom());
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("newRandomPlainText", e.getMessage());
+		}
+
+	}
+
+	public void testValidatorSingleSetValue()
+	{
+			// with success
+			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			anItem.setWith3PinValidator("452");
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap());
+
+			// with invalid input data
+			try
+			{
+				anItem.setWith3PinValidator("4544");
+				fail();
+			}
+			catch (final Hash.InvalidPlainTextException e)
+			{
+				assertEquals("4544", e.getPlainText());
+				assertEquals("Pin greater than 3 digits for HashItem.with3PinValidator", e.getMessage());
+				assertEquals(item.with3PinValidator, e.getFeature());
+				assertEquals(anItem, e.getItem());
+			}
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+
+			// with corrupt validator
+			try
+			{
+				anItem.setWithCorruptValidator("4544");
+				fail();
+			}
+			catch (final IllegalStateException e)
+			{
+				assertEquals("validate", e.getMessage());
+			}
+			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+	}
+
+	public void testHashItemMassSetValuesWithValidatedHash()
+	{
+		// testing mass set
+
+		// with success
+		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+		assertNotNull(anItem);
+		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
+		assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
+
+		// fails because invalid data
+		try
+		{
+			anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			fail();
+		}
+		catch (final Hash.InvalidPlainTextException e)
+		{
+			assertEquals("1", e.getPlainText());
+			assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
+			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(anItem, e.getItem());
+		}
+
+		// fails because validator throws always an exception
+		try
+		{
+			anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("validate", e.getMessage());
+		}
+	}
+
+	public void testHashItemConstructionWithValidatedHashValues()
+	{
+		// test with a validator which always throws an exception
+		try
+		{
+			deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
+			fail();
+		}
+		catch (final IllegalStateException ise)
+		{
+			assertEquals("validate", ise.getMessage());
+		}
+
+		// testing  with validator that discards the given pin string
+		try
+		{
+			deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
+			fail();
+		}
+		catch (final Hash.InvalidPlainTextException e)
+		{
+			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
+			assertEquals("99x", e.getPlainText());
+			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+
+		// test with validator that accepts the given pin string
+		final SetValue<?> setValue = this.item.with3PinValidator.map("978");
+		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
+		assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
+	}
+
+	public void testValidatorNewRandomPassword()
+	{
+		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
+			private static final long serialVersionUID = 1l;
+			int seq=0;  // negative tested too!
+
+			// overridden to get pre defined numbers instead of the random ones
+			@Override public int nextInt(final int n) {
+				assert n==10;
+				return (seq++)%n;
+			}
+		}));
 	}
 }

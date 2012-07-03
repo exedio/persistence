@@ -164,7 +164,7 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
+			final String newPassword = password.newRandomPassword(random);
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();

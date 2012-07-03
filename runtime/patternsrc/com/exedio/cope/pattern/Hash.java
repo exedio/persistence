@@ -19,10 +19,12 @@
 package com.exedio.cope.pattern;
 
 import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
@@ -44,14 +46,43 @@ import com.exedio.cope.util.Hex;
 
 public class Hash extends Pattern implements Settable<String>
 {
+	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Algorithm algorithm;
 	private final String encoding;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final PlainTextValidator validator;
 
 	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	{
+		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final StringField storage, final Algorithm algorithm)
+	{
+		this(storage, algorithm, "utf8", DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final Algorithm algorithm, final String encoding)
+	{
+		this(newStorage(algorithm), algorithm, encoding, DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final Algorithm algorithm)
+	{
+		this(newStorage(algorithm), algorithm);
+	}
+
+	public Hash validate(final PlainTextValidator validator)
+	{
+		return new Hash(this.storage.optional(), this.algorithm, this.encoding, validator);
+	}
+
+
+	private Hash(final StringField storage, final Algorithm algorithm, final String encoding, final PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
@@ -59,6 +90,8 @@ public class Hash extends Pattern implements Settable<String>
 			throw new NullPointerException("algorithm");
 		if(encoding==null)
 			throw new NullPointerException("encoding");
+		if (validator==null)
+			throw new NullPointerException("validator");
 
 		this.algorithm = algorithm;
 		final String algorithmName = algorithm.name();
@@ -76,21 +109,8 @@ public class Hash extends Pattern implements Settable<String>
 		{
 			throw new IllegalArgumentException(e);
 		}
-	}
 
-	public Hash(final StringField storage, final Algorithm algorithm)
-	{
-		this(storage, algorithm, "utf8");
-	}
-
-	public Hash(final Algorithm algorithm, final String encoding)
-	{
-		this(newStorage(algorithm), algorithm, encoding);
-	}
-
-	public Hash(final Algorithm algorithm)
-	{
-		this(newStorage(algorithm), algorithm);
+		this.validator = validator;
 	}
 
 	public final StringField getStorage()
@@ -144,18 +164,13 @@ public class Hash extends Pattern implements Settable<String>
 
 	private static StringField newStorage(final Algorithm algorithm)
 	{
-		final StringField result =
-			new StringField().
+		return new StringField().
 				charSet(CharSet.HEX_LOWER).
 				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
-		return result;
 	}
 
 	private String algorithmHash(final String plainText)
 	{
-		if(plainText==null)
-			throw new NullPointerException();
-
 		try
 		{
 			final byte[] resultBytes = algorithm.hash(encode(plainText));
@@ -201,7 +216,7 @@ public class Hash extends Pattern implements Settable<String>
 		 * The result is not required to be deterministic -
 		 * this means, multiple calls for the same plain text
 		 * do not have to return the same hash.
-		 * This is especially true for salted hashs.
+		 * This is especially true for salted hashes.
 		 * @param plainText the text to be hashed. Is never null.
 		 * @return the hash of plainText. Must never return null.
 		 */
@@ -225,12 +240,12 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final Hash toFinal()
 	{
-		return new Hash(storage.toFinal(), algorithm, encoding);
+		return new Hash(storage.toFinal(), algorithm, encoding, validator);
 	}
 
 	public final Hash optional()
 	{
-		return new Hash(storage.optional(), algorithm, encoding);
+		return new Hash(storage.optional(), algorithm, encoding, validator);
 	}
 
 	@Wrap(order=30,
@@ -244,7 +259,7 @@ public class Hash extends Pattern implements Settable<String>
 			StringLengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, hash(plainText));
+		storage.set(item, hash(plainText, item));
 	}
 
 	private static final class FinalGetter implements BooleanGetter<Hash>
@@ -298,9 +313,10 @@ public class Hash extends Pattern implements Settable<String>
 		return SetValue.map(this, value);
 	}
 
-	public final SetValue<?>[] execute(final String value, final Item exceptionItem)
+	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
-		return new SetValue[]{ storage.map(hash(value)) };
+		final String hash = hash(value, exceptionItem);
+		return new SetValue[]{ storage.map(hash) };
 	}
 
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
@@ -337,8 +353,16 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final String hash(final String plainText)
 	{
+		return hash(plainText, null);
+	}
+
+	private String hash(final String plainText, final Item exceptionItem)
+	{
 		if(plainText==null)
 			return null;
+
+		validator.validate(plainText, exceptionItem, this);
+
 		final String result = algorithmHash(plainText);
 		if(result==null)
 			throw new NullPointerException();
@@ -365,6 +389,72 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
+	public String newRandomPassword(final SecureRandom random)
+	{
+		return validator.newRandomPlainText(random);
+	}
+
+	/** Validate plain text for potential limits, to be specified in sub classes */
+	public abstract static class PlainTextValidator
+	{
+		abstract protected void validate(String plainText, Item exceptionItem, Hash hash) throws
+			InvalidPlainTextException;
+
+		/** create a plain text variant to redeem an existing password (password forgotten) */
+		abstract protected String newRandomPlainText(SecureRandom secureRandom);
+	}
+
+	/** Default implementation  */
+	static final class DefaultPlainTextValidator extends PlainTextValidator
+	{
+		@Override protected void validate(final String plainText, final Item exceptionItem, final Hash hash) throws
+			InvalidPlainTextException
+		{
+			if(plainText==null)
+				throw new NullPointerException();
+		}
+
+		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
+		{
+			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
+		}
+	}
+
+	/**
+	 * A plain text is either too short, too long or doesn't match the format requirement */
+	public static final class InvalidPlainTextException extends ConstraintViolationException
+	{
+		private static final long serialVersionUID = 1l;
+		private final String plainText;
+		private final String message;
+		private final Hash feature;
+
+		public InvalidPlainTextException(final String message, final String plainText, final Item item, final Hash feature)
+		{
+			super(item, /*cause*/ null);
+			this.message = message;
+			this.plainText = plainText;
+			this.feature = feature;
+		}
+
+		@Override public Hash getFeature()
+		{
+			return feature;
+		}
+
+		@Override public String getMessage(final boolean withFeature)
+		{
+			String message = this.message;
+			if (withFeature)
+				message += " for " + feature;
+			return message;
+		}
+
+		public String getPlainText()
+		{
+			return plainText;
+		}
+	}
 
 	// ------------------- deprecated stuff -------------------
 
