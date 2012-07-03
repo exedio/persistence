@@ -74,6 +74,9 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 	{
 		final StringBuilder s = new StringBuilder( "" + Math.abs(secureRandom.nextInt(max) ));
 
+		while(s.length()>pinLen)
+			s.deleteCharAt(0);
+
 		while (s.length() < pinLen)
 			s.insert(0, '0');
 

@@ -22,6 +22,8 @@ import com.exedio.cope.pattern.Hash;
 import junit.framework.TestCase;
 
 import java.security.SecureRandom;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author baumgaertel
@@ -97,13 +99,24 @@ public class DigitPinValidatorTest extends TestCase
 
 	public void testNewRandomPlainText() throws Exception
 	{
-		final SecureRandom random = new SecureRandom();
+		final SecureRandom random = new SecureRandom() {
+			private static final long serialVersionUID = 995432859571036160L;
+			int seq=-10;  // negative tested too!
+
+			// overridden to get pre defined numbers instead of the random ones
+			public int nextInt(int n) {
+				return seq++;
+			}
+		};
 		for (int pinLen = 1; pinLen < 6; pinLen++)
 		{
+			Collection<String> c = new HashSet<String>();
 			final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
-			for (int i=0; i<100; i++)
+			for (int i=0; i<10; i++)
 			{
 				final String newPin = pinValidator.newRandomPlainText(random);
+				assertTrue(Integer.valueOf(newPin)>=0);
+				assertTrue(c.add(newPin));
 				assertEquals(pinLen, newPin.length());
 			}
 		}
