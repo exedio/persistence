@@ -109,7 +109,7 @@ public class DigitPinValidatorTest extends CopeAssert
 	{
 		final SecureRandom random = new SecureRandom() {
 			private static final long serialVersionUID = 1l;
-			int seq=0;  // negative tested too!
+			int seq=0;
 
 			// overridden to get pre defined numbers instead of the random ones
 			@Override public int nextInt(final int n) {
