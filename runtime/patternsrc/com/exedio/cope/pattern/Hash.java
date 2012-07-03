@@ -389,7 +389,7 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
-	protected String newRandomPassword(final SecureRandom random)
+	public String newRandomPassword(final SecureRandom random)
 	{
 		return validator.newRandomPlainText(random);
 	}

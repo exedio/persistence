@@ -266,6 +266,16 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testValidatorAndSetValue()
 	{
+		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
+			private static final long serialVersionUID = 1l;
+			int seq=0;  // negative tested too!
+
+			// overridden to get pre defined numbers instead of the random ones
+			@Override public int nextInt(final int n) {
+				assert n==10;
+				return (seq++)%n;
+			}
+		}));
 		{	// testing construction
 
 			// test with a validator which always throws an exception
