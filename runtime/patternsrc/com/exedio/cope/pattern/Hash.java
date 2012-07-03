@@ -246,7 +246,7 @@ public class Hash extends Pattern implements Settable<String>
 			StringLengthViolationException,
 			FinalViolationException
 	{
-		storage.set(item, hash(plainText));
+		storage.set(item, hash(plainText, item));
 	}
 
 	private static final class FinalGetter implements BooleanGetter<Hash>
