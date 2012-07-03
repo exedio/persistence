@@ -30,9 +30,9 @@ import java.io.Serializable;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 

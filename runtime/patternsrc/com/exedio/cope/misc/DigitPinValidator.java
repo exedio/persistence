@@ -18,10 +18,10 @@
 
 package com.exedio.cope.misc;
 
+import java.security.SecureRandom;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Hash;
-
-import java.security.SecureRandom;
 
 /**
  * Allow only digits as pin, pin len can be specified, reference implementation

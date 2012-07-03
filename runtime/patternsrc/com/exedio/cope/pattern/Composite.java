@@ -31,9 +31,9 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.Day;
 
 public abstract class Composite implements Serializable

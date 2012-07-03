@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;

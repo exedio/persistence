@@ -24,11 +24,11 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
-import com.exedio.cope.ItemField.DeletePolicy;
 
 class PatternTestPattern extends Pattern
 {

@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;

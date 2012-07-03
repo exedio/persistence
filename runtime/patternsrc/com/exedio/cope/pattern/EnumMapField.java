@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import java.util.EnumMap;
+
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;

@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
+import com.exedio.cope.testmodel.EmptyItem;
 
 public class SelectTest extends TestmodelTest
 {

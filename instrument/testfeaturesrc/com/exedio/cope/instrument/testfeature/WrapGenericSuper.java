@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testfeature;
 
 import java.io.Reader;
+
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;

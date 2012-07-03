@@ -32,10 +32,10 @@ import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
-import java.util.List;
 
 public class CompareConditionTest extends AbstractRuntimeTest
 {
