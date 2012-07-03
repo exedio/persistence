@@ -10,7 +10,7 @@ public class CompositeItemHolder extends Item
 {
 	public static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
-	
+
 /**
 
 	 **

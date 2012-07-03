@@ -10,7 +10,7 @@ public class HashItemHolder extends Item
 {
 	public static final ItemField<HashItem> hashItem = ItemField.create(HashItem.class);
 
-	
+
 /**
 
 	 **
