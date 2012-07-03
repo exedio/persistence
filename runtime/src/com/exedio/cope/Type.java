@@ -64,21 +64,31 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<T>(this);
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> declaredFeatures;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> features;
 	private final HashMap<String, Feature> declaredFeaturesByName;
 	private final HashMap<String, Feature> featuresByName;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Field<?>> declaredFields;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Field<?>> fields;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<UniqueConstraint> declaredUniqueConstraints;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<UniqueConstraint> uniqueConstraints;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<CheckConstraint> declaredCheckConstraints;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<CheckConstraint> checkConstraints;
 
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<CopyConstraint> declaredCopyConstraints;
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<CopyConstraint> copyConstraints;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
