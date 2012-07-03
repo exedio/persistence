@@ -54,16 +54,6 @@ public final class Join implements java.io.Serializable
 			throw new NullPointerException("type");
 	}
 
-	public void setCondition(final Condition condition)
-	{
-		this.condition = condition;
-	}
-
-	public Condition getCondition()
-	{
-		return condition;
-	}
-
 	public Kind getKind()
 	{
 		return kind;
@@ -72,6 +62,16 @@ public final class Join implements java.io.Serializable
 	public Type<?> getType()
 	{
 		return type;
+	}
+
+	public void setCondition(final Condition condition)
+	{
+		this.condition = condition;
+	}
+
+	public Condition getCondition()
+	{
+		return condition;
 	}
 
 	@Override
