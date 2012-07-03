@@ -18,7 +18,24 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.*;
+import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Set;
+
+import com.exedio.cope.Condition;
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
+import com.exedio.cope.Join;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
+import com.exedio.cope.StringCharSetViolationException;
+import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.ThrownGetter;
@@ -26,11 +43,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-
-import java.io.UnsupportedEncodingException;
-import java.security.SecureRandom;
-import java.util.Arrays;
-import java.util.Set;
 
 public class Hash extends Pattern implements Settable<String>
 {
