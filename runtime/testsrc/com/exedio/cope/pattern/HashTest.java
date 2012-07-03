@@ -223,8 +223,6 @@ public class HashTest extends AbstractRuntimeTest
 		assertNull(hash.hash(null));
 		assertNotNull(hash.hash(""));
 		assertNotNull(hash.hash("sdsidh"));
-
-		// todo test construction, set, and set...
 	}
 
 	/**
@@ -264,89 +262,8 @@ public class HashTest extends AbstractRuntimeTest
 
 	}
 
-	public void testValidatorAndSetValue()
+	public void testValidatorSingleSetValue()
 	{
-		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
-			private static final long serialVersionUID = 1l;
-			int seq=0;  // negative tested too!
-
-			// overridden to get pre defined numbers instead of the random ones
-			@Override public int nextInt(final int n) {
-				assert n==10;
-				return (seq++)%n;
-			}
-		}));
-		{	// testing construction
-
-			// test with a validator which always throws an exception
-			try
-			{
-				deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
-				fail();
-			}
-			catch (final IllegalStateException ise)
-			{
-				assertEquals("validate", ise.getMessage());
-			}
-
-			// testing  with validator that discards the given pin string
-			try
-			{
-				deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
-				fail();
-			}
-			catch (final Hash.InvalidPlainTextException e)
-			{
-				assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
-				assertEquals("99x", e.getPlainText());
-				assertEquals(item.with3PinValidator, e.getFeature());
-				assertEquals(null, e.getItem());
-			}
-
-			// test with validator that accepts the given pin string
-			final SetValue<?> setValue = this.item.with3PinValidator.map("978");
-			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
-			assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
-		}
-
-		{
-			// testing mass set
-
-			// with success
-			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
-			assertNotNull(anItem);
-			anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
-			assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
-
-			// fails because invalid data
-			try
-			{
-				anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
-				fail();
-			}
-			catch (final Hash.InvalidPlainTextException e)
-			{
-				assertEquals("1", e.getPlainText());
-				assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
-				assertEquals(item.with3PinValidator, e.getFeature());
-				assertEquals(anItem, e.getItem());
-			}
-
-			// fails because validator throws always an exception
-			try
-			{
-				anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
-				fail();
-			}
-			catch (final IllegalStateException e)
-			{
-				assertEquals("validate", e.getMessage());
-			}
-		}
-
-		{
-			// single setValue
-
 			// with success
 			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
 			anItem.setWith3PinValidator("452");
@@ -378,6 +295,88 @@ public class HashTest extends AbstractRuntimeTest
 				assertEquals("validate", e.getMessage());
 			}
 			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+	}
+
+	public void testHashItemMassSetValuesWithValidatedHash()
+	{
+		// testing mass set
+
+		// with success
+		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+		assertNotNull(anItem);
+		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
+		assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
+
+		// fails because invalid data
+		try
+		{
+			anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			fail();
 		}
+		catch (final Hash.InvalidPlainTextException e)
+		{
+			assertEquals("1", e.getPlainText());
+			assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
+			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(anItem, e.getItem());
+		}
+
+		// fails because validator throws always an exception
+		try
+		{
+			anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("validate", e.getMessage());
+		}
+	}
+
+	public void testHashItemConstructionWithValidatedHashValues()
+	{
+		// test with a validator which always throws an exception
+		try
+		{
+			deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
+			fail();
+		}
+		catch (final IllegalStateException ise)
+		{
+			assertEquals("validate", ise.getMessage());
+		}
+
+		// testing  with validator that discards the given pin string
+		try
+		{
+			deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
+			fail();
+		}
+		catch (final Hash.InvalidPlainTextException e)
+		{
+			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
+			assertEquals("99x", e.getPlainText());
+			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+
+		// test with validator that accepts the given pin string
+		final SetValue<?> setValue = this.item.with3PinValidator.map("978");
+		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
+		assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
+	}
+
+	public void testValidatorNewRandomPassword()
+	{
+		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
+			private static final long serialVersionUID = 1l;
+			int seq=0;  // negative tested too!
+
+			// overridden to get pre defined numbers instead of the random ones
+			@Override public int nextInt(final int n) {
+				assert n==10;
+				return (seq++)%n;
+			}
+		}));
 	}
 }
