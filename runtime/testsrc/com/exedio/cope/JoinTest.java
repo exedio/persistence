@@ -51,7 +51,7 @@ public class JoinTest extends TestmodelTest
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
-			Condition joinCondition = PointerItem.code.isNotNull();
+			final Condition joinCondition = PointerItem.code.isNotNull();
 			final Join join = query.join(PointerItem.TYPE, joinCondition);
 			assertSame( joinCondition, join.getCondition() );
 			assertEqualsUnmodifiable(list(join), query.getJoins());

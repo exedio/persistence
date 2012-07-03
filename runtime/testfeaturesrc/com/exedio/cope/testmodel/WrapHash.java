@@ -102,12 +102,12 @@ public class WrapHash extends Hash
 	/** this validator throws an exception whatever member method is called */
 	public static final class CorruptValidator extends PlainTextValidator
 	{
-		@Override protected void validate(String plainText, Item exceptionItem, Hash hash)
+		@Override protected void validate(final String plainText, final Item exceptionItem, final Hash hash)
 			throws InvalidPlainTextException
 		{
 			throw new IllegalStateException("validate");
 		}
-		@Override protected String newRandomPlainText(SecureRandom secureRandom)
+		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
 		{
 			throw new IllegalStateException("newRandomPlainText");
 		}

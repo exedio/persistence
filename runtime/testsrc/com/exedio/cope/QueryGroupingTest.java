@@ -137,7 +137,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		{
 			fail( query.search().toString() );
 		}
-		catch ( SQLRuntimeException e )
+		catch ( final SQLRuntimeException e )
 		{
 			// fine
 		}
@@ -151,7 +151,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.setGroupBy( GroupItem.day );
 			fail();
 		}
-		catch ( IllegalStateException e )
+		catch ( final IllegalStateException e )
 		{
 			// fine
 		}
