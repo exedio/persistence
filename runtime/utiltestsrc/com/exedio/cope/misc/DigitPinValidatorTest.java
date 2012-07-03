@@ -18,17 +18,17 @@
 
 package com.exedio.cope.misc;
 
-import com.exedio.cope.pattern.Hash;
-import junit.framework.TestCase;
-
 import java.security.SecureRandom;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Hash;
 
 /**
  * @author baumgaertel
  */
-public class DigitPinValidatorTest extends TestCase
+public class DigitPinValidatorTest extends CopeAssert
 {
 	private DigitPinValidator validator;
 
@@ -99,27 +99,35 @@ public class DigitPinValidatorTest extends TestCase
 
 	public void testNewRandomPlainText() throws Exception
 	{
+		assertIt(1, listg("0", "1", "2", "3", "4"));
+		assertIt(2, listg("01", "23", "45", "67", "89"));
+		assertIt(3, listg("012", "345", "678", "901", "234"));
+		assertIt(4, listg("0123", "4567", "8901", "2345", "6789"));
+	}
+
+	private void assertIt(final int pinLen, final List<String> expected)
+	{
 		final SecureRandom random = new SecureRandom() {
-			private static final long serialVersionUID = 995432859571036160L;
-			int seq=-10;  // negative tested too!
+			private static final long serialVersionUID = 1l;
+			int seq=0;  // negative tested too!
 
 			// overridden to get pre defined numbers instead of the random ones
-			public int nextInt(int n) {
-				return seq++;
+			@Override public int nextInt(final int n) {
+				assert n==10;
+				return (seq++)%n;
 			}
 		};
-		for (int pinLen = 1; pinLen < 6; pinLen++)
+
+		final ArrayList<String> actual = new ArrayList<String>();
+		final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
+		for (int i=0; i<5; i++)
 		{
-			Collection<String> c = new HashSet<String>();
-			final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
-			for (int i=0; i<10; i++)
-			{
-				final String newPin = pinValidator.newRandomPlainText(random);
-				assertTrue(Integer.valueOf(newPin)>=0);
-				assertTrue(c.add(newPin));
-				assertEquals(pinLen, newPin.length());
-			}
+			final String newPin = pinValidator.newRandomPlainText(random);
+			assertTrue(Integer.valueOf(newPin)>=0);
+			assertEquals(pinLen, newPin.length());
+			actual.add(newPin);
 		}
+		assertEquals(expected, actual);
 	}
 
 	public void testConstruction()

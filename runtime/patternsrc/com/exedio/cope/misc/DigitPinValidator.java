@@ -33,7 +33,6 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 	private static final int MAX_PIN_LEN = Integer.toString(Integer.MAX_VALUE).length();
 
 	private final int pinLen;
-	private final int max;
 
 	public DigitPinValidator(final int pinLen)
 	{
@@ -44,7 +43,6 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 			throw new IllegalArgumentException("pinLen exceeds limit of max " + MAX_PIN_LEN);
 
 		this.pinLen = pinLen;
-		this.max = (int) Math.pow(10, pinLen); // exclusive
 	}
 
 	@Override public void validate(String pinString, final Item exceptionItem, final Hash hash) throws
@@ -72,14 +70,13 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 
 	@Override public String newRandomPlainText(final SecureRandom secureRandom)
 	{
-		final StringBuilder s = new StringBuilder( "" + Math.abs(secureRandom.nextInt(max) ));
-
-		while(s.length()>pinLen)
-			s.deleteCharAt(0);
-
-		while (s.length() < pinLen)
-			s.insert(0, '0');
-
-		return s.toString();
+		final char[] result = new char[pinLen];
+		for(int i = 0; i<pinLen; i++)
+		{
+			result[i] = (char)('0' + secureRandom.nextInt(10));
+			assert result[i]>='0' : result[i];
+			assert result[i]<='9' : result[i];
+		}
+		return new String(result);
 	}
 }
