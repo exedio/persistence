@@ -34,6 +34,15 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
+	static
+	{
+		// Needed to run tests directly from IDE, without ant and build.xml
+		if (System.getProperty("contextPath")==null)
+		{
+			System.setProperty("contextPath", "/junitContextPath");
+		}
+	}
+
 	public final Model model;
 	public final boolean exclusive;
 

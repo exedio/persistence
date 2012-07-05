@@ -356,6 +356,8 @@ public final class Model implements Serializable
 	{
 		final Transaction tx = currentTransaction();
 		tx.connect.database.checkSchema(tx.getConnection());
+		rollback();
+		startTransaction();
 	}
 
 	public void checkEmptySchema()
@@ -413,7 +415,19 @@ public final class Model implements Serializable
 
 	public Schema getVerifiedSchema()
 	{
-		return connect().database.makeVerifiedSchema();
+		try
+		{
+			return connect().database.makeVerifiedSchema();
+		}
+		finally
+		{
+			final Transaction tx = transactions.currentIfBound();
+			if (tx!=null)
+			{
+				commit();
+				startTransaction();
+			}
+		}
 	}
 
 	public Schema getSchema()

@@ -375,9 +375,11 @@ public class HierarchyTest extends AbstractRuntimeTest
 		if(postgresql) // causes a deadlock on postgresql
 			return;
 
+		MODEL.rollback();
 		// for flushing the info
 		MODEL.dropSchema();
 		MODEL.createSchema();
+		MODEL.startTransaction();
 
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 
