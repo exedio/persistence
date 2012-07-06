@@ -399,7 +399,7 @@ public final class Model implements Serializable
 	/**
 	 * otherwise mysql 5.5. may hang on dropping constraints
 	 */
-	public void assertNoCurrentTransaction()
+	private void assertNoCurrentTransaction()
 	{
 		final Transaction tx = transactions.currentIfBound();
 		if(tx!=null)

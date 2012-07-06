@@ -38,7 +38,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		{
 			model.getVerifiedSchema();
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
@@ -54,7 +54,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			model.deleteSchema();
 			fail();
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
@@ -80,7 +80,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			model.dropSchema();
 			fail();
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
@@ -93,7 +93,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		{
 			model.deleteSchema();
 		}
-		catch (SQLRuntimeException e)
+		catch (final SQLRuntimeException e)
 		{
 			assertEquals("Table 'gmvtest.ModelTestItem' doesn't exist", e.getCause().getMessage());
 		}
@@ -103,32 +103,13 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		{
 			model.dropSchema();
 		}
-		catch (SQLRuntimeException e)
+		catch (final SQLRuntimeException e)
 		{
 			assertEquals("Unknown table 'ModelTestItem'", e.getCause().getMessage());
 		}
 
 		// prepare tearDown
 		model.createSchema();
-		model.startTransaction();
-	}
-
-	public void testAssertNoCurrentTransaction() throws Exception
-	{
-		try
-		{
-			model.assertNoCurrentTransaction();
-			fail();
-		}
-		catch (IllegalStateException e)
-		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
-		}
-
-		model.rollback();
-		model.assertNoCurrentTransaction();
-
-		// prepare tearDown
 		model.startTransaction();
 	}
 
@@ -139,7 +120,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			model.dropSchemaConstraints(null);
 			fail();
 		}
-		catch (IllegalStateException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
