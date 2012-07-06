@@ -781,7 +781,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertOk(sequence.getName(), sequence);
 
 		assertOk("schema", schema);
-
 	}
 
 	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)

@@ -38,8 +38,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 
 	public void testSchema()
 	{
-		if (postgresql) return;
-
+		if(postgresql) return;
 		final String TABLE1 = getTableName(SchemaItem.TYPE);
 		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);
 		assertEquals(filterTableName("SchemaItem"), TABLE1);
@@ -123,7 +122,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 			assertEquals(Schema.Color.OK, table.getParticularColor());
 
 			final Constraint constraint = table.getConstraint("SchemItem_nonFinalInte_Ck");
-			if (SchemaInfo.supportsCheckConstraints(model))
+			if(SchemaInfo.supportsCheckConstraints(model))
 				constraint.drop();
 
 			final Column column = table.getColumn(COLUMN1);
