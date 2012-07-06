@@ -41,51 +41,46 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testSchema()
 	{
-		runWithoutTransaction(new Runnable()
+		if(postgresql) return;
+
+		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
+		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
+		assertEquals("zackItem", getColumnName(item));
+		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
+		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
+		assertEquals("zackString", getColumnName(string));
+
+		final Schema schema = model.getVerifiedSchema();
+
+		final Table table = schema.getTable(getTableName(TYPE));
+		assertNotNull(table);
+		assertEquals(null, table.getError());
+		assertEquals(Schema.Color.OK, table.getParticularColor());
+
+		assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
+
+		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+
+		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
+
+		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
+
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
+
+		final List<Sequence> sequences = schema.getSequences();
+		if(model.getConnectProperties().cluster.booleanValue())
 		{
-			@Override public void run()
-			{
-				if(postgresql) return;
-
-				assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
-				assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
-				assertEquals("zackItem", getColumnName(item));
-				assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
-				assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
-				assertEquals("zackString", getColumnName(string));
-
-				final Schema schema = model.getVerifiedSchema();
-
-				final Table table = schema.getTable(getTableName(TYPE));
-				assertNotNull(table);
-				assertEquals(null, table.getError());
-				assertEquals(Schema.Color.OK, table.getParticularColor());
-
-				assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
-
-				assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
-
-				assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
-
-				assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
-
-				assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
-
-				final List<Sequence> sequences = schema.getSequences();
-				if(model.getConnectProperties().cluster.booleanValue())
-				{
-					final Sequence sequence = sequences.get(0);
-					assertEquals("ZackItem_this_Seq", sequence.getName());
-					assertEquals(0, sequence.getStartWith());
-				}
-				else
-					assertEquals(list(), sequences);
-			}
-		});
+			final Sequence sequence = sequences.get(0);
+			assertEquals("ZackItem_this_Seq", sequence.getName());
+			assertEquals(0, sequence.getStartWith());
+		}
+		else
+			assertEquals(list(), sequences);
 	}
 
 	private final String q(final Field<?> f)
