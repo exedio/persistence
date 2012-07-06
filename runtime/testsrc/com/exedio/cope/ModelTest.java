@@ -112,6 +112,16 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 		try
 		{
+			model.createSchema();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
 			model.dropSchema();
 			fail();
 		}
@@ -122,7 +132,37 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 		try
 		{
+			model.tearDownSchema();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			model.tearDownSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 			fail();
 		}
 		catch (final IllegalStateException e)
