@@ -330,7 +330,7 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().createSchema();
 
@@ -340,7 +340,7 @@ public final class Model implements Serializable
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().database.createSchemaConstraints(types);
 	}
@@ -380,7 +380,7 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().deleteSchema();
 
@@ -390,7 +390,7 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
@@ -402,40 +402,30 @@ public final class Model implements Serializable
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().database.dropSchemaConstraints(types);
 	}
 
 	public void tearDownSchema()
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().tearDownSchema();
 	}
 
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		connect().database.tearDownSchemaConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()
 	{
-		assertNoCurrentTransaction();
+		transactions.assertNoCurrentTransaction();
 
 		return connect().database.makeVerifiedSchema();
-	}
-
-	/**
-	 * otherwise mysql 5.5. may hang on dropping constraints
-	 */
-	private void assertNoCurrentTransaction()
-	{
-		final Transaction tx = transactions.currentIfBound();
-		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 	}
 
 	public Schema getSchema()
