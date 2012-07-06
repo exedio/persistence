@@ -60,6 +60,9 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		{
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
+
+		model.getSchema();
+
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
 		model.startTransaction();
@@ -106,25 +109,6 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		model.commit();
 		model.dropSchema();
 
-		// test whether dropping did drop the tables
-		try
-		{
-			model.deleteSchema();
-		}
-		catch (final SQLRuntimeException e)
-		{
-			assertEquals("Table 'gmvtest.ModelTestItem' doesn't exist", e.getCause().getMessage());
-		}
-
-		// try a second time
-		try
-		{
-			model.dropSchema();
-		}
-		catch (final SQLRuntimeException e)
-		{
-			assertEquals("Unknown table 'ModelTestItem'", e.getCause().getMessage());
-		}
 
 		// prepare tearDown
 		model.createSchema();
