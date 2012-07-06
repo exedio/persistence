@@ -307,74 +307,72 @@ public class HierarchyTest extends AbstractRuntimeTest
 	{
 		model.checkSchema();
 
-		runWithoutTransaction(new Runnable()
+		model.commit();
+
+		if(!postgresql)
 		{
-			@Override public void run()
-			{
-				if(!postgresql)
-				{
-					model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-				}
+			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		}
 
-				assertEqualsUnmodifiable(list(
-					HierarchyFirstSub.TYPE,
-					HierarchySecondSub.TYPE,
-					HierarchySuper.TYPE,
-					HierarchySingleSuper.TYPE,
-					HierarchySingleSub.TYPE
-				), model.getTypes());
-				assertEqualsUnmodifiable(list(
-					HierarchySuper.TYPE,
-					HierarchyFirstSub.TYPE,
-					HierarchySecondSub.TYPE,
-					HierarchySingleSuper.TYPE,
-					HierarchySingleSub.TYPE
-				), model.getTypesSortedByHierarchy());
-				assertEqualsUnmodifiable(list(
-					HierarchyFirstSub.TYPE,
-					HierarchySecondSub.TYPE,
-					HierarchySingleSub.TYPE
-				), model.getConcreteTypes());
+		assertEqualsUnmodifiable(list(
+			HierarchyFirstSub.TYPE,
+			HierarchySecondSub.TYPE,
+			HierarchySuper.TYPE,
+			HierarchySingleSuper.TYPE,
+			HierarchySingleSub.TYPE
+		), model.getTypes());
+		assertEqualsUnmodifiable(list(
+			HierarchySuper.TYPE,
+			HierarchyFirstSub.TYPE,
+			HierarchySecondSub.TYPE,
+			HierarchySingleSuper.TYPE,
+			HierarchySingleSub.TYPE
+		), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(
+			HierarchyFirstSub.TYPE,
+			HierarchySecondSub.TYPE,
+			HierarchySingleSub.TYPE
+		), model.getConcreteTypes());
 
-				{
-					final ArrayList<Type<?>> comparableList = new ArrayList<Type<?>>(model.getTypes());
-					assertEquals(list(
-						HierarchyFirstSub.TYPE,
-						HierarchySecondSub.TYPE,
-						HierarchySuper.TYPE,
-						HierarchySingleSuper.TYPE,
-						HierarchySingleSub.TYPE
-					), comparableList);
-					Collections.sort(comparableList);
-					assertEquals(list(
-						HierarchySuper.TYPE,
-						HierarchyFirstSub.TYPE,
-						HierarchySecondSub.TYPE,
-						HierarchySingleSuper.TYPE,
-						HierarchySingleSub.TYPE
-					), comparableList);
-				}
+		{
+			final ArrayList<Type<?>> comparableList = new ArrayList<Type<?>>(model.getTypes());
+			assertEquals(list(
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySuper.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), comparableList);
+			Collections.sort(comparableList);
+			assertEquals(list(
+				HierarchySuper.TYPE,
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), comparableList);
+		}
 
-				// must be the same order as in model constructor
-				assertCacheInfo(
-					new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
-					new int []{1, 1, 1});
+		// must be the same order as in model constructor
+		assertCacheInfo(
+			new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
+			new int []{1, 1, 1});
 
-				assertNotNull(model.getQueryCacheInfo());
-				assertNotNull(model.getQueryCacheHistogram());
-				assertNotNull(model.getConnectionPoolInfo());
-				assertNotNull(model.getConnectionPoolInfo().getCounter());
-			}
-		});
+		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(model.getQueryCacheHistogram());
+		assertNotNull(model.getConnectionPoolInfo());
+		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testPrimaryKeyInfo()

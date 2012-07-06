@@ -34,15 +34,6 @@ import com.exedio.cope.util.PoolCounter;
  */
 public abstract class CopeTest extends CopeAssert
 {
-	static
-	{
-		// Needed to run tests directly from IDE, without ant and build.xml
-		if (System.getProperty("contextPath")==null)
-		{
-			System.setProperty("contextPath", "/junitContextPath");
-		}
-	}
-
 	public final Model model;
 	public final boolean exclusive;
 
@@ -274,16 +265,6 @@ public abstract class CopeTest extends CopeAssert
 		final String oldName = model.currentTransaction().getName();
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
-	}
-
-	protected void runWithoutTransaction(final Runnable runnable)
-	{
-		final String transactionName = model.currentTransaction().getName();
-		model.commit();
-
-		runnable.run();
-
-		model.startTransaction(transactionName);
 	}
 
 	// ------------------- deprecated stuff -------------------

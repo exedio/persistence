@@ -152,33 +152,31 @@ public class ItemTest extends TestmodelTest
 	{
 		model.checkSchema();
 
-		runWithoutTransaction(new Runnable()
+		model.commit();
+
+		if(!postgresql)
 		{
-			@Override public void run()
+			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
 			{
-				if(!postgresql)
-				{
-					model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
-					{
-						model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-						model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-					}
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-				}
-				assertNotNull(model.getItemCacheInfo());
-				assertNotNull(model.getQueryCacheInfo());
-				assertNotNull(model.getQueryCacheHistogram());
-				assertNotNull(model.getConnectionPoolInfo());
-				assertNotNull(model.getConnectionPoolInfo().getCounter());
+				model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+				model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
 			}
-		});
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		}
+		assertNotNull(model.getItemCacheInfo());
+		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(model.getQueryCacheHistogram());
+		assertNotNull(model.getConnectionPoolInfo());
+		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testItemCreation()

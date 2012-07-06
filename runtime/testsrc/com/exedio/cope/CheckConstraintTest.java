@@ -128,32 +128,28 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 
 		assertSerializedSame(alphaLessBeta, 393);
 
+		model.commit();
 		// test schema
-		runWithoutTransaction( new Runnable()
+		if(!postgresql)
 		{
-			@Override public void run()
-			{
-				if(!postgresql)
-			{
-					final Schema schema = model.getVerifiedSchema();
+			final Schema schema = model.getVerifiedSchema();
 
-					final Table table = schema.getTable(getTableName(TYPE));
-					assertNotNull(table);
-					assertEquals(null, table.getError());
-					assertEquals(Schema.Color.OK, table.getParticularColor());
+			final Table table = schema.getTable(getTableName(TYPE));
+			assertNotNull(table);
+			assertEquals(null, table.getError());
+			assertEquals(Schema.Color.OK, table.getParticularColor());
 
-					final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
-					assertNotNull(superTable);
-					assertEquals(null, superTable.getError());
-					assertEquals(Schema.Color.OK, superTable.getParticularColor());
+			final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
+			assertNotNull(superTable);
+			assertEquals(null, superTable.getError());
+			assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-					assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
-					assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
+			assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
+			assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
 
-					assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
-				}
-			}
-		});
+			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
+		}
+		model.startTransaction();
 	}
 
 	private final String q(final IntegerField f)

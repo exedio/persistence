@@ -745,44 +745,43 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertSchema()
 	{
-		runWithoutTransaction(new Runnable()
+		model.commit();
+
+		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
+
+		model.startTransaction();
+
+		if(hsqldb||postgresql)
+			return;
+
+		for(final com.exedio.dsmf.Table table : schema.getTables())
 		{
-			@Override public void run()
+			for(final com.exedio.dsmf.Column column : table.getColumns())
+				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
+			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
 			{
-				final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
-
-				if(hsqldb||postgresql)
-					return;
-
-				for(final com.exedio.dsmf.Table table : schema.getTables())
+				final String message = table.getName() + '#' + constraint.getName();
+				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
+					!SchemaInfo.supportsCheckConstraints(model))
 				{
-					for(final com.exedio.dsmf.Column column : table.getColumns())
-						assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
-					for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
-					{
-						final String message = table.getName() + '#' + constraint.getName();
-						if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
-							!SchemaInfo.supportsCheckConstraints(model))
-						{
-							assertEquals(message, "not supported", constraint.getError());
-							assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
-							assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
-						}
-						else
-						{
-							assertOk(message, constraint);
-						}
-					}
-
-					assertOk(table.getName(), table);
+					assertEquals(message, "not supported", constraint.getError());
+					assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
+					assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
 				}
-
-				for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
-					assertOk(sequence.getName(), sequence);
-
-				assertOk("schema", schema);
+				else
+				{
+					assertOk(message, constraint);
+				}
 			}
-		});
+
+			assertOk(table.getName(), table);
+		}
+
+		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
+			assertOk(sequence.getName(), sequence);
+
+		assertOk("schema", schema);
+
 	}
 
 	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)

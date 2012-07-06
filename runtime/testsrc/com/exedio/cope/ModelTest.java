@@ -51,13 +51,14 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 	public void testGetVerifiedSchema() throws Exception
 	{
+		final String expectedText = "must not be called within a transaction: CopeTest";
 		try
 		{
 			model.getVerifiedSchema();
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 
 		final Schema schema = model.getSchema();
@@ -68,7 +69,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 		try
 		{
@@ -77,7 +78,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 		final com.exedio.dsmf.Table table = schema.getTables().iterator().next();
 		try
@@ -87,7 +88,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 		try
 		{
@@ -96,16 +97,9 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 
-		model.rollback();
-		assertNotNull(model.getVerifiedSchema());
-		model.startTransaction();
-	}
-
-	public void testDeleteSchema() throws Exception
-	{
 		try
 		{
 			model.deleteSchema();
@@ -113,25 +107,9 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 
-		// close the transaction
-		model.commit();
-
-		// test for success
-		model.deleteSchema();
-
-		// repeat with success
-		model.deleteSchema();
-
-		// prepare CopeTest.tearDown
-		model.startTransaction();
-	}
-
-	public void testDropSchema() throws Exception
-	{
-		// test with open transaction: fails
 		try
 		{
 			model.dropSchema();
@@ -139,34 +117,31 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
 		}
 
-		model.commit();
-		model.dropSchema();
-
-
-		// prepare tearDown
-		model.createSchema();
-		model.startTransaction();
-	}
-
-	public void testDropSchemaConstraints() throws Exception
-	{
 		try
 		{
-			model.dropSchemaConstraints(null);
+			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 			fail();
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			model.checkUnsupportedConstraints();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
 		}
 
 		model.rollback();
-		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-
-		// prepare tearDown
+		assertNotNull(model.getVerifiedSchema());
 		model.startTransaction();
 	}
 }

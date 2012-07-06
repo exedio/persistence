@@ -703,6 +703,8 @@ public final class Model implements Serializable
 
 	public void checkUnsupportedConstraints()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.makeSchema(true).checkUnsupportedConstraints();
 	}
 

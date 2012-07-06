@@ -484,8 +484,9 @@ public class DoubleTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(valueOf(8.0), item.getMin4Max8());
 
-
+		model.commit();
 		model.checkUnsupportedConstraints();
+		model.startTransaction();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

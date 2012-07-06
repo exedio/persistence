@@ -125,54 +125,52 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	{
 		model.checkSchema();
 
-		runWithoutTransaction(new Runnable()
+		model.commit();
+
+		if(!postgresql)
 		{
-			@Override public void run()
-			{
-				if(!postgresql)
-				{
-					model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-					model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-					model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-				}
+			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		}
 
-				assertEqualsUnmodifiable(list(
-					HierarchyEmptySub.TYPE,
-					HierarchyEmptySuper.TYPE
-				), model.getTypes());
-				assertEqualsUnmodifiable(list(
-					HierarchyEmptySuper.TYPE,
-					HierarchyEmptySub.TYPE
-				), model.getTypesSortedByHierarchy());
-				assertEqualsUnmodifiable(list(
-					HierarchyEmptySub.TYPE,
-					HierarchyEmptySuper.TYPE
-				), model.getConcreteTypes());
+		assertEqualsUnmodifiable(list(
+			HierarchyEmptySub.TYPE,
+			HierarchyEmptySuper.TYPE
+		), model.getTypes());
+		assertEqualsUnmodifiable(list(
+			HierarchyEmptySuper.TYPE,
+			HierarchyEmptySub.TYPE
+		), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(
+			HierarchyEmptySub.TYPE,
+			HierarchyEmptySuper.TYPE
+		), model.getConcreteTypes());
 
-				final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
-				if(model.getConnectProperties().getItemCacheLimit()>0)
-				{
-					// must be the same order as in model constructor
-					assertEquals(HierarchyEmptySub.TYPE, itemCacheInfo[0].getType());
-					assertEquals(HierarchyEmptySuper.TYPE, itemCacheInfo[1].getType());
-					assertEquals(2, itemCacheInfo.length);
-				}
-				else
-					assertEquals(0, itemCacheInfo.length);
+		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
+		if(model.getConnectProperties().getItemCacheLimit()>0)
+		{
+			// must be the same order as in model constructor
+			assertEquals(HierarchyEmptySub.TYPE, itemCacheInfo[0].getType());
+			assertEquals(HierarchyEmptySuper.TYPE, itemCacheInfo[1].getType());
+			assertEquals(2, itemCacheInfo.length);
+		}
+		else
+			assertEquals(0, itemCacheInfo.length);
 
-				assertNotNull(model.getQueryCacheInfo());
-				assertNotNull(model.getQueryCacheHistogram());
-				assertNotNull(model.getConnectionPoolInfo());
-				assertNotNull(model.getConnectionPoolInfo().getCounter());
-			}
-		});
+		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(model.getQueryCacheHistogram());
+		assertNotNull(model.getConnectionPoolInfo());
+		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 }
