@@ -608,8 +608,8 @@ final class Database
 		{
 			public Connection getConnection()
 			{
-				if(transactions.currentIfBound()!=null)
-					throw new IllegalStateException("zack");
+				transactions.assertNoCurrentTransaction();
+
 				return connectionPool.get(true);
 			}
 

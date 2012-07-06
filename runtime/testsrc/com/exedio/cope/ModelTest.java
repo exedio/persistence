@@ -68,7 +68,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("zack", e.getMessage());
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
 		try
 		{
@@ -77,7 +77,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("zack", e.getMessage());
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
 		final com.exedio.dsmf.Table table = schema.getTables().iterator().next();
 		try
@@ -87,7 +87,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("zack", e.getMessage());
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
 		try
 		{
@@ -96,7 +96,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		}
 		catch (final IllegalStateException e)
 		{
-			assertEquals("zack", e.getMessage());
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
 
 		model.rollback();
