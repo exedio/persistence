@@ -19,10 +19,9 @@
 package com.exedio.cope;
 
 import java.util.EnumSet;
-import java.util.Iterator;
 
 import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
 
 /**
  * @author baumgaertel
@@ -61,7 +60,44 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
 		}
 
-		model.getSchema();
+		final Schema schema = model.getSchema();
+		try
+		{
+			schema.drop();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("zack", e.getMessage());
+		}
+		try
+		{
+			schema.create();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("zack", e.getMessage());
+		}
+		final com.exedio.dsmf.Table table = schema.getTables().iterator().next();
+		try
+		{
+			table.drop();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("zack", e.getMessage());
+		}
+		try
+		{
+			table.create();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals("zack", e.getMessage());
+		}
 
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
