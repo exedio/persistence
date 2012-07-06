@@ -142,17 +142,17 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		}
 
 		assertEqualsUnmodifiable(list(
-			HierarchyEmptySub.TYPE,
-			HierarchyEmptySuper.TYPE
-		), model.getTypes());
+				HierarchyEmptySub.TYPE,
+				HierarchyEmptySuper.TYPE
+			), model.getTypes());
 		assertEqualsUnmodifiable(list(
-			HierarchyEmptySuper.TYPE,
-			HierarchyEmptySub.TYPE
-		), model.getTypesSortedByHierarchy());
+				HierarchyEmptySuper.TYPE,
+				HierarchyEmptySub.TYPE
+			), model.getTypesSortedByHierarchy());
 		assertEqualsUnmodifiable(list(
-			HierarchyEmptySub.TYPE,
-			HierarchyEmptySuper.TYPE
-		), model.getConcreteTypes());
+				HierarchyEmptySub.TYPE,
+				HierarchyEmptySuper.TYPE
+			), model.getConcreteTypes());
 
 		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheInfo();
 		if(model.getConnectProperties().getItemCacheLimit()>0)

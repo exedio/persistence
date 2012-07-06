@@ -324,48 +324,48 @@ public class HierarchyTest extends AbstractRuntimeTest
 		}
 
 		assertEqualsUnmodifiable(list(
-			HierarchyFirstSub.TYPE,
-			HierarchySecondSub.TYPE,
-			HierarchySuper.TYPE,
-			HierarchySingleSuper.TYPE,
-			HierarchySingleSub.TYPE
-		), model.getTypes());
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySuper.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getTypes());
 		assertEqualsUnmodifiable(list(
-			HierarchySuper.TYPE,
-			HierarchyFirstSub.TYPE,
-			HierarchySecondSub.TYPE,
-			HierarchySingleSuper.TYPE,
-			HierarchySingleSub.TYPE
-		), model.getTypesSortedByHierarchy());
+				HierarchySuper.TYPE,
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySingleSuper.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getTypesSortedByHierarchy());
 		assertEqualsUnmodifiable(list(
-			HierarchyFirstSub.TYPE,
-			HierarchySecondSub.TYPE,
-			HierarchySingleSub.TYPE
-		), model.getConcreteTypes());
+				HierarchyFirstSub.TYPE,
+				HierarchySecondSub.TYPE,
+				HierarchySingleSub.TYPE
+			), model.getConcreteTypes());
 
 		{
 			final ArrayList<Type<?>> comparableList = new ArrayList<Type<?>>(model.getTypes());
 			assertEquals(list(
-				HierarchyFirstSub.TYPE,
-				HierarchySecondSub.TYPE,
-				HierarchySuper.TYPE,
-				HierarchySingleSuper.TYPE,
-				HierarchySingleSub.TYPE
-			), comparableList);
+					HierarchyFirstSub.TYPE,
+					HierarchySecondSub.TYPE,
+					HierarchySuper.TYPE,
+					HierarchySingleSuper.TYPE,
+					HierarchySingleSub.TYPE
+				), comparableList);
 			Collections.sort(comparableList);
 			assertEquals(list(
-				HierarchySuper.TYPE,
-				HierarchyFirstSub.TYPE,
-				HierarchySecondSub.TYPE,
-				HierarchySingleSuper.TYPE,
-				HierarchySingleSub.TYPE
-			), comparableList);
+					HierarchySuper.TYPE,
+					HierarchyFirstSub.TYPE,
+					HierarchySecondSub.TYPE,
+					HierarchySingleSuper.TYPE,
+					HierarchySingleSub.TYPE
+				), comparableList);
 		}
 
 		// must be the same order as in model constructor
 		assertCacheInfo(
-			new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
-			new int []{1, 1, 1});
+				new Type[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE},
+				new int []{1, 1, 1});
 
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
