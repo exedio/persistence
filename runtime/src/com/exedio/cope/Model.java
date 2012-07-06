@@ -378,9 +378,7 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
-		final Transaction tx = transactions.currentIfBound();
-		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+		assertNoCurrentTransaction();
 
 		connect().deleteSchema();
 
@@ -390,12 +388,21 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
+		assertNoCurrentTransaction(); // otherwise mysql 5.5. may hang on dropping constraints
+
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().dropSchema();
 
 		if(logger.isInfoEnabled())
 			logger.info("dropSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+	}
+
+	public void assertNoCurrentTransaction()
+	{
+		final Transaction tx = transactions.currentIfBound();
+		if(tx!=null)
+			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
