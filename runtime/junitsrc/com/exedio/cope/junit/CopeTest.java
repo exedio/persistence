@@ -276,9 +276,9 @@ public abstract class CopeTest extends CopeAssert
 		model.startTransaction( oldName+"-restart" );
 	}
 
-	protected void runWithoutTransaction(Runnable runnable)
+	protected void runWithoutTransaction(final Runnable runnable)
 	{
-		String transactionName = model.currentTransaction().getName();
+		final String transactionName = model.currentTransaction().getName();
 		model.commit();
 
 		runnable.run();
