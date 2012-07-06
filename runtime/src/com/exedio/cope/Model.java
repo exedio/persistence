@@ -356,8 +356,6 @@ public final class Model implements Serializable
 	{
 		final Transaction tx = currentTransaction();
 		tx.connect.database.checkSchema(tx.getConnection());
-		rollback();
-		startTransaction();
 	}
 
 	public void checkEmptySchema()
@@ -407,6 +405,8 @@ public final class Model implements Serializable
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		assertNoCurrentTransaction();
+
 		connect().database.dropSchemaConstraints(types);
 	}
 
@@ -422,19 +422,9 @@ public final class Model implements Serializable
 
 	public Schema getVerifiedSchema()
 	{
-		try
-		{
-			return connect().database.makeVerifiedSchema();
-		}
-		finally
-		{
-			final Transaction tx = transactions.currentIfBound();
-			if (tx!=null)
-			{
-				commit();
-				startTransaction();
-			}
-		}
+		assertNoCurrentTransaction();
+
+		return connect().database.makeVerifiedSchema();
 	}
 
 	public Schema getSchema()

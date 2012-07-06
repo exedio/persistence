@@ -1,5 +1,9 @@
 package com.exedio.cope;
 
+import java.util.EnumSet;
+import java.util.Iterator;
+
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
 
 /**
@@ -26,6 +30,21 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 	public ModelTest()
 	{
 		super(model);
+	}
+
+	public void testGetVerifiedSchema() throws Exception
+	{
+		try
+		{
+			model.getVerifiedSchema();
+		}
+		catch (IllegalStateException e)
+		{
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+		}
+		model.rollback();
+		assertNotNull(model.getVerifiedSchema());
+		model.startTransaction();
 	}
 
 	public void testDeleteSchema() throws Exception
@@ -108,6 +127,25 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 		model.rollback();
 		model.assertNoCurrentTransaction();
+
+		// prepare tearDown
+		model.startTransaction();
+	}
+
+	public void testDropSchemaConstraints() throws Exception
+	{
+		try
+		{
+			model.dropSchemaConstraints(null);
+			fail();
+		}
+		catch (IllegalStateException e)
+		{
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+		}
+
+		model.rollback();
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 
 		// prepare tearDown
 		model.startTransaction();
