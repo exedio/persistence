@@ -330,6 +330,8 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
+		assertNoCurrentTransaction();
+
 		connect().createSchema();
 
 		if(logger.isInfoEnabled())
@@ -338,6 +340,8 @@ public final class Model implements Serializable
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		assertNoCurrentTransaction();
+
 		connect().database.createSchemaConstraints(types);
 	}
 
@@ -415,11 +419,15 @@ public final class Model implements Serializable
 
 	public void tearDownSchema()
 	{
+		assertNoCurrentTransaction();
+
 		connect().tearDownSchema();
 	}
 
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		assertNoCurrentTransaction();
+
 		connect().database.tearDownSchemaConstraints(types);
 	}
 
