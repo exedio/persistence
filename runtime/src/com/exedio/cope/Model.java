@@ -386,7 +386,7 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
-		assertNoCurrentTransaction(); // otherwise mysql 5.5. may hang on dropping constraints
+		assertNoCurrentTransaction();
 
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
@@ -396,6 +396,9 @@ public final class Model implements Serializable
 			logger.info("dropSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
+	/**
+	 * otherwise mysql 5.5. may hang on dropping constraints
+	 */
 	public void assertNoCurrentTransaction()
 	{
 		final Transaction tx = transactions.currentIfBound();
