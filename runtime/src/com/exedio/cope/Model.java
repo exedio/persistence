@@ -400,16 +400,6 @@ public final class Model implements Serializable
 			logger.info("dropSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 	}
 
-	/**
-	 * otherwise mysql 5.5. may hang on dropping constraints
-	 */
-	private void assertNoCurrentTransaction()
-	{
-		final Transaction tx = transactions.currentIfBound();
-		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
-	}
-
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		assertNoCurrentTransaction();
@@ -436,6 +426,16 @@ public final class Model implements Serializable
 		assertNoCurrentTransaction();
 
 		return connect().database.makeVerifiedSchema();
+	}
+
+	/**
+	 * otherwise mysql 5.5. may hang on dropping constraints
+	 */
+	private void assertNoCurrentTransaction()
+	{
+		final Transaction tx = transactions.currentIfBound();
+		if(tx!=null)
+			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
 	}
 
 	public Schema getSchema()
