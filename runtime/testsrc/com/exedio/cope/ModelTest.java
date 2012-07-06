@@ -1,11 +1,3 @@
-package com.exedio.cope;
-
-import java.util.EnumSet;
-import java.util.Iterator;
-
-import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.SQLRuntimeException;
-
 /*
  * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
@@ -23,6 +15,14 @@ import com.exedio.dsmf.SQLRuntimeException;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+package com.exedio.cope;
+
+import java.util.EnumSet;
+import java.util.Iterator;
+
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.SQLRuntimeException;
 
 /**
  * @author baumgaertel
