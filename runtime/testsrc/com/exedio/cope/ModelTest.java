@@ -49,7 +49,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		super(model);
 	}
 
-	public void testGetVerifiedSchema() throws Exception
+	public void testIt() throws Exception
 	{
 		final String expectedText = "must not be called within a transaction: CopeTest";
 		try
