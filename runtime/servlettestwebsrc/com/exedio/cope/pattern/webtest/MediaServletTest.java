@@ -220,7 +220,7 @@ public class MediaServletTest extends TestCase
 		final String TOKEN;
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertEquals(lmJpg, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
 		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
@@ -325,7 +325,7 @@ public class MediaServletTest extends TestCase
 		String s;
 		while ( (s=br.readLine())!=null )
 		{
-			builder.append(s + '\n');
+			builder.append(s).append('\n');
 		}
 		br.close();
 		return builder.toString();
@@ -389,7 +389,7 @@ public class MediaServletTest extends TestCase
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		conn.setFollowRedirects(false);
 		conn.connect();
-		assertEquals("url="+url.toString(), conn.HTTP_OK, conn.getResponseCode());
+		assertEquals("url="+ url, conn.HTTP_OK, conn.getResponseCode());
 		assertEquals("OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -474,7 +474,6 @@ public class MediaServletTest extends TestCase
 		if(in==null)
 		{
 			System.out.println("-----------leer---------------");
-			return;
 		}
 		else
 		{
