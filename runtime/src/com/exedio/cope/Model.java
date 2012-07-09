@@ -328,9 +328,9 @@ public final class Model implements Serializable
 
 	public void createSchema()
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
-
 		transactions.assertNoCurrentTransaction();
+
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().createSchema();
 
@@ -378,9 +378,9 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
-
 		transactions.assertNoCurrentTransaction();
+
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().deleteSchema();
 
