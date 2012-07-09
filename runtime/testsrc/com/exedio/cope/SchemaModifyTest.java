@@ -30,6 +30,7 @@ public class SchemaModifyTest extends AbstractRuntimeTest
 	public SchemaModifyTest()
 	{
 		super(SchemaTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	private static final String TABLE1X = "SchemaItemX";

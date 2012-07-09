@@ -306,6 +306,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 	public void testModel()
 	{
 		model.checkSchema();
+
+		model.commit();
+
 		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
@@ -368,6 +371,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testPrimaryKeyInfo()
@@ -375,9 +380,11 @@ public class HierarchyTest extends AbstractRuntimeTest
 		if(postgresql) // causes a deadlock on postgresql
 			return;
 
+		MODEL.rollback();
 		// for flushing the info
 		MODEL.dropSchema();
 		MODEL.createSchema();
+		MODEL.startTransaction();
 
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 

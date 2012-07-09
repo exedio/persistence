@@ -124,6 +124,9 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	public void testModel()
 	{
 		model.checkSchema();
+
+		model.commit();
+
 		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
@@ -166,6 +169,8 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 }

@@ -128,6 +128,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 
 		assertSerializedSame(alphaLessBeta, 393);
 
+		model.commit();
 		// test schema
 		if(!postgresql)
 		{
@@ -148,6 +149,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 
 			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
 		}
+		model.startTransaction();
 	}
 
 	private final String q(final IntegerField f)

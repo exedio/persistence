@@ -55,6 +55,7 @@ public class SchemaTest extends AbstractRuntimeTest
 	public SchemaTest()
 	{
 		super(MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testSchema()

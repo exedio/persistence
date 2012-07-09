@@ -59,6 +59,7 @@ final class Connect
 			final Types types,
 			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
+			final Transactions transactions,
 			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
@@ -119,6 +120,7 @@ final class Connect
 				dialect,
 				connectionPool,
 				executor,
+				transactions,
 				this.revisions);
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);

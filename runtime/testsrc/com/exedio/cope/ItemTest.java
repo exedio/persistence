@@ -151,6 +151,9 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkSchema();
+
+		model.commit();
+
 		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
@@ -172,6 +175,8 @@ public class ItemTest extends TestmodelTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testItemCreation()

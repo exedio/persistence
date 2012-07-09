@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* TODO write something here, mention all methods
+* MySQL5.5 support added: No current transaction allowed anymore during schema modifications:
+	- Not allowed anymore when calling
+		Model#createSchema
+		Model#createSchemaConstraints
+		Model#deleteSchema
+		Model#dropSchema
+		Model#dropSchemaConstraints
+		Model#tearDownSchema
+		Model#tearDownSchemaConstraints
+		Model#getVerifiedSchema
+		Model#checkUnsupportedConstraints
 * Hash supports validator.
 	- DigitPinValidator added.
 * LimitedListField gets explicit length field.

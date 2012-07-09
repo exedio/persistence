@@ -745,7 +745,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertSchema()
 	{
+		model.commit();
+
 		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
+
+		model.startTransaction();
 
 		if(hsqldb||postgresql)
 			return;

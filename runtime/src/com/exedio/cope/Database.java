@@ -44,6 +44,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
+	final Transactions transactions;
 	private final RevisionsConnect revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
@@ -57,12 +58,14 @@ final class Database
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
+			final Transactions transactions,
 			final RevisionsConnect revisions)
 	{
 		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
+		this.transactions = transactions;
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
@@ -605,6 +608,8 @@ final class Database
 		{
 			public Connection getConnection()
 			{
+				transactions.assertNoCurrentTransaction();
+
 				return connectionPool.get(true);
 			}
 

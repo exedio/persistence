@@ -103,6 +103,8 @@ public class NameTest extends AbstractRuntimeTest
 		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 
+		model.commit();
+
 		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
@@ -143,6 +145,8 @@ public class NameTest extends AbstractRuntimeTest
 				assertEquals("integer", nameSub.getColumn("uniqueY").getType());
 			}
 		}
+
+		model.startTransaction();
 
 		// test persistence
 

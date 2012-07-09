@@ -41,6 +41,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testSchema()

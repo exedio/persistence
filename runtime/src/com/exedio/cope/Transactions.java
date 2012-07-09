@@ -121,4 +121,14 @@ final class Transactions
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
+
+	/**
+	 * otherwise mysql 5.5. may hang on dropping constraints
+	 */
+	void assertNoCurrentTransaction()
+	{
+		final Transaction tx = currentIfBound();
+		if(tx!=null)
+			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+	}
 }

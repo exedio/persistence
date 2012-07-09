@@ -120,7 +120,7 @@ public final class Model implements Serializable
 			if(this.connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
+			this.connectIfConnected = new Connect(toString(), types, revisions, properties, transactions, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
 
@@ -330,6 +330,8 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
+		transactions.assertNoCurrentTransaction();
+
 		connect().createSchema();
 
 		if(logger.isInfoEnabled())
@@ -338,6 +340,8 @@ public final class Model implements Serializable
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.createSchemaConstraints(types);
 	}
 
@@ -376,9 +380,7 @@ public final class Model implements Serializable
 	{
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
-		final Transaction tx = transactions.currentIfBound();
-		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+		transactions.assertNoCurrentTransaction();
 
 		connect().deleteSchema();
 
@@ -388,6 +390,8 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().dropSchema();
@@ -398,21 +402,29 @@ public final class Model implements Serializable
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.dropSchemaConstraints(types);
 	}
 
 	public void tearDownSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().tearDownSchema();
 	}
 
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.tearDownSchemaConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		return connect().database.makeVerifiedSchema();
 	}
 
@@ -691,6 +703,8 @@ public final class Model implements Serializable
 
 	public void checkUnsupportedConstraints()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.makeSchema(true).checkUnsupportedConstraints();
 	}
 
