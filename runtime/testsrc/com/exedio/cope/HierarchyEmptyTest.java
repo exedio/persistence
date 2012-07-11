@@ -127,18 +127,16 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 
 		model.commit();
 
-		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-		}
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySub.TYPE,
