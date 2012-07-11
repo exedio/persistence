@@ -154,7 +154,6 @@ public class ItemTest extends TestmodelTest
 
 		model.commit();
 
-		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
