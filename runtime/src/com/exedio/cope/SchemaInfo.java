@@ -41,6 +41,8 @@ public final class SchemaInfo
 	 */
 	public static Connection newConnection(final Model model) throws SQLException
 	{
+		model.transactions.assertNoCurrentTransaction();
+
 		return model.connect().connectionFactory.createRaw();
 	}
 

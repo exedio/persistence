@@ -42,16 +42,10 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 	Connection connection;
 
 	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-		connection = SchemaInfo.newConnection(model);
-	}
-
-	@Override
 	public void tearDown() throws Exception
 	{
-		connection.close();
+		if(connection!=null)
+			connection.close();
 		super.tearDown();
 	}
 
@@ -80,7 +74,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		assertEquals(list(item), SchemaNamePolymorphicSuperItem.TYPE.search(SchemaNamePolymorphicSuperItem.TYPE.getThis().instanceOf(SchemaNamePolymorphicSuperItem.TYPE)));
 		assertEquals(list(item), SchemaNamePolymorphicSuperItem.TYPE.search(SchemaNamePolymorphicSuperItem.TYPE.getThis().instanceOf(SchemaNamePolymorphicSubItem.TYPE)));
 
-		restartTransaction();
+		toSchema();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
 			final String table = getTableName(SchemaNamePolymorphicSuperItem.TYPE);
@@ -105,6 +99,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')"),
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
+		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
@@ -112,7 +107,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		// test update
 		final SchemaNamePolymorphicSuperItem item2 = new SchemaNamePolymorphicSubItem();
 		refItem.setRef(item2);
-		restartTransaction();
+		toSchema();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
 			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
@@ -121,6 +116,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					"SchemaNamePolymorphicSubItemRenamed",
 					fetch("select " + q(column) + " from " + q(table)));
 		}
+		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
@@ -128,6 +124,20 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		// test delete
 		refItem.setRef(item);
 		item2.deleteCopeItem();
+	}
+
+	private final void toSchema() throws SQLException
+	{
+		assertNull(connection);
+		model.commit();
+		connection = SchemaInfo.newConnection(model);
+	}
+
+	private final void toModel() throws SQLException
+	{
+		connection.close();
+		connection = null;
+		model.startTransaction();
 	}
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement

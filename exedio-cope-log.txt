@@ -18,6 +18,11 @@ The items are sorted inversely, i.e. latest items are on top
 		Model#tearDownSchemaConstraints
 		Model#getVerifiedSchema
 		Model#checkUnsupportedConstraints
+		Model#revise
+		Model#reviseIfSupportedAndAutoEnabled
+		Model#getRevisionLogs
+		Model#getRevisionLogsAndMutex
+		SchemaInfo#newConnection
 * Hash supports validator.
 	- DigitPinValidator added.
 * LimitedListField gets explicit length field.

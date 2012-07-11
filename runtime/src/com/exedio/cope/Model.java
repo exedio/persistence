@@ -65,7 +65,7 @@ public final class Model implements Serializable
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Transactions transactions = new Transactions();
+	final Transactions transactions = new Transactions();
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
@@ -159,6 +159,7 @@ public final class Model implements Serializable
 	{
 		if(revisions==null)
 			throw new IllegalArgumentException("revisions are not enabled");
+		transactions.assertNoCurrentTransaction();
 	}
 
 	public Revisions getRevisions()

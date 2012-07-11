@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.EnumSet;
 
+import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
@@ -42,7 +43,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		public static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
  	}
 
-	static Model model = new Model(ModelTestItem.TYPE);
+	static Model model = new Model(DirectRevisionsFactory.make(new Revisions(0)), ModelTestItem.TYPE);
 
 	public ModelTest()
 	{
@@ -173,6 +174,53 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		try
 		{
 			model.checkUnsupportedConstraints();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			model.revise();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+		try
+		{
+			model.reviseIfSupportedAndAutoEnabled();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+		try
+		{
+			model.getRevisionLogs();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+		try
+		{
+			model.getRevisionLogsAndMutex();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			SchemaInfo.newConnection(model);
 			fail();
 		}
 		catch (final IllegalStateException e)

@@ -35,6 +35,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 	public SchemaInfoConnectionTest()
 	{
 		super(InstanceOfModelTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	private Connection c;
