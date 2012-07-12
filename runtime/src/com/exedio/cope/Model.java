@@ -134,10 +134,7 @@ public final class Model implements Serializable
 
 		synchronized(connectLock)
 		{
-			if(this.connectIfConnected==null)
-				throw new IllegalStateException("model not yet connected, use Model#connect");
-
-			final Connect connect = this.connectIfConnected;
+			final Connect connect = connect();
 			this.connectIfConnected = null;
 			types.disconnect();
 			connect.close();
