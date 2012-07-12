@@ -270,9 +270,9 @@ public class ConnectTokenTest extends CopeAssert
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
 		}
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), getTokens(model));

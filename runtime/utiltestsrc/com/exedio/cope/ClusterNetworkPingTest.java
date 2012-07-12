@@ -31,9 +31,9 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			modelA.getThreadControllers();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(modelA, e.getModel());
 		}
 
 		modelA.connect(getProperties(true, -1, -1));

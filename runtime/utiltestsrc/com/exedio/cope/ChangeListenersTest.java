@@ -120,9 +120,9 @@ public class ChangeListenersTest extends CopeAssert
 			model.getChangeListenerDispatcherInfo();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
 		}
 	}
 

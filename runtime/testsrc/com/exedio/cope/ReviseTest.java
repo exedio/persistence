@@ -101,9 +101,9 @@ public class ReviseTest extends CopeAssert
 			model5.getRevisions();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model5, e.getModel());
 		}
 
 		model5.connect(props);
@@ -137,9 +137,9 @@ public class ReviseTest extends CopeAssert
 			model7.getRevisions();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model7, e.getModel());
 		}
 
 		model7.connect(props);

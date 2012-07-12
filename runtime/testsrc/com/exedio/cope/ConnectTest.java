@@ -108,9 +108,10 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
+			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
 
@@ -119,9 +120,10 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.disconnect();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
+			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
 		}
 		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());

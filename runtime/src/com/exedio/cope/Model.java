@@ -148,8 +148,31 @@ public final class Model implements Serializable
 	{
 		final Connect result = this.connectIfConnected;
 		if(result==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
+			throw new NotConnectedException(this);
 		return result;
+	}
+
+	public static final class NotConnectedException extends IllegalStateException
+	{
+		private static final long serialVersionUID = 1l;
+
+		private final Model model;
+
+		NotConnectedException(final Model model)
+		{
+			this.model = model;
+		}
+
+		public Model getModel()
+		{
+			return model;
+		}
+
+		@Override
+		public String getMessage()
+		{
+			return "model not connected, use Model#connect for " + model;
+		}
 	}
 
 	private final void assertRevisionEnabled()
