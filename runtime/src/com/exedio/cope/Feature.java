@@ -324,7 +324,7 @@ public abstract class Feature implements Serializable
 	 * @see #writeReplace()
 	 */
 	@SuppressWarnings("static-method")
-	protected final void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
