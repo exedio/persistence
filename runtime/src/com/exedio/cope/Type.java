@@ -22,6 +22,7 @@ import static com.exedio.cope.Executor.integerResultSetHandler;
 
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -1280,6 +1281,26 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new NotSerializableException(Type.class.getName());
 
 		return new Serialized(mount.model, id);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
 	private static final class Serialized implements Serializable
