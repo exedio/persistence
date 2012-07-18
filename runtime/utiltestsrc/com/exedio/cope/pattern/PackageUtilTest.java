@@ -40,6 +40,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(PasswordRecoveryConfigTest.class);
 		suite.addTestSuite(PriceTest.class);
+		suite.addTestSuite(PriceProportionatelyTest.class);
 		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
 		return suite;
 	}

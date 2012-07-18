@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 
 import com.exedio.cope.misc.Compare;
 
@@ -210,5 +211,53 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		final int minor = Math.abs(store%FACTOR_I);
 		return ((store<0 && store>(-FACTOR_I)) ? "-" : "") + String.valueOf(store/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
+	}
+
+	public static <T> Price[] splitProportionately(final Price total, final Price[] weights)
+	{
+		if(weights.length==0)
+			return weights;
+
+		Price weightSum = Price.ZERO;
+		for(final Price weight : weights)
+		{
+			if(Price.ZERO.greaterThan(weight))
+				throw new IllegalArgumentException("" + weight);
+
+			weightSum = weightSum.add(weight);
+		}
+
+		Price assigned = Price.ZERO;
+		final Price[] result = new Price[weights.length];
+		for(int i = 0; i < weights.length; i++)
+		{
+			final Price source = weights[i];
+			// do not round here, remaining pence will be distributed below
+			final Price x = Price.storeOf((int)(total.store() * source.store() / (weightSum.store() * 1.0)));
+			assigned = assigned.add(x);
+			result[i] = x;
+		}
+
+		// distributing remaining pence
+		int remainingPence = total.subtract(assigned).store();
+		final Price pence = Price.storeOf(remainingPence>0 ? 1 : -1);
+		final int penceD = remainingPence>0 ? -1 : 1;
+		while(remainingPence!=0)
+		{
+			for(int i = 0; i<weights.length && remainingPence!=0; i++)
+			{
+				result[i] = result[i].add(pence);
+				remainingPence += penceD;
+			}
+		}
+
+		if(remainingPence!=0)
+			throw new RuntimeException(
+					String.valueOf(remainingPence) +
+					'T' + total +
+					Arrays.toString(weights) +
+					Arrays.toString(result));
+
+		return result;
 	}
 }
