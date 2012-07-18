@@ -71,6 +71,11 @@ public class PriceProportionatelyTest extends CopeAssert
 	{
 		assertIt(values(3.33, 3.33, 3.33), valueOf(9.99), values(0.01, 0.01, 0.01));
 		assertIt(values(3.33, 0.00, 3.33), valueOf(6.66), values(0.01, 0.00, 0.01));
+
+		assertIt(values(9.99, 0.00, 0.00), valueOf(9.99), values(0.01, 0.00, 0.00));
+		assertIt(values(0.00, 9.99, 0.00), valueOf(9.99), values(0.00, 0.01, 0.00));
+		assertIt(values(0.00, 0.00, 9.99), valueOf(9.99), values(0.00, 0.00, 0.01));
+		assertIt(values(3.33, 3.33, 3.33), valueOf(9.99), values(0.00, 0.00, 0.00));
 	}
 
 	private static void assertIt(final Price[] expected, final Price actualTotal, final Price[] actualWeights)
