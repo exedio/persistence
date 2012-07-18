@@ -128,6 +128,14 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(store - other.store);
 	}
 
+	public Price negative()
+	{
+		if(store==Integer.MIN_VALUE)
+			throw new ArithmeticException("no negative for " + this);
+
+		return storeOf(-store);
+	}
+
 	public Price multiply(final int other)
 	{
 		// TODO shortcut for neutral element

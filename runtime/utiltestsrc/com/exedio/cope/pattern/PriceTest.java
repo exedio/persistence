@@ -227,6 +227,24 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
 	}
 
+	public static void testNegative()
+	{
+		assertEquals(storeOf(-555), storeOf( 555).negative());
+		assertEquals(storeOf( 555), storeOf(-555).negative());
+		assertSame(Price.ZERO, storeOf(0).negative());
+		assertEquals(storeOf(Integer.MIN_VALUE+1), MAX_VALUE.negative());
+		assertEquals(storeOf(Integer.MAX_VALUE), storeOf(Integer.MIN_VALUE+1).negative());
+		try
+		{
+			MIN_VALUE.negative();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("no negative for -21474836.48", e.getMessage());
+		}
+	}
+
 	public static void testMultiplyInt()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
