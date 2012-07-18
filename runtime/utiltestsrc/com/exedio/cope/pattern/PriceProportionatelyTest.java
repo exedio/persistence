@@ -65,6 +65,9 @@ public class PriceProportionatelyTest extends CopeAssert
 	{
 		assertIt(values(0.01, 0.02, 0.00), valueOf(0.03), values(0.11, 0.22, 0.11));
 		assertIt(values(0.02, 0.07), valueOf(0.09), values(0.11, 0.44));
+
+		assertIt(values(0.09), valueOf(0.09), values(0.11));
+		assertIt(values(0.99), valueOf(0.99), values(1.11));
 	}
 
 	public void testZeroWeight()
