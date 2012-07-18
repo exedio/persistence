@@ -85,6 +85,8 @@ public class PriceProportionatelyTest extends CopeAssert
 		assertIt(values(3.34, 3.33, 3.33), valueOf(10.00), values(0.00, 0.00, 0.00));
 		assertIt(values(3.34, 3.34, 3.33), valueOf(10.01), values(0.00, 0.00, 0.00));
 		assertIt(values(3.34, 3.34, 3.34), valueOf(10.02), values(0.00, 0.00, 0.00));
+
+		assertIt(values(0.01, 0.02, 0.02), valueOf(0.05), values(0.00, 0.03, 0.03)); // TODO should be 0.00, 0.03, 0.02
 	}
 
 	private static void assertIt(final Price[] expected, final Price actualTotal, final Price[] actualWeights)
