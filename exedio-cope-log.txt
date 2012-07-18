@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Price#splitProportionately throws IllegalArgumentException if weights is empty
+	instead of returning an empty result.
+	This breaks backwards API compatibility.
 * Price#negative added
 * Price#splitProportionately added
 * Model.NotConnectedException thrown instead of the IllegalStateException used before

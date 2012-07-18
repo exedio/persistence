@@ -221,10 +221,13 @@ public final class Price implements Serializable, Comparable<Price>
 		return ((store<0 && store>(-FACTOR_I)) ? "-" : "") + String.valueOf(store/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
 	}
 
+	/**
+	 * @throws IllegalArgumentException if weights has length of 0.
+	 */
 	public static Price[] splitProportionately(final Price total, final Price[] weights)
 	{
 		if(weights.length==0)
-			return weights;
+			throw new IllegalArgumentException("weights must not be empty");
 
 		Price weightSum = Price.ZERO;
 		for(final Price weight : weights)

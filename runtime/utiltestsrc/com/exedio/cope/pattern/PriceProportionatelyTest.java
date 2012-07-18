@@ -105,7 +105,15 @@ public class PriceProportionatelyTest extends CopeAssert
 
 	public void testSpecial()
 	{
-		assertEqualsArray(values(), splitProportionately(valueOf(9.99), values()));
+		try
+		{
+			splitProportionately(valueOf(9.99), values());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("weights must not be empty", e.getMessage());
+		}
 		try
 		{
 			splitProportionately(null, values(0.01));
