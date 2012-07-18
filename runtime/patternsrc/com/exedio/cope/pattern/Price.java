@@ -237,6 +237,9 @@ public final class Price implements Serializable, Comparable<Price>
 
 			weightSum = weightSum.add(weight);
 		}
+		// TODO
+		// if weightSum=ZERO, the algorithm is very ineffective, as everything is done
+		// via remainingPence-distribution
 
 		Price assigned = Price.ZERO;
 		final Price[] result = new Price[weights.length];
