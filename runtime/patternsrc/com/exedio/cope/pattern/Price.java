@@ -262,12 +262,11 @@ public final class Price implements Serializable, Comparable<Price>
 			}
 		}
 
-		if(remainingPence!=0)
-			throw new RuntimeException(
+		assert remainingPence==0 :
 					String.valueOf(remainingPence) +
 					'T' + total +
 					Arrays.toString(weights) +
-					Arrays.toString(result));
+					Arrays.toString(result);
 
 		return result;
 	}
