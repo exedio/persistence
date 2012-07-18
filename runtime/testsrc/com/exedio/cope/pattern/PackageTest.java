@@ -70,7 +70,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PasswordLimiterVerboseTest.class);
 		suite.addTestSuite(PasswordLimiterTest.class);
 		suite.addTestSuite(PasswordRecoveryTest.class);
-		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceFieldModelTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
 		suite.addTestSuite(ScheduleTest.class);
