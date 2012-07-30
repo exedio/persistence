@@ -286,7 +286,7 @@ public final class Query<R> implements Serializable
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
+	public void setOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
@@ -295,7 +295,7 @@ public final class Query<R> implements Serializable
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
+	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
