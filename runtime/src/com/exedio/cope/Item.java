@@ -121,7 +121,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Defines an order consistent to the query result order when using
-	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
+	 * {@link Query#setOrderBy(Selectable, boolean) Query.setOrderBy}
 	 * methods with any {@link ItemFunction}.
 	 */
 	public int compareTo(final Item o)
