@@ -117,7 +117,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendOrderBy(final Statement bf, final Function<?> function, final boolean ascending)
+	protected void appendOrderBy(final Statement bf, final Selectable<?> function, final boolean ascending)
 	{
 		super.appendOrderBy(bf, function, ascending);
 		if(ascending)

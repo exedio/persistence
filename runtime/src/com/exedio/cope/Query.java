@@ -47,7 +47,7 @@ public final class Query<R> implements Serializable
 	private Condition condition;
 
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
-	private Function<?>[] orderBy = null;
+	private Selectable<?>[] orderBy = null;
 	private boolean[] orderAscending;
 
 	private int offset = 0;
@@ -261,11 +261,11 @@ public final class Query<R> implements Serializable
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 
-	public List<Function<?>> getOrderByFunctions()
+	public List<Selectable<?>> getOrderByFunctions()
 	{
 		return
 			orderBy==null
-			? Collections.<Function<?>>emptyList()
+			? Collections.<Selectable<?>>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(orderBy));
 	}
 
@@ -282,7 +282,7 @@ public final class Query<R> implements Serializable
 
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Function[]{type.thisFunction};
+		this.orderBy = new Selectable[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
@@ -291,7 +291,7 @@ public final class Query<R> implements Serializable
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy};
+		this.orderBy = new Selectable[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
@@ -300,14 +300,14 @@ public final class Query<R> implements Serializable
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy, type.thisFunction};
+		this.orderBy = new Selectable[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
 
 	/**
 	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
-	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
+	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
 			throw new IllegalArgumentException(
@@ -322,24 +322,24 @@ public final class Query<R> implements Serializable
 		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
 
-	public void addOrderBy(final Function<?> orderBy)
+	public void addOrderBy(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, true);
 	}
 
-	public void addOrderByDescending(final Function<?> orderBy)
+	public void addOrderByDescending(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, false);
 	}
 
-	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
+	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(this.orderBy==null)
-			this.orderBy = new Function[]{ orderBy };
+			this.orderBy = new Selectable[]{ orderBy };
 		else
 		{
 			final int l = this.orderBy.length;
-			final Function<?>[] result = new Function[l+1];
+			final Selectable<?>[] result = new Selectable[l+1];
 			System.arraycopy(this.orderBy, 0, result, 0, l);
 			result[l] = orderBy;
 			this.orderBy = result;
@@ -547,7 +547,7 @@ public final class Query<R> implements Serializable
 		}
 
 		if(orderBy!=null)
-			for(final Function<?> ob : orderBy)
+			for(final Selectable<?> ob : orderBy)
 				Cope.check(ob, tc, null);
 
 		return tc;
@@ -952,7 +952,7 @@ public final class Query<R> implements Serializable
 
 		if(!totalOnly)
 		{
-			final Function<?>[] orderBy = this.orderBy;
+			final Selectable<?>[] orderBy = this.orderBy;
 
 			if(orderBy!=null)
 			{
