@@ -108,10 +108,10 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	public EnumSet<E> get(final Item item)
 	{
 		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
-		for(final E key : fields.keySet())
+		for(final E element : fields.keySet())
 		{
-			if(fields.get(key).getMandatory(item))
-				result.add(key);
+			if(fields.get(element).getMandatory(item))
+				result.add(element);
 		}
 		return result;
 	}
@@ -121,8 +121,8 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	{
 		final SetValue<?>[] setValues = new SetValue[fields.size()];
 		int i = 0;
-		for(final E key : fields.keySet())
-			setValues[i++] = fields.get(key).map(value.contains(key));
+		for(final E element : fields.keySet())
+			setValues[i++] = fields.get(element).map(value.contains(element));
 		item.set(setValues);
 	}
 
