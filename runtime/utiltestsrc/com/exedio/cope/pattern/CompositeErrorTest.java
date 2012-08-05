@@ -122,6 +122,7 @@ public class CompositeErrorTest extends CopeAssert
 			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
+
 	static class NonFinal extends Composite
 	{
 		private static final long serialVersionUID = 1l;
