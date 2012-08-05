@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -164,6 +165,8 @@ final class CompositeType<X>
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
 		if(Composite.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
+		if(!Modifier.isFinal(valueClass.getModifiers()))
+			throw new IllegalArgumentException("is not final: " + valueClass.getName());
 
 		synchronized(types)
 		{

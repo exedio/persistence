@@ -41,6 +41,17 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
+			CompositeField.create(NonFinal.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(e.getMessage(),
+					"is not final: " +
+					NonFinal.class.getName(), e.getMessage());
+		}
+		try
+		{
 			CompositeField.create(NoConstructor.class);
 			fail();
 		}
@@ -111,13 +122,17 @@ public class CompositeErrorTest extends CopeAssert
 			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
-
-	static class NoConstructor extends Composite
+	static class NonFinal extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 	}
 
-	static class NoFields extends Composite
+	static final class NoConstructor extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -127,7 +142,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
-	static class NullField extends Composite
+	static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -139,7 +154,7 @@ public class CompositeErrorTest extends CopeAssert
 		static final Field<?> nullField = null;
 	}
 
-	static class PatternField extends Composite
+	static final class PatternField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -151,7 +166,7 @@ public class CompositeErrorTest extends CopeAssert
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
-	static class FinalField extends Composite
+	static final class FinalField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 

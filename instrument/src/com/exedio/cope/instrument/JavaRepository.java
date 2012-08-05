@@ -328,7 +328,7 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 
-	static class DummyComposite extends Composite
+	static final class DummyComposite extends Composite
 	{
 		protected DummyComposite(final SetValue<?>... setValues)
 		{
