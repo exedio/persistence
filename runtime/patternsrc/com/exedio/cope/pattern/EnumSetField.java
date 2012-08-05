@@ -54,15 +54,6 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return new EnumSetField<E>(elementClass);
 	}
 
-	/**
-	 * @deprecated Use {@link #getElementClass()} instead
-	 */
-	@Deprecated
-	public Class<E> getKeyClass()
-	{
-		return getElementClass();
-	}
-
 	public Class<E> getElementClass()
 	{
 		return elementClass;
@@ -139,5 +130,14 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	public static final <E extends Enum<E>> EnumSetField<E> newSet(final Class<E> elementClass)
 	{
 		return create(elementClass);
+	}
+
+	/**
+	 * @deprecated Use {@link #getElementClass()} instead
+	 */
+	@Deprecated
+	public Class<E> getKeyClass()
+	{
+		return getElementClass();
 	}
 }
