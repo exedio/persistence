@@ -36,22 +36,22 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
 
-	private EnumSetField(final Class<E> keyClass)
+	private EnumSetField(final Class<E> elementClass)
 	{
-		this.elementClass = keyClass;
-		this.fields = new EnumMap<E, BooleanField>(keyClass);
+		this.elementClass = elementClass;
+		this.fields = new EnumMap<E, BooleanField>(elementClass);
 
-		for(final E key : keyClass.getEnumConstants())
+		for(final E element : elementClass.getEnumConstants())
 		{
 			final BooleanField value = new BooleanField().defaultTo(false);
-			addSource(value, key.name());
-			fields.put(key, value);
+			addSource(value, element.name());
+			fields.put(element, value);
 		}
 	}
 
-	public static final <K extends Enum<K>> EnumSetField<K> create(final Class<K> keyClass)
+	public static final <K extends Enum<K>> EnumSetField<K> create(final Class<K> elementClass)
 	{
-		return new EnumSetField<K>(keyClass);
+		return new EnumSetField<K>(elementClass);
 	}
 
 	/**
@@ -138,8 +138,8 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
-	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)
+	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> elementClass)
 	{
-		return create(keyClass);
+		return create(elementClass);
 	}
 }
