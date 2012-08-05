@@ -1050,6 +1050,38 @@ public final class Query<R> implements Serializable
 		return result;
 	}
 
+	// ------------------- binary compatibility -------------------
+
+	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderBy((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderByAndThis((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
+	{
+		setOrderBy((Selectable<?>[])orderBy, ascending);
+	}
+
+	public void addOrderBy(final Function<?> orderBy)
+	{
+		addOrderBy((Selectable<?>)orderBy);
+	}
+
+	public void addOrderByDescending(final Function<?> orderBy)
+	{
+		addOrderByDescending((Selectable<?>)orderBy);
+	}
+
+	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		addOrderBy((Selectable<?>)orderBy, ascending);
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
