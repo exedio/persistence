@@ -84,21 +84,21 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	@Wrap(order=10)
 	public boolean contains(
 			final Item item,
-			@Parameter("k") final E element)
+			@Parameter("element") final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);
 	}
 
 	@Wrap(order=20)
-	public void add(final Item item, final E element)
+	public void add(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, true);
 	}
 
 	@Wrap(order=30)
-	public void remove(final Item item, final E element)
+	public void remove(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, false);
