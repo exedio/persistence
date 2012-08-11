@@ -64,6 +64,17 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertNotSet();
 	}
 
+	public void testRemoveWithoutSet()
+	{
+		assertFalse(model.isConnected());
+		assertSame(null, getProperties(model));
+		assertNotSet();
+
+		assertSame(null, removeProperties(model));
+		assertSame(null, getProperties(model));
+		assertNotSet();
+	}
+
 	private static void assertNotSet()
 	{
 		final String message =
