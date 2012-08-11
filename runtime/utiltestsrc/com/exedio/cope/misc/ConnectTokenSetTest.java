@@ -98,7 +98,7 @@ public class ConnectTokenSetTest extends CopeAssert
 
 		final ConnectToken token1 = issue(model, "name1");
 		assertNotSame(token0, token1);
-		assertEquals(0, token1.getID()); // TODO should be 1
+		assertEquals(1, token1.getID());
 		assertEquals(list(token1), getTokens(model));
 		assertTrue(model.isConnected());
 
