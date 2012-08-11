@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ConnectToken.getProperties;
+import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
@@ -73,6 +74,16 @@ public class ConnectTokenNullModelTest extends CopeAssert
 		try
 		{
 			issueIfConnected(null, "tokenNameNullModelConditionally");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+
+		try
+		{
+			getTokens(null);
 			fail();
 		}
 		catch(final NullPointerException e)
