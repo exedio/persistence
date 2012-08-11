@@ -48,7 +48,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		model.enableSerialization(ConnectTokenSetTest.class, "model");
 	}
 
-	public void testIt()
+	public void testNormal()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
