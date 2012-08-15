@@ -162,6 +162,11 @@ abstract class Dialect
 		return false;
 	}
 
+	boolean subqueryRequiresAliasInSelect()
+	{
+		return false;
+	}
+
 	/**
 	 * @see #extractUniqueViolation(SQLException)
 	 */

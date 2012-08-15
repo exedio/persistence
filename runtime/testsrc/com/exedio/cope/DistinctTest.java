@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
-import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numA;
+import static com.exedio.cope.PlusIntegerItem.numB;
+import static com.exedio.cope.Query.newQuery;
 
 import java.util.List;
-
-import com.exedio.dsmf.SQLRuntimeException;
 
 public class DistinctTest extends AbstractRuntimeTest
 {
@@ -195,24 +193,10 @@ public class DistinctTest extends AbstractRuntimeTest
 				list(2, 2),
 			q.search());
 
-		if(!mysql)
-		{
-			assertEquals(2, q.total());
-		}
-		else
-		{
-			try
-			{
-				q.total();
-				fail();
-			}
-			catch(final SQLRuntimeException e)
-			{
-				 // TODO
-				assertEquals("select count(*) from ( select distinct `numA`,`numA` from `PlusIntegerItem` ) as cope_total_distinct", e.getMessage());
-				assertNotNull(e.getCause());
-				assertEquals("Duplicate column name 'numA'", e.getCause().getMessage());
-			}
-		}
+		// Triggers special handling for total together with distinct
+		// which may cause problems.
+		// On MySQL the error message read:
+		//    Duplicate column name 'numA'
+		assertEquals(2, q.total());
 	}
 }

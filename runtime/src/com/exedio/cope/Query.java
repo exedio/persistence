@@ -912,12 +912,15 @@ public final class Query<R> implements Serializable
 
 			selectMarshallers = new Marshaller[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
+			int copeTotalDistinctCount = 0;
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
 					bf.append(',');
 
 				bf.appendSelect(selects[i], null);
+				if(totalOnly && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
+					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
 		}

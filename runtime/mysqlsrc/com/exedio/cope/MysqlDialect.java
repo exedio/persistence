@@ -387,6 +387,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	boolean subqueryRequiresAliasInSelect()
+	{
+		return true;
+	}
+
+	@Override
 	boolean supportsUniqueViolation()
 	{
 		return supportsUniqueViolation;
