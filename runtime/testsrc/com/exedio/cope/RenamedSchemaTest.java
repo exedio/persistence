@@ -79,6 +79,9 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 			final Sequence sequence = sequences.next();
 			assertEquals("ZackItem_this_Seq", sequence.getName());
 			assertEquals(0, sequence.getStartWith());
+		}
+		if(cluster)
+		{
 			final Sequence sequence2 = sequences.next();
 			assertEquals("RenamScheTargItem_thi_Seq", sequence2.getName());
 			assertEquals(0, sequence2.getStartWith());
