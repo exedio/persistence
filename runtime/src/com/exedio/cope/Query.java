@@ -939,13 +939,13 @@ public final class Query<R> implements Serializable
 
 		if (this.groupBy!=null)
 		{
-			bf.append(" group by ");
 			for ( int i=0; i<groupBy.length; i++ )
 			{
-				if ( i>0 )
-				{
+				if(i==0)
+					bf.append(" group by ");
+				else
 					bf.append(',');
-				}
+
 				bf.appendSelect(groupBy[i], null);
 			}
 		}
