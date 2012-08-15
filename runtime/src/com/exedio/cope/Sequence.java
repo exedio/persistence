@@ -76,7 +76,7 @@ public final class Sequence extends Feature
 
 	void connect(final Database database)
 	{
-		sequenceX.connectCluster(database, database.makeName(getType().getID() + '_' + getName()));
+		sequenceX.connectCluster(database, database.makeName(getType().schemaId + '_' + getSchemaName()));
 		database.addSequence(sequenceX);
 	}
 

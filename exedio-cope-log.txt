@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Sequence obeys @CopeSchemaName both on feature and type.
+	bugfix, requires modification of persistent schema in such cases.
 * ConnectToken#getID() does not start from zero on Model#disconnect anymore,
 		but only on ConnectToken#removeProperties(Model).
 	This breaks backwards API compatibility, but should cause no practical problems.

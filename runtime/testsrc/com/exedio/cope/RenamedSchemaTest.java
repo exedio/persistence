@@ -82,7 +82,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		}
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(model.getConnectProperties().filterTableName("RenamedSchemaItem_sequenc"), sequence.getName()); // TODO type and feature renamed to zack
+			assertEquals(model.getConnectProperties().filterTableName("ZackItem_zackSequence"), sequence.getName());
 			assertEquals(555, sequence.getStartWith());
 		}
 		if(cluster)
