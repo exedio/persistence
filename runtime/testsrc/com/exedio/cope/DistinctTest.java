@@ -25,6 +25,8 @@ import static com.exedio.cope.PlusIntegerItem.numA;
 
 import java.util.List;
 
+import com.exedio.dsmf.SQLRuntimeException;
+
 public class DistinctTest extends AbstractRuntimeTest
 {
 	public DistinctTest()
@@ -173,5 +175,44 @@ public class DistinctTest extends AbstractRuntimeTest
 				list(1, 4),
 			q.search());
 		assertEquals(3, q.total());
+	}
+
+	public void testDistinctDuplicateColumns()
+	{
+		final Query<List<Object>> q = newQuery(new Function[]{numA, numA}, TYPE, null);
+		assertContains(
+				list(1, 1),
+				list(1, 1),
+				list(1, 1),
+				list(1, 1),
+				list(2, 2),
+			q.search());
+		assertEquals(5, q.total());
+
+		q.setDistinct(true);
+		assertContains(
+				list(1, 1),
+				list(2, 2),
+			q.search());
+
+		if(!mysql)
+		{
+			assertEquals(2, q.total());
+		}
+		else
+		{
+			try
+			{
+				q.total();
+				fail();
+			}
+			catch(final SQLRuntimeException e)
+			{
+				 // TODO
+				assertEquals("select count(*) from ( select distinct `numA`,`numA` from `PlusIntegerItem` ) as cope_total_distinct", e.getMessage());
+				assertNotNull(e.getCause());
+				assertEquals("Duplicate column name 'numA'", e.getCause().getMessage());
+			}
+		}
 	}
 }
