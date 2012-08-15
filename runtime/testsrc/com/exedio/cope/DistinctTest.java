@@ -44,135 +44,131 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	public void testDistinctSingle()
 	{
-		{
-			final Query<Integer> q = new Query<Integer>(item1.numB, item1.TYPE, null);
-			assertContains(2, 3, 4, 4, 4, q.search());
-			assertEquals(5, q.total());
+		final Query<Integer> q = new Query<Integer>(item1.numB, item1.TYPE, null);
+		assertContains(2, 3, 4, 4, 4, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(2, 3, 4, q.search());
-			assertEquals(3, q.total());
+		q.setDistinct(true);
+		assertContains(2, 3, 4, q.search());
+		assertEquals(3, q.total());
 
-			item1.setNumB(null);
-			q.setDistinct(false);
-			assertContains(null, 3, 4, 4, 4, q.search());
-			assertEquals(5, q.total());
+		item1.setNumB(null);
+		q.setDistinct(false);
+		assertContains(null, 3, 4, 4, 4, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(null, 3, 4, q.search());
-			assertEquals(3, q.total());
+		q.setDistinct(true);
+		assertContains(null, 3, 4, q.search());
+		assertEquals(3, q.total());
 
-			item4.setNumB(null);
-			q.setDistinct(false);
-			assertContains(null, 3, 4, 4, null, q.search());
-			assertEquals(5, q.total());
+		item4.setNumB(null);
+		q.setDistinct(false);
+		assertContains(null, 3, 4, 4, null, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(null, 3, 4, q.search());
-			assertEquals(3, q.total());
-		}
+		q.setDistinct(true);
+		assertContains(null, 3, 4, q.search());
+		assertEquals(3, q.total());
 	}
 
 	public void testDistinctMulti()
 	{
-		{
-			final Query<List<Object>> q = newQuery(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
-			assertContains(
-					list(1, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(5, q.total());
+		final Query<List<Object>> q = newQuery(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
+		assertContains(
+				list(1, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(1, 2),
-					list(1, 3),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(1, 2),
+				list(1, 3),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item1.setNumA(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item1.setNumA(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item4.setNumA(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item4.setNumA(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item1.setNumB(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item1.setNumB(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item4.setNumB(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, null),
-				q.search());
-			assertEquals(5, q.total());
+		item4.setNumB(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, null),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-				q.search());
-			assertEquals(3, q.total());
-		}
+		q.setDistinct(true);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+			q.search());
+		assertEquals(3, q.total());
 	}
 }
