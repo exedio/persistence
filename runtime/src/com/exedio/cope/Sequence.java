@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Wrap;
+
 public final class Sequence extends Feature
 {
 	private static final long serialVersionUID = 1l;
@@ -58,6 +60,10 @@ public final class Sequence extends Feature
 	 * The result of this method is not managed by a {@link Transaction},
 	 * and you don't need one for calling this method.
 	 */
+	@Wrap(
+			order=10,
+			doc={"Generates a new sequence number.",
+					"The result is not managed by a '{@link com.exedio.cope.Transaction}'."})
 	public int next()
 	{
 		return sequenceX.next();
