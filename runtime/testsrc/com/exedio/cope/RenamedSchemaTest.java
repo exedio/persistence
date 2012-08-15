@@ -28,7 +28,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.util.List;
+import java.util.Iterator;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -72,15 +72,17 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
 
-		final List<Sequence> sequences = schema.getSequences();
+		final Iterator<Sequence> sequences = schema.getSequences().iterator();
 		if(model.getConnectProperties().cluster.booleanValue())
 		{
-			final Sequence sequence = sequences.get(0);
+			final Sequence sequence = sequences.next();
 			assertEquals("ZackItem_this_Seq", sequence.getName());
 			assertEquals(0, sequence.getStartWith());
+			final Sequence sequence2 = sequences.next();
+			assertEquals("RenamScheTargItem_thi_Seq", sequence2.getName());
+			assertEquals(0, sequence2.getStartWith());
 		}
-		else
-			assertEquals(list(), sequences);
+		assertFalse(sequences.hasNext());
 	}
 
 	private final String q(final Field<?> f)
