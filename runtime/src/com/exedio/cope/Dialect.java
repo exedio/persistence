@@ -218,11 +218,13 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
-	protected void appendOrderBy(final Statement bf, final Selectable<?> function, final boolean ascending)
+	/**
+	 * @param bf the statement, the postfix is to be appended to
+	 * @param ascending whether the order by is ascending or descending
+	 */
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		bf.append(function, (Join)null);
-		if(!ascending)
-			bf.append(" desc");
+		// do nothing
 	}
 
 	abstract LimitSupport getLimitSupport();

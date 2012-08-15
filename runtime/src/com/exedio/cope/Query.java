@@ -964,7 +964,10 @@ public final class Query<R> implements Serializable
 					else
 						bf.append(',');
 
-					dialect.appendOrderBy(bf, orderBy[i], orderAscending[i]);
+					bf.append(orderBy[i], (Join)null);
+					if(!orderAscending[i])
+						bf.append(" desc");
+					dialect.appendOrderByPostfix(bf, orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}
