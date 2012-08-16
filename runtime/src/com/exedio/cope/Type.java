@@ -1381,7 +1381,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@Deprecated
 	public List<Field<?>> getDeclaredAttributes()
 	{
-		return declaredFields;
+		return getDeclaredFields();
 	}
 
 	/**
