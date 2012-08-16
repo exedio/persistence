@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 
 import java.io.InvalidObjectException;
@@ -43,7 +44,6 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
-import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
@@ -73,24 +73,16 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashMap<String, Feature> featuresByName;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<Field<?>> fieldsDeclared;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<Field<?>> fields;
+	private final FeatureSubSet<Field<?>> fields;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<UniqueConstraint> uniqueConstraintsDeclared;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<UniqueConstraint> uniqueConstraints;
+	private final FeatureSubSet<UniqueConstraint> uniqueConstraints;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<CheckConstraint> checkConstraintsDeclared;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<CheckConstraint> checkConstraints;
+	private final FeatureSubSet<CheckConstraint> checkConstraints;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<CopyConstraint> copyConstraintsDeclared;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final List<CopyConstraint> copyConstraints;
+	private final FeatureSubSet<CopyConstraint> copyConstraints;
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
@@ -199,29 +191,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		// declared fields / unique constraints
 		{
-			final ArrayList<Field<?>> declaredFields = new ArrayList<Field<?>>(featuresDeclared.size());
-			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(featuresDeclared.size());
-			final ArrayList< CheckConstraint> declaredCheckConstraints  = new ArrayList< CheckConstraint>(featuresDeclared.size());
-			final ArrayList<  CopyConstraint> declaredCopyConstraints   = new ArrayList<  CopyConstraint>(featuresDeclared.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
 			for(final Feature feature : featuresDeclared)
 			{
-				if(feature instanceof Field<?>)
-					declaredFields.add((Field<?>)feature);
-				else if(feature instanceof UniqueConstraint)
-					declaredUniqueConstraints.add((UniqueConstraint)feature);
-				else if(feature instanceof CheckConstraint)
-					declaredCheckConstraints.add((CheckConstraint)feature);
-				else if(feature instanceof CopyConstraint)
-					declaredCopyConstraints.add((CopyConstraint)feature);
-
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
-			this.fieldsDeclared            = ListUtil.trimUnmodifiable(declaredFields);
-			this.uniqueConstraintsDeclared = ListUtil.trimUnmodifiable(declaredUniqueConstraints);
-			this.checkConstraintsDeclared  = ListUtil.trimUnmodifiable(declaredCheckConstraints);
-			this.copyConstraintsDeclared   = ListUtil.trimUnmodifiable(declaredCopyConstraints);
 			this.featuresByNameDeclared = declaredFeaturesByName;
 		}
 
@@ -230,10 +205,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			this.features          = this.featuresDeclared;
 			this.featuresByName    = this.featuresByNameDeclared;
-			this.fields            = this.fieldsDeclared;
-			this.uniqueConstraints = this.uniqueConstraintsDeclared;
-			this.checkConstraints  = this.checkConstraintsDeclared;
-			this.copyConstraints   = this.copyConstraintsDeclared;
 		}
 		else
 		{
@@ -247,13 +218,18 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				this.features = Collections.unmodifiableList(features);
 			}
 			this.featuresByName    = inherit(supertype.featuresByName,    this.featuresByNameDeclared);
-			this.fields            = inherit(supertype.fields,            this.fieldsDeclared);
-			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.uniqueConstraintsDeclared);
-			this. checkConstraints = inherit(supertype. checkConstraints, this.checkConstraintsDeclared);
-			this.  copyConstraints = inherit(supertype.  copyConstraints, this.copyConstraintsDeclared);
 		}
 		assert thisFunction==this.features.get(0) : this.features;
 		assert thisFunction==this.featuresByName.get(This.NAME) : this.featuresByName;
+
+		{
+			final Type<? super T> s = this.supertype;
+			final List<Feature> df = this.featuresDeclared;
+			this.fields            = features(s==null ? null : s.fields           , df, cast(Field.class));
+			this.uniqueConstraints = features(s==null ? null : s.uniqueConstraints, df, UniqueConstraint.class);
+			this. checkConstraints = features(s==null ? null : s. checkConstraints, df, CheckConstraint.class);
+			this.  copyConstraints = features(s==null ? null : s.  copyConstraints, df, CopyConstraint.class);
+		}
 
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
@@ -263,24 +239,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			? supertype.primaryKeySequence
 			: new SequenceX(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 
-		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.isEmpty());
+		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 	}
 
-	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
+	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove
+	private static Class<Field<?>> cast(final Class<Field> c)
 	{
-		assert inherited!=null;
-
-		if(declared.isEmpty())
-			return inherited;
-		else if(inherited.isEmpty())
-			return declared;
-		else
-		{
-			final ArrayList<F> result = new ArrayList<F>(inherited);
-			result.addAll(declared);
-			result.trimToSize();
-			return Collections.<F>unmodifiableList(result);
-		}
+		return (Class)c;
 	}
 
 	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
@@ -556,12 +521,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			database.addSequence(primaryKeySequence);
 		}
 
-		for(final Field<?> a : fieldsDeclared)
+		for(final Field<?> a : fields.declared)
 			a.connect(table);
-		for(final UniqueConstraint uc : uniqueConstraintsDeclared)
+		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.connect(table);
-		this.table.setUniqueConstraints(this.uniqueConstraintsDeclared);
-		this.table.setCheckConstraints (this.checkConstraintsDeclared);
+		this.table.setUniqueConstraints(this.uniqueConstraints.declared);
+		this.table.setCheckConstraints (this.checkConstraints.declared);
 		this.table.finish();
 		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
@@ -570,7 +535,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private boolean hasFinalTable()
 	{
-		for(final Field<?> f : fields)
+		for(final Field<?> f : fields.all)
 			if(!f.isFinal())
 				return false;
 		for(final Type<?> t : getSubtypes())
@@ -590,9 +555,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(supertype==null)
 			primaryKeySequence.disconnect();
 
-		for(final Field<?> a : fieldsDeclared)
+		for(final Field<?> a : fields.declared)
 			a.disconnect();
-		for(final UniqueConstraint uc : uniqueConstraintsDeclared)
+		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.disconnect();
 		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
@@ -796,7 +761,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	public List<Field<?>> getDeclaredFields()
 	{
-		return fieldsDeclared;
+		return fields.declared;
 	}
 
 	/**
@@ -813,7 +778,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	public List<Field<?>> getFields()
 	{
-		return fields;
+		return fields.all;
 	}
 
 	public List<Feature> getDeclaredFeatures()
@@ -838,32 +803,32 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public List<UniqueConstraint> getDeclaredUniqueConstraints()
 	{
-		return uniqueConstraintsDeclared;
+		return uniqueConstraints.declared;
 	}
 
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
-		return uniqueConstraints;
+		return uniqueConstraints.all;
 	}
 
 	public List<CheckConstraint> getDeclaredCheckConstraints()
 	{
-		return checkConstraintsDeclared;
+		return checkConstraints.declared;
 	}
 
 	public List<CheckConstraint> getCheckConstraints()
 	{
-		return checkConstraints;
+		return checkConstraints.all;
 	}
 
 	public List<CopyConstraint> getDeclaredCopyConstraints()
 	{
-		return copyConstraintsDeclared;
+		return copyConstraints.declared;
 	}
 
 	public List<CopyConstraint> getCopyConstraints()
 	{
-		return copyConstraints;
+		return copyConstraints.all;
 	}
 
 	/**
@@ -933,7 +898,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
 		Date now = null;
 		Day today = null;
-		for(final Field<?> field : fields)
+		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
 			{
@@ -970,7 +935,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			assertBelongs(field);
 		}
-		for(final Field<?> field : fields)
+		for(final Field<?> field : fields.all)
 		{
 			field.check(fieldValues.get(field), null);
 		}
@@ -984,7 +949,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		checkUniqueConstraints(null, fieldValues);
 
-		for(final CopyConstraint cc : copyConstraints)
+		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);
 
 		return fieldValues;
@@ -995,13 +960,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(!uniqueConstraintsProblem && getModel().connect().executor.supportsUniqueViolation)
 			return;
 
-		for(final UniqueConstraint uc : uniqueConstraints)
+		for(final UniqueConstraint uc : uniqueConstraints.all)
 			uc.check(item, fieldValues);
 	}
 
 	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
 	{
-		for(final CheckConstraint cc : checkConstraints)
+		for(final CheckConstraint cc : checkConstraints.all)
 			cc.check(item, entity, exceptionItem);
 	}
 
