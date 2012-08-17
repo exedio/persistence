@@ -27,134 +27,136 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
+import junit.framework.AssertionFailedError;
+
 public class AssertionFailedServletContext implements ServletContext
 {
 	public String getInitParameter(final String name)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public String getServletContextName()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public Object getAttribute(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public Enumeration<?> getAttributeNames()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public ServletContext getContext(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public String getContextPath()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public Enumeration<?> getInitParameterNames()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public int getMajorVersion()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public String getMimeType(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public int getMinorVersion()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public RequestDispatcher getNamedDispatcher(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public String getRealPath(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public RequestDispatcher getRequestDispatcher(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public URL getResource(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public InputStream getResourceAsStream(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public Set<?> getResourcePaths(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public String getServerInfo()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	@Deprecated
 	public Servlet getServlet(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	@Deprecated
 	public Enumeration<?> getServletNames()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	@Deprecated
 	public Enumeration<?> getServlets()
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public void log(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	@Deprecated
 	public void log(final Exception arg0, final String arg1)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public void log(final String arg0, final Throwable arg1)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public void removeAttribute(final String arg0)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 
 	public void setAttribute(final String arg0, final Object arg1)
 	{
-		throw new RuntimeException();
+		throw new AssertionFailedError();
 	}
 }
