@@ -78,7 +78,7 @@ public class ServletUtilContextTest extends CopeAssert
 		}
 	}
 
-	static class TestContext extends AssertionFailedServletContext
+	private static class TestContext extends AssertionFailedServletContext
 	{
 		private final String contextPath;
 		private final String prefix;
