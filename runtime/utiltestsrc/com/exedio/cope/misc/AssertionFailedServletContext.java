@@ -28,134 +28,134 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
 public class AssertionFailedServletContext implements ServletContext
+{
+
+	public String getInitParameter(final String name)
 	{
+		throw new RuntimeException();
+	}
 
-		public String getInitParameter(final String name)
-		{
-			throw new RuntimeException();
-		}
+	public String getServletContextName()
+	{
+		throw new RuntimeException();
+	}
 
-		public String getServletContextName()
-		{
-			throw new RuntimeException();
-		}
+	public Object getAttribute(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public Object getAttribute(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public Enumeration<?> getAttributeNames()
+	{
+		throw new RuntimeException();
+	}
 
-		public Enumeration<?> getAttributeNames()
-		{
-			throw new RuntimeException();
-		}
+	public ServletContext getContext(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public ServletContext getContext(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public String getContextPath()
+	{
+		throw new RuntimeException();
+	}
 
-		public String getContextPath()
-		{
-			throw new RuntimeException();
-		}
+	public Enumeration<?> getInitParameterNames()
+	{
+		throw new RuntimeException();
+	}
 
-		public Enumeration<?> getInitParameterNames()
-		{
-			throw new RuntimeException();
-		}
+	public int getMajorVersion()
+	{
+		throw new RuntimeException();
+	}
 
-		public int getMajorVersion()
-		{
-			throw new RuntimeException();
-		}
+	public String getMimeType(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public String getMimeType(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public int getMinorVersion()
+	{
+		throw new RuntimeException();
+	}
 
-		public int getMinorVersion()
-		{
-			throw new RuntimeException();
-		}
+	public RequestDispatcher getNamedDispatcher(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public RequestDispatcher getNamedDispatcher(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public String getRealPath(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public String getRealPath(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public RequestDispatcher getRequestDispatcher(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public RequestDispatcher getRequestDispatcher(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public URL getResource(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public URL getResource(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public InputStream getResourceAsStream(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public InputStream getResourceAsStream(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public Set<?> getResourcePaths(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public Set<?> getResourcePaths(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	public String getServerInfo()
+	{
+		throw new RuntimeException();
+	}
 
-		public String getServerInfo()
-		{
-			throw new RuntimeException();
-		}
+	@Deprecated
+	public Servlet getServlet(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		@Deprecated
-		public Servlet getServlet(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	@Deprecated
+	public Enumeration<?> getServletNames()
+	{
+		throw new RuntimeException();
+	}
 
-		@Deprecated
-		public Enumeration<?> getServletNames()
-		{
-			throw new RuntimeException();
-		}
+	@Deprecated
+	public Enumeration<?> getServlets()
+	{
+		throw new RuntimeException();
+	}
 
-		@Deprecated
-		public Enumeration<?> getServlets()
-		{
-			throw new RuntimeException();
-		}
+	public void log(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public void log(final String arg0)
-		{
-			throw new RuntimeException();
-		}
+	@Deprecated
+	public void log(final Exception arg0, final String arg1)
+	{
+		throw new RuntimeException();
+	}
 
-		@Deprecated
-		public void log(final Exception arg0, final String arg1)
-		{
-			throw new RuntimeException();
-		}
+	public void log(final String arg0, final Throwable arg1)
+	{
+		throw new RuntimeException();
+	}
 
-		public void log(final String arg0, final Throwable arg1)
-		{
-			throw new RuntimeException();
-		}
+	public void removeAttribute(final String arg0)
+	{
+		throw new RuntimeException();
+	}
 
-		public void removeAttribute(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public void setAttribute(final String arg0, final Object arg1)
-		{
-			throw new RuntimeException();
-		}
+	public void setAttribute(final String arg0, final Object arg1)
+	{
+		throw new RuntimeException();
+	}
 }
