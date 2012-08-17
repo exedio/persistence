@@ -29,7 +29,6 @@ import javax.servlet.ServletContext;
 
 public class AssertionFailedServletContext implements ServletContext
 {
-
 	public String getInitParameter(final String name)
 	{
 		throw new RuntimeException();
