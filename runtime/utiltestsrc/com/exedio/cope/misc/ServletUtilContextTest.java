@@ -20,15 +20,6 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.Set;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 
@@ -87,7 +78,7 @@ public class ServletUtilContextTest extends CopeAssert
 		}
 	}
 
-	static class TestContext implements ServletContext
+	static class TestContext extends AssertionFailedServletContext
 	{
 		private final String contextPath;
 		private final String prefix;
@@ -98,6 +89,7 @@ public class ServletUtilContextTest extends CopeAssert
 			this.prefix = prefix;
 		}
 
+		@Override
 		public String getInitParameter(final String name)
 		{
 			if((prefix + "p1").equals(name))
@@ -108,128 +100,10 @@ public class ServletUtilContextTest extends CopeAssert
 				throw new IllegalArgumentException(name);
 		}
 
-		public String getServletContextName()
-		{
-			throw new RuntimeException();
-		}
-
-		public Object getAttribute(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public Enumeration<?> getAttributeNames()
-		{
-			throw new RuntimeException();
-		}
-
-		public ServletContext getContext(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
+		@Override
 		public String getContextPath()
 		{
 			return contextPath;
-		}
-
-		public Enumeration<?> getInitParameterNames()
-		{
-			throw new RuntimeException();
-		}
-
-		public int getMajorVersion()
-		{
-			throw new RuntimeException();
-		}
-
-		public String getMimeType(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public int getMinorVersion()
-		{
-			throw new RuntimeException();
-		}
-
-		public RequestDispatcher getNamedDispatcher(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public String getRealPath(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public RequestDispatcher getRequestDispatcher(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public URL getResource(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public InputStream getResourceAsStream(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public Set<?> getResourcePaths(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public String getServerInfo()
-		{
-			throw new RuntimeException();
-		}
-
-		@Deprecated
-		public Servlet getServlet(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		@Deprecated
-		public Enumeration<?> getServletNames()
-		{
-			throw new RuntimeException();
-		}
-
-		@Deprecated
-		public Enumeration<?> getServlets()
-		{
-			throw new RuntimeException();
-		}
-
-		public void log(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		@Deprecated
-		public void log(final Exception arg0, final String arg1)
-		{
-			throw new RuntimeException();
-		}
-
-		public void log(final String arg0, final Throwable arg1)
-		{
-			throw new RuntimeException();
-		}
-
-		public void removeAttribute(final String arg0)
-		{
-			throw new RuntimeException();
-		}
-
-		public void setAttribute(final String arg0, final Object arg1)
-		{
-			throw new RuntimeException();
 		}
 	}
 }
