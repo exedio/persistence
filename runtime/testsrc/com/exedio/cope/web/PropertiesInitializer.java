@@ -26,11 +26,11 @@ import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.misc.ServletUtil.getConnectProperties;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.exedio.cope.CacheIsolationTest;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopyTest;
 import com.exedio.cope.DataTest;
 import com.exedio.cope.DayFieldTest;
@@ -84,9 +84,9 @@ public final class PropertiesInitializer implements ServletContextListener
 	@Override
 	public void contextInitialized(final ServletContextEvent sce)
 	{
-		final ServletContext ctx = sce.getServletContext();
+		final ConnectProperties properties = getConnectProperties(sce.getServletContext());
 		for(final Model model : models())
-			setProperties(model, getConnectProperties(ctx));
+			setProperties(model, properties);
 	}
 
 	@Override
