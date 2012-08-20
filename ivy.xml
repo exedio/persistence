@@ -46,6 +46,7 @@
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="com.exedio" name="copeutil" rev="201" />
+		<dependency org="com.exedio" name="copeservletutil" rev="11" />
 		
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.1.0" />

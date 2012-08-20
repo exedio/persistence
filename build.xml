@@ -303,6 +303,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -381,6 +382,7 @@
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/utiltestsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -661,6 +663,7 @@
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/exedio-cope-servletutil.jar" />
 			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
@@ -928,6 +931,7 @@
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -988,6 +992,7 @@
 			<class location="${basedir}/build/classes/runtime/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
+				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
