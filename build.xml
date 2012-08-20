@@ -303,7 +303,6 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -597,9 +596,9 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/log4j.jar" />
-					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
+					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
@@ -661,8 +660,8 @@
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
-			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
 			<fileset file="lib/log4j.jar" />
@@ -928,7 +927,6 @@
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/log4j.jar" />
@@ -944,9 +942,9 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/trove.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-console.jar" />
+				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
@@ -990,7 +988,6 @@
 			<class location="${basedir}/build/classes/runtime/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
-				<pathelement location="${basedir}/lib/exedio-cops.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
