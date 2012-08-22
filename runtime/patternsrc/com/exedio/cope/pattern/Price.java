@@ -220,6 +220,11 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price grossToNetPercent(final int rate)
 	{
 		checkRatePercent(rate);
+
+		// shortcut for computation below
+		if(rate==0)
+			return this;
+
 		return valueOf(doubleValue() *        100d / (100 + rate));
 	}
 
@@ -229,6 +234,11 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price grossToTaxPercent(final int rate)
 	{
 		checkRatePercent(rate);
+
+		// shortcut for computation below
+		if(rate==0)
+			return ZERO;
+
 		return valueOf(doubleValue() * (1d - (100d / (100 + rate))));
 	}
 

@@ -391,6 +391,10 @@ public final class PriceTest extends CopeAssert
 		{
 			assertEquals("rate must not be negative, but was -1", e.getMessage());
 		}
+		{
+			final Price p = storeOf( 126);
+			assertSame(p, p.grossToNetPercent(0));
+		}
 	}
 
 	public static void testGrossToTaxPercent()
