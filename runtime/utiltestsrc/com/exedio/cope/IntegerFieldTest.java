@@ -203,7 +203,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(30, copy.getMaximum());
 	}
 
-	public void testMinMax()
+	public void testRange()
 	{
 		final IntegerField orig = new IntegerField().range(10, 20);
 		assertEquals(false, orig.isFinal());
