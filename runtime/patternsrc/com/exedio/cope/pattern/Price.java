@@ -214,6 +214,30 @@ public final class Price implements Serializable, Comparable<Price>
 		}
 	}
 
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
+	public Price grossToNetPercent(final int rate)
+	{
+		checkRatePercent(rate);
+		return valueOf(doubleValue() *        100d / (100 + rate));
+	}
+
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
+	public Price grossToTaxPercent(final int rate)
+	{
+		checkRatePercent(rate);
+		return valueOf(doubleValue() * (1d - (100d / (100 + rate))));
+	}
+
+	private static void checkRatePercent(final int rate)
+	{
+		if(rate<0)
+			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
+	}
+
 	@Override
 	public String toString()
 	{

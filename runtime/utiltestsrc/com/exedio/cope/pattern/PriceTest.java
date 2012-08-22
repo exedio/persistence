@@ -372,4 +372,44 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-123), storeOf(-123).getGreater(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-124).getGreater(storeOf(-123)));
 	}
+
+	public static void testGrossToNetPercent()
+	{
+		assertEquals(storeOf( 100), storeOf( 126).grossToNetPercent(26));
+		assertEquals(storeOf(-100), storeOf(-126).grossToNetPercent(26));
+		assertEquals(storeOf(   0), storeOf(   0).grossToNetPercent(26));
+		assertEquals(storeOf(   0), storeOf(   0).grossToNetPercent(0));
+		assertEquals(storeOf( 126), storeOf( 126).grossToNetPercent(0));
+		assertEquals(storeOf(-126), storeOf(-126).grossToNetPercent(0));
+
+		try
+		{
+			ZERO.grossToNetPercent(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("rate must not be negative, but was -1", e.getMessage());
+		}
+	}
+
+	public static void testGrossToTaxPercent()
+	{
+		assertEquals(storeOf( 26), storeOf( 126).grossToTaxPercent(26));
+		assertEquals(storeOf(-26), storeOf(-126).grossToTaxPercent(26));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(26));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(0));
+		assertEquals(storeOf(  0), storeOf( 126).grossToTaxPercent(0));
+		assertEquals(storeOf(  0), storeOf(-126).grossToTaxPercent(0));
+
+		try
+		{
+			ZERO.grossToTaxPercent(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("rate must not be negative, but was -1", e.getMessage());
+		}
+	}
 }

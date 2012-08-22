@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Price supports grossToNetPercent and grossToTaxPercent
 * ServletUtil uses ServletProperties.
 	Introduces dependency on exedio-cope-servletutil.jar.
 * Sequence obeys @CopeSchemaName both on feature and type.
