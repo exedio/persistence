@@ -24,6 +24,22 @@ public class StringCopyTest extends CopeAssert
 {
 	public void testOptional()
 	{
+		final StringField orig = new StringField().optional();
+		assertEquals(false, orig.isFinal());
+		assertEquals(false, orig.isMandatory());
+		assertEquals(1, orig.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
+
+		final StringField copy = orig.copy();
+		assertEquals(false, copy.isFinal());
+		assertEquals(false, copy.isMandatory());
+		assertEquals(1, copy.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
+	}
+
+	@Deprecated // OK test deprecated api
+	public void testEmpty()
+	{
 		final StringField orig = new StringField(StringField.EMPTY).optional();
 		assertEquals(false, orig.isFinal());
 		assertEquals(false, orig.isMandatory());
