@@ -23,68 +23,68 @@ import com.exedio.cope.junit.CopeAssert;
 public class StringCopyTest extends CopeAssert
 {
 	public void testOptional()
-		{
-			final StringField orig = new StringField(StringField.EMPTY).optional();
-			assertEquals(false, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertEquals(0, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
+	{
+		final StringField orig = new StringField(StringField.EMPTY).optional();
+		assertEquals(false, orig.isFinal());
+		assertEquals(false, orig.isMandatory());
+		assertEquals(0, orig.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
 
-			final StringField copy = orig.copy();
-			assertEquals(false, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertEquals(0, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
-		}
+		final StringField copy = orig.copy();
+		assertEquals(false, copy.isFinal());
+		assertEquals(false, copy.isMandatory());
+		assertEquals(0, copy.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
+	}
 
 	public void testMin()
-		{
-			final StringField orig = new StringField().toFinal().optional().lengthMin(10);
-			assertEquals(true, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertNull(orig.getImplicitUniqueConstraint());
-			assertEquals(10, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
+	{
+		final StringField orig = new StringField().toFinal().optional().lengthMin(10);
+		assertEquals(true, orig.isFinal());
+		assertEquals(false, orig.isMandatory());
+		assertNull(orig.getImplicitUniqueConstraint());
+		assertEquals(10, orig.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
 
-			final StringField copy = orig.copy();
-			assertEquals(true, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertNull(copy.getImplicitUniqueConstraint());
-			assertEquals(10, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
-		}
+		final StringField copy = orig.copy();
+		assertEquals(true, copy.isFinal());
+		assertEquals(false, copy.isMandatory());
+		assertNull(copy.getImplicitUniqueConstraint());
+		assertEquals(10, copy.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
+	}
 
 	public void testUnique()
-		{
-			final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
-			assertEquals(true, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertNotNull(orig.getImplicitUniqueConstraint());
-			assertEquals(20, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
+	{
+		final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
+		assertEquals(true, orig.isFinal());
+		assertEquals(false, orig.isMandatory());
+		assertNotNull(orig.getImplicitUniqueConstraint());
+		assertEquals(20, orig.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, orig.getMaximumLength());
 
-			final StringField copy = orig.copy();
-			assertEquals(true, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertNotNull(copy.getImplicitUniqueConstraint());
-			assertEquals(20, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
-		}
+		final StringField copy = orig.copy();
+		assertEquals(true, copy.isFinal());
+		assertEquals(false, copy.isMandatory());
+		assertNotNull(copy.getImplicitUniqueConstraint());
+		assertEquals(20, copy.getMinimumLength());
+		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
+	}
 
 	public void testRange()
-		{
-			final StringField orig = new StringField().lengthRange(10, 20);
-			assertEquals(false, orig.isFinal());
-			assertEquals(true, orig.isMandatory());
-			assertEquals(10, orig.getMinimumLength());
-			assertEquals(20, orig.getMaximumLength());
+	{
+		final StringField orig = new StringField().lengthRange(10, 20);
+		assertEquals(false, orig.isFinal());
+		assertEquals(true, orig.isMandatory());
+		assertEquals(10, orig.getMinimumLength());
+		assertEquals(20, orig.getMaximumLength());
 
-			final StringField copy = orig.copy();
-			assertEquals(false, copy.isFinal());
-			assertEquals(true, copy.isMandatory());
-			assertEquals(10, copy.getMinimumLength());
-			assertEquals(20, copy.getMaximumLength());
-		}
+		final StringField copy = orig.copy();
+		assertEquals(false, copy.isFinal());
+		assertEquals(true, copy.isMandatory());
+		assertEquals(10, copy.getMinimumLength());
+		assertEquals(20, copy.getMaximumLength());
+	}
 
 	public void testIllegalRange()
 	{
