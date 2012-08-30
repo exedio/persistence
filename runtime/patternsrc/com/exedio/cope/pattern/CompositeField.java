@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +45,7 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
@@ -88,7 +91,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			{
 				final FunctionField<?> template = e.getValue();
 				final FunctionField<?> component = copy(template);
-				addSource(component, e.getKey(), ComputedElement.get());
+				addSource(component, e.getKey(), new TemplateAnnotationProxy(template));
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
 				if(optional && mandatoryComponent==null && template.isMandatory())
@@ -121,6 +124,42 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			this.mandatoryComponent = null;
 			this.isNullComponent = null;
 			this.unison = null;
+		}
+	}
+
+	private final class TemplateAnnotationProxy implements AnnotatedElement
+	{
+		private final FunctionField<?> template;
+
+		TemplateAnnotationProxy(final FunctionField<?> template)
+		{
+			this.template = template;
+		}
+
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(Computed.class==annotationClass)
+				return ComputedElement.get().isAnnotationPresent(annotationClass);
+
+			return template.isAnnotationPresent(annotationClass);
+		}
+
+		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+		{
+			if(Computed.class==annotationClass)
+				return ComputedElement.get().getAnnotation(annotationClass);
+
+			return template.getAnnotation(annotationClass);
+		}
+
+		public Annotation[] getAnnotations()
+		{
+			throw new RuntimeException(template.toString());
+		}
+
+		public Annotation[] getDeclaredAnnotations()
+		{
+			throw new RuntimeException(template.toString());
 		}
 	}
 

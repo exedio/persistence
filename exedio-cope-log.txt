@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* CompositeField supports @CopeSchemaName on template fields.
+	Requires modification of persistent schema in such cases.
 * Price supports grossToNetPercent and grossToTaxPercent
 * ServletUtil uses ServletProperties.
 	Introduces dependency on exedio-cope-servletutil.jar.

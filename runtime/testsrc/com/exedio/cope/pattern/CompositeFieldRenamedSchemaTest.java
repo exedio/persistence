@@ -57,14 +57,14 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("namedComp", ann(wrongComp));
 
 		assertEquals(null,                  ann(virgnComp.of(virgnTemp)));
-		assertEquals(null,                  ann(virgnComp.of(wrongTemp))); // TODO virgnComp-namedTemp
+		assertEquals("virgnComp-namedTemp", ann(virgnComp.of(wrongTemp)));
 		assertEquals("namedComp-virgnTemp", ann(wrongComp.of(virgnTemp)));
-		assertEquals("namedComp-wrongTemp", ann(wrongComp.of(wrongTemp)));
+		assertEquals("namedComp-namedTemp", ann(wrongComp.of(wrongTemp)));
 
 		assertEquals("virgnComp_virgnTemp", getColumnName(virgnComp.of(virgnTemp)));
-		assertEquals("virgnComp_wrongTemp", getColumnName(virgnComp.of(wrongTemp))); // TODO virgnComp_namedTemp
+		assertEquals("virgnComp_namedTemp", getColumnName(virgnComp.of(wrongTemp)));
 		assertEquals("namedComp_virgnTemp", getColumnName(wrongComp.of(virgnTemp)));
-		assertEquals("namedComp_wrongTemp", getColumnName(wrongComp.of(wrongTemp))); // TODO namedComp_namedTemp
+		assertEquals("namedComp_namedTemp", getColumnName(wrongComp.of(wrongTemp)));
 	}
 
 	private static String ann(final Feature f)
