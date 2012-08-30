@@ -57,6 +57,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(TextUrlFilterZipTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
+		suite.addTestSuite(CompositeFieldRenamedSchemaTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
