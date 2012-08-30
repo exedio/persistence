@@ -26,7 +26,10 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.wrongComp;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CopeSchemaName;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.misc.Computed;
 
 public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 {
@@ -44,9 +47,29 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 
 	public static void testIt()
 	{
+		assertTrue(virgnComp.of(virgnTemp).isAnnotationPresent(Computed.class));
+		assertFalse(virgnComp.isAnnotationPresent(Computed.class));
+		assertFalse(virgnTemp.isAnnotationPresent(Computed.class));
+
+		assertEquals(null,        ann(virgnTemp));
+		assertEquals("namedTemp", ann(wrongTemp));
+		assertEquals(null,        ann(virgnComp));
+		assertEquals("namedComp", ann(wrongComp));
+
+		assertEquals(null,                  ann(virgnComp.of(virgnTemp)));
+		assertEquals(null,                  ann(virgnComp.of(wrongTemp))); // TODO virgnComp-namedTemp
+		assertEquals("namedComp-virgnTemp", ann(wrongComp.of(virgnTemp)));
+		assertEquals("namedComp-wrongTemp", ann(wrongComp.of(wrongTemp)));
+
 		assertEquals("virgnComp_virgnTemp", getColumnName(virgnComp.of(virgnTemp)));
 		assertEquals("virgnComp_wrongTemp", getColumnName(virgnComp.of(wrongTemp))); // TODO virgnComp_namedTemp
 		assertEquals("namedComp_virgnTemp", getColumnName(wrongComp.of(virgnTemp)));
 		assertEquals("namedComp_wrongTemp", getColumnName(wrongComp.of(wrongTemp))); // TODO namedComp_namedTemp
+	}
+
+	private static String ann(final Feature f)
+	{
+		final CopeSchemaName a = f.getAnnotation(CopeSchemaName.class);
+		return a!=null ? a.value() : null;
 	}
 }
