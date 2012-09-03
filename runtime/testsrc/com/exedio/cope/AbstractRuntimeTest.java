@@ -571,14 +571,14 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertSame(feature, info.getFeature());
-		assertEquals(start, info.getStart());
-		assertEquals(minimum, info.getMinimum());
-		assertEquals(maximum, info.getMaximum());
-		assertEquals(count, info.getCount());
-		assertTrue(info.isKnown());
-		assertEquals(first, info.getFirst());
-		assertEquals(last, info.getLast());
+		assertSame("feature", feature, info.getFeature());
+		assertEquals("start", start, info.getStart());
+		assertEquals("minimum", minimum, info.getMinimum());
+		assertEquals("maximum", maximum, info.getMaximum());
+		assertEquals("count", count, info.getCount());
+		assertTrue("known", info.isKnown());
+		assertEquals("first", first, info.getFirst());
+		assertEquals("last", last, info.getLast());
 	}
 
 	protected void assertInfo(final Type<?> type, final SequenceInfo info)
