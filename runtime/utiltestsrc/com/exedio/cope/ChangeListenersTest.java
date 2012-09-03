@@ -22,6 +22,19 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ChangeListenersTest extends CopeAssert
 {
+	/**
+	 * Makes tests tolerate previous tests.
+	 * Needed for JDK 1.7
+	 */
+	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		baselineInfo = model.getChangeListenersInfo();
+	}
+
 	public void testIt()
 	{
 		assertInfo(0, 0);
@@ -66,31 +79,31 @@ public class ChangeListenersTest extends CopeAssert
 
 	public void testWeakness()
 	{
-		assertInfo(0, 1);
+		assertInfo(0, 0);
 
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(0, 0);
 
 		System.gc();
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(0, 0);
 
 		l1 = null;
 		System.gc();
-		assertInfo(0, 1);
+		assertInfo(0, 0);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(1, 1);
+		assertInfo(1, 0);
 
 		final FailListener l2 = new FailListener();
 		model.addChangeListener(l2);
 		model.addChangeListener(new FailListener());
 		System.gc();
 		model.removeChangeListener(l2);
-		assertInfo(2, 2);
+		assertInfo(2, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(2, 2);
+		assertInfo(2, 1);
 	}
 
 	private final class FailListener implements ChangeListener
@@ -107,15 +120,15 @@ public class ChangeListenersTest extends CopeAssert
 		}
 	}
 
-	private static void assertInfo(final int cleared, final int removed)
+	private void assertInfo(final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
-		assertEquals("cleared", cleared, info.getCleared());
-		assertEquals("removed", removed, info.getRemoved());
-		assertEquals("failed",  0,       info.getFailed());
+		assertEquals("cleared", cleared, info.getCleared() - baselineInfo.getCleared());
+		assertEquals("removed", removed, info.getRemoved() - baselineInfo.getRemoved());
+		assertEquals("failed",  0,       info.getFailed()  - baselineInfo.getFailed() );
 
 		@SuppressWarnings("deprecation")
-		final int clearedDeprecated = model.getChangeListenersCleared();
+		final int clearedDeprecated = model.getChangeListenersCleared() - baselineInfo.getCleared();
 		assertEquals(cleared, clearedDeprecated);
 
 		try
