@@ -907,4 +907,11 @@ public class DummyDatabaseMetaData implements DatabaseMetaData
 		throw new SQLException();
 	}
 
+	/**
+	 * @since needed since JDK 1.7
+	 */
+	public boolean generatedKeyAlwaysReturned() throws SQLException
+	{
+		throw new SQLException();
+	}
 }
