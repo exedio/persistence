@@ -31,7 +31,7 @@ public abstract class HierarchySingleSuper extends Item
 	 */
 	public HierarchySingleSuper()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

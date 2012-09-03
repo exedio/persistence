@@ -48,7 +48,7 @@ public class HashItem extends Item
 	 */
 	public HashItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

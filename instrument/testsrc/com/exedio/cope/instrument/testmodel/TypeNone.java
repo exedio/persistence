@@ -46,7 +46,7 @@ public class TypeNone extends Item
 	 */
 	private TypeNone()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

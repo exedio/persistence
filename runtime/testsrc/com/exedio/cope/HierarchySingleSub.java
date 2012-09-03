@@ -42,7 +42,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	public HierarchySingleSub()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

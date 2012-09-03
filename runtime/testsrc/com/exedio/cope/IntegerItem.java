@@ -62,7 +62,7 @@ public class IntegerItem extends Item
 	public IntegerItem(
 				final int mandatory)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			IntegerItem.mandatory.map(mandatory),
 		});
 	}/**

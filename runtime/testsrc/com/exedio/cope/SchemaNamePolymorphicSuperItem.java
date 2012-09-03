@@ -29,7 +29,7 @@ class SchemaNamePolymorphicSuperItem extends Item
 	 */
 	SchemaNamePolymorphicSuperItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

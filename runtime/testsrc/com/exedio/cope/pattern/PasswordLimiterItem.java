@@ -57,7 +57,7 @@ public class PasswordLimiterItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PasswordLimiterItem.password.map(password),
 		});
 	}/**

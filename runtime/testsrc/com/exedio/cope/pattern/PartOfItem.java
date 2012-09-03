@@ -53,7 +53,7 @@ public class PartOfItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfItem.container.map(container),
 			PartOfItem.partString.map(partString),
 			PartOfItem.partInteger.map(partInteger),

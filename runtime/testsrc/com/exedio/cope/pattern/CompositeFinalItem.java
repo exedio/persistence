@@ -49,7 +49,7 @@ public final class CompositeFinalItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeFinalItem.code.map(code),
 			CompositeFinalItem.first.map(first),
 			CompositeFinalItem.second.map(second),

@@ -48,7 +48,7 @@ public class EnumMapFieldItem extends Item
 	 */
 	public EnumMapFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

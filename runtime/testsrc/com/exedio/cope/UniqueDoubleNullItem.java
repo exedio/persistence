@@ -48,7 +48,7 @@ class UniqueDoubleNullItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueDoubleNullItem.string.map(string),
 			UniqueDoubleNullItem.integer.map(integer),
 		});

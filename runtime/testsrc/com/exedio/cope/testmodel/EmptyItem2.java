@@ -35,7 +35,7 @@ public class EmptyItem2 extends Item
 	 */
 	public EmptyItem2()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

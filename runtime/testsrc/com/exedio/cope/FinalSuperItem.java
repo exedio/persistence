@@ -33,7 +33,7 @@ public class FinalSuperItem extends Item
 	public FinalSuperItem(
 				final int superInt)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			FinalSuperItem.superInt.map(superInt),
 		});
 	}/**

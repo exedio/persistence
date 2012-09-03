@@ -50,7 +50,7 @@ class UniqueDoubleItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueDoubleItem.string.map(string),
 			UniqueDoubleItem.integer.map(integer),
 		});

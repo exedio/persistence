@@ -48,7 +48,7 @@ public class MapFieldItem extends Item
 	 */
 	public MapFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

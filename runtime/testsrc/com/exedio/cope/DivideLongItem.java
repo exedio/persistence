@@ -51,7 +51,7 @@ public class DivideLongItem extends Item
 	 */
 	public DivideLongItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

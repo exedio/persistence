@@ -33,7 +33,7 @@ final class SequenceItem extends Item
 	 */
 	SequenceItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

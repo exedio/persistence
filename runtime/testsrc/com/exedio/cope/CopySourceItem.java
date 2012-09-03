@@ -61,7 +61,7 @@ class CopySourceItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CopySourceItem.targetItem.map(targetItem),
 			CopySourceItem.templateString.map(templateString),
 			CopySourceItem.templateItem.map(templateItem),

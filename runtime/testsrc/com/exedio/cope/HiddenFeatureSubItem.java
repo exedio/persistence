@@ -43,7 +43,7 @@ class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 */
 	HiddenFeatureSubItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

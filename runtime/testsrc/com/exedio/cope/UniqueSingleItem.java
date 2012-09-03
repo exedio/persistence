@@ -48,7 +48,7 @@ public class UniqueSingleItem extends Item
 	 */
 	public UniqueSingleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

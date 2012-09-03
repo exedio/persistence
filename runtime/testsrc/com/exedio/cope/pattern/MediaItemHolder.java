@@ -25,7 +25,7 @@ public class MediaItemHolder extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MediaItemHolder.mediaItem.map(mediaItem),
 		});
 	}/**

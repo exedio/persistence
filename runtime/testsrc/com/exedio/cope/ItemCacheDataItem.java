@@ -43,7 +43,7 @@ class ItemCacheDataItem extends Item
 	 */
 	ItemCacheDataItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

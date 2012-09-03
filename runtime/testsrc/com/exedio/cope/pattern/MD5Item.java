@@ -39,7 +39,7 @@ public class MD5Item extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MD5Item.password.map(password),
 		});
 	}/**

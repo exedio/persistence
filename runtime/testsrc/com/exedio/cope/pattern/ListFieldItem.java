@@ -40,7 +40,7 @@ public class ListFieldItem extends Item
 	 */
 	public ListFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

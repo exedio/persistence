@@ -40,7 +40,7 @@ class AsStringItem extends Item
 				final java.lang.Long longx,
 				final java.lang.Double doublex)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			AsStringItem.intx.map(intx),
 			AsStringItem.longx.map(longx),
 			AsStringItem.doublex.map(doublex),

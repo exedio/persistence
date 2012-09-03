@@ -43,7 +43,7 @@ final class MediaPatternItem extends Item
 	 */
 	MediaPatternItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

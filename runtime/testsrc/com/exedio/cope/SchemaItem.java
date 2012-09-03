@@ -88,7 +88,7 @@ class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			SchemaItem.nonFinalInteger.map(nonFinalInteger),
 			SchemaItem.string.map(string),
 			SchemaItem.integ.map(integ),

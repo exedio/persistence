@@ -35,7 +35,7 @@ class DataFinalItem extends Item
 	DataFinalItem(
 				final com.exedio.cope.DataField.Value data)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DataFinalItem.data.map(data),
 		});
 	}/**

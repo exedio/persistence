@@ -49,7 +49,7 @@ public class RecursiveItem extends Item
 	 */
 	public RecursiveItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

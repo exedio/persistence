@@ -31,7 +31,7 @@ public class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectSuperIt
 	public PolymorphicBoundSelectSubItem(
 				final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.PolymorphicBoundSelectSuperItem.parent.map(parent),
 		});
 	}/**

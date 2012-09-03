@@ -42,7 +42,7 @@ public class ThumbnailItem extends Item
 	 */
 	public ThumbnailItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

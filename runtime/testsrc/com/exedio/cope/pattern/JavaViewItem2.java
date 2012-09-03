@@ -31,7 +31,7 @@ public class JavaViewItem2 extends Item
 	 */
 	public JavaViewItem2()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

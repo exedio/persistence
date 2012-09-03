@@ -112,7 +112,7 @@ class CompareFunctionConditionItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CompareFunctionConditionItem.leftString.map(leftString),
 			CompareFunctionConditionItem.rightString.map(rightString),
 			CompareFunctionConditionItem.leftInt.map(leftInt),

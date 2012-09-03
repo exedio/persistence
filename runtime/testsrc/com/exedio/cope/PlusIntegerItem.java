@@ -70,7 +70,7 @@ public class PlusIntegerItem extends Item
 	 */
 	public PlusIntegerItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

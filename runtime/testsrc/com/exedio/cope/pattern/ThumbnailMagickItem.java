@@ -43,7 +43,7 @@ public class ThumbnailMagickItem extends Item
 	 */
 	public ThumbnailMagickItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

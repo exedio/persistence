@@ -50,7 +50,7 @@ class HardJoinB3Item extends HardJoinB2Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HardJoinB1Item.code.map(code),
 			com.exedio.cope.HardJoinB1Item.b1.map(b1),
 			com.exedio.cope.HardJoinB2Item.b2.map(b2),

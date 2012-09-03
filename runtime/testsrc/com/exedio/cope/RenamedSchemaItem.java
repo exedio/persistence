@@ -57,7 +57,7 @@ package com.exedio.cope;
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			RenamedSchemaItem.uniqueDouble1.map(uniqueDouble1),
 			RenamedSchemaItem.uniqueDouble2.map(uniqueDouble2),
 		});

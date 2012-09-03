@@ -48,7 +48,7 @@ public class PriceFieldItem extends Item
 				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PriceFieldItem.finalPrice.map(finalPrice),
 			PriceFieldItem.bigPrice.map(bigPrice),
 		});

@@ -51,7 +51,7 @@ public class MinusDoubleItem extends Item
 	 */
 	public MinusDoubleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

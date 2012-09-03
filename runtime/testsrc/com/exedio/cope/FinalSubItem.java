@@ -35,7 +35,7 @@ public class FinalSubItem extends FinalSuperItem
 				final int superInt,
 				final int subInt)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.FinalSuperItem.superInt.map(superInt),
 			FinalSubItem.subInt.map(subInt),
 		});

@@ -41,7 +41,7 @@ final class CompositeDefaultItem extends Item
 	 */
 	CompositeDefaultItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

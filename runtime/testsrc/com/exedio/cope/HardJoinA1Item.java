@@ -48,7 +48,7 @@ class HardJoinA1Item extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			HardJoinA1Item.code.map(code),
 			HardJoinA1Item.a1.map(a1),
 		});

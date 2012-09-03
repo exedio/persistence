@@ -62,7 +62,7 @@ class WrapPrimitiveItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			WrapPrimitiveItem.integer.map(integer),
 			WrapPrimitiveItem.date.map(date),
 			WrapPrimitiveItem.booleanField.map(booleanField),

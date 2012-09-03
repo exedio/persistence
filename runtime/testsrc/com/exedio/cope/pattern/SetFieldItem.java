@@ -39,7 +39,7 @@ public class SetFieldItem extends Item
 	 */
 	public SetFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

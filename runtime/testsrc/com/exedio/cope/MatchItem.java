@@ -40,7 +40,7 @@ class MatchItem extends Item
 	 */
 	MatchItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

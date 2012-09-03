@@ -30,7 +30,7 @@ class DataSubItem extends DataItem
 	 */
 	DataSubItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

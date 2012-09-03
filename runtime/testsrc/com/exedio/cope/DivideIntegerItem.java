@@ -51,7 +51,7 @@ public class DivideIntegerItem extends Item
 	 */
 	public DivideIntegerItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

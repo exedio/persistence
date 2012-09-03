@@ -44,7 +44,7 @@ class UniqueHierarchySuperItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueHierarchySuperItem.superField.map(superField),
 		});
 	}/**

@@ -41,7 +41,7 @@ public class PasswordRecoveryItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PasswordRecoveryItem.password.map(password),
 		});
 	}/**

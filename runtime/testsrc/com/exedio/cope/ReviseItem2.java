@@ -48,7 +48,7 @@ class ReviseItem2 extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			ReviseItem2.field5.map(field5),
 			ReviseItem2.field6.map(field6),
 			ReviseItem2.field6b.map(field6b),

@@ -42,7 +42,7 @@ public class FullQualifyInput extends com.exedio.cope.instrument.testmodel.Input
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.Input.string.map(string),
 			com.exedio.cope.instrument.testmodel.Input.integer.map(integer),
 		});

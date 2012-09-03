@@ -36,7 +36,7 @@ class ItemSerializationItem2 extends Item
 	 */
 	ItemSerializationItem2()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

@@ -62,7 +62,7 @@ public class DoubleItem extends Item
 	public DoubleItem(
 				final double mandatory)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(mandatory),
 		});
 	}/**

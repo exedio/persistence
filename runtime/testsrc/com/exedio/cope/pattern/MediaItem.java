@@ -88,7 +88,7 @@ public class MediaItem extends Item
 	 */
 	public MediaItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

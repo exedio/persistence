@@ -42,7 +42,7 @@ public class DefaultTextInput extends Input
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.Input.string.map(string),
 			com.exedio.cope.instrument.testmodel.Input.integer.map(integer),
 		});

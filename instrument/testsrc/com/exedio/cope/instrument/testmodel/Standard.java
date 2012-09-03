@@ -251,7 +251,7 @@ public class Standard extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			Standard.notNullString.map(notNullString),
 			Standard.finalString.map(finalString),
 			Standard.initialString.map(initialString),

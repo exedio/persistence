@@ -40,7 +40,7 @@ public final class SingletonItem extends Item
 	 */
 	public SingletonItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

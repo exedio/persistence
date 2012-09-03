@@ -40,7 +40,7 @@ class InstanceOfB1Item extends InstanceOfAItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.InstanceOfAItem.code.map(code),
 		});
 	}/**

@@ -33,7 +33,7 @@ public class PatternTestItem extends Item
 	 */
 	public PatternTestItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

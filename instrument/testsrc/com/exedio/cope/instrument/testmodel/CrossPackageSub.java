@@ -48,7 +48,7 @@ class CrossPackageSub extends CrossPackageSuper
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField.map(superField),
 			com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField2.map(superField2),
 			com.exedio.cope.instrument.testmodel.CrossPackageSuper.externalEnum.map(externalEnum),

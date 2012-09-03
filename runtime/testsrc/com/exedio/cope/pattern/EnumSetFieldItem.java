@@ -38,7 +38,7 @@ public class EnumSetFieldItem extends Item
 	 */
 	public EnumSetFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

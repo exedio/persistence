@@ -56,7 +56,7 @@ public class PartOfOrderedItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfOrderedItem.container.map(container),
 			PartOfOrderedItem.order.map(order),
 			PartOfOrderedItem.partString.map(partString),

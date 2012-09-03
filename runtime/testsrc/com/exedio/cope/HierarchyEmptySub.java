@@ -40,7 +40,7 @@ public class HierarchyEmptySub extends HierarchyEmptySuper
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HierarchyEmptySuper.superInt.map(superInt),
 		});
 	}/**

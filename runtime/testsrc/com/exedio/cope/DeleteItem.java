@@ -59,7 +59,7 @@ class DeleteItem extends Item
 	 */
 	DeleteItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

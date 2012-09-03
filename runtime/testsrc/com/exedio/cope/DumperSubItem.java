@@ -54,7 +54,7 @@ public class DumperSubItem extends DumperItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.DumperItem.string.map(string),
 			com.exedio.cope.DumperItem.unique.map(unique),
 			com.exedio.cope.DumperItem.data.map(data),

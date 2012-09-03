@@ -61,7 +61,7 @@ public class PlusDoubleItem extends Item
 	 */
 	public PlusDoubleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

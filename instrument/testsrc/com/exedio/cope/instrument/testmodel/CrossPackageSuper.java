@@ -56,7 +56,7 @@ class CrossPackageSuper extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CrossPackageSuper.superField.map(superField),
 			CrossPackageSuper.superField2.map(superField2),
 			CrossPackageSuper.externalEnum.map(externalEnum),

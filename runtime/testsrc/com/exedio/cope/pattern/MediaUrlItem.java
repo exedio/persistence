@@ -71,7 +71,7 @@ public class MediaUrlItem extends Item implements MediaUrlCatchphraseProvider
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MediaUrlItem.name.map(name),
 		});
 	}/**

@@ -41,7 +41,7 @@ public class EnumContainer extends Item
 	 */
 	public EnumContainer()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

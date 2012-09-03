@@ -49,7 +49,7 @@ public class EmptyItem extends Item
 	 */
 	public EmptyItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

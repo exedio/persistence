@@ -65,7 +65,7 @@ public class NameSubItem extends NameLongItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.NameLongItem.code.map(code),
 			NameSubItem.unique.map(unique),
 			NameSubItem.integer.map(integer),

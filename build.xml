@@ -412,7 +412,6 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				genericSetValueArray="false"
 				verbose="false">
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
@@ -632,7 +631,6 @@
 				activationConstructorOnBottom="false"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				genericSetValueArray="false"
 				verbose="false">
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
@@ -811,7 +809,6 @@
 				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				genericSetValueArray="false"
 				verbose="false">
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />

@@ -64,7 +64,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	public ScheduleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

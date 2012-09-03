@@ -29,7 +29,7 @@ class SchemaTargetItem extends Item
 	 */
 	SchemaTargetItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

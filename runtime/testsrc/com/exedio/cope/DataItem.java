@@ -51,7 +51,7 @@ class DataItem extends Item
 	 */
 	DataItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

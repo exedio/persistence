@@ -30,7 +30,7 @@ final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 	 */
 	SchemaNamePolymorphicSubItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

@@ -47,7 +47,7 @@ class PrimaryKeyItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PrimaryKeyItem.field.map(field),
 		});
 	}/**

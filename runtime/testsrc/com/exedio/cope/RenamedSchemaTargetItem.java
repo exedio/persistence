@@ -29,7 +29,7 @@ class RenamedSchemaTargetItem extends Item
 	 */
 	RenamedSchemaTargetItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

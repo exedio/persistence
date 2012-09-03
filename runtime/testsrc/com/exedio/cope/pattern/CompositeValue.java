@@ -64,7 +64,7 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeValue.aString.map(aString),
 			CompositeValue.anInt.map(anInt),
 			CompositeValue.anEnum.map(anEnum),

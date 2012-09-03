@@ -51,7 +51,7 @@ public class DivideDoubleItem extends Item
 	 */
 	public DivideDoubleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

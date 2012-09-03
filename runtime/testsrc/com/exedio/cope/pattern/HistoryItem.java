@@ -38,7 +38,7 @@ public class HistoryItem extends Item
 	 */
 	public HistoryItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

@@ -61,7 +61,7 @@ public class PlusLongItem extends Item
 	 */
 	public PlusLongItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

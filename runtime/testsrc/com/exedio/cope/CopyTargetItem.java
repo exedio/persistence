@@ -67,7 +67,7 @@ class CopyTargetItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CopyTargetItem.code.map(code),
 			CopyTargetItem.templateString.map(templateString),
 			CopyTargetItem.otherString.map(otherString),

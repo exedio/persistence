@@ -50,7 +50,7 @@ class ImporterItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			ImporterItem.code.map(code),
 			ImporterItem.description.map(description),
 			ImporterItem.description2.map(description2),

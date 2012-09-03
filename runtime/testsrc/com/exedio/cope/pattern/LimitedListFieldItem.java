@@ -111,7 +111,7 @@ public class LimitedListFieldItem extends Item
 	 */
 	public LimitedListFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 
