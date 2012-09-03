@@ -100,6 +100,7 @@ final class Generator
 	private final boolean activationConstructorOnBottom;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
+	private final boolean genericSetValueArray;
 
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
@@ -121,6 +122,7 @@ final class Generator
 		this.activationConstructorOnBottom = params.activationConstructorOnBottom;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
+		this.genericSetValueArray = params.genericSetValueArray;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -264,7 +266,10 @@ final class Generator
 		writeThrowsClause(constructorExceptions);
 		write("\t{");
 		write(lineSeparator);
-		write("\t\tthis(new " + SET_VALUE + "[]{");
+		write("\t\tthis(new " + SET_VALUE);
+		if(genericSetValueArray)
+			write("<?>");
+		write("[]{");
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{

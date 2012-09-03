@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SetValue array literals created by instrumentor use generics.
+	Avoids compiler warnings about rawtypes on JDK 1.7.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument genericSetValueArray="false" ...
+	to enable previous behaviour.
 * CompositeField supports @CopeSchemaName on template fields.
 	Requires modification of persistent schema in such cases.
 * Price supports grossToNetPercent and grossToTaxPercent

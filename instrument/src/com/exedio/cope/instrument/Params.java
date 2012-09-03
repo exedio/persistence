@@ -27,5 +27,6 @@ final class Params
 	boolean activationConstructorOnBottom = true;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
+	boolean genericSetValueArray = true;
 	boolean verbose = true;
 }

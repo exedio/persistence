@@ -79,6 +79,11 @@ public final class AntTask extends Task
 		params.serialVersionUID = value;
 	}
 
+	public void setGenericSetValueArray(final boolean value)
+	{
+		params.genericSetValueArray = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;
