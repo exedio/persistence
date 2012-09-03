@@ -132,9 +132,6 @@ public class ChangeListenersTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
 }
