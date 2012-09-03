@@ -178,10 +178,9 @@ public abstract class MediaImageioFilter extends MediaFilter
 		// avoids spurious black side bars at least for jpeg and
 		// avoids conversion to DirectColorModel in MediaThumbnail.
 		// Don't know why.
-		if("image/jpeg".equals(contentType))
+		if("image/jpeg".equals(contentType) && JPEGCodecAccess.available())
 		{
-			srcBuf = com.sun.image.codec.jpeg.
-				JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+			srcBuf = JPEGCodecAccess.convert(srcBytes);
 		}
 		else
 		{
