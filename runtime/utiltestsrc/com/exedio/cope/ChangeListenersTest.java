@@ -24,6 +24,7 @@ public class ChangeListenersTest extends CopeAssert
 {
 	public void testIt()
 	{
+		assertInfo(0, 0);
 		final FailListener l = new FailListener();
 
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
@@ -65,6 +66,8 @@ public class ChangeListenersTest extends CopeAssert
 
 	public void testWeakness()
 	{
+		assertInfo(0, 1);
+
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
