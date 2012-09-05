@@ -24,31 +24,31 @@ import java.lang.reflect.AnnotatedElement;
 import com.exedio.cope.FunctionField;
 
 final class FeatureAnnotatedElementAdapter implements AnnotatedElement
+{
+	private final FunctionField<?> template;
+
+	FeatureAnnotatedElementAdapter(final FunctionField<?> template)
 	{
-		private final FunctionField<?> template;
-
-		FeatureAnnotatedElementAdapter(final FunctionField<?> template)
-		{
-			this.template = template;
-		}
-
-		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-		{
-			return template.isAnnotationPresent(annotationClass);
-		}
-
-		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
-		{
-			return template.getAnnotation(annotationClass);
-		}
-
-		public Annotation[] getAnnotations()
-		{
-			throw new RuntimeException(template.toString());
-		}
-
-		public Annotation[] getDeclaredAnnotations()
-		{
-			throw new RuntimeException(template.toString());
-		}
+		this.template = template;
 	}
+
+	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+	{
+		return template.isAnnotationPresent(annotationClass);
+	}
+
+	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+	{
+		return template.getAnnotation(annotationClass);
+	}
+
+	public Annotation[] getAnnotations()
+	{
+		throw new RuntimeException(template.toString());
+	}
+
+	public Annotation[] getDeclaredAnnotations()
+	{
+		throw new RuntimeException(template.toString());
+	}
+}
