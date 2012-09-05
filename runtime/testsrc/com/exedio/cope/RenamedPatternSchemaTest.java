@@ -51,7 +51,7 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 
-		assertEquals(filterTableName("ZackItem"), schemaName(TYPE));
+		assertEquals("ZackItem", schemaName(TYPE));
 		assertEquals(null, schemaName(RawItem.TYPE));
 		assertEquals("zack-sourceFeature", schemaName(pattern.sourceFeature));
 		assertEquals(null, schemaName(raw.sourceFeature));
