@@ -26,7 +26,7 @@ final class CompositeFieldComputedComposite extends Composite
 {
 	static final StringField virgnTemp = new StringField();
 	@Computed()
-	static final StringField wrongTemp = new StringField();
+	static final StringField compuTemp = new StringField();
 
 	private CompositeFieldComputedComposite(final SetValue<?>... setValues) { super(setValues); }
 	private static final long serialVersionUID = 1l;

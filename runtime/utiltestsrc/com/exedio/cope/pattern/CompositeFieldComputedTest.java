@@ -19,10 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.CompositeFieldComputedComposite.virgnTemp;
-import static com.exedio.cope.pattern.CompositeFieldComputedComposite.wrongTemp;
+import static com.exedio.cope.pattern.CompositeFieldComputedComposite.compuTemp;
 import static com.exedio.cope.pattern.CompositeFieldComputedItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldComputedItem.virgnComp;
-import static com.exedio.cope.pattern.CompositeFieldComputedItem.wrongComp;
+import static com.exedio.cope.pattern.CompositeFieldComputedItem.compuComp;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -41,14 +41,14 @@ public final class CompositeFieldComputedTest extends CopeAssert
 	public static void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
-		assertEquals(true,  comp(wrongTemp));
+		assertEquals(true,  comp(compuTemp));
 		assertEquals(false, comp(virgnComp));
-		assertEquals(true,  comp(wrongComp));
+		assertEquals(true,  comp(compuComp));
 
 		assertEquals(true,  comp(virgnComp.of(virgnTemp))); // TODO should be false
-		assertEquals(true,  comp(virgnComp.of(wrongTemp)));
-		assertEquals(true,  comp(wrongComp.of(virgnTemp)));
-		assertEquals(true,  comp(wrongComp.of(wrongTemp)));
+		assertEquals(true,  comp(virgnComp.of(compuTemp)));
+		assertEquals(true,  comp(compuComp.of(virgnTemp)));
+		assertEquals(true,  comp(compuComp.of(compuTemp)));
 	}
 
 	private static boolean comp(final Feature f)

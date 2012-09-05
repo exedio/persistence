@@ -28,7 +28,7 @@ final class CompositeFieldComputedItem extends Item
 {
 	static final CompositeField<CompositeFieldComputedComposite> virgnComp = CompositeField.create(CompositeFieldComputedComposite.class);
 	@Computed()
-	static final CompositeField<CompositeFieldComputedComposite> wrongComp = CompositeField.create(CompositeFieldComputedComposite.class);
+	static final CompositeField<CompositeFieldComputedComposite> compuComp = CompositeField.create(CompositeFieldComputedComposite.class);
 
 
 	private static final long serialVersionUID = 1l;
