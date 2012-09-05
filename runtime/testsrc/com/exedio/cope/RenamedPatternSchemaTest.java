@@ -51,6 +51,23 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 
+		assertEquals(filterTableName("ZackItem"), schemaName(TYPE));
+		assertEquals(null, schemaName(RawItem.TYPE));
+		assertEquals("zack-sourceFeature", schemaName(pattern.sourceFeature));
+		assertEquals(null, schemaName(raw.sourceFeature));
+		assertEquals("zack-sourceFeature", schemaName(RawItem.pattern.sourceFeature));
+		assertEquals(null, schemaName(RawItem.raw.sourceFeature));
+		assertEquals("ZackItem-zack", schemaName(pattern.getSourceType()));
+		assertEquals("ZackItem-zack-tail", schemaName(pattern.getSourceTypePostfix()));
+		assertEquals("ZackItem-raw", schemaName(raw.getSourceType()));
+		assertEquals("ZackItem-raw-tail", schemaName(raw.getSourceTypePostfix()));
+		assertEquals("RawItem-zack", schemaName(RawItem.pattern.getSourceType()));
+		assertEquals("RawItem-zack-tail", schemaName(RawItem.pattern.getSourceTypePostfix()));
+		assertEquals(null, schemaName(RawItem.raw.getSourceType()));
+		assertEquals(null, schemaName(RawItem.raw.getSourceTypePostfix()));
+		assertEquals(null, schemaName(pattern.sourceTypeField));
+		assertEquals(null, schemaName(pattern.sourceTypePostfixField));
+
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
 		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
@@ -67,6 +84,18 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(filterTableName("RawItem_raw_tail"), getTableName(RawItem.raw.getSourceTypePostfix()));
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
+	}
+
+	private static String schemaName(final Type<?> type)
+	{
+		final CopeSchemaName ann = type.getAnnotation(CopeSchemaName.class);
+		return ann!=null ? ann.value() : null;
+	}
+
+	private static String schemaName(final Field<?> feature)
+	{
+		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
+		return ann!=null ? ann.value() : null;
 	}
 
 	private static class RawItem extends Item
