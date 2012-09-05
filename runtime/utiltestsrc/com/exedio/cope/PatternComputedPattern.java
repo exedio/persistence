@@ -36,13 +36,23 @@ final class PatternComputedPattern extends Pattern
 
 	Type<?> virgnType = null;
 	Type<?> compuType = null;
+	final StringField virgnTypeVirgnField = new StringField();
+	final StringField virgnTypeCompuField = new StringField();
+	final StringField compuTypeVirgnField = new StringField();
+	final StringField compuTypeCompuField = new StringField();
 
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
 		final Features features = new Features();
+		features.put("virgnField", virgnTypeVirgnField);
+		features.put("compuField", virgnTypeCompuField, ComputedElement.get());
 		this.virgnType = newSourceType(VirgnType.class, features, "virgn");
+
+		features.clear();
+		features.put("virgnField", compuTypeVirgnField);
+		features.put("compuField", compuTypeCompuField, ComputedElement.get());
 		this.compuType = newSourceType(CompuType.class, features, "compu");
 	}
 
