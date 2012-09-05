@@ -100,7 +100,7 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
-				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+				return getAnnotation(annotationClass)!=null;
 			}
 			else if(Computed.class==annotationClass)
 			{
@@ -232,7 +232,7 @@ public abstract class Pattern extends Feature
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
-				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;

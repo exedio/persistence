@@ -89,12 +89,14 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 	private static String schemaName(final Type<?> type)
 	{
 		final CopeSchemaName ann = type.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, type.isAnnotationPresent(CopeSchemaName.class));
 		return ann!=null ? ann.value() : null;
 	}
 
 	private static String schemaName(final Field<?> feature)
 	{
 		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, feature.isAnnotationPresent(CopeSchemaName.class));
 		return ann!=null ? ann.value() : null;
 	}
 
