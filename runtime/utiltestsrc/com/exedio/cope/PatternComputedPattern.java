@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 
 final class PatternComputedPattern extends Pattern
@@ -31,5 +32,30 @@ final class PatternComputedPattern extends Pattern
 	{
 		addSource(virgnTemp, "virgnSource");
 		addSource(compuTemp, "compuSource", ComputedElement.get());
+	}
+
+	Type<?> virgnType = null;
+	Type<?> compuType = null;
+
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		final Features features = new Features();
+		this.virgnType = newSourceType(VirgnType.class, features, "virgn");
+		this.compuType = newSourceType(CompuType.class, features, "compu");
+	}
+
+	static final class VirgnType extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		private VirgnType(final ActivationParameters ap) { super(ap); }
+	}
+
+	@Computed
+	static final class CompuType extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		private CompuType(final ActivationParameters ap) { super(ap); }
 	}
 }

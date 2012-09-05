@@ -43,9 +43,21 @@ public final class PatternComputedTest extends CopeAssert
 		assertEquals(true,  comp(virgnComp.compuTemp));
 		assertEquals(true,  comp(compuComp.virgnTemp));
 		assertEquals(true,  comp(compuComp.compuTemp));
+
+		assertEquals(false, comp(virgnComp.virgnType));
+		assertEquals(true,  comp(virgnComp.compuType));
+		assertEquals(false, comp(compuComp.virgnType)); // TODO should be true
+		assertEquals(true,  comp(compuComp.compuType));
 	}
 
 	private static boolean comp(final Feature f)
+	{
+		final boolean result = f.isAnnotationPresent(Computed.class);
+		assertEquals(result, f.getAnnotation(Computed.class)!=null);
+		return result;
+	}
+
+	private static boolean comp(final Type<?> f)
 	{
 		final boolean result = f.isAnnotationPresent(Computed.class);
 		assertEquals(result, f.getAnnotation(Computed.class)!=null);
