@@ -25,13 +25,13 @@ final class PatternComputedPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	final StringField virgnTemp = new StringField();
-	final StringField compuTemp = new StringField();
+	final StringField virgnSource = new StringField();
+	final StringField compuSource = new StringField();
 
 	PatternComputedPattern()
 	{
-		addSource(virgnTemp, "virgnSource");
-		addSource(compuTemp, "compuSource", ComputedElement.get());
+		addSource(virgnSource, "virgnSource");
+		addSource(compuSource, "compuSource", ComputedElement.get());
 	}
 
 	Type<?> virgnType = null;
