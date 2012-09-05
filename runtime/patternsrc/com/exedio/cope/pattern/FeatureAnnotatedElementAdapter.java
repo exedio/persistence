@@ -25,30 +25,30 @@ import com.exedio.cope.FunctionField;
 
 final class FeatureAnnotatedElementAdapter implements AnnotatedElement
 {
-	private final FunctionField<?> template;
+	private final FunctionField<?> feature;
 
-	FeatureAnnotatedElementAdapter(final FunctionField<?> template)
+	FeatureAnnotatedElementAdapter(final FunctionField<?> feature)
 	{
-		this.template = template;
+		this.feature = feature;
 	}
 
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
-		return template.isAnnotationPresent(annotationClass);
+		return feature.isAnnotationPresent(annotationClass);
 	}
 
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
-		return template.getAnnotation(annotationClass);
+		return feature.getAnnotation(annotationClass);
 	}
 
 	public Annotation[] getAnnotations()
 	{
-		throw new RuntimeException(template.toString());
+		throw new RuntimeException(feature.toString());
 	}
 
 	public Annotation[] getDeclaredAnnotations()
 	{
-		throw new RuntimeException(template.toString());
+		throw new RuntimeException(feature.toString());
 	}
 }
