@@ -21,11 +21,16 @@ package com.exedio.cope.pattern;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 
+/**
+ * Adapts a {@link Feature} to {@link AnnotatedElement}.
+ * TODO remove once {@link Feature} implements {@link AnnotatedElement} itself.
+ */
 final class FeatureAnnotatedElementAdapter implements AnnotatedElement
 {
-	private final FunctionField<?> feature;
+	private final Feature feature;
 
 	FeatureAnnotatedElementAdapter(final FunctionField<?> feature)
 	{
