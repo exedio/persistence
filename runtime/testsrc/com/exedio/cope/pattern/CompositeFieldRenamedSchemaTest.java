@@ -29,7 +29,6 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.misc.Computed;
 
 public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 {
@@ -47,10 +46,6 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 
 	public static void testIt()
 	{
-		assertTrue(comp(virgnComp.of(virgnTemp)));
-		assertFalse(comp(virgnComp));
-		assertFalse(comp(virgnTemp));
-
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));
 		assertEquals(null,        ann(virgnComp));
@@ -71,12 +66,5 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
 	{
 		final CopeSchemaName a = f.getAnnotation(CopeSchemaName.class);
 		return a!=null ? a.value() : null;
-	}
-
-	private static boolean comp(final Feature f)
-	{
-		final boolean result = f.isAnnotationPresent(Computed.class);
-		assertEquals(result, f.getAnnotation(Computed.class)!=null);
-		return result;
 	}
 }
