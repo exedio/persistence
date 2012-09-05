@@ -30,6 +30,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
 
 public abstract class Feature implements Serializable
@@ -82,6 +83,32 @@ public abstract class Feature implements Serializable
 			this.type = type;
 			this.name = intern(name);
 			this.id =   intern(type.id + '.' + name);
+		}
+
+		@Override
+		boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(Computed.class==annotationClass && getAnnotation(annotationClass)!=null)
+				return true;
+
+			return super.isAnnotationPresent(annotationClass);
+		}
+
+		@Override
+		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
+		{
+			if(Computed.class==annotationClass)
+			{
+				final Pattern pattern = type.getPattern();
+				if(pattern!=null)
+				{
+					final A typePatternAnn = pattern.getAnnotation(annotationClass);
+					if(typePatternAnn!=null)
+						return typePatternAnn;
+				}
+			}
+
+			return super.getAnnotation(annotationClass);
 		}
 
 		@Override

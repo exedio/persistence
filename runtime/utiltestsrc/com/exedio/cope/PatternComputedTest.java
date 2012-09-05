@@ -53,9 +53,9 @@ public final class PatternComputedTest extends CopeAssert
 		assertEquals(true,  comp(virgnComp.virgnTypeCompuField));
 		assertEquals(false, comp(virgnComp.compuTypeVirgnField));
 		assertEquals(true,  comp(virgnComp.compuTypeCompuField));
-		assertEquals(false, comp(compuComp.virgnTypeVirgnField)); // TODO should be true
+		assertEquals(true,  comp(compuComp.virgnTypeVirgnField));
 		assertEquals(true,  comp(compuComp.virgnTypeCompuField));
-		assertEquals(false, comp(compuComp.compuTypeVirgnField)); // TODO should be true
+		assertEquals(true,  comp(compuComp.compuTypeVirgnField));
 		assertEquals(true,  comp(compuComp.compuTypeCompuField));
 	}
 
