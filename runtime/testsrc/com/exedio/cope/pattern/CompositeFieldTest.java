@@ -291,14 +291,14 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 
 		assertFalse(aString.isAnnotationPresent(Computed.class));
 
-		assertTrue(eins.of(aString).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anInt  ).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anEnum ).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anItem ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(aString).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anInt  ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anEnum ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anItem ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(aString).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anItem ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(aString).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anItem ).isAnnotationPresent(Computed.class));
 
 
 		// test persistence

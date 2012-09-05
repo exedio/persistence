@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @Computed is forwarded by Pattern correctly,
+	CompositeField does not make all components @Computed,
+	but only as inherited from Pattern.
 * SetValue array literals created by instrumentor use generics.
 	Avoids compiler warnings about rawtypes on JDK 1.7.
 	Affects instrumented code.

@@ -45,7 +45,7 @@ public final class CompositeFieldComputedTest extends CopeAssert
 		assertEquals(false, comp(virgnComp));
 		assertEquals(true,  comp(compuComp));
 
-		assertEquals(true,  comp(virgnComp.of(virgnTemp))); // TODO should be false
+		assertEquals(false, comp(virgnComp.of(virgnTemp)));
 		assertEquals(true,  comp(virgnComp.of(compuTemp)));
 		assertEquals(true,  comp(compuComp.of(virgnTemp)));
 		assertEquals(true,  comp(compuComp.of(compuTemp)));

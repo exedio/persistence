@@ -41,7 +41,7 @@ public final class PatternComputedTest extends CopeAssert
 
 		assertEquals(false, comp(virgnComp.virgnTemp));
 		assertEquals(true,  comp(virgnComp.compuTemp));
-		assertEquals(false, comp(compuComp.virgnTemp)); // TODO should be true
+		assertEquals(true,  comp(compuComp.virgnTemp));
 		assertEquals(true,  comp(compuComp.compuTemp));
 	}
 

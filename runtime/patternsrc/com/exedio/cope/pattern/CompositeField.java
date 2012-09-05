@@ -45,8 +45,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ComputedElement;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
@@ -138,17 +136,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
-			if(Computed.class==annotationClass)
-				return ComputedElement.get().isAnnotationPresent(annotationClass);
-
 			return template.isAnnotationPresent(annotationClass);
 		}
 
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
-			if(Computed.class==annotationClass)
-				return ComputedElement.get().getAnnotation(annotationClass);
-
 			return template.getAnnotation(annotationClass);
 		}
 

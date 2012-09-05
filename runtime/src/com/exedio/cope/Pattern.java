@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ListUtil;
 
 /**
@@ -98,7 +99,13 @@ public abstract class Pattern extends Feature
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
+			{
 				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+			}
+			else if(Computed.class==annotationClass)
+			{
+				return getAnnotation(annotationClass)!=null;
+			}
 
 			if(source==null)
 				return false;
@@ -133,6 +140,13 @@ public abstract class Pattern extends Feature
 					bf.append('-').append(postfix);
 
 				return annotationClass.cast(schemaName(bf.toString()));
+			}
+			else if(Computed.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				if(patternAnn!=null)
+					return patternAnn;
+				return source!=null ? source.getAnnotation(annotationClass) : null;
 			}
 
 			if(source==null)
