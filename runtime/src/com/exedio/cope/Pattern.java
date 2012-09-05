@@ -233,6 +233,8 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
+			else if(Computed.class==annotationClass)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;
@@ -259,6 +261,13 @@ public abstract class Pattern extends Feature
 							postfix)
 					));
 				}
+			}
+			else if(Computed.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				if(patternAnn!=null)
+					return patternAnn;
+				return source.getAnnotation(annotationClass);
 			}
 
 			if(source==null)
