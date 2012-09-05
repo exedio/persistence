@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  * So any generic editing facility is advised to not let a human user
  * modify this type or feature.
  *
- * For types, this means, that items of the type shall no be created or deleted
+ * For types, this means, that items of the type shall not be created or deleted
  * by human users. For features this means, that the state of the feature shall
  * not be modified by a human user. A <i>computed</i> type does not imply, that the type's
  * features are <i>computed</i> as well.
