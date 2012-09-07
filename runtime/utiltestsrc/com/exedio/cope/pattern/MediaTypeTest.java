@@ -48,9 +48,9 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType png = forName("image/png");
 		final MediaType js  = forName("application/javascript");
 
-		assertEquals(".jpg", jpg.extension);
-		assertEquals(".png", png.extension);
-		assertEquals(".js" , js .extension);
+		assertEquals(".jpg", jpg.getExtension());
+		assertEquals(".png", png.getExtension());
+		assertEquals(".js" , js .getExtension());
 
 		assertSame(jpg, forFileName("eins.jpg"));
 		assertSame(png, forFileName("zwei.png"));

@@ -188,7 +188,7 @@ public abstract class MediaPath extends Pattern
 		return new Locator(
 				item,
 				makeUrlCatchphrase(item),
-				mediaType!=null ? mediaType.extension : null,
+				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
 	}
 
@@ -216,7 +216,7 @@ public abstract class MediaPath extends Pattern
 
 		final MediaType type = MediaType.forNameAndAliases(contentType);
 		if(type!=null)
-			bf.append(type.extension);
+			bf.append(type.getExtension());
 
 		final String secret = makeUrlToken(item);
 		if(secret!=null)

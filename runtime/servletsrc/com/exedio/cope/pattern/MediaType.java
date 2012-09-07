@@ -38,7 +38,7 @@ import com.exedio.cope.util.Hex;
 public final class MediaType
 {
 	private final byte[] magic;
-	final String extension;
+	private final String extension;
 	private final String name;
 	private final String[] aliases;
 
@@ -60,6 +60,15 @@ public final class MediaType
 	public boolean hasMagic()
 	{
 		return magic!=null;
+	}
+
+	/**
+	 * Returns the typical file extension for this media type.
+	 * The result does include the leading dot, for example ".jpg".
+	 */
+	public String getExtension()
+	{
+		return extension;
 	}
 
 	public String getName()
