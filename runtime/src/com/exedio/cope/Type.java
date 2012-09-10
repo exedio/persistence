@@ -649,6 +649,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return primaryKeySequence.getInfo();
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
 	public int checkPrimaryKey()
 	{
 		return primaryKeySequence.check(getModel());

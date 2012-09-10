@@ -291,6 +291,9 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
 	public int checkDefaultToNext()
 	{
 		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;

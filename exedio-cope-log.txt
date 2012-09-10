@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* No current transaction allowed anymore during sequence checks:
+	- Type#checkPrimaryKey
+	- IntegerField#checkDefaultToNext
+	Helps avoiding deadlocks.
 * MediaType#getExtension added
 * @Computed is forwarded by Pattern correctly,
 	CompositeField does not make all components @Computed,

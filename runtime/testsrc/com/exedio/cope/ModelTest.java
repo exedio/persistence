@@ -38,12 +38,12 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			super(ap);
 		}
 
-		// no fields required
+		static final IntegerField next = new IntegerField().defaultToNext(5);
 
 		public static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
  	}
 
-	static Model model = new Model(DirectRevisionsFactory.make(new Revisions(0)), ModelTestItem.TYPE);
+	private static Model model = new Model(DirectRevisionsFactory.make(new Revisions(0)), ModelTestItem.TYPE);
 
 	public ModelTest()
 	{
@@ -221,6 +221,26 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 		try
 		{
 			SchemaInfo.newConnection(model);
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			ModelTestItem.TYPE.checkPrimaryKey();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			ModelTestItem.next.checkDefaultToNext();
 			fail();
 		}
 		catch (final IllegalStateException e)

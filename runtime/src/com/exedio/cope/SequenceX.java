@@ -118,6 +118,7 @@ final class SequenceX
 
 	int check(final Model model)
 	{
+		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
 		final Integer maxO;
 		final Connection connection = connectionPool.get(true);
