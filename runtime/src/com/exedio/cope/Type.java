@@ -651,7 +651,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public int checkPrimaryKey()
 	{
-		return primaryKeySequence.check(getModel().connect().connectionPool);
+		return primaryKeySequence.check(getModel());
 	}
 
 	/**

@@ -116,8 +116,9 @@ final class SequenceX
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 
-	int check(final ConnectionPool connectionPool)
+	int check(final Model model)
 	{
+		final ConnectionPool connectionPool = model.connect().connectionPool;
 		final Integer maxO;
 		final Connection connection = connectionPool.get(true);
 		try
