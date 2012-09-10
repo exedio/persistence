@@ -33,14 +33,11 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		private ModelTestItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		private ModelTestItem(final ActivationParameters ap) { super(ap); }
 
 		static final IntegerField next = new IntegerField().defaultToNext(5);
 
-		public static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
+		static final Type<ModelTestItem> TYPE = TypesBound.newType(ModelTestItem.class);
  	}
 
 	private static Model model = new Model(DirectRevisionsFactory.make(new Revisions(0)), ModelTestItem.TYPE);
