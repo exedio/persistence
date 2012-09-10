@@ -60,11 +60,11 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PrimaryKeyItem("third"));
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, cm?0:6, cm?1:7, next.getDefaultToNextInfo(), cx?4:0);
+	}
 
-		// TODO
-		// split test here and make sure that the second test does not
-		// depend on the execution of the first test
-		// otherwise fails on jdk 1.7
+	public void testMultipleTransactions()
+	{
+		final boolean c = model.getConnectProperties().cluster.booleanValue();
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
