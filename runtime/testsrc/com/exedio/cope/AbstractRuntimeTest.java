@@ -549,7 +549,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 		if(!hsqldb)
-			assertEquals(check, type.checkPrimaryKey());
+			assertEquals("check", check, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -561,7 +561,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 		if(!hsqldb)
-			assertEquals(check, feature.checkDefaultToNext());
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -585,7 +585,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 		if(!hsqldb)
-			assertEquals(0, type.checkPrimaryKey());
+			assertEquals("check", 0, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
@@ -597,7 +597,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 		if(!hsqldb)
-			assertEquals(check, feature.checkDefaultToNext());
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final SequenceInfo info)
@@ -607,12 +607,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
-		assertSame(feature, info.getFeature());
-		assertEquals(start, info.getStart());
-		assertEquals(minimum, info.getMinimum());
-		assertEquals(maximum, info.getMaximum());
-		assertEquals(0, info.getCount());
-		assertFalse(info.isKnown());
+		assertSame("feature", feature, info.getFeature());
+		assertEquals("start", start, info.getStart());
+		assertEquals("minimum", minimum, info.getMinimum());
+		assertEquals("maximum", maximum, info.getMaximum());
+		assertEquals("count", 0, info.getCount());
+		assertFalse("known", info.isKnown());
 		try
 		{
 			info.getFirst();
