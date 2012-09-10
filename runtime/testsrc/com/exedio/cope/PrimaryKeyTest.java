@@ -38,7 +38,6 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	public void testSingleTransaction()
 	{
 		final boolean c = model.getConnectProperties().cluster.booleanValue();
-		final boolean cm = (!hsqldb)||c;
 		final boolean cx = hsqldb&&c;
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
@@ -47,12 +46,12 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertInfo(next, next.getDefaultToNextInfo());
 
 		deleteOnTearDown(new PrimaryKeyItem("first", 5));
-		if(hsqldb) // TODO --------------------------------------
-			return;
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfo(), cx?6:0);
 
-
+		if(hsqldb) // TODO --------------------------------------
+			return;
+		final boolean cm = (!hsqldb)||c;
 		deleteOnTearDown(new PrimaryKeyItem("second"));
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 1, cm?0:6, cm?0:6, next.getDefaultToNextInfo(), cx?5:0);
