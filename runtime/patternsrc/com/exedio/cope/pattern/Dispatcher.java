@@ -300,7 +300,7 @@ public final class Dispatcher extends Pattern
 					model.commit();
 
 					if(finalFailure)
-						((Dispatchable)item).notifyFinalFailure(this, cause);
+						item.notifyFinalFailure(this, cause);
 				}
 			}
 			finally
