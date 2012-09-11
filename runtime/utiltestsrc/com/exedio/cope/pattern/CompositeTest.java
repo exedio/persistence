@@ -541,7 +541,7 @@ public class CompositeTest extends CopeAssert
 
 		Value(final String stringDefault, final boolean optional)
 		{
-			this(new com.exedio.cope.SetValue[]{
+			this(new com.exedio.cope.SetValue<?>[]{
 					Value.string4.map("1234"),
 					(optional ? Value.stringDefaultOptional : Value.stringDefault).map(stringDefault),
 					Value.intMax4.map(4),
@@ -577,7 +577,7 @@ public class CompositeTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			Value.string4.map(string4),
 			Value.intMax4.map(intMax4),
 			Value.longField.map(longField),
@@ -922,7 +922,7 @@ public class CompositeTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			ValueX.stringField.map(stringField),
 			ValueX.intField.map(intField),
 			ValueX.longField.map(longField),

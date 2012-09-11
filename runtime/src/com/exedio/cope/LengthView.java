@@ -33,7 +33,7 @@ public final class LengthView extends NumberView<Integer>
 	 */
 	public LengthView(final Function<String> source)
 	{
-		super(new Function[]{source}, "length", Integer.class);
+		super(new Function<?>[]{source}, "length", Integer.class);
 		this.source = source;
 	}
 

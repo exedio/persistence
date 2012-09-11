@@ -35,7 +35,7 @@ public final class UppercaseView extends StringView
 	 */
 	public UppercaseView(final Function<String> source)
 	{
-		super(new Function[]{source}, "upper");
+		super(new Function<?>[]{source}, "upper");
 		this.source = source;
 	}
 

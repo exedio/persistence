@@ -113,7 +113,7 @@ final class Types
 		for(final Type<?> type : typesSorted)
 			type.mount(model, parametersMap.get(type));
 
-		this.typesByCacheIdTransiently = new Type[concreteTypeCount];
+		this.typesByCacheIdTransiently = new Type<?>[concreteTypeCount];
 		{
 			int cacheIdTransiently = 0;
 			for(final Type<?> type : typesSorted)
@@ -130,12 +130,12 @@ final class Types
 		}
 
 
-		this.types = typesL.toArray(new Type[typesL.size()]);
+		this.types = typesL.toArray(new Type<?>[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = concreteTypes.toArray(new Type[concreteTypeCount]);
+		this.concreteTypes = concreteTypes.toArray(new Type<?>[concreteTypeCount]);
 		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
-		this.typesSorted = typesSorted.toArray(new Type[typesSorted.size()]);
+		this.typesSorted = typesSorted.toArray(new Type<?>[typesSorted.size()]);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
 
 		assert this.concreteTypeCount==this.concreteTypes.length;
@@ -198,7 +198,7 @@ final class Types
 			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
 
 		//System.out.println("<--------------------"+result);
-		return result.toArray(new Type[result.size()]);
+		return result.toArray(new Type<?>[result.size()]);
 	}
 
 	private static final void addTypeIncludingSourceTypes(

@@ -55,7 +55,7 @@ final class SamplerPurge extends Item
 	static Query<SamplerPurge> newQuery()
 	{
 		final Query<SamplerPurge> q = TYPE.newQuery();
-		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
+		q.setOrderBy(new Function<?>[]{finished, TYPE.getThis()}, new boolean[]{false, false});
 		return q;
 	}
 

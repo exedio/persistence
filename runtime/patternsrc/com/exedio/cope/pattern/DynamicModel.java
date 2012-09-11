@@ -91,7 +91,7 @@ public final class DynamicModel<L> extends Pattern
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
 		enums    = newItemField    (enumCapacity);
-		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
+		fields   = new FunctionField<?>[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
@@ -329,7 +329,7 @@ public final class DynamicModel<L> extends Pattern
 					"dynamic model mismatch: new type has model " + type.getModel() +
 					", but must be " + toString());
 
-		final SetValue<?>[] values = new SetValue[1+fields.length];
+		final SetValue<?>[] values = new SetValue<?>[1+fields.length];
 		values[0] = mount().type.map(type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);

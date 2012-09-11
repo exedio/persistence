@@ -74,7 +74,7 @@ public class AsStringTest extends AbstractRuntimeTest
 
 		{
 			final Query<List<Object>> q = Query.newQuery(
-					new Selectable[]{intx.asString(), longx.asString(), doublex.asString()},
+					new Selectable<?>[]{intx.asString(), longx.asString(), doublex.asString()},
 					TYPE, null);
 			q.setOrderBy(TYPE.getThis(), true);
 			final char d = oracle ? ',' : '.';

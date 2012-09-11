@@ -44,7 +44,7 @@ public class QuerySerializeTest extends CopeAssert
 		q.setLimit(10, 20);
 		assertSerializedEquals(q, 1501);
 
-		final Query<List<Object>> qMulti = Query.newQuery(new Selectable[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
+		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
 		assertSerializedEquals(qMulti, 839);
 	}
 

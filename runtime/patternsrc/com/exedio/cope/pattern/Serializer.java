@@ -203,7 +203,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue[]{ source.map(serialize(value)) };
+		return new SetValue<?>[]{ source.map(serialize(value)) };
 	}
 
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

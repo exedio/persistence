@@ -313,7 +313,7 @@ public class Sampler
 		try
 		{
 			samplerModel.startTransaction("sampler analyzeDate");
-			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
+			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			samplerModel.commit();
 		}
 		finally

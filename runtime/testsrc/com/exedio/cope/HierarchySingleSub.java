@@ -27,7 +27,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 
 	public HierarchySingleSub(final int initialSuperInt, final String subString)
 	{
-		super(new com.exedio.cope.SetValue[]{
+		super(new com.exedio.cope.SetValue<?>[]{
 			HierarchySingleSub.superInt.map(initialSuperInt),
 			HierarchySingleSub.subString.map(subString),
 		});

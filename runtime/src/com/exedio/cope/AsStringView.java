@@ -33,7 +33,7 @@ public final class AsStringView extends StringView
 	 */
 	public AsStringView(final NumberFunction<?> source)
 	{
-		super(new NumberFunction[]{source}, "asString");
+		super(new NumberFunction<?>[]{source}, "asString");
 		this.source = source;
 	}
 

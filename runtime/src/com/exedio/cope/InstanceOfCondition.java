@@ -68,22 +68,22 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
-		this(function, not, new Type[]{type1});
+		this(function, not, new Type<?>[]{type1});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		this(function, not, new Type[]{type1, type2});
+		this(function, not, new Type<?>[]{type1, type2});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		this(function, not, new Type[]{type1, type2, type3});
+		this(function, not, new Type<?>[]{type1, type2, type3});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
-		this(function, not, new Type[]{type1, type2, type3, type4});
+		this(function, not, new Type<?>[]{type1, type2, type3, type4});
 	}
 
 	@SuppressWarnings("deprecation") // OK: For internal use within COPE only

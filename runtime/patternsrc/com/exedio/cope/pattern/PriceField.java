@@ -175,7 +175,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
+		return new SetValue<?>[]{ integer.map(value!=null ? value.store : null) };
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -196,8 +196,8 @@ public final class History extends Pattern
 	{
 		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
 		q.setOrderBy(
-				new Function[]{ eventDate, eventType.getThis() },
-				new boolean []{ false,     false });
+				new Function<?>[]{ eventDate, eventType.getThis() },
+				new boolean    []{ false,     false });
 		return q.search();
 	}
 

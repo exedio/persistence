@@ -142,7 +142,7 @@ public final class Query<R> implements Serializable
 	Selectable<?>[] selects()
 	{
 		if(selectSingle!=null)
-			return new Selectable[]{selectSingle};
+			return new Selectable<?>[]{selectSingle};
 		else
 			return selectsMulti;
 	}
@@ -282,7 +282,7 @@ public final class Query<R> implements Serializable
 
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Selectable[]{type.thisFunction};
+		this.orderBy = new Selectable<?>[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
@@ -291,7 +291,7 @@ public final class Query<R> implements Serializable
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Selectable[]{orderBy};
+		this.orderBy = new Selectable<?>[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
@@ -300,7 +300,7 @@ public final class Query<R> implements Serializable
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Selectable[]{orderBy, type.thisFunction};
+		this.orderBy = new Selectable<?>[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
 
@@ -335,11 +335,11 @@ public final class Query<R> implements Serializable
 	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(this.orderBy==null)
-			this.orderBy = new Selectable[]{ orderBy };
+			this.orderBy = new Selectable<?>[]{ orderBy };
 		else
 		{
 			final int l = this.orderBy.length;
-			final Selectable<?>[] result = new Selectable[l+1];
+			final Selectable<?>[] result = new Selectable<?>[l+1];
 			System.arraycopy(this.orderBy, 0, result, 0, l);
 			result[l] = orderBy;
 			this.orderBy = result;
@@ -910,7 +910,7 @@ public final class Query<R> implements Serializable
 			if(distinct)
 				bf.append("distinct ");
 
-			selectMarshallers = new Marshaller[selects.length];
+			selectMarshallers = new Marshaller<?>[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
 			int copeTotalDistinctCount = 0;
 			for(int i = 0; i<selects.length; i++)

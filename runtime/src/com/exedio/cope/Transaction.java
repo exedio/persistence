@@ -67,7 +67,7 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
-		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
+		this.entityMaps = cast(new TIntObjectHashMap<?>[concreteTypeCount]);
 
 		if(logger.isDebugEnabled())
 			logger.debug(MessageFormat.format("{0} start: {1}", id, name));

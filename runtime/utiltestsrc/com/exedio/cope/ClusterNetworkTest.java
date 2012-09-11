@@ -101,7 +101,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 	{
 		TypeA()
 		{
-			super(new SetValue[]{});
+			super(new SetValue<?>[]{});
 		}
 
 		private TypeA(final ActivationParameters ap)

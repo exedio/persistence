@@ -35,7 +35,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	private MinusView(final Function<E> minuend, final Function<E> subtrahend)
 	{
-		super(new Function[]{minuend, subtrahend}, "minus", PlusView.checkClass(Number.class, minuend.getValueClass()));
+		super(new Function<?>[]{minuend, subtrahend}, "minus", PlusView.checkClass(Number.class, minuend.getValueClass()));
 
 		this.minuend = minuend;
 		this.subtrahend = subtrahend;

@@ -35,7 +35,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 	private DivideView(final Function<E> dividend, final Function<E> divisor)
 	{
-		super(new Function[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
+		super(new Function<?>[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
 
 		this.dividend = dividend;
 		this.divisor = divisor;

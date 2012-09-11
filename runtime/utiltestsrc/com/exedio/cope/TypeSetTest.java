@@ -37,7 +37,7 @@ public class TypeSetTest extends CopeAssert
 		}
 		try
 		{
-			m.containsTypeSet(new Type[]{});
+			m.containsTypeSet(new Type<?>[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -46,7 +46,7 @@ public class TypeSetTest extends CopeAssert
 		}
 		try
 		{
-			m.containsTypeSet(new Type[]{null});
+			m.containsTypeSet(new Type<?>[]{null});
 			fail();
 		}
 		catch(final NullPointerException e)

@@ -80,12 +80,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2, source3}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)
@@ -119,7 +119,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
 
-		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
+		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
 		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copy();
@@ -218,7 +218,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		assertValue(value, item);
 		int i = 0;
-		final SetValue<?>[] setValues = new SetValue[sources.length+1];
+		final SetValue<?>[] setValues = new SetValue<?>[sources.length+1];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
@@ -253,7 +253,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		assertValue(value, exceptionItem);
 		int i = 0;
-		final SetValue<?>[] result = new SetValue[sources.length+1];
+		final SetValue<?>[] result = new SetValue<?>[sources.length+1];
 
 		for(final Object v : value)
 			result[i] = Cope.mapAndCast(sources[i++], v);

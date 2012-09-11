@@ -130,7 +130,7 @@ public final class Importer<K extends Object> extends Pattern
 
 	private static SetValue<?>[] prepend(final SetValue<?> head, final SetValue<?>[] tail)
 	{
-		final SetValue<?>[] result = new SetValue[tail.length + 1];
+		final SetValue<?>[] result = new SetValue<?>[tail.length + 1];
 		result[0] = head;
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;

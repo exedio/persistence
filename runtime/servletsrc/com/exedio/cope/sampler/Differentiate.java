@@ -56,7 +56,7 @@ final class Differentiate
 	private static Query<List<Object>> makeQuery(final Type<?> type, final Date from, final Date until)
 	{
 		final Query<List<Object>> query =
-			Query.newQuery(new Selectable[]{type.getThis(), type.getThis()}, type, null);
+			Query.newQuery(new Selectable<?>[]{type.getThis(), type.getThis()}, type, null);
 		final Join join = query.join(type);
 
 		final DateField dateField = replaceByCopy(SamplerModel.date, type);
@@ -99,7 +99,7 @@ final class Differentiate
 			}
 			if(selects.isEmpty())
 				throw new IllegalArgumentException(type.toString());
-			query.setSelects(selects.toArray(new Function[selects.size()]));
+			query.setSelects(selects.toArray(new Function<?>[selects.size()]));
 		}
 		{
 			final ArrayList<Condition> conditions = new ArrayList<Condition>();

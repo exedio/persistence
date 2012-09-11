@@ -100,7 +100,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 		final This<?> typeThis = type.getThis(); // make search deterministic
 		if(order!=null)
-			q.setOrderBy(new Function[]{order, typeThis}, new boolean[]{true, true});
+			q.setOrderBy(new Function<?>[]{order, typeThis}, new boolean[]{true, true});
 		else
 			q.setOrderBy(typeThis, true);
 

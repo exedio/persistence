@@ -50,32 +50,32 @@ public final class UniqueConstraint extends Feature
 	 */
 	UniqueConstraint(final FunctionField<?> field)
 	{
-		this(new FunctionField[]{field});
+		this(new FunctionField<?>[]{field});
 	}
 
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2)
 	{
-		this(new FunctionField[]{field1, field2});
+		this(new FunctionField<?>[]{field1, field2});
 	}
 
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3)
 	{
-		this(new FunctionField[]{field1, field2, field3});
+		this(new FunctionField<?>[]{field1, field2, field3});
 	}
 
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4});
+		this(new FunctionField<?>[]{field1, field2, field3, field4});
 	}
 
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5});
 	}
 
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5, field6});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
 	public List<FunctionField<?>> getFields()
