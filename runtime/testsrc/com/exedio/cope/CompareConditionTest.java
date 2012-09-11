@@ -26,6 +26,7 @@ import static com.exedio.cope.CompareConditionItem.enumx;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
+import static com.exedio.cope.CompareConditionItem.otherString;
 import static com.exedio.cope.CompareConditionItem.string;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
@@ -82,7 +83,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// test equals/hashCode
 		assertEquals(string.less("a"), string.less("a"));
 		assertNotEquals(string.less("a"), string.less("b"));
-		assertNotEquals(string.less("a"), item1.otherString.less("a"));
+		assertNotEquals(string.less("a"), otherString.less("a"));
 		assertNotEquals(string.less("a"), string.lessOrEqual("a"));
 
 		// test toString
