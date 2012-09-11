@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -107,7 +109,7 @@ public final class MediaRedirect extends MediaPath
 		locator.appendPath(location);
 		//System.out.println("location="+location);
 
-		response.setStatus(response.SC_MOVED_PERMANENTLY);
+		response.setStatus(SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location.toString());
 		return delivered;
 	}

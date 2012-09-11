@@ -627,7 +627,7 @@ final class Database
 			t.makeSchema(result, supportsNotNull());
 
 		if(withRevisions && revisions!=null)
-			revisions.get().makeSchema(result, properties, dialect);
+			Revisions.makeSchema(result, properties, dialect);
 		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
 

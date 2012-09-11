@@ -286,7 +286,7 @@ public final class Revisions
 				revision.execute(date, environment, connectionFactory).
 					insert(properties, connectionPool, executor);
 			}
-			mutex.delete(properties, connectionPool, executor);
+			RevisionInfoMutex.delete(properties, connectionPool, executor);
 		}
 	}
 

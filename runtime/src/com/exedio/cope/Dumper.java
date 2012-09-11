@@ -66,7 +66,7 @@ public final class Dumper
 		}
 		final int pk = nextPk(type);
 		final E result = type.activate(pk);
-		final HashMap<BlobColumn, byte[]> blobs = result.toBlobs(fieldValues, null);
+		final HashMap<BlobColumn, byte[]> blobs = Item.toBlobs(fieldValues, null);
 		final Connect connect = type.getModel().connect();
 		insert(connect.dialect, connect.marshallers, blobs, type, pk, row, type, out);
 		return result;

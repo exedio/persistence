@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.MessageFormat;
@@ -290,7 +292,7 @@ public class MediaServlet extends HttpServlet
 					append(pathInfo.substring(slash2));
 				//System.out.println("location="+location);
 
-				response.setStatus(response.SC_MOVED_PERMANENTLY);
+				response.setStatus(SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
 
 				return alt.redirectFrom;

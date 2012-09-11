@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -422,7 +424,7 @@ public abstract class MediaPath extends Pattern
 							append('/');
 						locator.appendPath(location);
 
-						response.setStatus(response.SC_MOVED_PERMANENTLY);
+						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
 						return moved;
 					}

@@ -236,7 +236,7 @@ final class Connect
 
 	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex)
 	{
-		return revisions.get().getLogs(withMutex, properties, connectionPool, executor);
+		return Revisions.getLogs(withMutex, properties, connectionPool, executor);
 	}
 
 	List<ThreadController> getThreadControllers()

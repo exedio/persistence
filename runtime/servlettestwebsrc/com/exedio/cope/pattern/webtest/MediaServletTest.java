@@ -18,6 +18,12 @@
 
 package com.exedio.cope.pattern.webtest;
 
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
+import static java.net.HttpURLConnection.HTTP_OK;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -283,11 +289,11 @@ public class MediaServletTest extends TestCase
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
-		assertEquals(expectNotModified ? conn.HTTP_NOT_MODIFIED : conn.HTTP_OK, conn.getResponseCode());
+		assertEquals(expectNotModified ? HTTP_NOT_MODIFIED : HTTP_OK, conn.getResponseCode());
 		assertEquals(expectNotModified ? "Not Modified" : "OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -335,9 +341,9 @@ public class MediaServletTest extends TestCase
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(conn.HTTP_MOVED_PERM, conn.getResponseCode());
+		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode());
 		assertEquals("Moved Permanently", conn.getResponseMessage());
 		assertEquals(target, conn.getHeaderField("Location"));
 		assertEquals(null, conn.getContentType());
@@ -355,11 +361,11 @@ public class MediaServletTest extends TestCase
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		if(conn.HTTP_NOT_FOUND!=conn.getResponseCode())
+		if(HTTP_NOT_FOUND!=conn.getResponseCode())
 			print(conn, url);
-		assertEquals(conn.HTTP_NOT_FOUND, conn.getResponseCode());
+		assertEquals(HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
 
@@ -387,9 +393,9 @@ public class MediaServletTest extends TestCase
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals("url="+ url, conn.HTTP_OK, conn.getResponseCode());
+		assertEquals("url="+ url, HTTP_OK, conn.getResponseCode());
 		assertEquals("OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -411,11 +417,11 @@ public class MediaServletTest extends TestCase
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		if(conn.HTTP_INTERNAL_ERROR!=conn.getResponseCode())
+		if(HTTP_INTERNAL_ERROR!=conn.getResponseCode())
 			print(conn, url);
-		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
+		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html", conn.getContentType());
 
@@ -442,7 +448,7 @@ public class MediaServletTest extends TestCase
 	private static void assertNameURL(final String url) throws IOException
 	{
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
 		assertEquals("text/plain", conn.getContentType());

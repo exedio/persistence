@@ -335,7 +335,7 @@ final class Statement
 		if(fulltextIndex)
 			dialect.appendMatchClauseFullTextIndex(this, function, value);
 		else
-			dialect.appendMatchClauseByLike(this, function, value);
+			Dialect.appendMatchClauseByLike(this, function, value);
 	}
 
 	String getText()

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
+
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -83,7 +85,7 @@ public abstract class CachedMedia extends MediaPath
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			//System.out.println("not modified");
-			response.setStatus(response.SC_NOT_MODIFIED);
+			response.setStatus(SC_NOT_MODIFIED);
 
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 

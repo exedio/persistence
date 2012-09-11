@@ -215,7 +215,7 @@ public class MxSampler
 
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(cal.DATE, -days);
+		cal.add(GregorianCalendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
 
