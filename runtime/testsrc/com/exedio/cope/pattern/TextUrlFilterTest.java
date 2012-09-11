@@ -67,7 +67,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='TextUrlFilterItem-0' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
 		}
 
 		final String url1 = item.addFertigPaste("uno");
