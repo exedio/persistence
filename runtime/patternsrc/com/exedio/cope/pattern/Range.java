@@ -26,7 +26,7 @@ package com.exedio.cope.pattern;
  */
 public final class Range<E extends Comparable<E>>
 {
-	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
+	public static <E extends Comparable<E>> Range<E> valueOf(final E from, final E to)
 	{
 		if(from==null && to==null)
 			return all();
@@ -48,7 +48,7 @@ public final class Range<E extends Comparable<E>>
 	private final E to;
 
 	/**
-	 * @deprecated Use {@link #newRange(Comparable, Comparable)} instead.
+	 * @deprecated Use {@link #valueOf(Comparable, Comparable)} instead.
 	 */
 	@Deprecated
 	public Range(final E from, final E to)
@@ -109,5 +109,16 @@ public final class Range<E extends Comparable<E>>
 	private static int hashCode(final Object e1)
 	{
 		return e1!=null ? e1.hashCode() : 0;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #valueOf(Comparable,Comparable)} instead
+	 */
+	@Deprecated
+	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
+	{
+		return valueOf(from, to);
 	}
 }

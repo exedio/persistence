@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.newRange;
+import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
@@ -40,11 +40,11 @@ public class RangeFieldNullTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final Range<String> s = newRange("a", "b");
-		ab = deleteOnTearDown(new RangeFieldItem(newRange(10,   20), s));
-		nb = deleteOnTearDown(new RangeFieldItem(newRange(null, 20), s));
-		an = deleteOnTearDown(new RangeFieldItem(newRange(10, null), s));
-		nn = deleteOnTearDown(new RangeFieldItem(newRange((Integer)null, null), s));
+		final Range<String> s = valueOf("a", "b");
+		ab = deleteOnTearDown(new RangeFieldItem(valueOf(10,   20), s));
+		nb = deleteOnTearDown(new RangeFieldItem(valueOf(null, 20), s));
+		an = deleteOnTearDown(new RangeFieldItem(valueOf(10, null), s));
+		nn = deleteOnTearDown(new RangeFieldItem(valueOf((Integer)null, null), s));
 	}
 
 	public void testIt()

@@ -77,7 +77,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Wrap(order=10)
 	public Range<E> get(final Item item)
 	{
-		return Range.newRange(from.get(item), to.get(item));
+		return Range.valueOf(from.get(item), to.get(item));
 	}
 
 	@Wrap(order=20, hide=FinalGetter.class)

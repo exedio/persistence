@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.newRange;
+import static com.exedio.cope.pattern.Range.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckViolationException;
@@ -34,9 +34,9 @@ public class RangeFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
+		item = deleteOnTearDown(new RangeFieldItem(valueOf(3, 5), valueOf("alpha", "beta")));
 
-		assertEquals(newRange(3, 5), item.getValid());
+		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
@@ -49,17 +49,17 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(item.valid.getUnison(), e.getFeature());
 		}
-		assertEquals(newRange(3, 5), item.getValid());
+		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidTo(9);
-		assertEquals(newRange(3, 9), item.getValid());
+		assertEquals(valueOf(3, 9), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 
 		item.setValidFrom(8);
-		assertEquals(newRange(8, 9), item.getValid());
+		assertEquals(valueOf(8, 9), item.getValid());
 		assertEquals(i8, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 		assertEquals(false, item.doesValidContain( 7));
@@ -67,8 +67,8 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(true,  item.doesValidContain( 9));
 		assertEquals(false, item.doesValidContain(10));
 
-		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
-		assertEquals(newRange(4, 4), item2.getValid());
+		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(valueOf(4, 4), valueOf("alpha", "beta")));
+		assertEquals(valueOf(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
 		assertEquals(false, item2.doesValidContain(3));
