@@ -259,7 +259,7 @@ final class QueryCache
 		private static final long serialVersionUID = 1l;
 
 		private final int maxSize;
-		final VolatileLong replacements = new VolatileLong();
+		transient final VolatileLong replacements = new VolatileLong();
 
 		LRUMap(final int maxSize)
 		{
