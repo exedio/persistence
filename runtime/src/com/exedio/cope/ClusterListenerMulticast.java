@@ -103,7 +103,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				if(threadRun)
 				{
-					exception++;
+					exception.inc();
 					e.printStackTrace();
 				}
 				else
@@ -129,7 +129,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
-		exception++;
+		exception.inc();
 		if(logger.isEnabledFor(Level.ERROR))
 			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
 					throwable );

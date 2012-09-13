@@ -34,7 +34,7 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap map;
-	private volatile long hits = 0, misses = 0, invalidations = 0;
+	private final VolatileLong hits = new VolatileLong(), misses = new VolatileLong(), invalidations = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
@@ -68,17 +68,17 @@ final class QueryCache
 				map.put(key, result);
 			}
 		}
-			misses++;
+			misses.inc();
 			return resultList;
 		}
 		else
 		{
-			hits++;
-			result.hits++;
+			hits.inc();
+			result.hits.inc();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
+				queryInfos.add(new QueryInfo("query cache hit #" + result.hits.get() + " for " + key.getText()));
 
 			return result.list;
 		}
@@ -120,7 +120,7 @@ final class QueryCache
 					}
 				}
 			}
-			this.invalidations += invalidationsCounter;
+			this.invalidations.inc(invalidationsCounter);
 		}
 	}
 
@@ -149,7 +149,7 @@ final class QueryCache
 		else
 			level = 0;
 
-		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, invalidations, level);
+		return new QueryCacheInfo(hits.get(), misses.get(), map!=null ? map.replacements.get() : 0l, invalidations.get(), level);
 	}
 
 	QueryCacheHistogram[] getHistogram()
@@ -170,7 +170,7 @@ final class QueryCache
 		int i = result.length-1;
 		int j = 0;
 		for(final Key key : keys)
-			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits);
+			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits.get());
 
 		return result;
 	}
@@ -234,7 +234,7 @@ final class QueryCache
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
-		volatile long hits = 0;
+		final VolatileLong hits = new VolatileLong();
 
 		Value(final Query<? extends Object> query, final ArrayList<Object> list)
 		{
@@ -259,7 +259,7 @@ final class QueryCache
 		private static final long serialVersionUID = 1l;
 
 		private final int maxSize;
-		volatile long replacements = 0;
+		final VolatileLong replacements = new VolatileLong();
 
 		LRUMap(final int maxSize)
 		{
@@ -273,7 +273,7 @@ final class QueryCache
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
 			final boolean result = size() > maxSize;
 			if(result)
-				replacements++;
+				replacements.inc();
 			return result;
 		}
 	}

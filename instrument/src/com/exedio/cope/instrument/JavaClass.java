@@ -130,7 +130,7 @@ final class JavaClass extends JavaFeature
 
 	public final boolean isInterface()
 	{
-		return (modifier & Modifier.INTERFACE) > 0;
+		return Modifier.isInterface(modifier);
 	}
 
 	@Override

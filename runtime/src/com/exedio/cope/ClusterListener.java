@@ -63,20 +63,20 @@ abstract class ClusterListener
 
 		if(!iter.checkBytes(MAGIC))
 		{
-			missingMagic++;
+			missingMagic.inc();
 			return;
 		}
 
 		if(secret!=iter.nextInt())
 		{
-			wrongSecret++;
+			wrongSecret.inc();
 			return;
 		}
 
 		final int node = iter.nextInt();
 		if(localNode==node)
 		{
-			fromMyself++;
+			fromMyself.inc();
 			return;
 		}
 
@@ -228,10 +228,10 @@ abstract class ClusterListener
 
 	// info
 
-	volatile long exception = 0;
-	private volatile long missingMagic = 0;
-	private volatile long wrongSecret = 0;
-	private volatile long fromMyself = 0;
+	final VolatileLong exception = new VolatileLong();
+	private final VolatileLong missingMagic = new VolatileLong();
+	private final VolatileLong wrongSecret = new VolatileLong();
+	private final VolatileLong fromMyself = new VolatileLong();
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
 
 	private static final class Node
@@ -309,10 +309,10 @@ abstract class ClusterListener
 
 		return new ClusterListenerInfo(
 				getReceiveBufferSize(),
-				exception,
-				missingMagic,
-				wrongSecret,
-				fromMyself,
+				exception.get(),
+				missingMagic.get(),
+				wrongSecret.get(),
+				fromMyself.get(),
 				infoNodes);
 	}
 }

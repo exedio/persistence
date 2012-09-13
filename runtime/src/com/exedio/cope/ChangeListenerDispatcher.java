@@ -33,8 +33,8 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private final ThreadSwarm threads;
 	private boolean threadRun = true;
-	private volatile long overflow = 0;
-	private volatile long exception = 0;
+	private final VolatileLong overflow = new VolatileLong();
+	private final VolatileLong exception = new VolatileLong();
 
 	ChangeListenerDispatcher(
 			final Types types,
@@ -58,7 +58,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 	ChangeListenerDispatcherInfo getInfo()
 	{
-		return new ChangeListenerDispatcherInfo(overflow, exception, queue.size());
+		return new ChangeListenerDispatcherInfo(overflow.get(), exception.get(), queue.size());
 	}
 
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
@@ -71,7 +71,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 		if(!queue.offer(event))
 		{
-			overflow++;
+			overflow.inc();
 			if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
 				ChangeListeners.logger.log(Level.ERROR, "COPE Change Listener Dispatcher overflows");
 		}
@@ -125,7 +125,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private void handleException(final Throwable e)
 	{
-		exception++;
+		exception.inc();
 		if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
 			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
