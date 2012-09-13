@@ -32,6 +32,15 @@ final class VolatileLong implements Serializable
 		value++;
 	}
 
+	void inc(final long addend)
+	{
+		if(addend<0)
+			throw new IllegalArgumentException();
+
+		if(addend>0)
+			value += addend;
+	}
+
 	long get()
 	{
 		return value;

@@ -34,7 +34,7 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap map;
-	private volatile long hits = 0, misses = 0, invalidations = 0;
+	private final VolatileLong hits = new VolatileLong(), misses = new VolatileLong(), invalidations = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
@@ -68,12 +68,12 @@ final class QueryCache
 				map.put(key, result);
 			}
 		}
-			misses++;
+			misses.inc();
 			return resultList;
 		}
 		else
 		{
-			hits++;
+			hits.inc();
 			result.hits.inc();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
@@ -120,7 +120,7 @@ final class QueryCache
 					}
 				}
 			}
-			this.invalidations += invalidationsCounter;
+			this.invalidations.inc(invalidationsCounter);
 		}
 	}
 
@@ -149,7 +149,7 @@ final class QueryCache
 		else
 			level = 0;
 
-		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements.get() : 0l, invalidations, level);
+		return new QueryCacheInfo(hits.get(), misses.get(), map!=null ? map.replacements.get() : 0l, invalidations.get(), level);
 	}
 
 	QueryCacheHistogram[] getHistogram()
