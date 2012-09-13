@@ -93,12 +93,12 @@ abstract class JavaFeature
 
 	final boolean isStatic()
 	{
-		return (modifier & Modifier.STATIC) > 0;
+		return Modifier.isStatic(modifier);
 	}
 
 	final boolean isAbstract()
 	{
-		return (modifier & Modifier.ABSTRACT) > 0;
+		return Modifier.isAbstract(modifier);
 	}
 
 	final Visibility getVisibility()
