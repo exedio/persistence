@@ -18,8 +18,12 @@
 
 package com.exedio.cope;
 
-final class VolatileLong
+import java.io.Serializable;
+
+final class VolatileLong implements Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long value = 0;
 
