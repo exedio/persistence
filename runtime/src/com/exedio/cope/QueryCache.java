@@ -74,7 +74,7 @@ final class QueryCache
 		else
 		{
 			hits++;
-			result.hits++;
+			result.hits.inc();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
@@ -149,7 +149,7 @@ final class QueryCache
 		else
 			level = 0;
 
-		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, invalidations, level);
+		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements.get() : 0l, invalidations, level);
 	}
 
 	QueryCacheHistogram[] getHistogram()
@@ -170,7 +170,7 @@ final class QueryCache
 		int i = result.length-1;
 		int j = 0;
 		for(final Key key : keys)
-			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits);
+			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits.get());
 
 		return result;
 	}
@@ -234,7 +234,7 @@ final class QueryCache
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
-		volatile long hits = 0;
+		final VolatileLong hits = new VolatileLong();
 
 		Value(final Query<? extends Object> query, final ArrayList<Object> list)
 		{
@@ -259,7 +259,7 @@ final class QueryCache
 		private static final long serialVersionUID = 1l;
 
 		private final int maxSize;
-		volatile long replacements = 0;
+		final VolatileLong replacements = new VolatileLong();
 
 		LRUMap(final int maxSize)
 		{
@@ -273,7 +273,7 @@ final class QueryCache
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
 			final boolean result = size() > maxSize;
 			if(result)
-				replacements++;
+				replacements.inc();
 			return result;
 		}
 	}

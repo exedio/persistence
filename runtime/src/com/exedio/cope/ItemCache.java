@@ -180,8 +180,8 @@ final class ItemCache
 		private final TIntObjectHashMap<WrittenState> map;
 		private final TIntLongHashMap invalidateLastNanos;
 
-		private volatile long hits = 0;
-		private volatile long misses = 0;
+		private final VolatileLong hits = new VolatileLong();
+		private final VolatileLong misses = new VolatileLong();
 		private long concurrentLoads = 0;
 		private int replacementRuns = 0;
 		private int replacements = 0;
@@ -213,10 +213,10 @@ final class ItemCache
 			if(result!=null)
 			{
 				result.notifyUsed();
-				hits++;
+				hits.inc();
 			}
 			else
-				misses++;
+				misses.inc();
 
 			return result;
 		}
@@ -400,7 +400,7 @@ final class ItemCache
 			return new ItemCacheInfo(
 				type,
 				limit, level,
-				hits, misses,
+				hits.get(), misses.get(),
 				concurrentLoads,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
