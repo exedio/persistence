@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 final class VolatileLong
 {
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long value = 0;
 
 	void inc()
