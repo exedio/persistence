@@ -126,7 +126,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertEquals(null, item.testPattern.getLocator(item));
 
 		assertTrue(item.fetch());
-		assertEquals("RecursiveItem/testPattern-media/RecursiveItem-0.png", item.testPattern.getLocator(item).toString());
+		assertEquals("RecursiveItem/testPattern-media/" + item + ".png", item.testPattern.getLocator(item).toString());
 	}
 
 	@Deprecated
