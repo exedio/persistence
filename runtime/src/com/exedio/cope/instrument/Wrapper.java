@@ -372,7 +372,7 @@ public final class Wrapper
 	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
 	 */
 	@Deprecated
-	public static final java.lang.reflect.Type generic(final Class<?> rawType, final Class<?>... actualTypeArguments)
+	public static final java.lang.reflect.Type generic(@SuppressWarnings("unused") final Class<?> rawType, @SuppressWarnings("unused") final Class<?>... actualTypeArguments)
 	{
 		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
 	}
