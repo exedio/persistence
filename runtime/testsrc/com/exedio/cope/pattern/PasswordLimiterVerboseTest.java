@@ -87,7 +87,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
 			assertEquals(new Date(refusal1.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
-			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock));
 		assertEquals(list(refusal1, refusal2), getRefusals());
@@ -102,7 +102,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
 			assertEquals(new Date(refusal1.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
-			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
@@ -124,7 +124,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
 			assertEquals(new Date(refusal1.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
-			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		clock.assertEmpty();
 
@@ -149,7 +149,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
 			assertEquals(new Date(refusal3.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
-			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
@@ -163,7 +163,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
 			assertEquals(new Date(refusal3.getDate().getTime()+passwordLimited.getPeriod()), e.getReleaseDate());
-			assertEquals("password limit exceeded on PasswordLimiterItem-0 for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
+			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
