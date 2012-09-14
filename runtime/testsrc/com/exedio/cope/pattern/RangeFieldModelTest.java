@@ -125,11 +125,4 @@ public class RangeFieldModelTest extends CopeAssert
 			assertEquals("right", e.getMessage());
 		}
 	}
-
-	@Deprecated // OK testing deprecated api
-	public void testDeprecated()
-	{
-		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
-		assertEquals(com.exedio.cope.instrument.Wrapper.generic(Range.class, String.class), getInitialType(text));
-	}
 }

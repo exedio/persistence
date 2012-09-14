@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* remove support for deprecated Wrapper#generic(Class, Class...)
+	which has been replaced by @Wrap annotation for a while.
+	Methods throws a NoSuchMethodError, this breaks backwards API compatibility.
+	Avoids use of internal proprietary API.
 * No current transaction allowed anymore during sequence checks:
 	- Type#checkPrimaryKey
 	- IntegerField#checkDefaultToNext

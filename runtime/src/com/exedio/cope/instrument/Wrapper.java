@@ -368,10 +368,13 @@ public final class Wrapper
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SIC_INNER_SHOULD_BE_STATIC")
 	public class TypeVariable1 { /* OK, just a placeholder */ }
 
+	/**
+	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
+	 */
+	@Deprecated
 	public static final java.lang.reflect.Type generic(final Class<?> rawType, final Class<?>... actualTypeArguments)
 	{
-		return sun.reflect.generics.reflectiveObjects.
-			ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
+		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
 	}
 
 	static final class ExtendsType implements java.lang.reflect.Type
