@@ -20,6 +20,8 @@
 				<compilerarg value="-Xlint" />
 				<compilerarg value="-encoding" />
 				<compilerarg value="ascii" />
+				<compilerarg value="-Xmaxwarns" />
+				<compilerarg value="10000" />
 			</javac>
 			<copy todir="build/classes/@{srcdir}">
 				<fileset dir="@{srcdir}">
