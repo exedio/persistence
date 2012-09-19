@@ -41,6 +41,7 @@ import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 
@@ -416,7 +417,7 @@ public class Hash extends Pattern implements Settable<String>
 
 		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
 		{
-			return Long.toString(Math.abs(secureRandom.nextLong()), 36);
+			return Long.toString(NonNegativeRandom.nextLong(secureRandom), 36);
 		}
 	}
 
