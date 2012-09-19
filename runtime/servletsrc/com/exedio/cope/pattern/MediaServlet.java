@@ -205,6 +205,7 @@ public class MediaServlet extends HttpServlet
 
 		response.setStatus(log.responseStatus);
 		response.setContentType("text/html");
+		response.setCharacterEncoding("us-ascii");
 
 		PrintStream out = null;
 		try
@@ -217,6 +218,7 @@ public class MediaServlet extends HttpServlet
 					out.print("<html>\n" +
 							"<head>\n" +
 							"<title>Internal Server Error</title>\n" +
+							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
 							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 							"</head>\n" +
 							"<body>\n" +
@@ -230,6 +232,7 @@ public class MediaServlet extends HttpServlet
 					out.print("<html>\n" +
 							"<head>\n" +
 							"<title>Not Found</title>\n" +
+							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
 							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 							"</head>\n" +
 							"<body>\n" +
