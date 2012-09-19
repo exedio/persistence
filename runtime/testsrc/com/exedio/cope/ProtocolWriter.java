@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Properties;
 
 public class ProtocolWriter extends AbstractRuntimeTest
@@ -54,7 +53,7 @@ public class ProtocolWriter extends AbstractRuntimeTest
 					&& field.getValue()!=null)
 					prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
 			}
-			final PrintStream out = new PrintStream(new FileOutputStream(file, true));
+			final FileOutputStream out = new FileOutputStream(file, true);
 			try
 			{
 				prefixed.store(out, null);
