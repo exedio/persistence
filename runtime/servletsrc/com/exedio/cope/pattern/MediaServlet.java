@@ -210,7 +210,7 @@ public class MediaServlet extends HttpServlet
 		PrintStream out = null;
 		try
 		{
-			out = new PrintStream(response.getOutputStream());
+			out = new PrintStream(response.getOutputStream(), false, "us-ascii");
 
 			switch(log.responseStatus)
 			{
