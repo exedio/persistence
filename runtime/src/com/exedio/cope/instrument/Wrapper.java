@@ -195,7 +195,7 @@ public final class Wrapper
 
 	public Wrapper addParameterVararg(final Class<?> type, final String name)
 	{
-		return addParameter(type, name, null, true);
+		return addParameter(type, name, new String[]{}, true);
 	}
 
 	private Wrapper addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
