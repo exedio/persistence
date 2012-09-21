@@ -105,7 +105,7 @@ public class DigitPinValidatorTest extends CopeAssert
 		assertIt(4, listg("0123", "4567", "8901", "2345", "6789"));
 	}
 
-	private void assertIt(final int pinLen, final List<String> expected)
+	private static void assertIt(final int pinLen, final List<String> expected)
 	{
 		final SecureRandom random = new SecureRandom() {
 			private static final long serialVersionUID = 1l;
