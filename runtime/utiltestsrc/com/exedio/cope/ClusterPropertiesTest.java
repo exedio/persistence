@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.util.Collection;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 
 public class ClusterPropertiesTest extends CopeAssert
