@@ -30,12 +30,14 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Random;
 
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
 final class ClusterProperties extends Properties
 {
-	static ClusterProperties get(final Properties.Source source)
+	static ClusterProperties get(final ConnectProperties properties)
 	{
+		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
 		final ClusterProperties clusterProperties = new ClusterProperties(source);
 		if(!clusterProperties.isEnabled())
 			return null;

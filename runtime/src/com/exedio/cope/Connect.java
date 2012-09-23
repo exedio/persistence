@@ -31,7 +31,6 @@ import java.util.Map;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.cope.util.PrefixSource;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
@@ -129,7 +128,7 @@ final class Connect
 		if(properties.cluster.booleanValue())
 		{
 			final ClusterProperties clusterProperties =
-				ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+				ClusterProperties.get(properties);
 
 			if(clusterProperties!=null)
 				this.cluster = new Cluster(name, types, clusterProperties, this);

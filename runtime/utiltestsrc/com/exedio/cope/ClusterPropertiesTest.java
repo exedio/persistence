@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.Collection;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 
 public class ClusterPropertiesTest extends CopeAssert
@@ -31,13 +32,13 @@ public class ClusterPropertiesTest extends CopeAssert
 		{
 			public String get(final String key)
 			{
-				if(key.equals("secret"))
+				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("log"))
+				else if(key.equals("cluster.log"))
 					return "false";
-				else if(key.equals("listenThreads"))
+				else if(key.equals("cluster.listenThreads"))
 					return "5";
-				else if(key.equals("listenThreadsMax"))
+				else if(key.equals("cluster.listenThreadsMax"))
 					return "5";
 				else
 					return null;
@@ -54,7 +55,7 @@ public class ClusterPropertiesTest extends CopeAssert
 			}
 		};
 
-		final ClusterProperties p = ClusterProperties.get(s);
+		final ClusterProperties p = ClusterProperties.get(new ConnectProperties(ConnectSource.get(), s));
 		assertEquals(5, p.getListenThreads());
 		assertEquals(5, p.getListenThreadsMax());
 	}
@@ -65,13 +66,13 @@ public class ClusterPropertiesTest extends CopeAssert
 		{
 			public String get(final String key)
 			{
-				if(key.equals("secret"))
+				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("log"))
+				else if(key.equals("cluster.log"))
 					return "false";
-				else if(key.equals("listenThreads"))
+				else if(key.equals("cluster.listenThreads"))
 					return "5";
-				else if(key.equals("listenThreadsMax"))
+				else if(key.equals("cluster.listenThreadsMax"))
 					return "4";
 				else
 					return null;
@@ -90,7 +91,7 @@ public class ClusterPropertiesTest extends CopeAssert
 
 		try
 		{
-			ClusterProperties.get(s);
+			ClusterProperties.get(new ConnectProperties(ConnectSource.get(), s));
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -46,19 +46,21 @@ public abstract class ClusterTest extends CopeAssert
 	private static ClusterProperties getProperties(final int node)
 	{
 		return ClusterProperties.get(
+			new ConnectProperties(
+				ConnectSource.get(),
 				new Properties.Source()
 				{
 					public String get(final String key)
 					{
-						if(key.equals("packetSize"))
+						if(key.equals("cluster.packetSize"))
 							return "47";
-						else if(key.equals("secret"))
+						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("nodeAuto"))
+						else if(key.equals("cluster.nodeAuto"))
 							return "false";
-						else if(key.equals("node"))
+						else if(key.equals("cluster.node"))
 							return String.valueOf(node);
-						else if(key.equals("log"))
+						else if(key.equals("cluster.log"))
 							return "false";
 						else
 							return null;
@@ -74,7 +76,7 @@ public abstract class ClusterTest extends CopeAssert
 						return null;
 					}
 				}
-			);
+			));
 	}
 
 	@Override
