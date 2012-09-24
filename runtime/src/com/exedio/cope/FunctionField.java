@@ -41,6 +41,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
+	final ItemField<?> copyFrom;
+	private final CopyConstraint implicitCopyConstraint;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
@@ -48,15 +50,19 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
 			final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
+		this.copyFrom = copyFrom;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint(this) :
 				null;
+		this.implicitCopyConstraint = (copyFrom!=null) ? new CopyConstraint(copyFrom, this) : null;
+
 		this.defaultConstant = defaultConstant;
 	}
 
@@ -108,6 +114,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 		if(unique)
 			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, null);
+		if(implicitCopyConstraint!=null)
+			implicitCopyConstraint.mount(type, name + "CopyFrom" + copyFrom.getName(), null);
 	}
 
 	final void checkValueClass(final Class<? extends Object> superClass)
@@ -241,6 +249,18 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
+	}
+
+	/**
+	 * Returns the copy constraint of this field,
+	 * that has been created implicitly when creating this field.
+	 * Does return null, if there is no such copy constraint.
+	 * @see StringField#copyFrom(ItemField)
+	 * @see ItemField#copyFrom(ItemField)
+	 */
+	public CopyConstraint getImplicitCopyConstraint()
+	{
+		return implicitCopyConstraint;
 	}
 
 	@Override

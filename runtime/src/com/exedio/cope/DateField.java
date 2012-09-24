@@ -40,11 +40,12 @@ public final class DateField extends FunctionField<Date>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Date defaultConstant,
 			final long defaultConstantSet,
 			final boolean defaultNow)
 	{
-		super(isfinal, optional, unique, Date.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
 		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
 
@@ -56,54 +57,54 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField()
 	{
-		this(false, false, false, null, Integer.MIN_VALUE, false);
+		this(false, false, false, null, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, null, Integer.MIN_VALUE, false);
+		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, System.currentTimeMillis(), defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), defaultNow);
 	}
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, true);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
 	}
 
 	public boolean isDefaultNow()
@@ -114,6 +115,12 @@ public final class DateField extends FunctionField<Date>
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;
+	}
+
+	// TODO move further up
+	public DateField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	/**

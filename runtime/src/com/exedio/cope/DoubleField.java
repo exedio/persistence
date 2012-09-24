@@ -37,11 +37,12 @@ public final class DoubleField extends NumberField<Double>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Double defaultConstant,
 			final double minimum,
 			final double maximum)
 	{
-		super(isfinal, optional, unique, Double.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Double.class, defaultConstant);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -63,64 +64,64 @@ public final class DoubleField extends NumberField<Double>
 
 	public DoubleField()
 	{
-		this(false, false, false, null, MIN, MAX);
+		this(false, false, false, null, null, MIN, MAX);
 	}
 
 	@Override
 	public DoubleField copy()
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField toFinal()
 	{
-		return new DoubleField(true, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField optional()
 	{
-		return new DoubleField(isfinal, true, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField unique()
 	{
-		return new DoubleField(isfinal, optional, true, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField nonUnique()
 	{
-		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField noDefault()
 	{
-		return new DoubleField(isfinal, optional, unique, null, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField range(final double minimum, final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField min(final double minimum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField max(final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public double getMinimum()

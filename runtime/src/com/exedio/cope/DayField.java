@@ -41,11 +41,12 @@ public final class DayField extends FunctionField<Day>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Day defaultConstant,
 			final long defaultConstantSet,
 			final boolean defaultNow)
 	{
-		super(isfinal, optional, unique, Day.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Day.class, defaultConstant);
 		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
 
@@ -57,54 +58,54 @@ public final class DayField extends FunctionField<Day>
 
 	public DayField()
 	{
-		this(false, false, false, null, Integer.MIN_VALUE, false);
+		this(false, false, false, null, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField noDefault()
 	{
-		return new DayField(isfinal, optional, unique, null, Integer.MIN_VALUE, false);
+		return new DayField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, System.currentTimeMillis(), defaultNow);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), defaultNow);
 	}
 
 	public DayField defaultToNow()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultConstantSet, true);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
 	}
 
 	public boolean isDefaultNow()

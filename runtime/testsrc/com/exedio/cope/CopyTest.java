@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopySourceItem.TYPE;
-import static com.exedio.cope.CopySourceItem.selfTemplateItemCopyFromTarget;
-import static com.exedio.cope.CopySourceItem.templateItemCopyFromTarget;
-import static com.exedio.cope.CopySourceItem.templateStringCopyFromTarget;
+import static com.exedio.cope.CopyModelTest.selfTemplateItemCopyFromTarget;
+import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
+import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 
 public class CopyTest extends AbstractRuntimeTest
 {

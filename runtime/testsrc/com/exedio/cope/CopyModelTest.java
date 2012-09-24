@@ -23,12 +23,9 @@ import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
 import static com.exedio.cope.CopySourceItem.TYPE;
 import static com.exedio.cope.CopySourceItem.selfTargetItem;
 import static com.exedio.cope.CopySourceItem.selfTemplateItem;
-import static com.exedio.cope.CopySourceItem.selfTemplateItemCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.targetItem;
 import static com.exedio.cope.CopySourceItem.templateItem;
-import static com.exedio.cope.CopySourceItem.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.templateString;
-import static com.exedio.cope.CopySourceItem.templateStringCopyFromTarget;
 
 import java.util.Arrays;
 
@@ -42,6 +39,10 @@ public class CopyModelTest extends CopeAssert
 	{
 		MODEL.enableSerialization(CopyModelTest.class, "MODEL");
 	}
+
+	static final CopyConstraint templateStringCopyFromTarget = templateString.getImplicitCopyConstraint();
+	static final CopyConstraint templateItemCopyFromTarget = templateItem.getImplicitCopyConstraint();
+	static final CopyConstraint selfTemplateItemCopyFromTarget = selfTemplateItem.getImplicitCopyConstraint();
 
 	public void testIt()
 	{
@@ -75,11 +76,11 @@ public class CopyModelTest extends CopeAssert
 		assertEquals(TYPE, selfTemplateItem.getType());
 		assertEquals(TYPE, selfTemplateItemCopyFromTarget.getType());
 		assertEquals("templateString", templateString.getName());
-		assertEquals("templateStringCopyFromTarget", templateStringCopyFromTarget.getName());
+		assertEquals("templateStringCopyFromtargetItem", templateStringCopyFromTarget.getName());
 		assertEquals("templateItem", templateItem.getName());
-		assertEquals("templateItemCopyFromTarget", templateItemCopyFromTarget.getName());
+		assertEquals("templateItemCopyFromtargetItem", templateItemCopyFromTarget.getName());
 		assertEquals("selfTemplateItem", selfTemplateItem.getName());
-		assertEquals("selfTemplateItemCopyFromTarget", selfTemplateItemCopyFromTarget.getName());
+		assertEquals("selfTemplateItemCopyFromselfTargetItem", selfTemplateItemCopyFromTarget.getName());
 
 		assertEqualsUnmodifiable(
 				list(templateStringCopyFromTarget, templateItemCopyFromTarget, selfTemplateItemCopyFromTarget),
@@ -119,9 +120,9 @@ public class CopyModelTest extends CopeAssert
 		assertSame(templateItem,   templateItemCopyFromTarget.getCopy());
 		assertSame(selfTemplateItem,   selfTemplateItemCopyFromTarget.getCopy());
 
-		assertSerializedSame(templateStringCopyFromTarget  , 397);
-		assertSerializedSame(templateItemCopyFromTarget    , 395);
-		assertSerializedSame(selfTemplateItemCopyFromTarget, 399);
+		assertSerializedSame(templateStringCopyFromTarget  , 401);
+		assertSerializedSame(templateItemCopyFromTarget    , 399);
+		assertSerializedSame(selfTemplateItemCopyFromTarget, 407);
 
 		try
 		{

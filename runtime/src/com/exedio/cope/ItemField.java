@@ -37,10 +37,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, copyFrom, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
@@ -60,7 +61,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, null, valueTypeFuture, policy);
 	}
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
@@ -76,31 +77,31 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(true, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, true, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, false, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
@@ -114,12 +115,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -133,6 +134,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			throw new IllegalArgumentException("no defaults for item fields");
 
 		return copy(); // no defaults for item fields
+	}
+
+	// TODO move further up
+	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	/**

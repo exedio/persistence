@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
-import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -39,14 +38,14 @@ final class MxSamplerMemoryPool extends Item
 	private static final ItemField<MxSamplerGlobal> model = ItemField.create(MxSamplerGlobal.class).toFinal();
 	static final ItemField<MxSamplerMemoryPoolName> name = ItemField.create(MxSamplerMemoryPoolName.class).toFinal();
 
-	private static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, name); // date must be first, so purging can use the index
-	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
-	private static final IntegerField running = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
+	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
-	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
-	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
+	// TODO remove, was CopyConstraint
+	// TODO remove, was CopyConstraint
+	// TODO remove, was CopyConstraint
 
 	@SuppressWarnings("unchecked")
 	static List<SetValue<?>> map(final MxSamplerGlobal m)

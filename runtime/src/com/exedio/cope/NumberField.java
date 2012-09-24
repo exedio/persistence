@@ -30,10 +30,11 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
 			final E defaultConstant)
 	{
-		super(isfinal, optional, unique, valueClass, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	// convenience methods for conditions and views ---------------------------------
