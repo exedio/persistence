@@ -109,13 +109,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	Table table;
 
-	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
 		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
 
-		return (Type<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final Type<X> result = (Type<X>)this;
+		return result;
 	}
 
 	private ArrayList<Feature> featuresWhileConstruction;

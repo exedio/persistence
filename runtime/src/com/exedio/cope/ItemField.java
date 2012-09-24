@@ -139,7 +139,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Item> ItemField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -151,7 +150,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (ItemField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final ItemField<X> result = (ItemField<X>)this;
+		return result;
 	}
 
 	public DeletePolicy getDeletePolicy()

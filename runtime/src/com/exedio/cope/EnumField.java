@@ -116,7 +116,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 * @see ItemField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Enum<X>> EnumField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -128,7 +127,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (EnumField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final EnumField<X> result = (EnumField<X>)this;
+		return result;
 	}
 
 	@Override
