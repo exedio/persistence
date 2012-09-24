@@ -31,7 +31,7 @@ import javax.servlet.ServletContextListener;
 
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.CopyTest;
+import com.exedio.cope.CopyModelTest;
 import com.exedio.cope.DataTest;
 import com.exedio.cope.DayFieldTest;
 import com.exedio.cope.DefaultToTest;
@@ -74,7 +74,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				InstanceOfModelTest.MODEL,
 				HiddenFeatureTest.MODEL,
 				DispatcherModelTest.MODEL,
-				CopyTest.MODEL,
+				CopyModelTest.MODEL,
 				DefaultToTest.MODEL,
 				Stuff.samplerModel,
 				BadQueryTest.MODEL,

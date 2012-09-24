@@ -18,20 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-
 public class CopyTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(CopySourceItem.TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(CopyTest.class, "MODEL");
-	}
-
 	public CopyTest()
 	{
-		super(MODEL);
+		super(CopyModelTest.MODEL);
 	}
 
 	CopyValueItem value1, value2, valueX;
@@ -55,123 +46,6 @@ public class CopyTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
-		assertEquals(Arrays.asList(new Feature[]{
-				CopySourceItem.TYPE.getThis(),
-				CopySourceItem.targetItem,
-				CopySourceItem.templateString,
-				CopySourceItem.templateItem,
-				CopySourceItem.templateStringCopyFromTarget,
-				CopySourceItem.templateItemCopyFromTarget,
-				CopySourceItem.selfTargetItem,
-				CopySourceItem.selfTemplateItem,
-				CopySourceItem.selfTemplateItemCopyFromTarget,
-			}), CopySourceItem.TYPE.getFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
-				CopySourceItem.TYPE.getThis(),
-				CopySourceItem.targetItem,
-				CopySourceItem.templateString,
-				CopySourceItem.templateItem,
-				CopySourceItem.templateStringCopyFromTarget,
-				CopySourceItem.templateItemCopyFromTarget,
-				CopySourceItem.selfTargetItem,
-				CopySourceItem.selfTemplateItem,
-				CopySourceItem.selfTemplateItemCopyFromTarget,
-			}), CopySourceItem.TYPE.getDeclaredFeatures());
-
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateString.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateStringCopyFromTarget.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateItem.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.templateItemCopyFromTarget.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.selfTemplateItem.getType());
-		assertEquals(CopySourceItem.TYPE, CopySourceItem.selfTemplateItemCopyFromTarget.getType());
-		assertEquals("templateString", CopySourceItem.templateString.getName());
-		assertEquals("templateStringCopyFromTarget", CopySourceItem.templateStringCopyFromTarget.getName());
-		assertEquals("templateItem", CopySourceItem.templateItem.getName());
-		assertEquals("templateItemCopyFromTarget", CopySourceItem.templateItemCopyFromTarget.getName());
-		assertEquals("selfTemplateItem", CopySourceItem.selfTemplateItem.getName());
-		assertEquals("selfTemplateItemCopyFromTarget", CopySourceItem.selfTemplateItemCopyFromTarget.getName());
-
-		assertEqualsUnmodifiable(
-				list(CopySourceItem.templateStringCopyFromTarget, CopySourceItem.templateItemCopyFromTarget, CopySourceItem.selfTemplateItemCopyFromTarget),
-				CopySourceItem.TYPE.getDeclaredCopyConstraints());
-		assertEqualsUnmodifiable(
-				list(CopySourceItem.templateStringCopyFromTarget, CopySourceItem.templateItemCopyFromTarget, CopySourceItem.selfTemplateItemCopyFromTarget),
-				CopySourceItem.TYPE.getCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getDeclaredCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getCopyConstraints());
-
-		assertEquals(null, CopySourceItem.templateString.getPattern());
-		assertEquals(null, CopySourceItem.templateItem.getPattern());
-		assertEquals(null, CopySourceItem.selfTemplateItem.getPattern());
-
-		assertEquals(true, CopySourceItem.templateString.isInitial());
-		assertEquals(true, CopySourceItem.templateString.isFinal());
-		assertEquals(String.class, getInitialType(CopySourceItem.templateString));
-		assertContains(
-				StringLengthViolationException.class, FinalViolationException.class,
-				CopySourceItem.templateString.getInitialExceptions());
-		assertEquals(true, CopySourceItem.templateItem.isInitial());
-		assertEquals(true, CopySourceItem.templateItem.isFinal());
-		assertEquals(CopyValueItem.class, getInitialType(CopySourceItem.templateItem));
-		assertContains(
-				FinalViolationException.class,
-				CopySourceItem.templateItem.getInitialExceptions());
-
-		assertSame(CopySourceItem.targetItem, CopySourceItem.templateStringCopyFromTarget.getTarget());
-		assertSame(CopySourceItem.targetItem, CopySourceItem.templateItemCopyFromTarget.getTarget());
-		assertSame(CopySourceItem.selfTargetItem, CopySourceItem.selfTemplateItemCopyFromTarget.getTarget());
-
-		assertSame(CopyTargetItem.templateString, CopySourceItem.templateStringCopyFromTarget.getTemplate());
-		assertSame(CopyTargetItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getTemplate());
-		assertSame(CopySourceItem.selfTemplateItem,   CopySourceItem.selfTemplateItemCopyFromTarget.getTemplate());
-
-		assertSame(CopySourceItem.templateString, CopySourceItem.templateStringCopyFromTarget.getCopy());
-		assertSame(CopySourceItem.templateItem,   CopySourceItem.templateItemCopyFromTarget.getCopy());
-		assertSame(CopySourceItem.selfTemplateItem,   CopySourceItem.selfTemplateItemCopyFromTarget.getCopy());
-
-		assertSerializedSame(CopySourceItem.templateStringCopyFromTarget  , 392);
-		assertSerializedSame(CopySourceItem.templateItemCopyFromTarget    , 390);
-		assertSerializedSame(CopySourceItem.selfTemplateItemCopyFromTarget, 394);
-
-		try
-		{
-			new CopyConstraint(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("target", e.getMessage());
-		}
-		try
-		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("copy", e.getMessage());
-		}
-		try
-		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class), new StringField());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("target must be final", e.getMessage());
-		}
-		try
-		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class).toFinal(), new StringField());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("copy must be final", e.getMessage());
-		}
-
-		// test persistence
 		assertContains(self1, self2, selfN, CopySourceItem.TYPE.search());
 		check();
 

@@ -161,6 +161,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );
 		suite.addTestSuite( UniqueHierarchyTest.class );
+		suite.addTestSuite( CopyModelTest.class );
 		suite.addTestSuite( CopyTest.class );
 		suite.addTestSuite( SchemaNamePolymorphicTest.class );
 		suite.addTestSuite( CheckTypeColumnTest.class );
