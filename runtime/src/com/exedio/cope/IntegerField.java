@@ -40,9 +40,13 @@ public final class IntegerField extends NumberField<Integer>
 	private final int maximum;
 
 	private IntegerField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Integer defaultConstant, final Integer defaultNextStart,
-			final int minimum, final int maximum)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Integer defaultConstant,
+			final Integer defaultNextStart,
+			final int minimum,
+			final int maximum)
 	{
 		super(isfinal, optional, unique, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;

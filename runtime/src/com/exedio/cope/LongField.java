@@ -31,9 +31,12 @@ public final class LongField extends NumberField<Long>
 	private final long maximum;
 
 	private LongField(
-			final boolean isfinal, final boolean optional, final boolean unique,
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
 			final Long defaultConstant,
-			final long minimum, final long maximum)
+			final long minimum,
+			final long maximum)
 	{
 		super(isfinal, optional, unique, Long.class, defaultConstant);
 		this.minimum = minimum;
