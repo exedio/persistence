@@ -47,12 +47,6 @@ final class SamplerItemCache extends Item
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
 	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
-	// TODO remove, was CopyConstraint
-	// TODO remove, was CopyConstraint
-	// TODO remove, was CopyConstraint
-	// TODO remove, was CopyConstraint
-	// TODO remove, was CopyConstraint
-
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)

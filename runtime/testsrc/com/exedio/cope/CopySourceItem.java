@@ -23,14 +23,11 @@ class CopySourceItem extends Item
 	static final ItemField<CopyTargetItem> targetItem = ItemField.create(CopyTargetItem.class).toFinal().optional();
 
 	static final StringField templateString = new StringField().toFinal().optional().copyFrom(targetItem);
-	// TODO remove, was CopyConstraint
 
 	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(targetItem);
-	// TODO remove, was CopyConstraint
 
 	static final ItemField<CopySourceItem> selfTargetItem = ItemField.create(CopySourceItem.class).toFinal().optional();
 	static final ItemField<CopyValueItem> selfTemplateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(selfTargetItem);
-	// TODO remove, was CopyConstraint
 
 	@Override
 	public String toString()
