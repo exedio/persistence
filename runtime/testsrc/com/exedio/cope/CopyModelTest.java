@@ -34,10 +34,6 @@ public class CopyModelTest extends CopeAssert
 		MODEL.enableSerialization(CopyModelTest.class, "MODEL");
 	}
 
-	CopyValueItem value1, value2, valueX;
-	CopyTargetItem target1, target2, targetN;
-	CopySourceItem self1, self2, selfN;
-
 	public void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
