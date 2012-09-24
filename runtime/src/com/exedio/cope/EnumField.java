@@ -28,7 +28,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final EnumFieldType<E> valueType;
 
-	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	private EnumField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Class<E> valueClass,
+			final E defaultConstant)
 	{
 		super(isfinal, optional, unique, valueClass, defaultConstant);
 

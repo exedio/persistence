@@ -43,8 +43,13 @@ public final class StringField extends FunctionField<String>
 	private final CharSet charSet;
 
 	private StringField(
-			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
-			final int minimumLength, final int maximumLength, final CharSet charSet)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final String defaultConstant,
+			final int minimumLength,
+			final int maximumLength,
+			final CharSet charSet)
 	{
 		super(isfinal, optional, unique, String.class, defaultConstant);
 		this.minimumLength = minimumLength;

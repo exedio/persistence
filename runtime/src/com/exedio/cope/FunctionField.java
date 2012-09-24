@@ -44,7 +44,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
-	FunctionField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	FunctionField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Class<E> valueClass,
+			final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;

@@ -27,7 +27,11 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
+	private BooleanField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Boolean defaultConstant)
 	{
 		super(isfinal, optional, unique, Boolean.class, defaultConstant);
 		checkDefaultConstant();

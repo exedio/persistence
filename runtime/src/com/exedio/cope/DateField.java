@@ -37,8 +37,12 @@ public final class DateField extends FunctionField<Date>
 	final boolean defaultNow;
 
 	private DateField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Date defaultConstant, final long defaultConstantSet, final boolean defaultNow)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Date defaultConstant,
+			final long defaultConstantSet,
+			final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, Date.class, defaultConstant);
 		this.defaultConstantSet = defaultConstantSet;

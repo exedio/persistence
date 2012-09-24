@@ -38,8 +38,12 @@ public final class DayField extends FunctionField<Day>
 	final boolean defaultNow;
 
 	private DayField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Day defaultConstant, final long defaultConstantSet, final boolean defaultNow)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final Day defaultConstant,
+			final long defaultConstantSet,
+			final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, Day.class, defaultConstant);
 		this.defaultConstantSet = defaultConstantSet;
