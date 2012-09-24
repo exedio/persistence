@@ -74,6 +74,12 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
+	public BooleanField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
+	}
+
+	@Override
 	public BooleanField noDefault()
 	{
 		return new BooleanField(isfinal, optional, unique, copyFrom, null);

@@ -81,6 +81,12 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
+	public LongField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+	}
+
+	@Override
 	public LongField noDefault()
 	{
 		return new LongField(isfinal, optional, unique, copyFrom, null, minimum, maximum);

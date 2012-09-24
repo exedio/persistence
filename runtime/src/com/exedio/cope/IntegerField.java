@@ -125,6 +125,7 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
+	@Override
 	public IntegerField copyFrom(final ItemField<?> copyFrom)
 	{
 		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);

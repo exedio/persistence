@@ -92,6 +92,12 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	@Override
+	public DayField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+	}
+
+	@Override
 	public DayField noDefault()
 	{
 		return new DayField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);

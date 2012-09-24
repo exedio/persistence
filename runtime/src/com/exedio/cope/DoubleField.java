@@ -98,6 +98,12 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
+	public DoubleField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+	}
+
+	@Override
 	public DoubleField noDefault()
 	{
 		return new DoubleField(isfinal, optional, unique, copyFrom, null, minimum, maximum);

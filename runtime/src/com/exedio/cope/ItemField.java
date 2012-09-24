@@ -104,6 +104,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<E>(isfinal, optional, false, copyFrom, valueTypeFuture, policy);
 	}
 
+	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
 		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
