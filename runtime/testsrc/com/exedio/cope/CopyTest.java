@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CopySourceItem.TYPE;
+import static com.exedio.cope.CopySourceItem.selfTemplateItemCopyFromTarget;
+import static com.exedio.cope.CopySourceItem.templateItemCopyFromTarget;
+import static com.exedio.cope.CopySourceItem.templateStringCopyFromTarget;
+
 public class CopyTest extends AbstractRuntimeTest
 {
 	public CopyTest()
@@ -46,14 +51,14 @@ public class CopyTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertContains(self1, self2, selfN, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, TYPE.search());
 		check();
 
 		final CopySourceItem source1 = deleteOnTearDown(new CopySourceItem(target1, "template1", value1, self1, value1));
 		assertEquals(target1, source1.getTargetItem());
 		assertEquals("template1", source1.getTemplateString());
 		assertEquals(value1, source1.getTemplateItem());
-		assertContains(self1, self2, selfN, source1, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, TYPE.search());
 		assertEquals(self1, source1.getSelfTargetItem());
 		assertEquals(value1, source1.getSelfTemplateItem());
 		check();
@@ -62,7 +67,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(target2, source2.getTargetItem());
 		assertEquals("template2", source2.getTemplateString());
 		assertEquals(value2, source2.getTemplateItem());
-		assertContains(self1, self2, selfN, source1, source2, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, TYPE.search());
 		assertEquals(self2, source2.getSelfTargetItem());
 		assertEquals(value2, source2.getSelfTemplateItem());
 		check();
@@ -71,7 +76,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(targetN, sourceN.getTargetItem());
 		assertEquals(null, sourceN.getTemplateString());
 		assertEquals(null, sourceN.getTemplateItem());
-		assertContains(self1, self2, selfN, source1, source2, sourceN, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, TYPE.search());
 		assertEquals(selfN, sourceN.getSelfTargetItem());
 		assertEquals(null, sourceN.getSelfTemplateItem());
 		check();
@@ -80,7 +85,7 @@ public class CopyTest extends AbstractRuntimeTest
 		assertEquals(null, sourceNT.getTargetItem());
 		assertEquals("templateN", sourceNT.getTemplateString());
 		assertEquals(value2, sourceNT.getTemplateItem());
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		assertEquals(null, sourceNT.getSelfTargetItem());
 		assertEquals(value1, sourceNT.getSelfTemplateItem());
 		check();
@@ -92,19 +97,19 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
+			assertEquals(templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("template2", e.getExpectedValue());
 			assertEquals("template1", e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was 'template1'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 
 		try
@@ -114,19 +119,19 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
+			assertEquals(templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("template2", e.getExpectedValue());
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 
 		try
@@ -136,19 +141,19 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
+			assertEquals(templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(value2, e.getExpectedValue());
 			assertEquals(value1, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 
 		try
@@ -158,19 +163,19 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
+			assertEquals(templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(value2, e.getExpectedValue());
 			assertEquals(null, e.getActualValue());
 			assertEquals(target2, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was null",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 
 		try
@@ -180,19 +185,19 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateStringCopyFromTarget, e.getFeature());
+			assertEquals(templateStringCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getExpectedValue());
 			assertEquals("template1", e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateStringCopyFromTarget + ", " +
+					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was 'template1'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 
 		try
@@ -202,26 +207,26 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(CopySourceItem.templateItemCopyFromTarget, e.getFeature());
+			assertEquals(templateItemCopyFromTarget, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getExpectedValue());
 			assertEquals(value1, e.getActualValue());
 			assertEquals(targetN, e.getTargetItem());
 			assertEquals(
-					"copy violation on " + CopySourceItem.templateItemCopyFromTarget + ", " +
+					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + targetN.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, CopySourceItem.TYPE.search());
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
 	}
 
 	private static final void check()
 	{
-		assertEquals(0, CopySourceItem.templateStringCopyFromTarget.check());
-		assertEquals(0, CopySourceItem.templateItemCopyFromTarget.check());
-		assertEquals(0, CopySourceItem.selfTemplateItemCopyFromTarget.check());
+		assertEquals(0, templateStringCopyFromTarget.check());
+		assertEquals(0, templateItemCopyFromTarget.check());
+		assertEquals(0, selfTemplateItemCopyFromTarget.check());
 	}
 }
