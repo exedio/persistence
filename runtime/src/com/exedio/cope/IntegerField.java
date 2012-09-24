@@ -125,6 +125,11 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
+	public IntegerField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
+	}
+
 	@Override
 	public IntegerField noDefault()
 	{
@@ -165,12 +170,6 @@ public final class IntegerField extends NumberField<Integer>
 	public Integer getDefaultNextStart()
 	{
 		return defaultNextStart;
-	}
-
-	// TODO move further up
-	public IntegerField copyFrom(final ItemField<?> copyFrom)
-	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public int getMinimum()

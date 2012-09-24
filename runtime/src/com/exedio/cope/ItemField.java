@@ -104,6 +104,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<E>(isfinal, optional, false, copyFrom, valueTypeFuture, policy);
 	}
 
+	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
+	}
+
 	@Override
 	public ItemField<E> noDefault()
 	{
@@ -134,12 +139,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			throw new IllegalArgumentException("no defaults for item fields");
 
 		return copy(); // no defaults for item fields
-	}
-
-	// TODO move further up
-	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
-	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	/**

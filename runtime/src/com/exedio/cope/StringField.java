@@ -118,6 +118,11 @@ public final class StringField extends FunctionField<String>
 		return new StringField(isfinal, optional, false, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
+	public StringField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+	}
+
 	@Override
 	public StringField noDefault()
 	{
@@ -163,12 +168,6 @@ public final class StringField extends FunctionField<String>
 	public final int getMaximumLength()
 	{
 		return maximumLength;
-	}
-
-	// TODO move further up
-	public StringField copyFrom(final ItemField<?> copyFrom)
-	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
 	}
 
 	public final CharSet getCharSet()

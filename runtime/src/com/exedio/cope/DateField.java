@@ -90,6 +90,11 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
+	public DateField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+	}
+
 	@Override
 	public DateField noDefault()
 	{
@@ -115,12 +120,6 @@ public final class DateField extends FunctionField<Date>
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;
-	}
-
-	// TODO move further up
-	public DateField copyFrom(final ItemField<?> copyFrom)
-	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	/**
