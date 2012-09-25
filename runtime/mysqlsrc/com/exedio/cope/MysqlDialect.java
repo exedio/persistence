@@ -96,7 +96,10 @@ final class MysqlDialect extends Dialect
 	}
 
 	private static final String CHARSET = "utf8";
-	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES,ONLY_FULL_GROUP_BY";
+	private static final String SQL_MODE =
+			"NO_ENGINE_SUBSTITUTION," +
+			"NO_BACKSLASH_ESCAPES," +
+			"ONLY_FULL_GROUP_BY";
 	private static final String TRUE = "true";
 
 	@Override
