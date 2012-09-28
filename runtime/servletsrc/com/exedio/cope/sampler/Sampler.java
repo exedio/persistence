@@ -97,6 +97,10 @@ public class Sampler
 
 			public String get(final String key)
 			{
+				// TODO
+				// implement a @CopeNoCache annotation and use it
+				// for purged types
+				// Then remove the lines below
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
 
