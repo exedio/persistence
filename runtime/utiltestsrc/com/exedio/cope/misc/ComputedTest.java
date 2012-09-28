@@ -49,7 +49,7 @@ public class ComputedTest extends CopeAssert
 		Sub(final ActivationParameters ap) { super(ap); }
 	}
 
-	private static class Single extends Super
+	private static class Single extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		static final Type<Single> TYPE = TypesBound.newType(Single.class);
