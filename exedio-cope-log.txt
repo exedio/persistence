@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @Computed becomes @Inherited
+	This means, that for any type which is @Computed all subtypes of this are
+	@Computed as well. This does not affect @Computed features.
 * stricter MySQL sql_mode: STRICT_ALL_TABLES, NO_ZERO_DATE, NO_ZERO_IN_DATE
 * FunctionField#copyFrom added for implicit CopyConstraints
 * remove support for deprecated Wrapper#generic(Class, Class...)

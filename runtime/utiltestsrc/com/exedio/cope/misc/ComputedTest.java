@@ -29,7 +29,7 @@ public class ComputedTest extends CopeAssert
 	public void testIt()
 	{
 		assertEquals(true,  comp(Super.TYPE));
-		assertEquals(false, comp(Sub.TYPE));
+		assertEquals(true,  comp(Sub.TYPE));
 		assertEquals(false, comp(Single.TYPE));
 	}
 
