@@ -28,6 +28,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class CheckTypeColumnTest extends AbstractRuntimeTest
 {
 	public CheckTypeColumnTest()
@@ -346,7 +348,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		final String transactionName = model.currentTransaction().getName();

@@ -28,12 +28,14 @@ import java.util.Map;
 
 import com.exedio.cope.util.Cast;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class UniqueConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<?>[] fields;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 

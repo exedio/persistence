@@ -42,6 +42,8 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Stores a java object by serialization - use with care!
  * <p>
@@ -206,7 +208,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new SetValue<?>[]{ source.map(serialize(value)) };
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private byte[] serialize(final E value)
 	{
 		if(value==null)

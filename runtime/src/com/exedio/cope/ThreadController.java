@@ -24,6 +24,8 @@ import static java.lang.Thread.MIN_PRIORITY;
 import java.lang.Thread.State;
 import java.text.MessageFormat;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ThreadController
 {
 	private static final int NO_PRIORITY = Integer.MIN_VALUE;
@@ -103,7 +105,7 @@ public final class ThreadController
 		thread.start();
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public long getId()
 	{
 		final Thread thread = this.thread;
@@ -122,7 +124,7 @@ public final class ThreadController
 		return thread!=null ? thread.getState() : null;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public StackTraceElement[] getStackTrace()
 	{
 		final Thread thread = this.thread;

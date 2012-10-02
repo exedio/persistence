@@ -27,6 +27,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(
@@ -140,7 +142,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 		model.startTransaction();
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
 	private String fetch(final String sql) throws SQLException
 	{
 		final Statement stmt = connection.createStatement();

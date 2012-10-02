@@ -39,6 +39,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A servlet providing access to the contents of {@link MediaPath}
  * and its subclasses.
@@ -70,7 +72,7 @@ public class MediaServlet extends HttpServlet
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
+	@SuppressFBWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();

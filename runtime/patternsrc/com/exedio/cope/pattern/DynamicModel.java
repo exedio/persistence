@@ -41,6 +41,8 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class DynamicModel<L> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
@@ -67,7 +69,7 @@ public final class DynamicModel<L> extends Pattern
 	private final DoubleField [] doubles;
 	private final ItemField<Enum<L>>[] enums;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<L> mountIfMounted = null;
 
 	private DynamicModel(

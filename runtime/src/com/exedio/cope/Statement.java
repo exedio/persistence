@@ -30,6 +30,8 @@ import java.util.Map;
 
 import com.exedio.cope.misc.Arrays;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class Statement
 {
 	final Dialect dialect;
@@ -407,7 +409,7 @@ final class Statement
 			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
+		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)
 		{

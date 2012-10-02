@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class CoalesceView<E> extends View<E>
 {
 	@SuppressWarnings("unchecked")
@@ -47,7 +49,7 @@ public final class CoalesceView<E> extends View<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E>[] parameters;
 	private final E literal;
 

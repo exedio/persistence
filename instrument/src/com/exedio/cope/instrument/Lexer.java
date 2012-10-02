@@ -27,6 +27,8 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Implements a modifying java parser.
  * This means, the input stream is continuously written
@@ -177,7 +179,7 @@ final class Lexer
 	 * If not, there is no comment,
 	 * and this next character is returned, casted to int.
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
+	@SuppressFBWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
 	private int readComment() throws EndException
 	{
 		char x;
@@ -447,7 +449,7 @@ final class Lexer
 		return new ParseException(message, input, inputPosition);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	final class ParseException extends ParserException
 	{
 		private static final long serialVersionUID = 1l;

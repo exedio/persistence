@@ -47,6 +47,8 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class TextUrlFilter extends MediaFilter
 {
 	private static final long serialVersionUID = 1l;
@@ -59,9 +61,9 @@ public class TextUrlFilter extends MediaFilter
 
 	final StringField pasteKey;
 	final Media pasteValue;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public TextUrlFilter(

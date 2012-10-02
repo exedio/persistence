@@ -33,6 +33,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public abstract class Feature implements Serializable
 {
 	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
@@ -219,7 +221,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * @see Model#getFeature(String)
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public final String getID()
 	{
 		return mountType().id;

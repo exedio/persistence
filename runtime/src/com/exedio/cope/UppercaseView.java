@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import java.util.Locale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class UppercaseView extends StringView
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<String> source;
 
 	/**

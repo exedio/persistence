@@ -22,6 +22,8 @@ import java.util.Set;
 
 import com.exedio.cope.util.CharSet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a string.
@@ -39,7 +41,7 @@ public final class StringField extends FunctionField<String>
 
 	private final int minimumLength;
 	private final int maximumLength;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CharSet charSet;
 
 	private StringField(

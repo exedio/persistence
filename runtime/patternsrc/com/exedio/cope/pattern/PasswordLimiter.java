@@ -35,6 +35,8 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class PasswordLimiter extends Pattern
 {
 	private static final long serialVersionUID = 1l;
@@ -45,7 +47,7 @@ public final class PasswordLimiter extends Pattern
 	private final int limit;
 
 	final DateField date = new DateField().toFinal();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public PasswordLimiter(

@@ -42,6 +42,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class MxSamplerPurge extends Item
 {
 	private static final StringField type = new StringField().toFinal();
@@ -50,7 +52,7 @@ final class MxSamplerPurge extends Item
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed  = new LongField().toFinal().min(0);
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
+	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
 	static void purge(
 			final Type<?> type,
 			final Date limit,

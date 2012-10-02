@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class QueryCacheTest extends AbstractRuntimeTest
 {
 	public QueryCacheTest()
@@ -120,7 +122,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			this.totalOnly = totalOnly;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
+		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{

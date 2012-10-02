@@ -27,6 +27,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 {
 	public UpdateCounterRecoverTest()
@@ -290,7 +292,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		dontDeleteOnTearDown(item);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		Connection connection = null;

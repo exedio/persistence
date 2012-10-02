@@ -27,6 +27,8 @@ import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class HsqldbDialect extends Dialect
 {
 	private final boolean nullsAreSortedLow;
@@ -84,7 +86,7 @@ final class HsqldbDialect extends Dialect
 		return "timestamp";
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{

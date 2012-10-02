@@ -30,6 +30,8 @@ import java.util.Locale;
 
 import com.exedio.cope.util.Day;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class Marshallers
 {
 	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<Class<?>, Marshaller<?>>();
@@ -54,7 +56,7 @@ final class Marshallers
 			}
 		});
 		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
-			@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
+			@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
 			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{

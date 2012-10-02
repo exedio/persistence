@@ -20,12 +20,13 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 class CreateSuperItem extends Item
 {
 	static final StringField text = new StringField();
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
+	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused")
 	private static final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{

@@ -35,6 +35,8 @@ import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Hex;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class DataField extends Field<DataField.Value>
 {
 	private static final long serialVersionUID = 1l;
@@ -82,7 +84,7 @@ public final class DataField extends Field<DataField.Value>
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private BlobColumn column;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
@@ -513,7 +515,7 @@ public final class DataField extends Field<DataField.Value>
 			return array;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
+		@SuppressFBWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
 		public byte[] asArray()
 		{
 			return array;

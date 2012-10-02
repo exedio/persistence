@@ -30,6 +30,8 @@ import com.exedio.cope.instrument.Lexer.ParseException;
 import com.exedio.cope.instrument.Lexer.StringToken;
 import com.exedio.cope.instrument.Lexer.Token;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Implements a modifying java parser.
  * This means, the input stream is continuously written
@@ -325,7 +327,7 @@ final class Parser
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DB_DUPLICATE_SWITCH_CLAUSES") // is a bug in findbugs
+	@SuppressFBWarnings("DB_DUPLICATE_SWITCH_CLAUSES") // is a bug in findbugs
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, ParserException
 	{

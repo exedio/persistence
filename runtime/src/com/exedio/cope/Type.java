@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.FeatureSubSet.features;
 
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -49,10 +49,12 @@ import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
 {
 	private final Class<T> javaClass;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final AnnotatedElement annotationSource;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
@@ -65,34 +67,34 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<T>(this);
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> featuresDeclared;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> features;
 	private final HashMap<String, Feature> featuresByNameDeclared;
 	private final HashMap<String, Feature> featuresByName;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<Field<?>> fields;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<UniqueConstraint> uniqueConstraints;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CheckConstraint> checkConstraints;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CopyConstraint> copyConstraints;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Method[] beforeNewItemMethods;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
 
 	/**
@@ -106,7 +108,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	int cacheIdTransiently = Integer.MIN_VALUE;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	Table table;
 
 	public <X extends Item> Type<X> as(final Class<X> clazz)
@@ -470,7 +472,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return l;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
+		@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 		int compareTo(final Mount<?> o)
 		{
 			if(model!=o.model)
@@ -622,7 +624,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().marshaller;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	String[] getTypesOfInstancesColumnValues()
 	{
 		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;
@@ -895,7 +897,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	LinkedHashMap<Field<?>, Object> executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
@@ -1074,7 +1076,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
+	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 	public int compareTo(final Type<?> o)
 	{
 		return mount().compareTo(o.mount());
@@ -1392,7 +1394,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypes()} instead
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypes()
 	{
@@ -1402,7 +1404,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypesTransitively()} instead
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypesTransitively()
 	{

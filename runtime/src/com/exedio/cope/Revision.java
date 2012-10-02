@@ -34,6 +34,8 @@ import java.util.Properties;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Revision
 {
 	final int number;
@@ -125,7 +127,7 @@ public final class Revision
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static final int executeUpdate(
 			final Connection connection,
 			final String sql)

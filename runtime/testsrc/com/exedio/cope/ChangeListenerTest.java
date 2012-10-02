@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.apache.log4j.Level;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
 	public ChangeListenerTest()
@@ -53,7 +55,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	}
 
 	// dead store is needed to assign null for testing garbage collection
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{

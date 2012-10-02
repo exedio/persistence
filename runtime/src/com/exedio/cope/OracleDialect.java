@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
 
 import java.math.BigDecimal;
@@ -204,7 +205,7 @@ final class OracleDialect extends Dialect
 		return false;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
@@ -243,7 +244,7 @@ final class OracleDialect extends Dialect
 			"POSITION",
 		}));
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Override
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{

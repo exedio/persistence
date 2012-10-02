@@ -24,12 +24,14 @@ import static com.exedio.cope.TypesBound.future;
 import java.sql.Connection;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 
@@ -198,7 +200,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private StringColumn typeColumn = null;
 
 	@Override

@@ -44,6 +44,8 @@ import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;
@@ -52,13 +54,13 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final boolean optional;
 	private final Class<E> valueClass;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CompositeType<E> valueType;
 	private final int componentSize;
 
 	private final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent;
 	private final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> componentList;
 	private final FunctionField<?> mandatoryComponent;
 	private final FunctionField<?> isNullComponent;

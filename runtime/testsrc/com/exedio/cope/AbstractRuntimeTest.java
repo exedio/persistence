@@ -41,6 +41,8 @@ import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public abstract class AbstractRuntimeTest extends CopeTest
 {
 	public AbstractRuntimeTest(final Model model)
@@ -90,21 +92,21 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d9 = Double.valueOf(9.9);
 
 	protected static final byte[] data0  = {};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data4  = {-86,122,-8,23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data6  = {-97,35,-126,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data6x4= {-97,35,-126,86};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 
 	enum Dialect

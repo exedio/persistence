@@ -24,6 +24,8 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class TransactionRunnableTest extends AbstractRuntimeTest
 {
 	public TransactionRunnableTest()
@@ -49,7 +51,7 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		final TransactionRunnable tr1 =
 			new TransactionRunnable(model, new Runnable(){
 				// no thread is spawned, thus asserts still can cause the test to fail.
-				@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
+				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals("name1", model.currentTransaction().getName());
@@ -60,7 +62,7 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		final TransactionRunnable tr2 =
 			new TransactionRunnable(model, new Runnable(){
 				// no thread is spawned, thus asserts still can cause the test to fail.
-				@edu.umd.cs.findbugs.annotations.SuppressWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
+				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals(null, model.currentTransaction().getName());

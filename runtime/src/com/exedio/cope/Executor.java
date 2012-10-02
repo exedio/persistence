@@ -33,7 +33,9 @@ import java.util.HashMap;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
 
-@edu.umd.cs.findbugs.annotations.SuppressWarnings({"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings({"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
 final class Executor
 {
 	static final String NO_SUCH_ROW = "no such row";

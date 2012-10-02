@@ -28,6 +28,8 @@ import static com.exedio.cope.util.Hex.decodeLower;
 
 import java.io.IOException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DumperTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(TYPE, DumperSubItem.TYPE);
@@ -41,7 +43,7 @@ public class DumperTest extends AbstractRuntimeTest
 	private Dumper dumper = null;
 	private String dataL = null;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -94,7 +96,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testMandatory() throws IOException
 	{
 		try
@@ -112,7 +114,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testMandatoryData() throws IOException
 	{
 		try
@@ -130,7 +132,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testLength() throws IOException
 	{
 		try

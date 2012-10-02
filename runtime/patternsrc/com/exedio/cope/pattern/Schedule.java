@@ -54,6 +54,8 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Schedule extends Pattern
 {
 	private static final long serialVersionUID = 1l;
@@ -72,7 +74,7 @@ public final class Schedule extends Pattern
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(Interval.DAILY);
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
 
 	/**

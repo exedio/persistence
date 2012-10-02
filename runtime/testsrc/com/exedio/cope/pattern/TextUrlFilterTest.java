@@ -32,6 +32,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -192,7 +194,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testFail()
 	{
 		try

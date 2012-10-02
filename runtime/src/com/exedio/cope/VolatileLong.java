@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import java.io.Serializable;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class VolatileLong implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("VO_VOLATILE_INCREMENT")
+	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long value = 0;
 
 	void inc()

@@ -50,6 +50,8 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Dispatcher extends Pattern
 {
 	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
@@ -66,7 +68,7 @@ public final class Dispatcher extends Pattern
 	final LongField runElapsed = new LongField().toFinal().min(0);
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private volatile boolean probeRequired = true;
@@ -199,7 +201,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
+	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
 	public <P extends Item & Dispatchable> void dispatch(
 			final Class<P> parentClass,

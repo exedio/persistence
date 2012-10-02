@@ -43,32 +43,34 @@ import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Model implements Serializable
 {
 	private static final Logger logger = Logger.getLogger(Model.class);
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Revisions.Factory revisions;
 	private final Object reviseLock = new Object();
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Types types;
 	private final long initializeDate;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Transactions transactions = new Transactions();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type<?>... types)
@@ -839,7 +841,7 @@ public final class Model implements Serializable
 			return type.getName() + '#' + name;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Object resolveModel()
 		{
 			final java.lang.reflect.Field field;

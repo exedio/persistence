@@ -53,6 +53,8 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {
 	private static final long serialVersionUID = 1l;
@@ -60,7 +62,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private final boolean isfinal;
 	private final boolean optional;
 	private final DataField body;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
 	private final CheckConstraint unison;

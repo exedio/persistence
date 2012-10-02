@@ -21,6 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class BooleanField extends FunctionField<Boolean>
 {
 	private static final long serialVersionUID = 1l;
@@ -109,7 +111,7 @@ public final class BooleanField extends FunctionField<Boolean>
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
+	@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 	@Override
 	Boolean get(final Row row)
 	{

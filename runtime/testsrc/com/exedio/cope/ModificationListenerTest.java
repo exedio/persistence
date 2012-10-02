@@ -25,6 +25,8 @@ import org.apache.log4j.Level;
 
 import com.exedio.cope.util.ModificationListener;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
 	public ModificationListenerTest()
@@ -53,7 +55,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 	}
 
 	// dead store is needed to assign null for testing garbage collection
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt()
 	{

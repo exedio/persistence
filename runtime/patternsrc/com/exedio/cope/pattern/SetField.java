@@ -42,12 +42,14 @@ import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Cast;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SetField<E> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> element;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private SetField(final FunctionField<E> element)

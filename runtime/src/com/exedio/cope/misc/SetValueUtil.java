@@ -23,9 +23,11 @@ import java.util.List;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SetValueUtil
 {
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public static SetValue<?>[] toArray(final List<? extends SetValue<?>> list)
 	{
 		return

@@ -19,12 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CheckConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Condition condition;
 
 	public CheckConstraint(final Condition condition)

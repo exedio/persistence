@@ -33,6 +33,8 @@ import java.util.Random;
 import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class ClusterProperties extends Properties
 {
 	static ClusterProperties get(final ConnectProperties properties)
@@ -80,7 +82,7 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
+	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
 		super(source, null);

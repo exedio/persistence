@@ -45,16 +45,18 @@ import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class Hash extends Pattern implements Settable<String>
 {
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Algorithm algorithm;
 	private final String encoding;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PlainTextValidator validator;
 
 	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)

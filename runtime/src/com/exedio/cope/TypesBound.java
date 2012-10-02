@@ -29,6 +29,8 @@ import java.util.TreeMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class TypesBound
 {
 	private TypesBound()
@@ -115,7 +117,7 @@ public final class TypesBound
 		return o;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields

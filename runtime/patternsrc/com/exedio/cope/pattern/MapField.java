@@ -36,13 +36,15 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class MapField<K,V> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<K> key;
 	private final FunctionField<V> value;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)

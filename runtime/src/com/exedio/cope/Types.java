@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 
@@ -142,7 +143,7 @@ final class Types
 		assert this.concreteTypeCount==this.concreteTypeList.size();
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private static Type<?>[] unify(final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
 	{
 		if(typeSets==null && typesWithoutSets==null)

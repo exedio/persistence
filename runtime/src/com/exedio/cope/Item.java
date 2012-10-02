@@ -31,6 +31,8 @@ import java.util.Map;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * This is the super class for all classes,
  * that want to store their data persistently with COPE.
@@ -510,7 +512,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();

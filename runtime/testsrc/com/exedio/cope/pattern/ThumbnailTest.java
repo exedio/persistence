@@ -26,6 +26,8 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ThumbnailTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailItem.TYPE);
@@ -44,7 +46,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("OBL_UNSATISFIED_OBLIGATION")
+	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
 	@Override
 	public void setUp() throws Exception

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SetValue<E>
 {
 	public final Settable<E> settable;
@@ -30,7 +32,7 @@ public final class SetValue<E>
 	 * @see Settable#map(Object)
 	 */
 	@SuppressWarnings("deprecation") // OK
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
 	{
 		return new SetValue<E>(settable, value);

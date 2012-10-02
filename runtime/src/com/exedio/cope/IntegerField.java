@@ -23,6 +23,8 @@ import java.util.Set;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Represents a field within a {@link Type type},
  * that enables instances of that type to store a integer.
@@ -34,7 +36,7 @@ public final class IntegerField extends NumberField<Integer>
 	private static final long serialVersionUID = 1l;
 
 	private final Integer defaultNextStart;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final SequenceX defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
