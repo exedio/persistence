@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.CompositeFieldComputedComposite.virgnTemp;
 import static com.exedio.cope.pattern.CompositeFieldComputedComposite.compuTemp;
+import static com.exedio.cope.pattern.CompositeFieldComputedComposite.virgnTemp;
 import static com.exedio.cope.pattern.CompositeFieldComputedItem.TYPE;
-import static com.exedio.cope.pattern.CompositeFieldComputedItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldComputedItem.compuComp;
+import static com.exedio.cope.pattern.CompositeFieldComputedItem.virgnComp;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;

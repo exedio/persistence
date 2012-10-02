@@ -18,13 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.pattern.Price.splitProportionately;
+import static com.exedio.cope.pattern.Price.valueOf;
 
 import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.Price;
 
 public class PriceProportionatelyTest extends CopeAssert
 {
