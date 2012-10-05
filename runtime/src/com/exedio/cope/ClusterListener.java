@@ -236,6 +236,22 @@ abstract class ClusterListener
 
 	private static final class Node
 	{
+		private static boolean check(final SequenceChecker checker, final int sequence)
+		{
+			synchronized(checker)
+			{
+				return checker.check(sequence);
+			}
+		}
+
+		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
+		{
+			synchronized(checker)
+			{
+				return checker.getInfo();
+			}
+		}
+
 		final int id;
 		final long firstEncounter;
 		final InetAddress address;
@@ -263,12 +279,12 @@ abstract class ClusterListener
 
 		boolean invalidate(final int sequence)
 		{
-			return invalidateSequenceChecker.check(sequence);
+			return check(invalidateSequenceChecker, sequence);
 		}
 
 		boolean pingPong(final boolean ping, final int sequence)
 		{
-			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
+			return check((ping ? pingSequenceChecker : pongSequenceChecker), sequence);
 		}
 
 		ClusterListenerInfo.Node getInfo()
@@ -277,9 +293,9 @@ abstract class ClusterListener
 					id,
 					new Date(firstEncounter),
 					address, port,
-					invalidateSequenceChecker.getInfo(),
-					pingSequenceChecker.getInfo(),
-					pongSequenceChecker.getInfo());
+					getInfo(invalidateSequenceChecker),
+					getInfo(pingSequenceChecker),
+					getInfo(pongSequenceChecker));
 		}
 	}
 
