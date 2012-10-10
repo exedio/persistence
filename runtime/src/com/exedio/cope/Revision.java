@@ -42,6 +42,9 @@ public final class Revision
 	final String comment;
 	final String[] body;
 
+	/**
+	 * @param body See {@link #getBody()} for further information.
+	 */
 	public Revision(final int number, final String comment, final String... body)
 	{
 		if(number<=0)
@@ -78,6 +81,18 @@ public final class Revision
 		return comment;
 	}
 
+	/**
+	 * The statements listed here
+	 * are guaranteed to be executed subsequently
+	 * in the order specified by the list
+	 * by one single {@link java.sql.Connection connection}.
+	 * So you may use connection states within a revision.
+	 * <p>
+	 * For each revision a new {@link java.sql.Connection connection} is created.
+	 * That connection is not used for any other purpose afterwards
+	 * so you don't have to cleanup connection state at the end of each revision.
+	 * This is for minimizing effects between revisions.
+	 */
 	public List<String> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));

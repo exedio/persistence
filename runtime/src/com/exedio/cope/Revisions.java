@@ -39,25 +39,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
-/**
- * NOTE:
- *
- * The statements listed in {@link Revision#getBody()}
- * are guaranteed to be executed subsequently
- * in the order specified by the list
- * by one single {@link java.sql.Connection connection}.
- * So you may use connection states within a revision.
- *
- * Additionally,
- * {@link Revision revisions} listed in {@link #getList()}
- * are guaranteed to be executed subsequently
- * reversely to the order specified the list,
- * each revision by a newly created {@link java.sql.Connection connection}.
- * The connection is not used for any other purpose afterwards.
- * So you cannot use connection states between revisions,
- * but you also don't have to cleanup connection state at the end of each revision.
- * This is for minimizing effects between revisions.
- */
 public final class Revisions
 {
 	static final Logger logger = Logger.getLogger(Revisions.class);
@@ -74,6 +55,9 @@ public final class Revisions
 		this.revisions = new Revision[0];
 	}
 
+	/**
+	 * @param revisions See {@link #getList()} for further information.
+	 */
 	public Revisions(final Revision... revisions)
 	{
 		if(revisions==null)
@@ -112,6 +96,11 @@ public final class Revisions
 		return number;
 	}
 
+	/**
+	 * {@link Revision Revisions} listed here
+	 * are guaranteed to be executed subsequently
+	 * reversely to the order specified the list.
+	 */
 	public List<Revision> getList()
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
