@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -332,17 +335,17 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
-	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	private final Log guessedUrl = new Log("guessed url"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
-	final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
-	public final Log isNull     = new Log("is null"       , HttpServletResponse.SC_NOT_FOUND);
-	final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
-	final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
-	public final Log delivered  = new Log("delivered"     , HttpServletResponse.SC_OK);
+	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
+	final Log redirectFrom      = new Log("redirectFrom"  , SC_MOVED_PERMANENTLY);
+	final Log exception         = new Log("exception"     , SC_INTERNAL_SERVER_ERROR);
+	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
+	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
+	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
+	final Log moved             = new Log("moved"         , SC_OK);
+	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
+	final Log notComputable     = new Log("not computable", SC_NOT_FOUND);
+	final Log notModified       = new Log("not modified"  , SC_OK);
+	public final Log delivered  = new Log("delivered"     , SC_OK);
 
 	public static final int getNoSuchPath()
 	{
@@ -494,10 +497,10 @@ public abstract class MediaPath extends Pattern
 				throw new NullPointerException();
 			switch(responseStatus)
 			{
-				case HttpServletResponse.SC_OK:
-				case HttpServletResponse.SC_MOVED_PERMANENTLY:
-				case HttpServletResponse.SC_NOT_FOUND:
-				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
+				case SC_OK:
+				case SC_MOVED_PERMANENTLY:
+				case SC_NOT_FOUND:
+				case SC_INTERNAL_SERVER_ERROR:
 					break;
 				default:
 					throw new RuntimeException(String.valueOf(responseStatus));
