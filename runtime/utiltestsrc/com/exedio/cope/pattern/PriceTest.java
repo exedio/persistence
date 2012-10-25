@@ -217,7 +217,12 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
 		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
+
 		// TODO overflow
+		assertEquals(-2147483648, MAX_VALUE.add(storeOf( 1)).store());
+		assertEquals(-2147483647, MAX_VALUE.add(storeOf( 2)).store());
+		assertEquals( 2147483647, MIN_VALUE.add(storeOf(-1)).store());
+		assertEquals( 2147483646, MIN_VALUE.add(storeOf(-2)).store());
 	}
 
 	public static void testSubtract()
@@ -226,7 +231,12 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
 		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).store());
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
+
 		// TODO overflow
+		assertEquals(-2147483648, MAX_VALUE.subtract(storeOf(-1)).store());
+		assertEquals(-2147483647, MAX_VALUE.subtract(storeOf(-2)).store());
+		assertEquals( 2147483647, MIN_VALUE.subtract(storeOf( 1)).store());
+		assertEquals( 2147483646, MIN_VALUE.subtract(storeOf( 2)).store());
 	}
 
 	public static void testNegative()
@@ -253,16 +263,46 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
+
 		// TODO overflow
+		assertEquals( 1073741823, storeOf(1073741823).multiply(1).store());
+		assertEquals( 1073741824, storeOf(1073741824).multiply(1).store());
+		assertEquals( 1073741825, storeOf(1073741825).multiply(1).store());
+		assertEquals( 2147483646, storeOf(1073741823).multiply(2).store());
+		assertEquals(-2147483648, storeOf(1073741824).multiply(2).store()); // wrong
+		assertEquals(-2147483646, storeOf(1073741825).multiply(2).store()); // wrong
 	}
 
-	public static void testMultiplyPrice()
+	public static void testMultiplyDouble()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3d).store());
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
 		assertEquals(-999, storeOf( 333).multiply(-3d).store());
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+
 		// TODO overflow
+		assertEquals( 1073741823, storeOf(1073741823).multiply(1d).store());
+		assertEquals( 1073741824, storeOf(1073741824).multiply(1d).store());
+		assertEquals( 1073741825, storeOf(1073741825).multiply(1d).store());
+		assertEquals( 2147483646, storeOf(1073741823).multiply(2d).store());
+		try
+		{
+			storeOf(1073741824).multiply(2d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.147483648E7", e.getMessage());
+		}
+		try
+		{
+			storeOf(1073741825).multiply(2d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.14748365E7", e.getMessage());
+		}
 	}
 
 	public static void testEquals()
