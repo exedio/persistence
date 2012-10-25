@@ -217,6 +217,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
 		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
+		// TODO overflow
 	}
 
 	public static void testSubtract()
@@ -225,6 +226,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
 		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).store());
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
+		// TODO overflow
 	}
 
 	public static void testNegative()
@@ -251,6 +253,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
+		// TODO overflow
 	}
 
 	public static void testMultiplyPrice()
@@ -259,6 +262,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
 		assertEquals(-999, storeOf( 333).multiply(-3d).store());
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+		// TODO overflow
 	}
 
 	public static void testEquals()
@@ -302,6 +306,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals( "0.03", storeOf(   3).toString());
 		assertEquals("-0.03", storeOf(  -3).toString());
 		assertEquals( "0.00", storeOf(   0).toString());
+		assertEquals("-21474836.48", MIN_VALUE.toString());
+		assertEquals( "21474836.47", MAX_VALUE.toString());
 
 		// serialization
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
