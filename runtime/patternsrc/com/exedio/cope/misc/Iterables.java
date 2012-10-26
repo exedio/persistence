@@ -32,22 +32,22 @@ public final class Iterables
 
 	private static final class Once<E> implements Iterable<E>
 	{
-		private final Iterator<E> iterator;
+		private Iterator<E> iterator;
 
 		Once(final Iterator<E> iterator)
 		{
 			this.iterator = iterator;
 		}
 
-		private boolean exhausted = false;
 		@Override
 		public Iterator<E> iterator()
 		{
-			if(exhausted)
+			if(iterator==null)
 				throw new IllegalStateException("exhausted");
-			exhausted = true;
 
-			return iterator;
+			final Iterator<E> result = iterator;
+			iterator = null;
+			return result;
 		}
 	}
 
