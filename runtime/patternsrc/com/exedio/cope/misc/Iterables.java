@@ -27,7 +27,18 @@ public final class Iterables
 		if(iterator==null)
 			throw new NullPointerException("iterator");
 
-		return new Iterable<E>() {
+		return new Once<E>(iterator);
+	}
+
+	private static final class Once<E> implements Iterable<E>
+	{
+		private final Iterator<E> iterator;
+
+		Once(final Iterator<E> iterator)
+		{
+			this.iterator = iterator;
+		}
+
 			private boolean exhausted = false;
 			@Override
 			public Iterator<E> iterator()
@@ -38,7 +49,6 @@ public final class Iterables
 
 				return iterator;
 			}
-		};
 	}
 
 	private Iterables()
