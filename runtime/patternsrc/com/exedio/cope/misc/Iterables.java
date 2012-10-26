@@ -39,16 +39,16 @@ public final class Iterables
 			this.iterator = iterator;
 		}
 
-			private boolean exhausted = false;
-			@Override
-			public Iterator<E> iterator()
-			{
-				if(exhausted)
-					throw new IllegalStateException("exhausted");
-				exhausted = true;
+		private boolean exhausted = false;
+		@Override
+		public Iterator<E> iterator()
+		{
+			if(exhausted)
+				throw new IllegalStateException("exhausted");
+			exhausted = true;
 
-				return iterator;
-			}
+			return iterator;
+		}
 	}
 
 	private Iterables()
