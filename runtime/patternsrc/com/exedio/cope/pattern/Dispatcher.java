@@ -27,7 +27,6 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -48,6 +47,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.JobContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -222,12 +222,12 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
-		for(
-				final Iterator<P> iterator = iterateTransactionally(
+		for(final P item : Iterables.once(
+				iterateTransactionally(
 					type,
 					pending.equal(true),
-					config.getSearchSize());
-				iterator.hasNext(); )
+					config.getSearchSize())
+		))
 		{
 			ctx.stopIfRequested();
 			if(probeRequired)
@@ -236,7 +236,6 @@ public final class Dispatcher extends Pattern
 				probeRequired = false;
 			}
 
-			final P item = iterator.next();
 			final String itemID = item.getCopeID();
 			try
 			{
