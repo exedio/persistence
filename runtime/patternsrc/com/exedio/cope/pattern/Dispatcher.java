@@ -223,11 +223,7 @@ public final class Dispatcher extends Pattern
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
 		for(final P item : Iterables.once(
-				iterateTransactionally(
-					type,
-					pending.equal(true),
-					config.getSearchSize())
-		))
+				iterateTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
 			ctx.stopIfRequested();
 			if(probeRequired)
