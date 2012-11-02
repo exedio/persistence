@@ -78,6 +78,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(RevisionInfoTest.class);
 		suite.addTestSuite(DirectRevisionsFactoryTest.class);
 		suite.addTestSuite(DirectRevisionsFutureTest.class);
+		suite.addTestSuite(ConnectPropertiesTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
