@@ -87,6 +87,7 @@ public class MediaUrlSecretTest extends TestCase
 		try
 		{
 			MediaPath.isUrlGuessingPreventedSecurely(props);
+			fail();
 		}
 		catch(final IllegalStateException e)
 		{
@@ -95,6 +96,7 @@ public class MediaUrlSecretTest extends TestCase
 		try
 		{
 			AnItem.media.isUrlGuessingPreventedSecurely(props);
+			fail();
 		}
 		catch(final IllegalStateException e)
 		{
