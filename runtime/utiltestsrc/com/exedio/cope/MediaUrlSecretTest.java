@@ -34,8 +34,8 @@ public class MediaUrlSecretTest extends TestCase
 		final ConnectProperties props = props(null);
 		model.connect(props);
 
-		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 	}
 
 	public void testOn()
@@ -77,6 +77,40 @@ public class MediaUrlSecretTest extends TestCase
 		return new ConnectProperties(
 				getSource(source , "MediaUrlSecretTestSource" ),
 				getSource(context, "MediaUrlSecretTestContext"));
+	}
+
+	public void testNoContext()
+	{
+		final ConnectProperties props = propsNoContext();
+		model.connect(props);
+
+		try
+		{
+			MediaPath.isUrlGuessingPreventedSecurely(props);
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("no context available", e.getMessage());
+		}
+		try
+		{
+			AnItem.media.isUrlGuessingPreventedSecurely(props);
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("no context available", e.getMessage());
+		}
+	}
+
+	private static ConnectProperties propsNoContext()
+	{
+		final Properties source = new Properties();
+		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
+		source.setProperty("connection.user", "sa");
+		source.setProperty("connection.password", "");
+		return new ConnectProperties(
+				getSource(source , "MediaUrlSecretTestSource"),
+				null);
 	}
 
 	@Override
