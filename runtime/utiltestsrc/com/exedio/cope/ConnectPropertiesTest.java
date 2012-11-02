@@ -43,6 +43,8 @@ public class ConnectPropertiesTest extends TestCase
 		{
 			assertTrue(field.getKey(), field.isSpecified());
 		}
+
+		p.ensureValidity();
 	}
 
 	private static Source loadProperties(final InputStream stream) throws IOException
