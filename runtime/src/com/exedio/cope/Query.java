@@ -139,6 +139,12 @@ public final class Query<R> implements Serializable
 		return new Query<List<Object>>(selects, type, condition);
 	}
 
+	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
+	public static <T> Query<List<T>> newQuery(final List<Selectable<T>> selects, final Type<?> type, final Condition condition)
+	{
+		return new Query<List<T>>(selects.toArray(new Selectable[selects.size()]), type, condition);
+	}
+
 	Selectable<?>[] selects()
 	{
 		if(selectSingle!=null)
