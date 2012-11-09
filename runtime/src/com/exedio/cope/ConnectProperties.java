@@ -107,6 +107,30 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
+	private final String mediaUrlSecret = noContext()
+			? checkMediaUrlSecret(new StringField("media.url.secret", "").stringValue())
+			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
+
+	private static final String checkMediaUrlSecret(final String s)
+	{
+		final int length = s.length();
+		if(length==0)
+			return null;
+		if(length<10)
+			throw new IllegalArgumentException("media.url.secret must be at least 10 characters, but just has " + length);
+		return s;
+	}
+
+	private static final String checkMediaUrlSecretContext(final String s)
+	{
+		return ( (s==null) || (s.length()<10) ) ? null : s;
+	}
+
+	public String getMediaUrlSecret()
+	{
+		return mediaUrlSecret;
+	}
+
 
 	private final Constructor<? extends Dialect> dialect;
 
@@ -361,6 +385,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getMediaOffsetExpires()
 	{
 		return mediaOffsetExpires.intValue();
+	}
+
+	private boolean noContext()
+	{
+		try
+		{
+			getContext();
+			return false;
+		}
+		catch(final IllegalStateException e)
+		{
+			return true;
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

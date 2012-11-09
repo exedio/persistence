@@ -41,7 +41,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import com.exedio.cope.util.Properties;
 
 public abstract class MediaPath extends Pattern
 {
@@ -323,15 +322,7 @@ public abstract class MediaPath extends Pattern
 
 	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
 	{
-		final Properties.Source context = properties.getContext();
-		if(context==null)
-			return null;
-
-		final String result = context.get("media.url.secret");
-		if(result==null || result.length()<10)
-			return null;
-
-		return result;
+		return properties.getMediaUrlSecret();
 	}
 
 

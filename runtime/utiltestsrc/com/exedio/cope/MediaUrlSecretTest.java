@@ -36,6 +36,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	public void testOn()
@@ -45,6 +46,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
 	public void testTooShort()
@@ -54,6 +56,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	public void testEmpty()
@@ -63,6 +66,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	private static ConnectProperties props(final String secret)
@@ -79,37 +83,57 @@ public class MediaUrlSecretTest extends TestCase
 				getSource(context, "MediaUrlSecretTestContext"));
 	}
 
-	public void testNoContext()
+	public void testOffNoContext()
 	{
-		final ConnectProperties props = propsNoContext();
+		final ConnectProperties props = propsNoContext(null);
 		model.connect(props);
 
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	public void testOnNoContext()
+	{
+		final ConnectProperties props = propsNoContext("1234567890");
+		model.connect(props);
+
+		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
+	}
+
+	public void testTooShortNoContext()
+	{
 		try
 		{
-			MediaPath.isUrlGuessingPreventedSecurely(props);
+			propsNoContext("123456789");
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no context available", e.getMessage());
-		}
-		try
-		{
-			AnItem.media.isUrlGuessingPreventedSecurely(props);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("no context available", e.getMessage());
+			assertEquals("media.url.secret must be at least 10 characters, but just has 9", e.getMessage());
 		}
 	}
 
-	private static ConnectProperties propsNoContext()
+	public void testEmptyNoContext()
+	{
+		final ConnectProperties props = propsNoContext("");
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	private static ConnectProperties propsNoContext(final String secret)
 	{
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
 		source.setProperty("connection.user", "sa");
 		source.setProperty("connection.password", "");
+		if(secret!=null)
+			source.setProperty("media.url.secret", secret);
 		return new ConnectProperties(
 				getSource(source , "MediaUrlSecretTestSource"),
 				null);
@@ -118,7 +142,8 @@ public class MediaUrlSecretTest extends TestCase
 	@Override
 	protected void tearDown() throws Exception
 	{
-		model.disconnect();
+		if(model.isConnected())
+			model.disconnect();
 		super.tearDown();
 	}
 
