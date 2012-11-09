@@ -322,7 +322,7 @@ public abstract class MediaPath extends Pattern
 
 	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
 	{
-		return properties.mediaUrlSecret;
+		return properties.getMediaUrlSecret();
 	}
 
 

@@ -36,6 +36,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	public void testOn()
@@ -45,6 +46,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
 	public void testTooShort()
@@ -54,6 +56,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	public void testEmpty()
@@ -63,6 +66,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	private static ConnectProperties props(final String secret)
@@ -86,6 +90,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	public void testOnNoContext()
@@ -95,6 +100,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
 	public void testTooShortNoContext()
@@ -117,6 +123,7 @@ public class MediaUrlSecretTest extends TestCase
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
 	}
 
 	private static ConnectProperties propsNoContext(final String secret)
