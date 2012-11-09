@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* media.url.secret can be set via source of ConnectProperties as well,
+	if context is null, up to now this was possible via context only.
 * Iterables#once added
 * @Computed becomes @Inherited
 	This means, that for any type which is @Computed all subtypes of this are
