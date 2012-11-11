@@ -150,8 +150,13 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name"+ "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-0");
 		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,          "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-1");
 
+		// TODO separate tests
+		model.commit();
+		model.disconnect();
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
+		model.connect(getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
+		model.startTransaction("MediaUrlTest");
 		assertIt("MediaUrlItem/foto/", foto, named, ".jpg");
 		assertIt("MediaUrlItem/foto/", foto, anond, ".jpg");
 		assertIt("MediaUrlItem/file/", file, named, ""    );
