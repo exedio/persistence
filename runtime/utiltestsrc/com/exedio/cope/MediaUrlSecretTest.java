@@ -24,7 +24,6 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 
 public class MediaUrlSecretTest extends TestCase
