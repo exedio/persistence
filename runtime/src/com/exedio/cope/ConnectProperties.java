@@ -33,7 +33,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 
 	private final StringField connectionUrl      = new StringField("connection.url");
-	private final StringField connectionUser     = new StringField("connection.user");
+	private final StringField connectionUsername = new StringField("connection.username");
 	private final StringField connectionPassword = new StringField("connection.password", true);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
 	final BooleanField connectionTransactionIsolationRepeatableRead = new BooleanField("connection.transactionIsolation.repeatableRead", true);
@@ -266,9 +266,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionUrl.stringValue();
 	}
 
-	public String getConnectionUser()
+	public String getConnectionUsername()
 	{
-		return connectionUser.stringValue();
+		return connectionUsername.stringValue();
 	}
 
 	public String getConnectionPassword()
@@ -279,7 +279,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	java.util.Properties newConnectionInfo()
 	{
 		final java.util.Properties result = new java.util.Properties();
-		result.setProperty("user",     connectionUser.    stringValue());
+		result.setProperty("user",     connectionUsername.stringValue());
 		result.setProperty("password", connectionPassword.stringValue());
 		return result;
 	}
@@ -287,7 +287,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
 		e.put("connection.url",  connectionUrl. stringValue());
-		e.put("connection.user", connectionUser.stringValue());
+		e.put("connection.user", connectionUsername.stringValue());
 	}
 
 	public boolean isSupportDisabledForPreparedStatements()
@@ -403,6 +403,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	// ------------------- deprecated stuff -------------------
 
 	/**
+	 * @deprecated Use {@link #getConnectionUsername()} instead
+	 */
+	@Deprecated
+	public String getConnectionUser()
+	{
+		return getConnectionUsername();
+	}
+
+	/**
 	 * @deprecated Replaced by org.apache.log4j. Always returns true.
 	 */
 	@Deprecated
@@ -485,12 +494,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	/**
-	 * @deprecated Use {@link #getConnectionUser()} instead
+	 * @deprecated Use {@link #getConnectionUsername()} instead
 	 */
 	@Deprecated
 	public String getDatabaseUser()
 	{
-		return getConnectionUser();
+		return getConnectionUsername();
 	}
 
 	/**

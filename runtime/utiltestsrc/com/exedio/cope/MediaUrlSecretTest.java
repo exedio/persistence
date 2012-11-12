@@ -68,7 +68,7 @@ public class MediaUrlSecretTest extends TestCase
 	{
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
-		source.setProperty("connection.user", "sa");
+		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
 		final Properties context = new Properties();
 		if(secret!=null)
@@ -122,7 +122,7 @@ public class MediaUrlSecretTest extends TestCase
 	{
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
-		source.setProperty("connection.user", "sa");
+		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
 		if(secret!=null)
 			source.setProperty("media.url.secret", secret);

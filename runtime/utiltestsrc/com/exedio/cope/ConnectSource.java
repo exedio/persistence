@@ -32,7 +32,7 @@ public class ConnectSource
 			{
 				if(key.equals("connection.url"))
 					return "jdbc:hsqldb:testUrl";
-				else if(key.equals("connection.user"))
+				else if(key.equals("connection.username"))
 					return "testUser";
 				else if(key.equals("connection.password"))
 					return "testPassword";

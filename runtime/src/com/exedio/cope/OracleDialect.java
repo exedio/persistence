@@ -43,7 +43,7 @@ final class OracleDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.OracleDialect(
-						parameters.properties.getConnectionUser().toUpperCase(Locale.ENGLISH)));
+						parameters.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 	}
 
 	@Override

@@ -93,7 +93,7 @@ public class ReviseTest extends CopeAssert
 	public void testRevise() throws ParseException
 	{
 		connectionUrl  = props.getConnectionUrl();
-		connectionUser = props.getConnectionUser();
+		connectionUser = props.getConnectionUsername();
 		revisionsFactory7.assertEmpty();
 
 		try
