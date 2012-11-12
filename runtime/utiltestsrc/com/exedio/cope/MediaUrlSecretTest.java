@@ -24,7 +24,6 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
-import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaPath;
 
 public class MediaUrlSecretTest extends TestCase
@@ -35,7 +34,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
@@ -45,7 +43,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
@@ -55,7 +52,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
@@ -65,7 +61,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
@@ -89,7 +84,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
@@ -99,7 +93,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(true, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
@@ -122,7 +115,6 @@ public class MediaUrlSecretTest extends TestCase
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(false, AnItem.media.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
@@ -149,9 +141,7 @@ public class MediaUrlSecretTest extends TestCase
 
 	static class AnItem extends Item
 	{
-		static final Media media = new Media();
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-
 		private static final long serialVersionUID = 1l;
 		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
