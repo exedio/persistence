@@ -31,6 +31,6 @@
 	<classpathentry kind="lib" path="lib/jdbc/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
-	<classpathentry kind="lib" path="lib/slf4j-api-jar.jar" sourcepath="lib/slf4j-api-source.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
