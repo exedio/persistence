@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @cope.generic.constructor package
  */
-class DefaultToItem extends Item
+final class DefaultToItem extends Item
 {
 
 	static final BooleanField booleanTrue = new BooleanField().optional().defaultTo(true);

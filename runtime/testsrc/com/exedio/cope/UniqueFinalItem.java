@@ -22,7 +22,7 @@ package com.exedio.cope;
  * An item having a unique final attribute.
  * @author Ralf Wiebicke
  */
-public class UniqueFinalItem extends Item
+public final class UniqueFinalItem extends Item
 {
 	/**
 	 * An attribute that is unique and final.

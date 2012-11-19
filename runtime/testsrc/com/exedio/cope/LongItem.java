@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @cope.generic.constructor package
  */
-public class LongItem extends Item
+public final class LongItem extends Item
 {
 	public static final LongField any = new LongField().optional();
 

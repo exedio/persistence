@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 /**
  * @cope.generic.constructor package
  */
-public class MediaFinalItem extends Item
+public final class MediaFinalItem extends Item
 {
 	static final StringField name = new StringField().optional();
 

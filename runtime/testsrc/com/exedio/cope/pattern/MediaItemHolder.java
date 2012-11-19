@@ -6,7 +6,7 @@ import com.exedio.cope.ItemField;
 /**
  * @cope.generic.constructor package
  */
-public class MediaItemHolder extends Item
+public final class MediaItemHolder extends Item
 {
 	public static final ItemField<MediaItem> mediaItem = ItemField.create(MediaItem.class);
 

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class UniqueSingleItem extends Item
+public final class UniqueSingleItem extends Item
 {
 	public static final StringField uniqueString = new StringField().optional().unique();
 

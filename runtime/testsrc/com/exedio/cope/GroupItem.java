@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class GroupItem extends Item
+final class GroupItem extends Item
 {
 	static final DayField day = new DayField();
 	static final IntegerField number = new IntegerField();

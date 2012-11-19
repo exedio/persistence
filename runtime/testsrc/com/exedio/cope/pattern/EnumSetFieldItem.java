@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class EnumSetFieldItem extends Item
+public final class EnumSetFieldItem extends Item
 {
 	static enum Language
 	{

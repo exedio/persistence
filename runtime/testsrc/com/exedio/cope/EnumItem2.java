@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class EnumItem2 extends Item
+public final class EnumItem2 extends Item
 {
 	public static enum Status
 	{

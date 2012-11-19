@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class DataSubItem extends DataItem
+final class DataSubItem extends DataItem
 {
 
 /**

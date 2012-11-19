@@ -22,7 +22,7 @@ package com.exedio.cope;
  * An item having two fields and a unique constraint over these fields.
  * @author Ralf Wiebicke
  */
-class UniqueDoubleItem extends Item
+final class UniqueDoubleItem extends Item
 {
 	static final StringField string = new StringField();
 

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 import com.exedio.cope.util.CharSet;
 
-class SchemaItem extends Item
+final class SchemaItem extends Item
 {
 	static final IntegerField nonFinalInteger = new IntegerField();
 

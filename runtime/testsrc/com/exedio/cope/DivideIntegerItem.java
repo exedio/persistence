@@ -19,7 +19,7 @@
 
 package com.exedio.cope;
 
-public class DivideIntegerItem extends Item
+public final class DivideIntegerItem extends Item
 {
 	public static final IntegerField numA = new IntegerField().optional();
 

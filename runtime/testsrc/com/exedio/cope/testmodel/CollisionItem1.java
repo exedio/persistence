@@ -27,7 +27,7 @@ import com.exedio.cope.ItemField;
  * in different persistent classes.
  * @author Ralf Wiebicke
  */
-public class CollisionItem1 extends Item
+public final class CollisionItem1 extends Item
 {
 
 	public static final ItemField<EmptyItem> collisionAttribute = ItemField.create(EmptyItem.class).toFinal().unique();

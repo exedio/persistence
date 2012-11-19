@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class DynamicModelLocalizationItem extends Item
+public final class DynamicModelLocalizationItem extends Item
 {
 	static final StringField isoCode = new StringField().toFinal().lengthExact(2);
 

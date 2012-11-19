@@ -21,7 +21,7 @@ package com.exedio.cope.util;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-class ConnectTokenItem extends Item
+final class ConnectTokenItem extends Item
 {
 	static final StringField name = new StringField();
 

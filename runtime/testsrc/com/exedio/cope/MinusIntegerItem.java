@@ -19,7 +19,7 @@
 
 package com.exedio.cope;
 
-public class MinusIntegerItem extends Item
+public final class MinusIntegerItem extends Item
 {
 	public static final IntegerField numA = new IntegerField().optional();
 

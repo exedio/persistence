@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class MediaUrlItem extends Item implements MediaUrlCatchphraseProvider
+public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvider
 {
 	/**
 	 * @cope.initial

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class FinalSubNoneItem extends FinalSuperItem
+public final class FinalSubNoneItem extends FinalSuperItem
 {
 	public static final IntegerField subIntNone = new IntegerField();
 

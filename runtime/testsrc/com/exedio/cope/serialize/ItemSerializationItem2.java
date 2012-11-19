@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.ListField;
 
-class ItemSerializationItem2 extends Item
+final class ItemSerializationItem2 extends Item
 {
 	static final StringField name2 = new StringField().optional();
 	static final ListField<String> list = ListField.create(new StringField());

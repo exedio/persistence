@@ -21,7 +21,7 @@ package com.exedio.cope;
 /**
  * @cope.constructor private
  */
-class InstanceOfRefItem extends Item
+final class InstanceOfRefItem extends Item
 {
 	static final ItemField<InstanceOfAItem> ref = ItemField.create(InstanceOfAItem.class).toFinal().optional();
 	static final StringField code = new StringField().toFinal().unique();

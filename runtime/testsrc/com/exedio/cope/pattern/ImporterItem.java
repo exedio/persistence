@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-class ImporterItem extends Item
+final class ImporterItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();
 	static final Importer<String> byCode = Importer.create(code);

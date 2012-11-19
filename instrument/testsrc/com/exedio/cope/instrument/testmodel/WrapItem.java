@@ -26,7 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.WrapFeature;
 import com.exedio.cope.instrument.testfeature.WrapGeneric;
 
-class WrapItem extends Item
+final class WrapItem extends Item
 {
 	static final WrapFeature feature = new WrapFeature();
 

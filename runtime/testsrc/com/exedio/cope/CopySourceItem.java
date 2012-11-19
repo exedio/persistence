@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class CopySourceItem extends Item
+final class CopySourceItem extends Item
 {
 	static final ItemField<CopyTargetItem> targetItem = ItemField.create(CopyTargetItem.class).toFinal().optional();
 

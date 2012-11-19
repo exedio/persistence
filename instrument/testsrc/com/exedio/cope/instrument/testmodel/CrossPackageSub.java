@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.StringField;
 
-class CrossPackageSub extends CrossPackageSuper
+final class CrossPackageSub extends CrossPackageSuper
 {
 	static final StringField subField = new StringField().toFinal();
 

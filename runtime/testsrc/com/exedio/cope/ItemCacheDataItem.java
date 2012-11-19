@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class ItemCacheDataItem extends Item
+final class ItemCacheDataItem extends Item
 {
 	static final StringField string = new StringField().optional();
 	static final DataField data = new DataField().optional();

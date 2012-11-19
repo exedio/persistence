@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 @CopeID("NameSubItemX")
-public class NameSubItem extends NameLongItem
+public final class NameSubItem extends NameLongItem
 {
 	static final IntegerField unique = new IntegerField().unique();
 	static final IntegerField integer = new IntegerField();

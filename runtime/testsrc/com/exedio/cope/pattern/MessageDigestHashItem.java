@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.Hex;
 
-public class MessageDigestHashItem extends Item
+public final class MessageDigestHashItem extends Item
 {
 	/** @cope.set none */
 	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional();

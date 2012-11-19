@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class PatternTestItem extends Item
+public final class PatternTestItem extends Item
 {
 	static final PatternTestPattern testPattern = new PatternTestPattern();
 	static final PatternTestPattern testPattern2 = new PatternTestPattern();

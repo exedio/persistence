@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 
-public class FullQualifyInput extends com.exedio.cope.instrument.testmodel.Input
+public final class FullQualifyInput extends com.exedio.cope.instrument.testmodel.Input
 {
 
 /**

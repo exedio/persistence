@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class FinalSubItem extends FinalSuperItem
+public final class FinalSubItem extends FinalSuperItem
 {
 	public static final IntegerField subInt = new IntegerField().toFinal();
 

@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
-public class DynamicModelItem extends Item
+public final class DynamicModelItem extends Item
 {
 	static final StringField name = new StringField().toFinal();
 

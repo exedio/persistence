@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class DeleteHierarchyTargetSub extends DeleteHierarchyTargetSuper
+public final class DeleteHierarchyTargetSub extends DeleteHierarchyTargetSuper
 {
 
 /**

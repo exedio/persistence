@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class DeleteSchemaItem extends Item
+final class DeleteSchemaItem extends Item
 {
 	static final StringField field = new StringField();
 

@@ -22,7 +22,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class EnumMapFieldItem extends Item
+public final class EnumMapFieldItem extends Item
 {
 	static enum Language
 	{

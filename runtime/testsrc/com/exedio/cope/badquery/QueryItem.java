@@ -20,7 +20,7 @@ package com.exedio.cope.badquery;
 
 import com.exedio.cope.StringField;
 
-class QueryItem extends SuperItem
+final class QueryItem extends SuperItem
 {
 	static final StringField name = new StringField().optional();
 

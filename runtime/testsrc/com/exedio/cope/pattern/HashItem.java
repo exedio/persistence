@@ -26,7 +26,7 @@ import com.exedio.cope.testmodel.WrapHash;
 /**
  * @cope.generic.constructor package
  */
-public class HashItem extends Item
+public final class HashItem extends Item
 {
 	static final StringField explicitExternalWrap = new StringField().optional();
 	static final Hash explicitExternal = new WrapHash(explicitExternalWrap);

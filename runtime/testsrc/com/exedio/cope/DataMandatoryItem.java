@@ -21,7 +21,7 @@ package com.exedio.cope;
 /**
  * @cope.generic.constructor package
  */
-class DataMandatoryItem extends Item
+final class DataMandatoryItem extends Item
 {
 	static final DataField data = new DataField();
 

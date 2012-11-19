@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
-public class PartOfOrderedItem extends Item
+public final class PartOfOrderedItem extends Item
 {
 	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class).cascade().toFinal();
 	static final IntegerField order = new IntegerField();

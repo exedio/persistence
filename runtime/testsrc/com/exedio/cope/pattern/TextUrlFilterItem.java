@@ -24,7 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 
-public class TextUrlFilterItem extends Item
+public final class TextUrlFilterItem extends Item
 {
 	static final StringField name = new StringField().optional();
 

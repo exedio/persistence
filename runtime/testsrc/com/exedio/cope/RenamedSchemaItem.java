@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeSchemaName("ZackItem") class RenamedSchemaItem extends Item
+@CopeSchemaName("ZackItem") final class RenamedSchemaItem extends Item
 {
 	@CopeSchemaName("zackItem")
 	static final ItemField<RenamedSchemaTargetItem> item = ItemField.create(RenamedSchemaTargetItem.class).optional();

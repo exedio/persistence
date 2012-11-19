@@ -24,7 +24,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class FeatureFieldItem extends Item
+public final class FeatureFieldItem extends Item
 {
 	static final IntegerField integer1 = new IntegerField().optional();
 	static final IntegerField integer2 = new IntegerField().optional();

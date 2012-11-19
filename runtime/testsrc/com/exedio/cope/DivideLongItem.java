@@ -19,7 +19,7 @@
 
 package com.exedio.cope;
 
-public class DivideLongItem extends Item
+public final class DivideLongItem extends Item
 {
 	public static final LongField numA = new LongField().optional();
 

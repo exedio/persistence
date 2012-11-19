@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class MD5Item extends Item
+public final class MD5Item extends Item
 {
 	@SuppressWarnings("deprecation")
 	static final Hash password = new MD5Hash();

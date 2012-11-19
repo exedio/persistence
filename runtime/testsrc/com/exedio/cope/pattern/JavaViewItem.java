@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class JavaViewItem extends Item
+public final class JavaViewItem extends Item
 {
 	static final StringField numberString = new StringField().optional();
 

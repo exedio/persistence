@@ -26,7 +26,7 @@ package com.exedio.cope;
  * @author Ralf Wiebicke
  */
 @CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem")
-class NameCollisionlongaItem extends Item
+final class NameCollisionlongaItem extends Item
 {
 
 	static final StringField code = new StringField().unique();

@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class JavaViewItem2 extends Item
+public final class JavaViewItem2 extends Item
 {
 	/**
 

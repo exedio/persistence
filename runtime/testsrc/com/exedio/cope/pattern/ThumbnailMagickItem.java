@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class ThumbnailMagickItem extends Item
+public final class ThumbnailMagickItem extends Item
 {
 	static final Media file = new Media().optional().lengthMax(2000);
 

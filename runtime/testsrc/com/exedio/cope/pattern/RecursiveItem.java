@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class RecursiveItem extends Item
+public final class RecursiveItem extends Item
 {
 	static final RecursivePattern testPattern = new RecursivePattern();
 	static final RecursivePattern testPattern2 = new RecursivePattern();

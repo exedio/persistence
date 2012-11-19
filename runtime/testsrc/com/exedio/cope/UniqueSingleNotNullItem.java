@@ -22,7 +22,7 @@ package com.exedio.cope;
  * An item having a unique mandatory attribute.
  * @author Ralf Wiebicke
  */
-public class UniqueSingleNotNullItem extends Item
+public final class UniqueSingleNotNullItem extends Item
 {
 	/**
 	 * An attribute that is unique and mandatory.

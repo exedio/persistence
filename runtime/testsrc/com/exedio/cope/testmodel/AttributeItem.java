@@ -36,7 +36,7 @@ import com.exedio.cope.pattern.Media;
  * An item having many attributes.
  * @author Ralf Wiebicke
  */
-public class AttributeItem extends Item
+public final class AttributeItem extends Item
 {
 	/**
 	 * A string attribute.

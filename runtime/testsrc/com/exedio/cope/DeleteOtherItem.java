@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class DeleteOtherItem extends Item
+final class DeleteOtherItem extends Item
 {
 
 	String name = null;

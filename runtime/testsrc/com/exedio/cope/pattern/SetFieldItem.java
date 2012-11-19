@@ -24,7 +24,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class SetFieldItem extends Item
+public final class SetFieldItem extends Item
 {
 	static final SetField<String> strings = SetField.create(new StringField().lengthRange(4, 8));
 	static final SetField<Date> dates = SetField.create(new DateField());

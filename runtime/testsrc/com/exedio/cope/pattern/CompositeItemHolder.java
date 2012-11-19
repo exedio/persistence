@@ -6,7 +6,7 @@ import com.exedio.cope.ItemField;
 /**
  * @cope.generic.constructor package
  */
-public class CompositeItemHolder extends Item
+public final class CompositeItemHolder extends Item
 {
 	public static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 

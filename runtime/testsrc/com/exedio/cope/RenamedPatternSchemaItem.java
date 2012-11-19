@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeSchemaName("ZackItem") class RenamedPatternSchemaItem extends Item
+@CopeSchemaName("ZackItem") final class RenamedPatternSchemaItem extends Item
 {
 	@CopeSchemaName("zack")
 	static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();

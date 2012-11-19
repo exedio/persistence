@@ -21,7 +21,7 @@ package com.exedio.cope.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 
-public class CollisionItem2 extends Item
+public final class CollisionItem2 extends Item
 {
 
 	public static final ItemField<EmptyItem> collisionAttribute = ItemField.create(EmptyItem.class).toFinal().unique();

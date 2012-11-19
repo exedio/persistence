@@ -22,7 +22,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class RangeFieldItem extends Item
+public final class RangeFieldItem extends Item
 {
 	/** @cope.initial */ static final RangeField<Integer> valid = RangeField.create(new IntegerField().optional());
 	static final RangeField<String> text = RangeField.create(new StringField().toFinal());

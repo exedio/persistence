@@ -22,7 +22,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class HistoryItem extends Item
+public final class HistoryItem extends Item
 {
 	static final IntegerField amount = new IntegerField().optional();
 	static final StringField comment = new StringField().optional();

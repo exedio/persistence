@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class PlusDoubleItem extends Item
+public final class PlusDoubleItem extends Item
 {
 	public static final DoubleField numA = new DoubleField().optional();
 

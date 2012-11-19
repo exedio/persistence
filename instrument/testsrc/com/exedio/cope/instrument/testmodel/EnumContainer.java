@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
 
-public class EnumContainer extends Item
+public final class EnumContainer extends Item
 {
 	public enum Enum3
 	{

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class PlusIntegerItem extends Item
+public final class PlusIntegerItem extends Item
 {
 	public static final IntegerField numA = new IntegerField().optional();
 

@@ -43,7 +43,7 @@ import com.exedio.cope.pattern.MessageDigestHash;
  * TODO: functions
  * TODO: qualifiers
  */
-public class Standard extends Item
+public final class Standard extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
 	public static final StringField notNullString = new StringField();

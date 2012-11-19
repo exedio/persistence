@@ -21,7 +21,7 @@ package com.exedio.cope.badquery;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.ItemField;
 
-public class SubContainer extends SuperContainer
+public final class SubContainer extends SuperContainer
 {
 	public static final ItemField<SuperContainer> superContainer = ItemField.create(SuperContainer.class).toFinal();
 	public static final BooleanField subflag = new BooleanField().optional().defaultTo(false);

@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @cope.generic.constructor package
  */
-public class IntegerItem extends Item
+public final class IntegerItem extends Item
 {
 	public static final IntegerField any = new IntegerField().optional();
 

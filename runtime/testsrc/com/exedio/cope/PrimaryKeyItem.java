@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class PrimaryKeyItem extends Item
+final class PrimaryKeyItem extends Item
 {
 	static final StringField field = new StringField().toFinal().optional();
 	static final IntegerField next = new IntegerField().toFinal().optional().defaultToNext(0);

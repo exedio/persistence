@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import junit.framework.Assert;
 
-public class DumperSubItem extends DumperItem
+public final class DumperSubItem extends DumperItem
 {
 	static final StringField subString = new StringField().lengthMax(10);
 

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class ConnectItem2 extends ConnectItem
+final class ConnectItem2 extends ConnectItem
 {
 	static final ItemField<ConnectItem> itemField2 = ItemField.create(ConnectItem.class).optional();
 	static final ItemField<ConnectItem2> itemFieldSelf2 = ItemField.create(ConnectItem2.class).optional();

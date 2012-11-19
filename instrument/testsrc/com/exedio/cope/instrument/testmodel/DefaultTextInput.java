@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 
-public class DefaultTextInput extends Input
+public final class DefaultTextInput extends Input
 {
 
 /**

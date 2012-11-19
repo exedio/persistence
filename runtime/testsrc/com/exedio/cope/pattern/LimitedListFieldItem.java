@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
 /**
  * @cope.generic.constructor package
  */
-public class LimitedListFieldItem extends Item
+public final class LimitedListFieldItem extends Item
 {
 	// explicit external source
 

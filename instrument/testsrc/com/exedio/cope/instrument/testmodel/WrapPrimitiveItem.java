@@ -26,7 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.UniqueConstraint;
 
-class WrapPrimitiveItem extends Item
+final class WrapPrimitiveItem extends Item
 {
 	static final IntegerField integer = new IntegerField();
 	static final DateField date = new DateField();

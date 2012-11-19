@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 
-public class PasswordLimiterItem extends Item
+public final class PasswordLimiterItem extends Item
 {
 	static final MessageDigestHash password = new MessageDigestHash(8);
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);

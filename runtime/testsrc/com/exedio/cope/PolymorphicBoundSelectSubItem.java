@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectSuperItem
+public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectSuperItem
 {
 	/**
 

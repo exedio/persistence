@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class DeleteHierarchySource extends Item
+public final class DeleteHierarchySource extends Item
 {
 	static final ItemField<DeleteHierarchyTargetSuper> target = ItemField.create(DeleteHierarchyTargetSuper.class).cascade();
 

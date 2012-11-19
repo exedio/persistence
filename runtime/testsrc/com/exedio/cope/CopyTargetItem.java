@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class CopyTargetItem extends Item
+final class CopyTargetItem extends Item
 {
 	static final StringField code = new StringField().unique();
 

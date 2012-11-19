@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-class DataFinalItem extends Item
+final class DataFinalItem extends Item
 {
 
 	static final DataField data = new DataField().toFinal().optional();

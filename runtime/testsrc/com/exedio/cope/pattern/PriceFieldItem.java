@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 /**
  * @cope.generic.constructor package
  */
-public class PriceFieldItem extends Item
+public final class PriceFieldItem extends Item
 {
 	static final PriceField finalPrice = new PriceField().toFinal();
 	static final PriceField optionalPrice = new PriceField().optional();

@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.util.Day;
 
-class CompareFunctionConditionItem extends Item
+final class CompareFunctionConditionItem extends Item
 {
 	/** @cope.initial */ static final StringField leftString = new StringField().optional();
 	/** @cope.initial */ static final StringField rightString = new StringField().optional();

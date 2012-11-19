@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @cope.generic.constructor package
  */
-public class DoubleItem extends Item
+public final class DoubleItem extends Item
 {
 	public static final DoubleField any = new DoubleField().optional();
 

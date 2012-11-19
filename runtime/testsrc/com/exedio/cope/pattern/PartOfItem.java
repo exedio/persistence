@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
-public class PartOfItem extends Item
+public final class PartOfItem extends Item
 {
 	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class).cascade().toFinal();
 

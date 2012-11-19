@@ -6,7 +6,7 @@ import com.exedio.cope.ItemField;
 /**
  * @cope.generic.constructor package
  */
-public class HashItemHolder extends Item
+public final class HashItemHolder extends Item
 {
 	public static final ItemField<HashItem> hashItem = ItemField.create(HashItem.class);
 

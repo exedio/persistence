@@ -26,7 +26,7 @@ import com.exedio.cope.StringField;
  * An item having a final attribute.
  * @author Ralf Wiebicke
  */
-public class FinalItem extends Item
+public final class FinalItem extends Item
 {
 	public static final StringField finalString = new StringField().toFinal();
 	public static final IntegerField nonFinalInteger = new IntegerField();

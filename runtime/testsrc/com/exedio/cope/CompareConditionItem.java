@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-class CompareConditionItem extends Item
+final class CompareConditionItem extends Item
 {
 	/** @cope.initial */ static final StringField string = new StringField().optional();
 	static final StringField otherString = new StringField().optional();

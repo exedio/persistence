@@ -25,7 +25,7 @@ import com.exedio.cope.TypesBound;
 /**
  * @cope.type none
  */
-public class DispatcherNoneItem extends Item
+public final class DispatcherNoneItem extends Item
 {
 	/**
 	 * @cope.dispatch none

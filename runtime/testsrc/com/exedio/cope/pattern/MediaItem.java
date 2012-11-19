@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class MediaItem extends Item
+public final class MediaItem extends Item
 {
 	static final StringField name = new StringField().optional();
 

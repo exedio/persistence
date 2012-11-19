@@ -23,7 +23,7 @@ package com.exedio.cope;
  * Tests a sub type without any declared attributes but with inherited attributes.
  * @author Ralf Wiebicke
  */
-public class HierarchyEmptySub extends HierarchyEmptySuper
+public final class HierarchyEmptySub extends HierarchyEmptySuper
 {
 
 /**

@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 
-class QueryAggregatorItem extends Item
+final class QueryAggregatorItem extends Item
 {
 	static final IntegerField intx = new IntegerField();
 

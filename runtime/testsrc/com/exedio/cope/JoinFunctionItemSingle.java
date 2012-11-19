@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class JoinFunctionItemSingle extends Item
+public final class JoinFunctionItemSingle extends Item
 {
 	/**
 	 * @cope.initial

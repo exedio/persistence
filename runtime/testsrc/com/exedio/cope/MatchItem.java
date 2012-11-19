@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-class MatchItem extends Item
+final class MatchItem extends Item
 {
 
 	static final StringField text = new StringField().optional();

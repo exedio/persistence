@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class AsStringItem extends Item
+final class AsStringItem extends Item
 {
 	/** @cope.initial */ static final IntegerField intx = new IntegerField().optional();
 	/** @cope.initial */ static final LongField longx = new LongField().optional();

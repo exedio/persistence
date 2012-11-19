@@ -24,7 +24,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class PartOfContainerItem extends Item
+public final class PartOfContainerItem extends Item
 {
 
 	static final StringField containerString = new StringField();

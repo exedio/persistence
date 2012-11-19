@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.ListField;
 
-class ItemSerializationItem extends Item
+final class ItemSerializationItem extends Item
 {
 	/**
 	 * @cope.initial

@@ -33,7 +33,7 @@ import com.exedio.cope.util.CharSet;
 /**
  * @cope.generic.constructor public
  */
-public class StringItem extends Item
+public final class StringItem extends Item
 {
 	public static final StringField any = new StringField().optional().lengthMin(0);
 

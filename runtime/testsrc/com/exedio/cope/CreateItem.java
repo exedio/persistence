@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * @cope.generic.constructor package
  */
-class CreateItem extends CreateSuperItem
+final class CreateItem extends CreateSuperItem
 {
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused")

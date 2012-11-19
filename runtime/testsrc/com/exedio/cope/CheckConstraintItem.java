@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class CheckConstraintItem extends CheckConstraintSuperItem
+public final class CheckConstraintItem extends CheckConstraintSuperItem
 {
 	/** @cope.initial */
 	public static final IntegerField alpha = new IntegerField().optional();

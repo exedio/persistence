@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class DeleteItem extends Item
+final class DeleteItem extends Item
 {
 
 	static final ItemField<DeleteItem> selfForbid = ItemField.create(DeleteItem.class).optional();

@@ -24,7 +24,7 @@ import com.exedio.cope.Item;
  * Another item not having any attribute.
  * @author Ralf Wiebicke
  */
-public class EmptyItem2 extends Item
+public final class EmptyItem2 extends Item
 {
 /**
 

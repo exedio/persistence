@@ -32,7 +32,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class DispatcherItem extends Item implements Dispatchable
+public final class DispatcherItem extends Item implements Dispatchable
 {
 	static final StringField body = new StringField();
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);

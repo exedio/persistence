@@ -22,7 +22,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.LongField;
 
-public class Sub extends Super
+public final class Sub extends Super
 {
 	public static final BooleanField subMandatory = new BooleanField();
 

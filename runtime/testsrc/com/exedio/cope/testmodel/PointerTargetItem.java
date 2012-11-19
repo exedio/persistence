@@ -22,7 +22,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class PointerTargetItem extends Item
+public final class PointerTargetItem extends Item
 {
 
 	public static final StringField code = new StringField();

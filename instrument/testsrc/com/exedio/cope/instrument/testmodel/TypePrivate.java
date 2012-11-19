@@ -26,7 +26,7 @@ import com.exedio.cope.StringField;
  * @cope.type private
  * @cope.generic.constructor none
  */
-public class TypePrivate extends Item
+public final class TypePrivate extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
 

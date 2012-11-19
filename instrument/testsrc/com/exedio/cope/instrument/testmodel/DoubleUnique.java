@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
-public class DoubleUnique extends Item
+public final class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField().toFinal();
 	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();

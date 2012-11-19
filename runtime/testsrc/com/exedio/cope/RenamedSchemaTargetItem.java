@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class RenamedSchemaTargetItem extends Item
+final class RenamedSchemaTargetItem extends Item
 {
 	/**
 

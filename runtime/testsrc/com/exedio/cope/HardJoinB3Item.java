@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class HardJoinB3Item extends HardJoinB2Item
+final class HardJoinB3Item extends HardJoinB2Item
 {
 	/**
 	 * @cope.initial

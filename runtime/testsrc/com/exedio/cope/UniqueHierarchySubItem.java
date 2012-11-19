@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class UniqueHierarchySubItem extends UniqueHierarchySuperItem
+final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 {
 	static final StringField subField = new StringField().unique();
 

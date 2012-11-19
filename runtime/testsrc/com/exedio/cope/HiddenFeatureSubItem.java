@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class HiddenFeatureSubItem extends HiddenFeatureSuperItem
+final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
 	static final StringField nonHiddenSub = new StringField().optional();
 
