@@ -141,7 +141,7 @@ public final class DateField extends FunctionField<Date>
 
 		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
 			logger.warn(
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());
 	}

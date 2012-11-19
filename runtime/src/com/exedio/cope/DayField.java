@@ -136,7 +136,7 @@ public final class DayField extends FunctionField<Day>
 
 		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
 			logger.warn(
-					"Very probably you called \"DayField.defaultTo(new Day())\" on field {0}. " +
+					"Very probably you called \"DayField.defaultTo(new Day())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());
 	}
