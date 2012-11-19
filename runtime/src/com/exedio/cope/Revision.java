@@ -31,7 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
@@ -39,7 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Revision
 {
-	private static final Logger logger = Logger.getLogger(Revisions.class);
+	private static final Logger logger = LoggerFactory.getLogger(Revisions.class);
 
 	final int number;
 	final String comment;

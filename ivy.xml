@@ -41,7 +41,7 @@
 			<conf name="test" mapped="default" />
 			<conf name="build" mapped="*" />
 		</dependency>
-		<dependency org="log4j" name="log4j" rev="1.2.16">
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.1">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
