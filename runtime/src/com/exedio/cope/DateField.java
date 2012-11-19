@@ -29,7 +29,7 @@ import com.exedio.cope.instrument.Wrap;
 
 public final class DateField extends FunctionField<Date>
 {
-	static final Logger logger = Logger.getLogger(DateField.class);
+	private static final Logger logger = Logger.getLogger(DateField.class);
 
 	private static final long serialVersionUID = 1l;
 

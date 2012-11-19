@@ -34,7 +34,7 @@ import com.exedio.cope.Model;
 
 public final class ConnectToken
 {
-	public static final Logger logger = Logger.getLogger(ConnectToken.class);
+	private static final Logger logger = Logger.getLogger(ConnectToken.class);
 
 	private final Manciple manciple;
 	private final Model model;

@@ -36,7 +36,7 @@ import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
-	static final Logger logger = Logger.getLogger(ModificationListeners.class);
+	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
 
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();

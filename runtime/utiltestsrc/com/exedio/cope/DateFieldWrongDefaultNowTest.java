@@ -23,11 +23,13 @@ import static com.exedio.cope.TypesBound.newType;
 import java.util.Date;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
 {
+	private static final Logger logger = Logger.getLogger(DateField.class);
 	UtilTestLogAppender log = null;
 
 	@Override
@@ -35,13 +37,13 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
-		DateField.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		DateField.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}

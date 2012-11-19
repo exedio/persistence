@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.ModificationListener;
 
@@ -29,6 +30,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
+	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
+
 	public ModificationListenerTest()
 	{
 		super(MatchTest.MODEL);
@@ -43,13 +46,13 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		log = new TestLogAppender();
-		ModificationListeners.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ModificationListeners.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}

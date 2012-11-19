@@ -21,12 +21,14 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.newType;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 
 public class DayFieldWrongDefaultNowTest extends CopeAssert
 {
+	private static final Logger logger = Logger.getLogger(DayField.class);
 	UtilTestLogAppender log = null;
 
 	@Override
@@ -34,13 +36,13 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
-		DayField.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		DayField.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}

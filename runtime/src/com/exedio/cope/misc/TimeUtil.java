@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 
 public final class TimeUtil
 {
-	static final Logger logger = Logger.getLogger(TimeUtil.class);
+	private static final Logger logger = Logger.getLogger(TimeUtil.class);
 
 	/**
 	 *	Never returns a negative value.

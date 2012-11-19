@@ -36,6 +36,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
@@ -61,6 +63,8 @@ public class ReviseTest extends CopeAssert
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
+	private static final Logger logger = Logger.getLogger(Revisions.class);
+
 	private String hostname;
 	private ConnectProperties props;
 	private TestLogAppender log = null;
@@ -74,13 +78,13 @@ public class ReviseTest extends CopeAssert
 		testSource.putOverride("revise.auto.enabled", "true");
 		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		log = new TestLogAppender();
-		Revisions.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Revisions.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}

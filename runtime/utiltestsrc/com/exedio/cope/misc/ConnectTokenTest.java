@@ -28,6 +28,8 @@ import static com.exedio.cope.misc.ConnectToken.setProperties;
 import java.io.File;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.UtilTestLogAppender;
@@ -43,6 +45,7 @@ public class ConnectTokenTest extends CopeAssert
 		model.enableSerialization(ConnectTokenTest.class, "model");
 	}
 
+	private static final Logger logger = Logger.getLogger(ConnectToken.class);
 	UtilTestLogAppender log = null;
 
 	@Override
@@ -50,7 +53,7 @@ public class ConnectTokenTest extends CopeAssert
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
-		ConnectToken.logger.addAppender(log);
+		logger.addAppender(log);
 		setProperties(model, props);
 	}
 
@@ -58,7 +61,7 @@ public class ConnectTokenTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		removeProperties(model);
-		ConnectToken.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}

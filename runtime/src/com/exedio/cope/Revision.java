@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Revisions.logger;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
@@ -32,12 +31,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.dsmf.SQLRuntimeException;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Revision
 {
+	private static final Logger logger = Logger.getLogger(Revisions.class);
+
 	final int number;
 	final String comment;
 	final String[] body;
