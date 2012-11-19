@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
