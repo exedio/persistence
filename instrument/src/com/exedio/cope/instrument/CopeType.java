@@ -109,13 +109,9 @@ final class CopeType
 		{
 			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
 			if(externalType==Item.class)
-			{
 				supertype = null;
-			}
 			else
-			{
 				supertype = javaClass.file.repository.getCopeType(extname);
-			}
 		}
 	}
 
