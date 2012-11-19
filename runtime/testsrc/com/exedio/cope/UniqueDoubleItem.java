@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ package com.exedio.cope;
  * An item having two fields and a unique constraint over these fields.
  * @author Ralf Wiebicke
  */
-class UniqueDoubleItem extends Item
+final class UniqueDoubleItem extends Item
 {
 	static final StringField string = new StringField();
 
@@ -50,7 +50,7 @@ class UniqueDoubleItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueDoubleItem.string.map(string),
 			UniqueDoubleItem.integer.map(integer),
 		});

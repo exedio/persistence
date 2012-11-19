@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,6 @@ import java.util.Map;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.cope.util.PrefixSource;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
@@ -57,8 +56,9 @@ final class Connect
 	Connect(
 			final String name,
 			final Types types,
-			final RevisionsFuture revisionsFuture,
+			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
+			final Transactions transactions,
 			final ChangeListeners changeListeners)
 	{
 		this.properties = properties;
@@ -103,7 +103,7 @@ final class Connect
 				}
 			}
 		}
-		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFuture);
+		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		this.connectionPool = new ConnectionPool(new Pool<Connection>(
@@ -119,6 +119,7 @@ final class Connect
 				dialect,
 				connectionPool,
 				executor,
+				transactions,
 				this.revisions);
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
@@ -127,7 +128,7 @@ final class Connect
 		if(properties.cluster.booleanValue())
 		{
 			final ClusterProperties clusterProperties =
-				ClusterProperties.get(new PrefixSource(properties.getContext(), "cluster."));
+				ClusterProperties.get(properties);
 
 			if(clusterProperties!=null)
 				this.cluster = new Cluster(name, types, clusterProperties, this);
@@ -222,19 +223,19 @@ final class Connect
 		return revisions!=null ? revisions.get() : null;
 	}
 
-	void revise()
+	void revise(final boolean explicitRequest)
 	{
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters);
+		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters, explicitRequest);
 
 		revised = true;
 	}
 
 	Map<Integer, byte[]> getRevisionLogs(final boolean withMutex)
 	{
-		return revisions.get().getLogs(withMutex, properties, connectionPool, executor);
+		return Revisions.getLogs(withMutex, properties, connectionPool, executor);
 	}
 
 	List<ThreadController> getThreadControllers()

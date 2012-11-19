@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ import com.exedio.cope.ItemField;
  * in different persistent classes.
  * @author Ralf Wiebicke
  */
-public class CollisionItem1 extends Item
+public final class CollisionItem1 extends Item
 {
 
 	public static final ItemField<EmptyItem> collisionAttribute = ItemField.create(EmptyItem.class).toFinal().unique();
@@ -48,7 +48,7 @@ public class CollisionItem1 extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CollisionItem1.collisionAttribute.map(collisionAttribute),
 		});
 	}/**

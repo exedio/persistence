@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,9 +30,9 @@ import java.io.Serializable;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
@@ -120,6 +120,15 @@ public class MapFieldModelTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
+		}
+		try
+		{
+			MapField.create(new StringField().optional(), null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("key must be mandatory", e.getMessage());
 		}
 		try
 		{

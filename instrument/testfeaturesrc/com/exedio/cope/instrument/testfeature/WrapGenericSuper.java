@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,21 +19,13 @@
 package com.exedio.cope.instrument.testfeature;
 
 import java.io.Reader;
-import java.util.List;
 
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public class WrapGenericSuper<A, B, Z, F> extends Pattern
 {
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(WrapGenericSuper.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10)
 	public void method(
 			@SuppressWarnings("unused") @Parameter("a") final A a,

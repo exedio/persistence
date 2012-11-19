@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -97,6 +97,10 @@ public class Sampler
 
 			public String get(final String key)
 			{
+				// TODO
+				// implement a @CopeNoCache annotation and use it
+				// for purged types
+				// Then remove the lines below
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
 
@@ -154,7 +158,7 @@ public class Sampler
 
 	void checkInternal()
 	{
-		samplerModel.reviseIfSupported();
+		samplerModel.reviseIfSupportedAndAutoEnabled();
 		try
 		{
 			samplerModel.startTransaction("check");
@@ -201,7 +205,7 @@ public class Sampler
 		// process data
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
-		final ArrayList<SetValue> sv = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
 		final int running = runningSource.getAndIncrement();
 
 		// save data
@@ -290,7 +294,7 @@ public class Sampler
 		return (10*1000);
 	}
 
-	int analyzeCount(final Type type)
+	int analyzeCount(final Type<?> type)
 	{
 		final int result;
 		try
@@ -306,14 +310,14 @@ public class Sampler
 		return result;
 	}
 
-	Date[] analyzeDate(final Type type)
+	Date[] analyzeDate(final Type<?> type)
 	{
 		final DateField date = (DateField)type.getFeature("date");
-		final List dates;
+		final List<?> dates;
 		try
 		{
 			samplerModel.startTransaction("sampler analyzeDate");
-			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
+			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			samplerModel.commit();
 		}
 		finally
@@ -333,7 +337,7 @@ public class Sampler
 
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(cal.DATE, -days);
+		cal.add(GregorianCalendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
 
@@ -342,7 +346,7 @@ public class Sampler
 		final String samplerString = toString();
 		try
 		{
-			for(final Type type : samplerModel.getTypes())
+			for(final Type<?> type : samplerModel.getTypes())
 				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 						SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
 				{
@@ -362,6 +366,7 @@ public class Sampler
 		return differentiate(null, null);
 	}
 
+	@SuppressWarnings("static-method")
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		return Differentiate.differentiate(from, until);

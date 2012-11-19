@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,22 +43,24 @@ public abstract class ClusterTest extends CopeAssert
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 44;
 
-	private ClusterProperties getProperties(final int node)
+	private static ClusterProperties getProperties(final int node)
 	{
 		return ClusterProperties.get(
+			new ConnectProperties(
+				ConnectSource.get(),
 				new Properties.Source()
 				{
 					public String get(final String key)
 					{
-						if(key.equals("packetSize"))
+						if(key.equals("cluster.packetSize"))
 							return "47";
-						else if(key.equals("secret"))
+						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("nodeAuto"))
+						else if(key.equals("cluster.nodeAuto"))
 							return "false";
-						else if(key.equals("node"))
+						else if(key.equals("cluster.node"))
 							return String.valueOf(node);
-						else if(key.equals("log"))
+						else if(key.equals("cluster.log"))
 							return "false";
 						else
 							return null;
@@ -74,7 +76,7 @@ public abstract class ClusterTest extends CopeAssert
 						return null;
 					}
 				}
-			);
+			));
 	}
 
 	@Override
@@ -771,14 +773,14 @@ public abstract class ClusterTest extends CopeAssert
 		assertEquals(expected.length, actual.size());
 	}
 
-	private void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
+	private static void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
 		for(int i = 0; i<actualData.length; i++)
 			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
 		assertEquals(expectedData.length, actualData.length);
 	}
 
-	private void assertEqualsBytes(final byte[] actualData, final String expectedData)
+	private static void assertEqualsBytes(final byte[] actualData, final String expectedData)
 	{
 		assertEquals(expectedData, Hex.encodeLower(actualData));
 	}

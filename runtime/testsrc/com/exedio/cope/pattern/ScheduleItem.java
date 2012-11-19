@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -48,7 +48,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 			throw new RuntimeException("schedule test failure");
 	}
 
-	void assertLogs(final List<Log> expected)
+	static void assertLogs(final List<Log> expected)
 	{
 		assertEquals(expected, logs);
 		logs.clear();
@@ -64,7 +64,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	public ScheduleItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

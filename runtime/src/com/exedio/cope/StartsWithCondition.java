@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,8 @@ import java.util.Arrays;
 
 import com.exedio.cope.util.Hex;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class StartsWithCondition extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -35,7 +37,7 @@ public final class StartsWithCondition extends Condition
 	 * you may want to use the more convenient wrapper method
 	 * {@link DataField#startsWith(byte[])}.
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP2") // May expose internal representation by incorporating reference to mutable object
+	@SuppressFBWarnings("EI_EXPOSE_REP2") // May expose internal representation by incorporating reference to mutable object
 	public StartsWithCondition(
 			final DataField field,
 			final byte[] value)
@@ -96,7 +98,7 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		field.toString(bf, defaultType);
 		bf.append(" startsWith '");

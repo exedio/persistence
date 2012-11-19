@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,19 +30,19 @@ import com.exedio.cope.junit.CopeAssert;
 
 public final class PriceTest extends CopeAssert
 {
-	public void testIt()
+	public static void testIt()
 	{
 		assertEquals(5, new Price(5).store());
 		assertEquals(0, new Price(0).store());
 	}
 
-	public void testZero()
+	public static void testZero()
 	{
 		assertEquals(0, ZERO.store());
 		assertEquals(0.0, ZERO.doubleValue());
 	}
 
-	public void testStoreOfInt()
+	public static void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
 		assertNotSame(storeOf(1), storeOf(1));
@@ -52,7 +52,7 @@ public final class PriceTest extends CopeAssert
 		assertSame(MAX_VALUE, storeOf(Integer.MAX_VALUE));
 	}
 
-	public void testStoreOfInteger()
+	public static void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
 		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
@@ -60,7 +60,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(null, storeOf((Integer)null));
 	}
 
-	public void testValueOfDouble()
+	public static void testValueOfDouble()
 	{
 		assertEquals( 222, valueOf( 2.22).store());
 		assertEquals(-222, valueOf(-2.22).store());
@@ -135,7 +135,7 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public void testValueOfBigDecimal()
+	public static void testValueOfBigDecimal()
 	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
 		assertEquals(-222, valueOf(bd(-222, 2)).store());
@@ -191,7 +191,7 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public void testDoubleValue()
+	public static void testDoubleValue()
 	{
 		assertEquals( 2.22, storeOf( 222).doubleValue());
 		assertEquals(-2.22, storeOf(-222).doubleValue());
@@ -200,7 +200,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 0.0,  storeOf(   0).doubleValue());
 	}
 
-	public void testBigValue()
+	public static void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
 		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
@@ -211,39 +211,101 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
 	}
 
-	public void testAdd()
+	public static void testAdd()
 	{
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
 		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
+
+		// TODO overflow
+		assertEquals(-2147483648, MAX_VALUE.add(storeOf( 1)).store());
+		assertEquals(-2147483647, MAX_VALUE.add(storeOf( 2)).store());
+		assertEquals( 2147483647, MIN_VALUE.add(storeOf(-1)).store());
+		assertEquals( 2147483646, MIN_VALUE.add(storeOf(-2)).store());
 	}
 
-	public void testSubtract()
+	public static void testSubtract()
 	{
 		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).store());
 		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
 		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).store());
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
+
+		// TODO overflow
+		assertEquals(-2147483648, MAX_VALUE.subtract(storeOf(-1)).store());
+		assertEquals(-2147483647, MAX_VALUE.subtract(storeOf(-2)).store());
+		assertEquals( 2147483647, MIN_VALUE.subtract(storeOf( 1)).store());
+		assertEquals( 2147483646, MIN_VALUE.subtract(storeOf( 2)).store());
 	}
 
-	public void testMultiplyInt()
+	public static void testNegative()
+	{
+		assertEquals(storeOf(-555), storeOf( 555).negative());
+		assertEquals(storeOf( 555), storeOf(-555).negative());
+		assertSame(Price.ZERO, storeOf(0).negative());
+		assertEquals(storeOf(Integer.MIN_VALUE+1), MAX_VALUE.negative());
+		assertEquals(storeOf(Integer.MAX_VALUE), storeOf(Integer.MIN_VALUE+1).negative());
+		try
+		{
+			MIN_VALUE.negative();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("no negative for -21474836.48", e.getMessage());
+		}
+	}
+
+	public static void testMultiplyInt()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
+
+		// TODO overflow
+		assertEquals( 1073741823, storeOf(1073741823).multiply(1).store());
+		assertEquals( 1073741824, storeOf(1073741824).multiply(1).store());
+		assertEquals( 1073741825, storeOf(1073741825).multiply(1).store());
+		assertEquals( 2147483646, storeOf(1073741823).multiply(2).store());
+		assertEquals(-2147483648, storeOf(1073741824).multiply(2).store()); // wrong
+		assertEquals(-2147483646, storeOf(1073741825).multiply(2).store()); // wrong
 	}
 
-	public void testMultiplyPrice()
+	public static void testMultiplyDouble()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3d).store());
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
 		assertEquals(-999, storeOf( 333).multiply(-3d).store());
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+
+		// TODO overflow
+		assertEquals( 1073741823, storeOf(1073741823).multiply(1d).store());
+		assertEquals( 1073741824, storeOf(1073741824).multiply(1d).store());
+		assertEquals( 1073741825, storeOf(1073741825).multiply(1d).store());
+		assertEquals( 2147483646, storeOf(1073741823).multiply(2d).store());
+		try
+		{
+			storeOf(1073741824).multiply(2d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.147483648E7", e.getMessage());
+		}
+		try
+		{
+			storeOf(1073741825).multiply(2d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.14748365E7", e.getMessage());
+		}
 	}
 
-	public void testEquals()
+	public static void testEquals()
 	{
 		assertEquals(storeOf( 123), storeOf( 123));
 		assertEquals(storeOf(-123), storeOf(-123));
@@ -255,7 +317,7 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).equals(null));
 	}
 
-	public void testHashCode()
+	public static void testHashCode()
 	{
 		assertEquals(storeOf( 123).hashCode(), storeOf( 123).hashCode());
 		assertEquals(storeOf(-123).hashCode(), storeOf(-123).hashCode());
@@ -263,7 +325,7 @@ public final class PriceTest extends CopeAssert
 		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
 	}
 
-	public void testCompareTo()
+	public static void testCompareTo()
 	{
 		assertEquals(-1, storeOf(122).compareTo(storeOf(123)));
 		assertEquals( 0, storeOf(123).compareTo(storeOf(123)));
@@ -273,7 +335,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
 	}
 
-	public void testToString()
+	public static void testToString()
 	{
 		assertEquals( "1.23", storeOf( 123).toString());
 		assertEquals("-1.23", storeOf(-123).toString());
@@ -284,6 +346,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals( "0.03", storeOf(   3).toString());
 		assertEquals("-0.03", storeOf(  -3).toString());
 		assertEquals( "0.00", storeOf(   0).toString());
+		assertEquals("-21474836.48", MIN_VALUE.toString());
+		assertEquals( "21474836.47", MAX_VALUE.toString());
 
 		// serialization
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
@@ -294,8 +358,8 @@ public final class PriceTest extends CopeAssert
 	{
 		return BigDecimal.valueOf(unscaledVal, scale);
 	}
-	
-	public void testLessThan()
+
+	public static void testLessThan()
 	{
 		assertEquals(true, storeOf(122).lessThan(storeOf(123)));
 		assertEquals(false, storeOf(123).lessThan(storeOf(123)));
@@ -305,7 +369,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(true, storeOf(-124).lessThan(storeOf(-123)));
 	}
 
-	public void testGreaterThan()
+	public static void testGreaterThan()
 	{
 		assertEquals(false, storeOf(122).greaterThan(storeOf(123)));
 		assertEquals(false, storeOf(123).greaterThan(storeOf(123)));
@@ -315,7 +379,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(false, storeOf(-124).greaterThan(storeOf(-123)));
 	}
 
-	public void testLessThanOrEqual()
+	public static void testLessThanOrEqual()
 	{
 		assertEquals(true, storeOf(122).lessThanOrEqual(storeOf(123)));
 		assertEquals(true, storeOf(123).lessThanOrEqual(storeOf(123)));
@@ -325,7 +389,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(true, storeOf(-124).lessThanOrEqual(storeOf(-123)));
 	}
 
-	public void testGreaterThanOrEqual()
+	public static void testGreaterThanOrEqual()
 	{
 		assertEquals(false, storeOf(122).greaterThanOrEqual(storeOf(123)));
 		assertEquals(true, storeOf(123).greaterThanOrEqual(storeOf(123)));
@@ -335,7 +399,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(false, storeOf(-124).greaterThanOrEqual(storeOf(-123)));
 	}
 
-	public void testGetLower()
+	public static void testGetLower()
 	{
 		assertEquals(storeOf(122), storeOf(122).getLower(storeOf(123)));
 		assertEquals(storeOf(123), storeOf(123).getLower(storeOf(123)));
@@ -345,7 +409,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-124), storeOf(-124).getLower(storeOf(-123)));
 	}
 
-	public void testGetGreater()
+	public static void testGetGreater()
 	{
 		assertEquals(storeOf(123), storeOf(122).getGreater(storeOf(123)));
 		assertEquals(storeOf(123), storeOf(123).getGreater(storeOf(123)));
@@ -353,5 +417,49 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-122), storeOf(-122).getGreater(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-123).getGreater(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-124).getGreater(storeOf(-123)));
+	}
+
+	public static void testGrossToNetPercent()
+	{
+		assertEquals(storeOf( 100), storeOf( 126).grossToNetPercent(26));
+		assertEquals(storeOf(-100), storeOf(-126).grossToNetPercent(26));
+		assertEquals(storeOf(   0), storeOf(   0).grossToNetPercent(26));
+		assertEquals(storeOf(   0), storeOf(   0).grossToNetPercent(0));
+		assertEquals(storeOf( 126), storeOf( 126).grossToNetPercent(0));
+		assertEquals(storeOf(-126), storeOf(-126).grossToNetPercent(0));
+
+		try
+		{
+			ZERO.grossToNetPercent(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("rate must not be negative, but was -1", e.getMessage());
+		}
+		{
+			final Price p = storeOf( 126);
+			assertSame(p, p.grossToNetPercent(0));
+		}
+	}
+
+	public static void testGrossToTaxPercent()
+	{
+		assertEquals(storeOf( 26), storeOf( 126).grossToTaxPercent(26));
+		assertEquals(storeOf(-26), storeOf(-126).grossToTaxPercent(26));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(26));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(0));
+		assertEquals(storeOf(  0), storeOf( 126).grossToTaxPercent(0));
+		assertEquals(storeOf(  0), storeOf(-126).grossToTaxPercent(0));
+
+		try
+		{
+			ZERO.grossToTaxPercent(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("rate must not be negative, but was -1", e.getMessage());
+		}
 	}
 }

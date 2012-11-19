@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -61,9 +61,9 @@ public class PlusIntegerOrderTest extends CopeModelTest
 		assertOrder(list(item1, item3, item2), item1.multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
+	private void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query query = item1.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = item1.TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 

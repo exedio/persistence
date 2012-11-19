@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 
@@ -63,17 +62,11 @@ public final class Importer<K extends Object> extends Pattern
 		return key;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Importer.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
 			@Parameter("keyValue") final K keyValue,
-			@Parameter("setValues") final List<? extends SetValue> setValues)
+			@Parameter("setValues") final List<? extends SetValue<?>> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
@@ -82,7 +75,7 @@ public final class Importer<K extends Object> extends Pattern
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
 			@Parameter("keyValue") final K keyValue,
-			@Parameter("setValues") final SetValue... setValues)
+			@Parameter("setValues") final SetValue<?>... setValues)
 	{
 		if(keyValue==null)
 			throw new NullPointerException("keyValue");
@@ -107,9 +100,9 @@ public final class Importer<K extends Object> extends Pattern
 	private <P extends Item> P doImportInitial(
 			final Class<P> parentClass,
 			final K keyValue,
-			final SetValue... setValues)
+			final SetValue<?>... setValues)
 	{
-		final SetValue[] setValuesNew = prepend(key.map(keyValue), setValues);
+		final SetValue<?>[] setValuesNew = prepend(key.map(keyValue), setValues);
 		final Type<P> type = getType().as(parentClass);
 
 		try
@@ -135,9 +128,9 @@ public final class Importer<K extends Object> extends Pattern
 		this.hintInitial = hintInitial;
 	}
 
-	private static SetValue[] prepend(final SetValue head, final SetValue[] tail)
+	private static SetValue<?>[] prepend(final SetValue<?> head, final SetValue<?>[] tail)
 	{
-		final SetValue[] result = new SetValue[tail.length + 1];
+		final SetValue<?>[] result = new SetValue<?>[tail.length + 1];
 		result[0] = head;
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,7 @@ import java.util.List;
 import bsh.EvalError;
 import bsh.Primitive;
 import bsh.UtilEvalError;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a class parsed by the java parser.
@@ -130,7 +131,7 @@ final class JavaClass extends JavaFeature
 
 	public final boolean isInterface()
 	{
-		return (modifier & Modifier.INTERFACE) > 0;
+		return Modifier.isInterface(modifier);
 	}
 
 	@Override
@@ -190,7 +191,7 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;

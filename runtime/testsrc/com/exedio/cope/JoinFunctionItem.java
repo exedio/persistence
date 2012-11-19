@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-class JoinFunctionItem extends Item
+final class JoinFunctionItem extends Item
 {
 	/**
 	 * @cope.initial
@@ -48,7 +48,7 @@ class JoinFunctionItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			JoinFunctionItem.string.map(string),
 			JoinFunctionItem.integer.map(integer),
 		});

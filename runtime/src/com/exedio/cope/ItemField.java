@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,12 +24,14 @@ import static com.exedio.cope.TypesBound.future;
 import java.sql.Connection;
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 
@@ -37,10 +39,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?> copyFrom,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, copyFrom, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
@@ -60,7 +63,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, null, valueTypeFuture, policy);
 	}
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
@@ -76,31 +79,37 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(true, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, true, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, false, copyFrom, valueTypeFuture, policy);
+	}
+
+	@Override
+	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
 	}
 
 	@Override
@@ -114,12 +123,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -139,7 +148,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Item> ItemField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -151,7 +159,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (ItemField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final ItemField<X> result = (ItemField<X>)this;
+		return result;
 	}
 
 	public DeletePolicy getDeletePolicy()
@@ -162,7 +172,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private Type<E> valueType = null;
 
-	void resolveValueType(final Set<Type> typesAllowed)
+	void resolveValueType(final Set<Type<?>> typesAllowed)
 	{
 		if(!isMountedToType())
 			throw new RuntimeException();
@@ -190,7 +200,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private StringColumn typeColumn = null;
 
 	@Override
@@ -338,7 +348,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
-		final Type type = getType();
+		final Type<?> type = getType();
 		final Transaction tx = type.getModel().currentTransaction();
 		final Connection connection = tx.getConnection();
 		final Executor executor = tx.connect.executor;
@@ -375,12 +385,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -411,6 +421,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -436,6 +447,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -486,6 +498,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -516,6 +529,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

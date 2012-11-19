@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
-import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -41,22 +40,16 @@ final class SamplerMedia extends Item
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	private static final StringField media = new StringField().toFinal();
 
-	private static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
-	private static final DateField initializeDate = new DateField().toFinal();
-	private static final DateField connectDate = new DateField().toFinal();
-	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal();
-	private static final IntegerField running = new IntegerField().toFinal().min(0);
+	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
+	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
+	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
+	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
-	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
-	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	@SuppressWarnings("unused") private static final CopyConstraint samplerCC = new CopyConstraint(model, sampler);
-	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
-
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
@@ -77,9 +70,9 @@ final class SamplerMedia extends Item
 	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final MediaInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			media        .map(info.getPath().getID()),
 			redirectFrom .map(info.getRedirectFrom()),
 			exception    .map(info.getException()),

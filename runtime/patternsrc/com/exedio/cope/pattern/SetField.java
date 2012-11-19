@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,15 +40,16 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class SetField<E> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> element;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private SetField(final FunctionField<E> element)
@@ -58,6 +59,8 @@ public final class SetField<E> extends Pattern
 			throw new NullPointerException("element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
+		if(!element.isMandatory())
+			throw new IllegalArgumentException("element must be mandatory");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 	}
@@ -139,12 +142,6 @@ public final class SetField<E> extends Pattern
 	}
 
 	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(SetField.class, this, super.getWrappers());
-	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Set<E> get(final Item item)

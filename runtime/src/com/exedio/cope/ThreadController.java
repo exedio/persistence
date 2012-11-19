@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import static java.lang.Thread.MIN_PRIORITY;
 
 import java.lang.Thread.State;
 import java.text.MessageFormat;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ThreadController
 {
@@ -103,7 +105,7 @@ public final class ThreadController
 		thread.start();
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public long getId()
 	{
 		final Thread thread = this.thread;
@@ -122,7 +124,7 @@ public final class ThreadController
 		return thread!=null ? thread.getState() : null;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public StackTraceElement[] getStackTrace()
 	{
 		final Thread thread = this.thread;

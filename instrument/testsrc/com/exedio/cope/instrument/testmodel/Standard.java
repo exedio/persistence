@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ import com.exedio.cope.pattern.MessageDigestHash;
  * TODO: functions
  * TODO: qualifiers
  */
-public class Standard extends Item
+public final class Standard extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
 	public static final StringField notNullString = new StringField();
@@ -251,7 +251,7 @@ public class Standard extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			Standard.notNullString.map(notNullString),
 			Standard.finalString.map(finalString),
 			Standard.initialString.map(initialString),

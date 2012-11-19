@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 /**
  * @cope.generic.constructor package
  */
-public class PriceFieldItem extends Item
+public final class PriceFieldItem extends Item
 {
 	static final PriceField finalPrice = new PriceField().toFinal();
 	static final PriceField optionalPrice = new PriceField().optional();
@@ -48,7 +48,7 @@ public class PriceFieldItem extends Item
 				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PriceFieldItem.finalPrice.map(finalPrice),
 			PriceFieldItem.bigPrice.map(bigPrice),
 		});

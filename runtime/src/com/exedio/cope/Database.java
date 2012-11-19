@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,6 +44,7 @@ final class Database
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
+	final Transactions transactions;
 	private final RevisionsConnect revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
@@ -57,12 +58,14 @@ final class Database
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
+			final Transactions transactions,
 			final RevisionsConnect revisions)
 	{
 		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
+		this.transactions = transactions;
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
@@ -323,7 +326,7 @@ final class Database
 	{
 		buildStage = false;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 
 		executor.testListener().load(connection, item);
 
@@ -331,7 +334,7 @@ final class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table table = currentType.getTable();
 
@@ -368,7 +371,7 @@ final class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
@@ -380,7 +383,7 @@ final class Database
 
 		bf.append(" where ");
 		first = true;
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
@@ -405,7 +408,7 @@ final class Database
 				final Row row = new Row();
 				int columnIndex = 1;
 				int updateCount = Integer.MIN_VALUE;
-				for(Type superType = type; superType!=null; superType = superType.supertype)
+				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
 
@@ -464,7 +467,7 @@ final class Database
 		buildStage = false;
 		assert present || incrementUpdateCounter;
 
-		final Type supertype = type.supertype;
+		final Type<?> supertype = type.supertype;
 		if(supertype!=null)
 			store(connection, state, present, incrementUpdateCounter, blobs, supertype);
 
@@ -605,6 +608,8 @@ final class Database
 		{
 			public Connection getConnection()
 			{
+				transactions.assertNoCurrentTransaction();
+
 				return connectionPool.get(true);
 			}
 
@@ -622,7 +627,7 @@ final class Database
 			t.makeSchema(result, supportsNotNull());
 
 		if(withRevisions && revisions!=null)
-			revisions.get().makeSchema(result, properties, dialect);
+			Revisions.makeSchema(result, properties, dialect);
 		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class PasswordRecoveryItem extends Item
+public final class PasswordRecoveryItem extends Item
 {
 	static final MessageDigestHash password = new MessageDigestHash(5);
 	static final PasswordRecovery passwordRecovery = new PasswordRecovery(password);
@@ -41,7 +41,7 @@ public class PasswordRecoveryItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PasswordRecoveryItem.password.map(password),
 		});
 	}/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,20 +21,21 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-final class SimpleItemMarshaller<E extends Item> implements Marshaller<E>
+final class SimpleItemMarshaller<E extends Item> extends Marshaller<E>
 {
 	private final Type<? extends E> onlyPossibleTypeOfInstances;
 
 	SimpleItemMarshaller(final Type<? extends E> onlyPossibleTypeOfInstances)
 	{
+		super(1);
 		this.onlyPossibleTypeOfInstances = onlyPossibleTypeOfInstances;
 		assert onlyPossibleTypeOfInstances!=null;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object cell = row.getObject(columnIndex.value++);
+		final Object cell = row.getObject(columnIndex);
 		if(cell==null)
 			return null;
 
@@ -42,13 +43,13 @@ final class SimpleItemMarshaller<E extends Item> implements Marshaller<E>
 	}
 
 	@Override
-	public String marshal(final E value)
+	String marshal(final E value)
 	{
 		return String.valueOf(value.pk);
 	}
 
 	@Override
-	public Object marshalPrepared(final E value)
+	Object marshalPrepared(final E value)
 	{
 		return value.pk;
 	}

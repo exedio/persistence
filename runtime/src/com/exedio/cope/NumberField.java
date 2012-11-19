@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,9 +26,15 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	protected NumberField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	protected NumberField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Class<E> valueClass,
+			final E defaultConstant)
 	{
-		super(isfinal, optional, unique, valueClass, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

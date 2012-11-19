@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,9 +24,9 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class SetFieldItem extends Item
+public final class SetFieldItem extends Item
 {
-	static final SetField<String> strings = SetField.create(new StringField().optional().lengthRange(4, 8));
+	static final SetField<String> strings = SetField.create(new StringField().lengthRange(4, 8));
 	static final SetField<Date> dates = SetField.create(new DateField());
 
 
@@ -39,7 +39,7 @@ public class SetFieldItem extends Item
 	 */
 	public SetFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 
@@ -90,6 +90,7 @@ public class SetFieldItem extends Item
 	 */
 	final void setStrings(final java.util.Collection<? extends String> strings)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
@@ -104,6 +105,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean addToStrings(final String element)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
@@ -118,6 +120,7 @@ public class SetFieldItem extends Item
 	 */
 	final boolean removeFromStrings(final String element)
 			throws
+				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{

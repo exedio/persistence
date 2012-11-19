@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,7 @@ public class JoinMultipleTest extends TestmodelTest
 	public void testMultipleJoin()
 	{
 		{
-			final Query query = source.TYPE.newQuery(null);
+			final Query<PointerItem> query = source.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
 
 			final Join join1 = query.join(target1.TYPE);
@@ -58,7 +58,7 @@ public class JoinMultipleTest extends TestmodelTest
 		}
 		{
 			// test using BindItemFunction
-			final Query query = source.TYPE.newQuery(null);
+			final Query<PointerItem> query = source.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
 
 			final Join join1 = query.join(target1.TYPE);
@@ -86,7 +86,7 @@ public class JoinMultipleTest extends TestmodelTest
 			// TODO test with functions on joined types
 		}
 		{
-			final Query query = source.TYPE.newQuery(null);
+			final Query<PointerItem> query = source.TYPE.newQuery(null);
 			final Join join1 = query.join(target1.TYPE);
 			query.setCondition((target1.num1.plus(target1.num2)).greater(2));
 			assertEquals("select this from PointerItem join PointerTargetItem p1 where plus(PointerTargetItem.num1,PointerTargetItem.num2)>'2'", query.toString());

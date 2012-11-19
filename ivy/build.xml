@@ -5,6 +5,9 @@
 		<copy overwrite="true" file="artifacts/exedio-cope-util-jar.jar" tofile="../lib/exedio-cope-util.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cope-util-log.txt" tofile="../lib/exedio-cope-util.jar-CHANGELOG" />
 		<copy overwrite="true" file="artifacts/exedio-cope-util-src.zip" tofile="../lib/exedio-cope-util.jar-src.zip" />
+		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-jar.jar" tofile="../lib/exedio-cope-servletutil.jar" />
+		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-log.txt" todir="../lib" />
+		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-src.zip" todir="../lib" />
 		<copy overwrite="true" file="artifacts/exedio-cops-jar.jar" tofile="../lib/exedio-cops.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cops-log.txt" tofile="../lib/exedio-cops.jar-CHANGELOG" />
 		<copy overwrite="true" file="artifacts/exedio-cops-src.zip" tofile="../lib/exedio-cops.jar-src.zip" />
@@ -27,7 +30,7 @@
 		<copy overwrite="true" file="artifacts/apache-tomcat-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-dist.tar.gz" tofile="../lib/findbugs.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-annotations-jar.jar" tofile="../lib/findbugs-annotations.jar" />
-		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" todir="../lib" />
-		<copy overwrite="true" file="artifacts/slf4j-api-source.jar" todir="../lib" />
+		<copy overwrite="true" file="artifacts/log4j-bundle.jar" tofile="../lib/log4j.jar" />
+		<copy overwrite="true" file="artifacts/log4j-source.jar" tofile="../lib/log4j-source.jar" />
 	</target>
 </project>

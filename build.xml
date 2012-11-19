@@ -212,6 +212,7 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -253,7 +254,7 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile">
+	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile, instrument.anno.compile">
 		<for param="dialect.file">
 			<path>
 				<fileset dir="${basedir}" includes="*.dialect.properties" />
@@ -267,6 +268,7 @@
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
+						<pathelement location="build/classes/instrument/annosrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
@@ -301,7 +303,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -350,13 +352,14 @@
 	</target>
 	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile">
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
@@ -379,6 +382,7 @@
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/utiltestsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -389,12 +393,13 @@
 	</target>
 	
 	<target name="runtime.test.feature.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testfeaturesrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -423,6 +428,7 @@
 				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
+				<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="CoalesceTest.java" /><!-- TODO remove -->
 				<exclude name="CoalesceFunctionTest.java" /><!-- TODO remove -->
 				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
@@ -438,6 +444,7 @@
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="sampler/*.java" /><!-- TODO remove -->
+				<exclude name="mxsampler/*.java" /><!-- TODO remove -->
 				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
 			</fileset>
@@ -445,7 +452,7 @@
 	</target>
 	
 	<target name="runtime.test.compile"
-			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile">
+			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
@@ -454,6 +461,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -590,9 +598,10 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
 					<fileset file="lib/log4j.jar" />
-					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
+					<fileset file="lib/exedio-cope-servletutil.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
+					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/jdbc/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
@@ -632,12 +641,13 @@
 	</target>
 
 	<target name="runtime.servlet.test.web"
-			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.pattern.compile">
+			  depends="runtime.servlet.test.instrument, dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.servlet.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="runtime/servlettestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -653,8 +663,9 @@
 		</copy>
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
-			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
+			<fileset file="lib/exedio-cope-servletutil.jar" />
+			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
 			<fileset file="lib/log4j.jar" />
@@ -770,9 +781,10 @@
 		</copy>
 	</target>
 	
-	<target name="instrument.taskdef" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
+	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
+				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
 				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
@@ -812,10 +824,12 @@
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 		<copy todir="build/classes/instrument/testsrc">
@@ -917,8 +931,8 @@
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -933,9 +947,9 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/trove.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-console.jar" />
+				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
@@ -973,12 +987,13 @@
 			<class location="${basedir}/build/classes/runtime/patternsrc" />
 			<class location="${basedir}/build/classes/runtime/servletsrc" />
 			<class location="${basedir}/build/classes/runtime/junitsrc" />
+			<class location="${basedir}/build/classes/instrument/annosrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
-				<pathelement location="${basedir}/lib/exedio-cops.jar" />
+				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
 				<pathelement location="${basedir}/lib/trove.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
@@ -1006,6 +1021,48 @@
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 			</filterset>
 		</copy>
+	</target>
+
+	<target name="single.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
+		<fail unless="testpath">provide test class path name</fail>
+		<propertyregex property="testclass"
+							input="${testpath}"
+							regexp="(.*testsrc\.)?(.*)"
+							select="\2"/>
+		<mkdir dir="build/testresults" />
+		<foreachEnvironment skipSwitch="runtime.test">
+			<body>
+				<junit taskname="junit @{env}" fork="yes"
+						 haltonerror="true" haltonfailure="true"
+						 dir="${basedir}"
+						 showoutput="true" printsummary="true">
+					<formatter type="brief" usefile="false" />
+					<formatter type="xml" />
+					<classpath>
+						<pathelement location="build/classes/dsmf/src" />
+						<pathelement location="build/classes/runtime/src" />
+						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/patternsrc" />
+						<pathelement location="build/classes/runtime/servletsrc" />
+						<pathelement location="build/classes/runtime/junitsrc" />
+						<pathelement location="build/classes/runtime/testfeaturesrc" />
+						<pathelement location="build/classes/runtime/testsrc" />
+						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/exedio-cope-util.jar" />
+					</classpath>
+					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
+					<sysproperty key="contextPath" value="/junitContextPath" />
+					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
+					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
+					<assertions><enable/></assertions>
+				</junit>
+			</body>
+		</foreachEnvironment>
 	</target>
 
 </project>

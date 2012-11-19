@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,19 +19,17 @@
 package com.exedio.cope.misc;
 
 import java.io.File;
-import java.util.Collection;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.PrefixSource;
+import com.exedio.cope.servletutil.ServletProperties;
 import com.exedio.cope.util.Properties;
 
 public final class ServletUtil
@@ -96,7 +94,6 @@ public final class ServletUtil
 	}
 
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(
 				wrap(servlet.getServletConfig()),
@@ -104,7 +101,6 @@ public final class ServletUtil
 	}
 
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(
 				wrap(config),
@@ -114,7 +110,6 @@ public final class ServletUtil
 	private static final ConnectToken getConnectedModel(
 					final Config config,
 					final Object nameObject)
-	throws ServletException
 	{
 		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
@@ -132,7 +127,7 @@ public final class ServletUtil
 		{
 			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
-				throw new ServletException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+				throw new IllegalArgumentException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
 			modelName = contextParam;
 			modelNameSource = "context-param";
 		}
@@ -149,7 +144,7 @@ public final class ServletUtil
 		}
 		catch(final IllegalArgumentException e)
 		{
-			throw new ServletException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
+			throw new IllegalArgumentException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
 		return ConnectToken.issue(result, description);
 	}
@@ -169,68 +164,13 @@ public final class ServletUtil
 			);
 	}
 
+	/**
+	 * @deprecated Use {@link ServletProperties#create(ServletContext)} instead
+	 */
+	@Deprecated
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		final String contextPath = context.getContextPath();
-		final String prefix;
-		if(contextPath==null)
-			prefix = null;
-		else if("".equals(contextPath))
-			prefix = "root.";
-		else if(contextPath.startsWith("/"))
-			prefix = contextPath.substring(1) + '.';
-		else
-			prefix = contextPath + '.';
-
-		final Properties.Source initParam = PrefixSource.wrap(new Properties.Source(){
-					public String get(final String key)
-					{
-						return context.getInitParameter(key);
-					}
-
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-
-					public String getDescription()
-					{
-						return toString();
-					}
-
-					@Override
-					public String toString()
-					{
-						return "ServletContext '" + contextPath + '\'';
-					}
-				},
-				prefix);
-
-		return new Properties.Source(){
-			public String get(final String key)
-			{
-				if("contextPath".equals(key))
-					return contextPath;
-
-				return initParam.get(key);
-			}
-
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-
-			public String getDescription()
-			{
-				return initParam.getDescription();
-			}
-
-			@Override
-			public String toString()
-			{
-				return initParam.toString();
-			}
-		};
+		return ServletProperties.create(context);
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -240,7 +180,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(servlet);
 	}
@@ -250,7 +189,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(filter, config);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static java.lang.annotation.ElementType.FIELD;
 
 import java.lang.annotation.Retention;
@@ -96,6 +97,33 @@ public class CompositeMountTest extends CopeAssert
 		catch(final IllegalStateException e)
 		{
 			assertEquals("feature not mounted", e.getMessage());
+		}
+	}
+
+	public void testTemplateName()
+	{
+		assertEquals("string4", getTemplateName(Value.string4));
+		assertEquals("intMax4", getTemplateName(Value.intMax4));
+
+		try
+		{
+			getTemplateName(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("template", e.getMessage());
+		}
+
+		final LongField negative = new LongField();
+		try
+		{
+			getTemplateName(negative);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("feature not mounted to a composite: " + negative, e.getMessage());
 		}
 	}
 
@@ -200,7 +228,7 @@ public class CompositeMountTest extends CopeAssert
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		Value(final SetValue[] setValues)
+		Value(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -213,5 +241,5 @@ public class CompositeMountTest extends CopeAssert
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField field = CompositeField.create(Value.class);
+	static final CompositeField<?> field = CompositeField.create(Value.class);
 }

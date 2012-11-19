@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,8 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 
 	public void testHierarchy()
 	{
-		final This spt = HiddenFeatureSuperItem.TYPE.getThis();
-		final This sbt = HiddenFeatureSubItem.TYPE.getThis();
+		final This<?> spt = HiddenFeatureSuperItem.TYPE.getThis();
+		final This<?> sbt = HiddenFeatureSubItem.TYPE.getThis();
 
 		// test model
 		assertNotSame(HiddenFeatureSuperItem.hiddenSame,  HiddenFeatureSubItem.hiddenSame);

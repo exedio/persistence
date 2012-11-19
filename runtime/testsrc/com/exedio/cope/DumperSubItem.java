@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import junit.framework.Assert;
 
-public class DumperSubItem extends DumperItem
+public final class DumperSubItem extends DumperItem
 {
 	static final StringField subString = new StringField().lengthMax(10);
 
@@ -54,7 +54,7 @@ public class DumperSubItem extends DumperItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.DumperItem.string.map(string),
 			com.exedio.cope.DumperItem.unique.map(unique),
 			com.exedio.cope.DumperItem.data.map(data),

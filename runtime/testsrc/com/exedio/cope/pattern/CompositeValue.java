@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,8 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class CompositeValue extends Composite
 {
 	enum AnEnumClass
@@ -37,7 +39,7 @@ public final class CompositeValue extends Composite
 	public static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
 	// test, that these fields do not become fields of the composite value
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	final transient BooleanField notStatic = new BooleanField();
 	static BooleanField notFinal = new BooleanField();
 	static final Object noFeature = new BooleanField();
@@ -64,7 +66,7 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeValue.aString.map(aString),
 			CompositeValue.anInt.map(anInt),
 			CompositeValue.anEnum.map(anEnum),

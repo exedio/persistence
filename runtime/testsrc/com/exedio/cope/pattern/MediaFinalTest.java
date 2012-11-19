@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -170,7 +170,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
 
-	private final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
+	private static final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
 		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
 		delete(tempFile);
@@ -180,7 +180,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEqualContent(expectedData, tempFile);
 	}
 
-	private void assertContentNull(final MediaFinalItem item)
+	private static void assertContentNull(final MediaFinalItem item)
 	{
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());

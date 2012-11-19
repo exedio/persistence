@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.newRange;
+import static com.exedio.cope.pattern.Range.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -26,7 +26,7 @@ public class RangeTest extends CopeAssert
 {
 	public void testAB()
 	{
-		final Range<Integer> r = newRange(1, 3);
+		final Range<Integer> r = valueOf(1, 3);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(3, r.getTo().intValue());
 
@@ -48,7 +48,7 @@ public class RangeTest extends CopeAssert
 
 	public void testNA()
 	{
-		final Range<Integer> r = newRange(null, 3);
+		final Range<Integer> r = valueOf(null, 3);
 		assertEquals(null, r.getFrom());
 		assertEquals(3, r.getTo().intValue());
 
@@ -70,7 +70,7 @@ public class RangeTest extends CopeAssert
 
 	public void testAN()
 	{
-		final Range<Integer> r = newRange(1, null);
+		final Range<Integer> r = valueOf(1, null);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(null, r.getTo());
 
@@ -92,7 +92,7 @@ public class RangeTest extends CopeAssert
 
 	public void testNN()
 	{
-		final Range<Integer> r = newRange((Integer)null, null);
+		final Range<Integer> r = valueOf((Integer)null, null);
 		assertEquals(null, r.getFrom());
 		assertEquals(null, r.getTo());
 
@@ -114,15 +114,15 @@ public class RangeTest extends CopeAssert
 
 	public void testEquals()
 	{
-		assertEqualsStrict(newRange(1, 3), newRange(1, 3));
-		assertEqualsStrict(newRange(null, 3), newRange(null, 3));
-		assertEqualsStrict(newRange(1, null), newRange(1, null));
-		assertEqualsStrict(newRange((Integer)null, null), newRange((Integer)null, null));
-		assertNotEqualsStrict(newRange(1, 3), newRange(2, 3));
-		assertNotEqualsStrict(newRange(1, 3), newRange(1, 4));
+		assertEqualsStrict(valueOf(1, 3), valueOf(1, 3));
+		assertEqualsStrict(valueOf(null, 3), valueOf(null, 3));
+		assertEqualsStrict(valueOf(1, null), valueOf(1, null));
+		assertEqualsStrict(valueOf((Integer)null, null), valueOf((Integer)null, null));
+		assertNotEqualsStrict(valueOf(1, 3), valueOf(2, 3));
+		assertNotEqualsStrict(valueOf(1, 3), valueOf(1, 4));
 		try
 		{
-			newRange(3, 2);
+			valueOf(3, 2);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -130,12 +130,12 @@ public class RangeTest extends CopeAssert
 			assertEquals("from 3 greater than to 2", e.getMessage());
 		}
 
-		assertEqualsStrict(newRange(5, 5), newRange(5, 5));
-		assertNotEqualsStrict(newRange(5, 5), newRange(6, 6));
+		assertEqualsStrict(valueOf(5, 5), valueOf(5, 5));
+		assertNotEqualsStrict(valueOf(5, 5), valueOf(6, 6));
 
-		assertNotSame(newRange(1, 3), newRange(1, 3));
-		assertNotSame(newRange(null, 3), newRange(null, 3));
-		assertNotSame(newRange(1, null), newRange(1, null));
-		assertSame(newRange((Integer)null, null), newRange((Integer)null, null));
+		assertNotSame(valueOf(1, 3), valueOf(1, 3));
+		assertNotSame(valueOf(null, 3), valueOf(null, 3));
+		assertNotSame(valueOf(1, null), valueOf(1, null));
+		assertSame(valueOf((Integer)null, null), valueOf((Integer)null, null));
 	}
 }

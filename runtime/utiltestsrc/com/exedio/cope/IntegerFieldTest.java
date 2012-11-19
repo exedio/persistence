@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -203,7 +203,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(30, copy.getMaximum());
 	}
 
-	public void testMinMax()
+	public void testRange()
 	{
 		final IntegerField orig = new IntegerField().range(10, 20);
 		assertEquals(false, orig.isFinal());
@@ -228,7 +228,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than mimimum, but was " + MAX_VALUE + " and " + MAX_VALUE + ".");
 	}
 
-	private void assertIllegalRange(final int minimum, final int maximum, final String message)
+	private static void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		try
 		{

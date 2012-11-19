@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@ public class SetValueUtilTest extends CopeAssert
 	{
 		final StringField f1 = new StringField();
 		final StringField f2 = new StringField();
-		final ArrayList<SetValue> l = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> l = new ArrayList<SetValue<?>>();
 
 		l.add(f1.map("value1a"));
 		assertEquals("value1a", getFirst(l, f1));

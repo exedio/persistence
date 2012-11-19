@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class LongField extends NumberField<Long>
 {
@@ -33,11 +31,15 @@ public final class LongField extends NumberField<Long>
 	private final long maximum;
 
 	private LongField(
-			final boolean isfinal, final boolean optional, final boolean unique,
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Long defaultConstant,
-			final long minimum, final long maximum)
+			final long minimum,
+			final long maximum)
 	{
-		super(isfinal, optional, unique, Long.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Long.class, defaultConstant);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		checkDefaultConstant();
@@ -45,64 +47,70 @@ public final class LongField extends NumberField<Long>
 
 	public LongField()
 	{
-		this(false, false, false, null, Long.MIN_VALUE, Long.MAX_VALUE);
+		this(false, false, false, null, null, Long.MIN_VALUE, Long.MAX_VALUE);
 	}
 
 	@Override
 	public LongField copy()
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField toFinal()
 	{
-		return new LongField(true, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField optional()
 	{
-		return new LongField(isfinal, true, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField unique()
 	{
-		return new LongField(isfinal, optional, true, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField nonUnique()
 	{
-		return new LongField(isfinal, optional, false, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
+	}
+
+	@Override
+	public LongField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public LongField noDefault()
 	{
-		return new LongField(isfinal, optional, unique, null, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
 	}
 
 	@Override
 	public LongField defaultTo(final Long defaultConstant)
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public LongField range(final long minimum, final long maximum)
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public LongField min(final long minimum)
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public LongField max(final long maximum)
 	{
-		return new LongField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public long getMinimum()
@@ -126,7 +134,7 @@ public final class LongField extends NumberField<Long>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Long.class : long.class;
 	}
@@ -134,12 +142,6 @@ public final class LongField extends NumberField<Long>
 	public SelectType<Long> getValueType()
 	{
 		return SimpleSelectType.LONG;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(LongField.class, this, super.getWrappers());
 	}
 
 	@Override

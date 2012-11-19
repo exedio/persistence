@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class CheckConstraintItem extends CheckConstraintSuperItem
+public final class CheckConstraintItem extends CheckConstraintSuperItem
 {
 	/** @cope.initial */
 	public static final IntegerField alpha = new IntegerField().optional();
@@ -71,7 +71,7 @@ public class CheckConstraintItem extends CheckConstraintSuperItem
 				final java.lang.Integer gamma,
 				final java.lang.Integer delta)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.CheckConstraintSuperItem.eins.map(eins),
 			com.exedio.cope.CheckConstraintSuperItem.zwei.map(zwei),
 			com.exedio.cope.CheckConstraintSuperItem.drei.map(drei),

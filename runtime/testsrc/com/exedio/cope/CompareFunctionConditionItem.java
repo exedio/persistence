@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import java.util.Date;
 
 import com.exedio.cope.util.Day;
 
-class CompareFunctionConditionItem extends Item
+final class CompareFunctionConditionItem extends Item
 {
 	/** @cope.initial */ static final StringField leftString = new StringField().optional();
 	/** @cope.initial */ static final StringField rightString = new StringField().optional();
@@ -112,7 +112,7 @@ class CompareFunctionConditionItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CompareFunctionConditionItem.leftString.map(leftString),
 			CompareFunctionConditionItem.rightString.map(rightString),
 			CompareFunctionConditionItem.leftInt.map(leftInt),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -293,8 +293,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 	{
 		final HierarchyFirstSub item = deleteOnTearDown(new HierarchyFirstSub(10));
 
-		final Query q1 = HierarchySuper.TYPE.newQuery(item.superInt.equal(10));
-		final Query q2 = HierarchySuper.TYPE.newQuery(item.superInt.equal(20));
+		final Query<?> q1 = HierarchySuper.TYPE.newQuery(item.superInt.equal(10));
+		final Query<?> q2 = HierarchySuper.TYPE.newQuery(item.superInt.equal(20));
 		assertEquals(list(item), q1.search());
 		assertEquals(list(), q2.search());
 
@@ -306,6 +306,9 @@ public class HierarchyTest extends AbstractRuntimeTest
 	public void testModel()
 	{
 		model.checkSchema();
+
+		model.commit();
+
 		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
@@ -368,16 +371,17 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testPrimaryKeyInfo()
 	{
-		if(postgresql) // causes a deadlock on postgresql
-			return;
-
+		MODEL.rollback();
 		// for flushing the info
 		MODEL.dropSchema();
 		MODEL.createSchema();
+		MODEL.startTransaction();
 
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 

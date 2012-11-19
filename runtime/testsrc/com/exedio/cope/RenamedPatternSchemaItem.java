@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeSchemaName("ZackItem") class RenamedPatternSchemaItem extends Item
+@CopeSchemaName("ZackItem") final class RenamedPatternSchemaItem extends Item
 {
 	@CopeSchemaName("zack")
 	static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
@@ -34,7 +34,7 @@ package com.exedio.cope;
 	 */
 	RenamedPatternSchemaItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

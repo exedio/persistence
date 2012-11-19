@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,9 @@
  */
 
 package com.exedio.cope.instrument;
+
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,9 +82,9 @@ final class CopeType
 		javaClass.file.repository.add(this);
 	}
 
-	public boolean isAbstract()
+	private boolean isFinal()
 	{
-		return javaClass.isAbstract();
+		return javaClass.isFinal();
 	}
 
 	public boolean isInterface()
@@ -90,7 +93,6 @@ final class CopeType
 	}
 
 	private CopeType supertype;
-	private final ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
 
 	void endBuildStage()
 	{
@@ -108,25 +110,12 @@ final class CopeType
 		}
 		else
 		{
-			final Class externalType = javaClass.file.findTypeExternally(extname);
+			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
 			if(externalType==Item.class)
-			{
 				supertype = null;
-			}
 			else
-			{
 				supertype = javaClass.file.repository.getCopeType(extname);
-				supertype.addSubtype(this);
-			}
 		}
-	}
-
-	void addSubtype(final CopeType subtype)
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-
-		subtypes.add(subtype);
 	}
 
 	public CopeType getSuperclass()
@@ -136,18 +125,16 @@ final class CopeType
 		return supertype;
 	}
 
-	public List<CopeType> getSubtypes()
-	{
-		assert !javaClass.file.repository.isBuildStage();
-
-		return subtypes;
-	}
-
 	boolean allowSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 
-		return isAbstract() || !getSubtypes().isEmpty();
+		return !isFinal();
+	}
+
+	int getSubtypeModifier()
+	{
+		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
 	public void register(final CopeFeature feature)
@@ -237,9 +224,9 @@ final class CopeType
 		return constructorExceptions;
 	}
 
-	static final Comparator<Class> CLASS_COMPARATOR = new Comparator<Class>()
+	static final Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
 	{
-		public int compare(final Class c1, final Class c2)
+		public int compare(final Class<?> c1, final Class<?> c2)
 		{
 			return c1.getName().compareTo(c2.getName());
 		}

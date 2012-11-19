@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -91,7 +91,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final SetValue[] setValues)
+		private AnItem(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,14 +29,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {
-	static final Logger logger = LoggerFactory.getLogger(ModificationListeners.class);
+	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
 
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
@@ -137,12 +137,12 @@ final class ModificationListeners
 			}
 			catch(final RuntimeException e)
 			{
-				if(logger.isErrorEnabled())
+				if(logger.isEnabledFor(Level.ERROR))
 					logger.error("Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 			catch(final AssertionError e)
 			{
-				if(logger.isErrorEnabled())
+				if(logger.isEnabledFor(Level.ERROR))
 					logger.error( "Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 		}

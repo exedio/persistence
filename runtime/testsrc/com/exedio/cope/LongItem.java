@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ import java.util.Date;
 /**
  * @cope.generic.constructor package
  */
-public class LongItem extends Item
+public final class LongItem extends Item
 {
 	public static final LongField any = new LongField().optional();
 
@@ -62,7 +62,7 @@ public class LongItem extends Item
 	public LongItem(
 				final long mandatory)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(mandatory),
 		});
 	}/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,7 @@ class InstanceOfB1Item extends InstanceOfAItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.InstanceOfAItem.code.map(code),
 		});
 	}/**

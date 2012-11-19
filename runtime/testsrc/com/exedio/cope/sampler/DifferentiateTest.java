@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -257,7 +257,7 @@ public class DifferentiateTest extends ConnectedTest
 
 	}
 
-	private void assertQuery(final Query query)
+	private static void assertQuery(final Query<?> query)
 	{
 		final String search = SchemaInfo.search(query);
 		assertTrue(search, search.startsWith("select "));
@@ -270,7 +270,7 @@ public class DifferentiateTest extends ConnectedTest
 	 * a low system time resolution.
 	 * @see Sampler#sample()
 	 */
-	private void waitForSystemTimeChange()
+	private static void waitForSystemTimeChange()
 	{
 		try
 		{

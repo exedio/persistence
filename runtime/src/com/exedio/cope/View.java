@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,6 @@ import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.search.ExtremumAggregate;
 
 /**
@@ -91,12 +90,6 @@ public abstract class View<E> extends Feature
 			source.check(tc, join);
 	}
 
-	@Override
-	public final List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(View.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
 	public final E get(final Item item)
 	{
@@ -132,7 +125,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -148,10 +141,10 @@ public abstract class View<E> extends Feature
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof View))
+		if(!(other instanceof View<?>))
 			return false;
 
-		final View o = (View)other;
+		final View<?> o = (View<?>)other;
 
 		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;
@@ -221,7 +214,7 @@ public abstract class View<E> extends Feature
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

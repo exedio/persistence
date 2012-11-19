@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,11 +30,14 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 {
 	public SchemaInfoConnectionTest()
 	{
 		super(InstanceOfModelTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	private Connection c;
@@ -48,7 +51,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -76,7 +79,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();

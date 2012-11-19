@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,19 +23,19 @@ import gnu.trove.TIntObjectHashMap;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {
-	private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
+	private static final Logger logger = Logger.getLogger(Transaction.class);
 
 	final Connect connect;
 	final long id;
@@ -67,10 +67,13 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
-		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
+		this.entityMaps = cast(new TIntObjectHashMap<?>[concreteTypeCount]);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
 	{
 		return o;
@@ -118,7 +121,7 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 		final int pk = item.pk;
 
 		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
@@ -254,7 +257,7 @@ public final class Transaction
 		invalidationsForType.add(item.pk);
 	}
 
-	Entity getEntityIfActive(final Type type, final int pk)
+	Entity getEntityIfActive(final Type<?> type, final int pk)
 	{
 		assert !closed : name;
 
@@ -367,6 +370,9 @@ public final class Transaction
 		}
 
 		transactionCounter.count(rollback, hadConnection);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (rollback ? "rollback" : "commit")));
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,17 +25,19 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted;
 
 	private static final class Mount
 	{
 		final Method getter;
-		final Class valueType;
+		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
 		Mount(final Type<? extends Item> type, final String name)
@@ -75,7 +77,7 @@ public final class JavaView extends Pattern
 		return result;
 	}
 
-	public Class getValueType()
+	public Class<?> getValueType()
 	{
 		return mount().valueType;
 	}

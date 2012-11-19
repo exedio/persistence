@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.text;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
@@ -32,7 +31,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.junit.CopeAssert;
 
 public class RangeFieldModelTest extends CopeAssert
@@ -83,7 +81,6 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(false, valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, Integer.class), getInitialType(valid));
 		assertContains(valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
@@ -92,7 +89,6 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(true, text.isMandatory());
 		assertEquals(true, text.getFrom().isFinal());
 		assertEquals(true, text.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, String.class), getInitialType(text));
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
 		assertSerializedSame(text, 387);
 

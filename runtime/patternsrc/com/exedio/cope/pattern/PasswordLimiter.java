@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
-import java.util.List;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
@@ -32,10 +31,11 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class PasswordLimiter extends Pattern
 {
@@ -47,7 +47,7 @@ public final class PasswordLimiter extends Pattern
 	private final int limit;
 
 	final DateField date = new DateField().toFinal();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public PasswordLimiter(
@@ -132,7 +132,7 @@ public final class PasswordLimiter extends Pattern
 		return mount().parent.as(parentClass);
 	}
 
-	public PartOf getRefusals()
+	public PartOf<?> getRefusals()
 	{
 		return mount().refusals;
 	}
@@ -145,12 +145,6 @@ public final class PasswordLimiter extends Pattern
 	public Type<Refusal> getRefusalType()
 	{
 		return mount().refusalType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PasswordLimiter.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)
@@ -306,7 +300,7 @@ public final class PasswordLimiter extends Pattern
 	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final com.exedio.cope.util.Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
 	}

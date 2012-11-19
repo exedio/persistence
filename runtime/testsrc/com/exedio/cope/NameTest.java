@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -52,14 +52,14 @@ public class NameTest extends AbstractRuntimeTest
 
 	public void test()
 	{
-		final Field NameLongItem_codeLongName =
+		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
-		final ItemField NameLongItem_pointerLongName =
+		final ItemField<NameLongItem> NameLongItem_pointerLongName =
 			NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 
-		final Field NameCollisionlongaItem_collisionlongaNumber =
+		final IntegerField NameCollisionlongaItem_collisionlongaNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber;
-		final Field NameCollisionlongaItem_collisionlongbNumber =
+		final IntegerField NameCollisionlongaItem_collisionlongbNumber =
 			NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber;
 
 		// test model
@@ -103,6 +103,8 @@ public class NameTest extends AbstractRuntimeTest
 		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 
+		model.commit();
+
 		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
@@ -143,6 +145,8 @@ public class NameTest extends AbstractRuntimeTest
 				assertEquals("integer", nameSub.getColumn("uniqueY").getType());
 			}
 		}
+
+		model.startTransaction();
 
 		// test persistence
 

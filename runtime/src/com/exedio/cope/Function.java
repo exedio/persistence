@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ public interface Function<E> extends Selectable<E>
 
 	Condition equal(Join join, E value);
 	Condition in(E... values);
-	Condition in(Collection<E> value);
+	Condition in(Collection<? extends E> value);
 	Condition notEqual(E value);
 
 	/**

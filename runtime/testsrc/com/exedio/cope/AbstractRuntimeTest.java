@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,6 +40,8 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class AbstractRuntimeTest extends CopeTest
 {
@@ -90,21 +92,21 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d9 = Double.valueOf(9.9);
 
 	protected static final byte[] data0  = {};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data4  = {-86,122,-8,23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data6  = {-97,35,-126,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data6x4= {-97,35,-126,86};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data8  = {-54,104,-63,23,19,-45,71,-23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("MS_PKGPROTECT")
+	@SuppressFBWarnings("MS_PKGPROTECT")
 	protected static final byte[] data21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 
 	enum Dialect
@@ -243,7 +245,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
-	protected static void assertEquals(final Function f1, final Function f2)
+	protected static void assertEquals(final Function<?> f1, final Function<?> f2)
 	{
 		assertEquals((Object)f1, (Object)f2);
 		assertEquals((Object)f2, (Object)f1);
@@ -251,7 +253,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(f1.hashCode(), f2.hashCode());
 	}
 
-	protected static void assertNotEquals(final Function f1, final Function f2)
+	protected static void assertNotEquals(final Function<?> f1, final Function<?> f2)
 	{
 		assertTrue(!f1.equals(f2));
 		assertTrue(!f2.equals(f1));
@@ -307,12 +309,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertTrue(!item.existsCopeItem());
 	}
 
-	void assertDeleteFails(final Item item, final ItemField attribute)
+	void assertDeleteFails(final Item item, final ItemField<?> attribute)
 	{
 		assertDeleteFails(item, attribute, item);
 	}
 
-	void assertDeleteFails(final Item item, final ItemField attribute, final Item itemToBeDeleted)
+	void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted)
 	{
 		try
 		{
@@ -376,19 +378,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	protected final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
 	{
 		assertCondition(Collections.<T>emptyList(), type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -396,7 +398,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -405,7 +407,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -415,7 +417,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -426,7 +428,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	protected final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
+	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
 	{
 		final ArrayList<T> l = new ArrayList<T>();
 		l.add(o1);
@@ -438,7 +440,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertCondition(l, type, actual);
 	}
 
-	private final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
+	private static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
 		final List<T> actualResult = type.search(actual);
 		assertContainsList(expected, actualResult);
@@ -517,7 +519,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return type.cast(constraint);
 	}
 
-	protected void assertCacheInfo(final Type[] types, final int[] limitWeigths)
+	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
 		assertEquals(types.length, limitWeigths.length);
 
@@ -540,16 +542,16 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 
-	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info)
+	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfo(type, count, first, last, info, 0);
 	}
 
-	protected void assertInfo(final Type type, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
-		if(!hsqldb)
-			assertEquals(check, type.checkPrimaryKey());
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -560,8 +562,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
-		if(!hsqldb)
-			assertEquals(check, feature.checkDefaultToNext());
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -569,23 +571,23 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
 	}
 
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
+	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertSame(feature, info.getFeature());
-		assertEquals(start, info.getStart());
-		assertEquals(minimum, info.getMinimum());
-		assertEquals(maximum, info.getMaximum());
-		assertEquals(count, info.getCount());
-		assertTrue(info.isKnown());
-		assertEquals(first, info.getFirst());
-		assertEquals(last, info.getLast());
+		assertSame("feature", feature, info.getFeature());
+		assertEquals("start", start, info.getStart());
+		assertEquals("minimum", minimum, info.getMinimum());
+		assertEquals("maximum", maximum, info.getMaximum());
+		assertEquals("count", count, info.getCount());
+		assertTrue("known", info.isKnown());
+		assertEquals("first", first, info.getFirst());
+		assertEquals("last", last, info.getLast());
 	}
 
-	protected void assertInfo(final Type type, final SequenceInfo info)
+	protected void assertInfo(final Type<?> type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
-		if(!hsqldb)
-			assertEquals(0, type.checkPrimaryKey());
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", 0, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
@@ -596,8 +598,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
-		if(!hsqldb)
-			assertEquals(check, feature.checkDefaultToNext());
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final SequenceInfo info)
@@ -605,14 +607,14 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
 
-	private void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
+	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
-		assertSame(feature, info.getFeature());
-		assertEquals(start, info.getStart());
-		assertEquals(minimum, info.getMinimum());
-		assertEquals(maximum, info.getMaximum());
-		assertEquals(0, info.getCount());
-		assertFalse(info.isKnown());
+		assertSame("feature", feature, info.getFeature());
+		assertEquals("start", start, info.getStart());
+		assertEquals("minimum", minimum, info.getMinimum());
+		assertEquals("maximum", maximum, info.getMaximum());
+		assertEquals("count", 0, info.getCount());
+		assertFalse("known", info.isKnown());
 		try
 		{
 			info.getFirst();
@@ -691,7 +693,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	final void assertCheckUpdateCounters()
 	{
-		for(final Type type : model.getTypes())
+		for(final Type<?> type : model.getTypes())
 		{
 			if(isUpdateCounterEnabled(model))
 			{
@@ -708,7 +710,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	private static final void assertCheckUpdateCounterFails(final Type type)
+	private static final void assertCheckUpdateCounterFails(final Type<?> type)
 	{
 		try
 		{
@@ -745,7 +747,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertSchema()
 	{
+		model.commit();
+
 		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
+
+		model.startTransaction();
 
 		if(hsqldb||postgresql)
 			return;
@@ -787,7 +793,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	}
 
 	@SuppressWarnings("deprecation")
-	public static java.lang.reflect.Type getInitialType(final Settable settable)
+	public static java.lang.reflect.Type getInitialType(final Settable<?> settable)
 	{
 		return settable.getInitialType();
 	}

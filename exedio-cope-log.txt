@@ -7,6 +7,114 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Visibility of generic and activation constructors created by instrumentor
+	changed. In general, both constructors of any type are private. However,
+	they are protected in the following condition:
+	- Up to now,   if there where subtypes of that type.
+	- From now on, if that type is not final.
+	Affects instrumented code.
+* rename key in cope.properties:
+		connection.user -> connection.username
+* media.url.secret can be set via source of ConnectProperties as well,
+	if context is null, up to now this was possible via context only.
+	Value must be at least 10 characters long, otherwise instantiation
+	of ConnectProperties will fail.
+* Iterables#once added
+* @Computed becomes @Inherited
+	This means, that for any type which is @Computed all subtypes of this are
+	@Computed as well. This does not affect @Computed features.
+* stricter MySQL sql_mode: STRICT_ALL_TABLES, NO_ZERO_DATE, NO_ZERO_IN_DATE
+* FunctionField#copyFrom added for implicit CopyConstraints
+* remove support for deprecated Wrapper#generic(Class, Class...)
+	which has been replaced by @Wrap annotation for a while.
+	Methods throws a NoSuchMethodError, this breaks backwards API compatibility.
+	Avoids use of internal proprietary API.
+* No current transaction allowed anymore during sequence checks:
+	- Type#checkPrimaryKey
+	- IntegerField#checkDefaultToNext
+	Helps avoiding deadlocks.
+* MediaType#getExtension added
+* @Computed is forwarded by Pattern correctly,
+	CompositeField does not make all components @Computed,
+	but only as inherited from Pattern.
+* SetValue array literals created by instrumentor use generics.
+	Avoids compiler warnings about rawtypes on JDK 1.7.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument genericSetValueArray="false" ...
+	to enable previous behaviour.
+* CompositeField supports @CopeSchemaName on template fields.
+	Requires modification of persistent schema in such cases.
+* Price supports grossToNetPercent and grossToTaxPercent
+* ServletUtil uses ServletProperties.
+	Introduces dependency on exedio-cope-servletutil.jar.
+* Sequence obeys @CopeSchemaName both on feature and type.
+	bugfix, requires modification of persistent schema in such cases.
+* ConnectToken#getID() does not start from zero on Model#disconnect anymore,
+		but only on ConnectToken#removeProperties(Model).
+	This breaks backwards API compatibility, but should cause no practical problems.
+* CompositeField#create requires valueClass to be final, throws IllegalArgumentException otherwise.
+	This breaks backwards API compatibility,
+	however inheritance for Composites was never supported anyway.
+* Price#splitProportionately throws IllegalArgumentException if weights is empty
+	instead of returning an empty result.
+	This breaks backwards API compatibility.
+* Price#negative added
+* Price#splitProportionately added
+* Model.NotConnectedException thrown instead of the IllegalStateException used before
+* MySQL5.5 support added: No current transaction allowed anymore during schema modifications:
+	- Not allowed anymore when calling
+		Model#createSchema
+		Model#createSchemaConstraints
+		Model#deleteSchema
+		Model#dropSchema
+		Model#dropSchemaConstraints
+		Model#tearDownSchema
+		Model#tearDownSchemaConstraints
+		Model#getVerifiedSchema
+		Model#checkUnsupportedConstraints
+		Model#revise
+		Model#reviseIfSupportedAndAutoEnabled
+		Model#getRevisionLogs
+		Model#getRevisionLogsAndMutex
+		SchemaInfo#newConnection
+* Hash supports validator.
+	- DigitPinValidator added.
+* LimitedListField gets explicit length field.
+	This breaks backwards API compatibility without changing compiler signatures -
+		getter will not forget null elements anymore.
+	This affects database schema:
+		- a new column is added
+		- a new check constraint is added (where supported)
+* Function#in takes Collection<? extends E>
+* Composite#getTemplateName added.
+* instrumentor supports /** @cope.xxx override */
+* prevent selection of ungrouped fields in MySQL
+* rename CountSelectable to Count
+	This breaks backwards API compatibility of beta API.
+* added support for "group by" in queries
+* DatabaseLogListener becomes final.
+	This breaks backwards API compatibility.
+* moved DatabaseLogListener from cope-console to cope
+* SetField#create forbids optional element fields.
+	This breaks backwards API compatibility.
+* MapField#create forbids optional key fields.
+	This causes DynamicModel#create to forbid optional locale fields as well.
+	This breaks backwards API compatibility.
+* automatic revision execution can be disabled
+	Model#reviseIfSupported() is replaced by Model#reviseIfSupportedAndAutoEnabled()
+* MxSampler added
+* ServletUtil methods do not throw ServletException any longer
+* TextUrlFilter#putPaste and #putPastesFromZip and
+	DataField#toValue(ZipFile,ZipEntry) added.
+	Affects instrumented code.
+* MediaType#forFilename added
+* remove support for deprecated Wrapper API,
+	which has been replaced by @Wrap annotation for a while.
+	- Feature#getWrappers and Wrapper#getByAnnotations do throw a NoSuchMethodError
+		this breaks backwards API compatibility.
+* bugfix: SamplerTransaction#date must not be unique
+* TextUrlFilter#appendKey added
 * added convenience methods to Price
 * FeatureField#isInvalid added
 * Split exedio-cope-instrument-annotations.jar off exedio-cope.jar

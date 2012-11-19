@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -126,7 +126,7 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertEquals(null, item.testPattern.getLocator(item));
 
 		assertTrue(item.fetch());
-		assertEquals("RecursiveItem/testPattern-media/RecursiveItem-0.png", item.testPattern.getLocator(item).toString());
+		assertEquals("RecursiveItem/testPattern-media/" + item + ".png", item.testPattern.getLocator(item).toString());
 	}
 
 	@Deprecated

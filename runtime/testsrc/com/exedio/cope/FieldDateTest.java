@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -94,7 +94,7 @@ public class FieldDateTest extends FieldTest
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
+import com.exedio.cope.testmodel.EmptyItem;
 
 public class SelectTest extends TestmodelTest
 {
@@ -67,7 +67,7 @@ public class SelectTest extends TestmodelTest
 
 	public void testSelect()
 	{
-		final Query query = newQuery(
+		final Query<List<Object>> query = newQuery(
 				new Function[]{
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
@@ -75,9 +75,9 @@ public class SelectTest extends TestmodelTest
 				item.TYPE,
 				null);
 		query.setOrderBy(item.someNotNullString, false);
-		final Collection result = query.search();
+		final Collection<List<Object>> result = query.search();
 		assertNotNull(query.toString());
-		final Iterator i = result.iterator();
+		final Iterator<List<Object>> i = result.iterator();
 
 		assertRow(i, "1z",     "1Z",     2, "someString9", 1, 4l, 2.1, true, someItem, AttributeItem.SomeEnum.enumValue1);
 		assertRow(i, "1zz",    "1ZZ",    3, "someString8", 3, 5l, 2.4, true, someItem, AttributeItem.SomeEnum.enumValue2);
@@ -87,7 +87,7 @@ public class SelectTest extends TestmodelTest
 	}
 
 	private static final void assertRow(
-			final Iterator i,
+			final Iterator<List<Object>> i,
 			final String someString,
 			final String someStringUppercase,
 			final int someStringLength,
@@ -103,7 +103,7 @@ public class SelectTest extends TestmodelTest
 				someString, someStringUppercase, Integer.valueOf(someStringLength),
 				someNotNullString, Integer.valueOf(someNotNullInteger), Long.valueOf(someNotNullLong),
 				Double.valueOf(someNotNullDouble), Boolean.valueOf(someNotNullBoolean), someNotNullItem, someNotNullEnumeration),
-			(List<?>)i.next());
+			i.next());
 	}
 
 }

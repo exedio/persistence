@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,14 +36,16 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 
 public class CompositeFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE);
+	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE, CompositeItemHolder.TYPE);
 
 	static
 	{
@@ -289,14 +291,14 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 
 		assertFalse(aString.isAnnotationPresent(Computed.class));
 
-		assertTrue(eins.of(aString).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anInt  ).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anEnum ).isAnnotationPresent(Computed.class));
-		assertTrue(eins.of(anItem ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(aString).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anInt  ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anEnum ).isAnnotationPresent(Computed.class));
-		assertTrue(zwei.of(anItem ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(aString).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertFalse(eins.of(anItem ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(aString).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anInt  ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anEnum ).isAnnotationPresent(Computed.class));
+		assertFalse(zwei.of(anItem ).isAnnotationPresent(Computed.class));
 
 
 		// test persistence
@@ -345,7 +347,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation on CompositeItem-0 for CompositeItem.eins-aString", e.getMessage()); // TODO feature should be CompositeItem.eins
+			assertEquals("mandatory violation on " + item + " for CompositeItem.eins-aString", e.getMessage()); // TODO feature should be CompositeItem.eins
 		}
 		try
 		{
@@ -365,7 +367,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}
 		try
 		{
@@ -374,7 +376,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals("final violation on CompositeFinalItem-0 for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
 		}
 
 		// test value independence
@@ -409,6 +411,8 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		final CompositeValue serializedValue = reserialize(value, 491);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
+		assertEquals("firstString1X", value.getAString());
+		assertEquals("firstString1X", serializedValue.getAString());
 	}
 
 	public void testConditions()
@@ -433,4 +437,42 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		assertEquals(list(target1, target2, o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}
+
+	public void testBindingInConditions()
+	{
+		final CompositeItemHolder h1 = deleteOnTearDown(new CompositeItemHolder(target1));
+		deleteOnTearDown(new CompositeItemHolder(target2));
+
+		final CompositeValue uno1 = new CompositeValue("uno1", 1, AnEnumClass.anEnumConstant1, target1);
+		target1.setUno( uno1 );
+
+		{
+			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(CompositeOptionalItem.TYPE);
+			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
+			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
+
+			final Join join2 = query.join(CompositeOptionalItem.TYPE);
+			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
+			query.narrow( CompositeOptionalItem.duo.isNull(join2) );
+
+			assertEquals( list(h1), query.search() );
+		}
+
+		{
+			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(CompositeOptionalItem.TYPE);
+			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
+			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
+
+			final Join join2 = query.join(CompositeOptionalItem.TYPE);
+			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
+			query.narrow( CompositeOptionalItem.duo.isNotNull(join2) );
+
+			assertTrue( query.search().isEmpty() );
+		}
+
+		target1.setUno( null );
+	}
 }
+

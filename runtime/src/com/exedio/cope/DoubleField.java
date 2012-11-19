@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -36,11 +34,15 @@ public final class DoubleField extends NumberField<Double>
 	private final double maximum;
 
 	private DoubleField(
-			final boolean isfinal, final boolean optional, final boolean unique,
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
 			final Double defaultConstant,
-			final double minimum, final double maximum)
+			final double minimum,
+			final double maximum)
 	{
-		super(isfinal, optional, unique, Double.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Double.class, defaultConstant);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -62,64 +64,70 @@ public final class DoubleField extends NumberField<Double>
 
 	public DoubleField()
 	{
-		this(false, false, false, null, MIN, MAX);
+		this(false, false, false, null, null, MIN, MAX);
 	}
 
 	@Override
 	public DoubleField copy()
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField toFinal()
 	{
-		return new DoubleField(true, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField optional()
 	{
-		return new DoubleField(isfinal, true, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField unique()
 	{
-		return new DoubleField(isfinal, optional, true, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField nonUnique()
 	{
-		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
+	}
+
+	@Override
+	public DoubleField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField noDefault()
 	{
-		return new DoubleField(isfinal, optional, unique, null, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField range(final double minimum, final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField min(final double minimum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public DoubleField max(final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
 	}
 
 	public double getMinimum()
@@ -143,7 +151,7 @@ public final class DoubleField extends NumberField<Double>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Double.class : double.class;
 	}
@@ -151,12 +159,6 @@ public final class DoubleField extends NumberField<Double>
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DoubleField.class, this, super.getWrappers());
 	}
 
 	@Override

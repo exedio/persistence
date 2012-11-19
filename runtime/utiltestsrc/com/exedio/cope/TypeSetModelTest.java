@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ public class TypeSetModelTest extends CopeAssert
 		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
 		new TypeSet(new Type<?>[]{type1});
 
-		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSet1});
+		final Model model = new Model((Revisions.Factory)null, new TypeSet[]{typeSet1});
 		assertEqualsUnmodifiable(list(type1), model.getTypes());
 		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
 

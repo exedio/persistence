@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 /**
  * @cope.generic.constructor package
  */
-public class MediaFinalItem extends Item
+public final class MediaFinalItem extends Item
 {
 	static final StringField name = new StringField().optional();
 
@@ -50,7 +50,7 @@ public class MediaFinalItem extends Item
 	MediaFinalItem(
 				final com.exedio.cope.pattern.Media.Value file)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MediaFinalItem.file.map(file),
 		});
 	}/**

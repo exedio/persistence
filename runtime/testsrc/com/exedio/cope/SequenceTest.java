@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;
+import static com.exedio.cope.SequenceItem.nextFull;
+import static com.exedio.cope.SequenceItem.nextLimited;
 import static com.exedio.cope.SequenceModelTest.MODEL;
 
 public class SequenceTest extends AbstractRuntimeTest
@@ -40,40 +42,40 @@ public class SequenceTest extends AbstractRuntimeTest
 		// full
 		assertInfo(full, full.getInfo());
 
-		assertEquals(0, full.next());
+		assertEquals(0, nextFull());
 		assertInfo(full, 1, 0, 0, full.getInfo());
 
-		assertEquals(1, full.next());
+		assertEquals(1, nextFull());
 		assertInfo(full, 2, 0, 1, full.getInfo());
 
-		assertEquals(2, full.next());
+		assertEquals(2, nextFull());
 		assertInfo(full, 3, 0, 2, full.getInfo());
 
-		assertEquals(3, full.next());
+		assertEquals(3, nextFull());
 		assertInfo(full, 4, 0, 3, full.getInfo());
 
 
 		// limited
 		assertInfo(limited, limited.getInfo());
 
-		assertEquals(5, limited.next());
+		assertEquals(5, nextLimited());
 		assertInfo(limited, 1, 5, 5, limited.getInfo());
 
-		assertEquals(6, limited.next());
+		assertEquals(6, nextLimited());
 		assertInfo(limited, 2, 5, 6, limited.getInfo());
 
-		assertEquals(7, limited.next());
+		assertEquals(7, nextLimited());
 		assertInfo(limited, 3, 5, 7, limited.getInfo());
 
-		assertEquals(8, limited.next());
+		assertEquals(8, nextLimited());
 		assertInfo(limited, 4, 5, 8, limited.getInfo());
 
-		assertEquals(9, limited.next());
+		assertEquals(9, nextLimited());
 		assertInfo(limited, 5, 5, 9, limited.getInfo());
 
 		try
 		{
-			limited.next();
+			nextLimited();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -84,7 +86,7 @@ public class SequenceTest extends AbstractRuntimeTest
 
 		try
 		{
-			limited.next();
+			nextLimited();
 			fail();
 		}
 		catch(final IllegalStateException e)

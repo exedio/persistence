@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -162,6 +162,11 @@ abstract class Dialect
 		return false;
 	}
 
+	boolean subqueryRequiresAliasInSelect()
+	{
+		return false;
+	}
+
 	/**
 	 * @see #extractUniqueViolation(SQLException)
 	 */
@@ -218,11 +223,13 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
-	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	/**
+	 * @param bf the statement, the postfix is to be appended to
+	 * @param ascending whether the order by is ascending or descending
+	 */
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		bf.append(function, (Join)null);
-		if(!ascending)
-			bf.append(" desc");
+		// do nothing
 	}
 
 	abstract LimitSupport getLimitSupport();
@@ -253,11 +260,11 @@ abstract class Dialect
 	 */
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
-	abstract void appendAsString(Statement bf, NumberFunction source, Join join);
+	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
-	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
+	protected static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" like ").

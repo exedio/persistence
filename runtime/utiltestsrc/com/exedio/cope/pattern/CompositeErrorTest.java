@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,6 +38,17 @@ public class CompositeErrorTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals("valueClass", e.getMessage());
+		}
+		try
+		{
+			CompositeField.create(NonFinal.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(e.getMessage(),
+					"is not final: " +
+					NonFinal.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -98,7 +109,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
@@ -112,38 +123,43 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
-	static class NoConstructor extends Composite
+	static class NonFinal extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 	}
 
-	static class NoFields extends Composite
+	static final class NoConstructor extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
-		private NoFields(final SetValue[] setValues)
+		private NoFields(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
 	}
 
-	static class NullField extends Composite
+	static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
-		private NullField(final SetValue[] setValues)
+		private NullField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
 
-		static final Field nullField = null;
+		static final Field<?> nullField = null;
 	}
 
-	static class PatternField extends Composite
+	static final class PatternField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
-		private PatternField(final SetValue[] setValues)
+		private PatternField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -151,11 +167,11 @@ public class CompositeErrorTest extends CopeAssert
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
-	static class FinalField extends Composite
+	static final class FinalField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 
-		private FinalField(final SetValue[] setValues)
+		private FinalField(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}

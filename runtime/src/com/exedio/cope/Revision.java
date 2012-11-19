@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Revisions.logger;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
@@ -32,14 +31,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.exedio.dsmf.SQLRuntimeException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Revision
 {
+	private static final Logger logger = Logger.getLogger(Revisions.class);
+
 	final int number;
 	final String comment;
 	final String[] body;
 
+	/**
+	 * @param body See {@link #getBody()} for further information.
+	 */
 	public Revision(final int number, final String comment, final String... body)
 	{
 		if(number<=0)
@@ -76,6 +84,18 @@ public final class Revision
 		return comment;
 	}
 
+	/**
+	 * The statements listed here
+	 * are guaranteed to be executed subsequently
+	 * in the order specified by the list
+	 * by one single {@link java.sql.Connection connection}.
+	 * So you may use connection states within a revision.
+	 * <p>
+	 * For each revision a new {@link java.sql.Connection connection} is created.
+	 * That connection is not used for any other purpose afterwards
+	 * so you don't have to cleanup connection state at the end of each revision.
+	 * This is for minimizing effects between revisions.
+	 */
 	public List<String> getBody()
 	{
 		return Collections.unmodifiableList(Arrays.asList(body));
@@ -125,7 +145,7 @@ public final class Revision
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static final int executeUpdate(
 			final Connection connection,
 			final String sql)

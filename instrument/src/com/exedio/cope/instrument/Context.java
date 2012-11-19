@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ final class Context
 {
 	private final CopeFeature feature;
 	private final boolean fullyQualified;
-	private final Wrapper wrapper;
+	private final WrapperX wrapper;
 
 	Context(final CopeFeature feature, final boolean fullyQualified)
 	{
@@ -42,7 +42,7 @@ final class Context
 		this.wrapper = null;
 	}
 
-	Context(final CopeFeature feature, final Wrapper wrapper)
+	Context(final CopeFeature feature, final WrapperX wrapper)
 	{
 		this.feature = feature;
 		this.fullyQualified = false;
@@ -64,18 +64,6 @@ final class Context
 		return feature.getInstance().getClass();
 	}
 
-	private String write(final Class c)
-	{
-		if(Wrapper.ClassVariable.class.equals(c))
-			return getClassToken();
-		else if(Wrapper.TypeVariable0.class.equals(c))
-			return getGenericFieldParameter(0);
-		else if(Wrapper.TypeVariable1.class.equals(c))
-			return getGenericFieldParameter(1);
-		else
-			return c.getCanonicalName();
-	}
-
 	private String write(final ParameterizedType t)
 	{
 		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
@@ -95,13 +83,13 @@ final class Context
 		return bf.toString();
 	}
 
-	private String write(final TypeVariable t)
+	private String write(final TypeVariable<?> t)
 	{
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
 
 		final Class<? extends Feature> featureClass = getFeatureClass();
-		final Class methodClass = wrapper.getMethod().getDeclaringClass();
+		final Class<?> methodClass = wrapper.getMethod().getDeclaringClass();
 		int typeParameterPosition = 0;
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
@@ -119,16 +107,16 @@ final class Context
 	}
 
 	private String dig(
-			final Class instanceClass,
-			final Class declarationClass,
+			final Class<?> instanceClass,
+			final Class<?> declarationClass,
 			final int declarationTypeParameterPosition)
 	{
-		final LinkedList<Class> classes = new LinkedList<Class>();
-		for(Class clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
+		final LinkedList<Class<?>> classes = new LinkedList<Class<?>>();
+		for(Class<?> clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 
 		int parameterPosition = declarationTypeParameterPosition;
-		for(final Class clazz : classes)
+		for(final Class<?> clazz : classes)
 		{
 			final ParameterizedType superType = (ParameterizedType)clazz.getGenericSuperclass();
 			assert superType.getRawType()==clazz.getSuperclass() : superType.getRawType().toString()+'/'+clazz.getSuperclass();
@@ -138,13 +126,13 @@ final class Context
 			assert superTypeArguments.length==clazz.getSuperclass().getTypeParameters().length;
 
 			final Type superTypeArgument = superTypeArguments[parameterPosition];
-			if(superTypeArgument instanceof Class)
+			if(superTypeArgument instanceof Class<?>)
 			{
-				return ((Class)superTypeArgument).getCanonicalName();
+				return ((Class<?>)superTypeArgument).getCanonicalName();
 			}
-			else if(superTypeArgument instanceof TypeVariable)
+			else if(superTypeArgument instanceof TypeVariable<?>)
 			{
-				parameterPosition = getPosition(clazz.getTypeParameters(), (TypeVariable)superTypeArgument);
+				parameterPosition = getPosition(clazz.getTypeParameters(), (TypeVariable<?>)superTypeArgument);
 			}
 			else
 			{
@@ -155,8 +143,8 @@ final class Context
 	}
 
 	private static int getPosition(
-			final TypeVariable[] typeParameters,
-			final TypeVariable typeParameter)
+			final TypeVariable<?>[] typeParameters,
+			final TypeVariable<?> typeParameter)
 	{
 		int result = 0;
 		for(final TypeVariable<?> tv : typeParameters)
@@ -166,7 +154,7 @@ final class Context
 
 			result++;
 		}
-		throw new RuntimeException("" + Arrays.asList(typeParameter) + '/' + typeParameter);
+		throw new RuntimeException("" + Arrays.asList(typeParameters) + '/' + typeParameter);
 	}
 
 	private String write(final WildcardType t)
@@ -175,6 +163,10 @@ final class Context
 		if(upper.length==1)
 		{
 			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
+
+			if(Object.class.equals(upper[0]))
+				return "?";
+
 			return "? extends " + write(upper[0]);
 		}
 
@@ -200,7 +192,7 @@ final class Context
 		{
 			final JavaFile file = feature.parent.javaClass.file;
 			{
-				final Class clazz = file.findTypeExternally(name);
+				final Class<?> clazz = file.findTypeExternally(name);
 				if(clazz!=null)
 					return clazz.getCanonicalName();
 			}
@@ -217,38 +209,16 @@ final class Context
 		}
 	}
 
-	private String write(final Wrapper.ExtendsType t)
-	{
-		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
-		bf.append('<');
-		boolean first = true;
-		for(final Type a : t.getActualTypeArguments())
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append("? extends ");
-			bf.append(write(a));
-		}
-		bf.append('>');
-
-		return bf.toString();
-	}
-
 	String write(final Type t)
 	{
-		if(t instanceof Class)
-			return write((Class)t);
-		else if(t instanceof Wrapper.ExtendsType)
-			return write((Wrapper.ExtendsType)t);
+		if(t instanceof Class<?>)
+			return ((Class<?>)t).getCanonicalName();
 		else if(t instanceof GenericArrayType)
 			return write((GenericArrayType)t);
 		else if(t instanceof ParameterizedType)
 			return write((ParameterizedType)t);
-		else if(t instanceof TypeVariable)
-			return write((TypeVariable)t);
+		else if(t instanceof TypeVariable<?>)
+			return write((TypeVariable<?>)t);
 		else if(t instanceof WildcardType)
 			return write((WildcardType)t);
 		else if(t instanceof Generics.SourceType)

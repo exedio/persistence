@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,7 @@ public class GenericResolverTest extends CopeAssert
 {
 	public void testIt()
 	{
+		@SuppressWarnings("rawtypes")
 		final GenericResolver<Interface> gr = neW(Interface.class);
 		final Type type1 = new MyType("type1");
 		final Type type2 = new MyType("type2");
@@ -173,7 +174,7 @@ public class GenericResolverTest extends CopeAssert
 		}
 	}
 
-	private ParameterizedType generic(final Class rawType, final Type... actualTypeArguments)
+	private static ParameterizedType generic(final Class<?> rawType, final Type... actualTypeArguments)
 	{
 		assert rawType!=null;
 		assert rawType.getTypeParameters().length==actualTypeArguments.length;

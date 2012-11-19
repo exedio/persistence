@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,8 +37,8 @@ public class GraphTest extends TestCase
 
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
 			public Connection getConnection() { throw new RuntimeException(); }
-			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }
+			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 		});
 	}
 

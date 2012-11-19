@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@ final class GenericResolver<T>
 		return getX(clazz, parameters);
 	}
 
-	private Type[] getX(final Class clazz, final Type[] parameters)
+	private Type[] getX(final Class<?> clazz, final Type[] parameters)
 	{
 		assert !clazz.isInterface() : clazz;
 		assert clazz.getTypeParameters().length==parameters.length : Arrays.toString(clazz.getTypeParameters()) + ' ' + Arrays.toString(parameters);
@@ -62,12 +62,12 @@ final class GenericResolver<T>
 		final ParameterizedType gi = getGenericInterface(clazz, interfaze);
 		if(gi==null)
 		{
-			final Class superclass = clazz.getSuperclass();
+			final Class<?> superclass = clazz.getSuperclass();
 			if(superclass==null)
 				throw new RuntimeException(clazz.toString() + '/' + interfaze);
 
 			final Type supertype = clazz.getGenericSuperclass();
-			if(supertype instanceof Class)
+			if(supertype instanceof Class<?>)
 			{
 				assert supertype==superclass;
 				final Type[] arguments = getX(superclass, new Type[]{});
@@ -99,8 +99,8 @@ final class GenericResolver<T>
 	}
 
 	private static ParameterizedType getGenericInterface(
-			final Class clazz,
-			final Class interfaze)
+			final Class<?> clazz,
+			final Class<?> interfaze)
 	{
 		for(final Type t : clazz.getGenericInterfaces())
 		{
@@ -115,25 +115,25 @@ final class GenericResolver<T>
 		return null;
 	}
 
-	static void filter(final Class clazz, final Type[] parameters, final Type[] types)
+	static void filter(final Class<?> clazz, final Type[] parameters, final Type[] types)
 	{
 		for(int i = 0; i<types.length; i++)
 			types[i] = filter(clazz, parameters, types[i]);
 	}
 
-	private static Type filter(final Class clazz, final Type[] parameters, final Type type)
+	private static Type filter(final Class<?> clazz, final Type[] parameters, final Type type)
 	{
-		if(type instanceof TypeVariable)
-			return filter(clazz, parameters, (TypeVariable)type);
+		if(type instanceof TypeVariable<?>)
+			return filter(clazz, parameters, (TypeVariable<?>)type);
 		else if(type instanceof ParameterizedType)
 			return filter(clazz, parameters, (ParameterizedType)type);
 		else
 			return type;
 	}
 
-	private static Type filter(final Class clazz, final Type[] parameters, final TypeVariable type)
+	private static Type filter(final Class<?> clazz, final Type[] parameters, final TypeVariable<?> type)
 	{
-		final TypeVariable[] typeParameters = clazz.getTypeParameters();
+		final TypeVariable<?>[] typeParameters = clazz.getTypeParameters();
 		for(int i = 0; i<typeParameters.length; i++)
 		{
 			if(typeParameters[i]==type)
@@ -142,19 +142,19 @@ final class GenericResolver<T>
 		return type;
 	}
 
-	private static ParameterizedType filter(final Class clazz, final Type[] parameters, final ParameterizedType type)
+	private static ParameterizedType filter(final Class<?> clazz, final Type[] parameters, final ParameterizedType type)
 	{
 		return new FilteredParameterizedType(clazz, parameters, type);
 	}
 
 	private static class FilteredParameterizedType implements ParameterizedType
 	{
-		private final Class clazz;
+		private final Class<?> clazz;
 		private final Type[] parameters;
 		private final ParameterizedType type;
 
 		FilteredParameterizedType(
-				final Class clazz,
+				final Class<?> clazz,
 				final Type[] parameters,
 				final ParameterizedType type)
 		{
@@ -209,5 +209,5 @@ final class GenericResolver<T>
 				getRawType().toString() +
 				'<' + java.util.Arrays.toString(getActualTypeArguments()) + '>';
 		}
-	};
+	}
 }

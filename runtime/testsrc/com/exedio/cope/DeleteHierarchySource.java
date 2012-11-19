@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class DeleteHierarchySource extends Item
+public final class DeleteHierarchySource extends Item
 {
 	static final ItemField<DeleteHierarchyTargetSuper> target = ItemField.create(DeleteHierarchyTargetSuper.class).cascade();
 
@@ -36,7 +36,7 @@ public class DeleteHierarchySource extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteHierarchySource.target.map(target),
 		});
 	}/**

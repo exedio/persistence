@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -502,7 +502,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(new Day(), value.getDay());
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage
 	public void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
@@ -541,7 +541,7 @@ public class CompositeTest extends CopeAssert
 
 		Value(final String stringDefault, final boolean optional)
 		{
-			this(new com.exedio.cope.SetValue[]{
+			this(new com.exedio.cope.SetValue<?>[]{
 					Value.string4.map("1234"),
 					(optional ? Value.stringDefaultOptional : Value.stringDefault).map(stringDefault),
 					Value.intMax4.map(4),
@@ -577,7 +577,7 @@ public class CompositeTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			Value.string4.map(string4),
 			Value.intMax4.map(intMax4),
 			Value.longField.map(longField),
@@ -922,7 +922,7 @@ public class CompositeTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			ValueX.stringField.map(stringField),
 			ValueX.intField.map(intField),
 			ValueX.longField.map(longField),

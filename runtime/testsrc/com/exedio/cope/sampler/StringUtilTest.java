@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -56,7 +56,7 @@ public class StringUtilTest extends CopeAssert
 
 	private static void assertIt(final String expected, final StringField f, final String s)
 	{
-		final SetValue sv = StringUtil.cutAndMap(f, s);
+		final SetValue<?> sv = StringUtil.cutAndMap(f, s);
 		assertSame(f, sv.settable);
 		assertEquals(expected, sv.value);
 	}

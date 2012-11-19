@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public class PatternTestItem extends Item
+public final class PatternTestItem extends Item
 {
 	static final PatternTestPattern testPattern = new PatternTestPattern();
 	static final PatternTestPattern testPattern2 = new PatternTestPattern();
@@ -33,7 +33,7 @@ public class PatternTestItem extends Item
 	 */
 	public PatternTestItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

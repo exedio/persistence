@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,7 @@ final class CopeUniqueConstraint extends CopeFeature
 		final ArrayList<String> attributeList = new ArrayList<String>();
 
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
-		for(final FunctionField attributeInstance : instance.getFields())
+		for(final FunctionField<?> attributeInstance : instance.getFields())
 			attributeList.add(javaField.parent.getFieldByInstance(attributeInstance).name);
 
 		final String[] attributes = attributeList.toArray(new String[attributeList.size()]);

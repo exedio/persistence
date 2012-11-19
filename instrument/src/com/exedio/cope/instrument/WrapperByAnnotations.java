@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,13 +40,13 @@ import com.exedio.cope.misc.Compare;
 
 final class WrapperByAnnotations
 {
-	static <F extends Feature> List<Wrapper> make(
-			final Class<F> clazz,
-			final F feature,
-			final List<Wrapper> superResult)
+	static List<WrapperX> make(
+			final Class<? extends Feature> clazz,
+			final Feature feature,
+			final List<WrapperX> superResult)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
+		final ArrayList<WrapperX> result = new ArrayList<WrapperX>();
 		result.addAll(superResult);
 		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
@@ -62,7 +62,7 @@ final class WrapperByAnnotations
 		this.feature = instance;
 	}
 
-	private void makeAll(final List<Wrapper> list)
+	private void makeAll(final List<WrapperX> list)
 	{
 		final TreeMap<Wrap, Method> methods = new TreeMap<Wrap, Method>(ORDER_COMPARATOR);
 
@@ -100,7 +100,7 @@ final class WrapperByAnnotations
 		bf.append('(');
 
 		boolean first = true;
-		for(final Class parameter : method.getParameterTypes())
+		for(final Class<?> parameter : method.getParameterTypes())
 		{
 			if(first)
 				first = false;
@@ -127,17 +127,17 @@ final class WrapperByAnnotations
 
 	private boolean isNotHidden(final Wrap annotation)
 	{
-		for(final Class<? extends BooleanGetter> hideGetterClass : annotation.hide())
+		for(final Class<? extends BooleanGetter<?>> hideGetterClass : annotation.hide())
 		{
 			if(getBoolean(hideGetterClass))
 				return false;
 		}
 		return true;
-	};
+	}
 
-	private Wrapper make(final Method method, final Wrap annotation)
+	private WrapperX make(final Method method, final Wrap annotation)
 	{
-		final Wrapper result = new Wrapper(method);
+		final WrapperX result = new WrapperX(method);
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
 		final Class<?> parameterType0 = parameterTypes.length>0 ? parameterTypes[0] : null;
@@ -154,9 +154,9 @@ final class WrapperByAnnotations
 				assert pt.getActualTypeArguments().length==1 : pt.getActualTypeArguments(); // because Class has one generic parameter
 
 				final Type argument = pt.getActualTypeArguments()[0];
-				if(argument instanceof TypeVariable)
+				if(argument instanceof TypeVariable<?>)
 				{
-					result.setStatic((TypeVariable)argument);
+					result.setStatic((TypeVariable<?>)argument);
 					parameterOffset = 1;
 				}
 				else
@@ -237,25 +237,28 @@ final class WrapperByAnnotations
 		return result;
 	}
 
-	private boolean getBoolean(final Class<? extends BooleanGetter> clazz)
+	private boolean getBoolean(final Class<? extends BooleanGetter<?>> clazz)
 	{
+		@SuppressWarnings("rawtypes")
 		final BooleanGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final boolean result = getter.get(feature);
 		return result;
-	};
+	}
 
-	private String getString(final Class<? extends StringGetter> clazz)
+	private String getString(final Class<? extends StringGetter<?>> clazz)
 	{
 		if(clazz==StringGetterDefault.class)
 			return null;
 
+		@SuppressWarnings("rawtypes")
 		final StringGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final String result = getter.get(feature);
 		return result;
-	};
+	}
 
+	@SuppressWarnings("rawtypes")
 	private Set<Class<? extends Throwable>> getThrows(final Class<? extends ThrownGetter> clazz)
 	{
 		if(clazz==ThrownGetterDefault.class)
@@ -265,7 +268,7 @@ final class WrapperByAnnotations
 		@SuppressWarnings("unchecked")
 		final Set<Class<? extends Throwable>> result = getter.get(feature);
 		return result;
-	};
+	}
 
 	private static <E> E instantiate(final Class<E> clazz)
 	{

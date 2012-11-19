@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ package com.exedio.cope;
  * An item having a unique final attribute.
  * @author Ralf Wiebicke
  */
-public class UniqueFinalItem extends Item
+public final class UniqueFinalItem extends Item
 {
 	/**
 	 * An attribute that is unique and final.
@@ -45,7 +45,7 @@ public class UniqueFinalItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueFinalItem.uniqueFinalString.map(uniqueFinalString),
 		});
 	}/**

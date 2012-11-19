@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,8 @@ import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MysqlDialect extends Dialect
 {
@@ -61,7 +63,7 @@ public final class MysqlDialect extends Dialect
 		throw new RuntimeException();
 	}
 
-	String unQuoteName(final String quotedName)
+	static String unQuoteName(final String quotedName)
 	{
 		final int length = quotedName.length();
 		if(length<3)
@@ -335,7 +337,7 @@ public final class MysqlDialect extends Dialect
 		initializeSequence(bf, sequenceName, startWith);
 	}
 
-	private void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	private static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
 		// From the MySQL documentation:
 		//
@@ -431,7 +433,7 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final Connection connection, final String sql) throws SQLException
 	{
 		final java.sql.Statement sqlStatement =

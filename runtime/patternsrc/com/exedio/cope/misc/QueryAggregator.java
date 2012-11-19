@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -110,7 +110,7 @@ public final class QueryAggregator<R>
 	 */
 	public Result<R> searchAndTotal()
 	{
-		for(final Query q : queries)
+		for(final Query<?> q : queries)
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
 

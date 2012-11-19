@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,7 @@ import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -49,9 +50,10 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Media extends CachedMedia implements Settable<Media.Value>
 {
@@ -60,7 +62,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	private final boolean isfinal;
 	private final boolean optional;
 	private final DataField body;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
 	private final CheckConstraint unison;
@@ -71,7 +73,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			final boolean isfinal,
 			final boolean optional,
 			final long bodyMaximumLength,
-			final ContentType contentType)
+			final ContentType<?> contentType)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
@@ -80,7 +82,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				"body",
 				ComputedElement.get());
 		this.contentType = contentType;
-		final FunctionField contentTypeField = contentType.field;
+		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
 			addSource(
 					contentTypeField,
@@ -118,7 +120,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		assert optional == (unison!=null);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	static final <F extends Field> F applyConstraints(
 			F field,
 			final boolean isfinal,
@@ -256,7 +258,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return Value.class;
 	}
@@ -269,12 +271,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		if(!optional)
 			result.add(MandatoryViolationException.class);
 		return result;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Media.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -563,7 +559,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		return toValue(DataField.toValue(body), contentType);
 	}
 
-	public SetValue[] execute(final Value value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value!=null)
 		{
@@ -572,8 +568,8 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(!this.contentType.check(contentType))
 				throw new IllegalContentTypeException(this, exceptionItem, contentType);
 
-			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
-			final FunctionField contentTypeField = this.contentType.field;
+			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
+			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
 			values.add(this.lastModified.map(new Date()));
@@ -586,7 +582,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(!optional)
 				throw MandatoryViolationException.create(this, exceptionItem);
 
-			final ArrayList<SetValue> values = new ArrayList<SetValue>(4);
+			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(null));
@@ -650,9 +646,21 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		return lastModified.bind(join).isNull();
+	}
+
+	@Override
 	public Condition isNotNull()
 	{
 		return lastModified.isNotNull();
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
+	{
+		return lastModified.bind(join).isNotNull();
 	}
 
 	public Condition contentTypeEqual(final String contentType)

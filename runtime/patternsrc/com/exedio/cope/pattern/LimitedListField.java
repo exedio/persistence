@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,10 +26,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
@@ -38,19 +40,23 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
 	private static final long serialVersionUID = 1l;
 
+	private final IntegerField length;
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
+	private final CheckConstraint unison;
 
 	private LimitedListField(final FunctionField<E>[] sources)
 	{
+		this.length = new IntegerField().range(0, sources.length).defaultTo(0);
+		addSource(this.length, "Len", ComputedElement.get());
+
 		this.sources = sources;
 
 		boolean initial = false;
@@ -64,16 +70,22 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 		this.initial = initial;
 		this.isFinal = isFinal;
+
+		final Condition[] unisonConditions = new Condition[sources.length];
+		for(int a = 0; a<sources.length; a++)
+			unisonConditions[a] = length.greater(a).or(sources[a].isNull());
+		this.unison = new CheckConstraint(Cope.and(unisonConditions));
+		addSource(unison, "unison");
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2, source3}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)
@@ -96,7 +108,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return new LimitedListField<E>(template, maximumSize);
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;
@@ -107,7 +119,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
 
-		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
+		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
 		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copy();
@@ -116,9 +128,19 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 
+	public IntegerField getLength()
+	{
+		return length;
+	}
+
 	public List<FunctionField<E>> getListSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
+	}
+
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 
 	@Override
@@ -131,12 +153,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	public int getMaximumSize()
 	{
 		return sources.length;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(LimitedListField.class, this, super.getWrappers());
 	}
 
 	public boolean isInitial()
@@ -155,7 +171,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return List.class;
 	}
@@ -172,13 +188,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public List<E> get(final Item item)
 	{
-		final ArrayList<E> result = new ArrayList<E>(sources.length);
+		final int length = this.length.getMandatory(item);
+		final ArrayList<E> result = new ArrayList<E>(length);
 
-		for(final FunctionField<E> source : sources)
+		for(int i = 0; i<length; i++)
 		{
-			final E value = source.get(item);
-			if(value!=null)
-				result.add(value);
+			result.add(sources[i].get(item));
 		}
 		return result;
 	}
@@ -203,13 +218,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		assertValue(value, item);
 		int i = 0;
-		final SetValue[] setValues = new SetValue[sources.length];
+		final SetValue<?>[] setValues = new SetValue<?>[sources.length+1];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
+		final int length = i;
+
 		for(; i<sources.length; i++)
 			setValues[i] = sources[i].map(null);
+
+		setValues[i] = this.length.map(length);
 
 		item.set(setValues);
 	}
@@ -230,17 +249,21 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Collection value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Collection<E> value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);
 		int i = 0;
-		final SetValue[] result = new SetValue[sources.length];
+		final SetValue<?>[] result = new SetValue<?>[sources.length+1];
 
 		for(final Object v : value)
 			result[i] = Cope.mapAndCast(sources[i++], v);
 
+		final int length = i;
+
 		for(; i<sources.length; i++)
 			result[i] = Cope.mapAndCast(sources[i], null);
+
+		result[i] = this.length.map(length);
 
 		return result;
 	}

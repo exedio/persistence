@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -42,8 +43,8 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.misc.ComputedElement;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
@@ -53,16 +54,16 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final boolean optional;
 	private final Class<E> valueClass;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CompositeType<E> valueType;
-	private final LinkedHashMap<String, FunctionField> templates;
 	private final int componentSize;
 
-	private final LinkedHashMap<FunctionField, FunctionField> templateToComponent;
-	private final HashMap<FunctionField, FunctionField> componentToTemplate;
-	private final List<FunctionField> componentList;
-	private final FunctionField mandatoryComponent;
-	private final FunctionField isNullComponent;
+	private final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent;
+	private final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final List<FunctionField<?>> componentList;
+	private final FunctionField<?> mandatoryComponent;
+	private final FunctionField<?> isNullComponent;
 	private final CheckConstraint unison;
 
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
@@ -72,24 +73,23 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.valueClass = valueClass;
 
 		this.valueType = CompositeType.get(valueClass);
-		this.templates = valueType.templates;
 		this.componentSize = valueType.componentSize;
 
 		if(!InstrumentContext.isRunning())
 		{
-			final LinkedHashMap<FunctionField, FunctionField> templateToComponent =
-				new LinkedHashMap<FunctionField, FunctionField>();
-			final HashMap<FunctionField, FunctionField> componentToTemplate =
-				new HashMap<FunctionField, FunctionField>();
-			FunctionField mandatoryComponent = null;
+			final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent =
+				new LinkedHashMap<FunctionField<?>, FunctionField<?>>();
+			final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate =
+				new HashMap<FunctionField<?>, FunctionField<?>>();
+			FunctionField<?> mandatoryComponent = null;
 			final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
 			final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
 
-			for(final Map.Entry<String, FunctionField> e : templates.entrySet())
+			for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
 			{
-				final FunctionField template = e.getValue();
-				final FunctionField component = copy(template);
-				addSource(component, e.getKey(), ComputedElement.get());
+				final FunctionField<?> template = e.getValue();
+				final FunctionField<?> component = copy(template);
+				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
 				if(optional && mandatoryComponent==null && template.isMandatory())
@@ -106,7 +106,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 			this.templateToComponent = templateToComponent;
 			this.componentToTemplate = componentToTemplate;
-			this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField>(templateToComponent.values()));
+			this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templateToComponent.values()));
 			this.mandatoryComponent = mandatoryComponent;
 			this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
 			if(optional)
@@ -140,17 +140,17 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return new CompositeField<E>(isfinal, true, valueClass);
 	}
 
-	private FunctionField copy(FunctionField f)
+	private FunctionField<?> copy(FunctionField<?> f)
 	{
 		if(isfinal)
-			f = (FunctionField)f.toFinal();
+			f = (FunctionField<?>)f.toFinal();
 		if(optional)
-			f = (FunctionField)f.optional();
+			f = (FunctionField<?>)f.optional();
 		f = f.noDefault();
 		return f;
 	}
 
-	public <X extends FunctionField> X of(final X template)
+	public <X extends FunctionField<?>> X of(final X template)
 	{
 		@SuppressWarnings("unchecked")
 		final X result = (X)templateToComponent.get(template);
@@ -159,7 +159,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	public <X extends FunctionField> X getTemplate(final X component)
+	public <X extends FunctionField<?>> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")
 		final X result = (X)componentToTemplate.get(component);
@@ -168,12 +168,12 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	public List<FunctionField> getTemplates()
+	public List<FunctionField<?>> getTemplates()
 	{
-		return valueType.getTemplates();
+		return valueType.templateList;
 	}
 
-	public List<FunctionField> getComponents()
+	public List<FunctionField<?>> getComponents()
 	{
 		return componentList;
 	}
@@ -183,14 +183,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return unison;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(CompositeField.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10, doc="Returns the value of {0}.")
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(final Item item)
 	{
 		if(mandatoryComponent!=null && mandatoryComponent.get(item)==null)
@@ -198,14 +192,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 		final SetValue[] initargs = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
+		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
 		{
-			initargs[i++] = e.getKey().map(e.getValue().get(item));
+			initargs[i++] = ((FunctionField)e.getKey()).map(e.getValue().get(item));
 		}
 		return newValue(initargs);
 	}
 
-	public E newValue(final SetValue... setValues)
+	public E newValue(final SetValue<?>... setValues)
 	{
 		return valueType.newValue(setValues);
 	}
@@ -214,19 +208,19 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			doc="Sets a new value for {0}.",
 			thrownGetter=Thrown.class,
 			hide=FinalGetter.class)
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void set(final Item item, final E value)
 	{
 		final SetValue[] setValues = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
-			setValues[i++] = e.getValue().map(value!=null ? value.get(e.getKey()) : null);
+		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
+			setValues[i++] = ((FunctionField)e.getValue()).map(value!=null ? value.get(e.getKey()) : null);
 		item.set(setValues);
 	}
 
-	private static final class FinalGetter implements BooleanGetter<CompositeField>
+	private static final class FinalGetter implements BooleanGetter<CompositeField<?>>
 	{
-		public boolean get(final CompositeField feature)
+		public boolean get(final CompositeField<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -240,20 +234,20 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
 		final SetValue[] result = new SetValue[componentSize];
 		int i = 0;
-		for(final Map.Entry<FunctionField, FunctionField> e : templateToComponent.entrySet())
-			result[i++] = e.getValue().map(value!=null ? value.get(e.getKey()) : null);
+		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
+			result[i++] = ((FunctionField)e.getValue()).map(value!=null ? value.get(e.getKey()) : null);
 		return result;
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
-		for(final FunctionField<?> member : templates.values())
+		for(final FunctionField<?> member : valueType.templateList)
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)
 			result.add(FinalViolationException.class);
@@ -263,7 +257,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -295,14 +289,24 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public IsNullCondition isNull()
+	public IsNullCondition<?> isNull()
 	{
 		return isNullComponent.isNull();
 	}
 
-	public IsNullCondition isNotNull()
+	public final Condition isNull(final Join join)
+	{
+		return isNullComponent.bind(join).isNull();
+	}
+
+	public IsNullCondition<?> isNotNull()
 	{
 		return isNullComponent.isNotNull();
+	}
+
+	public final Condition isNotNull(final Join join)
+	{
+		return isNullComponent.bind(join).isNotNull();
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -311,7 +315,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	 * @deprecated Use {@link #of(FunctionField)} instead
 	 */
 	@Deprecated
-	public <X extends FunctionField> X getComponent(final X template)
+	public <X extends FunctionField<?>> X getComponent(final X template)
 	{
 		return of(template);
 	}

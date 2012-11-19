@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -50,7 +50,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 
-	@SuppressWarnings({"unchecked"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
 		try
@@ -78,7 +78,7 @@ public class EnumClassTest extends CopeAssert
 		assertEquals(list(Subclass.Eins, Subclass.Zwei), f.getValues());
 	}
 
-	@SuppressWarnings({"unchecked"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSubclassWrong()
 	{
 		try

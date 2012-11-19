@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,14 +25,14 @@ import com.exedio.cope.TypesBound;
 /**
  * @cope.type none
  */
-public class DispatcherNoneItem extends Item
+public final class DispatcherNoneItem extends Item
 {
 	/**
 	 * @cope.dispatch none
 	 */
 	static final Dispatcher wrong = new Dispatcher();
 
-	@SuppressWarnings("unchecked") // because instrumentor fails on correct version
+	@SuppressWarnings({"unchecked", "rawtypes"}) // because instrumentor fails on correct version
 	static final Type<?> newTypeAccessible(final Class javaClass)
 	{
 		return TypesBound.newType(javaClass);
@@ -48,7 +48,7 @@ public class DispatcherNoneItem extends Item
 	 */
 	public DispatcherNoneItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

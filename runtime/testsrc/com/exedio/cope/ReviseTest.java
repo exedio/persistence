@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,20 +19,28 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
+import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
 
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TimeZone;
+
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.Properties.Source;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -40,20 +48,22 @@ import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {
-	private static final TestRevisionsFuture revisionsFuture5 = new TestRevisionsFuture();
+	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();
 
-	private static final Model model5 = new Model(revisionsFuture5, ReviseItem1.TYPE);
+	private static final Model model5 = new Model(revisionsFactory5, ReviseItem1.TYPE);
 
 
-	private static final TestRevisionsFuture revisionsFuture7 = new TestRevisionsFuture();
+	private static final TestRevisionsFactory revisionsFactory7 = new TestRevisionsFactory();
 
-	private static final Model model7 = new Model(revisionsFuture7, ReviseItem2.TYPE);
+	private static final Model model7 = new Model(revisionsFactory7, ReviseItem2.TYPE);
 
 	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	static
 	{
 		df.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
+
+	private static final Logger logger = Logger.getLogger(Revisions.class);
 
 	private String hostname;
 	private ConnectProperties props;
@@ -64,15 +74,17 @@ public class ReviseTest extends CopeAssert
 	{
 		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
-		props = new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		final TestSource testSource = new TestSource();
+		testSource.putOverride("revise.auto.enabled", "true");
+		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		log = new TestLogAppender();
-		Revisions.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Revisions.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}
@@ -85,26 +97,26 @@ public class ReviseTest extends CopeAssert
 	public void testRevise() throws ParseException
 	{
 		connectionUrl  = props.getConnectionUrl();
-		connectionUser = props.getConnectionUser();
-		revisionsFuture7.assertEmpty();
+		connectionUser = props.getConnectionUsername();
+		revisionsFactory7.assertEmpty();
 
 		try
 		{
 			model5.getRevisions();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model5, e.getModel());
 		}
 
 		model5.connect(props);
 		final Revisions revisions5 = new Revisions(
 				new Revision(5, "nonsense5", "nonsense statement causing a test failure if executed for revision 5")
 			);
-		revisionsFuture5.put(revisions5);
+		revisionsFactory5.put(revisions5);
 		assertSame(revisions5, model5.getRevisions());
-		revisionsFuture5.assertEmpty();
+		revisionsFactory5.assertEmpty();
 		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
 		model5.tearDownSchema();
 
@@ -129,18 +141,18 @@ public class ReviseTest extends CopeAssert
 			model7.getRevisions();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model7, e.getModel());
 		}
 
 		model7.connect(props);
 		final Revisions revisions7Missing = new Revisions(
 				new Revision(7, "nonsense7", "nonsense statement causing a test failure if executed for revision 7")
 			);
-		revisionsFuture7.put(revisions7Missing);
+		revisionsFactory7.put(revisions7Missing);
 		assertSame(revisions7Missing, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, false);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -151,7 +163,7 @@ public class ReviseTest extends CopeAssert
 
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -199,13 +211,13 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisionsFuture7.put(revisions7);
+		revisionsFactory7.put(revisions7);
 		assertSame(revisions7, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 
 		log.assertEmpty();
 		final Date reviseBefore = new Date();
-		model7.reviseIfSupported();
+		model7.reviseIfSupportedAndAutoEnabled();
 		final Date reviseAfter = new Date();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		final Date reviseDate;
@@ -237,9 +249,9 @@ public class ReviseTest extends CopeAssert
 		// even after reconnect
 		model7.disconnect();
 		model7.connect(props);
-		revisionsFuture7.put(revisions7Missing);
+		revisionsFactory7.put(revisions7Missing);
 		model7.revise();
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 		assertSchema(model7.getVerifiedSchema(), true, true);
 		{
 			final Map<Integer, byte[]> logs = model7.getRevisionLogsAndMutex();
@@ -256,14 +268,14 @@ public class ReviseTest extends CopeAssert
 			);
 		assertSame(revisions7Missing, model7.getRevisions());
 		reconnect();
-		revisionsFuture7.put(revisions8);
+		revisionsFactory7.put(revisions8);
 		assertSame(revisions8, model7.getRevisions());
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 
 		final Date failBefore = new Date();
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 		}
 		catch(final SQLRuntimeException e)
 		{
@@ -285,7 +297,7 @@ public class ReviseTest extends CopeAssert
 
 		try
 		{
-			model7.reviseIfSupported();
+			model7.reviseIfSupportedAndAutoEnabled();
 		}
 		catch(final IllegalStateException e)
 		{
@@ -305,7 +317,7 @@ public class ReviseTest extends CopeAssert
 
 		model7.tearDownSchema();
 		log.assertEmpty();
-		revisionsFuture7.assertEmpty();
+		revisionsFactory7.assertEmpty();
 	}
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
@@ -364,6 +376,58 @@ public class ReviseTest extends CopeAssert
 		assertEquals(props.revisionTableName.stringValue(), revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
+	}
+
+	public void testAutoRevise()
+	{
+		revisionsFactory5.put( new Revisions(0) );
+		final TestSource testSource = new TestSource();
+		testSource.putOverride("revise.auto.enabled", "true");
+		model5.connect(new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE));
+		model5.createSchema();
+		model5.reviseIfSupportedAndAutoEnabled();
+		model5.disconnect();
+		assertEquals( true, props.autoReviseEnabled.booleanValue() );
+		revisionsFactory5.assertEmpty();
+
+		testSource.putOverride("revise.auto.enabled", "false");
+		final ConnectProperties cp = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
+		model5.connect(cp);
+		assertEquals( false, cp.autoReviseEnabled.booleanValue() );
+		revisionsFactory5.put( new Revisions(0) );
+		model5.reviseIfSupportedAndAutoEnabled();
+		revisionsFactory5.assertEmpty();
+		model5.disconnect();
+
+		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
+		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
+		try
+		{
+			model5.reviseIfSupportedAndAutoEnabled();
+			fail();
+		}
+		catch ( final IllegalStateException e )
+		{
+			assertEquals( "Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and 1 revisions pending (last revision in DB: 0; last revision in model: 1)", e.getMessage() );
+		}
+		revisionsFactory5.assertEmpty();
+		model5.disconnect();
+
+		testSource.putOverride("revise.auto.enabled", "true");
+		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
+		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
+		try
+		{
+			model5.reviseIfSupportedAndAutoEnabled();
+			fail();
+		}
+		catch ( final SQLRuntimeException e )
+		{
+			// fine
+		}
+		revisionsFactory5.assertEmpty();
+		model5.tearDownSchema();
+		model5.disconnect();
 	}
 
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
@@ -473,7 +537,7 @@ public class ReviseTest extends CopeAssert
 		return props.filterTableName(name);
 	}
 
-	private void reconnect()
+	private static void reconnect()
 	{
 		final ConnectProperties c = model7.getConnectProperties();
 		model7.disconnect();
@@ -512,11 +576,11 @@ public class ReviseTest extends CopeAssert
 		return result;
 	}
 
-	private static final class TestRevisionsFuture implements RevisionsFuture
+	private static final class TestRevisionsFactory implements Revisions.Factory
 	{
 		private Revisions revisions = null;
 
-		TestRevisionsFuture()
+		TestRevisionsFactory()
 		{
 			// make non-private
 		}
@@ -533,13 +597,54 @@ public class ReviseTest extends CopeAssert
 			assertNull(revisions);
 		}
 
-		public Revisions get(final EnvironmentInfo environment)
+		public Revisions create(final Context ctx)
 		{
-			assertNotNull(environment);
+			assertNotNull(ctx);
+			assertNotNull(ctx.getEnvironment());
 			assertNotNull(this.revisions);
 			final Revisions revisions = this.revisions;
 			this.revisions = null;
 			return revisions;
 		}
 	}
+
+	static final class TestSource implements Source
+	{
+		Source fallback;
+		Map<String,String> overrides = new HashMap<String, String>();
+
+		TestSource()
+		{
+			fallback = com.exedio.cope.util.Properties.getSource(ConnectProperties.getDefaultPropertyFile());
+		}
+
+		@Override()
+		public String get( final String key )
+		{
+			final String override = overrides.get( key );
+			return override==null ? fallback.get( key ) : override;
+		}
+
+		@Override()
+		public Collection<String> keySet()
+		{
+			final Set<String> keys = new HashSet<String>();
+			keys.addAll( overrides.keySet() );
+			keys.addAll( fallback.keySet() );
+			return keys;
+		}
+
+		@Override()
+		public String getDescription()
+		{
+			return "TestSource";
+		}
+
+		void putOverride( final String key, final String value )
+		{
+			overrides.put( key, value );
+		}
+
+	}
+
 }

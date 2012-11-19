@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -38,7 +37,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class MediaImageMagickFilter extends MediaFilter
 {
@@ -122,12 +122,6 @@ public class MediaImageMagickFilter extends MediaFilter
 	}
 
 	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaImageMagickFilter.class, this, super.getWrappers());
-	}
-
-	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(supportedContentTypes.keySet());
@@ -204,7 +198,7 @@ public class MediaImageMagickFilter extends MediaFilter
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{

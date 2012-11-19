@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,21 +22,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-final class PolymorphicItemMarshaller<E extends Item> implements Marshaller<E>
+final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 {
 	private final HashMap<String, Type<? extends E>> typesOfInstancesMap;
 
 	PolymorphicItemMarshaller(final HashMap<String, Type<? extends E>> typesOfInstancesMap)
 	{
+		super(2);
 		this.typesOfInstancesMap = typesOfInstancesMap;
 		assert typesOfInstancesMap!=null;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object pkCell = row.getObject(columnIndex.value++);
-		final String typeCell = row.getString(columnIndex.value++);
+		final Object pkCell = row.getObject(columnIndex);
+		final String typeCell = row.getString(columnIndex + 1);
 
 		if((pkCell==null)!=(typeCell==null))
 			throw new RuntimeException("inconsistent type column " + pkCell + '/' + typeCell);
@@ -52,13 +53,13 @@ final class PolymorphicItemMarshaller<E extends Item> implements Marshaller<E>
 	}
 
 	@Override
-	public String marshal(final E value)
+	String marshal(final E value)
 	{
 		return String.valueOf(value.pk);
 	}
 
 	@Override
-	public Object marshalPrepared(final E value)
+	Object marshalPrepared(final E value)
 	{
 		return value.pk;
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,15 +33,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import com.exedio.cope.util.Properties;
 
 public abstract class MediaPath extends Pattern
 {
@@ -95,12 +98,6 @@ public abstract class MediaPath extends Pattern
 			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
 
 		return mediaRootUrl;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaPath.class, this, super.getWrappers());
 	}
 
 	public boolean isContentTypeWrapped()
@@ -195,7 +192,7 @@ public abstract class MediaPath extends Pattern
 		return new Locator(
 				item,
 				makeUrlCatchphrase(item),
-				mediaType!=null ? mediaType.extension : null,
+				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
 	}
 
@@ -223,7 +220,7 @@ public abstract class MediaPath extends Pattern
 
 		final MediaType type = MediaType.forNameAndAliases(contentType);
 		if(type!=null)
-			bf.append(type.extension);
+			bf.append(type.getExtension());
 
 		final String secret = makeUrlToken(item);
 		if(secret!=null)
@@ -325,29 +322,21 @@ public abstract class MediaPath extends Pattern
 
 	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
 	{
-		final Properties.Source context = properties.getContext();
-		if(context==null)
-			return null;
-
-		final String result = context.get("media.url.secret");
-		if(result==null || result.length()<10)
-			return null;
-
-		return result;
+		return properties.getMediaUrlSecret();
 	}
 
 
-	static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
-	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	private final Log guessedUrl = new Log("guessed url"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
-	final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
-	public final Log isNull            = new Log("is null"       , HttpServletResponse.SC_NOT_FOUND);
-	final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
-	final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
-	public final Log delivered         = new Log("delivered"     , HttpServletResponse.SC_OK);
+	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
+	final Log redirectFrom      = new Log("redirectFrom"  , SC_MOVED_PERMANENTLY);
+	final Log exception         = new Log("exception"     , SC_INTERNAL_SERVER_ERROR);
+	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
+	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
+	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
+	final Log moved             = new Log("moved"         , SC_OK);
+	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
+	final Log notComputable     = new Log("not computable", SC_NOT_FOUND);
+	final Log notModified       = new Log("not modified"  , SC_OK);
+	public final Log delivered  = new Log("delivered"     , SC_OK);
 
 	public static final int getNoSuchPath()
 	{
@@ -407,7 +396,7 @@ public abstract class MediaPath extends Pattern
 		final Model model = getType().getModel();
 		try
 		{
-			model.startTransaction("MediaServlet");
+			model.startTransaction("MediaPath#doGet " + pathInfo);
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
 			{
@@ -429,7 +418,7 @@ public abstract class MediaPath extends Pattern
 							append('/');
 						locator.appendPath(location);
 
-						response.setStatus(response.SC_MOVED_PERMANENTLY);
+						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
 						return moved;
 					}
@@ -472,9 +461,19 @@ public abstract class MediaPath extends Pattern
 	public abstract Condition isNull();
 
 	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 */
+	public abstract Condition isNull(final Join join);
+
+	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
 	 */
 	public abstract Condition isNotNull();
+
+	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 */
+	public abstract Condition isNotNull(final Join join);
 
 
 	public final static class Log
@@ -489,10 +488,10 @@ public abstract class MediaPath extends Pattern
 				throw new NullPointerException();
 			switch(responseStatus)
 			{
-				case HttpServletResponse.SC_OK:
-				case HttpServletResponse.SC_MOVED_PERMANENTLY:
-				case HttpServletResponse.SC_NOT_FOUND:
-				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
+				case SC_OK:
+				case SC_MOVED_PERMANENTLY:
+				case SC_NOT_FOUND:
+				case SC_INTERNAL_SERVER_ERROR:
 					break;
 				default:
 					throw new RuntimeException(String.valueOf(responseStatus));

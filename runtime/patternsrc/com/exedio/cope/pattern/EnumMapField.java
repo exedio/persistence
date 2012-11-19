@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,12 @@
 package com.exedio.cope.pattern;
 
 import java.util.EnumMap;
-import java.util.List;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 {
@@ -89,12 +87,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	}
 
 	private static final String KEY = "k";
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(EnumMapField.class, this, super.getWrappers());
-	}
 
 	private void assertKey(final K key)
 	{

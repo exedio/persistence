@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -71,7 +71,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 		{
 			final Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
 			final Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
-			final QueryAggregator agBad = QueryAggregator.get(q1Bad, q2Bad);
+			final QueryAggregator<QueryAggregatorItem> agBad = QueryAggregator.get(q1Bad, q2Bad);
 			agBad.setLimit(1, 2);
 			assertEquals(list(item1, item2), agBad.searchAndTotal().getData());
 
@@ -149,7 +149,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 		assertIt(10,  0, list());
 	}
 
-	private void assertIt(final int offset, final int limit, final List expected)
+	private void assertIt(final int offset, final int limit, final List<?> expected)
 	{
 		if(limit>=0)
 			ag.setLimit(offset, limit);
@@ -159,7 +159,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 		assertEquals(offset, ag.getOffset());
 		assertEquals(limit,  ag.getLimit());
 
-		final Query.Result result = ag.searchAndTotal();
+		final Query.Result<?> result = ag.searchAndTotal();
 		assertEquals(offset, result.getOffset());
 		assertEquals(limit, result.getLimit());
 		assertEqualsUnmodifiable(expected, result.getData());

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -97,7 +97,7 @@ public class StableQueryIteratorTest extends AbstractRuntimeTest
 		assertIt(listg(item2, item3, item4, item5, item6), q);
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
 	{
 		assertEquals(expected, l(iterate(q,  1)));
 		assertEquals(expected, l(iterate(q,  2)));

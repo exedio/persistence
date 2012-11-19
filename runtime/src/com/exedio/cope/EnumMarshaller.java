@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,19 +21,20 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
+final class EnumMarshaller<E extends Enum<E>> extends Marshaller<E>
 {
 	private final EnumFieldType<E> type;
 
 	EnumMarshaller(final EnumFieldType<E> type)
 	{
+		super(1);
 		this.type = type;
 	}
 
 	@Override
-	public E unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object cell = row.getObject(columnIndex.value++);
+		final Object cell = row.getObject(columnIndex);
 		if(cell==null)
 			return null;
 
@@ -41,13 +42,13 @@ final class EnumMarshaller<E extends Enum<E>> implements Marshaller<E>
 	}
 
 	@Override
-	public String marshal(final E value)
+	String marshal(final E value)
 	{
 		return String.valueOf(type.getNumber(value)); // TODO precompute strings
 	}
 
 	@Override
-	public Object marshalPrepared(final E value)
+	Object marshalPrepared(final E value)
 	{
 		return type.getNumber(value);
 	}

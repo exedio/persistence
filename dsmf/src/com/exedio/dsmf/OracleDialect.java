@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -85,12 +85,12 @@ public final class OracleDialect extends Dialect
 		}
 	}
 
-	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
+	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList<?> columns)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		boolean first = true;
-		for(final Iterator i = columns.iterator(); i.hasNext(); )
+		for(final Iterator<?> i = columns.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;

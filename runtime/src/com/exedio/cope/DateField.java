@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,17 +19,17 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
+import java.text.MessageFormat;
 import java.util.Date;
-import java.util.List;
 
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class DateField extends FunctionField<Date>
 {
-	static final org.slf4j.Logger logger = LoggerFactory.getLogger(DateField.class.getName());
+	private static final Logger logger = Logger.getLogger(DateField.class);
 
 	private static final long serialVersionUID = 1l;
 
@@ -37,10 +37,15 @@ public final class DateField extends FunctionField<Date>
 	final boolean defaultNow;
 
 	private DateField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Date defaultConstant, final long defaultConstantSet, final boolean defaultNow)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Date defaultConstant,
+			final long defaultConstantSet,
+			final boolean defaultNow)
 	{
-		super(isfinal, optional, unique, Date.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
 		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
 
@@ -52,54 +57,60 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField()
 	{
-		this(false, false, false, null, Integer.MIN_VALUE, false);
+		this(false, false, false, null, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+	}
+
+	@Override
+	public DateField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, null, Integer.MIN_VALUE, false);
+		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, System.currentTimeMillis(), defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), defaultNow);
 	}
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultConstantSet, true);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
 	}
 
 	public boolean isDefaultNow()
@@ -110,12 +121,6 @@ public final class DateField extends FunctionField<Date>
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DateField.class, this, super.getWrappers());
 	}
 
 	/**
@@ -135,11 +140,11 @@ public final class DateField extends FunctionField<Date>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
-			logger.warn(
+		if(suspiciousForWrongDefaultNow() && logger.isEnabledFor(Level.WARN))
+			logger.warn( MessageFormat.format(
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {0}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
-					getID());
+					getID() ) );
 	}
 
 	private boolean suspiciousForWrongDefaultNow()

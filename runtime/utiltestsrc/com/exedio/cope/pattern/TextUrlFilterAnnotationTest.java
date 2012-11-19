@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -79,7 +79,7 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 
 	private static Media pasteValue(final TextUrlFilter filter)
 	{
-		final Type type = filter.getSourceTypes().get(0);
+		final Type<?> type = filter.getSourceTypes().get(0);
 		assertNotNull(type);
 		final Media value = (Media)type.getFeature("value");
 		assertNotNull(value);

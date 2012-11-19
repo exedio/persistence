@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,15 +37,17 @@ public class ClusterSenderMulticastTest extends CopeAssert
 	{
 		super.setUp();
 		properties = ClusterProperties.get(
+			new ConnectProperties(
+				ConnectSource.get(),
 				new Properties.Source()
 				{
 					public String get(final String key)
 					{
-						if(key.equals("packetSize"))
+						if(key.equals("cluster.packetSize"))
 							return "47";
-						else if(key.equals("secret"))
+						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("log"))
+						else if(key.equals("cluster.log"))
 							return "false";
 						else
 							return null;
@@ -61,7 +63,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 						return null;
 					}
 				}
-			);
+			));
 		sender = new ClusterSenderMulticast(properties);
 	}
 

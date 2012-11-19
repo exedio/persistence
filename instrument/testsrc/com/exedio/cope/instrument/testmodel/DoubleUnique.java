@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
-public class DoubleUnique extends Item
+public final class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField().toFinal();
 	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();
@@ -34,7 +34,7 @@ public class DoubleUnique extends Item
 	 */
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 
-	void useFeaturesToAvoidWarning()
+	static void useFeaturesToAvoidWarning()
 	{
 		forUnique(null, null);
 	}
@@ -60,7 +60,7 @@ public class DoubleUnique extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleUnique.string.map(string),
 			DoubleUnique.item.map(item),
 		});

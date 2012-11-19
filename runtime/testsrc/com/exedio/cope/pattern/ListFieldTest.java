@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -236,9 +236,9 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		// test persistence
 		// test searching
-		assertEquals("select element from ListFieldItem-strings" + " where parent='ListFieldItem-0' order by order", item.getStringsQuery().toString());
-		assertEquals("select element from ListFieldItem-dates"   + " where parent='ListFieldItem-0' order by order", item.getDatesQuery  ().toString());
-		assertEquals("select element from ListFieldItem-items"   + " where parent='ListFieldItem-0' order by order", item.getItemsQuery  ().toString());
+		assertEquals("select element from ListFieldItem-strings" + " where parent='" + item + "' order by order", item.getStringsQuery().toString());
+		assertEquals("select element from ListFieldItem-dates"   + " where parent='" + item + "' order by order", item.getDatesQuery  ().toString());
+		assertEquals("select element from ListFieldItem-items"   + " where parent='" + item + "' order by order", item.getItemsQuery  ().toString());
 
 		final Query<ListFieldItem> q = item.TYPE.newQuery();
 		q.join(stringsType, item.stringsParent().equalTarget());

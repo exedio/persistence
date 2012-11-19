@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
+import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
@@ -30,11 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
@@ -42,45 +43,47 @@ import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Model implements Serializable
 {
-	private static final Logger logger = LoggerFactory.getLogger(Model.class);
+	private static final Logger logger = Logger.getLogger(Model.class);
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final RevisionsFuture revisions;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Revisions.Factory revisions;
 	private final Object reviseLock = new Object();
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Types types;
 	private final long initializeDate;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Transactions transactions = new Transactions();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	final Transactions transactions = new Transactions();
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
-	public Model(final Type... types)
+	public Model(final Type<?>... types)
 	{
-		this((RevisionsFuture)null, types);
+		this((Revisions.Factory)null, types);
 	}
 
-	public Model(final RevisionsFuture revisions, final Type... types)
+	public Model(final Revisions.Factory revisions, final Type<?>... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
-	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
@@ -94,7 +97,7 @@ public final class Model implements Serializable
 		return containsTypeSet(typeSet.getTypes());
 	}
 
-	public boolean containsTypeSet(final Type... typeSet)
+	public boolean containsTypeSet(final Type<?>... typeSet)
 	{
 		return types.containsTypeSet(typeSet);
 	}
@@ -121,7 +124,7 @@ public final class Model implements Serializable
 			if(this.connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connectIfConnected = new Connect(toString(), types, revisions, properties, changeListeners);
+			this.connectIfConnected = new Connect(toString(), types, revisions, properties, transactions, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
 
@@ -135,10 +138,7 @@ public final class Model implements Serializable
 
 		synchronized(connectLock)
 		{
-			if(this.connectIfConnected==null)
-				throw new IllegalStateException("model not yet connected, use Model#connect");
-
-			final Connect connect = this.connectIfConnected;
+			final Connect connect = connect();
 			this.connectIfConnected = null;
 			types.disconnect();
 			connect.close();
@@ -152,14 +152,38 @@ public final class Model implements Serializable
 	{
 		final Connect result = this.connectIfConnected;
 		if(result==null)
-			throw new IllegalStateException("model not yet connected, use Model#connect");
+			throw new NotConnectedException(this);
 		return result;
+	}
+
+	public static final class NotConnectedException extends IllegalStateException
+	{
+		private static final long serialVersionUID = 1l;
+
+		private final Model model;
+
+		NotConnectedException(final Model model)
+		{
+			this.model = model;
+		}
+
+		public Model getModel()
+		{
+			return model;
+		}
+
+		@Override
+		public String getMessage()
+		{
+			return "model not connected, use Model#connect for " + model;
+		}
 	}
 
 	private final void assertRevisionEnabled()
 	{
 		if(revisions==null)
 			throw new IllegalArgumentException("revisions are not enabled");
+		transactions.assertNoCurrentTransaction();
 	}
 
 	public Revisions getRevisions()
@@ -169,20 +193,41 @@ public final class Model implements Serializable
 
 	public void revise()
 	{
+		revise(true);
+	}
+
+	private void revise(final boolean explicitRequest)
+	{
 		assertRevisionEnabled();
 
 		synchronized(reviseLock)
 		{
-			connect().revise();
+			connect().revise(explicitRequest);
 		}
 	}
 
+	/**
+	 * calls {@link #reviseIfSupportedAndAutoEnabled}
+	 * @deprecated use {@link #reviseIfSupportedAndAutoEnabled} instead
+	 */
+	@Deprecated
 	public void reviseIfSupported()
+	{
+		reviseIfSupportedAndAutoEnabled();
+	}
+
+	/**
+	 * If this method returns successfully, the model's revisions (if any) have been executed.
+	 *
+	 * Automatic execution of revisions is controlled by connect property revise.auto.enabled.
+	 * This method will throw an exception if auto-revisions are not enabled and revisions are pending.
+	 */
+	public void reviseIfSupportedAndAutoEnabled()
 	{
 		if(revisions==null)
 			return;
 
-		revise();
+		revise(false);
 	}
 
 	/**
@@ -308,6 +353,8 @@ public final class Model implements Serializable
 
 	public void createSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().createSchema();
@@ -318,6 +365,8 @@ public final class Model implements Serializable
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.createSchemaConstraints(types);
 	}
 
@@ -354,11 +403,9 @@ public final class Model implements Serializable
 	 */
 	public void deleteSchema()
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		transactions.assertNoCurrentTransaction();
 
-		final Transaction tx = transactions.currentIfBound();
-		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().deleteSchema();
 
@@ -368,6 +415,8 @@ public final class Model implements Serializable
 
 	public void dropSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
 		connect().dropSchema();
@@ -378,21 +427,29 @@ public final class Model implements Serializable
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.dropSchemaConstraints(types);
 	}
 
 	public void tearDownSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().tearDownSchema();
 	}
 
 	public void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.tearDownSchemaConstraints(types);
 	}
 
 	public Schema getVerifiedSchema()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		return connect().database.makeVerifiedSchema();
 	}
 
@@ -557,9 +614,6 @@ public final class Model implements Serializable
 			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		transactions.add(result);
 
-		if(logger.isDebugEnabled())
-			logger.debug("startTransaction " + id + ' ' + name);
-
 		return result;
 	}
 
@@ -631,9 +685,6 @@ public final class Model implements Serializable
 			final long oldestNanos = transactions.getOldestConnectionNanos();
 			connect().itemCache.purgeInvalidateLast(oldestNanos);
 		}
-
-		if(logger.isDebugEnabled())
-			logger.debug(rollback ? "rollback" : "commit");
 	}
 
 	/**
@@ -677,6 +728,8 @@ public final class Model implements Serializable
 
 	public void checkUnsupportedConstraints()
 	{
+		transactions.assertNoCurrentTransaction();
+
 		connect().database.makeSchema(true).checkUnsupportedConstraints();
 	}
 
@@ -731,6 +784,26 @@ public final class Model implements Serializable
 		return serialized;
 	}
 
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
 	@Override
 	public String toString()
 	{
@@ -768,7 +841,7 @@ public final class Model implements Serializable
 			return type.getName() + '#' + name;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Object resolveModel()
 		{
 			final java.lang.reflect.Field field;
@@ -843,12 +916,12 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #reviseIfSupported()} instead
+	 * @deprecated Use {@link #reviseIfSupportedAndAutoEnabled()} instead
 	 */
 	@Deprecated
 	public void migrateIfSupported()
 	{
-		reviseIfSupported();
+		reviseIfSupportedAndAutoEnabled();
 	}
 
 	/**
@@ -891,7 +964,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #getType(String)} instead
 	 */
 	@Deprecated
-	public Type findTypeByID(final String id)
+	public Type<?> findTypeByID(final String id)
 	{
 		return getType(id);
 	}
@@ -981,7 +1054,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(int)}.
 	 */
 	@Deprecated
-	public Model(final int revisionNumber, final Type... types)
+	public Model(final int revisionNumber, final Type<?>... types)
 	{
 		this(new Revisions(revisionNumber), types);
 	}
@@ -990,7 +1063,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link #Model(Revisions, Type...)} and {@link Revisions#Revisions(Revision[])}.
 	 */
 	@Deprecated
-	public Model(final Revision[] revisions, final Type... types)
+	public Model(final Revision[] revisions, final Type<?>... types)
 	{
 		this(new Revisions(revisions), types);
 	}
@@ -1068,20 +1141,53 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
-	public Model(final Revisions revisions, final Type... types)
+	public Model(final Revisions revisions, final Type<?>... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), types);
+		this(DirectRevisionsFactory.make(revisions), types);
 	}
 
 	/**
-	 * @deprecated Use {@link #Model(RevisionsFuture, TypeSet[], Type...)} or {@link DirectRevisionsFuture} instead.
+	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated
-	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type... types)
+	public Model(final Revisions revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
-		this(DirectRevisionsFuture.make(revisions), typeSets, types);
+		this(DirectRevisionsFactory.make(revisions), typeSets, types);
+	}
+
+	/**
+	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final RevisionsFuture revisions, final Type<?>... types)
+	{
+		this(wrap(revisions), types);
+	}
+
+	/**
+	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} instead.
+	 */
+	@Deprecated
+	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type<?>... types)
+	{
+		this(wrap(revisions), typeSets, types);
+	}
+
+	@Deprecated
+	private static final Revisions.Factory wrap(final RevisionsFuture revisions)
+	{
+		if(revisions==null)
+			return null;
+
+		return new Revisions.Factory()
+		{
+			public Revisions create(final Revisions.Factory.Context ctx)
+			{
+				return revisions.get(ctx.getEnvironment());
+			}
+		};
 	}
 }

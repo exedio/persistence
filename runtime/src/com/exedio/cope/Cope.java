@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -248,7 +248,7 @@ public abstract class Cope
 
 
 	@SuppressWarnings("deprecation") // OK: Selectable.check is for internal use within COPE only
-	static void check(final Selectable select, final TC tc, final Join join)
+	static void check(final Selectable<?> select, final TC tc, final Join join)
 	{
 		select.check(tc, join);
 	}
@@ -263,7 +263,7 @@ public abstract class Cope
 		final String className = name.substring(0, pos);
 		final String fieldName = name.substring(pos+1);
 
-		final Class clazz;
+		final Class<?> clazz;
 		try
 		{
 			clazz = Class.forName(className);
@@ -331,7 +331,7 @@ public abstract class Cope
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
+	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return plus(addend1, addend2);
 	}
@@ -340,7 +340,7 @@ public abstract class Cope
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
+	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
 		return plus(addend1, addend2, addend3);
 	}

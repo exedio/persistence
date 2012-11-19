@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class QueryCacheTest extends AbstractRuntimeTest
 {
@@ -55,8 +57,8 @@ public class QueryCacheTest extends AbstractRuntimeTest
 
 		final DBL l = new DBL();
 		model.setTestDatabaseListener(l);
-		final Query q1 = item.TYPE.newQuery(item.text.equal("someString"));
-		final Query q2 = item.TYPE.newQuery(item.text.equal("someString2"));
+		final Query<?> q1 = item.TYPE.newQuery(item.text.equal("someString"));
+		final Query<?> q2 = item.TYPE.newQuery(item.text.equal("someString2"));
 
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
@@ -94,7 +96,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		model.setTestDatabaseListener(null);
 	}
 
-	private QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
+	private static QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
 		return new QueryCacheHistogram(query, resultSize, hits);
 	}
@@ -104,23 +106,23 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
-	private SC sc(final Query query, final boolean totalOnly)
+	private static SC sc(final Query<?> query, final boolean totalOnly)
 	{
 		return new SC(query, totalOnly);
 	}
 
 	private static final class SC
 	{
-		final Query query;
+		final Query<?> query;
 		final boolean totalOnly;
 
-		SC(final Query query, final boolean totalOnly)
+		SC(final Query<?> query, final boolean totalOnly)
 		{
 			this.query = query;
 			this.totalOnly = totalOnly;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
+		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -160,7 +162,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			throw new RuntimeException();
 		}
 
-		public void search(final Connection connection, final Query query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{
 			scs.add(new SC(query, totalOnly));
 		}

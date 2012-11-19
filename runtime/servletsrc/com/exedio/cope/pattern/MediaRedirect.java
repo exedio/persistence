@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 
 /**
  * Specifies a http redirect (moved permanently) to
@@ -106,7 +109,7 @@ public final class MediaRedirect extends MediaPath
 		locator.appendPath(location);
 		//System.out.println("location="+location);
 
-		response.setStatus(response.SC_MOVED_PERMANENTLY);
+		response.setStatus(SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location.toString());
 		return delivered;
 	}
@@ -118,8 +121,20 @@ public final class MediaRedirect extends MediaPath
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		return target.isNull(join);
+	}
+
+	@Override
 	public Condition isNotNull()
 	{
 		return target.isNotNull();
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
+	{
+		return target.isNotNull(join);
 	}
 }

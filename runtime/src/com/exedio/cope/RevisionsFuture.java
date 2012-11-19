@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * If you supply an instance of {@link RevisionsFuture} to a {@link Model}
- * via {@link Model#Model(RevisionsFuture, Type...)} etc.
- * the model takes care, that {@link #get(EnvironmentInfo)}
- * is called only while the model is connected and only once for each connect.
- */
-public interface RevisionsFuture // TODO rename to RevisionsFactory or Revisions.Factory
+public interface RevisionsFuture
 {
+	/**
+	 * @deprecated Use {@link Revisions.Factory} instead.
+	 */
+	@Deprecated
 	Revisions get(EnvironmentInfo environment);
 }

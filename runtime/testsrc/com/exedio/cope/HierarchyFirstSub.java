@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class HierarchyFirstSub extends HierarchySuper
+public final class HierarchyFirstSub extends HierarchySuper
 {
 
 	public static final StringField firstSubString = new StringField().optional().unique();
@@ -40,7 +40,7 @@ public class HierarchyFirstSub extends HierarchySuper
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HierarchySuper.superInt.map(superInt),
 		});
 	}/**

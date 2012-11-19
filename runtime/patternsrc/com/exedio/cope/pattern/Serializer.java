@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.DataField;
@@ -40,9 +39,10 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Cast;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Stores a java object by serialization - use with care!
@@ -113,7 +113,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -121,12 +121,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return source.getInitialExceptions();
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Serializer.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
@@ -188,9 +182,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 
-	private static final class FinalGetter implements BooleanGetter<Serializer>
+	private static final class FinalGetter implements BooleanGetter<Serializer<?>>
 	{
-		public boolean get(final Serializer feature)
+		public boolean get(final Serializer<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -209,12 +203,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue[]{ source.map(serialize(value)) };
+		return new SetValue<?>[]{ source.map(serialize(value)) };
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private byte[] serialize(final E value)
 	{
 		if(value==null)

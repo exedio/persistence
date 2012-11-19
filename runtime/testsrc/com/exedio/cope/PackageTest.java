@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -47,6 +47,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FeaturesTest.class );
 		suite.addTestSuite( FinalTest.class );
 		suite.addTestSuite( QueryTest.class );
+		suite.addTestSuite( QueryGroupingTest.class );
 		suite.addTestSuite( QueryCopyTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( QuerySearchSizeLimitTest.class );
@@ -60,6 +61,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ItemTest.class );
 		suite.addTestSuite( FindItemHierarchyTest.class );
 		suite.addTestSuite( FindItemHierarchyEmptyTest.class );
+		suite.addTestSuite( ModelTest.class );
 		suite.addTestSuite( ModelSerializationTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
 		suite.addTestSuite( SerializationSizeTest.class );
@@ -159,6 +161,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );
 		suite.addTestSuite( UniqueHierarchyTest.class );
+		suite.addTestSuite( CopyModelTest.class );
 		suite.addTestSuite( CopyTest.class );
 		suite.addTestSuite( SchemaNamePolymorphicTest.class );
 		suite.addTestSuite( CheckTypeColumnTest.class );
@@ -172,6 +175,7 @@ public class PackageTest extends TestCase
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.sampler.PackageTest.suite() );
+		suite.addTest( com.exedio.cope.mxsampler.PackageTest.suite() );
 
 		return suite;
 	}
@@ -194,7 +198,7 @@ public class PackageTest extends TestCase
 		}
 		else if(test instanceof TestSuite)
 		{
-			for(final Enumeration e = ((TestSuite)test).tests(); e.hasMoreElements(); )
+			for(final Enumeration<?> e = ((TestSuite)test).tests(); e.hasMoreElements(); )
 				collectModels((Test)e.nextElement(), models);
 		}
 	}

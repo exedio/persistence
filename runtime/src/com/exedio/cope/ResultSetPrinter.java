@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ final class ResultSetPrinter
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 
-	static final ResultSetHandler logHandler = new ResultSetHandler<Void>()
+	static final ResultSetHandler<Void> logHandler = new ResultSetHandler<Void>()
 	{
 		public Void handle(final ResultSet resultSet) throws SQLException
 		{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -275,9 +275,9 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertSame(item2, item.getSelfNullify());
 
 		// test Query.search
-		final Query query1 = item.TYPE.newQuery(null);
+		final Query<?> query1 = item.TYPE.newQuery(null);
 		query1.setOrderByThis(true);
-		final Collection searchResult1 = query1.search();
+		final Collection<?> searchResult1 = query1.search();
 		assertEquals(list(item, item2), searchResult1);
 		assertSame(item, searchResult1.iterator().next());
 
@@ -324,6 +324,6 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
-		model.reviseIfSupported();
+		model.reviseIfSupportedAndAutoEnabled();
 	}
 }

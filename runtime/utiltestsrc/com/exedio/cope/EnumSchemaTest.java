@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ public class EnumSchemaTest extends CopeAssert
 		Eins, Zwei;
 	}
 
-	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
 	public void testUnchecked()
 	{

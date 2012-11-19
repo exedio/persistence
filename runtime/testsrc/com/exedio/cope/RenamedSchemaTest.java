@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.util.List;
+import java.util.Iterator;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -41,6 +41,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testSchema()
@@ -69,20 +70,32 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 
-		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND (("+l(string)+">=1) AND ("+l(string)+"<=4))) OR ("+q(string)+" IS NULL)");
 
-		final List<Sequence> sequences = schema.getSequences();
-		if(model.getConnectProperties().cluster.booleanValue())
+		final ConnectProperties props = model.getConnectProperties();
+		final boolean cluster = props.cluster.booleanValue();
+		final Iterator<Sequence> sequences = schema.getSequences().iterator();
+		if(cluster)
 		{
-			final Sequence sequence = sequences.get(0);
+			final Sequence sequence = sequences.next();
 			assertEquals("ZackItem_this_Seq", sequence.getName());
 			assertEquals(0, sequence.getStartWith());
 		}
-		else
-			assertEquals(list(), sequences);
+		{
+			final Sequence sequence = sequences.next();
+			assertEquals(props.filterTableName("ZackItem_zackSequence"), sequence.getName());
+			assertEquals(555, sequence.getStartWith());
+		}
+		if(cluster)
+		{
+			final Sequence sequence = sequences.next();
+			assertEquals("RenamScheTargItem_thi_Seq", sequence.getName());
+			assertEquals(0, sequence.getStartWith());
+		}
+		assertFalse(sequences.hasNext());
 	}
 
-	private final String q(final Field f)
+	private final String q(final Field<?> f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}

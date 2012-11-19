@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class AsStringItem extends Item
+final class AsStringItem extends Item
 {
 	/** @cope.initial */ static final IntegerField intx = new IntegerField().optional();
 	/** @cope.initial */ static final LongField longx = new LongField().optional();
@@ -40,7 +40,7 @@ class AsStringItem extends Item
 				final java.lang.Long longx,
 				final java.lang.Double doublex)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			AsStringItem.intx.map(intx),
 			AsStringItem.longx.map(longx),
 			AsStringItem.doublex.map(doublex),

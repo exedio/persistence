@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -96,6 +96,7 @@ public abstract class CopeModelTest extends CopeAssert
 	 * deletes the contents of the database.
 	 * Does not do anything.
 	 */
+	@SuppressWarnings("static-method")
 	@Deprecated
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{

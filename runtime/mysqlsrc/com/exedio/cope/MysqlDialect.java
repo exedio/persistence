@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -96,7 +96,13 @@ final class MysqlDialect extends Dialect
 	}
 
 	private static final String CHARSET = "utf8";
-	private static final String SQL_MODE = "NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES";
+	private static final String SQL_MODE =
+			"STRICT_ALL_TABLES," +
+			"NO_ZERO_DATE," +
+			"NO_ZERO_IN_DATE," +
+			"NO_ENGINE_SUBSTITUTION," +
+			"NO_BACKSLASH_ESCAPES," +
+			"ONLY_FULL_GROUP_BY";
 	private static final String TRUE = "true";
 
 	@Override
@@ -124,9 +130,6 @@ final class MysqlDialect extends Dialect
 	{
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
 		final int maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
-
-		assert TWOPOW8==256;
-		assert TWOPOW16==65536;
 
 		// TODO 255 (TWOPOW8) is needed for unique columns only,
 		//      non-unique can have more,
@@ -234,7 +237,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").
 			append(source, join).
@@ -385,6 +388,12 @@ final class MysqlDialect extends Dialect
 
 	@Override
 	boolean subqueryRequiresAlias()
+	{
+		return true;
+	}
+
+	@Override
+	boolean subqueryRequiresAliasInSelect()
 	{
 		return true;
 	}

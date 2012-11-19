@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,6 +36,8 @@ import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
@@ -404,7 +406,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			assertTrue(from.before(until));
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
+		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -425,7 +427,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final ExpectedRun ern(final Date from, final Date until, final Date run)
+	private static final ExpectedRun ern(final Date from, final Date until, final Date run)
 	{
 		return new ExpectedRun(from, until, run);
 	}
@@ -464,7 +466,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			assertTrue(!run.before(until));
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
+		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{

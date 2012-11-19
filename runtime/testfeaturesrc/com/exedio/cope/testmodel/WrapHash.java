@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,10 @@
 package com.exedio.cope.testmodel;
 
 import java.io.UnsupportedEncodingException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 
@@ -96,4 +98,18 @@ public class WrapHash extends Hash
 			throw new RuntimeException();
 		}
 	};
+
+	/** this validator throws an exception whatever member method is called */
+	public static final class CorruptValidator extends PlainTextValidator
+	{
+		@Override protected void validate(final String plainText, final Item exceptionItem, final Hash hash)
+			throws InvalidPlainTextException
+		{
+			throw new IllegalStateException("validate");
+		}
+		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
+		{
+			throw new IllegalStateException("newRandomPlainText");
+		}
+	}
 }

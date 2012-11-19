@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -150,8 +150,13 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, named, "/name"+ "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-0");
 		assertIt("MediaUrlItem/fileNameSecure/", fileNameSecure, anond,          "?t=MediaUrlItem.fileNameSecure-MediaUrlItem-1");
 
+		// TODO separate tests
+		model.commit();
+		model.disconnect();
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
+		model.connect(getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
+		model.startTransaction("MediaUrlTest");
 		assertIt("MediaUrlItem/foto/", foto, named, ".jpg");
 		assertIt("MediaUrlItem/foto/", foto, anond, ".jpg");
 		assertIt("MediaUrlItem/file/", file, named, ""    );

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,8 @@
  */
 
 package com.exedio.cope.pattern;
+
+import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -50,7 +52,7 @@ public abstract class CachedMedia extends MediaPath
 			final String[] tokens = request.getParameterValues(URL_TOKEN);
 			if(tokens!=null&&tokens.length>1)
 				return notAnItem;
-			for(final Enumeration e = request.getParameterNames(); e.hasMoreElements(); )
+			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
 				if(!URL_TOKEN.equals(e.nextElement()))
 					return notAnItem;
 		}
@@ -83,7 +85,7 @@ public abstract class CachedMedia extends MediaPath
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			//System.out.println("not modified");
-			response.setStatus(response.SC_NOT_MODIFIED);
+			response.setStatus(SC_NOT_MODIFIED);
 
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 

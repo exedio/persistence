@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,9 @@ public class JoinTest extends TestmodelTest
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
-			final Join join = query.join(PointerItem.TYPE, PointerItem.code.isNotNull());
+			final Condition joinCondition = PointerItem.code.isNotNull();
+			final Join join = query.join(PointerItem.TYPE, joinCondition);
+			assertSame( joinCondition, join.getCondition() );
 			assertEqualsUnmodifiable(list(join), query.getJoins());
 			assertContains(item2b, item2a, item2b, item2a, query.search());
 		}
@@ -77,7 +79,7 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			// test join needed for orderby only
-			final Query query = PointerItem.TYPE.newQuery(null);
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			query.setOrderBy(PointerTargetItem.code, true);
 			assertEquals(list(item1b, item1a), query.search());
@@ -93,5 +95,4 @@ public class JoinTest extends TestmodelTest
 					query.search());
 		}
 	}
-
 }

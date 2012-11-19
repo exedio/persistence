@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.FinalViolationException;
@@ -31,7 +30,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class PriceField extends Pattern implements Settable<Price>
@@ -121,7 +119,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	}
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return Price.class;
 	}
@@ -129,12 +127,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return integer.getInitialExceptions();
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PriceField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
@@ -178,12 +170,12 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Price value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
+		return new SetValue<?>[]{ integer.map(value!=null ? value.store : null) };
 	}
 
 	// ------------------- deprecated stuff -------------------

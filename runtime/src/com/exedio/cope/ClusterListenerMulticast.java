@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,13 +27,14 @@ import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class.getName());
+	private static final Logger logger = Logger.getLogger(ClusterListenerMulticast.class);
 
 	private final boolean log;
 	private final int packetSize;
@@ -102,7 +103,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				if(threadRun)
 				{
-					exception++;
+					exception.inc();
 					e.printStackTrace();
 				}
 				else
@@ -128,8 +129,8 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
-		exception++;
-		if(logger.isErrorEnabled())
+		exception.inc();
+		if(logger.isEnabledFor(Level.ERROR))
 			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
 					throwable );
 	}

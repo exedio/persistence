@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -379,6 +379,7 @@ public final class Table extends Node
 	 * @deprecated Not supported anymore, always returns null.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public String getOptions()
 	{
 		return null;

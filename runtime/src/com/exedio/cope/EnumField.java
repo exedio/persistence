@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,18 +21,24 @@ package com.exedio.cope;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
-import com.exedio.cope.instrument.Wrapper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final EnumFieldType<E> valueType;
 
-	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	private EnumField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Class<E> valueClass,
+			final E defaultConstant)
 	{
-		super(isfinal, optional, unique, valueClass, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 
 		this.valueType = EnumFieldType.get(valueClass);
 
@@ -42,50 +48,56 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	public static final <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
 	{
-		return new EnumField<E>(false, false, false, valueClass, null);
+		return new EnumField<E>(false, false, false, null, valueClass, null);
 	}
 
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<E>(true, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(true, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<E>(isfinal, true, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, true, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	@Override
 	public EnumField<E> unique()
 	{
-		return new EnumField<E>(isfinal, optional, true, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, true, copyFrom, valueClass, defaultConstant);
 	}
 
 	@Override
 	public EnumField<E> nonUnique()
 	{
-		return new EnumField<E>(isfinal, optional, false, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, false, copyFrom, valueClass, defaultConstant);
+	}
+
+	@Override
+	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	@Override
 	public EnumField<E> noDefault()
 	{
-		return new EnumField<E>(isfinal, optional, unique, valueClass, null);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, null);
 	}
 
 	@Override
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);
-		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}
 
 	public List<E> getValues()
@@ -95,9 +107,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
-		return Wrapper.TypeVariable0.class; // TODO return valueClass
+		return com.exedio.cope.instrument.Wrapper.TypeVariable0.class; // TODO return valueClass
 	}
 
 	public SelectType<E> getValueType()
@@ -118,7 +130,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 * @see ItemField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Enum<X>> EnumField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -130,7 +141,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (EnumField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final EnumField<X> result = (EnumField<X>)this;
+		return result;
 	}
 
 	@Override

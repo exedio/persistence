@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.exedio.cope.ItemField.DeletePolicy;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class TypesBound
 {
@@ -74,7 +76,7 @@ public final class TypesBound
 		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 
 		// supertype
-		final Class superclass = javaClass.getSuperclass();
+		final Class<?> superclass = javaClass.getSuperclass();
 
 		final Type<? super T> supertype;
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
@@ -102,21 +104,21 @@ public final class TypesBound
 				supertype,
 				features);
 
-		final Type previous = types.put(javaClass, result);
+		final Type<?> previous = types.put(javaClass, result);
 		if(previous!=null)
 			throw new RuntimeException(javaClass.getName());
 
 		return result;
 	}
 
-	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: Class.getSuperclass() does not support generics
 	private static Class<Item> castSupertype(final Class o)
 	{
 		return o;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-	public static SortedMap<Feature, Field> getFeatures(final Class clazz)
+	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, Field> result =

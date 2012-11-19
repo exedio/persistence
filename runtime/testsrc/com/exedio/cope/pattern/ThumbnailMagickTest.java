@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,8 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ThumbnailMagickTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
@@ -44,7 +46,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("OBL_UNSATISFIED_OBLIGATION")
+	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
 	@Override
 	public void setUp() throws Exception

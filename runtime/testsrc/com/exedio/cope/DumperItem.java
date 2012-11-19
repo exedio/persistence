@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import junit.framework.Assert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DumperItem extends Item
 {
@@ -28,9 +29,9 @@ public class DumperItem extends Item
 
 	static int beforeNewCopeItemCount = 0;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
+	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused") // called by reflection
-	private static SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		beforeNewCopeItemCount++;
 		return setValues;
@@ -64,7 +65,7 @@ public class DumperItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DumperItem.string.map(string),
 			DumperItem.unique.map(unique),
 			DumperItem.data.map(data),

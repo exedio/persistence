@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaFilter extends CachedMedia
 {
@@ -47,12 +46,6 @@ public abstract class MediaFilter extends CachedMedia
 	public abstract Set<String> getSupportedSourceContentTypes();
 
 	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaFilter.class, this, super.getWrappers());
-	}
-
-	@Override
 	public final long getLastModified(final Item item)
 	{
 		return source.getLastModified(item);
@@ -72,8 +65,20 @@ public abstract class MediaFilter extends CachedMedia
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		return source.isNull(join); // TODO check for getSupportedSourceContentTypes
+	}
+
+	@Override
 	public final Condition isNotNull()
 	{
 		return source.isNotNull(); // TODO check for getSupportedSourceContentTypes
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
+	{
+		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
 	}
 }

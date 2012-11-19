@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MessageDigestHashTest.class);
 		suite.addTestSuite(PartOfModelTest.class);
 		suite.addTestSuite(PartOfTest.class);
+		suite.addTestSuite(LimitedListFieldModelTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);
 		suite.addTestSuite(ListFieldTest2.class);
@@ -53,8 +54,10 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(TextUrlFilterTest.class);
+		suite.addTestSuite(TextUrlFilterZipTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
+		suite.addTestSuite(CompositeFieldRenamedSchemaTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
 		suite.addTestSuite(HistoryTest.class);
@@ -68,7 +71,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(PasswordLimiterVerboseTest.class);
 		suite.addTestSuite(PasswordLimiterTest.class);
 		suite.addTestSuite(PasswordRecoveryTest.class);
-		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceFieldModelTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
 		suite.addTestSuite(ScheduleTest.class);

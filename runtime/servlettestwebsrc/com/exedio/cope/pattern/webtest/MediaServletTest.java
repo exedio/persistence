@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,12 @@
  */
 
 package com.exedio.cope.pattern.webtest;
+
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -91,7 +97,7 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , itemTxtCatch);
-		assertEquals("fails spuriously", lmTxt, assertTxt(itemTxtCatch)); // TODO lastModified may be different
+		assertTxt(itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack", itemTxtCatch);
@@ -220,7 +226,7 @@ public class MediaServletTest extends TestCase
 		final String TOKEN;
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertEquals(lmPng, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertEquals(lmJpg, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
 		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
@@ -264,30 +270,30 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
 
-	private long assertTxt(final String url) throws IOException
+	private static long assertTxt(final String url) throws IOException
 	{
 		return assertTxt(url, -1, false);
 	}
 
-	private long assertTxt(final String url, final String contentType) throws IOException
+	private static long assertTxt(final String url, final String contentType) throws IOException
 	{
 		return assertTxt(url, contentType, -1, false);
 	}
 
-	private long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		return assertTxt(url, "text/plain", ifModifiedSince, expectNotModified);
 	}
 
-	private long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
-		assertEquals(expectNotModified ? conn.HTTP_NOT_MODIFIED : conn.HTTP_OK, conn.getResponseCode());
+		assertEquals(expectNotModified ? HTTP_NOT_MODIFIED : HTTP_OK, conn.getResponseCode());
 		assertEquals(expectNotModified ? "Not Modified" : "OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -318,26 +324,26 @@ public class MediaServletTest extends TestCase
 		return lastModified;
 	}
 
-	private String getContentAsString( final InputStream is ) throws IOException
+	private static String getContentAsString( final InputStream is ) throws IOException
 	{
 		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		final StringBuilder builder = new StringBuilder();
 		String s;
 		while ( (s=br.readLine())!=null )
 		{
-			builder.append(s + '\n');
+			builder.append(s).append('\n');
 		}
 		br.close();
 		return builder.toString();
 	}
 
-	private void assertMoved(final String url, final String target) throws IOException
+	private static void assertMoved(final String url, final String target) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(conn.HTTP_MOVED_PERM, conn.getResponseCode());
+		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode());
 		assertEquals("Moved Permanently", conn.getResponseMessage());
 		assertEquals(target, conn.getHeaderField("Location"));
 		assertEquals(null, conn.getContentType());
@@ -351,22 +357,23 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private void assertNotFound(final String url, final String detail) throws IOException
+	private static void assertNotFound(final String url, final String detail) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		if(conn.HTTP_NOT_FOUND!=conn.getResponseCode())
+		if(HTTP_NOT_FOUND!=conn.getResponseCode())
 			print(conn, url);
-		assertEquals(conn.HTTP_NOT_FOUND, conn.getResponseCode());
+		assertEquals(HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
-		assertEquals("text/html", conn.getContentType());
+		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
 		assertEquals("<title>Not Found</title>", is.readLine());
+		assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
 		assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
 		assertEquals("</head>", is.readLine());
 		assertEquals("<body>", is.readLine());
@@ -383,13 +390,13 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private long assertBin(final String url, final String contentType) throws IOException
+	private static long assertBin(final String url, final String contentType) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals("url="+url.toString(), conn.HTTP_OK, conn.getResponseCode());
+		assertEquals("url="+ url, HTTP_OK, conn.getResponseCode());
 		assertEquals("OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -407,22 +414,23 @@ public class MediaServletTest extends TestCase
 		return lastModified;
 	}
 
-	private void assertInternalError(final String url) throws IOException
+	private static void assertInternalError(final String url) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		if(conn.HTTP_INTERNAL_ERROR!=conn.getResponseCode())
+		if(HTTP_INTERNAL_ERROR!=conn.getResponseCode())
 			print(conn, url);
-		assertEquals(conn.HTTP_INTERNAL_ERROR, conn.getResponseCode());
+		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
-		assertEquals("text/html", conn.getContentType());
+		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
 		assertEquals("<head>", is.readLine());
 		assertEquals("<title>Internal Server Error</title>", is.readLine());
+		assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
 		assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
 		assertEquals("</head>", is.readLine());
 		assertEquals("<body>", is.readLine());
@@ -439,10 +447,10 @@ public class MediaServletTest extends TestCase
 		assertWithinHttpDate(before, after, new Date(date));
 	}
 
-	private void assertNameURL(final String url) throws IOException
+	private static void assertNameURL(final String url) throws IOException
 	{
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
-		conn.setFollowRedirects(false);
+		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
 		assertEquals("text/plain", conn.getContentType());
@@ -454,7 +462,7 @@ public class MediaServletTest extends TestCase
 		is.close();
 	}
 
-	private void print(final HttpURLConnection conn, final String url) throws IOException
+	private static void print(final HttpURLConnection conn, final String url) throws IOException
 	{
 		System.out.println("--------------------------------");
 		System.out.println("url="+url);
@@ -469,12 +477,11 @@ public class MediaServletTest extends TestCase
 		System.out.println("--------------------------------");
 	}
 
-	private void print(final InputStream in) throws IOException
+	private static void print(final InputStream in) throws IOException
 	{
 		if(in==null)
 		{
 			System.out.println("-----------leer---------------");
-			return;
 		}
 		else
 		{
@@ -523,7 +530,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 
-	private String lines( final String... lines )
+	private static String lines( final String... lines )
 	{
 		final StringBuilder builder = new StringBuilder();
 		for ( final String line: lines )

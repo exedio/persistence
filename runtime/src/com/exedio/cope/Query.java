@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,8 @@ public final class Query<R> implements Serializable
 
 	final Model model;
 	private Selectable<? extends R> selectSingle;
-	private Selectable[] selectsMulti;
+	private Selectable<?>[] selectsMulti;
+	private Selectable<?>[] groupBy;
 	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
@@ -46,7 +47,7 @@ public final class Query<R> implements Serializable
 	private Condition condition;
 
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
-	private Function[] orderBy = null;
+	private Selectable<?>[] orderBy = null;
 	private boolean[] orderAscending;
 
 	private int offset = 0;
@@ -110,7 +111,7 @@ public final class Query<R> implements Serializable
 		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
-	public Query(final Selectable<R> select, final Type type, final Condition condition)
+	public Query(final Selectable<R> select, final Type<?> type, final Condition condition)
 	{
 		if(select==null)
 			throw new NullPointerException("select");
@@ -124,7 +125,7 @@ public final class Query<R> implements Serializable
 	 * @deprecated Use {@link #newQuery(Selectable[], Type, Condition)} instead
 	 */
 	@Deprecated
-	public Query(final Selectable[] selects, final Type type, final Condition condition)
+	public Query(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selectsMulti = checkAndCopy(selects);
@@ -133,15 +134,15 @@ public final class Query<R> implements Serializable
 	}
 
 	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
-	public static Query<List<Object>> newQuery(final Selectable[] selects, final Type type, final Condition condition)
+	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		return new Query<List<Object>>(selects, type, condition);
 	}
 
-	Selectable[] selects()
+	Selectable<?>[] selects()
 	{
 		if(selectSingle!=null)
-			return new Selectable[]{selectSingle};
+			return new Selectable<?>[]{selectSingle};
 		else
 			return selectsMulti;
 	}
@@ -154,16 +155,24 @@ public final class Query<R> implements Serializable
 		this.selectSingle = select;
 	}
 
-	public void setSelects(final Selectable... selects)
+	public void setSelects(final Selectable<?>... selects)
 	{
-		final Selectable[] selectsCopy = checkAndCopy(selects);
+		final Selectable<?>[] selectsCopy = checkAndCopy(selects);
 		if(selectsMulti==null)
 			throw new IllegalStateException("use setSelect instead");
 		assert selectSingle==null;
 		this.selectsMulti = selectsCopy;
 	}
 
-	private static final Selectable[] checkAndCopy(final Selectable[] selects)
+	/** grouping functionality is 'beta' - API may change */
+	public void setGroupBy( final Selectable<?>... groupBy )
+	{
+		if(selectsMulti==null)
+			throw new IllegalStateException("grouping not supported for single-select queries");
+		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
+	}
+
+	private static final Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
 	{
 		if(selects.length<2)
 			throw new IllegalArgumentException("must have at least 2 selects, but was " + Arrays.asList(selects));
@@ -183,7 +192,7 @@ public final class Query<R> implements Serializable
 		this.distinct = distinct;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
 	}
@@ -224,7 +233,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * Does an inner join with the given type without any join condition.
 	 */
-	public Join join(final Type type)
+	public Join join(final Type<?> type)
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, null));
 	}
@@ -232,17 +241,17 @@ public final class Query<R> implements Serializable
 	/**
 	 * Does an inner join with the given type on the given join condition.
 	 */
-	public Join join(final Type type, final Condition condition)
+	public Join join(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, condition));
 	}
 
-	public Join joinOuterLeft(final Type type, final Condition condition)
+	public Join joinOuterLeft(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_LEFT, type, condition));
 	}
 
-	public Join joinOuterRight(final Type type, final Condition condition)
+	public Join joinOuterRight(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_RIGHT, type, condition));
 	}
@@ -252,11 +261,11 @@ public final class Query<R> implements Serializable
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 
-	public List<Function> getOrderByFunctions()
+	public List<Selectable<?>> getOrderByFunctions()
 	{
 		return
 			orderBy==null
-			? Collections.<Function>emptyList()
+			? Collections.<Selectable<?>>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(orderBy));
 	}
 
@@ -273,32 +282,32 @@ public final class Query<R> implements Serializable
 
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Function[]{type.thisFunction};
+		this.orderBy = new Selectable<?>[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderBy(final Function orderBy, final boolean ascending)
+	public void setOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy};
+		this.orderBy = new Selectable<?>[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderByAndThis(final Function orderBy, final boolean ascending)
+	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy, type.thisFunction};
+		this.orderBy = new Selectable<?>[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
 
 	/**
 	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
-	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
+	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
 			throw new IllegalArgumentException(
@@ -313,24 +322,24 @@ public final class Query<R> implements Serializable
 		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
 
-	public void addOrderBy(final Function orderBy)
+	public void addOrderBy(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, true);
 	}
 
-	public void addOrderByDescending(final Function orderBy)
+	public void addOrderByDescending(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, false);
 	}
 
-	public void addOrderBy(final Function orderBy, final boolean ascending)
+	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(this.orderBy==null)
-			this.orderBy = new Function[]{ orderBy };
+			this.orderBy = new Selectable<?>[]{ orderBy };
 		else
 		{
 			final int l = this.orderBy.length;
-			final Function[] result = new Function[l+1];
+			final Selectable<?>[] result = new Selectable<?>[l+1];
 			System.arraycopy(this.orderBy, 0, result, 0, l);
 			result[l] = orderBy;
 			this.orderBy = result;
@@ -489,7 +498,7 @@ public final class Query<R> implements Serializable
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
 
-	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
 		return o;
@@ -525,7 +534,7 @@ public final class Query<R> implements Serializable
 	{
 		final TC tc = new TC(this);
 
-		for(final Selectable select : selects())
+		for(final Selectable<?> select : selects())
 			Cope.check(select, tc, null);
 
 		if(condition!=null)
@@ -538,7 +547,7 @@ public final class Query<R> implements Serializable
 		}
 
 		if(orderBy!=null)
-			for(final Function ob : orderBy)
+			for(final Selectable<?> ob : orderBy)
 				Cope.check(ob, tc, null);
 
 		return tc;
@@ -645,10 +654,10 @@ public final class Query<R> implements Serializable
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Result))
+			if(!(other instanceof Result<?>))
 				return false;
 
-			final Result o = (Result)other;
+			final Result<?> o = (Result<?>)other;
 
 			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);
 		}
@@ -671,7 +680,7 @@ public final class Query<R> implements Serializable
 			return EMPTY;
 		}
 
-		@SuppressWarnings("unchecked") // OK: for singleton property
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: for singleton property
 		private static final Result EMPTY = new Result(Collections.EMPTY_LIST, 0, 0);
 
 		// ------------------- deprecated stuff -------------------
@@ -753,9 +762,15 @@ public final class Query<R> implements Serializable
 		return toString(false, false);
 	}
 
+	/**
+	 * BEWARE:
+	 * The results of this method also determinates,
+	 * whether to queries are equal for a hit in the query cache.
+	 * Do not forget anything !!!
+	 */
 	String toString(final boolean key, final boolean totalOnly)
 	{
-		final Type type = this.type;
+		final Type<?> type = this.type;
 		final StringBuilder bf = new StringBuilder();
 
 		bf.append("select ");
@@ -769,7 +784,7 @@ public final class Query<R> implements Serializable
 		}
 		else
 		{
-			final Selectable[] selects = selects();
+			final Selectable<?>[] selects = selects();
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
@@ -792,6 +807,18 @@ public final class Query<R> implements Serializable
 		{
 			bf.append(" where ");
 			condition.toString(bf, key, type);
+		}
+
+		if(groupBy!=null)
+		{
+			bf.append(" group by ");
+			for(int i = 0; i<groupBy.length; i++)
+			{
+				if(i>0)
+					bf.append(',');
+
+				groupBy[i].toString(bf, type);
+			}
 		}
 
 		if(!totalOnly)
@@ -870,8 +897,8 @@ public final class Query<R> implements Serializable
 
 		bf.append("select ");
 
-		final Selectable[] selects = this.selects();
-		final Marshaller[] selectMarshallers;
+		final Selectable<?>[] selects = this.selects();
+		final Marshaller<?>[] selectMarshallers;
 
 		if(!distinct&&totalOnly)
 		{
@@ -883,14 +910,17 @@ public final class Query<R> implements Serializable
 			if(distinct)
 				bf.append("distinct ");
 
-			selectMarshallers = new Marshaller[selects.length];
+			selectMarshallers = new Marshaller<?>[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
+			int copeTotalDistinctCount = 0;
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
 					bf.append(',');
 
 				bf.appendSelect(selects[i], null);
+				if(totalOnly && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
+					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
 		}
@@ -910,9 +940,22 @@ public final class Query<R> implements Serializable
 			this.condition.append(bf);
 		}
 
+		if (this.groupBy!=null)
+		{
+			for ( int i=0; i<groupBy.length; i++ )
+			{
+				if(i==0)
+					bf.append(" group by ");
+				else
+					bf.append(',');
+
+				bf.appendSelect(groupBy[i], null);
+			}
+		}
+
 		if(!totalOnly)
 		{
-			final Function[] orderBy = this.orderBy;
+			final Selectable<?>[] orderBy = this.orderBy;
 
 			if(orderBy!=null)
 			{
@@ -924,7 +967,10 @@ public final class Query<R> implements Serializable
 					else
 						bf.append(',');
 
-					dialect.appendOrderBy(bf, orderBy[i], orderAscending[i]);
+					bf.append(orderBy[i], (Join)null);
+					if(!orderAscending[i])
+						bf.append(" desc");
+					dialect.appendOrderByPostfix(bf, orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}
@@ -986,13 +1032,14 @@ public final class Query<R> implements Serializable
 					if((--sizeLimitCountDown)<0)
 						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
 
-					final IntHolder columnIndex = new IntHolder(1);
+					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
 						final Object resultCell =
 							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
+						columnIndex += selectMarshallers[selectIndex].columns;
 						if(resultRow!=null)
 							resultRow[selectIndex] = resultCell;
 						else
@@ -1007,6 +1054,38 @@ public final class Query<R> implements Serializable
 		});
 
 		return result;
+	}
+
+	// ------------------- binary compatibility -------------------
+
+	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderBy((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderByAndThis((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
+	{
+		setOrderBy((Selectable<?>[])orderBy, ascending);
+	}
+
+	public void addOrderBy(final Function<?> orderBy)
+	{
+		addOrderBy((Selectable<?>)orderBy);
+	}
+
+	public void addOrderByDescending(final Function<?> orderBy)
+	{
+		addOrderByDescending((Selectable<?>)orderBy);
+	}
+
+	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		addOrderBy((Selectable<?>)orderBy, ascending);
 	}
 
 	// ------------------- deprecated stuff -------------------

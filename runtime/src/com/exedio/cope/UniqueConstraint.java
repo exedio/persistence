@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,11 +28,14 @@ import java.util.Map;
 
 import com.exedio.cope.util.Cast;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class UniqueConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<?>[] fields;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
@@ -40,41 +43,41 @@ public final class UniqueConstraint extends Feature
 	{
 		this.fields = fields;
 		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
-		for(final FunctionField f : fields)
+		for(final FunctionField<?> f : fields)
 			f.registerUniqueConstraint(this);
 	}
 
 	/**
 	 * Is not public, because one should use {@link FunctionField#unique()} etc.
 	 */
-	UniqueConstraint(final FunctionField field)
+	UniqueConstraint(final FunctionField<?> field)
 	{
-		this(new FunctionField[]{field});
+		this(new FunctionField<?>[]{field});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2)
 	{
-		this(new FunctionField[]{field1, field2});
+		this(new FunctionField<?>[]{field1, field2});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3)
 	{
-		this(new FunctionField[]{field1, field2, field3});
+		this(new FunctionField<?>[]{field1, field2, field3});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4});
+		this(new FunctionField<?>[]{field1, field2, field3, field4});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4, final FunctionField field5)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4, final FunctionField field5, final FunctionField field6)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5, field6});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
 	public List<FunctionField<?>> getFields()
@@ -131,7 +134,7 @@ public final class UniqueConstraint extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append("unique(");
 		fields[0].toString(bf, defaultType);
@@ -175,10 +178,10 @@ public final class UniqueConstraint extends Feature
 		return Cast.verboseCast(typeClass, search(values));
 	}
 
-	void check(final Item item, final Map<? extends Field, ?> fieldValues)
+	void check(final Item item, final Map<? extends Field<?>, ?> fieldValues)
 	{
 		field:
-		for(final FunctionField testField : fields)
+		for(final FunctionField<?> testField : fields)
 		{
 			if(fieldValues.containsKey(testField))
 			{

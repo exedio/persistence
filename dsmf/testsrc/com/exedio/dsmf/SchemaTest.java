@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ public abstract class SchemaTest extends TestCase
 	private final class Properties extends com.exedio.cope.util.Properties
 	{
 		final StringField connectionUrl      = new StringField("connection.url");
-		final StringField connectionUser     = new StringField("connection.user");
+		final StringField connectionUsername = new StringField("connection.username");
 		final StringField connectionPassword = new StringField("connection.password", true);
 
 		Properties()
@@ -69,7 +69,7 @@ public abstract class SchemaTest extends TestCase
 
 		final Properties config = new Properties();
 		final String url = config.connectionUrl.stringValue();
-		final String user = config.connectionUser.stringValue();
+		final String username = config.connectionUsername.stringValue();
 		final String password = config.connectionPassword.stringValue();
 
 		if(url.startsWith("jdbc:hsqldb:"))
@@ -95,7 +95,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:oracle:"))
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			dialect = new OracleDialect(user.toUpperCase());
+			dialect = new OracleDialect(username.toUpperCase());
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
@@ -116,8 +116,8 @@ public abstract class SchemaTest extends TestCase
 			throw new RuntimeException(url);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
-		connection1 = DriverManager.getConnection(url, user, password);
-		connection2 = DriverManager.getConnection(url, user, password);
+		connection1 = DriverManager.getConnection(url, username, password);
+		connection2 = DriverManager.getConnection(url, username, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
 	}
 

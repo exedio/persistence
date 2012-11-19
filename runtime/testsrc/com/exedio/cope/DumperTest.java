@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,8 @@ import static com.exedio.cope.util.Hex.decodeLower;
 
 import java.io.IOException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DumperTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(TYPE, DumperSubItem.TYPE);
@@ -41,7 +43,7 @@ public class DumperTest extends AbstractRuntimeTest
 	private Dumper dumper = null;
 	private String dataL = null;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -94,7 +96,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testMandatory() throws IOException
 	{
 		try
@@ -112,7 +114,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testMandatoryData() throws IOException
 	{
 		try
@@ -130,7 +132,7 @@ public class DumperTest extends AbstractRuntimeTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	public void testLength() throws IOException
 	{
 		try
@@ -158,7 +160,7 @@ public class DumperTest extends AbstractRuntimeTest
 					"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
 					"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
 					"SET NAMES utf8;\n" +
-					"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES';\n" +
+					"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_ALL_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES,ONLY_FULL_GROUP_BY';\n" +
 					"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
 					"SET TIME_ZONE='+00:00';\n",
 				out.toString());
@@ -180,17 +182,17 @@ public class DumperTest extends AbstractRuntimeTest
 	}
 
 
-	private String tab(final Type type)
+	private String tab(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getTableName(type));
 	}
 
-	private String pk(final Type type)
+	private String pk(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getPrimaryKeyColumnName(type));
 	}
 
-	private String cls(final Type type)
+	private String cls(final Type<?> type)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getTypeColumnName(type));
 	}
@@ -200,7 +202,7 @@ public class DumperTest extends AbstractRuntimeTest
 		return SchemaInfo.isUpdateCounterEnabled(model) ? s : "";
 	}
 
-	private String upd(final Type type)
+	private String upd(final Type<?> type)
 	{
 		if(!SchemaInfo.isUpdateCounterEnabled(model))
 			return "XXXX";
@@ -208,7 +210,7 @@ public class DumperTest extends AbstractRuntimeTest
 		return SchemaInfo.quoteName(model, SchemaInfo.getUpdateCounterColumnName(type));
 	}
 
-	private String col(final Field field)
+	private String col(final Field<?> field)
 	{
 		return SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field));
 	}

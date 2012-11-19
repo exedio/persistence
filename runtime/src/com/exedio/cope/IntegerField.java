@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a field within a {@link Type type},
@@ -36,17 +36,22 @@ public final class IntegerField extends NumberField<Integer>
 	private static final long serialVersionUID = 1l;
 
 	private final Integer defaultNextStart;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final SequenceX defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
 	private IntegerField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Integer defaultConstant, final Integer defaultNextStart,
-			final int minimum, final int maximum)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Integer defaultConstant,
+			final Integer defaultNextStart,
+			final int minimum,
+			final int maximum)
 	{
-		super(isfinal, optional, unique, Integer.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Integer.class, defaultConstant);
 		this.defaultNextStart = defaultNextStart;
 		this.minimum = minimum;
 		this.maximum = maximum;
@@ -89,69 +94,75 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public IntegerField()
 	{
-		this(false, false, false, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		this(false, false, false, null, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
+	}
+
+	@Override
+	public IntegerField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField noDefault()
 	{
-		return new IntegerField(isfinal, optional, unique, null, null, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, null, null, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, start, minimum, maximum);
 	}
 
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public boolean isDefaultNext()
@@ -197,7 +208,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Integer.class : int.class;
 	}
@@ -205,12 +216,6 @@ public final class IntegerField extends NumberField<Integer>
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(IntegerField.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -299,9 +304,12 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().connect().connectionPool) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;
 	}
 
 	// digits

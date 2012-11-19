@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class DispatcherItem extends Item implements Dispatchable
+public final class DispatcherItem extends Item implements Dispatchable
 {
 	static final StringField body = new StringField();
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
@@ -103,7 +103,7 @@ public class DispatcherItem extends Item implements Dispatchable
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DispatcherItem.body.map(body),
 		});
 	}/**

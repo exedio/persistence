@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,11 +27,9 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -48,13 +46,15 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.JobContext;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Dispatcher extends Pattern
 {
-	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName());
+	private static final Logger logger = Logger.getLogger(Dispatcher.class);
 
 	private static final long serialVersionUID = 1l;
 
@@ -68,7 +68,7 @@ public final class Dispatcher extends Pattern
 	final LongField runElapsed = new LongField().toFinal().min(0);
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private volatile boolean probeRequired = true;
@@ -152,7 +152,7 @@ public final class Dispatcher extends Pattern
 		return mount().runParent.as(parentClass);
 	}
 
-	public PartOf getRunRuns()
+	public PartOf<?> getRunRuns()
 	{
 		return mount().runRuns;
 	}
@@ -182,12 +182,6 @@ public final class Dispatcher extends Pattern
 		return mount().runType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Dispatcher.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item & Dispatchable> void dispatch(
 			final Class<P> parentClass,
@@ -207,7 +201,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
+	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
 	public <P extends Item & Dispatchable> void dispatch(
 			final Class<P> parentClass,
@@ -228,12 +222,8 @@ public final class Dispatcher extends Pattern
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
-		for(
-				final Iterator<P> iterator = iterateTransactionally(
-					type,
-					pending.equal(true),
-					config.getSearchSize());
-				iterator.hasNext(); )
+		for(final P item : Iterables.once(
+				iterateTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
 			ctx.stopIfRequested();
 			if(probeRequired)
@@ -242,7 +232,6 @@ public final class Dispatcher extends Pattern
 				probeRequired = false;
 			}
 
-			final P item = iterator.next();
 			final String itemID = item.getCopeID();
 			try
 			{
@@ -308,7 +297,7 @@ public final class Dispatcher extends Pattern
 					model.commit();
 
 					if(finalFailure)
-						((Dispatchable)item).notifyFinalFailure(this, cause);
+						item.notifyFinalFailure(this, cause);
 				}
 			}
 			finally

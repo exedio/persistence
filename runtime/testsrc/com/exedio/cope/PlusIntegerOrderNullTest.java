@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -62,9 +62,9 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function... orderBy)
+	private void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
 	{
-		final Query query = item0.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = item0.TYPE.newQuery(null);
 		final boolean[] ascending = new boolean[orderBy.length];
 		Arrays.fill(ascending, true);
 		query.setOrderBy(orderBy, ascending);

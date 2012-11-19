@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,6 +30,8 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This is the super class for all classes,
@@ -121,7 +123,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Defines an order consistent to the query result order when using
-	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
+	 * {@link Query#setOrderBy(Selectable, boolean) Query.setOrderBy}
 	 * methods with any {@link ItemFunction}.
 	 */
 	public int compareTo(final Item o)
@@ -172,15 +174,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return getEntity().getItem();
 	}
 
-	protected Item(final SetValue... setValues)
+	protected Item(final SetValue<?>... setValues)
 	{
 		this.type = TypesBound.forClass(getClass());
-		final LinkedHashMap<Field, Object> fieldValues = type.prepareCreate(setValues);
+		final LinkedHashMap<Field<?>, Object> fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
 
-	void doCreate(final LinkedHashMap<Field, Object> fieldValues)
+	void doCreate(final LinkedHashMap<Field<?>, Object> fieldValues)
 	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
@@ -241,10 +243,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		private static final long serialVersionUID = 1l;
 
-		private final Type type;
+		private final Type<?> type;
 		private final int pk;
 
-		Serialized(final Type type, final int pk)
+		Serialized(final Type<?> type, final int pk)
 		{
 			this.type = type;
 			this.pk = pk;
@@ -305,7 +307,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
-	public final void set(final SetValue... setValues)
+	public final void set(final SetValue<?>... setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -318,10 +320,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(setValues.length==0)
 			return;
 
-		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
-		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
+		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
-			final Field field = e.getKey();
+			final Field<?> field = e.getKey();
 			type.assertBelongs(field);
 
 			if(field.isfinal)
@@ -354,7 +356,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			{
 				case FORBID:
 				{
-					final Collection s = field.getType().search(Cope.equalAndCast(field, this));
+					final Collection<?> s = field.getType().search(Cope.equalAndCast(field, this));
 					if(!s.isEmpty())
 						throw new IntegrityViolationException(field, this);
 					break;
@@ -481,41 +483,41 @@ public abstract class Item implements Serializable, Comparable<Item>
 			: state.updateCount;
 	}
 
-	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	static final LinkedHashMap<Field<?>, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
-		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
+		final LinkedHashMap<Field<?>, Object> result = new LinkedHashMap<Field<?>, Object>();
 		for(final SetValue<?> source : sources)
 		{
-			if(source.settable instanceof Field)
+			if(source.settable instanceof Field<?>)
 			{
 				putField(result, source);
 			}
 			else
 			{
-				for(final SetValue part : execute(source, exceptionItem))
+				for(final SetValue<?> part : execute(source, exceptionItem))
 					putField(result, part);
 			}
 		}
 		return result;
 	}
 
-	private static final void putField(final LinkedHashMap<Field, Object> result, final SetValue<?> setValue)
+	private static final void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
 	{
-		if(result.put((Field)setValue.settable, setValue.value)!=null)
+		if(result.put((Field<?>)setValue.settable, setValue.value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
-	private static final <X> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
+	private static final <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
-	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
+	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 
-		for(final Field field : fieldValues.keySet())
+		for(final Field<?> field : fieldValues.keySet())
 		{
 			if(!(field instanceof DataField))
 				continue;

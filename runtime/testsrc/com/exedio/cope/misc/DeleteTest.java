@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -149,7 +149,7 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	private static final class Context extends AssertionErrorJobContext
 	{
-		private int progress = 0;;
+		private int progress = 0;
 		private final int maximumProgress;
 
 		Context(final int maximumProgress)

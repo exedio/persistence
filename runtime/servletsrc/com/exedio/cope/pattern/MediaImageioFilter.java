@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -44,7 +43,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
@@ -101,12 +101,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MediaImageioFilter.class, this, super.getWrappers());
-	}
-
-	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(imageReaderSpi.keySet());
@@ -159,7 +153,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{
@@ -186,9 +180,10 @@ public abstract class MediaImageioFilter extends MediaFilter
 		// avoids spurious black side bars at least for jpeg and
 		// avoids conversion to DirectColorModel in MediaThumbnail.
 		// Don't know why.
-		if("image/jpeg".equals(contentType))
-			srcBuf = com.sun.image.codec.jpeg.
-				JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+		if("image/jpeg".equals(contentType) && JPEGCodecAccess.available())
+		{
+			srcBuf = JPEGCodecAccess.convert(srcBytes);
+		}
 		else
 		{
 			final ImageReader imageReader = spi.createReaderInstance();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,9 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.FeatureSubSet.features;
 
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -42,16 +44,17 @@ import java.util.Map;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
-import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 
-public final class Type<T extends Item> implements SelectType<T>, Comparable<Type>, Serializable
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
 {
 	private final Class<T> javaClass;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final AnnotatedElement annotationSource;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
@@ -64,32 +67,34 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<T>(this);
-	private final List<Feature> declaredFeatures;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final List<Feature> featuresDeclared;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> features;
-	private final HashMap<String, Feature> declaredFeaturesByName;
+	private final HashMap<String, Feature> featuresByNameDeclared;
 	private final HashMap<String, Feature> featuresByName;
 
-	private final List<Field> declaredFields;
-	private final List<Field> fields;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureSubSet<Field<?>> fields;
 
-	private final List<UniqueConstraint> declaredUniqueConstraints;
-	private final List<UniqueConstraint> uniqueConstraints;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureSubSet<UniqueConstraint> uniqueConstraints;
 
-	private final List<CheckConstraint> declaredCheckConstraints;
-	private final List<CheckConstraint> checkConstraints;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureSubSet<CheckConstraint> checkConstraints;
 
-	private final List<CopyConstraint> declaredCopyConstraints;
-	private final List<CopyConstraint> copyConstraints;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureSubSet<CopyConstraint> copyConstraints;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Method[] beforeNewItemMethods;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
 
 	/**
@@ -103,16 +108,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	int cacheIdTransiently = Integer.MIN_VALUE;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	Table table;
 
-	@SuppressWarnings("unchecked") // OK: unchecked cast is checked manually using runtime type information
 	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
 		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
 
-		return (Type<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final Type<X> result = (Type<X>)this;
+		return result;
 	}
 
 	private ArrayList<Feature> featuresWhileConstruction;
@@ -181,48 +187,27 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		thisFunction.mount(this, This.NAME, null);
 		featuresParameter.mount(this);
 		featuresWhileConstruction.trimToSize();
-		this.declaredFeatures = Collections.unmodifiableList(featuresWhileConstruction);
+		this.featuresDeclared = Collections.unmodifiableList(featuresWhileConstruction);
 		// make sure, method registerMounted fails from now on
 		this.featuresWhileConstruction = null;
-		assert thisFunction==this.declaredFeatures.get(0) : this.declaredFeatures;
+		assert thisFunction==this.featuresDeclared.get(0) : this.featuresDeclared;
 
 		// declared fields / unique constraints
 		{
-			final ArrayList<Field> declaredFields = new ArrayList<Field>(declaredFeatures.size());
-			final ArrayList<UniqueConstraint> declaredUniqueConstraints = new ArrayList<UniqueConstraint>(declaredFeatures.size());
-			final ArrayList< CheckConstraint> declaredCheckConstraints  = new ArrayList< CheckConstraint>(declaredFeatures.size());
-			final ArrayList<  CopyConstraint> declaredCopyConstraints   = new ArrayList<  CopyConstraint>(declaredFeatures.size());
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
-			for(final Feature feature : declaredFeatures)
+			for(final Feature feature : featuresDeclared)
 			{
-				if(feature instanceof Field)
-					declaredFields.add((Field)feature);
-				else if(feature instanceof UniqueConstraint)
-					declaredUniqueConstraints.add((UniqueConstraint)feature);
-				else if(feature instanceof CheckConstraint)
-					declaredCheckConstraints.add((CheckConstraint)feature);
-				else if(feature instanceof CopyConstraint)
-					declaredCopyConstraints.add((CopyConstraint)feature);
-
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
-			this.declaredFields            = ListUtil.trimUnmodifiable(declaredFields);
-			this.declaredUniqueConstraints = ListUtil.trimUnmodifiable(declaredUniqueConstraints);
-			this.declaredCheckConstraints  = ListUtil.trimUnmodifiable(declaredCheckConstraints);
-			this.declaredCopyConstraints   = ListUtil.trimUnmodifiable(declaredCopyConstraints);
-			this.declaredFeaturesByName = declaredFeaturesByName;
+			this.featuresByNameDeclared = declaredFeaturesByName;
 		}
 
 		// inherit features / fields / constraints
 		if(supertype==null)
 		{
-			this.features          = this.declaredFeatures;
-			this.featuresByName    = this.declaredFeaturesByName;
-			this.fields            = this.declaredFields;
-			this.uniqueConstraints = this.declaredUniqueConstraints;
-			this.checkConstraints  = this.declaredCheckConstraints;
-			this.copyConstraints   = this.declaredCopyConstraints;
+			this.features          = this.featuresDeclared;
+			this.featuresByName    = this.featuresByNameDeclared;
 		}
 		else
 		{
@@ -231,18 +216,23 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				features.add(thisFunction);
 				final List<Feature> superFeatures = supertype.getFeatures();
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
-				features.addAll(this.declaredFeatures.subList(1, this.declaredFeatures.size()));
+				features.addAll(this.featuresDeclared.subList(1, this.featuresDeclared.size()));
 				features.trimToSize();
 				this.features = Collections.unmodifiableList(features);
 			}
-			this.featuresByName    = inherit(supertype.featuresByName,    this.declaredFeaturesByName);
-			this.fields            = inherit(supertype.fields,            this.declaredFields);
-			this.uniqueConstraints = inherit(supertype.uniqueConstraints, this.declaredUniqueConstraints);
-			this. checkConstraints = inherit(supertype. checkConstraints, this.declaredCheckConstraints);
-			this.  copyConstraints = inherit(supertype.  copyConstraints, this.declaredCopyConstraints);
+			this.featuresByName    = inherit(supertype.featuresByName,    this.featuresByNameDeclared);
 		}
 		assert thisFunction==this.features.get(0) : this.features;
 		assert thisFunction==this.featuresByName.get(This.NAME) : this.featuresByName;
+
+		{
+			final Type<? super T> s = this.supertype;
+			final List<Feature> df = this.featuresDeclared;
+			this.fields            = features(s==null ? null : s.fields           , df, cast(Field.class));
+			this.uniqueConstraints = features(s==null ? null : s.uniqueConstraints, df, UniqueConstraint.class);
+			this. checkConstraints = features(s==null ? null : s. checkConstraints, df, CheckConstraint.class);
+			this.  copyConstraints = features(s==null ? null : s.  copyConstraints, df, CopyConstraint.class);
+		}
 
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
@@ -252,24 +242,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			? supertype.primaryKeySequence
 			: new SequenceX(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
 
-		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.isEmpty());
+		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 	}
 
-	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
+	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove
+	private static Class<Field<?>> cast(final Class<Field> c)
 	{
-		assert inherited!=null;
-
-		if(declared.isEmpty())
-			return inherited;
-		else if(inherited.isEmpty())
-			return declared;
-		else
-		{
-			final ArrayList<F> result = new ArrayList<F>(inherited);
-			result.addAll(declared);
-			result.trimToSize();
-			return Collections.<F>unmodifiableList(result);
-		}
+		return (Class)c;
 	}
 
 	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
@@ -279,7 +258,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	private static Method[] getBeforeNewItemMethods(final Class javaClass, final Type supertype)
+	private static Method[] getBeforeNewItemMethods(final Class<?> javaClass, final Type<?> supertype)
 	{
 		final Method declared = getBeforeNewItemMethod(javaClass);
 		final Method[] inherited = supertype!=null ? supertype.beforeNewItemMethods : null;
@@ -320,7 +299,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	SetValue[] doBeforeNewItem(SetValue[] setValues)
+	SetValue<?>[] doBeforeNewItem(SetValue<?>[] setValues)
 	{
 		if(beforeNewItemMethods!=null)
 		{
@@ -407,7 +386,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Marshaller<C> marshaller;
 
 		final List<ItemField<C>> declaredReferences;
-		final List<ItemField> references;
+		final List<ItemField<?>> references;
 
 		Mount(final Model model, final String id, final Types.MountParameters parameters)
 		{
@@ -430,10 +409,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					this.typesOfInstancesColumnValues = null;
 					break;
 				default:
-					final HashMap<String, Type> typesOfInstancesMap = new HashMap<String, Type>();
+					final HashMap<String, Type<?>> typesOfInstancesMap = new HashMap<String, Type<?>>();
 					this.typesOfInstancesColumnValues = new String[typesOfInstances.size()];
 					int i = 0;
-					for(final Type t : typesOfInstances)
+					for(final Type<?> t : typesOfInstances)
 					{
 						if(typesOfInstancesMap.put(t.schemaId, t)!=null)
 							throw new RuntimeException(t.schemaId);
@@ -449,7 +428,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final Type<?> supertype = parameters.type.supertype;
 			if(supertype!=null)
 			{
-				final List<ItemField> inherited = supertype.getReferences();
+				final List<ItemField<?>> inherited = supertype.getReferences();
 				final List<ItemField<C>> declared = declaredReferences;
 				if(declared.isEmpty())
 					this.references = inherited;
@@ -457,7 +436,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					this.references = castReferences(declared);
 				else
 				{
-					final ArrayList<ItemField> result = new ArrayList<ItemField>(inherited);
+					final ArrayList<ItemField<?>> result = new ArrayList<ItemField<?>>(inherited);
 					result.addAll(declared);
 					result.trimToSize();
 					this.references = Collections.unmodifiableList(result);
@@ -469,32 +448,32 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			}
 		}
 
-		@SuppressWarnings("unchecked")
-		private List<Type<? extends C>> castTypeInstanceList(final List<Type> l)
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		private List<Type<? extends C>> castTypeInstanceList(final List<Type<?>> l)
 		{
 			return (List)l;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 		private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
 		{
 			return m;
 		}
 
-		@SuppressWarnings("unchecked")
-		private List<ItemField<C>> castDeclaredReferences(final List<ItemField> l)
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		private List<ItemField<C>> castDeclaredReferences(final List<ItemField<?>> l)
 		{
 			return (List)l;
 		}
 
-		@SuppressWarnings("unchecked")
-		private List<ItemField> castReferences(final List l)
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		private List<ItemField<?>> castReferences(final List l)
 		{
 			return l;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
-		int compareTo(final Mount o)
+		@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
+		int compareTo(final Mount<?> o)
 		{
 			if(model!=o.model)
 				throw new IllegalArgumentException(
@@ -545,24 +524,24 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			database.addSequence(primaryKeySequence);
 		}
 
-		for(final Field a : declaredFields)
+		for(final Field<?> a : fields.declared)
 			a.connect(table);
-		for(final UniqueConstraint uc : declaredUniqueConstraints)
+		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.connect(table);
-		this.table.setUniqueConstraints(this.declaredUniqueConstraints);
-		this.table.setCheckConstraints (this.declaredCheckConstraints);
+		this.table.setUniqueConstraints(this.uniqueConstraints.declared);
+		this.table.setCheckConstraints (this.checkConstraints.declared);
 		this.table.finish();
-		for(final Feature f : declaredFeatures)
+		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
 				((Sequence)f).connect(database);
 	}
 
 	private boolean hasFinalTable()
 	{
-		for(final Field f : fields)
+		for(final Field<?> f : fields.all)
 			if(!f.isFinal())
 				return false;
-		for(final Type t : getSubtypes())
+		for(final Type<?> t : getSubtypes())
 			if(!t.hasFinalTable())
 				return false;
 		return true;
@@ -579,11 +558,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(supertype==null)
 			primaryKeySequence.disconnect();
 
-		for(final Field a : declaredFields)
+		for(final Field<?> a : fields.declared)
 			a.disconnect();
-		for(final UniqueConstraint uc : declaredUniqueConstraints)
+		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.disconnect();
-		for(final Feature f : declaredFeatures)
+		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
 				((Sequence)f).disconnect();
 	}
@@ -640,12 +619,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().onlyPossibleTypeOfInstances;
 	}
 
-	Marshaller getMarshaller()
+	Marshaller<?> getMarshaller()
 	{
 		return mount().marshaller;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	String[] getTypesOfInstancesColumnValues()
 	{
 		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;
@@ -673,9 +652,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return primaryKeySequence.getInfo();
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
 	public int checkPrimaryKey()
 	{
-		return primaryKeySequence.check(getModel().connect().connectionPool);
+		return primaryKeySequence.check(getModel());
 	}
 
 	/**
@@ -721,19 +703,19 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @see Class#asSubclass(Class)
 	 */
-	public Type<? extends T> asSubtype(final Type subtype)
+	public Type<? extends T> asSubtype(final Type<?> subtype)
 	{
 		if(subtype==null)
 			return null;
 		if(!isAssignableFrom(subtype))
 			throw new ClassCastException("expected a " + toString() + ", but was a " + subtype);
 
-		@SuppressWarnings("unchecked") // OK: checked at runtime
-		final Type<T> result = subtype;
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: checked at runtime
+		final Type<T> result = (Type)subtype;
 		return result;
 	}
 
-	void assertBelongs(final Field f)
+	void assertBelongs(final Field<?> f)
 	{
 		if(!f.getType().isAssignableFrom(this))
 			throw new IllegalArgumentException("field " + f + " does not belong to type " + this.toString());
@@ -765,7 +747,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * or any of it's super types.
 	 * @see #getDeclaredReferences()
 	 */
-	public List<ItemField> getReferences()
+	public List<ItemField<?>> getReferences()
 	{
 		return mount().references;
 	}
@@ -783,9 +765,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	public List<Field> getDeclaredFields()
+	public List<Field<?>> getDeclaredFields()
 	{
-		return declaredFields;
+		return fields.declared;
 	}
 
 	/**
@@ -800,14 +782,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * excluding fields inherited from super types,
 	 * use {@link #getDeclaredFields()}.
 	 */
-	public List<Field> getFields()
+	public List<Field<?>> getFields()
 	{
-		return fields;
+		return fields.all;
 	}
 
 	public List<Feature> getDeclaredFeatures()
 	{
-		return declaredFeatures;
+		return featuresDeclared;
 	}
 
 	public List<Feature> getFeatures()
@@ -817,7 +799,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public Feature getDeclaredFeature(final String name)
 	{
-		return declaredFeaturesByName.get(name);
+		return featuresByNameDeclared.get(name);
 	}
 
 	public Feature getFeature(final String name)
@@ -827,32 +809,32 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public List<UniqueConstraint> getDeclaredUniqueConstraints()
 	{
-		return declaredUniqueConstraints;
+		return uniqueConstraints.declared;
 	}
 
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
-		return uniqueConstraints;
+		return uniqueConstraints.all;
 	}
 
 	public List<CheckConstraint> getDeclaredCheckConstraints()
 	{
-		return declaredCheckConstraints;
+		return checkConstraints.declared;
 	}
 
 	public List<CheckConstraint> getCheckConstraints()
 	{
-		return checkConstraints;
+		return checkConstraints.all;
 	}
 
 	public List<CopyConstraint> getDeclaredCopyConstraints()
 	{
-		return declaredCopyConstraints;
+		return copyConstraints.declared;
 	}
 
 	public List<CopyConstraint> getCopyConstraints()
 	{
-		return copyConstraints;
+		return copyConstraints.all;
 	}
 
 	/**
@@ -891,15 +873,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	public T newItem(final List<SetValue> setValues)
+	public T newItem(final List<SetValue<?>> setValues)
 		throws ConstraintViolationException
 	{
 		return newItem(SetValueUtil.toArray(setValues));
 	}
 
-	private static final SetValue[] EMPTY_SET_VALUES = {};
+	private static final SetValue<?>[] EMPTY_SET_VALUES = {};
 
-	public T newItem(SetValue... setValues)
+	public T newItem(SetValue<?>... setValues)
 		throws ConstraintViolationException
 	{
 		if(isAbstract)
@@ -908,25 +890,25 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
 
-		final LinkedHashMap<Field, Object> fieldValues = prepareCreate(setValues);
+		final LinkedHashMap<Field<?>, Object> fieldValues = prepareCreate(setValues);
 		final int pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
-	LinkedHashMap<Field, Object> executeCreate(SetValue[] setValues)
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
+	LinkedHashMap<Field<?>, Object> executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
-		final LinkedHashMap<Field, Object> fieldValues = Item.executeSetValues(setValues, null);
+		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
 		Date now = null;
 		Day today = null;
-		for(final Field field : fields)
+		for(final Field<?> field : fields.all)
 		{
-			if(field instanceof FunctionField && !fieldValues.containsKey(field))
+			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
 			{
-				final FunctionField ff = (FunctionField)field;
+				final FunctionField<?> ff = (FunctionField<?>)field;
 				Object defaultValue = ff.defaultConstant;
 				if(defaultValue==null)
 				{
@@ -955,11 +937,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					fieldValues.put(field, defaultValue);
 			}
 		}
-		for(final Field field : fieldValues.keySet())
+		for(final Field<?> field : fieldValues.keySet())
 		{
 			assertBelongs(field);
 		}
-		for(final Field field : fields)
+		for(final Field<?> field : fields.all)
 		{
 			field.check(fieldValues.get(field), null);
 		}
@@ -967,30 +949,30 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fieldValues;
 	}
 
-	LinkedHashMap<Field, Object> prepareCreate(final SetValue[] setValues)
+	LinkedHashMap<Field<?>, Object> prepareCreate(final SetValue<?>[] setValues)
 	{
-		final LinkedHashMap<Field, Object> fieldValues = executeCreate(setValues);
+		final LinkedHashMap<Field<?>, Object> fieldValues = executeCreate(setValues);
 
 		checkUniqueConstraints(null, fieldValues);
 
-		for(final CopyConstraint cc : copyConstraints)
+		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);
 
 		return fieldValues;
 	}
 
-	void checkUniqueConstraints(final Item item, final Map<? extends Field, ?> fieldValues)
+	void checkUniqueConstraints(final Item item, final Map<? extends Field<?>, ?> fieldValues)
 	{
 		if(!uniqueConstraintsProblem && getModel().connect().executor.supportsUniqueViolation)
 			return;
 
-		for(final UniqueConstraint uc : uniqueConstraints)
+		for(final UniqueConstraint uc : uniqueConstraints.all)
 			uc.check(item, fieldValues);
 	}
 
 	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
 	{
-		for(final CheckConstraint cc : checkConstraints)
+		for(final CheckConstraint cc : checkConstraints.all)
 			cc.check(item, entity, exceptionItem);
 	}
 
@@ -1041,7 +1023,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @param condition the condition the searched items must match.
 	 * @param ascending whether the result is sorted ascendingly (<tt>true</tt>) or descendingly (<tt>false</tt>).
 	 */
-	public List<T> search(final Condition condition, final Function orderBy, final boolean ascending)
+	public List<T> search(final Condition condition, final Function<?> orderBy, final boolean ascending)
 	{
 		final Query<T> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
@@ -1094,8 +1076,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return new Query<T>(thisFunction, this, Condition.FALSE);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
-	public int compareTo(final Type o)
+	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
+	public int compareTo(final Type<?> o)
 	{
 		return mount().compareTo(o.mount());
 	}
@@ -1265,11 +1247,31 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	private Object writeReplace() throws ObjectStreamException
 	{
-		final Mount mount = this.mountIfMounted;
+		final Mount<?> mount = this.mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(Type.class.getName());
 
 		return new Serialized(mount.model, id);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
 	private static final class Serialized implements Serializable
@@ -1290,7 +1292,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		 */
 		private Object readResolve() throws InvalidObjectException
 		{
-			final Type result = model.getType(id);
+			final Type<?> result = model.getType(id);
 			if(result==null)
 				throw new InvalidObjectException("type does not exist: " + id);
 			return result;
@@ -1348,16 +1350,16 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Renamed to {@link #getDeclaredFields()}.
 	 */
 	@Deprecated
-	public List<Field> getDeclaredAttributes()
+	public List<Field<?>> getDeclaredAttributes()
 	{
-		return declaredFields;
+		return getDeclaredFields();
 	}
 
 	/**
 	 * @deprecated Renamed to {@link #getFields()}.
 	 */
 	@Deprecated
-	public List<Field> getAttributes()
+	public List<Field<?>> getAttributes()
 	{
 		return getFields();
 	}
@@ -1392,7 +1394,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypes()} instead
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypes()
 	{
@@ -1402,7 +1404,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @deprecated Use {@link #getSubtypesTransitively()} instead
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
 	public List<Type<? extends T>> getSubTypesTransitively()
 	{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,6 +44,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class SamplerPurge extends Item
 {
 	private static final StringField type = new StringField().toFinal();
@@ -55,13 +57,13 @@ final class SamplerPurge extends Item
 	static Query<SamplerPurge> newQuery()
 	{
 		final Query<SamplerPurge> q = TYPE.newQuery();
-		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
+		q.setOrderBy(new Function<?>[]{finished, TYPE.getThis()}, new boolean[]{false, false});
 		return q;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
+	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
 	static void purge(
-			final Type type,
+			final Type<?> type,
 			final Date limit,
 			final JobContext ctx,
 			final String samplerString)
@@ -114,7 +116,7 @@ final class SamplerPurge extends Item
 
 
 	SamplerPurge(
-			final Type type,
+			final Type<?> type,
 			final Date limit,
 			final int rows,
 			final long elapsed)

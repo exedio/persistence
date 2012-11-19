@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ import com.exedio.cope.StringField;
  * @cope.generic.constructor public
  * @cope.activation.constructor package
  */
-public class TypeNone extends Item
+public final class TypeNone extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
 
@@ -46,7 +46,7 @@ public class TypeNone extends Item
 	 */
 	private TypeNone()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

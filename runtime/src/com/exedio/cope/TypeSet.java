@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,7 @@ public final class TypeSet
 			throw new NullPointerException("types");
 		if(types.length==0)
 			throw new IllegalArgumentException("types must not be empty");
-		final HashSet<Type> set = new HashSet<Type>();
+		final HashSet<Type<?>> set = new HashSet<Type<?>>();
 		for(final Type<?> type : types)
 		{
 			if(type==null)
@@ -47,6 +47,9 @@ public final class TypeSet
 				throw new IllegalArgumentException("duplicate type " + type);
 		}
 	}
+
+	// TODO implement public get and contains
+	// TODO do not forget source types of features of types recursively
 
 	Type<?>[] getTypes()
 	{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.Cast.verboseCast;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.Cope;
@@ -36,7 +35,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MapField<K,V> extends Pattern
 {
@@ -44,7 +44,7 @@ public final class MapField<K,V> extends Pattern
 
 	private final FunctionField<K> key;
 	private final FunctionField<V> value;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
@@ -53,6 +53,8 @@ public final class MapField<K,V> extends Pattern
 		this.value = value;
 		if(key==null)
 			throw new NullPointerException("key");
+		if(!key.isMandatory())
+			throw new IllegalArgumentException("key must be mandatory");
 		if(key.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("key must not be unique");
 		if(value==null)
@@ -146,12 +148,6 @@ public final class MapField<K,V> extends Pattern
 
 	private static final String KEY = "k";
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(MapField.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10,
 			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
@@ -244,7 +240,7 @@ public final class MapField<K,V> extends Pattern
 		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
 	}
 
-	public Join join(final Query q, final K key)
+	public Join join(final Query<?> q, final K key)
 	{
 		return q.joinOuterLeft(
 				getRelationType(),

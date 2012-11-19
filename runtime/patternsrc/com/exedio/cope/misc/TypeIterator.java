@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -152,13 +152,13 @@ public final class TypeIterator
 			throw new UnsupportedOperationException();
 		}
 
-		@SuppressWarnings("unchecked") // OK: universal object
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: universal object
 		private static final <E> Iterator<E> empty()
 		{
-			return EMPTY;
+			return (Iterator)EMPTY;
 		}
 
-		private static final Iterator EMPTY = new Iterator(){
+		private static final Iterator<Object> EMPTY = new Iterator<Object>(){
 
 			public boolean hasNext()
 			{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class PlusLongItem extends Item
+public final class PlusLongItem extends Item
 {
 	public static final LongField numA = new LongField().optional();
 
@@ -61,7 +61,7 @@ public class PlusLongItem extends Item
 	 */
 	public PlusLongItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

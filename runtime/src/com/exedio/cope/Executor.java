@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,9 @@ import java.util.HashMap;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
 
-@edu.umd.cs.findbugs.annotations.SuppressWarnings({"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings({"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
 final class Executor
 {
 	static final String NO_SUCH_ROW = "no such row";
@@ -472,7 +474,7 @@ final class Executor
 		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
-		public void search(final Connection connection, final Query query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 

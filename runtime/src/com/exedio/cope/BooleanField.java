@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -30,62 +29,73 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
+	private BooleanField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Boolean defaultConstant)
 	{
-		super(isfinal, optional, unique, Boolean.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultConstant);
 		checkDefaultConstant();
 	}
 
 	public BooleanField()
 	{
-		this(false, false, false, null);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public BooleanField copy()
 	{
-		return new BooleanField(isfinal, optional, unique, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public BooleanField toFinal()
 	{
-		return new BooleanField(true, optional, unique, defaultConstant);
+		return new BooleanField(true, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public BooleanField optional()
 	{
-		return new BooleanField(isfinal, true, unique, defaultConstant);
+		return new BooleanField(isfinal, true, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public BooleanField unique()
 	{
-		return new BooleanField(isfinal, optional, true, defaultConstant);
+		return new BooleanField(isfinal, optional, true, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public BooleanField nonUnique()
 	{
-		return new BooleanField(isfinal, optional, false, defaultConstant);
+		return new BooleanField(isfinal, optional, false, copyFrom, defaultConstant);
+	}
+
+	@Override
+	public BooleanField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public BooleanField noDefault()
 	{
-		return new BooleanField(isfinal, optional, unique, null);
+		return new BooleanField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanField(isfinal, optional, unique, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Boolean.class : boolean.class;
 	}
@@ -96,18 +106,12 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(BooleanField.class, this, super.getWrappers());
-	}
-
-	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
+	@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 	@Override
 	Boolean get(final Row row)
 	{

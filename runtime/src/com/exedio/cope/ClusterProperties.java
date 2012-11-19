@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,12 +30,16 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Random;
 
+import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class ClusterProperties extends Properties
 {
-	static ClusterProperties get(final Properties.Source source)
+	static ClusterProperties get(final ConnectProperties properties)
 	{
+		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
 		final ClusterProperties clusterProperties = new ClusterProperties(source);
 		if(!clusterProperties.isEnabled())
 			return null;
@@ -78,7 +82,7 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
+	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
 		super(source, null);
@@ -125,7 +129,7 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	private InetAddress getAddress(final StringField field)
+	private static InetAddress getAddress(final StringField field)
 	{
 		final String value = field.stringValue();
 		try

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,9 +31,9 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.util.Day;
 
 public abstract class Composite implements Serializable
@@ -42,33 +42,9 @@ public abstract class Composite implements Serializable
 
 	private final Object[] values;
 
-	protected Composite(final SetValue... setValues)
+	protected Composite(final SetValue<?>... setValues)
 	{
-		final CompositeType<?> type = type();
-		values = new Object[type.componentSize];
-		final boolean[] valueSet = new boolean[values.length];
-		for(final SetValue v : setValues)
-		{
-			final Integer position = type.templatePositions.get(v.settable);
-			if(position==null)
-				throw new IllegalArgumentException("not a member");
-
-			values[position.intValue()] = v.value;
-			valueSet[position.intValue()] = true;
-		}
-		for(int i = 0; i<valueSet.length; i++)
-			if(!valueSet[i])
-				values[i] = type.templateList.get(i).getDefaultConstant();
-
-		int i = 0;
-		for(final FunctionField ff : type.templateList)
-			check(ff, values[i++]);
-	}
-
-	@SuppressWarnings("unchecked")
-	private static final <E> void check(final FunctionField field, final Object value)
-	{
-		field.check(value);
+		values = type().values(setValues);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -140,11 +116,12 @@ public abstract class Composite implements Serializable
 
 	private final int position(final FunctionField<?> member)
 	{
-		final CompositeType<?> type = type();
-		final Integer result = type.templatePositions.get(member);
-		if(result==null)
-			throw new IllegalArgumentException("not a member");
-		return result.intValue();
+		return type().position(member);
+	}
+
+	public static final String getTemplateName(final FunctionField<?> template)
+	{
+		return CompositeType.getTemplateName(template);
 	}
 
 	@Override

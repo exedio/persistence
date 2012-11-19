@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,15 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
 public final class ConnectToken
 {
-	public static final Logger logger = LoggerFactory.getLogger(ConnectToken.class.getName());
+	private static final Logger logger = Logger.getLogger(ConnectToken.class);
 
 	private final Manciple manciple;
 	private final Model model;
@@ -209,8 +208,6 @@ public final class ConnectToken
 				assert removed;
 				final boolean result = tokens.isEmpty();
 				token.onReturn(result);
-				if(result)
-					nextId = 0;
 				return result;
 			}
 		}
@@ -252,6 +249,21 @@ public final class ConnectToken
 
 			manciples.put(model, new Manciple(properties));
 		}
+	}
+
+	public static final ConnectProperties getProperties(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+
+		final Manciple manciple;
+
+		synchronized(manciples)
+		{
+			manciple = manciples.get(model);
+		}
+
+		return manciple!=null ? manciple.properties : null;
 	}
 
 	/**

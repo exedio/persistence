@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
 
@@ -100,7 +99,7 @@ public final class History extends Pattern
 		return eventParent.as(parentClass);
 	}
 
-	public PartOf getEventEvents()
+	public PartOf<?> getEventEvents()
 	{
 		return eventEvents;
 	}
@@ -150,12 +149,12 @@ public final class History extends Pattern
 		return featureEvent;
 	}
 
-	public PartOf getFeatureFeatures()
+	public PartOf<?> getFeatureFeatures()
 	{
 		return featureFeatures;
 	}
 
-	public FeatureField getFeature()
+	public FeatureField<?> getFeature()
 	{
 		return featureId;
 	}
@@ -192,19 +191,13 @@ public final class History extends Pattern
 		return featureType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(History.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10, doc="Returns the events of the history {0}.")
 	public List<Event> getEvents(final Item item)
 	{
 		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
 		q.setOrderBy(
-				new Function[]{ eventDate, eventType.getThis() },
-				new boolean []{ false,     false });
+				new Function<?>[]{ eventDate, eventType.getThis() },
+				new boolean    []{ false,     false });
 		return q.search();
 	}
 
@@ -280,7 +273,7 @@ public final class History extends Pattern
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 
-		private static final SetValue cut(final StringField f, final Object o)
+		private static final SetValue<?> cut(final StringField f, final Object o)
 		{
 			final String result;
 

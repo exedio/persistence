@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-public class HistoryItem extends Item
+public final class HistoryItem extends Item
 {
 	static final IntegerField amount = new IntegerField().optional();
 	static final StringField comment = new StringField().optional();
@@ -38,7 +38,7 @@ public class HistoryItem extends Item
 	 */
 	public HistoryItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

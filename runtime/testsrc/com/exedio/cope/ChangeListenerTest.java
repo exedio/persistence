@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
@@ -52,7 +55,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	}
 
 	// dead store is needed to assign null for testing garbage collection
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
@@ -99,14 +102,14 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEquals("item1", item1.getText());
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
 		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(list(item2), t3);
 
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");

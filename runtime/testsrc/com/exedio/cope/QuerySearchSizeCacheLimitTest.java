@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,7 +37,7 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeTest
 	static final Day d3 = new Day(2006, 02, 21);
 
 	private boolean cacheEnabled;
-	private Query q;
+	private Query<?> q;
 	private DayItem i1, i2, i3, i4, i5;
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 
-class QueryAggregatorItem extends Item
+final class QueryAggregatorItem extends Item
 {
 	static final IntegerField intx = new IntegerField();
 
@@ -36,7 +36,7 @@ class QueryAggregatorItem extends Item
 	QueryAggregatorItem(
 				final int intx)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			QueryAggregatorItem.intx.map(intx),
 		});
 	}/**

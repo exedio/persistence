@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class ConnectItem2 extends ConnectItem
+final class ConnectItem2 extends ConnectItem
 {
 	static final ItemField<ConnectItem> itemField2 = ItemField.create(ConnectItem.class).optional();
 	static final ItemField<ConnectItem2> itemFieldSelf2 = ItemField.create(ConnectItem2.class).optional();
@@ -44,7 +44,7 @@ class ConnectItem2 extends ConnectItem
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.ConnectItem.itemField.map(itemField),
 			com.exedio.cope.ConnectItem.itemFieldSelf.map(itemFieldSelf),
 			com.exedio.cope.ConnectItem.stringField.map(stringField),

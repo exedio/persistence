@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,6 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class PartOf<C extends Item> extends Pattern
@@ -41,9 +40,9 @@ public final class PartOf<C extends Item> extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<C> container;
-	private final FunctionField order;
+	private final FunctionField<?> order;
 
-	private PartOf(final ItemField<C> container, final FunctionField order)
+	private PartOf(final ItemField<C> container, final FunctionField<?> order)
 	{
 		this.container = container;
 		addSource(container, "Container");
@@ -57,7 +56,7 @@ public final class PartOf<C extends Item> extends Pattern
 		return new PartOf<C>(container, null);
 	}
 
-	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField order)
+	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
 	{
 		if(order==null)
 			throw new NullPointerException("order");
@@ -70,15 +69,9 @@ public final class PartOf<C extends Item> extends Pattern
 		return container;
 	}
 
-	public FunctionField getOrder()
+	public FunctionField<?> getOrder()
 	{
 		return order;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PartOf.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the container this item is part of by {0}.")
@@ -105,9 +98,9 @@ public final class PartOf<C extends Item> extends Pattern
 		final Condition parentCondition = this.container.equal(container);
 		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
 
-		final This typeThis = type.getThis(); // make search deterministic
+		final This<?> typeThis = type.getThis(); // make search deterministic
 		if(order!=null)
-			q.setOrderBy(new Function[]{order, typeThis}, new boolean[]{true, true});
+			q.setOrderBy(new Function<?>[]{order, typeThis}, new boolean[]{true, true});
 		else
 			q.setOrderBy(typeThis, true);
 
@@ -125,7 +118,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all part-of declarations where <tt>type</tt> or any of it's super types is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
-	public static final List<PartOf> getPartOfs(final Type<?> type)
+	public static final List<PartOf<?>> getPartOfs(final Type<?> type)
 	{
 		return PartOfReverse.get(type);
 	}
@@ -134,7 +127,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all part-of declarations where <tt>type</tt> is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
-	public static final List<PartOf> getDeclaredPartOfs(final Type<?> type)
+	public static final List<PartOf<?>> getDeclaredPartOfs(final Type<?> type)
 	{
 		return PartOfReverse.getDeclared(type);
 	}
@@ -143,10 +136,10 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
 	 * for {@link History}.
 	 */
-	public static final List<PartOf> getPartOfs(final Pattern pattern)
+	public static final List<PartOf<?>> getPartOfs(final Pattern pattern)
 	{
-		final ArrayList<PartOf> result = new ArrayList<PartOf>();
-		for(final PartOf partOf : PartOf.getPartOfs(pattern.getType()))
+		final ArrayList<PartOf<?>> result = new ArrayList<PartOf<?>>();
+		for(final PartOf<?> partOf : PartOf.getPartOfs(pattern.getType()))
 		{
 			if (pattern.getSourceTypes().contains(partOf.getType()) ||
 					( pattern.getType().getPattern()!=null &&
@@ -183,7 +176,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * @deprecated Use {@link #create(ItemField,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField order)
+	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField<?> order)
 	{
 		return create(container, order);
 	}

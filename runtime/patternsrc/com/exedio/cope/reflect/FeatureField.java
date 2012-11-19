@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
@@ -126,12 +125,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.getImplicitUniqueConstraint();
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(FeatureField.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	public E get(final Item item)
 	{
@@ -165,9 +158,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	private static final class FinalGetter implements BooleanGetter<FeatureField>
+	private static final class FinalGetter implements BooleanGetter<FeatureField<?>>
 	{
-		public boolean get(final FeatureField feature)
+		public boolean get(final FeatureField<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -186,12 +179,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ idField.map(value!=null ? value.getID() : null) };
+		return new SetValue<?>[]{ idField.map(value!=null ? value.getID() : null) };
 	}
 
 	public List<E> getValues()
@@ -234,9 +227,9 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.searchUnique(typeClass, value.getID());
 	}
 
-	private static final class NonUniqueGetter implements BooleanGetter<FeatureField>
+	private static final class NonUniqueGetter implements BooleanGetter<FeatureField<?>>
 	{
-		public boolean get(final FeatureField feature)
+		public boolean get(final FeatureField<?> feature)
 		{
 			return feature.getIdField().getImplicitUniqueConstraint()==null;
 		}
@@ -245,7 +238,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	// ------------------- deprecated stuff -------------------
 
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}

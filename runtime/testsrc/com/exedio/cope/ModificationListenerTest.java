@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,11 +22,16 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.ModificationListener;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
+	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
+
 	public ModificationListenerTest()
 	{
 		super(MatchTest.MODEL);
@@ -41,19 +46,19 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		log = new TestLogAppender();
-		ModificationListeners.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ModificationListeners.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}
 
 	// dead store is needed to assign null for testing garbage collection
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt()
 	{

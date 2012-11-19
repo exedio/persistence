@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -473,10 +473,12 @@ public class StringTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals("abcdef", item.getLowercase());
 
+		model.commit();
 		model.checkUnsupportedConstraints();
+		model.startTransaction();
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
@@ -668,7 +670,7 @@ public class StringTest extends AbstractRuntimeTest
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 
-		final Type type = item.getCopeType();
+		final Type<?> type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
 		restartTransaction();

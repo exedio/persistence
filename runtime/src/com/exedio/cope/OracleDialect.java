@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
 
 import java.math.BigDecimal;
@@ -42,7 +43,7 @@ final class OracleDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.OracleDialect(
-						parameters.properties.getConnectionUser().toUpperCase(Locale.ENGLISH)));
+						parameters.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 	}
 
 	@Override
@@ -156,7 +157,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("TO_CHAR(").
 			append(source, join).
@@ -204,7 +205,7 @@ final class OracleDialect extends Dialect
 		return false;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
@@ -243,7 +244,7 @@ final class OracleDialect extends Dialect
 			"POSITION",
 		}));
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Override
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{

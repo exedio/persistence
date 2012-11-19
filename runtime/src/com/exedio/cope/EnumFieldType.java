@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -91,7 +91,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.marshaller = new EnumMarshaller<E>(this);
 	}
 
-	private static final <A extends Annotation> A getAnnotation(final Enum e, final Class<A> annotationClass)
+	private static final <A extends Annotation> A getAnnotation(final Enum<?> e, final Class<A> annotationClass)
 	{
 		try
 		{
@@ -113,7 +113,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		if(value==null)
 			return true;
 
-		final Class actualValueClass = value.getClass();
+		final Class<?> actualValueClass = value.getClass();
       return actualValueClass == valueClass || actualValueClass.getSuperclass() == valueClass;
 	}
 
@@ -152,7 +152,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	// static registry
 
-	private static final HashMap<Class, EnumFieldType> types = new HashMap<Class, EnumFieldType>();
+	private static final HashMap<Class<?>, EnumFieldType<?>> types = new HashMap<Class<?>, EnumFieldType<?>>();
 
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
@@ -161,8 +161,8 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 		synchronized(types)
 		{
-			@SuppressWarnings("unchecked")
-			EnumFieldType<E> result = types.get(valueClass);
+			@SuppressWarnings({"unchecked", "rawtypes"})
+			EnumFieldType<E> result = (EnumFieldType)types.get(valueClass);
 			if(result==null)
 			{
 				result = new EnumFieldType<E>(valueClass);

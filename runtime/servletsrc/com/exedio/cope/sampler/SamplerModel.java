@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -60,9 +60,9 @@ final class SamplerModel extends Item
 	private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final Pool.Info info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final Pool.Info info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			connectionPoolIdle.map(info.getIdleLevel()),
 			connectionPoolGet.map(info.getCounter().getGetCounter()),
 			connectionPoolPut.map(info.getCounter().getPutCounter()),
@@ -80,9 +80,9 @@ final class SamplerModel extends Item
 	private static final LongField rollbackWithoutConnection = new LongField().toFinal().min(0);
 	private static final LongField rollbackWithConnection    = new LongField().toFinal().min(0);
 
-	static List<SetValue> map(final TransactionCounters info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final TransactionCounters info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			commitWithoutConnection  .map(info.getCommitWithoutConnection()),
 			commitWithConnection     .map(info.getCommitWithConnection()),
 			rollbackWithoutConnection.map(info.getRollbackWithoutConnection()),
@@ -103,9 +103,9 @@ final class SamplerModel extends Item
 	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal().min(0);
 
-	static List<SetValue> map(final ItemCacheSummary info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ItemCacheSummary info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			itemCacheHits  .map(info.getHits()),
 			itemCacheMisses.map(info.getMisses()),
 
@@ -127,9 +127,9 @@ final class SamplerModel extends Item
 	private static final LongField queryCacheReplacements = new LongField().toFinal().min(0);
 	private static final LongField queryCacheInvalidations = new LongField().toFinal().min(0);
 
-	static List<SetValue> map(final QueryCacheInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final QueryCacheInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			queryCacheHits         .map(info.getHits()),
 			queryCacheMisses       .map(info.getMisses()),
 			queryCacheReplacements .map(info.getReplacements()),
@@ -141,9 +141,9 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerFailed   = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final ChangeListenerInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ChangeListenerInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			changeListenerCleared.map(info.getCleared()),
 			changeListenerRemoved.map(info.getRemoved()),
 			changeListenerFailed .map(info.getFailed()));
@@ -155,9 +155,9 @@ final class SamplerModel extends Item
 	@NoDifferentiate
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final ChangeListenerDispatcherInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ChangeListenerDispatcherInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			changeListenerOverflow .map(info.getOverflow ()),
 			changeListenerException.map(info.getException()),
 			changeListenerPending  .map(info.getPending  ()));
@@ -177,9 +177,9 @@ final class SamplerModel extends Item
 	private static final IntegerField mediasNotModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasDelivered     = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final MediaSummary info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaSummary info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			mediasRedirectFrom .map(info.getRedirectFrom()),
 			mediasException    .map(info.getException()),
 			mediasGuessedUrl   .map(info.getGuessedUrl()),
@@ -195,16 +195,16 @@ final class SamplerModel extends Item
 
 	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal().min(0);
 
-	static List<SetValue> map(final ClusterSenderInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<Long>> map(final ClusterSenderInfo info)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList(
 			clusterSenderInvalidationSplit.map(info!=null ? info.getInvalidationSplit() : 0));
 	}
 
 
 	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
 
-	static SetValue map(final ClusterListenerInfo info)
+	static SetValue<?> map(final ClusterListenerInfo info)
 	{
 		return clusterListener.map(
 			info!=null ? new SamplerClusterListener(info) : null
@@ -212,7 +212,7 @@ final class SamplerModel extends Item
 	}
 
 
-	static <F extends FunctionField> F replaceByCopy(final F field, final Type<?> type)
+	static <F extends FunctionField<?>> F replaceByCopy(final F field, final Type<?> type)
 	{
 		if(field.getType()!=TYPE)
 			throw new IllegalArgumentException(field.getID());

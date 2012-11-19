@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-class HardJoinB3Item extends HardJoinB2Item
+final class HardJoinB3Item extends HardJoinB2Item
 {
 	/**
 	 * @cope.initial
@@ -50,7 +50,7 @@ class HardJoinB3Item extends HardJoinB2Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HardJoinB1Item.code.map(code),
 			com.exedio.cope.HardJoinB1Item.b1.map(b1),
 			com.exedio.cope.HardJoinB2Item.b2.map(b2),

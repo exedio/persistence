@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -78,7 +78,7 @@ class CopeFeature
 			return true;
 
 		final Feature instance = getInstance();
-		return instance instanceof Settable && ((Settable)instance).isInitial();
+		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
 	}
 
 	final Type getInitialType()
@@ -97,19 +97,20 @@ class CopeFeature
 		return initialExceptions;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
 
 	private void makeInitialTypeAndExceptions()
 	{
-		final Settable<?> instance = (Settable)getInstance();
+		final Settable<?> instance = (Settable<?>)getInstance();
 
 		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
 		final Type initialType;
 		final boolean primitive;
-		if(initialTypeX instanceof Class)
+		if(initialTypeX instanceof Class<?>)
 		{
-			final Class initialClass = (Class)initialTypeX;
-			final Class initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
+			final Class<?> initialClass = (Class<?>)initialTypeX;
+			final Class<?> initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
 			if(initialClassPrimitive!=null && instance.isMandatory())
 			{
 				initialType = initialClassPrimitive;

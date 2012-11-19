@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -78,7 +78,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
 
-		final ArrayList<SetValue> list = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> list = new ArrayList<SetValue<?>>();
 		list.add(description.map("descBl"));
 		list.add(description2.map("desc2Bl"));
 		assertEquals(itemB, importByCode("codeB", list));

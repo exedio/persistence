@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -183,7 +183,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
 
-	private static final void assertNotSerializable(final Serializable value, final Class exceptionMessage) throws IOException
+	private static final void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		final ObjectOutputStream oos = new ObjectOutputStream(bos);

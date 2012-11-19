@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -110,7 +110,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testUnchecked()
 	{
 		try
@@ -272,7 +272,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
 			final Date date,
-			final List failures)
+			final List<?> failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -286,7 +286,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertPending(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -297,7 +297,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertFailed(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -308,7 +308,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertIt(
 			final int dispatchCountCommitted,
 			final int dispatchCount,
-			final List failures,
+			final List<?> failures,
 			final DispatcherItem item,
 			final int notifyFinalFailureCount)
 	{
@@ -323,7 +323,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertEquals(failures.size(), failuresElapsed.size());
 		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
 
-		final Iterator expectedFailureIter = failures.iterator();
+		final Iterator<?> expectedFailureIter = failures.iterator();
 		for(final Run actual : actualFailures)
 		{
 			final Long failureElapsed = failureElapsedIter.next();

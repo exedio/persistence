@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
 import java.util.Set;
 
 import com.exedio.cope.CheckConstraint;
@@ -31,7 +30,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -48,7 +46,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		addSource(unison = new CheckConstraint(Cope.or(isNull(from), isNull(to), from.lessOrEqual(to))), "unison");
 	}
 
-	private static Condition isNull(final FunctionField field)
+	private static Condition isNull(final FunctionField<?> field)
 	{
 		return field.isMandatory() ? Condition.FALSE : field.isNull();
 	}
@@ -76,16 +74,10 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return unison;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(RangeField.class, this, super.getWrappers());
-	}
-
 	@Wrap(order=10)
 	public Range<E> get(final Item item)
 	{
-		return Range.newRange(from.get(item), to.get(item));
+		return Range.valueOf(from.get(item), to.get(item));
 	}
 
 	@Wrap(order=20, hide=FinalGetter.class)
@@ -137,9 +129,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return true;
 	}
 
-	private static final class FinalGetter implements BooleanGetter<RangeField>
+	private static final class FinalGetter implements BooleanGetter<RangeField<?>>
 	{
-		public boolean get(final RangeField feature)
+		public boolean get(final RangeField<?> feature)
 		{
 			return feature.isFinal();
 		}
@@ -157,9 +149,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
-		return new SetValue[]{
+		return new SetValue<?>[]{
 				from.map(value.getFrom()),
 				to  .map(value.getTo  ())};
 	}
@@ -182,7 +174,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
-		return Wrapper.generic(Range.class, from.getValueClass());
+		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

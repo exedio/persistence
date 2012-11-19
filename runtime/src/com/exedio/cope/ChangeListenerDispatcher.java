@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import gnu.trove.TIntHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
+import org.apache.log4j.Level;
+
 final class ChangeListenerDispatcher implements Runnable
 {
 	private final Types types;
@@ -31,8 +33,8 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private final ThreadSwarm threads;
 	private boolean threadRun = true;
-	private volatile long overflow = 0;
-	private volatile long exception = 0;
+	private final VolatileLong overflow = new VolatileLong();
+	private final VolatileLong exception = new VolatileLong();
 
 	ChangeListenerDispatcher(
 			final Types types,
@@ -56,7 +58,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 	ChangeListenerDispatcherInfo getInfo()
 	{
-		return new ChangeListenerDispatcherInfo(overflow, exception, queue.size());
+		return new ChangeListenerDispatcherInfo(overflow.get(), exception.get(), queue.size());
 	}
 
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
@@ -69,9 +71,9 @@ final class ChangeListenerDispatcher implements Runnable
 
 		if(!queue.offer(event))
 		{
-			overflow++;
-			if(ChangeListeners.logger.isErrorEnabled())
-				ChangeListeners.logger.error("COPE Change Listener Dispatcher overflows");
+			overflow.inc();
+			if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
+				ChangeListeners.logger.log(Level.ERROR, "COPE Change Listener Dispatcher overflows");
 		}
 	}
 
@@ -123,12 +125,12 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private void handleException(final Throwable e)
 	{
-		exception++;
-		if(ChangeListeners.logger.isErrorEnabled())
+		exception.inc();
+		if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
 			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 
-	private void logTerminate()
+	private static void logTerminate()
 	{
 		if(ThreadSwarm.logger.isInfoEnabled())
 		{

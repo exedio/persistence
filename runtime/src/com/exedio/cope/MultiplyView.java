@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
 	@SuppressWarnings("unchecked") // OK: no generic arrays
@@ -35,7 +37,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E>[] multipliers;
 
 	private MultiplyView(final Function<E>[] multipliers)
@@ -111,7 +113,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	/**
 	 * @deprecated Use {@link MultiplyView#MultiplyView(Function[])} instead.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Deprecated
 	public MultiplyView(final NumberFunction[] multipliers)
 	{

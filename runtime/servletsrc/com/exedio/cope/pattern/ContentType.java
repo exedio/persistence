@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -52,9 +52,9 @@ abstract class ContentType<B>
 		assert name!=null;
 	}
 
-	abstract ContentType copy();
-	abstract ContentType toFinal();
-	abstract ContentType optional();
+	abstract ContentType<B> copy();
+	abstract ContentType<B> toFinal();
+	abstract ContentType<B> optional();
 	abstract boolean check(String contentType);
 	abstract String describe();
 	abstract List<String> getAllowed();

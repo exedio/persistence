@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.exedio.cope.misc.Arrays;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class Statement
 {
@@ -95,7 +97,7 @@ final class Statement
 		this.joinTables = new HashMap<JoinTable, JoinTable>();
 		for(final JoinType joinType : joinTypes)
 		{
-			for(Type type = joinType.type; type!=null; type=type.supertype)
+			for(Type<?> type = joinType.type; type!=null; type=type.supertype)
 			{
 				final Table table = type.getTable();
 				final Object previous = tableToJoinTables.get(table);
@@ -126,11 +128,11 @@ final class Statement
 		{
 			final Table table = entry.getKey();
 			final Object value = entry.getValue();
-			if(value instanceof ArrayList)
+			if(value instanceof ArrayList<?>)
 			{
-				final ArrayList list = (ArrayList)value;
+				final ArrayList<?> list = (ArrayList<?>)value;
 				int aliasNumber = 0;
-				for(final Iterator j = list.iterator(); j.hasNext(); )
+				for(final Iterator<?> j = list.iterator(); j.hasNext(); )
 				{
 					final JoinTable joinType = (JoinTable)j.next();
 					joinType.alias = table.id + (aliasNumber++);
@@ -165,7 +167,7 @@ final class Statement
 	}
 
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
-	Statement append(final Selectable select, final Join join)
+	Statement append(final Selectable<?> select, final Join join)
 	{
 		select.append(this, join);
 		return this;
@@ -178,7 +180,7 @@ final class Statement
 		return this;
 	}
 
-	Statement appendPK(final Type type, final Join join)
+	Statement appendPK(final Type<?> type, final Join join)
 	{
 		return append(type.getTable().primaryKey, join);
 	}
@@ -200,7 +202,7 @@ final class Statement
 	 * the command will return "0 rows affected"
 	 * and executeSQLUpdate will fail.
 	 */
-	Statement appendTypeCheck(final Table table, final Type type)
+	Statement appendTypeCheck(final Table table, final Type<?> type)
 	{
 		final StringColumn column = table.typeColumn;
 		if(column!=null)
@@ -235,8 +237,8 @@ final class Statement
 
 	<E> Statement appendParameterAny(final E value)
 	{
-		@SuppressWarnings("unchecked")
-		final Marshaller<E> marshaller = marshallers.getByValue(value);
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		final Marshaller<E> marshaller = (Marshaller)marshallers.getByValue(value);
 
 		if(parameters==null)
 			text.append(marshaller.marshal(value));
@@ -335,7 +337,7 @@ final class Statement
 		if(fulltextIndex)
 			dialect.appendMatchClauseFullTextIndex(this, function, value);
 		else
-			dialect.appendMatchClauseByLike(this, function, value);
+			Dialect.appendMatchClauseByLike(this, function, value);
 	}
 
 	String getText()
@@ -354,7 +356,7 @@ final class Statement
 			final StringBuilder result = new StringBuilder();
 
 			int lastPos = 0;
-			final Iterator pi = parameters.iterator();
+			final Iterator<?> pi = parameters.iterator();
 			for(int pos = text.indexOf(QUESTION_MARK); pos>=0&&pi.hasNext(); pos = text.indexOf(QUESTION_MARK, lastPos))
 			{
 				result.append(text.substring(lastPos, pos));
@@ -407,7 +409,7 @@ final class Statement
 			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
+		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -425,9 +427,9 @@ final class Statement
 	private static class JoinType
 	{
 		final Join join;
-		final Type type;
+		final Type<?> type;
 
-		JoinType(final Join join, final Type type)
+		JoinType(final Join join, final Type<?> type)
 		{
 			this.join = join;
 			this.type = type;
@@ -446,15 +448,15 @@ final class Statement
 		return this;
 	}
 
-	void appendTypeDefinition(final Join join, final Type type, final boolean hasJoins)
+	void appendTypeDefinition(final Join join, final Type<?> type, final boolean hasJoins)
 	{
-		final Type supertype = type.supertype;
+		final Type<?> supertype = type.supertype;
 		final Table table = type.getTable();
 
 		ArrayList<Table> superTables = null;
 		if(supertype!=null)
 		{
-			for(Type iType = supertype; iType!=null; iType=iType.supertype)
+			for(Type<?> iType = supertype; iType!=null; iType=iType.supertype)
 			{
 				final Table iTable = iType.getTable();
 				if(tc.containsTable(join, iTable))
@@ -512,7 +514,7 @@ final class Statement
 		}
 	}
 
-	static final StringColumn assertTypeColumn(final StringColumn tc, final Type t)
+	static final StringColumn assertTypeColumn(final StringColumn tc, final Type<?> t)
 	{
 		if(tc==null)
 			throw new IllegalArgumentException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");

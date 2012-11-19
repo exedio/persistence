@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package com.exedio.cope.badquery;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.ItemField;
 
-public class SubContainer extends SuperContainer
+public final class SubContainer extends SuperContainer
 {
 	public static final ItemField<SuperContainer> superContainer = ItemField.create(SuperContainer.class).toFinal();
 	public static final BooleanField subflag = new BooleanField().optional().defaultTo(false);
@@ -48,7 +48,7 @@ public class SubContainer extends SuperContainer
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.badquery.SuperItem.code.map(code),
 			com.exedio.cope.badquery.SuperContainer.queryItem.map(queryItem),
 			com.exedio.cope.badquery.SuperContainer.superflag.map(superflag),

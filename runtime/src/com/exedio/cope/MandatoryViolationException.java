@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -45,7 +47,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("BC_UNCONFIRMED_CAST")
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <F extends Feature & Settable<?>> MandatoryViolationException create(final F feature, final Item item)
 	{
 		return new MandatoryViolationException(feature, feature, item);
@@ -55,7 +57,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @deprecated Use {@link #create(Feature, Item)} instead.
 	 */
 	@Deprecated
-	public MandatoryViolationException(final Feature feature, final Settable settable, final Item item)
+	public MandatoryViolationException(final Feature feature, final Settable<?> settable, final Item item)
 	{
 		super(item, null);
 		if(feature!=settable)

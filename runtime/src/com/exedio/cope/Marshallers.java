@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,35 +30,37 @@ import java.util.Locale;
 
 import com.exedio.cope.util.Day;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 final class Marshallers
 {
-	private final HashMap<Class, Marshaller> marshallers = new HashMap<Class, Marshaller>();
+	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<Class<?>, Marshaller<?>>();
 
 	Marshallers(final boolean supportsNativeDate)
 	{
-		put(SimpleSelectType.STRING, new Marshaller<String>() {
+		put(SimpleSelectType.STRING, new Marshaller<String>(1) {
 			@Override
-			public String unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			String unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				return row.getString(columnIndex.value++);
+				return row.getString(columnIndex);
 			}
 			@Override
-			public String marshal(final String value)
+			String marshal(final String value)
 			{
 				return StringColumn.cacheToDatabaseStatic(value);
 			}
 			@Override
-			public Object marshalPrepared(final String value)
+			Object marshalPrepared(final String value)
 			{
 				return value;
 			}
 		});
-		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>() {
-			@edu.umd.cs.findbugs.annotations.SuppressWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
+		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
+			@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
-			public Boolean unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				if(cell==null)
 					return null;
 
@@ -73,21 +75,21 @@ final class Marshallers
 				}
 			}
 			@Override
-			public String marshal(final Boolean value)
+			String marshal(final Boolean value)
 			{
 				return value.booleanValue() ? "1" : "0";
 			}
 			@Override
-			public Object marshalPrepared(final Boolean value)
+			Object marshalPrepared(final Boolean value)
 			{
 				return value.booleanValue() ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
-		put(SimpleSelectType.INTEGER, new Marshaller<Integer>() {
+		put(SimpleSelectType.INTEGER, new Marshaller<Integer>(1) {
 			@Override
-			public Integer unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				return
 					(cell==null)
 					? null
@@ -96,21 +98,21 @@ final class Marshallers
 						: Integer.valueOf(((Number)cell).intValue());
 			}
 			@Override
-			public String marshal(final Integer value)
+			String marshal(final Integer value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Integer value)
+			Object marshalPrepared(final Integer value)
 			{
 				return value;
 			}
 		});
-		put(SimpleSelectType.LONG, new Marshaller<Long>() {
+		put(SimpleSelectType.LONG, new Marshaller<Long>(1) {
 			@Override
-			public Long unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				return (cell!=null) ? convert(cell) : null;
 			}
 
@@ -123,21 +125,21 @@ final class Marshallers
 			}
 
 			@Override
-			public String marshal(final Long value)
+			String marshal(final Long value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Long value)
+			Object marshalPrepared(final Long value)
 			{
 				return value;
 			}
 		});
-		put(SimpleSelectType.DOUBLE, new Marshaller<Double>() {
+		put(SimpleSelectType.DOUBLE, new Marshaller<Double>(1) {
 			@Override
-			public Double unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex.value++);
+				final Object cell = row.getObject(columnIndex);
 				//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
 				return (cell!=null) ? convert(cell) : null;
 			}
@@ -151,28 +153,28 @@ final class Marshallers
 			}
 
 			@Override
-			public String marshal(final Double value)
+			String marshal(final Double value)
 			{
 				return value.toString();
 			}
 			@Override
-			public Object marshalPrepared(final Double value)
+			Object marshalPrepared(final Double value)
 			{
 				return value;
 			}
 		});
 
 		put(SimpleSelectType.DATE, supportsNativeDate
-			? new Marshaller<Date>() {
+			? new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Timestamp cell = row.getTimestamp(columnIndex.value++);
+					final Timestamp cell = row.getTimestamp(columnIndex);
 					return (cell!=null) ? new Date(cell.getTime()) : null;
 				}
 
 				@Override
-				public String marshal(final Date value)
+				String marshal(final Date value)
 				{
 					// Don't use a static instance,
 					// since then access must be synchronized
@@ -180,39 +182,39 @@ final class Marshallers
 				}
 
 				@Override
-				public Object marshalPrepared(final Date value)
+				Object marshalPrepared(final Date value)
 				{
 					return new Timestamp(value.getTime());
 				}
 			}
-			: new Marshaller<Date>() {
+			: new Marshaller<Date>(1) {
 				@Override
-				public Date unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Object cell = row.getObject(columnIndex.value++);
+					final Object cell = row.getObject(columnIndex);
 					return (cell!=null) ? new Date(((Number)cell).longValue()) : null;
 				}
 				@Override
-				public String marshal(final Date value)
+				String marshal(final Date value)
 				{
 					return String.valueOf(value.getTime());
 				}
 				@Override
-				public Object marshalPrepared(final Date value)
+				Object marshalPrepared(final Date value)
 				{
 					return value.getTime();
 				}
 			});
 
-		put(SimpleSelectType.DAY, new Marshaller<Day>() {
+		put(SimpleSelectType.DAY, new Marshaller<Day>(1) {
 			@Override
-			public Day unmarshal(final ResultSet row, final IntHolder columnIndex) throws SQLException
+			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final java.sql.Date cell = row.getDate(columnIndex.value++);
+				final java.sql.Date cell = row.getDate(columnIndex);
 				return (cell!=null) ? new Day(cell) : null;
 			}
 			@Override
-			public String marshal(final Day value)
+			String marshal(final Day value)
 			{
 				// Don't use a static instance,
 				// since then access must be synchronized
@@ -221,7 +223,7 @@ final class Marshallers
 				return "{d '"+value.getYear()+'-'+nf.format(value.getMonth())+'-'+nf.format(value.getDay())+"'}";
 			}
 			@Override
-			public Object marshalPrepared(final Day value)
+			Object marshalPrepared(final Day value)
 			{
 				return new Timestamp(value.getTimeInMillisFrom());
 			}
@@ -234,21 +236,21 @@ final class Marshallers
 			throw new RuntimeException(selectType.javaClass.getName());
 	}
 
-	Marshaller get(final Selectable select)
+	Marshaller<?> get(final Selectable<?> select)
 	{
 		final SelectType<?> valueType = select.getValueType();
 
-		if(valueType instanceof SimpleSelectType)
+		if(valueType instanceof SimpleSelectType<?>)
 			return get(valueType.getJavaClass());
-		else if(valueType instanceof Type)
-			return ((Type)valueType).getMarshaller();
-		else if(valueType instanceof EnumFieldType)
-			return ((EnumFieldType)valueType).marshaller;
+		else if(valueType instanceof Type<?>)
+			return ((Type<?>)valueType).getMarshaller();
+		else if(valueType instanceof EnumFieldType<?>)
+			return ((EnumFieldType<?>)valueType).marshaller;
 		else
 			throw new RuntimeException(valueType.toString());
 	}
 
-	Marshaller getByValue(final Object value)
+	Marshaller<?> getByValue(final Object value)
 	{
 		if(value instanceof Item)
 		{
@@ -256,8 +258,9 @@ final class Marshallers
 		}
 		else if(value instanceof Enum)
 		{
+			@SuppressWarnings("rawtypes")
 			final Enum enumValue = (Enum)value;
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({"unchecked", "rawtypes"})
 			final	Marshaller marshaller = get(enumValue);
 			return marshaller;
 		}
@@ -267,15 +270,15 @@ final class Marshallers
 		}
 	}
 
-	private <E extends Enum<E>> Marshaller<E> get(final E value)
+	private static <E extends Enum<E>> Marshaller<E> get(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).marshaller;
 	}
 
 	private <E> Marshaller<E> get(final Class<E> javaClass)
 	{
-		@SuppressWarnings("unchecked")
-		final Marshaller<E> result = marshallers.get(javaClass);
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		final Marshaller<E> result = (Marshaller)marshallers.get(javaClass);
 		if(result==null)
 			throw new NullPointerException(javaClass.getName());
 		return result;

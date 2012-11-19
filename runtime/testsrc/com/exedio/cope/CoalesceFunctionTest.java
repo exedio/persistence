@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -56,12 +56,12 @@ public class CoalesceFunctionTest extends AbstractRuntimeTest
 	static final Date aDate = new Date(1087365298214l);
 	static final Day aDay = new Day(2007, 4, 28);
 
-	private Date date(final long offset)
+	private static Date date(final long offset)
 	{
 		return new Date(aDate.getTime()+offset);
 	}
 
-	private Day day(final int offset)
+	private static Day day(final int offset)
 	{
 		return aDay.add(offset);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ public class TypeSetModelComplexTest extends CopeAssert
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);
 
-		final Model model = new Model((RevisionsFuture)null, new TypeSet[]{typeSetA, typeSetB}, type1, type2);
+		final Model model = new Model((Revisions.Factory)null, new TypeSet[]{typeSetA, typeSetB}, type1, type2);
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypes());
 		assertEqualsUnmodifiable(list(typeA1, typeA2, typeB1, type1, type2), model.getTypesSortedByHierarchy());
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ package com.exedio.cope.pattern;
  */
 public final class Range<E extends Comparable<E>>
 {
-	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
+	public static <E extends Comparable<E>> Range<E> valueOf(final E from, final E to)
 	{
 		if(from==null && to==null)
 			return all();
@@ -40,7 +40,7 @@ public final class Range<E extends Comparable<E>>
 		return all;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static final Range all = new Range(null, null, true);
 
 
@@ -48,7 +48,7 @@ public final class Range<E extends Comparable<E>>
 	private final E to;
 
 	/**
-	 * @deprecated Use {@link #newRange(Comparable, Comparable)} instead.
+	 * @deprecated Use {@link #valueOf(Comparable, Comparable)} instead.
 	 */
 	@Deprecated
 	public Range(final E from, final E to)
@@ -88,10 +88,10 @@ public final class Range<E extends Comparable<E>>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Range))
+		if(!(other instanceof Range<?>))
 			return false;
 
-		final Range o = (Range)other;
+		final Range<?> o = (Range<?>)other;
 		return equals(from, o.from) && equals(to, o.to);
 	}
 
@@ -109,5 +109,16 @@ public final class Range<E extends Comparable<E>>
 	private static int hashCode(final Object e1)
 	{
 		return e1!=null ? e1.hashCode() : 0;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #valueOf(Comparable,Comparable)} instead
+	 */
+	@Deprecated
+	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
+	{
+		return valueOf(from, to);
 	}
 }

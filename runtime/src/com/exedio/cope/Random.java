@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -77,7 +77,7 @@ public class Random implements NumberFunction<Double>
 		return type.hashCode() ^ seed;
 	}
 
-	public void toString(final StringBuilder bf, final Type defaultType)
+	public void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		if(defaultType!=type)
 			bf.append(type.id).
@@ -151,7 +151,7 @@ public class Random implements NumberFunction<Double>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<Double> values)
+	public final Condition in(final Collection<? extends Double> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

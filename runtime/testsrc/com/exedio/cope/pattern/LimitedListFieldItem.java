@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import com.exedio.cope.StringField;
 /**
  * @cope.generic.constructor package
  */
-public class LimitedListFieldItem extends Item
+public final class LimitedListFieldItem extends Item
 {
 	// explicit external source
 
@@ -51,9 +51,55 @@ public class LimitedListFieldItem extends Item
 	LimitedListFieldItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
 		super(
+			nums.getLength().map(3),
 			num1.map(initialNum1),
 			num2.map(initialNum2),
 			num3.map(initialNum3));
+	}
+
+	Date getDate0()
+	{
+		return getDate(0);
+	}
+
+	Date getDate1()
+	{
+		return getDate(1);
+	}
+
+	private Date getDate(final int i)
+	{
+		return dates.getListSources().get(i).get(this);
+	}
+
+	String getString0()
+	{
+		return getString(0);
+	}
+
+	String getString1()
+	{
+		return getString(1);
+	}
+
+	String getString2()
+	{
+		return getString(2);
+	}
+
+	String getString3()
+	{
+		return getString(3);
+	}
+
+	private String getString(final int i)
+	{
+		return strings.getListSources().get(i).get(this);
+	}
+
+	int getStringLength()
+	{
+		return strings.getLength().getMandatory(this);
 	}
 
 /**
@@ -65,7 +111,7 @@ public class LimitedListFieldItem extends Item
 	 */
 	public LimitedListFieldItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

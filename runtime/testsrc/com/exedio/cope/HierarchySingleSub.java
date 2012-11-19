@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,16 @@
 
 package com.exedio.cope;
 
-public class HierarchySingleSub extends HierarchySingleSuper
+public final class HierarchySingleSub extends HierarchySingleSuper
 {
 
-	public static final StringField subString = new StringField(StringField.EMPTY).optional();
+	public static final StringField subString = new StringField().optional();
 	public static final ItemField<HierarchySuper> hierarchySuper = ItemField.create(HierarchySuper.class).optional();
 
 
 	public HierarchySingleSub(final int initialSuperInt, final String subString)
 	{
-		super(new com.exedio.cope.SetValue[]{
+		super(new com.exedio.cope.SetValue<?>[]{
 			HierarchySingleSub.superInt.map(initialSuperInt),
 			HierarchySingleSub.subString.map(subString),
 		});
@@ -42,7 +42,7 @@ public class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	public HierarchySingleSub()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

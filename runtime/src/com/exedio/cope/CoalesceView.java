@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,8 @@
  */
 
 package com.exedio.cope;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CoalesceView<E> extends View<E>
 {
@@ -47,7 +49,7 @@ public final class CoalesceView<E> extends View<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E>[] parameters;
 	private final E literal;
 
@@ -74,7 +76,7 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append("coalesce(");
 		boolean first = true;

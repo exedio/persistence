@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,26 +33,26 @@ import com.exedio.cope.util.CharSet;
 /**
  * @cope.generic.constructor public
  */
-public class StringItem extends Item
+public final class StringItem extends Item
 {
-	public static final StringField any = new StringField(StringField.EMPTY).optional();
+	public static final StringField any = new StringField().optional().lengthMin(0);
 
-	public static final StringField mandatory = new StringField(StringField.EMPTY);
+	public static final StringField mandatory = new StringField().lengthMin(0);
 
 	public static final StringField min4 = new StringField().optional().lengthMin(4);
-	public static final StringField max4 = new StringField(StringField.EMPTY).optional().lengthMax(4);
+	public static final StringField max4 = new StringField().optional().lengthRange(0, 4);
 	public static final StringField min4Max8 = new StringField().optional().lengthRange(4, 8);
 	public static final StringField exact6 = new StringField().optional().lengthExact(6);
 
-	public static final StringField lowercase = new StringField(StringField.EMPTY).optional().charSet(new CharSet('a', 'z'));
+	public static final StringField lowercase = new StringField().optional().lengthMin(0).charSet(new CharSet('a', 'z'));
 	public static final StringField lowercaseMin4 = new StringField().optional().lengthMin(4).charSet(new CharSet('a', 'z'));
 
-	public static final StringField long1K = new StringField(StringField.EMPTY).optional().lengthMax(1000);
-	public static final StringField long1M = new StringField(StringField.EMPTY).optional().lengthMax(1000*1000);
-	public static final StringField long40M = new StringField(StringField.EMPTY).optional().lengthMax(40*1000*1000);
+	public static final StringField long1K = new StringField().optional().lengthRange(0, 1000);
+	public static final StringField long1M = new StringField().optional().lengthRange(0, 1000*1000);
+	public static final StringField long40M = new StringField().optional().lengthRange(0, 40*1000*1000);
 
-	public static final StringField oracleNoCLOB = new StringField(StringField.EMPTY).optional().lengthMax(4000/3);
-	public static final StringField oracleCLOB = new StringField(StringField.EMPTY).optional().lengthMax((4000/3)+1);
+	public static final StringField oracleNoCLOB = new StringField().optional().lengthRange(0, 4000/3);
+	public static final StringField oracleCLOB = new StringField().optional().lengthRange(0, (4000/3)+1);
 
 	public static final UppercaseView min4Upper = min4.toUpperCase();
 	public static final UppercaseView max4Upper = max4.toUpperCase();
@@ -121,7 +121,7 @@ public class StringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			StringItem.mandatory.map(mandatory),
 		});
 	}/**

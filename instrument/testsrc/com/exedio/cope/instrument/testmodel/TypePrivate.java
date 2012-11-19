@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ import com.exedio.cope.StringField;
  * @cope.type private
  * @cope.generic.constructor none
  */
-public class TypePrivate extends Item
+public final class TypePrivate extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
 
@@ -34,13 +34,13 @@ public class TypePrivate extends Item
 	 * Creates a new TypeNone and sets the given attributes initially.
 	 * This constructor is called by {@link com.exedio.cope.Type#newItem Type.newItem}.
 	 */
-	private TypePrivate(final SetValue... initialAttributes)
+	private TypePrivate(final SetValue<?>... initialAttributes)
 	{
 		super(initialAttributes);
 		// here one could do additional things
 	}
 
-	void useFeaturesToAvoidWarning()
+	static void useFeaturesToAvoidWarning()
 	{
 		System.out.println(TYPE);
 	}
@@ -55,7 +55,7 @@ public class TypePrivate extends Item
 	 */
 	public TypePrivate()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

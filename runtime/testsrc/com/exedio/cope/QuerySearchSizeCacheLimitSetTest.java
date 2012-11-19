@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQueryCacheSizeLimit();
-		final Query q = TYPE.newQuery();
+		final Query<?> q = TYPE.newQuery();
 		assertEquals(defaulT, q.getSearchSizeCacheLimit());
 
 		// limit 5

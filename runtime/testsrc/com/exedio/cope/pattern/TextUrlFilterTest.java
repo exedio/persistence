@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,9 +32,11 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	public TextUrlFilterTest()
 	{
@@ -67,7 +69,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='TextUrlFilterItem-0' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
 		}
 
 		final String url1 = item.addFertigPaste("uno");
@@ -101,6 +103,9 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 		item.setFertigRaw("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
 		assertGet("<eins><Xpaste>uno</paste><zwei><Xpaste>duo</paste><drei>");
+
+		item.setFertigRaw("<eins><paste>EXTRA</paste><zwei>");
+		assertGet("<eins><extra/><zwei>");
 
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
@@ -189,6 +194,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testFail()
 	{
 		try

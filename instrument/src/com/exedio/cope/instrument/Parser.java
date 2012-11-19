@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,8 @@ import com.exedio.cope.instrument.Lexer.EndException;
 import com.exedio.cope.instrument.Lexer.ParseException;
 import com.exedio.cope.instrument.Lexer.StringToken;
 import com.exedio.cope.instrument.Lexer.Token;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Implements a modifying java parser.
@@ -325,7 +327,7 @@ final class Parser
 		}
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("DB_DUPLICATE_SWITCH_CLAUSES") // is a bug in findbugs
+	@SuppressFBWarnings("DB_DUPLICATE_SWITCH_CLAUSES") // is a bug in findbugs
 	private JavaClass parseClass(final JavaClass parent, final int modifiers)
 		throws IOException, EndException, ParserException
 	{
@@ -553,6 +555,8 @@ final class Parser
 			return; // TODO this is a bug, should push back the token
 
 		while(!lexer.readToken().contains(')'))
-			;
+		{
+			// do nothing
+		}
 	}
 }

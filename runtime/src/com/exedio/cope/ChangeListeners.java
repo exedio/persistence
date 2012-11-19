@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,12 +26,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 final class ChangeListeners
 {
-	static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
+	static final Logger logger = Logger.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
@@ -160,7 +160,7 @@ final class ChangeListeners
 			final Throwable throwable)
 	{
 		failed++;
-		if(logger.isErrorEnabled())
+		if(logger.isEnabledFor(Level.ERROR))
 			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
 }

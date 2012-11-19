@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,23 @@ package com.exedio.cope;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-interface Marshaller<E>
+abstract class Marshaller<E>
 {
+	final int columns;
+
+	Marshaller(final int columns)
+	{
+		this.columns = columns;
+		assert columns>0;
+	}
+
 	/**
 	 * @param resultSet
 	 *        For any implementor it is strictly forbidden
 	 *        to change the position of the cursor of the result set.
 	 */
-	E unmarshal(ResultSet resultSet, IntHolder columnIndex) throws SQLException;
+	abstract E unmarshal(ResultSet resultSet, int columnIndex) throws SQLException;
 
-	String marshal(final E value);
-	Object marshalPrepared(final E value);
+	abstract String marshal(final E value);
+	abstract Object marshalPrepared(final E value);
 }

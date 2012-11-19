@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,8 @@ import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 {
@@ -290,7 +292,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		dontDeleteOnTearDown(item);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		Connection connection = null;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
@@ -42,17 +41,28 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
+	final ItemField<?> copyFrom;
+	private final CopyConstraint implicitCopyConstraint;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
-	FunctionField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	FunctionField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?> copyFrom,
+			final Class<E> valueClass,
+			final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
+		this.copyFrom = copyFrom;
 		this.implicitUniqueConstraint =
 			unique ?
 				new UniqueConstraint(this) :
 				null;
+		this.implicitCopyConstraint = (copyFrom!=null) ? new CopyConstraint(copyFrom, this) : null;
+
 		this.defaultConstant = defaultConstant;
 	}
 
@@ -104,6 +114,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 		if(unique)
 			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, null);
+		if(implicitCopyConstraint!=null)
+			implicitCopyConstraint.mount(type, name + "CopyFrom" + copyFrom.getName(), null);
 	}
 
 	final void checkValueClass(final Class<? extends Object> superClass)
@@ -135,6 +147,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public abstract FunctionField<E> unique();
 
 	public abstract FunctionField<E> nonUnique();
+	public abstract FunctionField<E> copyFrom(ItemField<?> copyFrom);
 	public abstract FunctionField<E> noDefault();
 	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
@@ -143,15 +156,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return valueClass;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(FunctionField.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class)
@@ -219,20 +226,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
-		final Column column = getColumn();
-		bf.append(column, join);
-	}
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		final Row dummyRow = new Row();
-		set(dummyRow, value);
-		final Column column = getColumn();
-		bf.appendParameter(column, dummyRow.get(column));
+		bf.append(getColumn(), join);
 	}
 
 	/**
@@ -256,6 +250,18 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
+	}
+
+	/**
+	 * Returns the copy constraint of this field,
+	 * that has been created implicitly when creating this field.
+	 * Does return null, if there is no such copy constraint.
+	 * @see StringField#copyFrom(ItemField)
+	 * @see ItemField#copyFrom(ItemField)
+	 */
+	public CopyConstraint getImplicitCopyConstraint()
+	{
+		return implicitCopyConstraint;
 	}
 
 	@Override
@@ -323,25 +329,25 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 
-	private static final class PrimitiveGetter implements BooleanGetter<FunctionField>
+	private static final class PrimitiveGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.isPrimitive();
 		}
 	}
 
-	static final class OptionalGetter implements BooleanGetter<FunctionField>
+	static final class OptionalGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return !feature.isMandatory();
 		}
 	}
 
-	static final class NonUniqueGetter implements BooleanGetter<FunctionField>
+	static final class NonUniqueGetter implements BooleanGetter<FunctionField<?>>
 	{
-		public boolean get(final FunctionField feature)
+		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.getImplicitUniqueConstraint()==null;
 		}
@@ -374,7 +380,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

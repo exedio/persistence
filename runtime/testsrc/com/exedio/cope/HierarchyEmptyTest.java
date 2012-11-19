@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -124,19 +124,19 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 	public void testModel()
 	{
 		model.checkSchema();
-		if(!postgresql)
-		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-		}
+
+		model.commit();
+
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySub.TYPE,
@@ -166,6 +166,8 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 }

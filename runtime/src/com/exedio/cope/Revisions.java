@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,9 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -40,29 +37,8 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 
-/**
- * NOTE:
- *
- * The statements listed in {@link Revision#getBody()}
- * are guaranteed to be executed subsequently
- * in the order specified by the list
- * by one single {@link java.sql.Connection connection}.
- * So you may use connection states within a revision.
- *
- * Additionally,
- * {@link Revision revisions} listed in {@link #getList()}
- * are guaranteed to be executed subsequently
- * reversely to the order specified the list,
- * each revision by a newly created {@link java.sql.Connection connection}.
- * The connection is not used for any other purpose afterwards.
- * So you cannot use connection states between revisions,
- * but you also don't have to cleanup connection state at the end of each revision.
- * This is for minimizing effects between revisions.
- */
 public final class Revisions
 {
-	static final Logger logger = LoggerFactory.getLogger(Revisions.class);
-
 	private final int number;
 	private final Revision[] revisions;
 
@@ -75,6 +51,9 @@ public final class Revisions
 		this.revisions = new Revision[0];
 	}
 
+	/**
+	 * @param revisions See {@link #getList()} for further information.
+	 */
 	public Revisions(final Revision... revisions)
 	{
 		if(revisions==null)
@@ -113,6 +92,11 @@ public final class Revisions
 		return number;
 	}
 
+	/**
+	 * {@link Revision Revisions} listed here
+	 * are guaranteed to be executed subsequently
+	 * reversely to the order specified the list.
+	 */
 	public List<Revision> getList()
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
@@ -146,7 +130,7 @@ public final class Revisions
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
-	void makeSchema(
+	static void makeSchema(
 			final Schema result,
 			final ConnectProperties properties,
 			final Dialect dialect)
@@ -157,7 +141,7 @@ public final class Revisions
 		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
-	private int getActualNumber(
+	private static int getActualNumber(
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor)
@@ -185,7 +169,7 @@ public final class Revisions
 		}
 	}
 
-	Map<Integer, byte[]> getLogs(
+	static Map<Integer, byte[]> getLogs(
 			final boolean withMutex,
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
@@ -252,13 +236,22 @@ public final class Revisions
 			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final DialectParameters dialectParameters)
+			final DialectParameters dialectParameters,
+			final boolean explicitRequest)
 	{
 		final int actualNumber = getActualNumber(properties, connectionPool, executor);
 		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
 		if(!revisionsToRun.isEmpty())
 		{
+			if ( !explicitRequest && !properties.autoReviseEnabled.booleanValue() )
+			{
+				throw new IllegalStateException(
+					"Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and " +
+					revisionsToRun.size()+" revisions pending " +
+					"(last revision in DB: "+actualNumber+"; last revision in model: "+number+")"
+				);
+			}
 			final Date date = new Date();
 			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
 			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
@@ -278,7 +271,7 @@ public final class Revisions
 				revision.execute(date, environment, connectionFactory).
 					insert(properties, connectionPool, executor);
 			}
-			mutex.delete(properties, connectionPool, executor);
+			RevisionInfoMutex.delete(properties, connectionPool, executor);
 		}
 	}
 
@@ -294,5 +287,31 @@ public final class Revisions
 				: String.valueOf(number)
 			) +
 			')';
+	}
+
+	/**
+	 * If you supply an instance of {@link Factory} to a {@link Model}
+	 * via {@link Model#Model(Revisions.Factory, Type...)} etc.
+	 * the model takes care, that {@link #create(Context)}
+	 * is called only while the model is connected and only once for each connect.
+	 */
+	public static interface Factory
+	{
+		Revisions create(Context ctx);
+
+		public static final class Context
+		{
+			private final EnvironmentInfo environment;
+
+			Context(final EnvironmentInfo environment)
+			{
+				this.environment = environment;
+			}
+
+			public EnvironmentInfo getEnvironment()
+			{
+				return environment;
+			}
+		}
 	}
 }

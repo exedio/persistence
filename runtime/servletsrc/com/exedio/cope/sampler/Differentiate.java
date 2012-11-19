@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -56,15 +56,15 @@ final class Differentiate
 	private static Query<List<Object>> makeQuery(final Type<?> type, final Date from, final Date until)
 	{
 		final Query<List<Object>> query =
-			Query.newQuery(new Selectable[]{type.getThis(), type.getThis()}, type, null);
+			Query.newQuery(new Selectable<?>[]{type.getThis(), type.getThis()}, type, null);
 		final Join join = query.join(type);
 
 		final DateField dateField = replaceByCopy(SamplerModel.date, type);
-		final ArrayList<FunctionField> byDateUnique = new ArrayList<FunctionField>();
+		final ArrayList<FunctionField<?>> byDateUnique = new ArrayList<FunctionField<?>>();
 		final IntegerField sampler = replaceByCopy(SamplerModel.sampler, type);
 		final IntegerField running = replaceByCopy(SamplerModel.running, type);
 		{
-			final ArrayList<Function> selects = new ArrayList<Function>();
+			final ArrayList<Function<?>> selects = new ArrayList<Function<?>>();
 			{
 				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
 				switch(constraints.size())
@@ -73,7 +73,7 @@ final class Differentiate
 						break;
 					case 1:
 						final UniqueConstraint constraint = constraints.get(0);
-						for(final FunctionField field : constraint.getFields())
+						for(final FunctionField<?> field : constraint.getFields())
 							if(field!=dateField)
 							{
 								selects.add(field);
@@ -89,7 +89,7 @@ final class Differentiate
 
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				if(feature instanceof NumberField &&
+				if(feature instanceof NumberField<?> &&
 					!feature.isAnnotationPresent(NoDifferentiate.class) &&
 					feature!=sampler && feature!=running &&
 					!byDateUnique.contains(feature))
@@ -99,7 +99,7 @@ final class Differentiate
 			}
 			if(selects.isEmpty())
 				throw new IllegalArgumentException(type.toString());
-			query.setSelects(selects.toArray(new Function[selects.size()]));
+			query.setSelects(selects.toArray(new Function<?>[selects.size()]));
 		}
 		{
 			final ArrayList<Condition> conditions = new ArrayList<Condition>();
@@ -133,7 +133,7 @@ final class Differentiate
 	/**
 	 * helper method for generics
 	 */
-	private static <N> CompareFunctionCondition equal(final Join j, final FunctionField<N> field)
+	private static <N> CompareFunctionCondition<N> equal(final Join j, final FunctionField<N> field)
 	{
 		return field.bind(j).equal(field);
 	}

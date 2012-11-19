@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -52,7 +52,7 @@ public class EnviromentInfoTest extends TestCase
 			assertEquals(expected, i.asProperties());
 		}
 		{
-			final HashMap<String, String> expected = new HashMap<String, String>();;
+			final HashMap<String, String> expected = new HashMap<String, String>();
 			expected.put("database.name", "getDatabaseProductName");
 			expected.put("database.version", "getDatabaseProductVersion");
 			expected.put("database.version.major", "5");

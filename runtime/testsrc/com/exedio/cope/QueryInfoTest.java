@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
-		final Query query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
+		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> infos = transaction.getQueryInfos();

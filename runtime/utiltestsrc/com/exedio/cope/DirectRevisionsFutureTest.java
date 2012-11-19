@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,19 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.DirectRevisionsFuture.make;
-
 import java.sql.SQLException;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.DirectRevisionsFuture;
 
 public class DirectRevisionsFutureTest extends CopeAssert
 {
+	@Deprecated // OK: tests deprecated API
 	public void testIt() throws SQLException
 	{
-		assertEquals(null, make(null));
+		assertEquals(null, com.exedio.cope.misc.DirectRevisionsFuture.make(null));
 
 		final Revisions r = new Revisions(0);
-		final DirectRevisionsFuture f = make(r);
+		final com.exedio.cope.misc.DirectRevisionsFuture f = com.exedio.cope.misc.DirectRevisionsFuture.make(r);
 		assertSame(r, f.get(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2))));
 
 		try

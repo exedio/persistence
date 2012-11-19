@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -94,10 +94,10 @@ public class BindFunction<E> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof BindFunction))
+		if(!(other instanceof BindFunction<?>))
 			return false;
 
-		final BindFunction o = (BindFunction)other;
+		final BindFunction<?> o = (BindFunction<?>)other;
 
 		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}
@@ -114,7 +114,7 @@ public class BindFunction<E> implements Function<E>
 		return join.getToStringAlias() + '.' + function.toString();
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(join.getToStringAlias()).
 			append('.');
@@ -148,7 +148,7 @@ public class BindFunction<E> implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

@@ -12,7 +12,7 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
 					 includeAntRuntime="@{includeAntRuntime}"
-					 source="1.5"
+					 source="1.6"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
@@ -20,9 +20,12 @@
 				<compilerarg value="-Xlint" />
 				<compilerarg value="-encoding" />
 				<compilerarg value="ascii" />
+				<compilerarg value="-Xmaxwarns" />
+				<compilerarg value="10000" />
 			</javac>
 			<copy todir="build/classes/@{srcdir}">
 				<fileset dir="@{srcdir}">
+					<include name="**/*.zip" />
 					<include name="**/*.gif" />
 					<include name="**/*.png" />
 					<include name="**/*.jpg" />

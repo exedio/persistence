@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,9 +51,10 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Schedule extends Pattern
 {
@@ -73,7 +74,7 @@ public final class Schedule extends Pattern
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(Interval.DAILY);
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
 
 	/**
@@ -153,12 +154,6 @@ public final class Schedule extends Pattern
 	public Type<Run> getRunType()
 	{
 		return runs.mount().type;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(Schedule.class, this, super.getWrappers());
 	}
 
 	@Wrap(order=10)

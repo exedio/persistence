@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> MultiplyLiteralView<E> multiply(final Function<E> multiplier1, final E multiplier2)
@@ -28,13 +30,13 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E> left;
 	private final E right;
 
 	private MultiplyLiteralView(final Function<E> left, final E right)
 	{
-		super(new Function[]{left}, "multiply", left.getValueClass());
+		super(new Function<?>[]{left}, "multiply", left.getValueClass());
 
 		if(right==null)
 			throw new NullPointerException("right");
@@ -74,7 +76,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append('(');
 		left.toString(bf, defaultType);

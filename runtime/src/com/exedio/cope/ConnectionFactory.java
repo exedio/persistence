@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,14 +24,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ConnectionFactory.class.getName());
+	private static final Logger logger = Logger.getLogger(ConnectionFactory.class);
 
 	private final String url;
 	private final Driver driver;
@@ -99,7 +100,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			if(logger.isWarnEnabled())
+			if(logger.isEnabledFor(Level.WARN))
 				logger.warn( "invalid on get", ex );
 			return false;
 		}

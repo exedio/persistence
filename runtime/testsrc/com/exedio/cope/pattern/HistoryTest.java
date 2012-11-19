@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -173,14 +173,14 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
 
-		final List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
+		final List<PartOf<?>> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
 		assertEquals(1, historyPartOfs.size());
-		final PartOf eventPartOf = historyPartOfs.get(0);
+		final PartOf<?> eventPartOf = historyPartOfs.get(0);
 		assertSame(eventType, eventPartOf.getType());
 		assertEquals(list(eventPartOf), PartOf.getPartOfs(HistoryItem.audit));
-		final List<PartOf> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
+		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
 		assertEquals(1, eventPartOfs.size());
-		final PartOf featurePartOf = eventPartOfs.get(0);
+		final PartOf<?> featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ public @interface Wrap
 	int order();
 
 	String name() default "";
-	Class<? extends StringGetter> nameGetter() default StringGetterDefault.class;
+	Class<? extends StringGetter<?>> nameGetter() default StringGetterDefault.class;
 
 	public @interface Thrown
 	{
@@ -39,10 +39,10 @@ public @interface Wrap
 		String[] doc() default {};
 	}
 	Thrown[] thrown() default {};
-	Class<? extends ThrownGetter> thrownGetter() default ThrownGetterDefault.class;
+	Class<? extends ThrownGetter<?>> thrownGetter() default ThrownGetterDefault.class;
 
 	String[] doc() default {};
 	String[] docReturn() default {};
 
-	Class<? extends BooleanGetter>[] hide() default {};
+	Class<? extends BooleanGetter<?>>[] hide() default {};
 }

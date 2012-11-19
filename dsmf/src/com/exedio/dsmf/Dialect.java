@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -103,7 +103,7 @@ public abstract class Dialect
 			});
 	}
 
-	protected final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(
 			sql,
@@ -157,7 +157,7 @@ public abstract class Dialect
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	private static final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("alter table ").
 			append(tableName).

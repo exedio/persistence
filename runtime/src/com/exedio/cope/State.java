@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ import java.util.Map;
 abstract class State
 {
 	final Item item;
-	final Type type;
+	final Type<?> type;
 	final int pk;
 	final int updateCount;
 
@@ -37,7 +37,7 @@ abstract class State
 		assert PK.isValid(pk) : pk;
 	}
 
-	abstract Object get(FunctionField field);
+	abstract Object get(FunctionField<?> field);
 
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,6 +25,8 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 {
@@ -71,10 +73,11 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
-		restartTransaction();
+		final String transactionName = model.currentTransaction().getName();
+		model.commit();
 		Connection connection = null;
 		try
 		{
@@ -95,6 +98,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 			if(connection!=null)
 				connection.close();
 		}
+		model.startTransaction(transactionName);
 	}
 
 	private String q(final String s)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,14 @@
 
 package com.exedio.cope.sampler;
 
-import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
-import com.exedio.cope.RevisionsFuture;
 
-final class SamplerRevisions implements RevisionsFuture
+final class SamplerRevisions implements Revisions.Factory
 {
-	public Revisions get(final EnvironmentInfo environment)
+	public Revisions create(final Context ctx)
 	{
-		final String db = environment.getDatabaseProductName();
+		final String db = ctx.getEnvironment().getDatabaseProductName();
 
 		if("mysql".equalsIgnoreCase(db))
 			return getMysql();
@@ -35,9 +33,13 @@ final class SamplerRevisions implements RevisionsFuture
 			return getOthers();
 	}
 
-	private Revisions getMysql()
+	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(5, "more length for SamplerTransaction#name",
+				"alter table `SamplerTransaction` modify `name` text character set utf8 collate utf8_bin"),
+			new Revision(4, "bugfix: SamplerTransaction#date must not be unique",
+				"alter table `SamplerTransaction` drop index `SamplerTransacti_date_Unq`"),
 			new Revision(3, "sample transactions",
 				"create table `SamplerTransaction`(" +
 					"`this` int," +
@@ -108,7 +110,7 @@ final class SamplerRevisions implements RevisionsFuture
 		);
 	}
 
-	private Revisions getOthers()
+	private static Revisions getOthers()
 	{
 		return new Revisions(0);
 	}

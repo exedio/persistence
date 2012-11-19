@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class TrimmerTest extends TestCase
 {
-	private void assertTrim(final String expected, final String actualLongString, final int maxLength)
+	private static void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{
 		final String actual = new Trimmer(maxLength).trimString(actualLongString);
 		assertEquals(">"+expected+"< >"+actual+"<", expected, actual);

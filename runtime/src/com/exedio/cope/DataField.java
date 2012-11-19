@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,13 +27,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.util.List;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -82,7 +84,7 @@ public final class DataField extends Field<DataField.Value>
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private BlobColumn column;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
@@ -90,7 +92,7 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final Type type = getType();
+		final Type<?> type = getType();
 		this.model = type.getModel();
 		final ConnectProperties properties = model.getConnectProperties();
 		column = new BlobColumn(table, name, optional, maximumLength);
@@ -120,15 +122,9 @@ public final class DataField extends Field<DataField.Value>
 
 	@Override
 	@Deprecated
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(DataField.class, this, super.getWrappers());
 	}
 
 	/**
@@ -355,17 +351,25 @@ public final class DataField extends Field<DataField.Value>
 		return file!=null ? new FileValue(file) : null;
 	}
 
-	public SetValue map(final byte[] array)
+	/**
+	 * Returns null, if <code>file</code> is null.
+	 */
+	public static Value toValue(final ZipFile file, final ZipEntry entry)
+	{
+		return file!=null ? new ZipValue(file, entry) : null;
+	}
+
+	public SetValue<?> map(final byte[] array)
 	{
 		return map(toValue(array));
 	}
 
-	public SetValue map(final InputStream stream)
+	public SetValue<?> map(final InputStream stream)
 	{
 		return map(toValue(stream));
 	}
 
-	public SetValue map(final File file)
+	public SetValue<?> map(final File file)
 	{
 		return map(toValue(file));
 	}
@@ -511,7 +515,7 @@ public final class DataField extends Field<DataField.Value>
 			return array;
 		}
 
-		@edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
+		@SuppressFBWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
 		public byte[] asArray()
 		{
 			return array;
@@ -631,6 +635,42 @@ public final class DataField extends Field<DataField.Value>
 		public String toString()
 		{
 			return "DataField.Value:" + file.toString();
+		}
+	}
+
+	final static class ZipValue extends AbstractStreamValue
+	{
+		private final ZipFile file;
+		private final ZipEntry entry;
+
+		ZipValue(final ZipFile file, final ZipEntry entry)
+		{
+			this.file = file;
+			this.entry = entry;
+
+			assert file!=null;
+			assert entry!=null;
+		}
+
+		@Override
+		long estimateLength()
+		{
+			// NOTICE
+			// The following code is needed to avoid the zip bomb,
+			// see http://en.wikipedia.org/wiki/Zip_bomb
+			return entry.getSize();
+		}
+
+		@Override
+		InputStream openStream() throws IOException
+		{
+			return file.getInputStream(entry);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "DataField.Value:" + file.toString() + '#' + entry.getName();
 		}
 	}
 

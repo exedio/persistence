@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,16 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * @cope.generic.constructor package
  */
-class CreateItem extends CreateSuperItem
+final class CreateItem extends CreateSuperItem
 {
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
+	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("unused")
-	private static final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+	private static final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		assertEquals(1, setValues.length);
 		assertSame(text, setValues[0].settable);
@@ -62,7 +63,7 @@ class CreateItem extends CreateSuperItem
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.CreateSuperItem.text.map(text),
 		});
 	}/**

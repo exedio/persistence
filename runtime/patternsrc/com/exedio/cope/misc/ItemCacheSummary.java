@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -204,6 +204,7 @@ public final class ItemCacheSummary
 	 * @return Always returns 0.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getInvalidationBucketHits()
 	{
 		return 0l;

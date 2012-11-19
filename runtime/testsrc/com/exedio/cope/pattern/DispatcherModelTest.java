@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -58,9 +58,9 @@ public class DispatcherModelTest extends CopeAssert
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
 
-		final List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
+		final List<PartOf<?>> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
 		assertEquals(1, partOfs.size());
-		final PartOf partOf = partOfs.get(0);
+		final PartOf<?> partOf = partOfs.get(0);
 		assertSame(runType, partOf.getType());
 		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
 		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());

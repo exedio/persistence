@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.MessageFormat;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -27,13 +30,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * A servlet providing access to the contents of {@link MediaPath}
@@ -62,11 +68,11 @@ import com.exedio.cope.misc.ServletUtil;
  */
 public class MediaServlet extends HttpServlet
 {
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MediaServlet.class.getName());
+	private static final Logger logger = Logger.getLogger(MediaServlet.class);
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
+	@SuppressFBWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();
@@ -78,16 +84,19 @@ public class MediaServlet extends HttpServlet
 
 		connectToken = ServletUtil.getConnectedModel(this);
 
-		boolean mustDestroy = true;
+		boolean mustReturn = true;
 		try
 		{
 			initConnected();
-			mustDestroy = false;
+			mustReturn = false;
 		}
 		finally
 		{
-			if(mustDestroy)
-				destroy();
+			if(mustReturn)
+			{
+				connectToken.returnIt();
+				connectToken = null;
+			}
 		}
 		// DO NOT WRITE ANYTHING HERE, BUT IN initConnected ONLY
 		// OTHERWISE ConnectTokens MAY BE LOST
@@ -96,7 +105,7 @@ public class MediaServlet extends HttpServlet
 	private void initConnected()
 	{
 		final Model model = connectToken.getModel();
-		model.reviseIfSupported();
+		model.reviseIfSupportedAndAutoEnabled();
 		for(final Type<?> type : model.getTypes())
 		{
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -165,8 +174,11 @@ public class MediaServlet extends HttpServlet
 	@Override
 	public final void destroy()
 	{
-		connectToken.returnIt();
-		connectToken = null;
+		if(connectToken!=null)
+		{
+			connectToken.returnIt();
+			connectToken = null;
+		}
 		pathes.clear();
 		pathesRedirectFrom.clear();
 		super.destroy();
@@ -185,7 +197,7 @@ public class MediaServlet extends HttpServlet
 		// TODO make 500 error page without stack trace
 	}
 
-	private void serveError(
+	private static void serveError(
 			final HttpServletResponse response,
 			final Media.Log log)
 		throws IOException
@@ -195,11 +207,12 @@ public class MediaServlet extends HttpServlet
 
 		response.setStatus(log.responseStatus);
 		response.setContentType("text/html");
+		response.setCharacterEncoding("us-ascii");
 
 		PrintStream out = null;
 		try
 		{
-			out = new PrintStream(response.getOutputStream());
+			out = new PrintStream(response.getOutputStream(), false, "us-ascii");
 
 			switch(log.responseStatus)
 			{
@@ -207,6 +220,7 @@ public class MediaServlet extends HttpServlet
 					out.print("<html>\n" +
 							"<head>\n" +
 							"<title>Internal Server Error</title>\n" +
+							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
 							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 							"</head>\n" +
 							"<body>\n" +
@@ -220,6 +234,7 @@ public class MediaServlet extends HttpServlet
 					out.print("<html>\n" +
 							"<head>\n" +
 							"<title>Not Found</title>\n" +
+							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
 							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 							"</head>\n" +
 							"<body>\n" +
@@ -282,7 +297,7 @@ public class MediaServlet extends HttpServlet
 					append(pathInfo.substring(slash2));
 				//System.out.println("location="+location);
 
-				response.setStatus(response.SC_MOVED_PERMANENTLY);
+				response.setStatus(SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
 
 				return alt.redirectFrom;
@@ -307,13 +322,13 @@ public class MediaServlet extends HttpServlet
 			final HttpServletRequest request,
 			final Exception exception)
 	{
-		if(logger.isErrorEnabled())
-			logger.error("Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}", new Object[]{
+		if(logger.isEnabledFor(Level.ERROR))
+			logger.error( MessageFormat.format( "Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}",
 					request.getPathInfo(),
 					request.getQueryString(),
 					request.getHeader("Host"),
 					request.getHeader("Referer"),
-					request.getHeader("User-Agent") },
+					request.getHeader("User-Agent") ),
 				exception );
 	}
 }

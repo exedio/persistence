@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class FinalSubItem extends FinalSuperItem
+public final class FinalSubItem extends FinalSuperItem
 {
 	public static final IntegerField subInt = new IntegerField().toFinal();
 
@@ -35,7 +35,7 @@ public class FinalSubItem extends FinalSuperItem
 				final int superInt,
 				final int subInt)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.FinalSuperItem.superInt.map(superInt),
 			FinalSubItem.subInt.map(subInt),
 		});

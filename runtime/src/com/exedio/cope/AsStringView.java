@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class AsStringView extends StringView
 {
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final NumberFunction source;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final NumberFunction<?> source;
 
 	/**
 	 * Creates a new LengthView.
@@ -31,9 +33,9 @@ public final class AsStringView extends StringView
 	 * you may want to use the more convenient wrapper method
 	 * {@link NumberFunction#asString()}.
 	 */
-	public AsStringView(final NumberFunction source)
+	public AsStringView(final NumberFunction<?> source)
 	{
-		super(new NumberFunction[]{source}, "asString");
+		super(new NumberFunction<?>[]{source}, "asString");
 		this.source = source;
 	}
 

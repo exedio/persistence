@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(CompositeMountTest.class);
+		suite.addTestSuite(CompositeFieldComputedTest.class);
 		suite.addTestSuite(DispatcherConfigTest.class);
 		suite.addTestSuite(JavaViewGetterMissingTest.class);
 		suite.addTestSuite(JavaViewInPatternTest.class);
@@ -39,6 +40,8 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MediaSummaryTest.class);
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(PasswordRecoveryConfigTest.class);
+		suite.addTestSuite(PriceTest.class);
+		suite.addTestSuite(PriceProportionatelyTest.class);
 		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
 		return suite;
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,30 +22,30 @@ final class RevisionsConnect
 {
 	static RevisionsConnect wrap(
 			final EnvironmentInfo environment,
-			final RevisionsFuture future)
+			final Revisions.Factory factory)
 	{
 		return
-			future!=null
-			? new RevisionsConnect(environment, future)
+			factory!=null
+			? new RevisionsConnect(environment, factory)
 			: null;
 	}
 
 
 	private final EnvironmentInfo environment;
-	private final RevisionsFuture future;
+	private final Revisions.Factory factory;
 
 	private Revisions value = null;
 	private final Object valueLock = new Object();
 
 	private RevisionsConnect(
 			final EnvironmentInfo environment,
-			final RevisionsFuture future)
+			final Revisions.Factory factory)
 	{
 		this.environment = environment;
-		this.future = future;
+		this.factory = factory;
 
 		assert environment!=null;
-		assert future!=null;
+		assert factory!=null;
 	}
 
 	Revisions get()
@@ -53,7 +53,7 @@ final class RevisionsConnect
 		synchronized(valueLock)
 		{
 			if(value==null)
-				value = future.get(environment);
+				value = factory.create(new Revisions.Factory.Context(environment));
 
 			return value;
 		}

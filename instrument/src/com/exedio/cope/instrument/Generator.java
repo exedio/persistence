@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,12 @@ package com.exedio.cope.instrument;
 
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PROTECTED;
-import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -46,6 +45,7 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
+	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -99,6 +99,7 @@ final class Generator
 	private final boolean activationConstructorOnBottom;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
+	private final boolean genericSetValueArray;
 
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
@@ -120,6 +121,7 @@ final class Generator
 		this.activationConstructorOnBottom = params.activationConstructorOnBottom;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
+		this.genericSetValueArray = params.genericSetValueArray;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -146,7 +148,7 @@ final class Generator
 		{
 			write("\t\t\tthrows");
 			final CharSeparator comma = new CharSeparator(',');
-			for(final Class e : exceptions)
+			for(final Class<? extends Throwable> e : exceptions)
 			{
 				comma.appendTo(output);
 				write(lineSeparator);
@@ -263,7 +265,10 @@ final class Generator
 		writeThrowsClause(constructorExceptions);
 		write("\t{");
 		write(lineSeparator);
-		write("\t\tthis(new " + SET_VALUE + "[]{");
+		write("\t\tthis(new " + SET_VALUE);
+		if(genericSetValueArray)
+			write("<?>");
+		write("[]{");
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
@@ -298,7 +303,7 @@ final class Generator
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
 		write('\t');
-		writeModifier(option.getModifier(type.allowSubtypes() ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(type.getSubtypeModifier()));
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
@@ -328,11 +333,10 @@ final class Generator
 		write(lineSeparator);
 		writeCommentFooter();
 
-		final boolean allowSubtypes = type.allowSubtypes();
 		write('\t');
-		if(suppressUnusedWarningOnPrivateActivationConstructor && !allowSubtypes)
+		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
-		writeModifier(option.getModifier(allowSubtypes ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(type.getSubtypeModifier()));
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
@@ -359,25 +363,19 @@ final class Generator
 	throws ParserException
 	{
 		final Feature instance = feature.getInstance();
-		for(final Wrapper wrapper : instance.getWrappers())
+		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
-			final Option option =
-				modifierTag!=null
-				? new Option(Tags.getLine(
-									feature.docComment,
-									CopeFeature.TAG_PREFIX + modifierTag),
-						true)
-				: null;
+			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
 
-			if(option!=null && !option.exists)
+			if(!option.exists)
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
-			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
+			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
@@ -393,7 +391,7 @@ final class Generator
 				writeCommentHeader();
 				writeCommentParagraph("", " ", wrapper.getCommentArray(), arguments);
 
-				for(final Wrapper.Parameter parameter : wrapper.getParameters())
+				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
 					writeCommentParagraph(
 							"@param " + format(parameter.getName(), arguments),
@@ -434,17 +432,17 @@ final class Generator
 			}
 
 			write('\t');
-			writeModifier(
-				(
-					option!=null
-					? option.getModifier(modifier)
-					: ((modifier & (PUBLIC|PROTECTED|PRIVATE)) | FINAL)
-				)
-				|
-				(isStatic ? STATIC : 0)
-			);
+
+			if(option.override)
+			{
+				write('@');
+				write(OVERRIDE);
+				write(' ');
+			}
+
+			writeModifier(option.getModifier(modifier) | (isStatic ? STATIC : 0));
 			write(ctx.write(methodReturnType));
-			if(option!=null && useIs && option.booleanAsIs)
+			if(useIs && option.booleanAsIs)
 			{
 				write(" is");
 				write(featureNameCamelCase);
@@ -473,18 +471,17 @@ final class Generator
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
-			if(option!=null)
-				write(option.suffix);
+			write(option.suffix);
 			write('(');
 			{
 				final CharSeparator comma = new CharSeparator(',');
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					comma.appendTo(output);
 					write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
-						write(((Class)parameter.getType()).getComponentType().getCanonicalName());
+						write(((Class<?>)parameter.getType()).getComponentType().getCanonicalName());
 						write("...");
 					}
 					else
@@ -511,7 +508,7 @@ final class Generator
 				write(feature.parent.name);
 				write('.');
 				write(feature.name);
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
 					write(format(parameter.getName(), arguments));
@@ -543,7 +540,7 @@ final class Generator
 					comma.appendTo(output);
 					write("this");
 				}
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					comma.appendTo(output);
 					write(format(parameter.getName(), arguments));
@@ -555,6 +552,21 @@ final class Generator
 			write(lineSeparator);
 			write("\t}");
 		}
+	}
+
+	private List<WrapperX> getWrappers(final Feature feature)
+	{
+		return getWrappers(feature.getClass(), feature);
+	}
+
+	private List<WrapperX> getWrappers(final Class<? extends Feature> clazz, final Feature feature)
+	{
+		return WrapperByAnnotations.make(
+				clazz,
+				feature,
+				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
+				? getWrappers(clazz.getSuperclass().asSubclass(Feature.class), feature)
+				: Collections.<WrapperX>emptyList());
 	}
 
 	private void writeName(final String methodName, final String featureName)
@@ -687,7 +699,7 @@ final class Generator
 	}
 
 	@SuppressWarnings("deprecation")
-	private String getBoxedType(final CopeAttribute a)
+	private static String getBoxedType(final CopeAttribute a)
 	{
 		return a.getBoxedType();
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -63,12 +63,12 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -104,6 +104,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -129,6 +130,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -159,6 +161,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -189,6 +192,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

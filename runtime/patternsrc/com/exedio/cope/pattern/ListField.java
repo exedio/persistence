@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,8 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -43,7 +44,7 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private ListField(final FunctionField<E> element)
@@ -140,12 +141,6 @@ public final class ListField<E> extends AbstractListField<E>
 	public Type<? extends Item> getRelationType()
 	{
 		return mount().relationType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(ListField.class, this, super.getWrappers());
 	}
 
 	/**

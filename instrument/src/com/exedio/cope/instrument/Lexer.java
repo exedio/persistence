@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,8 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Implements a modifying java parser.
@@ -177,7 +179,7 @@ final class Lexer
 	 * If not, there is no comment,
 	 * and this next character is returned, casted to int.
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
+	@SuppressFBWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
 	private int readComment() throws EndException
 	{
 		char x;
@@ -193,14 +195,20 @@ final class Lexer
 					if (read() != '*')
 						continue;
 					char c;
-					while ((c = read()) == '*');
+					while ((c = read()) == '*')
+					{
+						// do nothing
+					}
 					if (c == '/')
 						break;
 				}
 				break;
 			case '/' :
 				// this is a '//' comment
-				do;
+				do
+				{
+					// do nothing
+				}
 				while (read() != '\n');
 				break;
 			default :
@@ -441,7 +449,7 @@ final class Lexer
 		return new ParseException(message, input, inputPosition);
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	final class ParseException extends ParserException
 	{
 		private static final long serialVersionUID = 1l;

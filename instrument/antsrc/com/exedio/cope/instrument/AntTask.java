@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -77,6 +77,11 @@ public final class AntTask extends Task
 	public void setSerialVersionUID(final boolean value)
 	{
 		params.serialVersionUID = value;
+	}
+
+	public void setGenericSetValueArray(final boolean value)
+	{
+		params.genericSetValueArray = value;
 	}
 
 	public void setVerbose(final boolean value)

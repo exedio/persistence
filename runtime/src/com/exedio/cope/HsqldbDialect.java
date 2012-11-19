@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,8 @@ import java.sql.SQLException;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class HsqldbDialect extends Dialect
 {
@@ -84,7 +86,7 @@ final class HsqldbDialect extends Dialect
 		return "timestamp";
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
 	{
@@ -117,9 +119,8 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		super.appendOrderBy(bf, function, ascending);
 		if(ascending)
 		{
 			if(!nullsAreSortedLow)
@@ -159,7 +160,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").
 			append(source, join).

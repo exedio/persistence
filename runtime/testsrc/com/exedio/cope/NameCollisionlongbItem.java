@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 @CopeSchemaName("NameCollisionlongBItem")
 @CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem")
-class NameCollisionlongbItem extends Item
+final class NameCollisionlongbItem extends Item
 {
 
 	static final StringField code = new StringField().unique();
@@ -43,7 +43,7 @@ class NameCollisionlongbItem extends Item
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			NameCollisionlongbItem.code.map(code),
 		});
 	}/**

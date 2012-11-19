@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,19 @@ package com.exedio.cope.misc;
 
 import java.text.MessageFormat;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public final class TimeUtil
 {
-	static final Logger logger = LoggerFactory.getLogger(TimeUtil.class.getName());
+	private static final Logger logger = Logger.getLogger(TimeUtil.class);
 
 	/**
 	 *	Never returns a negative value.
 	 */
 	public static long toMillies(final long endNanos, final long startNanos)
 	{
-		if ( logger.isErrorEnabled() && endNanos<startNanos )
+		if ( logger.isEnabledFor(Level.ERROR) && endNanos<startNanos )
 			logger.error(MessageFormat.format( "backwards nanos {0} {1}" , startNanos, endNanos ));
 
 		final long diff = endNanos - startNanos;

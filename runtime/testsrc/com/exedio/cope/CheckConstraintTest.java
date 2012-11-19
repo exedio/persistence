@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -128,6 +128,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 
 		assertSerializedSame(alphaLessBeta, 393);
 
+		model.commit();
 		// test schema
 		if(!postgresql)
 		{
@@ -148,6 +149,7 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 
 			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
 		}
+		model.startTransaction();
 	}
 
 	private final String q(final IntegerField f)

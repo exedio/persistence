@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,12 +21,12 @@ package com.exedio.cope;
 import java.util.Date;
 import java.util.Map;
 
-import com.exedio.cope.misc.DirectRevisionsFuture;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 
 public class DeleteSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(
-			DirectRevisionsFuture.make(new Revisions(5)),
+			DirectRevisionsFactory.make(new Revisions(5)),
 			DeleteSchemaItem.TYPE);
 
 	public DeleteSchemaTest()
@@ -58,12 +58,12 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
+	private static final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
 	{
 		assertCreate(date, date, logs, revision);
 	}
 
-	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
+	private static final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
@@ -90,7 +89,7 @@ public final class PasswordRecovery extends Pattern
 		return parent.as(parentClass);
 	}
 
-	public PartOf getTokens()
+	public PartOf<?> getTokens()
 	{
 		return tokens;
 	}
@@ -108,12 +107,6 @@ public final class PasswordRecovery extends Pattern
 	public Type<Token> getTokenType()
 	{
 		return tokenType;
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(PasswordRecovery.class, this, super.getWrappers());
 	}
 
 	/**
@@ -171,7 +164,7 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
+			final String newPassword = password.newRandomPassword(random);
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();
@@ -270,7 +263,7 @@ public final class PasswordRecovery extends Pattern
 	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final com.exedio.cope.util.Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
 	}

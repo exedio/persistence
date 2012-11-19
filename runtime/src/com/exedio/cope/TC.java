@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,12 +24,12 @@ import java.util.HashSet;
 
 final class TC
 {
-	private final Query query;
-	private final HashSet<Type> queryTypes = new HashSet<Type>();
-	private final HashMap<Type, Join> distinctThisTypes = new HashMap<Type, Join>();
-	private HashSet<Type> ambiguousThisTypes = null;
-	private final HashMap<Type, Join> distinctAllTypes = new HashMap<Type, Join>();
-	private HashSet<Type> ambiguousAllTypes = null;
+	private final Query<?> query;
+	private final HashSet<Type<?>> queryTypes = new HashSet<Type<?>>();
+	private final HashMap<Type<?>, Join> distinctThisTypes = new HashMap<Type<?>, Join>();
+	private HashSet<Type<?>> ambiguousThisTypes = null;
+	private final HashMap<Type<?>, Join> distinctAllTypes = new HashMap<Type<?>, Join>();
+	private HashSet<Type<?>> ambiguousAllTypes = null;
 	private boolean frozen = false;
 	private final HashMap<Join, HashSet<Table>> tables = new HashMap<Join, HashSet<Table>>();
 
@@ -37,7 +37,7 @@ final class TC
 	{
 		this.query = query;
 
-		for(Type t = query.type; t!=null; t=t.supertype)
+		for(Type<?> t = query.type; t!=null; t=t.supertype)
 			queryTypes.add(t);
 
 		putType(query.type, null);
@@ -50,12 +50,12 @@ final class TC
 		frozen = true;
 	}
 
-	private void putType(final Type type, final Join join)
+	private void putType(final Type<?> type, final Join join)
 	{
 		assert !frozen;
 
 		boolean isThis = true;
-		for(Type t = type; t!=null; t=t.supertype)
+		for(Type<?> t = type; t!=null; t=t.supertype)
 		{
 			ambiguousAllTypes = putType(t, join, distinctAllTypes, ambiguousAllTypes);
 
@@ -69,7 +69,7 @@ final class TC
 		tables.put(join, new HashSet<Table>());
 	}
 
-	private static HashSet<Type> putType(final Type type, final Join join, final HashMap<Type, Join> distinctTypes, HashSet<Type> ambiguousTypes)
+	private static HashSet<Type<?>> putType(final Type<?> type, final Join join, final HashMap<Type<?>, Join> distinctTypes, HashSet<Type<?>> ambiguousTypes)
 	{
 		if(ambiguousTypes!=null && ambiguousTypes.contains(type))
 			return ambiguousTypes;
@@ -78,7 +78,7 @@ final class TC
 		{
 			distinctTypes.remove(type);
 			if(ambiguousTypes==null)
-				ambiguousTypes = new HashSet<Type>();
+				ambiguousTypes = new HashSet<Type<?>>();
 			ambiguousTypes.add(type);
 		}
 		else
@@ -87,21 +87,21 @@ final class TC
 		return ambiguousTypes;
 	}
 
-	void check(final FunctionField select, final Join join)
+	void check(final FunctionField<?> select, final Join join)
 	{
 		check(select, join, distinctAllTypes, ambiguousAllTypes);
 	}
 
-	void check(final This select, final Join join)
+	void check(final This<?> select, final Join join)
 	{
 		check(select, join, distinctThisTypes, ambiguousThisTypes);
 	}
 
-	private void check(final Selectable select, final Join join, final HashMap<Type, Join> distinctTypes, final HashSet<Type> ambiguousTypes)
+	private void check(final Selectable<?> select, final Join join, final HashMap<Type<?>, Join> distinctTypes, final HashSet<Type<?>> ambiguousTypes)
 	{
 		assert frozen;
 
-		final Type selectType = select.getType();
+		final Type<?> selectType = select.getType();
 
 		if(join==null)
 		{
@@ -140,13 +140,13 @@ final class TC
 		throw new IllegalArgumentException(select.toString() + " does not belong to a type of the query: " + query.toString());
 	}
 
-	private void register(final Selectable select, final Join join)
+	private void register(final Selectable<?> select, final Join join)
 	{
 		final Table table;
-		if(select instanceof FunctionField)
-			table = ((FunctionField)select).getColumn().table;
-		else if(select instanceof This)
-			table = ((This)select).getType().getTable();
+		if(select instanceof FunctionField<?>)
+			table = ((FunctionField<?>)select).getColumn().table;
+		else if(select instanceof This<?>)
+			table = ((This<?>)select).getType().getTable();
 		else
 			throw new RuntimeException(select.toString());
 

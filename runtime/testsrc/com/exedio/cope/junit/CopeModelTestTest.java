@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope.junit;
 
-import static com.exedio.cope.junit.JUnitTestItem.sequence;
+import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
 import java.util.Collection;
 import java.util.List;
@@ -59,10 +59,10 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
 
-		assertEquals(2000, sequence.next());
-		assertEquals(2001, sequence.next());
-		assertEquals(2002, sequence.next());
-		assertEquals(2003, sequence.next());
+		assertEquals(2000, nextSequence());
+		assertEquals(2001, nextSequence());
+		assertEquals(2002, nextSequence());
+		assertEquals(2003, nextSequence());
 	}
 
 	public void testFlushSequences()
@@ -72,7 +72,7 @@ public class CopeModelTestTest extends CopeModelTest
 		final JUnitTestItem i1 = new JUnitTestItem(200);
 		assertEquals("JUnitTestItem-0", i1.getCopeID());
 		assertEquals(1000, i1.getNext());
-		assertEquals(2000, sequence.next());
+		assertEquals(2000, nextSequence());
 	}
 
 	public void testNoTransaction()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Wrap;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class Sequence extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
 	private final int start;
 	private final int end;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX sequenceX;
 
 	public Sequence(final int start)
@@ -58,6 +62,10 @@ public final class Sequence extends Feature
 	 * The result of this method is not managed by a {@link Transaction},
 	 * and you don't need one for calling this method.
 	 */
+	@Wrap(
+			order=10,
+			doc={"Generates a new sequence number.",
+					"The result is not managed by a '{@link com.exedio.cope.Transaction}'."})
 	public int next()
 	{
 		return sequenceX.next();
@@ -70,7 +78,7 @@ public final class Sequence extends Feature
 
 	void connect(final Database database)
 	{
-		sequenceX.connectCluster(database, database.makeName(getType().getID() + '_' + getName()));
+		sequenceX.connectCluster(database, database.makeName(getType().schemaId + '_' + getSchemaName()));
 		database.addSequence(sequenceX);
 	}
 

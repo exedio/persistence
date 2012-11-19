@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -175,13 +175,13 @@ final class ItemCache
 
 	private static final class Cachlet
 	{
-		private final Type type;
+		private final Type<?> type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
 		private final TIntLongHashMap invalidateLastNanos;
 
-		private volatile long hits = 0;
-		private volatile long misses = 0;
+		private final VolatileLong hits = new VolatileLong();
+		private final VolatileLong misses = new VolatileLong();
 		private long concurrentLoads = 0;
 		private int replacementRuns = 0;
 		private int replacements = 0;
@@ -191,7 +191,7 @@ final class ItemCache
 		private long invalidateLastHits = 0;
 		private long invalidateLastPurged = 0;
 
-		Cachlet(final Type type, final int limit, final boolean invalidateLast)
+		Cachlet(final Type<?> type, final int limit, final boolean invalidateLast)
 		{
 			assert !type.isAbstract;
 			assert limit>0;
@@ -213,10 +213,10 @@ final class ItemCache
 			if(result!=null)
 			{
 				result.notifyUsed();
-				hits++;
+				hits.inc();
 			}
 			else
-				misses++;
+				misses.inc();
 
 			return result;
 		}
@@ -400,7 +400,7 @@ final class ItemCache
 			return new ItemCacheInfo(
 				type,
 				limit, level,
-				hits, misses,
+				hits.get(), misses.get(),
 				concurrentLoads,
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,

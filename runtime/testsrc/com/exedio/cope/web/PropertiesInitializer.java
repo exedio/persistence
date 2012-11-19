@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,12 +26,12 @@ import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.misc.ServletUtil.getConnectProperties;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.exedio.cope.CacheIsolationTest;
-import com.exedio.cope.CopyTest;
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.CopyModelTest;
 import com.exedio.cope.DataTest;
 import com.exedio.cope.DayFieldTest;
 import com.exedio.cope.DefaultToTest;
@@ -46,7 +46,7 @@ import com.exedio.cope.NameTest;
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.pattern.DispatcherModelTest;
 import com.exedio.cope.pattern.HashTest;
-import com.exedio.cope.pattern.LimitedListFieldTest;
+import com.exedio.cope.pattern.LimitedListFieldModelTest;
 import com.exedio.cope.pattern.ListFieldTest;
 import com.exedio.cope.pattern.MD5Test;
 import com.exedio.cope.sampler.Stuff;
@@ -56,7 +56,7 @@ import com.exedio.cope.sampler.Stuff;
  */
 public final class PropertiesInitializer implements ServletContextListener
 {
-	private Model[] models()
+	private static final Model[] models()
 	{
 		return new Model[]{
 				IntegerModelTest.MODEL,
@@ -66,7 +66,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				HashTest.MODEL,
 				MD5Test.MODEL,
 				ListFieldTest.MODEL,
-				LimitedListFieldTest.MODEL,
+				LimitedListFieldModelTest.MODEL,
 				CacheIsolationTest.MODEL,
 				NameTest.MODEL,
 				MatchTest.MODEL,
@@ -74,7 +74,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				InstanceOfModelTest.MODEL,
 				HiddenFeatureTest.MODEL,
 				DispatcherModelTest.MODEL,
-				CopyTest.MODEL,
+				CopyModelTest.MODEL,
 				DefaultToTest.MODEL,
 				Stuff.samplerModel,
 				BadQueryTest.MODEL,
@@ -84,9 +84,9 @@ public final class PropertiesInitializer implements ServletContextListener
 	@Override
 	public void contextInitialized(final ServletContextEvent sce)
 	{
-		final ServletContext ctx = sce.getServletContext();
+		final ConnectProperties properties = getConnectProperties(sce.getServletContext());
 		for(final Model model : models())
-			setProperties(model, getConnectProperties(ctx));
+			setProperties(model, properties);
 	}
 
 	@Override

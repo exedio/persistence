@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 @CopeID("NameSubItemX")
-public class NameSubItem extends NameLongItem
+public final class NameSubItem extends NameLongItem
 {
 	static final IntegerField unique = new IntegerField().unique();
 	static final IntegerField integer = new IntegerField();
@@ -65,7 +65,7 @@ public class NameSubItem extends NameLongItem
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.NameLongItem.code.map(code),
 			NameSubItem.unique.map(unique),
 			NameSubItem.integer.map(integer),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -87,7 +87,7 @@ public class SearchTest extends TestmodelTest
 		// test Query#searchSingleton
 		assertEquals(null, item.TYPE.searchSingleton(item.someNotNullString.equal("someStringx")));
 		assertEquals(item, item.TYPE.searchSingleton(item.someNotNullString.equal("someString")));
-		final Query q = item.TYPE.newQuery();
+		final Query<?> q = item.TYPE.newQuery();
 		q.setOrderBy(item.TYPE.getThis(), true);
 		try
 		{

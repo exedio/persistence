@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ final class Entity
 		this.state = state;
 	}
 
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
 		return state.get(field);
 	}
@@ -41,10 +41,10 @@ final class Entity
 		state = state.put(transaction, field, value);
 	}
 
-	@SuppressWarnings("unchecked") // TODO dont know how
-	void put(final Map<Field, Object> fieldValues)
+	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO dont know how
+	void put(final Map<Field<?>, Object> fieldValues)
 	{
-		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
 			final Field f = e.getKey();
 			if(f instanceof FunctionField)

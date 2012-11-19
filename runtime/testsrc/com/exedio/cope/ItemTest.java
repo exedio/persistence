@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,7 +42,7 @@ public class ItemTest extends TestmodelTest
 	{
 		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
-		final Type[] modelTypes = new Type[]{
+		final Type<?>[] modelTypes = new Type[]{
 				EmptyItem.TYPE,
 				EmptyItem2.TYPE,
 				AttributeItem.TYPE,
@@ -151,27 +151,29 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkSchema();
-		if(!postgresql)
+
+		model.commit();
+
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
 		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
-			{
-				model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-				model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			}
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
 		}
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		assertNotNull(model.getItemCacheInfo());
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testItemCreation()

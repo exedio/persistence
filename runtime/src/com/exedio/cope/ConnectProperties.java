@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
 
 	private final StringField connectionUrl      = new StringField("connection.url");
-	private final StringField connectionUser     = new StringField("connection.user");
+	private final StringField connectionUsername = new StringField("connection.username");
 	private final StringField connectionPassword = new StringField("connection.password", true);
 	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
 	final BooleanField connectionTransactionIsolationRepeatableRead = new BooleanField("connection.transactionIsolation.repeatableRead", true);
@@ -74,6 +74,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
 
+	/**
+	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
+	 * of revisions if necessary;
+	 * if false, it will throw an exception if revisions are pending.
+	 * Default is true.
+	 */
+	final BooleanField autoReviseEnabled = new BooleanField("revise.auto.enabled", true);
+
 
 	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
 	private final IntField connectionPoolIdleLimit   = new IntField("connectionPool.idleLimit",  50, 0);
@@ -99,6 +107,30 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
+	private final String mediaUrlSecret = noContext()
+			? checkMediaUrlSecret(new StringField("media.url.secret", "").stringValue())
+			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
+
+	private static final String checkMediaUrlSecret(final String s)
+	{
+		final int length = s.length();
+		if(length==0)
+			return null;
+		if(length<10)
+			throw new IllegalArgumentException("media.url.secret must be at least 10 characters, but just has " + length);
+		return s;
+	}
+
+	private static final String checkMediaUrlSecretContext(final String s)
+	{
+		return ( (s==null) || (s.length()<10) ) ? null : s;
+	}
+
+	public String getMediaUrlSecret()
+	{
+		return mediaUrlSecret;
+	}
+
 
 	private final Constructor<? extends Dialect> dialect;
 
@@ -196,7 +228,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
 		{
-			return dialectClass.getDeclaredConstructor(new Class[]{DialectParameters.class});
+			return dialectClass.getDeclaredConstructor(new Class<?>[]{DialectParameters.class});
 		}
 		catch(final NoSuchMethodException e)
 		{
@@ -234,9 +266,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return connectionUrl.stringValue();
 	}
 
-	public String getConnectionUser()
+	public String getConnectionUsername()
 	{
-		return connectionUser.stringValue();
+		return connectionUsername.stringValue();
 	}
 
 	public String getConnectionPassword()
@@ -247,7 +279,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	java.util.Properties newConnectionInfo()
 	{
 		final java.util.Properties result = new java.util.Properties();
-		result.setProperty("user",     connectionUser.    stringValue());
+		result.setProperty("user",     connectionUsername.stringValue());
 		result.setProperty("password", connectionPassword.stringValue());
 		return result;
 	}
@@ -255,7 +287,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
 		e.put("connection.url",  connectionUrl. stringValue());
-		e.put("connection.user", connectionUser.stringValue());
+		e.put("connection.user", connectionUsername.stringValue());
 	}
 
 	public boolean isSupportDisabledForPreparedStatements()
@@ -355,12 +387,35 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mediaOffsetExpires.intValue();
 	}
 
+	private boolean noContext()
+	{
+		try
+		{
+			getContext();
+			return false;
+		}
+		catch(final IllegalStateException e)
+		{
+			return true;
+		}
+	}
+
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getConnectionUsername()} instead
+	 */
+	@Deprecated
+	public String getConnectionUser()
+	{
+		return getConnectionUsername();
+	}
 
 	/**
 	 * @deprecated Replaced by org.apache.log4j. Always returns true.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean isLoggingEnabled()
 	{
 		return true;
@@ -399,6 +454,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns false.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getTransactionLog()
 	{
 		return false;
@@ -410,6 +466,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns true.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getOracleVarchar()
 	{
 		return true;
@@ -421,6 +478,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * This method always returns false.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean getDatabaseDontSupportLimit()
 	{
 		return false;
@@ -436,12 +494,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	/**
-	 * @deprecated Use {@link #getConnectionUser()} instead
+	 * @deprecated Use {@link #getConnectionUsername()} instead
 	 */
 	@Deprecated
 	public String getDatabaseUser()
 	{
-		return getConnectionUser();
+		return getConnectionUsername();
 	}
 
 	/**

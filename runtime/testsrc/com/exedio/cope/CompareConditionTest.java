@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,12 +26,14 @@ import static com.exedio.cope.CompareConditionItem.enumx;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
+import static com.exedio.cope.CompareConditionItem.otherString;
 import static com.exedio.cope.CompareConditionItem.string;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 
 import java.util.Date;
+import java.util.List;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -49,12 +51,12 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	static final Date aDate = new Date(1087365298214l);
 	static final Day aDay = new Day(2007, 4, 28);
 
-	private Date date(final long offset)
+	private static Date date(final long offset)
 	{
 		return new Date(aDate.getTime()+offset);
 	}
 
-	private Day day(final int offset)
+	private static Day day(final int offset)
 	{
 		return aDay.add(offset);
 	}
@@ -81,7 +83,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// test equals/hashCode
 		assertEquals(string.less("a"), string.less("a"));
 		assertNotEquals(string.less("a"), string.less("b"));
-		assertNotEquals(string.less("a"), item1.otherString.less("a"));
+		assertNotEquals(string.less("a"), otherString.less("a"));
 		assertNotEquals(string.less("a"), string.lessOrEqual("a"));
 
 		// test toString
@@ -305,6 +307,42 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals((2.1+2.2+2.3)/3.0, q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 
+		model.commit();
 		model.checkUnsupportedConstraints();
+		model.startTransaction();
+	}
+
+	public void testGroup()
+	{
+		deleteOnTearDown( new CompareConditionItem( "s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1 ) );
+		deleteOnTearDown( new CompareConditionItem( "s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1 ) );
+		final Query<List<Object>> q = Query.newQuery( new Selectable<?>[]{day, intx/*.sum()*/}, CompareConditionItem.TYPE, Condition.TRUE );
+
+		assertContainsList(
+			list(
+				list(day(-2), 1),
+				list(day(-1), 2),
+				list(day(0), 3),
+				list(day(0), 10),
+				list(day(1), 4),
+				list(day(2), 5),
+				list(day(2), 20),
+				list(null, null)
+			),
+			q.search()
+		);
+
+		q.setGroupBy( day );
+		q.setSelects( day, intx.sum() );
+		assertEquals( "select day,sum(intx) from CompareConditionItem group by day", q.toString() );
+		assertContains(
+			list(day(-2), 1),
+			list(day(-1), 2),
+			list(day(0), 13),
+			list(day(1), 4),
+			list(day(2), 25),
+			list(null, null),
+			q.search()
+		);
 	}
 }

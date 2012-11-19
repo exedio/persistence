@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -53,6 +53,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TypeSetModelErrorTest.class);
 		suite.addTestSuite(DateFieldWrongDefaultNowTest.class);
 		suite.addTestSuite(DayFieldWrongDefaultNowTest.class);
+		suite.addTestSuite(PatternComputedTest.class);
 		suite.addTestSuite(EnumSchemaTest.class);
 		suite.addTestSuite(EnumClassTest.class);
 		suite.addTestSuite(QuerySerializeTest.class);
@@ -75,7 +76,10 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(RevisionTest.class);
 		suite.addTestSuite(RevisionsTest.class);
 		suite.addTestSuite(RevisionInfoTest.class);
+		suite.addTestSuite(DirectRevisionsFactoryTest.class);
 		suite.addTestSuite(DirectRevisionsFutureTest.class);
+		suite.addTestSuite(ConnectPropertiesTest.class);
+		suite.addTestSuite(MediaUrlSecretTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());

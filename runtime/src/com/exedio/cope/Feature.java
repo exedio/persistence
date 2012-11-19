@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,16 +22,18 @@ import static com.exedio.cope.Intern.intern;
 
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class Feature implements Serializable
 {
@@ -65,7 +67,7 @@ public abstract class Feature implements Serializable
 				: null;
 		}
 
-		abstract void toString(StringBuilder bf, Type defaultType);
+		abstract void toString(StringBuilder bf, Type<?> defaultType);
 	}
 
 	private static final class MountType extends Mount
@@ -86,7 +88,33 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type defaultType)
+		boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			if(Computed.class==annotationClass && getAnnotation(annotationClass)!=null)
+				return true;
+
+			return super.isAnnotationPresent(annotationClass);
+		}
+
+		@Override
+		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
+		{
+			if(Computed.class==annotationClass)
+			{
+				final Pattern pattern = type.getPattern();
+				if(pattern!=null)
+				{
+					final A typePatternAnn = pattern.getAnnotation(annotationClass);
+					if(typePatternAnn!=null)
+						return typePatternAnn;
+				}
+			}
+
+			return super.getAnnotation(annotationClass);
+		}
+
+		@Override
+		void toString(final StringBuilder bf, final Type<?> defaultType)
 		{
 			bf.append((defaultType==type) ? name : id);
 		}
@@ -111,7 +139,7 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type defaultType)
+		void toString(final StringBuilder bf, final Type<?> defaultType)
 		{
 			bf.append(string);
 		}
@@ -193,7 +221,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * @see Model#getFeature(String)
 	 */
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public final String getID()
 	{
 		return mountType().id;
@@ -225,15 +253,23 @@ public abstract class Feature implements Serializable
 			: getName();
 	}
 
-	public List<Wrapper> getWrappers()
+	/**
+	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
+	 * Not used anymore by the framework,
+	 * equivalent of
+	 * {@link com.exedio.cope.instrument.Wrapper#getByAnnotations(Class, Feature, List)}
+	 * is fixed now.
+	 */
+	@Deprecated
+	public List<com.exedio.cope.instrument.Wrapper> getWrappers()
 	{
-		return Collections.<Wrapper>emptyList();
+		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
 	}
 
 	/**
 	 * @param defaultType is used by subclasses
 	 */
-	void toStringNotMounted(final StringBuilder bf, final Type defaultType)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(super.toString());
 	}
@@ -254,7 +290,7 @@ public abstract class Feature implements Serializable
 		}
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount!=null)
@@ -312,11 +348,31 @@ public abstract class Feature implements Serializable
 		return new Serialized((MountType)mount);
 	}
 
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	protected final Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
 	private static final class Serialized implements Serializable
 	{
 		private static final long serialVersionUID = 1l;
 
-		private final Type type;
+		private final Type<?> type;
 		private final String name;
 
 		Serialized(final MountType mount)

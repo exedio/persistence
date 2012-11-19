@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,29 +26,29 @@ public class QuerySerializeTest extends CopeAssert
 {
 	public void testSerialize()
 	{
-		final Query q = Item1.TYPE.newQuery(null);
-		assertSerializedEquals(q, 778);
+		final Query<?> q = Item1.TYPE.newQuery(null);
+		assertSerializedEquals(q, 769);
 
 		q.setCondition(Item1.field1.isNotNull());
-		assertSerializedEquals(q, 932);
+		assertSerializedEquals(q, 923);
 
 		final Join j = q.join(Item1.TYPE);
-		assertSerializedEquals(q, 1185);
+		assertSerializedEquals(q, 1176);
 
 		j.setCondition(Item1.field1.equal("zack"));
-		assertSerializedEquals(q, 1433);
+		assertSerializedEquals(q, 1424);
 
 		q.addOrderBy(Item1.field1);
-		assertSerializedEquals(q, 1508);
+		assertSerializedEquals(q, 1501);
 
 		q.setLimit(10, 20);
-		assertSerializedEquals(q, 1508);
+		assertSerializedEquals(q, 1501);
 
-		final Query<List<Object>> qMulti = Query.newQuery(new Selectable[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
-		assertSerializedEquals(qMulti, 848);
+		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
+		assertSerializedEquals(qMulti, 839);
 	}
 
-	private static final void assertSerializedEquals(final Query value, final int expectedSize)
+	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
 	{
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
 	}

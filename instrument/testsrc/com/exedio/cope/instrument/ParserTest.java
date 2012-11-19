@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -68,7 +68,7 @@ public abstract class ParserTest extends InstrumentorTest
 		return parseEvents.removeFirst();
 	}
 
-	private String format(final String s)
+	private static String format(final String s)
 	{
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}

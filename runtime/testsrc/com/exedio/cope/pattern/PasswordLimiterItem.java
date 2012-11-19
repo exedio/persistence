@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 
-public class PasswordLimiterItem extends Item
+public final class PasswordLimiterItem extends Item
 {
 	static final MessageDigestHash password = new MessageDigestHash(8);
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
@@ -57,7 +57,7 @@ public class PasswordLimiterItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PasswordLimiterItem.password.map(password),
 		});
 	}/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,8 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class JavaRepository
 {
@@ -101,7 +103,7 @@ final class JavaRepository
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
-					final Class typeClass = javaField.file.findTypeExternally(javaField.type);
+					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.type);
 					if(typeClass==null)
 						continue feature;
 
@@ -156,7 +158,7 @@ final class JavaRepository
 
 			//System.out.println("--------------**"+javaClass.getFullName());
 			{
-				final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+				final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 				//System.out.println("--------------*1"+extendsClass);
 				if(extendsClass!=null)
 					return Item.class.isAssignableFrom(extendsClass);
@@ -175,13 +177,13 @@ final class JavaRepository
 		}
 	}
 
-	boolean isComposite(final JavaClass javaClass)
+	static boolean isComposite(final JavaClass javaClass)
 	{
 		final String classExtends = javaClass.classExtends;
 		if(classExtends==null)
 			return false;
 
-		final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 		if(extendsClass!=null)
 			return Composite.class.isAssignableFrom(extendsClass);
 
@@ -259,7 +261,7 @@ final class JavaRepository
 		return result;
 	}
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
@@ -270,11 +272,11 @@ final class JavaRepository
 		}
 
 		@Override
-		public Class getClass(final String name) throws UtilEvalError
+		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
 
-			final Class superResult = super.getClass(name);
+			final Class<?> superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
 
@@ -301,7 +303,7 @@ final class JavaRepository
 			return null;
 		}
 
-		private final Class define(final ClassFile cf)
+		private final Class<?> define(final ClassFile cf)
 		{
 			return ClassInjector.createExplicit(
 					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
@@ -328,9 +330,9 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 
-	static class DummyComposite extends Composite
+	static final class DummyComposite extends Composite
 	{
-		protected DummyComposite(final SetValue... setValues)
+		protected DummyComposite(final SetValue<?>... setValues)
 		{
 			super(setValues);
 		}

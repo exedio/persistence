@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 
-public class PartOfItem extends Item
+public final class PartOfItem extends Item
 {
 	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class).cascade().toFinal();
 
@@ -53,7 +53,7 @@ public class PartOfItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfItem.container.map(container),
 			PartOfItem.partString.map(partString),
 			PartOfItem.partInteger.map(partInteger),

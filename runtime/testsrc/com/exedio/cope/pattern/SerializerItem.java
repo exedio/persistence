@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,8 @@ import com.exedio.cope.Item;
 /**
  * @cope.generic.constructor package
  */
-public class SerializerItem extends Item
+@SuppressWarnings("rawtypes")
+public final class SerializerItem extends Item
 {
 	static final Serializer<Integer> integer = Serializer.create(Integer.class).optional();
 
@@ -41,7 +42,7 @@ public class SerializerItem extends Item
 	 */
 	public SerializerItem()
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 		});
 	}/**
 

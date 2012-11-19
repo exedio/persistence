@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,19 +18,16 @@
 
 package com.exedio.cope;
 
-class CopySourceItem extends Item
+final class CopySourceItem extends Item
 {
 	static final ItemField<CopyTargetItem> targetItem = ItemField.create(CopyTargetItem.class).toFinal().optional();
 
-	static final StringField templateString = new StringField().toFinal().optional();
-	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
+	static final StringField templateString = new StringField().toFinal().optional().copyFrom(targetItem);
 
-	static final CopyConstraint templateStringCopyFromTarget = new CopyConstraint(targetItem, templateString);
-	static final CopyConstraint templateItemCopyFromTarget = new CopyConstraint(targetItem, templateItem);
+	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(targetItem);
 
 	static final ItemField<CopySourceItem> selfTargetItem = ItemField.create(CopySourceItem.class).toFinal().optional();
-	static final ItemField<CopyValueItem> selfTemplateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
-	static final CopyConstraint selfTemplateItemCopyFromTarget = new CopyConstraint(selfTargetItem, selfTemplateItem);
+	static final ItemField<CopyValueItem> selfTemplateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(selfTargetItem);
 
 	@Override
 	public String toString()
@@ -61,7 +58,7 @@ class CopySourceItem extends Item
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			CopySourceItem.targetItem.map(targetItem),
 			CopySourceItem.templateString.map(templateString),
 			CopySourceItem.templateItem.map(templateItem),

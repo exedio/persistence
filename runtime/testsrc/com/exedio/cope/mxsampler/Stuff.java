@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,14 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.mxsampler;
 
-final class IntHolder
+import com.exedio.cope.Model;
+
+public final class Stuff
 {
-	int value;
-
-	IntHolder(final int value)
-	{
-		this.value = value;
-	}
+	static final MxSampler sampler = new MxSampler();
+	public static final Model samplerModel = sampler.getModel();
 }

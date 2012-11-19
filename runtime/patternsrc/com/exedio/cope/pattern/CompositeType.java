@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,10 +38,12 @@ import com.exedio.cope.instrument.InstrumentContext;
 final class CompositeType<X>
 {
 	private final Constructor<X> constructor;
-	final LinkedHashMap<String, FunctionField> templates = new LinkedHashMap<String, FunctionField>();
-	final HashMap<FunctionField, Integer> templatePositions = new HashMap<FunctionField, Integer>();
-	final List<FunctionField> templateList;
+	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
+	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
+	final List<FunctionField<?>> templateList;
 	final int componentSize;
+
+	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<FunctionField<?>, String>();
 
 	private CompositeType(final Class<X> valueClass)
 	{
@@ -65,26 +68,62 @@ final class CompositeType<X>
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = classID + '#' + field.getName();
-				if(!(feature instanceof FunctionField))
+				if(!(feature instanceof FunctionField<?>))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
-				final FunctionField template = (FunctionField)feature;
+				final FunctionField<?> template = (FunctionField<?>)feature;
 				if(template.isFinal())
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
 				template.mount(fieldID, field);
+				templateNames.put(template, field.getName());
 			}
 		}
-		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField>(templates.values()));
+		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templates.values()));
 		this.componentSize = templates.size();
 	}
 
-	public List<FunctionField> getTemplates()
+	Object[] values(final SetValue<?>... setValues)
 	{
-		return templateList;
+		final Object[] values = new Object[componentSize];
+		final boolean[] valueSet = new boolean[values.length];
+		for(final SetValue<?> v : setValues)
+		{
+			final int position = position((FunctionField<?>)v.settable);
+			values[position] = v.value;
+			valueSet[position] = true;
+		}
+		for(int i = 0; i<valueSet.length; i++)
+			if(!valueSet[i])
+				values[i] = templateList.get(i).getDefaultConstant();
+
+		int i = 0;
+		for(final FunctionField<?> ff : templateList)
+			check(ff, values[i++]);
+
+		return values;
 	}
 
-	public X newValue(final SetValue... setValues)
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private static final <E> void check(final FunctionField field, final Object value)
+	{
+		field.check(value);
+	}
+
+	Map<String,FunctionField<?>> getTemplateMap()
+	{
+		return Collections.unmodifiableMap(templates);
+	}
+
+	int position(final FunctionField<?> member)
+	{
+		final Integer result = templatePositions.get(member);
+		if(result==null)
+			throw new IllegalArgumentException("not a member");
+		return result.intValue();
+	}
+
+	public X newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
@@ -116,7 +155,7 @@ final class CompositeType<X>
 
 	// static registry
 
-	private static final HashMap<Class, CompositeType> types = new HashMap<Class, CompositeType>();
+	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<Class<?>, CompositeType<?>>();
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
@@ -126,11 +165,13 @@ final class CompositeType<X>
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
 		if(Composite.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
+		if(!Modifier.isFinal(valueClass.getModifiers()))
+			throw new IllegalArgumentException("is not final: " + valueClass.getName());
 
 		synchronized(types)
 		{
-			@SuppressWarnings("unchecked")
-			CompositeType<E> result = types.get(valueClass);
+			@SuppressWarnings({"unchecked", "rawtypes"})
+			CompositeType<E> result = (CompositeType)types.get(valueClass);
 			if(result==null)
 			{
 				result = new CompositeType<E>(valueClass);
@@ -142,5 +183,17 @@ final class CompositeType<X>
 
 			return result;
 		}
+	}
+
+	static String getTemplateName(final FunctionField<?> template)
+	{
+		if(template==null)
+			throw new NullPointerException("template");
+
+		final String result = templateNames.get(template);
+		if(result==null)
+			throw new IllegalStateException("feature not mounted to a composite: " + template);
+
+		return result;
 	}
 }

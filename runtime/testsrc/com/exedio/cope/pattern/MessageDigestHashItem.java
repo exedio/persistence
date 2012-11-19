@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.Hex;
 
-public class MessageDigestHashItem extends Item
+public final class MessageDigestHashItem extends Item
 {
 	/** @cope.set none */
 	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional();
@@ -68,7 +68,7 @@ public class MessageDigestHashItem extends Item
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MessageDigestHashItem.passwordFinal.map(passwordFinal),
 			MessageDigestHashItem.passwordMandatory.map(passwordMandatory),
 		});

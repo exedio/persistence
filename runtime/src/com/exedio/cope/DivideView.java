@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class DivideView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
@@ -28,14 +30,14 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E> dividend;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Function<E> divisor;
 
 	private DivideView(final Function<E> dividend, final Function<E> divisor)
 	{
-		super(new Function[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
+		super(new Function<?>[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
 
 		this.dividend = dividend;
 		this.divisor = divisor;

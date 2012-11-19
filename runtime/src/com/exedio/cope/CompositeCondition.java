@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -129,7 +129,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append('(');
 		conditions[0].toString(bf, key, defaultType);
@@ -162,7 +162,7 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	public static final <E> Condition in(final Function<E> function, final Collection<E> values)
+	public static final <E> Condition in(final Function<E> function, final Collection<? extends E> values)
 	{
 		switch(values.size())
 		{

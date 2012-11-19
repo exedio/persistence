@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,20 +18,25 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
-import java.util.List;
+import java.util.Enumeration;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
+import com.exedio.cope.DataField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -40,8 +45,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.misc.Computed;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class TextUrlFilter extends MediaFilter
 {
@@ -53,11 +59,11 @@ public class TextUrlFilter extends MediaFilter
 	private final String pasteStart;
 	private final String pasteStop;
 
-	private final StringField pasteKey;
+	final StringField pasteKey;
 	final Media pasteValue;
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
-	@edu.umd.cs.findbugs.annotations.SuppressWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public TextUrlFilter(
@@ -109,6 +115,11 @@ public class TextUrlFilter extends MediaFilter
 		addSource(raw, "Raw", preventUrlGuessingProxy);
 	}
 
+	Type<Paste> getPasteType()
+	{
+		return mount().pasteType;
+	}
+
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
 			final Item item,
@@ -141,6 +152,31 @@ public class TextUrlFilter extends MediaFilter
 		pasteValue.set(getPaste(item, key), value);
 	}
 
+	@Wrap(order=50, thrown=@Wrap.Thrown(IOException.class))
+	public final Paste putPaste(
+			final Item item,
+			@Parameter("key") final String key,
+			@Parameter("value") final Media.Value value)
+	throws IOException
+	{
+		final Mount mount = mount();
+		final Paste existing =
+			mount.pasteType.searchSingleton(Cope.and(
+				Cope.equalAndCast(mount.pasteParent, item),
+				pasteKey.equal(key)));
+
+		if(existing==null)
+			return mount.pasteType.newItem(
+					this.pasteKey.map(key),
+					this.pasteValue.map(value),
+					Cope.mapAndCast(mount.pasteParent, item));
+		else
+		{
+			pasteValue.set(existing, value);
+			return existing;
+		}
+	}
+
 	public final Locator getPasteLocator(final Item item, final String key)
 	{
 		return pasteValue.getLocator(getPaste(item, key));
@@ -149,12 +185,6 @@ public class TextUrlFilter extends MediaFilter
 	public final String getPasteURL( final Item item, final String key )
 	{
 		return pasteValue.getURL(getPaste(item, key));
-	}
-
-	@Override
-	public final List<Wrapper> getWrappers()
-	{
-		return Wrapper.getByAnnotations(TextUrlFilter.class, this, super.getWrappers());
 	}
 
 	@Override
@@ -238,7 +268,7 @@ public class TextUrlFilter extends MediaFilter
 				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop);
 
 			bf.append(srcString.substring(nextStart, start));
-			appendURL(bf, getPaste(item, srcString.substring(start + pasteStartLen, stop)), request);
+			appendKey(bf, item, srcString.substring(start + pasteStartLen, stop), request);
 
 			nextStart = stop + pasteStopLen;
 		}
@@ -268,6 +298,15 @@ public class TextUrlFilter extends MediaFilter
 		{
 			out.close();
 		}
+	}
+
+	protected void appendKey(
+			final StringBuilder bf,
+			final Item item,
+			final String key,
+			final HttpServletRequest request)
+	{
+		appendURL(bf, getPaste(item, key), request);
 	}
 
 	private final Paste getPaste(final Item item, final String key)
@@ -306,6 +345,11 @@ public class TextUrlFilter extends MediaFilter
 			super(ap);
 		}
 
+		String getKey()
+		{
+			return getPattern().pasteKey.get(this);
+		}
+
 		public MediaPath.Locator getLocator()
 		{
 			return getPattern().pasteValue.getLocator(this);
@@ -314,6 +358,16 @@ public class TextUrlFilter extends MediaFilter
 		public String getURL()
 		{
 			return getPattern().pasteValue.getURL(this);
+		}
+
+		String getContentType()
+		{
+			return getPattern().pasteValue.getContentType(this);
+		}
+
+		byte[] getBody()
+		{
+			return getPattern().pasteValue.getBody(this);
 		}
 
 		private TextUrlFilter getPattern()
@@ -359,6 +413,40 @@ public class TextUrlFilter extends MediaFilter
 		public String toString()
 		{
 			return TextUrlFilter.this.toString() + "-preventUrlGuessingAnnotations";
+		}
+	}
+
+	@Wrap(order=100, thrown=@Wrap.Thrown(value=IOException.class))
+	public final void putPastesFromZip(
+			final Item item,
+			@Parameter("file") final File file)
+		throws IOException
+	{
+		final ZipFile zipFile = new ZipFile(file);
+		try
+		{
+			for(final Enumeration<? extends ZipEntry> entries = zipFile.entries();
+					entries.hasMoreElements(); )
+			{
+				final ZipEntry entry = entries.nextElement();
+				final String name = entry.getName();
+				try
+				{
+					final MediaType contentType = MediaType.forFileName(name);
+					if(contentType==null)
+						throw new IllegalArgumentException("unknown content type for entry " + name);
+
+					putPaste(item, name, Media.toValue(DataField.toValue(zipFile, entry), contentType.getName()));
+				}
+				catch(final ConstraintViolationException e)
+				{
+					throw new IllegalArgumentException(name, e);
+				}
+			}
+		}
+		finally
+		{
+			zipFile.close();
 		}
 	}
 
