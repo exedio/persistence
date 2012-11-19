@@ -54,7 +54,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Dispatcher extends Pattern
 {
-	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
+	private static final Logger logger = Logger.getLogger(Dispatcher.class);
 
 	private static final long serialVersionUID = 1l;
 

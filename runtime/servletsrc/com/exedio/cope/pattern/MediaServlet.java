@@ -68,7 +68,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class MediaServlet extends HttpServlet
 {
-	private static final Logger logger = Logger.getLogger(MediaServlet.class.getName());
+	private static final Logger logger = Logger.getLogger(MediaServlet.class);
 
 	private static final long serialVersionUID = 1l;
 

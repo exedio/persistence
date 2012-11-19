@@ -30,7 +30,7 @@ import com.exedio.cope.util.Day;
 
 public final class DayField extends FunctionField<Day>
 {
-	static final Logger logger = Logger.getLogger(DayField.class.getName());
+	static final Logger logger = Logger.getLogger(DayField.class);
 
 	private static final long serialVersionUID = 1l;
 

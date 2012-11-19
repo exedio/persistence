@@ -32,7 +32,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
-	private static final Logger logger = Logger.getLogger(ConnectionFactory.class.getName());
+	private static final Logger logger = Logger.getLogger(ConnectionFactory.class);
 
 	private final String url;
 	private final Driver driver;

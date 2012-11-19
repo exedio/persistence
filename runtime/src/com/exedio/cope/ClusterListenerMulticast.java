@@ -34,7 +34,7 @@ import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
-	private static final Logger logger = Logger.getLogger(ClusterListenerMulticast.class.getName());
+	private static final Logger logger = Logger.getLogger(ClusterListenerMulticast.class);
 
 	private final boolean log;
 	private final int packetSize;
