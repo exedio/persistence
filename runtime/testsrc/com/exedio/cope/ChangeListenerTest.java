@@ -22,12 +22,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
+	private static final Logger logger = Logger.getLogger(ChangeListeners.class);
+
 	public ChangeListenerTest()
 	{
 		super(MatchTest.MODEL);
@@ -42,13 +46,13 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		log = new TestLogAppender();
-		ChangeListeners.logger.addAppender(log);
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ChangeListeners.logger.removeAppender(log);
+		logger.removeAppender(log);
 		log = null;
 		super.tearDown();
 	}
