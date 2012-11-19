@@ -40,7 +40,7 @@ public final class TypePrivate extends Item
 		// here one could do additional things
 	}
 
-	void useFeaturesToAvoidWarning()
+	static void useFeaturesToAvoidWarning()
 	{
 		System.out.println(TYPE);
 	}
