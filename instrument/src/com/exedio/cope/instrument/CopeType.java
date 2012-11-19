@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -127,6 +130,11 @@ final class CopeType
 		assert !javaClass.file.repository.isBuildStage();
 
 		return !isFinal();
+	}
+
+	int getSubtypeModifier()
+	{
+		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
 	public void register(final CopeFeature feature)
