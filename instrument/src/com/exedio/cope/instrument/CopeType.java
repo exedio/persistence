@@ -79,9 +79,9 @@ final class CopeType
 		javaClass.file.repository.add(this);
 	}
 
-	public boolean isAbstract()
+	private boolean isFinal()
 	{
-		return javaClass.isAbstract();
+		return javaClass.isFinal();
 	}
 
 	public boolean isInterface()
@@ -90,7 +90,6 @@ final class CopeType
 	}
 
 	private CopeType supertype;
-	private final ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
 
 	void endBuildStage()
 	{
@@ -116,17 +115,8 @@ final class CopeType
 			else
 			{
 				supertype = javaClass.file.repository.getCopeType(extname);
-				supertype.addSubtype(this);
 			}
 		}
-	}
-
-	void addSubtype(final CopeType subtype)
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-
-		subtypes.add(subtype);
 	}
 
 	public CopeType getSuperclass()
@@ -136,18 +126,11 @@ final class CopeType
 		return supertype;
 	}
 
-	public List<CopeType> getSubtypes()
-	{
-		assert !javaClass.file.repository.isBuildStage();
-
-		return subtypes;
-	}
-
 	boolean allowSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 
-		return isAbstract() || !getSubtypes().isEmpty();
+		return !isFinal();
 	}
 
 	public void register(final CopeFeature feature)

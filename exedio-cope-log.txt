@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Visibility of generic and activation constructors created by instrumentor
+	changed. In general, both constructors of any type are private. However,
+	they are protected in the following condition:
+	- Up to now,   if there where subtypes of that type.
+	- From now on, if that type is not final.
+	Affects instrumented code.
 * rename key in cope.properties:
 		connection.user -> connection.username
 * media.url.secret can be set via source of ConnectProperties as well,
