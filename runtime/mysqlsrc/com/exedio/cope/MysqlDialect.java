@@ -138,14 +138,15 @@ final class MysqlDialect extends Dialect
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
+		final String charset = " character set utf8 collate utf8_bin";
 		if(maxBytes<TWOPOW8)
-			return "varchar("+maxChars+") character set utf8 collate utf8_bin";
+			return "varchar("+maxChars+")" + charset;
 		else if(maxBytes<TWOPOW16)
-			return "text character set utf8 collate utf8_bin";
+			return "text" + charset;
 		else if(maxBytes<TWOPOW24)
-			return "mediumtext character set utf8 collate utf8_bin";
+			return "mediumtext" + charset;
 		else
-			return "longtext character set utf8 collate utf8_bin";
+			return "longtext" + charset;
 	}
 
 	@Override
