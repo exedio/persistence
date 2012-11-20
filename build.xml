@@ -701,7 +701,6 @@
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/log4j.jar" />
 					</classpath>
 				</ljunit>
 			</body>
