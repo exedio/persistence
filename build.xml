@@ -1006,6 +1006,8 @@
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
+				<pathelement location="${basedir}/lib/slf4j-api.jar" />
+				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j.jar" />
 				<pathelement location="${ant.core.lib}" />
 			</auxclasspath>
