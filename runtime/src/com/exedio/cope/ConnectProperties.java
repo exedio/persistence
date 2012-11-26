@@ -196,8 +196,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw new RuntimeException(connectionTransactionIsolationReadCommitted.getKey() + " and " + connectionTransactionIsolationRepeatableRead.getKey() + " cannot be enabled both");
 		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
 			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
-
-		ensureValidity("x-build");
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
