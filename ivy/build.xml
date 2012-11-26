@@ -30,7 +30,7 @@
 		<copy overwrite="true" file="artifacts/apache-tomcat-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-dist.tar.gz" tofile="../lib/findbugs.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-annotations-jar.jar" tofile="../lib/findbugs-annotations.jar" />
-		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" todir="../lib" />
+		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" tofile="../lib/slf4j-api.jar" />
 		<copy overwrite="true" file="artifacts/slf4j-api-source.jar" todir="../lib" />
 	</target>
 </project>
