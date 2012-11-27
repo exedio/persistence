@@ -24,15 +24,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
 
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
-	private static final Logger logger = Logger.getLogger(ConnectionFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionFactory.class);
 
 	private final String url;
 	private final Driver driver;
@@ -100,7 +100,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			if(logger.isEnabledFor(Level.WARN))
+			if(logger.isWarnEnabled())
 				logger.warn( "invalid on get", ex );
 			return false;
 		}

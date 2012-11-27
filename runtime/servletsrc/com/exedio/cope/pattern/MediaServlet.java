@@ -22,7 +22,6 @@ import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.MessageFormat;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -30,8 +29,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -68,7 +67,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class MediaServlet extends HttpServlet
 {
-	private static final Logger logger = Logger.getLogger(MediaServlet.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediaServlet.class);
 
 	private static final long serialVersionUID = 1l;
 
@@ -322,13 +321,13 @@ public class MediaServlet extends HttpServlet
 			final HttpServletRequest request,
 			final Exception exception)
 	{
-		if(logger.isEnabledFor(Level.ERROR))
-			logger.error( MessageFormat.format( "Media Servlet Path={0} Query={1} Host={2} Referer={3} Agent={4}",
+		if(logger.isErrorEnabled())
+			logger.error("Media Servlet Path={} Query={} Host={} Referer={} Agent={}", new Object[]{
 					request.getPathInfo(),
 					request.getQueryString(),
 					request.getHeader("Host"),
 					request.getHeader("Referer"),
-					request.getHeader("User-Agent") ),
+					request.getHeader("User-Agent") },
 				exception );
 	}
 }

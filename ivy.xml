@@ -41,7 +41,7 @@
 			<conf name="test" mapped="default" />
 			<conf name="build" mapped="*" />
 		</dependency>
-		<dependency org="log4j" name="log4j" rev="1.2.16">
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
@@ -55,6 +55,7 @@
 		<dependency conf="postgresql->default" org="postgresql" name="postgresql" rev="9.0-801.jdbc4" />
 		
 		<!-- build dependencies -->
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="2.0.1" conf="build->default" />
 		<dependency org="com.exedio" name="copeconsole" rev="6423" conf="build->runtime" />

@@ -27,14 +27,14 @@ import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
-	private static final Logger logger = Logger.getLogger(ClusterListenerMulticast.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class);
 
 	private final boolean log;
 	private final int packetSize;
@@ -130,7 +130,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
 		exception.inc();
-		if(logger.isEnabledFor(Level.ERROR))
+		if(logger.isErrorEnabled())
 			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
 					throwable );
 	}

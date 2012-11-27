@@ -32,7 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
@@ -47,7 +48,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Model implements Serializable
 {
-	private static final Logger logger = Logger.getLogger(Model.class);
+	private static final Logger logger = LoggerFactory.getLogger(Model.class);
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Revisions.Factory revisions;

@@ -23,8 +23,6 @@ import gnu.trove.TIntHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.apache.log4j.Level;
-
 final class ChangeListenerDispatcher implements Runnable
 {
 	private final Types types;
@@ -72,8 +70,8 @@ final class ChangeListenerDispatcher implements Runnable
 		if(!queue.offer(event))
 		{
 			overflow.inc();
-			if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
-				ChangeListeners.logger.log(Level.ERROR, "COPE Change Listener Dispatcher overflows");
+			if(ChangeListeners.logger.isErrorEnabled())
+				ChangeListeners.logger.error("COPE Change Listener Dispatcher overflows");
 		}
 	}
 
@@ -126,7 +124,7 @@ final class ChangeListenerDispatcher implements Runnable
 	private void handleException(final Throwable e)
 	{
 		exception.inc();
-		if(ChangeListeners.logger.isEnabledFor(Level.ERROR))
+		if(ChangeListeners.logger.isErrorEnabled())
 			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 

@@ -200,7 +200,7 @@
 	<target name="dsmf.compile">
 		<compile srcdir="dsmf/src">
 			<classpath>
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -225,7 +225,7 @@
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/dsmf/testsrc" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
-						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
@@ -248,7 +248,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -288,7 +288,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -304,7 +304,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -316,7 +316,6 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -364,6 +363,7 @@
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -386,6 +386,8 @@
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/slf4j-log4j12.jar" />
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/jdbc/hsqldb.jar" />
 			</classpath>
@@ -505,6 +507,8 @@
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/slf4j-api.jar" />
+						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
@@ -538,6 +542,8 @@
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/slf4j-api.jar" />
+						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
@@ -668,7 +674,7 @@
 			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/jdbc/hsqldb.jar" />
-			<fileset file="lib/log4j.jar" />
+			<fileset file="lib/slf4j-api.jar" />
 		</copy>
 	</target>
 	
@@ -695,7 +701,6 @@
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/log4j.jar" />
 					</classpath>
 				</ljunit>
 			</body>
@@ -737,7 +742,6 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
-				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -799,7 +803,7 @@
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 		</taskdef>
 	</target>
@@ -934,7 +938,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</javadoc>
@@ -999,6 +1003,8 @@
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
+				<pathelement location="${basedir}/lib/slf4j-api.jar" />
+				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j.jar" />
 				<pathelement location="${ant.core.lib}" />
 			</auxclasspath>

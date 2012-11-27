@@ -31,6 +31,8 @@
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="lib/log4j-source.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-servletutil.jar" sourcepath="lib/exedio-cope-servletutil-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
