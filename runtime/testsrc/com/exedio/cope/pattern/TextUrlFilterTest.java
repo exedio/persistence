@@ -55,6 +55,8 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 
 	public void testIt() throws IOException
 	{
+		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
+
 		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
 
 		assertEquals(null, item.getFertigContentType());

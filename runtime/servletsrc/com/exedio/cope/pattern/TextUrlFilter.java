@@ -335,8 +335,8 @@ public class TextUrlFilter extends MediaFilter
 	{
 		return Collections.singleton(supportedContentType);
 	}
-	
-	public final List<String> getSupportedPasteContentTypes()
+
+	public final List<String> getPasteContentTypesAllowed()
 	{
 		return pasteValue.getContentTypesAllowed();
 	}
@@ -457,6 +457,15 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getPasteContentTypesAllowed()} instead
+	 */
+	@Deprecated
+	public final List<String> getSupportedPasteContentTypes()
+	{
+		return getPasteContentTypesAllowed();
+	}
 
 	/**
 	 * @deprecated Use {@link #getPasteURL(Item,String)} instead
