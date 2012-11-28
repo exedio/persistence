@@ -55,8 +55,8 @@ public class DefaultInheritanceTest extends AbstractRuntimeTest
 
 	public void testGamma()
 	{
-			final Gamma item = deleteOnTearDown(new Gamma());
-			assertEquals(false, item.getField());
+		final Gamma item = deleteOnTearDown(new Gamma());
+		assertEquals(false, item.getField());
 	}
 
 	static abstract class Alpha extends Item
