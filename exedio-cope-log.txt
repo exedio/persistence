@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix for type inheritance across 3 or more levels.
 * switch from log4j to slf4j
 * ConnectProperties do not call Properties#ensureValidity anymore
 * Visibility of generic and activation constructors created by instrumentor

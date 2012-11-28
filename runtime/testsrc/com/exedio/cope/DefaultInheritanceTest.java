@@ -34,7 +34,7 @@ public class DefaultInheritanceTest extends AbstractRuntimeTest
 
 		assertEquals(list(field), alpha.getFields());
 		assertEquals(list(field), beta .getFields());
-		assertEquals(list(),      gamma.getFields()); // TODO Alpha.field
+		assertEquals(list(field), gamma.getFields());
 		assertEquals(list(field), alpha.getDeclaredFields());
 		assertEquals(list(), beta .getDeclaredFields());
 		assertEquals(list(), gamma.getDeclaredFields());
@@ -55,16 +55,8 @@ public class DefaultInheritanceTest extends AbstractRuntimeTest
 
 	public void testGamma()
 	{
-		try
-		{
 			final Gamma item = deleteOnTearDown(new Gamma());
 			assertEquals(false, item.getField());
-			fail(); // TODO this is a bug
-		}
-		catch(final RuntimeException e)
-		{
-			// ok
-		}
 	}
 
 	static abstract class Alpha extends Item

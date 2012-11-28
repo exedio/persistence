@@ -52,7 +52,7 @@ final class FeatureSubSet<F extends Feature>
 			this.declared = ListUtil.trimUnmodifiable(declared);
 		}
 
-		this.all = (inherited==null) ? this.declared : inherit(inherited.declared, this.declared);
+		this.all = (inherited==null) ? this.declared : inherit(inherited.all, this.declared);
 	}
 
 	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
