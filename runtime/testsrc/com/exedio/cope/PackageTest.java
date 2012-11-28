@@ -168,6 +168,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CheckTypeColumnAbstractTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
+		suite.addTestSuite( DefaultInheritanceTest.class );
 		suite.addTestSuite( PolymorphicBoundSelectTest.class );
 		suite.addTestSuite( DeleteAfterUniqueViolationTest.class );
 		suite.addTest( com.exedio.cope.reflect.PackageTest.suite() );
