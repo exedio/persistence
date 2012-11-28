@@ -29,6 +29,49 @@ public class InstanceOfModelTest extends CopeAssert
 			InstanceOfC1Item.TYPE,
 			InstanceOfRefItem.TYPE);
 
+	public void testFeatures()
+	{
+		final Type<InstanceOfAItem > a  = InstanceOfAItem .TYPE;
+		final Type<InstanceOfB1Item> b1 = InstanceOfB1Item.TYPE;
+		final Type<InstanceOfB2Item> b2 = InstanceOfB2Item.TYPE;
+		final Type<InstanceOfC1Item> c1 = InstanceOfC1Item.TYPE;
+		final StringField code = InstanceOfAItem.code;
+		final UniqueConstraint codeUnq = code.getImplicitUniqueConstraint();
+		final StringField textb1 = InstanceOfB1Item.textb1;
+		final StringField textb2 = InstanceOfB2Item.textb2;
+		final StringField textc1 = InstanceOfC1Item.textc1;
+
+		assertEquals(list(a .getThis(), code, codeUnq), a .getDeclaredFeatures());
+		assertEquals(list(b1.getThis(), textb1),        b1.getDeclaredFeatures());
+		assertEquals(list(b2.getThis(), textb2),        b2.getDeclaredFeatures());
+		assertEquals(list(c1.getThis(), textc1),        c1.getDeclaredFeatures());
+
+		assertEquals(list(a .getThis(), code, codeUnq),                 a .getFeatures());
+		assertEquals(list(b1.getThis(), code, codeUnq, textb1),         b1.getFeatures());
+		assertEquals(list(b2.getThis(), code, codeUnq, textb2),         b2.getFeatures());
+		assertEquals(list(c1.getThis(), code, codeUnq, textb1, textc1), c1.getFeatures());
+
+		assertEquals(list(code),   a .getDeclaredFields());
+		assertEquals(list(textb1), b1.getDeclaredFields());
+		assertEquals(list(textb2), b2.getDeclaredFields());
+		assertEquals(list(textc1), c1.getDeclaredFields());
+
+		assertEquals(list(code),                 a .getFields());
+		assertEquals(list(code, textb1),         b1.getFields());
+		assertEquals(list(code, textb2),         b2.getFields());
+		assertEquals(list(code, textb1, textc1), c1.getFields());
+
+		assertEquals(list(codeUnq),   a .getDeclaredUniqueConstraints());
+		assertEquals(list(),          b1.getDeclaredUniqueConstraints());
+		assertEquals(list(),          b2.getDeclaredUniqueConstraints());
+		assertEquals(list(),          c1.getDeclaredUniqueConstraints());
+
+		assertEquals(list(codeUnq), a .getUniqueConstraints());
+		assertEquals(list(codeUnq), b1.getUniqueConstraints());
+		assertEquals(list(codeUnq), b2.getUniqueConstraints());
+		assertEquals(list(codeUnq), c1.getUniqueConstraints());
+	}
+
 	public void testAs()
 	{
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
