@@ -180,6 +180,29 @@ public final class MediaType
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
 			),
+			new MediaType(
+				".svg", 
+				//http://www.w3.org/TR/SVG/mimereg.html
+				"image/svg+xml"
+			),
+			new MediaType(
+				".eot", 
+				//http://www.w3.org/Submission/EOT/
+				"application/vnd.ms-fontobject"
+			),
+			new MediaType(
+				".woff",
+				//http://www.w3.org/TR/WOFF/
+				new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
+				"font/x-woff"
+			),
+			new MediaType(
+				".ttf",
+				//http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
+				new byte[]{0x00,0x01,0x00,0x00,0x00},
+				"font/ttf",
+				"application/x-font-ttf"
+			),
 	};
 
 	private static final HashMap<String, MediaType> typesByExtension    = new HashMap<String, MediaType>();
