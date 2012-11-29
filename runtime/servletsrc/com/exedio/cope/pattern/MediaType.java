@@ -173,35 +173,31 @@ public final class MediaType
 					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04}, // same as ZIP
 					"application/java-archive"),
 			new MediaType(
+					".svg",
+					// http://www.w3.org/TR/SVG/mimereg.html
+					"image/svg+xml"),
+			new MediaType(
+					".eot",
+					// http://www.w3.org/Submission/EOT/
+					"application/vnd.ms-fontobject"),
+			new MediaType(
+					".woff",
+					// http://www.w3.org/TR/WOFF/
+					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
+					"font/x-woff"),
+			new MediaType(
+					".ttf",
+					// http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
+					new byte[]{0x00,0x01,0x00,0x00,0x00},
+					"font/ttf",
+					"application/x-font-ttf"),
+			new MediaType(
 					".pdf",
 					// http://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
 					// http://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
-			),
-			new MediaType(
-				".svg", 
-				//http://www.w3.org/TR/SVG/mimereg.html
-				"image/svg+xml"
-			),
-			new MediaType(
-				".eot", 
-				//http://www.w3.org/Submission/EOT/
-				"application/vnd.ms-fontobject"
-			),
-			new MediaType(
-				".woff",
-				//http://www.w3.org/TR/WOFF/
-				new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
-				"font/x-woff"
-			),
-			new MediaType(
-				".ttf",
-				//http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
-				new byte[]{0x00,0x01,0x00,0x00,0x00},
-				"font/ttf",
-				"application/x-font-ttf"
 			),
 	};
 
