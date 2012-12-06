@@ -405,6 +405,7 @@ public class Hash extends Pattern implements Settable<String>
 
 		/**
 		 * Creates a plain text variant to redeem an existing password (password forgotten).
+		 * The result MUST be valid according to {@link #validate(String, Item, Hash)}.
 		 */
 		abstract protected String newRandomPlainText(SecureRandom secureRandom);
 	}
