@@ -77,6 +77,16 @@ public class Hash extends Pattern implements Settable<String>
 		this(newStorage(wrap(algorithm, "utf8")), algorithm);
 	}
 
+	public Hash(final HashAlgorithm algorithm)
+	{
+		this(newStorage(algorithm), algorithm, DEFAULT_VALIDATOR);
+	}
+
+	public Hash(final StringField storage, final HashAlgorithm algorithm)
+	{
+		this(storage, algorithm, DEFAULT_VALIDATOR);
+	}
+
 	public Hash validate(final PlainTextValidator validator)
 	{
 		return new Hash(this.storage.copy(), this.algorithm, validator);
