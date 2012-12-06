@@ -1,0 +1,108 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import java.io.UnsupportedEncodingException;
+
+import com.exedio.cope.StringField;
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
+
+final class AlgorithmAdapter implements HashAlgorithm
+{
+	static HashAlgorithm wrap(
+			final Hash.Algorithm algorithm,
+			final String encoding)
+	{
+		return (algorithm!=null) ? new AlgorithmAdapter(algorithm, encoding) : null;
+	}
+
+	private final Hash.Algorithm algorithm;
+	private final String encoding;
+
+	private AlgorithmAdapter(
+			final Hash.Algorithm algorithm,
+			final String encoding)
+	{
+		if(algorithm==null)
+			throw new NullPointerException("algorithm");
+		if(encoding==null)
+			throw new NullPointerException("encoding");
+
+		this.algorithm = algorithm;
+
+		this.encoding = encoding;
+		encode("test");
+	}
+
+	public StringField constrainStorage(final StringField storage)
+	{
+		return storage.
+				charSet(CharSet.HEX_LOWER).
+				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
+	}
+
+	private byte[] encode(final String s)
+	{
+		try
+		{
+			return s.getBytes(encoding);
+		}
+		catch(final UnsupportedEncodingException e)
+		{
+			throw new IllegalArgumentException(e);
+		}
+	}
+
+	public String name()
+	{
+		return algorithm.name();
+	}
+
+	public String hash(final String plainText)
+	{
+		return Hex.encodeLower(algorithm.hash(encode(plainText)));
+	}
+
+	public boolean check(final String plainText, final String hash)
+	{
+		return algorithm.check(encode(plainText), Hex.decodeLower(hash));
+	}
+
+	public boolean compatibleTo(final HashAlgorithm other)
+	{
+		if(!(other instanceof AlgorithmAdapter))
+			return false;
+
+		return algorithm.compatibleTo(((AlgorithmAdapter)other).algorithm);
+	}
+
+
+	@Deprecated
+	static Hash.Algorithm unwrap(final HashAlgorithm algorithm)
+	{
+		return ((AlgorithmAdapter)algorithm).algorithm;
+	}
+
+	@Deprecated
+	static String unwrapEncoding(final HashAlgorithm algorithm)
+	{
+		return ((AlgorithmAdapter)algorithm).encoding;
+	}
+}

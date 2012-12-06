@@ -1,0 +1,58 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import com.exedio.cope.StringField;
+
+public interface HashAlgorithm
+	{
+		String name();
+
+		/**
+		 * Constrains hash storage.
+		 * All hashed created MUST not violate
+		 * {@link StringField#check(String)}.
+		 */
+		StringField constrainStorage(StringField storage);
+
+		/**
+		 * Returns a hash for the given plain text.
+		 * The result is not required to be deterministic -
+		 * this means, multiple calls for the same plain text
+		 * do not have to return the same hash.
+		 * This is especially true for salted hashes.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @return the hash of plainText. Must never return null.
+		 */
+		String hash(String plainText);
+
+		/**
+		 * Returns whether the given plain text matches the given hash.
+		 * @param plainText the text to be hashed. Is never null.
+		 * @param hash the hash of plainText. Is never null.
+		 */
+		boolean check(String plainText, String hash);
+
+		/**
+		 * Returns whether this algorithm can consistently check
+		 * hash values created by the given algorithm.
+		 * @throws NullPointerException if other is null
+		 */
+		boolean compatibleTo(HashAlgorithm other);
+	}

@@ -18,7 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
+import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
+
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Set;
@@ -42,8 +43,6 @@ import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.NonNegativeRandom;
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -54,49 +53,45 @@ public class Hash extends Pattern implements Settable<String>
 
 	private final StringField storage;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Algorithm algorithm;
-	private final String encoding;
+	private final HashAlgorithm algorithm;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PlainTextValidator validator;
 
 	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
 	{
-		this(storage, algorithm, encoding, DEFAULT_VALIDATOR);
+		this(storage, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, algorithm, "utf8", DEFAULT_VALIDATOR);
+		this(storage, wrap(algorithm, "utf8"), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm, final String encoding)
 	{
-		this(newStorage(algorithm), algorithm, encoding, DEFAULT_VALIDATOR);
+		this(newStorage(wrap(algorithm, encoding)), wrap(algorithm, encoding), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm)
 	{
-		this(newStorage(algorithm), algorithm);
+		this(newStorage(wrap(algorithm, "utf8")), algorithm);
 	}
 
 	public Hash validate(final PlainTextValidator validator)
 	{
-		return new Hash(this.storage.copy(), this.algorithm, this.encoding, validator);
+		return new Hash(this.storage.copy(), this.algorithm, validator);
 	}
 
 
 	private Hash(
 			final StringField storage,
-			final Algorithm algorithm,
-			final String encoding,
+			final HashAlgorithm algorithm,
 			final PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
 		if(algorithm==null)
 			throw new NullPointerException("algorithm");
-		if(encoding==null)
-			throw new NullPointerException("encoding");
 		if (validator==null)
 			throw new NullPointerException("validator");
 
@@ -107,9 +102,6 @@ public class Hash extends Pattern implements Settable<String>
 
 		addSource(this.storage = storage, algorithmName, ComputedElement.get());
 
-		this.encoding = encoding;
-		encode("test");
-
 		this.validator = validator;
 	}
 
@@ -118,7 +110,7 @@ public class Hash extends Pattern implements Settable<String>
 		return storage;
 	}
 
-	public final Algorithm getAlgorithm()
+	public final HashAlgorithm getAlgorithm2()
 	{
 		return algorithm;
 	}
@@ -128,9 +120,14 @@ public class Hash extends Pattern implements Settable<String>
 		return algorithm.name();
 	}
 
+	/**
+	 * @deprecated
+	 * Throws exception if not initialized via {@link Algorithm}.
+	 */
+	@Deprecated
 	public final String getEncoding()
 	{
-		return encoding;
+		return AlgorithmAdapter.unwrapEncoding(algorithm);
 	}
 
 	public final boolean isInitial()
@@ -162,19 +159,17 @@ public class Hash extends Pattern implements Settable<String>
 		return result;
 	}
 
-	private static StringField newStorage(final Algorithm algorithm)
+	private static StringField newStorage(final HashAlgorithm algorithm)
 	{
-		return new StringField().
-				charSet(CharSet.HEX_LOWER).
-				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
+		return algorithm.constrainStorage(new StringField());
 	}
 
 	private String algorithmHash(final String plainText)
 	{
-		final byte[] resultBytes = algorithm.hash(encode(plainText));
-		if(resultBytes==null)
+		final String result = algorithm.hash(plainText);
+		if(result==null)
 			throw new NullPointerException();
-		return Hex.encodeLower(resultBytes);
+		return result;
 	}
 
 	private boolean algorithmCheck(final String plainText, final String hash)
@@ -184,20 +179,9 @@ public class Hash extends Pattern implements Settable<String>
 		if(hash==null)
 			throw new NullPointerException();
 
-		return algorithm.check(encode(plainText), Hex.decodeLower(hash));
+		return algorithm.check(plainText, hash);
 	}
 
-	private byte[] encode(final String s)
-	{
-		try
-		{
-			return s.getBytes(encoding);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
-	}
 
 	public interface Algorithm
 	{
@@ -233,12 +217,12 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final Hash toFinal()
 	{
-		return new Hash(storage.toFinal(), algorithm, encoding, validator);
+		return new Hash(storage.toFinal(), algorithm, validator);
 	}
 
 	public final Hash optional()
 	{
-		return new Hash(storage.optional(), algorithm, encoding, validator);
+		return new Hash(storage.optional(), algorithm, validator);
 	}
 
 	@Wrap(order=30,
@@ -457,6 +441,17 @@ public class Hash extends Pattern implements Settable<String>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated
+	 * Use {@link #getAlgorithm2()} instead.
+	 * Throws exception if not initialized via {@link Algorithm}.
+	 */
+	@Deprecated
+	public final Algorithm getAlgorithm()
+	{
+		return AlgorithmAdapter.unwrap(algorithm);
+	}
 
 	/**
 	 * @deprecated Use {@link #blind(String)} instead.
