@@ -43,7 +43,7 @@ public final class IntegerRangeViolationException extends RangeViolationExceptio
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public IntegerRangeViolationException(
+	IntegerRangeViolationException(
 			final IntegerField feature,
 			final Item item,
 			final int value,

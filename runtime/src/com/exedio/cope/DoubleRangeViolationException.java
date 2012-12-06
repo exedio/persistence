@@ -43,7 +43,7 @@ public final class DoubleRangeViolationException extends RangeViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public DoubleRangeViolationException(
+	DoubleRangeViolationException(
 			final DoubleField feature,
 			final Item item,
 			final double value,

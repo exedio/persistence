@@ -43,7 +43,7 @@ public final class LongRangeViolationException extends RangeViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public LongRangeViolationException(
+	LongRangeViolationException(
 			final LongField feature,
 			final Item item,
 			final long value,

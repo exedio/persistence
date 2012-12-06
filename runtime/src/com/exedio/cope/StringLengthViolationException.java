@@ -43,7 +43,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public StringLengthViolationException(final StringField feature, final Item item, final String value)
+	StringLengthViolationException(final StringField feature, final Item item, final String value)
 	{
 		super(item, null);
 		this.feature = feature;
