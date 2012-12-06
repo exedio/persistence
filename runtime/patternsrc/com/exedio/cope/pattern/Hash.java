@@ -108,9 +108,7 @@ public class Hash extends Pattern implements Settable<String>
 		addSource(this.storage = storage, algorithmName, ComputedElement.get());
 
 		this.encoding = encoding;
-		{
 			encode("test");
-		}
 
 		this.validator = validator;
 	}
@@ -173,12 +171,10 @@ public class Hash extends Pattern implements Settable<String>
 
 	private String algorithmHash(final String plainText)
 	{
-		{
 			final byte[] resultBytes = algorithm.hash(encode(plainText));
 			if(resultBytes==null)
 				throw new NullPointerException();
 			return Hex.encodeLower(resultBytes);
-		}
 	}
 
 	private boolean algorithmCheck(final String plainText, final String hash)
@@ -188,16 +184,14 @@ public class Hash extends Pattern implements Settable<String>
 		if(hash==null)
 			throw new NullPointerException();
 
-		{
 			return algorithm.check(encode(plainText), Hex.decodeLower(hash));
-		}
 	}
 
 	private byte[] encode(final String s)
 	{
 		try
 		{
-		return s.getBytes(encoding);
+			return s.getBytes(encoding);
 		}
 		catch(final UnsupportedEncodingException e)
 		{
