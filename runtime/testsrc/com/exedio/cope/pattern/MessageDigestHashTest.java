@@ -82,7 +82,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(false, item.password.isMandatory());
 		assertEquals(String.class, getInitialType(item.password));
 		assertContains(item.password.getInitialExceptions());
-		assertEquals("utf8", item.password.getEncoding());
+		assertEquals("utf8", encoding(item.password));
 		assertEquals(5, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordLatin.getType());
@@ -93,7 +93,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(false, item.passwordLatin.isMandatory());
 		assertEquals(String.class, getInitialType(item.passwordLatin));
 		assertContains(item.passwordLatin.getInitialExceptions());
-		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
+		assertEquals("ISO-8859-1", encoding(item.passwordLatin));
 		assertEquals(5, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordFinal.getType());
@@ -105,7 +105,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, item.passwordFinal.isMandatory());
 		assertEquals(String.class, getInitialType(item.passwordFinal));
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.passwordFinal.getInitialExceptions());
-		assertEquals("utf8", item.passwordFinal.getEncoding());
+		assertEquals("utf8", encoding(item.passwordFinal));
 		assertEquals(5, ((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
@@ -117,7 +117,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, item.passwordMandatory.isMandatory());
 		assertEquals(String.class, getInitialType(item.passwordMandatory));
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
-		assertEquals("utf8", item.passwordMandatory.getEncoding());
+		assertEquals("utf8", encoding(item.passwordMandatory));
 		assertEquals(5, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
 
 		assertSerializedSame(item.password         , 400);
@@ -269,5 +269,12 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(item.checkPassword(null));
 		assertContains(item, item.TYPE.search(item.password.isNull()));
 		assertContains(item.TYPE.search(item.password.isNotNull()));
+	}
+
+	static String encoding(final Hash hash)
+	{
+		@SuppressWarnings("deprecation")
+		final String result = hash.getEncoding();
+		return result;
 	}
 }

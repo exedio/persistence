@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MessageDigestHashTest.encoding;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -78,7 +80,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(true, item.password.isMandatory());
 		assertEquals(String.class, getInitialType(item.password));
 		assertContains(MandatoryViolationException.class, item.password.getInitialExceptions());
-		assertEquals("utf8", item.password.getEncoding());
+		assertEquals("utf8", encoding(item.password));
 		assertEquals(1, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
 
 		assertEquals(FRANZ_MD5, item.password.hash(FRANZ));
