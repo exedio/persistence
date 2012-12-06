@@ -93,6 +93,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	public void testWrongContentType() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-wrongContentType.zip");
@@ -104,7 +105,6 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("xxx.jpg", e.getMessage());
-			@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 			final IllegalContentTypeException cause = (IllegalContentTypeException)e.getCause();
 			assertEquals("illegal content type 'image/jpeg' for TextUrlFilterItem-fertig.value, allowed is 'image/png' only.", cause.getMessage());
 		}
@@ -124,6 +124,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	public void testLong() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-long.zip");
@@ -135,7 +136,6 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("long.png", e.getMessage());
-			@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 			final DataLengthViolationException cause = (DataLengthViolationException)e.getCause();
 			assertEquals("length violation, 4 bytes is too long for TextUrlFilterItem-fertig.value-body", cause.getMessage());
 		}
