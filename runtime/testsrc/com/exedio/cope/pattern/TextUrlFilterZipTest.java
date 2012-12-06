@@ -47,7 +47,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new TextUrlFilterItem());
 	}
 
-	public void testIt() throws IOException
+	public void testNormal() throws IOException
 	{
 		item.putFertigPastesFromZip(file("TextUrlFilterZipTest.zip"));
 		{
@@ -89,7 +89,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 			}
 			assertFalse(pastes.hasNext());
 		}
+	}
 
+	public void testWrongContentType() throws IOException
+	{
 		try
 		{
 			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-wrongContentType.zip"));
@@ -101,7 +104,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 			final IllegalContentTypeException cause = (IllegalContentTypeException)e.getCause();
 			assertEquals("illegal content type 'image/jpeg' for TextUrlFilterItem-fertig.value, allowed is 'image/png' only.", cause.getMessage());
 		}
+	}
 
+	public void testUnknownContentType() throws IOException
+	{
 		try
 		{
 			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-unknownContentType.zip"));
@@ -111,7 +117,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		{
 			assertEquals("unknown content type for entry xxx.zack", e.getMessage());
 		}
+	}
 
+	public void testLong() throws IOException
+	{
 		try
 		{
 			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-long.zip"));
