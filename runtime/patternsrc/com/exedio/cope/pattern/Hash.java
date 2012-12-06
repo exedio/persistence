@@ -403,7 +403,9 @@ public class Hash extends Pattern implements Settable<String>
 		abstract protected void validate(String plainText, Item exceptionItem, Hash hash) throws
 			InvalidPlainTextException;
 
-		/** create a plain text variant to redeem an existing password (password forgotten) */
+		/**
+		 * Creates a plain text variant to redeem an existing password (password forgotten).
+		 */
 		abstract protected String newRandomPlainText(SecureRandom secureRandom);
 	}
 
