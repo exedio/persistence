@@ -26,8 +26,8 @@ public interface HashAlgorithm
 
 		/**
 		 * Constrains hash storage.
-		 * All hashed created MUST not violate
-		 * {@link StringField#check(String)}.
+		 * All hashes created MUST not violate
+		 * {@link com.exedio.cope.Field#check(Object)} for {@link StringField}.
 		 */
 		StringField constrainStorage(StringField storage);
 
