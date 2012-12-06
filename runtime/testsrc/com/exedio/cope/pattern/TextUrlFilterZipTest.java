@@ -93,9 +93,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 
 	public void testWrongContentType() throws IOException
 	{
+		final File file = file("TextUrlFilterZipTest-wrongContentType.zip");
 		try
 		{
-			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-wrongContentType.zip"));
+			item.putFertigPastesFromZip(file);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -108,9 +109,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 
 	public void testUnknownContentType() throws IOException
 	{
+		final File file = file("TextUrlFilterZipTest-unknownContentType.zip");
 		try
 		{
-			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-unknownContentType.zip"));
+			item.putFertigPastesFromZip(file);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -121,9 +123,10 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 
 	public void testLong() throws IOException
 	{
+		final File file = file("TextUrlFilterZipTest-long.zip");
 		try
 		{
-			item.putFertigPastesFromZip(file("TextUrlFilterZipTest-long.zip"));
+			item.putFertigPastesFromZip(file);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
