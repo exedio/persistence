@@ -27,7 +27,11 @@ public final class CopyViolationException extends ConstraintViolationException
 	private final Object actualValue;
 	private final Item targetItem;
 
-	CopyViolationException(final Item targetItem, final CopyConstraint feature, final Object expectedValue, final Object actualValue)
+	CopyViolationException(
+			final Item targetItem,
+			final CopyConstraint feature,
+			final Object expectedValue,
+			final Object actualValue)
 	{
 		super(null, null);
 		this.feature = feature;

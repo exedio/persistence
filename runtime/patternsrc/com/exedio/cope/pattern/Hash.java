@@ -432,7 +432,11 @@ public class Hash extends Pattern implements Settable<String>
 		private final String message;
 		private final Hash feature;
 
-		public InvalidPlainTextException(final String message, final String plainText, final Item item, final Hash feature)
+		public InvalidPlainTextException(
+				final String message,
+				final String plainText,
+				final Item item,
+				final Hash feature)
 		{
 			super(item, /*cause*/ null);
 			this.message = message;

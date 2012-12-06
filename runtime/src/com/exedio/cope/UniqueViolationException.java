@@ -46,7 +46,10 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>constraint</tt> is null.
 	 */
-	UniqueViolationException(final UniqueConstraint feature, final Item item, final SQLException cause)
+	UniqueViolationException(
+			final UniqueConstraint feature,
+			final Item item,
+			final SQLException cause)
 	{
 		super(item, cause);
 		this.feature = feature;

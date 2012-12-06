@@ -41,7 +41,9 @@ public final class CheckViolationException extends ConstraintViolationException
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <code>constraint</code> is null.
 	 */
-	CheckViolationException(final Item item, final CheckConstraint feature)
+	CheckViolationException(
+			final Item item,
+			final CheckConstraint feature)
 	{
 		super(item, null);
 		this.feature = feature;

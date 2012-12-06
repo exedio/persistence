@@ -48,7 +48,9 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
-	public static <F extends Feature & Settable<?>> MandatoryViolationException create(final F feature, final Item item)
+	public static <F extends Feature & Settable<?>> MandatoryViolationException create(
+			final F feature,
+			final Item item)
 	{
 		return new MandatoryViolationException(feature, feature, item);
 	}
@@ -57,7 +59,10 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @deprecated Use {@link #create(Feature, Item)} instead.
 	 */
 	@Deprecated
-	public MandatoryViolationException(final Feature feature, final Settable<?> settable, final Item item)
+	public MandatoryViolationException(
+			final Feature feature,
+			final Settable<?> settable,
+			final Item item)
 	{
 		super(item, null);
 		if(feature!=settable)

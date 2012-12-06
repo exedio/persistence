@@ -33,7 +33,10 @@ public final class IllegalContentTypeException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	IllegalContentTypeException(final Media feature, final Item item, final String contentType)
+	IllegalContentTypeException(
+			final Media feature,
+			final Item item,
+			final String contentType)
 	{
 		super(item, null);
 		this.feature = feature;

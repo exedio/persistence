@@ -42,7 +42,9 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>item</tt> or <tt>feature</tt> is null.
 	 */
-	IntegrityViolationException(final ItemField<?> feature, final Item item)
+	IntegrityViolationException(
+			final ItemField<?> feature,
+			final Item item)
 	{
 		super(item, null);
 

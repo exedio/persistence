@@ -47,7 +47,11 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param size initializes, what is returned by {@link #getSize()}.
 	 */
-	ListSizeViolationException(final AbstractListField<?> feature, final Item item, final int size, final int border)
+	ListSizeViolationException(
+			final AbstractListField<?> feature,
+			final Item item,
+			final int size,
+			final int border)
 	{
 		super(item, null);
 		this.feature = feature;

@@ -45,7 +45,12 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	StringCharSetViolationException(final StringField feature, final Item item, final String value, final char character, final int position)
+	StringCharSetViolationException(
+			final StringField feature,
+			final Item item,
+			final String value,
+			final char character,
+			final int position)
 	{
 		super(item, null);
 		this.feature = feature;
