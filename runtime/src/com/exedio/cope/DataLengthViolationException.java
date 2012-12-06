@@ -42,7 +42,11 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	 * @param length initializes, what is returned by {@link #getLength()}.
 	 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
 	 */
-	public DataLengthViolationException(final DataField feature, final Item item, final long length, final boolean lengthExact)
+	public DataLengthViolationException(
+			final DataField feature,
+			final Item item,
+			final long length,
+			final boolean lengthExact)
 	{
 		super(item, null);
 
