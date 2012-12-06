@@ -48,8 +48,8 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)algo(item.passwordFinal    ).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)algo(item.passwordMandatory).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
 		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
 	}
 
@@ -83,7 +83,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(String.class, getInitialType(item.password));
 		assertContains(item.password.getInitialExceptions());
 		assertEquals("utf8", encoding(item.password));
-		assertEquals(5, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
+		assertEquals(5, algo(item.password).getIterations());
 
 		assertEquals(item.TYPE, item.passwordLatin.getType());
 		assertEquals("passwordLatin", item.passwordLatin.getName());
@@ -94,7 +94,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(String.class, getInitialType(item.passwordLatin));
 		assertContains(item.passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", encoding(item.passwordLatin));
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
+		assertEquals(5, algo(item.passwordLatin).getIterations());
 
 		assertEquals(item.TYPE, item.passwordFinal.getType());
 		assertEquals("passwordFinal", item.passwordFinal.getName());
@@ -106,7 +106,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(String.class, getInitialType(item.passwordFinal));
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.passwordFinal.getInitialExceptions());
 		assertEquals("utf8", encoding(item.passwordFinal));
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getIterations());
+		assertEquals(5, algo(item.passwordFinal).getIterations());
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
@@ -118,7 +118,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(String.class, getInitialType(item.passwordMandatory));
 		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
 		assertEquals("utf8", encoding(item.passwordMandatory));
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
+		assertEquals(5, algo(item.passwordMandatory).getIterations());
 
 		assertSerializedSame(item.password         , 400);
 		assertSerializedSame(item.passwordLatin    , 405);
@@ -186,7 +186,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
 		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
 
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		((MockSecureRandom2)algo(item.passwordFinal).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
 		try
 		{
 			item.passwordFinal.set(item, "finalox");
@@ -269,6 +269,12 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(item.checkPassword(null));
 		assertContains(item, item.TYPE.search(item.password.isNull()));
 		assertContains(item.TYPE.search(item.password.isNotNull()));
+	}
+
+	@SuppressWarnings("deprecation")
+	static MessageDigestAlgorithm algo(final Hash hash)
+	{
+		return (MessageDigestAlgorithm)hash.getAlgorithm();
 	}
 
 	static String encoding(final Hash hash)
