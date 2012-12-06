@@ -85,7 +85,11 @@ public class Hash extends Pattern implements Settable<String>
 	}
 
 
-	private Hash(final StringField storage, final Algorithm algorithm, final String encoding, final PlainTextValidator validator)
+	private Hash(
+			final StringField storage,
+			final Algorithm algorithm,
+			final String encoding,
+			final PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
