@@ -603,7 +603,7 @@
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove.jar" />
-					<fileset file="lib/log4j.jar" />
+					<fileset file="lib/slf4j-api.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/exedio-cope-servletutil.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
