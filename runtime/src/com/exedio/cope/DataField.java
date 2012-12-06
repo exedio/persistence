@@ -470,7 +470,7 @@ public final class DataField extends Field<DataField.Value>
 		 * an {@link DataLengthViolationException} is thrown nevertheless,
 		 * but only after fetching at least {@link DataField#getMaximumLength()} bytes from the source.
 		 * A typical source of the estimated length is
-		 * {@link File#length()} or {@link HttpURLConnection#getContentLength()}.
+		 * {@link File#length()} or {@link HttpURLConnection#getContentLength()} or {@link ZipEntry#getSize()}.
 		 */
 		abstract long estimateLength();
 
