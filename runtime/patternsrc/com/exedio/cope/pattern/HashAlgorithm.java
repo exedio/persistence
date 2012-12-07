@@ -62,11 +62,4 @@ public interface HashAlgorithm
 	 * @param hash the hash of plainText. Is never null.
 	 */
 	boolean check(String plainText, String hash);
-
-	/**
-	 * Returns whether this algorithm can consistently check
-	 * hash values created by the given algorithm.
-	 * @throws NullPointerException if other is null
-	 */
-	boolean compatibleTo(HashAlgorithm other);
 }

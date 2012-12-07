@@ -91,14 +91,6 @@ final class AlgorithmAdapter implements HashAlgorithm
 		return algorithm.check(encode(plainText), Hex.decodeLower(hash));
 	}
 
-	public boolean compatibleTo(final HashAlgorithm other)
-	{
-		if(!(other instanceof AlgorithmAdapter))
-			return false;
-
-		return algorithm.compatibleTo(((AlgorithmAdapter)other).algorithm);
-	}
-
 
 	@Deprecated
 	static Hash.Algorithm unwrap(final HashAlgorithm algorithm, final StringField storage)

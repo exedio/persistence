@@ -101,12 +101,6 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		{
 			throw new RuntimeException();
 		}
-
-		@Override
-		public boolean compatibleTo(final HashAlgorithm other)
-		{
-			throw new RuntimeException();
-		}
 	}
 
 	static final class AnItem extends Item

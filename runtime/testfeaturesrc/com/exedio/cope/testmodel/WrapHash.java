@@ -77,11 +77,6 @@ public class WrapHash extends Hash
 
 			return hash.equals(hash(plainText));
 		}
-
-		public boolean compatibleTo(final HashAlgorithm other)
-		{
-			throw new RuntimeException();
-		}
 	};
 
 	/** this validator throws an exception whatever member method is called */
