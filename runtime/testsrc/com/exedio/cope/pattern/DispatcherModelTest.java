@@ -33,6 +33,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DispatcherModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(DispatcherItem.TYPE);
@@ -42,6 +44,7 @@ public class DispatcherModelTest extends CopeAssert
 		MODEL.enableSerialization(DispatcherModelTest.class, "MODEL");
 	}
 
+	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
 	public void testIt()
 	{
 		final Type<?> runType = toTarget.getRunType();
