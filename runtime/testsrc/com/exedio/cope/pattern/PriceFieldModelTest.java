@@ -35,6 +35,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class PriceFieldModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(TYPE);
@@ -137,6 +139,7 @@ public class PriceFieldModelTest extends CopeAssert
 		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testMin()
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
@@ -156,6 +159,7 @@ public class PriceFieldModelTest extends CopeAssert
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testMax()
 	{
 		final PriceField f = new PriceField().max(Price.storeOf(4000));
@@ -175,6 +179,7 @@ public class PriceFieldModelTest extends CopeAssert
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testRange()
 	{
 		final PriceField f = new PriceField().range(Price.storeOf(2000), Price.storeOf(4000));
@@ -212,6 +217,7 @@ public class PriceFieldModelTest extends CopeAssert
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testDefaultConstant()
 	{
 		final PriceField f = new PriceField();

@@ -25,6 +25,8 @@ import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 import java.util.Collection;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DeleteTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
@@ -81,6 +83,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDelete(item);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testNullify()
 	{
 		assertSame(NULLIFY, item.selfNullify.getDeletePolicy());

@@ -23,6 +23,8 @@ import java.util.Date;
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
 import com.exedio.cope.util.Day;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DefaultToTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(DefaultToItem.TYPE);
@@ -32,6 +34,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
 		// test model

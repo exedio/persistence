@@ -24,6 +24,8 @@ import java.util.Date;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DoubleTest extends AbstractRuntimeTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DoubleItem.TYPE);
@@ -503,6 +505,7 @@ public class DoubleTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
 		try

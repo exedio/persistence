@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class DataTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
@@ -118,6 +120,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testData() throws MandatoryViolationException, IOException
 	{
 		assertEquals(10, data10.length);

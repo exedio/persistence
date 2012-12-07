@@ -29,6 +29,8 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.misc.Computed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class HashTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(HashItem.TYPE, HashItemHolder.TYPE);
@@ -204,6 +206,7 @@ public class HashTest extends AbstractRuntimeTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testValidatorValidate()
 	{
 		// try null as validator
