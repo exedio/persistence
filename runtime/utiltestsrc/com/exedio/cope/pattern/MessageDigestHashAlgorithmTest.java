@@ -81,18 +81,12 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		}
 	}
 
-	public void testCompatibleTo()
-	{
-	}
-
 	public void testSalted()
 	{
 		final HashAlgorithm a =
 			create("utf8", "SHA-512", 8, random(8), 5);
 		assertEqualsN("SHA512s8i5", a);
 		assertEqualsL(72, a);
-
-
 
 		assertDigestNull(a);
 		assertDigest(a,
@@ -115,8 +109,6 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		assertEqualsN("SHA512s1i2", a);
 		assertEqualsL(65, a);
 
-
-
 		assertDigestNull(a);
 		assertDigest(a,
 			"",
@@ -137,8 +129,6 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 			create("utf8", "SHA-512", 0, (SecureRandom)null, 5);
 		assertEqualsN("SHA512i5", a);
 		assertEqualsL(64, a);
-
-
 
 		assertDigestNull(a);
 		assertDigest(a,
@@ -161,8 +151,6 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		assertEqualsN("SHA512s8", a);
 		assertEqualsL(72, a);
 
-
-
 		assertDigestNull(a);
 		assertDigest(a,
 			"",
@@ -183,8 +171,6 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 			create("utf8", "SHA-512", 0, (SecureRandom)null, 1);
 		assertEqualsN("SHA512", a);
 		assertEqualsL(64, a);
-
-
 
 		assertDigestNull(a);
 		assertDigest(a,
@@ -214,8 +200,6 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 			create("utf8", "MD5", 0, (SecureRandom)null, 1);
 		assertEqualsN("MD5", a);
 		assertEqualsL(16, a);
-
-
 
 		assertDigestNull(a);
 		assertDigest(a,
