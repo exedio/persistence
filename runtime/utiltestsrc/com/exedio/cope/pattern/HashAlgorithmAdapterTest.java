@@ -28,17 +28,46 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class HashAlgorithmAdapterTest extends CopeAssert
 {
-	public void testIt()
+	public void testAlgorithm()
 	{
+		@SuppressWarnings("deprecation")
+		final Hash.Algorithm algorithm = AnItem.hash.getAlgorithm();
+		assertEquals("algorithmName", algorithm.name());
+		assertEquals(66, algorithm.length());
 		try
 		{
-			AnItem.hash.getAlgorithm();
+			algorithm.hash(new byte[]{});
 			fail();
 		}
-		catch(final ClassCastException e)
+		catch(final IllegalArgumentException e)
 		{
-			// ok
+			assertEquals("not implementable", e.getMessage());
 		}
+		try
+		{
+			algorithm.check(new byte[]{}, new byte[]{});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("not implementable", e.getMessage());
+		}
+		try
+		{
+			algorithm.compatibleTo(algorithm);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("not implementable", e.getMessage());
+		}
+	}
+
+	public void testEncoding()
+	{
+		@SuppressWarnings("deprecation")
+		final String encoding = AnItem.hash.getEncoding();
+		assertEquals("UNKNOWN", encoding);
 	}
 
 	static final class AnAlgorithm implements HashAlgorithm
@@ -52,7 +81,7 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		@Override
 		public StringField constrainStorage(final StringField storage)
 		{
-			return storage;
+			return storage.lengthRange(66, 77);
 		}
 
 		@Override
@@ -72,7 +101,6 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		{
 			throw new RuntimeException();
 		}
-
 	}
 
 	static final class AnItem extends Item
@@ -84,5 +112,6 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 	}
 
+	@SuppressWarnings("unused")
 	private static final Model model = new Model(AnItem.TYPE);
 }

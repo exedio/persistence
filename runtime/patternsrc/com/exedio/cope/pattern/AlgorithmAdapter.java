@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import java.io.UnsupportedEncodingException;
 
 import com.exedio.cope.StringField;
+import com.exedio.cope.pattern.Hash.Algorithm;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 
@@ -95,14 +96,51 @@ final class AlgorithmAdapter implements HashAlgorithm
 
 
 	@Deprecated
-	static Hash.Algorithm unwrap(final HashAlgorithm algorithm)
+	static Hash.Algorithm unwrap(final HashAlgorithm algorithm, final StringField storage)
 	{
-		return ((AlgorithmAdapter)algorithm).algorithm;
+		if(algorithm instanceof AlgorithmAdapter)
+			return ((AlgorithmAdapter)algorithm).algorithm;
+
+		return new Algorithm()
+		{
+			@Override
+			public String name()
+			{
+				return algorithm.name();
+			}
+
+			@Override
+			public int length()
+			{
+				return storage.getMinimumLength();
+			}
+
+			@Override
+			public byte[] hash(final byte[] plainText)
+			{
+				throw new IllegalArgumentException("not implementable");
+			}
+
+			@Override
+			public boolean check(final byte[] plainText, final byte[] hash)
+			{
+				throw new IllegalArgumentException("not implementable");
+			}
+
+			@Override
+			public boolean compatibleTo(final Algorithm other)
+			{
+				throw new IllegalArgumentException("not implementable");
+			}
+		};
 	}
 
 	@Deprecated
 	static String unwrapEncoding(final HashAlgorithm algorithm)
 	{
-		return ((AlgorithmAdapter)algorithm).encoding;
+		return
+				(algorithm instanceof AlgorithmAdapter)
+				? ((AlgorithmAdapter)algorithm).encoding
+				: "UNKNOWN";
 	}
 }

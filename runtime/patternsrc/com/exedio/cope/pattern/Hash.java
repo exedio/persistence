@@ -462,7 +462,7 @@ public class Hash extends Pattern implements Settable<String>
 	@Deprecated
 	public final Algorithm getAlgorithm()
 	{
-		return AlgorithmAdapter.unwrap(algorithm);
+		return AlgorithmAdapter.unwrap(algorithm, storage);
 	}
 
 	/**
