@@ -21,38 +21,38 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.StringField;
 
 public interface HashAlgorithm
-	{
-		String name();
+{
+	String name();
 
-		/**
-		 * Constrains hash storage.
-		 * All hashes created MUST not violate
-		 * {@link com.exedio.cope.Field#check(Object)} for {@link StringField}.
-		 */
-		StringField constrainStorage(StringField storage);
+	/**
+	 * Constrains hash storage.
+	 * All hashes created MUST not violate
+	 * {@link com.exedio.cope.Field#check(Object)} for {@link StringField}.
+	 */
+	StringField constrainStorage(StringField storage);
 
-		/**
-		 * Returns a hash for the given plain text.
-		 * The result is not required to be deterministic -
-		 * this means, multiple calls for the same plain text
-		 * do not have to return the same hash.
-		 * This is especially true for salted hashes.
-		 * @param plainText the text to be hashed. Is never null.
-		 * @return the hash of plainText. Must never return null.
-		 */
-		String hash(String plainText);
+	/**
+	 * Returns a hash for the given plain text.
+	 * The result is not required to be deterministic -
+	 * this means, multiple calls for the same plain text
+	 * do not have to return the same hash.
+	 * This is especially true for salted hashes.
+	 * @param plainText the text to be hashed. Is never null.
+	 * @return the hash of plainText. Must never return null.
+	 */
+	String hash(String plainText);
 
-		/**
-		 * Returns whether the given plain text matches the given hash.
-		 * @param plainText the text to be hashed. Is never null.
-		 * @param hash the hash of plainText. Is never null.
-		 */
-		boolean check(String plainText, String hash);
+	/**
+	 * Returns whether the given plain text matches the given hash.
+	 * @param plainText the text to be hashed. Is never null.
+	 * @param hash the hash of plainText. Is never null.
+	 */
+	boolean check(String plainText, String hash);
 
-		/**
-		 * Returns whether this algorithm can consistently check
-		 * hash values created by the given algorithm.
-		 * @throws NullPointerException if other is null
-		 */
-		boolean compatibleTo(HashAlgorithm other);
-	}
+	/**
+	 * Returns whether this algorithm can consistently check
+	 * hash values created by the given algorithm.
+	 * @throws NullPointerException if other is null
+	 */
+	boolean compatibleTo(HashAlgorithm other);
+}
