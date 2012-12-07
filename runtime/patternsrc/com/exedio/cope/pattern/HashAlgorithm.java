@@ -22,7 +22,20 @@ import com.exedio.cope.StringField;
 
 public interface HashAlgorithm
 {
+	/**
+	 * Returns an id for that algorithm.
+	 * For any set of algorithms returning the same id
+	 * any algorithm of that set should be able to
+	 * {@link #check(String, String) check}
+	 * any hashes created by any other algorithm of that set.
+	 */
 	String getID();
+
+	/**
+	 * Return a description of the algorithm.
+	 * May contain additional info, that does not prevent
+	 * hashing compatibility required by {@link #getID()}.
+	 */
 	String getDescription();
 
 	/**
