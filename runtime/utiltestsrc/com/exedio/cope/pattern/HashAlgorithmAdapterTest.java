@@ -32,7 +32,7 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algorithm = AnItem.hash.getAlgorithm();
-		assertEquals("algorithmName", algorithm.name());
+		assertEquals("algorithmID", algorithm.name());
 		assertEquals(66, algorithm.length());
 		try
 		{
