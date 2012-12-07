@@ -64,7 +64,12 @@ final class AlgorithmAdapter implements HashAlgorithm
 		}
 	}
 
-	public String name()
+	public String getID()
+	{
+		return algorithm.name();
+	}
+
+	public String getDescription()
 	{
 		return algorithm.name();
 	}
@@ -106,7 +111,7 @@ final class AlgorithmAdapter implements HashAlgorithm
 			@Override
 			public String name()
 			{
-				return algorithm.name();
+				return algorithm.getID();
 			}
 
 			@Override

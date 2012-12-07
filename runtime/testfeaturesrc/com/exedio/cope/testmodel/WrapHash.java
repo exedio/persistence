@@ -45,9 +45,14 @@ public class WrapHash extends Hash
 
 	private static final HashAlgorithm ALGORITHM = new HashAlgorithm()
 	{
-		public String name()
+		public String getID()
 		{
 			return "wrap";
+		}
+
+		public String getDescription()
+		{
+			return "wrapDescription";
 		}
 
 		public StringField constrainStorage(final StringField storage)

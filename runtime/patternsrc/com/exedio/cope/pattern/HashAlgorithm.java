@@ -22,7 +22,8 @@ import com.exedio.cope.StringField;
 
 public interface HashAlgorithm
 {
-	String name();
+	String getID();
+	String getDescription();
 
 	/**
 	 * Constrains hash storage.

@@ -73,9 +73,15 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 	static final class AnAlgorithm implements HashAlgorithm
 	{
 		@Override
-		public String name()
+		public String getID()
 		{
-			return "algorithmName";
+			return "algorithmID";
+		}
+
+		@Override
+		public String getDescription()
+		{
+			return "algorithmDescription";
 		}
 
 		@Override

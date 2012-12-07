@@ -105,11 +105,11 @@ public class Hash extends Pattern implements Settable<String>
 			throw new NullPointerException("validator");
 
 		this.algorithm = algorithm;
-		final String algorithmName = algorithm.name();
-		if(algorithmName.isEmpty())
-			throw new IllegalArgumentException("algorithmName must not be empty");
+		final String algorithmID = algorithm.getID();
+		if(algorithmID.isEmpty())
+			throw new IllegalArgumentException("algorithmID must not be empty");
 
-		addSource(this.storage = storage, algorithmName, ComputedElement.get());
+		addSource(this.storage = storage, algorithmID, ComputedElement.get());
 
 		this.validator = validator;
 	}
@@ -124,9 +124,9 @@ public class Hash extends Pattern implements Settable<String>
 		return algorithm;
 	}
 
-	public final String getAlgorithmName()
+	public final String getAlgorithmName() // TODO rename to getAlgorithmID
 	{
-		return algorithm.name();
+		return algorithm.getID();
 	}
 
 	/**
