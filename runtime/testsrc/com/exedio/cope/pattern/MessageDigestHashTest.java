@@ -48,14 +48,14 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		((MockSecureRandom2)algo(item.passwordFinal    ).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
-		((MockSecureRandom2)algo(item.passwordMandatory).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		expectSalt(item.passwordFinal, "885406ef34cef302");
+		expectSalt(item.passwordMandatory, "885406ef34cef302");
 		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
 	}
 
-	private static final void expectSalt(final Hash hash)
+	private static final void expectSalt(final Hash hash, final String bytes)
 	{
-		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
 	}
 
 	public void testMD5()
@@ -130,15 +130,15 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordMandatory, 409);
 
 		item.blindPassword(null);
-		expectSalt(item.password);
+		expectSalt(item.password, "885406ef34cef302");
 		item.blindPassword("");
 		item.blindPassword("bing");
 		item.blindPasswordLatin(null);
-		expectSalt(item.passwordLatin);
+		expectSalt(item.passwordLatin, "885406ef34cef302");
 		item.blindPasswordLatin("");
 		item.blindPasswordLatin("bing");
 		item.blindPasswordMandatory(null);
-		expectSalt(item.passwordMandatory);
+		expectSalt(item.passwordMandatory, "885406ef34cef302");
 		item.blindPasswordMandatory("");
 		item.blindPasswordMandatory("bing");
 
@@ -194,7 +194,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
 		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
 
-		((MockSecureRandom2)algo(item.passwordFinal).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		expectSalt(item.passwordFinal, "aeab417a9b5a7cf3");
 		try
 		{
 			item.passwordFinal.set(item, "finalox");
