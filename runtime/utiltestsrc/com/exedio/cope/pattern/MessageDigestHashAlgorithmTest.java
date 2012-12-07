@@ -268,25 +268,12 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 			final String plainText,
 			final String expectedHash)
 	{
-		final byte[] plainTextBytes;
-		try
-		{
-			plainTextBytes = plainText.getBytes("utf8");
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
-		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
-
 		final MockSecureRandom saltSource = mockSecureRandomInternal;
 		if(saltSource!=null)
 			saltSource.expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3".substring(0, 2*mockSecureRandomInternalLength)));
 		assertEquals(expectedHash, algorithm.hash(plainText));
-		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 
 		assertTrue(algorithm.check(plainText, expectedHash));
-		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 		assertFalse(algorithm.check(plainText+"x", expectedHash));
 	}
 
