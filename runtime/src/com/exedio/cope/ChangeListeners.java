@@ -37,7 +37,7 @@ final class ChangeListeners
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
 	private int cleared = 0;
 	private int removed = 0;
-	private volatile int failed = 0;
+	private final VolatileInt failed = new VolatileInt();
 
 	ChangeListeners()
 	{
@@ -83,7 +83,7 @@ final class ChangeListeners
 	{
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared, removed, failed);
+			return new ChangeListenerInfo(cleared, removed, failed.get());
 		}
 	}
 
@@ -159,7 +159,7 @@ final class ChangeListeners
 			final ChangeListener listener,
 			final Throwable throwable)
 	{
-		failed++;
+		failed.inc();
 		if(logger.isErrorEnabled())
 			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
