@@ -71,10 +71,12 @@ public abstract class RevisionInfo
 	private static final String REVISION = "revision";
 	private static final String DATE = "dateUTC";
 	private static final String ENVIRONMENT_PREFIX = "env.";
-	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-	static
+
+	private static SimpleDateFormat df()
 	{
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return result;
 	}
 
 	Properties getStore()
@@ -84,7 +86,7 @@ public abstract class RevisionInfo
 		if(number>=0)
 			store.setProperty(REVISION, String.valueOf(number));
 
-		store.setProperty(DATE, df.format(date));
+		store.setProperty(DATE, df().format(date));
 
 		for(final Map.Entry<String, String> e : environment.entrySet())
 			store.setProperty(ENVIRONMENT_PREFIX + e.getKey(), e.getValue());
@@ -117,7 +119,7 @@ public abstract class RevisionInfo
 		final Date date;
 		try
 		{
-			date = df.parse(p.getProperty(DATE));
+			date = df().parse(p.getProperty(DATE));
 		}
 		catch(final ParseException e)
 		{
