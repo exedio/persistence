@@ -236,7 +236,7 @@ final class HsqldbDialect extends Dialect
 					final Object o = resultSet.getObject(1);
 					if(o==null)
 						throw new RuntimeException("null in sequence " + name);
-					return ((Integer)o).intValue();
+					return (Integer)o;
 				}
 			});
 		}
