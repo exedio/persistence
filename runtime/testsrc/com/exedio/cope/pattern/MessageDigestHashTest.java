@@ -74,7 +74,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.password.getType());
 		assertEquals("password", item.password.getName());
-		assertEquals("SHA512s8i5", item.password.getAlgorithmName());
+		assertEquals("SHA512s8i5", item.password.getAlgorithmID());
 		assertEquals(item.TYPE, item.password.getStorage().getType());
 		assertEquals("password-SHA512s8i5", item.password.getStorage().getName());
 		assertEquals(false, item.password.getStorage().isFinal());
@@ -103,7 +103,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.passwordFinal.getType());
 		assertEquals("passwordFinal", item.passwordFinal.getName());
-		assertEquals("SHA512s8i5", item.passwordFinal.getAlgorithmName());
+		assertEquals("SHA512s8i5", item.passwordFinal.getAlgorithmID());
 		assertEquals(item.passwordFinal, item.passwordFinal.getStorage().getPattern());
 		assertEquals(true, item.passwordFinal.isInitial());
 		assertEquals(true, item.passwordFinal.isFinal());
@@ -115,7 +115,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.passwordMandatory.getType());
 		assertEquals("passwordMandatory", item.passwordMandatory.getName());
-		assertEquals("SHA512s8i5", item.passwordMandatory.getAlgorithmName());
+		assertEquals("SHA512s8i5", item.passwordMandatory.getAlgorithmID());
 		assertEquals(item.passwordMandatory, item.passwordMandatory.getStorage().getPattern());
 		assertEquals(true, item.passwordMandatory.isInitial());
 		assertEquals(false, item.passwordMandatory.isFinal());

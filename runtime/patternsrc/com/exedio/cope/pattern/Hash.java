@@ -124,7 +124,7 @@ public class Hash extends Pattern implements Settable<String>
 		return algorithm;
 	}
 
-	public final String getAlgorithmName() // TODO rename to getAlgorithmID
+	public final String getAlgorithmID()
 	{
 		return algorithm.getID();
 	}
@@ -318,7 +318,7 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		public String get(final Hash feature)
 		{
-			return "get{0}" + feature.getAlgorithmName();
+			return "get{0}" + feature.getAlgorithmID();
 		}
 	}
 
@@ -336,7 +336,7 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		public String get(final Hash feature)
 		{
-			return "set{0}" + feature.getAlgorithmName();
+			return "set{0}" + feature.getAlgorithmID();
 		}
 	}
 
@@ -453,6 +453,15 @@ public class Hash extends Pattern implements Settable<String>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getAlgorithmID()} instead
+	 */
+	@Deprecated
+	public final String getAlgorithmName()
+	{
+		return getAlgorithmID();
+	}
 
 	/**
 	 * @deprecated

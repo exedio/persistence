@@ -65,7 +65,7 @@ public class HashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals("wrap", item.explicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.explicitExternal.getAlgorithmID());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 		assertEquals(item.explicitExternal, item.explicitExternalWrap.getPattern());
 		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFeatures());
@@ -100,7 +100,7 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.implicitExternal.getType());
 		assertEquals("implicitExternal", item.implicitExternal.getName());
-		assertEquals("wrap", item.implicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.implicitExternal.getAlgorithmID());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternal-wrap", item.implicitExternal.getStorage().getName());
 		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
@@ -126,7 +126,7 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.internal.getType());
 		assertEquals("internal", item.internal.getName());
-		assertEquals("wrap", item.internal.getAlgorithmName());
+		assertEquals("wrap", item.internal.getAlgorithmID());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internal-wrap", item.internal.getStorage().getName());
 		assertEquals(item.internal, item.internal.getStorage().getPattern());
