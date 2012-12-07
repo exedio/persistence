@@ -57,10 +57,11 @@ public class ReviseTest extends CopeAssert
 
 	private static final Model model7 = new Model(revisionsFactory7, ReviseItem2.TYPE);
 
-	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-	static
+	private static SimpleDateFormat df()
 	{
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return result;
 	}
 
 	private static final Logger logger = Logger.getLogger(Revisions.class);
@@ -436,7 +437,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
-		final Date date = df.parse(logProps.getProperty("dateUTC"));
+		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("create"));
 		assertRevisionEnvironment(logProps);
@@ -456,7 +457,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(number), logProps.getProperty("revision"));
-		final Date date = df.parse(logProps.getProperty("dateUTC"));
+		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals(null, logProps.getProperty("create"));
 		assertEquals(revision.comment, logProps.getProperty("comment"));
@@ -485,7 +486,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(null, logProps.getProperty("revision"));
-		final Date date = df.parse(logProps.getProperty("dateUTC"));
+		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("mutex"));
 		assertEquals(String.valueOf(expected), logProps.getProperty("mutex.expected"));
