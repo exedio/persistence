@@ -20,13 +20,11 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
 
 public class MessageDigestHashAlgorithmTest extends CopeAssert
