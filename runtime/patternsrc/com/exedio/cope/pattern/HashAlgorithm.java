@@ -39,7 +39,7 @@ public interface HashAlgorithm
 	String getDescription();
 
 	/**
-	 * Constrains hash storage.
+	 * Constrains the field used to store the hash.
 	 * All hashes created MUST not violate
 	 * {@link com.exedio.cope.Field#check(Object)} for {@link StringField}.
 	 */
