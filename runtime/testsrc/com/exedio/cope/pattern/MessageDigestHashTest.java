@@ -53,6 +53,11 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
 	}
 
+	private static final void expectSalt(final Hash hash)
+	{
+		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+	}
+
 	public void testMD5()
 	{
 		assertEquals(Arrays.asList(
@@ -125,12 +130,15 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertSerializedSame(item.passwordMandatory, 409);
 
 		item.blindPassword(null);
+		expectSalt(item.password);
 		item.blindPassword("");
 		item.blindPassword("bing");
 		item.blindPasswordLatin(null);
+		expectSalt(item.passwordLatin);
 		item.blindPasswordLatin("");
 		item.blindPasswordLatin("bing");
 		item.blindPasswordMandatory(null);
+		expectSalt(item.passwordMandatory);
 		item.blindPasswordMandatory("");
 		item.blindPasswordMandatory("bing");
 

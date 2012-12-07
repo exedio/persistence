@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
 
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -276,6 +275,8 @@ public class Hash extends Pattern implements Settable<String>
 			return expectedHash==null;
 	}
 
+	private transient volatile String hashForBlind = null;
+
 	/**
 	 * Wastes (almost) as much cpu cycles, as a call to
 	 * {@link #check(Item, String)}  would have needed.
@@ -289,9 +290,10 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		if(actualPlainText!=null)
 		{
-			final char[] expectedHash = new char[storage.getMinimumLength()];
-			Arrays.fill(expectedHash, 'a');
-			algorithmCheck(actualPlainText, new String(expectedHash));
+			if(hashForBlind==null)
+				hashForBlind = algorithmHash("1234");
+
+			algorithmCheck(actualPlainText, hashForBlind);
 		}
 	}
 
