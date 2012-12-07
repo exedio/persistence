@@ -478,7 +478,7 @@ public abstract class MediaPath extends Pattern
 
 	public final static class Log
 	{
-		private volatile int counter = 0;
+		private final VolatileInt counter = new VolatileInt();
 		final String name;
 		public final int responseStatus;
 
@@ -503,12 +503,12 @@ public abstract class MediaPath extends Pattern
 
 		void increment()
 		{
-			counter++; // may loose a few counts due to concurrency, but this is ok
+			counter.inc();
 		}
 
 		public int get()
 		{
-			return counter;
+			return counter.get();
 		}
 	}
 
