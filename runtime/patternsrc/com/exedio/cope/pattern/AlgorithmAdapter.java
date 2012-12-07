@@ -52,13 +52,6 @@ final class AlgorithmAdapter implements HashAlgorithm
 		encode("test");
 	}
 
-	public StringField constrainStorage(final StringField storage)
-	{
-		return storage.
-				charSet(CharSet.HEX_LOWER).
-				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
-	}
-
 	private byte[] encode(final String s)
 	{
 		try
@@ -74,6 +67,13 @@ final class AlgorithmAdapter implements HashAlgorithm
 	public String name()
 	{
 		return algorithm.name();
+	}
+
+	public StringField constrainStorage(final StringField storage)
+	{
+		return storage.
+				charSet(CharSet.HEX_LOWER).
+				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
 	}
 
 	public String hash(final String plainText)
