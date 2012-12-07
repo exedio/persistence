@@ -145,16 +145,10 @@ final class Executor
 			final R result = resultSetHandler.handle(resultSet);
 			final long nanoResultRead = takeTimes ? nanoTime() : 0;
 
-			if(resultSet!=null)
-			{
-				resultSet.close();
-				resultSet = null;
-			}
-			if(sqlStatement!=null)
-			{
-				sqlStatement.close();
-				sqlStatement = null;
-			}
+			resultSet.close();
+			resultSet = null;
+			sqlStatement.close();
+			sqlStatement = null;
 
 			if(explain)
 				return result;
