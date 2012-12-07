@@ -70,6 +70,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	static class ThreadStoppable extends Thread
 	{
 		boolean proceed = true;
+		String errorName = null;
 	}
 
 	public void testIt() throws InterruptedException
@@ -93,7 +94,8 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 							//Thread.yield();
 							model.startTransaction("CacheBadReadTest  read " + i);
 							final String name = item.getName();
-							assertTrue(name, name.startsWith("itemName"));
+							if(!name.startsWith("itemName"))
+								errorName = name;
 							model.commit();
 						}
 					}
@@ -140,6 +142,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 		for(int i = 0; i<threads.length; i++)
 		{
 			threads[i].join();
+			assertNull(threads[i].errorName);
 			threads[i] = null;
 		}
 	}
