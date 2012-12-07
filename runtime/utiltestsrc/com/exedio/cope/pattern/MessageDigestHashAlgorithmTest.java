@@ -287,10 +287,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 
 		assertTrue(algorithm.check(plainText, expectedHash));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
-
-		{
-			assertFalse(algorithm.check(plainText+"x", expectedHash));
-		}
+		assertFalse(algorithm.check(plainText+"x", expectedHash));
 	}
 
 	private MockSecureRandom mockSecureRandomInternal = null;
