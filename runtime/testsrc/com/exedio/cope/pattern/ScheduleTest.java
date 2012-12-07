@@ -370,13 +370,16 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		clock.assertEmpty();
 	}
 
-	static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+	static SimpleDateFormat df()
+	{
+		return new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+	}
 
 	private static final Date date(final String s)
 	{
 		try
 		{
-			return df.parse(s);
+			return df().parse(s);
 		}
 		catch(final ParseException e)
 		{
@@ -423,7 +426,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		@Override
 		public String toString()
 		{
-			return item.toString() + "---" + df.format(from) + "---" + df.format(until);
+			return item.toString() + "---" + df().format(from) + "---" + df().format(until);
 		}
 	}
 
@@ -483,7 +486,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		@Override
 		public String toString()
 		{
-			return df.format(from) + "---" + df.format(until) + "---" + df.format(run);
+			return df().format(from) + "---" + df().format(until) + "---" + df().format(run);
 		}
 	}
 }
