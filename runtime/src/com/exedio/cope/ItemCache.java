@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.IntRatio.ratio;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntLongHashMap;
@@ -69,7 +70,7 @@ final class ItemCache
 			assert type.cacheIdTransiently <l : String.valueOf(type.cacheIdTransiently) + '/' + type.id;
 			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
 
-			final int iLimit = weights[i] * limit / weightSum;
+			final int iLimit = ratio(weights[i], limit, weightSum);
 			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidateLast) : null;
 		}
 	}

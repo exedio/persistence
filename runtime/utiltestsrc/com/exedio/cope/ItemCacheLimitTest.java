@@ -41,7 +41,7 @@ public class ItemCacheLimitTest extends TestCase
 	public void testOverflow()
 	{
 		model.connect(props(1010000));
-		assertLimits(149511, 10000); // TODO is a bug, limit=1000000
+		assertLimits(1000000, 10000);
 	}
 
 	private static void assertLimits(final int limit1, final int limit2)
