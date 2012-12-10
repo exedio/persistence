@@ -686,6 +686,7 @@
 	<target name="runtime.servlet.webtest.compile">
 		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</compile>
