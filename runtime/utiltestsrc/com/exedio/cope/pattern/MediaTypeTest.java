@@ -23,11 +23,13 @@ import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.util.Hex.decodeLower;
+import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -218,7 +220,7 @@ public class MediaTypeTest extends CopeAssert
 		return s.substring(0, s.length()-2);
 	}
 
-	private static void assertMagic(final String magic, final MediaType... types) throws IOException
+	private void assertMagic(final String magic, final MediaType... types) throws IOException
 	{
 		final byte[] magicBytes = decodeLower(magic);
 		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
@@ -251,9 +253,9 @@ public class MediaTypeTest extends CopeAssert
 		assertEquals(expected, actual);
 	}
 
-	private static File file(final byte[] bytes) throws IOException
+	private File file(final byte[] bytes) throws IOException
 	{
-		final File result = File.createTempFile(MediaTypeTest.class.getName(), ".dat");
+		final File result = deleteOnTearDown(File.createTempFile(MediaTypeTest.class.getName(), ".dat"));
 		final FileOutputStream stream = new FileOutputStream(result);
 		try
 		{
@@ -264,5 +266,25 @@ public class MediaTypeTest extends CopeAssert
 			stream.close();
 		}
 		return result;
+	}
+
+
+	private final ArrayList<File> files = new ArrayList<File>();
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		for(final File file : files)
+			delete(file);
+		files.clear();
+
+		super.tearDown();
+	}
+
+	private final File deleteOnTearDown(final File file)
+	{
+		assertNotNull(file);
+		files.add(file);
+		return file;
 	}
 }
