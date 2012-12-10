@@ -157,7 +157,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 		assertTrue(read>0);
 
-		final File result = File.createTempFile("TextUrlFilterZipTest", "");
+		final File result = File.createTempFile(TextUrlFilterZipTest.class.getName(), "");
 		final FileOutputStream out = new FileOutputStream(result);
 		try
 		{
