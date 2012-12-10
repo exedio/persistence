@@ -68,16 +68,14 @@ final class SamplerPurge extends Item
 				);
 		final int rows;
 		final long start = System.nanoTime();
+		final Statement stat = con.createStatement();
+		try
 		{
-			final Statement stat = con.createStatement();
-			try
-			{
-				rows = stat.executeUpdate(bf);
-			}
-			finally
-			{
-				stat.close();
-			}
+			rows = stat.executeUpdate(bf);
+		}
+		finally
+		{
+			stat.close();
 		}
 		final long end = System.nanoTime();
 

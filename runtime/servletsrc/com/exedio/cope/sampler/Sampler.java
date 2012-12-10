@@ -347,16 +347,14 @@ public class Sampler
 	{
 		final String samplerString = toString();
 		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
-		{
-			for(final Type<?> type : samplerModel.getTypes())
-				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-						SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
-				{
-					types.add(type);
-				}
+		for(final Type<?> type : samplerModel.getTypes())
+			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
+					SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
+			{
+				types.add(type);
+			}
 
-			types.add(SamplerModel.TYPE);
-		}
+		types.add(SamplerModel.TYPE);
 		try
 		{
 			final Connection connection = newConnection(samplerModel);
