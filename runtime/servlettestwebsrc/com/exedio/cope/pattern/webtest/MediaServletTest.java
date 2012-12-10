@@ -36,6 +36,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.exedio.cope.util.StrictFile;
+
 import junit.framework.TestCase;
 
 public class MediaServletTest extends TestCase
@@ -494,6 +496,7 @@ public class MediaServletTest extends TestCase
 
 			out.close();
 			in.close();
+			StrictFile.delete(f);
 		}
 	}
 
