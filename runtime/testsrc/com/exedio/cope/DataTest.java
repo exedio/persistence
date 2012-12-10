@@ -95,7 +95,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
 
-			final File tempFile = File.createTempFile("exedio-cope-DataTest-", ".tmp");
+			final File tempFile = File.createTempFile(DataTest.class.getName(), ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);
@@ -112,7 +112,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData(tempStream);
 			assertEquals(0, tempStream.toByteArray().length);
 
-			final File tempFile = File.createTempFile("cope-DataTest.", ".tmp");
+			final File tempFile = File.createTempFile(DataTest.class.getName(), ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);

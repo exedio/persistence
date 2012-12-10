@@ -189,7 +189,7 @@ public class MediaTypeTest extends CopeAssert
 			assertEquals("empty", e.getMessage());
 		}
 
-		final File file = File.createTempFile("MediaTypeTest-", ".dat");
+		final File file = File.createTempFile(MediaTypeTest.class.getName(), ".dat");
 		StrictFile.delete(file);
 		try
 		{
@@ -253,7 +253,7 @@ public class MediaTypeTest extends CopeAssert
 
 	private static File file(final byte[] bytes) throws IOException
 	{
-		final File result = File.createTempFile("MediaTypeTest-", ".dat");
+		final File result = File.createTempFile(MediaTypeTest.class.getName(), ".dat");
 		final FileOutputStream stream = new FileOutputStream(result);
 		try
 		{

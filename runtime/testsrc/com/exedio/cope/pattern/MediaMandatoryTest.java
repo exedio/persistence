@@ -206,7 +206,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 
 	private static final void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException
 	{
-		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
+		final File tempFile = File.createTempFile(MediaDefaultTest.class.getName(), ".tmp");
 		delete(tempFile);
 		assertFalse(tempFile.exists());
 

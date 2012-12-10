@@ -213,7 +213,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		FileOutputStream s = null;
 		try
 		{
-			result = File.createTempFile("exedio-cope-AbstractLibTest-", ".tmp");
+			result = File.createTempFile(AbstractRuntimeTest.class.getName(), ".tmp");
 			s = new FileOutputStream(result);
 			s.write(data);
 		}
