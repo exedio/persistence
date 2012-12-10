@@ -59,7 +59,7 @@ final class SamplerPurge extends Item
 		return q;
 	}
 
-	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
 			final Type<?> type,
 			final Date limit,
