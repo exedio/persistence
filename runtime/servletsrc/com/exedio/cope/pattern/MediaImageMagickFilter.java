@@ -300,8 +300,8 @@ public class MediaImageMagickFilter extends MediaFilter
 
 	private final File execute(final Item item) throws IOException
 	{
-		final File inFile  = File.createTempFile("MediaImageMagickThumbnail.in." + getID(), ".data");
-		final File outFile = File.createTempFile("MediaImageMagickThumbnail.out." + getID(), outputExtension);
+		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension);
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
