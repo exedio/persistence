@@ -345,16 +345,18 @@ public class Sampler
 
 	public final void purge(final Date limit, final JobContext ctx)
 	{
-		final String samplerString = toString();
 		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
 		for(final Type<?> type : samplerModel.getTypes())
+		{
 			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 					SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
 			{
 				types.add(type);
 			}
-
+		}
 		types.add(SamplerModel.TYPE);
+
+		final String samplerString = toString();
 		try
 		{
 			final Connection connection = newConnection(samplerModel);
