@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class PurgeTest extends ConnectedTest
 {
-	public void testPurge() throws InterruptedException
+	public void testPurge()
 	{
 		assertEquals(0, samplerModel.getConnectProperties().getItemCacheLimit());
 		assertEquals(0, samplerModel.getConnectProperties().getQueryCacheLimit());
@@ -47,16 +47,34 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 
-		sleepLongerThan(1);
-		assertPurge(new Date(), 1, c?2:0, 0, 2, 1);
+		final Date date;
+		try
+		{
+			samplerModel.startTransaction(PurgeTest.class.getName());
+			date = SamplerModel.date.get(SamplerModel.TYPE.searchSingletonStrict(null));
+			samplerModel.commit();
+		}
+		finally
+		{
+			samplerModel.rollbackIfNotCommitted();
+		}
+
+		assertPurge(date, 0, 0, 0, 0, 0);
+		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
+		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+
+		final Date purgeDate = new Date(date.getTime()+1);
+		assertPurge(purgeDate, 1, c?2:0, 0, 2, 1);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
-		sleepLongerThan(1);
-		assertPurge(new Date(), 0, 0, 0, 0, 0);
+		assertPurge(purgeDate, 0, 0, 0, 0, 0);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
