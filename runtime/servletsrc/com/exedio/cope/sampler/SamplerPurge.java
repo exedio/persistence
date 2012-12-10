@@ -19,7 +19,6 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.search;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
@@ -61,6 +60,7 @@ final class SamplerPurge extends Item
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
+			final Connection con,
 			final Type<?> type,
 			final Date limit,
 			final JobContext ctx,
@@ -77,8 +77,6 @@ final class SamplerPurge extends Item
 				);
 		final int rows;
 		final long start = System.nanoTime();
-		final Connection con = newConnection(model);
-		try
 		{
 			final Statement stat = con.createStatement();
 			try
@@ -89,10 +87,6 @@ final class SamplerPurge extends Item
 			{
 				stat.close();
 			}
-		}
-		finally
-		{
-			con.close();
 		}
 		final long end = System.nanoTime();
 

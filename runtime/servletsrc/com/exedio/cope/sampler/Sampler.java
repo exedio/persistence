@@ -19,7 +19,9 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.SchemaInfo.newConnection;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -344,16 +346,29 @@ public class Sampler
 	public final void purge(final Date limit, final JobContext ctx)
 	{
 		final String samplerString = toString();
-		try
+		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
 		{
 			for(final Type<?> type : samplerModel.getTypes())
 				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
 						SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
 				{
-					SamplerPurge.purge(type, limit, ctx, samplerString);
+					types.add(type);
 				}
 
-			SamplerPurge.purge(SamplerModel.TYPE, limit, ctx, samplerString);
+			types.add(SamplerModel.TYPE);
+		}
+		try
+		{
+			final Connection connection = newConnection(samplerModel);
+			try
+			{
+				for(final Type<?> type : types)
+					SamplerPurge.purge(connection, type, limit, ctx, samplerString);
+			}
+			finally
+			{
+				connection.close();
+			}
 		}
 		catch (final SQLException e)
 		{
