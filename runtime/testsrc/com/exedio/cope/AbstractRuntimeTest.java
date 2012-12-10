@@ -239,6 +239,13 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return result;
 	}
 
+	protected final File deleteOnTearDown(final File file)
+	{
+		assertNotNull(file);
+		files.add(file);
+		return file;
+	}
+
 	protected static void assertData(final byte[] expectedData, final byte[] actualData)
 	{
 		if(!Arrays.equals(expectedData, actualData))

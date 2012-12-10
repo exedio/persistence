@@ -141,7 +141,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 	}
 
-	private static File file(final String name) throws IOException
+	private File file(final String name) throws IOException
 	{
 		final byte[] b = new byte[2000];
 		final InputStream stream = TextUrlFilterZipTest.class.getResourceAsStream(name);
@@ -157,7 +157,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 		assertTrue(read>0);
 
-		final File result = File.createTempFile(TextUrlFilterZipTest.class.getName(), "");
+		final File result = deleteOnTearDown(File.createTempFile(TextUrlFilterZipTest.class.getName(), ""));
 		final FileOutputStream out = new FileOutputStream(result);
 		try
 		{
