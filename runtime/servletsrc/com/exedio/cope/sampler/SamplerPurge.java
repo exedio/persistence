@@ -18,17 +18,15 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
-import static com.exedio.cope.SchemaInfo.supportsNativeDate;
+import static com.exedio.cope.SchemaInfo.search;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.Statement;
 import java.util.Date;
 
 import com.exedio.cope.ActivationParameters;
@@ -73,21 +71,19 @@ final class SamplerPurge extends Item
 		final DateField field = SamplerModel.replaceByCopy(SamplerModel.date, type);
 		final Model model = type.getModel();
 		final String bf =
-			"delete from " + quoteName(model, getTableName (type )) +
-			" where "      + quoteName(model, getColumnName(field)) + "<?";
+				"delete " + removePrefix(
+						"select " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
+						search(type.newQuery(field.less(limit)))
+				);
 		final int rows;
 		final long start = System.nanoTime();
 		final Connection con = newConnection(model);
 		try
 		{
-			final PreparedStatement stat = con.prepareStatement(bf);
+			final Statement stat = con.createStatement();
 			try
 			{
-				if(supportsNativeDate(model))
-					stat.setTimestamp(1, new Timestamp(limit.getTime())); else
-					stat.setLong     (1,               limit.getTime() );
-
-				rows = stat.executeUpdate();
+				rows = stat.executeUpdate(bf);
 			}
 			finally
 			{
@@ -112,6 +108,13 @@ final class SamplerPurge extends Item
 		}
 
 		ctx.incrementProgress(rows);
+	}
+
+	private static String removePrefix(final String prefix, final String pattern)
+	{
+		if(!pattern.startsWith(prefix))
+			throw new RuntimeException(prefix + "---" + pattern);
+		return pattern.substring(prefix.length());
 	}
 
 
