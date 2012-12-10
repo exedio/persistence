@@ -30,12 +30,10 @@ import java.util.Date;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
-import com.exedio.cope.Function;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
-import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
@@ -50,13 +48,6 @@ final class SamplerPurge extends Item
 	private static final DateField finished = new DateField().toFinal().defaultToNow();
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed  = new LongField().toFinal().min(0);
-
-	static Query<SamplerPurge> newQuery()
-	{
-		final Query<SamplerPurge> q = TYPE.newQuery();
-		q.setOrderBy(new Function<?>[]{finished, TYPE.getThis()}, new boolean[]{false, false});
-		return q;
-	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
