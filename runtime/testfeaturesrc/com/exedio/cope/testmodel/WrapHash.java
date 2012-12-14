@@ -18,13 +18,12 @@
 
 package com.exedio.cope.testmodel;
 
-import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
+import com.exedio.cope.pattern.HashAlgorithm;
 
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.
@@ -44,58 +43,39 @@ public class WrapHash extends Hash
 		super(ALGORITHM);
 	}
 
-	private static final Algorithm ALGORITHM = new Algorithm()
+	private static final HashAlgorithm ALGORITHM = new HashAlgorithm()
 	{
-		public String name()
+		public String getID()
 		{
 			return "wrap";
 		}
 
-		public int length()
+		public String getDescription()
 		{
-			return 6;
+			return "wrapDescription";
 		}
 
-		public byte[] hash(final byte[] plainText)
+		public StringField constrainStorage(final StringField storage)
+		{
+			return storage;
+		}
+
+		public String hash(final String plainText)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 
-			final String x;
-			try
-			{
-				x = new String(plainText, "utf8");
-			}
-			catch(final UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(e);
-			}
-			final int i = Integer.parseInt(x, 16);
-			final byte[] result = new byte[]{
-					0x34,
-					(byte)( i >> 24),
-					(byte)((i >> 16) & 0x000000ff),
-					(byte)((i >>  8) & 0x000000ff),
-					(byte)( i        & 0x000000ff),
-					0x43,
-			};
-			assert result.length==length();
-			return result;
+			return "[" + plainText + "]";
 		}
 
-		public boolean check(final byte[] plainText, final byte[] hash)
+		public boolean check(final String plainText, final String hash)
 		{
 			if(plainText==null)
 				throw new NullPointerException();
 			if(hash==null)
 				throw new NullPointerException();
 
-			return Arrays.equals(hash(plainText), hash);
-		}
-
-		public boolean compatibleTo(final Algorithm other)
-		{
-			throw new RuntimeException();
+			return hash.equals(hash(plainText));
 		}
 	};
 

@@ -67,7 +67,7 @@ public class HashTest extends AbstractRuntimeTest
 
 		assertEquals(item.TYPE, item.explicitExternal.getType());
 		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals("wrap", item.explicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.explicitExternal.getAlgorithmID());
 		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
 		assertEquals(item.explicitExternal, item.explicitExternalWrap.getPattern());
 		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFeatures());
@@ -90,7 +90,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
 
 		item.setExplicitExternal("03affe02");
-		assertEquals("3403affe0243", item.getExplicitExternalWrap());
+		assertEquals("[03affe02]", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("03affe01"));
 		assertTrue(item.checkExplicitExternal("03affe02"));
@@ -102,7 +102,7 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.implicitExternal.getType());
 		assertEquals("implicitExternal", item.implicitExternal.getName());
-		assertEquals("wrap", item.implicitExternal.getAlgorithmName());
+		assertEquals("wrap", item.implicitExternal.getAlgorithmID());
 		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
 		assertEquals("implicitExternal-wrap", item.implicitExternal.getStorage().getName());
 		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
@@ -118,7 +118,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkImplicitExternal("zack"));
 
 		item.setImplicitExternal("03affe05");
-		assertEquals("3403affe0543", item.get(item.implicitExternal.getStorage()));
+		assertEquals("[03affe05]", item.get(item.implicitExternal.getStorage()));
 		assertFalse(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal("0"));
 		assertTrue(item.checkImplicitExternal("03affe05"));
@@ -128,7 +128,7 @@ public class HashTest extends AbstractRuntimeTest
 	{
 		assertEquals(item.TYPE, item.internal.getType());
 		assertEquals("internal", item.internal.getName());
-		assertEquals("wrap", item.internal.getAlgorithmName());
+		assertEquals("wrap", item.internal.getAlgorithmID());
 		assertEquals(item.TYPE, item.internal.getStorage().getType());
 		assertEquals("internal-wrap", item.internal.getStorage().getName());
 		assertEquals(item.internal, item.internal.getStorage().getPattern());
@@ -144,26 +144,26 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkInternal("zack"));
 
 		item.setInternal("03affe07");
-		assertEquals("3403affe0743", item.get(item.internal.getStorage()));
+		assertEquals("[03affe07]", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal("0"));
 		assertTrue(item.checkInternal("03affe07"));
 
 		item.set(item.internal.map("03affe08"));
-		assertEquals("3403affe0843", item.get(item.internal.getStorage()));
+		assertEquals("[03affe08]", item.get(item.internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal("0"));
 		assertFalse(item.checkInternal("03affe07"));
 		assertTrue(item.checkInternal("03affe08"));
 
 		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("03affe09")}));
-		assertEquals("3403affe0943", item2.get(item2.internal.getStorage()));
+		assertEquals("[03affe09]", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
 
 		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("03affe10")));
-		assertEquals("3403affe1043", item3.get(item3.internal.getStorage()));
+		assertEquals("[03affe10]", item3.get(item3.internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
@@ -270,7 +270,7 @@ public class HashTest extends AbstractRuntimeTest
 			// with success
 			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
 			anItem.setWith3PinValidator("452");
-			assertEquals("340000045243", anItem.getWith3PinValidatorwrap());
+			assertEquals("[452]", anItem.getWith3PinValidatorwrap());
 
 			// with invalid input data
 			try
@@ -285,7 +285,7 @@ public class HashTest extends AbstractRuntimeTest
 				assertEquals(item.with3PinValidator, e.getFeature());
 				assertEquals(anItem, e.getItem());
 			}
-			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+			assertEquals("[452]", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
 
 			// with corrupt validator
 			try
@@ -297,7 +297,7 @@ public class HashTest extends AbstractRuntimeTest
 			{
 				assertEquals("validate", e.getMessage());
 			}
-			assertEquals("340000045243", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
+			assertEquals("[452]", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
 	}
 
 	public void testHashItemMassSetValuesWithValidatedHash()
@@ -308,7 +308,7 @@ public class HashTest extends AbstractRuntimeTest
 		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
 		assertNotNull(anItem);
 		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
-		assertEquals("340000012343", anItem.getWith3PinValidatorwrap());
+		assertEquals("[123]", anItem.getWith3PinValidatorwrap());
 
 		// fails because invalid data
 		try
@@ -366,7 +366,7 @@ public class HashTest extends AbstractRuntimeTest
 		// test with validator that accepts the given pin string
 		final SetValue<?> setValue = this.item.with3PinValidator.map("978");
 		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
-		assertEquals("340000097843", anItem.get(anItem.with3PinValidator.getStorage()));
+		assertEquals("[978]", anItem.get(anItem.with3PinValidator.getStorage()));
 	}
 
 	public void testValidatorNewRandomPassword()
