@@ -7,8 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Set ivy configuration "sources" for exedio-cope-log.txt and exedio-cope-src.zip
-	Within your ivy.xml you need to add that configuration to keep sources and logs up-to-date:
+* Set ivy configuration "sources" for exedio-cope-src.zip
+	Within your ivy.xml you need to add that configuration to keep sources up-to-date:
 	
 		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,sources" />
 	
