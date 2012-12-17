@@ -2,6 +2,7 @@
 <project
 		xmlns:ivy="antlib:org.apache.ivy.ant"
 		name="ivy-common">
+
 	<target name="resolve">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
@@ -12,13 +13,26 @@
 			classpath="artifacts/ivy.jar"
 			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings.xml" />
-		
-		<mkdir dir="artifacts/runtime" />
-		<copy file="template.xml" tofile="artifacts/runtime.xml" overwrite="true">
-			<filterset>
-				<filter token="CONF" value="runtime" />
-			</filterset>
-		</copy>
-		<ivy:retrieve file="artifacts/runtime.xml" pattern="artifacts/runtime/[artifact]-[type].[ext]" />
+		<fetch conf="runtime" />
+		<fetch conf="mysql" />
+		<fetch conf="hsqldb" />
+		<fetch conf="oracle" />
+		<fetch conf="postgresql" />
+		<fetch conf="test" />
 	</target>
+		
+	<macrodef name="fetch">
+		<attribute name="conf" />
+		<sequential>
+			<mkdir dir="artifacts/@{conf}" />
+			<copy file="template.xml" tofile="artifacts/@{conf}.xml" overwrite="true">
+				<filterset>
+					<filter token="CONF" value="@{conf}" />
+				</filterset>
+			</copy>
+			<ivy:resolve file="artifacts/@{conf}.xml" />
+			<ivy:retrieve file="artifacts/@{conf}.xml" pattern="artifacts/@{conf}/[artifact]-[type].[ext]" />
+		</sequential>
+	</macrodef>
+
 </project>
