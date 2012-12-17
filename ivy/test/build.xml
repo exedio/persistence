@@ -14,6 +14,11 @@
 		<ivy:settings file="artifacts/ivysettings.xml" />
 		
 		<mkdir dir="artifacts/runtime" />
-		<ivy:retrieve file="runtime.xml" pattern="artifacts/runtime/[artifact]-[type].[ext]" />
+		<copy file="template.xml" tofile="artifacts/runtime.xml" overwrite="true">
+			<filterset>
+				<filter token="CONF" value="runtime" />
+			</filterset>
+		</copy>
+		<ivy:retrieve file="artifacts/runtime.xml" pattern="artifacts/runtime/[artifact]-[type].[ext]" />
 	</target>
 </project>
