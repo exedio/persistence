@@ -23,6 +23,7 @@
 		<fetch conf="oracle" />
 		<fetch conf="postgresql" />
 		<fetch conf="test" />
+		<fetch conf="sources" />
 	</target>
 		
 	<macrodef name="fetch">

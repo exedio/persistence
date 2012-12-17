@@ -1,0 +1,2 @@
+exedio-cope-log.txt
+exedio-cope-src.zip
