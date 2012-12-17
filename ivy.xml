@@ -12,6 +12,7 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
+		<conf name="sources" />
 		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 		
@@ -23,8 +24,8 @@
 	</configurations>
 	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
-		<artifact name="exedio-cope" type="src" ext="zip" />
-		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
+		<artifact name="exedio-cope" conf="sources" type="log" ext="txt" />
 		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
 		<artifact name="exedio-cope-test" conf="test" />

@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Set ivy configuration "sources" for exedio-cope-log.txt and exedio-cope-src.zip
+	Within your ivy.xml you need to add that configuration to keep sources and logs up-to-date:
+	
+		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,sources" />
+	
 * bugfix for @CopeCacheWeight with large numbers,
 	bug could partially disable item cache.
 * ConstraintViolation subclasses make constructor non-public.
