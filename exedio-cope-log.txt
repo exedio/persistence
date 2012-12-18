@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* classes in package com.exedio.cope.junit moved from exedio-cope.jar to exedio-cope-junit.jar
+	add ivy configuration "junit" to fetch exedio-cope-junit.jar:
+	
+		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,junit" />
+	
 * Set ivy configuration "sources" for exedio-cope-src.zip
 	Within your ivy.xml you need to add that configuration to keep sources up-to-date:
 	

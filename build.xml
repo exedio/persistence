@@ -328,16 +328,23 @@
 							runtime.servlet.compile,
 							runtime.junit.compile" />
 	
-	<target name="runtime.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.protocol">
+	<target name="runtime.core.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.protocol">
 		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar exedio-cope-util.jar">
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/patternsrc" />
 			<fileset dir="build/classes/runtime/servletsrc" />
+		</ljar>
+	</target>
+	
+	<target name="runtime.junit.jar" depends="runtime.junit.compile">
+		<ljar name="cope junit" jarfile="build/exedio-cope-junit.jar" classpath="exedio-cope.jar">
 			<fileset dir="build/classes/runtime/junitsrc" />
 		</ljar>
 	</target>
+	
+	<target name="runtime.jar" depends="runtime.core.jar, runtime.junit.jar" />
 	
 	<target name="runtime.jar.src">
 		<mkdir dir="build" />
@@ -1018,6 +1025,7 @@
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.zip" />
+			<fileset file="${basedir}/build/exedio-cope-junit.jar" />
 			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument-annotations.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />

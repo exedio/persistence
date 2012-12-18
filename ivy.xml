@@ -13,6 +13,7 @@
 	<configurations>
 		<conf name="runtime" />
 		<conf name="sources" />
+		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
 		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 		
@@ -28,6 +29,7 @@
 		<artifact name="exedio-cope" type="log" ext="txt" />
 		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
+		<artifact name="exedio-cope-junit" conf="junit" />
 		<artifact name="exedio-cope-test" conf="test" />
 	</publications>
 	<dependencies defaultconf="runtime->*">
@@ -39,6 +41,7 @@
 		</dependency>
 		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
 		<dependency org="junit" name="junit" rev="4.4">
+			<conf name="junit" mapped="default" />
 			<conf name="test" mapped="default" />
 			<conf name="build" mapped="*" />
 		</dependency>
