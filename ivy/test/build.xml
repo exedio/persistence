@@ -22,6 +22,7 @@
 		<fetch conf="hsqldb" />
 		<fetch conf="oracle" />
 		<fetch conf="postgresql" />
+		<fetch conf="junit" />
 		<fetch conf="test" />
 		<fetch conf="sources" />
 	</target>

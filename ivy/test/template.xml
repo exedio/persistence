@@ -4,6 +4,6 @@
 				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 	<info organisation="com.exedio" module="test" />
 	<dependencies>
-		<dependency org="com.exedio" name="cope" rev="7431" conf="default->@CONF@" />
+		<dependency org="com.exedio" name="cope" rev="7432" conf="default->@CONF@" />
 	</dependencies>
 </ivy-module>
