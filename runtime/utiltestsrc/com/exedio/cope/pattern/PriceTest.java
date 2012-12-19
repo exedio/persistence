@@ -219,11 +219,13 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 
 		// TODO overflow
+		assertEquals( 2147483647, MAX_VALUE.add(storeOf( 0)).store());
 		assertEquals(-2147483648, MAX_VALUE.add(storeOf( 1)).store());
 		assertEquals(-2147483647, MAX_VALUE.add(storeOf( 2)).store());
 		assertEquals( 2147483647, MIN_VALUE.add(storeOf(-1)).store());
 		assertEquals( 2147483646, MIN_VALUE.add(storeOf(-2)).store());
 
+		assertEquals( 2147483647, storeOf( 0).add(MAX_VALUE).store());
 		assertEquals(-2147483648, storeOf( 1).add(MAX_VALUE).store());
 		assertEquals(-2147483647, storeOf( 2).add(MAX_VALUE).store());
 		assertEquals( 2147483647, storeOf(-1).add(MIN_VALUE).store());
