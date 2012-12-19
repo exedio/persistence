@@ -214,19 +214,6 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
 	}
 
-	private static void assertAddOverflows(final Price left, final Price right)
-	{
-		try
-		{
-			left.add(right);
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("overflow " + left  + " plus " + right, e.getMessage());
-		}
-	}
-
 	public static void testAdd()
 	{
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
@@ -279,6 +266,19 @@ public final class PriceTest extends CopeAssert
 		assertAddOverflows(MIN_VALUE  , MIN_VALUE_1);
 		assertAddOverflows(MIN_VALUE_1, MIN_VALUE  );
 		assertAddOverflows(MIN_VALUE_1, MIN_VALUE_1);
+	}
+
+	private static void assertAddOverflows(final Price left, final Price right)
+	{
+		try
+		{
+			left.add(right);
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("overflow " + left  + " plus " + right, e.getMessage());
+		}
 	}
 
 	public static void testSubtract()
