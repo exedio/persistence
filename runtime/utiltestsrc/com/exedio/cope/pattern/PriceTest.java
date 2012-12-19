@@ -270,6 +270,15 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-2147483647, storeOf( 0).add(MIN_VALUE_1).store());
 		assertEquals(-2147483648, storeOf(-1).add(MIN_VALUE_1).store());
 		assertAddOverflows(       storeOf(-2),    MIN_VALUE_1);
+
+		assertAddOverflows(MAX_VALUE,   MAX_VALUE  );
+		assertAddOverflows(MAX_VALUE  , MAX_VALUE_1);
+		assertAddOverflows(MAX_VALUE_1, MAX_VALUE  );
+		assertAddOverflows(MAX_VALUE_1, MAX_VALUE_1);
+		assertAddOverflows(MIN_VALUE,   MIN_VALUE  );
+		assertAddOverflows(MIN_VALUE  , MIN_VALUE_1);
+		assertAddOverflows(MIN_VALUE_1, MIN_VALUE  );
+		assertAddOverflows(MIN_VALUE_1, MIN_VALUE_1);
 	}
 
 	public static void testSubtract()
