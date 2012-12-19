@@ -30,6 +30,9 @@ import com.exedio.cope.junit.CopeAssert;
 
 public final class PriceTest extends CopeAssert
 {
+	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
+	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
+
 	public static void testIt()
 	{
 		assertEquals(5, new Price(5).store());
@@ -222,14 +225,30 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483647, MAX_VALUE.add(storeOf( 0)).store());
 		assertEquals(-2147483648, MAX_VALUE.add(storeOf( 1)).store()); // TODO fail
 		assertEquals(-2147483647, MAX_VALUE.add(storeOf( 2)).store()); // TODO fail
+		assertEquals(-2147483648, MIN_VALUE.add(storeOf( 0)).store());
 		assertEquals( 2147483647, MIN_VALUE.add(storeOf(-1)).store()); // TODO fail
 		assertEquals( 2147483646, MIN_VALUE.add(storeOf(-2)).store()); // TODO fail
+
+		assertEquals( 2147483646, MAX_VALUE_1.add(storeOf( 0)).store());
+		assertEquals( 2147483647, MAX_VALUE_1.add(storeOf( 1)).store());
+		assertEquals(-2147483648, MAX_VALUE_1.add(storeOf( 2)).store()); // TODO fail
+		assertEquals(-2147483647, MIN_VALUE_1.add(storeOf( 0)).store());
+		assertEquals(-2147483648, MIN_VALUE_1.add(storeOf(-1)).store());
+		assertEquals( 2147483647, MIN_VALUE_1.add(storeOf(-2)).store()); // TODO fail
 
 		assertEquals( 2147483647, storeOf( 0).add(MAX_VALUE).store());
 		assertEquals(-2147483648, storeOf( 1).add(MAX_VALUE).store()); // TODO fail
 		assertEquals(-2147483647, storeOf( 2).add(MAX_VALUE).store()); // TODO fail
+		assertEquals(-2147483648, storeOf( 0).add(MIN_VALUE).store());
 		assertEquals( 2147483647, storeOf(-1).add(MIN_VALUE).store()); // TODO fail
 		assertEquals( 2147483646, storeOf(-2).add(MIN_VALUE).store()); // TODO fail
+
+		assertEquals( 2147483646, storeOf( 0).add(MAX_VALUE_1).store());
+		assertEquals( 2147483647, storeOf( 1).add(MAX_VALUE_1).store());
+		assertEquals(-2147483648, storeOf( 2).add(MAX_VALUE_1).store()); // TODO fail
+		assertEquals(-2147483647, storeOf( 0).add(MIN_VALUE_1).store());
+		assertEquals(-2147483648, storeOf(-1).add(MIN_VALUE_1).store());
+		assertEquals( 2147483647, storeOf(-2).add(MIN_VALUE_1).store()); // TODO fail
 	}
 
 	public static void testSubtract()
