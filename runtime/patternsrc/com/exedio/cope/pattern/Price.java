@@ -119,6 +119,16 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price add(final Price other)
 	{
 		// TODO shortcut for neutral element
+
+		if(
+			(store>0)
+			? (Integer.MAX_VALUE-store<other.store)
+			: (Integer.MIN_VALUE-store>other.store)
+			)
+		{
+			throw new ArithmeticException("overflow " + this + " plus " + other);
+		}
+
 		return storeOf(store + other.store);
 	}
 
