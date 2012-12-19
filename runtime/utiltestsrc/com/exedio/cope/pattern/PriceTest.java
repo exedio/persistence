@@ -220,8 +220,10 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
 		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
+	}
 
-		// overflow
+	public static void testAddOverflow()
+	{
 		assertEquals( 2147483646, MAX_VALUE.add(storeOf(-1)).store());
 		assertEquals( 2147483647, MAX_VALUE.add(storeOf( 0)).store());
 		assertAddOverflows(       MAX_VALUE,    storeOf( 1));
