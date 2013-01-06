@@ -42,27 +42,27 @@ public class CopeModelTestTest extends CopeModelTest
 
 	public void test1()
 	{
-		makeDirty();
+		doTest();
 	}
 
 	public void test2()
 	{
-		makeDirty();
+		doTest();
 	}
 
 	public void testCommitted()
 	{
-		makeDirty();
+		doTest();
 		model.commit();
 	}
 
 	public void testRolledback()
 	{
-		makeDirty();
+		doTest();
 		model.rollback();
 	}
 
-	private void makeDirty()
+	private void doTest()
 	{
 		assertTrue(model.hasCurrentTransaction());
 		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
