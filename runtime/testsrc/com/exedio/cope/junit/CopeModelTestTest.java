@@ -40,10 +40,34 @@ public class CopeModelTestTest extends CopeModelTest
 		super(MODEL);
 	}
 
-	public void testNotEmpty()
+	public void test1()
 	{
 		assertBlank();
+		makeDirty();
+	}
 
+	public void test2()
+	{
+		assertBlank();
+		makeDirty();
+	}
+
+	public void testCommitted()
+	{
+		assertBlank();
+		makeDirty();
+		model.commit();
+	}
+
+	public void testRolledback()
+	{
+		assertBlank();
+		makeDirty();
+		model.rollback();
+	}
+
+	private void makeDirty()
+	{
 		final JUnitTestItem i1 = new JUnitTestItem(100);
 		final JUnitTestItem i2 = new JUnitTestItem(101);
 		final JUnitTestItem i3 = new JUnitTestItem(102);
@@ -63,28 +87,6 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals(2001, nextSequence());
 		assertEquals(2002, nextSequence());
 		assertEquals(2003, nextSequence());
-	}
-
-	public void testFlushSequences()
-	{
-		assertBlank();
-
-		final JUnitTestItem i1 = new JUnitTestItem(200);
-		assertEquals("JUnitTestItem-0", i1.getCopeID());
-		assertEquals(1000, i1.getNext());
-		assertEquals(2000, nextSequence());
-	}
-
-	public void testNoTransaction()
-	{
-		assertBlank();
-
-		model.commit();
-	}
-
-	public void testDatabaseListener()
-	{
-		assertBlank();
 
 		model.setDatabaseListener(new DatabaseListener(){
 
@@ -96,11 +98,6 @@ public class CopeModelTestTest extends CopeModelTest
 				// do nothing
 			}
 		});
-	}
-
-	public void testChangeListener()
-	{
-		assertBlank();
 
 		model.addChangeListener(new ChangeListener()
 		{
@@ -109,11 +106,6 @@ public class CopeModelTestTest extends CopeModelTest
 				throw new RuntimeException();
 			}
 		});
-	}
-
-	public void testModificationListener()
-	{
-		assertBlank();
 
 		model.addModificationListener(new ModificationListener()
 		{
@@ -123,11 +115,6 @@ public class CopeModelTestTest extends CopeModelTest
 				throw new RuntimeException();
 			}
 		});
-	}
-
-	public void testLast()
-	{
-		assertBlank();
 	}
 
 	private void assertBlank()
