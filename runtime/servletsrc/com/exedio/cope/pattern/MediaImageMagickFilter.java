@@ -40,7 +40,7 @@ import com.exedio.cope.instrument.Wrap;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class MediaImageMagickFilter extends MediaFilter
+public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
