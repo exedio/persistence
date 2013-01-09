@@ -245,10 +245,12 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
+	private static final String ENGINE = " engine=innodb";
+
 	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
-		bf.append(" engine=innodb");
+		bf.append(ENGINE);
 	}
 
 	@Override
@@ -332,7 +334,7 @@ public final class MysqlDialect extends Dialect
 	{
 		bf.append("create table ").
 			append(sequenceName).
-			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB");
+			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY)" + ENGINE);
 
 		initializeSequence(bf, sequenceName, startWith);
 	}
