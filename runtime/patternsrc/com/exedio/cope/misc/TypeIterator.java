@@ -106,9 +106,9 @@ public final class TypeIterator
 			{
 				if(limitExhausted)
 				{
-				final Condition c = typeThis.greater(result);
-				query.setCondition(condition!=null ? condition.and(c) : c);
-				this.iterator = search();
+					final Condition c = typeThis.greater(result);
+					query.setCondition(condition!=null ? condition.and(c) : c);
+					this.iterator = search();
 				}
 				else
 				{
