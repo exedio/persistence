@@ -272,9 +272,9 @@ public final class OracleDialect extends Dialect
 			append(sequenceName).
 			append(
 					" increment by 1" +
-					" start with " + startWith +
+					" start with ").append(startWith).append(
 					" maxvalue " + Integer.MAX_VALUE +
-					" minvalue " + startWith +
+					" minvalue ").append(startWith).append(
 					" nocycle" +
 					" noorder");
 	}
