@@ -87,6 +87,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private final Media source;
 	private final MediaImageioFilter fallback;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final MediaType constantOutputContentType;
 	private final String[] options;
 
