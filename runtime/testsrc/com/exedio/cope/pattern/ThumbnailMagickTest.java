@@ -83,6 +83,15 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbFullContentType());
 		assertEquals(null, emp.getThumbFullContentType());
 
+		// get
+		assertNotNull(jpg.getThumb());
+		assertNull(txt.getThumb());
+		assertNull(emp.getThumb());
+
+		assertNotNull(jpg.getThumbFull());
+		assertNull(txt.getThumbFull());
+		assertNull(emp.getThumbFull());
+
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
@@ -102,14 +111,5 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
 		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
-
-		// get
-		assertNotNull(jpg.getThumb());
-		assertNull(txt.getThumb());
-		assertNull(emp.getThumb());
-
-		assertNotNull(jpg.getThumbFull());
-		assertNull(txt.getThumbFull());
-		assertNull(emp.getThumbFull());
 	}
 }
