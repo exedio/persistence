@@ -87,7 +87,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private final Media source;
 	private final MediaImageioFilter fallback;
-	private final String constantOutputContentType;
+	private final MediaType constantOutputContentType;
 	private final String[] options;
 
 	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
@@ -104,16 +104,19 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		super(source);
 		this.source = source;
 		this.fallback = fallback;
-		this.constantOutputContentType = outputContentType;
 		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
 
 		if(fallback==null)
 			throw new RuntimeException(); // TODO test
 		if(outputContentType!=null)
 		{
-			final MediaType type = MediaType.forName(outputContentType);
-			if(type==null || !supportedContentTypes.contains(type.getName()))
+			this.constantOutputContentType = MediaType.forName(outputContentType);
+			if(constantOutputContentType==null || !supportedContentTypes.contains(constantOutputContentType.getName()))
 				throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
+		}
+		else
+		{
+			this.constantOutputContentType = null;
 		}
 	}
 
@@ -138,7 +141,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	 */
 	public final String getOutputContentType()
 	{
-		return constantOutputContentType;
+		return constantOutputContentType!=null ? constantOutputContentType.getName() : null;
 	}
 
 	@Override
@@ -153,7 +156,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(type==null || !supportedContentTypes.contains(type.getName())) // TODO reuse
 			return null;
 
-		return (constantOutputContentType!=null?constantOutputContentType:contentType);
+		return (constantOutputContentType!=null?constantOutputContentType.getName():contentType);
 	}
 
 	@Override
@@ -327,7 +330,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	{
 		return
 				this.constantOutputContentType!=null
-				? this.constantOutputContentType
+				? this.constantOutputContentType.getName()
 				: inputContentType;
 	}
 
