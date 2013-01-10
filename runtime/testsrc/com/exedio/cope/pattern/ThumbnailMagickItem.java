@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 public final class ThumbnailMagickItem extends Item
 {
-	static final Media file = new Media().optional().lengthMax(2000);
+	static final Media file = new Media().optional().lengthMax(10000);
 
 	static final MediaImageMagickThumbnail thumb = new MediaImageMagickThumbnail(file, 20, 30);
 	static final MediaImageMagickThumbnail thumbFull =

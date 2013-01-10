@@ -59,8 +59,8 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
 		jpg.setFile(resource("thumbnail-test.jpg"), JPEG);
-		png.setFile(data, PNG);
-		gif.setFile(data, GIF);
+		png.setFile(resource("thumbnail-test.png"), PNG);
+		gif.setFile(resource("thumbnail-test.gif"), GIF);
 		txt.setFile(data, "text/plain");
 	}
 
@@ -86,10 +86,14 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 
 		// get
 		assertType(JPEG, jpg.getThumb());
+		assertType(JPEG, png.getThumb());
+		assertType(JPEG, gif.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 
 		assertType(JPEG, jpg.getThumbFull());
+		assertType(JPEG, png.getThumbFull());
+		assertType(JPEG, gif.getThumbFull());
 		assertNull(txt.getThumbFull());
 		assertNull(emp.getThumbFull());
 
