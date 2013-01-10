@@ -91,7 +91,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private final Media source;
 	private final MediaImageioFilter fallback;
-	private final String outputContentType;
+	private final String constantOutputContentType;
 	private final String[] options;
 
 	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
@@ -108,7 +108,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		super(source);
 		this.source = source;
 		this.fallback = fallback;
-		this.outputContentType = outputContentType;
+		this.constantOutputContentType = outputContentType;
 		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
 
 		if(fallback==null)
@@ -131,7 +131,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	 */
 	public final String getOutputContentType()
 	{
-		return outputContentType;
+		return constantOutputContentType;
 	}
 
 	@Override
@@ -139,13 +139,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	{
 		final String contentType = source.getContentType(item);
 
-		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? (outputContentType!=null?outputContentType:contentType) : null;
+		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? (constantOutputContentType!=null?constantOutputContentType:contentType) : null;
 	}
 
 	@Override
 	public final boolean isContentTypeWrapped()
 	{
-		return outputContentType==null;
+		return constantOutputContentType==null;
 	}
 
 	@Override
@@ -310,8 +310,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private String outputContentType(final String inputContentType)
 	{
 		return
-				this.outputContentType!=null
-				? this.outputContentType
+				this.constantOutputContentType!=null
+				? this.constantOutputContentType
 				: inputContentType;
 	}
 
