@@ -21,6 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +42,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private ThumbnailMagickItem item, jpg, png, gif, txt, emp;
+	private ThumbnailMagickItem jpg, png, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -88,10 +91,10 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURL());
 
-		assertContains(emp, item.TYPE.search(item.file.isNull()));
-		assertContains(jpg, png, gif, txt, item.TYPE.search(item.file.isNotNull()));
-		assertContains(emp , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(emp, TYPE.search(file.isNull()));
+		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
+		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
+		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
 		assertNotNull(jpg.getThumb());
