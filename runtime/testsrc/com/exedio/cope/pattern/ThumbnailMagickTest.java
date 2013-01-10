@@ -24,23 +24,15 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Set;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ThumbnailMagickTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(ThumbnailMagickTest.class, "MODEL");
-	}
+	static final Model MODEL = ThumbnailMagickModelTest.MODEL;
 
 	public ThumbnailMagickTest()
 	{
@@ -75,62 +67,6 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 
 	public void testThumbs() throws IOException
 	{
-		// test model
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.file,
-				item.file.getBody(),
-				item.file.getContentType(),
-				item.file.getLastModified(),
-				item.file.getUnison(),
-				item.thumb,
-				item.thumbFull,
-			}), item.TYPE.getFeatures());
-		assertEquals(item.TYPE, item.thumb.getType());
-		assertEquals("thumb", item.thumb.getName());
-		assertSame(item.file, item.thumb.getSource());
-		assertEquals(20, item.thumb.getBoundX());
-		assertEquals(30, item.thumb.getBoundY());
-		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
-		assertTrue(sct.toString(), sct.contains(JPEG));
-		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
-		assertTrue(sct.toString(), sct.contains("image/png"));
-		assertTrue(sct.toString(), sct.contains("image/gif"));
-		assertUnmodifiable(sct);
-
-		assertEquals(item.file.isNull(), item.thumb.isNull());
-		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
-
-		assertSerializedSame(item.thumb, 393);
-
-		try
-		{
-			new MediaThumbnail(null, 80, 80);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
-		try
-		{
-			new MediaThumbnail(item.file, 4, 80);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("boundX must be 5 or greater, but was 4", e.getMessage());
-		}
-		try
-		{
-			new MediaThumbnail(item.file, 80, 4);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
-		}
-
 		// test content type
 		assertEquals(JPEG, jpg.getThumbContentType());
 		assertEquals(JPEG, png.getThumbContentType());
