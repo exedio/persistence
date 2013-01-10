@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaType.JPEG;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
@@ -57,7 +59,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailMagickItem());
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
-		jpg.setFile(ThumbnailMagickTest.class.getResourceAsStream("thumbnail-test.jpg"), "image/jpeg");
+		jpg.setFile(ThumbnailMagickTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");
 		txt.setFile(data, "text/plain");
@@ -82,7 +84,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(20, item.thumb.getBoundX());
 		assertEquals(30, item.thumb.getBoundY());
 		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
-		assertTrue(sct.toString(), sct.contains("image/jpeg"));
+		assertTrue(sct.toString(), sct.contains(JPEG));
 		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));
@@ -122,9 +124,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		}
 
 		// test content type
-		assertEquals("image/jpeg", jpg.getThumbContentType());
-		assertEquals("image/jpeg", png.getThumbContentType());
-		assertEquals("image/jpeg", gif.getThumbContentType());
+		assertEquals(JPEG, jpg.getThumbContentType());
+		assertEquals(JPEG, png.getThumbContentType());
+		assertEquals(JPEG, gif.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
