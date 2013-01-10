@@ -71,6 +71,9 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
 
+		assertEquals(JPEG, thumb.getOutputContentType());
+		assertEquals(JPEG, thumbFull.getOutputContentType());
+
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
