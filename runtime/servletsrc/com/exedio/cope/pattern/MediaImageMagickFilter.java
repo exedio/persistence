@@ -92,7 +92,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private final Media source;
 	private final MediaImageioFilter fallback;
 	private final String outputContentType;
-	private final String outputExtension;
 	private final String[] options;
 
 	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
@@ -110,14 +109,11 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		this.source = source;
 		this.fallback = fallback;
 		this.outputContentType = outputContentType;
-		this.outputExtension = supportedContentTypes.get(outputContentType);
 		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
 
 		if(fallback==null)
 			throw new RuntimeException(); // TODO test
-		if(outputContentType==null)
-			throw new NullPointerException("outputContentType");
-		if(outputExtension==null)
+		if(outputContentType!=null && !supportedContentTypes.containsKey(outputContentType))
 			throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
 	}
 
@@ -143,13 +139,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	{
 		final String contentType = source.getContentType(item);
 
-		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? outputContentType : null;
+		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? (outputContentType!=null?outputContentType:contentType) : null;
 	}
 
 	@Override
 	public final boolean isContentTypeWrapped()
 	{
-		return false; // since there is only one outputContentType
+		return outputContentType==null;
 	}
 
 	@Override
@@ -169,7 +165,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(!supportedContentTypes.containsKey(contentType))
 			return notComputable;
 
-		final File outFile = execute(item);
+		final File outFile = execute(item, contentType);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -177,7 +173,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
 
-		response.setContentType(outputContentType);
+		response.setContentType(outputContentType(contentType));
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		final FileInputStream body = new FileInputStream(outFile);
@@ -218,7 +214,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(!supportedContentTypes.containsKey(contentType))
 			return null;
 
-		final File outFile = execute(item);
+		final File outFile = execute(item, contentType);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -249,7 +245,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			return;
 
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension);
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(MediaType.JPEG));
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
@@ -304,10 +300,25 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		delete(outFile);
 	}
 
-	private final File execute(final Item item) throws IOException
+	private String outputExtension(final String inputContentType)
+	{
+		final String result = supportedContentTypes.get(outputContentType(inputContentType));
+		assert result!=null : inputContentType;
+		return result;
+	}
+
+	private String outputContentType(final String inputContentType)
+	{
+		return
+				this.outputContentType!=null
+				? this.outputContentType
+				: inputContentType;
+	}
+
+	private final File execute(final Item item, final String contentType) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension);
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(contentType));
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();

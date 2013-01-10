@@ -87,7 +87,14 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 
 	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
+		if(contentType==null)
+			throw new NullPointerException("outputContentType");
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
+	}
+
+	public MediaImageMagickThumbnail outputContentTypeSame()
+	{
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, null);
 	}
 
 	public MediaImageMagickThumbnail density(final int density)

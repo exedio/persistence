@@ -95,6 +95,14 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbFullContentType());
 		assertEquals(null, emp.getThumbFullContentType());
 
+		assertEquals(JPEG, jpg.getThumbSameContentType());
+		assertEquals(PNG,  png.getThumbSameContentType());
+		assertEquals(GIF,  gif.getThumbSameContentType());
+		assertEquals("image/pjpeg", jpgX.getThumbSameContentType()); // TODO JPEG
+		assertEquals("image/x-png",  pngX.getThumbSameContentType()); // TODO PNG
+		assertEquals(null, txt.getThumbSameContentType());
+		assertEquals(null, emp.getThumbSameContentType());
+
 		// get
 		assertType(JPEG, jpg.getThumb());
 		assertType(JPEG, png.getThumb());
@@ -111,6 +119,14 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertType(PNG, pngX.getThumbFull());
 		assertNull(txt.getThumbFull());
 		assertNull(emp.getThumbFull());
+
+		assertType(JPEG, jpg.getThumbSame());
+		assertType(PNG,  png.getThumbSame());
+		assertType(GIF,  gif.getThumbSame());
+		assertType(JPEG, jpgX.getThumbSame());
+		assertType(PNG,  pngX.getThumbSame());
+		assertNull(txt.getThumbSame());
+		assertNull(emp.getThumbSame());
 
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());

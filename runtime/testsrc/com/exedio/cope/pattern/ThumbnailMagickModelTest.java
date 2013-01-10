@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -63,6 +64,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 				file.getUnison(),
 				thumb,
 				thumbFull,
+				thumbSame,
 			}), TYPE.getFeatures());
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
@@ -75,6 +77,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 
 		assertEquals(JPEG, thumb.getOutputContentType());
 		assertEquals(PNG, thumbFull.getOutputContentType());
+		assertEquals(null, thumbSame.getOutputContentType());
 
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
@@ -83,6 +86,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 
 		thumb.test();
 		thumbFull.test();
+		thumbSame.test();
 
 		try
 		{
