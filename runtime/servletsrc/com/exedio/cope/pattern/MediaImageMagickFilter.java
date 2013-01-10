@@ -272,7 +272,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			return;
 
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(MediaType.forName(MediaType.JPEG)));
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
@@ -327,13 +327,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		delete(outFile);
 	}
 
-	private String outputExtension(final MediaType inputContentType)
-	{
-		final MediaType result = outputContentType(inputContentType);
-		assert result!=null : inputContentType;
-		return result.getExtension();
-	}
-
 	private MediaType outputContentType(final MediaType inputContentType)
 	{
 		return
@@ -345,7 +338,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private final File execute(final Item item, final MediaType contentType) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(contentType));
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
