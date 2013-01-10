@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
@@ -27,7 +28,7 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.HashSet;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
@@ -68,12 +69,9 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		assertSame(file, thumb.getSource());
 		assertEquals(20, thumb.getBoundX());
 		assertEquals(30, thumb.getBoundY());
-		final Set<String> sct = thumb.getSupportedSourceContentTypes();
-		assertTrue(sct.toString(), sct.contains(JPEG));
-		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
-		assertTrue(sct.toString(), sct.contains("image/png"));
-		assertTrue(sct.toString(), sct.contains("image/gif"));
-		assertUnmodifiable(sct);
+		assertEquals(
+				new HashSet<String>(Arrays.asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF)),
+				thumb.getSupportedSourceContentTypes());
 
 		assertEquals(JPEG, thumb.getOutputContentType());
 		assertEquals(PNG, thumbFull.getOutputContentType());
