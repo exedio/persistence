@@ -152,7 +152,7 @@ public final class MediaType
 					".png",
 					// RFC 2083 section 3.1. PNG file signature
 					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
-					PNG),
+					PNG, "image/x-png"),
 			new MediaType(
 					".gif",
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files

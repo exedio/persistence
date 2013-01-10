@@ -71,6 +71,7 @@ public class MediaTypeTest extends CopeAssert
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
+		final MediaType gif = forName("image/gif");
 		final MediaType js  = forName("application/javascript");
 
 		assertNotNull(jpg);
@@ -99,7 +100,8 @@ public class MediaTypeTest extends CopeAssert
 		assertEquals("image/png", png.getName());
 
 		assertEqualsUnmodifiable(list("image/pjpeg"), jpg.getAliases());
-		assertEqualsUnmodifiable(list(), png.getAliases());
+		assertEqualsUnmodifiable(list("image/x-png"), png.getAliases());
+		assertEqualsUnmodifiable(list(), gif.getAliases());
 
 		assertEquals("image/jpeg", jpg.toString());
 		assertEquals("image/png", png.toString());

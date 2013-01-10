@@ -43,7 +43,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		assertEquals(
 				"(" +
 				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='image/png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"(("+c+"='image/png' OR "+c+"='image/x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
 				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='image/vnd.microsoft.icon' OR "+c+"='image/icon' OR "+c+"='image/x-icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
 				"(("+c+"='application/zip' OR "+c+"='application/java-archive') AND !("+b+" startsWith '"+ZIP+"')) OR " +
@@ -103,7 +103,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		assertEquals(
 				"(" +
 				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='png' AND !("+b+" startsWith '"+PNG+"')) OR " +
+				"(("+c+"='png' OR "+c+"='x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
 				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='vnd.microsoft.icon' OR "+c+"='icon' OR "+c+"='x-icon') AND !("+b+" startsWith '"+ICO+"'))" +
 				")",
