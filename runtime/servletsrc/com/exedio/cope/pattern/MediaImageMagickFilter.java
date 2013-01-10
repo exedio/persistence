@@ -183,7 +183,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(type==null || !supportedContentTypes.contains(type.getName()))
 			return notComputable;
 
-		final File outFile = execute(item, contentType);
+		final File outFile = execute(item, type);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -191,7 +191,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
 
-		response.setContentType(outputContentType(contentType));
+		response.setContentType(outputContentType(type).getName());
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		final FileInputStream body = new FileInputStream(outFile);
@@ -233,7 +233,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(!supportedContentTypes.contains(type.getName()))
 			return null;
 
-		final File outFile = execute(item, contentType);
+		final File outFile = execute(item, type);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -264,7 +264,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			return;
 
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(MediaType.JPEG));
+		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(MediaType.forName(MediaType.JPEG)));
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
@@ -319,22 +319,22 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		delete(outFile);
 	}
 
-	private String outputExtension(final String inputContentType)
+	private String outputExtension(final MediaType inputContentType)
 	{
-		final MediaType result = MediaType.forNameAndAliases(outputContentType(inputContentType));
+		final MediaType result = outputContentType(inputContentType);
 		assert result!=null : inputContentType;
 		return result.getExtension();
 	}
 
-	private String outputContentType(final String inputContentType)
+	private MediaType outputContentType(final MediaType inputContentType)
 	{
 		return
 				this.constantOutputContentType!=null
-				? this.constantOutputContentType.getName()
+				? this.constantOutputContentType
 				: inputContentType;
 	}
 
-	private final File execute(final Item item, final String contentType) throws IOException
+	private final File execute(final Item item, final MediaType contentType) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputExtension(contentType));
