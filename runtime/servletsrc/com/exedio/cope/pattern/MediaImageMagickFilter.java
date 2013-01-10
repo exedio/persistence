@@ -127,6 +127,12 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		return Collections.unmodifiableSet(supportedContentTypes.keySet());
 	}
 
+	/**
+	 * Returns the content type of this filter.
+	 * Return the same as {@link #getContentType(Item)}
+	 * iff {@link #getContentType(Item)} return the same values for all items not return null.
+	 * Otherwise returns null.
+	 */
 	public final String getOutputContentType()
 	{
 		return outputContentType;
