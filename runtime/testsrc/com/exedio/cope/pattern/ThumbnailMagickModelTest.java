@@ -85,7 +85,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 
 		try
 		{
-			new MediaThumbnail(null, 80, 80);
+			new MediaImageMagickThumbnail(null, 80, 80);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -94,7 +94,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(file, 4, 80);
+			new MediaImageMagickThumbnail(file, 4, 80);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -103,7 +103,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(file, 80, 4);
+			new MediaImageMagickThumbnail(file, 80, 4);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
