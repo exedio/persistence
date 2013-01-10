@@ -110,5 +110,24 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		{
 			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
 		}
+		final MediaImageMagickThumbnail template = new MediaImageMagickThumbnail(file, 80, 80);
+		try
+		{
+			template.outputContentType(null);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			template.outputContentType("non/sense");
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("non/sense", e.getMessage());
+		}
 	}
 }
