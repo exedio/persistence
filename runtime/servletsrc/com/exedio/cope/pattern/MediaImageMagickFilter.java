@@ -111,14 +111,22 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			throw new RuntimeException(); // TODO test
 		if(outputContentType!=null)
 		{
-			this.constantOutputContentType = MediaType.forName(outputContentType);
-			if(constantOutputContentType==null || !supportedContentTypes.contains(constantOutputContentType.getName()))
+			this.constantOutputContentType = supported(MediaType.forName(outputContentType));
+			if(constantOutputContentType==null)
 				throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
 		}
 		else
 		{
 			this.constantOutputContentType = null;
 		}
+	}
+
+	private static MediaType supported(final MediaType type)
+	{
+		if(type==null)
+			return null;
+		return
+			supportedContentTypes.contains(type.getName()) ? type : null;
 	}
 
 	@Override
@@ -153,8 +161,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentType==null)
 			return null;
 
-		final MediaType type = MediaType.forNameAndAliases(contentType);
-		if(type==null || !supportedContentTypes.contains(type.getName())) // TODO reuse
+		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
+		if(type==null)
 			return null;
 
 		return (constantOutputContentType!=null?constantOutputContentType:type).getName();
@@ -180,8 +188,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentType==null)
 			return isNull;
 
-		final MediaType type = MediaType.forNameAndAliases(contentType);
-		if(type==null || !supportedContentTypes.contains(type.getName()))
+		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
+		if(type==null)
 			return notComputable;
 
 		final File outFile = execute(item, type);
@@ -230,8 +238,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentType==null)
 			return null;
 
-		final MediaType type = MediaType.forNameAndAliases(contentType);
-		if(!supportedContentTypes.contains(type.getName()))
+		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
+		if(type==null)
 			return null;
 
 		final File outFile = execute(item, type);
