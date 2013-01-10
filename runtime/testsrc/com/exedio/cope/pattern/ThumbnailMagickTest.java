@@ -77,6 +77,12 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
+		assertEquals(JPEG, jpg.getThumbFullContentType());
+		assertEquals(JPEG, png.getThumbFullContentType());
+		assertEquals(JPEG, gif.getThumbFullContentType());
+		assertEquals(null, txt.getThumbFullContentType());
+		assertEquals(null, emp.getThumbFullContentType());
+
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
