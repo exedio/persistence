@@ -129,5 +129,14 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		{
 			assertEquals("non/sense", e.getMessage());
 		}
+		try
+		{
+			template.density(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("density must be 0 or greater, but was -1", e.getMessage());
+		}
 	}
 }
