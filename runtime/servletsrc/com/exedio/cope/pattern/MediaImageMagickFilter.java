@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -78,16 +78,12 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 
-	private static final HashMap<String,String> supportedContentTypes = new HashMap<String,String>();
-
-	static
-	{
-		supportedContentTypes.put("image/jpeg",  ".jpg");
-		supportedContentTypes.put("image/pjpeg", ".jpg");
-		supportedContentTypes.put("image/png",   ".png");
-		supportedContentTypes.put("image/x-png", ".png");
-		supportedContentTypes.put("image/gif",   ".gif");
-	}
+	private static final HashSet<String> supportedContentTypes =
+			new HashSet<String>(Arrays.asList(
+					MediaType.JPEG,
+					MediaType.PNG,
+					MediaType.GIF
+			));
 
 	private final Media source;
 	private final MediaImageioFilter fallback;
@@ -113,14 +109,25 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 		if(fallback==null)
 			throw new RuntimeException(); // TODO test
-		if(outputContentType!=null && !supportedContentTypes.containsKey(outputContentType))
-			throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
+		if(outputContentType!=null)
+		{
+			final MediaType type = MediaType.forName(outputContentType);
+			if(type==null || !supportedContentTypes.contains(type.getName()))
+				throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
+		}
 	}
 
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
-		return Collections.unmodifiableSet(supportedContentTypes.keySet());
+		final HashSet<String> result = new HashSet<String>();
+		for(final String contentType : supportedContentTypes)
+		{
+			final MediaType type = MediaType.forName(contentType);
+			result.add(type.getName());
+			result.addAll(type.getAliases());
+		}
+		return Collections.unmodifiableSet(result);
 	}
 
 	/**
@@ -139,7 +146,14 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	{
 		final String contentType = source.getContentType(item);
 
-		return (contentType!=null&&supportedContentTypes.containsKey(contentType)) ? (constantOutputContentType!=null?constantOutputContentType:contentType) : null;
+		if(contentType==null)
+			return null;
+
+		final MediaType type = MediaType.forNameAndAliases(contentType);
+		if(type==null || !supportedContentTypes.contains(type.getName())) // TODO reuse
+			return null;
+
+		return (constantOutputContentType!=null?constantOutputContentType:contentType);
 	}
 
 	@Override
@@ -162,7 +176,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentType==null)
 			return isNull;
 
-		if(!supportedContentTypes.containsKey(contentType))
+		final MediaType type = MediaType.forNameAndAliases(contentType);
+		if(type==null || !supportedContentTypes.contains(type.getName()))
 			return notComputable;
 
 		final File outFile = execute(item, contentType);
@@ -211,7 +226,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(contentType==null)
 			return null;
 
-		if(!supportedContentTypes.containsKey(contentType))
+		final MediaType type = MediaType.forNameAndAliases(contentType);
+		if(!supportedContentTypes.contains(type.getName()))
 			return null;
 
 		final File outFile = execute(item, contentType);
@@ -302,9 +318,9 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private String outputExtension(final String inputContentType)
 	{
-		final String result = supportedContentTypes.get(outputContentType(inputContentType));
+		final MediaType result = MediaType.forNameAndAliases(outputContentType(inputContentType));
 		assert result!=null : inputContentType;
-		return result;
+		return result.getExtension();
 	}
 
 	private String outputContentType(final String inputContentType)
