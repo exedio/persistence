@@ -43,7 +43,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private ThumbnailMagickItem jpg, png, gif, txt, emp;
+	private ThumbnailMagickItem jpg, jpgX, png, pngX, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -54,13 +54,17 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		jpg = deleteOnTearDown(new ThumbnailMagickItem());
+		jpgX= deleteOnTearDown(new ThumbnailMagickItem());
 		png = deleteOnTearDown(new ThumbnailMagickItem());
+		pngX= deleteOnTearDown(new ThumbnailMagickItem());
 		gif = deleteOnTearDown(new ThumbnailMagickItem());
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
 		jpg.setFile(resource("thumbnail-test.jpg"), JPEG);
 		png.setFile(resource("thumbnail-test.png"), PNG);
 		gif.setFile(resource("thumbnail-test.gif"), GIF);
+		jpgX.setFile(resource("thumbnail-test.jpg"), "image/pjpeg");
+		pngX.setFile(resource("thumbnail-test.png"), "image/x-png");
 		txt.setFile(data, "text/plain");
 	}
 
@@ -78,12 +82,16 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(JPEG, jpg.getThumbContentType());
 		assertEquals(JPEG, png.getThumbContentType());
 		assertEquals(JPEG, gif.getThumbContentType());
+		assertEquals(JPEG, jpgX.getThumbContentType());
+		assertEquals(JPEG, pngX.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
 		assertEquals(PNG, jpg.getThumbFullContentType());
 		assertEquals(PNG, png.getThumbFullContentType());
 		assertEquals(PNG, gif.getThumbFullContentType());
+		assertEquals(PNG, jpgX.getThumbFullContentType());
+		assertEquals(PNG, pngX.getThumbFullContentType());
 		assertEquals(null, txt.getThumbFullContentType());
 		assertEquals(null, emp.getThumbFullContentType());
 
@@ -91,12 +99,16 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertType(JPEG, jpg.getThumb());
 		assertType(JPEG, png.getThumb());
 		assertType(JPEG, gif.getThumb());
+		assertType(JPEG, jpgX.getThumb());
+		assertType(JPEG, pngX.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 
 		assertType(PNG, jpg.getThumbFull());
 		assertType(PNG, png.getThumbFull());
 		assertType(PNG, gif.getThumbFull());
+		assertType(PNG, jpgX.getThumbFull());
+		assertType(PNG, pngX.getThumbFull());
 		assertNull(txt.getThumbFull());
 		assertNull(emp.getThumbFull());
 
@@ -128,9 +140,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
-		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
+		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 
 	private static final void assertType(final String expectedContentType, final byte[] actualBody)
