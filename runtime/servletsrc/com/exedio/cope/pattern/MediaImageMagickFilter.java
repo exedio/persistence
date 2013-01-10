@@ -78,11 +78,11 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 
-	private static final HashSet<String> supportedContentTypes =
-			new HashSet<String>(Arrays.asList(
-					MediaType.JPEG,
-					MediaType.PNG,
-					MediaType.GIF
+	private static final HashSet<MediaType> supportedContentTypes =
+			new HashSet<MediaType>(Arrays.asList(
+					MediaType.forName(MediaType.JPEG),
+					MediaType.forName(MediaType.PNG),
+					MediaType.forName(MediaType.GIF)
 			));
 
 	private final Media source;
@@ -126,16 +126,15 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(type==null)
 			return null;
 		return
-			supportedContentTypes.contains(type.getName()) ? type : null;
+			supportedContentTypes.contains(type) ? type : null;
 	}
 
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		final HashSet<String> result = new HashSet<String>();
-		for(final String contentType : supportedContentTypes)
+		for(final MediaType type : supportedContentTypes)
 		{
-			final MediaType type = MediaType.forName(contentType);
 			result.add(type.getName());
 			result.addAll(type.getAliases());
 		}
