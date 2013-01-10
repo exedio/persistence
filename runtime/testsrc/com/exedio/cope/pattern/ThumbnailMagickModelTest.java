@@ -125,6 +125,15 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		}
 		try
 		{
+			template.outputContentType(MediaType.ZIP);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("unsupported outputContentType >application/zip<", e.getMessage());
+		}
+		try
+		{
 			template.outputContentType("non/sense");
 			fail();
 		}
