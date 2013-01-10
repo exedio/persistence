@@ -98,8 +98,8 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(JPEG, jpg.getThumbSameContentType());
 		assertEquals(PNG,  png.getThumbSameContentType());
 		assertEquals(GIF,  gif.getThumbSameContentType());
-		assertEquals("image/pjpeg", jpgX.getThumbSameContentType()); // TODO JPEG
-		assertEquals("image/x-png",  pngX.getThumbSameContentType()); // TODO PNG
+		assertEquals(JPEG, jpgX.getThumbSameContentType());
+		assertEquals(PNG,  pngX.getThumbSameContentType());
 		assertEquals(null, txt.getThumbSameContentType());
 		assertEquals(null, emp.getThumbSameContentType());
 

@@ -156,7 +156,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(type==null || !supportedContentTypes.contains(type.getName())) // TODO reuse
 			return null;
 
-		return (constantOutputContentType!=null?constantOutputContentType.getName():contentType);
+		return (constantOutputContentType!=null?constantOutputContentType.getName():type.getName());
 	}
 
 	@Override
