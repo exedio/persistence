@@ -94,12 +94,10 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
-		item.thumb.test();
 		assertNotNull(jpg.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 
-		item.thumbFull.test();
 		assertNotNull(jpg.getThumbFull());
 		assertNull(txt.getThumbFull());
 		assertNull(emp.getThumbFull());

@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -45,7 +46,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	public void testThumbs()
+	public void testThumbs() throws IOException
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -73,6 +74,9 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
 		assertSerializedSame(thumb, 398);
+
+		thumb.test();
+		thumbFull.test();
 
 		try
 		{
