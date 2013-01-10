@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
+import static com.exedio.cope.pattern.MediaType.PNG;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -60,8 +62,8 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
 		jpg.setFile(ThumbnailMagickTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
-		png.setFile(data, "image/png");
-		gif.setFile(data, "image/gif");
+		png.setFile(data, PNG);
+		gif.setFile(data, GIF);
 		txt.setFile(data, "text/plain");
 	}
 
