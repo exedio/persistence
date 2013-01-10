@@ -78,9 +78,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
-		assertEquals(JPEG, jpg.getThumbFullContentType());
-		assertEquals(JPEG, png.getThumbFullContentType());
-		assertEquals(JPEG, gif.getThumbFullContentType());
+		assertEquals(PNG, jpg.getThumbFullContentType());
+		assertEquals(PNG, png.getThumbFullContentType());
+		assertEquals(PNG, gif.getThumbFullContentType());
 		assertEquals(null, txt.getThumbFullContentType());
 		assertEquals(null, emp.getThumbFullContentType());
 
@@ -91,9 +91,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 
-		assertType(JPEG, jpg.getThumbFull());
-		assertType(JPEG, png.getThumbFull());
-		assertType(JPEG, gif.getThumbFull());
+		assertType(PNG, jpg.getThumbFull());
+		assertType(PNG, png.getThumbFull());
+		assertType(PNG, gif.getThumbFull());
 		assertNull(txt.getThumbFull());
 		assertNull(emp.getThumbFull());
 
@@ -104,9 +104,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbURL());
 		assertEquals(null, emp.getThumbURL());
 
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".jpg", jpg.getThumbFullURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".jpg", png.getThumbFullURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".jpg", gif.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURL());
 		assertEquals(null, txt.getThumbFullURL());
 		assertEquals(null, emp.getThumbFullURL());
 
@@ -117,9 +117,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".jpg", jpg.getThumbFullURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".jpg", png.getThumbFullURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".jpg", gif.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 

@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaType.JPEG;
+import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
@@ -72,7 +73,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		assertUnmodifiable(sct);
 
 		assertEquals(JPEG, thumb.getOutputContentType());
-		assertEquals(JPEG, thumbFull.getOutputContentType());
+		assertEquals(PNG, thumbFull.getOutputContentType());
 
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
