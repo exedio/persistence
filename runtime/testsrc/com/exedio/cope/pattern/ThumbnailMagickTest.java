@@ -71,6 +71,9 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 
 	public void testThumbs() throws IOException
 	{
+		// if not enabled, subsequent tests will fail as well
+		assertTrue(MediaImageMagickFilter.isEnabled());
+
 		// content type
 		assertEquals(JPEG, jpg.getThumbContentType());
 		assertEquals(JPEG, png.getThumbContentType());
