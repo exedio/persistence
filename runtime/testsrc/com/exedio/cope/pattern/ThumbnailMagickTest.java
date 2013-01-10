@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -61,10 +62,15 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		gif = deleteOnTearDown(new ThumbnailMagickItem());
 		txt = deleteOnTearDown(new ThumbnailMagickItem());
 		emp = deleteOnTearDown(new ThumbnailMagickItem());
-		jpg.setFile(ThumbnailMagickTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
+		jpg.setFile(resource("thumbnail-test.jpg"), JPEG);
 		png.setFile(data, PNG);
 		gif.setFile(data, GIF);
 		txt.setFile(data, "text/plain");
+	}
+
+	private static InputStream resource(final String name)
+	{
+		return ThumbnailMagickTest.class.getResourceAsStream(name);
 	}
 
 	public void testThumbs() throws IOException
