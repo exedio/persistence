@@ -128,9 +128,9 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 			template.outputContentType("non/sense");
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("non/sense", e.getMessage());
+			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
 		}
 		try
 		{

@@ -118,7 +118,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(outputContentType==null)
 			throw new NullPointerException("outputContentType");
 		if(outputExtension==null)
-			throw new RuntimeException(outputContentType); // TODO test
+			throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
 	}
 
 	@Override
