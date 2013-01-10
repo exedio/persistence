@@ -104,12 +104,24 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbURL());
 		assertEquals(null, emp.getThumbURL());
 
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".jpg", jpg.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".jpg", png.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".jpg", gif.getThumbFullURL());
+		assertEquals(null, txt.getThumbFullURL());
+		assertEquals(null, emp.getThumbFullURL());
+
 		// url fallback
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURL());
+
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".jpg", jpg.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".jpg", png.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".jpg", gif.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
+		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
