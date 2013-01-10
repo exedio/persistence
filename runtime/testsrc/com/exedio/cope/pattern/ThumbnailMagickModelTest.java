@@ -33,6 +33,8 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
@@ -48,6 +50,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 	}
 
 	@SuppressWarnings("static-method")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testThumbs() throws IOException
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
