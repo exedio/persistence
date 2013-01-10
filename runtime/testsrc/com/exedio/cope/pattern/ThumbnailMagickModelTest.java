@@ -19,6 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaType.JPEG;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -41,36 +45,34 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private ThumbnailMagickItem item;
-
 	public void testThumbs()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.file,
-				item.file.getBody(),
-				item.file.getContentType(),
-				item.file.getLastModified(),
-				item.file.getUnison(),
-				item.thumb,
-				item.thumbFull,
-			}), item.TYPE.getFeatures());
-		assertEquals(item.TYPE, item.thumb.getType());
-		assertEquals("thumb", item.thumb.getName());
-		assertSame(item.file, item.thumb.getSource());
-		assertEquals(20, item.thumb.getBoundX());
-		assertEquals(30, item.thumb.getBoundY());
-		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
+				TYPE.getThis(),
+				file,
+				file.getBody(),
+				file.getContentType(),
+				file.getLastModified(),
+				file.getUnison(),
+				thumb,
+				thumbFull,
+			}), TYPE.getFeatures());
+		assertEquals(TYPE, thumb.getType());
+		assertEquals("thumb", thumb.getName());
+		assertSame(file, thumb.getSource());
+		assertEquals(20, thumb.getBoundX());
+		assertEquals(30, thumb.getBoundY());
+		final Set<String> sct = thumb.getSupportedSourceContentTypes();
 		assertTrue(sct.toString(), sct.contains(JPEG));
 		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
 
-		assertEquals(item.file.isNull(), item.thumb.isNull());
-		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
+		assertEquals(file.isNull(), thumb.isNull());
+		assertEquals(file.isNotNull(), thumb.isNotNull());
 
-		assertSerializedSame(item.thumb, 398);
+		assertSerializedSame(thumb, 398);
 
 		try
 		{
@@ -83,7 +85,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(item.file, 4, 80);
+			new MediaThumbnail(file, 4, 80);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -92,7 +94,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(item.file, 80, 4);
+			new MediaThumbnail(file, 80, 4);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
