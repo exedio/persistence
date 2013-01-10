@@ -46,6 +46,7 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	@SuppressWarnings("static-method")
 	public void testThumbs() throws IOException
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
