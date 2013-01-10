@@ -119,9 +119,9 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 			template.outputContentType(null);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("outputContentType", e.getMessage());
 		}
 		try
 		{
