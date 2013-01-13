@@ -139,18 +139,24 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertDoGet(JPEG, thumb, gif);
 		assertDoGet(JPEG, thumb, jpgX);
 		assertDoGet(JPEG, thumb, pngX);
+		assertDoGet404("not computable", thumb, txt);
+		assertDoGet404("is null",        thumb, emp);
 
 		assertDoGet(PNG, thumbFull, jpg);
 		assertDoGet(PNG, thumbFull, png);
 		assertDoGet(PNG, thumbFull, gif);
 		assertDoGet(PNG, thumbFull, jpgX);
 		assertDoGet(PNG, thumbFull, pngX);
+		assertDoGet404("not computable", thumbFull, txt);
+		assertDoGet404("is null",        thumbFull, emp);
 
 		assertDoGet(JPEG, thumbSame, jpg);
 		assertDoGet(PNG,  thumbSame, png);
 		assertDoGet(GIF,  thumbSame, gif);
 		assertDoGet(JPEG, thumbSame, jpgX);
 		assertDoGet(PNG,  thumbSame, pngX);
+		assertDoGet404("not computable", thumbSame, txt);
+		assertDoGet404("is null",        thumbSame, emp);
 
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
@@ -204,7 +210,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertNotNull(item);
 
 		final Response response = new Response();
-		feature.doGetIfModified(null, response, item);
+		assertEquals("delivered", feature.doGetIfModified(null, response, item).name);
 		response.assertIt(expectedContentType);
 	}
 
@@ -262,5 +268,18 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 				}
 			};
 		}
+	}
+
+	private static final void assertDoGet404(
+			final String expectedResult,
+			final MediaImageMagickThumbnail feature,
+			final ThumbnailMagickItem item)
+		throws IOException
+	{
+		assertNotNull(feature);
+		assertNotNull(item);
+
+		final DummyResponse response = new DummyResponse();
+		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).name);
 	}
 }
