@@ -43,13 +43,13 @@ class DummyResponse implements HttpServletResponse
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
 	public PrintWriter getWriter() throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
@@ -85,7 +85,7 @@ class DummyResponse implements HttpServletResponse
 	@Override
 	public void flushBuffer() throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
@@ -159,19 +159,19 @@ class DummyResponse implements HttpServletResponse
 	@Override
 	public void sendError(final int sc, final String msg) throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
 	public void sendError(final int sc) throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
 	public void sendRedirect(final String location) throws IOException
 	{
-		throw new RuntimeException();
+		throw new IOException();
 	}
 
 	@Override
