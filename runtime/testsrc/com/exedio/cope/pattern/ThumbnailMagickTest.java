@@ -24,10 +24,15 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+
+import javax.servlet.ServletOutputStream;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
@@ -128,6 +133,25 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertNull(txt.getThumbSame());
 		assertNull(emp.getThumbSame());
 
+		// doGet
+		assertDoGet(JPEG, thumb, jpg);
+		assertDoGet(JPEG, thumb, png);
+		assertDoGet(JPEG, thumb, gif);
+		assertDoGet(JPEG, thumb, jpgX);
+		assertDoGet(JPEG, thumb, pngX);
+
+		assertDoGet(PNG, thumbFull, jpg);
+		assertDoGet(PNG, thumbFull, png);
+		assertDoGet(PNG, thumbFull, gif);
+		assertDoGet(PNG, thumbFull, jpgX);
+		assertDoGet(PNG, thumbFull, pngX);
+
+		assertDoGet(JPEG, thumbSame, jpg);
+		assertDoGet(PNG,  thumbSame, png);
+		assertDoGet(GIF,  thumbSame, gif);
+		assertDoGet(JPEG, thumbSame, jpgX);
+		assertDoGet(PNG,  thumbSame, pngX);
+
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
@@ -168,5 +192,75 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		assertEquals(
 				Collections.singleton(MediaType.forName(expectedContentType)),
 				MediaType.forMagics(actualBody));
+	}
+
+	private static final void assertDoGet(
+			final String expectedContentType,
+			final MediaImageMagickThumbnail feature,
+			final ThumbnailMagickItem item) throws IOException
+	{
+		assertNotNull(expectedContentType);
+		assertNotNull(feature);
+		assertNotNull(item);
+
+		final Response response = new Response();
+		feature.doGetIfModified(null, response, item);
+		response.assertIt(expectedContentType);
+	}
+
+	private static final class Response extends DummyResponse
+	{
+		Response()
+		{
+		}
+
+		private int contentLength = Integer.MIN_VALUE;
+		private String contentType = null;
+		private ByteArrayOutputStream body = null;
+
+		void assertIt(final String contentType)
+		{
+			assertTrue(contentLength>0);
+			assertEquals(this.contentType, contentType);
+			assertNotNull(body);
+			assertEquals(
+					Collections.singleton(MediaType.forName(contentType)),
+					MediaType.forMagics(body.toByteArray()));
+			assertEquals(contentLength, body.size());
+		}
+
+		@Override
+		public void setContentLength(final int len)
+		{
+			assertTrue(len>0);
+			assertEquals(Integer.MIN_VALUE, contentLength);
+			assertNull(body);
+			contentLength = len;
+		}
+
+		@Override
+		public void setContentType(final String type)
+		{
+			assertNotNull(type);
+			assertNull(contentType);
+			assertNull(body);
+			contentType = type;
+		}
+
+		@Override
+		public ServletOutputStream getOutputStream()
+		{
+			assertNull(body);
+			final ByteArrayOutputStream body = this.body = new ByteArrayOutputStream();
+
+			return new ServletOutputStream()
+			{
+				@Override
+				public void write(final int b)
+				{
+					body.write(b);
+				}
+			};
+		}
 	}
 }
