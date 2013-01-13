@@ -224,10 +224,10 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		private String contentType = null;
 		private ByteArrayOutputStream body = null;
 
-		void assertIt(final String contentType)
+		void assertIt(final String expectedContentType)
 		{
 			assertTrue(contentLength>0);
-			assertEquals(this.contentType, contentType);
+			assertEquals(expectedContentType, this.contentType);
 			assertNotNull(body);
 			assertEquals(
 					Collections.singleton(MediaType.forName(contentType)),
