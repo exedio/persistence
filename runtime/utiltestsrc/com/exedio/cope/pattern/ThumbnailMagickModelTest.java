@@ -28,27 +28,23 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.CopeAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
+public final class ThumbnailMagickModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(ThumbnailMagickModelTest.class, "MODEL");
-	}
-
-	public ThumbnailMagickModelTest()
-	{
-		super(MODEL);
 	}
 
 	@SuppressWarnings("static-method")
@@ -152,5 +148,10 @@ public final class ThumbnailMagickModelTest extends AbstractRuntimeTest
 		{
 			assertEquals("density must be 0 or greater, but was -1", e.getMessage());
 		}
+	}
+
+	private static final void assertSerializedSame(final Serializable value, final int expectedSize)
+	{
+		assertSame(value, reserialize(value, expectedSize));
 	}
 }

@@ -30,16 +30,19 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
 
 import javax.servlet.ServletOutputStream;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.util.Properties;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class ThumbnailMagickTest extends AbstractRuntimeTest
+public final class ThumbnailMagickTest extends CopeTest
 {
 	static final Model MODEL = ThumbnailMagickModelTest.MODEL;
 
@@ -48,6 +51,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	private String mediaRootUrl = null;
 	private ThumbnailMagickItem jpg, jpgX, png, pngX, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
@@ -58,6 +62,7 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 		jpg = deleteOnTearDown(new ThumbnailMagickItem());
 		jpgX= deleteOnTearDown(new ThumbnailMagickItem());
 		png = deleteOnTearDown(new ThumbnailMagickItem());
@@ -71,6 +76,38 @@ public final class ThumbnailMagickTest extends AbstractRuntimeTest
 		jpgX.setFile(resource("thumbnail-test.jpg"), "image/pjpeg");
 		pngX.setFile(resource("thumbnail-test.png"), "image/x-png");
 		txt.setFile(data, "text/plain");
+	}
+
+	@Override
+	public ConnectProperties getConnectProperties()
+	{
+		return new ConnectProperties(new Properties.Source()
+		{
+			@Override
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+
+			@Override
+			public String getDescription()
+			{
+				return getClass().toString();
+			}
+
+			@Override
+			public String get(final String key)
+			{
+				if("connection.url".equals(key))
+					return "jdbc:hsqldb:mem:copetest";
+				else if("connection.username".equals(key))
+					return "sa";
+				else if("connection.password".equals(key))
+					return "";
+				else
+					return null;
+			}
+		}, null);
 	}
 
 	private static InputStream resource(final String name)

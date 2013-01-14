@@ -398,6 +398,8 @@
 				<pathelement location="lib/log4j.jar" />
 				<pathelement location="lib/jdbc/hsqldb.jar" />
 			</classpath>
+			<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
+			<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 		</ljunit>
 	</target>
 	
@@ -522,8 +524,6 @@
 					<test name="${runtime.test}" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
-					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
-					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>
@@ -1072,8 +1072,6 @@
 					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
-					<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
-					<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 					<assertions><enable/></assertions>
 				</junit>
 			</body>

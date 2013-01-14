@@ -45,6 +45,8 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceProportionatelyTest.class);
 		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
+		suite.addTestSuite(ThumbnailMagickModelTest.class);
+		suite.addTestSuite(ThumbnailMagickTest.class);
 		return suite;
 	}
 }
