@@ -334,7 +334,7 @@ public final class MysqlDialect extends Dialect
 	{
 		bf.append("create table ").
 			append(sequenceName).
-			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY)" + ENGINE);
+			append("(" + SEQUENCE_COLUMN + " integer auto_increment primary key)" + ENGINE);
 
 		initializeSequence(bf, sequenceName, startWith);
 	}
