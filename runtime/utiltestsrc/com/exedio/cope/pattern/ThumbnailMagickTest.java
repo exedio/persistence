@@ -247,7 +247,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final Response response = new Response();
-		assertEquals("delivered", feature.doGetIfModified(null, response, item).name);
+		assertEquals("delivered", feature.doGetIfModified(null, response, item).toString());
 		response.assertIt(expectedContentType);
 	}
 
@@ -317,6 +317,6 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final DummyResponse response = new DummyResponse();
-		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).name);
+		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).toString());
 	}
 }

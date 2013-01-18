@@ -239,7 +239,7 @@ public class MediaServlet extends HttpServlet
 							"<body>\n" +
 							"<h1>Not Found</h1>\n" +
 							"The requested URL was not found on this server (");
-					out.print(log.name);
+					out.print(log.toString());
 					out.print(").\n" +
 							"</body>\n" +
 							"</html>\n");

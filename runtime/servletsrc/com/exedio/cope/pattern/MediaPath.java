@@ -334,7 +334,7 @@ public abstract class MediaPath extends Pattern
 	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
 	final Log moved             = new Log("moved"         , SC_OK);
 	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
-	final Log notComputable     = new Log("not computable", SC_NOT_FOUND);
+	protected final Log notComputable = new Log("not computable", SC_NOT_FOUND);
 	final Log notModified       = new Log("not modified"  , SC_OK);
 	public final Log delivered  = new Log("delivered"     , SC_OK);
 
@@ -479,7 +479,7 @@ public abstract class MediaPath extends Pattern
 	public final static class Log
 	{
 		private final VolatileInt counter = new VolatileInt();
-		final String name;
+		private final String name;
 		public final int responseStatus;
 
 		Log(final String name, final int responseStatus)
@@ -509,6 +509,12 @@ public abstract class MediaPath extends Pattern
 		public int get()
 		{
 			return counter.get();
+		}
+
+		@Override
+		public String toString()
+		{
+			return name;
 		}
 	}
 
