@@ -52,6 +52,16 @@ performance / memory consumption
 
 - Media:
 	* store text/* gzipped and deliver as such to the browser
+	* https://developers.google.com/speed/docs/best-practices/rules_intro
+		- increase Expires header, is currently 5 seconds, maximum allowed by standard is 1 year.
+		- url fingerprinting and long Expires header
+		- Cache-Control: public on non-@PreventUrlGuessing
+			* for Firefox workaround ?
+			* for proxies near client
+		- cookieless domain or CDN
+		- imagemagick with -thumbnail and -quality
+		- minify .css and .js
+		- put dimensions of images into html or css
 - ConnectionPool:
 	* replace expensive connection testing on retrieval from pool
 		by periodic expiry of connections that have not been used for some time.
