@@ -73,7 +73,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND (("+l(string)+">=1) AND ("+l(string)+"<=4))) OR ("+q(string)+" IS NULL)");
 
 		final ConnectProperties props = model.getConnectProperties();
-		final boolean cluster = props.cluster.booleanValue();
+		final boolean cluster = props.primaryKeyGenerator.persistent;
 		final Iterator<Sequence> sequences = schema.getSequences().iterator();
 		if(cluster)
 		{

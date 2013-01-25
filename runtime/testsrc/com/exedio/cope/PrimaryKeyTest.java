@@ -77,7 +77,7 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 
 	public void testMultipleTransactions()
 	{
-		final boolean c = model.getConnectProperties().cluster.booleanValue();
+		final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 

@@ -120,7 +120,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
 
 		final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
-		if(model.getConnectProperties().cluster.booleanValue())
+		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
 			assertEquals(null, sequence.getError());
 			assertEquals(Schema.Color.OK, sequence.getParticularColor());

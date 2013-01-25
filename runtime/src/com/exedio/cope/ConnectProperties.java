@@ -50,6 +50,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
+	final PrimaryKeyGenerator primaryKeyGenerator = myEnumValue("schema.primaryKeyGenerator", PrimaryKeyGenerator.class, PrimaryKeyGenerator.memory);
 	final BooleanField updateCounter = new BooleanField("schema.updateCounter", true);
 	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
 
@@ -102,8 +103,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final     IntField changeListenersThreadsMax    = new     IntField("changeListeners.threadsMax",    10, 1);
 	final BooleanField changeListenersPrioritySet   = new BooleanField("changeListeners.prioritySet",   false);
 	final     IntField changeListenersPriority      = new     IntField("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
-
-	final BooleanField cluster = new BooleanField("cluster", false);
 
 	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
 	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
@@ -396,6 +395,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			return true;
 		}
+	}
+
+	// TODO move into framework
+	private <E extends Enum<E>> E myEnumValue(
+			final String key,
+			final Class<E> enumClass,
+			final E defaultValue)
+	{
+		return Enum.valueOf(enumClass, new StringField(key, defaultValue.name()).stringValue());
 	}
 
 	// ------------------- deprecated stuff -------------------

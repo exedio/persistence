@@ -83,9 +83,7 @@ final class Database
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
 	{
 		return
-			properties.cluster.booleanValue()
-			? new SequenceImplSequence(column, start, connectionPool, this)
-			: new SequenceImplMax(column, start, connectionPool);
+			properties.primaryKeyGenerator.newSequenceImpl(column, start, connectionPool, this);
 	}
 
 	SequenceImpl newSequenceImplCluster(final int start, final String name)

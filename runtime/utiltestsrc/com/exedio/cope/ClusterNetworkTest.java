@@ -35,8 +35,8 @@ public abstract class ClusterNetworkTest extends CopeAssert
 				{
 					public String get(final String key)
 					{
-						if(key.equals("cluster"))
-							return "true";
+						if(key.equals("schema.primaryKeyGenerator"))
+							return PrimaryKeyGenerator.sequence.name();
 						else
 							return source.get(key);
 					}

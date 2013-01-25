@@ -36,8 +36,8 @@ public class ConnectSource
 					return "testUser";
 				else if(key.equals("connection.password"))
 					return "testPassword";
-				else if(key.equals("cluster"))
-					return "true";
+				else if(key.equals("schema.primaryKeyGenerator"))
+					return PrimaryKeyGenerator.sequence.name();
 				else
 					return null;
 			}

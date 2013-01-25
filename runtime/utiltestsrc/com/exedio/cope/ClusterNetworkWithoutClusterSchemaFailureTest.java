@@ -81,7 +81,7 @@ public final class ClusterNetworkWithoutClusterSchemaFailureTest extends CopeAss
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("cluster network not supported together with cluster=false", e.getMessage());
+			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory", e.getMessage());
 		}
 	}
 

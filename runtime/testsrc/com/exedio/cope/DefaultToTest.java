@@ -301,7 +301,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 
 		// test breaking the sequence
 		{
-			final boolean c = model.getConnectProperties().cluster.booleanValue();
+			final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
 
 			assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
 

@@ -47,8 +47,8 @@ final class ClusterProperties extends Properties
 		if(!clusterProperties.isEnabled())
 			return null;
 
-		if(!properties.cluster.booleanValue())
-			throw new IllegalArgumentException("cluster network not supported together with cluster=false");
+		if(!properties.primaryKeyGenerator.persistent)
+			throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name());
 
 		return clusterProperties;
 	}
