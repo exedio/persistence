@@ -125,7 +125,6 @@ final class Connect
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
-		if(properties.cluster.booleanValue())
 		{
 			final ClusterProperties clusterProperties =
 				ClusterProperties.get(properties);
@@ -134,10 +133,6 @@ final class Connect
 				this.cluster = new Cluster(name, types, clusterProperties, this);
 			else
 				this.cluster = null;
-		}
-		else
-		{
-			this.cluster = null;
 		}
 
 		this.changeListenerDispatcher =

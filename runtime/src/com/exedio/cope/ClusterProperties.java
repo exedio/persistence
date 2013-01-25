@@ -39,10 +39,16 @@ final class ClusterProperties extends Properties
 {
 	static ClusterProperties get(final ConnectProperties properties)
 	{
+		if(properties.noContext())
+			return null;
+
 		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
 		final ClusterProperties clusterProperties = new ClusterProperties(source);
 		if(!clusterProperties.isEnabled())
 			return null;
+
+		if(!properties.cluster.booleanValue())
+			throw new IllegalArgumentException("cluster network not supported together with cluster=false");
 
 		return clusterProperties;
 	}

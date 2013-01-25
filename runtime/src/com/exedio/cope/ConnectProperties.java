@@ -385,7 +385,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mediaOffsetExpires.intValue();
 	}
 
-	private boolean noContext()
+	boolean noContext()
 	{
 		try
 		{
