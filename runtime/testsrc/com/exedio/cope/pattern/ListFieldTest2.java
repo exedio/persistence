@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -52,7 +54,7 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 		final IntegerField order = item.strings.getOrder();
 		final FunctionField<String> element = item.strings.getElement();
 
-		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
+		item.setStrings(unmodifiableList(Arrays.asList("0zero", "1one", "2two")));
 		assertEqualsUnmodifiable(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r0;
 		final Item r1;
@@ -74,7 +76,7 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 		r1.deleteCopeItem(); // could happen, if element was a CASCADE ItemField
 		assertEquals(list("0zero", "2two"), item.getStrings());
 
-		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
+		item.setStrings(unmodifiableList(Arrays.asList("0zero", "1one", "2two")));
 		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r3;
 		{
