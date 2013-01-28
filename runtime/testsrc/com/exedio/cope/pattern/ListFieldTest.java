@@ -276,7 +276,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertContains(item.getDistinctParentsOfStrings("bello"));
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(unmodifiableList(listg("hallo", "bello")));
+		item.setStrings(listg("hallo", "bello"));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item, item.getDistinctParentsOfStrings("hallo"));
@@ -295,7 +295,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(0, r0.get(stringsOrder).intValue());
 		assertEquals(1, r1.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(listg("zack1", "zack2", "zack3")));
+		item.setStrings(listg("zack1", "zack2", "zack3"));
 		assertEqualsUnmodifiable(list("zack1", "zack2", "zack3"), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item, item.getDistinctParentsOfStrings("zack1"));
@@ -317,7 +317,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(1, r1.get(stringsOrder).intValue());
 		assertEquals(2, r2.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(listg("null1", null, "null3", "null4")));
+		item.setStrings(listg("null1", null, "null3", "null4"));
 		assertEqualsUnmodifiable(list("null1", null, "null3", "null4"), item.getStrings());
 		assertContains(item, item.getDistinctParentsOfStrings(null));
 		assertContains(item, item.getDistinctParentsOfStrings("null1"));
@@ -342,7 +342,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(2, r2.get(stringsOrder).intValue());
 		assertEquals(3, r3.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(listg("dup1", "dup2", "dup1")));
+		item.setStrings(listg("dup1", "dup2", "dup1"));
 		assertEqualsUnmodifiable(list("dup1", "dup2", "dup1"), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item, item.getDistinctParentsOfStrings("dup1"));
@@ -419,7 +419,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertContains(item.getDistinctParentsOfDates(date2));
 		assertEquals(0, datesType.newQuery(null).search().size());
 
-		item.setDates(unmodifiableList(listg(date1, date2)));
+		item.setDates(listg(date1, date2));
 		assertEqualsUnmodifiable(list(date1, date2), item.getDates());
 		assertContains(item, item.getDistinctParentsOfDates(date1));
 		assertContains(item, item.getDistinctParentsOfDates(date2));
@@ -427,7 +427,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.setDates(unmodifiableList(listg(date1, null, date2)));
+			item.setDates(listg(date1, null, date2));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -445,7 +445,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertContains(item.getDistinctParentsOfItems(item));
 		assertEquals(0, itemsType.newQuery(null).search().size());
 
-		item.setItems(unmodifiableList(listg(item)));
+		item.setItems(listg(item));
 		assertEqualsUnmodifiable(list(item), item.getItems());
 		assertContains(item.getDistinctParentsOfItems(null));
 		assertContains(item, item.getDistinctParentsOfItems(item));
