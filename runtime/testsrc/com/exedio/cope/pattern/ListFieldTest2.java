@@ -53,7 +53,7 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 		final FunctionField<String> element = item.strings.getElement();
 
 		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
-		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
+		assertEqualsUnmodifiable(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r0;
 		final Item r1;
 		final Item r2;
