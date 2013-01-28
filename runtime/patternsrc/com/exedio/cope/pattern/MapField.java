@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Cast.verboseCast;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -200,7 +201,7 @@ public final class MapField<K,V> extends Pattern
 		final HashMap<K,V> result = new HashMap<K,V>();
 		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 			result.put(key.get(relationItem), value.get(relationItem));
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	@Wrap(order=120)
