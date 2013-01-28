@@ -93,6 +93,10 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		fields.get(element).set(item, false);
 	}
 
+	/**
+	 * BEWARE:
+	 * Results are not unmodifiable, since EnumSets cannot be unmodifiable.
+	 */
 	@Wrap(order=40)
 	public EnumSet<E> get(final Item item)
 	{
