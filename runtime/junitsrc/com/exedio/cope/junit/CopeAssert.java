@@ -230,6 +230,30 @@ public abstract class CopeAssert extends TestCase
 
 	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
+		try
+		{
+			actual.clear();
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.put(null, null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.putAll(null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.remove(null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
 		assertUnmodifiable(actual.entrySet());
