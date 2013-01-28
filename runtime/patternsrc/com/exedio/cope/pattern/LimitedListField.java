@@ -195,7 +195,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		{
 			result.add(sources[i].get(item));
 		}
-		return result;
+		return Collections.unmodifiableList(result);
 	}
 
 	private void assertValue(final Collection<?> value, final Item exceptionItem)
