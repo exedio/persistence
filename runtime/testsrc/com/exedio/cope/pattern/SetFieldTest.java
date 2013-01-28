@@ -19,8 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.util.Date;
-import static java.util.Collections.unmodifiableList;
-
 import java.util.Iterator;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -287,7 +285,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
-		item.setStrings(unmodifiableList(CopeAssert.<String>listg()));
+		item.setStrings(CopeAssert.<String>listg());
 		assertContainsUnmodifiable(item.getStrings());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());

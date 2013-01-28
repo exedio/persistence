@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.util.Date;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -86,7 +84,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(unmodifiableList(LimitedListFieldTest.<Integer>listg()));
+		item.setNums(LimitedListFieldTest.<Integer>listg());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());

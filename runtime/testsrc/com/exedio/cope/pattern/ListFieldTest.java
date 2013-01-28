@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static java.util.Collections.unmodifiableList;
-
 import java.util.Date;
 import java.util.Iterator;
 
@@ -388,7 +386,7 @@ public class ListFieldTest extends AbstractRuntimeTest
 		assertEquals(3, r4.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(unmodifiableList(CopeAssert.<String>listg()));
+		item.setStrings(CopeAssert.<String>listg());
 		assertEqualsUnmodifiable(list(), item.getStrings());
 		assertContains(item.getDistinctParentsOfStrings(null));
 		assertContains(item.getDistinctParentsOfStrings("null1"));
