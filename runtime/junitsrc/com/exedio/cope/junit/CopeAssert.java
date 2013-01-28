@@ -127,22 +127,22 @@ public abstract class CopeAssert extends TestCase
 
 	public static final List<Object> list(final Object... o)
 	{
-		return Arrays.asList(o);
+		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
 	public static final <T> List<T> listg(final T... o)
 	{
-		return Arrays.asList(o);
+		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
 	public static final Map<Object, Object> map()
 	{
-		return Collections.<Object, Object>emptyMap();
+		return Collections.unmodifiableMap(Collections.<Object, Object>emptyMap());
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1)
 	{
-		return Collections.<Object, Object>singletonMap(key1, value1);
+		return Collections.unmodifiableMap(Collections.<Object, Object>singletonMap(key1, value1));
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
@@ -150,7 +150,7 @@ public abstract class CopeAssert extends TestCase
 		final HashMap<Object, Object> result = new HashMap<Object, Object>();
 		result.put(key1, value1);
 		result.put(key2, value2);
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	public static final <T extends Object> void assertUnmodifiable(final Collection<T> c)
