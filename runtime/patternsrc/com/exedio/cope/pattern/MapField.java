@@ -50,7 +50,7 @@ public final class MapField<K,V> extends Pattern
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		this.key = check(key, "key");
+		this.key   = check(key,   "key"  );
 		this.value = check(value, "value");
 	}
 
