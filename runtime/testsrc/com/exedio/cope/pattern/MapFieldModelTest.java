@@ -150,6 +150,15 @@ public class MapFieldModelTest extends CopeAssert
 		}
 		try
 		{
+			MapField.create(new StringField(), new StringField().optional());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("value must be mandatory", e.getMessage());
+		}
+		try
+		{
 			MapField.create(new StringField(), new StringField().unique());
 			fail();
 		}
