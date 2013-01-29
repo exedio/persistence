@@ -36,6 +36,8 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class MapFieldModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(MapFieldItem.TYPE);
@@ -111,7 +113,11 @@ public class MapFieldModelTest extends CopeAssert
 		assertSerializedSame(nameLength, 389);
 		assertSerializedSame(string    , 385);
 		assertSerializedSame(integer   , 386);
+	}
 
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
+	public void testFailures()
+	{
 		try
 		{
 			MapField.create(null, null);
