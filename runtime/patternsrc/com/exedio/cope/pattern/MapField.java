@@ -50,20 +50,19 @@ public final class MapField<K,V> extends Pattern
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		this.key = key;
-		this.value = value;
-		if(key==null)
-			throw new NullPointerException("key");
-		if(!key.isMandatory())
-			throw new IllegalArgumentException("key must be mandatory");
-		if(key.getImplicitUniqueConstraint()!=null)
-			throw new IllegalArgumentException("key must not be unique");
-		if(value==null)
-			throw new NullPointerException("value");
-		if(!value.isMandatory())
-			throw new IllegalArgumentException("value must be mandatory");
-		if(value.getImplicitUniqueConstraint()!=null)
-			throw new IllegalArgumentException("value must not be unique");
+		this.key = check(key, "key");
+		this.value = check(value, "value");
+	}
+
+	private static <K> FunctionField<K> check(final FunctionField<K> field, final String name)
+	{
+		if(field==null)
+			throw new NullPointerException(name);
+		if(!field.isMandatory())
+			throw new IllegalArgumentException(name + " must be mandatory");
+		if(field.getImplicitUniqueConstraint()!=null)
+			throw new IllegalArgumentException(name + " must not be unique");
+		return field;
 	}
 
 	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
