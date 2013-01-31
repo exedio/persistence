@@ -40,6 +40,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(SetFieldTest.class);
 		suite.addTestSuite(EnumSetFieldTest.class);
 		suite.addTestSuite(EnumMapFieldTest.class);
+		suite.addTestSuite(EnumMapFieldConnectedTest.class);
 		suite.addTestSuite(MapFieldModelTest.class);
 		suite.addTestSuite(MapFieldTest.class);
 		suite.addTestSuite(JavaViewTest.class);

@@ -22,7 +22,6 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
-import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
@@ -57,7 +56,6 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
 
@@ -93,69 +91,6 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 		assertSerializedSame(name      , 386);
 		assertSerializedSame(nameLength, 392);
-
-		// test persistence
-		assertEquals(null, item.getName(DE));
-		assertEquals(null, item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals("defaultDE", item.getDefaults(DE));
-		assertEquals(null, item.getDefaults(EN));
-		assertEquals(null, item.getDefaults(PL));
-
-		item.setName(DE, "nameDE");
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(null, item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setNameLength(DE, 5);
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(valueOf(5), item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setNameLength(DE, 6);
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(valueOf(6), item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setName(EN, "nameEN");
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(valueOf(6), item.getNameLength(DE));
-		assertEquals("nameEN", item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setName(DE, null);
-		assertEquals(null, item.getName(DE));
-		assertEquals(valueOf(6), item.getNameLength(DE));
-		assertEquals("nameEN", item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		try
-		{
-			item.getName(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			item.setName(null, "hallo");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
