@@ -23,6 +23,9 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
@@ -35,10 +38,6 @@ public class EnumMapFieldTest extends CopeAssert
 	{
 		MODEL.enableSerialization(EnumMapFieldTest.class, "MODEL");
 	}
-
-	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
-	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
-	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
 
 	public void testIt()
 	{

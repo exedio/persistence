@@ -18,16 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 
 public class EnumMapFieldConnectedTest extends AbstractRuntimeTest
 {
-	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
-	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
-	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
-
 	public EnumMapFieldConnectedTest()
 	{
 		super(EnumMapFieldTest.MODEL);
