@@ -18,15 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.CopeAssert;
 
-public class EnumMapFieldTest extends AbstractRuntimeTest
+public class EnumMapFieldTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
 
@@ -38,21 +39,6 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
 	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
 	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
-
-	public EnumMapFieldTest()
-	{
-		super(MODEL);
-	}
-
-	EnumMapFieldItem item, itemX;
-
-	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-		item = deleteOnTearDown(new EnumMapFieldItem());
-		itemX = deleteOnTearDown(new EnumMapFieldItem());
-	}
 
 	public void testIt()
 	{
@@ -86,8 +72,8 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
 				TYPE.getFields());
 
-		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
 		assertSerializedSame(name      , 386);
 		assertSerializedSame(nameLength, 392);
@@ -98,7 +84,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			((EnumMapField)name).get(item, X.A);
+			((EnumMapField)name).get((EnumMapFieldItem)null, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -107,7 +93,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumMapField)name).set(item, X.A, "hallo");
+			((EnumMapField)name).set((EnumMapFieldItem)null, X.A, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)
