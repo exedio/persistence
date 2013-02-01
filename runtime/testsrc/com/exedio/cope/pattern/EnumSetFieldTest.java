@@ -18,17 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.EnumSet;
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.EnumSetFieldItem.Language;
-import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
-import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
-import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
+import com.exedio.cope.junit.CopeAssert;
 
-public class EnumSetFieldTest extends AbstractRuntimeTest
+public class EnumSetFieldTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumSetFieldItem.TYPE);
 
@@ -37,24 +36,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		MODEL.enableSerialization(EnumSetFieldTest.class, "MODEL");
 	}
 
-	public EnumSetFieldTest()
-	{
-		super(MODEL);
-	}
-
 	EnumSetFieldItem item, itemX;
-
-	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-		item = deleteOnTearDown(new EnumSetFieldItem());
-		itemX = deleteOnTearDown(new EnumSetFieldItem());
-	}
 
 	public void testIt()
 	{
-		// test model
 		assertEquals(item.TYPE, item.activeLanguage.getType());
 		assertEquals("activeLanguage", item.activeLanguage.getName());
 
@@ -77,189 +62,9 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 						item.activeLanguage.getField(DE), item.activeLanguage.getField(EN), item.activeLanguage.getField(PL)),
 				item.TYPE.getFields());
 
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(item.TYPE), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(item.TYPE), MODEL.getTypesSortedByHierarchy());
 
 		assertSerializedSame(item.activeLanguage, 396);
-
-		// test persistence
-		assertEquals(false, item.containsActiveLanguage(DE));
-		assertEquals(false, item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
-
-		item.addActiveLanguage(DE);
-		assertEquals(true,  item.containsActiveLanguage(DE));
-		assertEquals(false, item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(DE), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
-
-		item.addActiveLanguage(EN);
-		assertEquals(true,  item.containsActiveLanguage(DE));
-		assertEquals(true,  item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(EN)));
-
-		item.addActiveLanguage(EN);
-		assertEquals(true,  item.containsActiveLanguage(DE));
-		assertEquals(true,  item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-
-		item.removeActiveLanguage(DE);
-		assertEquals(false, item.containsActiveLanguage(DE));
-		assertEquals(true,  item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(EN), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-
-		item.removeActiveLanguage(DE);
-		assertEquals(false, item.containsActiveLanguage(DE));
-		assertEquals(true,  item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(EN), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-
-		item.setActiveLanguage(EnumSet.of(EN, PL));
-		assertEquals(false, item.containsActiveLanguage(DE));
-		assertEquals(true,  item.containsActiveLanguage(EN));
-		assertEquals(true,  item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.of(EN, PL), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-
-		item.setActiveLanguage(EnumSet.noneOf(EnumSetFieldItem.Language.class));
-		assertEquals(false, item.containsActiveLanguage(DE));
-		assertEquals(false, item.containsActiveLanguage(EN));
-		assertEquals(false, item.containsActiveLanguage(PL));
-		assertEquals(false, itemX.containsActiveLanguage(DE));
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
-		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-
-		try
-		{
-			item.containsActiveLanguage(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-		try
-		{
-			item.addActiveLanguage(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-		try
-		{
-			item.removeActiveLanguage(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-		try
-		{
-			item.setActiveLanguage(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			item.activeLanguage.contains(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-	}
-
-	public void testSettable()
-	{
-		final EnumSet<Language> value = EnumSet.noneOf(EnumSetFieldItem.Language.class);
-
-		value.add(PL);
-		final EnumSetFieldItem initialItem = deleteOnTearDown(new EnumSetFieldItem(value));
-		assertEquals(false, initialItem.containsActiveLanguage(DE));
-		assertEquals(false, initialItem.containsActiveLanguage(EN));
-		assertEquals(true,  initialItem.containsActiveLanguage(PL));
-
-		value.add(EN);
-		value.remove(PL);
-		initialItem.set(item.activeLanguage.map(value));
-		assertEquals(false, initialItem.containsActiveLanguage(DE));
-		assertEquals(true,  initialItem.containsActiveLanguage(EN));
-		assertEquals(false, initialItem.containsActiveLanguage(PL));
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
-	{
-		try
-		{
-			((EnumSetField)item.activeLanguage).contains(item, X.A);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
-		}
-		try
-		{
-			((EnumSetField)item.activeLanguage).add(item, X.A);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
-		}
-		try
-		{
-			((EnumSetField)item.activeLanguage).remove(item, X.A);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
-		}
-		try
-		{
-			((EnumSetField)item.activeLanguage).contains(X.A);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
-		}
-	}
-
-	enum X
-	{
-		A, B, C;
 	}
 }
