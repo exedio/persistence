@@ -201,29 +201,6 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(TYPE, 4, 0, 3, TYPE.getPrimaryKeyInfo());
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
-
-		// test breaking the sequence
-		{
-			final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
-
-			assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
-
-			final DefaultToItem item1 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false)));
-			assertEquals(integer(10003), item1.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
-
-			restartTransaction();
-			assertEquals(integer(10003), item1.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
-
-			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false), integerNext.map(10028)));
-			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), hsqldb?25:0);
-
-			restartTransaction();
-			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), (c&&oracle)?7:25);
-		}
 	}
 
 	private static final Integer integer(final int i)
