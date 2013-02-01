@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
+import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
@@ -36,35 +38,33 @@ public class EnumSetFieldTest extends CopeAssert
 		MODEL.enableSerialization(EnumSetFieldTest.class, "MODEL");
 	}
 
-	EnumSetFieldItem item, itemX;
-
 	public void testIt()
 	{
-		assertEquals(item.TYPE, item.activeLanguage.getType());
-		assertEquals("activeLanguage", item.activeLanguage.getName());
+		assertEquals(TYPE, activeLanguage.getType());
+		assertEquals("activeLanguage", activeLanguage.getName());
 
-		assertEquals(EnumSetFieldItem.Language.class, item.activeLanguage.getElementClass());
+		assertEquals(EnumSetFieldItem.Language.class, activeLanguage.getElementClass());
 
-		assertEquals(BooleanField.class, item.activeLanguage.getField(DE).getClass());
-		assertEquals("activeLanguage-DE", item.activeLanguage.getField(DE).getName());
-		assertSame(item.TYPE, item.activeLanguage.getField(DE).getType());
-		assertEquals(item.activeLanguage, item.activeLanguage.getField(DE).getPattern());
-		assertEqualsUnmodifiable(list(item.activeLanguage.getField(DE), item.activeLanguage.getField(EN), item.activeLanguage.getField(PL)), item.activeLanguage.getSourceFeatures());
+		assertEquals(BooleanField.class, activeLanguage.getField(DE).getClass());
+		assertEquals("activeLanguage-DE", activeLanguage.getField(DE).getName());
+		assertSame(TYPE, activeLanguage.getField(DE).getType());
+		assertEquals(activeLanguage, activeLanguage.getField(DE).getPattern());
+		assertEqualsUnmodifiable(list(activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)), activeLanguage.getSourceFeatures());
 
 		assertEqualsUnmodifiable(
 				list(
-						item.TYPE.getThis(),
-						item.activeLanguage,
-						item.activeLanguage.getField(DE), item.activeLanguage.getField(EN), item.activeLanguage.getField(PL)),
-				item.TYPE.getFeatures());
+						TYPE.getThis(),
+						activeLanguage,
+						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)),
+				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
-						item.activeLanguage.getField(DE), item.activeLanguage.getField(EN), item.activeLanguage.getField(PL)),
-				item.TYPE.getFields());
+						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)),
+				TYPE.getFields());
 
-		assertEqualsUnmodifiable(list(item.TYPE), MODEL.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE), MODEL.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
-		assertSerializedSame(item.activeLanguage, 396);
+		assertSerializedSame(activeLanguage, 396);
 	}
 }
