@@ -32,106 +32,99 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
-	private final long defaultConstantSet;
-	final boolean defaultNow;
-
 	private DateField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?> copyFrom,
-			final Date defaultConstant,
-			final long defaultConstantSet,
-			final boolean defaultNow)
+			final DefaultSource<Date> defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
-		this.defaultConstantSet = defaultConstantSet;
-		this.defaultNow = defaultNow;
 
-		if(defaultConstant!=null && defaultNow)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
-		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, null, Integer.MIN_VALUE, false);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(true, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, true, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, true, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, false, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
+		return new DateField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithDate(defaultConstant));
 	}
+
+	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
+	{
+		@Override
+		public Date make(final long now)
+		{
+			return new Date(now);
+		}
+
+		@Override
+		public boolean isNow()
+		{
+			return true;
+		}
+	};
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
+		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultNow;
+		return defaultConstant!=null && defaultConstant.isNow();
 	}
 
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;
-	}
-
-	/**
-	 * Returns true, if a value for the field should be specified
-	 * on the creation of an item.
-	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()}</tt>.
-	 */
-	@Override
-	public boolean isInitial()
-	{
-		return !defaultNow && super.isInitial();
 	}
 
 	@Override
@@ -148,7 +141,10 @@ public final class DateField extends FunctionField<Date>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		return defaultConstant!=null && Math.abs(defaultConstant.getTime()-defaultConstantSet)<100;
+		return
+				defaultConstant!=null &&
+				defaultConstant instanceof DefaultConstant &&
+				Math.abs(((DefaultConstant<Date>)defaultConstant).value.getTime()-((DefaultConstant<Date>)defaultConstant).created)<100;
 	}
 
 	@Override

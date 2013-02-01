@@ -43,7 +43,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?> copyFrom;
 	private final CopyConstraint implicitCopyConstraint;
-	final E defaultConstant;
+	final DefaultSource<E> defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
 	FunctionField(
@@ -52,7 +52,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			final boolean unique,
 			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
-			final E defaultConstant)
+			final DefaultSource<E> defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
@@ -68,11 +68,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final void checkDefaultConstant()
 	{
-		if(defaultConstant!=null)
+		if(defaultConstant!=null && defaultConstant.getConstant()!=null)
 		{
 			try
 			{
-				check(defaultConstant, null);
+				check(defaultConstant.getConstant(), null);
 			}
 			catch(final ConstraintViolationException e)
 			{
@@ -85,24 +85,29 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						" Default constant was '" + defaultConstant + "'.");
+						" Default constant was '" + defaultConstant.getConstant() + "'.");
 			}
 		}
 	}
 
+	public final boolean hasDefault()
+	{
+		return defaultConstant!=null;
+	}
+
 	public final E getDefaultConstant()
 	{
-		return defaultConstant;
+		return defaultConstant!=null ? defaultConstant.getConstant() : null;
 	}
 
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant()}==null</tt>.
+	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #hasDefault()}</tt>.
 	 */
 	@Override
-	public boolean isInitial()
+	public final boolean isInitial()
 	{
 		return (defaultConstant==null) && super.isInitial();
 	}

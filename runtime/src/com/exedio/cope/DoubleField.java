@@ -38,7 +38,7 @@ public final class DoubleField extends NumberField<Double>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?> copyFrom,
-			final Double defaultConstant,
+			final DefaultSource<Double> defaultConstant,
 			final double minimum,
 			final double maximum)
 	{
@@ -112,7 +112,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
 	}
 
 	public DoubleField range(final double minimum, final double maximum)

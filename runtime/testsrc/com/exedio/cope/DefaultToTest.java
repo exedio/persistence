@@ -54,6 +54,21 @@ public class DefaultToTest extends CopeAssert
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
+		assertEquals(true,  booleanTrue.hasDefault());
+		assertEquals(false, booleanNone.hasDefault());
+		assertEquals(true,  integerFive.hasDefault());
+		assertEquals(true,  integerFifty.hasDefault());
+		assertEquals(true,  integerNext.hasDefault());
+		assertEquals(false, integerNone.hasDefault());
+		assertEquals(true,  dateEight.hasDefault());
+		assertEquals(true,  dateEighty.hasDefault());
+		assertEquals(true,  dateNow.hasDefault());
+		assertEquals(true,  dateNowOpt.hasDefault());
+		assertEquals(false, dateNone.hasDefault());
+		assertEquals(true,  dayNow.hasDefault());
+		assertEquals(true,  dayNowOpt.hasDefault());
+		assertEquals(false, dayNone.hasDefault());
+
 		assertEquals(TRUE, booleanTrue.getDefaultConstant());
 		assertEquals(null, booleanNone.getDefaultConstant());
 		assertEquals(integer(5), integerFive.getDefaultConstant());
@@ -95,23 +110,19 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(TWO, enumTwo.getDefaultConstant());
 		assertEquals(null, enumNone.getDefaultConstant());
 
-		try
 		{
-			integerFifty.defaultToNext(88);
-			fail();
+			final IntegerField feature = integerFifty.defaultToNext(88);
+			assertEquals(true, feature.hasDefault());
+			assertEquals(null, feature.getDefaultConstant());
+			assertEquals(true, feature.isDefaultNext());
+			assertEquals(integer(88), feature.getDefaultNextStart());
 		}
-		catch(final IllegalStateException e)
 		{
-			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
-		}
-		try
-		{
-			integerNext.defaultTo(99);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("cannot use defaultConstant and defaultNext together", e.getMessage());
+			final IntegerField feature = integerNext.defaultTo(99);
+			assertEquals(true, feature.hasDefault());
+			assertEquals(integer(99), feature.getDefaultConstant());
+			assertEquals(false, feature.isDefaultNext());
+			assertEquals(null, feature.getDefaultNextStart());
 		}
 		try
 		{
@@ -127,32 +138,23 @@ public class DefaultToTest extends CopeAssert
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
 		}
-		try
 		{
-			dateEight.defaultToNow();
-			fail();
+			final DateField feature = dateEight.defaultToNow();
+			assertEquals(true, feature.hasDefault());
+			assertEquals(null, feature.getDefaultConstant());
+			assertEquals(true, feature.isDefaultNow());
 		}
-		catch(final IllegalStateException e)
 		{
-			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+			final DateField feature = dateNow.defaultTo(new Date(444));
+			assertEquals(true, feature.hasDefault());
+			assertEquals(new Date(444), feature.getDefaultConstant());
+			assertEquals(false, feature.isDefaultNow());
 		}
-		try
 		{
-			dateNow.defaultTo(new Date(444));
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
-		}
-		try
-		{
-			dayNow.defaultTo(new Day(2010, 1, 13));
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+			final DayField feature = dayNow.defaultTo(new Day(2010, 1, 13));
+			assertEquals(true, feature.hasDefault());
+			assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
+			assertEquals(false, feature.isDefaultNow());
 		}
 		try
 		{

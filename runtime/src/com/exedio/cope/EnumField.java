@@ -36,7 +36,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final boolean unique,
 			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
-			final E defaultConstant)
+			final DefaultSource<E> defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 
@@ -97,7 +97,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);
-		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, DefaultConstant.wrap(defaultConstant));
 	}
 
 	public List<E> getValues()
