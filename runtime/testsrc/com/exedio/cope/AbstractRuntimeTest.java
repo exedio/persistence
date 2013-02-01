@@ -551,12 +551,26 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
 	{
+		assertInfo(type, count, first, last, info, 0);
+	}
+
+	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
+		assertInfo(feature, count, first, last, info, 0);
+	}
+
+	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -579,11 +593,20 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void assertInfo(final Type<?> type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", 0, type.checkPrimaryKey());
 	}
 
 	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
+		assertInfo(feature, info, 0);
+	}
+
+	protected void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
+	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
+		if(!model.hasCurrentTransaction()) // TODO remove
+			assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	protected void assertInfo(final Sequence feature, final SequenceInfo info)
