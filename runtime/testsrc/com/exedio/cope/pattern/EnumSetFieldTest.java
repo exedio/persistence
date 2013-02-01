@@ -24,6 +24,9 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 
 public class EnumSetFieldTest extends AbstractRuntimeTest
 {
@@ -33,10 +36,6 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 	{
 		MODEL.enableSerialization(EnumSetFieldTest.class, "MODEL");
 	}
-
-	private static final EnumSetFieldItem.Language DE = EnumSetFieldItem.Language.DE;
-	private static final EnumSetFieldItem.Language EN = EnumSetFieldItem.Language.EN;
-	private static final EnumSetFieldItem.Language PL = EnumSetFieldItem.Language.PL;
 
 	public EnumSetFieldTest()
 	{
