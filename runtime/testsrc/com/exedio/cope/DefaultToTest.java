@@ -36,6 +36,8 @@ import static com.exedio.cope.DefaultToItem.integerFifty;
 import static com.exedio.cope.DefaultToItem.integerFive;
 import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 import java.util.Date;
 
@@ -341,9 +343,6 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), (c&&oracle)?7:25);
 		}
 	}
-
-	private static final Boolean TRUE = Boolean.TRUE;
-	private static final Boolean FALSE = Boolean.FALSE;
 
 	private static final Integer integer(final int i)
 	{
