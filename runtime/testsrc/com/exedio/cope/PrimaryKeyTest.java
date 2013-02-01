@@ -101,7 +101,7 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertInfo(next, next.getDefaultToNextInfo(), (c?((hsqldb||mysql)?6:5):0));
 
 		deleteOnTearDown(newPrimaryKeyItem("second"));
-		assertInfo(TYPE, 2,   0  , c?1:1, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(TYPE, 2,   0  ,   1  , TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, 1, c?0:6, c?0:6, next.getDefaultToNextInfo(), (c&&!oracle)?5:0);
 
 		deleteOnTearDown(newPrimaryKeyItem("third"));
