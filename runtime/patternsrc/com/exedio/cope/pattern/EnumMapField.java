@@ -18,15 +18,21 @@
 
 package com.exedio.cope.pattern;
 
+import java.lang.reflect.Type;
 import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
-public final class EnumMapField<K extends Enum<K>,V> extends Pattern
+public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -113,6 +119,62 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern
 	{
 		assertKey(key);
 		fields.get(key).set(item, value);
+	}
+
+	@Override
+	public SetValue<EnumMap<K, V>> map(final EnumMap<K, V> value)
+	{
+		return SetValue.map(this, value);
+	}
+
+	@Override
+	public SetValue<?>[] execute(final EnumMap<K, V> value, final Item exceptionItem)
+	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, exceptionItem);
+
+		final K[] keys = keyClass.getEnumConstants();
+		final SetValue<?>[] result = new SetValue<?>[keys.length];
+		for(final K key : keys)
+			result[key.ordinal()] = fields.get(key).map(value.get(key));
+		return result;
+	}
+
+	@Override
+	public boolean isFinal()
+	{
+		return valueTemplate.isFinal();
+	}
+
+	@Override
+	public boolean isMandatory()
+	{
+		return true; // map is never null
+	}
+
+	@Override
+	public boolean isInitial()
+	{
+		for(final FunctionField<V> field : fields.values())
+			if(field.isInitial())
+				return true;
+		return false;
+	}
+
+	@Override
+	@Deprecated
+	public Type getInitialType()
+	{
+		throw new RuntimeException("not implemented");
+	}
+
+	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
+		for(final FunctionField<V> field : fields.values())
+			result.addAll(field.getInitialExceptions());
+		return result;
 	}
 
 	// ------------------- deprecated stuff -------------------
