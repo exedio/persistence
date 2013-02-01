@@ -36,12 +36,14 @@ import static com.exedio.cope.DefaultToItem.integerFifty;
 import static com.exedio.cope.DefaultToItem.integerFive;
 import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
+import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
+import static com.exedio.cope.DefaultToItem.DefaultToEnum.THREE;
+import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 import java.util.Date;
 
-import com.exedio.cope.DefaultToItem.DefaultToEnum;
 import com.exedio.cope.util.Day;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -96,8 +98,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
 
-		assertEquals(DefaultToEnum.ONE, enumOne.getDefaultConstant());
-		assertEquals(DefaultToEnum.TWO, enumTwo.getDefaultConstant());
+		assertEquals(ONE, enumOne.getDefaultConstant());
+		assertEquals(TWO, enumTwo.getDefaultConstant());
 		assertEquals(null, enumNone.getDefaultConstant());
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
@@ -125,8 +127,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
-			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
-			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
+			assertEquals(ONE, item.getEnumOne());
+			assertEquals(TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
@@ -154,8 +156,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
-			assertEquals(DefaultToEnum.ONE, item.getEnumOne());
-			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
+			assertEquals(ONE, item.getEnumOne());
+			assertEquals(TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
@@ -177,9 +179,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 					dayNow.map(day(2010, 1, 13)),
 					dayNowOpt.map(day(2010, 1, 14)),
 					dayNone.map(day(2010, 1, 15)),
-					enumOne.map(DefaultToEnum.THREE),
-					enumTwo.map(DefaultToEnum.ONE),
-					enumNone.map(DefaultToEnum.TWO)
+					enumOne.map(THREE),
+					enumTwo.map(ONE),
+					enumNone.map(TWO)
 			));
 			assertEquals(FALSE, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
@@ -195,9 +197,9 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(day(2010, 1, 13), item.getDayNow());
 			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
 			assertEquals(day(2010, 1, 15), item.getDayNone());
-			assertEquals(DefaultToEnum.THREE, item.getEnumOne());
-			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
-			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
+			assertEquals(THREE, item.getEnumOne());
+			assertEquals(ONE, item.getEnumTwo());
+			assertEquals(TWO, item.getEnumNone());
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
@@ -215,7 +217,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 					dateNone.map(null),
 					dayNowOpt.map(null),
 					dayNone.map(null),
-					enumOne.map(DefaultToEnum.TWO),
+					enumOne.map(TWO),
 					enumTwo.map(null),
 					enumNone.map(null)
 			);
@@ -235,7 +237,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
-			assertEquals(DefaultToEnum.TWO, item.getEnumOne());
+			assertEquals(TWO, item.getEnumOne());
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
