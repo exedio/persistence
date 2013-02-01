@@ -23,6 +23,7 @@ import java.util.EnumSet;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 
 public class EnumSetFieldTest extends AbstractRuntimeTest
 {
@@ -197,6 +198,24 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("element", e.getMessage());
 		}
+	}
+
+	public void testSettable()
+	{
+		final EnumSet<Language> value = EnumSet.noneOf(EnumSetFieldItem.Language.class);
+
+		value.add(PL);
+		final EnumSetFieldItem initialItem = deleteOnTearDown(new EnumSetFieldItem(value));
+		assertEquals(false, initialItem.containsActiveLanguage(DE));
+		assertEquals(false, initialItem.containsActiveLanguage(EN));
+		assertEquals(true,  initialItem.containsActiveLanguage(PL));
+
+		value.add(EN);
+		value.remove(PL);
+		initialItem.set(item.activeLanguage.map(value));
+		assertEquals(false, initialItem.containsActiveLanguage(DE));
+		assertEquals(true,  initialItem.containsActiveLanguage(EN));
+		assertEquals(false, initialItem.containsActiveLanguage(PL));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

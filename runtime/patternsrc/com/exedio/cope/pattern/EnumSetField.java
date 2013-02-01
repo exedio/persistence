@@ -18,18 +18,23 @@
 
 package com.exedio.cope.pattern;
 
+import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.Set;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
-public final class EnumSetField<E extends Enum<E>> extends Pattern
+public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -119,6 +124,49 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		item.set(setValues);
 	}
 
+	@Override
+	public SetValue<EnumSet<E>> map(final EnumSet<E> value)
+	{
+		return SetValue.map(this, value);
+	}
+
+	@Override
+	public SetValue<?>[] execute(final EnumSet<E> value, final Item exceptionItem)
+	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, exceptionItem);
+
+		final E[] elements = elementClass.getEnumConstants();
+		final SetValue<?>[] result = new SetValue<?>[elements.length];
+		for(final E element : elements)
+			result[element.ordinal()] = fields.get(element).map(value.contains(element));
+		return result;
+	}
+
+	@Override
+	public boolean isFinal()
+	{
+		return false; // TODO implement final EnumSetField
+	}
+
+	@Override
+	public boolean isMandatory()
+	{
+		return true; // set is never null
+	}
+
+	@Override
+	public boolean isInitial()
+	{
+		return false;
+	}
+
+	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		return Collections.emptySet();
+	}
+
 	public Condition contains(final E element)
 	{
 		assertElement(element);
@@ -126,6 +174,13 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Override
+	@Deprecated
+	public Type getInitialType()
+	{
+		throw new RuntimeException("not implemented");
+	}
 
 	/**
 	 * @deprecated Use {@link #create(Class)} instead
