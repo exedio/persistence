@@ -83,15 +83,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return fields.get(key);
 	}
 
-	/**
-	 * @deprecated renamed to {@link #getField(Enum)}.
-	 */
-	@Deprecated
-	public FunctionField<V> getAttribute(final K key)
-	{
-		return getField(key);
-	}
-
 	private static final String KEY = "k";
 
 	private void assertKey(final K key)
@@ -162,13 +153,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Deprecated
-	public Type getInitialType()
-	{
-		throw new RuntimeException("not implemented");
-	}
-
-	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
@@ -179,6 +163,13 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	// ------------------- deprecated stuff -------------------
 
+	@Override
+	@Deprecated
+	public Type getInitialType()
+	{
+		throw new RuntimeException("not implemented");
+	}
+
 	/**
 	 * @deprecated Use {@link #create(Class,FunctionField)} instead
 	 */
@@ -188,5 +179,14 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final FunctionField<V> value)
 	{
 		return create(keyClass, value);
+	}
+
+	/**
+	 * @deprecated renamed to {@link #getField(Enum)}.
+	 */
+	@Deprecated
+	public FunctionField<V> getAttribute(final K key)
+	{
+		return getField(key);
 	}
 }
