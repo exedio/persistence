@@ -69,12 +69,6 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Override
-	protected void restartTransaction()
-	{
-		// TODO remove
-	}
-
 	public void testMultipleTransactions()
 	{
 		final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
@@ -85,17 +79,14 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertInfo(next, next.getDefaultToNextInfo());
 
 		deleteOnTearDown(newPrimaryKeyItem("first", 5));
-		restartTransaction();
 		assertInfo(TYPE, 1, c?(hsqldb?0:0):0, c?(hsqldb?0:0):0, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, next.getDefaultToNextInfo(), (c?((hsqldb||mysql)?6:5):0));
 
 		deleteOnTearDown(newPrimaryKeyItem("second"));
-		restartTransaction();
 		assertInfo(TYPE, 2, c?(hsqldb?0:0):0, c?(hsqldb?1:1):1, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, 1, c?(hsqldb?0:0):6, c?(hsqldb?0:0):6, next.getDefaultToNextInfo(), (c&&!oracle)?5:0);
 
 		deleteOnTearDown(newPrimaryKeyItem("third"));
-		restartTransaction();
 		assertInfo(TYPE, 3, c?(hsqldb?0:0):0, c?(hsqldb?2:2):2, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, 2, c?(hsqldb?0:0):6, c?(hsqldb?1:1):7, next.getDefaultToNextInfo(), (c&&!oracle)?4:0);
 	}
