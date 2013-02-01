@@ -18,6 +18,25 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultToItem.TYPE;
+import static com.exedio.cope.DefaultToItem.booleanNone;
+import static com.exedio.cope.DefaultToItem.booleanTrue;
+import static com.exedio.cope.DefaultToItem.dateEight;
+import static com.exedio.cope.DefaultToItem.dateEighty;
+import static com.exedio.cope.DefaultToItem.dateNone;
+import static com.exedio.cope.DefaultToItem.dateNow;
+import static com.exedio.cope.DefaultToItem.dateNowOpt;
+import static com.exedio.cope.DefaultToItem.dayNone;
+import static com.exedio.cope.DefaultToItem.dayNow;
+import static com.exedio.cope.DefaultToItem.dayNowOpt;
+import static com.exedio.cope.DefaultToItem.enumNone;
+import static com.exedio.cope.DefaultToItem.enumOne;
+import static com.exedio.cope.DefaultToItem.enumTwo;
+import static com.exedio.cope.DefaultToItem.integerFifty;
+import static com.exedio.cope.DefaultToItem.integerFive;
+import static com.exedio.cope.DefaultToItem.integerNext;
+import static com.exedio.cope.DefaultToItem.integerNone;
+
 import java.util.Date;
 
 import com.exedio.cope.DefaultToItem.DefaultToEnum;
@@ -27,7 +46,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DefaultToTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(DefaultToItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	public DefaultToTest()
 	{
@@ -38,55 +57,55 @@ public class DefaultToTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(TRUE, DefaultToItem.booleanTrue.getDefaultConstant());
-		assertEquals(null, DefaultToItem.booleanNone.getDefaultConstant());
-		assertEquals(integer(5), DefaultToItem.integerFive.getDefaultConstant());
-		assertEquals(integer(50), DefaultToItem.integerFifty.getDefaultConstant());
-		assertEquals(null, DefaultToItem.integerNext.getDefaultConstant());
-		assertEquals(null, DefaultToItem.integerNone.getDefaultConstant());
+		assertEquals(TRUE, booleanTrue.getDefaultConstant());
+		assertEquals(null, booleanNone.getDefaultConstant());
+		assertEquals(integer(5), integerFive.getDefaultConstant());
+		assertEquals(integer(50), integerFifty.getDefaultConstant());
+		assertEquals(null, integerNext.getDefaultConstant());
+		assertEquals(null, integerNone.getDefaultConstant());
 
-		assertEquals(false, DefaultToItem.integerFive.isDefaultNext());
-		assertEquals(false, DefaultToItem.integerFifty.isDefaultNext());
-		assertEquals(true,  DefaultToItem.integerNext.isDefaultNext());
-		assertEquals(false, DefaultToItem.integerNone.isDefaultNext());
+		assertEquals(false, integerFive.isDefaultNext());
+		assertEquals(false, integerFifty.isDefaultNext());
+		assertEquals(true,  integerNext.isDefaultNext());
+		assertEquals(false, integerNone.isDefaultNext());
 
-		assertEquals(null, DefaultToItem.integerFive.getDefaultNextStart());
-		assertEquals(null, DefaultToItem.integerFifty.getDefaultNextStart());
-		assertEquals(integer(10001), DefaultToItem.integerNext.getDefaultNextStart());
-		assertEquals(null, DefaultToItem.integerNone.getDefaultNextStart());
+		assertEquals(null, integerFive.getDefaultNextStart());
+		assertEquals(null, integerFifty.getDefaultNextStart());
+		assertEquals(integer(10001), integerNext.getDefaultNextStart());
+		assertEquals(null, integerNone.getDefaultNextStart());
 
-		assertEquals(date(8), DefaultToItem.dateEight.getDefaultConstant());
-		assertEquals(date(80), DefaultToItem.dateEighty.getDefaultConstant());
-		assertEquals(null, DefaultToItem.dateNow.getDefaultConstant());
-		assertEquals(null, DefaultToItem.dateNowOpt.getDefaultConstant());
-		assertEquals(null, DefaultToItem.dateNone.getDefaultConstant());
+		assertEquals(date(8), dateEight.getDefaultConstant());
+		assertEquals(date(80), dateEighty.getDefaultConstant());
+		assertEquals(null, dateNow.getDefaultConstant());
+		assertEquals(null, dateNowOpt.getDefaultConstant());
+		assertEquals(null, dateNone.getDefaultConstant());
 
-		assertEquals(false, DefaultToItem.dateEight.isDefaultNow());
-		assertEquals(false, DefaultToItem.dateEighty.isDefaultNow());
-		assertEquals(true,  DefaultToItem.dateNow.isDefaultNow());
-		assertEquals(true,  DefaultToItem.dateNowOpt.isDefaultNow());
-		assertEquals(false, DefaultToItem.dateNone.isDefaultNow());
+		assertEquals(false, dateEight.isDefaultNow());
+		assertEquals(false, dateEighty.isDefaultNow());
+		assertEquals(true,  dateNow.isDefaultNow());
+		assertEquals(true,  dateNowOpt.isDefaultNow());
+		assertEquals(false, dateNone.isDefaultNow());
 
-		assertEquals(null, DefaultToItem.dayNow.getDefaultConstant());
-		assertEquals(null, DefaultToItem.dayNowOpt.getDefaultConstant());
-		assertEquals(null, DefaultToItem.dayNone.getDefaultConstant());
+		assertEquals(null, dayNow.getDefaultConstant());
+		assertEquals(null, dayNowOpt.getDefaultConstant());
+		assertEquals(null, dayNone.getDefaultConstant());
 
-		assertEquals(true,  DefaultToItem.dayNow.isDefaultNow());
-		assertEquals(true,  DefaultToItem.dayNowOpt.isDefaultNow());
-		assertEquals(false, DefaultToItem.dayNone.isDefaultNow());
+		assertEquals(true,  dayNow.isDefaultNow());
+		assertEquals(true,  dayNowOpt.isDefaultNow());
+		assertEquals(false, dayNone.isDefaultNow());
 
-		assertEquals(DefaultToEnum.ONE, DefaultToItem.enumOne.getDefaultConstant());
-		assertEquals(DefaultToEnum.TWO, DefaultToItem.enumTwo.getDefaultConstant());
-		assertEquals(null, DefaultToItem.enumNone.getDefaultConstant());
+		assertEquals(DefaultToEnum.ONE, enumOne.getDefaultConstant());
+		assertEquals(DefaultToEnum.TWO, enumTwo.getDefaultConstant());
+		assertEquals(null, enumNone.getDefaultConstant());
 
-		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertInfo(DefaultToItem.TYPE, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, DefaultToItem.integerNext.getDefaultToNextInfo());
-		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
+		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
-					DefaultToItem.booleanNone.map(false)
+					booleanNone.map(false)
 			));
 			final Date after = new Date();
 			assertEquals(TRUE, item.getBooleanTrue());
@@ -108,14 +127,14 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertInfo(DefaultToItem.TYPE, 1, 0, 0, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 1, 10001, 10001, DefaultToItem.integerNext.getDefaultToNextInfo());
-		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
+		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
-					DefaultToItem.booleanNone.map(false)
+					booleanNone.map(false)
 			));
 			final Date after = new Date();
 			assertEquals(TRUE, item.getBooleanTrue());
@@ -137,28 +156,28 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertInfo(DefaultToItem.TYPE, 2, 0, 1, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
-		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
+		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
-					DefaultToItem.booleanTrue.map(false),
-					DefaultToItem.booleanNone.map(true),
-					DefaultToItem.integerFive.map(6),
-					DefaultToItem.integerFifty.map(51),
-					DefaultToItem.integerNext.map(7001),
-					DefaultToItem.dateEight.map(date(9)),
-					DefaultToItem.dateEighty.map(date(81)),
-					DefaultToItem.dateNow.map(date(501)),
-					DefaultToItem.dateNowOpt.map(date(502)),
-					DefaultToItem.dateNone.map(date(503)),
-					DefaultToItem.dayNow.map(day(2010, 1, 13)),
-					DefaultToItem.dayNowOpt.map(day(2010, 1, 14)),
-					DefaultToItem.dayNone.map(day(2010, 1, 15)),
-					DefaultToItem.enumOne.map(DefaultToEnum.THREE),
-					DefaultToItem.enumTwo.map(DefaultToEnum.ONE),
-					DefaultToItem.enumNone.map(DefaultToEnum.TWO)
+					booleanTrue.map(false),
+					booleanNone.map(true),
+					integerFive.map(6),
+					integerFifty.map(51),
+					integerNext.map(7001),
+					dateEight.map(date(9)),
+					dateEighty.map(date(81)),
+					dateNow.map(date(501)),
+					dateNowOpt.map(date(502)),
+					dateNone.map(date(503)),
+					dayNow.map(day(2010, 1, 13)),
+					dayNowOpt.map(day(2010, 1, 14)),
+					dayNone.map(day(2010, 1, 15)),
+					enumOne.map(DefaultToEnum.THREE),
+					enumTwo.map(DefaultToEnum.ONE),
+					enumNone.map(DefaultToEnum.TWO)
 			));
 			assertEquals(FALSE, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
@@ -178,25 +197,25 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(DefaultToEnum.ONE, item.getEnumTwo());
 			assertEquals(DefaultToEnum.TWO, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertInfo(DefaultToItem.TYPE, 3, 0, 2, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
-		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
+		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date before = new Date();
 			final DefaultToItem item = new DefaultToItem(
-					DefaultToItem.booleanTrue.map(null),
-					DefaultToItem.booleanNone.map(true),
-					DefaultToItem.integerFifty.map(null),
-					DefaultToItem.integerNext.map(null),
-					DefaultToItem.dateEighty.map(null),
-					DefaultToItem.dateNowOpt.map(null),
-					DefaultToItem.dateNone.map(null),
-					DefaultToItem.dayNowOpt.map(null),
-					DefaultToItem.dayNone.map(null),
-					DefaultToItem.enumOne.map(DefaultToEnum.TWO),
-					DefaultToItem.enumTwo.map(null),
-					DefaultToItem.enumNone.map(null)
+					booleanTrue.map(null),
+					booleanNone.map(true),
+					integerFifty.map(null),
+					integerNext.map(null),
+					dateEighty.map(null),
+					dateNowOpt.map(null),
+					dateNone.map(null),
+					dayNowOpt.map(null),
+					dayNone.map(null),
+					enumOne.map(DefaultToEnum.TWO),
+					enumTwo.map(null),
+					enumNone.map(null)
 			);
 			final Date after = new Date();
 			deleteOnTearDown(item);
@@ -218,14 +237,14 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), DefaultToItem.TYPE.getThis(), DefaultToItem.integerNext);
-		assertInfo(DefaultToItem.TYPE, 4, 0, 3, DefaultToItem.TYPE.getPrimaryKeyInfo());
-		assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
-		assertNull(DefaultToItem.integerNone.getDefaultToNextInfo());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(TYPE, 4, 0, 3, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
+		assertNull(integerNone.getDefaultToNextInfo());
 
 		try
 		{
-			DefaultToItem.integerFifty.defaultToNext(88);
+			integerFifty.defaultToNext(88);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -234,7 +253,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DefaultToItem.integerNext.defaultTo(99);
+			integerNext.defaultTo(99);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -243,7 +262,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DefaultToItem.integerNext.min(10002);
+			integerNext.min(10002);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -257,7 +276,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DefaultToItem.dateEight.defaultToNow();
+			dateEight.defaultToNow();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -266,7 +285,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DefaultToItem.dateNow.defaultTo(new Date(444));
+			dateNow.defaultTo(new Date(444));
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -275,7 +294,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DefaultToItem.dayNow.defaultTo(new Day(2010, 1, 13));
+			dayNow.defaultTo(new Day(2010, 1, 13));
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -303,23 +322,23 @@ public class DefaultToTest extends AbstractRuntimeTest
 		{
 			final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
 
-			assertInfo(DefaultToItem.integerNext, 2, 10001, 10002, DefaultToItem.integerNext.getDefaultToNextInfo());
+			assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 
-			final DefaultToItem item1 = deleteOnTearDown(new DefaultToItem(DefaultToItem.booleanNone.map(false)));
+			final DefaultToItem item1 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false)));
 			assertEquals(integer(10003), item1.getIntegerNext());
-			assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo());
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
 
 			restartTransaction();
 			assertEquals(integer(10003), item1.getIntegerNext());
-			assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo());
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
 
-			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(DefaultToItem.booleanNone.map(false), DefaultToItem.integerNext.map(10028)));
+			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false), integerNext.map(10028)));
 			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo(), hsqldb?25:0);
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), hsqldb?25:0);
 
 			restartTransaction();
 			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(DefaultToItem.integerNext, 3, 10001, 10003, DefaultToItem.integerNext.getDefaultToNextInfo(), (c&&oracle)?7:25);
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), (c&&oracle)?7:25);
 		}
 	}
 
