@@ -69,12 +69,6 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Override
-	protected void restartTransaction()
-	{
-		// TODO remove
-	}
-
 	public void testMultipleTransactions()
 	{
 		final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
@@ -85,18 +79,21 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertInfo(next, next.getDefaultToNextInfo());
 
 		deleteOnTearDown(newPrimaryKeyItem("first", 5));
-		restartTransaction();
-		assertInfo(TYPE, 1, c?(hsqldb?0:0):0, c?(hsqldb?0:0):0, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, next.getDefaultToNextInfo(), (c?((hsqldb||mysql)?6:5):0));
+		assertInfo(TYPE, 1, c?(hsqldb?0:0):0, c?(hsqldb?0:0):0, TYPE.getPrimaryKeyInfo());
+		assertEquals(0, TYPE.checkPrimaryKey());
+		assertInfo(next, next.getDefaultToNextInfo());
+		assertEquals((c?((hsqldb||mysql)?6:5):0), next.checkDefaultToNext());
 
 		deleteOnTearDown(newPrimaryKeyItem("second"));
-		restartTransaction();
-		assertInfo(TYPE, 2, c?(hsqldb?0:0):0, c?(hsqldb?1:1):1, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, 1, c?(hsqldb?0:0):6, c?(hsqldb?0:0):6, next.getDefaultToNextInfo(), (c&&!oracle)?5:0);
+		assertInfo(TYPE, 2, c?(hsqldb?0:0):0, c?(hsqldb?1:1):1, TYPE.getPrimaryKeyInfo());
+		assertEquals(0, TYPE.checkPrimaryKey());
+		assertInfo(next, 1, c?(hsqldb?0:0):6, c?(hsqldb?0:0):6, next.getDefaultToNextInfo());
+		assertEquals((c&&!oracle)?5:0, next.checkDefaultToNext());
 
 		deleteOnTearDown(newPrimaryKeyItem("third"));
-		restartTransaction();
-		assertInfo(TYPE, 3, c?(hsqldb?0:0):0, c?(hsqldb?2:2):2, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, 2, c?(hsqldb?0:0):6, c?(hsqldb?1:1):7, next.getDefaultToNextInfo(), (c&&!oracle)?4:0);
+		assertInfo(TYPE, 3, c?(hsqldb?0:0):0, c?(hsqldb?2:2):2, TYPE.getPrimaryKeyInfo());
+		assertEquals(0, TYPE.checkPrimaryKey());
+		assertInfo(next, 2, c?(hsqldb?0:0):6, c?(hsqldb?1:1):7, next.getDefaultToNextInfo());
+		assertEquals((c&&!oracle)?4:0, next.checkDefaultToNext());
 	}
 }

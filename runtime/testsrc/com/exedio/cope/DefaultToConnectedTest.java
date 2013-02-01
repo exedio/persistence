@@ -210,19 +210,29 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 
 			final DefaultToItem item1 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false)));
 			assertEquals(integer(10003), item1.getIntegerNext());
+			model.commit();
 			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
+			assertEquals(0, integerNext.checkDefaultToNext());
+			model.startTransaction(DefaultToConnectedTest.class.getName());
 
-			restartTransaction();
 			assertEquals(integer(10003), item1.getIntegerNext());
+			model.commit();
 			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
+			assertEquals(0, integerNext.checkDefaultToNext());
+			model.startTransaction(DefaultToConnectedTest.class.getName());
 
 			final DefaultToItem item2 = deleteOnTearDown(new DefaultToItem(booleanNone.map(false), integerNext.map(10028)));
 			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), hsqldb?25:0);
+			model.commit();
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
+			assertEquals(25, integerNext.checkDefaultToNext());
+			model.startTransaction(DefaultToConnectedTest.class.getName());
 
-			restartTransaction();
 			assertEquals(integer(10028), item2.getIntegerNext());
-			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo(), (c&&oracle)?7:25);
+			model.commit();
+			assertInfo(integerNext, 3, 10001, 10003, integerNext.getDefaultToNextInfo());
+			assertEquals((c&&oracle)?7:25, integerNext.checkDefaultToNext());
+			model.startTransaction(DefaultToConnectedTest.class.getName());
 		}
 	}
 
