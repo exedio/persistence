@@ -26,6 +26,7 @@ import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
 import static com.exedio.cope.DefaultToItem.dateNow;
 import static com.exedio.cope.DefaultToItem.dateNowOpt;
+import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
 import static com.exedio.cope.DefaultToItem.dayNow;
 import static com.exedio.cope.DefaultToItem.dayNowOpt;
@@ -83,10 +84,12 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(true,  dateNowOpt.isDefaultNow());
 		assertEquals(false, dateNone.isDefaultNow());
 
+		assertEquals(day(1008, 8, 8), dayEight.getDefaultConstant());
 		assertEquals(null, dayNow.getDefaultConstant());
 		assertEquals(null, dayNowOpt.getDefaultConstant());
 		assertEquals(null, dayNone.getDefaultConstant());
 
+		assertEquals(false, dayEight.isDefaultNow());
 		assertEquals(true,  dayNow.isDefaultNow());
 		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
@@ -147,6 +150,15 @@ public class DefaultToTest extends CopeAssert
 		}
 		try
 		{
+			dayEight.defaultToNow();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("cannot use defaultConstant and defaultNow together", e.getMessage());
+		}
+		try
+		{
 			dayNow.defaultTo(new Day(2010, 1, 13));
 			fail();
 		}
@@ -180,5 +192,10 @@ public class DefaultToTest extends CopeAssert
 	private static final Date date(final long l)
 	{
 		return new Date(l);
+	}
+
+	private static final Day day(final int year, final int month, final int day)
+	{
+		return new Day(year, month, day);
 	}
 }
