@@ -56,8 +56,7 @@ public final class IntegerField extends NumberField<Integer>
 		this.minimum = minimum;
 		this.maximum = maximum;
 
-		if(defaultConstant!=null && defaultNextStart!=null)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNext together");
+		assert defaultConstant==null || defaultNextStart==null;
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
@@ -142,12 +141,12 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, null, minimum, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, start, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, null, start, minimum, maximum);
 	}
 
 	public IntegerField range(final int minimum, final int maximum)

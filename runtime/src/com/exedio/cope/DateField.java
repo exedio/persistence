@@ -48,8 +48,7 @@ public final class DateField extends FunctionField<Date>
 		this.defaultConstantSet = defaultConstantSet;
 		this.defaultNow = defaultNow;
 
-		if(defaultConstant!=null && defaultNow)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
+		assert defaultConstant==null || !defaultNow;
 		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
@@ -104,12 +103,12 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), false);
 	}
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
+		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, true);
 	}
 
 	@Override
