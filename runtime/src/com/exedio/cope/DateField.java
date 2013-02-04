@@ -112,6 +112,12 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
 	}
 
+	@Override
+	public boolean hasDefault()
+	{
+		return defaultNow || super.hasDefault();
+	}
+
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
@@ -120,18 +126,6 @@ public final class DateField extends FunctionField<Date>
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;
-	}
-
-	/**
-	 * Returns true, if a value for the field should be specified
-	 * on the creation of an item.
-	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()}</tt>.
-	 */
-	@Override
-	public boolean isInitial()
-	{
-		return !defaultNow && super.isInitial();
 	}
 
 	@Override

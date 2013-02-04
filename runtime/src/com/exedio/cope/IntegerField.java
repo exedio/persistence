@@ -165,6 +165,12 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
+	@Override
+	public boolean hasDefault()
+	{
+		return (defaultNextStart!=null) || super.hasDefault();
+	}
+
 	public boolean isDefaultNext()
 	{
 		return defaultNextStart!=null;
@@ -183,18 +189,6 @@ public final class IntegerField extends NumberField<Integer>
 	public int getMaximum()
 	{
 		return maximum;
-	}
-
-	/**
-	 * Returns true, if a value for the field should be specified
-	 * on the creation of an item.
-	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && !{@link #isDefaultNext()}</tt>.
-	 */
-	@Override
-	public boolean isInitial()
-	{
-		return (defaultNextStart==null) && super.isInitial();
 	}
 
 	@Override

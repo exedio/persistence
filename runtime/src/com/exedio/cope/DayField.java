@@ -113,6 +113,12 @@ public final class DayField extends FunctionField<Day>
 		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, true);
 	}
 
+	@Override
+	public boolean hasDefault()
+	{
+		return defaultNow || super.hasDefault();
+	}
+
 	public boolean isDefaultNow()
 	{
 		return defaultNow;
@@ -121,12 +127,6 @@ public final class DayField extends FunctionField<Day>
 	public SelectType<Day> getValueType()
 	{
 		return SimpleSelectType.DAY;
-	}
-
-	@Override
-	public boolean isInitial()
-	{
-		return !defaultNow && super.isInitial();
 	}
 
 	@Override

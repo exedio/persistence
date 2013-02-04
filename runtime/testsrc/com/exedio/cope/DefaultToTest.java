@@ -55,6 +55,22 @@ public class DefaultToTest extends CopeAssert
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
+		assertEquals(true,  booleanTrue.hasDefault());
+		assertEquals(false, booleanNone.hasDefault());
+		assertEquals(true,  integerFive.hasDefault());
+		assertEquals(true,  integerFifty.hasDefault());
+		assertEquals(true,  integerNext.hasDefault());
+		assertEquals(false, integerNone.hasDefault());
+		assertEquals(true,  dateEight.hasDefault());
+		assertEquals(true,  dateEighty.hasDefault());
+		assertEquals(true,  dateNow.hasDefault());
+		assertEquals(true,  dateNowOpt.hasDefault());
+		assertEquals(false, dateNone.hasDefault());
+		assertEquals(true,  dayEight.hasDefault());
+		assertEquals(true,  dayNow.hasDefault());
+		assertEquals(true,  dayNowOpt.hasDefault());
+		assertEquals(false, dayNone.hasDefault());
+
 		assertEquals(TRUE, booleanTrue.getDefaultConstant());
 		assertEquals(null, booleanNone.getDefaultConstant());
 		assertEquals(integer(5), integerFive.getDefaultConstant());
