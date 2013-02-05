@@ -151,27 +151,30 @@ public class CopyModelTest extends CopeAssert
 
 	public void testFailures()
 	{
+		final StringField copy = new StringField();
 		try
 		{
-			new CopyConstraint(null, new StringField());
+			new CopyConstraint(null, copy);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("target", e.getMessage());
 		}
+		final ItemField<CopyValueItem> target = ItemField.create(CopyValueItem.class);
 		try
 		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class), new StringField());
+			new CopyConstraint(target, copy);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("target must be final", e.getMessage());
 		}
+		final ItemField<CopyValueItem> targetFinal = ItemField.create(CopyValueItem.class).toFinal();
 		try
 		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class).toFinal(), new StringField());
+			new CopyConstraint(targetFinal, copy);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
