@@ -32,12 +32,23 @@ import java.lang.annotation.Target;
  * are typically not modified by human users, but by some computational process.
  * So any generic editing facility is advised to not let a human user
  * modify this type or feature.
- *
+ * <p>
  * For types, this means, that items of the type shall not be created or deleted
  * by human users. For features this means, that the state of the feature shall
  * not be modified by a human user. A <i>computed</i> type does not imply, that the type's
  * features are <i>computed</i> as well.
- *
+ * <p>
+ * When creating items, a <i>computed</i> feature must not be specified
+ * via a {@link com.exedio.cope.SetValue SetValue}
+ * given to
+ * {@link com.exedio.cope.Type#newItem(com.exedio.cope.SetValue[]) Type.newItem},
+ * so that any default mechanisms such as
+ * {@link com.exedio.cope.FunctionField#defaultTo(Object) defaultTo}
+ * can take effect.
+ * As a consequence, items of types with <i>computed</i> features, that are
+ * {@link com.exedio.cope.FunctionField#isMandatory() mandatory} and
+ * have no default mechanisms, cannot be created.
+ * <p>
  * This annotation does not specify, whether this feature or type shall be
  * shown to a human user.
  */

@@ -26,6 +26,7 @@ import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
 import static com.exedio.cope.DefaultToItem.dateNow;
 import static com.exedio.cope.DefaultToItem.dateNowOpt;
+import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
 import static com.exedio.cope.DefaultToItem.dayNow;
 import static com.exedio.cope.DefaultToItem.dayNowOpt;
@@ -65,6 +66,7 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(true,  dateNow.hasDefault());
 		assertEquals(true,  dateNowOpt.hasDefault());
 		assertEquals(false, dateNone.hasDefault());
+		assertEquals(true,  dayEight.hasDefault());
 		assertEquals(true,  dayNow.hasDefault());
 		assertEquals(true,  dayNowOpt.hasDefault());
 		assertEquals(false, dayNone.hasDefault());
@@ -98,10 +100,12 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(true,  dateNowOpt.isDefaultNow());
 		assertEquals(false, dateNone.isDefaultNow());
 
+		assertEquals(day(1008, 8, 8), dayEight.getDefaultConstant());
 		assertEquals(null, dayNow.getDefaultConstant());
 		assertEquals(null, dayNowOpt.getDefaultConstant());
 		assertEquals(null, dayNone.getDefaultConstant());
 
+		assertEquals(false, dayEight.isDefaultNow());
 		assertEquals(true,  dayNow.isDefaultNow());
 		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
@@ -151,6 +155,12 @@ public class DefaultToTest extends CopeAssert
 			assertEquals(false, feature.isDefaultNow());
 		}
 		{
+			final DayField feature = dayEight.defaultToNow();
+			assertEquals(true, feature.hasDefault());
+			assertEquals(null, feature.getDefaultConstant());
+			assertEquals(true, feature.isDefaultNow());
+		}
+		{
 			final DayField feature = dayNow.defaultTo(new Day(2010, 1, 13));
 			assertEquals(true, feature.hasDefault());
 			assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
@@ -182,5 +192,10 @@ public class DefaultToTest extends CopeAssert
 	private static final Date date(final long l)
 	{
 		return new Date(l);
+	}
+
+	private static final Day day(final int year, final int month, final int day)
+	{
+		return new Day(year, month, day);
 	}
 }

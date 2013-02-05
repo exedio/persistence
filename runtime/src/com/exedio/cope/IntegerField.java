@@ -35,6 +35,7 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
+	private final Integer defaultNextStart;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final SequenceX defaultToNextSequence;
 	private final int minimum;
@@ -45,21 +46,23 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?> copyFrom,
-			final DefaultSource<Integer> defaultConstant,
+			final Integer defaultConstant,
+			final Integer defaultNextStart,
 			final int minimum,
 			final int maximum)
 	{
 		super(isfinal, optional, unique, copyFrom, Integer.class, defaultConstant);
+		this.defaultNextStart = defaultNextStart;
 		this.minimum = minimum;
 		this.maximum = maximum;
 
+		assert defaultConstant==null || defaultNextStart==null;
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
 		checkDefaultConstant();
-		if(defaultConstant instanceof DefaultNext)
+		if(defaultNextStart!=null)
 		{
-			final int defaultNextStart = ((DefaultNext)defaultConstant).start;
 			try
 			{
 				check(defaultNextStart, null);
@@ -77,8 +80,7 @@ public final class IntegerField extends NumberField<Integer>
 						": " + e.getMessageWithoutFeature() +
 						" Start value was '" + defaultNextStart + "'.");
 			}
-			this.defaultToNextSequence = new SequenceX(this, defaultNextStart, minimum, maximum);
-			((DefaultNext)defaultConstant).set(defaultToNextSequence);
+			this.defaultToNextSequence = new SequenceX(this, defaultNextStart.intValue(), minimum, maximum);
 		}
 		else
 		{
@@ -91,85 +93,91 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public IntegerField()
 	{
-		this(false, false, false, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		this(false, false, false, null, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField noDefault()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, null, null, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, null, minimum, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, new DefaultNext(start), minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, null, start, minimum, maximum);
 	}
 
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
+	}
+
+	@Override
+	public boolean hasDefault()
+	{
+		return (defaultNextStart!=null) || super.hasDefault();
 	}
 
 	public boolean isDefaultNext()
 	{
-		return defaultConstant!=null && defaultConstant.isNext();
+		return defaultNextStart!=null;
 	}
 
 	public Integer getDefaultNextStart()
 	{
-		return defaultConstant!=null ? defaultConstant.getNextStart() : null;
+		return defaultNextStart;
 	}
 
 	public int getMinimum()

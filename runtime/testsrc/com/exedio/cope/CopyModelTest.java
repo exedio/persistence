@@ -31,6 +31,8 @@ import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class CopyModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
@@ -123,7 +125,11 @@ public class CopyModelTest extends CopeAssert
 		assertSerializedSame(templateStringCopyFromTarget  , 401);
 		assertSerializedSame(templateItemCopyFromTarget    , 399);
 		assertSerializedSame(selfTemplateItemCopyFromTarget, 407);
+	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
+	public void testDeprecated()
+	{
 		try
 		{
 			new CopyConstraint(null, null);
@@ -133,27 +139,45 @@ public class CopyModelTest extends CopeAssert
 		{
 			assertEquals("target", e.getMessage());
 		}
+		final ItemField<CopyValueItem> target = ItemField.create(CopyValueItem.class);
 		try
 		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class), null);
+			new CopyConstraint(target, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("copy", e.getMessage());
 		}
+	}
+
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	public void testFailures()
+	{
+		final StringField copy = new StringField();
+		{
+			final StringField feature = copy.copyFrom(null);
+			assertEquals(null, feature.getImplicitCopyConstraint());
+		}
+		{
+			assertEquals(templateStringCopyFromTarget, templateString.getImplicitCopyConstraint());
+			final StringField feature = templateString.copyFrom(null);
+			assertEquals(null, feature.getImplicitCopyConstraint());
+		}
+		final ItemField<CopyValueItem> target = ItemField.create(CopyValueItem.class);
 		try
 		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class), new StringField());
+			copy.copyFrom(target);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("target must be final", e.getMessage());
 		}
+		final ItemField<CopyValueItem> targetFinal = ItemField.create(CopyValueItem.class).toFinal();
 		try
 		{
-			new CopyConstraint(ItemField.create(CopyValueItem.class).toFinal(), new StringField());
+			copy.copyFrom(targetFinal);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

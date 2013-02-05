@@ -32,7 +32,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 			final boolean unique,
 			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
-			final DefaultSource<E> defaultConstant)
+			final E defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
 	}

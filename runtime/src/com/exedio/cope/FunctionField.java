@@ -43,7 +43,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?> copyFrom;
 	private final CopyConstraint implicitCopyConstraint;
-	final DefaultSource<E> defaultConstant;
+	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
 	FunctionField(
@@ -52,27 +52,30 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			final boolean unique,
 			final ItemField<?> copyFrom,
 			final Class<E> valueClass,
-			final DefaultSource<E> defaultConstant)
+			final E defaultConstant)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
 		this.copyFrom = copyFrom;
-		this.implicitUniqueConstraint =
-			unique ?
-				new UniqueConstraint(this) :
-				null;
-		this.implicitCopyConstraint = (copyFrom!=null) ? new CopyConstraint(copyFrom, this) : null;
+		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
+		this.implicitCopyConstraint = (copyFrom!=null) ? newCopyConstraint(copyFrom, this) : null;
 
 		this.defaultConstant = defaultConstant;
 	}
 
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	{
+		return new CopyConstraint(target, copy);
+	}
+
 	final void checkDefaultConstant()
 	{
-		if(defaultConstant!=null && defaultConstant.getConstant()!=null)
+		if(defaultConstant!=null)
 		{
 			try
 			{
-				check(defaultConstant.getConstant(), null);
+				check(defaultConstant, null);
 			}
 			catch(final ConstraintViolationException e)
 			{
@@ -85,31 +88,31 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						" Default constant was '" + defaultConstant.getConstant() + "'.");
+						" Default constant was '" + defaultConstant + "'.");
 			}
 		}
 	}
 
-	public final boolean hasDefault()
+	public boolean hasDefault()
 	{
 		return defaultConstant!=null;
 	}
 
 	public final E getDefaultConstant()
 	{
-		return defaultConstant!=null ? defaultConstant.getConstant() : null;
+		return defaultConstant;
 	}
 
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #hasDefault()}</tt>.
+	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && !{@link #hasDefault()}</tt>.
 	 */
 	@Override
 	public final boolean isInitial()
 	{
-		return (defaultConstant==null) && super.isInitial();
+		return !hasDefault() && super.isInitial();
 	}
 
 	@Override

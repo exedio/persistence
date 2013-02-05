@@ -26,6 +26,7 @@ import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
 import static com.exedio.cope.DefaultToItem.dateNow;
 import static com.exedio.cope.DefaultToItem.dateNowOpt;
+import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
 import static com.exedio.cope.DefaultToItem.dayNow;
 import static com.exedio.cope.DefaultToItem.dayNowOpt;
@@ -80,6 +81,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertWithin(before, after, item.getDateNowOpt());
 			assertEquals(item.getDateNow(), item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(day(1008, 8, 8), item.getDayEight());
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
@@ -132,6 +134,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 					dateNow.map(date(501)),
 					dateNowOpt.map(date(502)),
 					dateNone.map(date(503)),
+					dayEight.map(day(1009, 9, 9)),
 					dayNow.map(day(2010, 1, 13)),
 					dayNowOpt.map(day(2010, 1, 14)),
 					dayNone.map(day(2010, 1, 15)),
@@ -150,6 +153,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(date(501), item.getDateNow());
 			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
+			assertEquals(day(1009, 9, 9), item.getDayEight());
 			assertEquals(day(2010, 1, 13), item.getDayNow());
 			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
 			assertEquals(day(2010, 1, 15), item.getDayNone());
@@ -190,6 +194,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertWithin(before, after, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
+			assertEquals(day(1008, 8, 8), item.getDayEight());
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());

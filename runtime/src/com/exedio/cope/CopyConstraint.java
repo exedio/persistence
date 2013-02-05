@@ -27,6 +27,10 @@ public final class CopyConstraint extends Feature
 	private final ItemField<?> target;
 	private final FunctionField<?> copy;
 
+	/**
+	 * @deprecated Use <tt>copy.{@link FunctionField#copyFrom(ItemField) copyFrom}(target)</tt> instead.
+	 */
+	@Deprecated
 	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
 		if(target==null)

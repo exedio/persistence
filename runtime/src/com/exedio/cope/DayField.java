@@ -33,93 +33,94 @@ public final class DayField extends FunctionField<Day>
 
 	private static final long serialVersionUID = 1l;
 
+	private final long defaultConstantSet;
+	final boolean defaultNow;
+
 	private DayField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?> copyFrom,
-			final DefaultSource<Day> defaultConstant)
+			final Day defaultConstant,
+			final long defaultConstantSet,
+			final boolean defaultNow)
 	{
 		super(isfinal, optional, unique, copyFrom, Day.class, defaultConstant);
+		this.defaultConstantSet = defaultConstantSet;
+		this.defaultNow = defaultNow;
+
+		assert defaultConstant==null || !defaultNow;
+		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
 
 	public DayField()
 	{
-		this(false, false, false, null, null);
+		this(false, false, false, null, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, copyFrom, defaultConstant);
+		return new DayField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, copyFrom, defaultConstant);
+		return new DayField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override
 	public DayField noDefault()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, null);
+		return new DayField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
 	}
 
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithDate(defaultConstant));
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), false);
 	}
-
-	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()
-	{
-		@Override
-		public Day make(final long now)
-		{
-			return new Day(new Date(now));
-		}
-
-		@Override
-		public boolean isNow()
-		{
-			return true;
-		}
-	};
 
 	public DayField defaultToNow()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
+		return new DayField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, true);
+	}
+
+	@Override
+	public boolean hasDefault()
+	{
+		return defaultNow || super.hasDefault();
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultConstant!=null && defaultConstant.isNow();
+		return defaultNow;
 	}
 
 	public SelectType<Day> getValueType()
@@ -141,10 +142,7 @@ public final class DayField extends FunctionField<Day>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		return
-			defaultConstant!=null &&
-			defaultConstant instanceof DefaultConstant &&
-			(((DefaultConstant<Day>)defaultConstant).value.equals(new Day(new Date(((DefaultConstant<Day>)defaultConstant).created))));
+		return defaultConstant!=null && defaultConstant.equals(new Day(new Date(defaultConstantSet)));
 	}
 
 	@Override

@@ -35,6 +35,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -46,6 +47,7 @@ import com.exedio.cope.misc.Compare;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Day;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -900,20 +902,39 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
-		final long now = System.currentTimeMillis();
+		Date now = null;
+		Day today = null;
 		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
 			{
 				final FunctionField<?> ff = (FunctionField<?>)field;
-				final DefaultSource<?> defaultSource = ff.defaultConstant;
-				if(defaultSource!=null)
+				Object defaultValue = ff.defaultConstant;
+				if(defaultValue==null)
 				{
-					final Object defaultValue = defaultSource.make(now);
-					if(defaultValue==null)
-						throw new RuntimeException(ff.getID());
-					fieldValues.put(field, defaultValue);
+					if(ff instanceof DateField && ((DateField)ff).defaultNow)
+					{
+						if(now==null)
+							now = new Date();
+						defaultValue = now;
+					}
+					else if(ff instanceof DayField && ((DayField)ff).defaultNow)
+					{
+						if(now==null)
+							now = new Date();
+						if(today==null)
+							today = new Day(now);
+						defaultValue = today;
+					}
+					else if(ff instanceof IntegerField)
+					{
+						final SequenceX sequence = ((IntegerField)ff).defaultToNextSequence;
+						if(sequence!=null)
+							defaultValue = sequence.next();
+					}
 				}
+				if(defaultValue!=null)
+					fieldValues.put(field, defaultValue);
 			}
 		}
 		for(final Field<?> field : fieldValues.keySet())
