@@ -152,19 +152,19 @@ public class CopyModelTest extends CopeAssert
 	public void testFailures()
 	{
 		final StringField copy = new StringField();
-		try
 		{
-			new CopyConstraint(null, copy);
-			fail();
+			final StringField feature = copy.copyFrom(null);
+			assertEquals(null, feature.getImplicitCopyConstraint());
 		}
-		catch(final NullPointerException e)
 		{
-			assertEquals("target", e.getMessage());
+			assertEquals(templateStringCopyFromTarget, templateString.getImplicitCopyConstraint());
+			final StringField feature = templateString.copyFrom(null);
+			assertEquals(null, feature.getImplicitCopyConstraint());
 		}
 		final ItemField<CopyValueItem> target = ItemField.create(CopyValueItem.class);
 		try
 		{
-			new CopyConstraint(target, copy);
+			copy.copyFrom(target);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -174,7 +174,7 @@ public class CopyModelTest extends CopeAssert
 		final ItemField<CopyValueItem> targetFinal = ItemField.create(CopyValueItem.class).toFinal();
 		try
 		{
-			new CopyConstraint(targetFinal, copy);
+			copy.copyFrom(targetFinal);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
