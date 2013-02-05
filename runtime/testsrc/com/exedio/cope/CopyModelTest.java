@@ -123,7 +123,11 @@ public class CopyModelTest extends CopeAssert
 		assertSerializedSame(templateStringCopyFromTarget  , 401);
 		assertSerializedSame(templateItemCopyFromTarget    , 399);
 		assertSerializedSame(selfTemplateItemCopyFromTarget, 407);
+	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
+	public void testDeprecated()
+	{
 		try
 		{
 			new CopyConstraint(null, null);
@@ -133,6 +137,10 @@ public class CopyModelTest extends CopeAssert
 		{
 			assertEquals("target", e.getMessage());
 		}
+	}
+
+	public void testFailures()
+	{
 		try
 		{
 			new CopyConstraint(ItemField.create(CopyValueItem.class), null);
