@@ -57,10 +57,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
 		this.copyFrom = copyFrom;
-		this.implicitUniqueConstraint =
-			unique ?
-				new UniqueConstraint(this) :
-				null;
+		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
 		this.implicitCopyConstraint = (copyFrom!=null) ? newCopyConstraint(copyFrom, this) : null;
 
 		this.defaultConstant = defaultConstant;
