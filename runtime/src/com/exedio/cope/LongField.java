@@ -35,7 +35,7 @@ public final class LongField extends NumberField<Long>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?> copyFrom,
-			final Long defaultConstant,
+			final DefaultSource<Long> defaultConstant,
 			final long minimum,
 			final long maximum)
 	{
@@ -95,7 +95,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public LongField defaultTo(final Long defaultConstant)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
 	}
 
 	public LongField range(final long minimum, final long maximum)
