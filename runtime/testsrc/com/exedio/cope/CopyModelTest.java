@@ -31,6 +31,8 @@ import java.util.Arrays;
 
 import com.exedio.cope.junit.CopeAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class CopyModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE, CopyTargetItem.TYPE, CopyValueItem.TYPE);
@@ -149,6 +151,7 @@ public class CopyModelTest extends CopeAssert
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testFailures()
 	{
 		final StringField copy = new StringField();
