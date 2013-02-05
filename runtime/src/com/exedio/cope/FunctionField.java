@@ -61,9 +61,15 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			unique ?
 				new UniqueConstraint(this) :
 				null;
-		this.implicitCopyConstraint = (copyFrom!=null) ? new CopyConstraint(copyFrom, this) : null;
+		this.implicitCopyConstraint = (copyFrom!=null) ? newCopyConstraint(copyFrom, this) : null;
 
 		this.defaultConstant = defaultConstant;
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	{
+		return new CopyConstraint(target, copy);
 	}
 
 	final void checkDefaultConstant()
