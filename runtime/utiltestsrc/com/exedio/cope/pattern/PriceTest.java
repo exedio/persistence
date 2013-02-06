@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Price.MAX_VALUE;
 import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.ZERO;
+import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 
@@ -61,6 +62,14 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
 		assertSame(ZERO, storeOf(Integer.valueOf( 0)));
 		assertEquals(null, storeOf((Integer)null));
+	}
+
+	public static void testNullToZero()
+	{
+		final Price x = storeOf(1);
+		assertSame(x,    nullToZero(x));
+		assertSame(ZERO, nullToZero(null));
+		assertSame(ZERO, nullToZero(ZERO));
 	}
 
 	public static void testValueOfDouble()
