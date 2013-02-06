@@ -141,9 +141,12 @@ public final class DayField extends FunctionField<Day>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		return
-			defaultConstant instanceof DefaultConstant &&
-			(((DefaultConstant<Day>)defaultConstant).value.equals(new Day(new Date(((DefaultConstant<Day>)defaultConstant).created))));
+		if(!(defaultConstant instanceof DefaultConstant))
+			return false;
+
+		final DefaultConstant<Day> defaultConstant = (DefaultConstant<Day>)this.defaultConstant;
+
+		return defaultConstant.value.equals(new Day(new Date(defaultConstant.created)));
 	}
 
 	@Override
