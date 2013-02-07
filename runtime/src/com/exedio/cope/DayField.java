@@ -94,7 +94,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithDate(defaultConstant));
+		return new DayField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithCreatedTime(defaultConstant));
 	}
 
 	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()

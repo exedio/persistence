@@ -25,7 +25,7 @@ final class DefaultConstant<E> extends DefaultSource<E>
 		return value!=null ? new DefaultConstant<E>(value, Long.MIN_VALUE) : null;
 	}
 
-	static <E> DefaultConstant<E> wrapWithDate(final E value)
+	static <E> DefaultConstant<E> wrapWithCreatedTime(final E value)
 	{
 		return value!=null ? new DefaultConstant<E>(value, System.currentTimeMillis()) : null;
 	}
