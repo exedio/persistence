@@ -20,9 +20,11 @@ package com.exedio.cope;
 
 final class DefaultConstant<E> extends DefaultSource<E>
 {
+	private static final long NO_CREATED_TIME_MILLIS = Long.MIN_VALUE;
+
 	static <E> DefaultConstant<E> wrap(final E value)
 	{
-		return value!=null ? new DefaultConstant<E>(value, Long.MIN_VALUE) : null;
+		return value!=null ? new DefaultConstant<E>(value, NO_CREATED_TIME_MILLIS) : null;
 	}
 
 	static <E> DefaultConstant<E> wrapWithCreatedTime(final E value)
@@ -49,7 +51,7 @@ final class DefaultConstant<E> extends DefaultSource<E>
 
 	long createdTimeMillis()
 	{
-		assert createdTimeMillis!=Long.MIN_VALUE;
+		assert createdTimeMillis!=NO_CREATED_TIME_MILLIS;
 		return createdTimeMillis;
 	}
 }
