@@ -36,9 +36,4 @@ abstract class DefaultSource<E>
 	{
 		return null;
 	}
-
-	public boolean isNow()
-	{
-		return false;
-	}
 }

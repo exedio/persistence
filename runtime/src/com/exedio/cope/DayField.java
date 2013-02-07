@@ -104,12 +104,6 @@ public final class DayField extends FunctionField<Day>
 		{
 			return new Day(new Date(now));
 		}
-
-		@Override
-		public boolean isNow()
-		{
-			return true;
-		}
 	};
 
 	public DayField defaultToNow()
@@ -119,7 +113,7 @@ public final class DayField extends FunctionField<Day>
 
 	public boolean isDefaultNow()
 	{
-		return defaultConstant!=null && defaultConstant.isNow();
+		return defaultConstant==DEFAULT_TO_NOW;
 	}
 
 	public SelectType<Day> getValueType()

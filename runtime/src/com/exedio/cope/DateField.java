@@ -103,12 +103,6 @@ public final class DateField extends FunctionField<Date>
 		{
 			return new Date(now);
 		}
-
-		@Override
-		public boolean isNow()
-		{
-			return true;
-		}
 	};
 
 	public DateField defaultToNow()
@@ -118,7 +112,7 @@ public final class DateField extends FunctionField<Date>
 
 	public boolean isDefaultNow()
 	{
-		return defaultConstant!=null && defaultConstant.isNow();
+		return defaultConstant==DEFAULT_TO_NOW;
 	}
 
 	public SelectType<Date> getValueType()
