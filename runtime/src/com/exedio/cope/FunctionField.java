@@ -71,11 +71,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final void checkDefaultConstant()
 	{
-		if(defaultConstant!=null && defaultConstant.getConstant()!=null)
+		if(defaultConstant instanceof DefaultConstant)
 		{
+			final E constant = ((DefaultConstant<E>)defaultConstant).value;
 			try
 			{
-				check(defaultConstant.getConstant(), null);
+				check(constant, null);
 			}
 			catch(final ConstraintViolationException e)
 			{
@@ -88,7 +89,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						" Default constant was '" + defaultConstant.getConstant() + "'.");
+						" Default constant was '" + constant + "'.");
 			}
 		}
 	}
@@ -100,7 +101,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public final E getDefaultConstant()
 	{
-		return defaultConstant!=null ? defaultConstant.getConstant() : null;
+		return (defaultConstant instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultConstant).value : null;
 	}
 
 	/**

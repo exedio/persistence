@@ -22,11 +22,6 @@ abstract class DefaultSource<E>
 {
 	abstract E make(long now);
 
-	public E getConstant()
-	{
-		return null;
-	}
-
 	public boolean isNext()
 	{
 		return false;

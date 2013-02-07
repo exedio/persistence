@@ -46,10 +46,4 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	{
 		return value;
 	}
-
-	@Override
-	public E getConstant()
-	{
-		return value;
-	}
 }
