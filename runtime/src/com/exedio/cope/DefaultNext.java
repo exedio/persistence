@@ -36,19 +36,19 @@ final class DefaultNext extends DefaultSource<Integer>
 	}
 
 	@Override
-	public Integer make(final long now)
+	Integer make(final long now)
 	{
 		return sequence.next();
 	}
 
 	@Override
-	public boolean isNext()
+	boolean isNext()
 	{
 		return true;
 	}
 
 	@Override
-	public Integer getNextStart()
+	Integer getNextStart()
 	{
 		return start;
 	}

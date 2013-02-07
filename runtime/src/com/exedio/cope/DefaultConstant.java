@@ -42,7 +42,7 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	}
 
 	@Override
-	public E make(final long now)
+	E make(final long now)
 	{
 		return value;
 	}

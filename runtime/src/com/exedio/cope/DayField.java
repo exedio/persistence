@@ -100,7 +100,7 @@ public final class DayField extends FunctionField<Day>
 	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()
 	{
 		@Override
-		public Day make(final long now)
+		Day make(final long now)
 		{
 			return new Day(new Date(now));
 		}

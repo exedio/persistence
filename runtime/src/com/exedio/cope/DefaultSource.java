@@ -22,12 +22,12 @@ abstract class DefaultSource<E>
 {
 	abstract E make(long now);
 
-	public boolean isNext()
+	boolean isNext()
 	{
 		return false;
 	}
 
-	public Integer getNextStart()
+	Integer getNextStart()
 	{
 		return null;
 	}
