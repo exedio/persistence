@@ -21,14 +21,4 @@ package com.exedio.cope;
 abstract class DefaultSource<E>
 {
 	abstract E make(long now);
-
-	boolean isNext()
-	{
-		return false;
-	}
-
-	Integer getNextStart()
-	{
-		return null;
-	}
 }

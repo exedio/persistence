@@ -164,12 +164,12 @@ public final class IntegerField extends NumberField<Integer>
 
 	public boolean isDefaultNext()
 	{
-		return defaultConstant!=null && defaultConstant.isNext();
+		return defaultConstant instanceof DefaultNext;
 	}
 
 	public Integer getDefaultNextStart()
 	{
-		return defaultConstant!=null ? defaultConstant.getNextStart() : null;
+		return (defaultConstant instanceof DefaultNext) ? ((DefaultNext)defaultConstant).start : null;
 	}
 
 	public int getMinimum()

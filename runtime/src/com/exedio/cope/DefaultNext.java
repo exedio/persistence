@@ -40,16 +40,4 @@ final class DefaultNext extends DefaultSource<Integer>
 	{
 		return sequence.next();
 	}
-
-	@Override
-	boolean isNext()
-	{
-		return true;
-	}
-
-	@Override
-	Integer getNextStart()
-	{
-		return start;
-	}
 }
