@@ -86,6 +86,30 @@ public final class IntegerField extends NumberField<Integer>
 		}
 	}
 
+	private static final class DefaultNext extends DefaultSource<Integer>
+	{
+		final int start;
+		private SequenceX sequence;
+
+		DefaultNext(final int start)
+		{
+			this.start = start;
+		}
+
+		void set(final SequenceX sequence)
+		{
+			assert sequence!=null;
+			assert this.sequence==null;
+			this.sequence = sequence;
+		}
+
+		@Override
+		Integer make(final long now)
+		{
+			return sequence.next();
+		}
+	}
+
 	/**
 	 * Creates a new mandatory <tt>IntegerField</tt>.
 	 */
