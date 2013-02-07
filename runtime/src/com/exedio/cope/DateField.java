@@ -139,7 +139,7 @@ public final class DateField extends FunctionField<Date>
 
 		final DefaultConstant<Date> defaultConstant = (DefaultConstant<Date>)this.defaultConstant;
 
-		return Math.abs(defaultConstant.value.getTime()-defaultConstant.created())<100;
+		return Math.abs(defaultConstant.value.getTime()-defaultConstant.createdTimeMillis())<100;
 	}
 
 	@Override

@@ -140,7 +140,7 @@ public final class DayField extends FunctionField<Day>
 
 		final DefaultConstant<Day> defaultConstant = (DefaultConstant<Day>)this.defaultConstant;
 
-		return defaultConstant.value.equals(new Day(new Date(defaultConstant.created())));
+		return defaultConstant.value.equals(new Day(new Date(defaultConstant.createdTimeMillis())));
 	}
 
 	@Override

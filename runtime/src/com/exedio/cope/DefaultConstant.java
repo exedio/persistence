@@ -31,12 +31,12 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	}
 
 	final E value;
-	private final long created;
+	private final long createdTimeMillis;
 
-	private DefaultConstant(final E value, final long created)
+	private DefaultConstant(final E value, final long createdTimeMillis)
 	{
 		this.value = value;
-		this.created = created;
+		this.createdTimeMillis = createdTimeMillis;
 
 		assert value!=null;
 	}
@@ -47,9 +47,9 @@ final class DefaultConstant<E> extends DefaultSource<E>
 		return value;
 	}
 
-	long created()
+	long createdTimeMillis()
 	{
-		assert created!=Long.MIN_VALUE;
-		return created;
+		assert createdTimeMillis!=Long.MIN_VALUE;
+		return createdTimeMillis;
 	}
 }
