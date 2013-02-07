@@ -40,7 +40,6 @@ public final class DateField extends FunctionField<Date>
 			final DefaultSource<Date> defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
-
 		checkDefaultConstant();
 	}
 
