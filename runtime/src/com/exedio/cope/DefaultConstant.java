@@ -31,7 +31,7 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	}
 
 	final E value;
-	final long created;
+	private final long created;
 
 	private DefaultConstant(final E value, final long created)
 	{
@@ -45,5 +45,11 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	public E make(final long now)
 	{
 		return value;
+	}
+
+	long created()
+	{
+		assert created!=Long.MIN_VALUE;
+		return created;
 	}
 }
