@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.EnumAnnotatedElement;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
 {
@@ -54,7 +55,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		for(final K key : keyClass.getEnumConstants())
 		{
 			final FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
-			addSource(value, key.name());
+			addSource(value, key.name(), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
 		}
 	}

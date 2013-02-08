@@ -33,6 +33,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.EnumAnnotatedElement;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
@@ -49,7 +50,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		for(final E element : elementClass.getEnumConstants())
 		{
 			final BooleanField value = new BooleanField().defaultTo(false);
-			addSource(value, element.name());
+			addSource(value, element.name(), EnumAnnotatedElement.get(element));
 			fields.put(element, value);
 		}
 	}

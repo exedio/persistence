@@ -38,9 +38,9 @@ public class EnumMapFieldSchemaNameTest extends CopeAssert
 	public void testIt()
 	{
 		assertIt("alpha-one", "alfa_one",  AnItem.alpha, AnEnum.one);
-		assertIt("alpha-two", "alfa_two",  AnItem.alpha, AnEnum.two);
+		assertIt("alpha-two", "alfa_woo",  AnItem.alpha, AnEnum.two);
 		assertIt("beta-one",  "beta_one",  AnItem.beta,  AnEnum.one);
-		assertIt("beta-two",  "beta_two",  AnItem.beta,  AnEnum.two);
+		assertIt("beta-two",  "beta_woo",  AnItem.beta,  AnEnum.two);
 	}
 
 	private static void assertIt(
