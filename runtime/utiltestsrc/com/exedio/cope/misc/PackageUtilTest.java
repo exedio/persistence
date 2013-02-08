@@ -32,6 +32,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ConnectTokenSetTest.class);
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(ConnectTokenNullModelTest.class);
+		suite.addTestSuite(EnumAnnotatedElementTest.class);
 		suite.addTestSuite(IterablesTest.class);
 		suite.addTestSuite(ListUtilTest.class);
 		suite.addTestSuite(ServletUtilTest.class);

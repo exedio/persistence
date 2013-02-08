@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.exedio.cope.misc.EnumAnnotatedElement;
+
 final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 {
 	private final Class<E> valueClass;
@@ -93,14 +95,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	private static final <A extends Annotation> A getAnnotation(final Enum<?> e, final Class<A> annotationClass)
 	{
-		try
-		{
-			return e.getDeclaringClass().getDeclaredField(e.name()).getAnnotation(annotationClass);
-		}
-		catch(final NoSuchFieldException ex)
-		{
-			throw new RuntimeException(ex);
-		}
+		return EnumAnnotatedElement.get(e).getAnnotation(annotationClass);
 	}
 
 	public Class<E> getJavaClass()
