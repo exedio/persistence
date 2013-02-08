@@ -135,16 +135,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public abstract FunctionField<E> copy();
 
 	/**
-	 * @deprecated Renamed to {@link #copy()}.
-	 */
-	@Deprecated
-	public final FunctionField<E> copyFunctionField()
-	{
-		return copy();
-	}
-
-
-	/**
 	 * Returns a new FunctionField,
 	 * that differs from this FunctionField
 	 * by being unique.
@@ -466,5 +456,16 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public BindFunction<E> bind(final Join join)
 	{
 		return new BindFunction<E>(this, join);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Renamed to {@link #copy()}.
+	 */
+	@Deprecated
+	public final FunctionField<E> copyFunctionField()
+	{
+		return copy();
 	}
 }
