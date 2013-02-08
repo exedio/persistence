@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import gnu.trove.TIntObjectHashMap;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		int schemaValue = 0;
 		for(final E e : enumConstants)
 		{
-			final CopeSchemaValue annotation = getAnnotation(e, CopeSchemaValue.class);
+			final CopeSchemaValue annotation = schemaValue(e);
 			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
 			numbersToValues.put(number, e);
 			ordinalsToNumbers[e.ordinal()] = number;
@@ -60,7 +59,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		int i = 0;
 		for(final E e : enumConstants)
 		{
-			if(getAnnotation(e, CopeSchemaValue.class)!=null)
+			if(schemaValue(e)!=null)
 			{
 				if((i>0 && ordinalsToNumbers[i]<=ordinalsToNumbers[i-1]) ||
 					(i<l && ordinalsToNumbers[i]>=ordinalsToNumbers[i+1]))
@@ -93,9 +92,9 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.marshaller = new EnumMarshaller<E>(this);
 	}
 
-	private static final <A extends Annotation> A getAnnotation(final Enum<?> e, final Class<A> annotationClass)
+	private static final CopeSchemaValue schemaValue(final Enum<?> e)
 	{
-		return EnumAnnotatedElement.get(e).getAnnotation(annotationClass);
+		return EnumAnnotatedElement.get(e).getAnnotation(CopeSchemaValue.class);
 	}
 
 	public Class<E> getJavaClass()
