@@ -43,7 +43,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?>[] copyFrom;
-	private final CopyConstraint[] implicitCopyConstraints;
+	private final CopyConstraint[] implicitCopyConstraintsFrom;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
@@ -59,7 +59,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		this.unique = unique;
 		this.copyFrom = copyFrom;
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
-		this.implicitCopyConstraints = (copyFrom!=null) ? newCopyConstraints(copyFrom) : null;
+		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraints(copyFrom) : null;
 
 		this.defaultConstant = defaultConstant;
 	}
@@ -146,8 +146,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 		if(unique)
 			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, null);
-		if(implicitCopyConstraints!=null)
-			for(final CopyConstraint constraint : implicitCopyConstraints)
+		if(implicitCopyConstraintsFrom!=null)
+			for(final CopyConstraint constraint : implicitCopyConstraintsFrom)
 				constraint.mount(type, name + "CopyFrom" + constraint.getTarget().getName(), null);
 	}
 
@@ -307,8 +307,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	public List<CopyConstraint> getImplicitCopyConstraints()
 	{
 		return
-				implicitCopyConstraints!=null
-				? Collections.unmodifiableList(Arrays.asList(implicitCopyConstraints))
+				implicitCopyConstraintsFrom!=null
+				? Collections.unmodifiableList(Arrays.asList(implicitCopyConstraintsFrom))
 				: Collections.<CopyConstraint>emptyList();
 	}
 
