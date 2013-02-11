@@ -75,7 +75,7 @@ final class CompositeType<X>
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
 				templates.put(field.getName(), template);
 				templatePositions.put(template, position++);
-				template.mount(fieldID, field);
+				template.mount(fieldID, SerializedReflectionField.make(feature, field), field);
 				templateNames.put(template, field.getName());
 			}
 		}

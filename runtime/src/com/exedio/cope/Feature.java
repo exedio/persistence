@@ -68,6 +68,7 @@ public abstract class Feature implements Serializable
 		}
 
 		abstract void toString(StringBuilder bf, Type<?> defaultType);
+		abstract Serializable serializable();
 	}
 
 	private static final class MountType extends Mount
@@ -124,18 +125,27 @@ public abstract class Feature implements Serializable
 		{
 			return id;
 		}
+
+		@Override
+		Serializable serializable()
+		{
+			return new Serialized(this);
+		}
 	}
 
 	private static final class MountString extends Mount
 	{
 		private final String string;
+		private final Serializable serializable;
 
-		MountString(final String string, final AnnotatedElement annotationSource)
+		MountString(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
 		{
 			super(annotationSource);
 			assert string!=null;
+			assert serializable!=null;
 
 			this.string = string;
+			this.serializable = serializable;
 		}
 
 		@Override
@@ -148,6 +158,12 @@ public abstract class Feature implements Serializable
 		public String toString()
 		{
 			return string;
+		}
+
+		@Override
+		Serializable serializable()
+		{
+			return serializable;
 		}
 	}
 
@@ -172,13 +188,15 @@ public abstract class Feature implements Serializable
 		this.patternUntilMount = null;
 	}
 
-	public final void mount(final String string, final AnnotatedElement annotationSource)
+	public final void mount(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
 	{
 		if(string==null)
 			throw new NullPointerException("string");
+		if(serializable==null)
+			throw new NullPointerException("serializable");
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountString(string, annotationSource);
+		this.mountIfMounted = new MountString(string, serializable, annotationSource);
 	}
 
 	private final Mount mount()
@@ -342,10 +360,8 @@ public abstract class Feature implements Serializable
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(getClass().getName());
-		if(!(mount instanceof MountType))
-			throw new NotSerializableException(mount.toString());
 
-		return new Serialized((MountType)mount);
+		return mount.serializable();
 	}
 
 	/**

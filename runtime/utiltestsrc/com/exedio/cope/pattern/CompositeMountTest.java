@@ -21,6 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static java.lang.annotation.ElementType.FIELD;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -220,6 +225,30 @@ public class CompositeMountTest extends CopeAssert
 	{
 		String value();
 	}
+
+	public void testSerialization() throws IOException
+	{
+		assertSerializedSame(Value.string4, 285);
+		assertSerializedSame(Value.intMax4, 285);
+
+		final LongField negative = new LongField();
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		final ObjectOutputStream oos = new ObjectOutputStream(bos);
+		try
+		{
+			oos.writeObject(negative);
+		}
+		catch(final NotSerializableException e)
+		{
+			assertEquals("com.exedio.cope.LongField", e.getMessage());
+		}
+	}
+
+	private static void assertSerializedSame(final Serializable value, final int expectedSize)
+	{
+		assertSame(value, reserialize(value, expectedSize));
+	}
+
 
 	static final class Value extends Composite
 	{
