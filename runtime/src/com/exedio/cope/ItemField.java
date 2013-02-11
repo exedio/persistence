@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
 
+import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Set;
 
@@ -34,12 +35,15 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
+	private final FunctionField<?>[] copyTo;
+	private final CopyConstraint[] implicitCopyConstraintsTo;
 
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
+			final FunctionField<?>[] copyTo,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
@@ -58,12 +62,29 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			if(isfinal)
 				throw new IllegalArgumentException("final item field cannot have delete policy nullify");
 		}
+		this.copyTo = copyTo;
+		this.implicitCopyConstraintsTo = (copyTo!=null) ? newCopyConstraintsTo(copyTo) : null;
 		checkDefaultConstant();
+	}
+
+	private CopyConstraint[] newCopyConstraintsTo(final FunctionField<?>[] copyFrom)
+	{
+		assert copyFrom.length>0;
+		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
+		for(int i = 0; i<copyFrom.length; i++)
+			result[i] = newCopyConstraint(this, copyFrom[i]);
+		return result;
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	{
+		return new CopyConstraint(target, copy);
 	}
 
 	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, null, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, null, null, valueTypeFuture, policy);
 	}
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
@@ -79,37 +100,56 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(true, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, true, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, false, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new ItemField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
+	}
+
+	public ItemField<E> copyTo(final FunctionField<?> copyTo)
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
+	}
+
+	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
+	{
+		if(copyTo==null)
+			throw new NullPointerException("copyTo");
+		if(this.copyTo==null)
+			return new FunctionField[]{copyTo};
+
+		final int length = this.copyTo.length;
+		final FunctionField<?>[] result = new FunctionField<?>[length+1];
+		System.arraycopy(this.copyTo, 0, result, 0, length);
+		result[length] = copyTo;
+		return result;
 	}
 
 	@Override
@@ -123,12 +163,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<E>(isfinal, true, unique, copyFrom, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -169,6 +209,16 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return policy;
 	}
 
+
+	@Override
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	{
+		super.mount(type, name, annotationSource);
+
+		if(implicitCopyConstraintsTo!=null)
+			for(final CopyConstraint constraint : implicitCopyConstraintsTo)
+				constraint.mount(type, constraint.getCopy().getName() + "CopyFrom" + name, null);
+	}
 
 	private Type<E> valueType = null;
 
