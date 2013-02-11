@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiSourceItem.constraintA;
 import static com.exedio.cope.CopyMultiSourceItem.constraintB;
 import static com.exedio.cope.CopyMultiSourceItem.copy;
 import static com.exedio.cope.CopyMultiSourceItem.targetA;
@@ -41,6 +40,8 @@ public class CopyMultiTest extends CopeAssert
 
 	public void testIt()
 	{
+		final CopyConstraint constraintA = copy.getImplicitCopyConstraint();
+
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				targetA,
@@ -69,7 +70,7 @@ public class CopyMultiTest extends CopeAssert
 		assertEquals("targetA", targetA.getName());
 		assertEquals("targetB", targetB.getName());
 		assertEquals("copy", copy.getName());
-		assertEquals("constraintA", constraintA.getName());
+		assertEquals("copyCopyFromtargetA", constraintA.getName());
 		assertEquals("constraintB", constraintB.getName());
 		assertEquals("copy", CopyMultiTargetItemA.copy.getName());
 		assertEquals("copy", CopyMultiTargetItemB.copy.getName());
@@ -92,11 +93,11 @@ public class CopyMultiTest extends CopeAssert
 
 		assertEquals(null, targetA.getImplicitCopyConstraint());
 		assertEquals(null, targetB.getImplicitCopyConstraint());
-		assertEquals(null, copy.getImplicitCopyConstraint());
+		assertEquals(constraintA, copy.getImplicitCopyConstraint());
 		assertEquals(null, CopyMultiTargetItemA.copy.getImplicitCopyConstraint());
 		assertEquals(null, CopyMultiTargetItemB.copy.getImplicitCopyConstraint());
 
-		assertSerializedSame(constraintA, 385);
+		assertSerializedSame(constraintA, 393);
 		assertSerializedSame(constraintB, 385);
 	}
 }

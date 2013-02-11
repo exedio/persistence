@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiSourceItem.constraintA;
 import static com.exedio.cope.CopyMultiSourceItem.constraintB;
+import static com.exedio.cope.CopyMultiSourceItem.copy;
 
 public class CopyMultiConnectedTest extends AbstractRuntimeTest
 {
@@ -44,6 +44,8 @@ public class CopyMultiConnectedTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
+		final CopyConstraint constraintA = copy.getImplicitCopyConstraint();
+
 		assertContains(TYPE.search());
 
 		final CopyMultiSourceItem source1 = deleteOnTearDown(new CopyMultiSourceItem(targetA, targetB, "targetValue"));
