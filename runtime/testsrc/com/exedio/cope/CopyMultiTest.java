@@ -63,15 +63,23 @@ public class CopyMultiTest extends CopeAssert
 		assertEquals(TYPE, copy.getType());
 		assertEquals(TYPE, constraintA.getType());
 		assertEquals(TYPE, constraintB.getType());
+		assertEquals(CopyMultiTargetItemA.TYPE, CopyMultiTargetItemA.copy.getType());
+		assertEquals(CopyMultiTargetItemB.TYPE, CopyMultiTargetItemB.copy.getType());
 
 		assertEquals("targetA", targetA.getName());
 		assertEquals("targetB", targetB.getName());
 		assertEquals("copy", copy.getName());
 		assertEquals("constraintA", constraintA.getName());
 		assertEquals("constraintB", constraintB.getName());
+		assertEquals("copy", CopyMultiTargetItemA.copy.getName());
+		assertEquals("copy", CopyMultiTargetItemB.copy.getName());
 
 		assertEqualsUnmodifiable(list(constraintA, constraintB), TYPE.getDeclaredCopyConstraints());
 		assertEqualsUnmodifiable(list(constraintA, constraintB), TYPE.getCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemA.TYPE.getDeclaredCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemA.TYPE.getCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemB.TYPE.getDeclaredCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemB.TYPE.getCopyConstraints());
 
 		assertSame(targetA, constraintA.getTarget());
 		assertSame(targetB, constraintB.getTarget());
@@ -85,6 +93,8 @@ public class CopyMultiTest extends CopeAssert
 		assertEquals(null, targetA.getImplicitCopyConstraint());
 		assertEquals(null, targetB.getImplicitCopyConstraint());
 		assertEquals(null, copy.getImplicitCopyConstraint());
+		assertEquals(null, CopyMultiTargetItemA.copy.getImplicitCopyConstraint());
+		assertEquals(null, CopyMultiTargetItemB.copy.getImplicitCopyConstraint());
 
 		assertSerializedSame(constraintA, 385);
 		assertSerializedSame(constraintB, 385);
