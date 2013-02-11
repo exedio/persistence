@@ -23,10 +23,7 @@ final class CopyMultiSourceItem extends Item
 	static final ItemField<CopyMultiTargetItemA> targetA = ItemField.create(CopyMultiTargetItemA.class).toFinal().optional();
 	static final ItemField<CopyMultiTargetItemB> targetB = ItemField.create(CopyMultiTargetItemB.class).toFinal().optional();
 
-	static final StringField copy = new StringField().toFinal().optional().copyFrom(targetA);
-
-	@SuppressWarnings("deprecation") // TODO
-	static final CopyConstraint constraintB = new CopyConstraint(targetB, copy);
+	static final StringField copy = new StringField().toFinal().optional().copyFrom(targetA).copyFrom(targetB);
 
 	/**
 

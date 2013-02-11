@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiSourceItem.constraintB;
 import static com.exedio.cope.CopyMultiSourceItem.copy;
 
 public class CopyMultiConnectedTest extends AbstractRuntimeTest
@@ -44,7 +43,8 @@ public class CopyMultiConnectedTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final CopyConstraint constraintA = copy.getImplicitCopyConstraint();
+		final CopyConstraint constraintA = copy.getImplicitCopyConstraints().get(0);
+		final CopyConstraint constraintB = copy.getImplicitCopyConstraints().get(1);
 
 		assertContains(TYPE.search());
 

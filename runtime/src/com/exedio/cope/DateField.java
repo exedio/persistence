@@ -39,7 +39,7 @@ public final class DateField extends FunctionField<Date>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Date defaultConstant,
 			final long defaultConstantSet,
 			final boolean defaultNow)
@@ -91,7 +91,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override

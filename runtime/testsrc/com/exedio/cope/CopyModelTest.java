@@ -42,9 +42,9 @@ public class CopyModelTest extends CopeAssert
 		MODEL.enableSerialization(CopyModelTest.class, "MODEL");
 	}
 
-	static final CopyConstraint templateStringCopyFromTarget = templateString.getImplicitCopyConstraint();
-	static final CopyConstraint templateItemCopyFromTarget = templateItem.getImplicitCopyConstraint();
-	static final CopyConstraint selfTemplateItemCopyFromTarget = selfTemplateItem.getImplicitCopyConstraint();
+	static final CopyConstraint templateStringCopyFromTarget   = templateString  .getImplicitCopyConstraints().get(0);
+	static final CopyConstraint templateItemCopyFromTarget     = templateItem    .getImplicitCopyConstraints().get(0);
+	static final CopyConstraint selfTemplateItemCopyFromTarget = selfTemplateItem.getImplicitCopyConstraints().get(0);
 
 	public void testIt()
 	{
@@ -93,6 +93,10 @@ public class CopyModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getDeclaredCopyConstraints());
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getCopyConstraints());
 
+		assertEqualsUnmodifiable(list(templateStringCopyFromTarget  ), templateString  .getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(templateItemCopyFromTarget    ), templateItem    .getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(selfTemplateItemCopyFromTarget), selfTemplateItem.getImplicitCopyConstraints());
+
 		assertEquals(null, templateString.getPattern());
 		assertEquals(null, templateItem.getPattern());
 		assertEquals(null, selfTemplateItem.getPattern());
@@ -130,6 +134,9 @@ public class CopyModelTest extends CopeAssert
 	@SuppressWarnings("deprecation") // OK testing deprecated api
 	public void testDeprecated()
 	{
+		assertEquals(templateStringCopyFromTarget  , templateString  .getImplicitCopyConstraint());
+		assertEquals(templateItemCopyFromTarget    , templateItem    .getImplicitCopyConstraint());
+		assertEquals(selfTemplateItemCopyFromTarget, selfTemplateItem.getImplicitCopyConstraint());
 		try
 		{
 			new CopyConstraint(null, null);
@@ -155,14 +162,14 @@ public class CopyModelTest extends CopeAssert
 	public void testFailures()
 	{
 		final StringField copy = new StringField();
+		try
 		{
-			final StringField feature = copy.copyFrom(null);
-			assertEquals(null, feature.getImplicitCopyConstraint());
+			copy.copyFrom(null);
+			fail();
 		}
+		catch(final NullPointerException e)
 		{
-			assertEquals(templateStringCopyFromTarget, templateString.getImplicitCopyConstraint());
-			final StringField feature = templateString.copyFrom(null);
-			assertEquals(null, feature.getImplicitCopyConstraint());
+			assertEquals("copyFrom", e.getMessage());
 		}
 		final ItemField<CopyValueItem> target = ItemField.create(CopyValueItem.class);
 		try

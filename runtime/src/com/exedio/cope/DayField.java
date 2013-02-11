@@ -40,7 +40,7 @@ public final class DayField extends FunctionField<Day>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Day defaultConstant,
 			final long defaultConstantSet,
 			final boolean defaultNow)
@@ -92,7 +92,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, defaultConstantSet, defaultNow);
 	}
 
 	@Override

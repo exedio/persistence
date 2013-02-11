@@ -34,7 +34,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Class<E> valueClass,
 			final E defaultConstant)
 	{
@@ -84,7 +84,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueClass, defaultConstant);
 	}
 
 	@Override

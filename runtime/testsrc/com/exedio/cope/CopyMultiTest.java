@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiSourceItem.constraintB;
 import static com.exedio.cope.CopyMultiSourceItem.copy;
 import static com.exedio.cope.CopyMultiSourceItem.targetA;
 import static com.exedio.cope.CopyMultiSourceItem.targetB;
@@ -40,7 +39,8 @@ public class CopyMultiTest extends CopeAssert
 
 	public void testIt()
 	{
-		final CopyConstraint constraintA = copy.getImplicitCopyConstraint();
+		final CopyConstraint constraintA = copy.getImplicitCopyConstraints().get(0);
+		final CopyConstraint constraintB = copy.getImplicitCopyConstraints().get(1);
 
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -71,7 +71,7 @@ public class CopyMultiTest extends CopeAssert
 		assertEquals("targetB", targetB.getName());
 		assertEquals("copy", copy.getName());
 		assertEquals("copyCopyFromtargetA", constraintA.getName());
-		assertEquals("constraintB", constraintB.getName());
+		assertEquals("copyCopyFromtargetB", constraintB.getName());
 		assertEquals("copy", CopyMultiTargetItemA.copy.getName());
 		assertEquals("copy", CopyMultiTargetItemB.copy.getName());
 
@@ -91,13 +91,33 @@ public class CopyMultiTest extends CopeAssert
 		assertSame(copy, constraintA.getCopy());
 		assertSame(copy, constraintB.getCopy());
 
-		assertEquals(null, targetA.getImplicitCopyConstraint());
-		assertEquals(null, targetB.getImplicitCopyConstraint());
-		assertEquals(constraintA, copy.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiTargetItemA.copy.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiTargetItemB.copy.getImplicitCopyConstraint());
+		assertEqualsUnmodifiable(list(), targetA.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), targetB.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(constraintA, constraintB), copy.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemA.copy.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemB.copy.getImplicitCopyConstraints());
 
 		assertSerializedSame(constraintA, 393);
-		assertSerializedSame(constraintB, 385);
+		assertSerializedSame(constraintB, 393);
+	}
+
+	@SuppressWarnings("deprecation")
+	public void testDeprecated()
+	{
+		assertEquals(null, targetA.getImplicitCopyConstraint());
+		assertEquals(null, targetB.getImplicitCopyConstraint());
+		try
+		{
+			copy.getImplicitCopyConstraint();
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(
+					"[CopyMultiSourceItem.copyCopyFromtargetA, CopyMultiSourceItem.copyCopyFromtargetB]",
+					e.getMessage());
+		}
+		assertEquals(null, CopyMultiTargetItemA.copy.getImplicitCopyConstraint());
+		assertEquals(null, CopyMultiTargetItemB.copy.getImplicitCopyConstraint());
 	}
 }

@@ -45,7 +45,7 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Integer defaultConstant,
 			final Integer defaultNextStart,
 			final int minimum,
@@ -129,7 +129,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, defaultNextStart, minimum, maximum);
 	}
 
 	@Override

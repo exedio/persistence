@@ -37,7 +37,7 @@ public final class DoubleField extends NumberField<Double>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Double defaultConstant,
 			final double minimum,
 			final double maximum)
@@ -100,7 +100,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public DoubleField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, minimum, maximum);
 	}
 
 	@Override

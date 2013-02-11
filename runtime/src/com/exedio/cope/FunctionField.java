@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -41,8 +42,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
-	final ItemField<?> copyFrom;
-	private final CopyConstraint implicitCopyConstraint;
+	final ItemField<?>[] copyFrom;
+	private final CopyConstraint[] implicitCopyConstraints;
 	final E defaultConstant;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
@@ -50,7 +51,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Class<E> valueClass,
 			final E defaultConstant)
 	{
@@ -58,9 +59,18 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		this.unique = unique;
 		this.copyFrom = copyFrom;
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
-		this.implicitCopyConstraint = (copyFrom!=null) ? newCopyConstraint(copyFrom, this) : null;
+		this.implicitCopyConstraints = (copyFrom!=null) ? newCopyConstraints(copyFrom) : null;
 
 		this.defaultConstant = defaultConstant;
+	}
+
+	private CopyConstraint[] newCopyConstraints(final ItemField<?>[] copyFrom)
+	{
+		assert copyFrom.length>0;
+		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
+		for(int i = 0; i<copyFrom.length; i++)
+			result[i] = newCopyConstraint(copyFrom[i], this);
+		return result;
 	}
 
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
@@ -115,6 +125,20 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return !hasDefault() && super.isInitial();
 	}
 
+	protected final ItemField<?>[] addCopyFrom(final ItemField<?> copyFrom)
+	{
+		if(copyFrom==null)
+			throw new NullPointerException("copyFrom");
+		if(this.copyFrom==null)
+			return new ItemField[]{copyFrom};
+
+		final int length = this.copyFrom.length;
+		final ItemField<?>[] result = new ItemField<?>[length+1];
+		System.arraycopy(this.copyFrom, 0, result, 0, length);
+		result[length] = copyFrom;
+		return result;
+	}
+
 	@Override
 	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
@@ -122,8 +146,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 		if(unique)
 			implicitUniqueConstraint.mount(type, name + UniqueConstraint.IMPLICIT_UNIQUE_SUFFIX, null);
-		if(implicitCopyConstraint!=null)
-			implicitCopyConstraint.mount(type, name + "CopyFrom" + copyFrom.getName(), null);
+		if(implicitCopyConstraints!=null)
+			for(final CopyConstraint constraint : implicitCopyConstraints)
+				constraint.mount(type, name + "CopyFrom" + constraint.getTarget().getName(), null);
 	}
 
 	final void checkValueClass(final Class<? extends Object> superClass)
@@ -256,10 +281,35 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * Does return null, if there is no such copy constraint.
 	 * @see StringField#copyFrom(ItemField)
 	 * @see ItemField#copyFrom(ItemField)
+	 * @deprecated
+	 * Use {@link #getImplicitCopyConstraints()} instead.
+	 * Throws a RuntimeException, if {@link #getImplicitCopyConstraints()} returns more than one constraint.
 	 */
+	@Deprecated
 	public CopyConstraint getImplicitCopyConstraint()
 	{
-		return implicitCopyConstraint;
+		final List<CopyConstraint> constraints = getImplicitCopyConstraints();
+		switch(constraints.size())
+		{
+			case 0: return null;
+			case 1: return constraints.get(0);
+			default: throw new RuntimeException(constraints.toString());
+		}
+	}
+
+	/**
+	 * Returns the copy constraints of this field,
+	 * that has been created implicitly when creating this field.
+	 * Does return an empty list, if there is no such copy constraint.
+	 * @see StringField#copyFrom(ItemField)
+	 * @see ItemField#copyFrom(ItemField)
+	 */
+	public List<CopyConstraint> getImplicitCopyConstraints()
+	{
+		return
+				implicitCopyConstraints!=null
+				? Collections.unmodifiableList(Arrays.asList(implicitCopyConstraints))
+				: Collections.<CopyConstraint>emptyList();
 	}
 
 	@Override

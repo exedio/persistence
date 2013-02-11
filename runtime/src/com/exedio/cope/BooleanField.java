@@ -33,7 +33,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Boolean defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultConstant);
@@ -78,7 +78,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant);
 	}
 
 	@Override

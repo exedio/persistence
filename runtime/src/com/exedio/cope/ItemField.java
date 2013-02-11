@@ -39,7 +39,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
@@ -109,7 +109,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueTypeFuture, policy);
 	}
 
 	@Override

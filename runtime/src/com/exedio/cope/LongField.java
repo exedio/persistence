@@ -34,7 +34,7 @@ public final class LongField extends NumberField<Long>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?> copyFrom,
+			final ItemField<?>[] copyFrom,
 			final Long defaultConstant,
 			final long minimum,
 			final long maximum)
@@ -83,7 +83,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public LongField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, minimum, maximum);
 	}
 
 	@Override
