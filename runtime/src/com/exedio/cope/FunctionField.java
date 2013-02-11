@@ -59,12 +59,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		this.unique = unique;
 		this.copyFrom = copyFrom;
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
-		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraints(copyFrom) : null;
+		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraintsFrom(copyFrom) : null;
 
 		this.defaultConstant = defaultConstant;
 	}
 
-	private CopyConstraint[] newCopyConstraints(final ItemField<?>[] copyFrom)
+	private CopyConstraint[] newCopyConstraintsFrom(final ItemField<?>[] copyFrom)
 	{
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
