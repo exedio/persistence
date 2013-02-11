@@ -82,6 +82,10 @@ public class CopyMultiTest extends CopeAssert
 		assertSame(copy, constraintA.getCopy());
 		assertSame(copy, constraintB.getCopy());
 
+		assertEquals(null, targetA.getImplicitCopyConstraint());
+		assertEquals(null, targetB.getImplicitCopyConstraint());
+		assertEquals(null, copy.getImplicitCopyConstraint());
+
 		assertSerializedSame(constraintA, 385);
 		assertSerializedSame(constraintB, 385);
 	}
