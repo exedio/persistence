@@ -165,6 +165,15 @@ public class WrapFeature extends Pattern
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=320)
+	public byte[] varargsMethod(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") @Parameter("array")   final String array,
+			@SuppressWarnings("unused") @Parameter("varargs") final Integer... varargs)
+	{
+		throw new RuntimeException();
+	}
+
 
 	private static final long serialVersionUID = 1l;
 }
