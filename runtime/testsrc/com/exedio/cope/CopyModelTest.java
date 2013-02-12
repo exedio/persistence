@@ -93,10 +93,6 @@ public class CopyModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getDeclaredCopyConstraints());
 		assertEqualsUnmodifiable(list(), CopyTargetItem.TYPE.getCopyConstraints());
 
-		assertEqualsUnmodifiable(list(templateStringCopyFromTarget  ), templateString  .getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(templateItemCopyFromTarget    ), templateItem    .getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(selfTemplateItemCopyFromTarget), selfTemplateItem.getImplicitCopyConstraints());
-
 		assertEquals(null, templateString.getPattern());
 		assertEquals(null, templateItem.getPattern());
 		assertEquals(null, selfTemplateItem.getPattern());
@@ -134,6 +130,10 @@ public class CopyModelTest extends CopeAssert
 	@SuppressWarnings("deprecation") // OK testing deprecated api
 	public void testDeprecated()
 	{
+		assertEqualsUnmodifiable(list(templateStringCopyFromTarget  ), templateString  .getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(templateItemCopyFromTarget    ), templateItem    .getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(selfTemplateItemCopyFromTarget), selfTemplateItem.getImplicitCopyConstraints());
+
 		assertEquals(templateStringCopyFromTarget  , templateString  .getImplicitCopyConstraint());
 		assertEquals(templateItemCopyFromTarget    , templateItem    .getImplicitCopyConstraint());
 		assertEquals(selfTemplateItemCopyFromTarget, selfTemplateItem.getImplicitCopyConstraint());
