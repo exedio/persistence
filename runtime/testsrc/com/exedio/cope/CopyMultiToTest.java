@@ -37,11 +37,11 @@ public class CopyMultiToTest extends CopeAssert
 		MODEL.enableSerialization(CopyMultiToTest.class, "MODEL");
 	}
 
+	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
+	static final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyBCopyFromtarget");
+
 	public void testIt()
 	{
-		final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
-		final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyBCopyFromtarget");
-
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				copyA,

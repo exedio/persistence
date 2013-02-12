@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiToSourceItem.TYPE;
+import static com.exedio.cope.CopyMultiToTest.constraintA;
+import static com.exedio.cope.CopyMultiToTest.constraintB;
 
 public class CopyMultiToConnectedTest extends AbstractRuntimeTest
 {
@@ -38,9 +40,6 @@ public class CopyMultiToConnectedTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
-		final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyBCopyFromtarget");
-
 		assertContains(TYPE.search());
 
 		final CopyMultiToSourceItem source1 = deleteOnTearDown(new CopyMultiToSourceItem("targetValueA", "targetValueB", target));
