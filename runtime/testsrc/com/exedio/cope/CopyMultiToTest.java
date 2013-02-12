@@ -89,12 +89,6 @@ public class CopyMultiToTest extends CopeAssert
 		assertSame(copyA, constraintA.getCopy());
 		assertSame(copyB, constraintB.getCopy());
 
-		assertEqualsUnmodifiable(list(), copyA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), copyB.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), target.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyB.getImplicitCopyConstraints());
-
 		assertSerializedSame(constraintA, 397);
 		assertSerializedSame(constraintB, 397);
 	}
@@ -102,6 +96,12 @@ public class CopyMultiToTest extends CopeAssert
 	@SuppressWarnings("deprecation")
 	public void testDeprecated()
 	{
+		assertEqualsUnmodifiable(list(), copyA.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), copyB.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), target.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyA.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyB.getImplicitCopyConstraints());
+
 		assertEquals(null, target.getImplicitCopyConstraint());
 		assertEquals(null, copyA.getImplicitCopyConstraint());
 		assertEquals(null, copyB.getImplicitCopyConstraint());
