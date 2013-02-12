@@ -39,8 +39,8 @@ public class CopyMultiTest extends CopeAssert
 
 	public void testIt()
 	{
-		final CopyConstraint constraintA = copy.getImplicitCopyConstraints().get(0);
-		final CopyConstraint constraintB = copy.getImplicitCopyConstraints().get(1);
+		final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetA");
+		final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetB");
 
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
