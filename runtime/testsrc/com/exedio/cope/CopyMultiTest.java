@@ -37,11 +37,11 @@ public class CopyMultiTest extends CopeAssert
 		MODEL.enableSerialization(CopyMultiTest.class, "MODEL");
 	}
 
+	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetA");
+	static final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetB");
+
 	public void testIt()
 	{
-		final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetA");
-		final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetB");
-
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				targetA,
@@ -91,12 +91,6 @@ public class CopyMultiTest extends CopeAssert
 		assertSame(copy, constraintA.getCopy());
 		assertSame(copy, constraintB.getCopy());
 
-		assertEqualsUnmodifiable(list(), targetA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), targetB.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(constraintA, constraintB), copy.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiTargetItemA.copy.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiTargetItemB.copy.getImplicitCopyConstraints());
-
 		assertSerializedSame(constraintA, 393);
 		assertSerializedSame(constraintB, 393);
 	}
@@ -104,6 +98,12 @@ public class CopyMultiTest extends CopeAssert
 	@SuppressWarnings("deprecation")
 	public void testDeprecated()
 	{
+		assertEqualsUnmodifiable(list(), targetA.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), targetB.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(constraintA, constraintB), copy.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemA.copy.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiTargetItemB.copy.getImplicitCopyConstraints());
+
 		assertEquals(null, targetA.getImplicitCopyConstraint());
 		assertEquals(null, targetB.getImplicitCopyConstraint());
 		try
