@@ -42,9 +42,9 @@ public class CopyModelTest extends CopeAssert
 		MODEL.enableSerialization(CopyModelTest.class, "MODEL");
 	}
 
-	static final CopyConstraint templateStringCopyFromTarget   = templateString  .getImplicitCopyConstraints().get(0);
-	static final CopyConstraint templateItemCopyFromTarget     = templateItem    .getImplicitCopyConstraints().get(0);
-	static final CopyConstraint selfTemplateItemCopyFromTarget = selfTemplateItem.getImplicitCopyConstraints().get(0);
+	static final CopyConstraint templateStringCopyFromTarget   = (CopyConstraint)TYPE.getFeature("templateStringCopyFromtargetItem");
+	static final CopyConstraint templateItemCopyFromTarget     = (CopyConstraint)TYPE.getFeature("templateItemCopyFromtargetItem");
+	static final CopyConstraint selfTemplateItemCopyFromTarget = (CopyConstraint)TYPE.getFeature("selfTemplateItemCopyFromselfTargetItem");
 
 	public void testIt()
 	{
