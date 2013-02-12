@@ -303,7 +303,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 * Does return an empty list, if there is no such copy constraint.
 	 * @see StringField#copyFrom(ItemField)
 	 * @see ItemField#copyFrom(ItemField)
+	 * @deprecated
+	 * This method makes no sense anymore, since there is a
+	 * {@link ItemField#copyTo(FunctionField)} as well.
 	 */
+	@Deprecated
 	public List<CopyConstraint> getImplicitCopyConstraints()
 	{
 		return
