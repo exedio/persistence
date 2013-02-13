@@ -44,7 +44,7 @@ final class DefaultConstant<E> extends DefaultSource<E>
 	}
 
 	@Override
-	E make(final long now)
+	E generate(final long now)
 	{
 		return value;
 	}

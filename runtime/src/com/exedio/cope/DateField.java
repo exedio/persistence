@@ -99,7 +99,7 @@ public final class DateField extends FunctionField<Date>
 	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
 	{
 		@Override
-		Date make(final long now)
+		Date generate(final long now)
 		{
 			return new Date(now);
 		}

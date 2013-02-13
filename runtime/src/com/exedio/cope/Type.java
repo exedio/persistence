@@ -909,7 +909,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				final DefaultSource<?> defaultSource = ff.defaultConstant;
 				if(defaultSource!=null)
 				{
-					final Object defaultValue = defaultSource.make(now);
+					final Object defaultValue = defaultSource.generate(now);
 					if(defaultValue==null)
 						throw new RuntimeException(ff.getID());
 					fieldValues.put(field, defaultValue);

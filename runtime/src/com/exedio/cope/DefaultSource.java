@@ -33,5 +33,5 @@ abstract class DefaultSource<E>
 	 * @param now
 	 * the caller must provide the results of {@link System#currentTimeMillis()} here.
 	 */
-	abstract E make(long now);
+	abstract E generate(long now);
 }

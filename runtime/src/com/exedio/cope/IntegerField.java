@@ -104,7 +104,7 @@ public final class IntegerField extends NumberField<Integer>
 		}
 
 		@Override
-		Integer make(final long now)
+		Integer generate(final long now)
 		{
 			return sequence.next();
 		}
