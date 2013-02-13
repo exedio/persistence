@@ -34,7 +34,8 @@ abstract class DefaultSource<E>
 	 * such as incrementing a sequence.</li>
 	 * </ul>
 	 * @param now
-	 * the caller must provide the results of {@link System#currentTimeMillis()} here.
+	 * The caller must provide the results of {@link System#currentTimeMillis()} here.
+	 * However the caller may reuse the results of {@link System#currentTimeMillis()} for multiple calls.
 	 */
 	abstract E generate(long now);
 }
