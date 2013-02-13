@@ -20,5 +20,18 @@ package com.exedio.cope;
 
 abstract class DefaultSource<E>
 {
+	/**
+	 * Generates a default value.
+	 * <ul>
+	 * <li>The result may or may not be stable, i.e.
+	 * multiple calls even with the same value for <tt>now</tt>
+	 * may return different result.</li>
+	 * <li>The result may or may not depend on parameter <tt>now</tt>.</li>
+	 * <li>Calling this method may or may not cause side effects,
+	 * such as incrementing a sequence.</li>
+	 * </ul>
+	 * @param now
+	 * the caller must provide the results of {@link System#currentTimeMillis()} here.
+	 */
 	abstract E make(long now);
 }
