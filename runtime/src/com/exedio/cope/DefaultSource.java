@@ -26,7 +26,10 @@ abstract class DefaultSource<E>
 	 * <li>The result may or may not be stable, i.e.
 	 * multiple calls even with the same value for <tt>now</tt>
 	 * may return different result.</li>
-	 * <li>The result may or may not depend on parameter <tt>now</tt>.</li>
+	 * <li>The result may or may not depend on parameter <tt>now</tt>.
+	 * However the result must not depend on {@link System#currentTimeMillis()},
+	 * but use <tt>now</tt> instead.
+	 * </li>
 	 * <li>Calling this method may or may not cause side effects,
 	 * such as incrementing a sequence.</li>
 	 * </ul>
