@@ -31,7 +31,7 @@ abstract class DefaultSource<E>
 	 * but use <tt>now</tt> instead.
 	 * </li>
 	 * <li>Calling this method may or may not cause side effects,
-	 * such as incrementing a sequence.</li>
+	 * such as incrementing a sequence or exhausting random entropy.</li>
 	 * </ul>
 	 * @param now
 	 * The caller must provide the results of {@link System#currentTimeMillis()} here.
