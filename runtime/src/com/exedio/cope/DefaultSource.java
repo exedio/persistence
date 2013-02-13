@@ -25,7 +25,7 @@ abstract class DefaultSource<E>
 	 * <ul>
 	 * <li>The result may or may not be stable, i.e.
 	 * multiple calls even with the same value for <tt>now</tt>
-	 * may return different result.</li>
+	 * may return different results.</li>
 	 * <li>The result may or may not depend on parameter <tt>now</tt>.
 	 * However the result must not depend on {@link System#currentTimeMillis()},
 	 * but use <tt>now</tt> instead.
