@@ -34,7 +34,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final Boolean defaultConstant)
+			final DefaultSource<Boolean> defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultConstant);
 		checkDefaultConstant();
@@ -90,7 +90,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant));
 	}
 
 	@Override

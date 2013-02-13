@@ -32,94 +32,87 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
-	private final long defaultConstantSet;
-	final boolean defaultNow;
-
 	private DateField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final Date defaultConstant,
-			final long defaultConstantSet,
-			final boolean defaultNow)
+			final DefaultSource<Date> defaultConstant)
 	{
 		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
-		this.defaultConstantSet = defaultConstantSet;
-		this.defaultNow = defaultNow;
-
-		assert defaultConstant==null || !defaultNow;
-		assert (defaultConstant!=null) == (defaultConstantSet!=Integer.MIN_VALUE);
 		checkDefaultConstant();
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, null, Integer.MIN_VALUE, false);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(true, optional, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, true, unique, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, true, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, false, copyFrom, defaultConstant);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, defaultConstantSet, defaultNow);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, false);
+		return new DateField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant, System.currentTimeMillis(), false);
+		return new DateField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithCreatedTime(defaultConstant));
 	}
+
+	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
+	{
+		@Override
+		Date generate(final long now)
+		{
+			return new Date(now);
+		}
+	};
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null, Integer.MIN_VALUE, true);
-	}
-
-	@Override
-	public boolean hasDefault()
-	{
-		return defaultNow || super.hasDefault();
+		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultNow;
+		return defaultConstant==DEFAULT_TO_NOW;
 	}
 
 	public SelectType<Date> getValueType()
@@ -141,7 +134,12 @@ public final class DateField extends FunctionField<Date>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		return defaultConstant!=null && Math.abs(defaultConstant.getTime()-defaultConstantSet)<100;
+		if(!(defaultConstant instanceof DefaultConstant))
+			return false;
+
+		final DefaultConstant<Date> defaultConstant = (DefaultConstant<Date>)this.defaultConstant;
+
+		return Math.abs(defaultConstant.value.getTime()-defaultConstant.createdTimeMillis())<100;
 	}
 
 	@Override
