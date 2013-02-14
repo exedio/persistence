@@ -136,12 +136,11 @@ public final class DateField extends FunctionField<Date>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		if(!(defaultSource instanceof DefaultConstant))
+		final Date defaultConstant = getDefaultConstant();
+		if(defaultConstant==null)
 			return false;
 
-		final DefaultConstant<Date> defaultConstant = (DefaultConstant<Date>)this.defaultSource;
-
-		return Math.abs(defaultConstant.value.getTime()-defaultConstant.createdTimeMillis())<100;
+		return Math.abs(defaultConstant.getTime()-getDefaultConstantCreatedTimeMillis())<100;
 	}
 
 	@Override

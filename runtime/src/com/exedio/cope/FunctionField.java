@@ -114,6 +114,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return (defaultSource instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultSource).value : null;
 	}
 
+	final long getDefaultConstantCreatedTimeMillis()
+	{
+		return ((DefaultConstant<E>)defaultSource).createdTimeMillis();
+	}
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
