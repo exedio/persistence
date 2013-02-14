@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DefaultConstant.defaultConstant;
-
 import java.util.Set;
 
 import com.exedio.cope.util.CharSet;

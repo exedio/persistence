@@ -114,6 +114,44 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return (defaultSource instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultSource).value : null;
 	}
 
+	final DefaultConstant<E> defaultConstant(final E value)
+	{
+		return value!=null ? new DefaultConstant<E>(value, DefaultConstant.NO_CREATED_TIME_MILLIS) : null;
+	}
+
+	final DefaultConstant<E> defaultConstantWithCreatedTime(final E value)
+	{
+		return value!=null ? new DefaultConstant<E>(value, System.currentTimeMillis()) : null;
+	}
+
+	private static final class DefaultConstant<E> extends DefaultSource<E>
+	{
+		private static final long NO_CREATED_TIME_MILLIS = Long.MIN_VALUE;
+
+		final E value;
+		private final long createdTimeMillis;
+
+		DefaultConstant(final E value, final long createdTimeMillis)
+		{
+			this.value = value;
+			this.createdTimeMillis = createdTimeMillis;
+
+			assert value!=null;
+		}
+
+		@Override
+		E generate(final long now)
+		{
+			return value;
+		}
+
+		long createdTimeMillis()
+		{
+			assert createdTimeMillis!=NO_CREATED_TIME_MILLIS;
+			return createdTimeMillis;
+		}
+	}
+
 	final long getDefaultConstantCreatedTimeMillis()
 	{
 		return ((DefaultConstant<E>)defaultSource).createdTimeMillis();

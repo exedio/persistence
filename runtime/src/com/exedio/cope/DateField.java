@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DefaultConstant.defaultConstantWithCreatedTime;
-
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
 

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DefaultConstant.defaultConstant;
-
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
