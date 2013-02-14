@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
@@ -90,7 +92,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant));
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant));
 	}
 
 	@Override

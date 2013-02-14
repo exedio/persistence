@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
@@ -97,7 +99,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);
-		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, DefaultConstant.wrap(defaultConstant));
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant(defaultConstant));
 	}
 
 	public List<E> getValues()

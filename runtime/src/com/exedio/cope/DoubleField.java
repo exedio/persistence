@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
@@ -112,7 +114,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
 	public DoubleField range(final double minimum, final double maximum)

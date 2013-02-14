@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
@@ -164,7 +166,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)

@@ -22,12 +22,12 @@ final class DefaultConstant<E> extends DefaultSource<E>
 {
 	private static final long NO_CREATED_TIME_MILLIS = Long.MIN_VALUE;
 
-	static <E> DefaultConstant<E> wrap(final E value)
+	static <E> DefaultConstant<E> defaultConstant(final E value)
 	{
 		return value!=null ? new DefaultConstant<E>(value, NO_CREATED_TIME_MILLIS) : null;
 	}
 
-	static <E> DefaultConstant<E> wrapWithCreatedTime(final E value)
+	static <E> DefaultConstant<E> defaultConstantWithCreatedTime(final E value)
 	{
 		return value!=null ? new DefaultConstant<E>(value, System.currentTimeMillis()) : null;
 	}

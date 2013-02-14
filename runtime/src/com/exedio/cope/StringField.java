@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import java.util.Set;
 
 import com.exedio.cope.util.CharSet;
@@ -135,7 +137,7 @@ public final class StringField extends FunctionField<String>
 	@Override
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthRange(final int minimumLength, final int maximumLength)

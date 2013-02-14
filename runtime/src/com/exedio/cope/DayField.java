@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstantWithCreatedTime;
+
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
 
@@ -94,7 +96,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, DefaultConstant.wrapWithCreatedTime(defaultConstant));
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
 	}
 
 	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()

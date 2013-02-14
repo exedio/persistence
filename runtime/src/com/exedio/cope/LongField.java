@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultConstant.defaultConstant;
+
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
@@ -95,7 +97,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public LongField defaultTo(final Long defaultConstant)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, DefaultConstant.wrap(defaultConstant), minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
 	public LongField range(final long minimum, final long maximum)
