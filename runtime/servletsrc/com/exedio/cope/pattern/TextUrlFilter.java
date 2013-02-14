@@ -25,6 +25,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -48,7 +49,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.List;
 
 public class TextUrlFilter extends MediaFilter
 {

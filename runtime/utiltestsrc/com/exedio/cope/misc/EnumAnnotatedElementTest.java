@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.EnumAnnotatedElement.get;
+
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.junit.CopeAssert;
 

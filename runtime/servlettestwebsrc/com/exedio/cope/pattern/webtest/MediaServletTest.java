@@ -36,9 +36,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.exedio.cope.util.StrictFile;
-
 import junit.framework.TestCase;
+
+import com.exedio.cope.util.StrictFile;
 
 public class MediaServletTest extends TestCase
 {
