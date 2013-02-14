@@ -35,11 +35,11 @@ public final class LongField extends NumberField<Long>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Long> defaultConstant,
+			final DefaultSource<Long> defaultSource,
 			final long minimum,
 			final long maximum)
 	{
-		super(isfinal, optional, unique, copyFrom, Long.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Long.class, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		checkDefaultConstant();
@@ -53,37 +53,37 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public LongField copy()
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public LongField toFinal()
 	{
-		return new LongField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(true, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public LongField optional()
 	{
-		return new LongField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, true, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public LongField unique()
 	{
-		return new LongField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, true, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public LongField nonUnique()
 	{
-		return new LongField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, false, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public LongField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new LongField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimum, maximum);
 	}
 
 	@Override
@@ -100,17 +100,17 @@ public final class LongField extends NumberField<Long>
 
 	public LongField range(final long minimum, final long maximum)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public LongField min(final long minimum)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public LongField max(final long maximum)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public long getMinimum()

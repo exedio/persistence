@@ -34,9 +34,9 @@ public final class BooleanField extends FunctionField<Boolean>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Boolean> defaultConstant)
+			final DefaultSource<Boolean> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultSource);
 		checkDefaultConstant();
 	}
 
@@ -48,37 +48,37 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField copy()
 	{
-		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField toFinal()
 	{
-		return new BooleanField(true, optional, unique, copyFrom, defaultConstant);
+		return new BooleanField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField optional()
 	{
-		return new BooleanField(isfinal, true, unique, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField unique()
 	{
-		return new BooleanField(isfinal, optional, true, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField nonUnique()
 	{
-		return new BooleanField(isfinal, optional, false, copyFrom, defaultConstant);
+		return new BooleanField(isfinal, optional, false, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new BooleanField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant);
+		return new BooleanField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override

@@ -906,7 +906,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
 			{
 				final FunctionField<?> ff = (FunctionField<?>)field;
-				final DefaultSource<?> defaultSource = ff.defaultConstant;
+				final DefaultSource<?> defaultSource = ff.defaultSource;
 				if(defaultSource!=null)
 				{
 					final Object defaultValue = defaultSource.generate(now);

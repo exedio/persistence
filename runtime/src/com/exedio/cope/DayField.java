@@ -38,9 +38,9 @@ public final class DayField extends FunctionField<Day>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Day> defaultConstant)
+			final DefaultSource<Day> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, Day.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Day.class, defaultSource);
 		checkDefaultConstant();
 	}
 
@@ -52,37 +52,37 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, copyFrom, defaultConstant);
+		return new DayField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, copyFrom, defaultConstant);
+		return new DayField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, copyFrom, defaultConstant);
+		return new DayField(isfinal, optional, false, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant);
+		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public final class DayField extends FunctionField<Day>
 
 	public boolean isDefaultNow()
 	{
-		return defaultConstant==DEFAULT_TO_NOW;
+		return defaultSource==DEFAULT_TO_NOW;
 	}
 
 	public SelectType<Day> getValueType()
@@ -135,10 +135,10 @@ public final class DayField extends FunctionField<Day>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		if(!(defaultConstant instanceof DefaultConstant))
+		if(!(defaultSource instanceof DefaultConstant))
 			return false;
 
-		final DefaultConstant<Day> defaultConstant = (DefaultConstant<Day>)this.defaultConstant;
+		final DefaultConstant<Day> defaultConstant = (DefaultConstant<Day>)this.defaultSource;
 
 		return defaultConstant.value.equals(new Day(new Date(defaultConstant.createdTimeMillis())));
 	}

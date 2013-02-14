@@ -49,12 +49,12 @@ public final class StringField extends FunctionField<String>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<String> defaultConstant,
+			final DefaultSource<String> defaultSource,
 			final int minimumLength,
 			final int maximumLength,
 			final CharSet charSet)
 	{
-		super(isfinal, optional, unique, copyFrom, String.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, String.class, defaultSource);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -93,37 +93,37 @@ public final class StringField extends FunctionField<String>
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(true, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, true, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField unique()
 	{
-		return new StringField(isfinal, optional, true, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, true, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField nonUnique()
 	{
-		return new StringField(isfinal, optional, false, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, false, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
@@ -140,27 +140,27 @@ public final class StringField extends FunctionField<String>
 
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, exactLength, exactLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, exactLength, exactLength, charSet);
 	}
 
 	public StringField charSet(final CharSet charSet)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public final int getMinimumLength()

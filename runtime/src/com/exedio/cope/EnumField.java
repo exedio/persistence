@@ -36,9 +36,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final Class<E> valueClass,
-			final DefaultSource<E> defaultConstant)
+			final DefaultSource<E> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
 
 		this.valueType = EnumFieldType.get(valueClass);
 
@@ -54,37 +54,37 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<E>(true, optional, unique, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(true, optional, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<E>(isfinal, true, unique, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, true, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> unique()
 	{
-		return new EnumField<E>(isfinal, optional, true, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, true, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> nonUnique()
 	{
-		return new EnumField<E>(isfinal, optional, false, copyFrom, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, false, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new EnumField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueClass, defaultSource);
 	}
 
 	@Override

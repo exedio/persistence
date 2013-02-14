@@ -44,7 +44,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?>[] copyFrom;
 	private final CopyConstraint[] implicitCopyConstraintsFrom;
-	final DefaultSource<E> defaultConstant;
+	final DefaultSource<E> defaultSource;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 
 	FunctionField(
@@ -53,7 +53,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final Class<E> valueClass,
-			final DefaultSource<E> defaultConstant)
+			final DefaultSource<E> defaultSource)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
@@ -61,7 +61,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
 		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraintsFrom(copyFrom) : null;
 
-		this.defaultConstant = defaultConstant;
+		this.defaultSource = defaultSource;
 	}
 
 	private CopyConstraint[] newCopyConstraintsFrom(final ItemField<?>[] copyFrom)
@@ -81,9 +81,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final void checkDefaultConstant()
 	{
-		if(defaultConstant instanceof DefaultConstant)
+		if(defaultSource instanceof DefaultConstant)
 		{
-			final E constant = ((DefaultConstant<E>)defaultConstant).value;
+			final E constant = ((DefaultConstant<E>)defaultSource).value;
 			try
 			{
 				check(constant, null);
@@ -106,12 +106,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public final boolean hasDefault()
 	{
-		return defaultConstant!=null;
+		return defaultSource!=null;
 	}
 
 	public final E getDefaultConstant()
 	{
-		return (defaultConstant instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultConstant).value : null;
+		return (defaultSource instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultSource).value : null;
 	}
 
 	/**

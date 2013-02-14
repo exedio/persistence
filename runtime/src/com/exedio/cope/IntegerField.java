@@ -45,11 +45,11 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Integer> defaultConstant,
+			final DefaultSource<Integer> defaultSource,
 			final int minimum,
 			final int maximum)
 	{
-		super(isfinal, optional, unique, copyFrom, Integer.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Integer.class, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -57,9 +57,9 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
 		checkDefaultConstant();
-		if(defaultConstant instanceof DefaultNext)
+		if(defaultSource instanceof DefaultNext)
 		{
-			final int defaultNextStart = ((DefaultNext)defaultConstant).start;
+			final int defaultNextStart = ((DefaultNext)defaultSource).start;
 			try
 			{
 				check(defaultNextStart, null);
@@ -78,7 +78,7 @@ public final class IntegerField extends NumberField<Integer>
 						" Start value was '" + defaultNextStart + "'.");
 			}
 			this.defaultToNextSequence = new SequenceX(this, defaultNextStart, minimum, maximum);
-			((DefaultNext)defaultConstant).set(defaultToNextSequence);
+			((DefaultNext)defaultSource).set(defaultToNextSequence);
 		}
 		else
 		{
@@ -122,37 +122,37 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimum, maximum);
 	}
 
 	@Override
@@ -174,27 +174,27 @@ public final class IntegerField extends NumberField<Integer>
 
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public boolean isDefaultNext()
 	{
-		return defaultConstant instanceof DefaultNext;
+		return defaultSource instanceof DefaultNext;
 	}
 
 	public Integer getDefaultNextStart()
 	{
-		return (defaultConstant instanceof DefaultNext) ? ((DefaultNext)defaultConstant).start : null;
+		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).start : null;
 	}
 
 	public int getMinimum()

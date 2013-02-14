@@ -37,9 +37,9 @@ public final class DateField extends FunctionField<Date>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Date> defaultConstant)
+			final DefaultSource<Date> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, Date.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Date.class, defaultSource);
 		checkDefaultConstant();
 	}
 
@@ -51,37 +51,37 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstant);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultConstant);
+		return new DateField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultConstant);
+		return new DateField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultConstant);
+		return new DateField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultConstant);
+		return new DateField(isfinal, optional, false, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultConstant);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public final class DateField extends FunctionField<Date>
 
 	public boolean isDefaultNow()
 	{
-		return defaultConstant==DEFAULT_TO_NOW;
+		return defaultSource==DEFAULT_TO_NOW;
 	}
 
 	public SelectType<Date> getValueType()
@@ -134,10 +134,10 @@ public final class DateField extends FunctionField<Date>
 
 	private boolean suspiciousForWrongDefaultNow()
 	{
-		if(!(defaultConstant instanceof DefaultConstant))
+		if(!(defaultSource instanceof DefaultConstant))
 			return false;
 
-		final DefaultConstant<Date> defaultConstant = (DefaultConstant<Date>)this.defaultConstant;
+		final DefaultConstant<Date> defaultConstant = (DefaultConstant<Date>)this.defaultSource;
 
 		return Math.abs(defaultConstant.value.getTime()-defaultConstant.createdTimeMillis())<100;
 	}
