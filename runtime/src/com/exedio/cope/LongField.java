@@ -213,42 +213,13 @@ public final class LongField extends NumberField<Long>
 			throw new LongRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 
-	// digits
-
 	public LongField rangeDigits(final int digits)
 	{
-		check(1, 18, digits, "digits");
-
-		final long pow = pow(digits);
-		return range(pow/10, pow-1);
+		return LongFieldRangeDigits.rangeDigits(this, digits);
 	}
 
 	public LongField rangeDigits(final int minimumDigits, final int maximumDigits)
 	{
-		check(0, 18, minimumDigits, "minimumDigits");
-		check(1, 18, maximumDigits, "maximumDigits");
-		if(minimumDigits>maximumDigits)
-			throw new IllegalArgumentException("maximumDigits must be greater or equal than minimumDigits, but was " + maximumDigits + " and " + minimumDigits + '.');
-
-		return range(
-				pow(minimumDigits-1),
-				pow(maximumDigits  )-1);
-	}
-
-	private static final void check(
-			final int minimum,
-			final int maximum,
-			final int actual,
-			final String name)
-	{
-		if(!(minimum<=actual && actual<=maximum))
-			throw new IllegalArgumentException(
-					name + " must be between " + minimum + " and " + maximum +
-					", but was " + actual);
-	}
-
-	private static final long pow(final int exponent)
-	{
-		return Math.round(Math.pow(10, exponent));
+		return LongFieldRangeDigits.rangeDigits(this, minimumDigits, maximumDigits);
 	}
 }
