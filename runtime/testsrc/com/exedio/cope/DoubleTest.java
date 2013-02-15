@@ -508,9 +508,10 @@ public class DoubleTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
+		final DoubleField f = new DoubleField().optional();
 		try
 		{
-			new DoubleField().optional().range(minimum, maximum);
+			f.range(minimum, maximum);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

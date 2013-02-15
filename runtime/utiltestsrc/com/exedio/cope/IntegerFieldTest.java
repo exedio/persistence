@@ -230,9 +230,10 @@ public class IntegerFieldTest extends CopeAssert
 
 	private static void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
+		final IntegerField f = new IntegerField().optional();
 		try
 		{
-			new IntegerField().optional().range(minimum, maximum);
+			f.range(minimum, maximum);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
