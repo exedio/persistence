@@ -42,6 +42,10 @@ public final class LongField extends NumberField<Long>
 		super(isfinal, optional, unique, copyFrom, Long.class, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
+
+		if(minimum>=maximum)
+			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+
 		checkDefaultConstant();
 	}
 
