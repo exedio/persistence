@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.Random;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
@@ -47,6 +48,44 @@ public final class LongField extends NumberField<Long>
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
 		checkDefaultConstant();
+		if(defaultSource instanceof DefaultRandom)
+			((DefaultRandom)defaultSource).set(minimum, maximum);
+	}
+
+	private static final class DefaultRandom extends DefaultSource<Long>
+	{
+		private final Random source;
+		private long minimum = Long.MIN_VALUE;
+		private long maximum = Long.MIN_VALUE;
+
+		DefaultRandom(final Random source)
+		{
+			this.source = source;
+			if(source==null)
+				throw new NullPointerException("source");
+		}
+
+		void set(
+				final long minimum,
+				final long maximum)
+		{
+			this.minimum = minimum;
+			this.maximum = maximum;
+		}
+
+		@Override
+		Long generate(final long now)
+		{
+			assert maximum!=Long.MIN_VALUE;
+
+			// from org.apache.commons.math.random.RandomDataImpl#nextLong(long lower, long upper)
+			// Generate a random long value uniformly distributed between lower and upper, inclusive.
+			final double r = source.nextDouble();
+			assert 0.0d <= r    : r;
+			assert    r <  1.0d : r;
+			final double scaled = r * maximum + (1.0 - r) * minimum + r;
+			return (long)Math.floor(scaled);
+		}
 	}
 
 	public LongField()
@@ -100,6 +139,11 @@ public final class LongField extends NumberField<Long>
 	public LongField defaultTo(final Long defaultConstant)
 	{
 		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
+	}
+
+	public LongField defaultToRandom(final Random source)
+	{
+		return new LongField(isfinal, optional, unique, copyFrom, new DefaultRandom(source), minimum, maximum);
 	}
 
 	public LongField range(final long minimum, final long maximum)

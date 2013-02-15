@@ -75,6 +75,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CompositeConditionCopeTest.class);
 		suite.addTestSuite(ItemCacheSummaryTest.class);
 		suite.addTestSuite(LongFieldTest.class);
+		suite.addTestSuite(LongFieldRandomTest.class);
 		suite.addTestSuite(RevisionTest.class);
 		suite.addTestSuite(RevisionsTest.class);
 		suite.addTestSuite(RevisionInfoTest.class);

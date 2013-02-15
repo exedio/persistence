@@ -25,6 +25,7 @@ import static com.exedio.cope.DefaultToItem.dateEight;
 import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
 import static com.exedio.cope.DefaultToItem.dateNow;
+import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.dateNowOpt;
 import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
@@ -85,6 +86,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
+			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
 			assertEquals(TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
@@ -114,6 +116,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
+			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
 			assertEquals(TWO, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
@@ -138,6 +141,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 					dayNow.map(day(2010, 1, 13)),
 					dayNowOpt.map(day(2010, 1, 14)),
 					dayNone.map(day(2010, 1, 15)),
+					longRandom.map(Long.valueOf(37)),
 					enumOne.map(THREE),
 					enumTwo.map(ONE),
 					enumNone.map(TWO)
@@ -157,6 +161,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(day(2010, 1, 13), item.getDayNow());
 			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
 			assertEquals(day(2010, 1, 15), item.getDayNone());
+			assertEquals(Long.valueOf(37), item.getLongRandom());
 			assertEquals(THREE, item.getEnumOne());
 			assertEquals(ONE, item.getEnumTwo());
 			assertEquals(TWO, item.getEnumNone());
@@ -177,6 +182,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 					dateNone.map(null),
 					dayNowOpt.map(null),
 					dayNone.map(null),
+					longRandom.map(null),
 					enumOne.map(TWO),
 					enumTwo.map(null),
 					enumNone.map(null)
@@ -198,6 +204,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(new Day(item.getDateNow()), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
+			assertEquals(null, item.getLongRandom());
 			assertEquals(TWO, item.getEnumOne());
 			assertEquals(null, item.getEnumTwo());
 			assertEquals(null, item.getEnumNone());
