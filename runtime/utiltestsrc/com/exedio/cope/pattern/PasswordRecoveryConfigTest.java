@@ -102,5 +102,24 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		{
 			assertEquals("password", e.getMessage());
 		}
+		try
+		{
+			new PasswordRecovery(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("password", e.getMessage());
+		}
+		final Hash hash = new MessageDigestHash(20);
+		try
+		{
+			new PasswordRecovery(hash, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("random", e.getMessage());
+		}
 	}
 }

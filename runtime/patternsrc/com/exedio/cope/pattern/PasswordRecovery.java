@@ -53,13 +53,21 @@ public final class PasswordRecovery extends Pattern
 	final DateField expires = new DateField().toFinal();
 	Type<Token> tokenType = null;
 
-	private final SecureRandom random = new SecureRandom();
+	private final SecureRandom random;
 
 	public PasswordRecovery(final Hash password)
 	{
+		this(password, new SecureRandom());
+	}
+
+	public PasswordRecovery(final Hash password, final SecureRandom random)
+	{
 		this.password = password;
+		this.random = random;
 		if(password==null)
 			throw new NullPointerException("password");
+		if(random==null)
+			throw new NullPointerException("random");
 	}
 
 	@Override
