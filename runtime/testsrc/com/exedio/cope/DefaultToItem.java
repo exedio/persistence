@@ -49,7 +49,7 @@ final class DefaultToItem extends Item
 	static final DayField dayNowOpt = new DayField().optional().defaultToNow();
 	static final DayField dayNone = new DayField().optional();
 
-	static final LongField longRandom = new LongField().optional().defaultToRandom(new Random()).range(30, 40);
+	static final LongField longRandom = new LongField().optional().defaultToRandom(new Random()).min(0l);
 
 	enum DefaultToEnum
 	{
@@ -500,6 +500,8 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	final void setLongRandom(final java.lang.Long longRandom)
+			throws
+				com.exedio.cope.LongRangeViolationException
 	{
 		DefaultToItem.longRandom.set(this,longRandom);
 	}/**

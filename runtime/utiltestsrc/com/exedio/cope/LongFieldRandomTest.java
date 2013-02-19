@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static java.lang.Double.NaN;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 
@@ -42,7 +41,7 @@ public class LongFieldRandomTest extends CopeAssert
 		@Override public void nextBytes(final byte[] bytes){throw failure();}
 		@Override public int nextInt(){throw failure();}
 		@Override public int nextInt(final int n){throw failure();}
-		@Override public long nextLong(){throw failure();}
+		@Override public double nextDouble(){throw failure();}
 		@Override public boolean nextBoolean(){throw failure();}
 		@Override public float nextFloat(){throw failure();}
 		@Override public synchronized double nextGaussian(){throw failure();}
@@ -52,94 +51,110 @@ public class LongFieldRandomTest extends CopeAssert
 			return new AssertionFailedError();
 		}
 
-		private double nextDouble = NaN;
+		private boolean nextLongAvailable = false;
+		private long nextLong = 0;
 
 		@Override
-		public double nextDouble()
+		public long nextLong()
 		{
-			assertFalse(Double.isNaN(nextDouble));
-			final double result = nextDouble;
-			nextDouble = Double.NaN;
-			return result;
+			assertTrue(nextLongAvailable);
+			nextLongAvailable = false;
+			return nextLong;
 		}
 
-		void setNextDouble(final double nextDouble)
+		void setNextLong(final long nextLong)
 		{
-			assertFalse(Double.isNaN(nextDouble));
-			assertTrue(Double.isNaN(this.nextDouble));
-			this.nextDouble = nextDouble;
+			assertFalse(nextLongAvailable);
+			this.nextLongAvailable = true;
+			this.nextLong = nextLong;
 		}
 	}
 
 	private final RandomX r = new RandomX();
 
-	public void testPositive()
+	public void testUnsupportedMin()
 	{
-		final LongField s = new LongField().range(100, 109).defaultToRandom(r);
-		assertIt(s, 100, 0.0);
-		assertIt(s, 100, 0.099999999999);
-		assertIt(s, 101, 0.1);
-		assertIt(s, 101, 0.199999999999);
-		assertIt(s, 109, 0.9);
-		assertIt(s, 109, 0.999999999999);
+		final LongField s = new LongField().min(1);
+		try
+		{
+			s.defaultToRandom(r);
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("defaultToRandom supports minimum of -9223372036854775808 or 0 only, but was 1", e.getMessage());
+		}
 	}
 
-	public void testNegative()
+	public void testUnsupportedMax()
 	{
-		final LongField s = new LongField().range(-110, -101).defaultToRandom(r);
-		assertIt(s, -110, 0.0);
-		assertIt(s, -110, 0.09999999999999);
-		assertIt(s, -109, 0.1);
-		assertIt(s, -109, 0.19999999999999);
-		assertIt(s, -101, 0.9);
-		assertIt(s, -101, 0.99999999999999);
+		final LongField s = new LongField().max(1);
+		try
+		{
+			s.defaultToRandom(r);
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("defaultToRandom supports maximum of 9223372036854775807 only, but was 1", e.getMessage());
+		}
 	}
 
-	public void testSpan()
+	public void testUnsupportedMinMax()
 	{
-		final LongField s = new LongField().range(-5, 4).defaultToRandom(r);
-		assertIt(s, -5, 0.0);
-		assertIt(s, -5, 0.0999999999999999);
-		assertIt(s, -4, 0.1);
-		assertIt(s, -4, 0.1999999999999999);
-		assertIt(s,  3, 0.8);
-		assertIt(s,  3, 0.8999999999999999);
-		assertIt(s,  4, 0.9);
-		assertIt(s,  4, 0.9999999999999999);
+		final LongField s = new LongField().defaultToRandom(r);
+		try
+		{
+			s.min(1);
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("defaultToRandom supports minimum of -9223372036854775808 or 0 only, but was 1", e.getMessage());
+		}
+		try
+		{
+			s.max(1);
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("defaultToRandom supports maximum of 9223372036854775807 only, but was 1", e.getMessage());
+		}
 	}
 
 	public void testFull()
 	{
-		// TODO does not use complete number space
 		final LongField s = new LongField().defaultToRandom(r);
-		assertIt(s, MIN_VALUE, 0.0);
-		assertIt(s, MIN_VALUE, 0.00000000000000001);
-		assertIt(s, MIN_VALUE, 0.000000000000000055);
-		assertIt(s, MAX_VALUE-4095, 0.9999999999999998);
-		assertIt(s, MAX_VALUE-4095, 0.99999999999999983);
-		assertIt(s, MAX_VALUE-4095, 0.999999999999999833);
-		assertIt(s, MAX_VALUE-2047, 0.999999999999999834);
-		assertIt(s, MAX_VALUE-2047, 0.9999999999999999);
+		assertIt(s, MIN_VALUE  , MIN_VALUE  );
+		assertIt(s, MIN_VALUE+1, MIN_VALUE+1);
+		assertIt(s, MIN_VALUE+2, MIN_VALUE+2);
+		assertIt(s,          -2,          -2);
+		assertIt(s,          -1,          -1);
+		assertIt(s,           0,           0);
+		assertIt(s,           1,           1);
+		assertIt(s,           2,           2);
+		assertIt(s, MAX_VALUE-2, MAX_VALUE-2);
+		assertIt(s, MAX_VALUE-1, MAX_VALUE-1);
+		assertIt(s, MAX_VALUE  , MAX_VALUE  );
 	}
 
-	public void testFullAlmostLow()
+	public void testPositive()
 	{
-		// TODO does not use complete number space
-		final LongField s = new LongField().min(MIN_VALUE+1).defaultToRandom(r);
-		assertIt(s, MIN_VALUE, 0.0);
-		assertIt(s, MIN_VALUE, 0.00000000000000001);
-		assertIt(s, MIN_VALUE, 0.000000000000000055);
-		assertIt(s, MAX_VALUE-4095, 0.9999999999999998);
-		assertIt(s, MAX_VALUE-4095, 0.99999999999999983);
-		assertIt(s, MAX_VALUE-4095, 0.999999999999999833);
-		assertIt(s, MAX_VALUE-2047, 0.999999999999999834);
-		assertIt(s, MAX_VALUE-2047, 0.9999999999999999);
+		final LongField s = new LongField().defaultToRandom(r).min(0);
+		assertIt(s, MAX_VALUE  , MIN_VALUE  );
+		assertIt(s, MAX_VALUE  , MIN_VALUE+1);
+		assertIt(s, MAX_VALUE-1, MIN_VALUE+2);
+		assertIt(s,           2,          -2);
+		assertIt(s,           1,          -1);
+		assertIt(s,           0,           0);
+		assertIt(s,           1,           1);
+		assertIt(s,           2,           2);
+		assertIt(s, MAX_VALUE-2, MAX_VALUE-2);
+		assertIt(s, MAX_VALUE-1, MAX_VALUE-1);
+		assertIt(s, MAX_VALUE  , MAX_VALUE  );
 	}
 
-	private void assertIt(final LongField l, final long expected, final double actual)
+	private void assertIt(final LongField l, final long expected, final long actual)
 	{
 		final DefaultSource<Long> s = l.defaultSource;
-		r.setNextDouble(actual);
+		r.setNextLong(actual);
 		final Long actualGenerated = s.generate(MIN_VALUE);
 		assertEquals(Long.valueOf(expected), actualGenerated);
 		l.check(actualGenerated);

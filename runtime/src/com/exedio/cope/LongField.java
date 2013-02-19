@@ -55,8 +55,7 @@ public final class LongField extends NumberField<Long>
 	private static final class DefaultRandom extends DefaultSource<Long>
 	{
 		private final Random source;
-		private long minimum = Long.MIN_VALUE;
-		private long maximum = Long.MIN_VALUE;
+		private Boolean absolute = null;
 
 		DefaultRandom(final Random source)
 		{
@@ -69,22 +68,22 @@ public final class LongField extends NumberField<Long>
 				final long minimum,
 				final long maximum)
 		{
-			this.minimum = minimum;
-			this.maximum = maximum;
+			if(minimum!=Long.MIN_VALUE && minimum!=0l)
+				throw new IllegalArgumentException("defaultToRandom supports minimum of " + Long.MIN_VALUE + " or 0 only, but was " + minimum);
+			if(maximum!=Long.MAX_VALUE)
+				throw new IllegalArgumentException("defaultToRandom supports maximum of " + Long.MAX_VALUE + " only, but was " + maximum);
+
+			this.absolute = (minimum==0l);
 		}
 
 		@Override
 		Long generate(final long now)
 		{
-			assert maximum!=Long.MIN_VALUE;
-
-			// from org.apache.commons.math.random.RandomDataImpl#nextLong(long lower, long upper)
-			// Generate a random long value uniformly distributed between lower and upper, inclusive.
-			final double r = source.nextDouble();
-			assert 0.0d <= r    : r;
-			assert    r <  1.0d : r;
-			final double scaled = r * maximum + (1.0 - r) * minimum + r;
-			return (long)Math.floor(scaled);
+			final long raw = source.nextLong();
+			if(absolute)
+				return raw!=Long.MIN_VALUE ? Math.abs(raw) : Long.MAX_VALUE;
+			else
+				return raw;
 		}
 	}
 
