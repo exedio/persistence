@@ -37,6 +37,7 @@ import static com.exedio.cope.DefaultToItem.integerFifty;
 import static com.exedio.cope.DefaultToItem.integerFive;
 import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
+import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static java.lang.Boolean.TRUE;
@@ -70,6 +71,7 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(true,  dayNow.hasDefault());
 		assertEquals(true,  dayNowOpt.hasDefault());
 		assertEquals(false, dayNone.hasDefault());
+		assertEquals(true,  longRandom.hasDefault());
 
 		assertEquals(TRUE, booleanTrue.getDefaultConstant());
 		assertEquals(null, booleanNone.getDefaultConstant());
@@ -109,6 +111,8 @@ public class DefaultToTest extends CopeAssert
 		assertEquals(true,  dayNow.isDefaultNow());
 		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
+
+		assertEquals(null, longRandom.getDefaultConstant());
 
 		assertEquals(ONE, enumOne.getDefaultConstant());
 		assertEquals(TWO, enumTwo.getDefaultConstant());
@@ -181,6 +185,15 @@ public class DefaultToTest extends CopeAssert
 					"must be at most 3 characters, but was 4. " +
 					"Default constant was '1234'.",
 					e.getMessage());
+		}
+		try
+		{
+			longRandom.defaultToRandom(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("source", e.getMessage());
 		}
 	}
 

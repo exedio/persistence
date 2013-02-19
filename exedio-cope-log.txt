@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* LongField#defaultToRandom added
+	- supports simple value ranges only: [MIN_VALUE,MAX_VALUE] and [0,MAX_VALUE]
 * PasswordRecovery constructor accepts SecureRandom
 * LongField#range checks for illegal range, where maximum is less or equal to minimum
 * ItemField supports copyTo as a supplement to FunctionField#copyFrom

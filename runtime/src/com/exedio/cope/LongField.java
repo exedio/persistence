@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static java.lang.Long.MAX_VALUE;
+import static java.lang.Long.MIN_VALUE;
+
+import java.util.Random;
 import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
@@ -47,6 +51,43 @@ public final class LongField extends NumberField<Long>
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
 		checkDefaultConstant();
+		if(defaultSource instanceof DefaultRandom)
+			((DefaultRandom)defaultSource).set(minimum, maximum);
+	}
+
+	private static final class DefaultRandom extends DefaultSource<Long>
+	{
+		private final Random source;
+		private Boolean absolute = null;
+
+		DefaultRandom(final Random source)
+		{
+			this.source = source;
+			if(source==null)
+				throw new NullPointerException("source");
+		}
+
+		void set(
+				final long minimum,
+				final long maximum)
+		{
+			if(minimum!=MIN_VALUE && minimum!=0l)
+				throw new IllegalArgumentException("defaultToRandom supports minimum of " + MIN_VALUE + " or 0 only, but was " + minimum);
+			if(maximum!=MAX_VALUE)
+				throw new IllegalArgumentException("defaultToRandom supports maximum of " + MAX_VALUE + " only, but was " + maximum);
+
+			this.absolute = (minimum==0l);
+		}
+
+		@Override
+		Long generate(final long now)
+		{
+			final long raw = source.nextLong();
+			if(absolute)
+				return raw!=MIN_VALUE ? Math.abs(raw) : MAX_VALUE;
+			else
+				return raw;
+		}
 	}
 
 	public LongField()
@@ -100,6 +141,11 @@ public final class LongField extends NumberField<Long>
 	public LongField defaultTo(final Long defaultConstant)
 	{
 		return new LongField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
+	}
+
+	public LongField defaultToRandom(final Random source)
+	{
+		return new LongField(isfinal, optional, unique, copyFrom, new DefaultRandom(source), minimum, maximum);
 	}
 
 	public LongField range(final long minimum, final long maximum)
