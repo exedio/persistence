@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Long.MAX_VALUE;
+import static java.lang.Long.MIN_VALUE;
+
 import java.util.Random;
 import java.util.Set;
 
@@ -68,10 +71,10 @@ public final class LongField extends NumberField<Long>
 				final long minimum,
 				final long maximum)
 		{
-			if(minimum!=Long.MIN_VALUE && minimum!=0l)
-				throw new IllegalArgumentException("defaultToRandom supports minimum of " + Long.MIN_VALUE + " or 0 only, but was " + minimum);
-			if(maximum!=Long.MAX_VALUE)
-				throw new IllegalArgumentException("defaultToRandom supports maximum of " + Long.MAX_VALUE + " only, but was " + maximum);
+			if(minimum!=MIN_VALUE && minimum!=0l)
+				throw new IllegalArgumentException("defaultToRandom supports minimum of " + MIN_VALUE + " or 0 only, but was " + minimum);
+			if(maximum!=MAX_VALUE)
+				throw new IllegalArgumentException("defaultToRandom supports maximum of " + MAX_VALUE + " only, but was " + maximum);
 
 			this.absolute = (minimum==0l);
 		}
@@ -81,7 +84,7 @@ public final class LongField extends NumberField<Long>
 		{
 			final long raw = source.nextLong();
 			if(absolute)
-				return raw!=Long.MIN_VALUE ? Math.abs(raw) : Long.MAX_VALUE;
+				return raw!=MIN_VALUE ? Math.abs(raw) : MAX_VALUE;
 			else
 				return raw;
 		}
