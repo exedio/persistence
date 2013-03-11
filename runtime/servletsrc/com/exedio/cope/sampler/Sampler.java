@@ -223,28 +223,27 @@ public class Sampler
 		try
 		{
 			samplerModel.startTransaction(toString() + " sample");
-			final SamplerModel model;
-			{
-				sv.clear();
-				sv.add(SamplerModel.date.map(date));
-				sv.add(SamplerModel.duration.map(duration));
-				sv.add(SamplerModel.initializeDate.map(initializeDate));
-				sv.add(SamplerModel.connectDate.map(connectDate));
-				sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
-				sv.add(SamplerModel.running.map(running));
-				sv.addAll(SamplerModel.map(connectionPoolInfo));
-				sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
-				sv.addAll(SamplerModel.map(transactionCounters));
-				sv.addAll(SamplerModel.map(itemCacheSummary));
-				sv.addAll(SamplerModel.map(queryCacheInfo));
-				sv.addAll(SamplerModel.map(changeListenerInfo));
-				sv.addAll(SamplerModel.map(changeListenerDispatcherInfo));
-				sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
-				sv.addAll(SamplerModel.map(mediaSummary));
-				sv.addAll(SamplerModel.map(clusterSenderInfo));
-				sv.add(SamplerModel.map(clusterListenerInfo));
-				model = SamplerModel.TYPE.newItem(sv);
-			}
+
+			sv.clear();
+			sv.add(SamplerModel.date.map(date));
+			sv.add(SamplerModel.duration.map(duration));
+			sv.add(SamplerModel.initializeDate.map(initializeDate));
+			sv.add(SamplerModel.connectDate.map(connectDate));
+			sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
+			sv.add(SamplerModel.running.map(running));
+			sv.addAll(SamplerModel.map(connectionPoolInfo));
+			sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
+			sv.addAll(SamplerModel.map(transactionCounters));
+			sv.addAll(SamplerModel.map(itemCacheSummary));
+			sv.addAll(SamplerModel.map(queryCacheInfo));
+			sv.addAll(SamplerModel.map(changeListenerInfo));
+			sv.addAll(SamplerModel.map(changeListenerDispatcherInfo));
+			sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
+			sv.addAll(SamplerModel.map(mediaSummary));
+			sv.addAll(SamplerModel.map(clusterSenderInfo));
+			sv.add(SamplerModel.map(clusterListenerInfo));
+			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
+
 			for(final Transaction transaction : transactions)
 			{
 				sv.clear();
@@ -252,23 +251,19 @@ public class Sampler
 				sv.addAll(SamplerTransaction.map(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
 			}
+			for(final ItemCacheInfo info : itemCacheInfos)
 			{
-				for(final ItemCacheInfo info : itemCacheInfos)
-				{
-					sv.clear();
-					sv.addAll(SamplerItemCache.map(model));
-					sv.addAll(SamplerItemCache.map(info));
-					SamplerItemCache.TYPE.newItem(sv);
-				}
+				sv.clear();
+				sv.addAll(SamplerItemCache.map(model));
+				sv.addAll(SamplerItemCache.map(info));
+				SamplerItemCache.TYPE.newItem(sv);
 			}
+			for(final MediaInfo info : mediaInfos)
 			{
-				for(final MediaInfo info : mediaInfos)
-				{
-					sv.clear();
-					sv.addAll(SamplerMedia.map(model));
-					sv.addAll(SamplerMedia.map(info));
-					SamplerMedia.TYPE.newItem(sv);
-				}
+				sv.clear();
+				sv.addAll(SamplerMedia.map(model));
+				sv.addAll(SamplerMedia.map(info));
+				SamplerMedia.TYPE.newItem(sv);
 			}
 			if(clusterListenerInfo!=null)
 			{
