@@ -56,7 +56,7 @@ final class SamplerClusterNode extends Item
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
 			connectDate   .map(SamplerModel.connectDate.get(m)),
-			sampler        .map(SamplerModel.sampler.get(m)),
+			sampler       .map(SamplerModel.sampler.get(m)),
 			running       .map(SamplerModel.running.get(m)));
 	}
 
