@@ -209,6 +209,15 @@ public class Sampler
 		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
 		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
 		final int running = runningSource.getAndIncrement();
+		final ArrayList<Transaction> transactions = new ArrayList<Transaction>(openTransactions.size());
+		{
+			final long threshold = date.getTime() - getTransactionDuration();
+			for(final Transaction transaction : openTransactions)
+			{
+				if(transaction.getStartDate().getTime()<threshold)
+					transactions.add(transaction);
+			}
+		}
 
 		// save data
 		try
@@ -236,18 +245,12 @@ public class Sampler
 				sv.add(SamplerModel.map(clusterListenerInfo));
 				model = SamplerModel.TYPE.newItem(sv);
 			}
+			for(final Transaction transaction : transactions)
 			{
-				final long threshold = date.getTime() - getTransactionDuration();
-				for(final Transaction transaction : openTransactions)
-				{
-					if(transaction.getStartDate().getTime()<threshold)
-					{
-						sv.clear();
-						sv.addAll(SamplerTransaction.map(model));
-						sv.addAll(SamplerTransaction.map(transaction));
-						SamplerTransaction.TYPE.newItem(sv);
-					}
-				}
+				sv.clear();
+				sv.addAll(SamplerTransaction.map(model));
+				sv.addAll(SamplerTransaction.map(transaction));
+				SamplerTransaction.TYPE.newItem(sv);
 			}
 			{
 				for(final ItemCacheInfo info : itemCacheInfos)
