@@ -197,9 +197,11 @@ public class Sampler
 		final ChangeListenerInfo changeListenerInfo = sampledModel.getChangeListenersInfo();
 		final ChangeListenerDispatcherInfo changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
 		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
-		int mediaValuesIndex = 0;
-		for(final MediaPath path : medias)
-			mediaInfos[mediaValuesIndex++] = path.getInfo();
+		{
+			int i = 0;
+			for(final MediaPath path : medias)
+				mediaInfos[i++] = path.getInfo();
+		}
 		final ClusterSenderInfo clusterSenderInfo = sampledModel.getClusterSenderInfo();
 		final ClusterListenerInfo clusterListenerInfo = sampledModel.getClusterListenerInfo();
 		final long duration = System.nanoTime() - start;
