@@ -103,6 +103,12 @@ public final class DateField extends FunctionField<Date>
 		{
 			return new Date(now);
 		}
+
+		@Override
+		DefaultSource<Date> forNewField()
+		{
+			return this;
+		}
 	};
 
 	public DateField defaultToNow()

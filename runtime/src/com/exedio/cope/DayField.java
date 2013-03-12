@@ -104,6 +104,12 @@ public final class DayField extends FunctionField<Day>
 		{
 			return new Day(new Date(now));
 		}
+
+		@Override
+		DefaultSource<Day> forNewField()
+		{
+			return this;
+		}
 	};
 
 	public DayField defaultToNow()

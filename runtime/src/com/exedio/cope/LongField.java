@@ -52,7 +52,7 @@ public final class LongField extends NumberField<Long>
 
 		checkDefaultConstant();
 		if(defaultSource instanceof DefaultRandom)
-			((DefaultRandom)defaultSource).set(minimum, maximum);
+			((DefaultRandom)this.defaultSource).set(minimum, maximum);
 	}
 
 	private static final class DefaultRandom extends DefaultSource<Long>
@@ -88,6 +88,12 @@ public final class LongField extends NumberField<Long>
 				return raw!=MIN_VALUE ? Math.abs(raw) : MAX_VALUE;
 			else
 				return raw;
+		}
+
+		@Override
+		DefaultSource<Long> forNewField()
+		{
+			return new DefaultRandom(source);
 		}
 	}
 

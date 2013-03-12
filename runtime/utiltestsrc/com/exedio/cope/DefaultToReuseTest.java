@@ -29,24 +29,19 @@ public class DefaultToReuseTest extends CopeAssert
 		final LongField f = new LongField().defaultToRandom(new Random());
 		assertEquals(true, f.isMandatory());
 		assertEquals(true, f.hasDefault());
+		assertEquals(Long.MIN_VALUE, f.getMinimum());
 
-		try
 		{
-			f.optional();
-			fail();
+			final LongField f2 = f.optional();
+			assertEquals(false, f2.isMandatory());
+			assertEquals(true,  f2.hasDefault());
+			assertEquals(Long.MIN_VALUE, f2.getMinimum());
 		}
-		catch(final AssertionError e)
 		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			f.min(0);
-			fail();
-		}
-		catch(final AssertionError e)
-		{
-			assertEquals(null, e.getMessage());
+			final LongField f2 = f.min(0);
+			assertEquals(true, f2.isMandatory());
+			assertEquals(true, f2.hasDefault());
+			assertEquals(0, f2.getMinimum());
 		}
 	}
 
@@ -56,24 +51,21 @@ public class DefaultToReuseTest extends CopeAssert
 		assertEquals(true, f.isMandatory());
 		assertEquals(true, f.hasDefault());
 		assertEquals(true, f.isDefaultNext());
+		assertEquals(Integer.MIN_VALUE, f.getMinimum());
 
-		try
 		{
-			f.optional();
-			fail();
+			final IntegerField f2 = f.optional();
+			assertEquals(false, f2.isMandatory());
+			assertEquals(true,  f2.hasDefault());
+			assertEquals(true,  f2.isDefaultNext());
+			assertEquals(Integer.MIN_VALUE, f2.getMinimum());
 		}
-		catch(final AssertionError e)
 		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			f.min(0);
-			fail();
-		}
-		catch(final AssertionError e)
-		{
-			assertEquals(null, e.getMessage());
+			final IntegerField f2 = f.min(0);
+			assertEquals(true, f2.isMandatory());
+			assertEquals(true, f2.hasDefault());
+			assertEquals(true, f2.isDefaultNext());
+			assertEquals(0, f2.getMinimum());
 		}
 	}
 }

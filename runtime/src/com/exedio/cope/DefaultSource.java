@@ -38,4 +38,6 @@ abstract class DefaultSource<E>
 	 * However the caller may reuse the results of {@link System#currentTimeMillis()} for multiple calls.
 	 */
 	abstract E generate(long now);
+
+	abstract DefaultSource<E> forNewField();
 }

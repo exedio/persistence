@@ -61,7 +61,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
 		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraintsFrom(copyFrom) : null;
 
-		this.defaultSource = defaultSource;
+		this.defaultSource = defaultSource!=null ? defaultSource.forNewField() : null;
 	}
 
 	private CopyConstraint[] newCopyConstraintsFrom(final ItemField<?>[] copyFrom)
@@ -149,6 +149,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		{
 			assert createdTimeMillis!=NO_CREATED_TIME_MILLIS;
 			return createdTimeMillis;
+		}
+
+		@Override
+		DefaultSource<E> forNewField()
+		{
+			return this;
 		}
 	}
 

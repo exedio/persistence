@@ -78,7 +78,7 @@ public final class IntegerField extends NumberField<Integer>
 						" Start value was '" + defaultNextStart + "'.");
 			}
 			this.defaultToNextSequence = new SequenceX(this, defaultNextStart, minimum, maximum);
-			((DefaultNext)defaultSource).set(defaultToNextSequence);
+			((DefaultNext)this.defaultSource).set(defaultToNextSequence);
 		}
 		else
 		{
@@ -108,6 +108,12 @@ public final class IntegerField extends NumberField<Integer>
 		Integer generate(final long now)
 		{
 			return sequence.next();
+		}
+
+		@Override
+		DefaultSource<Integer> forNewField()
+		{
+			return new DefaultNext(start);
 		}
 	}
 
