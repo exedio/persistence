@@ -49,7 +49,7 @@ final class DefaultToItem extends Item
 	static final DayField dayNowOpt = new DayField().optional().defaultToNow();
 	static final DayField dayNone = new DayField().optional();
 
-	static final LongField longRandom = new LongField().optional().defaultToRandom(new Random()).min(0l);
+	static final LongField longRandom = new LongField().optional().min(0l).defaultToRandom(new Random());
 
 	enum DefaultToEnum
 	{
