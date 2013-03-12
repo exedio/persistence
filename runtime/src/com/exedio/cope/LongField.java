@@ -50,9 +50,7 @@ public final class LongField extends NumberField<Long>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultConstant();
-		if(defaultSource instanceof DefaultRandom)
-			((DefaultRandom)this.defaultSource).set(minimum, maximum);
+		checkDefaultSource();
 	}
 
 	private static final class DefaultRandom extends DefaultSource<Long>
@@ -67,7 +65,7 @@ public final class LongField extends NumberField<Long>
 				throw new NullPointerException("source");
 		}
 
-		void set(
+		private void set(
 				final long minimum,
 				final long maximum)
 		{
@@ -94,6 +92,13 @@ public final class LongField extends NumberField<Long>
 		DefaultSource<Long> forNewField()
 		{
 			return new DefaultRandom(source);
+		}
+
+		@Override
+		void check(final FunctionField<Long> field)
+		{
+			final LongField f = (LongField)field;
+			set(f.getMinimum(), f.getMaximum());
 		}
 	}
 

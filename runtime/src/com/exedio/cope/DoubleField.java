@@ -51,7 +51,7 @@ public final class DoubleField extends NumberField<Double>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultConstant();
+		checkDefaultSource();
 	}
 
 	private static final void assertLimit(final double value, final String name)

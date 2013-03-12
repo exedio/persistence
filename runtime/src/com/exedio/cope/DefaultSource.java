@@ -40,4 +40,6 @@ abstract class DefaultSource<E>
 	abstract E generate(long now);
 
 	abstract DefaultSource<E> forNewField();
+
+	abstract void check(FunctionField<E> field);
 }

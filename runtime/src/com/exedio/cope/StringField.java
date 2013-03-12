@@ -66,7 +66,7 @@ public final class StringField extends FunctionField<String>
 		if(minimumLength>maximumLength)
 			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
 
-		checkDefaultConstant();
+		checkDefaultSource();
 	}
 
 	public StringField(final StringFieldMinimumLength minimumLength)

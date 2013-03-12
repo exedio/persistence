@@ -56,34 +56,11 @@ public final class IntegerField extends NumberField<Integer>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultConstant();
-		if(defaultSource instanceof DefaultNext)
-		{
-			final int defaultNextStart = ((DefaultNext)defaultSource).start;
-			try
-			{
-				check(defaultNextStart, null);
-			}
-			catch(final ConstraintViolationException e)
-			{
-				// BEWARE
-				// Must not make exception available to public,
-				// since it contains a reference to this function field,
-				// which has not been constructed successfully.
-				throw new IllegalArgumentException(
-						"The start value for defaultToNext of the field " +
-						"does not comply to one of it's own constraints, " +
-						"caused a " + e.getClass().getSimpleName() +
-						": " + e.getMessageWithoutFeature() +
-						" Start value was '" + defaultNextStart + "'.");
-			}
-			this.defaultToNextSequence = new SequenceX(this, defaultNextStart, minimum, maximum);
-			((DefaultNext)this.defaultSource).set(defaultToNextSequence);
-		}
-		else
-		{
-			this.defaultToNextSequence = null;
-		}
+		checkDefaultSource();
+		this.defaultToNextSequence =
+				(this.defaultSource instanceof DefaultNext)
+				? ((DefaultNext)this.defaultSource).getSequence()
+				: null;
 	}
 
 	private static final class DefaultNext extends DefaultSource<Integer>
@@ -96,11 +73,17 @@ public final class IntegerField extends NumberField<Integer>
 			this.start = start;
 		}
 
-		void set(final SequenceX sequence)
+		private void set(final SequenceX sequence)
 		{
 			assert sequence!=null;
 			assert this.sequence==null;
 			this.sequence = sequence;
+		}
+
+		SequenceX getSequence()
+		{
+			assert sequence!=null;
+			return sequence;
 		}
 
 		@Override
@@ -114,6 +97,30 @@ public final class IntegerField extends NumberField<Integer>
 		DefaultSource<Integer> forNewField()
 		{
 			return new DefaultNext(start);
+		}
+
+		@Override
+		void check(final FunctionField<Integer> field)
+		{
+			final IntegerField f = (IntegerField)field;
+			try
+			{
+				field.check(start, null);
+			}
+			catch(final ConstraintViolationException e)
+			{
+				// BEWARE
+				// Must not make exception available to public,
+				// since it contains a reference to this function field,
+				// which has not been constructed successfully.
+				throw new IllegalArgumentException(
+						"The start value for defaultToNext of the field " +
+						"does not comply to one of it's own constraints, " +
+						"caused a " + e.getClass().getSimpleName() +
+						": " + e.getMessageWithoutFeature() +
+						" Start value was '" + start + "'.");
+			}
+			set(new SequenceX(f, start, f.getMinimum(), f.getMaximum()));
 		}
 	}
 

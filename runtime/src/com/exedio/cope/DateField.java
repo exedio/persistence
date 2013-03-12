@@ -40,7 +40,7 @@ public final class DateField extends FunctionField<Date>
 			final DefaultSource<Date> defaultSource)
 	{
 		super(isfinal, optional, unique, copyFrom, Date.class, defaultSource);
-		checkDefaultConstant();
+		checkDefaultSource();
 	}
 
 	public DateField()
@@ -108,6 +108,12 @@ public final class DateField extends FunctionField<Date>
 		DefaultSource<Date> forNewField()
 		{
 			return this;
+		}
+
+		@Override
+		void check(final FunctionField<Date> field)
+		{
+			// nothing to be checked
 		}
 	};
 

@@ -79,29 +79,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return new CopyConstraint(target, copy);
 	}
 
-	final void checkDefaultConstant()
+	final void checkDefaultSource()
 	{
-		if(defaultSource instanceof DefaultConstant)
-		{
-			final E constant = ((DefaultConstant<E>)defaultSource).value;
-			try
-			{
-				check(constant, null);
-			}
-			catch(final ConstraintViolationException e)
-			{
-				// BEWARE
-				// Must not make exception available to public,
-				// since it contains a reference to this function field,
-				// which has not been constructed successfully.
-				throw new IllegalArgumentException(
-						"The default constant of the field " +
-						"does not comply to one of it's own constraints, " +
-						"caused a " + e.getClass().getSimpleName() +
-						": " + e.getMessageWithoutFeature() +
-						" Default constant was '" + constant + "'.");
-			}
-		}
+		if(defaultSource!=null)
+			defaultSource.check(this);
 	}
 
 	public final boolean hasDefault()
@@ -155,6 +136,28 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		DefaultSource<E> forNewField()
 		{
 			return this;
+		}
+
+		@Override
+		void check(final FunctionField<E> field)
+		{
+			try
+			{
+				field.check(value, null);
+			}
+			catch(final ConstraintViolationException e)
+			{
+				// BEWARE
+				// Must not make exception available to public,
+				// since it contains a reference to this function field,
+				// which has not been constructed successfully.
+				throw new IllegalArgumentException(
+						"The default constant of the field " +
+						"does not comply to one of it's own constraints, " +
+						"caused a " + e.getClass().getSimpleName() +
+						": " + e.getMessageWithoutFeature() +
+						" Default constant was '" + value + "'.");
+			}
 		}
 	}
 
