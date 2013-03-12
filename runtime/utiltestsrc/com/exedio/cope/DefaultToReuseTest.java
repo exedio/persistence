@@ -47,10 +47,11 @@ public class DefaultToReuseTest extends CopeAssert
 
 	public void testNext()
 	{
-		final IntegerField f = new IntegerField().defaultToNext(0);
+		final IntegerField f = new IntegerField().defaultToNext(55);
 		assertEquals(true, f.isMandatory());
 		assertEquals(true, f.hasDefault());
 		assertEquals(true, f.isDefaultNext());
+		assertEquals(Integer.valueOf(55), f.getDefaultNextStart());
 		assertEquals(Integer.MIN_VALUE, f.getMinimum());
 
 		{
@@ -58,6 +59,7 @@ public class DefaultToReuseTest extends CopeAssert
 			assertEquals(false, f2.isMandatory());
 			assertEquals(true,  f2.hasDefault());
 			assertEquals(true,  f2.isDefaultNext());
+			assertEquals(Integer.valueOf(55), f2.getDefaultNextStart());
 			assertEquals(Integer.MIN_VALUE, f2.getMinimum());
 		}
 		{
@@ -65,6 +67,7 @@ public class DefaultToReuseTest extends CopeAssert
 			assertEquals(true, f2.isMandatory());
 			assertEquals(true, f2.hasDefault());
 			assertEquals(true, f2.isDefaultNext());
+			assertEquals(Integer.valueOf(55), f2.getDefaultNextStart());
 			assertEquals(0, f2.getMinimum());
 		}
 	}
