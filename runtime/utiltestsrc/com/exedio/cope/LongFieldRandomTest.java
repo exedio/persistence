@@ -137,7 +137,7 @@ public class LongFieldRandomTest extends CopeAssert
 
 	public void testPositive()
 	{
-		final LongField s = new LongField().defaultToRandom(r).min(0);
+		final LongField s = new LongField().min(0).defaultToRandom(r);
 		assertIt(s, MAX_VALUE  , MIN_VALUE  );
 		assertIt(s, MAX_VALUE  , MIN_VALUE+1);
 		assertIt(s, MAX_VALUE-1, MIN_VALUE+2);
