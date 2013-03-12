@@ -85,6 +85,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MediaUrlSecretTest.class);
 		suite.addTestSuite(IntRatioTest.class);
 		suite.addTestSuite(ItemCacheLimitTest.class);
+		suite.addTestSuite(DefaultToReuseTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
