@@ -75,6 +75,7 @@ public final class LongField extends NumberField<Long>
 				throw new IllegalArgumentException("defaultToRandom supports minimum of " + MIN_VALUE + " or 0 only, but was " + minimum);
 			if(maximum!=MAX_VALUE)
 				throw new IllegalArgumentException("defaultToRandom supports maximum of " + MAX_VALUE + " only, but was " + maximum);
+			assert this.absolute==null;
 
 			this.absolute = (minimum==0l);
 		}
