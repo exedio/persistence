@@ -69,8 +69,8 @@ public final class LongField extends NumberField<Long>
 		Long generate(final long now)
 		{
 			final long raw = source.nextLong();
-			if(absolute)
-				return (raw<0) ? (raw+1+MAX_VALUE) : raw;
+			if(absolute && (raw<0))
+				return raw+1+MAX_VALUE;
 			else
 				return raw;
 		}
