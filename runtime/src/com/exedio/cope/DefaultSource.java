@@ -35,7 +35,8 @@ abstract class DefaultSource<E>
 	 * </ul>
 	 * @param now
 	 * The caller must provide the results of {@link System#currentTimeMillis()} here.
-	 * However the caller may reuse the results of {@link System#currentTimeMillis()} for multiple calls.
+	 * However the caller may reuse the results of {@link System#currentTimeMillis()} for multiple calls,
+	 * even for different {@link DefaultSource}s.
 	 */
 	abstract E generate(long now);
 
