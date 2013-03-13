@@ -65,19 +65,6 @@ public final class LongField extends NumberField<Long>
 				throw new NullPointerException("source");
 		}
 
-		private void set(
-				final long minimum,
-				final long maximum)
-		{
-			if(minimum!=MIN_VALUE && minimum!=0l)
-				throw new IllegalArgumentException("defaultToRandom supports minimum of " + MIN_VALUE + " or 0 only, but was " + minimum);
-			if(maximum!=MAX_VALUE)
-				throw new IllegalArgumentException("defaultToRandom supports maximum of " + MAX_VALUE + " only, but was " + maximum);
-			assert this.absolute==null;
-
-			this.absolute = (minimum==0l);
-		}
-
 		@Override
 		Long generate(final long now)
 		{
@@ -98,7 +85,16 @@ public final class LongField extends NumberField<Long>
 		void check(final FunctionField<Long> field)
 		{
 			final LongField f = (LongField)field;
-			set(f.getMinimum(), f.getMaximum());
+			final long minimum = f.getMinimum();
+			final long maximum = f.getMaximum();
+
+			if(minimum!=MIN_VALUE && minimum!=0l)
+				throw new IllegalArgumentException("defaultToRandom supports minimum of " + MIN_VALUE + " or 0 only, but was " + minimum);
+			if(maximum!=MAX_VALUE)
+				throw new IllegalArgumentException("defaultToRandom supports maximum of " + MAX_VALUE + " only, but was " + maximum);
+			assert this.absolute==null;
+
+			this.absolute = (minimum==0l);
 		}
 	}
 

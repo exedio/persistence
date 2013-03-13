@@ -73,13 +73,6 @@ public final class IntegerField extends NumberField<Integer>
 			this.start = start;
 		}
 
-		private void set(final SequenceX sequence)
-		{
-			assert sequence!=null;
-			assert this.sequence==null;
-			this.sequence = sequence;
-		}
-
 		SequenceX getSequence()
 		{
 			assert sequence!=null;
@@ -120,7 +113,8 @@ public final class IntegerField extends NumberField<Integer>
 						": " + e.getMessageWithoutFeature() +
 						" Start value was '" + start + "'.");
 			}
-			set(new SequenceX(f, start, f.getMinimum(), f.getMaximum()));
+			assert sequence==null;
+			sequence = new SequenceX(f, start, f.getMinimum(), f.getMaximum());
 		}
 	}
 
