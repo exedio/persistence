@@ -70,7 +70,7 @@ public final class LongField extends NumberField<Long>
 		{
 			final long raw = source.nextLong();
 			if(absolute)
-				return raw!=MIN_VALUE ? Math.abs(raw) : MAX_VALUE;
+				return (raw<0) ? (raw+1+MAX_VALUE) : raw;
 			else
 				return raw;
 		}
