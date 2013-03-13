@@ -78,6 +78,7 @@ public class LongFieldRandomTest extends CopeAssert
 		try
 		{
 			s.defaultToRandom(r);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -91,6 +92,7 @@ public class LongFieldRandomTest extends CopeAssert
 		try
 		{
 			s.defaultToRandom(r);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -104,6 +106,7 @@ public class LongFieldRandomTest extends CopeAssert
 		try
 		{
 			s.min(1);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -112,6 +115,7 @@ public class LongFieldRandomTest extends CopeAssert
 		try
 		{
 			s.max(1);
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
