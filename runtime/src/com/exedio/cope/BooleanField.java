@@ -37,7 +37,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			final DefaultSource<Boolean> defaultSource)
 	{
 		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultSource);
-		checkDefaultSource();
+		mountDefaultSource();
 	}
 
 	public BooleanField()

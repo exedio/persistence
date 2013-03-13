@@ -64,7 +64,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		}
 		this.copyTo = copyTo;
 		this.implicitCopyConstraintsTo = (copyTo!=null) ? newCopyConstraintsTo(copyTo) : null;
-		checkDefaultSource();
+		mountDefaultSource();
 	}
 
 	private CopyConstraint[] newCopyConstraintsTo(final FunctionField<?>[] copyFrom)

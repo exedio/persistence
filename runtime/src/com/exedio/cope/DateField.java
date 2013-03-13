@@ -40,7 +40,7 @@ public final class DateField extends FunctionField<Date>
 			final DefaultSource<Date> defaultSource)
 	{
 		super(isfinal, optional, unique, copyFrom, Date.class, defaultSource);
-		checkDefaultSource();
+		mountDefaultSource();
 	}
 
 	public DateField()
@@ -111,7 +111,7 @@ public final class DateField extends FunctionField<Date>
 		}
 
 		@Override
-		void check(final FunctionField<Date> field)
+		void mount(final FunctionField<Date> field)
 		{
 			// nothing to be checked
 		}

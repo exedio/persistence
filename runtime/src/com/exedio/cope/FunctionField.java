@@ -79,10 +79,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return new CopyConstraint(target, copy);
 	}
 
-	final void checkDefaultSource()
+	final void mountDefaultSource()
 	{
 		if(defaultSource!=null)
-			defaultSource.check(this);
+			defaultSource.mount(this);
 	}
 
 	public final boolean hasDefault()
@@ -139,7 +139,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 
 		@Override
-		void check(final FunctionField<E> field)
+		void mount(final FunctionField<E> field)
 		{
 			try
 			{

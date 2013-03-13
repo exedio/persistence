@@ -42,5 +42,5 @@ abstract class DefaultSource<E>
 
 	abstract DefaultSource<E> forNewField();
 
-	abstract void check(FunctionField<E> field);
+	abstract void mount(FunctionField<E> field);
 }

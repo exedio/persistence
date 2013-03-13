@@ -56,7 +56,7 @@ public final class IntegerField extends NumberField<Integer>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultSource();
+		mountDefaultSource();
 		this.defaultToNextSequence =
 				(this.defaultSource instanceof DefaultNext)
 				? ((DefaultNext)this.defaultSource).getSequence()
@@ -93,7 +93,7 @@ public final class IntegerField extends NumberField<Integer>
 		}
 
 		@Override
-		void check(final FunctionField<Integer> field)
+		void mount(final FunctionField<Integer> field)
 		{
 			final IntegerField f = (IntegerField)field;
 			try
