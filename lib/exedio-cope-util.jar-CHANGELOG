@@ -7,6 +7,19 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* constructor Properties(Source source) added,
+	is equivalent to Properties(source, null) which has been deprecated
+* StringField#hide() replaced by Properties#valueHidden
+	This breaks backwards API compatibility since svn24386 jenkins245copeutil 2012-09-21_21-44-57
+* Properties supports value-methods and optional nesting
+* Sources#checkKey added
+* Properties supports nesting
+* SequenceChecker is and always was not suitable for concurrent access.
+	Certain internal states are not volatile anymore.
+* JobContext#requestedToStop deprecated
+* CharsetName added.
+* add Day#after(Day) method
+* add Day#before(Day) method
 * add JobContext#stopIfRequested()
 * deprecate Interrupter in favour of JobContext
 * add JobContexts

@@ -131,6 +131,18 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 
+	public static Factory<ConnectProperties> factory()
+	{
+		return new Factory<ConnectProperties>()
+		{
+			@Override
+			public ConnectProperties create(final Source source)
+			{
+				return new ConnectProperties(source, null);
+			}
+		};
+	}
+
 	private final Constructor<? extends Dialect> dialect;
 
 	public ConnectProperties()

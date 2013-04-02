@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* nested properties supported by adding:
+	- ConnectProperties#factory()
+	- DispatcherProperties
+	- SamplerProperties
 * LongField#defaultToRandom added
 	- supports simple value ranges only: [MIN_VALUE,MAX_VALUE] and [0,MAX_VALUE]
 * PasswordRecovery constructor accepts SecureRandom
