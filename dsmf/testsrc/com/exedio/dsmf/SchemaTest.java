@@ -52,9 +52,9 @@ public abstract class SchemaTest extends TestCase
 
 	private final class Properties extends com.exedio.cope.util.Properties
 	{
-		final StringField connectionUrl      = new StringField("connection.url");
-		final StringField connectionUsername = new StringField("connection.username");
-		final StringField connectionPassword = new StringField("connection.password", true);
+		final String connectionUrl      = value      ("connection.url",      (String)null);
+		final String connectionUsername = value      ("connection.username", (String)null);
+		final String connectionPassword = valueHidden("connection.password", (String)null);
 
 		Properties()
 		{
@@ -68,9 +68,9 @@ public abstract class SchemaTest extends TestCase
 		super.setUp();
 
 		final Properties config = new Properties();
-		final String url = config.connectionUrl.stringValue();
-		final String username = config.connectionUsername.stringValue();
-		final String password = config.connectionPassword.stringValue();
+		final String url = config.connectionUrl;
+		final String username = config.connectionUsername;
+		final String password = config.connectionPassword;
 
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
