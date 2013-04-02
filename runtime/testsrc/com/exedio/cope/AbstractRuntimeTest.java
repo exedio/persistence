@@ -187,7 +187,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected final String synthetic(final String name, final String global)
 	{
 		return
-			model.getConnectProperties().longSyntheticNames.booleanValue()
+			model.getConnectProperties().longSyntheticNames
 			? (name + global)
 			: name;
 	}

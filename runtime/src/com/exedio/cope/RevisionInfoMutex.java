@@ -93,7 +93,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 		final Statement bf = executor.newStatement();
 		bf.append("delete from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append(" where ").
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append('=').

@@ -135,10 +135,10 @@ public final class Revisions
 			final ConnectProperties properties,
 			final Dialect dialect)
 	{
-		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName.stringValue());
+		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName);
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new UniqueConstraint(table, properties.revisionUniqueName, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
 	private static int getActualNumber(
@@ -153,7 +153,7 @@ public final class Revisions
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append(" where ").
 			append(revision).
 			append(">=0");
@@ -185,7 +185,7 @@ public final class Revisions
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue()));
+			append(dsmfDialect.quoteName(properties.revisionTableName));
 
 		if(!withMutex)
 			bf.append(" where ").
@@ -244,7 +244,7 @@ public final class Revisions
 
 		if(!revisionsToRun.isEmpty())
 		{
-			if ( !explicitRequest && !properties.autoReviseEnabled.booleanValue() )
+			if ( !explicitRequest && !properties.autoReviseEnabled )
 			{
 				throw new IllegalStateException(
 					"Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and " +

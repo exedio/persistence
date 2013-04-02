@@ -515,7 +515,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				schemaId,
 				supertype,
 				mount().typesOfInstancesColumnValues,
-				database.properties.updateCounter.booleanValue() && !hasFinalTable());
+				database.properties.updateCounter && !hasFinalTable());
 		if(supertype==null)
 		{
 			primaryKeySequence.connect(database, table.primaryKey);

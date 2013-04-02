@@ -42,16 +42,16 @@ final class ChangeListenerDispatcher implements Runnable
 	{
 		this.types = types;
 		this.manager = manager;
-		this.queue = new LimitedQueue<ChangeEvent>(properties.changeListenersQueueCapacity.intValue());
+		this.queue = new LimitedQueue<ChangeEvent>(properties.changeListenersQueueCapacity);
 
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Change Listener Dispatcher " + name,
-				properties.changeListenersThreadsMax.intValue()
+				properties.changeListenersThreadsMax
 		);
-		if(properties.changeListenersPrioritySet.booleanValue())
-			threads.setPriority(properties.changeListenersPriority.intValue());
-		threads.start(properties.changeListenersThreads.intValue());
+		if(properties.changeListenersPrioritySet)
+			threads.setPriority(properties.changeListenersPriority);
+		threads.start(properties.changeListenersThreads);
 	}
 
 	ChangeListenerDispatcherInfo getInfo()

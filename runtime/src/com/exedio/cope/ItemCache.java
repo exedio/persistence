@@ -59,7 +59,7 @@ final class ItemCache
 			weightSum += weight;
 		}
 
-		final boolean invalidateLast = properties.itemCacheInvalidateLast.booleanValue();
+		final boolean invalidateLast = properties.itemCacheInvalidateLast;
 		cachlets = new Cachlet[l];
 		final int limit = properties.getItemCacheLimit();
 		for(int i=0; i<l; i++)

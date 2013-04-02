@@ -39,7 +39,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		quit =
 			props.getItemCacheLimit()==0 ||
-			!props.itemCacheInvalidateLast.booleanValue();
+			!props.itemCacheInvalidateLast;
 		if(quit)
 			return;
 

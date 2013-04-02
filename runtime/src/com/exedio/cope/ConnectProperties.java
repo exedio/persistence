@@ -30,29 +30,29 @@ import java.util.Locale;
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
-	private final StringField dialectCode = new StringField("dialect", DIALECT_FROM_URL);
+	private final String dialectCode = value("dialect", DIALECT_FROM_URL);
 
-	private final StringField connectionUrl      = new StringField("connection.url");
-	private final StringField connectionUsername = new StringField("connection.username");
-	private final StringField connectionPassword = new StringField("connection.password", true);
-	final BooleanField connectionTransactionIsolationReadCommitted = new BooleanField("connection.transactionIsolation.readCommitted", false);
-	final BooleanField connectionTransactionIsolationRepeatableRead = new BooleanField("connection.transactionIsolation.repeatableRead", true);
+	private final String connectionUrl      = value      ("connection.url",      (String)null);
+	private final String connectionUsername = value      ("connection.username", (String)null);
+	private final String connectionPassword = valueHidden("connection.password", (String)null);
+	final boolean connectionTransactionIsolationReadCommitted = value("connection.transactionIsolation.readCommitted", false);
+	final boolean connectionTransactionIsolationRepeatableRead = value("connection.transactionIsolation.repeatableRead", true);
 
-	private final BooleanField disablePreparedStatements = new BooleanField("disableSupport.preparedStatements", false);
-	private final BooleanField disableUniqueViolation    = new BooleanField("disableSupport.uniqueViolation", false);
-	private final BooleanField disableEmptyStrings       = new BooleanField("disableSupport.emptyStrings", false);
-	private final BooleanField disableNativeDate         = new BooleanField("disableSupport.nativeDate", false);
-	private final BooleanField disableNotNull            = new BooleanField("disableSupport.notNull", false);
-	private final BooleanField disableSemicolon          = new BooleanField("disableSupport.semicolon", true); // TODO
-	private final BooleanField fulltextIndex = new BooleanField("fulltextIndex", false);
+	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
+	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
+	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
+	private final boolean disableNativeDate         = value("disableSupport.nativeDate", false);
+	private final boolean disableNotNull            = value("disableSupport.notNull", false);
+	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
+	private final boolean fulltextIndex = value("fulltextIndex", false);
 
-	final BooleanField hsqldbNullsAreSortedLow = new BooleanField("hsqldb.nullsAreSortedLow", false);
+	final boolean hsqldbNullsAreSortedLow = value("hsqldb.nullsAreSortedLow", false);
 
 	// schema
 
 	final PrimaryKeyGenerator primaryKeyGenerator = myEnumValue("schema.primaryKeyGenerator", PrimaryKeyGenerator.class, PrimaryKeyGenerator.memory);
-	final BooleanField updateCounter = new BooleanField("schema.updateCounter", true);
-	final BooleanField longSyntheticNames = new BooleanField("schema.tableInNames", false);
+	final boolean updateCounter = value("schema.updateCounter", true);
+	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**
 	 * The table name for the revision information.
@@ -61,7 +61,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * since "while" is a reserved java keyword,
 	 * which cannot be used for java classes.
 	 */
-	final StringField revisionTableName = new StringField("schema.revision.table", "while");
+	final String revisionTableName = value("schema.revision.table", "while");
 
 	/**
 	 * The name of the unique constraint
@@ -71,9 +71,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * since "protected" is a reserved java keyword,
 	 * which cannot be used for java classes.
 	 */
-	final StringField revisionUniqueName = new StringField("schema.revision.unique", "protected");
+	final String revisionUniqueName = value("schema.revision.unique", "protected");
 
-	private final BooleanField mysqlLowerCaseTableNames = new BooleanField("schema.mysql.lower_case_table_names", false);
+	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
 
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
@@ -81,33 +81,33 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * if false, it will throw an exception if revisions are pending.
 	 * Default is true.
 	 */
-	final BooleanField autoReviseEnabled = new BooleanField("revise.auto.enabled", true);
+	final boolean autoReviseEnabled = value("revise.auto.enabled", true);
 
 
-	private final IntField connectionPoolIdleInitial = new IntField("connectionPool.idleInitial", 0, 0);
-	private final IntField connectionPoolIdleLimit   = new IntField("connectionPool.idleLimit",  50, 0);
+	private final int connectionPoolIdleInitial = value("connectionPool.idleInitial", 0, 0);
+	private final int connectionPoolIdleLimit   = value("connectionPool.idleLimit",  50, 0);
 
-	private final IntField querySearchSizeLimit = new IntField("query.searchSizeLimit", 100000, 1);
+	private final int querySearchSizeLimit = value("query.searchSizeLimit", 100000, 1);
 
-	private final IntField itemCacheLimit  = new IntField("cache.item.limit", 100000, 0);
-	private final IntField queryCacheLimit = new IntField("cache.query.limit", 10000, 0);
-	private final IntField queryCacheSizeLimit = new IntField("cache.query.sizeLimit", 10000, 0);
-	final BooleanField itemCacheInvalidateLast       = new BooleanField("cache.item.invalidateLast", true);
-	final     IntField itemCacheInvalidateLastMargin = new     IntField("cache.item.invalidateLast.margin", 0, 0);
+	private final int itemCacheLimit  = value("cache.item.limit", 100000, 0);
+	private final int queryCacheLimit = value("cache.query.limit", 10000, 0);
+	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
+	final boolean itemCacheInvalidateLast       = value("cache.item.invalidateLast", true);
+	final     int itemCacheInvalidateLastMargin = value("cache.item.invalidateLast.margin", 0, 0);
 
-	final IntField dataFieldBufferSizeDefault = new IntField("dataField.bufferSizeDefault", 20*1024, 1);
-	final IntField dataFieldBufferSizeLimit   = new IntField("dataField.bufferSizeLimit", 1024*1024, 1);
+	final int dataFieldBufferSizeDefault = value("dataField.bufferSizeDefault", 20*1024, 1);
+	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 
-	final     IntField changeListenersQueueCapacity = new     IntField("changeListeners.queueCapacity", 1000, 1);
-	final     IntField changeListenersThreads       = new     IntField("changeListeners.threads",        1, 1);
-	final     IntField changeListenersThreadsMax    = new     IntField("changeListeners.threadsMax",    10, 1);
-	final BooleanField changeListenersPrioritySet   = new BooleanField("changeListeners.prioritySet",   false);
-	final     IntField changeListenersPriority      = new     IntField("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
+	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
+	final     int changeListenersThreads       = value("changeListeners.threads",        1, 1);
+	final     int changeListenersThreadsMax    = value("changeListeners.threadsMax",    10, 1);
+	final boolean changeListenersPrioritySet   = value("changeListeners.prioritySet",   false);
+	final     int changeListenersPriority      = value("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
 
-	final StringField mediaRooturl =  new StringField("media.rooturl", "media/");
-	private final IntField mediaOffsetExpires = new IntField("media.offsetExpires", 1000 * 5, 0);
+	final StringField mediaRooturl =  field("media.rooturl", "media/");
+	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final String mediaUrlSecret = noContext()
-			? checkMediaUrlSecret(new StringField("media.url.secret", "").stringValue())
+			? checkMediaUrlSecret(value("media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
 
 	private static final String checkMediaUrlSecret(final String s)
@@ -183,18 +183,18 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		super(source, context);
 
-		final String dialectCodeRaw = this.dialectCode.stringValue();
+		final String dialectCodeRaw = this.dialectCode;
 
 		final String dialectCode;
 		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
 		{
-			final String url = connectionUrl.stringValue();
+			final String url = connectionUrl;
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing prefix '" + prefix + '\'');
+				throw new RuntimeException("cannot parse connection.url=" + url + ", missing prefix '" + prefix + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw new RuntimeException("cannot parse " + connectionUrl.getKey() + '=' + url + ", missing second colon");
+				throw new RuntimeException("cannot parse connection.url=" + url + ", missing second colon");
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
@@ -202,11 +202,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
-		if(connectionTransactionIsolationReadCommitted.booleanValue() &&
-			connectionTransactionIsolationRepeatableRead.booleanValue())
-			throw new RuntimeException(connectionTransactionIsolationReadCommitted.getKey() + " and " + connectionTransactionIsolationRepeatableRead.getKey() + " cannot be enabled both");
-		if(connectionPoolIdleInitial.intValue()>connectionPoolIdleLimit.intValue())
-			throw new RuntimeException("value for " + connectionPoolIdleInitial.getKey() + " must not be greater than " + connectionPoolIdleLimit.getKey());
+		if(connectionTransactionIsolationReadCommitted &&
+			connectionTransactionIsolationRepeatableRead)
+			throw new RuntimeException("connection.transactionIsolation.readCommitted and connection.transactionIsolation.repeatableRead cannot be enabled both");
+		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
+			throw new RuntimeException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
@@ -272,84 +272,84 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getConnectionUrl()
 	{
-		return connectionUrl.stringValue();
+		return connectionUrl;
 	}
 
 	public String getConnectionUsername()
 	{
-		return connectionUsername.stringValue();
+		return connectionUsername;
 	}
 
 	public String getConnectionPassword()
 	{
-		return connectionPassword.stringValue();
+		return connectionPassword;
 	}
 
 	java.util.Properties newConnectionInfo()
 	{
 		final java.util.Properties result = new java.util.Properties();
-		result.setProperty("user",     connectionUsername.stringValue());
-		result.setProperty("password", connectionPassword.stringValue());
+		result.setProperty("user",     connectionUsername);
+		result.setProperty("password", connectionPassword);
 		return result;
 	}
 
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
-		e.put("connection.url",  connectionUrl. stringValue());
-		e.put("connection.user", connectionUsername.stringValue());
+		e.put("connection.url",  connectionUrl);
+		e.put("connection.user", connectionUsername);
 	}
 
 	public boolean isSupportDisabledForPreparedStatements()
 	{
-		return disablePreparedStatements.booleanValue();
+		return disablePreparedStatements;
 	}
 
 	boolean isSupportDisabledForUniqueViolation()
 	{
-		return disableUniqueViolation.booleanValue();
+		return disableUniqueViolation;
 	}
 
 	public boolean isSupportDisabledForEmptyStrings()
 	{
-		return disableEmptyStrings.booleanValue();
+		return disableEmptyStrings;
 	}
 
 	public boolean isSupportDisabledForNativeDate()
 	{
-		return disableNativeDate.booleanValue();
+		return disableNativeDate;
 	}
 
 	public boolean isSupportDisabledForNotNull()
 	{
-		return disableNotNull.booleanValue();
+		return disableNotNull;
 	}
 
 	public boolean isSupportDisabledForSemicolon()
 	{
-		return disableSemicolon.booleanValue();
+		return disableSemicolon;
 	}
 
 	String filterTableName(final String tableName)
 	{
 		return
-			mysqlLowerCaseTableNames.booleanValue()
+			mysqlLowerCaseTableNames
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
 	}
 
 	public boolean getFulltextIndex()
 	{
-		return fulltextIndex.booleanValue();
+		return fulltextIndex;
 	}
 
 	public int getConnectionPoolIdleInitial()
 	{
-		return connectionPoolIdleInitial.intValue();
+		return connectionPoolIdleInitial;
 	}
 
 	public int getConnectionPoolIdleLimit()
 	{
-		return connectionPoolIdleLimit.intValue();
+		return connectionPoolIdleLimit;
 	}
 
 	/**
@@ -358,27 +358,27 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	public int getQuerySearchSizeLimit()
 	{
-		return querySearchSizeLimit.intValue();
+		return querySearchSizeLimit;
 	}
 
 	public int getItemCacheLimit()
 	{
-		return itemCacheLimit.intValue();
+		return itemCacheLimit;
 	}
 
 	public int getQueryCacheLimit()
 	{
-		return queryCacheLimit.intValue();
+		return queryCacheLimit;
 	}
 
 	int getQueryCacheSizeLimit()
 	{
-		return queryCacheSizeLimit.intValue();
+		return queryCacheSizeLimit;
 	}
 
 	public String getMediaRootUrl()
 	{
-		return mediaRooturl.stringValue();
+		return mediaRooturl.get();
 	}
 
 	/**
@@ -393,7 +393,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 */
 	public int getMediaOffsetExpires()
 	{
-		return mediaOffsetExpires.intValue();
+		return mediaOffsetExpires;
 	}
 
 	boolean noContext()
@@ -415,7 +415,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final Class<E> enumClass,
 			final E defaultValue)
 	{
-		return Enum.valueOf(enumClass, new StringField(key, defaultValue.name()).stringValue());
+		return Enum.valueOf(enumClass, value(key, defaultValue.name()));
 	}
 
 	// ------------------- deprecated stuff -------------------

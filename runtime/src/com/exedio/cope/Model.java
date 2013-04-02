@@ -681,7 +681,7 @@ public final class Model implements Serializable
 		final Transaction tx = transactions.remove();
 		tx.commitOrRollback(rollback, this, transactionCounter);
 
-		if(tx.connect.properties.itemCacheInvalidateLast.booleanValue())
+		if(tx.connect.properties.itemCacheInvalidateLast)
 		{
 			final long oldestNanos = transactions.getOldestConnectionNanos();
 			connect().itemCache.purgeInvalidateLast(oldestNanos);

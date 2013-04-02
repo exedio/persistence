@@ -45,7 +45,7 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames.booleanValue()) ? (id+table.id) : id));
+		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
 		this.synthetic = synthetic;

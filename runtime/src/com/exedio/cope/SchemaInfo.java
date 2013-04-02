@@ -154,7 +154,7 @@ public final class SchemaInfo
 	 */
 	public static boolean isUpdateCounterEnabled(final Model model)
 	{
-		return model.connect().properties.updateCounter.booleanValue();
+		return model.connect().properties.updateCounter;
 	}
 
 	/**

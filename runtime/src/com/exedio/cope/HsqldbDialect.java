@@ -42,7 +42,7 @@ final class HsqldbDialect extends Dialect
 				parameters,
 				new com.exedio.dsmf.HsqldbDialect());
 
-		this.nullsAreSortedLow = parameters.properties.hsqldbNullsAreSortedLow.booleanValue();
+		this.nullsAreSortedLow = parameters.properties.hsqldbNullsAreSortedLow;
 	}
 
 	@Override

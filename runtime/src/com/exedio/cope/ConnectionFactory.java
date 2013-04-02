@@ -53,9 +53,9 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolationReadCommitted =
-			properties.connectionTransactionIsolationReadCommitted.booleanValue();
+			properties.connectionTransactionIsolationReadCommitted;
 		this.transactionIsolationRepeatableRead =
-			properties.connectionTransactionIsolationRepeatableRead.booleanValue();
+			properties.connectionTransactionIsolationRepeatableRead;
 		this.transactionIsolationRepeatableReadLevel =
 			dialect.filterTransationIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 	}

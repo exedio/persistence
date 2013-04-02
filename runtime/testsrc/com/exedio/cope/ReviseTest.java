@@ -118,7 +118,7 @@ public class ReviseTest extends CopeAssert
 		revisionsFactory5.put(revisions5);
 		assertSame(revisions5, model5.getRevisions());
 		revisionsFactory5.assertEmpty();
-		longSyntheticNames = model5.getConnectProperties().longSyntheticNames.booleanValue();
+		longSyntheticNames = model5.getConnectProperties().longSyntheticNames;
 		model5.tearDownSchema();
 
 		info = model5.getEnvironmentInfo();
@@ -335,7 +335,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(true, columnThis.exists());
 		assertNotNull(columnThis.getType());
 
-		if(props.updateCounter.booleanValue())
+		if(props.updateCounter)
 		{
 			final Column columnCatch = columns.next();
 			assertEquals(synthetic("catch", "ReviseItem"), columnCatch.getName());
@@ -373,8 +373,8 @@ public class ReviseTest extends CopeAssert
 
 		assertFalse(columns.hasNext());
 
-		final Table revisionTable = schema.getTable(props.revisionTableName.stringValue());
-		assertEquals(props.revisionTableName.stringValue(), revisionTable.getName());
+		final Table revisionTable = schema.getTable(props.revisionTableName);
+		assertEquals(props.revisionTableName, revisionTable.getName());
 		assertEquals(true, revisionTable.required());
 		assertEquals(true, revisionTable.exists());
 	}
@@ -388,13 +388,13 @@ public class ReviseTest extends CopeAssert
 		model5.createSchema();
 		model5.reviseIfSupportedAndAutoEnabled();
 		model5.disconnect();
-		assertEquals( true, props.autoReviseEnabled.booleanValue() );
+		assertEquals( true, props.autoReviseEnabled );
 		revisionsFactory5.assertEmpty();
 
 		testSource.putOverride("revise.auto.enabled", "false");
 		final ConnectProperties cp = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		model5.connect(cp);
-		assertEquals( false, cp.autoReviseEnabled.booleanValue() );
+		assertEquals( false, cp.autoReviseEnabled );
 		revisionsFactory5.put( new Revisions(0) );
 		model5.reviseIfSupportedAndAutoEnabled();
 		revisionsFactory5.assertEmpty();

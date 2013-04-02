@@ -76,7 +76,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	public void testIt() throws InterruptedException
 	{
 		if(!mysql) return; // TODO
-		if(!model.getConnectProperties().updateCounter.booleanValue())
+		if(!model.getConnectProperties().updateCounter)
 			return;
 
 		for(int i = 0; i<threads.length; i++)
@@ -123,12 +123,12 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
+				assertTrue("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
+				assertFalse("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
 			}
 			finally
 			{

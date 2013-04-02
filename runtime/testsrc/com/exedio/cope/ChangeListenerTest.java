@@ -341,8 +341,8 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		final ArrayList<String> expectedAlive = new ArrayList<String>();
 		final ArrayList<String> expectedIdle  = new ArrayList<String>();
 		{
-			final int num = model.getConnectProperties().changeListenersThreads.intValue();
-			final int max = model.getConnectProperties().changeListenersThreadsMax.intValue();
+			final int num = model.getConnectProperties().changeListenersThreads;
+			final int max = model.getConnectProperties().changeListenersThreadsMax;
 			assert num<=max;
 			for(int n = 0; n<max; n++)
 				((n<num) ? expectedAlive : expectedIdle).add(prefix2 + String.valueOf(n+1) + '/' + max);
