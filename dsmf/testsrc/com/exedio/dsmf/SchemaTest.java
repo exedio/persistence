@@ -56,6 +56,7 @@ public abstract class SchemaTest extends TestCase
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", (String)null);
 
+		@SuppressWarnings("deprecation")
 		Properties()
 		{
 			super(getSource(getDefaultPropertyFile()), SYSTEM_PROPERTY_SOURCE);

@@ -179,6 +179,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(getSource(properties, sourceDescription), context);
 	}
 
+	@SuppressWarnings("deprecation")
 	public ConnectProperties(final Source source, final Source context)
 	{
 		super(source, context);
