@@ -91,7 +91,7 @@ final class ClusterProperties extends Properties
 	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
-		super(source, null);
+		super(source);
 
 		if(isEnabled())
 		{
