@@ -25,6 +25,8 @@ import com.exedio.cope.sampler.Sampler;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SamplerProperties extends Properties
 {
 	// cope
@@ -35,6 +37,7 @@ public final class SamplerProperties extends Properties
 	{
 		return new Factory<ConnectProperties>()
 		{
+			@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 			@Override
 			public ConnectProperties create(final Source source)
 			{
