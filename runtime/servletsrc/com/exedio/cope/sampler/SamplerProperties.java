@@ -68,6 +68,7 @@ public final class SamplerProperties extends Properties
 		return new Factory<SamplerProperties>()
 		{
 			@Override
+			@SuppressWarnings("synthetic-access")
 			public SamplerProperties create(final Source source)
 			{
 				return new SamplerProperties(source);
