@@ -34,7 +34,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	{
 		super(properties);
 		this.address = properties.sendAddress;
-		this.port = properties.sendDestinationPort.intValue();
+		this.port = properties.sendDestinationPort;
 		this.socket = properties.newSendSocket();
 	}
 
