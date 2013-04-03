@@ -27,7 +27,6 @@ import com.exedio.cope.util.Properties;
 
 public class ClusterSenderMulticastTest extends CopeAssert
 {
-	private ClusterProperties properties;
 	private ClusterSenderMulticast sender;
 
 	private static final int SECRET = 0x88776655;
@@ -36,7 +35,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		properties = ClusterProperties.get(
+		final ClusterProperties properties = ClusterProperties.get(
 			new ConnectProperties(
 				ConnectSource.get(),
 				new Properties.Source()
