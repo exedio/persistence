@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.File;
 import java.util.Collection;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 
 public final class ClusterPropertiesTest extends CopeAssert
@@ -100,6 +102,65 @@ public final class ClusterPropertiesTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("listenThreads=5 must be less or equal listenThreadsMax=4", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("static-method")
+	public void testFailPrimaryKeyGeneratorMemory()
+	{
+		final Properties.Source defaultSource =
+				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
+		final Properties.Source source = new Properties.Source()
+		{
+			public String get(final String key)
+			{
+				if(key.equals("cluster"))
+					return "false";
+				else
+					return defaultSource.get(key);
+			}
+
+			public String getDescription()
+			{
+				return defaultSource.getDescription();
+			}
+
+			public Collection<String> keySet()
+			{
+				return defaultSource.keySet();
+			}
+		};
+		final Properties.Source context = new Properties.Source()
+		{
+			public String get(final String key)
+			{
+				if(key.equals("cluster.secret"))
+					return "1234";
+				else
+					return null;
+			}
+
+			public String getDescription()
+			{
+				return "Connect Properties Context";
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
+
+		final ConnectProperties props = new ConnectProperties(source, context);
+		// TODO throw exception below already above
+		try
+		{
+			model.connect(props);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory", e.getMessage());
 		}
 	}
 
