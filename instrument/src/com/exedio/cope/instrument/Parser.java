@@ -133,7 +133,12 @@ final class Parser
 			else if ("enum".equals(bufs))
 			{
 				final String enumName = lexer.readToken().getString("enum name expected");
-				lexer.readToken().expect('{');
+
+				while(!lexer.readToken().contains('{'))
+				{
+					// do nothing
+				}
+
 				lexer.parseBody(false, null);
 				final JavaClass result = new JavaClass(javaFile, parent, modifiers, true, enumName, null);
 

@@ -31,9 +31,27 @@ final class WrapEnumItem extends Item
 	static final WrapEnumFeature<Normal> normal = WrapEnumFeature.create(Normal.class);
 
 
-	enum WithImplements
+	enum WithImplements implements CharSequence
 	{
 		one, two;
+
+		@Override
+		public int length()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public char charAt(final int index)
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public CharSequence subSequence(final int start, final int end)
+		{
+			throw new RuntimeException();
+		}
 	}
 
 	static final WrapEnumFeature<WithImplements> withImplements = WrapEnumFeature.create(WithImplements.class);
