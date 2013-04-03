@@ -17,6 +17,7 @@ TODO for cope runtime
 	* implement MediaAlias
 	* redundantly maintain width/height for images
 	* implement Accept-Ranges - needed for streaming video
+- CheckConstraints: make them work with conditions on fields of super type.
 - Hash: allow migration between algorithms
 	- nested algorithms for increasing security instantly
 	- migration whenever plain text is known
