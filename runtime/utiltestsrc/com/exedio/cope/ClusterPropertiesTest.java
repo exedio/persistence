@@ -55,7 +55,8 @@ public final class ClusterPropertiesTest extends CopeAssert
 			}
 		};
 
-		final ClusterProperties p = ClusterProperties.get(new ConnectProperties(ConnectSource.get(), s));
+		model.connect(new ConnectProperties(ConnectSource.get(), s));
+		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.getListenThreads());
 		assertEquals(5, p.getListenThreadsMax());
 	}
@@ -90,14 +91,36 @@ public final class ClusterPropertiesTest extends CopeAssert
 			}
 		};
 
+		final ConnectProperties properties = new ConnectProperties(ConnectSource.get(), s);
 		try
 		{
-			ClusterProperties.get(new ConnectProperties(ConnectSource.get(), s));
+			model.connect(properties);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("listenThreads=5 must be less or equal listenThreadsMax=4", e.getMessage());
 		}
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		if(model.isConnected())
+			model.disconnect();
+		super.tearDown();
+	}
+
+	private static final class AType extends Item
+	{
+		private AType(final ActivationParameters ap) { super(ap); }
+		private static final long serialVersionUID = 1l;
+	}
+
+	private static final Model model = new Model(TypesBound.newType(AType.class));
+
+	static
+	{
+		model.enableSerialization(ClusterPropertiesTest.class, "model");
 	}
 }
