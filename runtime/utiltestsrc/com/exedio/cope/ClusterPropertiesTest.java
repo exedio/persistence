@@ -26,7 +26,7 @@ import com.exedio.cope.util.Properties.Source;
 public final class ClusterPropertiesTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testListenThreadsOk()
+	public void testOk()
 	{
 		final Source s = new Source()
 		{
@@ -62,7 +62,7 @@ public final class ClusterPropertiesTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testListenThreadsFail()
+	public void testFailListenThreads()
 	{
 		final Source s = new Source()
 		{
