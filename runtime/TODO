@@ -31,10 +31,17 @@ TODO for cope runtime
 - enable clustering
 	* make revisions cluster aware
 	* test configuration of tomcat
+- Price
+	* handle overflows strictly
+	* use LongField for larger numbers
+	* support currencies
+		- with different factors to smaller unit
 - move DateField#touch into separate pattern Timestamp
 - SetFieldOrdered: SetField with explicit order
 - patterns such as PriceField as function for select and orderBy
-- Copy Constraint for non-final fields
+- Copy Constraint
+	* allow non-final fields
+	* support DefaultAddress scenario
 - allow declaring indexes / other schema modification in SQL.
 - use getForeignKeyInfo() etc. from JDBC for verifying dsmf schema
 - allow (fulltext) indexes to be declared in java source code,
