@@ -25,7 +25,7 @@ import java.util.Collection;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
 
-public class ClusterSenderMulticastTest extends CopeAssert
+public final class ClusterSenderMulticastTest extends CopeAssert
 {
 	private ClusterSenderMulticast sender;
 
