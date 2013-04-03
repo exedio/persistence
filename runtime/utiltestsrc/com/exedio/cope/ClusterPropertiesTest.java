@@ -23,8 +23,9 @@ import java.util.Collection;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 
-public class ClusterPropertiesTest extends CopeAssert
+public final class ClusterPropertiesTest extends CopeAssert
 {
+	@SuppressWarnings("static-method")
 	public void testListenThreadsOk()
 	{
 		final Source s = new Source()
@@ -59,6 +60,7 @@ public class ClusterPropertiesTest extends CopeAssert
 		assertEquals(5, p.getListenThreadsMax());
 	}
 
+	@SuppressWarnings("static-method")
 	public void testListenThreadsFail()
 	{
 		final Source s = new Source()
