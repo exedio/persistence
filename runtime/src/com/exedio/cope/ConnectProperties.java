@@ -104,6 +104,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final boolean changeListenersPrioritySet   = value("changeListeners.prioritySet",   false);
 	final     int changeListenersPriority      = value("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
 
+	final ClusterProperties clusterPropertiesWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
+
 	final StringField mediaRooturl =  field("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final String mediaUrlSecret = noContext()
