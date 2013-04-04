@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* cluster network can be enabled via source of ConnectProperties as well,
+	if context is null, up to now this was possible via context only.
+	You need the folowing two properties:
+
+			cluster=true
+			cluster.secret=nnn
+
 * nested properties supported by adding:
 	- ConnectProperties#factory()
 	- DispatcherProperties

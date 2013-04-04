@@ -27,6 +27,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	private static final String DIALECT_FROM_URL = "from url";
@@ -103,6 +106,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final     int changeListenersThreadsMax    = value("changeListeners.threadsMax",    10, 1);
 	final boolean changeListenersPrioritySet   = value("changeListeners.prioritySet",   false);
 	final     int changeListenersPriority      = value("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
+
+	final ClusterProperties clusterPropertiesWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
 
 	final StringField mediaRooturl =  field("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);

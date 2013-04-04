@@ -40,7 +40,12 @@ final class ClusterProperties extends Properties
 	static ClusterProperties get(final ConnectProperties properties)
 	{
 		if(properties.noContext())
-			return null;
+		{
+			final ClusterProperties result = properties.clusterPropertiesWithoutContext;
+			if(result!=null && !properties.primaryKeyGenerator.persistent)
+				throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name() + " (2)");
+			return result;
+		}
 
 		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
 		final ClusterProperties clusterProperties = new ClusterProperties(source);
@@ -249,5 +254,21 @@ final class ClusterProperties extends Properties
 
 		if(listenPrioritySet)
 			thread.setPriority(listenPriority);
+	}
+
+	static Factory<ClusterProperties> factory()
+	{
+		return new Factory<ClusterProperties>()
+		{
+			@SuppressWarnings("synthetic-access")
+			@Override
+			public ClusterProperties create(final Source source)
+			{
+				final ClusterProperties result = new ClusterProperties(source);
+				if(!result.isEnabled())
+					throw new RuntimeException(source.getDescription());
+				return result;
+			}
+		};
 	}
 }
