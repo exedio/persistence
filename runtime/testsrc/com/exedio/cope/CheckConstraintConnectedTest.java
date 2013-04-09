@@ -34,11 +34,11 @@ public class CheckConstraintConnectedTest extends AbstractRuntimeTest
 	public CheckConstraintConnectedTest()
 	{
 		super(CheckConstraintTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testMeta()
 	{
-		model.commit();
 		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
@@ -58,7 +58,6 @@ public class CheckConstraintConnectedTest extends AbstractRuntimeTest
 
 			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
 		}
-		model.startTransaction();
 	}
 
 	private final String q(final IntegerField f)
