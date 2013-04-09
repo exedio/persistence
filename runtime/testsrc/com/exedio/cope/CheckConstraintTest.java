@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alpha;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
@@ -28,13 +29,10 @@ import static com.exedio.cope.CheckConstraintSuperItem.drei;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
 
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
+import com.exedio.cope.junit.CopeAssert;
 
-public class CheckConstraintTest extends AbstractRuntimeTest
+public class CheckConstraintTest extends CopeAssert
 {
 	static final Model MODEL = new Model(CheckConstraintItem.TYPE, CheckConstraintSuperItem.TYPE);
 
@@ -43,14 +41,8 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		MODEL.enableSerialization(CheckConstraintTest.class, "MODEL");
 	}
 
-	public CheckConstraintTest()
-	{
-		super(MODEL);
-	}
-
 	public void testMeta()
 	{
-		// test model
 		assertEqualsUnmodifiable(
 			list(
 				TYPE.getThis(),
@@ -127,33 +119,5 @@ public class CheckConstraintTest extends AbstractRuntimeTest
 		}
 
 		assertSerializedSame(alphaLessBeta, 393);
-
-		model.commit();
-		// test schema
-		if(!postgresql)
-		{
-			final Schema schema = model.getVerifiedSchema();
-
-			final Table table = schema.getTable(getTableName(TYPE));
-			assertNotNull(table);
-			assertEquals(null, table.getError());
-			assertEquals(Schema.Color.OK, table.getParticularColor());
-
-			final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
-			assertNotNull(superTable);
-			assertEquals(null, superTable.getError());
-			assertEquals(Schema.Color.OK, superTable.getParticularColor());
-
-			assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
-			assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
-
-			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
-		}
-		model.startTransaction();
-	}
-
-	private final String q(final IntegerField f)
-	{
-		return SchemaInfo.quoteName(model, getColumnName(f));
 	}
 }
