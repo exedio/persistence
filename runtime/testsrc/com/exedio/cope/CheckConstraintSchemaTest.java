@@ -29,9 +29,9 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-public class CheckConstraintConnectedTest extends AbstractRuntimeTest
+public class CheckConstraintSchemaTest extends AbstractRuntimeTest
 {
-	public CheckConstraintConnectedTest()
+	public CheckConstraintSchemaTest()
 	{
 		super(CheckConstraintTest.MODEL);
 		skipTransactionManagement();
