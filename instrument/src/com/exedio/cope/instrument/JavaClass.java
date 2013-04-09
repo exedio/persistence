@@ -213,9 +213,12 @@ final class JavaClass extends JavaFeature
 			}
 
 			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
-			final JavaField ja = getFields(name);
-			if(ja!=null)
-				return ja.evaluate();
+			for(CopeType ct = CopeType.getCopeType(JavaClass.this); ct!=null; ct = ct.getSuperclass())
+			{
+				final JavaField ja = ct.javaClass.getFields(name);
+				if(ja!=null)
+					return ja.evaluate();
+			}
 
 			return Primitive.VOID;
 	   }
