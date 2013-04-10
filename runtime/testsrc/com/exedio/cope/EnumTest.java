@@ -51,7 +51,7 @@ public class EnumTest extends AbstractRuntimeTest
 		assertSame(EnumItem.status, EnumItem.status.as(EnumItem.Status.class));
 		try
 		{
-			item.status.as(EnumItem2.Status.class);
+			EnumItem.status.as(EnumItem2.Status.class);
 			fail();
 		}
 		catch(final ClassCastException e)
