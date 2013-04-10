@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataField.DEFAULT_LENGTH;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
@@ -170,7 +171,7 @@ public class DataTest extends AbstractRuntimeTest
 		assertEquals("data", data.getName());
 		assertEquals(false, data.isMandatory());
 		assertEquals(null, data.getPattern());
-		assertEquals(data.DEFAULT_LENGTH, data.getMaximumLength());
+		assertEquals(DEFAULT_LENGTH, data.getMaximumLength());
 		assertEquals(DataField.Value.class, data.getValueClass());
 
 		assertEquals(TYPE, data10.getType());
