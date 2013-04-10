@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someLong;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullLong;
 
 public class FieldLongTest extends FieldTest
 {
@@ -25,51 +28,51 @@ public class FieldLongTest extends FieldTest
 
 	public void testSomeLong()
 	{
-		assertEquals(item.TYPE, item.someLong.getType());
-		assertEquals(Long.class, item.someLong.getValueClass());
-		assertSerializedSame(item.someLong, 377);
+		assertEquals(TYPE, someLong.getType());
+		assertEquals(Long.class, someLong.getValueClass());
+		assertSerializedSame(someLong, 377);
 
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, item.TYPE.search(item.someLong.equal((Long)null)));
-		assertContains(item, item2, item.TYPE.search(item.someLong.isNull()));
-		assertContains(item.TYPE.search(item.someLong.notEqual((Long)null)));
-		assertContains(item.TYPE.search(item.someLong.isNotNull()));
+		assertContains(item, item2, TYPE.search(someLong.equal((Long)null)));
+		assertContains(item, item2, TYPE.search(someLong.isNull()));
+		assertContains(TYPE.search(someLong.notEqual((Long)null)));
+		assertContains(TYPE.search(someLong.isNotNull()));
 
-		item.someLong.set(item, Long.valueOf(22));
+		someLong.set(item, Long.valueOf(22));
 		assertEquals(Long.valueOf(22), item.getSomeLong());
 
-		item.someLong.set(item, 22l);
+		someLong.set(item, 22l);
 		assertEquals(Long.valueOf(22), item.getSomeLong());
 
 		item.setSomeLong(Long.valueOf(11));
 		assertEquals(Long.valueOf(11), item.getSomeLong());
-		assertEquals(Long.valueOf(11), item.someLong.get(item));
+		assertEquals(Long.valueOf(11), someLong.get(item));
 		try
 		{
-			item.someLong.getMandatory(item);
+			someLong.getMandatory(item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field "+item.someLong+" is not mandatory", e.getMessage());
+			assertEquals("field "+someLong+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();
 		assertEquals(Long.valueOf(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			item.TYPE.search(item.someLong.equal(11l)));
+			TYPE.search(someLong.equal(11l)));
 		assertEquals(
 			list(),
-			item.TYPE.search(item.someLong.notEqual(11l)));
+			TYPE.search(someLong.notEqual(11l)));
 
-		assertEquals(list(item2), item.TYPE.search(item.someLong.equal((Long)null)));
-		assertEquals(list(item2), item.TYPE.search(item.someLong.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someLong.notEqual((Long)null)));
-		assertEquals(list(item), item.TYPE.search(item.someLong.isNotNull()));
+		assertEquals(list(item2), TYPE.search(someLong.equal((Long)null)));
+		assertEquals(list(item2), TYPE.search(someLong.isNull()));
+		assertEquals(list(item), TYPE.search(someLong.notEqual((Long)null)));
+		assertEquals(list(item), TYPE.search(someLong.isNotNull()));
 
-		assertContains(Long.valueOf(11), null, search(item.someLong));
-		assertContains(Long.valueOf(11), search(item.someLong, item.someLong.equal(Long.valueOf(11))));
+		assertContains(Long.valueOf(11), null, search(someLong));
+		assertContains(Long.valueOf(11), search(someLong, someLong.equal(Long.valueOf(11))));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -83,30 +86,30 @@ public class FieldLongTest extends FieldTest
 	{
 		try
 		{
-			item.set((FunctionField)item.someLong, Integer.valueOf(10));
+			item.set((FunctionField)someLong, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someLong + '.', e.getMessage());
+			assertEquals("expected a " + Long.class.getName() + ", but was a " + Integer.class.getName() + " for " + someLong + '.', e.getMessage());
 		}
 	}
 
 	public void testSomeNotNullLong()
 	{
-		assertEquals(item.TYPE, item.someNotNullLong.getType());
+		assertEquals(TYPE, someNotNullLong.getType());
 		assertEquals(6l, item.getSomeNotNullLong());
 
-		item.someNotNullLong.set(item, 27l);
+		someNotNullLong.set(item, 27l);
 		assertEquals(27l, item.getSomeNotNullLong());
 
-		item.someNotNullLong.set(item, Long.valueOf(24));
+		someNotNullLong.set(item, Long.valueOf(24));
 		assertEquals(24l, item.getSomeNotNullLong());
 
 		item.setSomeNotNullLong(21l);
 		assertEquals(21l, item.getSomeNotNullLong());
-		assertEquals(Long.valueOf(21), item.someNotNullLong.get(item));
-		assertEquals(21l, item.someNotNullLong.getMandatory(item));
+		assertEquals(Long.valueOf(21), someNotNullLong.get(item));
+		assertEquals(21l, someNotNullLong.getMandatory(item));
 
 		item.setSomeNotNullLong(0l);
 		assertEquals(0l, item.getSomeNotNullLong());
@@ -114,7 +117,7 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(0l, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullLong.equal(0l)));
+			TYPE.search(someNotNullLong.equal(0l)));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
@@ -122,7 +125,7 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullLong.equal(Long.MIN_VALUE)));
+			TYPE.search(someNotNullLong.equal(Long.MIN_VALUE)));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
@@ -130,6 +133,6 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullLong.equal(Long.MAX_VALUE)));
+			TYPE.search(someNotNullLong.equal(Long.MAX_VALUE)));
 	}
 }
