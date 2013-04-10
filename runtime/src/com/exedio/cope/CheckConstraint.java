@@ -19,6 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
+
+import java.util.HashSet;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CheckConstraint extends Feature
@@ -54,6 +57,9 @@ public final class CheckConstraint extends Feature
 
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
 	{
+		if(!isSupportedBySchemaIfSupportedByDialect())
+			return;
+
 		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
 		condition.append(statement);
 
@@ -61,5 +67,45 @@ public final class CheckConstraint extends Feature
 				dsmfTable,
 				intern(table.makeGlobalID(getSchemaName())),
 				statement.getText());
+	}
+
+	/**
+	 * Return true iff this check constraint can be supported by
+	 * a database dialect supporting check constraints.
+	 * This is the case, iff all table columns mentioned by
+	 * {@link #getCondition() the condition}
+	 * if the check constraints are located within the same database table.
+	 * <p>
+	 * The result of this method does not depend on
+	 * {@link SchemaInfo#supportsCheckConstraints(Model)}.
+	 * <p>
+	 * If returns false, you should call {@link #check()} for checking
+	 * database consistency after any modifications of the database
+	 * bypassing cope.
+	 */
+	public boolean isSupportedBySchemaIfSupportedByDialect()
+	{
+		final Type<?> type = getType();
+		final HashSet<Table> tables = type.newQuery(condition).getTables();
+
+		assert tables.contains(type.table);
+		return tables.size()==1;
+	}
+
+	/**
+	 * Checks, whether the database fulfills this check constraint.
+	 * Should be called {@link #check()} for checking
+	 * database consistency after any modifications of the database
+	 * bypassing cope.
+	 * Is needed especially iff {@link CheckConstraint#isSupportedBySchemaIfSupportedByDialect()}
+	 * returns false.
+	 * <p>
+	 * Returns the number of items violating the check constraint.
+	 * As a consequence, this methods return 0 (zero),
+	 * iff the database fulfills this check constraint
+	 */
+	public int check()
+	{
+		return getType().newQuery(condition.not()).total();
 	}
 }

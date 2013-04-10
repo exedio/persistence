@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -551,6 +552,11 @@ public final class Query<R> implements Serializable
 				Cope.check(ob, tc, null);
 
 		return tc;
+	}
+
+	HashSet<Table> getTables()
+	{
+		return check().getTables();
 	}
 
 	/**
