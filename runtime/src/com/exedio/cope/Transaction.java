@@ -159,7 +159,7 @@ public final class Transaction
 		{
 			if ( !present )
 			{
-				throw new RuntimeException("tried to create entity that is already in cache: "+item.getCopeID());
+				throw new RuntimeException("tried to create entity that is already in cache: " + item.getCopeID() + '/' + result);
 			}
 			return result;
 		}
