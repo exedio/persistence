@@ -373,8 +373,8 @@ public class HashTest extends AbstractRuntimeTest
 
 		// test with validator that accepts the given pin string
 		final SetValue<?> setValue = with3PinValidator.map("978");
-		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
-		assertEquals("[978]", anItem.get(anItem.with3PinValidator.getStorage()));
+		final HashItem anItem = deleteOnTearDown(TYPE.newItem(setValue));
+		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));
 	}
 
 	public void testValidatorNewRandomPassword()
