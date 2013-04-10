@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
+import static com.exedio.cope.MatchItem.text;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		model.setDatabaseListener(dbl1);
 		assertSame(dbl1, model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), TYPE);
-		TYPE.search(item.text.equal("string1"));
+		TYPE.search(text.equal("string1"));
 		l.verifyExpectations();
 		dbl1.assertSql("select");
 		item.setText("string1");
@@ -68,7 +69,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		model.setDatabaseListener(dbl2);
 		assertSame(dbl2, model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), TYPE);
-		TYPE.search(item.text.equal("string2"));
+		TYPE.search(text.equal("string2"));
 		l.verifyExpectations();
 		dbl2.assertSql("select");
 		item.setText("string2");
@@ -79,7 +80,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		model.setDatabaseListener(dbl3);
 		assertSame(dbl3, model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), TYPE);
-		TYPE.search(item.text.equal("string2"));
+		TYPE.search(text.equal("string2"));
 		l.verifyExpectations();
 		dbl3.assertSql("select");
 		item.setText("string2");
@@ -90,7 +91,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		model.setDatabaseListener(null);
 		assertNull(model.getDatabaseListener());
 		l.expectSearch(model.currentTransaction(), TYPE);
-		TYPE.search(item.text.equal("string3"));
+		TYPE.search(text.equal("string3"));
 		l.verifyExpectations();
 		item.setText("string3");
 		dbl2.assertSqlEmpty();
