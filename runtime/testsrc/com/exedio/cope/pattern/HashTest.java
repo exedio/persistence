@@ -18,7 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.HashItem.TYPE;
+import static com.exedio.cope.pattern.HashItem.explicitExternal;
+import static com.exedio.cope.pattern.HashItem.explicitExternalWrap;
+import static com.exedio.cope.pattern.HashItem.implicitExternal;
 import static com.exedio.cope.pattern.HashItem.internal;
+import static com.exedio.cope.pattern.HashItem.with3PinValidator;
+import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -54,73 +60,73 @@ public class HashTest extends AbstractRuntimeTest
 	public void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(
-				item.TYPE.getThis(),
-				item.explicitExternalWrap,
-				item.explicitExternal,
-				item.implicitExternal,
-				item.implicitExternal.getStorage(),
+				TYPE.getThis(),
+				explicitExternalWrap,
+				explicitExternal,
+				implicitExternal,
+				implicitExternal.getStorage(),
 				internal,
 				internal.getStorage(),
-				item.withCorruptValidator,
-				item.withCorruptValidator.getStorage(),
-				item.with3PinValidator,
-				item.with3PinValidator.getStorage()
-			), item.TYPE.getFeatures());
+				withCorruptValidator,
+				withCorruptValidator.getStorage(),
+				with3PinValidator,
+				with3PinValidator.getStorage()
+			), TYPE.getFeatures());
 
-		assertEquals(item.TYPE, item.explicitExternal.getType());
-		assertEquals("explicitExternal", item.explicitExternal.getName());
-		assertEquals("wrap", item.explicitExternal.getAlgorithmID());
-		assertEquals(item.explicitExternalWrap, item.explicitExternal.getStorage());
-		assertEquals(item.explicitExternal, item.explicitExternalWrap.getPattern());
-		assertEqualsUnmodifiable(list(item.explicitExternalWrap), item.explicitExternal.getSourceFeatures());
-		assertEquals(false, item.explicitExternalWrap.isInitial());
-		assertEquals(false, item.explicitExternalWrap.isFinal());
-		assertContains(StringLengthViolationException.class, item.explicitExternalWrap.getInitialExceptions());
-		assertFalse(item.explicitExternal.getStorage().isAnnotationPresent(Computed.class));
+		assertEquals(TYPE, explicitExternal.getType());
+		assertEquals("explicitExternal", explicitExternal.getName());
+		assertEquals("wrap", explicitExternal.getAlgorithmID());
+		assertEquals(explicitExternalWrap, explicitExternal.getStorage());
+		assertEquals(explicitExternal, explicitExternalWrap.getPattern());
+		assertEqualsUnmodifiable(list(explicitExternalWrap), explicitExternal.getSourceFeatures());
+		assertEquals(false, explicitExternalWrap.isInitial());
+		assertEquals(false, explicitExternalWrap.isFinal());
+		assertContains(StringLengthViolationException.class, explicitExternalWrap.getInitialExceptions());
+		assertFalse(explicitExternal.getStorage().isAnnotationPresent(Computed.class));
 
 		assertNull(item.getExplicitExternalWrap());
 		assertTrue(item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("bing"));
-		assertContains(item, item.TYPE.search(item.explicitExternal.isNull()));
-		assertContains(item.TYPE.search(item.explicitExternal.isNotNull()));
+		assertContains(item, TYPE.search(explicitExternal.isNull()));
+		assertContains(TYPE.search(explicitExternal.isNotNull()));
 
 		item.setExplicitExternalWrap("03affe01");
 		assertEquals("03affe01", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("03affe01"));
-		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
-		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
+		assertContains(TYPE.search(explicitExternal.isNull()));
+		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
 
 		item.setExplicitExternal("03affe02");
 		assertEquals("[03affe02]", item.getExplicitExternalWrap());
 		assertTrue(!item.checkExplicitExternal(null));
 		assertTrue(!item.checkExplicitExternal("03affe01"));
 		assertTrue(item.checkExplicitExternal("03affe02"));
-		assertContains(item.TYPE.search(item.explicitExternal.isNull()));
-		assertContains(item, item.TYPE.search(item.explicitExternal.isNotNull()));
+		assertContains(TYPE.search(explicitExternal.isNull()));
+		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
 	}
 
 	public void testImplicitExternal()
 	{
-		assertEquals(item.TYPE, item.implicitExternal.getType());
-		assertEquals("implicitExternal", item.implicitExternal.getName());
-		assertEquals("wrap", item.implicitExternal.getAlgorithmID());
-		assertEquals(item.TYPE, item.implicitExternal.getStorage().getType());
-		assertEquals("implicitExternal-wrap", item.implicitExternal.getStorage().getName());
-		assertEquals(item.implicitExternal, item.implicitExternal.getStorage().getPattern());
-		assertEqualsUnmodifiable(list(item.implicitExternal.getStorage()), item.implicitExternal.getSourceFeatures());
-		assertEquals(false, item.implicitExternal.isInitial());
-		assertEquals(false, item.implicitExternal.isFinal());
-		assertContains(item.implicitExternal.getInitialExceptions());
-		assertTrue(item.implicitExternal.getStorage().isAnnotationPresent(Computed.class));
+		assertEquals(TYPE, implicitExternal.getType());
+		assertEquals("implicitExternal", implicitExternal.getName());
+		assertEquals("wrap", implicitExternal.getAlgorithmID());
+		assertEquals(TYPE, implicitExternal.getStorage().getType());
+		assertEquals("implicitExternal-wrap", implicitExternal.getStorage().getName());
+		assertEquals(implicitExternal, implicitExternal.getStorage().getPattern());
+		assertEqualsUnmodifiable(list(implicitExternal.getStorage()), implicitExternal.getSourceFeatures());
+		assertEquals(false, implicitExternal.isInitial());
+		assertEquals(false, implicitExternal.isFinal());
+		assertContains(implicitExternal.getInitialExceptions());
+		assertTrue(implicitExternal.getStorage().isAnnotationPresent(Computed.class));
 
-		assertEquals(null, item.get(item.implicitExternal.getStorage()));
+		assertEquals(null, item.get(implicitExternal.getStorage()));
 		assertTrue(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal(""));
 		assertFalse(item.checkImplicitExternal("zack"));
 
 		item.setImplicitExternal("03affe05");
-		assertEquals("[03affe05]", item.get(item.implicitExternal.getStorage()));
+		assertEquals("[03affe05]", item.get(implicitExternal.getStorage()));
 		assertFalse(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal("0"));
 		assertTrue(item.checkImplicitExternal("03affe05"));
@@ -128,10 +134,10 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testInternal()
 	{
-		assertEquals(item.TYPE, internal.getType());
+		assertEquals(TYPE, internal.getType());
 		assertEquals("internal", internal.getName());
 		assertEquals("wrap", internal.getAlgorithmID());
-		assertEquals(item.TYPE, internal.getStorage().getType());
+		assertEquals(TYPE, internal.getStorage().getType());
 		assertEquals("internal-wrap", internal.getStorage().getName());
 		assertEquals(internal, internal.getStorage().getPattern());
 		assertEqualsUnmodifiable(list(internal.getStorage()), internal.getSourceFeatures());
@@ -243,13 +249,13 @@ public class HashTest extends AbstractRuntimeTest
 	public void testCheckMustNotCallValidator() throws Exception
 	{
 		// validator must not be called from check(..)
-		item.withCorruptValidator.check(item, "");
-		item.withCorruptValidator.check(item, "sd232");
+		withCorruptValidator.check(item, "");
+		withCorruptValidator.check(item, "sd232");
 
 		// counter example - where the validator will be called
 		try
 		{
-			item.withCorruptValidator.hash("sdsadd");
+			withCorruptValidator.hash("sdsadd");
 		}
 		catch (final IllegalStateException e)
 		{
@@ -258,7 +264,7 @@ public class HashTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.withCorruptValidator.newRandomPassword(new SecureRandom());
+			withCorruptValidator.newRandomPassword(new SecureRandom());
 		}
 		catch (final IllegalStateException e)
 		{
@@ -284,7 +290,7 @@ public class HashTest extends AbstractRuntimeTest
 			{
 				assertEquals("4544", e.getPlainText());
 				assertEquals("Pin greater than 3 digits for HashItem.with3PinValidator", e.getMessage());
-				assertEquals(item.with3PinValidator, e.getFeature());
+				assertEquals(with3PinValidator, e.getFeature());
 				assertEquals(anItem, e.getItem());
 			}
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
@@ -322,7 +328,7 @@ public class HashTest extends AbstractRuntimeTest
 		{
 			assertEquals("1", e.getPlainText());
 			assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
-			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(with3PinValidator, e.getFeature());
 			assertEquals(anItem, e.getItem());
 		}
 
@@ -343,7 +349,7 @@ public class HashTest extends AbstractRuntimeTest
 		// test with a validator which always throws an exception
 		try
 		{
-			deleteOnTearDown(HashItem.TYPE.newItem(item.withCorruptValidator.map("03affe10")));
+			deleteOnTearDown(HashItem.TYPE.newItem(withCorruptValidator.map("03affe10")));
 			fail();
 		}
 		catch (final IllegalStateException ise)
@@ -354,19 +360,19 @@ public class HashTest extends AbstractRuntimeTest
 		// testing  with validator that discards the given pin string
 		try
 		{
-			deleteOnTearDown(HashItem.TYPE.newItem(item.with3PinValidator.map("99x")));
+			deleteOnTearDown(HashItem.TYPE.newItem(with3PinValidator.map("99x")));
 			fail();
 		}
 		catch (final Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
 			assertEquals("99x", e.getPlainText());
-			assertEquals(item.with3PinValidator, e.getFeature());
+			assertEquals(with3PinValidator, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 
 		// test with validator that accepts the given pin string
-		final SetValue<?> setValue = this.item.with3PinValidator.map("978");
+		final SetValue<?> setValue = with3PinValidator.map("978");
 		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(setValue));
 		assertEquals("[978]", anItem.get(anItem.with3PinValidator.getStorage()));
 	}
