@@ -183,7 +183,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		if(copyFrom==null)
 			throw new NullPointerException("copyFrom");
 		if(this.copyFrom==null)
-			return new ItemField[]{copyFrom};
+			return new ItemField<?>[]{copyFrom};
 
 		final int length = this.copyFrom.length;
 		final ItemField<?>[] result = new ItemField<?>[length+1];

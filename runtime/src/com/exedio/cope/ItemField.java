@@ -143,7 +143,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(copyTo==null)
 			throw new NullPointerException("copyTo");
 		if(this.copyTo==null)
-			return new FunctionField[]{copyTo};
+			return new FunctionField<?>[]{copyTo};
 
 		final int length = this.copyTo.length;
 		final FunctionField<?>[] result = new FunctionField<?>[length+1];

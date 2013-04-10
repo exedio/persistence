@@ -22,13 +22,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class PlusView<E extends Number> extends NumberView<E>
 {
-	@SuppressWarnings("unchecked") // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2)
 	{
 		return new PlusView<E>(new Function[]{addend1, addend2});
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2, final Function<E> addend3)
 	{
 		return new PlusView<E>(new Function[]{addend1, addend2, addend3});
