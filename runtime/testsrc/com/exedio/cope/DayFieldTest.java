@@ -50,7 +50,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Day day = new Day(2005, 9, 23);
+		final Day thisDay = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);
 		final Day nextDay = new Day(2005, 9, 24);
 
@@ -70,18 +70,18 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.optionalDay.notEqual((Day)null)));
 		assertContains(item.TYPE.search(item.optionalDay.isNotNull()));
 
-		item.setDay(day);
-		assertEquals(day, item.getDay());
+		item.setDay(thisDay);
+		assertEquals(thisDay, item.getDay());
 
-		assertContains(day, DEFAULT2, search(item.day));
-		assertContains(day, search(item.day, item.day.equal(day)));
+		assertContains(thisDay, DEFAULT2, search(item.day));
+		assertContains(thisDay, search(item.day, item.day.equal(thisDay)));
 		assertContains(null, null, search(item.optionalDay));
 
 		restartTransaction();
-		assertEquals(day, item.getDay());
-		assertEquals(list(item), item.TYPE.search(item.day.equal(day)));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(day).and(item.day.lessOrEqual(day))));
-		assertEquals(list(item2), item.TYPE.search(item.day.notEqual(day)));
+		assertEquals(thisDay, item.getDay());
+		assertEquals(list(item), item.TYPE.search(item.day.equal(thisDay)));
+		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(thisDay).and(item.day.lessOrEqual(thisDay))));
+		assertEquals(list(item2), item.TYPE.search(item.day.notEqual(thisDay)));
 		assertEquals(list(), item.TYPE.search(item.day.equal((Day)null)));
 		assertEquals(list(), item.TYPE.search(item.day.isNull()));
 		assertContains(item, item2, item.TYPE.search(item.day.notEqual((Day)null)));
@@ -90,8 +90,8 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(list(), item.TYPE.search(item.day.equal(nextDay)));
 		assertEquals(list(), item.TYPE.search(item.day.greaterOrEqual(beforeDay).and(item.day.lessOrEqual(beforeDay))));
 		assertEquals(list(), item.TYPE.search(item.day.greaterOrEqual(nextDay).and(item.day.lessOrEqual(nextDay))));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(day).and(item.day.lessOrEqual(nextDay))));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(beforeDay).and(item.day.lessOrEqual(day))));
+		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(thisDay).and(item.day.lessOrEqual(nextDay))));
+		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(beforeDay).and(item.day.lessOrEqual(thisDay))));
 		assertEquals(null, item.getOptionalDay());
 		assertContains(item, item2, item.TYPE.search(item.optionalDay.equal((Day)null)));
 		assertContains(item, item2, item.TYPE.search(item.optionalDay.isNull()));
