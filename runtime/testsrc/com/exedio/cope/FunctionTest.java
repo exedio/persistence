@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.max4Upper;
 import static com.exedio.cope.testmodel.StringItem.max4UpperLength;
@@ -79,12 +80,12 @@ public class FunctionTest extends AbstractRuntimeTest
 		assertEquals(Integer.valueOf(2), item2.getMax4UpperLength());
 		assertEquals(Integer.valueOf(8), item2.getMin4AndMax4UpperLength());
 
-		assertContains(item1, item1.TYPE.search(min4.equal("5ffff")));
-		assertContains(item1, item1.TYPE.search(min4Upper.equal("5FFFF")));
-		assertContains(item1, item1.TYPE.search(min4UpperLength.equal(5)));
-		assertContains(item1, item1.TYPE.search(min4Upper.length().equal(5)));
-		assertContains(item1, item1.TYPE.search(min4AndMax4UpperLength.equal(9)));
-		assertContains(item1, item1.TYPE.search(min4Upper.length().plus(max4Upper.length()).equal(9)));
+		assertContains(item1, TYPE.search(min4.equal("5ffff")));
+		assertContains(item1, TYPE.search(min4Upper.equal("5FFFF")));
+		assertContains(item1, TYPE.search(min4UpperLength.equal(5)));
+		assertContains(item1, TYPE.search(min4Upper.length().equal(5)));
+		assertContains(item1, TYPE.search(min4AndMax4UpperLength.equal(9)));
+		assertContains(item1, TYPE.search(min4Upper.length().plus(max4Upper.length()).equal(9)));
 
 		assertContains(
 				list("5ffff",  "5FFFF",  Integer.valueOf(5), "4ddd", "4DDD", Integer.valueOf(4), Integer.valueOf(9), Integer.valueOf(9)),
@@ -94,7 +95,7 @@ public class FunctionTest extends AbstractRuntimeTest
 						max4, max4Upper, max4UpperLength,
 						min4AndMax4UpperLength,
 						min4Upper.length().plus(max4Upper.length()),
-						}, item1.TYPE, null).search()
+						}, TYPE, null).search()
 				);
 	}
 
