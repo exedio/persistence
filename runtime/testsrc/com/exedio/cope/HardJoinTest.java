@@ -40,6 +40,9 @@ public class HardJoinTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	private static final Type<HardJoinA3Item> aTYPE = HardJoinA3Item.TYPE;
+	private static final Type<HardJoinB3Item> bTYPE = HardJoinB3Item.TYPE;
+
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
@@ -65,8 +68,8 @@ public class HardJoinTest extends AbstractRuntimeTest
 	private void assert1x1(final IntegerField ax, final IntegerField bx, final int bv)
 	{
 		reset();
-		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-		q.join(b.TYPE, ax.equal(bx));
+		final Query<HardJoinA3Item> q = aTYPE.newQuery();
+		q.join(bTYPE, ax.equal(bx));
 		assertEquals(list(), q.search());
 		bx.set(b, bv);
 		assertEquals(list(a), q.search());
@@ -88,8 +91,8 @@ public class HardJoinTest extends AbstractRuntimeTest
 	private void assert2x1(final IntegerField a1, final IntegerField a2, final IntegerField bx, final int bv)
 	{
 		reset();
-		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-		q.join(b.TYPE, a1.equal(bx).and(a2.equal(bx)));
+		final Query<HardJoinA3Item> q = aTYPE.newQuery();
+		q.join(bTYPE, a1.equal(bx).and(a2.equal(bx)));
 		assertEquals(list(), q.search());
 		a1.set(a, bv);
 		assertEquals(list(), q.search());
@@ -113,8 +116,8 @@ public class HardJoinTest extends AbstractRuntimeTest
 	private void assert1x2(final IntegerField ax, final IntegerField b1, final IntegerField b2, final int av)
 	{
 		reset();
-		final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-		q.join(b.TYPE, ax.equal(b1).and(ax.equal(b2)));
+		final Query<HardJoinA3Item> q = aTYPE.newQuery();
+		q.join(bTYPE, ax.equal(b1).and(ax.equal(b2)));
 		assertEquals(list(), q.search());
 		b1.set(b, av);
 		assertEquals(list(), q.search());
@@ -138,23 +141,23 @@ public class HardJoinTest extends AbstractRuntimeTest
 	public void testOuter()
 	{
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			q.joinOuterLeft(b.TYPE, a1.equal(b3));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			q.joinOuterLeft(bTYPE, a1.equal(b3));
 			assertEquals(list(a), q.search());
 		}
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			q.joinOuterLeft(b.TYPE, a1.equal(b1));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			q.joinOuterLeft(bTYPE, a1.equal(b1));
 			assertEquals(list(a), q.search());
 		}
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			q.joinOuterLeft(b.TYPE, a2.equal(b2));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			q.joinOuterLeft(bTYPE, a2.equal(b2));
 			assertEquals(list(a), q.search());
 		}
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			q.joinOuterLeft(b.TYPE, a3.equal(b3));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			q.joinOuterLeft(bTYPE, a3.equal(b3));
 			assertEquals(list(a), q.search());
 		}
 	}
@@ -162,9 +165,9 @@ public class HardJoinTest extends AbstractRuntimeTest
 	public void testValid()
 	{
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			final Join j1 = q.join(b.TYPE, b3.equal(a3));
-			final Join j2 = q.join(b.TYPE, b3.equal(a3));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			final Join j1 = q.join(bTYPE, b3.equal(a3));
+			final Join j2 = q.join(bTYPE, b3.equal(a3));
 			try
 			{
 				q.search();
@@ -218,9 +221,9 @@ public class HardJoinTest extends AbstractRuntimeTest
 		}
 		// test with typeIn
 		{
-			final Query<HardJoinA3Item> q = a.TYPE.newQuery();
-			final Join j1 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(b.TYPE));
-			final Join j2 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(b.TYPE));
+			final Query<HardJoinA3Item> q = aTYPE.newQuery();
+			final Join j1 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(bTYPE));
+			final Join j2 = q.join(HardJoinB2Item.TYPE, HardJoinB2Item.TYPE.getThis().notInstanceOf(bTYPE));
 
 			try
 			{
@@ -232,7 +235,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j1.setCondition(HardJoinB2Item.TYPE.getThis().bind(j1).notInstanceOf(b.TYPE));
+			j1.setCondition(HardJoinB2Item.TYPE.getThis().bind(j1).notInstanceOf(bTYPE));
 			try
 			{
 				q.search();
@@ -243,7 +246,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 				assertEquals(HardJoinB2Item.TYPE.getThis() + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j2.setCondition(HardJoinB2Item.TYPE.getThis().bind(j2).notInstanceOf(b.TYPE));
+			j2.setCondition(HardJoinB2Item.TYPE.getThis().bind(j2).notInstanceOf(bTYPE));
 			assertEquals(list(), q.search());
 		}
 	}
