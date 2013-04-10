@@ -56,12 +56,12 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	public void testData() throws IOException
 	{
-		assertEquals(0, data0.length);
-		assertEquals(4, data4.length);
-		assertEquals(6, data6.length);
-		assertEquals(8, data8.length);
-		assertEquals(20, data20.length);
-		assertEquals(21, data21.length);
+		assertEquals(0, bytes0.length);
+		assertEquals(4, bytes4.length);
+		assertEquals(6, bytes6.length);
+		assertEquals(8, bytes8.length);
+		assertEquals(20, bytes20.length);
+		assertEquals(21, bytes21.length);
 
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				item.TYPE.getThis(),
@@ -99,7 +99,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 
-		item.setPhoto(data4, "image/jpeg");
+		item.setPhoto(bytes4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
 		assertEquals(mediaRootUrl + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
 

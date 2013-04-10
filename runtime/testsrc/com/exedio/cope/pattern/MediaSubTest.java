@@ -107,17 +107,17 @@ public class MediaSubTest extends AbstractRuntimeTest
 
 		assertNull();
 
-		item.setImage(stream(data4), "image/image-minor");
+		item.setImage(stream(bytes4), "image/image-minor");
 		assertStreamClosed();
-		assertContent(data4, "image/image-minor", "");
+		assertContent(bytes4, "image/image-minor", "");
 
-		item.setImage(stream(data6), "image/jpeg");
+		item.setImage(stream(bytes6), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data6, "image/jpeg", ".jpg");
+		assertContent(bytes6, "image/jpeg", ".jpg");
 
 		try
 		{
-			item.setImage(stream(data4), "illegalContentType");
+			item.setImage(stream(bytes4), "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -127,12 +127,12 @@ public class MediaSubTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertContent(data6, "image/jpeg", ".jpg");
+			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
 		try
 		{
-			item.setImage(stream(data4), "text/html");
+			item.setImage(stream(bytes4), "text/html");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -142,7 +142,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("text/html", e.getContentType());
 			assertEquals("illegal content type 'text/html' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertContent(data6, "image/jpeg", ".jpg");
+			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
 		item.setImage((InputStream)null, null);

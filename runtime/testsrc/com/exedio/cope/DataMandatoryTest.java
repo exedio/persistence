@@ -41,7 +41,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataMandatoryItem(toValue(data4)));
+		item = deleteOnTearDown(new DataMandatoryItem(toValue(bytes4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException
@@ -51,10 +51,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 		assertEquals(true, data.isMandatory());
 
 		// test persistence
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
-		item.setData(data6);
-		assertData(data6, item.getDataArray());
+		item.setData(bytes6);
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{
@@ -66,10 +66,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getDataArray());
+		assertData(bytes6, item.getDataArray());
 
-		item.setData(stream(data4));
-		assertData(data4, item.getDataArray());
+		item.setData(stream(bytes4));
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
@@ -81,10 +81,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
-		item.setData(file(data6));
-		assertData(data6, item.getDataArray());
+		item.setData(file(bytes6));
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{
@@ -96,7 +96,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getDataArray());
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{

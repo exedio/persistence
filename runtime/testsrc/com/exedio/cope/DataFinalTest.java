@@ -38,7 +38,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataFinalItem(toValue(data4)));
+		item = deleteOnTearDown(new DataFinalItem(toValue(bytes4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException
@@ -48,11 +48,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 		assertEquals(false, data.isMandatory());
 
 		// test persistence
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, data6);
+			data.set(item, bytes6);
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -60,11 +60,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			item.set(data.map(data6));
+			item.set(data.map(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -72,11 +72,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, stream(data6));
+			data.set(item, stream(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -84,11 +84,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, file(data6));
+			data.set(item, file(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -96,6 +96,6 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 	}
 }

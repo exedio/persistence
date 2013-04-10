@@ -96,17 +96,17 @@ public class MediaFixedTest extends AbstractRuntimeTest
 
 		assertNull();
 
-		item.setPhoto(stream(data4), "image/jpeg");
+		item.setPhoto(stream(bytes4), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data4);
+		assertContent(bytes4);
 
-		item.setPhoto(stream(data6), "image/jpeg");
+		item.setPhoto(stream(bytes6), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data6);
+		assertContent(bytes6);
 
 		try
 		{
-			item.setPhoto(stream(data4), "illegalContentType");
+			item.setPhoto(stream(bytes4), "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -116,12 +116,12 @@ public class MediaFixedTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertContent(data6);
+			assertContent(bytes6);
 		}
 
 		try
 		{
-			item.setPhoto(stream(data4), "image/png");
+			item.setPhoto(stream(bytes4), "image/png");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -131,7 +131,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("image/png", e.getContentType());
 			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertContent(data6);
+			assertContent(bytes6);
 		}
 
 		item.setPhoto((InputStream)null, null);

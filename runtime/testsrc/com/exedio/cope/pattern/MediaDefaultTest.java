@@ -53,7 +53,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 	public void testIt() throws IOException
 	{
 		{
-			final DataField.Value dataValue = DataField.toValue(data8);
+			final DataField.Value dataValue = DataField.toValue(bytes8);
 			assertSame(dataValue, Media.toValue(dataValue, "zack").getBody());
 			assertSame("zack",    Media.toValue(dataValue, "zack").getContentType());
 		}
@@ -123,23 +123,23 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertContains(item.TYPE.search(item.file.isNotNull()));
 		{
 			final Date before = new Date();
-			item.setFile(stream(data4), "file-major/file-minor");
+			item.setFile(stream(bytes4), "file-major/file-minor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertContent(data4, before, after, "file-major/file-minor", "");
+			assertContent(bytes4, before, after, "file-major/file-minor", "");
 		}
 		assertContains(item.TYPE.search(item.file.isNull()));
 		assertContains(item, item.TYPE.search(item.file.isNotNull()));
 		{
 			final Date before = new Date();
-			item.setFile(stream(data6), "file-major2/file-minor2");
+			item.setFile(stream(bytes6), "file-major2/file-minor2");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertContent(data6, before, after, "file-major2/file-minor2", "");
+			assertContent(bytes6, before, after, "file-major2/file-minor2", "");
 
 			try
 			{
-				item.setFile(stream(data4), "illegalContentType");
+				item.setFile(stream(bytes4), "illegalContentType");
 				fail();
 			}
 			catch(final IllegalContentTypeException e)
@@ -149,7 +149,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(item, e.getItem());
 				assertEquals("illegalContentType", e.getContentType());
 				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
-				assertContent(data6, before, after, "file-major2/file-minor2", "");
+				assertContent(bytes6, before, after, "file-major2/file-minor2", "");
 			}
 		}
 		assertExtension("image/jpeg", ".jpg");
@@ -163,48 +163,48 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		if(!oracle)
 		{
 			final Date before = new Date();
-			item.setFile(stream(data0), "empty-major/empty-minor");
+			item.setFile(stream(bytes0), "empty-major/empty-minor");
 			final Date after = new Date();
 			assertStreamClosed();
-			assertContent(data0, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes0, before, after, "empty-major/empty-minor", "");
 		}
 		item.setFile((InputStream)null, null);
 		assertNull();
 		{
 			final Date before = new Date();
-			item.setFile(file(data8), "empty-major/empty-minor");
+			item.setFile(file(bytes8), "empty-major/empty-minor");
 			final Date after = new Date();
-			assertContent(data8, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
 		}
 		item.setFile((File)null, null);
 		assertNull();
 		{
 			final Date before = new Date();
-			item.setFile(data8, "empty-major/empty-minor");
+			item.setFile(bytes8, "empty-major/empty-minor");
 			final Date after = new Date();
-			assertContent(data8, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
 		}
 		item.setFile((byte[])null, null);
 		assertNull();
 		{
 			final Date before = new Date();
-			item.setFile(Media.toValue(data8, "empty-major/empty-minor"));
+			item.setFile(Media.toValue(bytes8, "empty-major/empty-minor"));
 			final Date after = new Date();
-			assertContent(data8, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
 		}
 		item.setFile((Media.Value)null);
 		assertNull();
 		{
 			// test length violation
 			final Date before = new Date();
-			item.setFile(data20, "empty-major/empty-minor");
+			item.setFile(bytes20, "empty-major/empty-minor");
 			final Date after = new Date();
-			assertContent(data20, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
 
 			// byte[]
 			try
 			{
-				item.setFile(data21, "empty-major-long/empty-minor-long");
+				item.setFile(bytes21, "empty-major-long/empty-minor-long");
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -216,10 +216,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
-			assertContent(data20, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
 			try
 			{
-				new MediaItem(Media.toValue(data21, "empty-major-long/empty-minor-long"));
+				new MediaItem(Media.toValue(bytes21, "empty-major-long/empty-minor-long"));
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -235,7 +235,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			// file
 			try
 			{
-				item.setFile(file(data21), "empty-major-long/empty-minor-long");
+				item.setFile(file(bytes21), "empty-major-long/empty-minor-long");
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -247,10 +247,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
-			assertContent(data20, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
 			try
 			{
-				new MediaItem(Media.toValue(file(data21), "empty-major-long/empty-minor-long"));
+				new MediaItem(Media.toValue(file(bytes21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -266,7 +266,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			// stream
 			try
 			{
-				item.setFile(stream(data21), "empty-major-long/empty-minor-long");
+				item.setFile(stream(bytes21), "empty-major-long/empty-minor-long");
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -282,7 +282,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			//assertContent(data20, before, after, "empty-major-long/empty-minor-long", ".empty-major-long.empty-minor-long"); TODO
 			try
 			{
-				new MediaItem(Media.toValue(stream(data21), "empty-major-long/empty-minor-long"));
+				new MediaItem(Media.toValue(stream(bytes21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -343,9 +343,9 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		throws IOException
 	{
 		final Date before = new Date();
-		item.setFile(stream(data6), contentType);
+		item.setFile(stream(bytes6), contentType);
 		final Date after = new Date();
 		assertStreamClosed();
-		assertContent(data6, before, after, contentType, extension);
+		assertContent(bytes6, before, after, contentType, extension);
 	}
 }

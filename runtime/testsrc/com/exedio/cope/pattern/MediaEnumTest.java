@@ -105,17 +105,17 @@ public class MediaEnumTest extends AbstractRuntimeTest
 
 		assertNull();
 
-		item.setSheet(stream(data4), "application/pdf");
+		item.setSheet(stream(bytes4), "application/pdf");
 		assertStreamClosed();
-		assertContent(data4, "application/pdf", 0, ".pdf");
+		assertContent(bytes4, "application/pdf", 0, ".pdf");
 
-		item.setSheet(stream(data6), "image/png");
+		item.setSheet(stream(bytes6), "image/png");
 		assertStreamClosed();
-		assertContent(data6, "image/png", 1, ".png");
+		assertContent(bytes6, "image/png", 1, ".png");
 
 		try
 		{
-			item.setSheet(stream(data4), "illegalContentType");
+			item.setSheet(stream(bytes4), "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -125,12 +125,12 @@ public class MediaEnumTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
-			assertContent(data6, "image/png", 1, ".png");
+			assertContent(bytes6, "image/png", 1, ".png");
 		}
 
 		try
 		{
-			item.setSheet(stream(data4), "image/jpeg");
+			item.setSheet(stream(bytes4), "image/jpeg");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -140,7 +140,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 			assertEquals(item, e.getItem());
 			assertEquals("image/jpeg", e.getContentType());
 			assertEquals("illegal content type 'image/jpeg' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
-			assertContent(data6, "image/png", 1, ".png");
+			assertContent(bytes6, "image/png", 1, ".png");
 		}
 
 		item.setSheet((InputStream)null, null);
