@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.DataMandatoryItem.TYPE;
+import static com.exedio.cope.DataMandatoryItem.data;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +28,7 @@ import java.io.InputStream;
 
 public class DataMandatoryTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(DataMandatoryItem.TYPE);
-	private static final DataField data = DataMandatoryItem.data;
+	private static final Model MODEL = new Model(TYPE);
 
 	public DataMandatoryTest()
 	{
@@ -107,7 +108,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
@@ -119,6 +120,6 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 	}
 }
