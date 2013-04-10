@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someItem;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullItem;
+
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -30,29 +34,29 @@ public class FieldItemTest extends FieldTest
 {
 	public void testSomeItem()
 	{
-		assertEquals(item.TYPE, item.someItem.getType());
-		assertEquals(EmptyItem.TYPE, item.someItem.getValueType());
-		assertEquals(EmptyItem.class, item.someItem.getValueClass());
-		assertEquals(DeletePolicy.FORBID, item.someItem.getDeletePolicy());
+		assertEquals(TYPE, someItem.getType());
+		assertEquals(EmptyItem.TYPE, someItem.getValueType());
+		assertEquals(EmptyItem.class, someItem.getValueClass());
+		assertEquals(DeletePolicy.FORBID, someItem.getDeletePolicy());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getReferences());
-		assertSerializedSame(item.someItem, 377);
+		assertSerializedSame(someItem, 377);
 
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(emptyItem);
 		assertEquals(emptyItem, item.getSomeItem());
 
 		assertContains(item,
-				item.TYPE.search(item.someItem.equal(emptyItem)));
+				TYPE.search(someItem.equal(emptyItem)));
 		assertContains(item2,
-				item.TYPE.search(item.someItem.equal((EmptyItem)null)));
+				TYPE.search(someItem.equal((EmptyItem)null)));
 		assertContains(
-				item.TYPE.search(item.someItem.notEqual(emptyItem)));
+				TYPE.search(someItem.notEqual(emptyItem)));
 		assertContains(item,
-				item.TYPE.search(item.someItem.notEqual((EmptyItem)null)));
+				TYPE.search(someItem.notEqual((EmptyItem)null)));
 
-		assertContains(emptyItem, null, search(item.someItem));
-		assertContains(emptyItem, search(item.someItem, item.someItem.equal(emptyItem)));
+		assertContains(emptyItem, null, search(someItem));
+		assertContains(emptyItem, search(someItem, someItem.equal(emptyItem)));
 
 		restartTransaction();
 		assertEquals(emptyItem, item.getSomeItem());
@@ -65,34 +69,34 @@ public class FieldItemTest extends FieldTest
 	{
 		try
 		{
-			item.set((FunctionField)item.someItem, Integer.valueOf(10));
+			item.set((FunctionField)someItem, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someItem + '.', e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + Integer.class.getName() + " for " + someItem + '.', e.getMessage());
 		}
 
 		final EmptyItem2 wrongItem = deleteOnTearDown(new EmptyItem2());
 		try
 		{
-			item.set((FunctionField)item.someItem, wrongItem);
+			item.set((FunctionField)someItem, wrongItem);
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + item.someItem + '.', e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.class.getName() + " for " + someItem + '.', e.getMessage());
 		}
 	}
 
 	public void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{
-		assertEquals(item.TYPE, item.someNotNullItem.getType());
+		assertEquals(TYPE, someNotNullItem.getType());
 		assertEquals(
 			EmptyItem.TYPE,
-			item.someNotNullItem.getValueType());
-		assertEquals(DeletePolicy.FORBID, item.someNotNullItem.getDeletePolicy());
+			someNotNullItem.getValueType());
+		assertEquals(DeletePolicy.FORBID, someNotNullItem.getDeletePolicy());
 		assertEquals(emptyItem, item.getSomeNotNullItem());
 
 		item.setSomeNotNullItem(emptyItem2);
@@ -108,12 +112,12 @@ public class FieldItemTest extends FieldTest
 		catch (final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for " + item.someNotNullItem, e.getMessage());
+			assertEquals(someNotNullItem, e.getFeature());
+			assertEquals(someNotNullItem, e.getFeature());
+			assertEquals("mandatory violation on " + item + " for " + someNotNullItem, e.getMessage());
 		}
 		assertEquals(emptyItem2, item.getSomeNotNullItem());
-		assertDeleteFails(emptyItem2, item.someNotNullItem);
+		assertDeleteFails(emptyItem2, someNotNullItem);
 
 		try
 		{
@@ -123,9 +127,9 @@ public class FieldItemTest extends FieldTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals(item.someNotNullItem, e.getFeature());
-			assertEquals("mandatory violation for " + item.someNotNullItem, e.getMessage());
+			assertEquals(someNotNullItem, e.getFeature());
+			assertEquals(someNotNullItem, e.getFeature());
+			assertEquals("mandatory violation for " + someNotNullItem, e.getMessage());
 		}
 	}
 
