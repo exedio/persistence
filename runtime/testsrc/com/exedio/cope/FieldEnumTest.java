@@ -190,7 +190,7 @@ public class FieldEnumTest extends FieldTest
 
 		try
 		{
-			new AttributeItem("someString", 5, 6l, 2.2, true, someItem, null);
+			new AttributeItem("someString", 5, 6l, 2.2, true, emptyItem, null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

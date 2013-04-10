@@ -39,23 +39,23 @@ public class FieldItemTest extends FieldTest
 		assertSerializedSame(item.someItem, 377);
 
 		assertEquals(null, item.getSomeItem());
-		item.setSomeItem(someItem);
-		assertEquals(someItem, item.getSomeItem());
+		item.setSomeItem(emptyItem);
+		assertEquals(emptyItem, item.getSomeItem());
 
 		assertContains(item,
-				item.TYPE.search(item.someItem.equal(someItem)));
+				item.TYPE.search(item.someItem.equal(emptyItem)));
 		assertContains(item2,
 				item.TYPE.search(item.someItem.equal((EmptyItem)null)));
 		assertContains(
-				item.TYPE.search(item.someItem.notEqual(someItem)));
+				item.TYPE.search(item.someItem.notEqual(emptyItem)));
 		assertContains(item,
 				item.TYPE.search(item.someItem.notEqual((EmptyItem)null)));
 
-		assertContains(someItem, null, search(item.someItem));
-		assertContains(someItem, search(item.someItem, item.someItem.equal(someItem)));
+		assertContains(emptyItem, null, search(item.someItem));
+		assertContains(emptyItem, search(item.someItem, item.someItem.equal(emptyItem)));
 
 		restartTransaction();
-		assertEquals(someItem, item.getSomeItem());
+		assertEquals(emptyItem, item.getSomeItem());
 		item.setSomeItem(null);
 		assertEquals(null, item.getSomeItem());
 	}
@@ -93,13 +93,13 @@ public class FieldItemTest extends FieldTest
 			EmptyItem.TYPE,
 			item.someNotNullItem.getValueType());
 		assertEquals(DeletePolicy.FORBID, item.someNotNullItem.getDeletePolicy());
-		assertEquals(someItem, item.getSomeNotNullItem());
+		assertEquals(emptyItem, item.getSomeNotNullItem());
 
-		item.setSomeNotNullItem(someItem2);
-		assertEquals(someItem2, item.getSomeNotNullItem());
+		item.setSomeNotNullItem(emptyItem2);
+		assertEquals(emptyItem2, item.getSomeNotNullItem());
 
 		restartTransaction();
-		assertEquals(someItem2, item.getSomeNotNullItem());
+		assertEquals(emptyItem2, item.getSomeNotNullItem());
 		try
 		{
 			item.setSomeNotNullItem(null);
@@ -112,8 +112,8 @@ public class FieldItemTest extends FieldTest
 			assertEquals(item.someNotNullItem, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for " + item.someNotNullItem, e.getMessage());
 		}
-		assertEquals(someItem2, item.getSomeNotNullItem());
-		assertDeleteFails(someItem2, item.someNotNullItem);
+		assertEquals(emptyItem2, item.getSomeNotNullItem());
+		assertDeleteFails(emptyItem2, item.someNotNullItem);
 
 		try
 		{
