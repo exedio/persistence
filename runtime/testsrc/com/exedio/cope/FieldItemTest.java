@@ -140,7 +140,7 @@ public class FieldItemTest extends FieldTest
 		final PointerItem source = deleteOnTearDown(new PointerItem("source", pointer2));
 		source.setEmpty2(target);
 
-		assertDeleteFails(target, source.empty2);
+		assertDeleteFails(target, PointerItem.empty2);
 	}
 
 }
