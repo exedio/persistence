@@ -35,7 +35,7 @@ public final class MinusDoubleItem extends Item
 
 	public MinusDoubleItem(final double initialNumA, final double initialNumB, final double initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),

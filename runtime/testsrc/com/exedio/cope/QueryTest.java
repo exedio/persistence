@@ -76,7 +76,7 @@ public class QueryTest extends AbstractRuntimeTest
 
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -85,7 +85,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -98,7 +98,7 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			newQuery(new Selectable[]{DayItem.day}, DayItem.TYPE, null);
+			newQuery(new Selectable<?>[]{DayItem.day}, DayItem.TYPE, null);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -106,12 +106,12 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
 
-		final Query<List<Object>> q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
-		q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+		final Query<List<Object>> q = newQuery(new Selectable<?>[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
 
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -348,7 +348,7 @@ public class QueryTest extends AbstractRuntimeTest
 			item1, item2a, item2b, item3,
 			DayItem.TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
 		assertEquals("select day,day from DayItem", query.toString());
 
 		query.setGroupBy( DayItem.day );

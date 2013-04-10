@@ -154,7 +154,7 @@ public class StringTest extends AbstractRuntimeTest
 		assertEquals(numberOfItems, item.TYPE.search(null).size());
 		try
 		{
-			new StringItem(new SetValue[]{});
+			new StringItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)

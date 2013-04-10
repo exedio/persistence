@@ -42,7 +42,7 @@ public class ItemTest extends TestmodelTest
 	{
 		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
-		final Type<?>[] modelTypes = new Type[]{
+		final Type<?>[] modelTypes = new Type<?>[]{
 				EmptyItem.TYPE,
 				EmptyItem2.TYPE,
 				AttributeItem.TYPE,

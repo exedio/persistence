@@ -95,7 +95,7 @@ public class LongTest extends AbstractRuntimeTest
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new LongItem(new SetValue[]{});
+			new LongItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)

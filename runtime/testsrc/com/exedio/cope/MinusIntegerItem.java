@@ -35,7 +35,7 @@ public final class MinusIntegerItem extends Item
 
 	public MinusIntegerItem(final int initialNumA, final int initialNumB, final int initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),

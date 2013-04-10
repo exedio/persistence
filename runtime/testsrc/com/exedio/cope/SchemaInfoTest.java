@@ -136,7 +136,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		}
 
 		assertCacheInfo(
-			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
-			new int []{5, 1, 1, 1});
+			new Type<?>[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
+			new int    []{5, 1, 1, 1});
 	}
 }

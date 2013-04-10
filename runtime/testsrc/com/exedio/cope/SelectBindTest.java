@@ -47,7 +47,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		{
-			final Query<List<Object>> q = newQuery(new Function[]{string, intx}, TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
 			final Join j = q.join(TYPE);
 			j.setCondition(string.bind(j).greater(string));
 			q.setOrderBy(string, false);
@@ -63,9 +63,9 @@ public class SelectBindTest extends AbstractRuntimeTest
 			assertEqualsUnmodifiable(list("string1", 1), i.next());
 		}
 		{
-			final Query<List<Object>> q = newQuery(new Function[]{string, intx}, TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
 			final Join j = q.join(TYPE); j.setCondition(string.bind(j).greater(string));
-			q.setSelects(new Function[]{string, intx, string.bind(j), intx.bind(j)});
+			q.setSelects(new Function<?>[]{string, intx, string.bind(j), intx.bind(j)});
 			q.setOrderBy(string, false);
 			assertEquals(
 					"select string,intx,c1.string,c1.intx from CompareConditionItem " +
@@ -79,10 +79,10 @@ public class SelectBindTest extends AbstractRuntimeTest
 			assertEqualsUnmodifiable(list("string1", 1, "string2", 2), i.next());
 		}
 		{
-			final Query<List<Object>> q = newQuery(new Function[]{string, intx}, TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
 			final Join j1 = q.join(TYPE); j1.setCondition(string.bind(j1).greater(string));
 			final Join j2 = q.join(TYPE); j2.setCondition(string.bind(j2).greater(string));
-			q.setSelects(new Function[]{string, intx, string.bind(j1), intx.bind(j1), string.bind(j2), intx.bind(j2)});
+			q.setSelects(new Function<?>[]{string, intx, string.bind(j1), intx.bind(j1), string.bind(j2), intx.bind(j2)});
 			q.setOrderBy(string, false);
 			assertEquals(
 					"select string,intx,c1.string,c1.intx,c2.string,c2.intx from CompareConditionItem " +
@@ -97,7 +97,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			assertEqualsUnmodifiable(list("string1", 1, "string2", 2, "string2", 2), i.next());
 		}
 		{
-			final Query<List<Object>> q = newQuery(new Function[]{string, intx}, TYPE, null);
+			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
 			try
 			{
 				q.setSelects((Selectable[])null);

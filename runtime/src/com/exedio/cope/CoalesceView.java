@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CoalesceView<E> extends View<E>
 {
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E literal)
 	{
 		if(literal==null)
@@ -31,7 +31,7 @@ public final class CoalesceView<E> extends View<E>
 		return new CoalesceView<E>(new Function[]{parameter1}, literal);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E literal)
 	{
 		if(literal==null)
@@ -40,7 +40,7 @@ public final class CoalesceView<E> extends View<E>
 		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, literal);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2)
 	{
 		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, null);

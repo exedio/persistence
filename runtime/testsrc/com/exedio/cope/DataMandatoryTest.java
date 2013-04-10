@@ -111,7 +111,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 
 		try
 		{
-			new DataMandatoryItem(new SetValue[0]);
+			new DataMandatoryItem(new SetValue<?>[0]);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

@@ -35,7 +35,7 @@ public final class MinusLongItem extends Item
 
 	public MinusLongItem(final long initialNumA, final long initialNumB, final long initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),

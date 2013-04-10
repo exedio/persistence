@@ -76,7 +76,7 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	public void testDistinctMulti()
 	{
-		final Query<List<Object>> q = newQuery(new Function[]{numA, numB}, TYPE, null);
+		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numB}, TYPE, null);
 		assertContains(
 				list(1, 2),
 				list(1, 3),
@@ -177,7 +177,7 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	public void testDistinctDuplicateColumns()
 	{
-		final Query<List<Object>> q = newQuery(new Function[]{numA, numA}, TYPE, null);
+		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numA}, TYPE, null);
 		assertContains(
 				list(1, 1),
 				list(1, 1),

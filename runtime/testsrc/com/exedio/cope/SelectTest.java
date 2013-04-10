@@ -68,7 +68,7 @@ public class SelectTest extends TestmodelTest
 	public void testSelect()
 	{
 		final Query<List<Object>> query = newQuery(
-				new Function[]{
+				new Function<?>[]{
 						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
 						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
 						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnum},

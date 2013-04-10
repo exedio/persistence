@@ -45,7 +45,7 @@ public final class PlusLongItem extends Item
 
 	public PlusLongItem(final long initialNumA, final long initialNumB, final long initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),

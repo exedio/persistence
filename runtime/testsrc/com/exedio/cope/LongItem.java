@@ -45,7 +45,7 @@ public final class LongItem extends Item
 	 */
 	LongItem(final Long max4, final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(7777777l),
 			LongItem.max4.map(max4),
 		});

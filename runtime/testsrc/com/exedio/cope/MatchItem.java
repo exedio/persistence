@@ -26,7 +26,7 @@ final class MatchItem extends Item
 
 	MatchItem(final String text)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 				MatchItem.text.map(text),
 		});
 	}

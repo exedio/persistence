@@ -64,7 +64,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertCondition(itema, itemb1, itemc1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE));
 		assertCondition(itema, itemb1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE));
 		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(itema.TYPE));
-		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(new Type<?>[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
 		assertCondition(itemc1, itema.TYPE, itema.TYPE.getThis().instanceOf(itemc1.TYPE));
 
 		assertCondition(reffa, reffb1, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemc1.TYPE));
@@ -73,7 +73,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertCondition(reffa, reffb1, reffc1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE));
 		assertCondition(reffa, reffb1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE));
 		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(itema.TYPE));
-		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
+		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type<?>[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
 		assertCondition(reffc1, reffa.TYPE, reffa.ref.instanceOf(itemc1.TYPE));
 
 		model.checkTypeColumns();
@@ -141,7 +141,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			itema.TYPE.getThis().instanceOf(new Type[]{});
+			itema.TYPE.getThis().instanceOf(new Type<?>[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)

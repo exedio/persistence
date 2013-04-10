@@ -27,7 +27,7 @@ final class PrimaryKeyItem extends Item
 			final String field,
 			final int next)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			PrimaryKeyItem.field.map(field),
 			PrimaryKeyItem.next.map(next),
 		});

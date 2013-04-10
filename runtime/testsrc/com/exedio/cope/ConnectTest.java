@@ -84,7 +84,7 @@ public class ConnectTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Model(new Type[]{});
+			new Model(new Type<?>[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -35,7 +35,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		final PolymorphicBoundSelectSubItem subItem = deleteOnTearDown(new PolymorphicBoundSelectSubItem(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
-			new Selectable[]{PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent},
+			new Selectable<?>[]{PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent},
 			PolymorphicBoundSelectSubItem.TYPE,
 			null
 		);
@@ -52,7 +52,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PolymorphicBoundSelectSubItem(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
-			new Selectable[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSubItem.parent},
+			new Selectable<?>[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSubItem.parent},
 			PolymorphicBoundSelectSuperItem.TYPE,
 			null
 		);

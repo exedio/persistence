@@ -22,13 +22,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
-	@SuppressWarnings("unchecked") // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2)
 	{
 		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2});
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2, final Function<E> multiplier3)
 	{
 		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2, multiplier3});

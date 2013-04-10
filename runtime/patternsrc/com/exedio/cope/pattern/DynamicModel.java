@@ -111,7 +111,7 @@ public final class DynamicModel<L> extends Pattern
 		return MapField.create(localeTemplate.copy(), new StringField());
 	}
 
-	@SuppressWarnings({"unchecked", "static-method"})
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // OK: no generic arrays
 	private ItemField<Enum<L>>[] newItemField(final int length)
 	{
 		return new ItemField[length];

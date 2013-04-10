@@ -45,7 +45,7 @@ public final class PlusIntegerItem extends Item
 
 	public PlusIntegerItem(final int initialNumA, final int initialNumB, final int initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),
@@ -54,7 +54,7 @@ public final class PlusIntegerItem extends Item
 
 	public PlusIntegerItem(final Integer initialNumA, final Integer initialNumB, final Integer initialNumC)
 	{
-		super(new SetValue[]{
+		super(new SetValue<?>[]{
 			numA.map(initialNumA),
 			numB.map(initialNumB),
 			numC.map(initialNumC),

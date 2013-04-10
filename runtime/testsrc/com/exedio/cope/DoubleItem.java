@@ -35,7 +35,7 @@ public final class DoubleItem extends Item
 
 	DoubleItem(final Double mandatory) throws StringLengthViolationException, MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(mandatory),
 		});
 	}
@@ -45,7 +45,7 @@ public final class DoubleItem extends Item
 	 */
 	DoubleItem(final Double max4, final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(7777777.77),
 			DoubleItem.max4.map(max4),
 		});

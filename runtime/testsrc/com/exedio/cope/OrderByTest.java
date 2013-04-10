@@ -68,7 +68,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(list(item1.someBoolean, item.TYPE.getThis()), q.getOrderByFunctions());
 			assertEquals(list(false, true), q.getOrderByAscending());
 
-			q.setOrderBy(new Function[]{item1.someString, item1.someDate}, new boolean[]{false, true});
+			q.setOrderBy(new Function<?>[]{item1.someString, item1.someDate}, new boolean[]{false, true});
 			assertEquals(list(item1.someString, item1.someDate), q.getOrderByFunctions());
 			assertEquals(list(false, true), q.getOrderByAscending());
 
@@ -119,21 +119,21 @@ public class OrderByTest extends TestmodelTest
 		// order with multiple functions
 		{
 			final Query<AttributeItem> query = item1.TYPE.newQuery(null);
-			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
+			query.setOrderBy(new Function<?>[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true, true});
 			assertEquals(list(item5, item4, item3, item1, item2), query.search());
 			assertEquals("select this from AttributeItem order by " + item1.someNotNullBoolean.getName() + ", " + item.someNotNullInteger.getName(), query.toString());
 
-			query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{false, true});
+			query.setOrderBy(new Function<?>[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{false, true});
 			assertEquals(list(item1, item2, item5, item4, item3), query.search());
 			assertEquals("select this from AttributeItem order by " + item1.someNotNullBoolean.getName() + " desc, " + item.someNotNullInteger.getName(), query.toString());
 
-			query.setOrderBy(new Function[]{item1.someNotNullEnum,item1.someNotNullString}, new boolean[]{true, true});
+			query.setOrderBy(new Function<?>[]{item1.someNotNullEnum,item1.someNotNullString}, new boolean[]{true, true});
 			assertEquals(list(item1, item4, item2, item5, item3), query.search());
 
 			// bad queries
 			try
 			{
-				query.setOrderBy(new Function[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true});
+				query.setOrderBy(new Function<?>[]{item1.someNotNullBoolean,item1.someNotNullInteger}, new boolean[]{true});
 				fail();
 			}
 			catch(final IllegalArgumentException e)
@@ -142,7 +142,7 @@ public class OrderByTest extends TestmodelTest
 			}
 			try
 			{
-				query.setOrderBy(new Function[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
+				query.setOrderBy(new Function<?>[]{item1.someNotNullBoolean,null}, new boolean[]{true, true});
 				fail();
 			}
 			catch(final NullPointerException e)

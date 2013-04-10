@@ -45,7 +45,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			item1, item2a, item2b, item3,
 			GroupItem.TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable[]{GroupItem.day, GroupItem.number.sum()}, GroupItem.TYPE, Condition.TRUE );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{GroupItem.day, GroupItem.number.sum()}, GroupItem.TYPE, Condition.TRUE );
 		assertEquals( "select day,sum(number) from GroupItem", query.toString() );
 		query.setGroupBy( GroupItem.day );
 		assertEquals( "select day,sum(number) from GroupItem group by day", query.toString() );
@@ -130,7 +130,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		}
 		deleteOnTearDown( new GroupItem(day1, 1) );
 		deleteOnTearDown( new GroupItem(day2, 2) );
-		final Query<?> query = Query.newQuery( new Selectable[]{GroupItem.day, GroupItem.number}, GroupItem.TYPE, Condition.TRUE );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{GroupItem.day, GroupItem.number}, GroupItem.TYPE, Condition.TRUE );
 		query.setGroupBy( GroupItem.number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
 		try
@@ -192,7 +192,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		deleteOnTearDown( new GroupItem(day2, 3) );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable[]{GroupItem.day, GroupItem.day}, GroupItem.TYPE, Condition.TRUE
+			new Selectable<?>[]{GroupItem.day, GroupItem.day}, GroupItem.TYPE, Condition.TRUE
 		);
 		final Join join = query.join( GroupItem.TYPE );
 		join.setCondition( GroupItem.day.bind(join).equal(GroupItem.day) );
@@ -219,7 +219,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		deleteOnTearDown( new GroupItem(day2, 3) );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable[]{GroupItem.optionalDouble, GroupItem.number.sum(), new Count()}, GroupItem.TYPE, Condition.TRUE
+			new Selectable<?>[]{GroupItem.optionalDouble, GroupItem.number.sum(), new Count()}, GroupItem.TYPE, Condition.TRUE
 		);
 		query.setGroupBy( GroupItem.optionalDouble );
 		query.setOrderBy( GroupItem.optionalDouble, true );

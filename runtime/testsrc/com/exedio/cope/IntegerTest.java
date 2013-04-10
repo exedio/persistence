@@ -95,7 +95,7 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new IntegerItem(new SetValue[]{});
+			new IntegerItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)

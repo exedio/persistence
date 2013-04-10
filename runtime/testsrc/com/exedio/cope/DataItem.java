@@ -28,14 +28,14 @@ class DataItem extends Item
 
 	DataItem(final byte[] data)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 				DataItem.data.map(data),
 		});
 	}
 
 	DataItem(final byte[] data, final byte[] data10)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 				DataItem.data.map(data),
 				DataItem.data10.map(data10),
 		});
