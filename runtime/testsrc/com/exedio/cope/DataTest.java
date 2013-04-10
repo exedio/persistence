@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataItem.data;
+import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.ByteArrayInputStream;
@@ -163,22 +165,22 @@ public class DataTest extends AbstractRuntimeTest
 		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
 		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
 
-		assertEquals(item.TYPE, item.data.getType());
-		assertEquals("data", item.data.getName());
-		assertEquals(false, item.data.isMandatory());
-		assertEquals(null, item.data.getPattern());
-		assertEquals(item.data.DEFAULT_LENGTH, item.data.getMaximumLength());
-		assertEquals(DataField.Value.class, item.data.getValueClass());
+		assertEquals(item.TYPE, data.getType());
+		assertEquals("data", data.getName());
+		assertEquals(false, data.isMandatory());
+		assertEquals(null, data.getPattern());
+		assertEquals(data.DEFAULT_LENGTH, data.getMaximumLength());
+		assertEquals(DataField.Value.class, data.getValueClass());
 
-		assertEquals(item.TYPE, item.data10.getType());
-		assertEquals("data10", item.data10.getName());
-		assertEquals(false, item.data10.isMandatory());
-		assertEquals(null, item.data10.getPattern());
-		assertEquals(10, item.data10.getMaximumLength());
-		assertEquals(DataField.Value.class, item.data10.getValueClass());
+		assertEquals(item.TYPE, data10.getType());
+		assertEquals("data10", data10.getName());
+		assertEquals(false, data10.isMandatory());
+		assertEquals(null, data10.getPattern());
+		assertEquals(10, data10.getMaximumLength());
+		assertEquals(DataField.Value.class, data10.getValueClass());
 
-		assertSerializedSame(item.data  , 362);
-		assertSerializedSame(item.data10, 364);
+		assertSerializedSame(data  , 362);
+		assertSerializedSame(data10, 364);
 
 		try
 		{
@@ -200,12 +202,12 @@ public class DataTest extends AbstractRuntimeTest
 		}
 
 		// condition startsWith
-		assertEquals(item.data.startsWith(bytes4), item.data.startsWith(bytes4));
-		assertEquals(item.data.startsWith(bytes4).hashCode(), item.data.startsWith(bytes4).hashCode());
-		assertNotEquals(item.data.startsWith(bytes4), item.data.startsWith(bytes6));
-		assertNotEquals(item.data.startsWith(bytes4), item.data.startsWith(bytes6x4));
-		assertNotEquals(item.data.startsWith(bytes4), item.data10.startsWith(bytes4));
-		assertEquals("DataItem.data startsWith 'aa7af817'", item.data.startsWith(bytes4).toString());
+		assertEquals(data.startsWith(bytes4), data.startsWith(bytes4));
+		assertEquals(data.startsWith(bytes4).hashCode(), data.startsWith(bytes4).hashCode());
+		assertNotEquals(data.startsWith(bytes4), data.startsWith(bytes6));
+		assertNotEquals(data.startsWith(bytes4), data.startsWith(bytes6x4));
+		assertNotEquals(data.startsWith(bytes4), data10.startsWith(bytes4));
+		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
 		try
 		{
 			new StartsWithCondition(null, null);
@@ -217,7 +219,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new StartsWithCondition(item.data, null);
+			new StartsWithCondition(data, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -226,7 +228,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.data.startsWith(null);
+			data.startsWith(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -236,7 +238,7 @@ public class DataTest extends AbstractRuntimeTest
 		// TODO treat as to isNotNull
 		try
 		{
-			item.data.startsWith(bytes0);
+			data.startsWith(bytes0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -246,28 +248,28 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
-		assertCondition(item.TYPE, item.data.startsWith(bytes4));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6x4));
+		assertCondition(item.TYPE, data.startsWith(bytes4));
+		assertCondition(item.TYPE, data.startsWith(bytes6));
+		assertCondition(item.TYPE, data.startsWith(bytes6x4));
 
 		// set byte[]
 		item.setData(bytes4);
 		assertIt(bytes4);
-		assertCondition(item, item.TYPE, item.data.startsWith(bytes4));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6x4));
+		assertCondition(item, item.TYPE, data.startsWith(bytes4));
+		assertCondition(item.TYPE, data.startsWith(bytes6));
+		assertCondition(item.TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes6);
 		assertIt(bytes6);
-		assertCondition(item.TYPE, item.data.startsWith(bytes4));
-		assertCondition(item, item.TYPE, item.data.startsWith(bytes6));
-		assertCondition(item, item.TYPE, item.data.startsWith(bytes6x4));
+		assertCondition(item.TYPE, data.startsWith(bytes4));
+		assertCondition(item, item.TYPE, data.startsWith(bytes6));
+		assertCondition(item, item.TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes0);
 		assertIt(bytes0);
-		assertCondition(item.TYPE, item.data.startsWith(bytes4));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6));
-		assertCondition(item.TYPE, item.data.startsWith(bytes6x4));
+		assertCondition(item.TYPE, data.startsWith(bytes4));
+		assertCondition(item.TYPE, data.startsWith(bytes6));
+		assertCondition(item.TYPE, data.startsWith(bytes6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);
@@ -353,11 +355,11 @@ public class DataTest extends AbstractRuntimeTest
 		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(item.data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 		try
@@ -368,11 +370,11 @@ public class DataTest extends AbstractRuntimeTest
 		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(item.data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
-			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + item.data10, e.getMessage());
+			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + data10, e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 		try
@@ -383,11 +385,11 @@ public class DataTest extends AbstractRuntimeTest
 		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(item.data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 
@@ -446,11 +448,11 @@ public class DataTest extends AbstractRuntimeTest
 		catch(final DataLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(item.data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + item.data10, e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 
@@ -462,11 +464,11 @@ public class DataTest extends AbstractRuntimeTest
 		catch(final DataLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.data10, e.getFeature());
-			assertEquals(item.data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation, 11 bytes is too long for " + item.data10, e.getMessage());
+			assertEquals("length violation, 11 bytes is too long for " + data10, e.getMessage());
 		}
 		item.set(
 				DataItem.data.mapNull(),
@@ -479,7 +481,7 @@ public class DataTest extends AbstractRuntimeTest
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
-		item.data.set(item, bytes8);
+		data.set(item, bytes8);
 		assertData(bytes8, item.getDataArray());
 		try
 		{
@@ -490,7 +492,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + item.data + '.', e.getMessage());
+			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + data + '.', e.getMessage());
 		}
 		assertData(bytes8, item.getDataArray());
 
@@ -503,7 +505,7 @@ public class DataTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + item.data + '.', e.getMessage());
+			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + data + '.', e.getMessage());
 		}
 		assertData(bytes8, item.getDataArray());
 	}
