@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.HashItem.internal;
+
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -57,8 +59,8 @@ public class HashTest extends AbstractRuntimeTest
 				item.explicitExternal,
 				item.implicitExternal,
 				item.implicitExternal.getStorage(),
-				item.internal,
-				item.internal.getStorage(),
+				internal,
+				internal.getStorage(),
 				item.withCorruptValidator,
 				item.withCorruptValidator.getStorage(),
 				item.with3PinValidator,
@@ -126,44 +128,44 @@ public class HashTest extends AbstractRuntimeTest
 
 	public void testInternal()
 	{
-		assertEquals(item.TYPE, item.internal.getType());
-		assertEquals("internal", item.internal.getName());
-		assertEquals("wrap", item.internal.getAlgorithmID());
-		assertEquals(item.TYPE, item.internal.getStorage().getType());
-		assertEquals("internal-wrap", item.internal.getStorage().getName());
-		assertEquals(item.internal, item.internal.getStorage().getPattern());
-		assertEqualsUnmodifiable(list(item.internal.getStorage()), item.internal.getSourceFeatures());
-		assertEquals(false, item.internal.isInitial());
-		assertEquals(false, item.internal.isFinal());
-		assertContains(item.internal.getInitialExceptions());
-		assertTrue(item.internal.getStorage().isAnnotationPresent(Computed.class));
+		assertEquals(item.TYPE, internal.getType());
+		assertEquals("internal", internal.getName());
+		assertEquals("wrap", internal.getAlgorithmID());
+		assertEquals(item.TYPE, internal.getStorage().getType());
+		assertEquals("internal-wrap", internal.getStorage().getName());
+		assertEquals(internal, internal.getStorage().getPattern());
+		assertEqualsUnmodifiable(list(internal.getStorage()), internal.getSourceFeatures());
+		assertEquals(false, internal.isInitial());
+		assertEquals(false, internal.isFinal());
+		assertContains(internal.getInitialExceptions());
+		assertTrue(internal.getStorage().isAnnotationPresent(Computed.class));
 
-		assertEquals(null, item.get(item.internal.getStorage()));
+		assertEquals(null, item.get(internal.getStorage()));
 		assertTrue(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));
 		assertFalse(item.checkInternal("zack"));
 
 		item.setInternal("03affe07");
-		assertEquals("[03affe07]", item.get(item.internal.getStorage()));
+		assertEquals("[03affe07]", item.get(internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal("0"));
 		assertTrue(item.checkInternal("03affe07"));
 
-		item.set(item.internal.map("03affe08"));
-		assertEquals("[03affe08]", item.get(item.internal.getStorage()));
+		item.set(internal.map("03affe08"));
+		assertEquals("[03affe08]", item.get(internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal("0"));
 		assertFalse(item.checkInternal("03affe07"));
 		assertTrue(item.checkInternal("03affe08"));
 
-		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue<?>[]{item.internal.map("03affe09")}));
-		assertEquals("[03affe09]", item2.get(item2.internal.getStorage()));
+		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue<?>[]{internal.map("03affe09")}));
+		assertEquals("[03affe09]", item2.get(internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
 
-		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(item.internal.map("03affe10")));
-		assertEquals("[03affe10]", item3.get(item3.internal.getStorage()));
+		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(internal.map("03affe10")));
+		assertEquals("[03affe10]", item3.get(internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
