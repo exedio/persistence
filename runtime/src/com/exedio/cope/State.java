@@ -58,7 +58,7 @@ abstract class State
 	abstract boolean exists();
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		return getClass().getName()+"-"+item.getCopeID();
 	}
