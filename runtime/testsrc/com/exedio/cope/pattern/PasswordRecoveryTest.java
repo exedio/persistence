@@ -65,7 +65,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	public void testIt() throws Exception
 	{
 		// test model
-		assertEquals(Arrays.asList(new Type[]{
+		assertEquals(Arrays.asList(new Type<?>[]{
 				i.TYPE,
 				i.passwordRecovery.getTokenType(),
 		}), MODEL.getTypes());

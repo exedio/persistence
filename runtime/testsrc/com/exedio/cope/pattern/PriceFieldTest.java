@@ -128,7 +128,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 			assertEquals(null, e.getItem());
 		}
 
-		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue[]{
+		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue<?>[]{
 				finalPrice.map(storeOf(567)),
 				bigPrice.map(storeOf(5001)),
 		}));

@@ -156,7 +156,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkInternal("03affe07"));
 		assertTrue(item.checkInternal("03affe08"));
 
-		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue[]{item.internal.map("03affe09")}));
+		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue<?>[]{item.internal.map("03affe09")}));
 		assertEquals("[03affe09]", item2.get(item2.internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
