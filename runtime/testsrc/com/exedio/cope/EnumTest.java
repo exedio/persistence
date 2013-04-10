@@ -45,10 +45,10 @@ public class EnumTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertEquals(EnumItem.Status.class, item.status.getValueClass());
-		assertEquals(EnumItem2.Status.class, item2.status.getValueClass());
+		assertEquals(EnumItem.Status.class, EnumItem.status.getValueClass());
+		assertEquals(EnumItem2.Status.class, EnumItem2.status.getValueClass());
 
-		assertSame(item.status, item.status.as(EnumItem.Status.class));
+		assertSame(EnumItem.status, EnumItem.status.as(EnumItem.Status.class));
 		try
 		{
 			item.status.as(EnumItem2.Status.class);
