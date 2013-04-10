@@ -334,7 +334,7 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new DoubleItem(new SetValue[]{});
+			new DoubleItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)
