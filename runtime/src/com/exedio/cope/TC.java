@@ -158,4 +158,12 @@ final class TC
 	{
 		return tables.get(join).contains(table);
 	}
+
+	HashSet<Table> getTables()
+	{
+		final HashSet<Table> result = new HashSet<Table>();
+		for(final HashSet<Table> tableSets : tables.values())
+			result.addAll(tableSets);
+		return result;
+	}
 }

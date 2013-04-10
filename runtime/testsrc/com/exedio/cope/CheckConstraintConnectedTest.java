@@ -29,6 +29,12 @@ public class CheckConstraintConnectedTest extends AbstractRuntimeTest
 		super(CheckConstraintTest.MODEL);
 	}
 
+	public void testIsSupportedBySchema()
+	{
+		assertEquals(true, einsGreaterOrEqualZwei.isSupportedBySchemaIfSupportedByDialect());
+		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
+	}
+
 	public void testSet()
 	{
 		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
@@ -242,5 +248,7 @@ public class CheckConstraintConnectedTest extends AbstractRuntimeTest
 		assertEquals(beta,  item.getBeta ());
 		assertEquals(gamma, item.getGamma());
 		assertEquals(delta, item.getDelta());
+		assertEquals(0, einsGreaterOrEqualZwei.check());
+		assertEquals(0, alphaLessBeta.check());
 	}
 }
