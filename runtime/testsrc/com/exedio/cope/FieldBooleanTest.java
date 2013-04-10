@@ -18,67 +18,70 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
 
 public class FieldBooleanTest extends FieldTest
 {
 	public void testSomeBoolean()
 	{
-		assertEquals(item.TYPE, item.someBoolean.getType());
-		assertEquals(Boolean.class, item.someBoolean.getValueClass());
-		assertSerializedSame(item.someBoolean, 380);
+		assertEquals(TYPE, someBoolean.getType());
+		assertEquals(Boolean.class, someBoolean.getValueClass());
+		assertSerializedSame(someBoolean, 380);
 
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someBoolean.notEqual((Boolean)null)));
-		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));
+		assertContains(item, item2, TYPE.search(someBoolean.equal((Boolean)null)));
+		assertContains(item, item2, TYPE.search(someBoolean.isNull()));
+		assertContains(TYPE.search(someBoolean.notEqual((Boolean)null)));
+		assertContains(TYPE.search(someBoolean.isNotNull()));
 
-		item.someBoolean.set(item, Boolean.TRUE);
+		someBoolean.set(item, Boolean.TRUE);
 		assertEquals(Boolean.TRUE, item.getSomeBoolean());
 
-		item.someBoolean.set(item, false);
+		someBoolean.set(item, false);
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
 
 		item.setSomeBoolean(Boolean.TRUE);
 		assertEquals(Boolean.TRUE, item.getSomeBoolean());
-		assertEquals(Boolean.TRUE, item.someBoolean.get(item));
+		assertEquals(Boolean.TRUE, someBoolean.get(item));
 		try
 		{
-			item.someBoolean.getMandatory(item);
+			someBoolean.getMandatory(item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field "+item.someBoolean+" is not mandatory", e.getMessage());
+			assertEquals("field "+someBoolean+" is not mandatory", e.getMessage());
 		}
-		assertContains(item, item.TYPE.search(item.someBoolean.equal(true)));
-		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someBoolean.notEqual(true)));
-		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
+		assertContains(item, TYPE.search(someBoolean.equal(true)));
+		assertContains(item2, TYPE.search(someBoolean.isNull()));
+		assertContains(TYPE.search(someBoolean.notEqual(true)));
+		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
 		item.setSomeBoolean(Boolean.FALSE);
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
-		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someBoolean.notEqual(false)));
-		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
+		assertContains(item, TYPE.search(someBoolean.equal(false)));
+		assertContains(item2, TYPE.search(someBoolean.isNull()));
+		assertContains(TYPE.search(someBoolean.notEqual(false)));
+		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
-		assertContains(Boolean.FALSE, null, search(item.someBoolean));
-		assertContains(Boolean.FALSE, search(item.someBoolean, item.someBoolean.equal(false)));
+		assertContains(Boolean.FALSE, null, search(someBoolean));
+		assertContains(Boolean.FALSE, search(someBoolean, someBoolean.equal(false)));
 
 		restartTransaction();
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, item.TYPE.search(item.someBoolean.equal(false)));
-		assertContains(item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someBoolean.notEqual(false)));
-		assertContains(item, item.TYPE.search(item.someBoolean.isNotNull()));
+		assertContains(item, TYPE.search(someBoolean.equal(false)));
+		assertContains(item2, TYPE.search(someBoolean.isNull()));
+		assertContains(TYPE.search(someBoolean.notEqual(false)));
+		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
 		item.setSomeBoolean(null);
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.equal((Boolean)null)));
-		assertContains(item, item2, item.TYPE.search(item.someBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someBoolean.notEqual((Boolean)null)));
-		assertContains(item.TYPE.search(item.someBoolean.isNotNull()));
+		assertContains(item, item2, TYPE.search(someBoolean.equal((Boolean)null)));
+		assertContains(item, item2, TYPE.search(someBoolean.isNull()));
+		assertContains(TYPE.search(someBoolean.notEqual((Boolean)null)));
+		assertContains(TYPE.search(someBoolean.isNotNull()));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
@@ -86,37 +89,37 @@ public class FieldBooleanTest extends FieldTest
 	{
 		try
 		{
-			item.set((FunctionField)item.someBoolean, Integer.valueOf(10));
+			item.set((FunctionField)someBoolean, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someBoolean + '.', e.getMessage());
+			assertEquals("expected a " + Boolean.class.getName() + ", but was a " + Integer.class.getName() + " for " + someBoolean + '.', e.getMessage());
 		}
 	}
 
 	public void testSomeNotNullBoolean()
 	{
-		assertEquals(item.TYPE, item.someNotNullBoolean.getType());
+		assertEquals(TYPE, someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());
-		assertContains(item, item.TYPE.search(item.someNotNullBoolean.equal(true)));
-		assertContains(item.TYPE.search(item.someNotNullBoolean.isNull()));
-		assertContains(item, item.TYPE.search(item.someNotNullBoolean.notEqual(false)));
-		assertContains(item, item2, item.TYPE.search(item.someNotNullBoolean.isNotNull()));
+		assertContains(item, TYPE.search(someNotNullBoolean.equal(true)));
+		assertContains(TYPE.search(someNotNullBoolean.isNull()));
+		assertContains(item, TYPE.search(someNotNullBoolean.notEqual(false)));
+		assertContains(item, item2, TYPE.search(someNotNullBoolean.isNotNull()));
 
-		item.someNotNullBoolean.set(item, Boolean.FALSE);
+		someNotNullBoolean.set(item, Boolean.FALSE);
 		assertEquals(false, item.getSomeNotNullBoolean());
 
-		item.someNotNullBoolean.set(item, true);
+		someNotNullBoolean.set(item, true);
 		assertEquals(true, item.getSomeNotNullBoolean());
 
 		item.setSomeNotNullBoolean(false);
 		assertEquals(false, item.getSomeNotNullBoolean());
-		assertEquals(Boolean.FALSE, item.someNotNullBoolean.get(item));
-		assertEquals(false, item.someNotNullBoolean.getMandatory(item));
-		assertContains(item.TYPE.search(item.someNotNullBoolean.equal(true)));
-		assertContains(item.TYPE.search(item.someNotNullBoolean.isNull()));
-		assertContains(item.TYPE.search(item.someNotNullBoolean.notEqual(false)));
-		assertContains(item, item2, item.TYPE.search(item.someNotNullBoolean.isNotNull()));
+		assertEquals(Boolean.FALSE, someNotNullBoolean.get(item));
+		assertEquals(false, someNotNullBoolean.getMandatory(item));
+		assertContains(TYPE.search(someNotNullBoolean.equal(true)));
+		assertContains(TYPE.search(someNotNullBoolean.isNull()));
+		assertContains(TYPE.search(someNotNullBoolean.notEqual(false)));
+		assertContains(item, item2, TYPE.search(someNotNullBoolean.isNotNull()));
 	}
 }
