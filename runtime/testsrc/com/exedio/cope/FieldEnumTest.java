@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someEnum;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
+
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
-
 
 public class FieldEnumTest extends FieldTest
 {
@@ -33,25 +36,25 @@ public class FieldEnumTest extends FieldTest
 	public void testSomeEnum()
 	{
 		// model
-		assertEquals(item.TYPE, item.someEnum.getType());
-		assertEquals(AttributeItem.SomeEnum.class, item.someEnum.getValueClass());
-		assertSerializedSame(item.someEnum, 377);
+		assertEquals(TYPE, someEnum.getType());
+		assertEquals(AttributeItem.SomeEnum.class, someEnum.getValueClass());
+		assertSerializedSame(someEnum, 377);
 		assertEqualsUnmodifiable(
 			list(
 				AttributeItem.SomeEnum.enumValue1,
 				AttributeItem.SomeEnum.enumValue2,
 				AttributeItem.SomeEnum.enumValue3),
-			item.someEnum.getValues());
+			someEnum.getValues());
 
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue1,
-			item.someEnum.getValue("enumValue1"));
+			someEnum.getValue("enumValue1"));
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue2,
-			item.someEnum.getValue("enumValue2"));
+			someEnum.getValue("enumValue2"));
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
-			item.someEnum.getValue("enumValue3"));
+			someEnum.getValue("enumValue3"));
 
 		assertEquals(AttributeItem.SomeEnum.class,
 			AttributeItem.SomeEnum.enumValue1.getDeclaringClass());
@@ -107,18 +110,18 @@ public class FieldEnumTest extends FieldTest
 			item.getSomeEnum());
 
 		assertContains(item,
-				item.TYPE.search(item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
+				TYPE.search(someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item2,
-				item.TYPE.search(item.someEnum.equal((SomeEnum)null)));
+				TYPE.search(someEnum.equal((SomeEnum)null)));
 		assertContains(item,
-				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue1)));
+				TYPE.search(someEnum.notEqual(AttributeItem.SomeEnum.enumValue1)));
 		assertContains(
-				item.TYPE.search(item.someEnum.notEqual(AttributeItem.SomeEnum.enumValue2)));
+				TYPE.search(someEnum.notEqual(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item,
-				item.TYPE.search(item.someEnum.notEqual((SomeEnum)null)));
+				TYPE.search(someEnum.notEqual((SomeEnum)null)));
 
-		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(item.someEnum));
-		assertContains(AttributeItem.SomeEnum.enumValue2, search(item.someEnum, item.someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(someEnum));
+		assertContains(AttributeItem.SomeEnum.enumValue2, search(someEnum, someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
 
 		restartTransaction();
 		assertEquals(
@@ -133,22 +136,22 @@ public class FieldEnumTest extends FieldTest
 	{
 		try
 		{
-			item.set((FunctionField)item.someEnum, Integer.valueOf(10));
+			item.set((FunctionField)someEnum, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someEnum + '.', e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + Integer.class.getName() + " for " + someEnum + '.', e.getMessage());
 		}
 
 		try
 		{
-			item.set((FunctionField)item.someEnum, SomeEnum2.enumValue2);
+			item.set((FunctionField)someEnum, SomeEnum2.enumValue2);
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + item.someEnum + '.', e.getMessage());
+			assertEquals("expected a " + SomeEnum.class.getName() + ", but was a " + SomeEnum2.class.getName() + " for " + someEnum + '.', e.getMessage());
 		}
 	}
 
@@ -177,9 +180,9 @@ public class FieldEnumTest extends FieldTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for "+ item.someNotNullEnum, e.getMessage());
+			assertEquals(someNotNullEnum, e.getFeature());
+			assertEquals(someNotNullEnum, e.getFeature());
+			assertEquals("mandatory violation on " + item + " for "+ someNotNullEnum, e.getMessage());
 		}
 		assertEquals(
 			AttributeItem.SomeEnum.enumValue3,
@@ -193,9 +196,9 @@ public class FieldEnumTest extends FieldTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals(item.someNotNullEnum, e.getFeature());
-			assertEquals("mandatory violation for " + item.someNotNullEnum, e.getMessage());
+			assertEquals(someNotNullEnum, e.getFeature());
+			assertEquals(someNotNullEnum, e.getFeature());
+			assertEquals("mandatory violation for " + someNotNullEnum, e.getMessage());
 		}
 	}
 }
