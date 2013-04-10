@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MatchItem.TYPE;
+
 import java.util.List;
 
 import com.exedio.cope.misc.DatabaseListener;
@@ -55,8 +57,8 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl1 = new DBL();
 		model.setDatabaseListener(dbl1);
 		assertSame(dbl1, model.getDatabaseListener());
-		l.expectSearch(model.currentTransaction(), item.TYPE);
-		item.TYPE.search(item.text.equal("string1"));
+		l.expectSearch(model.currentTransaction(), TYPE);
+		TYPE.search(item.text.equal("string1"));
 		l.verifyExpectations();
 		dbl1.assertSql("select");
 		item.setText("string1");
@@ -65,8 +67,8 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl2 = new DBL();
 		model.setDatabaseListener(dbl2);
 		assertSame(dbl2, model.getDatabaseListener());
-		l.expectSearch(model.currentTransaction(), item.TYPE);
-		item.TYPE.search(item.text.equal("string2"));
+		l.expectSearch(model.currentTransaction(), TYPE);
+		TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
 		dbl2.assertSql("select");
 		item.setText("string2");
@@ -76,8 +78,8 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		final DBL dbl3 = new DBL();
 		model.setDatabaseListener(dbl3);
 		assertSame(dbl3, model.getDatabaseListener());
-		l.expectSearch(model.currentTransaction(), item.TYPE);
-		item.TYPE.search(item.text.equal("string2"));
+		l.expectSearch(model.currentTransaction(), TYPE);
+		TYPE.search(item.text.equal("string2"));
 		l.verifyExpectations();
 		dbl3.assertSql("select");
 		item.setText("string2");
@@ -87,8 +89,8 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 
 		model.setDatabaseListener(null);
 		assertNull(model.getDatabaseListener());
-		l.expectSearch(model.currentTransaction(), item.TYPE);
-		item.TYPE.search(item.text.equal("string3"));
+		l.expectSearch(model.currentTransaction(), TYPE);
+		TYPE.search(item.text.equal("string3"));
 		l.verifyExpectations();
 		item.setText("string3");
 		dbl2.assertSqlEmpty();
