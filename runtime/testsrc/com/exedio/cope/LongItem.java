@@ -35,7 +35,7 @@ public final class LongItem extends Item
 
 	LongItem(final Long mandatory) throws StringLengthViolationException, MandatoryViolationException
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(mandatory),
 		});
 	}

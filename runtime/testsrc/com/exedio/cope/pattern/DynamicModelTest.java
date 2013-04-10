@@ -78,7 +78,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
 		assertEquals("features-type", item.features.getTypeField().getName());
 
-		assertEquals(Arrays.asList(new Type[]{
+		assertEquals(Arrays.asList(new Type<?>[]{
 				DynamicModelItem.TYPE,
 				DynamicModelItem.features.getTypeType(), DynamicModelItem.features.getTypeLocalizationType(),
 				DynamicModelItem.features.getFieldType(), DynamicModelItem.features.getFieldLocalizationType(),

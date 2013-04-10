@@ -139,7 +139,7 @@ public class SerializerTest extends AbstractRuntimeTest
 		assertNull(item.getInteger());
 		assertNull(item.getMap());
 
-		final SerializerItem item2 = deleteOnTearDown(new SerializerItem(new SetValue[]{
+		final SerializerItem item2 = deleteOnTearDown(new SerializerItem(new SetValue<?>[]{
 				item.integer.map(33),
 				item.map.map(map1),
 		}));

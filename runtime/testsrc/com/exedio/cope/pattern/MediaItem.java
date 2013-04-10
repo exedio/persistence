@@ -41,14 +41,14 @@ public final class MediaItem extends Item
 
 	MediaItem(final String name)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MediaItem.name.map(name),
 		});
 	}
 
 	MediaItem(final Media.Value file)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			MediaItem.file.map(file),
 		});
 	}

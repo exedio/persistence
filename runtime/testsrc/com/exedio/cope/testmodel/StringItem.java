@@ -99,7 +99,7 @@ public final class StringItem extends Item
 	 */
 	public StringItem(final String max4, final Date dummy) throws StringLengthViolationException
 	{
-		this(new SetValue[]{
+		this(new SetValue<?>[]{
 				StringItem.mandatory.map("defaultByMax4"),
 				StringItem.max4.map(max4)
 		});

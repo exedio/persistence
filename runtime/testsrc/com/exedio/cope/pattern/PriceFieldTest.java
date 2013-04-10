@@ -104,7 +104,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		assertEquals(storeOf(5000), item.getBigPrice());
 		try
 		{
-			new PriceFieldItem(new SetValue[]{
+			new PriceFieldItem(new SetValue<?>[]{
 					finalPrice.map(storeOf(567)),
 					bigPrice.map(null),
 			});
@@ -117,7 +117,7 @@ public class PriceFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new PriceFieldItem(new SetValue[]{
+			new PriceFieldItem(new SetValue<?>[]{
 					finalPrice.map(storeOf(567)),
 			});
 			fail();

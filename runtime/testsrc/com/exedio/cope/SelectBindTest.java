@@ -109,7 +109,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			}
 			try
 			{
-				q.setSelects(new Selectable[]{});
+				q.setSelects(new Selectable<?>[]{});
 				fail();
 			}
 			catch(final IllegalArgumentException e)
@@ -118,7 +118,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			}
 			try
 			{
-				q.setSelects(new Selectable[]{string});
+				q.setSelects(new Selectable<?>[]{string});
 				fail();
 			}
 			catch(final IllegalArgumentException e)
@@ -127,7 +127,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 			}
 			try
 			{
-				q.setSelects(new Selectable[]{string, null});
+				q.setSelects(new Selectable<?>[]{string, null});
 				fail();
 			}
 			catch(final NullPointerException e)

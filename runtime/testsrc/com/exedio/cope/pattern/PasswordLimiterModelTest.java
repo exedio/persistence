@@ -42,7 +42,7 @@ public class PasswordLimiterModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertEquals(Arrays.asList(new Type[]{
+		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,
 				passwordLimited.getRefusalType(),
 		}), MODEL.getTypes());

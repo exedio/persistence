@@ -26,7 +26,7 @@ final class CompositeDefaultItem extends Item
 
 	CompositeDefaultItem(final CompositeDefaultValue field)
 	{
-		this(new com.exedio.cope.SetValue[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 				CompositeDefaultItem.field.map(field),
 		});
 	}

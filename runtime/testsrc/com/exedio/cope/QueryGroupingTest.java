@@ -169,7 +169,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		item2c.setOptionalDouble( 27.0 );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable[]{GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum()}, GroupItem.TYPE, Condition.TRUE
+			new Selectable<?>[]{GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum()}, GroupItem.TYPE, Condition.TRUE
 		);
 		query.setGroupBy( GroupItem.day, GroupItem.number );
 		assertEquals( "select day,number,sum(optionalDouble) from GroupItem group by day,number", query.toString() );

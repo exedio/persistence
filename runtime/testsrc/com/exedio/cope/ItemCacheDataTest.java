@@ -98,7 +98,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.set(new SetValue[0]);
+		item.set(new SetValue<?>[0]);
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		model.commit();

@@ -151,7 +151,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
+		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue<?>[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEqualsUnmodifiable(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.getString0());
 		assertEquals("lets2", item2.getString1());

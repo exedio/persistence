@@ -268,7 +268,7 @@ public class HashTest extends AbstractRuntimeTest
 	public void testValidatorSingleSetValue()
 	{
 			// with success
-			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue<?>[]{}));
 			anItem.setWith3PinValidator("452");
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap());
 
@@ -305,7 +305,7 @@ public class HashTest extends AbstractRuntimeTest
 		// testing mass set
 
 		// with success
-		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue[]{}));
+		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue<?>[]{}));
 		assertNotNull(anItem);
 		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
 		assertEquals("[123]", anItem.getWith3PinValidatorwrap());
