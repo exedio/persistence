@@ -215,7 +215,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 	protected Item(final ActivationParameters ap)
 	{
 		if(ap==null)
-			throw new RuntimeException("activation constructor is for internal purposes only, don't use it in your application!");
+			throw new RuntimeException(
+					"activation constructor is for internal purposes only, " +
+					"don't use it in your application!");
+
 		this.type = ap.type;
 		this.pk = ap.pk;
 		//System.out.println("activate item:"+type+" "+pk);
