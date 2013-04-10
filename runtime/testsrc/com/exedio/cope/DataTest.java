@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.util.StrictFile.delete;
@@ -33,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DataTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(DataItem.TYPE, DataSubItem.TYPE);
+	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
 
 	static
 	{
@@ -165,14 +166,14 @@ public class DataTest extends AbstractRuntimeTest
 		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
 		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
 
-		assertEquals(item.TYPE, data.getType());
+		assertEquals(TYPE, data.getType());
 		assertEquals("data", data.getName());
 		assertEquals(false, data.isMandatory());
 		assertEquals(null, data.getPattern());
 		assertEquals(data.DEFAULT_LENGTH, data.getMaximumLength());
 		assertEquals(DataField.Value.class, data.getValueClass());
 
-		assertEquals(item.TYPE, data10.getType());
+		assertEquals(TYPE, data10.getType());
 		assertEquals("data10", data10.getName());
 		assertEquals(false, data10.isMandatory());
 		assertEquals(null, data10.getPattern());
@@ -248,28 +249,28 @@ public class DataTest extends AbstractRuntimeTest
 
 		// test data
 		assertIt(null);
-		assertCondition(item.TYPE, data.startsWith(bytes4));
-		assertCondition(item.TYPE, data.startsWith(bytes6));
-		assertCondition(item.TYPE, data.startsWith(bytes6x4));
+		assertCondition(TYPE, data.startsWith(bytes4));
+		assertCondition(TYPE, data.startsWith(bytes6));
+		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		// set byte[]
 		item.setData(bytes4);
 		assertIt(bytes4);
-		assertCondition(item, item.TYPE, data.startsWith(bytes4));
-		assertCondition(item.TYPE, data.startsWith(bytes6));
-		assertCondition(item.TYPE, data.startsWith(bytes6x4));
+		assertCondition(item, TYPE, data.startsWith(bytes4));
+		assertCondition(TYPE, data.startsWith(bytes6));
+		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes6);
 		assertIt(bytes6);
-		assertCondition(item.TYPE, data.startsWith(bytes4));
-		assertCondition(item, item.TYPE, data.startsWith(bytes6));
-		assertCondition(item, item.TYPE, data.startsWith(bytes6x4));
+		assertCondition(TYPE, data.startsWith(bytes4));
+		assertCondition(item, TYPE, data.startsWith(bytes6));
+		assertCondition(item, TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes0);
 		assertIt(bytes0);
-		assertCondition(item.TYPE, data.startsWith(bytes4));
-		assertCondition(item.TYPE, data.startsWith(bytes6));
-		assertCondition(item.TYPE, data.startsWith(bytes6x4));
+		assertCondition(TYPE, data.startsWith(bytes4));
+		assertCondition(TYPE, data.startsWith(bytes6));
+		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);
