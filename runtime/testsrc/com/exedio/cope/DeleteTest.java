@@ -48,10 +48,10 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	public void testForbid()
 	{
-		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), item.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), item.TYPE.getReferences());
-		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), other.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), other.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), DeleteOtherItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), DeleteOtherItem.TYPE.getReferences());
 
 		assertSame(FORBID, selfForbid.getDeletePolicy());
 		assertSame(FORBID, otherForbid.getDeletePolicy());
@@ -278,14 +278,14 @@ public class DeleteTest extends AbstractRuntimeTest
 		final DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
 
 		// test Model.getItem
-		assertSame(item, item.TYPE.getModel().getItem(item.getCopeID()));
+		assertSame(item, DeleteItem.TYPE.getModel().getItem(item.getCopeID()));
 
 		// test Item.get(ItemAttribute)
 		item.setSelfNullify(item2);
 		assertSame(item2, item.getSelfNullify());
 
 		// test Query.search
-		final Query<?> query1 = item.TYPE.newQuery(null);
+		final Query<?> query1 = DeleteItem.TYPE.newQuery(null);
 		query1.setOrderByThis(true);
 		final Collection<?> searchResult1 = query1.search();
 		assertEquals(list(item, item2), searchResult1);
