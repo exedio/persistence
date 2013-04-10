@@ -20,19 +20,21 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.io.InputStream;
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someData;
 
 public class FieldMediaTest extends FieldTest
 {
 	public void testSomeData() throws IOException
 	{
-		assertEquals(item.TYPE, item.someData.getType());
-		assertEquals("someData", item.someData.getName());
-		assertEquals(true, item.someData.checkContentType("what/ever"));
-		assertEquals("*/*", item.someData.getContentTypeDescription());
-		assertEquals(null, item.someData.getContentTypesAllowed());
+		assertEquals(TYPE, someData.getType());
+		assertEquals("someData", someData.getName());
+		assertEquals(true, someData.checkContentType("what/ever"));
+		assertEquals("*/*", someData.getContentTypeDescription());
+		assertEquals(null, someData.getContentTypesAllowed());
 
 		// TODO: test with not null data
-		assertEquals(item.TYPE, item.someData.getType());
+		assertEquals(TYPE, someData.getType());
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
