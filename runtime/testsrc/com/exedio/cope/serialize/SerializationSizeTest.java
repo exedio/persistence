@@ -136,8 +136,8 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 		item1.addToList("listItem2");
 		item2.addToList("listItem0");
 		item2.addToList("listItem1");
-		final List<? extends Item> list1 = getItems(item1.list, item1);
-		final List<? extends Item> list2 = getItems(item2.list, item2);
+		final List<? extends Item> list1 = getItems(ItemSerializationItem .list, item1);
+		final List<? extends Item> list2 = getItems(ItemSerializationItem2.list, item2);
 
 		assertAccu(386, list1.get(0));
 		assertAccu( 15, list1.get(1));
