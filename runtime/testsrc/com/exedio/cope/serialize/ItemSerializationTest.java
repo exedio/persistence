@@ -22,6 +22,10 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
+import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
+import static com.exedio.cope.serialize.ItemSerializationItem.list;
+import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -57,12 +61,12 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 	public void testItem()
 	{
 		final String id = item.getCopeID();
-		assertSame(item.TYPE, item.getCopeType());
+		assertSame(TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 
 		final ItemSerializationItem readItem = reserialize(item, 112);
 		assertEquals(id, readItem.getCopeID());
-		assertSame(item.TYPE, readItem.getCopeType());
+		assertSame(TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());
 		assertEquals(item, readItem);
 		assertEquals(item.hashCode(), readItem.hashCode());
@@ -79,14 +83,14 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
-			item.list.getRelationType().searchSingleton(item.listParent().equal(item));
+			list.getRelationType().searchSingleton(listParent().equal(item));
 		final String id = unboundItem.getCopeID();
-		assertEquals(item.list.getRelationType(), unboundItem.getCopeType());
+		assertEquals(list.getRelationType(), unboundItem.getCopeType());
 
 		final Item readItem = reserialize(unboundItem, 390);
 		assertEquals(id, readItem.getCopeID());
-		assertSame(item.list.getRelationType(), readItem.getCopeType());
-		assertEquals("zack", item.list.getElement().get(readItem));
+		assertSame(list.getRelationType(), readItem.getCopeType());
+		assertEquals("zack", list.getElement().get(readItem));
 		assertEquals(unboundItem, readItem);
 		assertEquals(unboundItem.hashCode(), readItem.hashCode());
 		assertNotSame(unboundItem, readItem);
