@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DeleteSchemaItem.nextSequence;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -49,12 +51,42 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			create = assertCreate(createBefore, createAfter, logs, 5);
 			assertEquals(1, logs.size());
 		}
+		createEmptyAndCreate();
 
 		model.deleteSchema();
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
 			assertCreate(create, logs, 5);
 			assertEquals(1, logs.size());
+		}
+		createEmptyAndCreate();
+	}
+
+	private static void createEmptyAndCreate()
+	{
+		try
+		{
+			MODEL.startTransaction(DeleteSchemaTest.class.getName());
+
+			assertContains(DeleteSchemaItem.TYPE.search());
+
+			final DeleteSchemaItem i1 = new DeleteSchemaItem("field1");
+			final DeleteSchemaItem i2 = new DeleteSchemaItem("field2");
+
+			assertEquals("DeleteSchemaItem-0", i1.getCopeID());
+			assertEquals("DeleteSchemaItem-1", i2.getCopeID());
+
+			assertEquals(1000, i1.getNext());
+			assertEquals(1001, i2.getNext());
+
+			assertEquals(2000, nextSequence());
+			assertEquals(2001, nextSequence());
+
+			MODEL.commit();
+		}
+		finally
+		{
+			MODEL.rollbackIfNotCommitted();
 		}
 	}
 
