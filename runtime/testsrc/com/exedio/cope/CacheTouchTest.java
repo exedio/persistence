@@ -41,7 +41,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		if(hsqldb||oracle) return; // TODO
+		if(oracle) return; // TODO
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);
@@ -119,7 +119,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	}
 	else
 	{
-		final boolean rr = !props.connectionTransactionIsolationReadCommitted;
+		final boolean rr = !props.connectionTransactionIsolationReadCommitted && !hsqldb;
 		final boolean il = props.itemCacheInvalidateLast;
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());
