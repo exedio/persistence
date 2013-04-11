@@ -18,9 +18,12 @@
 
 package com.exedio.dsmf;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class HsqldbDialect extends Dialect
 {
@@ -200,5 +203,74 @@ public final class HsqldbDialect extends Dialect
 					" as integer" +
 					" start with " + startWith +
 					" increment by 1");
+	}
+
+	@Override
+	public void deleteSchema(final Schema schema)
+	{
+		final StringBuilder bf = new StringBuilder();
+
+		for(final Table table : schema.getTables())
+		{
+			bf.append("truncate table ").
+				append(quoteName(table.name)).
+				append(" restart identity and commit no check;");
+		}
+
+		for(final Sequence sequence : schema.getSequences())
+		{
+			bf.append("alter sequence ").
+				append(quoteName(sequence.name)).
+				append(" restart with ").
+				append(sequence.getStartWith()).
+				append(';');
+		}
+
+		execute(schema.connectionProvider, bf.toString());
+	}
+
+	private static void execute(final ConnectionProvider connectionProvider, final String sql)
+	{
+		Connection connection = null;
+		try
+		{
+			connection = connectionProvider.getConnection();
+			execute(connection, sql);
+			connectionProvider.putConnection(connection);
+			connection = null;
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+		finally
+		{
+			if(connection!=null)
+			{
+				try
+				{
+					connectionProvider.putConnection(connection);
+				}
+				catch(final SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	private static void execute(final Connection connection, final String sql) throws SQLException
+	{
+		final java.sql.Statement sqlStatement =
+			connection.createStatement();
+		try
+		{
+			sqlStatement.executeUpdate(sql);
+		}
+		finally
+		{
+			sqlStatement.close();
+		}
 	}
 }
