@@ -132,7 +132,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
-	protected boolean nullsFirst;
 
 	private final ArrayList<File> files = new ArrayList<File>();
 	private TestByteArrayInputStream testStream = null;
@@ -161,7 +160,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		nullsFirst = hsqldb;
 		files.clear();
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
