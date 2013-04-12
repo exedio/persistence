@@ -79,7 +79,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals("ZackItem_this_Seq", sequence.getName());
+			assertEquals(filterTableName("ZackItem_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartWith());
 		}
 		{
@@ -90,7 +90,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals("RenamScheTargItem_thi_Seq", sequence.getName());
+			assertEquals(filterTableName("RenamScheTargItem_thi_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartWith());
 		}
 		assertFalse(sequences.hasNext());
