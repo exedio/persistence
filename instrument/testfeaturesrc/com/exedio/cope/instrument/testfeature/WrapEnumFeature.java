@@ -25,16 +25,25 @@ public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
 {
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz)
 	{
-		return new WrapEnumFeature<E>(clazz);
+		return new WrapEnumFeature<E>(clazz, "com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass");
 	}
 
-	private WrapEnumFeature(final Class<E> clazz)
+	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz, final String className)
+	{
+		return new WrapEnumFeature<E>(clazz, className);
+	}
+
+	private WrapEnumFeature(final Class<E> clazz, final String className)
 	{
 		if(clazz==null)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("clazz is null");
 		if(!clazz.isEnum())
-			throw new IllegalArgumentException(clazz.getName());
-		//System.out.println("--------"+clazz.getName());
+			throw new IllegalArgumentException("clazz is not an enum: " + clazz.getName());
+
+		if(className==null)
+			throw new IllegalArgumentException("className is null");
+		if(!className.equals(clazz.getName()))
+			throw new IllegalArgumentException("className mismatch: " + clazz.getName());
 	}
 
 	@Wrap(order=10)
