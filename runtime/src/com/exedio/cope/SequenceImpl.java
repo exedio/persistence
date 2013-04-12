@@ -33,4 +33,5 @@ interface SequenceImpl
 	 */
 	int getNext();
 	void flush();
+	String getSchemaName();
 }

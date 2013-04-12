@@ -119,6 +119,22 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * Returns the name of the sequence for generating values for the
+	 * {@link #getPrimaryKeyColumnName(Type) primary key column}
+	 * of the type.
+	 * @throws IllegalArgumentException
+	 *         if there is no such sequence for this type,
+	 *         because primary key are generated otherwise.
+	 */
+	public static String getPrimaryKeySequenceName(final Type<?> type)
+	{
+		final String result = type.getPrimaryKeySequenceSchemaName();
+		if(result==null)
+			throw new IllegalArgumentException("no sequence for " + type);
+		return result;
+	}
+
+	/**
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "class".

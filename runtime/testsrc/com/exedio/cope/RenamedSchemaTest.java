@@ -49,6 +49,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
+		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));

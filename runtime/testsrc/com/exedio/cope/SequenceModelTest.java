@@ -77,5 +77,14 @@ public class SequenceModelTest extends CopeAssert
 		{
 			assertEquals(MODEL, e.getModel());
 		}
+		try
+		{
+			SchemaInfo.getPrimaryKeySequenceName(TYPE);
+			fail();
+		}
+		catch(final Model.NotConnectedException e)
+		{
+			assertEquals(MODEL, e.getModel());
+		}
 	}
 }

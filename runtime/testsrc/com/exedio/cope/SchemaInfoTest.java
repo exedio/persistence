@@ -88,6 +88,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 
 		// with sub types
 		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
+		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
@@ -96,6 +97,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 
 		// without sub types
 		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
+		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try
 		{

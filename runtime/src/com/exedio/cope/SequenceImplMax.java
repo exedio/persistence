@@ -104,4 +104,9 @@ final class SequenceImplMax implements SequenceImpl
 			computed = false;
 		}
 	}
+
+	public String getSchemaName()
+	{
+		return null;
+	}
 }

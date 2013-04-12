@@ -86,4 +86,9 @@ final class SequenceImplSequence implements SequenceImpl
 	{
 		// empty
 	}
+
+	public String getSchemaName()
+	{
+		return name;
+	}
 }

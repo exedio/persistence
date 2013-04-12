@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.util.StrictFile.delete;
 
@@ -188,6 +189,26 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			model.getConnectProperties().longSyntheticNames
 			? (name + global)
 			: name;
+	}
+
+	protected final void assertPrimaryKeySequenceName(final String name, final Type<?> type)
+	{
+		if(model.getConnectProperties().primaryKeyGenerator.persistent)
+		{
+			assertEquals(filterTableName(name), getPrimaryKeySequenceName(type));
+		}
+		else
+		{
+			try
+			{
+				getPrimaryKeySequenceName(type);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no sequence for " + type, e.getMessage());
+			}
+		}
 	}
 
 	protected final TestByteArrayInputStream stream(final byte[] data)

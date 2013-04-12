@@ -138,4 +138,12 @@ final class SequenceX
 		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);
 		return (max<current) ? 0 : (max-current+1);
 	}
+
+	String getSchemaName()
+	{
+		if(impl==null)
+			throw new Model.NotConnectedException(feature.getType().getModel());
+
+		return impl.getSchemaName();
+	}
 }

@@ -658,6 +658,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return primaryKeySequence.check(getModel());
 	}
 
+	String getPrimaryKeySequenceSchemaName()
+	{
+		return primaryKeySequence.getSchemaName();
+	}
+
 	/**
 	 * Returns the type representing the {@link Class#getSuperclass() superclass}
 	 * of this type's {@link #getJavaClass() java class}.
