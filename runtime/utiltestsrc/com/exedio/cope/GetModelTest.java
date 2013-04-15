@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.ModelByString.get;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class GetModelTest extends CopeAssert
@@ -30,11 +32,11 @@ public class GetModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertSame(modelOk, Cope.getModel("com.exedio.cope.GetModelTest#modelOk"));
+		assertSame(modelOk, get("com.exedio.cope.GetModelTest#modelOk"));
 
 		try
 		{
-			Cope.getModel("zick");
+			get("zick");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -44,7 +46,7 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.GetModelTestX#modelNotExists");
+			get("com.exedio.cope.GetModelTestX#modelNotExists");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -54,7 +56,7 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.GetModelTest#modelNotExists");
+			get("com.exedio.cope.GetModelTest#modelNotExists");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -64,7 +66,7 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.GetModelTest#modelPrivate");
+			get("com.exedio.cope.GetModelTest#modelPrivate");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -74,7 +76,7 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.GetModelTest#modelNull");
+			get("com.exedio.cope.GetModelTest#modelNull");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -84,7 +86,7 @@ public class GetModelTest extends CopeAssert
 
 		try
 		{
-			Cope.getModel("com.exedio.cope.GetModelTest#modelNoModel");
+			get("com.exedio.cope.GetModelTest#modelNoModel");
 			fail();
 		}
 		catch(final IllegalArgumentException e)

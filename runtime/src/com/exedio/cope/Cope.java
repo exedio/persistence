@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.util.List;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.misc.ModelByString;
 import com.exedio.cope.util.Cast;
 
 /**
@@ -253,52 +254,13 @@ public abstract class Cope
 		select.check(tc, join);
 	}
 
-	private static final char DIVIDER = '#';
-
+	/**
+	 * @deprecated Use {@link ModelByString#get(String)} instead.
+	 */
+	@Deprecated
 	public static Model getModel(final String name)
 	{
-		final int pos = name.indexOf(DIVIDER);
-		if(pos<=0)
-			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + name);
-		final String className = name.substring(0, pos);
-		final String fieldName = name.substring(pos+1);
-
-		final Class<?> clazz;
-		try
-		{
-			clazz = Class.forName(className);
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new IllegalArgumentException("class " + className + " does not exist.", e);
-		}
-
-		final java.lang.reflect.Field field;
-		try
-		{
-			field = clazz.getField(fieldName);
-		}
-		catch(final NoSuchFieldException e)
-		{
-			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
-		}
-
-		final Object result;
-		try
-		{
-			result = field.get(null);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("accessing " + field.toString(), e);
-		}
-
-		if(result==null)
-			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is null.");
-		if(!(result instanceof Model))
-			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is not a model, but a " + result.getClass().getName() + '.');
-
-		return (Model)result;
+		return ModelByString.get(name);
 	}
 
 	public static final void main(final String[] args)

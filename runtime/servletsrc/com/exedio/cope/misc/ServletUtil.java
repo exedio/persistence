@@ -27,7 +27,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Cope;
 import com.exedio.cope.Model;
 import com.exedio.cope.servletutil.ServletProperties;
 import com.exedio.cope.util.Properties;
@@ -140,7 +139,7 @@ public final class ServletUtil
 		final Model result;
 		try
 		{
-			result = Cope.getModel(modelName);
+			result = ModelByString.get(modelName);
 		}
 		catch(final IllegalArgumentException e)
 		{
