@@ -254,15 +254,6 @@ public abstract class Cope
 		select.check(tc, join);
 	}
 
-	/**
-	 * @deprecated Use {@link ModelByString#get(String)} instead.
-	 */
-	@Deprecated
-	public static Model getModel(final String name)
-	{
-		return ModelByString.get(name);
-	}
-
 	public static final void main(final String[] args)
 	{
 		if(args.length!=2)
@@ -314,5 +305,14 @@ public abstract class Cope
 	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
 		return Cast.verboseCast(clazz, o);
+	}
+
+	/**
+	 * @deprecated Use {@link ModelByString#get(String)} instead.
+	 */
+	@Deprecated
+	public static Model getModel(final String name)
+	{
+		return ModelByString.get(name);
 	}
 }
