@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
+import static com.exedio.cope.RenamedSchemaItem.integer;
 import static com.exedio.cope.RenamedSchemaItem.item;
 import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
@@ -55,6 +56,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
+		assertEquals("zackInteger", getColumnName(integer));
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -81,6 +83,12 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 			final Sequence sequence = sequences.next();
 			assertEquals(filterTableName("ZackItem_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartWith());
+		}
+		if(cluster)
+		{
+			final Sequence sequence = sequences.next();
+			assertEquals(filterTableName("ZackItem_zackInteger_Seq"), sequence.getName());
+			assertEquals(1234, sequence.getStartWith());
 		}
 		{
 			final Sequence sequence = sequences.next();
