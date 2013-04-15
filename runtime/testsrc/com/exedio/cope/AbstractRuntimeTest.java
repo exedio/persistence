@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.util.StrictFile.delete;
@@ -207,6 +208,26 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			catch(final IllegalArgumentException e)
 			{
 				assertEquals("no sequence for " + type, e.getMessage());
+			}
+		}
+	}
+
+	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
+	{
+		if(model.getConnectProperties().primaryKeyGenerator.persistent)
+		{
+			assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
+		}
+		else
+		{
+			try
+			{
+				getDefaultToNextSequenceName(field);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("no sequence for " + field, e.getMessage());
 			}
 		}
 	}

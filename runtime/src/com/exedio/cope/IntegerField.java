@@ -329,6 +329,14 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;
 	}
 
+	String getDefaultToNextSequenceName()
+	{
+		if(defaultToNextSequence==null)
+			throw new IllegalArgumentException("is not defaultToNext: " + this);
+
+		return defaultToNextSequence.getSchemaName();
+	}
+
 	public IntegerField rangeDigits(final int digits)
 	{
 		return IntegerFieldRangeDigits.rangeDigits(this, digits);

@@ -124,13 +124,14 @@ public final class SchemaInfo
 	 * of the type.
 	 * @throws IllegalArgumentException
 	 *         if there is no such sequence for this type,
-	 *         because primary key are generated otherwise.
+	 *         because primary keys are generated otherwise.
 	 */
 	public static String getPrimaryKeySequenceName(final Type<?> type)
 	{
 		final String result = type.getPrimaryKeySequenceSchemaName();
 		if(result==null)
 			throw new IllegalArgumentException("no sequence for " + type);
+
 		return result;
 	}
 
@@ -234,6 +235,23 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
+	}
+
+	/**
+	 * Returns the name of the sequence for generating values for the
+	 * {@link IntegerField#defaultToNext(int) defaultToNext}
+	 * mechanism of the field.
+	 * @throws IllegalArgumentException
+	 *         if there is no such sequence for this field,
+	 *         because values are generated otherwise.
+	 */
+	public static String getDefaultToNextSequenceName(final IntegerField field)
+	{
+		final String result = field.getDefaultToNextSequenceName();
+		if(result==null)
+			throw new IllegalArgumentException("no sequence for " + field);
+
+		return result;
 	}
 
 	public static String search(final Query<?> query)

@@ -57,6 +57,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
 		assertEquals("zackInteger", getColumnName(integer));
+		assertDefaultToNextSequenceName("ZackItem_zackInteger_Seq", integer);
 
 		final Schema schema = model.getVerifiedSchema();
 
