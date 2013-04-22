@@ -24,6 +24,8 @@ import static com.exedio.cope.sampler.Stuff.samplerModel;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.exedio.cope.Query;
+
 public class PurgeTest extends ConnectedTest
 {
 	public void testPurge()
@@ -47,11 +49,18 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 
+		sampler.sample();
+		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
+		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
+
 		final Date date;
 		try
 		{
 			samplerModel.startTransaction(PurgeTest.class.getName());
-			date = SamplerModel.date.get(SamplerModel.TYPE.searchSingletonStrict(null));
+			date = new Query<Date>(SamplerModel.date.min(), SamplerModel.TYPE, null).searchSingletonStrict();
 			samplerModel.commit();
 		}
 		finally
@@ -60,14 +69,26 @@ public class PurgeTest extends ConnectedTest
 		}
 
 		assertPurge(date, 0, 0, 0, 0, 0);
-		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
-		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
-		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
+		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
 
-		final Date purgeDate = new Date(date.getTime()+1);
-		assertPurge(purgeDate, 1, c?2:0, 0, 2, 1);
+
+		final Date dateMax;
+		try
+		{
+			samplerModel.startTransaction(PurgeTest.class.getName());
+			dateMax = new Query<Date>(SamplerModel.date.max(), SamplerModel.TYPE, null).searchSingletonStrict();
+			samplerModel.commit();
+		}
+		finally
+		{
+			samplerModel.rollbackIfNotCommitted();
+		}
+		final Date purgeDate = new Date(dateMax.getTime()+1);
+		assertPurge(purgeDate, 2, c?4:0, 0, 4, 2);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
