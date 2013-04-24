@@ -109,10 +109,28 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	Table table;
 
+	/**
+	 * @see #asExtends(Class)
+	 * @see Class#asSubclass(Class)
+	 */
 	public <X extends Item> Type<X> as(final Class<X> clazz)
 	{
 		if(javaClass!=clazz)
 			throw new ClassCastException("expected " + clazz.getName() + ", but was " + javaClass.getName());
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final Type<X> result = (Type<X>)this;
+		return result;
+	}
+
+	/**
+	 * @see #as(Class)
+	 * @see Class#asSubclass(Class)
+	 */
+	public <X extends Item> Type<? extends X> asExtends(final Class<X> clazz)
+	{
+		if(!clazz.isAssignableFrom(javaClass))
+			throw new ClassCastException("expected ? extends " + clazz.getName() + ", but was " + javaClass.getName());
 
 		@SuppressWarnings("unchecked") // OK: is checked on runtime
 		final Type<X> result = (Type<X>)this;
