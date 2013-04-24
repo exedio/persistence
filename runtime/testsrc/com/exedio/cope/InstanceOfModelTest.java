@@ -75,6 +75,8 @@ public class InstanceOfModelTest extends CopeAssert
 	public void testAs()
 	{
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
+		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.asExtends(InstanceOfAItem.class));
+
 		try
 		{
 			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
@@ -84,7 +86,19 @@ public class InstanceOfModelTest extends CopeAssert
 		{
 			assertAsFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
+		try
+		{
+			InstanceOfRefItem.ref.asExtends(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertAsFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
+		}
+
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
+		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
+
 		try
 		{
 			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
@@ -96,6 +110,16 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		try
 		{
+			InstanceOfRefItem.refb2.asExtends(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertAsFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
+		}
+
+		try
+		{
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
 			fail();
 		}
@@ -103,6 +127,7 @@ public class InstanceOfModelTest extends CopeAssert
 		{
 			assertAsFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
+		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfAItem.class));
 	}
 
 	private static void assertAsFails(
@@ -112,6 +137,17 @@ public class InstanceOfModelTest extends CopeAssert
 	{
 		assertEquals(
 				"expected a " + ItemField.class.getName() + '<' + expected.getName() + ">, " +
+				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>',
+			failure.getMessage());
+	}
+
+	private static void assertAsFailsExtends(
+			final Class<? extends InstanceOfAItem> expected,
+			final Class<? extends InstanceOfAItem> actual,
+			final ClassCastException failure)
+	{
+		assertEquals(
+				"expected a " + ItemField.class.getName() + "<? extends " + expected.getName() + ">, " +
 				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>',
 			failure.getMessage());
 	}
