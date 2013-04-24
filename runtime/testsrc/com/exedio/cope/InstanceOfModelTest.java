@@ -72,13 +72,16 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
 	}
 
-	public void testAs()
+	public void testAsSame()
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.asExtends(InstanceOfAItem.class));
+	}
 
+	public void testAsChildReverse()
+	{
 		try
 		{
 			InstanceOfAItem.TYPE.as(InstanceOfB1Item.class);
@@ -115,12 +118,18 @@ public class InstanceOfModelTest extends CopeAssert
 		{
 			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
+	}
 
+	public void testAsSameSub()
+	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfB2Item.class));
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
+	}
 
+	public void testAsBrother()
+	{
 		try
 		{
 			InstanceOfB2Item.TYPE.as(InstanceOfB1Item.class);
@@ -157,7 +166,10 @@ public class InstanceOfModelTest extends CopeAssert
 		{
 			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
+	}
 
+	public void testAsSameChild()
+	{
 		try
 		{
 			InstanceOfB2Item.TYPE.as(InstanceOfAItem.class);
