@@ -79,6 +79,7 @@ public class ItemTest extends TestmodelTest
 		}
 
 		assertSame(item1.TYPE, item1.TYPE.as(EmptyItem.class));
+		assertSame(item1.TYPE, item1.TYPE.asExtends(EmptyItem.class));
 		try
 		{
 			item1.TYPE.as(EmptyItem2.class);
@@ -87,6 +88,15 @@ public class ItemTest extends TestmodelTest
 		catch(final ClassCastException e)
 		{
 			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
+		}
+		try
+		{
+			item1.TYPE.asExtends(EmptyItem2.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected ? extends " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
 		assertEquals("EmptyItem-0", item1.getCopeID());
