@@ -74,9 +74,19 @@ public class InstanceOfModelTest extends CopeAssert
 
 	public void testAs()
 	{
+		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.asExtends(InstanceOfAItem.class));
 
+		try
+		{
+			InstanceOfAItem.TYPE.as(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
+		}
 		try
 		{
 			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
@@ -96,9 +106,19 @@ public class InstanceOfModelTest extends CopeAssert
 			assertAsFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
 
+		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
 
+		try
+		{
+			InstanceOfB2Item.TYPE.as(InstanceOfB1Item.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
+		}
 		try
 		{
 			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
@@ -120,6 +140,15 @@ public class InstanceOfModelTest extends CopeAssert
 
 		try
 		{
+			InstanceOfB2Item.TYPE.as(InstanceOfAItem.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertAsTypeFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
+		}
+		try
+		{
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
 			fail();
 		}
@@ -128,6 +157,17 @@ public class InstanceOfModelTest extends CopeAssert
 			assertAsFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfAItem.class));
+	}
+
+	private static void assertAsTypeFails(
+			final Class<? extends InstanceOfAItem> expected,
+			final Class<? extends InstanceOfAItem> actual,
+			final ClassCastException failure)
+	{
+		assertEquals(
+				"expected " + expected.getName() + ", " +
+				"but was " + actual.getName(),
+			failure.getMessage());
 	}
 
 	private static void assertAsFails(
