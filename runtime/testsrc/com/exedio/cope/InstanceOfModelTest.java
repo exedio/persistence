@@ -82,10 +82,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + '>',
-				e.getMessage());
+			assertAsFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
 		try
@@ -95,10 +92,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfB1Item.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
-				e.getMessage());
+			assertAsFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
 		try
 		{
@@ -107,11 +101,19 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals(
-					"expected a " + ItemField.class.getName() + '<' + InstanceOfAItem.class.getName() + ">, " +
-					"but was a " + ItemField.class.getName() + '<' + InstanceOfB2Item.class.getName() + '>',
-				e.getMessage());
+			assertAsFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
+	}
+
+	private static void assertAsFails(
+			final Class<? extends InstanceOfAItem> expected,
+			final Class<? extends InstanceOfAItem> actual,
+			final ClassCastException failure)
+	{
+		assertEquals(
+				"expected a " + ItemField.class.getName() + '<' + expected.getName() + ">, " +
+				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>',
+			failure.getMessage());
 	}
 
 	public void testGetSubTypes()
