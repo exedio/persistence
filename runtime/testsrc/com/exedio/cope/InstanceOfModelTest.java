@@ -104,7 +104,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertAsFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
+			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
 		try
 		{
@@ -113,7 +113,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertAsFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
+			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
 
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
@@ -146,7 +146,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertAsFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
+			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
 		try
 		{
@@ -155,7 +155,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertAsFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
+			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
 
 		try
@@ -175,7 +175,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertAsFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
+			assertAsFieldFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfAItem.class));
 	}
@@ -202,7 +202,7 @@ public class InstanceOfModelTest extends CopeAssert
 			failure.getMessage());
 	}
 
-	private static void assertAsFails(
+	private static void assertAsFieldFails(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual,
 			final ClassCastException failure)
@@ -213,7 +213,7 @@ public class InstanceOfModelTest extends CopeAssert
 			failure.getMessage());
 	}
 
-	private static void assertAsFailsExtends(
+	private static void assertAsFieldFailsExtends(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual,
 			final ClassCastException failure)
