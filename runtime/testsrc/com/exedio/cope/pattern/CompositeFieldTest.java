@@ -331,10 +331,10 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		oItem.setDuo(null);
 		assertEquals(null, oItem.getUno());
 		assertEquals(null, oItem.getDuo());
-		assertEquals(null, oItem.duo.of(aString).get(oItem));
-		assertEquals(null, oItem.duo.of(anInt  ).get(oItem));
-		assertEquals(null, oItem.duo.of(anEnum ).get(oItem));
-		assertEquals(null, oItem.duo.of(anItem ).get(oItem));
+		assertEquals(null, duo.of(aString).get(oItem));
+		assertEquals(null, duo.of(anInt  ).get(oItem));
+		assertEquals(null, duo.of(anEnum ).get(oItem));
+		assertEquals(null, duo.of(anItem ).get(oItem));
 
 		item = deleteOnTearDown(
 				new CompositeItem("default",
@@ -362,7 +362,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			fItem.first.set(fItem, null);
+			first.set(fItem, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -371,7 +371,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			fItem.first.set(fItem, new CompositeValue("finalViolation", 1, AnEnumClass.anEnumConstant1, target1));
+			first.set(fItem, new CompositeValue("finalViolation", 1, AnEnumClass.anEnumConstant1, target1));
 			fail();
 		}
 		catch(final FinalViolationException e)
