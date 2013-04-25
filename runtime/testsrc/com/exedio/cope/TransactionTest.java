@@ -57,11 +57,11 @@ public class TransactionTest extends TestmodelTest
 		model.rollback();
 	}
 
-	private static void assertSomeString(final AttributeItem actualItem, final String someString)
+	private static void assertSomeString(final AttributeItem actualItem, final String someStringValue)
 	{
-		assertEquals(someString, actualItem.getSomeString());
-		assertTrue(TYPE.search(actualItem.someString.equal(someString)).contains(actualItem));
-		assertFalse(TYPE.search(actualItem.someString.equal("X"+someString)).contains(actualItem));
+		assertEquals(someStringValue, actualItem.getSomeString());
+		assertTrue(TYPE.search(actualItem.someString.equal(someStringValue)).contains(actualItem));
+		assertFalse(TYPE.search(actualItem.someString.equal("X"+someStringValue)).contains(actualItem));
 	}
 
 	private void assertSomeString(final String someString)
