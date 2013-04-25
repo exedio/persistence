@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
+import static com.exedio.cope.pattern.DynamicModelItem.features;
+import static com.exedio.cope.pattern.DynamicModelItem.small;
+
 import java.util.Arrays;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -31,7 +35,7 @@ import com.exedio.cope.pattern.DynamicModel.ValueType;
 
 public class DynamicModelTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(DynamicModelItem.TYPE, DynamicModelLocalizationItem.TYPE);
+	public static final Model MODEL = new Model(TYPE, DynamicModelLocalizationItem.TYPE);
 
 	static
 	{
@@ -72,11 +76,11 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(Double .class, ValueType.DOUBLE .getValueClass());
 		assertEquals(Enum   .class, ValueType.ENUM   .getValueClass());
 
-		assertEquals(item.TYPE, item.features.getType());
-		assertEquals("features", item.features.getName());
+		assertEquals(TYPE, features.getType());
+		assertEquals("features", features.getName());
 
-		assertSame(item.features.getTypeType(), item.features.getTypeField().getValueType());
-		assertEquals("features-type", item.features.getTypeField().getName());
+		assertSame(features.getTypeType(), features.getTypeField().getValueType());
+		assertEquals("features-type", features.getTypeField().getName());
 
 		assertEquals(Arrays.asList(new Type<?>[]{
 				DynamicModelItem.TYPE,
@@ -114,22 +118,22 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertSerializedSame(DynamicModelItem.small   , 387);
 
 		// test persistence
-		assertContains(item.features.getTypes());
+		assertContains(features.getTypes());
 
-		final DynamicModel.Type<DynamicModelLocalizationItem> cellPhone = deleteOnTearDown(item.features.createType("cellPhone"));
-		assertEquals(item.TYPE, cellPhone.getParentType());
-		assertEquals(item.features, cellPhone.getModel());
+		final DynamicModel.Type<DynamicModelLocalizationItem> cellPhone = deleteOnTearDown(features.createType("cellPhone"));
+		assertEquals(TYPE, cellPhone.getParentType());
+		assertEquals(features, cellPhone.getModel());
 		assertEquals("cellPhone", cellPhone.getCode());
-		assertContains(cellPhone, item.features.getTypes());
-		assertEquals(cellPhone, item.features.getType("cellPhone"));
-		assertEquals(null, item.features.getType("cellPhoneX"));
+		assertContains(cellPhone, features.getTypes());
+		assertEquals(cellPhone, features.getType("cellPhone"));
+		assertEquals(null, features.getType("cellPhoneX"));
 		assertContains(cellPhone.getFields());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> akkuTime = cellPhone.addIntegerField("akkuTime");
 		assertEquals(ValueType.INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
-		assertSame(item.TYPE, akkuTime.getField().getType());
+		assertSame(TYPE, akkuTime.getField().getType());
 		assertEquals("features-int0", akkuTime.getField().getName());
 		assertEquals(Integer.class, akkuTime.getField().getValueClass());
 		assertEquals(list(akkuTime), cellPhone.getFields());
@@ -140,7 +144,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
-		assertSame(item.TYPE, memory.getField().getType());
+		assertSame(TYPE, memory.getField().getType());
 		assertEquals("features-string0", memory.getField().getName());
 		assertEquals(String.class, memory.getField().getValueClass());
 		assertEquals(list(akkuTime, memory), cellPhone.getFields());
@@ -172,11 +176,11 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals("80TB", item.getFeatures(memory));
 		assertEquals("80TB", memory.get(item));
 
-		final DynamicModel.Type<DynamicModelLocalizationItem> organizer = deleteOnTearDown(item.features.createType("organizer"));
-		assertEquals(item.TYPE, organizer.getParentType());
-		assertEquals(item.features, organizer.getModel());
+		final DynamicModel.Type<DynamicModelLocalizationItem> organizer = deleteOnTearDown(features.createType("organizer"));
+		assertEquals(TYPE, organizer.getParentType());
+		assertEquals(features, organizer.getModel());
 		assertEquals("organizer", organizer.getCode());
-		assertContains(cellPhone, organizer, item.features.getTypes());
+		assertContains(cellPhone, organizer, features.getTypes());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> weight = organizer.addIntegerField("weight");
 		assertEquals(ValueType.INTEGER, weight.getValueType());
@@ -196,7 +200,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
-		assertSame(item.TYPE, bluetooth.getField().getType());
+		assertSame(TYPE, bluetooth.getField().getType());
 		assertEquals("features-bool0", bluetooth.getField().getName());
 		assertEquals(Boolean.class, bluetooth.getField().getValueClass());
 		assertEquals(list(weight, bluetooth), organizer.getFields());
@@ -205,7 +209,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
-		assertSame(item.TYPE, length.getField().getType());
+		assertSame(TYPE, length.getField().getType());
 		assertEquals("features-double0", length.getField().getName());
 		assertEquals(Double.class, length.getField().getValueClass());
 		assertEquals(list(weight, bluetooth, length), organizer.getFields());
@@ -221,9 +225,9 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
-		assertSame(item.TYPE, color.getFieldEnum().getType());
+		assertSame(TYPE, color.getFieldEnum().getType());
 		assertEquals("features-enum0", color.getFieldEnum().getName());
-		assertEquals(item.features.getEnumType(), color.getFieldEnum().getValueType());
+		assertEquals(features.getEnumType(), color.getFieldEnum().getValueType());
 		assertEquals(list(weight, bluetooth, length, color), organizer.getFields());
 		assertContains(color.getEnumValues());
 		assertEquals(null, item2.getFeatures(color));
@@ -250,9 +254,9 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
-		assertSame(item.TYPE, manufacturer.getFieldEnum().getType());
+		assertSame(TYPE, manufacturer.getFieldEnum().getType());
 		assertEquals("features-enum1", manufacturer.getFieldEnum().getName());
-		assertEquals(item.features.getEnumType(), manufacturer.getFieldEnum().getValueType());
+		assertEquals(features.getEnumType(), manufacturer.getFieldEnum().getValueType());
 		assertEquals(list(weight, bluetooth, length, color, manufacturer), organizer.getFields());
 		assertContains(manufacturer.getEnumValues());
 		assertEquals(null, item2.getFeatures(manufacturer));
@@ -421,7 +425,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, item2.getFeaturesType());
 
 		// test very small model without enums
-		final DynamicModel.Type<DynamicModelLocalizationItem> smallType1 = deleteOnTearDown(item.small.createType("small1"));
+		final DynamicModel.Type<DynamicModelLocalizationItem> smallType1 = deleteOnTearDown(small.createType("small1"));
 		final DynamicModelItem item3 = deleteOnTearDown(new DynamicModelItem("item3"));
 		item3.setSmallType(smallType1);
 		final DynamicModel.Field<DynamicModelLocalizationItem> smallField1 = smallType1.addStringField("smallStringField1");
