@@ -328,7 +328,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		{
 			final Long failureElapsed = failureElapsedIter.next();
 			final Date expected = (Date)expectedFailureIter.next();
-			assertSame(item.toTarget, actual.getPattern());
+			assertSame(DispatcherItem.toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertEquals(expected, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
