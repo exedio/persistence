@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-
 public class HiddenFeatureTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
@@ -117,29 +116,29 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		final HiddenFeatureSubItem sb = deleteOnTearDown(new HiddenFeatureSubItem());
 		sb.setHiddenSame("hiddenSameSuperSub");
 		sb.setHiddenOther("hiddenOtherSuperSub");
-		sb.hiddenSame.set(sb, "hiddenSameSub");
-		sb.hiddenOther.set(sb, 55);
+		HiddenFeatureSubItem.hiddenSame.set(sb, "hiddenSameSub");
+		HiddenFeatureSubItem.hiddenOther.set(sb, 55);
 
 		restartTransaction();
 		assertEquals("hiddenSameSuperSuper", sp.getHiddenSame());
 		assertEquals("hiddenOtherSuperSuper", sp.getHiddenOther());
 		assertEquals("hiddenSameSuperSub", sb.getHiddenSame());
 		assertEquals("hiddenOtherSuperSub", sb.getHiddenOther());
-		assertEquals("hiddenSameSub", sb.hiddenSame.get(sb));
-		assertEquals(Integer.valueOf(55), sb.hiddenOther.get(sb));
+		assertEquals("hiddenSameSub", HiddenFeatureSubItem.hiddenSame.get(sb));
+		assertEquals(Integer.valueOf(55), HiddenFeatureSubItem.hiddenOther.get(sb));
 
-		assertContains(sp, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
-		assertContains(sp, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
-		assertContains(sb, sp.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
-		assertContains(sb, sp.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSuper")));
+		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSuper")));
+		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSub")));
+		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSub")));
 
-		assertContains(sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSuper")));
-		assertContains(sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSuper")));
-		assertContains(sb, sb.TYPE.search(sp.hiddenSame.equal("hiddenSameSuperSub")));
-		assertContains(sb, sb.TYPE.search(sp.hiddenOther.equal("hiddenOtherSuperSub")));
+		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSuper")));
+		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSuper")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSub")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSub")));
 
-		assertContains(sb, sb.TYPE.search(sb.hiddenSame.equal("hiddenSameSub")));
-		assertContains(sb, sb.TYPE.search(sb.hiddenOther.equal(55)));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenSame.equal("hiddenSameSub")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenOther.equal(55)));
 	}
 
 }
