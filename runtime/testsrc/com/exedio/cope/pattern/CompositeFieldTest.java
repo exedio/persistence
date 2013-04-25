@@ -75,60 +75,60 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.code,
+				CompositeItem.TYPE.getThis(),
+				CompositeItem.code,
 				eins,
 				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
-			}), item.TYPE.getFeatures());
+			}), CompositeItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.code,
+				CompositeItem.TYPE.getThis(),
+				CompositeItem.code,
 				eins,
 				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
-			}), item.TYPE.getDeclaredFeatures());
+			}), CompositeItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				oItem.TYPE.getThis(),
-				oItem.code,
+				CompositeOptionalItem.TYPE.getThis(),
+				CompositeOptionalItem.code,
 				uno,
 				uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem),
 				uno.getUnison(),
 				duo,
 				duo.of(aString), duo.of(anInt), duo.of(anEnum), duo.of(anItem),
 				duo.getUnison(),
-			}), oItem.TYPE.getFeatures());
+			}), CompositeOptionalItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				oItem.TYPE.getThis(),
-				oItem.code,
+				CompositeOptionalItem.TYPE.getThis(),
+				CompositeOptionalItem.code,
 				uno,
 				uno.of(aString), uno.of(anInt), uno.of(anEnum), uno.of(anItem),
 				uno.getUnison(),
 				duo,
 				duo.of(aString), duo.of(anInt), duo.of(anEnum), duo.of(anItem),
 				duo.getUnison(),
-			}), oItem.TYPE.getDeclaredFeatures());
+			}), CompositeOptionalItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				fItem.TYPE.getThis(),
-				fItem.code,
+				CompositeFinalItem.TYPE.getThis(),
+				CompositeFinalItem.code,
 				first,
 				first.of(aString),  first.of(anInt),  first.of(anEnum),  first.of(anItem),
 				second,
 				second.of(aString), second.of(anInt), second.of(anEnum), second.of(anItem),
-			}), fItem.TYPE.getFeatures());
+			}), CompositeFinalItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				fItem.TYPE.getThis(),
-				fItem.code,
+				CompositeFinalItem.TYPE.getThis(),
+				CompositeFinalItem.code,
 				first,
 				first.of(aString),  first.of(anInt),  first.of(anEnum),  first.of(anItem),
 				second,
 				second.of(aString), second.of(anInt), second.of(anEnum),second.of(anItem),
-			}), fItem.TYPE.getDeclaredFeatures());
+			}), CompositeFinalItem.TYPE.getDeclaredFeatures());
 
-		assertEquals(oItem.TYPE, uno.of(aString).getType());
-		assertEquals(oItem.TYPE, uno.getType());
+		assertEquals(CompositeOptionalItem.TYPE, uno.of(aString).getType());
+		assertEquals(CompositeOptionalItem.TYPE, uno.getType());
 		assertEquals("uno-aString", uno.of(aString).getName());
 		assertEquals("uno", uno.getName());
 		assertEquals(uno, uno.of(aString).getPattern());
@@ -223,7 +223,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			uno.of(oItem.code);
+			uno.of(CompositeOptionalItem.code);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -232,7 +232,7 @@ public class CompositeFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			uno.getTemplate(oItem.code);
+			uno.getTemplate(CompositeOptionalItem.code);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
