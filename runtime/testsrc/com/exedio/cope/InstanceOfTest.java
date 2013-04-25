@@ -19,6 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.InstanceOfAItem.code;
+import static com.exedio.cope.InstanceOfC1Item.textc1;
+import static com.exedio.cope.InstanceOfRefItem.ref;
+import static com.exedio.cope.InstanceOfRefItem.refb2;
 
 public class InstanceOfTest extends AbstractRuntimeTest
 {
@@ -75,14 +78,14 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		assertCondition(TYPE_A, TYPE_A.getThis().notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
 		assertCondition(itemc1, TYPE_A, TYPE_A.getThis().instanceOf(TYPE_C1));
 
-		assertCondition(reffa, reffb1, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_C1));
-		assertCondition(reffa, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B1));
-		assertCondition(reffa, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B1, TYPE_C1));
-		assertCondition(reffa, reffb1, reffc1, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B2));
-		assertCondition(reffa, reffb1, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B2, TYPE_C1));
-		assertCondition(TYPE_REF, reffa.ref.notInstanceOf(TYPE_A));
-		assertCondition(TYPE_REF, reffa.ref.notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
-		assertCondition(reffc1, TYPE_REF, reffa.ref.instanceOf(TYPE_C1));
+		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_C1));
+		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1));
+		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1, TYPE_C1));
+		assertCondition(reffa, reffb1, reffc1, TYPE_REF, ref.notInstanceOf(TYPE_B2));
+		assertCondition(reffa, reffb1, TYPE_REF, ref.notInstanceOf(TYPE_B2, TYPE_C1));
+		assertCondition(TYPE_REF, ref.notInstanceOf(TYPE_A));
+		assertCondition(TYPE_REF, ref.notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
+		assertCondition(reffc1, TYPE_REF, ref.instanceOf(TYPE_C1));
 
 		model.checkTypeColumns();
 
@@ -91,7 +94,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 			itemc1.setTextc1("textC1");
 			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
 			final Join j = q.join(TYPE_C1);
-			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
+			j.setCondition(textc1.bind(j).equal(textc1));
 			assertContains(itemc1, q.search());
 		}
 		{
@@ -238,7 +241,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			TYPE_REF.search(reffa.refb2.notInstanceOf((Type)TYPE_B1));
+			TYPE_REF.search(refb2.notInstanceOf((Type)TYPE_B1));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
