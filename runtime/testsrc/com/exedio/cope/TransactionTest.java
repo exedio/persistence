@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
+import static com.exedio.cope.testmodel.AttributeItem.someString;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -60,8 +61,8 @@ public class TransactionTest extends TestmodelTest
 	private static void assertSomeString(final AttributeItem actualItem, final String someStringValue)
 	{
 		assertEquals(someStringValue, actualItem.getSomeString());
-		assertTrue(TYPE.search(actualItem.someString.equal(someStringValue)).contains(actualItem));
-		assertFalse(TYPE.search(actualItem.someString.equal("X"+someStringValue)).contains(actualItem));
+		assertTrue(TYPE.search(someString.equal(someStringValue)).contains(actualItem));
+		assertFalse(TYPE.search(someString.equal("X"+someStringValue)).contains(actualItem));
 	}
 
 	private void assertSomeString(final String someString)
