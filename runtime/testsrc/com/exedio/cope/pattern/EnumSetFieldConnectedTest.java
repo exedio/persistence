@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
+import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
@@ -52,8 +54,8 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
+		assertContains(TYPE.search(activeLanguage.contains(DE)));
+		assertContains(TYPE.search(activeLanguage.contains(EN)));
 
 		item.addActiveLanguage(DE);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -62,8 +64,8 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.of(DE), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item.TYPE.search(item.activeLanguage.contains(EN)));
+		assertContains(item, TYPE.search(activeLanguage.contains(DE)));
+		assertContains(TYPE.search(activeLanguage.contains(EN)));
 
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -72,8 +74,8 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		assertEquals(false, itemX.containsActiveLanguage(DE));
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(DE)));
-		assertContains(item, item.TYPE.search(item.activeLanguage.contains(EN)));
+		assertContains(item, TYPE.search(activeLanguage.contains(DE)));
+		assertContains(item, TYPE.search(activeLanguage.contains(EN)));
 
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -153,7 +155,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.activeLanguage.contains(null);
+			activeLanguage.contains(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -174,7 +176,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 
 		value.add(EN);
 		value.remove(PL);
-		initialItem.set(item.activeLanguage.map(value));
+		initialItem.set(activeLanguage.map(value));
 		assertEquals(false, initialItem.containsActiveLanguage(DE));
 		assertEquals(true,  initialItem.containsActiveLanguage(EN));
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
@@ -185,7 +187,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			((EnumSetField)item.activeLanguage).contains(item, X.A);
+			((EnumSetField)activeLanguage).contains(item, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -194,7 +196,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumSetField)item.activeLanguage).add(item, X.A);
+			((EnumSetField)activeLanguage).add(item, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -203,7 +205,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumSetField)item.activeLanguage).remove(item, X.A);
+			((EnumSetField)activeLanguage).remove(item, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -212,7 +214,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumSetField)item.activeLanguage).contains(X.A);
+			((EnumSetField)activeLanguage).contains(X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
