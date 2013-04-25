@@ -19,6 +19,17 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullItem;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullLong;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
+import static com.exedio.cope.testmodel.AttributeItem.someString;
+import static com.exedio.cope.testmodel.AttributeItem.someStringLength;
+import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -69,12 +80,12 @@ public class SelectTest extends TestmodelTest
 	{
 		final Query<List<Object>> query = newQuery(
 				new Function<?>[]{
-						item.someString, item.someStringUpperCase, item.someStringLength, item.someNotNullString,
-						item.someNotNullInteger, item.someNotNullLong, item.someNotNullDouble,
-						item.someNotNullBoolean, item.someNotNullItem, item.someNotNullEnum},
-				item.TYPE,
+						someString, someStringUpperCase, someStringLength, someNotNullString,
+						someNotNullInteger, someNotNullLong, someNotNullDouble,
+						someNotNullBoolean, someNotNullItem, someNotNullEnum},
+				TYPE,
 				null);
-		query.setOrderBy(item.someNotNullString, false);
+		query.setOrderBy(someNotNullString, false);
 		final Collection<List<Object>> result = query.search();
 		assertNotNull(query.toString());
 		final Iterator<List<Object>> i = result.iterator();
