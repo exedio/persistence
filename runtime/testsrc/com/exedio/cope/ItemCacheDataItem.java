@@ -25,12 +25,12 @@ final class ItemCacheDataItem extends Item
 
 	void setDataMulti(final byte[] data)
 	{
-		set(this.data.map(data));
+		set(ItemCacheDataItem.data.map(data));
 	}
 
 	void setBothMulti(final String string, final byte[] data)
 	{
-		set(this.string.map(string), this.data.map(data));
+		set(ItemCacheDataItem.string.map(string), ItemCacheDataItem.data.map(data));
 	}
 
 
