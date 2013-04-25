@@ -25,6 +25,12 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		super(InstanceOfModelTest.MODEL);
 	}
 
+	private final Type<InstanceOfAItem> TYPE_A = InstanceOfAItem.TYPE;
+	private final Type<InstanceOfB1Item> TYPE_B1 = InstanceOfB1Item.TYPE;
+	private final Type<InstanceOfB2Item> TYPE_B2 = InstanceOfB2Item.TYPE;
+	private final Type<InstanceOfC1Item> TYPE_C1 = InstanceOfC1Item.TYPE;
+	private final Type<InstanceOfRefItem> TYPE_REF = InstanceOfRefItem.TYPE;
+
 	InstanceOfAItem itema;
 	InstanceOfB1Item itemb1;
 	InstanceOfB2Item itemb2;
@@ -55,84 +61,84 @@ public class InstanceOfTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertContains(itema, itemb1, itemb2, itemc1,        itema.TYPE.search(null));
-		assertContains(reffa, reffb1, reffb2, reffc1, reffN, reffa.TYPE.search(null));
+		assertContains(itema, itemb1, itemb2, itemc1,        TYPE_A.search(null));
+		assertContains(reffa, reffb1, reffb2, reffc1, reffN, TYPE_REF.search(null));
 
-		assertCondition(itema, itemb1, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
-		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE));
-		assertCondition(itema, itemb2, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb1.TYPE, itemc1.TYPE));
-		assertCondition(itema, itemb1, itemc1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE));
-		assertCondition(itema, itemb1, itema.TYPE, itema.TYPE.getThis().notInstanceOf(itemb2.TYPE, itemc1.TYPE));
-		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(itema.TYPE));
-		assertCondition(itema.TYPE, itema.TYPE.getThis().notInstanceOf(new Type<?>[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
-		assertCondition(itemc1, itema.TYPE, itema.TYPE.getThis().instanceOf(itemc1.TYPE));
+		assertCondition(itema, itemb1, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_C1));
+		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1));
+		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1, TYPE_C1));
+		assertCondition(itema, itemb1, itemc1, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B2));
+		assertCondition(itema, itemb1, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B2, TYPE_C1));
+		assertCondition(TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_A));
+		assertCondition(TYPE_A, TYPE_A.getThis().notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
+		assertCondition(itemc1, TYPE_A, TYPE_A.getThis().instanceOf(TYPE_C1));
 
-		assertCondition(reffa, reffb1, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemc1.TYPE));
-		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE));
-		assertCondition(reffa, reffb2, reffa.TYPE, reffa.ref.notInstanceOf(itemb1.TYPE, itemc1.TYPE));
-		assertCondition(reffa, reffb1, reffc1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE));
-		assertCondition(reffa, reffb1, reffa.TYPE, reffa.ref.notInstanceOf(itemb2.TYPE, itemc1.TYPE));
-		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(itema.TYPE));
-		assertCondition(reffa.TYPE, reffa.ref.notInstanceOf(new Type<?>[]{itema.TYPE, itemb1.TYPE, itemb2.TYPE, itemc1.TYPE}));
-		assertCondition(reffc1, reffa.TYPE, reffa.ref.instanceOf(itemc1.TYPE));
+		assertCondition(reffa, reffb1, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_C1));
+		assertCondition(reffa, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B1));
+		assertCondition(reffa, reffb2, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B1, TYPE_C1));
+		assertCondition(reffa, reffb1, reffc1, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B2));
+		assertCondition(reffa, reffb1, TYPE_REF, reffa.ref.notInstanceOf(TYPE_B2, TYPE_C1));
+		assertCondition(TYPE_REF, reffa.ref.notInstanceOf(TYPE_A));
+		assertCondition(TYPE_REF, reffa.ref.notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
+		assertCondition(reffc1, TYPE_REF, reffa.ref.instanceOf(TYPE_C1));
 
 		model.checkTypeColumns();
 
 		// test self joins and inheritance
 		{
 			itemc1.setTextc1("textC1");
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
-			final Join j = q.join(itemc1.TYPE);
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(TYPE_C1);
 			j.setCondition(itemc1.textc1.bind(j).equal(itemc1.textc1));
 			assertContains(itemc1, q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
-			final Join j = q.join(itemb2.TYPE);
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(TYPE_B2);
 			j.setCondition(itemc1.code.bind(j).equal(itemb2.code));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
-			q.join(itemb2.TYPE);
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1").and(TYPE_B1.getThis().notInstanceOf(TYPE_C1)));
+			q.join(TYPE_B2);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
-			final Join j = q.join(itemb2.TYPE);
-			j.setCondition(itemb1.TYPE.getThis().notInstanceOf(itemc1.TYPE));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(TYPE_B2);
+			j.setCondition(TYPE_B1.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
-			q.join(itemb2.TYPE);
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
+			q.join(TYPE_B2);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
-			final Join j = q.join(itemb2.TYPE);
-			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(TYPE_B2);
+			j.setCondition(TYPE_A.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1").and(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE)));
-			q.join(itemb1.TYPE);
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
+			q.join(TYPE_B1);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = itemc1.TYPE.newQuery(itemc1.code.equal("itemc1"));
-			final Join j = q.join(itemb1.TYPE);
-			j.setCondition(itema.TYPE.getThis().notInstanceOf(itemc1.TYPE));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(itemc1.code.equal("itemc1"));
+			final Join j = q.join(TYPE_B1);
+			j.setCondition(TYPE_A.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
 
-		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", itema.TYPE.getThis().instanceOf(itemc1.TYPE).toString());
-		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", itema.TYPE.getThis().instanceOf(itemc1.TYPE, itemb1.TYPE).toString());
-		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", itema.TYPE.getThis().notInstanceOf(itemc1.TYPE).toString());
-		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", itema.TYPE.getThis().notInstanceOf(itemc1.TYPE, itemb1.TYPE).toString());
+		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
+		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
+		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", TYPE_A.getThis().notInstanceOf(TYPE_C1).toString());
+		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
 		try
 		{
-			itema.TYPE.getThis().instanceOf((Type[])null);
+			TYPE_A.getThis().instanceOf((Type[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -141,7 +147,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			itema.TYPE.getThis().instanceOf(new Type<?>[]{});
+			TYPE_A.getThis().instanceOf(new Type<?>[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -221,7 +227,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			itemb2.TYPE.search(itemb2.TYPE.getThis().notInstanceOf((Type)itemb1.TYPE));
+			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -230,7 +236,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			reffa.TYPE.search(reffa.refb2.notInstanceOf((Type)itemb1.TYPE));
+			TYPE_REF.search(reffa.refb2.notInstanceOf((Type)TYPE_B1));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -239,7 +245,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			itemb1.TYPE.search(itemb1.TYPE.getThis().notInstanceOf((Type)itema.TYPE));
+			TYPE_B1.search(TYPE_B1.getThis().notInstanceOf((Type)TYPE_A));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
