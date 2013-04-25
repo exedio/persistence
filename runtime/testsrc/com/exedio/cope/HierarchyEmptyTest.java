@@ -103,9 +103,9 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertCheckUpdateCounters();
 		assertEquals(2, subItem.getSuperInt());
 
-		assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
-		assertEquals(list(subItem), subItem.TYPE.search(null));
-		assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
+		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(2)));
+		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(null));
+		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(1)));
 
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 		assertCheckUpdateCounters();
@@ -115,10 +115,10 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertCheckUpdateCounters();
 		assertEquals(4, superItem.getSuperInt());
 
-		assertEquals(list(superItem), superItem.TYPE.search(superItem.superInt.equal(4)));
-		assertEquals(list(subItem), superItem.TYPE.search(superItem.superInt.equal(2)));
-		assertContains(superItem, subItem, superItem.TYPE.search(null));
-		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
+		assertEquals(list(superItem), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(4)));
+		assertEquals(list(subItem), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(2)));
+		assertContains(superItem, subItem, HierarchyEmptySuper.TYPE.search(null));
+		assertEquals(list(), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 	}
 
 	public void testModel()
