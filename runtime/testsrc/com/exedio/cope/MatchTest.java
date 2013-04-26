@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MatchItem.TYPE;
+import static com.exedio.cope.MatchItem.text;
+
 public class MatchTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(MatchItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	public MatchTest()
 	{
@@ -39,9 +42,9 @@ public class MatchTest extends AbstractRuntimeTest
 	public void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");
-		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "hallo")));
-		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "bello")));
-		assertEquals(list(item), item.TYPE.search(new MatchCondition(item.text, "cnallo")));
-		assertEquals(list(), item.TYPE.search(new MatchCondition(item.text, "zack")));
+		assertEquals(list(item), TYPE.search(new MatchCondition(text, "hallo")));
+		assertEquals(list(item), TYPE.search(new MatchCondition(text, "bello")));
+		assertEquals(list(item), TYPE.search(new MatchCondition(text, "cnallo")));
+		assertEquals(list(), TYPE.search(new MatchCondition(text, "zack")));
 	}
 }
