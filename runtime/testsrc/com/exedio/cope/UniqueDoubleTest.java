@@ -91,7 +91,7 @@ public class UniqueDoubleTest extends AbstractRuntimeTest
 
 		try
 		{
-			b2.set(b2.integer.map(1));
+			b2.set(integer.map(1));
 			fail();
 		}
 		catch(final UniqueViolationException e)
