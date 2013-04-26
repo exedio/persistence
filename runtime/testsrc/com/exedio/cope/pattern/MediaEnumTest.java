@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaItem.TYPE;
+import static com.exedio.cope.pattern.MediaItem.sheet;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -49,57 +52,57 @@ public class MediaEnumTest extends AbstractRuntimeTest
 	{
 		// test model
 
-		assertEquals(false, item.sheet.isInitial());
-		assertEquals(false, item.sheet.isFinal());
-		assertEquals(false, item.sheet.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(item.sheet));
-		assertContains(item.sheet.getInitialExceptions());
-		assertEquals(true, item.sheet.checkContentType("image/png"));
-		assertEquals(false, item.sheet.checkContentType("image/jpg"));
-		assertEquals(true, item.sheet.checkContentType("application/pdf"));
-		assertEquals(false, item.sheet.checkContentType("application/msword"));
-		assertEquals("application/pdf,image/png", item.sheet.getContentTypeDescription());
-		assertEqualsUnmodifiable(list("application/pdf", "image/png"), item.sheet.getContentTypesAllowed());
-		assertEquals(5000, item.sheet.getMaximumLength());
+		assertEquals(false, sheet.isInitial());
+		assertEquals(false, sheet.isFinal());
+		assertEquals(false, sheet.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(sheet));
+		assertContains(sheet.getInitialExceptions());
+		assertEquals(true, sheet.checkContentType("image/png"));
+		assertEquals(false, sheet.checkContentType("image/jpg"));
+		assertEquals(true, sheet.checkContentType("application/pdf"));
+		assertEquals(false, sheet.checkContentType("application/msword"));
+		assertEquals("application/pdf,image/png", sheet.getContentTypeDescription());
+		assertEqualsUnmodifiable(list("application/pdf", "image/png"), sheet.getContentTypesAllowed());
+		assertEquals(5000, sheet.getMaximumLength());
 
-		final DataField body = item.sheet.getBody();
-		assertSame(item.TYPE, body.getType());
+		final DataField body = sheet.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("sheet-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(5000, body.getMaximumLength());
-		assertEquals(item.sheet, body.getPattern());
-		assertSame(item.sheet, Media.get(body));
+		assertEquals(sheet, body.getPattern());
+		assertSame(sheet, Media.get(body));
 
-		final IntegerField contentType = (IntegerField)item.sheet.getContentType();
-		assertSame(item.TYPE, contentType.getType());
+		final IntegerField contentType = (IntegerField)sheet.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("sheet-contentType", contentType.getName());
-		assertEquals(item.sheet, contentType.getPattern());
+		assertEquals(sheet, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 
-		final DateField lastModified = item.sheet.getLastModified();
-		assertSame(item.TYPE, lastModified.getType());
+		final DateField lastModified = sheet.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("sheet-lastModified", lastModified.getName());
-		assertEquals(item.sheet, lastModified.getPattern());
+		assertEquals(sheet, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 
-		final CheckConstraint unison = item.sheet.getUnison();
-		assertSame(item.TYPE, unison.getType());
+		final CheckConstraint unison = sheet.getUnison();
+		assertSame(TYPE, unison.getType());
 		assertEquals("sheet-unison", unison.getName());
-		assertEquals(item.sheet, unison.getPattern());
+		assertEquals(sheet, unison.getPattern());
 		assertEquals(Cope.or(
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
 
-		assertEquals(contentType.equal(0),  item.sheet.contentTypeEqual("application/pdf"));
-		assertEquals(contentType.equal(1),  item.sheet.contentTypeEqual("image/png"));
-		assertEquals(Condition.FALSE,       item.sheet.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(), item.sheet.contentTypeEqual(null));
+		assertEquals(contentType.equal(0),  sheet.contentTypeEqual("application/pdf"));
+		assertEquals(contentType.equal(1),  sheet.contentTypeEqual("image/png"));
+		assertEquals(Condition.FALSE,       sheet.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(), sheet.contentTypeEqual(null));
 
 		// test persistence
 
@@ -121,7 +124,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.sheet, e.getFeature());
+			assertSame(sheet, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
@@ -136,7 +139,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.sheet, e.getFeature());
+			assertSame(sheet, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("image/jpeg", e.getContentType());
 			assertEquals("illegal content type 'image/jpeg' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
@@ -153,7 +156,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(null, item.getSheetBody());
 		assertEquals(-1, item.getSheetLength());
 		assertEquals(null, item.getSheetContentType());
-		assertEquals(null, item.sheet.getContentType().get(item));
+		assertEquals(null, sheet.getContentType().get(item));
 		assertEquals(null, item.getSheetURL());
 	}
 
@@ -167,7 +170,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getSheetBody());
 		assertEquals(expectedData.length, item.getSheetLength());
 		assertEquals(expectedContentType, item.getSheetContentType());
-		assertEquals(expectedContentTypeNumber, item.sheet.getContentType().get(item));
+		assertEquals(expectedContentTypeNumber, sheet.getContentType().get(item));
 		assertEquals(mediaRootUrl + "MediaItem/sheet/" + item.getCopeID() + expectedExtension, item.getSheetURL());
 	}
 }
