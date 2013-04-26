@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numC;
@@ -62,9 +63,9 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
 	{
-		final Query<PlusIntegerItem> query = item0.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = TYPE.newQuery(null);
 		final boolean[] ascending = new boolean[orderBy.length];
 		Arrays.fill(ascending, true);
 		query.setOrderBy(orderBy, ascending);
