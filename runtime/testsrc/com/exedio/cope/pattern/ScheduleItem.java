@@ -41,7 +41,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 
 	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 	{
-		assertSame(this.report, schedule);
+		assertSame(report, schedule);
 		assertTrue(ctx!=null);
 		logs.add(new Log(this, from, until));
 		if(getFail())
