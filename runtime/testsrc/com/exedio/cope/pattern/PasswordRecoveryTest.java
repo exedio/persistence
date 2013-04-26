@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
+import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -241,7 +242,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	{
 		final CountJobContext ctx = new CountJobContext();
 		model.commit();
-		i.purgePasswordRecovery(ctx);
+		purgePasswordRecovery(ctx);
 		model.startTransaction("PasswordRecoveryTest");
 		return ctx.progress;
 	}
