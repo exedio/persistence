@@ -138,12 +138,12 @@ public class PriceFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			item2.finalPrice.set(item2, null);
+			finalPrice.set(item2, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item2.finalPrice, e.getFeature());
+			assertEquals(finalPrice, e.getFeature());
 			assertEquals(item2, e.getItem());
 		}
 	}
