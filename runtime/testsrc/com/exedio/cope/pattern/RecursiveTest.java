@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.RecursiveItem.*;
+import static com.exedio.cope.pattern.RecursiveItem.TYPE;
+import static com.exedio.cope.pattern.RecursiveItem.testPattern;
+import static com.exedio.cope.pattern.RecursiveItem.testPattern2;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
