@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MatchItem.TYPE;
+import static com.exedio.cope.MatchItem.text;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,8 +60,8 @@ public class QueryCacheTest extends AbstractRuntimeTest
 
 		final DBL l = new DBL();
 		model.setTestDatabaseListener(l);
-		final Query<?> q1 = item.TYPE.newQuery(item.text.equal("someString"));
-		final Query<?> q2 = item.TYPE.newQuery(item.text.equal("someString2"));
+		final Query<?> q1 = TYPE.newQuery(text.equal("someString"));
+		final Query<?> q2 = TYPE.newQuery(text.equal("someString2"));
 
 		q1.search();
 		assertEquals(list(sc(q1, false)), l.scs);
