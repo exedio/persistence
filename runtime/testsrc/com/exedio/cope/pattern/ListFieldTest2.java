@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.ListFieldItem.strings;
+
 import java.util.Iterator;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -47,9 +49,9 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Type<?> type = item.strings.getRelationType();
-		final IntegerField order = item.strings.getOrder();
-		final FunctionField<String> element = item.strings.getElement();
+		final Type<?> type = strings.getRelationType();
+		final IntegerField order = strings.getOrder();
+		final FunctionField<String> element = strings.getElement();
 
 		item.setStrings(listg("0zero", "1one", "2two"));
 		assertEqualsUnmodifiable(list("0zero", "1one", "2two"), item.getStrings());
