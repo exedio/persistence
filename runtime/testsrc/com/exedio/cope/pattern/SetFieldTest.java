@@ -18,6 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.SetFieldItem.TYPE;
+import static com.exedio.cope.pattern.SetFieldItem.dates;
+import static com.exedio.cope.pattern.SetFieldItem.datesParent;
+import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
+import static com.exedio.cope.pattern.SetFieldItem.strings;
+import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
+
 import java.util.Date;
 import java.util.Iterator;
 
@@ -35,7 +42,7 @@ import com.exedio.cope.misc.Computed;
 
 public class SetFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(SetFieldItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -60,47 +67,47 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Type<?> stringsType = item.strings.getRelationType();
-		final Type<?> datesType = item.dates.getRelationType();
-		final FunctionField<String> stringsElement = item.strings.getElement();
+		final Type<?> stringsType = strings.getRelationType();
+		final Type<?> datesType = dates.getRelationType();
+		final FunctionField<String> stringsElement = strings.getElement();
 
 		// test model
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				stringsType,
 				datesType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				stringsType,
 				datesType
 			), model.getTypesSortedByHierarchy());
-		assertEquals(SetFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
+		assertEquals(SetFieldItem.class, TYPE.getJavaClass());
+		assertEquals(true, TYPE.isBound());
+		assertEquals(null, TYPE.getPattern());
 
 		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				item.strings,
-				item.dates
-			), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				strings,
+				dates
+			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
-				item.stringsParent(),
+				stringsParent(),
 				stringsElement,
-				item.strings.getUniqueConstraint()
+				strings.getUniqueConstraint()
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				datesType.getThis(),
-				item.datesParent(),
-				item.dates.getElement(),
-				item.dates.getUniqueConstraint()
+				datesParent(),
+				dates.getElement(),
+				dates.getUniqueConstraint()
 			), datesType.getFeatures());
 
-		assertEquals(item.TYPE, item.strings.getType());
-		assertEquals("strings", item.strings.getName());
-		assertEquals(item.TYPE, item.dates.getType());
-		assertEquals("dates", item.dates.getName());
+		assertEquals(TYPE, strings.getType());
+		assertEquals("strings", strings.getName());
+		assertEquals(TYPE, dates.getType());
+		assertEquals("dates", dates.getName());
 
 		assertEquals("SetFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
@@ -124,38 +131,38 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals(datesType, datesType.getThis().getValueType());
 		assertEquals(model, datesType.getModel());
 
-		assertEquals(stringsType, item.stringsParent().getType());
+		assertEquals(stringsType, stringsParent().getType());
 		assertEquals(stringsType, stringsElement.getType());
-		assertEquals(stringsType, item.strings.getUniqueConstraint().getType());
-		assertEquals(datesType, item.datesParent().getType());
-		assertEquals(datesType, item.dates.getElement().getType());
-		assertEquals(datesType, item.dates.getUniqueConstraint().getType());
-		assertSame(item.stringsParent(), item.strings.getParent());
-		assertSame(item.datesParent(), item.dates.getParent());
+		assertEquals(stringsType, strings.getUniqueConstraint().getType());
+		assertEquals(datesType, datesParent().getType());
+		assertEquals(datesType, dates.getElement().getType());
+		assertEquals(datesType, dates.getUniqueConstraint().getType());
+		assertSame(stringsParent(), strings.getParent());
+		assertSame(datesParent(), dates.getParent());
 
-		assertEquals("parent", item.stringsParent().getName());
+		assertEquals("parent", stringsParent().getName());
 		assertEquals("element", stringsElement.getName());
-		assertEquals("uniqueConstraint", item.strings.getUniqueConstraint().getName());
-		assertEquals("parent", item.datesParent().getName());
-		assertEquals("element", item.dates.getElement().getName());
-		assertEquals("uniqueConstraint", item.dates.getUniqueConstraint().getName());
+		assertEquals("uniqueConstraint", strings.getUniqueConstraint().getName());
+		assertEquals("parent", datesParent().getName());
+		assertEquals("element", dates.getElement().getName());
+		assertEquals("uniqueConstraint", dates.getUniqueConstraint().getName());
 
-		assertEqualsUnmodifiable(list(item.stringsParent(), stringsElement), item.strings.getUniqueConstraint().getFields());
-		assertEqualsUnmodifiable(list(item.datesParent(), item.dates.getElement()), item.dates.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(stringsParent(), stringsElement), strings.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(datesParent(), dates.getElement()), dates.getUniqueConstraint().getFields());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));
-		assertTrue(!item.TYPE.isAssignableFrom(stringsType));
-		assertTrue(!stringsType.isAssignableFrom(item.TYPE));
+		assertTrue(!TYPE.isAssignableFrom(stringsType));
+		assertTrue(!stringsType.isAssignableFrom(TYPE));
 
-		assertEqualsUnmodifiable(list(), item.strings.getSourceFeatures());
-		assertEqualsUnmodifiable(list(), item.dates.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), strings.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), dates.getSourceFeatures());
 
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.strings, 381);
-		assertSerializedSame(item.dates  , 379);
+		assertSerializedSame(strings, 381);
+		assertSerializedSame(dates  , 379);
 
 		try
 		{
@@ -205,10 +212,10 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		item.setStrings(listg("hallo", "bello"));
 		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
-		assertContains(item, item.getParentsOfStrings("hallo"));
-		assertContains(item, item.getParentsOfStrings("bello"));
-		assertContains(item.getParentsOfStrings("knollo"));
-		assertContains(item.getParentsOfStrings(null));
+		assertContains(item, getParentsOfStrings("hallo"));
+		assertContains(item, getParentsOfStrings("bello"));
+		assertContains(getParentsOfStrings("knollo"));
+		assertContains(getParentsOfStrings(null));
 		final Item r0;
 		final Item r1;
 		{
@@ -222,10 +229,10 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		item.setStrings(listg("bello", "knollo"));
 		assertContainsUnmodifiable("bello", "knollo", item.getStrings());
-		assertContains(item.getParentsOfStrings("hallo"));
-		assertContains(item, item.getParentsOfStrings("bello"));
-		assertContains(item, item.getParentsOfStrings("knollo"));
-		assertContains(item.getParentsOfStrings(null));
+		assertContains(getParentsOfStrings("hallo"));
+		assertContains(item, getParentsOfStrings("bello"));
+		assertContains(item, getParentsOfStrings("knollo"));
+		assertContains(getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r0, i.next());
@@ -237,10 +244,10 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		item.setStrings(listg("knollo"));
 		assertContainsUnmodifiable("knollo", item.getStrings());
-		assertContains(item.getParentsOfStrings("hallo"));
-		assertContains(item.getParentsOfStrings("bello"));
-		assertContains(item, item.getParentsOfStrings("knollo"));
-		assertContains(item.getParentsOfStrings(null));
+		assertContains(getParentsOfStrings("hallo"));
+		assertContains(getParentsOfStrings("bello"));
+		assertContains(item, getParentsOfStrings("knollo"));
+		assertContains(getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r0, i.next());
@@ -267,9 +274,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		item.setStrings(listg("null1", "null2", "null3", "null4"));
 		assertContainsUnmodifiable("null1", "null2", "null3", "null4", item.getStrings());
-		assertContains(item, item.getParentsOfStrings("null1"));
-		assertContains(item.getParentsOfStrings(null));
-		assertContains(item, item.getParentsOfStrings("null2"));
+		assertContains(item, getParentsOfStrings("null1"));
+		assertContains(getParentsOfStrings(null));
+		assertContains(item, getParentsOfStrings("null2"));
 		final Item r3;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -301,7 +308,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			r4 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(item.strings.getElement()));
+		assertEquals("bing", r4.get(strings.getElement()));
 
 		assertEquals(false, item.addToStrings("bing"));
 		assertContainsUnmodifiable("bing", item.getStrings());
@@ -310,7 +317,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			assertSame(r4, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(item.strings.getElement()));
+		assertEquals("bing", r4.get(strings.getElement()));
 
 		assertEquals(true, item.addToStrings("bong"));
 		assertContainsUnmodifiable("bing", "bong", item.getStrings());
@@ -321,8 +328,8 @@ public class SetFieldTest extends AbstractRuntimeTest
 			r5 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(item.strings.getElement()));
-		assertEquals("bong", r5.get(item.strings.getElement()));
+		assertEquals("bing", r4.get(strings.getElement()));
+		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(true, item.removeFromStrings("bing"));
 		assertContainsUnmodifiable("bong", item.getStrings());
@@ -332,7 +339,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			assertFalse(i.hasNext());
 		}
 		assertFalse(r4.existsCopeItem());
-		assertEquals("bong", r5.get(item.strings.getElement()));
+		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(false, item.removeFromStrings("bing"));
 		assertContainsUnmodifiable("bong", item.getStrings());
@@ -342,7 +349,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 			assertFalse(i.hasNext());
 		}
 		assertFalse(r4.existsCopeItem());
-		assertEquals("bong", r5.get(item.strings.getElement()));
+		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(true, item.removeFromStrings("bong"));
 		assertContainsUnmodifiable(item.getStrings());
@@ -372,14 +379,14 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.dates.getElement(), e.getFeature());
+			assertEquals(dates.getElement(), e.getFeature());
 		}
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
 
 		try
 		{
-			item.strings.getParent(Item.class);
+			strings.getParent(Item.class);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -388,7 +395,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.dates.getParent(Item.class);
+			dates.getParent(Item.class);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -397,7 +404,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.strings.getParents(Item.class, "hallo");
+			strings.getParents(Item.class, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -406,7 +413,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.dates.getParents(Item.class, new Date());
+			dates.getParents(Item.class, new Date());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -426,26 +433,26 @@ public class SetFieldTest extends AbstractRuntimeTest
 		otherItem.setStrings(listg(rot));
 		assertContainsUnmodifiable(rot, otherItem.getStrings());
 
-		assertContains(item, otherItem, item.getParentsOfStrings(rot));
-		assertContains(item, item.getParentsOfStrings(blau));
-		assertContains(item.getParentsOfStrings(gelb));
-		assertContains(item.getParentsOfStrings(null));
+		assertContains(item, otherItem, getParentsOfStrings(rot));
+		assertContains(item, getParentsOfStrings(blau));
+		assertContains(getParentsOfStrings(gelb));
+		assertContains(getParentsOfStrings(null));
 
 		item.setStrings(listg(rot, gelb, blau));
 		assertContainsUnmodifiable(rot, blau, gelb, item.getStrings());
 		otherItem.setStrings(listg(gelb));
 		assertContainsUnmodifiable(gelb, otherItem.getStrings());
 
-		assertContains(item, item.getParentsOfStrings(rot));
-		assertContains(item, item.getParentsOfStrings(blau));
-		assertContains(item, otherItem, item.getParentsOfStrings(gelb));
-		assertContains(item.getParentsOfStrings(null));
+		assertContains(item, getParentsOfStrings(rot));
+		assertContains(item, getParentsOfStrings(blau));
+		assertContains(item, otherItem, getParentsOfStrings(gelb));
+		assertContains(getParentsOfStrings(null));
 	}
 
 	public void testEmpty() throws Exception
 	{
-		final Query<SetFieldItem> q = item.TYPE.newQuery(item.strings.getElement().isNull());
-		q.joinOuterLeft(item.strings.getRelationType(), item.strings.getParent().equalTarget());
+		final Query<SetFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
+		q.joinOuterLeft(strings.getRelationType(), strings.getParent().equalTarget());
 
 		assertContains(item, otherItem, q.search());
 		assertEquals(2, q.total());
