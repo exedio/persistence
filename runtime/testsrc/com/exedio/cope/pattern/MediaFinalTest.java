@@ -107,40 +107,40 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		final MediaFinalItem item = deleteOnTearDown(new MediaFinalItem(data20, "major/minor"));
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
-			item.file.set(item, (byte[])null, null);
+			file.set(item, (byte[])null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
 
 		try
 		{
-			item.file.set(item, (InputStream)null, null);
+			file.set(item, (InputStream)null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
 
 		try
 		{
-			item.file.set(item, (File)null, null);
+			file.set(item, (File)null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
