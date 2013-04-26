@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Range.valueOf;
+import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
+import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckViolationException;
@@ -47,7 +49,7 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		}
 		catch(final CheckViolationException e)
 		{
-			assertEquals(item.valid.getUnison(), e.getFeature());
+			assertEquals(valid.getUnison(), e.getFeature());
 		}
 		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
@@ -75,13 +77,13 @@ public class RangeFieldTest extends AbstractRuntimeTest
 		assertEquals(true,  item2.doesValidContain(4));
 		assertEquals(false, item2.doesValidContain(5));
 
-		assertContains(       item.TYPE.search(item.valid.contains(3)));
-		assertContains(item2, item.TYPE.search(item.valid.contains(4)));
-		assertContains(       item.TYPE.search(item.valid.contains(5)));
+		assertContains(       TYPE.search(valid.contains(3)));
+		assertContains(item2, TYPE.search(valid.contains(4)));
+		assertContains(       TYPE.search(valid.contains(5)));
 
-		assertContains(      item.TYPE.search(item.valid.contains(7)));
-		assertContains(item, item.TYPE.search(item.valid.contains(8)));
-		assertContains(item, item.TYPE.search(item.valid.contains(9)));
-		assertContains(      item.TYPE.search(item.valid.contains(10)));
+		assertContains(      TYPE.search(valid.contains(7)));
+		assertContains(item, TYPE.search(valid.contains(8)));
+		assertContains(item, TYPE.search(valid.contains(9)));
+		assertContains(      TYPE.search(valid.contains(10)));
 	}
 }
