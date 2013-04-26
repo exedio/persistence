@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.RecursiveItem.testPattern;
+
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 
@@ -117,16 +119,16 @@ public class RecursiveTest extends AbstractRuntimeTest
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
 
 		final RecursiveItem item = deleteOnTearDown(new RecursiveItem());
-		assertEquals(null, item.testPattern.getLocator(item));
+		assertEquals(null, testPattern.getLocator(item));
 
 		assertFalse(item.fetch());
-		assertEquals(null, item.testPattern.getLocator(item));
+		assertEquals(null, testPattern.getLocator(item));
 
 		item.setTestPattern("image/png");
-		assertEquals(null, item.testPattern.getLocator(item));
+		assertEquals(null, testPattern.getLocator(item));
 
 		assertTrue(item.fetch());
-		assertEquals("RecursiveItem/testPattern-media/" + item + ".png", item.testPattern.getLocator(item).toString());
+		assertEquals("RecursiveItem/testPattern-media/" + item + ".png", testPattern.getLocator(item).toString());
 	}
 
 	@Deprecated
