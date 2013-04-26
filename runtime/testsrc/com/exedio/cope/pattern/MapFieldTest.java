@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MapFieldItem.TYPE;
+import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
@@ -65,18 +67,18 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
 		assertEqualsUnmodifiable(map(), item.getNameLengthMap());
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
-			item.name.join(q, DE);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			name.join(q, DE);
 			assertContains(item, q.search());
 		}
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameEN"));
-			item.name.join(q, DE);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameEN"));
+			name.join(q, DE);
 			assertContains(q.search());
 		}
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
-			item.name.join(q, EN);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			name.join(q, EN);
 			assertContains(q.search());
 		}
 
