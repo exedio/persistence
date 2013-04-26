@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static java.lang.Integer.valueOf;
+import static com.exedio.cope.PlusIntegerItem.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,15 +56,15 @@ public class PlusIntegerOrderTest extends CopeModelTest
 		assertEquals(valueOf(-1000), item2.getMultiplyBC());
 		assertEquals(valueOf(-2000), item3.getMultiplyBC());
 
-		assertOrder(list(item1, item2, item3), item1.numA);
-		assertOrder(list(item2, item3, item1), item1.numB);
-		assertOrder(list(item2, item1, item3), item1.plusAB);
-		assertOrder(list(item1, item3, item2), item1.multiplyBC);
+		assertOrder(list(item1, item2, item3), numA);
+		assertOrder(list(item2, item3, item1), numB);
+		assertOrder(list(item2, item1, item3), plusAB);
+		assertOrder(list(item1, item3, item2), multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query<PlusIntegerItem> query = item1.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 
