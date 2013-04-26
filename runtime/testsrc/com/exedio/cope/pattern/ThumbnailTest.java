@@ -25,6 +25,7 @@ import java.util.Set;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import static com.exedio.cope.pattern.ThumbnailItem.*;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -42,7 +43,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private ThumbnailItem item, jpg, png, gif, txt, emp;
+	private ThumbnailItem jpg, png, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -67,30 +68,30 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.file,
-				item.file.getBody(),
-				item.file.getContentType(),
-				item.file.getLastModified(),
-				item.file.getUnison(),
-				item.thumb,
-			}), item.TYPE.getFeatures());
-		assertEquals(item.TYPE, item.thumb.getType());
-		assertEquals("thumb", item.thumb.getName());
-		assertSame(item.file, item.thumb.getSource());
-		assertEquals(20, item.thumb.getBoundX());
-		assertEquals(30, item.thumb.getBoundY());
-		final Set<String> sct = item.thumb.getSupportedSourceContentTypes();
+				TYPE.getThis(),
+				file,
+				file.getBody(),
+				file.getContentType(),
+				file.getLastModified(),
+				file.getUnison(),
+				thumb,
+			}), TYPE.getFeatures());
+		assertEquals(TYPE, thumb.getType());
+		assertEquals("thumb", thumb.getName());
+		assertSame(file, thumb.getSource());
+		assertEquals(20, thumb.getBoundX());
+		assertEquals(30, thumb.getBoundY());
+		final Set<String> sct = thumb.getSupportedSourceContentTypes();
 		assertTrue(sct.toString(), sct.contains("image/jpeg"));
 		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
 		assertTrue(sct.toString(), sct.contains("image/png"));
 		assertTrue(sct.toString(), sct.contains("image/gif"));
 		assertUnmodifiable(sct);
 
-		assertEquals(item.file.isNull(), item.thumb.isNull());
-		assertEquals(item.file.isNotNull(), item.thumb.isNotNull());
+		assertEquals(file.isNull(), thumb.isNull());
+		assertEquals(file.isNotNull(), thumb.isNotNull());
 
-		assertSerializedSame(item.thumb, 381);
+		assertSerializedSame(thumb, 381);
 
 		try
 		{
@@ -103,7 +104,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(item.file, 4, 80);
+			new MediaThumbnail(file, 4, 80);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -112,7 +113,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new MediaThumbnail(item.file, 80, 4);
+			new MediaThumbnail(file, 80, 4);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -148,10 +149,10 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURL());
 
-		assertContains(emp, item.TYPE.search(item.file.isNull()));
-		assertContains(jpg, png, gif, txt, item.TYPE.search(item.file.isNotNull()));
-		assertContains(emp , item.TYPE.search(item.thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, png, gif, txt, item.TYPE.search(item.thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(emp, TYPE.search(file.isNull()));
+		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
+		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
+		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
 		assertNotNull(jpg.getThumb());
@@ -159,9 +160,9 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		assertNull(emp.getThumb());
 	}
 
-	private void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
+	private static void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
 	{
-		final int[] bb = item.thumb.boundingBox(srcX, srcY);
+		final int[] bb = thumb.boundingBox(srcX, srcY);
 		assertEquals("width", tgtX, bb[0]);
 		assertEquals("height", tgtY, bb[1]);
 	}
