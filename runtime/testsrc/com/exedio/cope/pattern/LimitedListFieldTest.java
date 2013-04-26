@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
+import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
+import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
+
 import java.util.Date;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -44,14 +48,14 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i3, item.getNum3());
-		assertContains(item, item.TYPE.search(item.nums.equal(listg(i1, i2, i3))));
-		assertContains(item.TYPE.search(item.nums.equal(listg(i1, i2))));
-		assertContains(item.TYPE.search(item.nums.notEqual(listg(i1, i2, i3))));
-		assertContains(item, item.TYPE.search(item.nums.notEqual(listg(i1, i2))));
-		assertContains(item, item.TYPE.search(item.nums.contains(i1)));
-		assertContains(item, item.TYPE.search(item.nums.contains(i2)));
-		assertContains(item, item.TYPE.search(item.nums.contains(i3)));
-		assertContains(item.TYPE.search(item.nums.contains(null)));
+		assertContains(item, TYPE.search(nums.equal(listg(i1, i2, i3))));
+		assertContains(TYPE.search(nums.equal(listg(i1, i2))));
+		assertContains(TYPE.search(nums.notEqual(listg(i1, i2, i3))));
+		assertContains(item, TYPE.search(nums.notEqual(listg(i1, i2))));
+		assertContains(item, TYPE.search(nums.contains(i1)));
+		assertContains(item, TYPE.search(nums.contains(i2)));
+		assertContains(item, TYPE.search(nums.contains(i3)));
+		assertContains(TYPE.search(nums.contains(null)));
 
 		item.setNums(listg(i3, i2, i1));
 		assertEqualsUnmodifiable(list(i3, i2, i1), item.getNums());
@@ -72,7 +76,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ListSizeViolationException e)
 		{
-			assertSame(item.nums, e.getFeature());
+			assertSame(nums, e.getFeature());
 			assertEquals(4, e.getSize());
 			assertEquals(
 					"size violation on " + item.getCopeID() + ", " +
@@ -88,14 +92,14 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, item.TYPE.search(item.nums.equal(LimitedListFieldTest.<Integer>listg())));
-		assertContains(item.TYPE.search(item.nums.equal(listg(i1))));
-		assertContains(item.TYPE.search(item.nums.notEqual(LimitedListFieldTest.<Integer>listg())));
-		assertContains(item, item.TYPE.search(item.nums.notEqual(listg(i1))));
-		assertContains(item.TYPE.search(item.nums.contains(i1)));
-		assertContains(item.TYPE.search(item.nums.contains(i2)));
-		assertContains(item.TYPE.search(item.nums.contains(i3)));
-		assertContains(item, item.TYPE.search(item.nums.contains(null)));
+		assertContains(item, TYPE.search(nums.equal(LimitedListFieldTest.<Integer>listg())));
+		assertContains(TYPE.search(nums.equal(listg(i1))));
+		assertContains(TYPE.search(nums.notEqual(LimitedListFieldTest.<Integer>listg())));
+		assertContains(item, TYPE.search(nums.notEqual(listg(i1))));
+		assertContains(TYPE.search(nums.contains(i1)));
+		assertContains(TYPE.search(nums.contains(i2)));
+		assertContains(TYPE.search(nums.contains(i3)));
+		assertContains(item, TYPE.search(nums.contains(null)));
 
 		item.setNums(listg(i1, i2, i3));
 		assertEqualsUnmodifiable(list(i1, i2, i3), item.getNums());
@@ -128,22 +132,22 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("bello", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
-		assertContains(item.TYPE.search(item.strings.equal(LimitedListFieldTest.<String>listg())));
-		assertContains(item.TYPE.search(item.strings.equal(listg("hallo"))));
-		assertContains(item, item.TYPE.search(item.strings.equal(listg("hallo", "bello"))));
-		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo", "zollo"))));
-		assertContains(item.TYPE.search(item.strings.equal(listg("bello", "hallo"))));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(LimitedListFieldTest.<String>listg())));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("hallo"))));
-		assertContains(item.TYPE.search(item.strings.notEqual(listg("hallo", "bello"))));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("bello", "hallo", "zollo"))));
-		assertContains(item, item.TYPE.search(item.strings.notEqual(listg("bello", "hallo"))));
-		assertContains(item, item.TYPE.search(item.strings.contains("hallo")));
-		assertContains(item, item.TYPE.search(item.strings.contains("bello")));
-		assertContains(item, item.TYPE.search(item.strings.contains(null)));
-		assertContains(item.TYPE.search(item.strings.contains("zollo")));
+		assertContains(TYPE.search(strings.equal(LimitedListFieldTest.<String>listg())));
+		assertContains(TYPE.search(strings.equal(listg("hallo"))));
+		assertContains(item, TYPE.search(strings.equal(listg("hallo", "bello"))));
+		assertContains(TYPE.search(strings.equal(listg("bello", "hallo", "zollo"))));
+		assertContains(TYPE.search(strings.equal(listg("bello", "hallo"))));
+		assertContains(item, TYPE.search(strings.notEqual(LimitedListFieldTest.<String>listg())));
+		assertContains(item, TYPE.search(strings.notEqual(listg("hallo"))));
+		assertContains(TYPE.search(strings.notEqual(listg("hallo", "bello"))));
+		assertContains(item, TYPE.search(strings.notEqual(listg("bello", "hallo", "zollo"))));
+		assertContains(item, TYPE.search(strings.notEqual(listg("bello", "hallo"))));
+		assertContains(item, TYPE.search(strings.contains("hallo")));
+		assertContains(item, TYPE.search(strings.contains("bello")));
+		assertContains(item, TYPE.search(strings.contains(null)));
+		assertContains(TYPE.search(strings.contains("zollo")));
 
-		item.set(item.strings.map(listg("zicko", "zacko", "zocko")));
+		item.set(strings.map(listg("zicko", "zacko", "zocko")));
 		assertEqualsUnmodifiable(list("zicko", "zacko", "zocko"), item.getStrings());
 		assertEquals("zicko", item.getString0());
 		assertEquals("zacko", item.getString1());
@@ -151,7 +155,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue<?>[]{item.strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
+		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue<?>[]{strings.map(listg("lets1", "lets2", "lets3", "lets4"))}));
 		assertEqualsUnmodifiable(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.getString0());
 		assertEquals("lets2", item2.getString1());
@@ -159,7 +163,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("lets4", item2.getString3());
 		assertEquals(4, item2.getStringLength());
 
-		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(item.strings.map(listg("fetz1", null, null, null))));
+		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(strings.map(listg("fetz1", null, null, null))));
 		assertEqualsUnmodifiable(list("fetz1", null, null, null), item3.getStrings());
 		assertEquals("fetz1", item3.getString0());
 		assertEquals(null, item3.getString1());
