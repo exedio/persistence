@@ -98,7 +98,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		final MediaMandatoryItem item = deleteOnTearDown(new MediaMandatoryItem(data20, "major/minor"));
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
@@ -107,7 +107,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.file, e.getFeature());
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -119,7 +119,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.file, e.getFeature());
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -131,7 +131,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.file, e.getFeature());
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -148,10 +148,10 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.file, e.getFeature());
+			assertEquals(file, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
@@ -160,10 +160,10 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.file.getBody(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getBody(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
@@ -174,7 +174,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		{
 			assertEquals("if body is not null, content type must also be not null", e.getMessage());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
@@ -185,7 +185,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		{
 			assertEquals("if body is null, content type must also be null", e.getMessage());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 	}
 
 	private void assertContent(
