@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaItem.TYPE;
+import static com.exedio.cope.pattern.MediaItem.file;
 import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
@@ -60,67 +62,67 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 
 		// test model
 
-		assertEquals(false, item.file.isInitial());
-		assertEquals(false, item.file.isFinal());
-		assertEquals(false, item.file.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(item.file));
-		assertContains(item.file.getInitialExceptions());
-		assertEquals(true, item.file.checkContentType("some/thing"));
-		assertEquals(false, item.file.checkContentType("something"));
-		assertEquals("*/*", item.file.getContentTypeDescription());
-		assertEquals(null, item.file.getContentTypesAllowed());
-		assertEquals(20, item.file.getMaximumLength());
+		assertEquals(false, file.isInitial());
+		assertEquals(false, file.isFinal());
+		assertEquals(false, file.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(file));
+		assertContains(file.getInitialExceptions());
+		assertEquals(true, file.checkContentType("some/thing"));
+		assertEquals(false, file.checkContentType("something"));
+		assertEquals("*/*", file.getContentTypeDescription());
+		assertEquals(null, file.getContentTypesAllowed());
+		assertEquals(20, file.getMaximumLength());
 
-		final DataField body = item.file.getBody();
-		assertSame(item.TYPE, body.getType());
+		final DataField body = file.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("file-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
-		assertEquals(item.file, body.getPattern());
-		assertSame(item.file, Media.get(body));
+		assertEquals(file, body.getPattern());
+		assertSame(file, Media.get(body));
 
-		final StringField contentType = (StringField)item.file.getContentType();
-		assertSame(item.TYPE, contentType.getType());
+		final StringField contentType = (StringField)file.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
-		assertEquals(item.file, contentType.getPattern());
+		assertEquals(file, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
 
-		final DateField lastModified = item.file.getLastModified();
-		assertSame(item.TYPE, lastModified.getType());
+		final DateField lastModified = file.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
-		assertEquals(item.file, lastModified.getPattern());
+		assertEquals(file, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertEquals(lastModified.isNull(), item.file.isNull());
-		assertEquals(lastModified.isNotNull(), item.file.isNotNull());
-		final CheckConstraint unison = item.file.getUnison();
-		assertSame(item.TYPE, unison.getType());
+		assertEquals(lastModified.isNull(), file.isNull());
+		assertEquals(lastModified.isNotNull(), file.isNotNull());
+		final CheckConstraint unison = file.getUnison();
+		assertSame(TYPE, unison.getType());
 		assertEquals("file-unison", unison.getName());
-		assertEquals(item.file, unison.getPattern());
+		assertEquals(file, unison.getPattern());
 		assertEquals(Cope.or(
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
 
-		assertEqualsUnmodifiable(list(body, contentType, lastModified, unison), item.file.getSourceFeatures());
+		assertEqualsUnmodifiable(list(body, contentType, lastModified, unison), file.getSourceFeatures());
 
-		assertEquals(contentType.equal("major/minor"), item.file.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(),            item.file.contentTypeEqual(null));
+		assertEquals(contentType.equal("major/minor"), file.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(),            file.contentTypeEqual(null));
 
 		// test persistence
-		assertEquals("file_body", SchemaInfo.getColumnName(item.file.getBody()));
-		assertEquals("file_contentType", SchemaInfo.getColumnName(item.file.getContentType()));
-		assertEquals("file_lastModified", SchemaInfo.getColumnName(item.file.getLastModified()));
+		assertEquals("file_body", SchemaInfo.getColumnName(file.getBody()));
+		assertEquals("file_contentType", SchemaInfo.getColumnName(file.getContentType()));
+		assertEquals("file_lastModified", SchemaInfo.getColumnName(file.getLastModified()));
 
 		assertNull();
-		assertContains(item, item.TYPE.search(item.file.isNull()));
-		assertContains(item.TYPE.search(item.file.isNotNull()));
+		assertContains(item, TYPE.search(file.isNull()));
+		assertContains(TYPE.search(file.isNotNull()));
 		{
 			final Date before = new Date();
 			item.setFile(stream(bytes4), "file-major/file-minor");
@@ -128,8 +130,8 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			assertStreamClosed();
 			assertContent(bytes4, before, after, "file-major/file-minor", "");
 		}
-		assertContains(item.TYPE.search(item.file.isNull()));
-		assertContains(item, item.TYPE.search(item.file.isNotNull()));
+		assertContains(TYPE.search(file.isNull()));
+		assertContains(item, TYPE.search(file.isNotNull()));
 		{
 			final Date before = new Date();
 			item.setFile(stream(bytes6), "file-major2/file-minor2");
@@ -145,7 +147,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 			catch(final IllegalContentTypeException e)
 			{
 				assertStreamClosed();
-				assertSame(item.file, e.getFeature());
+				assertSame(file, e.getFeature());
 				assertEquals(item, e.getItem());
 				assertEquals("illegalContentType", e.getContentType());
 				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
@@ -326,7 +328,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertWithin(before, after, new Date(item.getFileLastModified()));
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + path, item.getFileURL());
-		assertLocator(item.file, path, item.getFileLocator());
+		assertLocator(file, path, item.getFileLocator());
 	}
 
 	private final void assertDataFile(final byte[] expectedData) throws IOException
