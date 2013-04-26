@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.UniqueHierarchySubItem.subField;
+
 /**
  * Test for bug 30
  *
@@ -48,7 +50,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getCause());
 		}
@@ -58,7 +60,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		final UniqueHierarchySubItem item2 = new UniqueHierarchySubItem("super2", "sub2");
 		deleteOnTearDown(item2);
 		assertEquals(list(item, item2), UniqueHierarchySuperItem.TYPE.search(null, UniqueHierarchySuperItem.TYPE.getThis(), true));
-		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, item.TYPE.getThis(), true));
+		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, UniqueHierarchySubItem.TYPE.getThis(), true));
 
 		try
 		{
@@ -67,7 +69,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
 			assertEquals(null, e.getCause());
 		}
