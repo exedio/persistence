@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypeSetModelErrorTest extends CopeAssert
 {
-	public void testIt()
+	public void testNull()
 	{
 		try
 		{
@@ -33,6 +33,10 @@ public class TypeSetModelErrorTest extends CopeAssert
 		{
 			assertEquals("types", e.getMessage());
 		}
+	}
+
+	public void testEmpty()
+	{
 		try
 		{
 			new TypeSet(new Type<?>[0]);
@@ -42,6 +46,10 @@ public class TypeSetModelErrorTest extends CopeAssert
 		{
 			assertEquals("types must not be empty", e.getMessage());
 		}
+	}
+
+	public void testNullElement()
+	{
 		try
 		{
 			new TypeSet(new Type<?>[]{null});
@@ -51,7 +59,10 @@ public class TypeSetModelErrorTest extends CopeAssert
 		{
 			assertEquals("types", e.getMessage());
 		}
+	}
 
+	public void testDuplicate()
+	{
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);
 		try
