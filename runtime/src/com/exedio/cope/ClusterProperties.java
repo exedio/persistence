@@ -190,6 +190,7 @@ final class ClusterProperties extends Properties
 
 		try
 		{
+			@SuppressWarnings("resource") // OK: is closed outside this factory method
 			final DatagramSocket result =
 				sendSourcePortAuto
 				? new DatagramSocket()
@@ -229,6 +230,7 @@ final class ClusterProperties extends Properties
 			DatagramSocket result;
 			if(multicast)
 			{
+				@SuppressWarnings("resource") // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				resultMulti.joinGroup(listenAddress);
 				result = resultMulti;
