@@ -20,7 +20,9 @@ package com.exedio.cope.sampler;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.DateField;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
@@ -108,6 +110,27 @@ final class AbsoluteModel extends Item
 
 
 	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
+
+
+	static <F extends FunctionField<?>> F replaceByCopy(final F field, final Type<?> type)
+	{
+		if(field.getType()!=TYPE)
+			throw new IllegalArgumentException(field.getID());
+		if(type==TYPE)
+			return field;
+
+		for(final CopyConstraint cc : type.getCopyConstraints())
+		{
+			if(cc.getTemplate()==field)
+			{
+				final FunctionField<?> result = cc.getCopy();
+				@SuppressWarnings("unchecked")
+				final F resultCasted = (F)result;
+				return resultCasted;
+			}
+		}
+		throw new RuntimeException(field.getID());
+	}
 
 
 	@SuppressWarnings("unused")
