@@ -73,11 +73,19 @@ public class Sampler
 			new Model(
 				new SamplerRevisions(),
 				SamplerTypeId.TYPE,
+
 				SamplerModel.TYPE,
 				SamplerTransaction.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
+
+				AbsoluteModel.TYPE,
+				AbsoluteTransaction.TYPE,
+				AbsoluteItemCache.TYPE,
+				AbsoluteClusterNode.TYPE,
+				AbsoluteMedia.TYPE,
+
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();

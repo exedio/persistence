@@ -59,7 +59,7 @@ final class SamplerPurge extends Item
 	throws SQLException
 	{
 		ctx.stopIfRequested();
-		final DateField field = SamplerModel.replaceByCopy(SamplerModel.date, type);
+		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
 		final String bf =
 				"delete " + removePrefix(

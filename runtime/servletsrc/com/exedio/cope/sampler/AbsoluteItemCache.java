@@ -35,11 +35,12 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 
+@SuppressWarnings("unused") // OK: deprecated item
 @Purgeable()
-@CopeSchemaName("SamplerItemCacheDiff")
-final class SamplerItemCache extends Item
+@CopeSchemaName("SamplerItemCache")
+final class AbsoluteItemCache extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
+	private static final ItemField<AbsoluteModel> model = ItemField.create(AbsoluteModel.class).toFinal();
 	private static final ItemField<SamplerTypeId> type = ItemField.create(SamplerTypeId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
@@ -48,17 +49,6 @@ final class SamplerItemCache extends Item
 	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
 	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
-
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
-	{
-		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)),
-			initializeDate.map(SamplerModel.initializeDate.get(m)),
-			connectDate   .map(SamplerModel.connectDate.get(m)),
-			sampler       .map(SamplerModel.sampler.get(m)),
-			running       .map(SamplerModel.running.get(m)));
-	}
 
 
 	@NoDifferentiate
@@ -81,76 +71,14 @@ final class SamplerItemCache extends Item
 	private static final LongField invalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField invalidateLastPurged = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ItemCacheInfo info)
-	{
-		return Arrays.asList((SetValue<?>)
-			type  .map(SamplerTypeId.get(info.getType())),
-			limit .map(info.getLimit()),
-			level .map(info.getLevel()),
-			hits  .map(info.getHits()),
-			misses.map(info.getMisses()),
-
-			concurrentLoads.map(info.getConcurrentLoads()),
-
-			replacementRuns   .map(info.getReplacementRuns()),
-			replacements      .map(info.getReplacements()),
-			lastReplacementRun.map(info.getLastReplacementRun()),
-
-			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinimumMillis.map(info.getAgeMinimumMillis()),
-			ageMaximumMillis.map(info.getAgeMaximumMillis()),
-
-			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()),
-
-			invalidateLastSize  .map(info.getInvalidateLastSize()),
-			invalidateLastHits  .map(info.getInvalidateLastHits()),
-			invalidateLastPurged.map(info.getInvalidateLastPurged()));
-	}
-
 
 	@SuppressWarnings("unused")
-	private SamplerItemCache(final ActivationParameters ap)
+	private AbsoluteItemCache(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
-	SamplerModel getModel()
-	{
-		return model.get(this);
-	}
-
-	String getType()
-	{
-		return type.get(this).getID();
-	}
-
-	Date getDate()
-	{
-		return date.get(this);
-	}
-
-	Date getInitalizeDate()
-	{
-		return initializeDate.get(this);
-	}
-
-	Date getConnectDate()
-	{
-		return connectDate.get(this);
-	}
-
-	int getSampler()
-	{
-		return sampler.getMandatory(this);
-	}
-
-	int getRunning()
-	{
-		return running.getMandatory(this);
-	}
-
 	private static final long serialVersionUID = 1l;
 
-	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class);
+	static final Type<AbsoluteItemCache> TYPE = TypesBound.newType(AbsoluteItemCache.class);
 }
