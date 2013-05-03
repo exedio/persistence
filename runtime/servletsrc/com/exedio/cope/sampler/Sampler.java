@@ -73,6 +73,7 @@ public class Sampler
 			new Model(
 				new SamplerRevisions(),
 				SamplerTypeId.TYPE,
+				SamplerMediaId.TYPE,
 
 				SamplerModel.TYPE,
 				SamplerTransaction.TYPE,

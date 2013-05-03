@@ -29,7 +29,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
@@ -40,7 +39,7 @@ import com.exedio.cope.pattern.MediaInfo;
 final class SamplerMedia extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
-	private static final StringField media = new StringField().toFinal();
+	private static final ItemField<SamplerMediaId> media = ItemField.create(SamplerMediaId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
@@ -75,7 +74,7 @@ final class SamplerMedia extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaInfo info)
 	{
 		return Arrays.asList((SetValue<?>)
-			media        .map(info.getPath().getID()),
+			media        .map(SamplerMediaId.get(info.getPath())),
 			redirectFrom .map(info.getRedirectFrom()),
 			exception    .map(info.getException()),
 			guessedUrl   .map(info.getGuessedUrl()),
@@ -102,7 +101,7 @@ final class SamplerMedia extends Item
 
 	String getMedia()
 	{
-		return media.get(this);
+		return media.get(this).getID();
 	}
 
 	Date getDate()
