@@ -35,6 +35,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.MediaInfo;
 
+@Purgeable()
 final class SamplerMedia extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();

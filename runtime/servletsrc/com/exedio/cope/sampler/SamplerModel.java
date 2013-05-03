@@ -43,6 +43,7 @@ import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
 
+@Purgeable(last=true)
 final class SamplerModel extends Item
 {
 	static final DateField date = new DateField().toFinal().unique();

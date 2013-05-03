@@ -346,15 +346,16 @@ public class Sampler
 	public final void purge(final Date limit, final JobContext ctx)
 	{
 		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> lastTypes = new ArrayList<Type<?>>();
 		for(final Type<?> type : samplerModel.getTypes())
 		{
-			if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-					SamplerTypeId.TYPE!=type && SamplerPurge.TYPE!=type)
+			final Purgeable purgeable = type.getAnnotation(Purgeable.class);
+			if(purgeable!=null)
 			{
-				types.add(type);
+				(purgeable.last() ? lastTypes : types).add(type);
 			}
 		}
-		types.add(SamplerModel.TYPE);
+		types.addAll(lastTypes);
 
 		final String samplerString = toString();
 		try

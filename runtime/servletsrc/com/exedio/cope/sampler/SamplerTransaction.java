@@ -38,6 +38,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
 
+@Purgeable()
 final class SamplerTransaction extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
