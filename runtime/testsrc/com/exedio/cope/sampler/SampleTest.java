@@ -58,7 +58,7 @@ public class SampleTest extends ConnectedTest
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
-			assertIt(model55, sampler, before55, after55, 0, iter.next());
+			assertIt(model55, sampler, before55, after55, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = SamplerModel.date.get(model55);
@@ -102,7 +102,7 @@ public class SampleTest extends ConnectedTest
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
-			assertIt(model66, sampler, before66, after66, 1, iter.next());
+			assertIt(model66, sampler, before66, after66, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = SamplerModel.date.get(model66);
@@ -160,7 +160,7 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
 			assertEquals(model66, iter.next());
-			assertIt(model77, sampler, before77, after77, 2, iter.next());
+			assertIt(model77, sampler, before77, after77, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date77 = SamplerModel.date.get(model77);
@@ -226,7 +226,6 @@ public class SampleTest extends ConnectedTest
 			final SamplerModel expected,
 			final Sampler sampler,
 			final Date before, final Date after,
-			final int running,
 			final SamplerModel model)
 	{
 		assertEquals(expected, model);
@@ -234,7 +233,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
 		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));
 		assertEquals(System.identityHashCode(sampler), SamplerModel.sampler.getMandatory(model));
-		assertEquals(running, SamplerModel.running.getMandatory(model));
 		return model;
 	}
 
@@ -248,7 +246,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(MODEL.getInitializeDate(), transaction.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), transaction.getConnectDate());
 		assertEquals(System.identityHashCode(sampler), transaction.getSampler());
-		assertEquals(SamplerModel.running.getMandatory(model), transaction.getRunning());
 		final Transaction tx = MODEL.currentTransaction();
 		assertEquals(tx.getID(), transaction.getID());
 		assertEquals(tx.getName(), transaction.getName());
@@ -269,7 +266,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
 		assertEquals(System.identityHashCode(sampler), itemCache.getSampler());
-		assertEquals(SamplerModel.running.getMandatory(model), itemCache.getRunning());
 		return itemCache;
 	}
 
@@ -285,7 +281,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
 		assertEquals(System.identityHashCode(sampler), media.getSampler());
-		assertEquals(SamplerModel.running.getMandatory(model), media.getRunning());
 		return media;
 	}
 

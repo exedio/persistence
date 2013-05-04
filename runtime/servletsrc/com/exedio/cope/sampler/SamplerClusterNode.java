@@ -49,7 +49,6 @@ final class SamplerClusterNode extends Item
 	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
 	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
 	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
-	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
@@ -58,8 +57,7 @@ final class SamplerClusterNode extends Item
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
 			connectDate   .map(SamplerModel.connectDate.get(m)),
-			sampler       .map(SamplerModel.sampler.get(m)),
-			running       .map(SamplerModel.running.get(m)));
+			sampler       .map(SamplerModel.sampler.get(m)));
 	}
 
 

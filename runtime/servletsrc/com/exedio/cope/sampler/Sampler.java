@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
@@ -59,7 +58,6 @@ public class Sampler
 	private final Model samplerModel;
 
 	private final Model sampledModel;
-	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
 
 	public Sampler(final Model sampledModel)
@@ -219,7 +217,6 @@ public class Sampler
 		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
 		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
-		final int running = runningSource.getAndIncrement();
 		final ArrayList<Transaction> transactions = new ArrayList<Transaction>(openTransactions.size());
 		{
 			final long threshold = date.getTime() - getTransactionDuration();
@@ -241,7 +238,6 @@ public class Sampler
 			sv.add(SamplerModel.initializeDate.map(initializeDate));
 			sv.add(SamplerModel.connectDate.map(connectDate));
 			sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
-			sv.add(SamplerModel.running.map(running));
 			sv.addAll(SamplerModel.map(connectionPoolInfo));
 			sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
 			sv.addAll(SamplerModel.map(transactionCounters));
