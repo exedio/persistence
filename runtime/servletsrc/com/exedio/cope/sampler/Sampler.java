@@ -237,7 +237,6 @@ public class Sampler
 			sv.add(SamplerModel.duration.map(duration));
 			sv.add(SamplerModel.initializeDate.map(initializeDate));
 			sv.add(SamplerModel.connectDate.map(connectDate));
-			sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
 			sv.addAll(SamplerModel.map(connectionPoolInfo));
 			sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
 			sv.addAll(SamplerModel.map(transactionCounters));

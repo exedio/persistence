@@ -45,7 +45,6 @@ final class SamplerMedia extends Item
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
 	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
 	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
-	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
@@ -53,8 +52,7 @@ final class SamplerMedia extends Item
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)),
 			initializeDate.map(SamplerModel.initializeDate.get(m)),
-			connectDate   .map(SamplerModel.connectDate.get(m)),
-			sampler       .map(SamplerModel.sampler.get(m)));
+			connectDate   .map(SamplerModel.connectDate.get(m)));
 	}
 
 
@@ -115,11 +113,6 @@ final class SamplerMedia extends Item
 	Date getConnectDate()
 	{
 		return connectDate.get(this);
-	}
-
-	int getSampler()
-	{
-		return sampler.getMandatory(this);
 	}
 
 	private static final long serialVersionUID = 1l;

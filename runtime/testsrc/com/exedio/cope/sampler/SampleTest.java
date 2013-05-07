@@ -58,30 +58,30 @@ public class SampleTest extends ConnectedTest
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
-			assertIt(model55, sampler, before55, after55, iter.next());
+			assertIt(model55, before55, after55, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date55 = SamplerModel.date.get(model55);
 		final SamplerTransaction transaction55;
 		{
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
-			transaction55 = assertIt(model55, sampler, iter.next());
+			transaction55 = assertIt(model55, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final SamplerItemCache itemCache55a;
 		final SamplerItemCache itemCache55b;
 		{
 			final Iterator<SamplerItemCache> iter = SamplerItemCache.TYPE.search().iterator();
-			itemCache55a = c ? assertIt(model55, "SampledModelItem" , sampler, iter.next()) : null;
-			itemCache55b = c ? assertIt(model55, "SampledModelItem2", sampler, iter.next()) : null;
+			itemCache55a = c ? assertIt(model55, "SampledModelItem" , iter.next()) : null;
+			itemCache55b = c ? assertIt(model55, "SampledModelItem2", iter.next()) : null;
 			assertFalse(iter.hasNext());
 		}
 		final SamplerMedia media55a;
 		final SamplerMedia media55b;
 		{
 			final Iterator<SamplerMedia> iter = SamplerMedia.TYPE.search().iterator();
-			media55a = assertIt(model55, "SampledModelItem.mediaA", sampler, iter.next());
-			media55b = assertIt(model55, "SampledModelItem.mediaB", sampler, iter.next());
+			media55a = assertIt(model55, "SampledModelItem.mediaA", iter.next());
+			media55b = assertIt(model55, "SampledModelItem.mediaB", iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
@@ -102,7 +102,7 @@ public class SampleTest extends ConnectedTest
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
-			assertIt(model66, sampler, before66, after66, iter.next());
+			assertIt(model66, before66, after66, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date66 = SamplerModel.date.get(model66);
@@ -110,7 +110,7 @@ public class SampleTest extends ConnectedTest
 		{
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
 			assertEquals(transaction55, iter.next());
-			transaction66 = assertIt(model66, sampler, iter.next());
+			transaction66 = assertIt(model66, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final SamplerItemCache itemCache66a;
@@ -121,8 +121,8 @@ public class SampleTest extends ConnectedTest
 			{
 				assertEquals(itemCache55a, iter.next());
 				assertEquals(itemCache55b, iter.next());
-				itemCache66a = assertIt(model66, "SampledModelItem",  sampler, iter.next());
-				itemCache66b = assertIt(model66, "SampledModelItem2", sampler, iter.next());
+				itemCache66a = assertIt(model66, "SampledModelItem",  iter.next());
+				itemCache66b = assertIt(model66, "SampledModelItem2", iter.next());
 			}
 			else
 			{
@@ -137,8 +137,8 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerMedia> iter = iter(SamplerMedia.TYPE);
 			assertEquals(media55a, iter.next());
 			assertEquals(media55b, iter.next());
-			media66a = assertIt(model66, "SampledModelItem.mediaA", sampler, iter.next());
-			media66b = assertIt(model66, "SampledModelItem.mediaB", sampler, iter.next());
+			media66a = assertIt(model66, "SampledModelItem.mediaA", iter.next());
+			media66b = assertIt(model66, "SampledModelItem.mediaB", iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
@@ -160,7 +160,7 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
 			assertEquals(model55, iter.next());
 			assertEquals(model66, iter.next());
-			assertIt(model77, sampler, before77, after77, iter.next());
+			assertIt(model77, before77, after77, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		final Date date77 = SamplerModel.date.get(model77);
@@ -168,7 +168,7 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
 			assertEquals(transaction55, iter.next());
 			assertEquals(transaction66, iter.next());
-			assertIt(model77, sampler, iter.next());
+			assertIt(model77, iter.next());
 			assertFalse(iter.hasNext());
 		}
 		{
@@ -179,8 +179,8 @@ public class SampleTest extends ConnectedTest
 				assertEquals(itemCache55b, iter.next());
 				assertEquals(itemCache66a, iter.next());
 				assertEquals(itemCache66b, iter.next());
-				assertIt(model77, "SampledModelItem",  sampler, iter.next());
-				assertIt(model77, "SampledModelItem2", sampler, iter.next());
+				assertIt(model77, "SampledModelItem",  iter.next());
+				assertIt(model77, "SampledModelItem2", iter.next());
 			}
 			assertFalse(iter.hasNext());
 		}
@@ -190,8 +190,8 @@ public class SampleTest extends ConnectedTest
 			assertEquals(media55b, iter.next());
 			assertEquals(media66a, iter.next());
 			assertEquals(media66b, iter.next());
-			assertIt(model77, "SampledModelItem.mediaA", sampler, iter.next());
-			assertIt(model77, "SampledModelItem.mediaB", sampler, iter.next());
+			assertIt(model77, "SampledModelItem.mediaA", iter.next());
+			assertIt(model77, "SampledModelItem.mediaB", iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
@@ -224,7 +224,6 @@ public class SampleTest extends ConnectedTest
 
 	private static final SamplerModel assertIt(
 			final SamplerModel expected,
-			final Sampler sampler,
 			final Date before, final Date after,
 			final SamplerModel model)
 	{
@@ -232,20 +231,17 @@ public class SampleTest extends ConnectedTest
 		assertWithin(before, after, SamplerModel.date.get(model));
 		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
 		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));
-		assertEquals(System.identityHashCode(sampler), SamplerModel.sampler.getMandatory(model));
 		return model;
 	}
 
 	private static final SamplerTransaction assertIt(
 			final SamplerModel model,
-			final Sampler sampler,
 			final SamplerTransaction transaction)
 	{
 		assertEquals(model, transaction.getModel());
 		assertEquals(SamplerModel.date.get(model), transaction.getDate());
 		assertEquals(MODEL.getInitializeDate(), transaction.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), transaction.getConnectDate());
-		assertEquals(System.identityHashCode(sampler), transaction.getSampler());
 		final Transaction tx = MODEL.currentTransaction();
 		assertEquals(tx.getID(), transaction.getID());
 		assertEquals(tx.getName(), transaction.getName());
@@ -257,7 +253,6 @@ public class SampleTest extends ConnectedTest
 	private static final SamplerItemCache assertIt(
 			final SamplerModel model,
 			final String id,
-			final Sampler sampler,
 			final SamplerItemCache itemCache)
 	{
 		assertEquals(model, itemCache.getModel());
@@ -265,14 +260,12 @@ public class SampleTest extends ConnectedTest
 		assertEquals(SamplerModel.date.get(model), itemCache.getDate());
 		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
-		assertEquals(System.identityHashCode(sampler), itemCache.getSampler());
 		return itemCache;
 	}
 
 	private static final SamplerMedia assertIt(
 			final SamplerModel model,
 			final String id,
-			final Sampler sampler,
 			final SamplerMedia media)
 	{
 		assertEquals(model, media.getModel());
@@ -280,7 +273,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(SamplerModel.date.get(model), media.getDate());
 		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
 		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
-		assertEquals(System.identityHashCode(sampler), media.getSampler());
 		return media;
 	}
 
