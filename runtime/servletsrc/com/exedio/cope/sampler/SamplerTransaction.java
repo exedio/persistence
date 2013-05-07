@@ -44,16 +44,12 @@ final class SamplerTransaction extends Item
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
-	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
 			model         .map(m),
-			date          .map(SamplerModel.date.get(m)),
-			initializeDate.map(SamplerModel.initializeDate.get(m)),
-			connectDate   .map(SamplerModel.connectDate.get(m)));
+			date          .map(SamplerModel.date.get(m)));
 	}
 
 
@@ -86,16 +82,6 @@ final class SamplerTransaction extends Item
 	Date getDate()
 	{
 		return date.get(this);
-	}
-
-	Date getInitalizeDate()
-	{
-		return initializeDate.get(this);
-	}
-
-	Date getConnectDate()
-	{
-		return connectDate.get(this);
 	}
 
 	long getID()

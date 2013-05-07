@@ -240,8 +240,6 @@ public class SampleTest extends ConnectedTest
 	{
 		assertEquals(model, transaction.getModel());
 		assertEquals(SamplerModel.date.get(model), transaction.getDate());
-		assertEquals(MODEL.getInitializeDate(), transaction.getInitalizeDate());
-		assertEquals(MODEL.getConnectDate(), transaction.getConnectDate());
 		final Transaction tx = MODEL.currentTransaction();
 		assertEquals(tx.getID(), transaction.getID());
 		assertEquals(tx.getName(), transaction.getName());
@@ -258,8 +256,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(model, itemCache.getModel());
 		assertEquals(id, itemCache.getType());
 		assertEquals(SamplerModel.date.get(model), itemCache.getDate());
-		assertEquals(MODEL.getInitializeDate(), itemCache.getInitalizeDate());
-		assertEquals(MODEL.getConnectDate(), itemCache.getConnectDate());
 		return itemCache;
 	}
 
@@ -271,8 +267,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(model, media.getModel());
 		assertEquals(id, media.getMedia());
 		assertEquals(SamplerModel.date.get(model), media.getDate());
-		assertEquals(MODEL.getInitializeDate(), media.getInitalizeDate());
-		assertEquals(MODEL.getConnectDate(), media.getConnectDate());
 		return media;
 	}
 
