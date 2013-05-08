@@ -109,7 +109,7 @@ final class AbsoluteModel extends Item
 	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal().min(0);
 
 
-	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
+	private static final CompositeField<AbsoluteClusterListener> clusterListener = CompositeField.create(AbsoluteClusterListener.class).toFinal().optional();
 
 
 	static <F extends FunctionField<?>> F replaceByCopy(final F field, final Type<?> type)
