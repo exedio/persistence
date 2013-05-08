@@ -224,7 +224,7 @@ final class SamplerModel extends Item
 			final ClusterListenerInfo to)
 	{
 		return clusterListener.map(
-			(from!=null&to!=null) ? new SamplerClusterListener(from, to) : null
+			(from!=null&&to!=null) ? new SamplerClusterListener(from, to) : null
 		);
 	}
 
