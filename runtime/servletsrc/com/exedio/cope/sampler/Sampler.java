@@ -207,7 +207,7 @@ public class Sampler
 			sv.addAll(SamplerModel.map(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
 			sv.add(diff(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
 			sv.addAll(SamplerModel.map(from.mediaSummary, to.mediaSummary));
-			sv.addAll(SamplerModel.map(from.clusterSenderInfo, to.clusterSenderInfo));
+			sv.add(SamplerModel.map(from.clusterSenderInfo, to.clusterSenderInfo));
 			sv.add(SamplerModel.map(from.clusterListenerInfo, to.clusterListenerInfo));
 			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
 

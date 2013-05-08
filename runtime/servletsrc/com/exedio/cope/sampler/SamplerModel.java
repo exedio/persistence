@@ -204,16 +204,15 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal().min(0);
+	private static final CompositeField<SamplerClusterSender> clusterSender = CompositeField.create(SamplerClusterSender.class).toFinal().optional();
 
-	@SuppressWarnings("unchecked") static List<SetValue<Long>> map(
+	static SetValue<?> map(
 			final ClusterSenderInfo from,
 			final ClusterSenderInfo to)
 	{
-		return Arrays.asList(
-			(from!=null&&to!=null)
-			? diff(clusterSenderInvalidationSplit, from.getInvalidationSplit(), to.getInvalidationSplit())
-			: clusterSenderInvalidationSplit.map(0l));
+		return clusterSender.map(
+			(from!=null&&to!=null) ? new SamplerClusterSender(from, to) : null
+		);
 	}
 
 
