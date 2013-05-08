@@ -72,7 +72,7 @@ final class StringUtil
 		return to;
 	}
 
-	static final MediaPath diff(final MediaPath from, final MediaPath to)
+	static final MediaPath same(final MediaPath from, final MediaPath to)
 	{
 		assert from==to;
 		return to;

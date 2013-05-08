@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.StringUtil.diff;
+import static com.exedio.cope.sampler.StringUtil.same;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -70,7 +71,7 @@ final class SamplerMedia extends Item
 			final MediaInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			media.map(SamplerMediaId.get(diff(from.getPath(), to.getPath()))),
+			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
 			diff(redirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
 			diff(exception,     from.getException(),     to.getException()),
 			diff(guessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
