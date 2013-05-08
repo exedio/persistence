@@ -38,7 +38,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
 
 @Purgeable()
-@CopeSchemaName("SamplerTransactionDiff")
+@CopeSchemaName("DiffTransaction")
 final class SamplerTransaction extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();

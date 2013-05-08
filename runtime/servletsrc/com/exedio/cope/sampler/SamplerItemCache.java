@@ -39,7 +39,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 
 @Purgeable()
-@CopeSchemaName("SamplerItemCacheDiff")
+@CopeSchemaName("DiffItemCache")
 final class SamplerItemCache extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();

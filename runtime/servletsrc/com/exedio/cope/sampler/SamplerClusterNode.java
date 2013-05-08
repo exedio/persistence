@@ -39,7 +39,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.CompositeField;
 
 @Purgeable()
-@CopeSchemaName("SamplerClusterNodeDiff")
+@CopeSchemaName("DiffClusterNode")
 final class SamplerClusterNode extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
