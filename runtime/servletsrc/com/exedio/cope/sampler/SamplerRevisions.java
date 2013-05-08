@@ -36,6 +36,158 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(6, "more length for SamplerTransaction#name", new String[] {
+				"create table `SamplerMediaId`(" +
+					"`this` int," +
+					"`id` varchar(80) character set utf8 collate utf8_bin not null," +
+					"constraint `SamplerMediaId_Pk` primary key(`this`)," +
+					"constraint `SamplerMediaId_id_Unq` unique(`id`)" +
+					") engine=innodb", // 29ms, 0 rows
+				"create table `DiffSamplerModel`(" +
+					"`this` int,`from` bigint not null," +
+					"`date` bigint not null," +
+					"`duration` bigint not null," +
+					"`initialized` bigint not null," +
+					"`connected` bigint not null," +
+					"`connectionPoolIdle` int not null," +
+					"`connectionPoolGet` int not null," +
+					"`connectionPoolPut` int not null," +
+					"`connectioPoolInvalidOnGet` int not null," +
+					"`connectioPoolInvalidOnPut` int not null," +
+					"`nextTransactionId` int not null," +
+					"`commitOutConnection` int not null," +
+					"`commitWithConnection` int not null," +
+					"`rollbackOutConnection` int not null," +
+					"`rollbackWithConnection` int not null," +
+					"`itemCacheHits` int not null," +
+					"`itemCacheMisses` int not null," +
+					"`itemCacheConcurrentLoads` int not null," +
+					"`itemCacheReplacementRuns` int not null," +
+					"`itemCacheReplacements` int not null," +
+					"`itemCacheInvalidatOrdered` int not null," +
+					"`itemCacheInvalidationDone` int not null," +
+					"`itemCacheInvalidaLastSize` int not null," +
+					"`itemCacheInvalidaLastHits` int not null," +
+					"`itemCacheInvaliLastPurged` int not null," +
+					"`queryCacheHits` int not null," +
+					"`queryCacheMisses` int not null," +
+					"`queryCacheReplacements` int not null," +
+					"`queryCacheInvalidations` int not null," +
+					"`changeListenerCleared` int not null," +
+					"`changeListenerRemoved` int not null," +
+					"`changeListenerFailed` int not null," +
+					"`changeListenerOverflow` int not null," +
+					"`changeListenerException` int not null," +
+					"`changeListenerPending` int not null," +
+					"`mediasNoSuchPath` int not null," +
+					"`mediasRedirectFrom` int not null," +
+					"`mediasException` int not null," +
+					"`mediasGuessedUrl` int not null," +
+					"`mediasNotAnItem` int not null," +
+					"`mediasNoSuchItem` int not null," +
+					"`mediasMoved` int not null," +
+					"`mediasIsNull` int not null," +
+					"`mediasNotComputable` int not null," +
+					"`mediasNotModified` int not null," +
+					"`mediasDelivered` int not null," +
+					"`clusterSender_invaliSplit` int," +
+					"`clusterListener_exception` int," +
+					"`clusterListene_missiMagic` int," +
+					"`clusterListen_wrongSecret` int," +
+					"`clusterListene_fromMyself` int," +
+					"constraint `DiffSamplerModel_Pk` primary key(`this`)," +
+					"constraint `DiffSamplerModel_from_Unq` unique(`from`)," +
+					"constraint `DiffSamplerModel_date_Unq` unique(`date`)" +
+					") engine=innodb", // 3ms, 0 rows
+				"create table `DiffTransaction`(" +
+					"`this` int," +
+					"`model` int not null," +
+					"`date` bigint not null," +
+					"`id` bigint not null," +
+					"`name` text character set utf8 collate utf8_bin," +
+					"`startDate` bigint not null," +
+					"`thread_id` bigint," +
+					"`thread_name` varchar(80) character set utf8 collate utf8_bin," +
+					"`thread_priority` int," +
+					"`thread_state` int," +
+					"`thread_stackTrace` mediumtext character set utf8 collate utf8_bin," +
+					"constraint `DiffTransaction_Pk` primary key(`this`)," +
+					"constraint `DiffTransaction_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)" +
+					") engine=innodb", // 3ms, 0 rows
+				"create table `DiffItemCache`(" +
+					"`this` int,`model` int not null," +
+					"`type` int not null," +
+					"`date` bigint not null," +
+					"`limit` int not null," +
+					"`level` int not null," +
+					"`hits` int not null," +
+					"`misses` int not null," +
+					"`concurrentLoads` int not null," +
+					"`replacementRuns` int not null," +
+					"`replacements` int not null," +
+					"`lastReplacementRun` bigint," +
+					"`ageAverageMillis` bigint not null," +
+					"`ageMinimumMillis` bigint not null," +
+					"`ageMaximumMillis` bigint not null," +
+					"`invalidationsOrdered` int not null," +
+					"`invalidationsDone` int not null," +
+					"`invalidateLastSize` int not null," +
+					"`invalidateLastHits` int not null," +
+					"`invalidateLastPurged` int not null," +
+					"constraint `DiffItemCache_Pk` primary key(`this`)," +
+					"constraint `DiffItemCache_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffItemCache_type_Fk` foreign key (`type`) references `SamplerTypeId`(`this`)," +
+					"constraint `DiffItemCach_daAndTyp_Unq` unique(`date`,`type`)" +
+					") engine=innodb", // 3ms, 0 rows
+				"create table `DiffClusterNode`(" +
+					"`this` int,`model` int not null," +
+					"`id` int not null," +
+					"`date` bigint not null," +
+					"`firstEncounter` bigint not null," +
+					"`fromAddress` varchar(80) character set utf8 collate utf8_bin not null," +
+					"`fromPort` int not null," +
+					"`invalidate_inOrder` int not null," +
+					"`invalidate_outOfOrder` int not null," +
+					"`invalidate_duplicate` int not null," +
+					"`invalidate_lost` int not null," +
+					"`invalidate_late` int not null," +
+					"`invalidate_pending` int not null," +
+					"`ping_inOrder` int not null," +
+					"`ping_outOfOrder` int not null," +
+					"`ping_duplicate` int not null," +
+					"`ping_lost` int not null," +
+					"`ping_late` int not null," +
+					"`ping_pending` int not null," +
+					"`pong_inOrder` int not null," +
+					"`pong_outOfOrder` int not null," +
+					"`pong_duplicate` int not null," +
+					"`pong_lost` int not null," +
+					"`pong_late` int not null," +
+					"`pong_pending` int not null," +
+					"constraint `DiffClusterNode_Pk` primary key(`this`)," +
+					"constraint `DiffClusterNode_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffClusNode_datAndId_Unq` unique(`date`,`id`)" +
+					") engine=innodb", // 3ms, 0 rows
+				"create table `DiffMedia`(" +
+					"`this` int,`model` int not null," +
+					"`media` int not null," +
+					"`date` bigint not null," +
+					"`redirectFrom` int not null," +
+					"`exception` int not null," +
+					"`guessedUrl` int not null," +
+					"`notAnItem` int not null," +
+					"`noSuchItem` int not null," +
+					"`moved` int not null," +
+					"`isNull` int not null," +
+					"`notComputable` int not null," +
+					"`notModified` int not null," +
+					"`delivered` int not null," +
+					"constraint `DiffMedia_Pk` primary key(`this`)," +
+					"constraint `DiffMedia_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffMedia_media_Fk` foreign key (`media`) references `SamplerMediaId`(`this`)," +
+					"constraint `DiffMedia_dateAndMedi_Unq` unique(`date`,`media`)" +
+					") engine=innodb", // 3ms, 0 rows
+			}),
 			new Revision(5, "more length for SamplerTransaction#name",
 				"alter table `SamplerTransaction` modify `name` text character set utf8 collate utf8_bin"),
 			new Revision(4, "bugfix: SamplerTransaction#date must not be unique",
