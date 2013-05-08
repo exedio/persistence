@@ -41,11 +41,11 @@ final class SequenceInfo extends Composite
 			final SequenceChecker.Info to)
 	{
 		this(
-			diff(inOrder,    from.getInOrder(), to.getInOrder()),
+			diff(inOrder,    from.getInOrder(),    to.getInOrder()),
 			diff(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
-			diff(duplicate,  from.getDuplicate(), to.getDuplicate()),
-			diff(lost,       from.getLost(), to.getLost()),
-			diff(late,       from.getLate(), to.getLate()),
+			diff(duplicate,  from.getDuplicate(),  to.getDuplicate()),
+			diff(lost,       from.getLost(),       to.getLost()),
+			diff(late,       from.getLate(),       to.getLate()),
 			pending.map(to.getPending()));
 	}
 
