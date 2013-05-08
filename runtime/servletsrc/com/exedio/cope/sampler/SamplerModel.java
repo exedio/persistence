@@ -72,14 +72,14 @@ final class SamplerModel extends Item
 	}
 
 
-	static final LongField nextTransactionId = new LongField().toFinal().min(0);
+	static final IntegerField nextTransactionId = new IntegerField().toFinal().min(0);
 
 	@CopeSchemaName("commitOutConnection")
-	private static final LongField commitWithoutConnection = new LongField().toFinal().min(0);
-	private static final LongField commitWithConnection    = new LongField().toFinal().min(0);
+	private static final IntegerField commitWithoutConnection = new IntegerField().toFinal().min(0);
+	private static final IntegerField commitWithConnection    = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("rollbackOutConnection")
-	private static final LongField rollbackWithoutConnection = new LongField().toFinal().min(0);
-	private static final LongField rollbackWithConnection    = new LongField().toFinal().min(0);
+	private static final IntegerField rollbackWithoutConnection = new IntegerField().toFinal().min(0);
+	private static final IntegerField rollbackWithConnection    = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final TransactionCounters from,
@@ -93,17 +93,17 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField itemCacheHits = new LongField().toFinal().min(0);
-	private static final LongField itemCacheMisses = new LongField().toFinal().min(0);
-	private static final LongField itemCacheConcurrentLoads = new LongField().toFinal().min(0);
+	private static final IntegerField itemCacheHits = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheMisses = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheConcurrentLoads = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheReplacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheReplacements = new IntegerField().toFinal().min(0);
-	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal().min(0);
-	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal().min(0);
+	private static final IntegerField itemCacheInvalidationsOrdered = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheInvalidationsDone = new IntegerField().toFinal().min(0);
 
 	private static final IntegerField itemCacheInvalidateLastSize = new IntegerField().toFinal().min(0);
-	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal().min(0);
-	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal().min(0);
+	private static final IntegerField itemCacheInvalidateLastHits = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheInvalidateLastPurged = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final ItemCacheSummary from,
@@ -126,10 +126,10 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final LongField queryCacheHits = new LongField().toFinal().min(0);
-	private static final LongField queryCacheMisses = new LongField().toFinal().min(0);
-	private static final LongField queryCacheReplacements = new LongField().toFinal().min(0);
-	private static final LongField queryCacheInvalidations = new LongField().toFinal().min(0);
+	private static final IntegerField queryCacheHits = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheMisses = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheReplacements = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheInvalidations = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final QueryCacheInfo from,
@@ -158,8 +158,8 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal().min(0);
-	private static final    LongField changeListenerException = new LongField   ().toFinal().min(0);
+	private static final IntegerField changeListenerOverflow  = new IntegerField().toFinal().min(0);
+	private static final IntegerField changeListenerException = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(

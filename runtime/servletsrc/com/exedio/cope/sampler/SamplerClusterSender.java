@@ -21,7 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.StringUtil.diff;
 
 import com.exedio.cope.ClusterSenderInfo;
-import com.exedio.cope.LongField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
 
@@ -29,7 +29,7 @@ final class SamplerClusterSender extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final LongField invalidationSplit = new LongField().min(0);
+	private static final IntegerField invalidationSplit = new IntegerField().min(0);
 
 	public SamplerClusterSender(
 			final ClusterSenderInfo from,

@@ -21,7 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.StringUtil.diff;
 
 import com.exedio.cope.ClusterListenerInfo;
-import com.exedio.cope.LongField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
 
@@ -29,10 +29,10 @@ final class SamplerClusterListener extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final LongField exception    = new LongField().min(0);
-	private static final LongField missingMagic = new LongField().min(0);
-	private static final LongField wrongSecret  = new LongField().min(0);
-	private static final LongField fromMyself   = new LongField().min(0);
+	private static final IntegerField exception    = new IntegerField().min(0);
+	private static final IntegerField missingMagic = new IntegerField().min(0);
+	private static final IntegerField wrongSecret  = new IntegerField().min(0);
+	private static final IntegerField fromMyself   = new IntegerField().min(0);
 
 	public SamplerClusterListener(
 			final ClusterListenerInfo from,

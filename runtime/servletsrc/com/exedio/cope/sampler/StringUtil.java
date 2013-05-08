@@ -18,8 +18,10 @@
 
 package com.exedio.cope.sampler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.exedio.cope.IntegerField;
-import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -27,6 +29,8 @@ import com.exedio.cope.pattern.MediaPath;
 
 final class StringUtil
 {
+	private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
+
 	static final SetValue<String> cutAndMap(final StringField f, final String s)
 	{
 		return f.map(shortify(f, s));
@@ -55,9 +59,17 @@ final class StringUtil
 		return f.map(to - from);
 	}
 
-	static final SetValue<Long> diff(final LongField f, final long from, final long to)
+	static final SetValue<Integer> diff(final IntegerField f, final long from, final long to)
 	{
-		return f.map(to - from);
+		final long result = to - from;
+		if(result>Integer.MAX_VALUE)
+		{
+			if(logger.isWarnEnabled())
+				logger.warn("integer exceeded for {} {}", f, result);
+
+			return f.map(Integer.MAX_VALUE);
+		}
+		return f.map((int)result);
 	}
 
 	static final int same(final int from, final int to)
