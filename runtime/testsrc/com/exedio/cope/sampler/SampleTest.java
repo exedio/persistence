@@ -52,47 +52,37 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
+		// TODO test dateFrom
 		final Date before55 = new Date();
-		final SamplerModel model55 = sampler.sampleInternal();
+		assertEquals(null, sampler.sampleInternal());
 		final Date after55 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
-			assertIt(model55, before55, after55, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		final Date date55 = SamplerModel.date.get(model55);
-		final SamplerTransaction transaction55;
+		//final Date date55 = SamplerModel.date.get(model55);-----------------
 		{
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
-			transaction55 = assertIt(model55, iter.next());
 			assertFalse(iter.hasNext());
 		}
-		final SamplerItemCache itemCache55a;
-		final SamplerItemCache itemCache55b;
 		{
 			final Iterator<SamplerItemCache> iter = SamplerItemCache.TYPE.search().iterator();
-			itemCache55a = c ? assertIt(model55, "SampledModelItem" , iter.next()) : null;
-			itemCache55b = c ? assertIt(model55, "SampledModelItem2", iter.next()) : null;
 			assertFalse(iter.hasNext());
 		}
-		final SamplerMedia media55a;
-		final SamplerMedia media55b;
 		{
 			final Iterator<SamplerMedia> iter = SamplerMedia.TYPE.search().iterator();
-			media55a = assertIt(model55, "SampledModelItem.mediaA", iter.next());
-			media55b = assertIt(model55, "SampledModelItem.mediaB", iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
-		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
-		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
-		assertEquals(c?asList(date55, date55):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
-		assertEquals(asList(date55, date55  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
+		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		waitForSystemTimeChange();
 		final Date before66 = new Date();
@@ -101,7 +91,6 @@ public class SampleTest extends ConnectedTest
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
-			assertEquals(model55, iter.next());
 			assertIt(model66, before66, after66, iter.next());
 			assertFalse(iter.hasNext());
 		}
@@ -109,7 +98,6 @@ public class SampleTest extends ConnectedTest
 		final SamplerTransaction transaction66;
 		{
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
-			assertEquals(transaction55, iter.next());
 			transaction66 = assertIt(model66, iter.next());
 			assertFalse(iter.hasNext());
 		}
@@ -119,8 +107,6 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerItemCache> iter = iter(SamplerItemCache.TYPE);
 			if(c)
 			{
-				assertEquals(itemCache55a, iter.next());
-				assertEquals(itemCache55b, iter.next());
 				itemCache66a = assertIt(model66, "SampledModelItem",  iter.next());
 				itemCache66b = assertIt(model66, "SampledModelItem2", iter.next());
 			}
@@ -135,21 +121,19 @@ public class SampleTest extends ConnectedTest
 		final SamplerMedia media66b;
 		{
 			final Iterator<SamplerMedia> iter = iter(SamplerMedia.TYPE);
-			assertEquals(media55a, iter.next());
-			assertEquals(media55b, iter.next());
 			media66a = assertIt(model66, "SampledModelItem.mediaA", iter.next());
 			media66b = assertIt(model66, "SampledModelItem.mediaB", iter.next());
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
-		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
-		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
-		assertEquals(c?asList(date55, date66):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList(date66, date66  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(c?asList(date66, date66):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
-		assertEquals(asList(date55, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
+		assertEquals(asList(date66, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		waitForSystemTimeChange();
 		final Date before77 = new Date();
@@ -158,7 +142,6 @@ public class SampleTest extends ConnectedTest
 		samplerModel.startTransaction("HistoryTest2");
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
-			assertEquals(model55, iter.next());
 			assertEquals(model66, iter.next());
 			assertIt(model77, before77, after77, iter.next());
 			assertFalse(iter.hasNext());
@@ -166,7 +149,6 @@ public class SampleTest extends ConnectedTest
 		final Date date77 = SamplerModel.date.get(model77);
 		{
 			final Iterator<SamplerTransaction> iter = SamplerTransaction.TYPE.search().iterator();
-			assertEquals(transaction55, iter.next());
 			assertEquals(transaction66, iter.next());
 			assertIt(model77, iter.next());
 			assertFalse(iter.hasNext());
@@ -175,8 +157,6 @@ public class SampleTest extends ConnectedTest
 			final Iterator<SamplerItemCache> iter = iter(SamplerItemCache.TYPE);
 			if(c)
 			{
-				assertEquals(itemCache55a, iter.next());
-				assertEquals(itemCache55b, iter.next());
 				assertEquals(itemCache66a, iter.next());
 				assertEquals(itemCache66b, iter.next());
 				assertIt(model77, "SampledModelItem",  iter.next());
@@ -186,8 +166,6 @@ public class SampleTest extends ConnectedTest
 		}
 		{
 			final Iterator<SamplerMedia> iter = iter(SamplerMedia.TYPE);
-			assertEquals(media55a, iter.next());
-			assertEquals(media55b, iter.next());
 			assertEquals(media66a, iter.next());
 			assertEquals(media66b, iter.next());
 			assertIt(model77, "SampledModelItem.mediaA", iter.next());
@@ -195,14 +173,14 @@ public class SampleTest extends ConnectedTest
 			assertFalse(iter.hasNext());
 		}
 		samplerModel.commit();
-		assertEquals(3, sampler.analyzeCount(SamplerModel.TYPE));
-		assertEquals(c?6:0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(6, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(asList(date55, date77  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
-		assertEquals(c?asList(date55, date77):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
+		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(asList(date66, date77  ), asList(sampler.analyzeDate(SamplerModel.TYPE)));
+		assertEquals(c?asList(date66, date77):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
-		assertEquals(asList(date55, date77  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
+		assertEquals(asList(date66, date77  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 	}
 
 	/**

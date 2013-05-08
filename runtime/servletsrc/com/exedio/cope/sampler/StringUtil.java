@@ -18,8 +18,12 @@
 
 package com.exedio.cope.sampler;
 
+import com.exedio.cope.IntegerField;
+import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MediaPath;
 
 final class StringUtil
 {
@@ -44,6 +48,35 @@ final class StringUtil
 	}
 
 	private static final String POSTFIX = " ...";
+
+
+	static final SetValue<Integer> diff(final IntegerField f, final int from, final int to)
+	{
+		return f.map(to - from);
+	}
+
+	static final SetValue<Long> diff(final LongField f, final long from, final long to)
+	{
+		return f.map(to - from);
+	}
+
+	static final int same(final int from, final int to)
+	{
+		assert from==to;
+		return to;
+	}
+
+	static final Type<?> same(final Type<?> from, final Type<?> to)
+	{
+		assert from==to;
+		return to;
+	}
+
+	static final MediaPath diff(final MediaPath from, final MediaPath to)
+	{
+		assert from==to;
+		return to;
+	}
 
 	private StringUtil()
 	{

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.diff;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,27 +47,28 @@ import com.exedio.cope.util.Pool;
 @CopeSchemaName("SamplerModelDiff")
 final class SamplerModel extends Item
 {
+	static final DateField from = new DateField().toFinal().unique();
 	static final DateField date = new DateField().toFinal().unique();
-	@NoDifferentiate
 	static final LongField duration = new LongField().toFinal();
 	static final DateField initializeDate = new DateField().toFinal();
 	static final DateField connectDate = new DateField().toFinal();
 
-	@NoDifferentiate
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolPut = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final Pool.Info info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final Pool.Info from,
+			final Pool.Info to)
 	{
 		return Arrays.asList((SetValue<?>)
-			connectionPoolIdle.map(info.getIdleLevel()),
-			connectionPoolGet.map(info.getCounter().getGetCounter()),
-			connectionPoolPut.map(info.getCounter().getPutCounter()),
-			connectionPoolInvalidOnGet.map(info.getInvalidOnGet()),
-			connectionPoolInvalidOnPut.map(info.getInvalidOnPut()));
+			connectionPoolIdle.map(to.getIdleLevel()),
+			diff(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
+			diff(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
+			diff(connectionPoolInvalidOnGet, from.getInvalidOnGet(), to.getInvalidOnGet()),
+			diff(connectionPoolInvalidOnPut, from.getInvalidOnPut(), to.getInvalidOnPut()));
 	}
 
 
@@ -78,13 +81,15 @@ final class SamplerModel extends Item
 	private static final LongField rollbackWithoutConnection = new LongField().toFinal().min(0);
 	private static final LongField rollbackWithConnection    = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final TransactionCounters info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final TransactionCounters from,
+			final TransactionCounters to)
 	{
 		return Arrays.asList((SetValue<?>)
-			commitWithoutConnection  .map(info.getCommitWithoutConnection()),
-			commitWithConnection     .map(info.getCommitWithConnection()),
-			rollbackWithoutConnection.map(info.getRollbackWithoutConnection()),
-			rollbackWithConnection   .map(info.getRollbackWithConnection()));
+			diff(commitWithoutConnection,   from.getCommitWithoutConnection(),   to.getCommitWithoutConnection()),
+			diff(commitWithConnection,      from.getCommitWithConnection(),      to.getCommitWithConnection()),
+			diff(rollbackWithoutConnection, from.getRollbackWithoutConnection(), to.getRollbackWithoutConnection()),
+			diff(rollbackWithConnection,    from.getRollbackWithConnection(),    to.getRollbackWithConnection()));
 	}
 
 
@@ -96,27 +101,28 @@ final class SamplerModel extends Item
 	private static final LongField itemCacheInvalidationsOrdered = new LongField().toFinal().min(0);
 	private static final LongField itemCacheInvalidationsDone = new LongField().toFinal().min(0);
 
-	@NoDifferentiate
 	private static final IntegerField itemCacheInvalidateLastSize = new IntegerField().toFinal().min(0);
 	private static final LongField itemCacheInvalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField itemCacheInvalidateLastPurged = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ItemCacheSummary info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ItemCacheSummary from,
+			final ItemCacheSummary to)
 	{
 		return Arrays.asList((SetValue<?>)
-			itemCacheHits  .map(info.getHits()),
-			itemCacheMisses.map(info.getMisses()),
+			diff(itemCacheHits,   from.getHits(), to.getHits()),
+			diff(itemCacheMisses, from.getMisses(), to.getMisses()),
 
-			itemCacheConcurrentLoads.map(info.getConcurrentLoads()),
-			itemCacheReplacementRuns.map(info.getReplacementRuns()),
-			itemCacheReplacements   .map(info.getReplacements()),
+			diff(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
+			diff(itemCacheReplacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			diff(itemCacheReplacements,    from.getReplacements(),    to.getReplacements()),
 
-			itemCacheInvalidationsOrdered.map(info.getInvalidationsOrdered()),
-			itemCacheInvalidationsDone   .map(info.getInvalidationsDone()),
+			diff(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			diff(itemCacheInvalidationsDone,    from.getInvalidationsDone(),    to.getInvalidationsDone()),
 
-			itemCacheInvalidateLastSize  .map(info.getInvalidateLastSize()),
-			itemCacheInvalidateLastHits  .map(info.getInvalidateLastHits()),
-			itemCacheInvalidateLastPurged.map(info.getInvalidateLastPurged()));
+			itemCacheInvalidateLastSize  .map(to.getInvalidateLastSize()),
+			diff(itemCacheInvalidateLastHits,   from.getInvalidateLastHits(),   to.getInvalidateLastHits()),
+			diff(itemCacheInvalidateLastPurged, from.getInvalidateLastPurged(), to.getInvalidateLastPurged()));
 	}
 
 
@@ -125,13 +131,15 @@ final class SamplerModel extends Item
 	private static final LongField queryCacheReplacements = new LongField().toFinal().min(0);
 	private static final LongField queryCacheInvalidations = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final QueryCacheInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final QueryCacheInfo from,
+			final QueryCacheInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			queryCacheHits         .map(info.getHits()),
-			queryCacheMisses       .map(info.getMisses()),
-			queryCacheReplacements .map(info.getReplacements()),
-			queryCacheInvalidations.map(info.getInvalidations()));
+			diff(queryCacheHits,          from.getHits(),          to.getHits()),
+			diff(queryCacheMisses,        from.getMisses(),        to.getMisses()),
+			diff(queryCacheReplacements,  from.getReplacements(),  to.getReplacements()),
+			diff(queryCacheInvalidations, from.getInvalidations(), to.getInvalidations()));
 	}
 
 
@@ -139,26 +147,29 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerFailed   = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ChangeListenerInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ChangeListenerInfo from,
+			final ChangeListenerInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			changeListenerCleared.map(info.getCleared()),
-			changeListenerRemoved.map(info.getRemoved()),
-			changeListenerFailed .map(info.getFailed()));
+			diff(changeListenerCleared, from.getCleared(), to.getCleared()),
+			diff(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
+			diff(changeListenerFailed,  from.getFailed(),  to.getFailed()));
 	}
 
 
 	private static final    LongField changeListenerOverflow  = new LongField   ().toFinal().min(0);
 	private static final    LongField changeListenerException = new LongField   ().toFinal().min(0);
-	@NoDifferentiate
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ChangeListenerDispatcherInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ChangeListenerDispatcherInfo from,
+			final ChangeListenerDispatcherInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			changeListenerOverflow .map(info.getOverflow ()),
-			changeListenerException.map(info.getException()),
-			changeListenerPending  .map(info.getPending  ()));
+			diff(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
+			diff(changeListenerException, from.getException(), to.getException()),
+			changeListenerPending.map( to.getPending()));
 	}
 
 
@@ -175,37 +186,45 @@ final class SamplerModel extends Item
 	private static final IntegerField mediasNotModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasDelivered     = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaSummary info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final MediaSummary from,
+			final MediaSummary to)
 	{
 		return Arrays.asList((SetValue<?>)
-			mediasRedirectFrom .map(info.getRedirectFrom()),
-			mediasException    .map(info.getException()),
-			mediasGuessedUrl   .map(info.getGuessedUrl()),
-			mediasNotAnItem    .map(info.getNotAnItem()),
-			mediasNoSuchItem   .map(info.getNoSuchItem()),
-			mediasMoved        .map(info.getMoved()),
-			mediasIsNull       .map(info.getIsNull()),
-			mediasNotComputable.map(info.getNotComputable()),
-			mediasNotModified  .map(info.getNotModified()),
-			mediasDelivered    .map(info.getDelivered()));
+			diff(mediasRedirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
+			diff(mediasException,     from.getException(),     to.getException()),
+			diff(mediasGuessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
+			diff(mediasNotAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
+			diff(mediasNoSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),
+			diff(mediasMoved,         from.getMoved(),         to.getMoved()),
+			diff(mediasIsNull,        from.getIsNull(),        to.getIsNull()),
+			diff(mediasNotComputable, from.getNotComputable(), to.getNotComputable()),
+			diff(mediasNotModified,   from.getNotModified(),   to.getNotModified()),
+			diff(mediasDelivered,     from.getDelivered(),     to.getDelivered()));
 	}
 
 
 	private static final LongField clusterSenderInvalidationSplit = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<Long>> map(final ClusterSenderInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<Long>> map(
+			final ClusterSenderInfo from,
+			final ClusterSenderInfo to)
 	{
 		return Arrays.asList(
-			clusterSenderInvalidationSplit.map(info!=null ? info.getInvalidationSplit() : 0));
+			(from!=null&&to!=null)
+			? diff(clusterSenderInvalidationSplit, from.getInvalidationSplit(), to.getInvalidationSplit())
+			: clusterSenderInvalidationSplit.map(0l));
 	}
 
 
 	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
 
-	static SetValue<?> map(final ClusterListenerInfo info)
+	static SetValue<?> map(
+			final ClusterListenerInfo from,
+			final ClusterListenerInfo to)
 	{
 		return clusterListener.map(
-			info!=null ? new SamplerClusterListener(info) : null
+			(from!=null&to!=null) ? new SamplerClusterListener(from, to) : null
 		);
 	}
 

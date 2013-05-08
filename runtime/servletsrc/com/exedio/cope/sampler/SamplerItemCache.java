@@ -18,6 +18,9 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.diff;
+import static com.exedio.cope.sampler.StringUtil.same;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -53,9 +56,7 @@ final class SamplerItemCache extends Item
 	}
 
 
-	@NoDifferentiate
 	private static final IntegerField limit = new IntegerField().toFinal().min(0);
-	@NoDifferentiate
 	private static final IntegerField level = new IntegerField().toFinal().min(0);
 	private static final LongField hits = new LongField().toFinal().min(0);
 	private static final LongField misses = new LongField().toFinal().min(0);
@@ -63,41 +64,42 @@ final class SamplerItemCache extends Item
 	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
 	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
-	@NoDifferentiate private static final LongField ageAverageMillis = new LongField().toFinal();
-	@NoDifferentiate private static final LongField ageMinimumMillis = new LongField().toFinal();
-	@NoDifferentiate private static final LongField ageMaximumMillis = new LongField().toFinal();
+	private static final LongField ageAverageMillis = new LongField().toFinal();
+	private static final LongField ageMinimumMillis = new LongField().toFinal();
+	private static final LongField ageMaximumMillis = new LongField().toFinal();
 	private static final LongField invalidationsOrdered = new LongField().toFinal().min(0);
 	private static final LongField invalidationsDone = new LongField().toFinal().min(0);
-	@NoDifferentiate
 	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
 	private static final LongField invalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField invalidateLastPurged = new LongField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ItemCacheInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ItemCacheInfo from,
+			final ItemCacheInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			type  .map(SamplerTypeId.get(info.getType())),
-			limit .map(info.getLimit()),
-			level .map(info.getLevel()),
-			hits  .map(info.getHits()),
-			misses.map(info.getMisses()),
+			type  .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
+			limit .map(to.getLimit()),
+			level .map(to.getLevel()),
+			diff(hits,   from.getHits(), to.getHits()),
+			diff(misses, from.getMisses(), to.getMisses()),
 
-			concurrentLoads.map(info.getConcurrentLoads()),
+			diff(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
 
-			replacementRuns   .map(info.getReplacementRuns()),
-			replacements      .map(info.getReplacements()),
-			lastReplacementRun.map(info.getLastReplacementRun()),
+			diff(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			diff(replacements,    from.getReplacements(),    to.getReplacements()),
+			lastReplacementRun.map(to.getLastReplacementRun()),
 
-			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinimumMillis.map(info.getAgeMinimumMillis()),
-			ageMaximumMillis.map(info.getAgeMaximumMillis()),
+			ageAverageMillis.map(to.getAgeAverageMillis()),
+			ageMinimumMillis.map(to.getAgeMinimumMillis()),
+			ageMaximumMillis.map(to.getAgeMaximumMillis()),
 
-			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()),
+			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			diff(invalidationsDone,    from.getInvalidationsDone(),    to.getInvalidationsDone()),
 
-			invalidateLastSize  .map(info.getInvalidateLastSize()),
-			invalidateLastHits  .map(info.getInvalidateLastHits()),
-			invalidateLastPurged.map(info.getInvalidateLastPurged()));
+			invalidateLastSize.map(to.getInvalidateLastSize()),
+			diff(invalidateLastHits,   from.getInvalidateLastHits(),   to.getInvalidateLastHits()),
+			diff(invalidateLastPurged, from.getInvalidateLastPurged(), to.getInvalidateLastPurged()));
 	}
 
 

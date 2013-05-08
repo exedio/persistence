@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.StringUtil.cutAndMap;
+import static com.exedio.cope.sampler.StringUtil.same;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,23 +58,24 @@ final class SamplerClusterNode extends Item
 
 	private static final DateField firstEncounter = new DateField().toFinal();
 	private static final StringField fromAddress = new StringField().toFinal();
-	@NoDifferentiate
 	private static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
 	private static final CompositeField<SequenceInfo> invalidate = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> ping = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> pong = CompositeField.create(SequenceInfo.class).toFinal();
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final ClusterListenerInfo.Node node)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ClusterListenerInfo.Node from,
+			final ClusterListenerInfo.Node to)
 	{
 		return Arrays.asList((SetValue<?>)
-				id            .map(node.getID()),
-				firstEncounter.map(node.getFirstEncounter()),
-				cutAndMap(fromAddress, node.getAddress().toString()),
-				fromPort      .map(node.getPort()),
+				id            .map(same(from.getID(), to.getID())),
+				firstEncounter.map(to.getFirstEncounter()),
+				cutAndMap(fromAddress, to.getAddress().toString()),
+				fromPort      .map(to.getPort()),
 
-				invalidate.map(new SequenceInfo(node.getInvalidateInfo())),
-				ping      .map(new SequenceInfo(node.getPingInfo())),
-				pong      .map(new SequenceInfo(node.getPongInfo())));
+				invalidate.map(new SequenceInfo(from.getInvalidateInfo(), to.getInvalidateInfo())),
+				ping      .map(new SequenceInfo(from.getPingInfo(),       to.getPingInfo())),
+				pong      .map(new SequenceInfo(from.getPongInfo(),       to.getPongInfo())));
 	}
 
 

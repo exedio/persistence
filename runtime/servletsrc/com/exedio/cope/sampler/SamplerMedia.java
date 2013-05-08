@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.diff;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -63,20 +65,22 @@ final class SamplerMedia extends Item
 	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final MediaInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final MediaInfo from,
+			final MediaInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			media        .map(SamplerMediaId.get(info.getPath())),
-			redirectFrom .map(info.getRedirectFrom()),
-			exception    .map(info.getException()),
-			guessedUrl   .map(info.getGuessedUrl()),
-			notAnItem    .map(info.getNotAnItem()),
-			noSuchItem   .map(info.getNoSuchItem()),
-			moved        .map(info.getMoved()),
-			isNull       .map(info.getIsNull()),
-			notComputable.map(info.getNotComputable()),
-			notModified  .map(info.getNotModified()),
-			delivered    .map(info.getDelivered()));
+			media.map(SamplerMediaId.get(diff(from.getPath(), to.getPath()))),
+			diff(redirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
+			diff(exception,     from.getException(),     to.getException()),
+			diff(guessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
+			diff(notAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
+			diff(noSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),
+			diff(moved,         from.getMoved(),         to.getMoved()),
+			diff(isNull,        from.getIsNull(),        to.getIsNull()),
+			diff(notComputable, from.getNotComputable(), to.getNotComputable()),
+			diff(notModified,   from.getNotModified(),   to.getNotModified()),
+			diff(delivered,     from.getDelivered(),     to.getDelivered()));
 	}
 
 
