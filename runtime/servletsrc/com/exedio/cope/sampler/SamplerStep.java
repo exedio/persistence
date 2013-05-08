@@ -41,8 +41,8 @@ import com.exedio.cope.util.Pool;
 final class SamplerStep
 {
 	final Date date;
-	final Date initializeDate;
-	final Date connectDate;
+	final Date initialized;
+	final Date connected;
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
@@ -72,8 +72,8 @@ final class SamplerStep
 		// gather data
 		final long start = System.nanoTime();
 		this.date = new Date();
-		this.initializeDate = sampledModel.getInitializeDate();
-		this.connectDate = sampledModel.getConnectDate();
+		this.initialized = sampledModel.getInitializeDate();
+		this.connected = sampledModel.getConnectDate();
 		this.connectionPoolInfo = sampledModel.getConnectionPoolInfo();
 		this.nextTransactionId = sampledModel.getNextTransactionId();
 		this.transactionCounters = sampledModel.getTransactionCounters();
@@ -129,8 +129,8 @@ final class SamplerStep
 		assert (clusterListenerInfoNodes!=null)==(from.clusterListenerInfoNodes!=null);
 
 		return
-			initializeDate.equals(from.initializeDate) &&
-			connectDate.equals(from.connectDate);
+			initialized.equals(from.initialized) &&
+			connected.equals(from.connected);
 	}
 
 	ClusterListenerInfo.Node map(final ClusterListenerInfo.Node node)

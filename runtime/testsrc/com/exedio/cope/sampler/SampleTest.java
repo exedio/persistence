@@ -207,8 +207,8 @@ public class SampleTest extends ConnectedTest
 	{
 		assertEquals(expected, model);
 		assertWithin(before, after, SamplerModel.date.get(model));
-		assertEquals(MODEL.getInitializeDate(), SamplerModel.initializeDate.get(model));
-		assertEquals(MODEL.getConnectDate(), SamplerModel.connectDate.get(model));
+		assertEquals(MODEL.getInitializeDate(), SamplerModel.initialized.get(model));
+		assertEquals(MODEL.getConnectDate(), SamplerModel.connected.get(model));
 		return model;
 	}
 

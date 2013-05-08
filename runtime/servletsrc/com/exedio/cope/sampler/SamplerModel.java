@@ -50,8 +50,8 @@ final class SamplerModel extends Item
 	static final DateField from = new DateField().toFinal().unique();
 	static final DateField date = new DateField().toFinal().unique();
 	static final LongField duration = new LongField().toFinal();
-	static final DateField initializeDate = new DateField().toFinal();
-	static final DateField connectDate = new DateField().toFinal();
+	static final DateField initialized = new DateField().toFinal();
+	static final DateField connected = new DateField().toFinal();
 
 	private static final IntegerField connectionPoolIdle = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolGet = new IntegerField().toFinal().min(0);
