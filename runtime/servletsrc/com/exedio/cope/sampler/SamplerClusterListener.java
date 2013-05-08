@@ -18,11 +18,12 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.StringUtil.diff;
+
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
-import static com.exedio.cope.sampler.StringUtil.diff;
 
 final class SamplerClusterListener extends Composite
 {
