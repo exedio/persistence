@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.sampler.StringUtil.diff;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -28,30 +29,19 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import com.exedio.cope.ChangeListenerDispatcherInfo;
-import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
-import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
-import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.misc.ItemCacheSummary;
-import com.exedio.cope.misc.MediaSummary;
-import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 
 public class Sampler
@@ -59,7 +49,6 @@ public class Sampler
 	private final Model samplerModel;
 
 	private final Model sampledModel;
-	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
 
 	public Sampler(final Model sampledModel)
@@ -73,11 +62,20 @@ public class Sampler
 			new Model(
 				new SamplerRevisions(),
 				SamplerTypeId.TYPE,
+				SamplerMediaId.TYPE,
+
 				SamplerModel.TYPE,
 				SamplerTransaction.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
+
+				AbsoluteModel.TYPE,
+				AbsoluteTransaction.TYPE,
+				AbsoluteItemCache.TYPE,
+				AbsoluteClusterNode.TYPE,
+				AbsoluteMedia.TYPE,
+
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
@@ -178,103 +176,74 @@ public class Sampler
 		sampleInternal();
 	}
 
+	private SamplerStep lastStep = null;
+
 	SamplerModel sampleInternal()
 	{
-		// prepare
-		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
+		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
+		final SamplerStep from = lastStep;
+		lastStep = to;
+		if(!to.isCompatibleTo(from))
+			return null;
 
-		// gather data
-		final long start = System.nanoTime();
-		final Date date = new Date();
-		final Date initializeDate = sampledModel.getInitializeDate();
-		final Date connectDate = sampledModel.getConnectDate();
-		final Pool.Info connectionPoolInfo = sampledModel.getConnectionPoolInfo();
-		final long nextTransactionId = sampledModel.getNextTransactionId();
-		final TransactionCounters transactionCounters = sampledModel.getTransactionCounters();
-		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		final ItemCacheInfo[] itemCacheInfos = sampledModel.getItemCacheInfo();
-		final QueryCacheInfo queryCacheInfo = sampledModel.getQueryCacheInfo();
-		final ChangeListenerInfo changeListenerInfo = sampledModel.getChangeListenersInfo();
-		final ChangeListenerDispatcherInfo changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
-		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
-		{
-			int i = 0;
-			for(final MediaPath path : medias)
-				mediaInfos[i++] = path.getInfo();
-		}
-		final ClusterSenderInfo clusterSenderInfo = sampledModel.getClusterSenderInfo();
-		final ClusterListenerInfo clusterListenerInfo = sampledModel.getClusterListenerInfo();
-		final long duration = System.nanoTime() - start;
-
-		// process data
-		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
-		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
 		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
-		final int running = runningSource.getAndIncrement();
-		final ArrayList<Transaction> transactions = new ArrayList<Transaction>(openTransactions.size());
-		{
-			final long threshold = date.getTime() - getTransactionDuration();
-			for(final Transaction transaction : openTransactions)
-			{
-				if(transaction.getStartDate().getTime()<threshold)
-					transactions.add(transaction);
-			}
-		}
-
 		// save data
 		try
 		{
 			samplerModel.startTransaction(toString() + " sample");
 
 			sv.clear();
-			sv.add(SamplerModel.date.map(date));
-			sv.add(SamplerModel.duration.map(duration));
-			sv.add(SamplerModel.initializeDate.map(initializeDate));
-			sv.add(SamplerModel.connectDate.map(connectDate));
-			sv.add(SamplerModel.sampler.map(System.identityHashCode(this)));
-			sv.add(SamplerModel.running.map(running));
-			sv.addAll(SamplerModel.map(connectionPoolInfo));
-			sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
-			sv.addAll(SamplerModel.map(transactionCounters));
-			sv.addAll(SamplerModel.map(itemCacheSummary));
-			sv.addAll(SamplerModel.map(queryCacheInfo));
-			sv.addAll(SamplerModel.map(changeListenerInfo));
-			sv.addAll(SamplerModel.map(changeListenerDispatcherInfo));
-			sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
-			sv.addAll(SamplerModel.map(mediaSummary));
-			sv.addAll(SamplerModel.map(clusterSenderInfo));
-			sv.add(SamplerModel.map(clusterListenerInfo));
+			sv.add(SamplerModel.from.map(from.date));
+			sv.add(SamplerModel.date.map(to.date));
+			sv.add(SamplerModel.duration.map(to.duration));
+			sv.add(SamplerModel.initialized.map(to.initialized));
+			sv.add(SamplerModel.connected.map(to.connected));
+			sv.addAll(SamplerModel.map(from.connectionPoolInfo, to.connectionPoolInfo));
+			sv.add(diff(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
+			sv.addAll(SamplerModel.map(from.transactionCounters, to.transactionCounters));
+			sv.addAll(SamplerModel.map(from.itemCacheSummary, to.itemCacheSummary));
+			sv.addAll(SamplerModel.map(from.queryCacheInfo, to.queryCacheInfo));
+			sv.addAll(SamplerModel.map(from.changeListenerInfo, to.changeListenerInfo));
+			sv.addAll(SamplerModel.map(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
+			sv.add(diff(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
+			sv.addAll(SamplerModel.map(from.mediaSummary, to.mediaSummary));
+			sv.add(SamplerModel.map(from.clusterSenderInfo, to.clusterSenderInfo));
+			sv.add(SamplerModel.map(from.clusterListenerInfo, to.clusterListenerInfo));
 			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
 
-			for(final Transaction transaction : transactions)
+			for(final Transaction transaction : to.transactions)
 			{
 				sv.clear();
 				sv.addAll(SamplerTransaction.map(model));
 				sv.addAll(SamplerTransaction.map(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
 			}
-			for(final ItemCacheInfo info : itemCacheInfos)
+			for(int i = 0; i<to.itemCacheInfos.length; i++)
 			{
 				sv.clear();
 				sv.addAll(SamplerItemCache.map(model));
-				sv.addAll(SamplerItemCache.map(info));
+				sv.addAll(SamplerItemCache.map(from.itemCacheInfos[i], to.itemCacheInfos[i]));
 				SamplerItemCache.TYPE.newItem(sv);
 			}
-			for(final MediaInfo info : mediaInfos)
+			for(int i = 0; i<to.mediaInfos.length; i++)
 			{
 				sv.clear();
 				sv.addAll(SamplerMedia.map(model));
-				sv.addAll(SamplerMedia.map(info));
+				sv.addAll(SamplerMedia.map(from.mediaInfos[i], to.mediaInfos[i]));
 				SamplerMedia.TYPE.newItem(sv);
 			}
-			if(clusterListenerInfo!=null)
+			if(to.clusterListenerInfo!=null)
 			{
-				for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
+				for(final ClusterListenerInfo.Node toNode : to.clusterListenerInfo.getNodes())
 				{
-					sv.clear();
-					sv.addAll(SamplerClusterNode.map(model));
-					sv.addAll(SamplerClusterNode.map(node));
-					SamplerClusterNode.TYPE.newItem(sv);
+					final ClusterListenerInfo.Node fromNode = from.map(toNode);
+					if(fromNode!=null)
+					{
+						sv.clear();
+						sv.addAll(SamplerClusterNode.map(model));
+						sv.addAll(SamplerClusterNode.map(fromNode, toNode));
+						SamplerClusterNode.TYPE.newItem(sv);
+					}
 				}
 			}
 			samplerModel.commit();

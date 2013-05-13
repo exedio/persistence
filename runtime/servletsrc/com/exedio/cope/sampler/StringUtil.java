@@ -18,11 +18,19 @@
 
 package com.exedio.cope.sampler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.pattern.MediaPath;
 
 final class StringUtil
 {
+	private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
+
 	static final SetValue<String> cutAndMap(final StringField f, final String s)
 	{
 		return f.map(shortify(f, s));
@@ -44,6 +52,43 @@ final class StringUtil
 	}
 
 	private static final String POSTFIX = " ...";
+
+
+	static final SetValue<Integer> diff(final IntegerField f, final int from, final int to)
+	{
+		return f.map(to - from);
+	}
+
+	static final SetValue<Integer> diff(final IntegerField f, final long from, final long to)
+	{
+		final long result = to - from;
+		if(result>Integer.MAX_VALUE)
+		{
+			if(logger.isWarnEnabled())
+				logger.warn("integer exceeded for {} {}", f, result);
+
+			return f.map(Integer.MAX_VALUE);
+		}
+		return f.map((int)result);
+	}
+
+	static final int same(final int from, final int to)
+	{
+		assert from==to;
+		return to;
+	}
+
+	static final Type<?> same(final Type<?> from, final Type<?> to)
+	{
+		assert from==to;
+		return to;
+	}
+
+	static final MediaPath same(final MediaPath from, final MediaPath to)
+	{
+		assert from==to;
+		return to;
+	}
 
 	private StringUtil()
 	{

@@ -18,41 +18,31 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.StringUtil.diff;
-import static com.exedio.cope.sampler.StringUtil.same;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.MediaInfo;
 
+@SuppressWarnings("unused") // OK: deprecated item
 @Purgeable()
-@CopeSchemaName("DiffMedia")
-final class SamplerMedia extends Item
+@CopeSchemaName("SamplerMedia")
+final class AbsoluteMedia extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
-	private static final ItemField<SamplerMediaId> media = ItemField.create(SamplerMediaId.class).toFinal();
+	private static final ItemField<AbsoluteModel> model = ItemField.create(AbsoluteModel.class).toFinal();
+	private static final StringField media = new StringField().toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
-
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
-	{
-		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)));
-	}
+	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
+	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
+	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
+	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
 
 	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
@@ -66,47 +56,14 @@ final class SamplerMedia extends Item
 	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
 	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
-			final MediaInfo from,
-			final MediaInfo to)
-	{
-		return Arrays.asList((SetValue<?>)
-			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
-			diff(redirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
-			diff(exception,     from.getException(),     to.getException()),
-			diff(guessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
-			diff(notAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
-			diff(noSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),
-			diff(moved,         from.getMoved(),         to.getMoved()),
-			diff(isNull,        from.getIsNull(),        to.getIsNull()),
-			diff(notComputable, from.getNotComputable(), to.getNotComputable()),
-			diff(notModified,   from.getNotModified(),   to.getNotModified()),
-			diff(delivered,     from.getDelivered(),     to.getDelivered()));
-	}
-
 
 	@SuppressWarnings("unused")
-	private SamplerMedia(final ActivationParameters ap)
+	private AbsoluteMedia(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
-	SamplerModel getModel()
-	{
-		return model.get(this);
-	}
-
-	String getMedia()
-	{
-		return media.get(this).getID();
-	}
-
-	Date getDate()
-	{
-		return date.get(this);
-	}
-
 	private static final long serialVersionUID = 1l;
 
-	static final Type<SamplerMedia> TYPE = TypesBound.newType(SamplerMedia.class);
+	static final Type<AbsoluteMedia> TYPE = TypesBound.newType(AbsoluteMedia.class);
 }

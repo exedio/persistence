@@ -18,39 +18,30 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.StringUtil.cutAndMap;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
 
+@SuppressWarnings("unused") // OK: deprecated item
 @Purgeable()
-@CopeSchemaName("DiffTransaction")
-final class SamplerTransaction extends Item
+@CopeSchemaName("SamplerTransaction")
+final class AbsoluteTransaction extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
+	private static final ItemField<AbsoluteModel> model = ItemField.create(AbsoluteModel.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
-	{
-		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)));
-	}
+	private static final DateField initializeDate = new DateField().toFinal().copyFrom(model);
+	private static final DateField connectDate = new DateField().toFinal().copyFrom(model);
+	@CopeSchemaName("thread") private static final IntegerField sampler = new IntegerField().toFinal().copyFrom(model);
+	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
 
 	private static final LongField id  = new LongField().toFinal().min(0);
@@ -58,53 +49,14 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final Transaction transaction)
-	{
-		return Arrays.asList((SetValue<?>)
-			id       .map(transaction.getID()),
-			cutAndMap(name, transaction.getName()),
-			startDate.map(transaction.getStartDate()),
-			thread   .map(SamplerThread.create(transaction.getBoundThread())));
-	}
-
 
 	@SuppressWarnings("unused")
-	private SamplerTransaction(final ActivationParameters ap)
+	private AbsoluteTransaction(final ActivationParameters ap)
 	{
 		super(ap);
 	}
 
-	SamplerModel getModel()
-	{
-		return model.get(this);
-	}
-
-	Date getDate()
-	{
-		return date.get(this);
-	}
-
-	long getID()
-	{
-		return id.getMandatory(this);
-	}
-
-	String getName()
-	{
-		return name.get(this);
-	}
-
-	Date getStartDate()
-	{
-		return startDate.get(this);
-	}
-
-	SamplerThread getThread()
-	{
-		return thread.get(this);
-	}
-
 	private static final long serialVersionUID = 1l;
 
-	static final Type<SamplerTransaction> TYPE = TypesBound.newType(SamplerTransaction.class);
+	static final Type<AbsoluteTransaction> TYPE = TypesBound.newType(AbsoluteTransaction.class);
 }

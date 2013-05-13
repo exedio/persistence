@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.SamplerModel.replaceByCopy;
+import static com.exedio.cope.sampler.AbsoluteModel.replaceByCopy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,10 +46,10 @@ final class Differentiate
 	static List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		final ArrayList<Query<List<Object>>> result = new ArrayList<Query<List<Object>>>(4);
-		result.add(makeQuery(SamplerModel      .TYPE, from, until));
-		result.add(makeQuery(SamplerItemCache  .TYPE, from, until));
-		result.add(makeQuery(SamplerClusterNode.TYPE, from, until));
-		result.add(makeQuery(SamplerMedia      .TYPE, from, until));
+		result.add(makeQuery(AbsoluteModel      .TYPE, from, until));
+		result.add(makeQuery(AbsoluteItemCache  .TYPE, from, until));
+		result.add(makeQuery(AbsoluteClusterNode.TYPE, from, until));
+		result.add(makeQuery(AbsoluteMedia      .TYPE, from, until));
 		return Collections.unmodifiableList(result);
 	}
 
@@ -59,10 +59,10 @@ final class Differentiate
 			Query.newQuery(new Selectable<?>[]{type.getThis(), type.getThis()}, type, null);
 		final Join join = query.join(type);
 
-		final DateField dateField = replaceByCopy(SamplerModel.date, type);
+		final DateField dateField = replaceByCopy(AbsoluteModel.date, type);
 		final ArrayList<FunctionField<?>> byDateUnique = new ArrayList<FunctionField<?>>();
-		final IntegerField sampler = replaceByCopy(SamplerModel.sampler, type);
-		final IntegerField running = replaceByCopy(SamplerModel.running, type);
+		final IntegerField sampler = replaceByCopy(AbsoluteModel.sampler, type);
+		final IntegerField running = replaceByCopy(AbsoluteModel.running, type);
 		{
 			final ArrayList<Function<?>> selects = new ArrayList<Function<?>>();
 			{
@@ -112,7 +112,7 @@ final class Differentiate
 			for(final FunctionField<?> field : byDateUnique)
 				conditions.add(equal(join, field));
 
-			conditions.add(equal(join, replaceByCopy(SamplerModel.connectDate, type)));
+			conditions.add(equal(join, replaceByCopy(AbsoluteModel.connectDate, type)));
 			conditions.add(equal(join, sampler));
 			conditions.add(running.bind(join).equal(running.plus(1)));
 
