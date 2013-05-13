@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.StringUtil.cutAndMap;
+import static com.exedio.cope.sampler.Util.cutAndMap;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;

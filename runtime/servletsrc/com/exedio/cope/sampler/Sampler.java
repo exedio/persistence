@@ -20,7 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
-import static com.exedio.cope.sampler.StringUtil.diff;
+import static com.exedio.cope.sampler.Util.diff;
 
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -27,9 +27,9 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
 
-final class StringUtil
+final class Util
 {
-	private static final Logger logger = LoggerFactory.getLogger(StringUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
 	static final SetValue<String> cutAndMap(final StringField f, final String s)
 	{
@@ -90,7 +90,7 @@ final class StringUtil
 		return to;
 	}
 
-	private StringUtil()
+	private Util()
 	{
 		// prevent instantiation
 	}

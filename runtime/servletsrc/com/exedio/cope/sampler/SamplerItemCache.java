@@ -18,8 +18,8 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.StringUtil.diff;
-import static com.exedio.cope.sampler.StringUtil.same;
+import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.same;
 
 import java.util.Arrays;
 import java.util.Date;

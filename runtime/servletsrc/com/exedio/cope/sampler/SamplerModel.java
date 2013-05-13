@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.StringUtil.diff;
+import static com.exedio.cope.sampler.Util.diff;
 
 import java.util.Arrays;
 import java.util.List;
