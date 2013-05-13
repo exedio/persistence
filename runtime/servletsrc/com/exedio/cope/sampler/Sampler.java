@@ -236,10 +236,14 @@ public class Sampler
 			{
 				for(final ClusterListenerInfo.Node toNode : to.clusterListenerInfo.getNodes())
 				{
-					sv.clear();
-					sv.addAll(SamplerClusterNode.map(model));
-					sv.addAll(SamplerClusterNode.map(from.map(toNode), toNode));
-					SamplerClusterNode.TYPE.newItem(sv);
+					final ClusterListenerInfo.Node fromNode = from.map(toNode);
+					if(fromNode!=null)
+					{
+						sv.clear();
+						sv.addAll(SamplerClusterNode.map(model));
+						sv.addAll(SamplerClusterNode.map(fromNode, toNode));
+						SamplerClusterNode.TYPE.newItem(sv);
+					}
 				}
 			}
 			samplerModel.commit();
