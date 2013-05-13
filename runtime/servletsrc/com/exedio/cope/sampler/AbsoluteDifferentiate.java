@@ -41,7 +41,7 @@ import com.exedio.cope.Selectable;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 
-final class Differentiate
+final class AbsoluteDifferentiate
 {
 	static List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
@@ -138,7 +138,7 @@ final class Differentiate
 		return field.bind(j).equal(field);
 	}
 
-	private Differentiate()
+	private AbsoluteDifferentiate()
 	{
 		// prevent instantiation
 	}

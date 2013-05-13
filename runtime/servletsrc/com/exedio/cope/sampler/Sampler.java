@@ -354,7 +354,7 @@ public class Sampler
 	@SuppressWarnings("static-method")
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
-		return Differentiate.differentiate(from, until);
+		return AbsoluteDifferentiate.differentiate(from, until);
 	}
 
 	@Override
