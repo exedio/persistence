@@ -90,7 +90,7 @@ final class AbsoluteDifferentiate
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
 				if(feature instanceof NumberField<?> &&
-					!feature.isAnnotationPresent(NoDifferentiate.class) &&
+					!feature.isAnnotationPresent(AbsoluteNoDifferentiate.class) &&
 					feature!=sampler && feature!=running &&
 					!byDateUnique.contains(feature))
 				{

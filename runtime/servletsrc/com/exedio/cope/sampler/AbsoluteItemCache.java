@@ -45,9 +45,9 @@ final class AbsoluteItemCache extends Item
 	private static final IntegerField running = new IntegerField().toFinal().copyFrom(model).min(0);
 
 
-	@NoDifferentiate
+	@AbsoluteNoDifferentiate
 	private static final IntegerField limit = new IntegerField().toFinal().min(0);
-	@NoDifferentiate
+	@AbsoluteNoDifferentiate
 	private static final IntegerField level = new IntegerField().toFinal().min(0);
 	private static final LongField hits = new LongField().toFinal().min(0);
 	private static final LongField misses = new LongField().toFinal().min(0);
@@ -55,12 +55,12 @@ final class AbsoluteItemCache extends Item
 	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
 	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
-	@NoDifferentiate private static final LongField ageAverageMillis = new LongField().toFinal();
-	@NoDifferentiate private static final LongField ageMinimumMillis = new LongField().toFinal();
-	@NoDifferentiate private static final LongField ageMaximumMillis = new LongField().toFinal();
+	@AbsoluteNoDifferentiate private static final LongField ageAverageMillis = new LongField().toFinal();
+	@AbsoluteNoDifferentiate private static final LongField ageMinimumMillis = new LongField().toFinal();
+	@AbsoluteNoDifferentiate private static final LongField ageMaximumMillis = new LongField().toFinal();
 	private static final LongField invalidationsOrdered = new LongField().toFinal().min(0);
 	private static final LongField invalidationsDone = new LongField().toFinal().min(0);
-	@NoDifferentiate
+	@AbsoluteNoDifferentiate
 	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
 	private static final LongField invalidateLastHits = new LongField().toFinal().min(0);
 	private static final LongField invalidateLastPurged = new LongField().toFinal().min(0);

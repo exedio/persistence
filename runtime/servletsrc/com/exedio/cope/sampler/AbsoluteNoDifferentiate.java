@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@interface NoDifferentiate
+@interface AbsoluteNoDifferentiate
 {
 	// empty
 }
