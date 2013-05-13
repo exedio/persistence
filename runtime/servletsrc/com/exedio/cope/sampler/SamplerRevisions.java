@@ -36,7 +36,7 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
-			new Revision(6, "more length for SamplerTransaction#name", new String[] {
+			new Revision(6, "store differences instead of absolute values", new String[] {
 				"create table `SamplerMediaId`(" +
 					"`this` int," +
 					"`id` varchar(80) character set utf8 collate utf8_bin not null," +
