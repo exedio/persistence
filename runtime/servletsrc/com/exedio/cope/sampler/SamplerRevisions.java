@@ -43,7 +43,7 @@ final class SamplerRevisions implements Revisions.Factory
 					"constraint `SamplerMediaId_Pk` primary key(`this`)," +
 					"constraint `SamplerMediaId_id_Unq` unique(`id`)" +
 					") engine=innodb", // 29ms, 0 rows
-				"create table `DiffSamplerModel`(" +
+				"create table `DiffModel`(" +
 					"`this` int,`from` bigint not null," +
 					"`date` bigint not null," +
 					"`duration` bigint not null," +
@@ -95,9 +95,9 @@ final class SamplerRevisions implements Revisions.Factory
 					"`clusterListene_missiMagic` int," +
 					"`clusterListen_wrongSecret` int," +
 					"`clusterListene_fromMyself` int," +
-					"constraint `DiffSamplerModel_Pk` primary key(`this`)," +
-					"constraint `DiffSamplerModel_from_Unq` unique(`from`)," +
-					"constraint `DiffSamplerModel_date_Unq` unique(`date`)" +
+					"constraint `DiffModel_Pk` primary key(`this`)," +
+					"constraint `DiffModel_from_Unq` unique(`from`)," +
+					"constraint `DiffModel_date_Unq` unique(`date`)" +
 					") engine=innodb", // 3ms, 0 rows
 				"create table `DiffTransaction`(" +
 					"`this` int," +
@@ -112,7 +112,7 @@ final class SamplerRevisions implements Revisions.Factory
 					"`thread_state` int," +
 					"`thread_stackTrace` mediumtext character set utf8 collate utf8_bin," +
 					"constraint `DiffTransaction_Pk` primary key(`this`)," +
-					"constraint `DiffTransaction_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)" +
+					"constraint `DiffTransaction_model_Fk` foreign key (`model`) references `DiffModel`(`this`)" +
 					") engine=innodb", // 3ms, 0 rows
 				"create table `DiffItemCache`(" +
 					"`this` int,`model` int not null," +
@@ -135,7 +135,7 @@ final class SamplerRevisions implements Revisions.Factory
 					"`invalidateLastHits` int not null," +
 					"`invalidateLastPurged` int not null," +
 					"constraint `DiffItemCache_Pk` primary key(`this`)," +
-					"constraint `DiffItemCache_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffItemCache_model_Fk` foreign key (`model`) references `DiffModel`(`this`)," +
 					"constraint `DiffItemCache_type_Fk` foreign key (`type`) references `SamplerTypeId`(`this`)," +
 					"constraint `DiffItemCach_daAndTyp_Unq` unique(`date`,`type`)" +
 					") engine=innodb", // 3ms, 0 rows
@@ -165,7 +165,7 @@ final class SamplerRevisions implements Revisions.Factory
 					"`pong_late` int not null," +
 					"`pong_pending` int not null," +
 					"constraint `DiffClusterNode_Pk` primary key(`this`)," +
-					"constraint `DiffClusterNode_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffClusterNode_model_Fk` foreign key (`model`) references `DiffModel`(`this`)," +
 					"constraint `DiffClusNode_datAndId_Unq` unique(`date`,`id`)" +
 					") engine=innodb", // 3ms, 0 rows
 				"create table `DiffMedia`(" +
@@ -183,7 +183,7 @@ final class SamplerRevisions implements Revisions.Factory
 					"`notModified` int not null," +
 					"`delivered` int not null," +
 					"constraint `DiffMedia_Pk` primary key(`this`)," +
-					"constraint `DiffMedia_model_Fk` foreign key (`model`) references `DiffSamplerModel`(`this`)," +
+					"constraint `DiffMedia_model_Fk` foreign key (`model`) references `DiffModel`(`this`)," +
 					"constraint `DiffMedia_media_Fk` foreign key (`media`) references `SamplerMediaId`(`this`)," +
 					"constraint `DiffMedia_dateAndMedi_Unq` unique(`date`,`media`)" +
 					") engine=innodb", // 3ms, 0 rows

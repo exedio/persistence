@@ -44,7 +44,7 @@ import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
 
 @Purgeable(last=true)
-@CopeSchemaName("DiffSamplerModel")
+@CopeSchemaName("DiffModel")
 final class SamplerModel extends Item
 {
 	static final DateField from = new DateField().toFinal().unique();
