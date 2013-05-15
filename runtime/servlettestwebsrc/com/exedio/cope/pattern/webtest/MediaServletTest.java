@@ -26,6 +26,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +62,14 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
+
+	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
+
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		onException.delete();
+	}
 
 	public void testIt() throws Exception
 	{
@@ -329,6 +338,7 @@ public class MediaServletTest extends TestCase
 		}
 
 		//textConn.setIfModifiedSince();
+		assertOnExceptionEmpty();
 		return lastModified;
 	}
 
@@ -363,6 +373,7 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+		assertOnExceptionEmpty();
 	}
 
 	private static void assertNotFound(final String url, final String detail) throws IOException
@@ -396,6 +407,7 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+		assertOnExceptionEmpty();
 	}
 
 	private static long assertBin(final String url, final String contentType) throws IOException
@@ -419,6 +431,7 @@ public class MediaServletTest extends TestCase
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
 
+		assertOnExceptionEmpty();
 		return lastModified;
 	}
 
@@ -453,6 +466,31 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+
+		assertTrue(onException.getAbsolutePath(), onException.exists());
+		final String data = lines(
+				"java.lang.RuntimeException: test error in MediaNameServer",
+				"\tat com.exedio.cope.pattern.MediaNameServer.doGet(MediaNameServer.java:77)",
+				"\tat com.exedio.cope.pattern.MediaPath.doGet(MediaPath.java:428)",
+				"\tat com.exedio.cope.pattern.MediaServlet.serveContent(MediaServlet.java:277)",
+				"\tat com.exedio.cope.pattern.MediaServlet.doGet(MediaServlet.java:158)",
+				"\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:690)",
+				"\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:803)",
+				"\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)",
+				"\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)",
+				"\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)",
+				"\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:175)",
+				"\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)",
+				"\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)",
+				"\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)",
+				"\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:286)",
+				"\tat org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:844)",
+				"\tat org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)",
+				"\tat org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)",
+				"\tat java.lang.Thread.run(Thread.java:722)"
+		);
+		assertEquals(data, getContentAsString(new FileInputStream(onException)));
+		StrictFile.delete(onException);
 	}
 
 	private static void assertNameURL(final String url) throws IOException
@@ -548,5 +586,10 @@ public class MediaServletTest extends TestCase
 			builder.append( '\n' );
 		}
 		return builder.toString();
+	}
+
+	private static void assertOnExceptionEmpty()
+	{
+		assertFalse(onException.getAbsolutePath(), onException.exists());
 	}
 }
