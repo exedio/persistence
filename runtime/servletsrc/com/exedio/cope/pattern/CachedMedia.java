@@ -89,7 +89,8 @@ public abstract class CachedMedia extends MediaPath
 
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 
-			return notModified;
+			incrementNotModified();
+			return null;
 		}
 		else
 		{

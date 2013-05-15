@@ -99,7 +99,8 @@ final class MediaNameServer extends MediaPath
 			if(out!=null)
 				out.close();
 		}
-		return delivered;
+		incrementDelivered();
+		return null;
 	}
 
 	@Override

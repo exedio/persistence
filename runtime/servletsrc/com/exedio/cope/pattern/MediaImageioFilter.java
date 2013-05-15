@@ -145,12 +145,13 @@ public abstract class MediaImageioFilter extends MediaFilter
 		try
 		{
 			body.writeTo(out);
-			return delivered;
 		}
 		finally
 		{
 			out.close();
 		}
+		incrementDelivered();
+		return null;
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

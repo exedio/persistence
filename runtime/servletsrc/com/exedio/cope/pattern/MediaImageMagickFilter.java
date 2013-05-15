@@ -210,8 +210,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			{
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
-
-				return delivered;
 			}
 			finally
 			{
@@ -224,6 +222,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			body.close();
 			delete(outFile);
 		}
+		incrementDelivered();
+		return null;
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

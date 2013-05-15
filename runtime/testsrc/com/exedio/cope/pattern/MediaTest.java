@@ -140,23 +140,23 @@ public final class MediaTest extends AbstractRuntimeTest
 
 		assertEquals(0, photo.noSuchItem.get());
 		assertEquals(0, photo.isNull.get());
-		assertEquals(0, photo.notModified.get());
-		assertEquals(0, photo.delivered.get());
+		assertEquals(0, photo.getInfo().getNotModified());
+		assertEquals(0, photo.getInfo().getDelivered());
 
 		photo.noSuchItem.increment();
 		assertEquals(1, photo.noSuchItem.get());
 		assertEquals(0, photo.isNull.get());
-		assertEquals(0, photo.notModified.get());
-		assertEquals(0, photo.delivered.get());
+		assertEquals(0, photo.getInfo().getNotModified());
+		assertEquals(0, photo.getInfo().getDelivered());
 
 		photo.noSuchItem.increment();
 		photo.isNull.increment();
-		photo.notModified.increment();
-		photo.delivered.increment();
+		photo.incrementNotModified();
+		photo.incrementDelivered();
 		assertEquals(2, photo.noSuchItem.get());
 		assertEquals(1, photo.isNull.get());
-		assertEquals(1, photo.notModified.get());
-		assertEquals(1, photo.delivered.get());
+		assertEquals(1, photo.getInfo().getNotModified());
+		assertEquals(1, photo.getInfo().getDelivered());
 	}
 
 	public void testConditions()

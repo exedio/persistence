@@ -200,7 +200,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6);
 	}
-	
+
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
 	 */
@@ -646,13 +646,14 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		try
 		{
 			getBody(item, out);
-			return delivered;
 		}
 		finally
 		{
 			if(out!=null)
 				out.close();
 		}
+		incrementDelivered();
+		return null;
 	}
 
 	@Override

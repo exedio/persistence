@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -331,15 +330,25 @@ public abstract class MediaPath extends Pattern
 	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
 	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
 	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
-	final Log moved             = new Log("moved"         , SC_OK);
+	private final VolatileInt moved = new VolatileInt();
 	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
 	protected final Log notComputable = new Log("not computable", SC_NOT_FOUND);
-	final Log notModified       = new Log("not modified"  , SC_OK);
-	public final Log delivered  = new Log("delivered"     , SC_OK);
+	private final VolatileInt notModified = new VolatileInt();
+	private final VolatileInt delivered = new VolatileInt();
 
 	public static final int getNoSuchPath()
 	{
 		return noSuchPath.get();
+	}
+
+	final void incrementNotModified()
+	{
+		notModified.inc();
+	}
+
+	public final void incrementDelivered()
+	{
+		delivered.inc();
 	}
 
 	public final MediaInfo getInfo()
@@ -419,7 +428,8 @@ public abstract class MediaPath extends Pattern
 
 						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
-						return moved;
+						moved.inc();
+						return null;
 					}
 				}
 			}
@@ -487,7 +497,6 @@ public abstract class MediaPath extends Pattern
 				throw new NullPointerException();
 			switch(responseStatus)
 			{
-				case SC_OK:
 				case SC_NOT_FOUND:
 					break;
 				default:

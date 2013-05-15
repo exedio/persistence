@@ -293,12 +293,13 @@ public class TextUrlFilter extends MediaFilter
 		try
 		{
 			out.write(body);
-			return delivered;
 		}
 		finally
 		{
 			out.close();
 		}
+		incrementDelivered();
+		return null;
 	}
 
 	protected void appendKey(
