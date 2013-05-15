@@ -182,7 +182,8 @@ public class MediaServlet extends HttpServlet
 			switch(log.responseStatus)
 			{
 				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
-					out.print("<html>\n" +
+					out.print(
+							"<html>\n" +
 							"<head>\n" +
 							"<title>Internal Server Error</title>\n" +
 							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
@@ -196,7 +197,8 @@ public class MediaServlet extends HttpServlet
 					break;
 
 				case HttpServletResponse.SC_NOT_FOUND:
-					out.print("<html>\n" +
+					out.print(
+							"<html>\n" +
 							"<head>\n" +
 							"<title>Not Found</title>\n" +
 							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
