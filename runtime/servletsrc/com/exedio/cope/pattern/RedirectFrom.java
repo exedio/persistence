@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -46,7 +45,7 @@ import java.lang.annotation.Target;
  *
  * @author Ralf Wiebicke
  */
-@Target({TYPE, FIELD})
+@Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RedirectFrom
 {

@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-@RedirectFrom({"MediaServletItemAlt1", "MediaServletItemAlt2"})
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
 {
