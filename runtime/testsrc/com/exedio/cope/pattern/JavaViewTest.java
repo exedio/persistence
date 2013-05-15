@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.JavaViewItem.n;
 import static com.exedio.cope.pattern.JavaViewItem.number;
 import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
+import static com.exedio.cope.pattern.JavaViewItem.privat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -66,6 +67,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 				number,
 				numberPrimitive,
 				n,
+				privat,
 			}), TYPE.getDeclaredFeatures());
 		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
 
@@ -113,6 +115,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		assertEquals(2.25, numberPrimitive.get(item));
 		assertEquals("N2.25", item.getN());
 		assertEquals("N2.25", n.get(item));
+		assertEquals("Privat2.25", privat.get(item));
 
 		item.setNumberString(null);
 		assertNull(item.getNumberString());

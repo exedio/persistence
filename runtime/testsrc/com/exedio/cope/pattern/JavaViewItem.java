@@ -28,6 +28,7 @@ public final class JavaViewItem extends Item
 	static final JavaView number = new JavaView();
 	static final JavaView numberPrimitive = new JavaView();
 	static final JavaView n = new JavaView();
+	static final JavaView privat = new JavaView();
 
 	Double getNumber()
 	{
@@ -46,6 +47,12 @@ public final class JavaViewItem extends Item
 	String getN()
 	{
 		return "N" + getNumberString();
+	}
+
+	@SuppressWarnings("unused") // Used by JavaView
+	private String getPrivat()
+	{
+		return "Privat" + getNumberString();
 	}
 
 	/**

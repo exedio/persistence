@@ -55,6 +55,7 @@ public final class JavaView extends Pattern
 			{
 				throw new IllegalArgumentException("no suitable getter method " + getterName + " found for java view " + name, e);
 			}
+			getter.setAccessible(true);
 
 			this.getter = getter;
 			this.valueType = getter.getReturnType();
