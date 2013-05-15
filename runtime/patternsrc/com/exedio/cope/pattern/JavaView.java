@@ -40,6 +40,7 @@ public final class JavaView extends Pattern
 		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Mount(final Type<? extends Item> type, final String name)
 		{
 			final String getterName =
