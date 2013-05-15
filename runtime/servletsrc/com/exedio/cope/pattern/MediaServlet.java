@@ -255,7 +255,8 @@ public class MediaServlet extends HttpServlet
 				response.setStatus(SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
 
-				return alt.redirectFrom;
+				alt.redirectFrom.inc();
+				return null;
 			}
 			return MediaPath.noSuchPath;
 		}

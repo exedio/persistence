@@ -326,7 +326,7 @@ public abstract class MediaPath extends Pattern
 
 
 	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
-	final Log redirectFrom      = new Log("redirectFrom"  , SC_MOVED_PERMANENTLY);
+	final VolatileInt redirectFrom = new VolatileInt();
 	final VolatileInt exception = new VolatileInt();
 	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
 	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
@@ -488,7 +488,6 @@ public abstract class MediaPath extends Pattern
 			switch(responseStatus)
 			{
 				case SC_OK:
-				case SC_MOVED_PERMANENTLY:
 				case SC_NOT_FOUND:
 					break;
 				default:
