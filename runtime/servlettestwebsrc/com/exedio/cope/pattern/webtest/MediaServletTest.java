@@ -469,25 +469,8 @@ public class MediaServletTest extends TestCase
 
 		assertTrue(onException.getAbsolutePath(), onException.exists());
 		final String data = lines(
-				"java.lang.RuntimeException: test error in MediaNameServer",
-				"\tat com.exedio.cope.pattern.MediaNameServer.doGet(MediaNameServer.java:77)",
-				"\tat com.exedio.cope.pattern.MediaPath.doGet(MediaPath.java:428)",
-				"\tat com.exedio.cope.pattern.MediaServlet.serveContent(MediaServlet.java:277)",
-				"\tat com.exedio.cope.pattern.MediaServlet.doGet(MediaServlet.java:158)",
-				"\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:690)",
-				"\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:803)",
-				"\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)",
-				"\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)",
-				"\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)",
-				"\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:175)",
-				"\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)",
-				"\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)",
-				"\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)",
-				"\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:286)",
-				"\tat org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:844)",
-				"\tat org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)",
-				"\tat org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)",
-				"\tat java.lang.Thread.run(Thread.java:722)"
+				"java.lang.RuntimeException",
+				"test error in MediaNameServer"
 		);
 		assertEquals(data, getContentAsString(new FileInputStream(onException)));
 		StrictFile.delete(onException);

@@ -39,7 +39,8 @@ public final class MediaTestServlet extends MediaServlet
 		try
 		{
 			out = new PrintStream(new FileOutputStream(file, true));
-			exception.printStackTrace(out);
+			out.println(exception.getClass().getName());
+			out.println(exception.getMessage());
 		}
 		catch(final FileNotFoundException e)
 		{
