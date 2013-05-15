@@ -172,6 +172,11 @@ public class MediaServletTest extends TestCase
 
 		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
 		assertMoved(app + "media/MediaServletItem/contentAlt2/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
+		// test wrong extension
+		// TODO redirect directly to .jpg
+		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG + ".png", prefix + "content/"  + ITEM_JPG + ".png");
+		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG + "."   , prefix + "content/"  + ITEM_JPG + "."   );
+		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG         , prefix + "content/"  + ITEM_JPG         );
 
 		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
