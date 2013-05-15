@@ -247,7 +247,9 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final Response response = new Response();
-		assertEquals("delivered", feature.doGetIfModified(null, response, item).toString());
+		final int delivered = feature.getInfo().getDelivered();
+		feature.doGetIfModified(null, response, item);
+		assertEquals(delivered+1, feature.getInfo().getDelivered());
 		response.assertIt(expectedContentType);
 	}
 
