@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class JavaViewItem extends Item
 {
 	static final StringField numberString = new StringField().optional();
@@ -50,6 +52,7 @@ public final class JavaViewItem extends Item
 	}
 
 	@SuppressWarnings("unused") // Used by JavaView
+	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 	private String getPrivat()
 	{
 		return "Privat" + getNumberString();
