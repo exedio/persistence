@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import java.io.IOException;
@@ -156,10 +157,11 @@ public class MediaServlet extends HttpServlet
 		throws IOException
 	{
 		final Media.Log log = serveContent(request, response);
-		log.increment();
-		serveError(response, log);
-
-		// TODO make 500 error page without stack trace
+		if(log!=null)
+		{
+			log.increment();
+			serveError(response, log);
+		}
 	}
 
 	private static void serveError(
@@ -167,10 +169,32 @@ public class MediaServlet extends HttpServlet
 			final Media.Log log)
 		throws IOException
 	{
-		if(log.responseStatus==HttpServletResponse.SC_OK || log.responseStatus==HttpServletResponse.SC_MOVED_PERMANENTLY) // TODO introduce explicit boolean on Log
+		if(log.responseStatus!=HttpServletResponse.SC_NOT_FOUND)
 			return;
 
-		response.setStatus(log.responseStatus);
+		serveError(
+				response,
+				log.responseStatus,
+				"<html>\n" +
+				"<head>\n" +
+				"<title>Not Found</title>\n" +
+				"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+				"</head>\n" +
+				"<body>\n" +
+				"<h1>Not Found</h1>\n" +
+				"The requested URL was not found on this server (" + log.toString() + ").\n" +
+				"</body>\n" +
+				"</html>\n");
+	}
+
+	private static void serveError(
+			final HttpServletResponse response,
+			final int sc,
+			final String body)
+		throws IOException
+	{
+		response.setStatus(sc);
 		response.setContentType("text/html");
 		response.setCharacterEncoding("us-ascii");
 
@@ -178,44 +202,7 @@ public class MediaServlet extends HttpServlet
 		try
 		{
 			out = new PrintStream(response.getOutputStream(), false, "us-ascii");
-
-			switch(log.responseStatus)
-			{
-				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
-					out.print(
-							"<html>\n" +
-							"<head>\n" +
-							"<title>Internal Server Error</title>\n" +
-							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-							"</head>\n" +
-							"<body>\n" +
-							"<h1>Internal Server Error</h1>\n" +
-							"An internal error occured on the server.\n" +
-							"</body>\n" +
-							"</html>\n");
-					break;
-
-				case HttpServletResponse.SC_NOT_FOUND:
-					out.print(
-							"<html>\n" +
-							"<head>\n" +
-							"<title>Not Found</title>\n" +
-							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-							"</head>\n" +
-							"<body>\n" +
-							"<h1>Not Found</h1>\n" +
-							"The requested URL was not found on this server (");
-					out.print(log.toString());
-					out.print(").\n" +
-							"</body>\n" +
-							"</html>\n");
-					break;
-
-				default:
-					throw new RuntimeException(String.valueOf(log.responseStatus));
-			}
+			out.print(body);
 		}
 		finally
 		{
@@ -227,6 +214,7 @@ public class MediaServlet extends HttpServlet
 	private Media.Log serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
+		throws IOException
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
@@ -278,8 +266,23 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final Exception e)
 		{
+			path.exception.inc();
 			onException(request, e);
-			return path.exception;
+			MediaServlet.serveError(
+					response,
+					SC_INTERNAL_SERVER_ERROR,
+					"<html>\n" +
+					"<head>\n" +
+					"<title>Internal Server Error</title>\n" +
+					"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+					"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+					"</head>\n" +
+					"<body>\n" +
+					"<h1>Internal Server Error</h1>\n" +
+					"An internal error occured on the server.\n" +
+					"</body>\n" +
+					"</html>\n");
+			return null;
 		}
 	}
 

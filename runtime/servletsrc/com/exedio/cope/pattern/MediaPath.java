@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_OK;
@@ -328,7 +327,7 @@ public abstract class MediaPath extends Pattern
 
 	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
 	final Log redirectFrom      = new Log("redirectFrom"  , SC_MOVED_PERMANENTLY);
-	final Log exception         = new Log("exception"     , SC_INTERNAL_SERVER_ERROR);
+	final VolatileInt exception = new VolatileInt();
 	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
 	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
 	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
@@ -491,7 +490,6 @@ public abstract class MediaPath extends Pattern
 				case SC_OK:
 				case SC_MOVED_PERMANENTLY:
 				case SC_NOT_FOUND:
-				case SC_INTERNAL_SERVER_ERROR:
 					break;
 				default:
 					throw new RuntimeException(String.valueOf(responseStatus));
