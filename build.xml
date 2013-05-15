@@ -708,6 +708,7 @@
 				<ljunit test="com.exedio.cope.pattern.webtest.PackageTest">
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
+						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/junit.jar" />
 					</classpath>
 				</ljunit>
