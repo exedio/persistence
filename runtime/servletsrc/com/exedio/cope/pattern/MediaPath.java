@@ -412,16 +412,6 @@ public abstract class MediaPath extends Pattern
 		return noSuchPath.get();
 	}
 
-	private final void incrementNotModified()
-	{
-		notModified.inc();
-	}
-
-	private void incrementDelivered()
-	{
-		delivered.inc();
-	}
-
 	public final MediaInfo getInfo()
 	{
 		return new MediaInfo(
@@ -574,7 +564,7 @@ public abstract class MediaPath extends Pattern
 		if(lastModifiedRaw<=0)
 		{
 			doGetAndCommit(request, response, item);
-			incrementDelivered(); // TODO incrementDeliveredUnconditional
+			delivered.inc(); // TODO deliveredUnconditional
 			return;
 		}
 
@@ -602,12 +592,12 @@ public abstract class MediaPath extends Pattern
 
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 
-			incrementNotModified();
+			notModified.inc();
 		}
 		else
 		{
 			doGetAndCommit(request, response, item);
-			incrementDelivered(); // TODO incrementDeliveredConditional
+			delivered.inc(); // deliveredConditional
 		}
 	}
 
