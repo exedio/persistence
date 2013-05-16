@@ -255,7 +255,7 @@ public class MediaServlet extends HttpServlet
 				response.setStatus(SC_MOVED_PERMANENTLY);
 				response.setHeader(RESPONSE_LOCATION, location.toString());
 
-				alt.redirectFrom.inc();
+				alt.incRedirectFrom();
 				return;
 			}
 			throw notFoundNoSuchPath();
@@ -277,7 +277,7 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final Exception e)
 		{
-			path.exception.inc();
+			path.incException();
 			onException(request, e);
 			serveError(
 					response,

@@ -324,8 +324,8 @@ public abstract class MediaPath extends Pattern
 
 
 	private static final VolatileInt noSuchPath = new VolatileInt();
-	final VolatileInt redirectFrom = new VolatileInt();
-	final VolatileInt exception = new VolatileInt();
+	private final VolatileInt redirectFrom = new VolatileInt();
+	private final VolatileInt exception = new VolatileInt();
 	private final VolatileInt guessedUrl = new VolatileInt();
 	private final VolatileInt notAnItem = new VolatileInt();
 	private final VolatileInt noSuchItem = new VolatileInt();
@@ -334,6 +334,16 @@ public abstract class MediaPath extends Pattern
 	private final VolatileInt notComputable = new VolatileInt();
 	private final VolatileInt notModified = new VolatileInt();
 	private final VolatileInt delivered = new VolatileInt();
+
+	final void incRedirectFrom()
+	{
+		redirectFrom.inc();
+	}
+
+	final void incException()
+	{
+		exception.inc();
+	}
 
 	public static final class NotFound extends Exception
 	{
