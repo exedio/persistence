@@ -422,7 +422,7 @@ public abstract class MediaPath extends Pattern
 	 * because this methods does these calls on its own.
 	 *
 	 */
-	public final void incrementDelivered()
+	protected final void incrementDelivered()
 	{
 		delivered.inc();
 	}
