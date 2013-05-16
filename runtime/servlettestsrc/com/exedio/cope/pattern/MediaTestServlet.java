@@ -29,6 +29,7 @@ public final class MediaTestServlet extends MediaServlet
 {
 	private static final long serialVersionUID = 1l;
 
+	@Override
 	protected void onException(
 			final HttpServletRequest request,
 			final Exception exception)
