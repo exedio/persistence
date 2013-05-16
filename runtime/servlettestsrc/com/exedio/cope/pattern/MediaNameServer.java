@@ -69,6 +69,9 @@ final class MediaNameServer extends MediaPath
 		throws IOException, NotFound
 	{
 		final String content = source.get(item);
+
+		commit();
+
 		//System.out.println("contentType="+contentType);
 		if(content==null)
 			throw notFoundIsNull();
@@ -82,7 +85,6 @@ final class MediaNameServer extends MediaPath
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
 		final byte[] contentBytes = content.getBytes("utf-8");
-		commit();
 		final long contentLength = contentBytes.length;
 		//System.out.println("contentLength="+String.valueOf(contentLength));
 		response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
