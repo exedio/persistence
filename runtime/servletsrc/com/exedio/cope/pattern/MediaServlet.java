@@ -167,7 +167,7 @@ public class MediaServlet extends HttpServlet
 			final NotFound notFound)
 		throws IOException
 	{
-		notFound.counter.inc();
+		notFound.incCounter();
 		serveError(
 				response,
 				SC_NOT_FOUND,

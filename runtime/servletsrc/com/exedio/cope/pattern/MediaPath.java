@@ -338,7 +338,7 @@ public abstract class MediaPath extends Pattern
 	public static final class NotFound extends Exception
 	{
 		final String reason;
-		final VolatileInt counter;
+		private final VolatileInt counter;
 
 		NotFound(final String reason, final VolatileInt counter)
 		{
@@ -349,6 +349,11 @@ public abstract class MediaPath extends Pattern
 				throw new NullPointerException();
 			if(counter==null)
 				throw new NullPointerException();
+		}
+
+		void incCounter()
+		{
+			counter.inc();
 		}
 
 		@Override
