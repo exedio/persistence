@@ -537,6 +537,7 @@ public abstract class MediaPath extends Pattern
 	 */
 	public abstract Condition isNotNull(final Join join);
 
+	// ------------------- deprecated stuff -------------------
 
 	@Deprecated
 	public final static class Log
@@ -552,8 +553,6 @@ public abstract class MediaPath extends Pattern
 			throw new NoSuchMethodError();
 		}
 	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @param name is ignored
