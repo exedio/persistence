@@ -633,11 +633,12 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		if(contentType==null)
 			throw notFoundIsNull();
 
-		response.setContentType(contentType);
+		final byte[] body = getBody(item);
 
-		final int contentLength = (int)getLength(item);
-		//System.out.println("contentLength="+String.valueOf(contentLength));
-		response.setContentLength(contentLength);
+		commit();
+
+		response.setContentType(contentType);
+		response.setContentLength(body.length);
 		//response.setHeader("Cache-Control", "public");
 
 		//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
@@ -645,8 +646,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			getBody(item, out);
-			commit();
+			out.write(body);
 		}
 		finally
 		{
