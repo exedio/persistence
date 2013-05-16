@@ -622,16 +622,16 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
-	public Media.Log doGetIfModified(
+	public void doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-		throws IOException
+		throws IOException, NotFound
 	{
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		response.setContentType(contentType);
 
@@ -653,7 +653,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 				out.close();
 		}
 		incrementDelivered();
-		return null;
 	}
 
 	@Override

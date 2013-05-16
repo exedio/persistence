@@ -18,8 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaPath.notFoundNoSuchPath;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -38,6 +40,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
+import com.exedio.cope.pattern.MediaPath.NotFound;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -156,25 +159,18 @@ public class MediaServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws IOException
 	{
-		final Media.Log log = serveContent(request, response);
-		if(log!=null)
-		{
-			log.increment();
-			serveError(response, log);
-		}
+		serveContent(request, response);
 	}
 
-	private static void serveError(
+	private static void serveNotFound(
 			final HttpServletResponse response,
-			final Media.Log log)
+			final NotFound notFound)
 		throws IOException
 	{
-		if(log.responseStatus!=HttpServletResponse.SC_NOT_FOUND)
-			return;
-
+		notFound.counter.inc();
 		serveError(
 				response,
-				log.responseStatus,
+				SC_NOT_FOUND,
 				"<html>\n" +
 				"<head>\n" +
 				"<title>Not Found</title>\n" +
@@ -183,7 +179,7 @@ public class MediaServlet extends HttpServlet
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Not Found</h1>\n" +
-				"The requested URL was not found on this server (" + log.toString() + ").\n" +
+				"The requested URL was not found on this server (" + notFound.reason + ").\n" +
 				"</body>\n" +
 				"</html>\n");
 	}
@@ -211,28 +207,32 @@ public class MediaServlet extends HttpServlet
 		}
 	}
 
-	private Media.Log serveContent(
+	private void serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
 		throws IOException
 	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
+		final MediaPath path;
+		final int slash2;
+		try
+		{
 		if(pathInfo==null || pathInfo.length()<6 || pathInfo.charAt(0)!='/')
-			return MediaPath.noSuchPath;
+			throw notFoundNoSuchPath();
 
 		final int slash1 = pathInfo.indexOf('/', 1);
 		if(slash1<0)
-			return MediaPath.noSuchPath;
+			throw notFoundNoSuchPath();
 
-		final int slash2 = pathInfo.indexOf('/', slash1+1);
+		slash2 = pathInfo.indexOf('/', slash1+1);
 		if(slash2<0)
-			return MediaPath.noSuchPath;
+			throw notFoundNoSuchPath();
 
 		final String featureString = pathInfo.substring(1, slash2);
 		//System.out.println("featureString="+featureString);
 
-		final MediaPath path = pathes.get(featureString);
+		path = pathes.get(featureString);
 		if(path==null)
 		{
 			final MediaPath alt = pathesRedirectFrom.get(featureString);
@@ -256,20 +256,30 @@ public class MediaServlet extends HttpServlet
 				response.setHeader(RESPONSE_LOCATION, location.toString());
 
 				alt.redirectFrom.inc();
-				return null;
+				return;
 			}
-			return MediaPath.noSuchPath;
+			throw notFoundNoSuchPath();
+		}
+		}
+		catch(final NotFound notFound)
+		{
+			serveNotFound(response, notFound);
+			return;
 		}
 
 		try
 		{
-			return path.doGet(request, response, pathInfo, slash2+1);
+			path.doGet(request, response, pathInfo, slash2+1);
+		}
+		catch(final NotFound notFound)
+		{
+			serveNotFound(response, notFound);
 		}
 		catch(final Exception e)
 		{
 			path.exception.inc();
 			onException(request, e);
-			MediaServlet.serveError(
+			serveError(
 					response,
 					SC_INTERNAL_SERVER_ERROR,
 					"<html>\n" +
@@ -283,7 +293,6 @@ public class MediaServlet extends HttpServlet
 					"An internal error occured on the server.\n" +
 					"</body>\n" +
 					"</html>\n");
-			return null;
 		}
 	}
 

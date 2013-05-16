@@ -245,15 +245,15 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Override
-	public final Log doGetIfModified(
+	public final void doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String sourceContentType = raw.getContentType(item);
 		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))
-			return isNull;
+			throw notFoundIsNull();
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, encoding);
@@ -299,7 +299,6 @@ public class TextUrlFilter extends MediaFilter
 			out.close();
 		}
 		incrementDelivered();
-		return null;
 	}
 
 	protected void appendKey(

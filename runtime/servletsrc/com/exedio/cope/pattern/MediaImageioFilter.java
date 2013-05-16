@@ -123,18 +123,18 @@ public abstract class MediaImageioFilter extends MediaFilter
 	public abstract BufferedImage filter(BufferedImage in);
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public final void doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
 		final ByteArrayOutputStream body = execute(item, contentType, spi);
 		response.setContentType(outputContentType);
@@ -151,7 +151,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 			out.close();
 		}
 		incrementDelivered();
-		return null;
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

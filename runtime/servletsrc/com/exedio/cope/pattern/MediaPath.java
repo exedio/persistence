@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -324,17 +323,72 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
+	private static final VolatileInt noSuchPath = new VolatileInt();
 	final VolatileInt redirectFrom = new VolatileInt();
 	final VolatileInt exception = new VolatileInt();
-	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
-	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
-	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
+	private final VolatileInt guessedUrl = new VolatileInt();
+	private final VolatileInt notAnItem = new VolatileInt();
+	private final VolatileInt noSuchItem = new VolatileInt();
 	private final VolatileInt moved = new VolatileInt();
-	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
-	protected final Log notComputable = new Log("not computable", SC_NOT_FOUND);
+	private final VolatileInt isNull = new VolatileInt();
+	private final VolatileInt notComputable = new VolatileInt();
 	private final VolatileInt notModified = new VolatileInt();
 	private final VolatileInt delivered = new VolatileInt();
+
+	public static final class NotFound extends Exception
+	{
+		final String reason;
+		final VolatileInt counter;
+
+		NotFound(final String reason, final VolatileInt counter)
+		{
+			this.reason = reason;
+			this.counter = counter;
+
+			if(reason==null)
+				throw new NullPointerException();
+			if(counter==null)
+				throw new NullPointerException();
+		}
+
+		@Override
+		public String getMessage()
+		{
+			return reason;
+		}
+
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final NotFound notFoundNoSuchPath()
+	{
+		return new NotFound("no such path", noSuchPath);
+	}
+
+	private NotFound notFoundGuessedUrl()
+	{
+		return new NotFound("guessed url", guessedUrl);
+	}
+
+	final NotFound notFoundNotAnItem()
+	{
+		return new NotFound("not an item", notAnItem);
+	}
+
+	private NotFound notFoundNoSuchItem()
+	{
+		return new NotFound("no such item", noSuchItem);
+	}
+
+	protected final NotFound notFoundIsNull()
+	{
+		return new NotFound("is null", isNull);
+	}
+
+	protected final NotFound notFoundNotComputable()
+	{
+		return new NotFound("not computable", notComputable);
+	}
 
 	public static final int getNoSuchPath()
 	{
@@ -368,10 +422,10 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	final Media.Log doGet(
+	final void doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String pathInfo, final int fromIndex)
-		throws IOException
+		throws IOException, NotFound
 	{
 		//final long start = System.currentTimeMillis();
 
@@ -397,7 +451,7 @@ public abstract class MediaPath extends Pattern
 		{
 			final String x = request.getParameter(URL_TOKEN);
 			if(!token.equals(x))
-				return guessedUrl;
+				throw notFoundGuessedUrl();
 		}
 
 		//System.out.println("ID="+id);
@@ -429,20 +483,19 @@ public abstract class MediaPath extends Pattern
 						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
 						moved.inc();
-						return null;
+						return;
 					}
 				}
 			}
 
-			final Media.Log result = doGet(request, response, item);
+			doGet(request, response, item);
 			model.commit();
 
-			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
-			return result;
+			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
 		}
 		catch(final NoSuchIDException e)
 		{
-			return e.notAnID() ? notAnItem : noSuchItem;
+			throw e.notAnID() ? notFoundNotAnItem() : notFoundNoSuchItem();
 		}
 		finally
 		{
@@ -461,8 +514,8 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
-		throws IOException;
+	public abstract void doGet(HttpServletRequest request, HttpServletResponse response, Item item)
+		throws IOException, NotFound;
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
@@ -485,42 +538,18 @@ public abstract class MediaPath extends Pattern
 	public abstract Condition isNotNull(final Join join);
 
 
+	@Deprecated
 	public final static class Log
 	{
-		private final VolatileInt counter = new VolatileInt();
-		private final String name;
-		public final int responseStatus;
-
-		Log(final String name, final int responseStatus)
+		private Log()
 		{
-			if(name==null)
-				throw new NullPointerException();
-			switch(responseStatus)
-			{
-				case SC_NOT_FOUND:
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(responseStatus));
-			}
-
-			this.name = name;
-			this.responseStatus = responseStatus;
+			// prevent instantiation
 		}
 
-		void increment()
-		{
-			counter.inc();
-		}
-
+		@SuppressWarnings("static-method")
 		public int get()
 		{
-			return counter.get();
-		}
-
-		@Override
-		public String toString()
-		{
-			return name;
+			throw new NoSuchMethodError();
 		}
 	}
 

@@ -31,6 +31,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.pattern.MediaPath.NotFound;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -53,14 +54,22 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new TextUrlFilterItem());
 	}
 
-	public void testIt() throws IOException
+	public void testIt() throws IOException, NotFound
 	{
 		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
 
 		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
 
 		assertEquals(null, item.getFertigContentType());
-		assertEquals(fertig.isNull, fertig.doGetIfModified(null, null, item));
+		try
+		{
+			fertig.doGetIfModified(null, null, item);
+			fail();
+		}
+		catch(final NotFound e)
+		{
+			assertEquals("is null", e.getMessage());
+		}
 
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
@@ -132,7 +141,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 	}
 
-	private void assertGet(final String body) throws IOException
+	private void assertGet(final String body) throws IOException, NotFound
 	{
 		assertEquals("text/plain", item.getFertigContentType());
 		fertig.doGetIfModified(new Request(), new Response(body), item);

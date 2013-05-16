@@ -134,29 +134,6 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertSerializedSame(foto,   372);
 		assertSerializedSame(sheet,  373);
 		assertSerializedSame(custom, 374);
-
-
-		// logs -----------------------------------------------
-
-		assertEquals(0, photo.noSuchItem.get());
-		assertEquals(0, photo.isNull.get());
-		assertEquals(0, photo.getInfo().getNotModified());
-		assertEquals(0, photo.getInfo().getDelivered());
-
-		photo.noSuchItem.increment();
-		assertEquals(1, photo.noSuchItem.get());
-		assertEquals(0, photo.isNull.get());
-		assertEquals(0, photo.getInfo().getNotModified());
-		assertEquals(0, photo.getInfo().getDelivered());
-
-		photo.noSuchItem.increment();
-		photo.isNull.increment();
-		photo.incrementNotModified();
-		photo.incrementDelivered();
-		assertEquals(2, photo.noSuchItem.get());
-		assertEquals(1, photo.isNull.get());
-		assertEquals(1, photo.getInfo().getNotModified());
-		assertEquals(1, photo.getInfo().getDelivered());
 	}
 
 	public void testConditions()

@@ -174,22 +174,25 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public final void doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		if(!isEnabled())
-			return fallback.doGetIfModified(request, response, item);
+		{
+			fallback.doGetIfModified(request, response, item);
+			return;
+		}
 
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
 		final File outFile = execute(item, type);
 
@@ -223,7 +226,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			delete(outFile);
 		}
 		incrementDelivered();
-		return null;
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

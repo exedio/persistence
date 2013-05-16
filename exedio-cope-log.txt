@@ -7,9 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Media Refactoring
-	- replace MediaPath.delivered by incrementDelivered()
+* Media API Refactoring
+	
 	This breaks backwards API compatibility.
+
+	return delivered;      -->  incrementDelivered(); return;
+	return isNull;         -->  throw notFoundIsNull();
+	return notComputable;  -->  throw notFoundNotComputable();
 
 
 * @RedirectFrom does not support ElementType.TYPE anymore, did not work properly anyway.

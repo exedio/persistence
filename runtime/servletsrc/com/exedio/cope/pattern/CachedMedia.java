@@ -37,11 +37,11 @@ public abstract class CachedMedia extends MediaPath
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 
 	@Override
-	public final Media.Log doGet(
+	public final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-		throws IOException
+		throws IOException, NotFound
 	{
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
@@ -51,21 +51,24 @@ public abstract class CachedMedia extends MediaPath
 		{
 			final String[] tokens = request.getParameterValues(URL_TOKEN);
 			if(tokens!=null&&tokens.length>1)
-				return notAnItem;
+				throw notFoundNotAnItem();
 			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
 				if(!URL_TOKEN.equals(e.nextElement()))
-					return notAnItem;
+					throw notFoundNotAnItem();
 		}
 		else
 		{
 			if(request.getQueryString()!=null)
-				return notAnItem;
+				throw notFoundNotAnItem();
 		}
 
 		final long lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)
-			return doGetIfModified(request, response, item);
+		{
+			doGetIfModified(request, response, item);
+			return;
+		}
 
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
@@ -90,11 +93,10 @@ public abstract class CachedMedia extends MediaPath
 			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
 
 			incrementNotModified();
-			return null;
 		}
 		else
 		{
-			return doGetIfModified(request, response, item);
+			doGetIfModified(request, response, item);
 		}
 	}
 
@@ -109,5 +111,5 @@ public abstract class CachedMedia extends MediaPath
 
 	public abstract long getLastModified(Item item);
 
-	public abstract Media.Log doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException;
+	public abstract void doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
 }
