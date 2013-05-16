@@ -63,7 +63,7 @@ final class MediaNameServer extends MediaPath
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 
 	@Override
-	public void doGet(
+	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
 		throws IOException, NotFound
@@ -82,6 +82,7 @@ final class MediaNameServer extends MediaPath
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
 		final byte[] contentBytes = content.getBytes("utf-8");
+		commit();
 		final long contentLength = contentBytes.length;
 		//System.out.println("contentLength="+String.valueOf(contentLength));
 		response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));

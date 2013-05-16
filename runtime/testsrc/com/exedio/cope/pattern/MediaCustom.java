@@ -53,7 +53,7 @@ final class MediaCustom extends MediaPath
 	}
 
 	@Override
-	public void doGet(
+	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
 	{

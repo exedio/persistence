@@ -63,25 +63,27 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFertigContentType());
 		try
 		{
-			fertig.doGetIfModified(null, null, item);
+			fertig.doGetIfModifiedAndCommit(null, null, item);
 			fail();
 		}
 		catch(final NotFound e)
 		{
 			assertEquals("is null", e.getMessage());
 		}
+		assertTrue(model.hasCurrentTransaction());
 
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
 		try
 		{
-			fertig.doGetIfModified(new Request(), null, item);
+			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
 		}
+		assertTrue(model.hasCurrentTransaction());
 
 		final String url1 = item.addFertigPaste("uno");
 		assertLocator(
@@ -121,30 +123,34 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
 		{
-			fertig.doGetIfModified(new Request(), null, item);
+			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("<paste>:6/</paste>", e.getMessage());
 		}
+		assertTrue(model.hasCurrentTransaction());
 
 		item.setFertigRaw("<eins><paste>");
 		try
 		{
-			fertig.doGetIfModified(new Request(), null, item);
+			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("<paste>:6/</paste>", e.getMessage());
 		}
+		assertTrue(model.hasCurrentTransaction());
 	}
 
 	private void assertGet(final String body) throws IOException, NotFound
 	{
 		assertEquals("text/plain", item.getFertigContentType());
-		fertig.doGetIfModified(new Request(), new Response(body), item);
+		fertig.doGetIfModifiedAndCommit(new Request(), new Response(body), item);
+		assertFalse(model.hasCurrentTransaction());
+		model.startTransaction(TextUrlFilterTest.class.getName());
 	}
 
 	static class Request extends RequestTemplate

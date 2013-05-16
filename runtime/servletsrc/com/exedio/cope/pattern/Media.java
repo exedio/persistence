@@ -622,7 +622,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
-	public void doGetIfModified(
+	public void doGetIfModifiedAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -646,6 +646,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		try
 		{
 			getBody(item, out);
+			commit();
 		}
 		finally
 		{

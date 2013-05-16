@@ -245,7 +245,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Override
-	public final void doGetIfModified(
+	public final void doGetIfModifiedAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -273,6 +273,8 @@ public class TextUrlFilter extends MediaFilter
 
 			nextStart = stop + pasteStopLen;
 		}
+
+		commit();
 
 		final byte[] body;
 		if(nextStart>0)

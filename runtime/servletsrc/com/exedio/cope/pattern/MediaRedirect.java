@@ -89,13 +89,14 @@ public final class MediaRedirect extends MediaPath
 	private static final String RESPONSE_LOCATION = "Location";
 
 	@Override
-	public void doGet(
+	public void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
 	throws NotFound
 	{
 		final Locator locator = target.getLocator(item);
+		commit();
 		if(locator==null)
 			throw notFoundIsNull();
 

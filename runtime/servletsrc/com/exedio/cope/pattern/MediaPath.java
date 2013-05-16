@@ -493,8 +493,10 @@ public abstract class MediaPath extends Pattern
 				}
 			}
 
-			doGet(request, response, item);
-			model.commit();
+			doGetAndCommit(request, response, item);
+
+			if(model.hasCurrentTransaction())
+				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
 
 			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
 		}
@@ -508,6 +510,11 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	protected final void commit()
+	{
+		getType().getModel().commit();
+	}
+
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
 	public abstract String getContentType(Item item);
 
@@ -519,7 +526,12 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	public abstract void doGet(HttpServletRequest request, HttpServletResponse response, Item item)
+	/**
+	 * The implementor MUST {@link #commit() commit} the transaction,
+	 * if the method completes normally (without exception).
+	 * Otherwise the implementor may or may not commit the transaction.
+	 */
+	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item)
 		throws IOException, NotFound;
 
 	/**

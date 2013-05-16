@@ -37,7 +37,7 @@ public abstract class CachedMedia extends MediaPath
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 
 	@Override
-	public final void doGet(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -66,7 +66,7 @@ public abstract class CachedMedia extends MediaPath
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw<=0)
 		{
-			doGetIfModified(request, response, item);
+			doGetIfModifiedAndCommit(request, response, item);
 			return;
 		}
 
@@ -87,6 +87,8 @@ public abstract class CachedMedia extends MediaPath
 
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
+			commit();
+
 			//System.out.println("not modified");
 			response.setStatus(SC_NOT_MODIFIED);
 
@@ -96,7 +98,7 @@ public abstract class CachedMedia extends MediaPath
 		}
 		else
 		{
-			doGetIfModified(request, response, item);
+			doGetIfModifiedAndCommit(request, response, item);
 		}
 	}
 
@@ -111,5 +113,10 @@ public abstract class CachedMedia extends MediaPath
 
 	public abstract long getLastModified(Item item);
 
-	public abstract void doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
+	/**
+	 * The implementor MUST {@link #commit() commit} the transaction,
+	 * if the method completes normally (without exception).
+	 * Otherwise the implementor may or may not commit the transaction.
+	 */
+	public abstract void doGetIfModifiedAndCommit(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
 }
