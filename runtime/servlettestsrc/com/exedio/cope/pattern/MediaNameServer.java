@@ -102,7 +102,6 @@ final class MediaNameServer extends MediaPath
 			if(out!=null)
 				out.close();
 		}
-		incrementDelivered();
 	}
 
 	@Override

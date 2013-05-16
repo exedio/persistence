@@ -113,7 +113,6 @@ public final class MediaRedirect extends MediaPath
 
 		response.setStatus(SC_MOVED_PERMANENTLY);
 		response.setHeader(RESPONSE_LOCATION, location.toString());
-		incrementDelivered();
 	}
 
 	@Override

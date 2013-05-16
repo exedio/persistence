@@ -25,7 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.instrument.Wrap;
 
-public abstract class MediaFilter extends CachedMedia
+public abstract class MediaFilter extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
 

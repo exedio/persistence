@@ -19,10 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -410,19 +412,12 @@ public abstract class MediaPath extends Pattern
 		return noSuchPath.get();
 	}
 
-	final void incrementNotModified()
+	private final void incrementNotModified()
 	{
 		notModified.inc();
 	}
 
-	/**
-	 * BEWARE:
-	 * Do not call this method in
-	 * {@link CachedMedia#doGetIfModifiedAndCommit(HttpServletRequest,HttpServletResponse,Item)},
-	 * because this methods does these calls on its own.
-	 *
-	 */
-	protected final void incrementDelivered()
+	private void incrementDelivered()
 	{
 		delivered.inc();
 	}
@@ -510,7 +505,7 @@ public abstract class MediaPath extends Pattern
 				}
 			}
 
-			doGetAndCommit(request, response, item);
+			doGetAndCommitWithCache(request, response, item);
 
 			if(model.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
@@ -543,13 +538,107 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	// cache
+
+	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
+	private static final String RESPONSE_EXPIRES = "Expires";
+	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
+
+	private final void doGetAndCommitWithCache(
+			final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Item item)
+		throws IOException, NotFound
+	{
+		// NOTE
+		// This code prevents a Denial of Service attack against the caching mechanism.
+		// Query strings can be used to effectively disable the cache by using many urls
+		// for one media value. Therefore they are forbidden completely.
+		if(isUrlGuessingPrevented())
+		{
+			final String[] tokens = request.getParameterValues(URL_TOKEN);
+			if(tokens!=null&&tokens.length>1)
+				throw notFoundNotAnItem();
+			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
+				if(!URL_TOKEN.equals(e.nextElement()))
+					throw notFoundNotAnItem();
+		}
+		else
+		{
+			if(request.getQueryString()!=null)
+				throw notFoundNotAnItem();
+		}
+
+		final long lastModifiedRaw = getLastModified(item);
+		// if there is no LastModified, then there is no caching
+		if(lastModifiedRaw<=0)
+		{
+			doGetAndCommit(request, response, item);
+			incrementDelivered(); // TODO incrementDeliveredUnconditional
+			return;
+		}
+
+		// NOTE:
+		// Last Modification Date must be rounded to full seconds,
+		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
+		final long lastModified = roundLastModified(lastModifiedRaw);
+		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
+		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+
+		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
+		//System.out.println("ifModifiedSince="+ifModifiedSince);
+
+		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+		if(mediaOffsetExpires>0)
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+
+		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
+		{
+			commit();
+
+			//System.out.println("not modified");
+			response.setStatus(SC_NOT_MODIFIED);
+
+			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+
+			incrementNotModified();
+		}
+		else
+		{
+			doGetAndCommit(request, response, item);
+			incrementDelivered(); // TODO incrementDeliveredConditional
+		}
+	}
+
+	/**
+	 * Copied from com.exedio.cops.Resource.
+	 */
+	private static long roundLastModified(final long lastModified)
+	{
+		final long remainder = lastModified%1000;
+		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
+	}
+
+	/**
+	 * The default implementations returns Long.MIN_VALUE,
+	 * which means there is no LastModified information.
+	 * @param item the item which has the LastModified information
+	 */
+	public long getLastModified(final Item item)
+	{
+		return Long.MIN_VALUE;
+	}
+
 	/**
 	 * The implementor MUST {@link #commit() commit} the transaction,
 	 * if the method completes normally (without exception).
 	 * Otherwise the implementor may or may not commit the transaction.
 	 */
-	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item)
-		throws IOException, NotFound;
+	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
+
+
+	// convenience methods
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.

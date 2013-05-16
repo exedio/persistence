@@ -63,7 +63,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFertigContentType());
 		try
 		{
-			fertig.doGetIfModifiedAndCommit(null, null, item);
+			fertig.doGetAndCommit(null, null, item);
 			fail();
 		}
 		catch(final NotFound e)
@@ -76,7 +76,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		assertEquals("text/plain", item.getFertigContentType());
 		try
 		{
-			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -123,7 +123,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
 		{
-			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -135,7 +135,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		item.setFertigRaw("<eins><paste>");
 		try
 		{
-			fertig.doGetIfModifiedAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), null, item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -148,7 +148,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 	private void assertGet(final String body) throws IOException, NotFound
 	{
 		assertEquals("text/plain", item.getFertigContentType());
-		fertig.doGetIfModifiedAndCommit(new Request(), new Response(body), item);
+		fertig.doGetAndCommit(new Request(), new Response(body), item);
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction(TextUrlFilterTest.class.getName());
 	}

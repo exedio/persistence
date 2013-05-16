@@ -245,7 +245,7 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	@Override
-	public final void doGetIfModifiedAndCommit(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)

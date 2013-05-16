@@ -55,7 +55,7 @@ import com.exedio.cope.misc.SetValueUtil;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class Media extends CachedMedia implements Settable<Media.Value>
+public final class Media extends MediaPath implements Settable<Media.Value>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -622,7 +622,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
-	public void doGetIfModifiedAndCommit(
+	public void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)

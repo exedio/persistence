@@ -123,7 +123,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	public abstract BufferedImage filter(BufferedImage in);
 
 	@Override
-	public final void doGetIfModifiedAndCommit(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)

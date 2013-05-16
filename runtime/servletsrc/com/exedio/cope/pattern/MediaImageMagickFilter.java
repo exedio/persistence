@@ -174,7 +174,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 	@Override
-	public final void doGetIfModifiedAndCommit(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -182,7 +182,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	{
 		if(!isEnabled())
 		{
-			fallback.doGetIfModifiedAndCommit(request, response, item);
+			fallback.doGetAndCommit(request, response, item);
 			return;
 		}
 
