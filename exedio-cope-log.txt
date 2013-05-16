@@ -17,11 +17,13 @@ The items are sorted inversely, i.e. latest items are on top
 	MUST commit the transaction on normal termination.
 
 	Do the following replacements in your code:
-	return delivered;      -->  incrementDelivered(); return;
-	return isNull;         -->  throw notFoundIsNull();
-	return notComputable;  -->  throw notFoundNotComputable();
-	Log doGet(..)          -->  void doGetAndCommit(..)
-	Log doGetIfModified(..)-->  void doGetIfModifiedAndCommit(..)
+	return delivered;
+		* in doGetAndCommit           -->  incrementDelivered(); return;
+		* in doGetIfModifiedAndCommit -->  <nothing>
+	return isNull;                   -->  throw notFoundIsNull();
+	return notComputable;            -->  throw notFoundNotComputable();
+	Log doGet(..)                    -->  void doGetAndCommit(..)
+	Log doGetIfModified(..)          -->  void doGetIfModifiedAndCommit(..)
 
 
 * @RedirectFrom does not support ElementType.TYPE anymore, did not work properly anyway.

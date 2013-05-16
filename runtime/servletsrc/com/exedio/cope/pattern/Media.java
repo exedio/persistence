@@ -653,7 +653,6 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 			if(out!=null)
 				out.close();
 		}
-		incrementDelivered();
 	}
 
 	@Override

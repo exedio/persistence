@@ -150,7 +150,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 		{
 			out.close();
 		}
-		incrementDelivered();
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")

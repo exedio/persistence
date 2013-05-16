@@ -300,7 +300,6 @@ public class TextUrlFilter extends MediaFilter
 		{
 			out.close();
 		}
-		incrementDelivered();
 	}
 
 	protected void appendKey(

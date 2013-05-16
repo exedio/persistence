@@ -251,7 +251,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		final int delivered = feature.getInfo().getDelivered();
 		feature.doGetIfModifiedAndCommit(null, response, item);
 		assertFalse(model.hasCurrentTransaction());
-		assertEquals(delivered+1, feature.getInfo().getDelivered());
+		assertEquals(delivered, feature.getInfo().getDelivered());
 		response.assertIt(expectedContentType);
 		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}

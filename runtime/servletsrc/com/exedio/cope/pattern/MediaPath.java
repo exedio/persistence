@@ -415,6 +415,13 @@ public abstract class MediaPath extends Pattern
 		notModified.inc();
 	}
 
+	/**
+	 * BEWARE:
+	 * Do not call this method in
+	 * {@link CachedMedia#doGetIfModifiedAndCommit(HttpServletRequest,HttpServletResponse,Item)},
+	 * because this methods does these calls on its own.
+	 *
+	 */
 	public final void incrementDelivered()
 	{
 		delivered.inc();

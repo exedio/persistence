@@ -67,6 +67,7 @@ public abstract class CachedMedia extends MediaPath
 		if(lastModifiedRaw<=0)
 		{
 			doGetIfModifiedAndCommit(request, response, item);
+			incrementDelivered(); // TODO incrementDeliveredUnconditional
 			return;
 		}
 
@@ -99,6 +100,7 @@ public abstract class CachedMedia extends MediaPath
 		else
 		{
 			doGetIfModifiedAndCommit(request, response, item);
+			incrementDelivered(); // TODO incrementDeliveredConditional
 		}
 	}
 
