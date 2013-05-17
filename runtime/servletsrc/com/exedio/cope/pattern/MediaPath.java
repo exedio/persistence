@@ -311,17 +311,12 @@ public abstract class MediaPath extends Pattern
 
 	public static final boolean isUrlGuessingPreventedSecurely(final ConnectProperties properties)
 	{
-		return getNonGuessableUrlSecret(properties)!=null;
+		return properties.getMediaUrlSecret()!=null;
 	}
 
 	private final String getNonGuessableUrlSecret()
 	{
-		return getNonGuessableUrlSecret(getType().getModel().getConnectProperties());
-	}
-
-	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
-	{
-		return properties.getMediaUrlSecret();
+		return getType().getModel().getConnectProperties().getMediaUrlSecret();
 	}
 
 
