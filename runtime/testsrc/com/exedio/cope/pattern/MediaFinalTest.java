@@ -165,7 +165,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(item, expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
-		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
@@ -185,7 +185,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.getFileLastModified());
+		assertEquals(null, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 	}

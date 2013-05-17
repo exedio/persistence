@@ -24,6 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -559,9 +560,9 @@ public abstract class MediaPath extends Pattern
 				throw notFoundNotAnItem();
 		}
 
-		final long lastModifiedRaw = getLastModified(item);
+		final Date lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
-		if(lastModifiedRaw<=0)
+		if(lastModifiedRaw==null)
 		{
 			doGetAndCommit(request, response, item);
 			delivered.inc(); // TODO deliveredUnconditional
@@ -604,20 +605,20 @@ public abstract class MediaPath extends Pattern
 	/**
 	 * Copied from com.exedio.cops.Resource.
 	 */
-	private static long roundLastModified(final long lastModified)
+	private static long roundLastModified(final Date lastModifiedDate)
 	{
+		final long lastModified = lastModifiedDate.getTime();
 		final long remainder = lastModified%1000;
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
 	/**
-	 * The default implementations returns Long.MIN_VALUE,
-	 * which means there is no LastModified information.
+	 * The default implementations returns null.
 	 * @param item the item which has the LastModified information
 	 */
-	public long getLastModified(final Item item)
+	public Date getLastModified(final Item item)
 	{
-		return Long.MIN_VALUE;
+		return null;
 	}
 
 	/**

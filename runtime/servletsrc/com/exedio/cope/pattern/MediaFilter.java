@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Date;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -46,7 +47,7 @@ public abstract class MediaFilter extends MediaPath
 	public abstract Set<String> getSupportedSourceContentTypes();
 
 	@Override
-	public final long getLastModified(final Item item)
+	public final Date getLastModified(final Item item)
 	{
 		return source.getLastModified(item);
 	}

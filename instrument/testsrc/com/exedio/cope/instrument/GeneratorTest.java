@@ -208,7 +208,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getAnyMediaURL", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getAnyMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getAnyMediaLastModified", Date.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaBody", BYTE_ARRAY, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getAnyMediaBody", new Class<?>[]{OUTPUT_STREAM}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});
 		assertMethod(STANDARD, "getAnyMediaBody", new Class<?>[]{File.class}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});
@@ -219,7 +219,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getMajorMediaURL", STRING, FINAL);
 		assertMethod(STANDARD, "getMajorMediaContentType", STRING, FINAL);
 		assertMethod(STANDARD, "getMajorMediaLength", long.class, FINAL);
-		assertMethod(STANDARD, "getMajorMediaLastModified", long.class, FINAL);
+		assertMethod(STANDARD, "getMajorMediaLastModified", Date.class, FINAL);
 		assertMethod(STANDARD, "getMajorMediaBody", BYTE_ARRAY, FINAL);
 		assertMethod(STANDARD, "getMajorMediaBody", new Class<?>[]{OUTPUT_STREAM}, FINAL, new Class<?>[]{IO_EXCEPTION});
 		assertMethod(STANDARD, "getMajorMediaBody", new Class<?>[]{File.class}, FINAL, new Class<?>[]{IO_EXCEPTION});
@@ -231,7 +231,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getMinorMediaURL", STRING, PROTECTED|FINAL);
 		assertNoMethod(STANDARD, "getMinorMediaContentType");
 		assertMethod(STANDARD, "getMinorMediaLength", long.class, PROTECTED|FINAL);
-		assertMethod(STANDARD, "getMinorMediaLastModified", long.class, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMinorMediaLastModified", Date.class, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaBody", BYTE_ARRAY, PROTECTED|FINAL);
 		assertMethod(STANDARD, "getMinorMediaBody", new Class<?>[]{OUTPUT_STREAM}, PROTECTED|FINAL, new Class<?>[]{IO_EXCEPTION});
 		assertMethod(STANDARD, "getMinorMediaBody", new Class<?>[]{File.class}, PROTECTED|FINAL, new Class<?>[]{IO_EXCEPTION});
@@ -243,7 +243,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getNoSetterMediaURL", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNoSetterMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoSetterMediaLastModified", Date.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaBody", BYTE_ARRAY, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getNoSetterMediaBody", new Class<?>[]{OUTPUT_STREAM}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});
 		assertMethod(STANDARD, "getNoSetterMediaBody", new Class<?>[]{File.class}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});
@@ -255,7 +255,7 @@ public class GeneratorTest extends InstrumentorTest
 		assertMethod(STANDARD, "getPrivateSetterMediaURL", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaContentType", STRING, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaLength", long.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getPrivateSetterMediaLastModified", long.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterMediaLastModified", Date.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaBody", BYTE_ARRAY, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterMediaBody", new Class<?>[]{OUTPUT_STREAM}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});
 		assertMethod(STANDARD, "getPrivateSetterMediaBody", new Class<?>[]{File.class}, PUBLIC|FINAL, new Class<?>[]{IO_EXCEPTION});

@@ -337,14 +337,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	/**
 	 * Returns the date of the last modification
 	 * of this media.
-	 * Returns -1, if this media is null.
+	 * Returns null, if this media is null.
 	 */
 	@Wrap(order=20, doc="Returns the last modification date of media {0}.")
 	@Override
-	public long getLastModified(final Item item)
+	public Date getLastModified(final Item item)
 	{
-		final Date date = lastModified.get(item);
-		return date!=null ? date.getTime() : -1;
+		return lastModified.get(item);
 	}
 
 	/**
