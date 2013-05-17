@@ -51,13 +51,11 @@ final class WrapperX
 
 
 	private boolean isStatic = false;
-	private boolean hasStaticClassToken = false;
 	private TypeVariable<?> staticToken = null;
 
 	void setStatic()
 	{
 		isStatic = true;
-		hasStaticClassToken = false;
 		staticToken = null;
 	}
 
@@ -68,13 +66,12 @@ final class WrapperX
 
 	boolean hasStaticClassToken()
 	{
-		return hasStaticClassToken;
+		return staticToken!=null;
 	}
 
 	void setStatic(final TypeVariable<?> token)
 	{
 		isStatic = true;
-		hasStaticClassToken = true;
 		staticToken = token;
 	}
 
