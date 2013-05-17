@@ -65,6 +65,7 @@ public class MediaServletTest extends TestCase
 
 	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
 
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
