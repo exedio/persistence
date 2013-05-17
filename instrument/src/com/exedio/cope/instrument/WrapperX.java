@@ -71,6 +71,9 @@ final class WrapperX
 
 	void setStatic(final TypeVariable<?> token)
 	{
+		if(token==null)
+			throw new NullPointerException();
+
 		isStatic = true;
 		staticToken = token;
 	}
