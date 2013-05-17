@@ -247,6 +247,13 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
+				if((item instanceof DispatchDeferrable) &&
+					((DispatchDeferrable)item).isDeferred(this))
+				{
+					model.commit();
+					continue;
+				}
+
 				final long start = clock.currentTimeMillis();
 				final long nanoStart = nanoTime();
 				try
