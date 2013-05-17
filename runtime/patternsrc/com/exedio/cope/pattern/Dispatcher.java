@@ -247,8 +247,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				if((item instanceof DispatchDeferrable) &&
-					((DispatchDeferrable)item).isDeferred(this))
+				if(isDeferred(item))
 				{
 					model.commit();
 					continue;
@@ -314,6 +313,17 @@ public final class Dispatcher extends Pattern
 			}
 			ctx.incrementProgress();
 		}
+	}
+
+	/**
+	 * This helper method is needed to work around two unchecked cast warnings
+	 * issued by jdk1.7 javac.
+	 */
+	private boolean isDeferred(final Item item)
+	{
+		return
+			(item instanceof DispatchDeferrable) &&
+			((DispatchDeferrable)item).isDeferred(this);
 	}
 
 	/**
