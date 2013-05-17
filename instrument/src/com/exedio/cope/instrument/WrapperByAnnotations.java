@@ -161,13 +161,13 @@ final class WrapperByAnnotations
 				}
 				else
 				{
-					result.setStatic(false);
+					result.setStatic();
 					parameterOffset = 0;
 				}
 			}
 			else
 			{
-				result.setStatic(false);
+				result.setStatic();
 				parameterOffset = 0;
 			}
 		}
@@ -177,7 +177,7 @@ final class WrapperByAnnotations
 		}
 		else
 		{
-			result.setStatic(false);
+			result.setStatic();
 			parameterOffset = 0;
 		}
 
