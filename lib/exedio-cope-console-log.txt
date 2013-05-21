@@ -7,3 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* adapt to Media API Refactoring in cope
+	BEWARE: You need a new cope version !!!
+* checking unsupported CheckConstraints supported
+* MediaTestable supported
+* History removed, use Sampler instead.

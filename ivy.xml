@@ -62,6 +62,6 @@
 		<!-- build dependencies -->
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="2.0.1" conf="build->default" />
-		<dependency org="com.exedio" name="copeconsole" rev="6423" conf="build->runtime" />
+		<dependency org="com.exedio" name="copeconsole" rev="6486" conf="build->runtime" />
 	</dependencies>
 </ivy-module>
