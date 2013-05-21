@@ -257,19 +257,19 @@ public class MediaServlet extends HttpServlet
 			path.incException();
 			onException(request, e);
 			serveError(
-					response,
-					SC_INTERNAL_SERVER_ERROR,
-					"<html>\n" +
+				response,
+				SC_INTERNAL_SERVER_ERROR,
+				"<html>\n" +
 					"<head>\n" +
-					"<title>Internal Server Error</title>\n" +
-					"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-					"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+						"<title>Internal Server Error</title>\n" +
+						"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
 					"</head>\n" +
 					"<body>\n" +
-					"<h1>Internal Server Error</h1>\n" +
-					"An internal error occured on the server.\n" +
+						"<h1>Internal Server Error</h1>\n" +
+						"An internal error occured on the server.\n" +
 					"</body>\n" +
-					"</html>\n");
+				"</html>\n");
 		}
 	}
 
