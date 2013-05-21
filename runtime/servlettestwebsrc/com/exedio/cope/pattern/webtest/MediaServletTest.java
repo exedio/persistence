@@ -63,6 +63,8 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
 
+	private static final String CACHE_CONTROL = "Cache-Control";
+
 	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
 
 	@Override
@@ -244,7 +246,7 @@ public class MediaServletTest extends TestCase
 		final String TOKEN;
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertEquals(lmJpg, assertBin(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertEquals(lmJpg, assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
 		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
@@ -327,6 +329,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		final String data = lines(
 			"This is an example file",
 			"for testing media data."
@@ -370,6 +373,7 @@ public class MediaServletTest extends TestCase
 		assertEquals("Moved Permanently", conn.getResponseMessage());
 		assertEquals(target, conn.getHeaderField("Location"));
 		assertEquals(null, conn.getContentType());
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(0, conn.getContentLength());
 		final InputStream is = conn.getInputStream();
 		assertEquals(-1, is.read());
@@ -392,6 +396,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
@@ -417,6 +422,16 @@ public class MediaServletTest extends TestCase
 
 	private static long assertBin(final String url, final String contentType) throws IOException
 	{
+		return assertBin(url, contentType, null);
+	}
+
+	private static long assertBinPrivate(final String url, final String contentType) throws IOException
+	{
+		return assertBin(url, contentType, "private");
+	}
+
+	private static long assertBin(final String url, final String contentType, final String cacheControl) throws IOException
+	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
@@ -433,6 +448,7 @@ public class MediaServletTest extends TestCase
 		if(!contentType.equals(conn.getContentType()))
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
+		assertEquals(cacheControl, conn.getHeaderField(CACHE_CONTROL));
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
 
@@ -451,6 +467,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		assertEquals("<html>", is.readLine());
@@ -488,6 +505,7 @@ public class MediaServletTest extends TestCase
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
 		assertEquals("text/plain;charset=UTF-8", conn.getContentType());
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(12, conn.getContentLength());
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
