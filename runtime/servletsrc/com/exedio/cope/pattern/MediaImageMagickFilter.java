@@ -30,11 +30,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 
@@ -195,34 +193,12 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			throw notFoundNotComputable();
 
 		final File outFile = execute(item, type, true);
-
-		final long contentLength = outFile.length();
-		if(contentLength<=0)
-			throw new RuntimeException(String.valueOf(contentLength));
-		if(contentLength<=Integer.MAX_VALUE)
-			response.setContentLength((int)contentLength);
-
-		response.setContentType(outputContentType(type).getName());
-
-		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
-		final FileInputStream body = new FileInputStream(outFile);
 		try
 		{
-			final ServletOutputStream out = response.getOutputStream();
-			try
-			{
-				for(int len = body.read(b); len>=0; len = body.read(b))
-					out.write(b, 0, len);
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
+			MediaUtil.send(outputContentType(type).getName(), outFile, response);
 		}
 		finally
 		{
-			body.close();
 			delete(outFile);
 		}
 	}

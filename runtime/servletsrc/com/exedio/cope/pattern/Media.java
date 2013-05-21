@@ -28,7 +28,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -636,22 +635,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 
 		commit();
 
-		response.setContentType(contentType);
-		response.setContentLength(body.length);
 		//response.setHeader("Cache-Control", "public");
 
-		//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			out.write(body);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
-		}
+		MediaUtil.send(contentType, body, response);
 	}
 
 	@Override

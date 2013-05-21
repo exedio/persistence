@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaUtil added
 * Media API Refactoring
 	
 	This massivly breaks backwards API compatibility. You MUST update

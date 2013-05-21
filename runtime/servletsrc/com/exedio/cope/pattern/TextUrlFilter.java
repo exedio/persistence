@@ -30,7 +30,6 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -288,18 +287,7 @@ public class TextUrlFilter extends MediaFilter
 			body = sourceByte;
 		}
 
-		response.setContentLength(body.length);
-		response.setContentType(supportedContentType);
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			out.write(body);
-		}
-		finally
-		{
-			out.close();
-		}
+		MediaUtil.send(supportedContentType, body, response);
 	}
 
 	protected void appendKey(

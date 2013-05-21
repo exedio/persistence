@@ -37,7 +37,6 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -137,19 +136,8 @@ public abstract class MediaImageioFilter extends MediaFilter
 			throw notFoundNotComputable();
 
 		final ByteArrayOutputStream body = execute(item, contentType, spi, true);
-		response.setContentType(outputContentType);
 
-		response.setContentLength(body.size());
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			body.writeTo(out);
-		}
-		finally
-		{
-			out.close();
-		}
+		MediaUtil.send(outputContentType, body, response);
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
