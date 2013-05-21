@@ -267,6 +267,8 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "tokened/" + ITEM_EMP + ".jpg?t=" + TOKEN, GUESSED_URL);
 		assertNotFound(prefix + "tokened/" + ITEM_NX  + ".jpg?t=" + TOKEN, GUESSED_URL);
 
+		assertNotFound(prefix + "content/" + ITEM_JPG + ".jpg?t=" + TOKEN, NOT_AN_ITEM);
+
 		// nameServer
 
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
