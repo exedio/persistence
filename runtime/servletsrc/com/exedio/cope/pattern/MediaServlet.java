@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaPath.notFoundNoSuchPath;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -162,28 +161,6 @@ public class MediaServlet extends HttpServlet
 		serveContent(request, response);
 	}
 
-	private static void serveNotFound(
-			final HttpServletResponse response,
-			final NotFound notFound)
-		throws IOException
-	{
-		notFound.incCounter();
-		serveError(
-				response,
-				SC_NOT_FOUND,
-				"<html>\n" +
-				"<head>\n" +
-				"<title>Not Found</title>\n" +
-				"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-				"</head>\n" +
-				"<body>\n" +
-				"<h1>Not Found</h1>\n" +
-				"The requested URL was not found on this server (" + notFound.reason + ").\n" +
-				"</body>\n" +
-				"</html>\n");
-	}
-
 	private static void serveError(
 			final HttpServletResponse response,
 			final int sc,
@@ -263,7 +240,7 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final NotFound notFound)
 		{
-			serveNotFound(response, notFound);
+			notFound.serve(response);
 			return;
 		}
 
@@ -273,7 +250,7 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final NotFound notFound)
 		{
-			serveNotFound(response, notFound);
+			notFound.serve(response);
 		}
 		catch(final Exception e)
 		{

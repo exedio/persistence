@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
 import java.io.IOException;
@@ -346,7 +347,7 @@ public abstract class MediaPath extends Pattern
 
 	public static final class NotFound extends Exception
 	{
-		final String reason;
+		private final String reason;
 		private final VolatileInt counter;
 
 		NotFound(final String reason, final VolatileInt counter)
@@ -360,15 +361,31 @@ public abstract class MediaPath extends Pattern
 				throw new NullPointerException();
 		}
 
-		void incCounter()
-		{
-			counter.inc();
-		}
-
 		@Override
 		public String getMessage()
 		{
 			return reason;
+		}
+
+		void serve(final HttpServletResponse response) throws IOException
+		{
+			counter.inc();
+			final String body =
+				"<html>\n" +
+					"<head>\n" +
+						"<title>Not Found</title>\n" +
+						"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+					"</head>\n" +
+					"<body>\n" +
+						"<h1>Not Found</h1>\n" +
+						"The requested URL was not found on this server (" + reason + ").\n" +
+					"</body>\n" +
+				"</html>\n";
+
+			response.setStatus(SC_NOT_FOUND);
+			response.setCharacterEncoding("us-ascii");
+			MediaUtil.send("text/html", body.getBytes("us-ascii"), response);
 		}
 
 		private static final long serialVersionUID = 1l;
