@@ -55,7 +55,7 @@ import com.exedio.cope.misc.SetValueUtil;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class Media extends CachedMedia implements Settable<Media.Value>
+public final class Media extends MediaPath implements Settable<Media.Value>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -200,7 +200,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	{
 		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6);
 	}
-	
+
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
 	 */
@@ -337,14 +337,13 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	/**
 	 * Returns the date of the last modification
 	 * of this media.
-	 * Returns -1, if this media is null.
+	 * Returns null, if this media is null.
 	 */
 	@Wrap(order=20, doc="Returns the last modification date of media {0}.")
 	@Override
-	public long getLastModified(final Item item)
+	public Date getLastModified(final Item item)
 	{
-		final Date date = lastModified.get(item);
-		return date!=null ? date.getTime() : -1;
+		return lastModified.get(item);
 	}
 
 	/**
@@ -622,22 +621,23 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 	}
 
 	@Override
-	public Media.Log doGetIfModified(
+	public void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-		throws IOException
+		throws IOException, NotFound
 	{
 		final String contentType = getContentType(item);
 		//System.out.println("contentType="+contentType);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
+
+		final byte[] body = getBody(item);
+
+		commit();
 
 		response.setContentType(contentType);
-
-		final int contentLength = (int)getLength(item);
-		//System.out.println("contentLength="+String.valueOf(contentLength));
-		response.setContentLength(contentLength);
+		response.setContentLength(body.length);
 		//response.setHeader("Cache-Control", "public");
 
 		//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  modified: "+contentLength);
@@ -645,8 +645,7 @@ public final class Media extends CachedMedia implements Settable<Media.Value>
 		final ServletOutputStream out = response.getOutputStream();
 		try
 		{
-			getBody(item, out);
-			return delivered;
+			out.write(body);
 		}
 		finally
 		{

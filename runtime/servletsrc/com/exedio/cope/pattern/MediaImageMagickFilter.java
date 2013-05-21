@@ -174,24 +174,27 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		if(!isEnabled())
-			return fallback.doGetIfModified(request, response, item);
+		{
+			fallback.doGetAndCommit(request, response, item);
+			return;
+		}
 
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
-		final File outFile = execute(item, type);
+		final File outFile = execute(item, type, true);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -210,8 +213,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			{
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
-
-				return delivered;
 			}
 			finally
 			{
@@ -241,7 +242,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(type==null)
 			return null;
 
-		final File outFile = execute(item, type);
+		final File outFile = execute(item, type, false);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -338,7 +339,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 				: inputContentType;
 	}
 
-	private final File execute(final Item item, final MediaType contentType) throws IOException
+	private final File execute(final Item item, final MediaType contentType, final boolean commit) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
@@ -353,6 +354,9 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		//System.out.println("-----------------"+Arrays.toString(command));
 
 		source.getBody(item, inFile);
+
+		if(commit)
+			commit();
 
 		final int exitValue = execute(command);
 		if(exitValue!=0)

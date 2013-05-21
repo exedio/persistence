@@ -63,15 +63,18 @@ final class MediaNameServer extends MediaPath
 	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 
 	@Override
-	public Media.Log doGet(
+	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
-		throws IOException
+		throws IOException, NotFound
 	{
 		final String content = source.get(item);
+
+		commit();
+
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
@@ -99,7 +102,6 @@ final class MediaNameServer extends MediaPath
 			if(out!=null)
 				out.close();
 		}
-		return delivered;
 	}
 
 	@Override

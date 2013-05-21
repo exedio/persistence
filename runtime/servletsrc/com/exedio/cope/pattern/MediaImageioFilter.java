@@ -123,20 +123,20 @@ public abstract class MediaImageioFilter extends MediaFilter
 	public abstract BufferedImage filter(BufferedImage in);
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
-		final ByteArrayOutputStream body = execute(item, contentType, spi);
+		final ByteArrayOutputStream body = execute(item, contentType, spi, true);
 		response.setContentType(outputContentType);
 
 		response.setContentLength(body.size());
@@ -145,7 +145,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 		try
 		{
 			body.writeTo(out);
-			return delivered;
 		}
 		finally
 		{
@@ -164,16 +163,21 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			return null;
 
-		return execute(item, contentType, spi).toByteArray();
+		return execute(item, contentType, spi, false).toByteArray();
 	}
 
 	private final ByteArrayOutputStream execute(
 			final Item item,
 			final String contentType,
-			final ImageReaderSpi spi)
+			final ImageReaderSpi spi,
+			final boolean commit)
 	throws IOException
 	{
 		final byte[] srcBytes = source.getBody().getArray(item);
+
+		if(commit)
+			commit();
+
 		final BufferedImage srcBuf;
 
 		// Special handling of jpeg

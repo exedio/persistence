@@ -7,6 +7,26 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Media API Refactoring
+	
+	This massivly breaks backwards API compatibility. You MUST update
+	exedio-cope-im4java.jar and exedio-cope-console.jar, if used.
+	Affects instrumented code.
+	
+	BEWARE !!!
+	Implementors of MediaPath#doGetAndCommit MUST commit the transaction
+	on normal termination. Using MediaPath#commit() is recommended.
+
+	Do the following replacements in your code:
+
+		extends CachedMedia       -->  extends MediaPath
+		Log doGet(..)             -->  void doGetAndCommit(..)
+		Log doGetIfModified(..)   -->  void doGetAndCommit(..)
+		return isNull;            -->  throw notFoundIsNull();
+		return notComputable;     -->  throw notFoundNotComputable();
+		return delivered;         -->  <nothing>
+		long getLastModified      -->  Date getLastModified
+
 * DispatchDeferrable added
 * @RedirectFrom does not support ElementType.TYPE anymore, did not work properly anyway.
 	This breaks backwards API compatibility, causes compiler error.

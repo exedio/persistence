@@ -19,12 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static javax.servlet.http.HttpServletResponse.SC_OK;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -320,17 +321,87 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	static final Log noSuchPath = new Log("no such path"  , SC_NOT_FOUND);
-	final VolatileInt redirectFrom = new VolatileInt();
-	final VolatileInt exception = new VolatileInt();
-	private final Log guessedUrl = new Log("guessed url"  , SC_NOT_FOUND);
-	final Log notAnItem         = new Log("not an item"   , SC_NOT_FOUND);
-	final Log noSuchItem        = new Log("no such item"  , SC_NOT_FOUND);
-	final Log moved             = new Log("moved"         , SC_OK);
-	public final Log isNull     = new Log("is null"       , SC_NOT_FOUND);
-	protected final Log notComputable = new Log("not computable", SC_NOT_FOUND);
-	final Log notModified       = new Log("not modified"  , SC_OK);
-	public final Log delivered  = new Log("delivered"     , SC_OK);
+	private static final VolatileInt noSuchPath = new VolatileInt();
+	private final VolatileInt redirectFrom = new VolatileInt();
+	private final VolatileInt exception = new VolatileInt();
+	private final VolatileInt guessedUrl = new VolatileInt();
+	private final VolatileInt notAnItem = new VolatileInt();
+	private final VolatileInt noSuchItem = new VolatileInt();
+	private final VolatileInt moved = new VolatileInt();
+	private final VolatileInt isNull = new VolatileInt();
+	private final VolatileInt notComputable = new VolatileInt();
+	private final VolatileInt notModified = new VolatileInt();
+	private final VolatileInt delivered = new VolatileInt();
+
+	final void incRedirectFrom()
+	{
+		redirectFrom.inc();
+	}
+
+	final void incException()
+	{
+		exception.inc();
+	}
+
+	public static final class NotFound extends Exception
+	{
+		final String reason;
+		private final VolatileInt counter;
+
+		NotFound(final String reason, final VolatileInt counter)
+		{
+			this.reason = reason;
+			this.counter = counter;
+
+			if(reason==null)
+				throw new NullPointerException();
+			if(counter==null)
+				throw new NullPointerException();
+		}
+
+		void incCounter()
+		{
+			counter.inc();
+		}
+
+		@Override
+		public String getMessage()
+		{
+			return reason;
+		}
+
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final NotFound notFoundNoSuchPath()
+	{
+		return new NotFound("no such path", noSuchPath);
+	}
+
+	private NotFound notFoundGuessedUrl()
+	{
+		return new NotFound("guessed url", guessedUrl);
+	}
+
+	final NotFound notFoundNotAnItem()
+	{
+		return new NotFound("not an item", notAnItem);
+	}
+
+	private NotFound notFoundNoSuchItem()
+	{
+		return new NotFound("no such item", noSuchItem);
+	}
+
+	protected final NotFound notFoundIsNull()
+	{
+		return new NotFound("is null", isNull);
+	}
+
+	protected final NotFound notFoundNotComputable()
+	{
+		return new NotFound("not computable", notComputable);
+	}
 
 	public static final int getNoSuchPath()
 	{
@@ -354,10 +425,10 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	final Media.Log doGet(
+	final void doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String pathInfo, final int fromIndex)
-		throws IOException
+		throws IOException, NotFound
 	{
 		//final long start = System.currentTimeMillis();
 
@@ -383,7 +454,7 @@ public abstract class MediaPath extends Pattern
 		{
 			final String x = request.getParameter(URL_TOKEN);
 			if(!token.equals(x))
-				return guessedUrl;
+				throw notFoundGuessedUrl();
 		}
 
 		//System.out.println("ID="+id);
@@ -414,25 +485,32 @@ public abstract class MediaPath extends Pattern
 
 						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
-						return moved;
+						moved.inc();
+						return;
 					}
 				}
 			}
 
-			final Media.Log result = doGet(request, response, item);
-			model.commit();
+			doGetAndCommitWithCache(request, response, item);
 
-			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
-			return result;
+			if(model.hasCurrentTransaction())
+				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
+
+			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
 		}
 		catch(final NoSuchIDException e)
 		{
-			return e.notAnID() ? notAnItem : noSuchItem;
+			throw e.notAnID() ? notFoundNotAnItem() : notFoundNoSuchItem();
 		}
 		finally
 		{
 			model.rollbackIfNotCommitted();
 		}
+	}
+
+	protected final void commit()
+	{
+		getType().getModel().commit();
 	}
 
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
@@ -446,8 +524,107 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
-		throws IOException;
+	// cache
+
+	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
+	private static final String RESPONSE_EXPIRES = "Expires";
+	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
+
+	private final void doGetAndCommitWithCache(
+			final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Item item)
+		throws IOException, NotFound
+	{
+		// NOTE
+		// This code prevents a Denial of Service attack against the caching mechanism.
+		// Query strings can be used to effectively disable the cache by using many urls
+		// for one media value. Therefore they are forbidden completely.
+		if(isUrlGuessingPrevented())
+		{
+			final String[] tokens = request.getParameterValues(URL_TOKEN);
+			if(tokens!=null&&tokens.length>1)
+				throw notFoundNotAnItem();
+			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
+				if(!URL_TOKEN.equals(e.nextElement()))
+					throw notFoundNotAnItem();
+		}
+		else
+		{
+			if(request.getQueryString()!=null)
+				throw notFoundNotAnItem();
+		}
+
+		final Date lastModifiedRaw = getLastModified(item);
+		// if there is no LastModified, then there is no caching
+		if(lastModifiedRaw==null)
+		{
+			doGetAndCommit(request, response, item);
+			delivered.inc(); // TODO deliveredUnconditional
+			return;
+		}
+
+		// NOTE:
+		// Last Modification Date must be rounded to full seconds,
+		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
+		final long lastModified = roundLastModified(lastModifiedRaw);
+		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
+		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+
+		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
+		//System.out.println("ifModifiedSince="+ifModifiedSince);
+
+		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+		if(mediaOffsetExpires>0)
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+
+		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
+		{
+			commit();
+
+			//System.out.println("not modified");
+			response.setStatus(SC_NOT_MODIFIED);
+
+			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+
+			notModified.inc();
+		}
+		else
+		{
+			doGetAndCommit(request, response, item);
+			delivered.inc(); // deliveredConditional
+		}
+	}
+
+	/**
+	 * Copied from com.exedio.cops.Resource.
+	 */
+	private static long roundLastModified(final Date lastModifiedDate)
+	{
+		final long lastModified = lastModifiedDate.getTime();
+		final long remainder = lastModified%1000;
+		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
+	}
+
+	/**
+	 * The default implementations returns null.
+	 * @param item the item which has the LastModified information
+	 */
+	public Date getLastModified(final Item item)
+	{
+		return null;
+	}
+
+	/**
+	 * The implementor MUST {@link #commit() commit} the transaction,
+	 * if the method completes normally (without exception).
+	 * Otherwise the implementor may or may not commit the transaction.
+	 */
+	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
+
+
+	// convenience methods
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
@@ -469,48 +646,22 @@ public abstract class MediaPath extends Pattern
 	 */
 	public abstract Condition isNotNull(final Join join);
 
+	// ------------------- deprecated stuff -------------------
 
+	@Deprecated
 	public final static class Log
 	{
-		private final VolatileInt counter = new VolatileInt();
-		private final String name;
-		public final int responseStatus;
-
-		Log(final String name, final int responseStatus)
+		private Log()
 		{
-			if(name==null)
-				throw new NullPointerException();
-			switch(responseStatus)
-			{
-				case SC_OK:
-				case SC_NOT_FOUND:
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(responseStatus));
-			}
-
-			this.name = name;
-			this.responseStatus = responseStatus;
+			// prevent instantiation
 		}
 
-		void increment()
-		{
-			counter.inc();
-		}
-
+		@SuppressWarnings("static-method")
 		public int get()
 		{
-			return counter.get();
-		}
-
-		@Override
-		public String toString()
-		{
-			return name;
+			throw new NoSuchMethodError();
 		}
 	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @param name is ignored

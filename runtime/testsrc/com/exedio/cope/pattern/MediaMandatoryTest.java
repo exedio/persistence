@@ -199,7 +199,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(item, expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
-		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + "MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}

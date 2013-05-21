@@ -38,6 +38,7 @@ import javax.servlet.ServletOutputStream;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.Properties;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -115,7 +116,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		return ThumbnailMagickTest.class.getResourceAsStream(name);
 	}
 
-	public void testThumbs() throws IOException
+	public void testThumbs() throws IOException, NotFound
 	{
 		// if not enabled, subsequent tests will fail as well
 		assertTrue(MediaImageMagickFilter.isEnabled());
@@ -237,18 +238,22 @@ public final class ThumbnailMagickTest extends CopeTest
 				MediaType.forMagics(actualBody));
 	}
 
-	private static final void assertDoGet(
+	private final void assertDoGet(
 			final String expectedContentType,
 			final MediaImageMagickThumbnail feature,
-			final ThumbnailMagickItem item) throws IOException
+			final ThumbnailMagickItem item) throws IOException, NotFound
 	{
 		assertNotNull(expectedContentType);
 		assertNotNull(feature);
 		assertNotNull(item);
 
 		final Response response = new Response();
-		assertEquals("delivered", feature.doGetIfModified(null, response, item).toString());
+		final int delivered = feature.getInfo().getDelivered();
+		feature.doGetAndCommit(null, response, item);
+		assertFalse(model.hasCurrentTransaction());
+		assertEquals(delivered, feature.getInfo().getDelivered());
 		response.assertIt(expectedContentType);
+		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}
 
 	private static final class Response extends DummyResponse
@@ -307,7 +312,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		}
 	}
 
-	private static final void assertDoGet404(
+	private final void assertDoGet404(
 			final String expectedResult,
 			final MediaImageMagickThumbnail feature,
 			final ThumbnailMagickItem item)
@@ -317,6 +322,16 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final DummyResponse response = new DummyResponse();
-		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).toString());
+
+		try
+		{
+			feature.doGetAndCommit(null, response, item);
+			fail();
+		}
+		catch(final NotFound e)
+		{
+			assertEquals(expectedResult, e.getMessage());
+		}
+		assertTrue(model.hasCurrentTransaction());
 	}
 }

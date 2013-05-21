@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import java.util.Date;
 import java.util.Set;
 
 import com.exedio.cope.Condition;
@@ -25,7 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.instrument.Wrap;
 
-public abstract class MediaFilter extends CachedMedia
+public abstract class MediaFilter extends MediaPath
 {
 	private static final long serialVersionUID = 1l;
 
@@ -46,7 +47,7 @@ public abstract class MediaFilter extends CachedMedia
 	public abstract Set<String> getSupportedSourceContentTypes();
 
 	@Override
-	public final long getLastModified(final Item item)
+	public final Date getLastModified(final Item item)
 	{
 		return source.getLastModified(item);
 	}

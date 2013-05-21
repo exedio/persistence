@@ -308,7 +308,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFileBody());
 		assertDataFile(null);
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.getFileLastModified());
+		assertEquals(null, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 		assertEquals(null, item.getFileLocator());
@@ -325,7 +325,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
-		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + path, item.getFileURL());
 		assertLocator(file, path, item.getFileLocator());
