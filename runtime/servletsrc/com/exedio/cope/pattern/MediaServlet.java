@@ -195,48 +195,48 @@ public class MediaServlet extends HttpServlet
 		final int slash2;
 		try
 		{
-		if(pathInfo==null || pathInfo.length()<6 || pathInfo.charAt(0)!='/')
-			throw notFoundNoSuchPath();
+			if(pathInfo==null || pathInfo.length()<6 || pathInfo.charAt(0)!='/')
+				throw notFoundNoSuchPath();
 
-		final int slash1 = pathInfo.indexOf('/', 1);
-		if(slash1<0)
-			throw notFoundNoSuchPath();
+			final int slash1 = pathInfo.indexOf('/', 1);
+			if(slash1<0)
+				throw notFoundNoSuchPath();
 
-		slash2 = pathInfo.indexOf('/', slash1+1);
-		if(slash2<0)
-			throw notFoundNoSuchPath();
+			slash2 = pathInfo.indexOf('/', slash1+1);
+			if(slash2<0)
+				throw notFoundNoSuchPath();
 
-		final String featureString = pathInfo.substring(1, slash2);
-		//System.out.println("featureString="+featureString);
+			final String featureString = pathInfo.substring(1, slash2);
+			//System.out.println("featureString="+featureString);
 
-		path = pathes.get(featureString);
-		if(path==null)
-		{
-			final MediaPath alt = pathesRedirectFrom.get(featureString);
-			if(alt!=null)
+			path = pathes.get(featureString);
+			if(path==null)
 			{
-				final StringBuilder location = new StringBuilder();
-				location.
-					append(request.getScheme()).
-					append("://").
-					append(request.getHeader("Host")).
-					append(request.getContextPath()).
-					append(request.getServletPath()).
-					append('/').
-					append(alt.getType().getID()).
-					append('/').
-					append(alt.getName()).
-					append(pathInfo.substring(slash2));
-				//System.out.println("location="+location);
+				final MediaPath alt = pathesRedirectFrom.get(featureString);
+				if(alt!=null)
+				{
+					final StringBuilder location = new StringBuilder();
+					location.
+						append(request.getScheme()).
+						append("://").
+						append(request.getHeader("Host")).
+						append(request.getContextPath()).
+						append(request.getServletPath()).
+						append('/').
+						append(alt.getType().getID()).
+						append('/').
+						append(alt.getName()).
+						append(pathInfo.substring(slash2));
+					//System.out.println("location="+location);
 
-				response.setStatus(SC_MOVED_PERMANENTLY);
-				response.setHeader(RESPONSE_LOCATION, location.toString());
+					response.setStatus(SC_MOVED_PERMANENTLY);
+					response.setHeader(RESPONSE_LOCATION, location.toString());
 
-				alt.incRedirectFrom();
-				return;
+					alt.incRedirectFrom();
+					return;
+				}
+				throw notFoundNoSuchPath();
 			}
-			throw notFoundNoSuchPath();
-		}
 		}
 		catch(final NotFound notFound)
 		{
