@@ -377,7 +377,7 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static void assertNotFound(final String url, final String detail) throws IOException
+	private static void assertNotFound(final String url, final String reason) throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -398,7 +398,7 @@ public class MediaServletTest extends TestCase
 		assertEquals("</head>", is.readLine());
 		assertEquals("<body>", is.readLine());
 		assertEquals("<h1>Not Found</h1>", is.readLine());
-		assertEquals("The requested URL was not found on this server ("+detail+").", is.readLine());
+		assertEquals("The requested URL was not found on this server (" + reason + ").", is.readLine());
 		assertEquals("</body>", is.readLine());
 		assertEquals("</html>", is.readLine());
 		assertEquals(null, is.readLine());
