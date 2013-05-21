@@ -275,19 +275,16 @@ public class TextUrlFilter extends MediaFilter
 
 		commit();
 
-		final byte[] body;
 		if(nextStart>0)
 		{
 			bf.append(srcString.substring(nextStart));
-			body = bf.toString().getBytes(encoding);
+			MediaUtil.send(supportedContentType, encoding, bf.toString(), response);
 		}
 		else
 		{
 			// short cut if there are no pastes at all
-			body = sourceByte;
+			MediaUtil.send(supportedContentType, sourceByte, response);
 		}
-
-		MediaUtil.send(supportedContentType, body, response);
 	}
 
 	protected void appendKey(

@@ -384,8 +384,7 @@ public abstract class MediaPath extends Pattern
 				"</html>\n";
 
 			response.setStatus(SC_NOT_FOUND);
-			response.setCharacterEncoding("us-ascii");
-			MediaUtil.send("text/html", body.getBytes("us-ascii"), response);
+			MediaUtil.send("text/html", "us-ascii", body, response);
 		}
 
 		private static final long serialVersionUID = 1l;

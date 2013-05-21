@@ -33,6 +33,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
+import com.exedio.cope.util.CharsetName;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -183,6 +184,12 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		public void setContentType(final String type)
 		{
 			assertEquals("text/plain", type);
+		}
+
+		@Override
+		public void setCharacterEncoding(final String charset)
+		{
+			assertEquals(CharsetName.UTF8, charset);
 		}
 
 		@Override

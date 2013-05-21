@@ -221,7 +221,7 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
 		final long lmFilter = assertBin(prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html" );
-		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html"));
+		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8"));
 		assertMoved(                     prefix + "html/" + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
 
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
@@ -483,7 +483,7 @@ public class MediaServletTest extends TestCase
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
-		assertEquals("text/plain", conn.getContentType());
+		assertEquals("text/plain;charset=UTF-8", conn.getContentType());
 		assertEquals(12, conn.getContentLength());
 
 		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));

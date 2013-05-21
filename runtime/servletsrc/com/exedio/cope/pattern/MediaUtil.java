@@ -32,6 +32,17 @@ public final class MediaUtil
 {
 	public static void send(
 			final String contentType,
+			final String charsetName,
+			final String body,
+			final HttpServletResponse response)
+		throws IOException
+	{
+		response.setCharacterEncoding(charsetName);
+		send(contentType, body.getBytes(charsetName), response);
+	}
+
+	public static void send(
+			final String contentType,
 			final byte[] body,
 			final HttpServletResponse response)
 		throws IOException

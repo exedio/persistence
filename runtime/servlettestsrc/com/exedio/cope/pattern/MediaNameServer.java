@@ -82,9 +82,7 @@ final class MediaNameServer extends MediaPath
 		final long now = System.currentTimeMillis();
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
-		final byte[] contentBytes = content.getBytes(UTF8);
-
-		MediaUtil.send("text/plain", contentBytes, response);
+		MediaUtil.send("text/plain", UTF8, content, response);
 	}
 
 	@Override
