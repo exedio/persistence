@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.util.CharsetName;
 
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
@@ -50,7 +51,7 @@ final class MediaServletItem extends Item
 
 	static final TextUrlFilter html = new TextUrlFilter(
 			content,
-			"text/html", "utf-8",
+			"text/html", CharsetName.UTF8,
 			"(", ")",
 			new StringField(),
 			new Media());

@@ -30,6 +30,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exedio.cope.util.CharsetName;
+
 final class QueryCache
 {
 	// TODO use guava ComputingMap
@@ -181,7 +183,7 @@ final class QueryCache
 		private final byte[] text;
 		private final int hashCode;
 
-		private static final String CHARSET = "utf8";
+		private static final String CHARSET = CharsetName.UTF8;
 
 		Key(final Query<? extends Object> query, final boolean totalOnly)
 		{

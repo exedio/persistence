@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -33,7 +34,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	{
 		try
 		{
-			create("utf8", "NIXUS", -1, (SecureRandom)null, 0);
+			create(UTF8, "NIXUS", -1, (SecureRandom)null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -43,7 +44,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		}
 		try
 		{
-			create("utf8", "SHA-512", -1, (SecureRandom)null, 1);
+			create(UTF8, "SHA-512", -1, (SecureRandom)null, 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -52,7 +53,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		}
 		try
 		{
-			create("utf8", "SHA-512", 0, new SecureRandom(), 1);
+			create(UTF8, "SHA-512", 0, new SecureRandom(), 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -61,7 +62,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		}
 		try
 		{
-			create("utf8", "SHA-512", 1, null, 1);
+			create(UTF8, "SHA-512", 1, null, 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -70,7 +71,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		}
 		try
 		{
-			create("utf8", "SHA-512", -1, (SecureRandom)null, 0);
+			create(UTF8, "SHA-512", -1, (SecureRandom)null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -82,7 +83,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testSalted()
 	{
 		final HashAlgorithm a =
-			create("utf8", "SHA-512", 8, random(8), 5);
+			create(UTF8, "SHA-512", 8, random(8), 5);
 		assertEqualsN("SHA512s8i5", a);
 		assertEqualsL(72, a);
 
@@ -103,7 +104,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testSaltedMinimal()
 	{
 		final HashAlgorithm a =
-			create("utf8", "SHA-512", 1, random(1), 2);
+			create(UTF8, "SHA-512", 1, random(1), 2);
 		assertEqualsN("SHA512s1i2", a);
 		assertEqualsL(65, a);
 
@@ -124,7 +125,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testUnsalted()
 	{
 		final HashAlgorithm a =
-			create("utf8", "SHA-512", 0, (SecureRandom)null, 5);
+			create(UTF8, "SHA-512", 0, (SecureRandom)null, 5);
 		assertEqualsN("SHA512i5", a);
 		assertEqualsL(64, a);
 
@@ -145,7 +146,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testNoniterated()
 	{
 		final HashAlgorithm a =
-			create("utf8", "SHA-512", 8, random(8), 1);
+			create(UTF8, "SHA-512", 8, random(8), 1);
 		assertEqualsN("SHA512s8", a);
 		assertEqualsL(72, a);
 
@@ -166,7 +167,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testUnsaltedNoniterated()
 	{
 		final HashAlgorithm a =
-			create("utf8", "SHA-512", 0, (SecureRandom)null, 1);
+			create(UTF8, "SHA-512", 0, (SecureRandom)null, 1);
 		assertEqualsN("SHA512", a);
 		assertEqualsL(64, a);
 
@@ -195,7 +196,7 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 	public void testUnsaltedNoniteratedMD5()
 	{
 		final HashAlgorithm a =
-			create("utf8", "MD5", 0, (SecureRandom)null, 1);
+			create(UTF8, "MD5", 0, (SecureRandom)null, 1);
 		assertEqualsN("MD5", a);
 		assertEqualsL(16, a);
 

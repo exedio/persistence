@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
@@ -73,7 +74,7 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 
 		public ATextUrlFilter(final Media raw, final Media pasteValue)
 		{
-			super(raw, "text/plain", "utf-8", "<paste>", "</paste>", new StringField(), pasteValue);
+			super(raw, "text/plain", UTF8, "<paste>", "</paste>", new StringField(), pasteValue);
 		}
 	}
 

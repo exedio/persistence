@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharsetName.UTF8;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,7 +82,7 @@ final class MediaNameServer extends MediaPath
 		final long now = System.currentTimeMillis();
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
-		final byte[] contentBytes = content.getBytes("utf-8");
+		final byte[] contentBytes = content.getBytes(UTF8);
 
 		MediaUtil.send("text/plain", contentBytes, response);
 	}

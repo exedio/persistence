@@ -30,6 +30,7 @@ import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
 import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -699,7 +700,7 @@ public class StringTest extends AbstractRuntimeTest
 		final String message;
 		try
 		{
-			message = value+'('+valueChars+','+value.getBytes("utf8").length+')';
+			message = value+'('+valueChars+','+value.getBytes(UTF8).length+')';
 		}
 		catch(final UnsupportedEncodingException e)
 		{

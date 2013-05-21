@@ -18,11 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharsetName.UTF8;
+
 import java.io.IOException;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
+import com.exedio.cope.util.CharsetName;
 
 public final class TextUrlFilterItem extends Item
 {
@@ -32,13 +35,13 @@ public final class TextUrlFilterItem extends Item
 
 	static final TextUrlFilter fertig = new TextUrlFilterOverride(
 			roh,
-			"text/plain", "utf-8",
+			"text/plain", CharsetName.UTF8,
 			new StringField(),
 			new Media().lengthMax(3).contentType(MediaType.PNG));
 
 	void setFertigRaw(final String value) throws IOException
 	{
-		setFertigRaw(Media.toValue(value.getBytes("utf-8"), "text/plain"));
+		setFertigRaw(Media.toValue(value.getBytes(UTF8), "text/plain"));
 	}
 
 	String addFertigPaste(final String key)

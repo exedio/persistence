@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharsetName.UTF8;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -45,7 +47,7 @@ public class InitServlet extends HttpServlet
 		final byte[] textValue;
 		try
 		{
-			textValue = "This is an example file\nfor testing media data.\n".getBytes("utf8");
+			textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF8);
 		}
 		catch(final UnsupportedEncodingException e)
 		{

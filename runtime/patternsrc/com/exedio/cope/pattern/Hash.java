@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import java.security.SecureRandom;
 import java.util.Set;
@@ -63,7 +64,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, wrap(algorithm, "utf8"), DEFAULT_VALIDATOR);
+		this(storage, wrap(algorithm, UTF8), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm, final String encoding)
@@ -73,7 +74,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public Hash(final Algorithm algorithm)
 	{
-		this(newStorage(wrap(algorithm, "utf8")), algorithm);
+		this(newStorage(wrap(algorithm, UTF8)), algorithm);
 	}
 
 	public Hash(final HashAlgorithm algorithm)

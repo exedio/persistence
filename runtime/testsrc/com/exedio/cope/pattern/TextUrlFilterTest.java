@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.TextUrlFilterItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -198,7 +199,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 				@Override
 			   public void write(final byte b[], final int off, final int len) throws IOException
 			   {
-			   	assertEquals(body, new String(b, off, len, "utf8"));
+			   	assertEquals(body, new String(b, off, len, UTF8));
 			   	assertEquals(contentLength, len);
 			   }
 
@@ -252,7 +253,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", null, null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF8, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -261,7 +262,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", "", null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF8, "", null, null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -270,7 +271,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", "(", null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF8, "(", null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -279,7 +280,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", "(", "", null, null);
+			new TextUrlFilter(roh, "text/plain", UTF8, "(", "", null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -288,7 +289,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", "(", ")", null, null);
+			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -297,7 +298,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", "utf8", "(", ")", new StringField(), null);
+			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", new StringField(), null);
 			fail();
 		}
 		catch(final NullPointerException e)

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharsetName.UTF8;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
@@ -292,7 +293,7 @@ public abstract class MediaPath extends Pattern
 		try
 		{
 			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
-			messageDigest.update(plainText.getBytes("utf8"));
+			messageDigest.update(plainText.getBytes(UTF8));
 			final byte[] digest = messageDigest.digest();
 			final byte[] digestShrink = new byte[10];
 			int j = 0;

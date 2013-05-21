@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharsetName.UTF8;
+
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -301,7 +303,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		final byte[] plainTextBytes;
 		try
 		{
-			plainTextBytes = plainText.getBytes("utf8");
+			plainTextBytes = plainText.getBytes(UTF8);
 		}
 		catch(final UnsupportedEncodingException e)
 		{
@@ -320,7 +322,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 
 		try
 		{
-			assertFalse(algorithm.check((plainText+"x").getBytes("utf8"), Hex.decodeLower(expectedHash)));
+			assertFalse(algorithm.check((plainText+"x").getBytes(UTF8), Hex.decodeLower(expectedHash)));
 		}
 		catch(final UnsupportedEncodingException e)
 		{

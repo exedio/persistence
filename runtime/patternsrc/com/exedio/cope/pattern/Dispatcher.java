@@ -49,6 +49,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Iterables;
+import com.exedio.cope.util.CharsetName;
 import com.exedio.cope.util.JobContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -59,7 +60,7 @@ public final class Dispatcher extends Pattern
 
 	private static final long serialVersionUID = 1l;
 
-	private static final String ENCODING = "utf8";
+	private static final String ENCODING = CharsetName.UTF8;
 
 	static final Clock clock = new Clock();
 
