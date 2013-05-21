@@ -45,7 +45,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 				else if(key.equals("cluster"))
 					return "true";
 				else if(key.equals("connection.url"))
-					return "jdbc:hsqldb:testUrl";
+					return "jdbc:hsqldb:mem:testUrl";
 				else if(key.equals("connection.username"))
 					return "testUser";
 				else if(key.equals("connection.password"))
@@ -91,7 +91,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 				else if(key.equals("cluster"))
 					return "true";
 				else if(key.equals("connection.url"))
-					return "jdbc:hsqldb:testUrl";
+					return "jdbc:hsqldb:mem:testUrl";
 				else if(key.equals("connection.username"))
 					return "testUser";
 				else if(key.equals("connection.password"))

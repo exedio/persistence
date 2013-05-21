@@ -31,7 +31,7 @@ public class ConnectSource
 			public String get(final String key)
 			{
 				if(key.equals("connection.url"))
-					return "jdbc:hsqldb:testUrl";
+					return "jdbc:hsqldb:mem:testUrl";
 				else if(key.equals("connection.username"))
 					return "testUser";
 				else if(key.equals("connection.password"))
