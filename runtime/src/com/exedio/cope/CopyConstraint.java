@@ -61,10 +61,10 @@ public final class CopyConstraint extends Feature
 
 	private FunctionField<?> templateIfSet = null;
 
-	public FunctionField<?> getTemplate()
+	void resolveTemplate()
 	{
 		if(templateIfSet!=null)
-			return templateIfSet;
+			throw new RuntimeException(toString());
 
 		final Feature feature = target.getValueType().getFeature(copy.getName());
 		if(feature==null)
@@ -76,6 +76,13 @@ public final class CopyConstraint extends Feature
 			throw new RuntimeException("not final on copy: " + this + '/' + result);
 
 		templateIfSet = result;
+	}
+
+	public FunctionField<?> getTemplate()
+	{
+		final FunctionField<?> result = templateIfSet;
+		if(result==null)
+			throw new IllegalStateException("template not resolved " + this);
 		return result;
 	}
 

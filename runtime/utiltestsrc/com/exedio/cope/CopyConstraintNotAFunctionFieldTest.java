@@ -24,10 +24,9 @@ public class CopyConstraintNotAFunctionFieldTest extends TestCase
 {
 	public void testIt()
 	{
-		final CopyConstraint cc = Source.TYPE.getCopyConstraints().iterator().next();
 		try
 		{
-			cc.getTemplate();
+			new Model(Source.TYPE, Target.TYPE);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -56,7 +55,4 @@ public class CopyConstraintNotAFunctionFieldTest extends TestCase
 		private static final long serialVersionUID = 1l;
 		private Target(final ActivationParameters ap) { super(ap); }
 	}
-
-	@SuppressWarnings("unused")
-	private static final Model model = new Model(Source.TYPE, Target.TYPE);
 }

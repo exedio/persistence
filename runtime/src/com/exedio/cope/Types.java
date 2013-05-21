@@ -114,6 +114,14 @@ final class Types
 		for(final Type<?> type : typesSorted)
 			type.mount(model, parametersMap.get(type));
 
+		for(final Type<?> type : typesSorted)
+		{
+			for(final CopyConstraint constraint : type.getDeclaredCopyConstraints())
+			{
+				constraint.resolveTemplate();
+			}
+		}
+
 		this.typesByCacheIdTransiently = new Type<?>[concreteTypeCount];
 		{
 			int cacheIdTransiently = 0;
