@@ -119,43 +119,6 @@ public class FieldDoubleTest extends FieldTest
 		assertContains(item,
 			TYPE.search(someNotNullDouble.equal(0.0)));
 
-		try
-		{
-			item.setSomeNotNullDouble(Double.NaN);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("AttributeItem.someNotNullDouble#NaN", e.getMessage());
-		}
-		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
-
-		assertTrue(3.0<Double.POSITIVE_INFINITY);
-		assertTrue(3.0>Double.NEGATIVE_INFINITY);
-		assertTrue( Double.MAX_VALUE<Double.POSITIVE_INFINITY);
-		assertTrue(-Double.MAX_VALUE>Double.NEGATIVE_INFINITY);
-		try
-		{
-			item.setSomeNotNullDouble(Double.POSITIVE_INFINITY);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("AttributeItem.someNotNullDouble#Infinity", e.getMessage());
-		}
-		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
-
-		try
-		{
-			item.setSomeNotNullDouble(Double.NEGATIVE_INFINITY);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("AttributeItem.someNotNullDouble#-Infinity", e.getMessage());
-		}
-		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
-
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);
 		// TODO: passivate

@@ -346,6 +346,40 @@ public class DoubleTest extends AbstractRuntimeTest
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
 
+		try
+		{
+			item.setMandatory(Double.NaN);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("DoubleItem.mandatory#NaN", e.getMessage());
+		}
+
+		assertTrue(3.0<Double.POSITIVE_INFINITY);
+		assertTrue(3.0>Double.NEGATIVE_INFINITY);
+		assertTrue( Double.MAX_VALUE<Double.POSITIVE_INFINITY);
+		assertTrue(-Double.MAX_VALUE>Double.NEGATIVE_INFINITY);
+		try
+		{
+			item.setMandatory(Double.POSITIVE_INFINITY);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("DoubleItem.mandatory#Infinity", e.getMessage());
+		}
+
+		try
+		{
+			item.setMandatory(Double.NEGATIVE_INFINITY);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("DoubleItem.mandatory#-Infinity", e.getMessage());
+		}
+
 		// min4
 		try
 		{
