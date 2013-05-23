@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* class TransactionCounters becomes final.
+	This breaks backwards API compatibility, causes compiler error.
 * @PreventUrlGuessing causes response to carry Cache-Control: private
 * MediaUtil added
 * Media API Refactoring

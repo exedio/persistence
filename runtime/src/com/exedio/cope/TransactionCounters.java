@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class TransactionCounters
+public final class TransactionCounters
 {
 	private final long commitWithout;
 	private final long commitWith;
