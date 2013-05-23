@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DoubleField throws DoubleNaNException for NaN
+	instead of RuntimeException
 * DoubleField throws DoubleRangeViolationException for Infinity
 	instead of RuntimeException
 * class TransactionCounters becomes final.

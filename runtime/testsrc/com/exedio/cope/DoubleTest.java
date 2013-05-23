@@ -354,9 +354,26 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMandatory(NaN);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final DoubleNaNException e)
 		{
-			assertEquals("DoubleItem.mandatory#NaN", e.getMessage());
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(
+					"Not a Number (NaN) on " + item + " for " + mandatory,
+					e.getMessage());
+		}
+		try
+		{
+			new DoubleItem(NaN);
+			fail();
+		}
+		catch(final DoubleNaNException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(
+					"Not a Number (NaN) for " + mandatory,
+					e.getMessage());
 		}
 
 		assertTrue(3.0<POSITIVE_INFINITY);

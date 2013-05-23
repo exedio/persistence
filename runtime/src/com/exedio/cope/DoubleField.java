@@ -184,9 +184,8 @@ public final class DoubleField extends NumberField<Double>
 	{
 		final double valuePrimitive = value.doubleValue();
 
-		// TODO better exceptions
 		if(Double.isNaN(valuePrimitive))
-			throw new RuntimeException(getID() + '#' + valuePrimitive);
+			throw new DoubleNaNException(this, exceptionItem);
 
 		if(valuePrimitive<minimum)
 			throw new DoubleRangeViolationException(this, exceptionItem, value, true, minimum);
