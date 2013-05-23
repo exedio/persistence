@@ -27,16 +27,20 @@ final class TransactionCounter
 
 	void count(final boolean rollback, final boolean hadConnection)
 	{
+		final VolatileLong c;
+
 		if(hadConnection)
 			if(rollback)
-				rollbackWithConnection.inc();
+				c = rollbackWithConnection;
 			else
-				commitWithConnection.inc();
+				c = commitWithConnection;
 		else
 			if(rollback)
-				rollbackWithoutConnection.inc();
+				c = rollbackWithoutConnection;
 			else
-				commitWithoutConnection.inc();
+				c = commitWithoutConnection;
+
+		c.inc();
 	}
 
 	TransactionCounters getCounters()
