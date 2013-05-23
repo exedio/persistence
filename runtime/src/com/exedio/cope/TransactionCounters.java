@@ -20,50 +20,50 @@ package com.exedio.cope;
 
 public class TransactionCounters
 {
-	private final long commitWithoutConnection;
-	private final long commitWithConnection;
-	private final long rollbackWithoutConnection;
-	private final long rollbackWithConnection;
+	private final long commitWithout;
+	private final long commitWith;
+	private final long rollbackWithout;
+	private final long rollbackWith;
 
 	TransactionCounters(
-			final long commitWithoutConnection,
-			final long commitWithConnection,
-			final long rollbackWithoutConnection,
-			final long rollbackWithConnection)
+			final long commitWithout,
+			final long commitWith,
+			final long rollbackWithout,
+			final long rollbackWith)
 	{
-		this.commitWithoutConnection = commitWithoutConnection;
-		this.commitWithConnection = commitWithConnection;
-		this.rollbackWithoutConnection = rollbackWithoutConnection;
-		this.rollbackWithConnection = rollbackWithConnection;
+		this.commitWithout = commitWithout;
+		this.commitWith = commitWith;
+		this.rollbackWithout = rollbackWithout;
+		this.rollbackWith = rollbackWith;
 	}
 
 	public long getCommit()
 	{
-		return commitWithoutConnection + commitWithConnection;
+		return commitWithout + commitWith;
 	}
 
 	public long getCommitWithoutConnection()
 	{
-		return commitWithoutConnection;
+		return commitWithout;
 	}
 
 	public long getCommitWithConnection()
 	{
-		return commitWithConnection;
+		return commitWith;
 	}
 
 	public long getRollback()
 	{
-		return rollbackWithoutConnection + rollbackWithConnection;
+		return rollbackWithout + rollbackWith;
 	}
 
 	public long getRollbackWithoutConnection()
 	{
-		return rollbackWithoutConnection;
+		return rollbackWithout;
 	}
 
 	public long getRollbackWithConnection()
 	{
-		return rollbackWithConnection;
+		return rollbackWith;
 	}
 }
