@@ -20,10 +20,10 @@ package com.exedio.cope;
 
 final class TransactionCounter
 {
-	private final VolatileLong commitWithoutConnection = new VolatileLong();
-	private final VolatileLong commitWithConnection = new VolatileLong();
-	private final VolatileLong rollbackWithoutConnection = new VolatileLong();
-	private final VolatileLong rollbackWithConnection = new VolatileLong();
+	private final VolatileLong commitWithout = new VolatileLong();
+	private final VolatileLong commitWith = new VolatileLong();
+	private final VolatileLong rollbackWithout = new VolatileLong();
+	private final VolatileLong rollbackWith = new VolatileLong();
 
 	void count(final boolean rollback, final boolean hadConnection)
 	{
@@ -31,14 +31,14 @@ final class TransactionCounter
 
 		if(hadConnection)
 			if(rollback)
-				c = rollbackWithConnection;
+				c = rollbackWith;
 			else
-				c = commitWithConnection;
+				c = commitWith;
 		else
 			if(rollback)
-				c = rollbackWithoutConnection;
+				c = rollbackWithout;
 			else
-				c = commitWithoutConnection;
+				c = commitWithout;
 
 		c.inc();
 	}
@@ -46,9 +46,9 @@ final class TransactionCounter
 	TransactionCounters getCounters()
 	{
 		return new TransactionCounters(
-				commitWithoutConnection.get(),
-				commitWithConnection.get(),
-				rollbackWithoutConnection.get(),
-				rollbackWithConnection.get());
+				commitWithout.get(),
+				commitWith.get(),
+				rollbackWithout.get(),
+				rollbackWith.get());
 	}
 }
