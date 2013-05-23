@@ -711,7 +711,7 @@ public final class Model implements Serializable
 
 	public TransactionCounters getTransactionCounters()
 	{
-		return transactionCounter.getCounters();
+		return transactionCounter.get();
 	}
 
 	public void clearCache()

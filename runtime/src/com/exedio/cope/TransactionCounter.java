@@ -43,7 +43,7 @@ final class TransactionCounter
 		c.inc();
 	}
 
-	TransactionCounters getCounters()
+	TransactionCounters get()
 	{
 		return new TransactionCounters(
 				commitWithout.get(),
