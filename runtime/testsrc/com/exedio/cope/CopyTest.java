@@ -221,6 +221,28 @@ public class CopyTest extends AbstractRuntimeTest
 		}
 		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
 		check();
+
+		try
+		{
+			new CopySourceItem(target1);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertEquals(templateStringCopyFromTarget, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals("template1", e.getExpectedValue());
+			assertEquals(null, e.getActualValue());
+			assertEquals(target1, e.getTargetItem());
+			assertEquals(
+					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"expected 'template1' " +
+					"from target " + target1.getCopeID() + ", " +
+					"but was null",
+				e.getMessage());
+		}
+		assertContains(self1, self2, selfN, source1, source2, sourceN, sourceNT, TYPE.search());
+		check();
 	}
 
 	private static final void check()

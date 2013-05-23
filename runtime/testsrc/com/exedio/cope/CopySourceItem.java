@@ -36,6 +36,13 @@ final class CopySourceItem extends Item
 		return "toString(" + getCopeID() + ')';
 	}
 
+	CopySourceItem(final CopyTargetItem targetItem)
+	{
+		this(
+			CopySourceItem.targetItem.map(targetItem)
+		);
+	}
+
 	/**
 
 	 **
