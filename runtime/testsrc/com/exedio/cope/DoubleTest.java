@@ -24,6 +24,9 @@ import static com.exedio.cope.DoubleItem.mandatory;
 import static com.exedio.cope.DoubleItem.max4;
 import static com.exedio.cope.DoubleItem.min4;
 import static com.exedio.cope.DoubleItem.min4Max8;
+import static java.lang.Double.NEGATIVE_INFINITY;
+import static java.lang.Double.NaN;
+import static java.lang.Double.POSITIVE_INFINITY;
 import static java.lang.Double.valueOf;
 
 import java.util.Date;
@@ -269,12 +272,12 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(20.2, copy.getMaximum());
 		}
 
-		assertIllegalRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
-		assertIllegalRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
-		assertIllegalRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
-		assertIllegalRange(44.22, Double.NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
-		assertIllegalRange(Double.NaN, 44.22, "minimum must not be NaN, but was NaN.");
-		assertIllegalRange(44.22, Double.NaN, "maximum must not be NaN, but was NaN.");
+		assertIllegalRange(POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
+		assertIllegalRange(44.22, POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
+		assertIllegalRange(NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
+		assertIllegalRange(44.22, NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
+		assertIllegalRange(NaN, 44.22, "minimum must not be NaN, but was NaN.");
+		assertIllegalRange(44.22, NaN, "maximum must not be NaN, but was NaN.");
 		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
 		assertIllegalRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
 		assertIllegalRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");
@@ -348,7 +351,7 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.setMandatory(Double.NaN);
+			item.setMandatory(NaN);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -356,13 +359,13 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals("DoubleItem.mandatory#NaN", e.getMessage());
 		}
 
-		assertTrue(3.0<Double.POSITIVE_INFINITY);
-		assertTrue(3.0>Double.NEGATIVE_INFINITY);
-		assertTrue( Double.MAX_VALUE<Double.POSITIVE_INFINITY);
-		assertTrue(-Double.MAX_VALUE>Double.NEGATIVE_INFINITY);
+		assertTrue(3.0<POSITIVE_INFINITY);
+		assertTrue(3.0>NEGATIVE_INFINITY);
+		assertTrue( Double.MAX_VALUE<POSITIVE_INFINITY);
+		assertTrue(-Double.MAX_VALUE>NEGATIVE_INFINITY);
 		try
 		{
-			item.setMandatory(Double.POSITIVE_INFINITY);
+			item.setMandatory(POSITIVE_INFINITY);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -372,7 +375,7 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.setMandatory(Double.NEGATIVE_INFINITY);
+			item.setMandatory(NEGATIVE_INFINITY);
 			fail();
 		}
 		catch(final RuntimeException e)
