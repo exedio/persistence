@@ -368,9 +368,17 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMandatory(POSITIVE_INFINITY);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final DoubleRangeViolationException e)
 		{
-			assertEquals("DoubleItem.mandatory#Infinity", e.getMessage());
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(POSITIVE_INFINITY, e.getValue());
+			assertEquals(false, e.isTooSmall());
+			assertEquals(
+					"range violation on " + item + ", " +
+					"Infinity is too big for " + mandatory + ", " +
+					"must be at most " + MAX + ".",
+					e.getMessage());
 		}
 
 		try
@@ -378,9 +386,17 @@ public class DoubleTest extends AbstractRuntimeTest
 			item.setMandatory(NEGATIVE_INFINITY);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final DoubleRangeViolationException e)
 		{
-			assertEquals("DoubleItem.mandatory#-Infinity", e.getMessage());
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(NEGATIVE_INFINITY, e.getValue());
+			assertEquals(true, e.isTooSmall());
+			assertEquals(
+					"range violation on " + item + ", " +
+					"-Infinity is too small for " + mandatory + ", " +
+					"must be at least " + MIN + ".",
+					e.getMessage());
 		}
 
 		// min4

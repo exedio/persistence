@@ -185,8 +185,6 @@ public final class DoubleField extends NumberField<Double>
 		final double valuePrimitive = value.doubleValue();
 
 		// TODO better exceptions
-		if(Double.isInfinite(valuePrimitive))
-			throw new RuntimeException(getID() + '#' + valuePrimitive);
 		if(Double.isNaN(valuePrimitive))
 			throw new RuntimeException(getID() + '#' + valuePrimitive);
 
