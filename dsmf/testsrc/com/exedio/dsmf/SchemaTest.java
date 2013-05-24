@@ -55,6 +55,7 @@ public abstract class SchemaTest extends TestCase
 		final String connectionUrl      = value      ("connection.url",      (String)null);
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", (String)null);
+		final String mysqlRowFormat     = value      ("schema.mysql.rowFormat", "NONE");
 
 		@SuppressWarnings("deprecation")
 		Properties()
@@ -72,6 +73,7 @@ public abstract class SchemaTest extends TestCase
 		final String url = config.connectionUrl;
 		final String username = config.connectionUsername;
 		final String password = config.connectionPassword;
+		final String mysqlRowFormat = config.mysqlRowFormat;
 
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
@@ -86,7 +88,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			dialect = new MysqlDialect("this");
+			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat, "this");
 			stringType = "varchar(8) character set utf8 collate utf8_bin";
 			intType = "int";
 			intType2 = "bigint";

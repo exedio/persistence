@@ -77,6 +77,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionUniqueName = value("schema.revision.unique", "protected");
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
+	final MysqlRowFormat       mysqlRowFormat     = myEnumValue("schema.mysql.rowFormat", MysqlRowFormat.class, MysqlRowFormat.NONE);
 
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution

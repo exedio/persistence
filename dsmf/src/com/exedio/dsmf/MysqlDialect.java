@@ -29,11 +29,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MysqlDialect extends Dialect
 {
+	private final String rowFormat;
 	final String primaryKeyColumnName;
 
-	public MysqlDialect(final String primaryKeyColumnName)
+	public MysqlDialect(final String rowFormat, final String primaryKeyColumnName)
 	{
 		super(null);
+		this.rowFormat = rowFormat;
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 
@@ -251,6 +253,9 @@ public final class MysqlDialect extends Dialect
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(ENGINE);
+		if(rowFormat!=null)
+			bf.append(" row_format=").
+				append(rowFormat);
 	}
 
 	@Override
@@ -335,6 +340,10 @@ public final class MysqlDialect extends Dialect
 		bf.append("create table ").
 			append(sequenceName).
 			append("(" + SEQUENCE_COLUMN + " integer auto_increment primary key)" + ENGINE);
+
+		if(rowFormat!=null)
+			bf.append(" row_format=").
+				append(rowFormat);
 
 		initializeSequence(bf, sequenceName, startWith);
 	}
