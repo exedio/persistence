@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern.webtest;
 
+import static java.io.File.createTempFile;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
@@ -540,7 +541,7 @@ public class MediaServletTest extends TestCase
 		else
 		{
 			final byte[] b = new byte[20000];
-			final File f = File.createTempFile(MediaServletTest.class.getName(), ".tmp");
+			final File f = createTempFile(MediaServletTest.class.getName(), ".tmp");
 			System.out.println("----------- " + f.getAbsolutePath() + " ---------------");
 			final OutputStream out = new FileOutputStream(f);
 			for(int len = in.read(b); len>=0; len = in.read(b))

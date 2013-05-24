@@ -23,6 +23,7 @@ import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -99,7 +100,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
 
-			final File tempFile = File.createTempFile(DataTest.class.getName(), ".tmp");
+			final File tempFile = createTempFile(DataTest.class.getName(), ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);
@@ -116,7 +117,7 @@ public class DataTest extends AbstractRuntimeTest
 			item.getData(tempStream);
 			assertEquals(0, tempStream.toByteArray().length);
 
-			final File tempFile = File.createTempFile(DataTest.class.getName(), ".tmp");
+			final File tempFile = createTempFile(DataTest.class.getName(), ".tmp");
 			delete(tempFile);
 			assertFalse(tempFile.exists());
 			item.getData(tempFile);

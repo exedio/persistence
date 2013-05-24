@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -193,7 +194,7 @@ public class MediaTypeTest extends CopeAssert
 			assertEquals("empty", e.getMessage());
 		}
 
-		final File file = File.createTempFile(MediaTypeTest.class.getName(), ".dat");
+		final File file = createTempFile(MediaTypeTest.class.getName(), ".dat");
 		StrictFile.delete(file);
 		try
 		{
@@ -257,7 +258,7 @@ public class MediaTypeTest extends CopeAssert
 
 	private File file(final byte[] bytes) throws IOException
 	{
-		final File result = deleteOnTearDown(File.createTempFile(MediaTypeTest.class.getName(), ".dat"));
+		final File result = deleteOnTearDown(createTempFile(MediaTypeTest.class.getName(), ".dat"));
 		final FileOutputStream stream = new FileOutputStream(result);
 		try
 		{

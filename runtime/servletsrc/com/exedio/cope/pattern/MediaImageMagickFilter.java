@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -248,8 +249,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(!isEnabled())
 			return;
 
-		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
+		final File  inFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
@@ -317,8 +318,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private final File execute(final Item item, final MediaType contentType, final boolean commit) throws IOException
 	{
-		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
+		final File  inFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();

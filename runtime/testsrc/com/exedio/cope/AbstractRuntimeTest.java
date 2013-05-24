@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -253,7 +254,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		FileOutputStream s = null;
 		try
 		{
-			result = File.createTempFile(AbstractRuntimeTest.class.getName(), ".tmp");
+			result = createTempFile(AbstractRuntimeTest.class.getName(), ".tmp");
 			s = new FileOutputStream(result);
 			s.write(data);
 		}

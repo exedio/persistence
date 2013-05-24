@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -157,7 +158,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeTest
 		}
 		assertTrue(read>0);
 
-		final File result = deleteOnTearDown(File.createTempFile(TextUrlFilterZipTest.class.getName(), ""));
+		final File result = deleteOnTearDown(createTempFile(TextUrlFilterZipTest.class.getName(), ""));
 		final FileOutputStream out = new FileOutputStream(result);
 		try
 		{
