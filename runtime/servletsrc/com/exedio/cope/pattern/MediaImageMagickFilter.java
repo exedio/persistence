@@ -249,16 +249,16 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		if(!isEnabled())
 			return;
 
-		final File  inFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
+		final File  in = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
+		final File out = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
 		command[1] = "-quiet";
 		for(int i = 0; i<options.length; i++)
 			command[i+2] = options[i];
-		command[command.length-2] = inFile.getAbsolutePath();
-		command[command.length-1] = outFile.getAbsolutePath();
+		command[command.length-2] = in.getAbsolutePath();
+		command[command.length-1] = out.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
 
 		final byte[] b = new byte[1580];
@@ -267,7 +267,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
 			try
 			{
-				final FileOutputStream outStream = new FileOutputStream(inFile);
+				final FileOutputStream outStream = new FileOutputStream(in);
 				try
 				{
 					for(int len = inStream.read(b); len>=0; len = inStream.read(b))
@@ -296,16 +296,16 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 					"command " + Arrays.asList(command) +
 					" exited with " + exitValue +
 					" for feature " + getID() +
-					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath() +
+					", left " + in.getAbsolutePath() +
+					" and " + out.getAbsolutePath() +
 					( exitValue==4 ?
 						" (if running on Windows, make sure ImageMagick convert.exe and " +
 							"not \\Windows\\system32\\convert.exe is called)"
 						: ""
 					) );
 
-		delete(inFile);
-		delete(outFile);
+		delete(in);
+		delete(out);
 	}
 
 	private MediaType outputContentType(final MediaType inputContentType)
@@ -322,19 +322,19 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			final boolean commit)
 		throws IOException
 	{
-		final File  inFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
+		final File  in = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
+		final File out = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
 
 		final String[] command = new String[options.length+4];
 		command[0] = getConvertBinary();
 		command[1] = "-quiet";
 		for(int i = 0; i<options.length; i++)
 			command[i+2] = options[i];
-		command[command.length-2] = inFile.getAbsolutePath();
-		command[command.length-1] = outFile.getAbsolutePath();
+		command[command.length-2] = in.getAbsolutePath();
+		command[command.length-1] = out.getAbsolutePath();
 		//System.out.println("-----------------"+Arrays.toString(command));
 
-		source.getBody(item, inFile);
+		source.getBody(item, in);
 
 		if(commit)
 			commit();
@@ -346,17 +346,17 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 					" exited with " + exitValue +
 					" for feature " + getID() +
 					" and item " + item.getCopeID() +
-					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath() +
+					", left " + in.getAbsolutePath() +
+					" and " + out.getAbsolutePath() +
 					( exitValue==4 ?
 						" (if running on Windows, make sure ImageMagick convert.exe and " +
 							"not \\Windows\\system32\\convert.exe is called)"
 						: ""
 					) );
 
-		delete(inFile);
+		delete(in);
 
-		return outFile;
+		return out;
 	}
 
 	private int execute(final String[] command) throws IOException
