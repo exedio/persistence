@@ -316,7 +316,11 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 				: inputContentType;
 	}
 
-	private final File execute(final Item item, final MediaType contentType, final boolean commit) throws IOException
+	private final File execute(
+			final Item item,
+			final MediaType contentType,
+			final boolean commit)
+		throws IOException
 	{
 		final File  inFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
