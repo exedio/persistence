@@ -31,7 +31,7 @@ import com.exedio.cope.Transaction;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
 
-public class CopeModelTestTest extends CopeModelTest
+public abstract class CopeModelTestTest extends CopeModelTest
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 
@@ -40,32 +40,10 @@ public class CopeModelTestTest extends CopeModelTest
 		super(MODEL);
 	}
 
-	public void test1()
-	{
-		doTest();
-	}
-
-	public void test2()
-	{
-		doTest();
-	}
-
-	public void testCommitted()
-	{
-		doTest();
-		model.commit();
-	}
-
-	public void testRolledback()
-	{
-		doTest();
-		model.rollback();
-	}
-
-	private void doTest()
+	protected final void doTest()
 	{
 		assertTrue(model.hasCurrentTransaction());
-		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
+		assertEquals("tx:" + getClass().getName(), model.currentTransaction().getName());
 		model.checkEmptySchema();
 
 		final JUnitTestItem i1 = new JUnitTestItem(100);

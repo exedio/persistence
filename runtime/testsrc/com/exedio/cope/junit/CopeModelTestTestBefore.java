@@ -18,24 +18,10 @@
 
 package com.exedio.cope.junit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+public class CopeModelTestTestBefore extends CopeModelTestTest
 {
-	public static Test suite()
+	public void test1()
 	{
-		final TestSuite suite = new TestSuite();
-
-		// BEWARE
-		// execution order of tests does matter !!!
-		suite.addTestSuite(CopeModelTestTestBefore.class);
-		suite.addTestSuite(CopeModelTestTestCommitted.class);
-		suite.addTestSuite(CopeModelTestTestRolledback.class);
-		suite.addTestSuite(CopeModelTestTestAfter.class);
-		// end of: order of tests does matter
-
-		return suite;
+		doTest();
 	}
 }
