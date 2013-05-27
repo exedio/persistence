@@ -18,25 +18,19 @@
 
 package com.exedio.cope.junit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
-public class PackageTest extends TestCase
+public class CopeModelTestTestRestart extends CopeModelTestTest
 {
-	public static Test suite()
+	public void testCommitted()
 	{
-		final TestSuite suite = new TestSuite();
+		doTest();
+		model.commit();
+		model.startTransaction("tx2:" + CopeModelTestTestRestart.class.getName());
 
-		// BEWARE
-		// execution order of tests does matter !!!
-		suite.addTestSuite(CopeModelTestTestBefore.class);
-		suite.addTestSuite(CopeModelTestTestCommitted.class);
-		suite.addTestSuite(CopeModelTestTestRolledback.class);
-		suite.addTestSuite(CopeModelTestTestRestart.class);
-		suite.addTestSuite(CopeModelTestTestAfter.class);
-		// end of: order of tests does matter
-
-		return suite;
+		final JUnitTestItem i4 = new JUnitTestItem(104);
+		assertEquals("JUnitTestItem-4", i4.getCopeID());
+		assertEquals(1004, i4.getNext());
+		assertEquals(2004, nextSequence());
 	}
 }
