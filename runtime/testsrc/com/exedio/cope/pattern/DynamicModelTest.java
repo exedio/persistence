@@ -480,6 +480,12 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, colorBlue.getName(de));
 		assertEquals("colorBlueEN", colorBlue.getName(en));
 
+		{
+			assertSame("colorBlueEN", colorBlue.getName(en));
+			final DynamicModel.Enum<?> colorBlueWildcard = colorBlue;
+			assertSame("colorBlueEN", color.as(colorBlueWildcard).getName(en));
+		}
+
 		// test model mismatch
 		try
 		{

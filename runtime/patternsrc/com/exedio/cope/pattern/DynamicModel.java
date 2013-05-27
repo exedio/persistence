@@ -424,6 +424,14 @@ public final class DynamicModel<L> extends Pattern
 		Cope.setAndCast(getField(field), item, value);
 	}
 
+	void checkMatchingLocalization(final DynamicModel<?> pattern)
+	{
+		if(localeTemplate.getValueClass()!=pattern.localeTemplate.getValueClass())
+			throw new ClassCastException(
+					"expected a " + localeTemplate.getValueClass().getName() +
+					", but was a " + pattern.localeTemplate.getValueClass().getName());
+	}
+
 	public static enum ValueType
 	{
 		STRING (String.class),
@@ -704,6 +712,16 @@ public final class DynamicModel<L> extends Pattern
 							m.enumParent.map(this),
 							p.enumPosition.map(position),
 							p.enumCode.map(code));
+		}
+
+		public Enum<L> as(final Enum<?> value)
+		{
+			assertEnum();
+			getPattern().checkMatchingLocalization(value.getPattern());
+
+			@SuppressWarnings("unchecked") // OK: is checked on runtime
+			final Enum<L> result = (Enum<L>)value;
+			return result;
 		}
 
 		public Type<L> getParent()

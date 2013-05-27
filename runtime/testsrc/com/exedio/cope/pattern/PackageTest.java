@@ -64,6 +64,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(CompositeFieldRenamedSchemaTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
+		suite.addTestSuite(DynamicModelCastTest.class);
 		suite.addTestSuite(HistoryTest.class);
 		suite.addTestSuite(DispatcherModelTest.class);
 		suite.addTestSuite(DispatcherTest.class);
