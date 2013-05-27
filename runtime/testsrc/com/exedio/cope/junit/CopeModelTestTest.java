@@ -33,7 +33,7 @@ import com.exedio.cope.util.ModificationListener;
 
 public abstract class CopeModelTestTest extends CopeModelTest
 {
-	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
+	private static final Model MODEL = new Model(JUnitTestItem.TYPE, JUnitTestItemUnused.TYPE);
 
 	public CopeModelTestTest()
 	{
@@ -60,6 +60,11 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(1001, i2.getNext());
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
+
+		assertEquals(-10, i1.getNextUnused());
+		assertEquals(-10, i2.getNextUnused());
+		assertEquals(-10, i3.getNextUnused());
+		assertEquals(-10, i4.getNextUnused());
 
 		assertEquals(2000, nextSequence());
 		assertEquals(2001, nextSequence());
