@@ -316,6 +316,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
