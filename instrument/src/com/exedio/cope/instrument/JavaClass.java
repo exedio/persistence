@@ -185,7 +185,11 @@ final class JavaClass extends JavaFeature
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
-		catch(final EvalError e) // TODO method should throw this
+		catch(final NoClassDefFoundError e)
+		{
+			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
+		}
+		catch(final EvalError e)
 		{
 			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
 		}
