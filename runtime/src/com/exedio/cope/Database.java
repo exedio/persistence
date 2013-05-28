@@ -269,7 +269,6 @@ final class Database
 	{
 		buildStage = false;
 
-		//final long start = System.nanoTime();
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select t,c from(");
 		int n = 0;
@@ -311,7 +310,6 @@ final class Database
 		});
 		if(message!=null)
 			throw new IllegalStateException(message);
-		//System.out.println("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
 
 		// NOTICE
 		// The following flushSequences() makes CopeTest work again, so that sequences do start

@@ -186,11 +186,7 @@ final class Connect
 
 	void deleteSchema()
 	{
-		{
-			//final long start = System.currentTimeMillis();
-			dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
-			//System.out.println("experimental deleteSchema " + (System.currentTimeMillis()-start) + "ms");
-		}
+		dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
 		clearCache();
 		database.flushSequences();
 	}
