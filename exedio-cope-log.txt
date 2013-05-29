@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* innodb_strict_mode on MySQL enabled
 * DynamicModel.Field#as(Enum<?>) added
 * DoubleField throws DoubleNaNException for NaN
 	instead of RuntimeException
