@@ -46,6 +46,7 @@ final class MysqlDialect extends Dialect
 	 */
 	private final boolean placeholdersInLimit;
 	private final boolean supportsUniqueViolation;
+	private final String sessionVariables;
 
 	protected MysqlDialect(final DialectParameters parameters)
 	{
@@ -56,6 +57,17 @@ final class MysqlDialect extends Dialect
 						Table.PK_COLUMN_NAME));
 		this.placeholdersInLimit = parameters.environmentInfo.getDatabaseMajorVersion()>=5;
 		this.supportsUniqueViolation = parameters.environmentInfo.isDatabaseVersionAtLeast(5, 1);
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("sql_mode='" + SQL_MODE + "'");
+
+			// since 5.1.38
+			// http://dev.mysql.com/doc/refman/5.1/en/innodb-parameters.html#sysvar_innodb_strict_mode
+			if(parameters.environmentInfo.isDatabaseVersionAtLeast(5, 2))
+				bf.append(",innodb_strict_mode=1");
+
+			sessionVariables = bf.toString();
+		}
 	}
 
 	@Override
@@ -65,7 +77,7 @@ final class MysqlDialect extends Dialect
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
-		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "',innodb_strict_mode=1");
+		info.setProperty("sessionVariables", sessionVariables);
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		//info.setProperty("profileSQL", TRUE);
