@@ -82,6 +82,11 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
+	public void delete(final StringBuilder bf, final Dialect dialect)
+	{
+		dialect.deleteSequence(bf, name, start);
+	}
+
 	public void flush()
 	{
 		// empty

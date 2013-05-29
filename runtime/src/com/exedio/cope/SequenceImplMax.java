@@ -97,6 +97,11 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
+	public void delete(final StringBuilder bf, final Dialect dialect)
+	{
+		flush();
+	}
+
 	public void flush()
 	{
 		synchronized(lock)

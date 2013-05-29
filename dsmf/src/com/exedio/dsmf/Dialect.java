@@ -191,8 +191,11 @@ public abstract class Dialect
 	/**
 	 * The default implementation just drops and re-creates the schema.
 	 * Subclasses are encouraged to provide a more efficient implementation.
+	 * @deprecated Use {@link com.exedio.cope.Model#deleteSchema()} instead.
 	 */
-	public void deleteSchema(final Schema schema)
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public final void deleteSchema(final Schema schema)
 	{
 		schema.drop();
 		schema.create();

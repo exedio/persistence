@@ -186,7 +186,7 @@ final class Connect
 
 	void deleteSchema()
 	{
-		dialect.dsmfDialect.deleteSchema(database.makeSchema(false));
+		dialect.deleteSchema(database, connectionPool);
 		clearCache();
 		database.flushSequences();
 	}

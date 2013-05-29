@@ -28,6 +28,9 @@ import java.util.Properties;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+import com.exedio.dsmf.SQLRuntimeException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This MySQL driver requires the InnoDB engine.
@@ -327,6 +330,17 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void deleteSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		bf.append("truncate ").
+			append(sequenceName);
+
+		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, sequenceName, startWith);
+
+		bf.append(';');
+	}
+
+	@Override
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
@@ -374,6 +388,80 @@ final class MysqlDialect extends Dialect
 				return resultSet.getInt(1);
 			}
 		});
+	}
+
+	@Override
+	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	{
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append("set FOREIGN_KEY_CHECKS=0;");
+
+		for(final Table table : database.getTables())
+		{
+			bf.append("truncate ").
+				append(table.quotedID).
+				append(';');
+		}
+
+		bf.append("set FOREIGN_KEY_CHECKS=1;");
+
+		for(final SequenceX sequence : database.getSequences())
+			sequence.delete(bf, this);
+
+		execute(connectionPool, bf.toString());
+	}
+
+	private static void execute(final ConnectionPool connectionPool, final String sql)
+	{
+		Connection connection = null;
+		try
+		{
+			connection = connectionPool.get(true);
+			execute(connection, sql);
+
+			// NOTE:
+			// until mysql connector 5.0.4 putting connection back into the pool
+			// causes exception later:
+			// java.sql.SQLException: ResultSet is from UPDATE. No Data.
+			connectionPool.put(connection);
+			connection = null;
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+		finally
+		{
+			if(connection!=null)
+			{
+				try
+				{
+					// do not put it into connection pool again
+					// because foreign key constraints could be disabled
+					connection.close();
+				}
+				catch(final SQLException e)
+				{
+					// exception is already thrown
+				}
+			}
+		}
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	private static void execute(final Connection connection, final String sql) throws SQLException
+	{
+		final java.sql.Statement sqlStatement =
+			connection.createStatement();
+		try
+		{
+			sqlStatement.executeUpdate(sql);
+		}
+		finally
+		{
+			sqlStatement.close();
+		}
 	}
 
 	@Override

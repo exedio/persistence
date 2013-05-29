@@ -18,14 +18,11 @@
 
 package com.exedio.dsmf;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 import com.exedio.dsmf.Node.ResultSetHandler;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MysqlDialect extends Dialect
 {
@@ -348,7 +345,7 @@ public final class MysqlDialect extends Dialect
 		initializeSequence(bf, sequenceName, startWith);
 	}
 
-	private static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	public static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
 		// From the MySQL documentation:
 		//
@@ -368,94 +365,10 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	private void deleteSequence(final StringBuilder bf, final Sequence sequence)
-	{
-		bf.append("truncate ").
-			append(quoteName(sequence.name));
-
-		initializeSequence(bf, sequence.name, sequence.startWith);
-
-		bf.append(';');
-	}
-
 	@Override
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
 		bf.append("drop table ").
 			append(sequenceName);
-	}
-
-	@Override
-	public void deleteSchema(final Schema schema)
-	{
-		final StringBuilder bf = new StringBuilder();
-
-		bf.append("set FOREIGN_KEY_CHECKS=0;");
-
-		for(final Table table : schema.getTables())
-		{
-			bf.append("truncate ").
-				append(quoteName(table.name)).
-				append(';');
-		}
-
-		bf.append("set FOREIGN_KEY_CHECKS=1;");
-
-		for(final Sequence sequence : schema.getSequences())
-			deleteSequence(bf, sequence);
-
-		execute(schema.connectionProvider, bf.toString());
-	}
-
-	private static void execute(final ConnectionProvider connectionProvider, final String sql)
-	{
-		Connection connection = null;
-		try
-		{
-			connection = connectionProvider.getConnection();
-			execute(connection, sql);
-
-			// NOTE:
-			// until mysql connector 5.0.4 putting connection back into the pool
-			// causes exception later:
-			// java.sql.SQLException: ResultSet is from UPDATE. No Data.
-			connectionProvider.putConnection(connection);
-			connection = null;
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, sql);
-		}
-		finally
-		{
-			if(connection!=null)
-			{
-				try
-				{
-					// do not put it into connection pool again
-					// because foreign key constraints could be disabled
-					connection.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
-	}
-
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private static void execute(final Connection connection, final String sql) throws SQLException
-	{
-		final java.sql.Statement sqlStatement =
-			connection.createStatement();
-		try
-		{
-			sqlStatement.executeUpdate(sql);
-		}
-		finally
-		{
-			sqlStatement.close();
-		}
 	}
 }

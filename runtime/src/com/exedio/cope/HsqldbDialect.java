@@ -281,4 +281,45 @@ final class HsqldbDialect extends Dialect
 			}
 		});
 	}
+
+	@Override
+	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	{
+		final StringBuilder bf = new StringBuilder();
+
+		for(final Table table : database.getTables())
+		{
+			bf.append("truncate table ").
+				append(table.quotedID).
+				append(" restart identity and commit no check;");
+		}
+
+		for(final SequenceX sequence : database.getSequences())
+			sequence.delete(bf, this);
+
+		execute(connectionPool, bf.toString());
+	}
+
+	private static void execute(final ConnectionPool connectionPool, final String sql)
+	{
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			Executor.update(connection, sql);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
+	}
+
+	@Override
+	protected void deleteSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		bf.append("alter sequence ").
+			append(dsmfDialect.quoteName(sequenceName)).
+			append(" restart with ").
+			append(startWith).
+			append(';');
+	}
 }
