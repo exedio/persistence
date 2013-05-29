@@ -30,7 +30,11 @@ final class SequenceImplSequence implements SequenceImpl
 	private final ConnectionPool connectionPool;
 	private final String name;
 
-	SequenceImplSequence(final IntegerColumn column, final int start, final ConnectionPool connectionPool, final Database database)
+	SequenceImplSequence(
+			final IntegerColumn column,
+			final int start,
+			final ConnectionPool connectionPool,
+			final Database database)
 	{
 		this.start = start;
 		this.executor = database.executor;
