@@ -181,6 +181,14 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	{
+		bf.append("ALTER SEQUENCE ").
+			append(quotedName).
+			append(" RESTART;");
+	}
+
+	@Override
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
@@ -227,5 +235,42 @@ final class PostgresqlDialect extends Dialect
 				return ((Long)o).intValue() + 1;
 			}
 		});
+	}
+
+	@Override
+	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	{
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append("truncate ");
+		boolean first = true;
+		for(final Table table : database.getTables())
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(',');
+
+			bf.append(table.quotedID);
+		}
+		bf.append(';');
+
+		for(final SequenceX sequence : database.getSequences())
+			sequence.delete(bf, this);
+
+		execute(connectionPool, bf.toString());
+	}
+
+	private static void execute(final ConnectionPool connectionPool, final String sql)
+	{
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			Executor.update(connection, sql);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }
