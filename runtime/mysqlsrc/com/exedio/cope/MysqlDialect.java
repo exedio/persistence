@@ -47,6 +47,7 @@ final class MysqlDialect extends Dialect
 	private final boolean placeholdersInLimit;
 	private final boolean supportsUniqueViolation;
 	private final String sessionVariables;
+	private final String deleteTable;
 
 	protected MysqlDialect(final DialectParameters parameters)
 	{
@@ -68,6 +69,7 @@ final class MysqlDialect extends Dialect
 
 			sessionVariables = bf.toString();
 		}
+		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
 	@Override
@@ -411,7 +413,7 @@ final class MysqlDialect extends Dialect
 
 		for(final Table table : database.getTables())
 		{
-			bf.append("truncate ").
+			bf.append(deleteTable).
 				append(table.quotedID).
 				append(';');
 		}

@@ -78,6 +78,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
 	final MysqlRowFormat       mysqlRowFormat     = myEnumValue("schema.mysql.rowFormat", MysqlRowFormat.class, MysqlRowFormat.NONE);
+	final boolean mysqlAvoidTruncate              =       value("schema.mysql.avoidTruncate", false);
 
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
