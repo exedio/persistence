@@ -585,6 +585,9 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/jdbc/@{env.driver}" />
 						<pathelement location="lib/exedio-cope-util.jar" />
+						<pathelement location="lib/slf4j-api.jar" />
+						<pathelement location="lib/slf4j-log4j12.jar" />
+						<pathelement location="lib/log4j.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/teardownContextPath" />
