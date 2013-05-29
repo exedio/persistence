@@ -99,25 +99,11 @@ final class Database
 		tables.add(table);
 	}
 
-	List<Table> getTables()
-	{
-		if(buildStage)
-			throw new RuntimeException();
-		return Collections.unmodifiableList(tables);
-	}
-
 	void addSequence(final SequenceX sequence)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
 		sequences.add(sequence);
-	}
-
-	List<SequenceX> getSequences()
-	{
-		if(buildStage)
-			throw new RuntimeException();
-		return Collections.unmodifiableList(sequences);
 	}
 
 	List<SequenceInfo> getSequenceInfo()
@@ -655,5 +641,13 @@ final class Database
 	{
 		for(final SequenceX sequence : sequences)
 			sequence.flush();
+	}
+
+	void deleteSchema()
+	{
+		dialect.deleteSchema(
+				Collections.unmodifiableList(tables),
+				Collections.unmodifiableList(sequences),
+				connectionPool);
 	}
 }

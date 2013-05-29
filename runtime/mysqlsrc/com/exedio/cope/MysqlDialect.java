@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -405,13 +406,16 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	protected void deleteSchema(
+			final List<Table> tables,
+			final List<SequenceX> sequences,
+			final ConnectionPool connectionPool)
 	{
 		final StringBuilder bf = new StringBuilder();
 
 		bf.append("set FOREIGN_KEY_CHECKS=0;");
 
-		for(final Table table : database.getTables())
+		for(final Table table : tables)
 		{
 			bf.append(deleteTable).
 				append(table.quotedID).
@@ -420,7 +424,7 @@ final class MysqlDialect extends Dialect
 
 		bf.append("set FOREIGN_KEY_CHECKS=1;");
 
-		for(final SequenceX sequence : database.getSequences())
+		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
 		execute(connectionPool, bf.toString());

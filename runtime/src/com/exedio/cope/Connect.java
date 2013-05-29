@@ -186,7 +186,7 @@ final class Connect
 
 	void deleteSchema()
 	{
-		dialect.deleteSchema(database, connectionPool);
+		database.deleteSchema();
 		clearCache();
 		database.flushSequences();
 	}

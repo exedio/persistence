@@ -25,6 +25,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import com.exedio.cope.util.CharSet;
@@ -291,7 +292,7 @@ abstract class Dialect
 		return null;
 	}
 
-	protected abstract void deleteSchema(Database database, ConnectionPool connectionPool);
+	protected abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
 	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
 	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
 	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);

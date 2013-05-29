@@ -26,6 +26,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -473,7 +474,10 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	protected void deleteSchema(
+			final List<Table> tables,
+			final List<SequenceX> sequences,
+			final ConnectionPool connectionPool)
 	{
 		final Connection connection = connectionPool.get(false);
 		try
@@ -481,7 +485,7 @@ final class OracleDialect extends Dialect
 			Executor.update(connection, "set constraints all deferred");
 
 			final StringBuilder bf = new StringBuilder("begin ");
-			for(final Table table : database.getTables())
+			for(final Table table : tables)
 			{
 				bf.append("delete from ").
 					append(table.quotedID).
@@ -504,7 +508,7 @@ final class OracleDialect extends Dialect
 
 
 			bf.setLength(0);
-			for(final SequenceX sequence : database.getSequences())
+			for(final SequenceX sequence : sequences)
 				sequence.delete(bf, this);
 
 			if(bf.length()>0)

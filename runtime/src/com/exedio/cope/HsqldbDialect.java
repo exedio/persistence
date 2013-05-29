@@ -22,6 +22,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
@@ -283,18 +284,21 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	protected void deleteSchema(
+			final List<Table> tables,
+			final List<SequenceX> sequences,
+			final ConnectionPool connectionPool)
 	{
 		final StringBuilder bf = new StringBuilder();
 
-		for(final Table table : database.getTables())
+		for(final Table table : tables)
 		{
 			bf.append("truncate table ").
 				append(table.quotedID).
 				append(" restart identity and commit no check;");
 		}
 
-		for(final SequenceX sequence : database.getSequences())
+		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
 		execute(connectionPool, bf.toString());
