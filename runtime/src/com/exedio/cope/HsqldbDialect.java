@@ -194,7 +194,7 @@ final class HsqldbDialect extends Dialect
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String name)
+			final String quotedName)
 	{
 		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
 		try
@@ -223,7 +223,7 @@ final class HsqldbDialect extends Dialect
 		{
 			final Statement bf = executor.newStatement();
 			bf.append("SELECT NEXT VALUE FOR ").
-				append(dsmfDialect.quoteName(name)).
+				append(quotedName).
 				append(" FROM ").
 				append(TEMP_TABLE);
 
@@ -232,10 +232,10 @@ final class HsqldbDialect extends Dialect
 				public Integer handle(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
-						throw new RuntimeException("empty in sequence " + name);
+						throw new RuntimeException("empty in sequence " + quotedName);
 					final Object o = resultSet.getObject(1);
 					if(o==null)
-						throw new RuntimeException("null in sequence " + name);
+						throw new RuntimeException("null in sequence " + quotedName);
 					return (Integer)o;
 				}
 			});
@@ -314,10 +314,10 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append("alter sequence ").
-			append(dsmfDialect.quoteName(sequenceName)).
+			append(quotedName).
 			append(" restart with ").
 			append(startWith).
 			append(';');

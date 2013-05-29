@@ -308,11 +308,11 @@ abstract class Dialect
 	/**
 	 * TODO remove default implementation
 	 */
-	protected void deleteSequence(@SuppressWarnings("unused") final StringBuilder bf, final String sequenceName, @SuppressWarnings("unused") final int startWith)
+	protected void deleteSequence(@SuppressWarnings("unused") final StringBuilder bf, final String quotedName, @SuppressWarnings("unused") final int startWith)
 	{
-		throw new RuntimeException(sequenceName);
+		throw new RuntimeException(quotedName);
 	}
 
-	protected abstract Integer    nextSequence(Executor executor, Connection connection, String name);
+	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
 	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 }

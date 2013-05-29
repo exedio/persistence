@@ -184,11 +184,11 @@ final class PostgresqlDialect extends Dialect
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String name)
+			final String quotedName)
 	{
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT nextval('").
-			append(dsmfDialect.quoteName(name)).
+			append(quotedName).
 			append("')");
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
@@ -196,10 +196,10 @@ final class PostgresqlDialect extends Dialect
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + name);
+					throw new RuntimeException("empty in sequence " + quotedName);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
-					throw new RuntimeException("null in sequence " + name);
+					throw new RuntimeException("null in sequence " + quotedName);
 				return ((Long)o).intValue();
 			}
 		});

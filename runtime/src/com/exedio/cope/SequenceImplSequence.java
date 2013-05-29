@@ -29,6 +29,7 @@ final class SequenceImplSequence implements SequenceImpl
 	private final Executor executor;
 	private final ConnectionPool connectionPool;
 	private final String name;
+	private final String quotedName;
 
 	SequenceImplSequence(
 			final IntegerColumn column,
@@ -40,6 +41,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
 		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"));
+		this.quotedName = database.dsmfDialect.quoteName(this.name);
 	}
 
 	SequenceImplSequence(
@@ -47,12 +49,14 @@ final class SequenceImplSequence implements SequenceImpl
 			final int start,
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
-			final Executor executor)
+			final Executor executor,
+			final com.exedio.dsmf.Dialect dsmfDialect)
 	{
 		this.start = start;
 		this.executor = executor;
 		this.connectionPool = connectionPool;
 		this.name = properties.filterTableName(name);
+		this.quotedName = dsmfDialect.quoteName(this.name);
 	}
 
 	public void makeSchema(final Schema schema)
@@ -65,7 +69,7 @@ final class SequenceImplSequence implements SequenceImpl
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.nextSequence(executor, connection, name).intValue();
+			return executor.dialect.nextSequence(executor, connection, quotedName).intValue();
 		}
 		finally
 		{
@@ -88,7 +92,7 @@ final class SequenceImplSequence implements SequenceImpl
 
 	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
-		dialect.deleteSequence(bf, name, start);
+		dialect.deleteSequence(bf, quotedName, start);
 	}
 
 	public void flush()

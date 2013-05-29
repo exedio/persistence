@@ -330,12 +330,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append("truncate ").
-			append(sequenceName);
+			append(quotedName);
 
-		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, sequenceName, startWith);
+		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, quotedName, startWith);
 
 		bf.append(';');
 	}
@@ -344,11 +344,11 @@ final class MysqlDialect extends Dialect
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String name)
+			final String quotedName)
 	{
 		final Statement bf = executor.newStatement();
 		bf.append("INSERT INTO ").
-			append(dsmfDialect.quoteName(name)).
+			append(quotedName).
 			append(" () VALUES ()");
 
 		return (int)(executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
@@ -356,10 +356,10 @@ final class MysqlDialect extends Dialect
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + name);
+					throw new RuntimeException("empty in sequence " + quotedName);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
-					throw new RuntimeException("null in sequence " + name);
+					throw new RuntimeException("null in sequence " + quotedName);
 				return (Long)o;
 			}
 		}).longValue() - 1);
