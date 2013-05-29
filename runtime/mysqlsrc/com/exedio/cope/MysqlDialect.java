@@ -413,21 +413,25 @@ final class MysqlDialect extends Dialect
 	{
 		final StringBuilder bf = new StringBuilder();
 
-		bf.append("set FOREIGN_KEY_CHECKS=0;");
-
-		for(final Table table : tables)
+		if(!tables.isEmpty())
 		{
-			bf.append(deleteTable).
-				append(table.quotedID).
-				append(';');
-		}
+			bf.append("set FOREIGN_KEY_CHECKS=0;");
 
-		bf.append("set FOREIGN_KEY_CHECKS=1;");
+			for(final Table table : tables)
+			{
+				bf.append(deleteTable).
+					append(table.quotedID).
+					append(';');
+			}
+
+			bf.append("set FOREIGN_KEY_CHECKS=1;");
+		}
 
 		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
-		execute(connectionPool, bf.toString());
+		if(bf.length()>0)
+			execute(connectionPool, bf.toString());
 	}
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)

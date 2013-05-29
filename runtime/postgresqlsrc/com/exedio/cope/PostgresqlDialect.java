@@ -246,23 +246,27 @@ final class PostgresqlDialect extends Dialect
 	{
 		final StringBuilder bf = new StringBuilder();
 
-		bf.append("truncate ");
-		boolean first = true;
-		for(final Table table : tables)
+		if(!tables.isEmpty())
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
+			bf.append("truncate ");
+			boolean first = true;
+			for(final Table table : tables)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
 
-			bf.append(table.quotedID);
+				bf.append(table.quotedID);
+			}
+			bf.append(';');
 		}
-		bf.append(';');
 
 		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
-		execute(connectionPool, bf.toString());
+		if(bf.length()>0)
+			execute(connectionPool, bf.toString());
 	}
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)

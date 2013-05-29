@@ -482,41 +482,46 @@ final class OracleDialect extends Dialect
 		final Connection connection = connectionPool.get(false);
 		try
 		{
-			Executor.update(connection, "set constraints all deferred");
-
-			final StringBuilder bf = new StringBuilder("begin ");
-			for(final Table table : tables)
+			if(!tables.isEmpty())
 			{
-				bf.append("delete from ").
-					append(table.quotedID).
-					append(';');
-			}
-			bf.append("end;");
+				Executor.update(connection, "set constraints all deferred");
 
-			boolean committed = false;
-			try
+				final StringBuilder bf = new StringBuilder("begin ");
+				for(final Table table : tables)
+				{
+					bf.append("delete from ").
+						append(table.quotedID).
+						append(';');
+				}
+				bf.append("end;");
+
+				boolean committed = false;
+				try
+				{
+					Executor.update(connection, bf.toString());
+					connection.commit();
+					committed = true;
+				}
+				finally
+				{
+					if(!committed)
+						connection.rollback();
+				}
+			}
+
+			if(!sequences.isEmpty())
 			{
-				Executor.update(connection, bf.toString());
-				connection.commit();
-				committed = true;
+				final StringBuilder bf = new StringBuilder();
+				for(final SequenceX sequence : sequences)
+					sequence.delete(bf, this);
+
+				if(bf.length()>0)
+					Executor.update(connection, "begin " + bf.toString() + "end;");
 			}
-			finally
-			{
-				if(!committed)
-					connection.rollback();
-			}
-
-
-			bf.setLength(0);
-			for(final SequenceX sequence : sequences)
-				sequence.delete(bf, this);
-
-			if(bf.length()>0)
-				Executor.update(connection, "begin " + bf.toString() + "end;");
 		}
 		catch(final SQLException e)
 		{
-			throw new SQLRuntimeException(e, "xxx");
+			throw new SQLRuntimeException(e, "commit/rollback");
 		}
 		finally
 		{
