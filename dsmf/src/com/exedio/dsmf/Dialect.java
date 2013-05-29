@@ -142,6 +142,14 @@ public abstract class Dialect
 		return false;
 	}
 
+	/**
+	 * @param bf used in subclasses
+	 */
+	void appendForeignKeyCreateStatement(final StringBuilder bf)
+	{
+		// empty default implementation
+	}
+
 	// derby needs a different syntax
 	public String renameTable(final String tableName, final String newTableName)
 	{

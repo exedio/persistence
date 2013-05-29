@@ -407,6 +407,17 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	{
+		bf.append(
+			"execute immediate " +
+				"'drop sequence ").append(quotedName).append("';" +
+			"execute immediate '");
+				com.exedio.dsmf.OracleDialect.createSequenceStatic(bf, quotedName, startWith);
+				bf.append("';");
+	}
+
+	@Override
 	protected Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
@@ -459,5 +470,53 @@ final class OracleDialect extends Dialect
 				return ((BigDecimal)o).intValue() + 1;
 			}
 		});
+	}
+
+	@Override
+	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
+	{
+		final Connection connection = connectionPool.get(false);
+		try
+		{
+			Executor.update(connection, "set constraints all deferred");
+
+			final StringBuilder bf = new StringBuilder("begin ");
+			for(final Table table : database.getTables())
+			{
+				bf.append("delete from ").
+					append(table.quotedID).
+					append(';');
+			}
+			bf.append("end;");
+
+			boolean committed = false;
+			try
+			{
+				Executor.update(connection, bf.toString());
+				connection.commit();
+				committed = true;
+			}
+			finally
+			{
+				if(!committed)
+					connection.rollback();
+			}
+
+
+			bf.setLength(0);
+			for(final SequenceX sequence : database.getSequences())
+				sequence.delete(bf, this);
+
+			if(bf.length()>0)
+				Executor.update(connection, "begin " + bf.toString() + "end;");
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "xxx");
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

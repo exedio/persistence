@@ -29,7 +29,6 @@ import java.util.Properties;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.Schema;
 
 /**
  * Adapts COPE to different RDBMS.
@@ -292,27 +291,8 @@ abstract class Dialect
 		return null;
 	}
 
-	/**
-	 * The default implementation just drops and re-creates the schema.
-	 * Subclasses are encouraged to provide a more efficient implementation.
-	 * TODO remove default implementation
-	 * @param connectionPool the connection pool used
-	 */
-	protected void deleteSchema(final Database database, final ConnectionPool connectionPool)
-	{
-		final Schema schema = database.makeSchema(false);
-		schema.drop();
-		schema.create();
-	}
-
-	/**
-	 * TODO remove default implementation
-	 */
-	protected void deleteSequence(@SuppressWarnings("unused") final StringBuilder bf, final String quotedName, @SuppressWarnings("unused") final int startWith)
-	{
-		throw new RuntimeException(quotedName);
-	}
-
+	protected abstract void deleteSchema(Database database, ConnectionPool connectionPool);
+	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
 	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
 	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 }

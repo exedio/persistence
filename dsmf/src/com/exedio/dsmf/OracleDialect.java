@@ -266,7 +266,18 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
+	void appendForeignKeyCreateStatement(final StringBuilder bf)
+	{
+		bf.append(" deferrable");
+	}
+
+	@Override
 	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		createSequenceStatic(bf, sequenceName, startWith);
+	}
+
+	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
 		bf.append("create sequence ").
 			append(sequenceName).
