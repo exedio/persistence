@@ -132,7 +132,7 @@ final class Database
 	{
 		buildStage = false;
 
-		makeSchema(true).create();
+		makeSchema().create();
 
 		if(revisions!=null)
 			revisions.get().insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
@@ -142,7 +142,7 @@ final class Database
 	{
 		buildStage = false;
 
-		makeSchema(true).createConstraints(types);
+		makeSchema().createConstraints(types);
 	}
 
 	//private static int checkTableTime = 0;
@@ -255,28 +255,28 @@ final class Database
 		buildStage = false;
 
 		flushSequences();
-		makeSchema(true).drop();
+		makeSchema().drop();
 	}
 
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema(true).dropConstraints(types);
+		makeSchema().dropConstraints(types);
 	}
 
 	void tearDownSchema()
 	{
 		buildStage = false;
 
-		makeSchema(true).tearDown();
+		makeSchema().tearDown();
 	}
 
 	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema(true).tearDownConstraints(types);
+		makeSchema().tearDownConstraints(types);
 	}
 
 	void checkEmptySchema(final Connection connection)
@@ -610,7 +610,7 @@ final class Database
 		return nameTrimmer.trimString(longName);
 	}
 
-	Schema makeSchema(final boolean withRevisions)
+	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
 		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
@@ -636,7 +636,7 @@ final class Database
 		for(final Table t : tables)
 			t.makeSchema(result, supportsNotNull());
 
-		if(withRevisions && revisions!=null)
+		if(revisions!=null)
 			Revisions.makeSchema(result, properties, dialect);
 		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
@@ -646,7 +646,7 @@ final class Database
 
 	Schema makeVerifiedSchema()
 	{
-		final Schema result = makeSchema(true);
+		final Schema result = makeSchema();
 		result.verify();
 		return result;
 	}

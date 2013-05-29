@@ -456,7 +456,7 @@ public final class Model implements Serializable
 
 	public Schema getSchema()
 	{
-		return connect().database.makeSchema(true);
+		return connect().database.makeSchema();
 	}
 
 	/**
@@ -731,7 +731,7 @@ public final class Model implements Serializable
 	{
 		transactions.assertNoCurrentTransaction();
 
-		connect().database.makeSchema(true).checkUnsupportedConstraints();
+		connect().database.makeSchema().checkUnsupportedConstraints();
 	}
 
 	public boolean isClusterNetworkEnabled()
