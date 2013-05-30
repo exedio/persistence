@@ -587,10 +587,10 @@ final class Database
 			bf.append(')');
 		}
 
+		table.knownToBeEmpty = false;
+
 		//System.out.println("storing "+bf.toString());
 		executor.updateStrict(connection, present ? state.item : null, bf);
-
-		table.knownToBeEmpty = false;
 	}
 
 	String makeName(final String longName)
@@ -648,16 +648,22 @@ final class Database
 	void deleteSchema(final boolean forTest)
 	{
 		final ArrayList<Table> tables;
+		final ArrayList<SequenceX> sequences;
 		if(forTest)
 		{
 			tables = new ArrayList<Table>();
 			for(final Table table : this.tables)
 				if(!table.knownToBeEmpty)
 					tables.add(table);
+			sequences = new ArrayList<SequenceX>();
+			for(final SequenceX sequence : this.sequences)
+				if(!sequence.knownToBeEmpty)
+					sequences.add(sequence);
 		}
 		else
 		{
 			tables = this.tables;
+			sequences = this.sequences;
 		}
 
 		dialect.deleteSchema(
@@ -668,5 +674,7 @@ final class Database
 
 		for(final Table table : tables)
 			table.knownToBeEmpty = true;
+		for(final SequenceX sequence : sequences)
+			sequence.knownToBeEmpty = true;
 	}
 }

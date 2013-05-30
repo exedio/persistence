@@ -30,7 +30,6 @@ final class SequenceImplSequence implements SequenceImpl
 	private final ConnectionPool connectionPool;
 	private final String name;
 	private final String quotedName;
-	private volatile boolean isKnownToBeOnStart = false;
 
 	SequenceImplSequence(
 			final IntegerColumn column,
@@ -70,7 +69,6 @@ final class SequenceImplSequence implements SequenceImpl
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			isKnownToBeOnStart = false;
 			return executor.dialect.nextSequence(executor, connection, quotedName).intValue();
 		}
 		finally
@@ -94,11 +92,7 @@ final class SequenceImplSequence implements SequenceImpl
 
 	public void delete(final StringBuilder bf, final Dialect dialect, final boolean forTest)
 	{
-		if(! (forTest && isKnownToBeOnStart) )
-		{
-			dialect.deleteSequence(bf, quotedName, start);
-			isKnownToBeOnStart = true;
-		}
+		dialect.deleteSequence(bf, quotedName, start);
 	}
 
 	public void flush()
