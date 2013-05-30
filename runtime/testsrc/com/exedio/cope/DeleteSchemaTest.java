@@ -57,12 +57,15 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		createEmptyAndCreate();
 
 		model.deleteSchema();
-		{
-			final Map<Integer, byte[]> logs = model.getRevisionLogs();
-			assertCreate(create, logs, 5);
-			assertEquals(1, logs.size());
-		}
+		assertRevisionLogs(create);
 		createEmptyAndCreate();
+	}
+
+	private void assertRevisionLogs(final Date create)
+	{
+		final Map<Integer, byte[]> logs = model.getRevisionLogs();
+		assertCreate(create, logs, 5);
+		assertEquals(1, logs.size());
 	}
 
 	private static void createEmptyAndCreate()
