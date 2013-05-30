@@ -90,7 +90,7 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
-	public void delete(final StringBuilder bf, final Dialect dialect, final boolean forTest)
+	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
 		dialect.deleteSequence(bf, quotedName, start);
 	}

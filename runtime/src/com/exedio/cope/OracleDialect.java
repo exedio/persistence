@@ -477,7 +477,6 @@ final class OracleDialect extends Dialect
 	protected void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
-			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
 		final Connection connection = connectionPool.get(false);
@@ -514,7 +513,7 @@ final class OracleDialect extends Dialect
 			{
 				final StringBuilder bf = new StringBuilder();
 				for(final SequenceX sequence : sequences)
-					sequence.delete(bf, this, forTest);
+					sequence.delete(bf, this);
 
 				if(bf.length()>0)
 					Executor.update(connection, "begin " + bf.toString() + "end;");

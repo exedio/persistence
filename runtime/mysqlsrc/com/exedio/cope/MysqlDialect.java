@@ -409,7 +409,6 @@ final class MysqlDialect extends Dialect
 	protected void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
-			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -429,7 +428,7 @@ final class MysqlDialect extends Dialect
 		}
 
 		for(final SequenceX sequence : sequences)
-			sequence.delete(bf, this, forTest);
+			sequence.delete(bf, this);
 
 		if(bf.length()>0)
 			execute(connectionPool, bf.toString());

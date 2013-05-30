@@ -106,12 +106,12 @@ final class SequenceX
 		return result;
 	}
 
-	void delete(final StringBuilder bf, final Dialect dialect, final boolean forTest)
+	void delete(final StringBuilder bf, final Dialect dialect)
 	{
 		if(impl==null)
 			throw new Model.NotConnectedException(feature.getType().getModel());
 
-		impl.delete(bf, dialect, forTest);
+		impl.delete(bf, dialect);
 	}
 
 	void flush()
