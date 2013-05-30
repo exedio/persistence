@@ -60,7 +60,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
-	final PrimaryKeyGenerator primaryKeyGenerator = valEn("schema.primaryKeyGenerator", PrimaryKeyGenerator.class, PrimaryKeyGenerator.memory);
+	final PrimaryKeyGenerator primaryKeyGenerator = valEn("schema.primaryKeyGenerator", PrimaryKeyGenerator.memory);
 	final boolean updateCounter = value("schema.updateCounter", true);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
@@ -84,7 +84,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionUniqueName = value("schema.revision.unique", "protected");
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
-	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.class, MysqlRowFormat.NONE);
+	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.NONE);
 	final boolean         mysqlAvoidTruncate       = value("schema.mysql.avoidTruncate", false);
 
 	/**
@@ -427,10 +427,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	// TODO move into framework
 	private <E extends Enum<E>> E valEn(
 			final String key,
-			final Class<E> enumClass,
 			final E defaultValue)
 	{
-		return Enum.valueOf(enumClass, value(key, defaultValue.name()));
+		return Enum.valueOf(defaultValue.getDeclaringClass(), value(key, defaultValue.name()));
 	}
 
 	// ------------------- deprecated stuff -------------------
