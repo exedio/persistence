@@ -29,7 +29,10 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(
 			DirectRevisionsFactory.make(new Revisions(5)),
-			DeleteSchemaItem.TYPE);
+			DeleteSchemaItem.TYPE,
+			DeleteSchemaItemUnused.TYPE,
+			DeleteSchemaPointerA.TYPE,
+			DeleteSchemaPointerB.TYPE);
 
 	public DeleteSchemaTest()
 	{
@@ -69,6 +72,9 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			MODEL.startTransaction(DeleteSchemaTest.class.getName());
 
 			assertContains(DeleteSchemaItem.TYPE.search());
+			assertContains(DeleteSchemaItemUnused.TYPE.search());
+			assertContains(DeleteSchemaPointerA.TYPE.search());
+			assertContains(DeleteSchemaPointerB.TYPE.search());
 
 			final DeleteSchemaItem i1 = new DeleteSchemaItem("field1");
 			final DeleteSchemaItem i2 = new DeleteSchemaItem("field2");
@@ -79,8 +85,21 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			assertEquals(1000, i1.getNext());
 			assertEquals(1001, i2.getNext());
 
+			assertEquals(-10, i1.getNextUnused());
+			assertEquals(-10, i2.getNextUnused());
+
 			assertEquals(2000, nextSequence());
 			assertEquals(2001, nextSequence());
+
+			final DeleteSchemaPointerA a1 = new DeleteSchemaPointerA(100);
+			final DeleteSchemaPointerA a2 = new DeleteSchemaPointerA(100);
+			final DeleteSchemaPointerA a3 = new DeleteSchemaPointerA(100);
+			a1.setSelf(a2); // reference forward
+			a2.setSelf(a2); // reference self
+			a3.setSelf(a2); // reference backward
+			final DeleteSchemaPointerB b = new DeleteSchemaPointerB(100);
+			a1.setOther(b);
+			b.setOther(a1);
 
 			MODEL.commit();
 		}
