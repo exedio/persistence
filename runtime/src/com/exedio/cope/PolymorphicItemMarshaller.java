@@ -47,7 +47,7 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 
 		final Type<? extends E> resultType = typesOfInstancesMap.get(typeCell);
 		if(resultType==null)
-			throw new RuntimeException('>' + typeCell + '<');
+			throw new RuntimeException("invalid type column >" + pkCell + "< / >" + typeCell + '<');
 
 		return resultType.getItemObject(((Number)pkCell).intValue());
 	}
