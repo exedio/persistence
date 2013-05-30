@@ -60,7 +60,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
-	final PrimaryKeyGenerator primaryKeyGenerator = myEnumValue("schema.primaryKeyGenerator", PrimaryKeyGenerator.class, PrimaryKeyGenerator.memory);
+	final PrimaryKeyGenerator primaryKeyGenerator = valEn("schema.primaryKeyGenerator", PrimaryKeyGenerator.class, PrimaryKeyGenerator.memory);
 	final boolean updateCounter = value("schema.updateCounter", true);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
@@ -84,8 +84,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionUniqueName = value("schema.revision.unique", "protected");
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
-	final MysqlRowFormat       mysqlRowFormat     = myEnumValue("schema.mysql.rowFormat", MysqlRowFormat.class, MysqlRowFormat.NONE);
-	final boolean mysqlAvoidTruncate              =       value("schema.mysql.avoidTruncate", false);
+	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.class, MysqlRowFormat.NONE);
+	final boolean         mysqlAvoidTruncate       = value("schema.mysql.avoidTruncate", false);
 
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
@@ -425,7 +425,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	// TODO move into framework
-	private <E extends Enum<E>> E myEnumValue(
+	private <E extends Enum<E>> E valEn(
 			final String key,
 			final Class<E> enumClass,
 			final E defaultValue)
