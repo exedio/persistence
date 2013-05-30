@@ -589,6 +589,8 @@ final class Database
 
 		//System.out.println("storing "+bf.toString());
 		executor.updateStrict(connection, present ? state.item : null, bf);
+
+		table.knownToBeEmpty = false;
 	}
 
 	String makeName(final String longName)
@@ -645,10 +647,26 @@ final class Database
 
 	void deleteSchema(final boolean forTest)
 	{
+		final ArrayList<Table> tables;
+		if(forTest)
+		{
+			tables = new ArrayList<Table>();
+			for(final Table table : this.tables)
+				if(!table.knownToBeEmpty)
+					tables.add(table);
+		}
+		else
+		{
+			tables = this.tables;
+		}
+
 		dialect.deleteSchema(
 				Collections.unmodifiableList(tables),
 				Collections.unmodifiableList(sequences),
 				forTest,
 				connectionPool);
+
+		for(final Table table : tables)
+			table.knownToBeEmpty = true;
 	}
 }
