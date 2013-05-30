@@ -377,6 +377,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * @see #setLimit(int)
 	 * @param limit the maximum number of items to be found.
+	 *        For specifying no limit use {@link #setLimit(int)} instead.
 	 * @throws IllegalArgumentException if offset is a negative value
 	 * @throws IllegalArgumentException if limit is a negative value
 	 */
