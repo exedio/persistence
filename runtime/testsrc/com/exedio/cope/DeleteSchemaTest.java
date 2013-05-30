@@ -54,11 +54,11 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			create = assertCreate(createBefore, createAfter, logs, 5);
 			assertEquals(1, logs.size());
 		}
-		createEmptyAndCreate();
+		assertEmptyAndCreate();
 
 		model.deleteSchema();
 		assertRevisionLogs(create);
-		createEmptyAndCreate();
+		assertEmptyAndCreate();
 	}
 
 	private void assertRevisionLogs(final Date create)
@@ -68,7 +68,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		assertEquals(1, logs.size());
 	}
 
-	private static void createEmptyAndCreate()
+	private static void assertEmptyAndCreate()
 	{
 		try
 		{
