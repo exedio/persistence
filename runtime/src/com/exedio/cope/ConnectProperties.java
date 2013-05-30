@@ -49,6 +49,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
+	/**
+	 * Configures null values to be sorted low by order-by clauses when using hsqldb.
+	 * Helps making hsqldb consistent to other databases,
+	 * when using it as a fast alternative to the productive database.
+	 * Is ignored on other databases than hsqldb.
+	 * Should be set to "true" for MySQL or "false" for Oracle and PostgreSQL.
+	 */
 	final boolean hsqldbNullsAreSortedLow = value("hsqldb.nullsAreSortedLow", false);
 
 	// schema
