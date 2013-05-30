@@ -59,6 +59,18 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		model.deleteSchema();
 		assertRevisionLogs(create);
 		assertEmptyAndCreate();
+
+		model.deleteSchemaForTest();
+		assertRevisionLogs(create);
+		assertEmptyAndCreate();
+
+		model.deleteSchemaForTest();
+		assertRevisionLogs(create);
+		assertEmptyAndCreate();
+
+		model.deleteSchema();
+		assertRevisionLogs(create);
+		assertEmptyAndCreate();
 	}
 
 	private void assertRevisionLogs(final Date create)

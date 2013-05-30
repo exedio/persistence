@@ -78,7 +78,7 @@ public abstract class CopeModelTest extends CopeAssert
 		// do this even if manageTransactions is false
 		// because test could have started a transaction
 		model.rollbackIfNotCommitted();
-		model.deleteSchema();
+		model.deleteSchemaForTest();
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);

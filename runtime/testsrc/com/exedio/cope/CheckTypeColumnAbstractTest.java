@@ -49,7 +49,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 	public void tearDown() throws Exception
 	{
 		model.commit();
-		model.deleteSchema();
+		model.deleteSchemaForTest();
 		model.startTransaction("CheckTypeColumnAbstractTest");
 		super.tearDown();
 	}

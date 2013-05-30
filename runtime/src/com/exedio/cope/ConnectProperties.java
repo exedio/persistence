@@ -50,6 +50,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
 	/**
+	 * By default, {@link Model#deleteSchemaForTest()} does some optimizations
+	 * for executing faster that {@link Model#deleteSchema()}.
+	 * This feature is experimental.
+	 * If it causes any problems, you may disable this property.
+	 * Then {@link Model#deleteSchemaForTest() deleteSchemaForTest}
+	 * behaves exactly as {@link Model#deleteSchema() deleteSchema}.
+	 */
+	final boolean deleteSchemaForTest = value("deleteSchemaForTest", true);
+
+	/**
 	 * Configures null values to be sorted low by order-by clauses when using hsqldb.
 	 * Helps making hsqldb consistent to other databases,
 	 * when using it as a fast alternative to the productive database.

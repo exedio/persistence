@@ -401,17 +401,39 @@ public final class Model implements Serializable
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @see #deleteSchemaForTest()
 	 */
 	public void deleteSchema()
+	{
+		deleteSchema(false);
+	}
+
+	/**
+	 * Use for tests only.
+	 * Does some optimizations for faster execution, that are valid under certain conditions only:
+	 * <ul>
+	 * <li>Changes to the database are done via this cope model only.
+	 *     This also means that there is no cluster.</li>
+	 * <li>No transactions running concurrently to <tt>deleteSchemaForTest</tt></li>
+	 * </ul>
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @see #deleteSchema()
+	 */
+	public void deleteSchemaForTest()
+	{
+		deleteSchema(true);
+	}
+
+	private void deleteSchema(final boolean forTest)
 	{
 		transactions.assertNoCurrentTransaction();
 
 		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
 
-		connect().deleteSchema();
+		connect().deleteSchema(forTest);
 
 		if(logger.isInfoEnabled())
-			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms" + (forTest?"forTest":""));
 	}
 
 	public void dropSchema()

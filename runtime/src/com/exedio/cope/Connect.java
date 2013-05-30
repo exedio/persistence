@@ -184,9 +184,9 @@ final class Connect
 		clearCache();
 	}
 
-	void deleteSchema()
+	void deleteSchema(final boolean forTest)
 	{
-		database.deleteSchema();
+		database.deleteSchema(forTest && properties.deleteSchemaForTest);
 		clearCache();
 		database.flushSequences();
 	}

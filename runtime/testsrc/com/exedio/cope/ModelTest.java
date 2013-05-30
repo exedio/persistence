@@ -110,6 +110,16 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 		try
 		{
+			model.deleteSchemaForTest();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
 			model.createSchema();
 			fail();
 		}

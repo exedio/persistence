@@ -97,7 +97,7 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
-	public void delete(final StringBuilder bf, final Dialect dialect)
+	public void delete(final StringBuilder bf, final Dialect dialect, final boolean forTest)
 	{
 		flush();
 	}

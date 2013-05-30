@@ -471,4 +471,61 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertFalse(singleA.existsCopeItem());
 		assertFalse(singleB.existsCopeItem());
 	}
+
+	public void testDeleteSchemaForTest()
+	{
+		model.checkEmptySchema();
+
+
+		final HierarchyFirstSub firstA = new HierarchyFirstSub(0);
+		final HierarchyFirstSub firstB = new HierarchyFirstSub(4);
+		new HierarchySecondSub(2);
+		new HierarchySecondSub(3);
+		final HierarchySingleSub singleA = new HierarchySingleSub();
+		final HierarchySingleSub singleB = new HierarchySingleSub(2, "a");
+		singleA.setHierarchySuper(firstA);
+		singleB.setHierarchySuper(firstB);
+
+		try
+		{
+			model.checkEmptySchema();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"schema not empty: HierarchySuper:4, HierarchyFirstSub:2, HierarchySecondSub:2, HierarchySingleSuper:2, HierarchySingleSub:2",
+					e.getMessage());
+		}
+		assertTrue(firstA.existsCopeItem());
+		assertTrue(firstB.existsCopeItem());
+		assertTrue(singleA.existsCopeItem());
+		assertTrue(singleB.existsCopeItem());
+
+
+		try
+		{
+			model.deleteSchemaForTest();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("must not be called within a transaction: CopeTest", e.getMessage());
+		}
+		assertTrue(firstA.existsCopeItem());
+		assertTrue(firstB.existsCopeItem());
+		assertTrue(singleA.existsCopeItem());
+		assertTrue(singleB.existsCopeItem());
+
+
+		model.commit();
+		model.deleteSchemaForTest();
+		model.startTransaction("testDeleteSchema");
+		model.checkEmptySchema();
+
+		assertFalse(firstA.existsCopeItem());
+		assertFalse(firstB.existsCopeItem());
+		assertFalse(singleA.existsCopeItem());
+		assertFalse(singleB.existsCopeItem());
+	}
 }

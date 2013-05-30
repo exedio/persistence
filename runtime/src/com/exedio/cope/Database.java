@@ -643,11 +643,12 @@ final class Database
 			sequence.flush();
 	}
 
-	void deleteSchema()
+	void deleteSchema(final boolean forTest)
 	{
 		dialect.deleteSchema(
 				Collections.unmodifiableList(tables),
 				Collections.unmodifiableList(sequences),
+				forTest,
 				connectionPool);
 	}
 }
