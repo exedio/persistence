@@ -34,7 +34,7 @@ final class SequenceX
 	private volatile int count = 0;
 	private volatile int first = Integer.MAX_VALUE;
 	private volatile int last = Integer.MIN_VALUE;
-	volatile boolean knownToBeEmpty = false;
+	volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
 	{
@@ -51,7 +51,7 @@ final class SequenceX
 
 	void connect(final Database database, final IntegerColumn column)
 	{
-		this.knownToBeEmpty = false;
+		this.knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
@@ -61,7 +61,7 @@ final class SequenceX
 
 	void connectCluster(final Database database, final String name)
 	{
-		this.knownToBeEmpty = false;
+		this.knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
@@ -70,7 +70,7 @@ final class SequenceX
 
 	void disconnect()
 	{
-		this.knownToBeEmpty = false;
+		this.knownToBeEmptyForTest = false;
 
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + feature);
@@ -93,7 +93,7 @@ final class SequenceX
 
 	int next()
 	{
-		this.knownToBeEmpty = false;
+		this.knownToBeEmptyForTest = false;
 
 		final int result = impl().next();
 

@@ -590,7 +590,7 @@ final class Database
 			bf.append(')');
 		}
 
-		table.knownToBeEmpty = false;
+		table.knownToBeEmptyForTest = false;
 
 		//System.out.println("storing "+bf.toString());
 		executor.updateStrict(connection, present ? state.item : null, bf);
@@ -658,11 +658,11 @@ final class Database
 		{
 			tables = new ArrayList<Table>();
 			for(final Table table : this.tables)
-				if(!table.knownToBeEmpty)
+				if(!table.knownToBeEmptyForTest)
 					tables.add(table);
 			sequences = new ArrayList<SequenceX>();
 			for(final SequenceX sequence : this.sequences)
-				if(!sequence.knownToBeEmpty)
+				if(!sequence.knownToBeEmptyForTest)
 					sequences.add(sequence);
 		}
 		else
@@ -680,8 +680,8 @@ final class Database
 				connectionPool);
 
 		for(final Table table : tables)
-			table.knownToBeEmpty = true;
+			table.knownToBeEmptyForTest = true;
 		for(final SequenceX sequence : sequences)
-			sequence.knownToBeEmpty = true;
+			sequence.knownToBeEmptyForTest = true;
 	}
 }

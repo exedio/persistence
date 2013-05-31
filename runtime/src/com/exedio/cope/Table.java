@@ -35,7 +35,7 @@ final class Table
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 	final IntegerColumn updateCounter;
-	volatile boolean knownToBeEmpty = false;
+	volatile boolean knownToBeEmptyForTest = false;
 
 	Table(
 			final Database database,
