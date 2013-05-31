@@ -433,7 +433,7 @@ public final class Model implements Serializable
 		connect().deleteSchema(forTest);
 
 		if(logger.isInfoEnabled())
-			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms" + (forTest?"forTest":""));
+			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms" + (forTest?" forTest":""));
 	}
 
 	public void dropSchema()
