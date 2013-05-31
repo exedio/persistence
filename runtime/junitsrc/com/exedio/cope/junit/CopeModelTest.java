@@ -51,8 +51,6 @@ public abstract class CopeModelTest extends CopeAssert
 		return new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 	}
 
-	private boolean manageTransactions;
-
 	/**
 	 * Override this method returning false if you do not want
 	 * method {@link #setUp()} to create a transaction for you.
@@ -69,8 +67,7 @@ public abstract class CopeModelTest extends CopeAssert
 		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
 
-		manageTransactions = doesManageTransactions();
-		if(manageTransactions)
+		if(doesManageTransactions())
 		{
 			model.startTransaction("tx:" + getClass().getName());
 			model.checkEmptySchema();
