@@ -143,7 +143,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, EMPTY);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -160,7 +160,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, EMPTY);
 		assertRevisionLogs();
 
 		log.assertEmpty();
@@ -196,7 +196,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -215,7 +215,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		log.assertEmpty();
@@ -251,7 +251,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(false);
@@ -270,7 +270,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		log.assertEmpty();

@@ -125,6 +125,11 @@ final class Database
 
 		if(revisions!=null)
 			revisions.get().insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
+
+		for(final Table table : tables)
+			table.knownToBeEmptyForTest = true;
+		for(final SequenceX sequence : sequences)
+			sequence.knownToBeEmptyForTest = true;
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
