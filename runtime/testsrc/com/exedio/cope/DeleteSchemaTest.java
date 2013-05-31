@@ -71,6 +71,37 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
+	private static final String ALL =
+			"deleteSchemaForTest  " +
+			"tables [" +
+				"DeleteSchemaItem, " +
+				"DeleteSchemaItemUnused, " +
+				"DeleteSchemaPointerA, " +
+				"DeleteSchemaPointerB] " +
+			"sequences [" +
+				"DeleteSchemaItem.this, " +
+				"DeleteSchemaItem.next, " +
+				"DeleteSchemaItem.nextUnused, " +
+				"DeleteSchemaItem.sequence, " +
+				"DeleteSchemaItem.sequenceUnused, " +
+				"DeleteSchemaItemUnused.this, " +
+				"DeleteSchemaPointerA.this, " +
+				"DeleteSchemaPointerB.this]";
+
+	private static final String ALL_BUT_UNUSED =
+			"deleteSchemaForTest  " +
+			"tables [" +
+				"DeleteSchemaItem, " +
+				"DeleteSchemaPointerA, " +
+				"DeleteSchemaPointerB] " +
+			"sequences [" +
+				"DeleteSchemaItem.this, " +
+				"DeleteSchemaItem.next, " +
+				"DeleteSchemaItem.sequence, " +
+				"DeleteSchemaPointerA.this, " +
+				"DeleteSchemaPointerB.this]";
+
+
 	public void testIt()
 	{
 		model.tearDownSchema();
@@ -89,77 +120,25 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG,
-				"deleteSchemaForTest  " +
-				"tables [" +
-					"DeleteSchemaItem, " +
-					"DeleteSchemaItemUnused, " +
-					"DeleteSchemaPointerA, " +
-					"DeleteSchemaPointerB] " +
-				"sequences [" +
-					"DeleteSchemaItem.this, " +
-					"DeleteSchemaItem.next, " +
-					"DeleteSchemaItem.nextUnused, " +
-					"DeleteSchemaItem.sequence, " +
-					"DeleteSchemaItem.sequenceUnused, " +
-					"DeleteSchemaItemUnused.this, " +
-					"DeleteSchemaPointerA.this, " +
-					"DeleteSchemaPointerB.this]");
+		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs(create);
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG,
-				"deleteSchemaForTest  " +
-				"tables [" +
-					"DeleteSchemaItem, " +
-					"DeleteSchemaPointerA, " +
-					"DeleteSchemaPointerB] " +
-				"sequences [" +
-					"DeleteSchemaItem.this, " +
-					"DeleteSchemaItem.next, " +
-					"DeleteSchemaItem.sequence, " +
-					"DeleteSchemaPointerA.this, " +
-					"DeleteSchemaPointerB.this]");
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs(create);
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG,
-				"deleteSchemaForTest  " +
-				"tables [" +
-					"DeleteSchemaItem, " +
-					"DeleteSchemaPointerA, " +
-					"DeleteSchemaPointerB] " +
-				"sequences [" +
-					"DeleteSchemaItem.this, " +
-					"DeleteSchemaItem.next, " +
-					"DeleteSchemaItem.sequence, " +
-					"DeleteSchemaPointerA.this, " +
-					"DeleteSchemaPointerB.this]");
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs(create);
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG,
-				"deleteSchemaForTest  " +
-				"tables [" +
-					"DeleteSchemaItem, " +
-					"DeleteSchemaItemUnused, " +
-					"DeleteSchemaPointerA, " +
-					"DeleteSchemaPointerB] " +
-				"sequences [" +
-					"DeleteSchemaItem.this, " +
-					"DeleteSchemaItem.next, " +
-					"DeleteSchemaItem.nextUnused, " +
-					"DeleteSchemaItem.sequence, " +
-					"DeleteSchemaItem.sequenceUnused, " +
-					"DeleteSchemaItemUnused.this, " +
-					"DeleteSchemaPointerA.this, " +
-					"DeleteSchemaPointerB.this]");
+		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs(create);
 		assertEmptyAndCreate();
 	}
