@@ -417,6 +417,7 @@ public final class Model implements Serializable
 	 *     This also means that there is no cluster.</li>
 	 * <li>No transactions running concurrently to <tt>deleteSchemaForTest</tt></li>
 	 * </ul>
+	 * TODO replace by some {@link ConnectProperties connect property}.
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 * @see #deleteSchema()
 	 */
