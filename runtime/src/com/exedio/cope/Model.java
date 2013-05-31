@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
+
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -37,7 +39,6 @@ import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
-import com.exedio.cope.misc.TimeUtil;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -130,7 +131,7 @@ public final class Model implements Serializable
 		}
 
 		if(logger.isInfoEnabled())
-			logger.info("connect " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("connect " + toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void disconnect()
@@ -146,7 +147,7 @@ public final class Model implements Serializable
 		}
 
 		if(logger.isInfoEnabled())
-			logger.info("disconnect " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("disconnect " + toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	Connect connect()
@@ -361,7 +362,7 @@ public final class Model implements Serializable
 		connect().createSchema();
 
 		if(logger.isInfoEnabled())
-			logger.info("createSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("createSchema " + toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -396,7 +397,7 @@ public final class Model implements Serializable
 		tx.connect.database.checkEmptySchema(tx.getConnection());
 
 		if(logger.isInfoEnabled())
-			logger.info("checkEmptySchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("checkEmptySchema " + toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	/**
@@ -433,7 +434,7 @@ public final class Model implements Serializable
 		connect().deleteSchema(forTest);
 
 		if(logger.isInfoEnabled())
-			logger.info("deleteSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms" + (forTest?" forTest":""));
+			logger.info("deleteSchema " + toMillies(System.nanoTime(), start) + "ms" + (forTest?" forTest":""));
 	}
 
 	public void dropSchema()
@@ -445,7 +446,7 @@ public final class Model implements Serializable
 		connect().dropSchema();
 
 		if(logger.isInfoEnabled())
-			logger.info("dropSchema " + TimeUtil.toMillies(System.nanoTime(), start) + "ms");
+			logger.info("dropSchema " + toMillies(System.nanoTime(), start) + "ms");
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
