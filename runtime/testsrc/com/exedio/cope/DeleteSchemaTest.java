@@ -35,6 +35,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	private static final Model MODEL = new Model(
 			DirectRevisionsFactory.make(new Revisions(5)),
 			DeleteSchemaItem.TYPE,
+			DeleteSchemaItemSuper.TYPE,
 			DeleteSchemaItemUnused.TYPE,
 			DeleteSchemaPointerA.TYPE,
 			DeleteSchemaPointerB.TYPE);
@@ -90,12 +91,13 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	private static final String ALL =
 			"deleteSchemaForTest  " +
 			"tables [" +
+				"DeleteSchemaItemSuper, " +
 				"DeleteSchemaItem, " +
 				"DeleteSchemaItemUnused, " +
 				"DeleteSchemaPointerA, " +
 				"DeleteSchemaPointerB] " +
 			"sequences [" +
-				"DeleteSchemaItem.this, " +
+				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
 				"DeleteSchemaItem.nextUnused, " +
 				"DeleteSchemaItem.sequence, " +
@@ -107,11 +109,12 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	private static final String ALL_BUT_UNUSED =
 			"deleteSchemaForTest  " +
 			"tables [" +
+				"DeleteSchemaItemSuper, " +
 				"DeleteSchemaItem, " +
 				"DeleteSchemaPointerA, " +
 				"DeleteSchemaPointerB] " +
 			"sequences [" +
-				"DeleteSchemaItem.this, " +
+				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
 				"DeleteSchemaItem.sequence, " +
 				"DeleteSchemaPointerA.this, " +
