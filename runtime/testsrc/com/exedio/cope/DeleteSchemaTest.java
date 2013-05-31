@@ -150,7 +150,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -203,7 +203,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
