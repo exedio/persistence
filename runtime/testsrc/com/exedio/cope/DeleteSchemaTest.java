@@ -129,14 +129,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 	}
 
 	public void testVirginForTest()
@@ -146,14 +146,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 	}
 
 	public void testVirginForTestRepeat()
@@ -168,50 +168,50 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		log.assertMessage(Level.DEBUG, EMPTY);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 	}
 
 	public void testCommitted()
 	{
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 	}
 
 	public void testCommittedForTest()
 	{
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 	}
 
 	public void testCommittedForTestRepeat()
 	{
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
@@ -223,7 +223,62 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		log.assertMessage(Level.DEBUG, EMPTY);
 		assertRevisionLogs();
 
-		assertEmptyAndCreate();
+		assertEmptyAndCreate(true);
+	}
+
+	public void testRolledback()
+	{
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchema();
+		log.assertMessage(Level.DEBUG, ALL);
+		assertRevisionLogs();
+
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchema();
+		log.assertMessage(Level.DEBUG, ALL);
+		assertRevisionLogs();
+
+		assertEmptyAndCreate(true);
+	}
+
+	public void testRolledbackForTest()
+	{
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		assertRevisionLogs();
+
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
+		assertRevisionLogs();
+
+		assertEmptyAndCreate(true);
+	}
+
+	public void testRolledbackForTestRepeat()
+	{
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		assertRevisionLogs();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, EMPTY);
+		assertRevisionLogs();
+
+		assertEmptyAndCreate(true);
 	}
 
 	private void assertRevisionLogs()
@@ -233,7 +288,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		assertEquals(1, logs.size());
 	}
 
-	private static void assertEmptyAndCreate()
+	private static void assertEmptyAndCreate(final boolean commit)
 	{
 		try
 		{
@@ -269,7 +324,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			a1.setOther(b);
 			b.setOther(a1);
 
-			MODEL.commit();
+			if(commit)
+				MODEL.commit();
 		}
 		finally
 		{
