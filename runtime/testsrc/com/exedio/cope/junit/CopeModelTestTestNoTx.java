@@ -18,26 +18,18 @@
 
 package com.exedio.cope.junit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
-public class PackageTest extends TestCase
+public class CopeModelTestTestNoTx extends CopeModelTestTest
 {
-	public static Test suite()
+	@Override
+	protected boolean doesManageTransactions()
 	{
-		final TestSuite suite = new TestSuite();
+		return false;
+	}
 
-		// BEWARE
-		// execution order of tests does matter !!!
-		suite.addTestSuite(CopeModelTestTestBefore.class);
-		suite.addTestSuite(CopeModelTestTestCommitted.class);
-		suite.addTestSuite(CopeModelTestTestRolledback.class);
-		suite.addTestSuite(CopeModelTestTestRestart.class);
-		suite.addTestSuite(CopeModelTestTestNoTx.class);
-		suite.addTestSuite(CopeModelTestTestAfter.class);
-		// end of: order of tests does matter
-
-		return suite;
+	public void testNoTx()
+	{
+		assertFalse(model.hasCurrentTransaction());
+		model.startTransaction("tx:" + CopeModelTestTestNoTx.class.getName());
+		doTest();
 	}
 }
