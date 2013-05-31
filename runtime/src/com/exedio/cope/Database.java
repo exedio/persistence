@@ -595,8 +595,6 @@ final class Database
 			bf.append(')');
 		}
 
-		table.knownToBeEmptyForTest = false;
-
 		//System.out.println("storing "+bf.toString());
 		executor.updateStrict(connection, present ? state.item : null, bf);
 	}

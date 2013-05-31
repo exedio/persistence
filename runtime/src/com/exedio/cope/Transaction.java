@@ -310,6 +310,12 @@ public final class Transaction
 	{
 		assert !closed : name;
 
+		if(!rollback && invalidations!=null)
+		{
+			assert entityMaps.length==invalidations.length;
+			model.types.unsetKnownToBeEmptyForTest(invalidations);
+		}
+
 		// notify database
 		boolean hadConnection = false;
 		try

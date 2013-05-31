@@ -120,6 +120,16 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 				"DeleteSchemaPointerA.this, " +
 				"DeleteSchemaPointerB.this]";
 
+	private static final String USED_SEQUENCES =
+			"deleteSchemaForTest  " +
+			"tables [] " +
+			"sequences [" +
+				"DeleteSchemaItemSuper.this, " +
+				"DeleteSchemaItem.next, " +
+				"DeleteSchemaItem.sequence, " +
+				"DeleteSchemaPointerA.this, " +
+				"DeleteSchemaPointerB.this]";
+
 	private static final String EMPTY =
 			"deleteSchemaForTest  " +
 			"tables [] " +
@@ -254,14 +264,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -273,7 +283,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
+		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
 		assertRevisionLogs();
 
 		log.assertEmpty();

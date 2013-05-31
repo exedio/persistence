@@ -487,4 +487,18 @@ final class Types
 		assert item==length;
 		return result;
 	}
+
+	void unsetKnownToBeEmptyForTest(final TIntHashSet[] invalidations)
+	{
+		for(int typeIndex = 0; typeIndex<invalidations.length; typeIndex++)
+		{
+			if(invalidations[typeIndex]!=null)
+			{
+				for(Type<?> type = getConcreteType(typeIndex); type!=null; type = type.getSupertype())
+				{
+					type.table.knownToBeEmptyForTest = false;
+				}
+			}
+		}
+	}
 }
