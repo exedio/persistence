@@ -23,14 +23,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 
-public class DispatcherTest extends AbstractRuntimeTest
+public class DispatcherTest extends CopeModelTest
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
@@ -49,10 +49,10 @@ public class DispatcherTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		item2 = deleteOnTearDown(new DispatcherItem("item2", true));
-		item3 = deleteOnTearDown(new DispatcherItem("item3", false));
-		item4 = deleteOnTearDown(new DispatcherItem("item4", true));
+		item1 = new DispatcherItem("item1", false);
+		item2 = new DispatcherItem("item2", true);
+		item3 = new DispatcherItem("item3", false);
+		item4 = new DispatcherItem("item4", true);
 		clock = new MockClockSource();
 		Dispatcher.clock.setSource(clock);
 	}

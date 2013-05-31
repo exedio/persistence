@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.util.EmptyJobContext;
 
-public class DispatcherProbeTest extends AbstractRuntimeTest
+public class DispatcherProbeTest extends CopeModelTest
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config();
 
@@ -34,8 +34,8 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(1);
 		DispatcherItem.toTarget.setProbeRequired(true);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", false));
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatch(probe);
 		assertEquals(false, item1.isToTargetPending());
@@ -46,8 +46,8 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", false));
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatch(probe);
 		assertEquals(false, item1.isToTargetPending());
@@ -58,8 +58,8 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(true);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", false));
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatchFail(probe);
 		assertEquals(true, item1.isToTargetPending());
@@ -70,8 +70,8 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", true));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", false));
+		final DispatcherItem item1 = new DispatcherItem("item1", true);
+		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatchFail(probe);
 		assertEquals(true, item1.isToTargetPending());
@@ -82,8 +82,8 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", true));
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", true);
 
 		dispatch(probe);
 		assertEquals(false, item1.isToTargetPending());
@@ -94,9 +94,9 @@ public class DispatcherProbeTest extends AbstractRuntimeTest
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
-		final DispatcherItem item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		final DispatcherItem item2 = deleteOnTearDown(new DispatcherItem("item2", true));
-		final DispatcherItem item3 = deleteOnTearDown(new DispatcherItem("item3", false));
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", true);
+		final DispatcherItem item3 = new DispatcherItem("item3", false);
 
 		dispatchFail(probe);
 		assertEquals(false, item1.isToTargetPending());
