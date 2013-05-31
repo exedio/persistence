@@ -66,12 +66,10 @@ public abstract class CopeModelTest extends CopeAssert
 	{
 		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
+		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
 		if(doesManageTransactions())
-		{
 			model.startTransaction("tx:" + getClass().getName());
-			model.checkEmptySchema();
-		}
 	}
 
 	@Override
@@ -82,7 +80,6 @@ public abstract class CopeModelTest extends CopeAssert
 		// because test could have started a transaction
 		model.rollbackIfNotCommitted();
 
-		model.deleteSchemaForTest();
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);
