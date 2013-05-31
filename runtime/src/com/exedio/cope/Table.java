@@ -208,12 +208,6 @@ final class Table
 		return database.makeName(id + '_' + suffix);
 	}
 
-	@Override
-	public final String toString()
-	{
-		return id;
-	}
-
 	void makeSchema(final Schema schema, final boolean supportsNotNull)
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower);
@@ -226,5 +220,11 @@ final class Table
 
 		for(final CheckConstraint cc : getCheckConstraints())
 			cc.makeSchema(this, result);
+	}
+
+	@Override
+	public final String toString()
+	{
+		return id;
 	}
 }
