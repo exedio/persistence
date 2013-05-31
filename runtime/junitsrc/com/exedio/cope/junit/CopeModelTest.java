@@ -53,6 +53,11 @@ public abstract class CopeModelTest extends CopeAssert
 
 	private boolean manageTransactions;
 
+	/**
+	 * Override this method returning false if you do not want
+	 * method {@link #setUp()} to create a transaction for you.
+	 * The default implementation returns true.
+	 */
 	protected boolean doesManageTransactions()
 	{
 		return true;
