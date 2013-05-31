@@ -47,27 +47,44 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	TestLogAppender log = null;
 	Level logLevel = null;
+	private Date create;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+
 		log = new TestLogAppender();
 		logger.addAppender(log);
 
 		logLevel = logger.getLevel();
 		logger.setLevel(Level.DEBUG);
+
+		model.tearDownSchema();
+
+		final Date createBefore = new Date();
+		model.createSchema();
+		final Date createAfter = new Date();
+
+		{
+			final Map<Integer, byte[]> logs = model.getRevisionLogs();
+			create = assertCreate(createBefore, createAfter, logs, 5);
+			assertEquals(1, logs.size());
+		}
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		create = null;
+
 		if(logLevel!=null)
 			logger.setLevel(logLevel);
 		logLevel = null;
 
 		logger.removeAppender(log);
 		log = null;
+
 		super.tearDown();
 	}
 
@@ -101,49 +118,36 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 				"DeleteSchemaPointerA.this, " +
 				"DeleteSchemaPointerB.this]";
 
-
 	public void testIt()
 	{
-		model.tearDownSchema();
-
-		final Date createBefore = new Date();
-		model.createSchema();
-		final Date createAfter = new Date();
-
-		final Date create;
-		{
-			final Map<Integer, byte[]> logs = model.getRevisionLogs();
-			create = assertCreate(createBefore, createAfter, logs, 5);
-			assertEquals(1, logs.size());
-		}
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
-		assertRevisionLogs(create);
+		assertRevisionLogs();
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
-		assertRevisionLogs(create);
+		assertRevisionLogs();
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
-		assertRevisionLogs(create);
+		assertRevisionLogs();
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
-		assertRevisionLogs(create);
+		assertRevisionLogs();
 		assertEmptyAndCreate();
 	}
 
-	private void assertRevisionLogs(final Date create)
+	private void assertRevisionLogs()
 	{
 		final Map<Integer, byte[]> logs = model.getRevisionLogs();
 		assertCreate(create, logs, 5);
