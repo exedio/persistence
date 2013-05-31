@@ -41,7 +41,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	public DeleteSchemaTest()
 	{
-		super(MODEL);
+		super(MODEL, true);
 		skipTransactionManagement();
 	}
 
@@ -60,17 +60,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		logLevel = logger.getLevel();
 		logger.setLevel(Level.DEBUG);
 
-		model.tearDownSchema();
-		model.disconnect();
-		model.connect(getConnectProperties());
-
-		final Date createBefore = new Date();
-		model.createSchema();
-		final Date createAfter = new Date();
-
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
-			create = assertCreate(createBefore, createAfter, logs, 5);
+			final byte[] log = logs.get(5);
+			assertNotNull(log);
+			final RevisionInfoCreate c = (RevisionInfoCreate)RevisionInfo.read(log);
+			assertNotNull(c);
+			assertEquals(5, c.getNumber());
+			create = c.getDate();
 			assertEquals(1, logs.size());
 		}
 	}
