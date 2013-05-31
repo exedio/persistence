@@ -143,14 +143,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -160,7 +160,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		log.assertEmpty();
@@ -203,7 +203,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -251,14 +251,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -270,7 +270,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be EMPTY
 		assertRevisionLogs();
 
 		log.assertEmpty();
