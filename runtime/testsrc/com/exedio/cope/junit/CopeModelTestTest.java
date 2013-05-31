@@ -61,11 +61,6 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
 
-		assertEquals(-10, i1.getNextUnused());
-		assertEquals(-10, i2.getNextUnused());
-		assertEquals(-10, i3.getNextUnused());
-		assertEquals(-10, i4.getNextUnused());
-
 		assertEquals(2000, nextSequence());
 		assertEquals(2001, nextSequence());
 		assertEquals(2002, nextSequence());
