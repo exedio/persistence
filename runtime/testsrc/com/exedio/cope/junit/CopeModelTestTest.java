@@ -33,9 +33,7 @@ import com.exedio.cope.util.ModificationListener;
 
 public abstract class CopeModelTestTest extends CopeModelTest
 {
-	private static final Model MODEL = new Model(
-			JUnitTestItem.TYPE,
-			JUnitTestItemUnused.TYPE);
+	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 
 	public CopeModelTestTest()
 	{
