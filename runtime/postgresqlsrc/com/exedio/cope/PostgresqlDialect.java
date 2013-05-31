@@ -259,7 +259,7 @@ final class PostgresqlDialect extends Dialect
 
 				bf.append(table.quotedID);
 			}
-			bf.append(';');
+			bf.append(" cascade;");
 		}
 
 		for(final SequenceX sequence : sequences)
