@@ -35,8 +35,6 @@ public abstract class CopeModelTestTest extends CopeModelTest
 {
 	private static final Model MODEL = new Model(
 			JUnitTestItem.TYPE,
-			JUnitPointerA.TYPE,
-			JUnitPointerB.TYPE,
 			JUnitTestItemUnused.TYPE);
 
 	public CopeModelTestTest()
@@ -74,16 +72,6 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(2001, nextSequence());
 		assertEquals(2002, nextSequence());
 		assertEquals(2003, nextSequence());
-
-		final JUnitPointerA a1 = new JUnitPointerA(100);
-		final JUnitPointerA a2 = new JUnitPointerA(100);
-		final JUnitPointerA a3 = new JUnitPointerA(100);
-		a1.setSelf(a2); // reference forward
-		a2.setSelf(a2); // reference self
-		a3.setSelf(a2); // reference backward
-		final JUnitPointerB b = new JUnitPointerB(100);
-		a1.setOther(b);
-		b.setOther(a1);
 
 		assertEquals(null, model.getDatabaseListener());
 		model.setDatabaseListener(new DatabaseListener(){
