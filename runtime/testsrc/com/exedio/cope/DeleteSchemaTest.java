@@ -61,6 +61,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		logger.setLevel(Level.DEBUG);
 
 		model.tearDownSchema();
+		model.disconnect();
+		model.connect(getConnectProperties());
 
 		final Date createBefore = new Date();
 		model.createSchema();
@@ -118,7 +120,37 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 				"DeleteSchemaPointerA.this, " +
 				"DeleteSchemaPointerB.this]";
 
-	public void testIt()
+	public void testVirgin()
+	{
+		log.assertEmpty();
+		model.deleteSchema();
+		log.assertMessage(Level.DEBUG, ALL);
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+
+		log.assertEmpty();
+		model.deleteSchema();
+		log.assertMessage(Level.DEBUG, ALL);
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+	}
+
+	public void testVirginForTest()
+	{
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+	}
+
+	public void testCommitted()
 	{
 		assertEmptyAndCreate();
 
@@ -129,20 +161,25 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
-		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
-		assertRevisionLogs();
-		assertEmptyAndCreate();
-
-		log.assertEmpty();
-		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
-		assertRevisionLogs();
-		assertEmptyAndCreate();
-
-		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+	}
+
+	public void testCommittedForTest()
+	{
+		assertEmptyAndCreate();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
+		assertRevisionLogs();
+		assertEmptyAndCreate();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
 		assertRevisionLogs();
 		assertEmptyAndCreate();
 	}
