@@ -117,18 +117,25 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 				"DeleteSchemaPointerA.this, " +
 				"DeleteSchemaPointerB.this]";
 
+	private static final String EMPTY =
+			"deleteSchemaForTest  " +
+			"tables [] " +
+			"sequences []";
+
 	public void testVirgin()
 	{
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 	}
 
@@ -138,12 +145,29 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
 		assertRevisionLogs();
+
+		assertEmptyAndCreate();
+	}
+
+	public void testVirginForTestRepeat()
+	{
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be empty
+		assertRevisionLogs();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, EMPTY);
+		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 	}
 
@@ -155,12 +179,14 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchema();
 		log.assertMessage(Level.DEBUG, ALL);
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 	}
 
@@ -172,12 +198,31 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
 		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
 		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED); // TODO should be empty
 		assertRevisionLogs();
+
+		assertEmptyAndCreate();
+	}
+
+	public void testCommittedForTestRepeat()
+	{
+		assertEmptyAndCreate();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, ALL); // TODO should be ALL_BUT_UNUSED
+		assertRevisionLogs();
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, EMPTY);
+		assertRevisionLogs();
+
 		assertEmptyAndCreate();
 	}
 
