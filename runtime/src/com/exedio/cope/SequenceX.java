@@ -163,4 +163,10 @@ final class SequenceX
 
 		return impl.getSchemaName();
 	}
+
+	@Override
+	public final String toString()
+	{
+		return feature.toString();
+	}
 }

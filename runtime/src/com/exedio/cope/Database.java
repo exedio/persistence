@@ -29,6 +29,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
@@ -645,6 +648,8 @@ final class Database
 			sequence.flush();
 	}
 
+	private static final Logger deleteLogger = LoggerFactory.getLogger(Database.class.getName() + "#deleteSchema");
+
 	void deleteSchema(final boolean forTest)
 	{
 		final ArrayList<Table> tables;
@@ -665,6 +670,9 @@ final class Database
 			tables = this.tables;
 			sequences = this.sequences;
 		}
+
+		if(deleteLogger.isDebugEnabled())
+			deleteLogger.debug("deleteSchemaForTest  tables {} sequences {}", tables, sequences);
 
 		dialect.deleteSchema(
 				Collections.unmodifiableList(tables),
