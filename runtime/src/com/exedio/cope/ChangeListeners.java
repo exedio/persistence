@@ -35,8 +35,8 @@ final class ChangeListeners
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
-	private int cleared = 0;
-	private int removed = 0;
+	private final VolatileInt cleared = new VolatileInt();
+	private final VolatileInt removed = new VolatileInt();
 	private final VolatileInt failed = new VolatileInt();
 
 	ChangeListeners()
@@ -67,8 +67,7 @@ final class ChangeListeners
 					result.add(listener);
 			}
 
-			if(cleared>0)
-				this.cleared += cleared;
+			this.cleared.inc(cleared);
 
 			return Collections.unmodifiableList(result);
 		}
@@ -83,7 +82,7 @@ final class ChangeListeners
 	{
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared, removed, failed.get());
+			return new ChangeListenerInfo(cleared.get(), removed.get(), failed.get());
 		}
 	}
 
@@ -123,10 +122,8 @@ final class ChangeListeners
 					removed++;
 				}
 			}
-			if(cleared>0)
-				this.cleared += cleared;
-			if(removed>0)
-				this.removed += removed;
+			this.cleared.inc(cleared);
+			this.removed.inc(removed);
 		}
 	}
 
