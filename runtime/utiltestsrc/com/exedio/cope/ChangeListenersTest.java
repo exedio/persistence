@@ -37,15 +37,15 @@ public class ChangeListenersTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertInfo(0, 0);
+		assertInfo(0, 0, 0);
 		final FailListener l = new FailListener();
 
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(0, 0, 0);
 
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		try
 		{
@@ -57,7 +57,7 @@ public class ChangeListenersTest extends CopeAssert
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		try
 		{
@@ -69,41 +69,41 @@ public class ChangeListenersTest extends CopeAssert
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(0, 0, 1);
 	}
 
 	public void testWeakness()
 	{
-		assertInfo(0, 0);
+		assertInfo(0, 0, 0);
 
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		System.gc();
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		l1 = null;
 		System.gc();
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(1, 0);
+		assertInfo(0, 1, 0);
 
 		final FailListener l2 = new FailListener();
 		model.addChangeListener(l2);
 		model.addChangeListener(new FailListener());
 		System.gc();
 		model.removeChangeListener(l2);
-		assertInfo(2, 1);
+		assertInfo(0, 2, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(2, 1);
+		assertInfo(0, 2, 1);
 	}
 
 	private final class FailListener implements ChangeListener
@@ -120,9 +120,10 @@ public class ChangeListenersTest extends CopeAssert
 		}
 	}
 
-	private void assertInfo(final int cleared, final int removed)
+	private void assertInfo(final int size, final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
+		assertEquals("size",    size,    info.getSize());
 		assertEquals("cleared", cleared, info.getCleared() - baselineInfo.getCleared());
 		assertEquals("removed", removed, info.getRemoved() - baselineInfo.getRemoved());
 		assertEquals("failed",  0,       info.getFailed()  - baselineInfo.getFailed() );

@@ -80,10 +80,12 @@ final class ChangeListeners
 
 	ChangeListenerInfo getInfo()
 	{
+		final int size;
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared.get(), removed.get(), failed.get());
+			size = list.size();
 		}
+		return new ChangeListenerInfo(size, cleared.get(), removed.get(), failed.get());
 	}
 
 	void add(final ChangeListener listener)

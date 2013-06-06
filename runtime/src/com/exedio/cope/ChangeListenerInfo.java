@@ -20,18 +20,26 @@ package com.exedio.cope;
 
 public final class ChangeListenerInfo
 {
+	private final int size;
 	private final int cleared;
 	private final int removed;
 	private final int failed;
 
 	ChangeListenerInfo(
+			final int size,
 			final int cleared,
 			final int removed,
 			final int failed)
 	{
+		this.size = size;
 		this.cleared = cleared;
 		this.removed = removed;
 		this.failed  = failed;
+	}
+
+	public int getSize()
+	{
+		return size;
 	}
 
 	public int getCleared()
