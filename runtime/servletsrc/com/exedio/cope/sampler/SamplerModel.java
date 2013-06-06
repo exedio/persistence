@@ -143,6 +143,7 @@ final class SamplerModel extends Item
 	}
 
 
+	private static final IntegerField changeListenerSize     = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerCleared  = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerFailed   = new IntegerField().toFinal().min(0);
@@ -152,6 +153,7 @@ final class SamplerModel extends Item
 			final ChangeListenerInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
+			changeListenerSize.map(to.getSize()),
 			diff(changeListenerCleared, from.getCleared(), to.getCleared()),
 			diff(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
 			diff(changeListenerFailed,  from.getFailed(),  to.getFailed()));

@@ -36,6 +36,10 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(7, "sample ChangeListenerInfo#getSize()", new String[] {
+				"alter table `DiffModel` " +
+					"add column `changeListenerSize` int not null after `queryCacheInvalidations`",
+			}),
 			new Revision(6, "store differences instead of absolute values", new String[] {
 				"create table `SamplerMediaId`(" +
 					"`this` int," +
