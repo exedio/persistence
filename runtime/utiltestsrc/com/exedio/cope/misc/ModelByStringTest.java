@@ -16,10 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ModelByString.get;
 
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 
 public class ModelByStringTest extends CopeAssert
