@@ -22,7 +22,7 @@ import static com.exedio.cope.misc.ModelByString.get;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class GetModelTest extends CopeAssert
+public class ModelByStringTest extends CopeAssert
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	@SuppressWarnings("unused") // OK: read by reflection
