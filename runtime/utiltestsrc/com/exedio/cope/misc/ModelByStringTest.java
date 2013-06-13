@@ -37,7 +37,7 @@ public class ModelByStringTest extends CopeAssert
 
 	public void testIt()
 	{
-		assertSame(modelOk, get("com.exedio.cope.GetModelTest#modelOk"));
+		assertSame(modelOk, get("com.exedio.cope.misc.ModelByStringTest#modelOk"));
 
 		try
 		{
@@ -51,52 +51,52 @@ public class ModelByStringTest extends CopeAssert
 
 		try
 		{
-			get("com.exedio.cope.GetModelTestX#modelNotExists");
+			get("com.exedio.cope.misc.ModelByStringTestX#modelNotExists");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("class com.exedio.cope.GetModelTestX does not exist.", e.getMessage());
+			assertEquals("class com.exedio.cope.misc.ModelByStringTestX does not exist.", e.getMessage());
 		}
 
 		try
 		{
-			get("com.exedio.cope.GetModelTest#modelNotExists");
+			get("com.exedio.cope.misc.ModelByStringTest#modelNotExists");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field modelNotExists in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
+			assertEquals("field modelNotExists in class com.exedio.cope.misc.ModelByStringTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
 		{
-			get("com.exedio.cope.GetModelTest#modelPrivate");
+			get("com.exedio.cope.misc.ModelByStringTest#modelPrivate");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field modelPrivate in class com.exedio.cope.GetModelTest does not exist or is not public.", e.getMessage());
+			assertEquals("field modelPrivate in class com.exedio.cope.misc.ModelByStringTest does not exist or is not public.", e.getMessage());
 		}
 
 		try
 		{
-			get("com.exedio.cope.GetModelTest#modelNull");
+			get("com.exedio.cope.misc.ModelByStringTest#modelNull");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field com.exedio.cope.GetModelTest#modelNull is null.", e.getMessage());
+			assertEquals("field com.exedio.cope.misc.ModelByStringTest#modelNull is null.", e.getMessage());
 		}
 
 		try
 		{
-			get("com.exedio.cope.GetModelTest#modelNoModel");
+			get("com.exedio.cope.misc.ModelByStringTest#modelNoModel");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field com.exedio.cope.GetModelTest#modelNoModel is not a model, but a java.lang.String.", e.getMessage());
+			assertEquals("field com.exedio.cope.misc.ModelByStringTest#modelNoModel is not a model, but a java.lang.String.", e.getMessage());
 		}
 	}
 
