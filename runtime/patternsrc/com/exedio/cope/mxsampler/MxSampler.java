@@ -23,6 +23,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
 import java.lang.management.OperatingSystemMXBean;
+import java.lang.management.ThreadMXBean;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -164,6 +165,11 @@ public class MxSampler
 		final OperatingSystemMXBean operatingSystem = ManagementFactory.getOperatingSystemMXBean();
 		final int availableProcessors = operatingSystem.getAvailableProcessors();
 		final double systemLoadAverage = operatingSystem.getSystemLoadAverage();
+		final ThreadMXBean threads = ManagementFactory.getThreadMXBean();
+		final int threadCount = threads.getThreadCount();
+		final int peakThreadCount = threads.getPeakThreadCount();
+		final long totalStartedThreadCount = threads.getTotalStartedThreadCount();
+		final int daemonThreadCount = threads.getDaemonThreadCount();
 
 		final long duration = System.nanoTime() - start;
 
@@ -190,6 +196,10 @@ public class MxSampler
 				sv.add(MxSamplerGlobal.totalCompilationTime.map(totalCompilationTime));
 				sv.add(MxSamplerGlobal.availableProcessors.map(availableProcessors));
 				sv.add(MxSamplerGlobal.systemLoadAverage.map(systemLoadAverage==-1?null:systemLoadAverage));
+				sv.add(MxSamplerGlobal.threadCount.map(threadCount));
+				sv.add(MxSamplerGlobal.peakThreadCount.map(peakThreadCount));
+				sv.add(MxSamplerGlobal.totalStartedThreadCount.map(totalStartedThreadCount));
+				sv.add(MxSamplerGlobal.daemonThreadCount.map(daemonThreadCount));
 
 				model = MxSamplerGlobal.TYPE.newItem(sv);
 			}

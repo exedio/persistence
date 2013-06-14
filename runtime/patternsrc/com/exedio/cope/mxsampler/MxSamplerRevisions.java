@@ -18,6 +18,7 @@
 
 package com.exedio.cope.mxsampler;
 
+import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 
 final class MxSamplerRevisions implements Revisions.Factory
@@ -35,7 +36,13 @@ final class MxSamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
-			0
+			new Revision(1, "add ThreadMXBean", new String[] {
+				"alter table `MxSamplerGlobal` " +
+					"add column `threadCount` int not null," +
+					"add column `peakThreadCount` int not null," +
+					"add column `totalStartedThreadCount` bigint not null," +
+					"add column `daemonThreadCount` int not null",
+			})
 		);
 	}
 

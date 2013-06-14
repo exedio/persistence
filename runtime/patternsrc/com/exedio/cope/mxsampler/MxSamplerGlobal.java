@@ -44,6 +44,11 @@ final class MxSamplerGlobal extends Item
 	static final IntegerField availableProcessors = new IntegerField().toFinal().min(1);
 	static final DoubleField systemLoadAverage = new DoubleField().optional().toFinal().min(0);
 
+	static final IntegerField threadCount             = new IntegerField().toFinal().min(0);
+	static final IntegerField peakThreadCount         = new IntegerField().toFinal().min(0);
+	static final LongField    totalStartedThreadCount = new LongField   ().toFinal().min(0);
+	static final IntegerField daemonThreadCount       = new IntegerField().toFinal().min(0);
+
 
 	static <F extends FunctionField<?>> F replaceByCopy(final F field, final Type<?> type)
 	{
