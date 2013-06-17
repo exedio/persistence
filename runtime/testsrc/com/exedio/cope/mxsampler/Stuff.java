@@ -22,6 +22,7 @@ import com.exedio.cope.Model;
 
 public final class Stuff
 {
+	@SuppressWarnings("deprecation")
 	static final MxSampler sampler = new MxSampler();
 	public static final Model samplerModel = sampler.getModel();
 }

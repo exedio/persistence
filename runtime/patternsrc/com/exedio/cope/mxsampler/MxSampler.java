@@ -46,6 +46,10 @@ public class MxSampler
 
 	private final AtomicInteger runningSource = new AtomicInteger(0);
 
+	/**
+	 * @deprecated Use project mxsampler instead.
+	 */
+	@Deprecated
 	public MxSampler()
 	{
 		this.samplerModel =
