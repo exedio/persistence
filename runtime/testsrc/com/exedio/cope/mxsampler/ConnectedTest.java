@@ -20,10 +20,10 @@ package com.exedio.cope.mxsampler;
 
 import static com.exedio.cope.mxsampler.Stuff.samplerModel;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.junit.CopeTest;
 
-public class ConnectedTest extends AbstractRuntimeTest
+public class ConnectedTest extends CopeTest
 {
 	ConnectedTest()
 	{
