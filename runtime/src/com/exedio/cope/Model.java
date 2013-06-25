@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.TimeUtil.toMillies;
-
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -116,7 +114,7 @@ public final class Model implements Serializable
 	 */
 	public void connect(final ConnectProperties properties)
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = connectTimer.start();
 
 		if(properties==null)
 			throw new NullPointerException("properties");
@@ -130,13 +128,12 @@ public final class Model implements Serializable
 			types.connect(connectIfConnected.database);
 		}
 
-		if(logger.isInfoEnabled())
-			logger.info("connect " + toMillies(System.nanoTime(), start) + "ms");
+		timer.finish("connect");
 	}
 
 	public void disconnect()
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = connectTimer.start();
 
 		synchronized(connectLock)
 		{
@@ -146,9 +143,10 @@ public final class Model implements Serializable
 			connect.close();
 		}
 
-		if(logger.isInfoEnabled())
-			logger.info("disconnect " + toMillies(System.nanoTime(), start) + "ms");
+		timer.finish("disconnect");
 	}
+
+	private static final Timer connectTimer = new Timer(logger, "connect");
 
 	Connect connect()
 	{
@@ -357,12 +355,11 @@ public final class Model implements Serializable
 	{
 		transactions.assertNoCurrentTransaction();
 
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = schemaTimer.start();
 
 		connect().createSchema();
 
-		if(logger.isInfoEnabled())
-			logger.info("createSchema " + toMillies(System.nanoTime(), start) + "ms");
+		timer.finish("createSchema");
 	}
 
 	public void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -391,13 +388,12 @@ public final class Model implements Serializable
 
 	public void checkEmptySchema()
 	{
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = schemaTimer.start();
 
 		final Transaction tx = currentTransaction();
 		tx.connect.database.checkEmptySchema(tx.getConnection());
 
-		if(logger.isInfoEnabled())
-			logger.info("checkEmptySchema " + toMillies(System.nanoTime(), start) + "ms");
+		timer.finish("checkEmptySchema");
 	}
 
 	/**
@@ -430,24 +426,22 @@ public final class Model implements Serializable
 	{
 		transactions.assertNoCurrentTransaction();
 
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = schemaTimer.start();
 
 		connect().deleteSchema(forTest);
 
-		if(logger.isInfoEnabled())
-			logger.info("deleteSchema " + toMillies(System.nanoTime(), start) + "ms" + (forTest?" forTest":""));
+		timer.finish(forTest ? "deleteSchemaForTest" : "deleteSchema");
 	}
 
 	public void dropSchema()
 	{
 		transactions.assertNoCurrentTransaction();
 
-		final long start = logger.isInfoEnabled() ? System.nanoTime() : 0;
+		final Timer.Interval timer = schemaTimer.start();
 
 		connect().dropSchema();
 
-		if(logger.isInfoEnabled())
-			logger.info("dropSchema " + toMillies(System.nanoTime(), start) + "ms");
+		timer.finish("dropSchema");
 	}
 
 	public void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -470,6 +464,8 @@ public final class Model implements Serializable
 
 		connect().database.tearDownSchemaConstraints(types);
 	}
+
+	private static final Timer schemaTimer = new Timer(logger, "schema");
 
 	public Schema getVerifiedSchema()
 	{
