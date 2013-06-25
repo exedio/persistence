@@ -90,13 +90,13 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	private static final String ALL =
 			"deleteSchemaForTest  " +
-			"tables [" +
+			"tables 5 [" +
 				"DeleteSchemaItemSuper, " +
 				"DeleteSchemaItem, " +
 				"DeleteSchemaItemUnused, " +
 				"DeleteSchemaPointerA, " +
 				"DeleteSchemaPointerB] " +
-			"sequences [" +
+			"sequences 8 [" +
 				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
 				"DeleteSchemaItem.nextUnused, " +
@@ -108,12 +108,12 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	private static final String ALL_BUT_UNUSED =
 			"deleteSchemaForTest  " +
-			"tables [" +
+			"tables 4 [" +
 				"DeleteSchemaItemSuper, " +
 				"DeleteSchemaItem, " +
 				"DeleteSchemaPointerA, " +
 				"DeleteSchemaPointerB] " +
-			"sequences [" +
+			"sequences 5 [" +
 				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
 				"DeleteSchemaItem.sequence, " +
@@ -122,8 +122,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	private static final String USED_SEQUENCES =
 			"deleteSchemaForTest  " +
-			"tables [] " +
-			"sequences [" +
+			"tables 0 [] " +
+			"sequences 5 [" +
 				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
 				"DeleteSchemaItem.sequence, " +
@@ -132,8 +132,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	private static final String EMPTY =
 			"deleteSchemaForTest  " +
-			"tables [] " +
-			"sequences []";
+			"tables 0 [] " +
+			"sequences 0 []";
 
 	public void testVirgin()
 	{

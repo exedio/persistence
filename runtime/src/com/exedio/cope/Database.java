@@ -675,7 +675,9 @@ final class Database
 		}
 
 		if(deleteLogger.isDebugEnabled())
-			deleteLogger.debug("deleteSchemaForTest  tables {} sequences {}", tables, sequences);
+			deleteLogger.debug(
+					"deleteSchemaForTest  tables {} {} sequences {} {}",
+					new Object[]{tables.size(), tables, sequences.size(), sequences});
 
 		dialect.deleteSchema(
 				Collections.unmodifiableList(tables),
