@@ -31,13 +31,13 @@ public class TimerTest extends TestCase
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
 
-	TestLogAppender log = null;
+	UtilTestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogAppender();
+		log = new UtilTestLogAppender();
 		loggerImpl.addAppender(log);
 	}
 
