@@ -59,10 +59,17 @@ public class TimerTest extends TestCase
 		interval1.finish("interval1Msg1");
 		log.assertMessageMs(Level.INFO, "interval1Msg1 XXms total timerMsg XXms");
 
-		// TODO should fail()
 		log.assertEmpty();
-		interval1.finish("interval1Msg2");
-		log.assertMessageMs(Level.INFO, "interval1Msg2 XXms total timerMsg XXms");
+		try
+		{
+			interval1.finish("interval1Msg2");
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("exhausted", e.getMessage());
+		}
+		log.assertEmpty();
 	}
 
 	public void testNullTimermsg()

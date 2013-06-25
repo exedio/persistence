@@ -56,7 +56,7 @@ final class Timer
 	{
 		private final boolean dummy;
 		private final long start;
-		private final boolean exhausted = false;
+		private boolean exhausted = false;
 
 		Interval()
 		{
@@ -79,6 +79,7 @@ final class Timer
 
 			if(exhausted)
 				throw new IllegalStateException("exhausted");
+			exhausted = true;
 
 			Timer.this.finish(msg, toMillies(stop, start));
 		}
