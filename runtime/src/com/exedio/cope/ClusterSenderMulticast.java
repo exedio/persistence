@@ -61,7 +61,7 @@ final class ClusterSenderMulticast extends ClusterSender
 		}
 		catch(final SocketException e)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -74,7 +74,7 @@ final class ClusterSenderMulticast extends ClusterSender
 		}
 		catch(final SocketException e)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
