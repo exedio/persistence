@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 public final class PasswordRecoveryItem extends Item
 {
-	static final MessageDigestHash password = new MessageDigestHash(5);
+	static final Hash password = new Hash(MessageDigestHash.algorithm(5));
 	static final PasswordRecovery passwordRecovery = new PasswordRecovery(password);
 
 

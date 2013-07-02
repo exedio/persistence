@@ -23,7 +23,7 @@ import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 
 public final class PasswordLimiterItem extends Item
 {
-	static final MessageDigestHash password = new MessageDigestHash(8);
+	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
 
 	final boolean checkPasswordLimited(final String password, final MockClockSource clock)

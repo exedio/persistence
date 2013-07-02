@@ -166,13 +166,13 @@ public final class Standard extends Item
 	 */
 	public static final Media privateSetterMedia = new Media().optional();
 
-	public static final Hash publicHash = new MessageDigestHash(5).optional();
-	private static final Hash privateHash = new MessageDigestHash(5).optional();
-	public static final Hash mandatoryHash = new MessageDigestHash(5);
+	public static final Hash publicHash = new Hash(MessageDigestHash.algorithm(5)).optional();
+	private static final Hash privateHash = new Hash(MessageDigestHash.algorithm(5)).optional();
+	public static final Hash mandatoryHash = new Hash(MessageDigestHash.algorithm(5));
 	/**
 	 * @cope.set private
 	 */
-	public static final Hash privateSetterHash = new MessageDigestHash(5);
+	public static final Hash privateSetterHash = new Hash(MessageDigestHash.algorithm(5));
 
 	/**
 	 * An upper-case attribute

@@ -25,13 +25,26 @@ public final class MessageDigestHash extends Hash
 	private static final String DEFAULT_DIGEST = "SHA-512";
 	private static final int DEFAULT_SALT_LENGTH = 8;
 
+	/**
+	 * @deprecated Use {@link Hash#Hash(Algorithm, String)} and {@link #algorithm(int)} instead.
+	 */
+	@Deprecated
 	public MessageDigestHash(final int iterations, final String encoding)
 	{
-		super(new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations), encoding);
+		super(algorithm(iterations), encoding);
 	}
 
+	/**
+	 * @deprecated Use {@link Hash#Hash(Algorithm)} and {@link #algorithm(int)} instead.
+	 */
+	@Deprecated
 	public MessageDigestHash(final int iterations)
 	{
-		super(new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations));
+		super(algorithm(iterations));
+	}
+
+	public static final Algorithm algorithm(final int iterations)
+	{
+		return new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations);
 	}
 }

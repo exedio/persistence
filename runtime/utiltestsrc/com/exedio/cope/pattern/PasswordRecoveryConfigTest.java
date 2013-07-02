@@ -111,7 +111,7 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		{
 			assertEquals("password", e.getMessage());
 		}
-		final Hash hash = new MessageDigestHash(20);
+		final Hash hash = new Hash(MessageDigestHash.algorithm(20));
 		try
 		{
 			new PasswordRecovery(hash, null);
