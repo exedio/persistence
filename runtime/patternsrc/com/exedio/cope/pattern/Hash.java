@@ -87,7 +87,7 @@ public class Hash extends Pattern implements Settable<String>
 		this(storage, algorithm, DEFAULT_VALIDATOR);
 	}
 
-	public Hash validate(final PlainTextValidator validator)
+	public final Hash validate(final PlainTextValidator validator)
 	{
 		return new Hash(this.storage.copy(), this.algorithm, validator);
 	}
@@ -379,7 +379,7 @@ public class Hash extends Pattern implements Settable<String>
 		return storage.bind(join).isNotNull();
 	}
 
-	public String newRandomPassword(final SecureRandom random)
+	public final String newRandomPassword(final SecureRandom random)
 	{
 		return validator.newRandomPlainText(random);
 	}
