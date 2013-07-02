@@ -1108,15 +1108,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 		catch(final InstantiationException e)
 		{
-			throw new RuntimeException(id + '/' + javaClass.getName(), e);
+			throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
 		}
 		catch(final IllegalAccessException e)
 		{
-			throw new RuntimeException(id + '/' + javaClass.getName(), e);
+			throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
 		}
 		catch(final InvocationTargetException e)
 		{
-			throw new RuntimeException(id + '/' + javaClass.getName(), e);
+			throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
 		}
 	}
 
