@@ -231,7 +231,7 @@ public class Hash extends Pattern implements Settable<String>
 
 	public final Hash validate(final PlainTextValidator validator)
 	{
-		return new Hash(this.storage.copy(), this.algorithm, validator);
+		return new Hash(storage.copy(), algorithm, validator);
 	}
 
 	@Wrap(order=30,
