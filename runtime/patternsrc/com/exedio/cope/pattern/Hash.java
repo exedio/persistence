@@ -87,12 +87,6 @@ public class Hash extends Pattern implements Settable<String>
 		this(storage, algorithm, DEFAULT_VALIDATOR);
 	}
 
-	public final Hash validate(final PlainTextValidator validator)
-	{
-		return new Hash(this.storage.copy(), this.algorithm, validator);
-	}
-
-
 	private Hash(
 			final StringField storage,
 			final HashAlgorithm algorithm,
@@ -233,6 +227,11 @@ public class Hash extends Pattern implements Settable<String>
 	public final Hash optional()
 	{
 		return new Hash(storage.optional(), algorithm, validator);
+	}
+
+	public final Hash validate(final PlainTextValidator validator)
+	{
+		return new Hash(this.storage.copy(), this.algorithm, validator);
 	}
 
 	@Wrap(order=30,
