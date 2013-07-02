@@ -481,8 +481,11 @@ final class Types
 		{
 			final TIntHashSet set = invalidations[type];
 			if(set!=null)
+			{
+				final Type<?> typeO = getConcreteType(type);
 				for(final TIntIterator i = set.iterator(); i.hasNext(); )
-					result[item++] = getConcreteType(type).activate(i.next());
+					result[item++] = typeO.activate(i.next());
+			}
 		}
 		assert item==length;
 		return result;
