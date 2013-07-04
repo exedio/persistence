@@ -178,15 +178,23 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 		else
 		{
-			final ImageReader imageReader = spi.createReaderInstance();
+			final MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes));
 			try
 			{
-				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
-				srcBuf = imageReader.read(0);
+				final ImageReader imageReader = spi.createReaderInstance();
+				try
+				{
+					imageReader.setInput(input, true, true);
+					srcBuf = imageReader.read(0);
+				}
+				finally
+				{
+					imageReader.dispose();
+				}
 			}
 			finally
 			{
-				imageReader.dispose();
+				input.close();
 			}
 		}
 		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
@@ -200,15 +208,23 @@ public abstract class MediaImageioFilter extends MediaFilter
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
 		{
-			final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+			final MemoryCacheImageOutputStream output = new MemoryCacheImageOutputStream(body);
 			try
 			{
-				imageWriter.setOutput(new MemoryCacheImageOutputStream(body));
-				imageWriter.write(null, iioImage, imageWriteParam);
+				final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+				try
+				{
+					imageWriter.setOutput(output);
+					imageWriter.write(null, iioImage, imageWriteParam);
+				}
+				finally
+				{
+					imageWriter.dispose();
+				}
 			}
 			finally
 			{
-				imageWriter.dispose();
+				output.close();
 			}
 		}
 		return body;
