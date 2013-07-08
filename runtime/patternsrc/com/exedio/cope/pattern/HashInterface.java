@@ -21,13 +21,15 @@ package com.exedio.cope.pattern;
 import java.security.SecureRandom;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Settable;
+import com.exedio.cope.SetValue;
 
-public interface HashInterface extends Settable<String>
+public interface HashInterface
 {
 	boolean check(Item item, String actualPlainText);
 
 	void blind(String actualPlainText);
 
 	String newRandomPassword(SecureRandom random);
+
+	SetValue<?> map(String newPassword);
 }

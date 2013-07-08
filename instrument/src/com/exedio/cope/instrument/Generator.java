@@ -759,7 +759,14 @@ final class Generator
 				if(previousClassEndPosition<classEndPosition)
 					output.append(buffer, previousClassEndPosition, classEndPosition);
 
-				writeClassFeatures(type);
+				try
+				{
+					writeClassFeatures(type);
+				}
+				catch (final RuntimeException e)
+				{
+					throw new RuntimeException("Failed to generate class features for " + javaClass, e);
+				}
 				previousClassEndPosition = classEndPosition;
 			}
 		}
