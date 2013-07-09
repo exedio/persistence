@@ -105,7 +105,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("null is not allowed in content type enumeration", e.getMessage());
+			assertEquals("null is not allowed in content type enumeration position 1", e.getMessage());
 		}
 	}
 

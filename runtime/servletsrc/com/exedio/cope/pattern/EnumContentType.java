@@ -42,10 +42,13 @@ final class EnumContentType extends ContentType<Integer>
 		this.types = types;
 		final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
 		for(int i = 0; i<types.length; i++)
-			typeSet.put(types[i], i);
+		{
+			final String type = types[i];
+			if(type==null)
+				throw new IllegalArgumentException("null is not allowed in content type enumeration position " + i);
+			typeSet.put(type, i);
+		}
 
-		if(typeSet.containsKey(null))
-			throw new IllegalArgumentException("null is not allowed in content type enumeration");
 		if(typeSet.size()!=types.length)
 			throw new IllegalArgumentException("duplicates are not allowed for content type enumeration");
 		this.typeSet = typeSet;
