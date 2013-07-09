@@ -119,7 +119,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("duplicates are not allowed for content type enumeration", e.getMessage());
+			assertEquals("duplicates are not allowed for content type enumeration: image/jpeg", e.getMessage());
 		}
 	}
 

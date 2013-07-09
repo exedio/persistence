@@ -46,11 +46,9 @@ final class EnumContentType extends ContentType<Integer>
 			final String type = types[i];
 			if(type==null)
 				throw new IllegalArgumentException("null is not allowed in content type enumeration position " + i);
-			typeSet.put(type, i);
+			if(typeSet.put(type, i)!=null)
+				throw new IllegalArgumentException("duplicates are not allowed for content type enumeration: " + type);
 		}
-
-		if(typeSet.size()!=types.length)
-			throw new IllegalArgumentException("duplicates are not allowed for content type enumeration");
 		this.typeSet = typeSet;
 	}
 
