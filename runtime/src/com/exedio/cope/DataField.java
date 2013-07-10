@@ -34,6 +34,7 @@ import java.util.zip.ZipFile;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.Hex;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -232,7 +233,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=100,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownGetter=InitialThrown.class,
+			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@Override
 	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
@@ -264,7 +265,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	@Wrap(order=110,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
-			thrownGetter=InitialThrown.class,
+			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
@@ -308,14 +309,6 @@ public final class DataField extends Field<DataField.Value>
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
 		set(item, toValue(data));
-	}
-
-	private static final class InitialThrown implements ThrownGetter<Field<?>>
-	{
-		public Set<Class<? extends Throwable>> get(final Field<?> feature)
-		{
-			return feature.getInitialExceptions();
-		}
 	}
 
 	private static final class InitialAndIOThrown implements ThrownGetter<Field<?>>

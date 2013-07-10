@@ -40,9 +40,9 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.InstrumentContext;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -206,7 +206,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class,
+			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void set(final Item item, final E value)
@@ -216,14 +216,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
 			setValues[i++] = ((FunctionField)e.getValue()).map(value!=null ? value.get(e.getKey()) : null);
 		item.set(setValues);
-	}
-
-	private static final class Thrown implements ThrownGetter<CompositeField<?>>
-	{
-		public Set<Class<? extends Throwable>> get(final CompositeField<?> feature)
-		{
-			return feature.getInitialExceptions();
-		}
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

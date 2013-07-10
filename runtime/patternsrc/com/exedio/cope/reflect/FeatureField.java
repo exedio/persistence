@@ -37,9 +37,9 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.Cast;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
@@ -147,7 +147,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class,
+			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final E value)
 	{
@@ -157,14 +157,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			throw MandatoryViolationException.create(this, item);
 
 		idField.set(item, value!=null ? value.getID() : null);
-	}
-
-	private static final class Thrown implements ThrownGetter<FeatureField<?>>
-	{
-		public Set<Class<? extends Throwable>> get(final FeatureField<?> feature)
-		{
-			return feature.getInitialExceptions();
-		}
 	}
 
 	public SetValue<E> map(final E value)

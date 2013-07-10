@@ -27,10 +27,10 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 
 public final class PriceField extends Pattern implements Settable<Price>
 {
@@ -137,7 +137,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class,
+			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final Price value)
 	{
@@ -147,14 +147,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 			throw MandatoryViolationException.create(this, item);
 
 		integer.set(item, value!=null ? value.store : null);
-	}
-
-	private static final class Thrown implements ThrownGetter<PriceField>
-	{
-		public Set<Class<? extends Throwable>> get(final PriceField feature)
-		{
-			return feature.getInitialExceptions();
-		}
 	}
 
 	public SetValue<Price> map(final Price value)
