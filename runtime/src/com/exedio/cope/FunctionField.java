@@ -32,6 +32,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.PrimitiveUtil;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 
@@ -259,7 +260,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalGetter.class, PrimitiveGetter.class},
+			hide={FinalSettableGetter.class, PrimitiveGetter.class},
 			thrownGetter=InitialThrown.class)
 	@Override
 	public final void set(final Item item, final E value)

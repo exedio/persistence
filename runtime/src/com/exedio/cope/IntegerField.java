@@ -22,6 +22,7 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -279,7 +280,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalGetter.class, OptionalGetter.class},
+			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void set(final Item item, final int value)
 		throws

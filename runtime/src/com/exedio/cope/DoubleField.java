@@ -22,6 +22,7 @@ import java.util.Set;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -204,7 +205,7 @@ public final class DoubleField extends NumberField<Double>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalGetter.class, OptionalGetter.class},
+			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final double value)
 		throws

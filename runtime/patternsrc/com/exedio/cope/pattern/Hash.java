@@ -37,12 +37,12 @@ import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.NonNegativeRandom;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -236,7 +236,7 @@ public class Hash extends Pattern implements HashInterface, Settable<String>
 
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
-			hide=FinalGetter.class,
+			hide=FinalSettableGetter.class,
 			thrownGetter=Thrown.class)
 	public final void set(final Item item, final String plainText)
 		throws
@@ -246,14 +246,6 @@ public class Hash extends Pattern implements HashInterface, Settable<String>
 			FinalViolationException
 	{
 		storage.set(item, hash(plainText, item));
-	}
-
-	private static final class FinalGetter implements BooleanGetter<Hash>
-	{
-		public boolean get(final Hash feature)
-		{
-			return feature.isFinal();
-		}
 	}
 
 	private static final class Thrown implements ThrownGetter<Hash>
@@ -325,7 +317,7 @@ public class Hash extends Pattern implements HashInterface, Settable<String>
 	@Wrap(order=50,
 			nameGetter=SetNameGetter.class,
 			doc="Sets the encoded hash value for hash {0}.",
-			hide=FinalGetter.class,
+			hide=FinalSettableGetter.class,
 			thrownGetter=Thrown.class)
 	public final void setHash(final Item item, final String hash)
 	{

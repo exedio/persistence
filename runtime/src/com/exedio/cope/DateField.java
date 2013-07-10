@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 public final class DateField extends FunctionField<Date>
 {
@@ -181,7 +182,7 @@ public final class DateField extends FunctionField<Date>
 	 */
 	@Wrap(order=10,
 			doc="Sets the current date for the date field {0}.", // TODO better text
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 		throws
 			UniqueViolationException,

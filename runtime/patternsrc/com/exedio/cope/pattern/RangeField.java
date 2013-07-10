@@ -28,8 +28,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -80,7 +80,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return Range.valueOf(from.get(item), to.get(item));
 	}
 
-	@Wrap(order=20, hide=FinalGetter.class)
+	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
@@ -100,13 +100,13 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return to.get(item);
 	}
 
-	@Wrap(order=50, hide=FinalGetter.class)
+	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void setFrom(final Item item, final E from)
 	{
 		this.from.set(item, from);
 	}
 
-	@Wrap(order=60, hide=FinalGetter.class)
+	@Wrap(order=60, hide=FinalSettableGetter.class)
 	public void setTo(final Item item, final E to)
 	{
 		this.to.set(item, to);
@@ -127,14 +127,6 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			return false;
 
 		return true;
-	}
-
-	private static final class FinalGetter implements BooleanGetter<RangeField<?>>
-	{
-		public boolean get(final RangeField<?> feature)
-		{
-			return feature.isFinal();
-		}
 	}
 
 	public Condition contains(final E value)

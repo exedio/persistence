@@ -51,6 +51,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.SetValueUtil;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -370,7 +371,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	 */
 	@Wrap(order=110,
 			doc = "Sets the content of media {0}.",
-			hide=FinalGetter.class,
+			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
@@ -401,7 +402,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	 * @throws DataLengthViolationException
 	 *         if body is longer than {@link #getMaximumLength()}
 	 */
-	@Wrap(order=120, doc="Sets the content of media {0}.", hide=FinalGetter.class)
+	@Wrap(order=120, doc="Sets the content of media {0}.", hide=FinalSettableGetter.class)
 	public void set(
 			final Item item,
 			@Parameter("body") final byte[] body,
@@ -452,7 +453,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	 */
 	@Wrap(order=130,
 			doc="Sets the content of media {0}.",
-			hide=FinalGetter.class,
+			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
@@ -504,7 +505,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	 */
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",
-			hide=FinalGetter.class,
+			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			final Item item,
@@ -516,14 +517,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 			throw MandatoryViolationException.create(this, item);
 
 		set(item, DataField.toValue(body), contentType);
-	}
-
-	private static final class FinalGetter implements BooleanGetter<Media>
-	{
-		public boolean get(final Media feature)
-		{
-			return feature.isFinal();
-		}
 	}
 
 	/**

@@ -36,10 +36,10 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Cast;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -170,7 +170,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			thrownGetter=Thrown.class,
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
@@ -180,14 +180,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			ClassCastException
 	{
 		source.set(item, serialize(value));
-	}
-
-	private static final class FinalGetter implements BooleanGetter<Serializer<?>>
-	{
-		public boolean get(final Serializer<?> feature)
-		{
-			return feature.isFinal();
-		}
 	}
 
 	private static final class Thrown implements ThrownGetter<Serializer<?>>

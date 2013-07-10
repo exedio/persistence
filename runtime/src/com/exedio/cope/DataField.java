@@ -33,6 +33,7 @@ import java.util.zip.ZipFile;
 
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Hex;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -232,7 +233,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=100,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialThrown.class,
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	@Override
 	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
 	{
@@ -264,7 +265,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=110,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialThrown.class,
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		set(item, toValue(data));
@@ -283,7 +284,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=120,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
@@ -302,7 +303,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=130,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
-			hide=FinalGetter.class)
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
