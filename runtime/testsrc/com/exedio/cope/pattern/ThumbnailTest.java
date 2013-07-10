@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
+import static com.exedio.cope.pattern.ThumbnailItem.file;
+import static com.exedio.cope.pattern.ThumbnailItem.thumb;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
@@ -25,7 +29,6 @@ import java.util.Set;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import static com.exedio.cope.pattern.ThumbnailItem.*;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

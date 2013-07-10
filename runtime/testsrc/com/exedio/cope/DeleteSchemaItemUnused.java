@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
 
 /**
  * @cope.constructor none

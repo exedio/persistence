@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
-import java.io.InputStream;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someData;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FieldMediaTest extends FieldTest
 {

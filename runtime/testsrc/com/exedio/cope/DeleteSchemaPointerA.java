@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 
 final class DeleteSchemaPointerA extends Item
 {
