@@ -42,7 +42,7 @@ public final class PasswordLimiter extends Pattern
 	private static final long serialVersionUID = 1l;
 	static final Clock clock = new Clock();
 
-	private final Hash password;
+	private final HashInterface password;
 	private final long period;
 	private final int limit;
 
@@ -50,10 +50,13 @@ public final class PasswordLimiter extends Pattern
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
-	public PasswordLimiter(
-			final Hash password,
-			final long period,
-			final int limit)
+	// for binary backwards compatibility
+	public PasswordLimiter(final Hash password, final long period, final int limit)
+	{
+		this((HashInterface)password, period, limit);
+	}
+
+	public PasswordLimiter(final HashInterface password, final long period, final int limit)
 	{
 		this.password = password;
 		this.period = period;
@@ -67,7 +70,7 @@ public final class PasswordLimiter extends Pattern
 			throw new IllegalArgumentException("limit must be greater zero, but was " + limit);
 	}
 
-	public Hash getPassword()
+	public HashInterface getPassword()
 	{
 		return password;
 	}

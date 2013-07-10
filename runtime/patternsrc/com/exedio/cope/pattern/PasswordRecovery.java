@@ -45,7 +45,7 @@ public final class PasswordRecovery extends Pattern
 	private static final long NOT_A_SECRET = 0l;
 	static final Clock clock = new Clock();
 
-	private final Hash password;
+	private final HashInterface password;
 
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
@@ -55,12 +55,24 @@ public final class PasswordRecovery extends Pattern
 
 	private final SecureRandom random;
 
+	// for binary backwards compatibility
 	public PasswordRecovery(final Hash password)
+	{
+		this((HashInterface)password);
+	}
+
+	public PasswordRecovery(final HashInterface password)
 	{
 		this(password, new SecureRandom());
 	}
 
+	// for binary backwards compatibility
 	public PasswordRecovery(final Hash password, final SecureRandom random)
+	{
+		this((HashInterface)password, random);
+	}
+
+	public PasswordRecovery(final HashInterface password, final SecureRandom random)
 	{
 		this.password = password;
 		this.random = random;
@@ -86,7 +98,7 @@ public final class PasswordRecovery extends Pattern
 		tokenType = newSourceType(Token.class, features, "Token");
 	}
 
-	public Hash getPassword()
+	public HashInterface getPassword()
 	{
 		return password;
 	}

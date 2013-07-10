@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* PasswordRecovery.getPassword() and PasswordLimiter.getPassword() return
+	HashInterface instead of Hash.
+	This breaks backwards API compatibility, causes compiler error.
 * Hash#validate and #newRandomPassword do become final.
 	This breaks backwards API compatibility, causes compiler error.
 * Model#deleteSchemaForTest added

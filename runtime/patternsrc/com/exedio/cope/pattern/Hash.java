@@ -46,7 +46,7 @@ import com.exedio.cope.misc.NonNegativeRandom;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class Hash extends Pattern implements Settable<String>
+public class Hash extends Pattern implements HashInterface, Settable<String>
 {
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
@@ -318,7 +318,7 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		public String get(final Hash feature)
 		{
-			return "get{0}" + feature.getAlgorithmID();
+			return "get{0}" + Hash.getMethodSuffixAlgorithm(feature);
 		}
 	}
 
@@ -336,8 +336,13 @@ public class Hash extends Pattern implements Settable<String>
 	{
 		public String get(final Hash feature)
 		{
-			return "set{0}" + feature.getAlgorithmID();
+			return "set{0}" + Hash.getMethodSuffixAlgorithm(feature);
 		}
+	}
+
+	static String getMethodSuffixAlgorithm(final Hash feature)
+	{
+		return feature.getAlgorithmID().replaceAll("\\W", "");
 	}
 
 	public final String hash(final String plainText)
