@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.pattern.Dispatcher;
 import com.exedio.cope.util.Properties;
 
 public final class DispatcherProperties extends Properties
