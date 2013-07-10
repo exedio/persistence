@@ -51,12 +51,18 @@ public final class PasswordLimiter extends Pattern
 	private Mount mountIfMounted = null;
 
 	// for binary backwards compatibility
-	public PasswordLimiter(final Hash password, final long period, final int limit)
+	public PasswordLimiter(
+			final Hash password,
+			final long period,
+			final int limit)
 	{
 		this((HashInterface)password, period, limit);
 	}
 
-	public PasswordLimiter(final HashInterface password, final long period, final int limit)
+	public PasswordLimiter(
+			final HashInterface password,
+			final long period,
+			final int limit)
 	{
 		this.password = password;
 		this.period = period;
