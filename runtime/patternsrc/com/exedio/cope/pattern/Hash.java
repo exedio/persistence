@@ -32,7 +32,6 @@ import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
@@ -46,7 +45,7 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class Hash extends Pattern implements HashInterface, Settable<String>
+public class Hash extends Pattern implements HashInterface
 {
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;

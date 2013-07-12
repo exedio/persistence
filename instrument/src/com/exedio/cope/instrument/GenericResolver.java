@@ -102,14 +102,23 @@ final class GenericResolver<T>
 			final Class<?> clazz,
 			final Class<?> interfaze)
 	{
+		assert interfaze.isInterface() : interfaze;
+
 		for(final Type t : clazz.getGenericInterfaces())
 		{
-			// could be a simple class as well
 			if(t instanceof ParameterizedType)
 			{
 				final ParameterizedType tpt = (ParameterizedType)t;
 				if(tpt.getRawType()==interfaze)
 					return tpt;
+			}
+			else if(t instanceof Class)
+			{
+				final Class<?> tc = (Class<?>)t;
+				assert tc.isInterface() : tc;
+				final ParameterizedType recurse = getGenericInterface(tc, interfaze);
+				if(recurse!=null)
+					return recurse;
 			}
 		}
 		return null;

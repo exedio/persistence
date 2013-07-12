@@ -43,6 +43,15 @@ public class GenericResolverTest extends CopeAssert
 				list(Reader.class, Writer.class),
 				list(gr.get(AllImplementation.class)));
 		assertEquals(
+				list(Reader.class, Writer.class),
+				list(gr.get(AllImplementationImp.class)));
+		assertEquals(
+				list(Reader.class, Writer.class),
+				list(gr.get(AllImplementationImpExt.class)));
+		assertEquals(
+				list(Reader.class, Writer.class),
+				list(gr.get(AllImplementationExtImp.class)));
+		assertEquals(
 				list(type1, type2),
 				list(gr.get(NoneImplementation.class, type1, type2)));
 		assertEquals(
@@ -89,6 +98,31 @@ public class GenericResolverTest extends CopeAssert
 	}
 
 	static class AllImplementation implements Serializable, Interface<Reader, Writer>, Cloneable
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static interface AllInterface extends Serializable, Interface<Reader, Writer>, Cloneable
+	{
+		// empty
+	}
+
+	static class AllImplementationImp implements AllInterface
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static class AllImplementationImpExt extends AllImplementationImp
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static interface AllInterfaceExt extends AllInterface
+	{
+		// empty
+	}
+
+	static class AllImplementationExtImp implements AllInterfaceExt
 	{
 		private static final long serialVersionUID = 1l;
 	}

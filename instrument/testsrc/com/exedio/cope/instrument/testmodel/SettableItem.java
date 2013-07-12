@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.testfeature.SettableFixed;
 import com.exedio.cope.instrument.testfeature.SettableFixedParam;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamBound;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamBoundSub;
+import com.exedio.cope.instrument.testfeature.SettableFixedParamImpl;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamSub;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcard;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcardSub;
@@ -39,12 +40,17 @@ final class SettableItem extends Item
 	static final SettableOpen<AtomicReference<AtomicLong>> openParam = new SettableOpen<AtomicReference<AtomicLong>>(); // TODO is not instrumented
 	static final SettableOpen<AtomicReference<?>> openParamWildcard = new SettableOpen<AtomicReference<?>>(); // TODO is not instrumented
 	static final SettableOpen<AtomicReference<? extends AtomicLong>> openParamBound = new SettableOpen<AtomicReference<? extends AtomicLong>>(); // TODO is not instrumented
+
 	static final SettableFixed fixed = new SettableFixed();
 	static final SettableFixedSub fixedSub = new SettableFixedSub();
+
 	static final SettableFixedParam fixedParam = new SettableFixedParam();
 	static final SettableFixedParamSub fixedParamSub = new SettableFixedParamSub();
+	static final SettableFixedParamImpl fixedParamImpl = new SettableFixedParamImpl();
+
 	static final SettableFixedParamWildcard fixedParamWildcard = new SettableFixedParamWildcard();
 	static final SettableFixedParamWildcardSub fixedParamWildcardSub = new SettableFixedParamWildcardSub();
+
 	static final SettableFixedParamBound fixedParamBound = new SettableFixedParamBound();
 	static final SettableFixedParamBoundSub fixedParamBoundSub = new SettableFixedParamBoundSub();
 
@@ -58,6 +64,7 @@ final class SettableItem extends Item
 	 * @param fixedSub the initial value for field {@link #fixedSub}.
 	 * @param fixedParam the initial value for field {@link #fixedParam}.
 	 * @param fixedParamSub the initial value for field {@link #fixedParamSub}.
+	 * @param fixedParamImpl the initial value for field {@link #fixedParamImpl}.
 	 * @param fixedParamWildcard the initial value for field {@link #fixedParamWildcard}.
 	 * @param fixedParamWildcardSub the initial value for field {@link #fixedParamWildcardSub}.
 	 * @param fixedParamBound the initial value for field {@link #fixedParamBound}.
@@ -71,6 +78,7 @@ final class SettableItem extends Item
 				final java.util.concurrent.atomic.AtomicBoolean fixedSub,
 				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParam,
 				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamSub,
+				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamImpl,
 				final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcard,
 				final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcardSub,
 				final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBound,
@@ -82,6 +90,7 @@ final class SettableItem extends Item
 			SettableItem.fixedSub.map(fixedSub),
 			SettableItem.fixedParam.map(fixedParam),
 			SettableItem.fixedParamSub.map(fixedParamSub),
+			SettableItem.fixedParamImpl.map(fixedParamImpl),
 			SettableItem.fixedParamWildcard.map(fixedParamWildcard),
 			SettableItem.fixedParamWildcardSub.map(fixedParamWildcardSub),
 			SettableItem.fixedParamBound.map(fixedParamBound),
