@@ -91,6 +91,25 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 					"executeUpdate " + (executeUpdateAccu/1000000) + "ms " +
 					"getGeneratedKeys " + (getGeneratedKeysAccu/1000000) + "ms");
 		}
+		{
+			final long start = System.nanoTime();
+			long executeUpdateAccu = 0;
+			for(int i=0; i<ITERATIONS; i++)
+			{
+				final PreparedStatement stmt =
+						con.prepareStatement(
+								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
+								NO_GENERATED_KEYS);
+				stmt.setObject(1, "payLoad + i");
+				final long executeUpdateStart = System.nanoTime();
+				stmt.executeUpdate();
+				executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
+				stmt.close();
+			}
+			System.out.println(
+					"auto_increment empty " + toMillies(System.nanoTime(), start) + "ms " +
+					"executeUpdate " + (executeUpdateAccu/1000000) + "ms");
+		}
 		stat.execute("drop table testAutoIncrement");
 		stat.execute(
 				"create table testAutoIncrement ( " +
