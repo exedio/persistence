@@ -131,7 +131,9 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 				executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
 				stmt.close();
 			}
-			System.out.println("normal " + toMillies(System.nanoTime(), start) + "ms accu " + (executeUpdateAccu/1000000) + "ms");
+			System.out.println(
+					"normal " + toMillies(System.nanoTime(), start) + "ms " +
+					"executeUpdate " + (executeUpdateAccu/1000000) + "ms");
 		}
 		stat.execute("drop table testAutoIncrement");
 	}
