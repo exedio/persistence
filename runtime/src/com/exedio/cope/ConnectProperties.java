@@ -38,8 +38,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionUrl      = value      ("connection.url",      (String)null);
 	private final String connectionUsername = value      ("connection.username", (String)null);
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
-	final boolean connectionTransactionIsolationReadCommitted = value("connection.transactionIsolation.readCommitted", false);
-	final boolean connectionTransactionIsolationRepeatableRead = value("connection.transactionIsolation.repeatableRead", true);
 
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
@@ -227,9 +225,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
 
-		if(connectionTransactionIsolationReadCommitted &&
-			connectionTransactionIsolationRepeatableRead)
-			throw new RuntimeException("connection.transactionIsolation.readCommitted and connection.transactionIsolation.repeatableRead cannot be enabled both");
 		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
 			throw new RuntimeException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
 	}
