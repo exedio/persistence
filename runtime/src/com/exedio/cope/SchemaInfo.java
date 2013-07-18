@@ -167,16 +167,6 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @deprecated always returns true
-	 * @see #getUpdateCounterColumnName(Type)
-	 */
-	@Deprecated
-	public static boolean isUpdateCounterEnabled(@SuppressWarnings("unused") final Model model)
-	{
-		return true;
-	}
-
-	/**
 	 * Returns the name of update counter column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "catch".
@@ -286,6 +276,16 @@ public final class SchemaInfo
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)
 	{
 		return field.valueType.getNumber(value);
+	}
+
+	/**
+	 * @deprecated always returns true
+	 * @see #getUpdateCounterColumnName(Type)
+	 */
+	@Deprecated
+	public static boolean isUpdateCounterEnabled(@SuppressWarnings("unused") final Model model)
+	{
+		return true;
 	}
 
 	/**
