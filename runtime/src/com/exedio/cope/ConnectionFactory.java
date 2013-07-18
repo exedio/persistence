@@ -50,8 +50,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		info = properties.newConnectionInfo();
 		dialect.completeConnectionInfo(info);
 
-		this.transactionIsolation =
-			dialect.filterTransationIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+		this.transactionIsolation = dialect.getTransationIsolation();
 	}
 
 	public Connection create()

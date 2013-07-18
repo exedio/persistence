@@ -48,13 +48,9 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected int filterTransationIsolation(final int level)
+	protected int getTransationIsolation()
 	{
-		switch(level)
-		{
-			case Connection.TRANSACTION_REPEATABLE_READ: return Connection.TRANSACTION_READ_COMMITTED;
-			default: return level;
-		}
+		return Connection.TRANSACTION_READ_COMMITTED;
 	}
 
 	@Override
