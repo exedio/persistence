@@ -182,9 +182,7 @@ public final class SchemaInfo
 	 * the name equals "catch".
 	 * @throws IllegalArgumentException
 	 *         if there is no update counter column for this type,
-	 *         because {@link #isUpdateCounterEnabled(Model) Update Counters}
-	 *         has been switched off,
-	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
+	 *         because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
 	 */
 	public static String getUpdateCounterColumnName(final Type<?> type)
