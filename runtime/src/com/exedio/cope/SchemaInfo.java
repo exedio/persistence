@@ -167,11 +167,13 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @deprecated always returns true
 	 * @see #getUpdateCounterColumnName(Type)
 	 */
-	public static boolean isUpdateCounterEnabled(final Model model)
+	@Deprecated
+	public static boolean isUpdateCounterEnabled(@SuppressWarnings("unused") final Model model)
 	{
-		return model.connect().properties.updateCounter;
+		return true;
 	}
 
 	/**

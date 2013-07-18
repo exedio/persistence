@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -47,8 +46,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testSameTransaction() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
 		assertEquals("name0", item.getName());
 		model.commit();
 
@@ -88,8 +85,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testSameTransactionDelete() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
 
@@ -125,8 +120,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testCommit() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
 		assertEquals("name0", item.getName());
 		model.commit();
 
@@ -169,8 +162,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testCommitDelete() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
 
@@ -209,9 +200,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testRollback() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
-
 		assertEquals("name0", item.getName());
 		model.commit();
 
@@ -254,8 +242,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	public void testRollbackDelete() throws SQLException
 	{
-		if(!isUpdateCounterEnabled(model))
-			return;
 		assertEquals(true, item.existsCopeItem());
 		model.commit();
 

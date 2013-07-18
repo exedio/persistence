@@ -89,7 +89,6 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertUpdateCount(MIN_VALUE, 0);
 		assertCache(1, 0, 2, 2, 1);
 
-		if(isUpdateCounterEnabled(model))
 		{
 			try
 			{
@@ -106,14 +105,6 @@ public class CacheTouchTest extends AbstractRuntimeTest
 			assertCache(0, 1, 2, 2, 1);
 
 			assertEquals("itemName2", item.getName());
-		}
-		else
-		{
-			item.setName("itemName3");
-			assertUpdateCount(MIN_VALUE, 0);
-			assertCache(1, 1, 2, 2, 1);
-
-			assertEquals("itemName3", item.getName());
 		}
 	}
 	else

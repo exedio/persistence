@@ -69,7 +69,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	// schema
 
 	final PrimaryKeyGenerator primaryKeyGenerator = valEn("schema.primaryKeyGenerator", PrimaryKeyGenerator.memory);
-	final boolean updateCounter = value("schema.updateCounter", true);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**

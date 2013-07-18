@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
@@ -720,18 +719,10 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		for(final Type<?> type : model.getTypes())
 		{
-			if(isUpdateCounterEnabled(model))
-			{
-				if(type.needsCheckUpdateCounter())
-					assertEquals(0, type.checkUpdateCounter());
-				else
-					assertCheckUpdateCounterFails(type);
-			}
+			if(type.needsCheckUpdateCounter())
+				assertEquals(0, type.checkUpdateCounter());
 			else
-			{
-				assertFalse(type.needsCheckUpdateCounter());
 				assertCheckUpdateCounterFails(type);
-			}
 		}
 	}
 

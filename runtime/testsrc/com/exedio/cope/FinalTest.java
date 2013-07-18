@@ -48,32 +48,8 @@ public final class FinalTest extends AbstractRuntimeTest
 
 	public void testUpdateCounter()
 	{
-		if(SchemaInfo.isUpdateCounterEnabled(model))
-		{
-			assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
-			assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
-		}
-		else
-		{
-			try
-			{
-				getUpdateCounterColumnName(FinalSuperItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no update counter for FinalSuperItem", e.getMessage());
-			}
-			try
-			{
-				getUpdateCounterColumnName(FinalSubNoneItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no update counter for FinalSubNoneItem", e.getMessage());
-			}
-		}
+		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
+		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
 
 		try
 		{

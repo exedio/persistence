@@ -23,7 +23,6 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
@@ -58,11 +57,10 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		bf.append("select ").
 			append(q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE))).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfAItem.TYPE)));
-		if(isUpdateCounterEnabled(model))
-			bf.append(',').
-			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE)));
-		bf.append(',').
+			append(q(getTypeColumnName(InstanceOfAItem.TYPE))).
+			append(',').
+			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE))).
+			append(',').
 			append(q(getColumnName(InstanceOfAItem.code))).
 			append(" from ").
 			append(q(getTableName(InstanceOfAItem.TYPE)));
@@ -84,11 +82,10 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)));
-		if(isUpdateCounterEnabled(model))
-			bf.append(',').
-				append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE)));
-		bf.append(',').
+			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE))).
+			append(',').
+			append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE))).
+			append(',').
 			append(q(getColumnName(InstanceOfRefItem.ref))).
 			append(',').
 			append(q(getTypeColumnName(InstanceOfRefItem.ref))).

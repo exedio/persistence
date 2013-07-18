@@ -69,8 +69,8 @@ public class DumperTest extends AbstractRuntimeTest
 				data.map(toValue(decodeLower("aabbcc"))));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
-				"(0,'DumperItem'" + ifupd(",0") + ",'string0','unique0'," + dataL + ");",
+				"(" + pk(TYPE) + "," + cls(TYPE) + "," + upd(TYPE) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
+				"(0,'DumperItem',0,'string0','unique0'," + dataL + ");",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
@@ -87,11 +87,11 @@ public class DumperTest extends AbstractRuntimeTest
 				subString.map("subString0"));
 		assertEquals(
 				"insert into " + tab(TYPE) +
-				"(" + pk(TYPE) + "," + cls(TYPE) + ifupd("," + upd(TYPE)) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
-				"(0,'DumperSubItem'" + ifupd(",0") + ",'string0','unique0'," + dataL + ");" +
+				"(" + pk(TYPE) + "," + cls(TYPE) + "," + upd(TYPE) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
+				"(0,'DumperSubItem',0,'string0','unique0'," + dataL + ");" +
 				"insert into " + tab(DumperSubItem.TYPE) +
-				"(" + pk(DumperSubItem.TYPE) + ifupd("," + upd(DumperSubItem.TYPE)) + "," + col(subString) + ")values" +
-				"(0" + ifupd(",0") + ",'subString0');",
+				"(" + pk(DumperSubItem.TYPE) + "," + upd(DumperSubItem.TYPE) + "," + col(subString) + ")values" +
+				"(0,0,'subString0');",
 				out.toString());
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
@@ -197,16 +197,8 @@ public class DumperTest extends AbstractRuntimeTest
 		return SchemaInfo.quoteName(model, SchemaInfo.getTypeColumnName(type));
 	}
 
-	private String ifupd(final String s)
-	{
-		return SchemaInfo.isUpdateCounterEnabled(model) ? s : "";
-	}
-
 	private String upd(final Type<?> type)
 	{
-		if(!SchemaInfo.isUpdateCounterEnabled(model))
-			return "XXXX";
-
 		return SchemaInfo.quoteName(model, SchemaInfo.getUpdateCounterColumnName(type));
 	}
 

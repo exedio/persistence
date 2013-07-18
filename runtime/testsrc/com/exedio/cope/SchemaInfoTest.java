@@ -24,7 +24,6 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
 public class SchemaInfoTest extends AbstractRuntimeTest
@@ -120,22 +119,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}
 
-		if(isUpdateCounterEnabled(model))
-		{
-			assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
-		}
-		else
-		{
-			try
-			{
-				getUpdateCounterColumnName(InstanceOfAItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no update counter for InstanceOfAItem", e.getMessage());
-			}
-		}
+		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
 
 		assertCacheInfo(
 			new Type<?>[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},

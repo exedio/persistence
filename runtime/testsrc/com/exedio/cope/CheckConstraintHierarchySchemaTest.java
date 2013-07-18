@@ -25,7 +25,6 @@ import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 
 import java.util.Iterator;
 
@@ -62,8 +61,7 @@ public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeTest
 		{
 			final Iterator<Constraint> i = table.getConstraints().iterator();
 			assertEquals("ItemBottom_this_CkPk", next(i).getName());
-			if(isUpdateCounterEnabled(model))
-				assertEquals("ItemBottom_catch_Ck", next(i).getName());
+			assertEquals("ItemBottom_catch_Ck", next(i).getName());
 			assertEquals("ItemBottom_bottom1_Ck", next(i).getName());
 			assertEquals("ItemBottom_bottom2_Ck", next(i).getName());
 			assertEquals("ItemBottom_cross2_Ck", next(i).getName());
@@ -74,8 +72,7 @@ public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeTest
 			final Iterator<Constraint> i = superTable.getConstraints().iterator();
 			assertEquals("ItemTop_this_CkPk", next(i).getName());
 			assertEquals("ItemTop_class_Ck", next(i).getName());
-			if(isUpdateCounterEnabled(model))
-				assertEquals("ItemTop_catch_Ck", next(i).getName());
+			assertEquals("ItemTop_catch_Ck", next(i).getName());
 			assertEquals("ItemTop_top1_Ck", next(i).getName());
 			assertEquals("ItemTop_top2_Ck", next(i).getName());
 			assertEquals("ItemTop_up1_Ck", next(i).getName());
