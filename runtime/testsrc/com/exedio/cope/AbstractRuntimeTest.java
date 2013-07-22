@@ -113,18 +113,16 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	enum Dialect
 	{
-		HSQLDB("timestamp", false),
-		MYSQL(null, true),
-		ORACLE("TIMESTAMP(3)", true),
-		POSTGRESQL("timestamp (3) without time zone", true);
+		HSQLDB("timestamp"),
+		MYSQL(null),
+		ORACLE("TIMESTAMP(3)"),
+		POSTGRESQL("timestamp (3) without time zone");
 
 		final String dateTimestampType;
-		final boolean supportsReadCommitted;
 
-		Dialect(final String dateTimestampType, final boolean supportsReadCommitted)
+		Dialect(final String dateTimestampType)
 		{
 			this.dateTimestampType = dateTimestampType;
-			this.supportsReadCommitted = supportsReadCommitted;
 		}
 	}
 

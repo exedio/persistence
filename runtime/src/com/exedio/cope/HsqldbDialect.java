@@ -47,12 +47,6 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected int getTransationIsolation()
-	{
-		return Connection.TRANSACTION_READ_COMMITTED;
-	}
-
-	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
@@ -179,12 +173,6 @@ final class HsqldbDialect extends Dialect
 			appendParameter(2*value.length).
 			append(")=").
 			appendParameter(Hex.encodeLower(value));
-	}
-
-	@Override
-	boolean fakesSupportTransactionIsolationReadCommitted()
-	{
-		return true;
 	}
 
 	@Override

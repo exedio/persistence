@@ -175,7 +175,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, hsqldb?MIN_VALUE:0);
+		assertUpdateCount(MIN_VALUE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -229,7 +229,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, hsqldb?MIN_VALUE:0);
+		assertUpdateCount(MIN_VALUE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -265,7 +265,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, hsqldb?MIN_VALUE:0);
+		assertUpdateCount(MIN_VALUE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);

@@ -41,7 +41,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		if(!cache || oracle) return; // TODO
+		if(!cache || hsqldb || oracle) return; // TODO
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);

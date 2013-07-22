@@ -362,15 +362,10 @@ public final class Transaction
 
 		if(invalidations!=null)
 		{
-			// notify global cache
-			if(!rollback || !connect.supportsTransactionIsolationReadCommitted)
-			{
-				connect.invalidate(invalidations, true);
-			}
-
-			// notify ChangeListeners
 			if(!rollback)
 			{
+				// notify global cache
+				connect.invalidate(invalidations, true);
 				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
 				model.modificationListeners.invalidate(invalidations, this);
 			}

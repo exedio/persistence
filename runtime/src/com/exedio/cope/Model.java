@@ -709,14 +709,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 *	Returns true if the database supports READ_COMMITTED or any more strict transaction isolation level.
-	 */
-	boolean supportsReadCommitted()
-	{
-		return connect().supportsTransactionIsolationReadCommitted;
-	}
-
-	/**
 	 * Returns the collection of open {@link Transaction}s
 	 * on this model.
 	 * <p>

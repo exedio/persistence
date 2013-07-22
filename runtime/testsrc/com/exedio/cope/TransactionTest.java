@@ -277,7 +277,6 @@ public class TransactionTest extends TestmodelTest
 
 	public void xxtestIsolation() // TODO enable testIsolation
 	{
-		if ( ! model.supportsReadCommitted() ) return;
 		model.commit();
 		final Transaction t1 = createTransaction("testIsolation1");
 		model.leaveTransaction();

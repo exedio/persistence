@@ -49,8 +49,6 @@ final class Connect
 	final Cluster cluster;
 	final ChangeListenerDispatcher changeListenerDispatcher;
 
-	final boolean supportsTransactionIsolationReadCommitted;
-
 	boolean revised = false;
 
 	Connect(
@@ -138,10 +136,6 @@ final class Connect
 		this.changeListenerDispatcher =
 			new ChangeListenerDispatcher(
 					types, name, changeListeners, properties);
-
-		this.supportsTransactionIsolationReadCommitted =
-			!dialect.fakesSupportTransactionIsolationReadCommitted() &&
-			dialectParameters.supportsTransactionIsolationReadCommitted;
 	}
 
 	void close()

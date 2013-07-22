@@ -153,11 +153,6 @@ abstract class Dialect
 		return false;
 	}
 
-	boolean fakesSupportTransactionIsolationReadCommitted()
-	{
-		return false;
-	}
-
 	boolean subqueryRequiresAlias()
 	{
 		return false;

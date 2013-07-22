@@ -31,12 +31,6 @@ public class ConnectTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	public void testSupportsReadCommitted()
-	{
-		assertEquals( true, model.hasCurrentTransaction() );
-		assertEquals(dialect.supportsReadCommitted, model.supportsReadCommitted());
-	}
-
 	public static final void assertEquals(final String expected, final String actual)
 	{
 		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
