@@ -256,7 +256,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
 		{
-			return dialectClass.getDeclaredConstructor(new Class<?>[]{DialectParameters.class});
+			return dialectClass.getDeclaredConstructor(DialectParameters.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
