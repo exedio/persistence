@@ -58,14 +58,14 @@ final class DialectParameters
 			}
 			else
 			{
-			if(dmd.nullsAreSortedAtStart())
-				throw new IllegalStateException("not supported: nullsAreSortedAtStart");
-			if(dmd.nullsAreSortedAtEnd())
-				throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
-			final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
-			if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
-				throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
-			this.nullsAreSortedLow = nullsAreSortedLow;
+				if(dmd.nullsAreSortedAtStart())
+					throw new IllegalStateException("not supported: nullsAreSortedAtStart");
+				if(dmd.nullsAreSortedAtEnd())
+					throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
+				final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
+				if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
+					throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
+				this.nullsAreSortedLow = nullsAreSortedLow;
 			}
 		}
 		catch(final SQLException e)
