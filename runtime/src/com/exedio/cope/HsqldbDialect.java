@@ -44,6 +44,8 @@ final class HsqldbDialect extends Dialect
 				new com.exedio.dsmf.HsqldbDialect());
 
 		this.nullsAreSortedLow = parameters.properties.hsqldbNullsAreSortedLow;
+		if(!parameters.nullsAreSorted.equals(NullsAreSorted.atStart))
+			throw new IllegalStateException(parameters.nullsAreSorted.name());
 	}
 
 	@Override
@@ -104,8 +106,6 @@ final class HsqldbDialect extends Dialect
 	@Override
 	boolean nullsAreSortedLow()
 	{
-		if(super.nullsAreSortedLow()==true)
-			System.out.println(getClass().getName() + ": nullsAreSortedLow is unexpectedly correct");
 		return nullsAreSortedLow;
 	}
 

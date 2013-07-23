@@ -34,7 +34,7 @@ final class DialectParameters
 
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
-	final boolean nullsAreSortedLow;
+	final NullsAreSorted nullsAreSorted;
 
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
@@ -44,29 +44,7 @@ final class DialectParameters
 		{
 			final DatabaseMetaData dmd = connection.getMetaData();
 			this.environmentInfo = new EnvironmentInfo(dmd);
-			if("HSQL Database Engine".equals(dmd.getDatabaseProductName()))
-			{
-				if(!dmd.nullsAreSortedAtStart())
-					throw new IllegalStateException("not supported: !nullsAreSortedAtStart");
-				if(dmd.nullsAreSortedAtEnd())
-					throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
-				if(dmd.nullsAreSortedHigh())
-					throw new IllegalStateException("not supported: nullsAreSortedHigh");
-				if(dmd.nullsAreSortedLow())
-					throw new IllegalStateException("not supported: nullsAreSortedLow");
-				this.nullsAreSortedLow = false;
-			}
-			else
-			{
-				if(dmd.nullsAreSortedAtStart())
-					throw new IllegalStateException("not supported: nullsAreSortedAtStart");
-				if(dmd.nullsAreSortedAtEnd())
-					throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
-				final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
-				if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
-					throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
-				this.nullsAreSortedLow = nullsAreSortedLow;
-			}
+			this.nullsAreSorted = NullsAreSorted.valueOf(dmd);
 		}
 		catch(final SQLException e)
 		{
