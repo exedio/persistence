@@ -43,6 +43,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MediaSummaryTest.class);
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(MessageDigestHashAlgorithmTest.class);
+		suite.addTestSuite(NestedHashAlgorithmTest.class);
 		suite.addTestSuite(PasswordRecoveryConfigTest.class);
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceProportionatelyTest.class);
