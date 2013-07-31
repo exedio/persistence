@@ -54,16 +54,23 @@ public abstract class MediaPath extends Pattern
 	{
 		final String urlPath;
 		final boolean preventUrlGuessing;
+		final boolean urlFingerPrinting;
 
 		Mount(final MediaPath feature)
 		{
 			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
 			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
+			this.urlFingerPrinting = feature.isAnnotationPresent(UrlFingerPrinting.class);
 			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
 				throw new RuntimeException(
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
 						" at " + feature.getID() +
 						" together with @" + RedirectFrom.class.getSimpleName());
+			if(preventUrlGuessing && urlFingerPrinting)
+				throw new RuntimeException(
+						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+						" at " + feature.getID() +
+						" together with @" + UrlFingerPrinting.class.getSimpleName());
 		}
 	}
 
@@ -94,6 +101,11 @@ public abstract class MediaPath extends Pattern
 		return mount().preventUrlGuessing;
 	}
 
+	public final boolean isUrlFingerPrinted()
+	{
+		return mount().urlFingerPrinting;
+	}
+
 	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
@@ -115,17 +127,20 @@ public abstract class MediaPath extends Pattern
 	public final class Locator
 	{
 		private final Item item;
+		private final long fingerprint;
 		private final String catchphrase;
 		private final String extension;
 		private final String secret;
 
 		Locator(
 				final Item item,
+				final long fingerprint,
 				final String catchphrase,
 				final String extension,
 				final String secret)
 		{
 			this.item = item;
+			this.fingerprint = fingerprint;
 			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
@@ -149,6 +164,14 @@ public abstract class MediaPath extends Pattern
 		public void appendPath(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+
+			if(fingerprint!=Long.MIN_VALUE)
+			{
+				bf.append(".f").
+					append(fingerprint). // TODO
+					append('/');
+			}
+
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -193,6 +216,7 @@ public abstract class MediaPath extends Pattern
 			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
+				mount().urlFingerPrinting ? getLastModified(item).getTime() : Long.MIN_VALUE,
 				makeUrlCatchphrase(item),
 				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
@@ -214,6 +238,14 @@ public abstract class MediaPath extends Pattern
 		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
 
 		bf.append(getUrlPath());
+
+		if(mount().urlFingerPrinting)
+		{
+			bf.append(".f").
+				append(getLastModified(item).getTime()). // TODO
+				append('/');
+		}
+
 		item.appendCopeID(bf);
 
 		final String catchphrase = makeUrlCatchphrase(item);
