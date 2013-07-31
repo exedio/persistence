@@ -1,0 +1,91 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
+import static com.exedio.cope.pattern.MediaCatchPhraseItem.feature;
+
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Model;
+
+public final class MediaCatchphraseTest extends AbstractRuntimeTest
+{
+	static final Model MODEL = new Model(MediaCatchPhraseSuperItem.TYPE, TYPE);
+
+	static
+	{
+		MODEL.enableSerialization(MediaCatchphraseTest.class, "MODEL");
+	}
+
+	public MediaCatchphraseTest()
+	{
+		super(MODEL);
+	}
+
+	private MediaCatchPhraseItem wrong, normal, single, empty, nulL;
+	private MediaCatchPhraseSuperItem none;
+
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		normal = deleteOnTearDown(new MediaCatchPhraseItem("normal"));
+		single = deleteOnTearDown(new MediaCatchPhraseItem("S"));
+		empty  = deleteOnTearDown(new MediaCatchPhraseItem(""));
+		nulL   = deleteOnTearDown(new MediaCatchPhraseItem(null));
+		none   = deleteOnTearDown(new MediaCatchPhraseSuperItem());
+
+		wrong  = deleteOnTearDown(new MediaCatchPhraseItem("wrong/phrase"));
+	}
+
+	public void testIt()
+	{
+		assertIt("MediaCatchPhraseSuperItem/feature/", normal, "/normal");
+		assertIt("MediaCatchPhraseSuperItem/feature/", single, "/S"     );
+		assertIt("MediaCatchPhraseSuperItem/feature/", empty,  ""       );
+		assertIt("MediaCatchPhraseSuperItem/feature/", nulL,   ""       );
+		assertIt("MediaCatchPhraseSuperItem/feature/", none,   ""       );
+
+		try
+		{
+			wrong.getFeatureURL();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("wrong/phrase", e.getMessage());
+		}
+		try
+		{
+			wrong.getFeatureLocator();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("wrong/phrase", e.getMessage());
+		}
+	}
+
+	private void assertIt(final String prefix, final MediaCatchPhraseSuperItem item, final String postfix)
+	{
+		final String pathInfo = prefix + item.getCopeID() + postfix;
+		assertEquals(mediaRootUrl + pathInfo, item.getFeatureURL());
+		assertLocator(feature, pathInfo, item.getFeatureLocator());
+	}
+}
