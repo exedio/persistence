@@ -27,7 +27,9 @@ import com.exedio.cope.pattern.HashAlgorithm;
  */
 public final class NestedHashAlgorithm
 {
-	public static final HashAlgorithm create(final HashAlgorithm outer, final HashAlgorithm inner)
+	public static final HashAlgorithm create(
+			final HashAlgorithm outer,
+			final HashAlgorithm inner)
 	{
 		if(outer==null)
 			throw new NullPointerException();
