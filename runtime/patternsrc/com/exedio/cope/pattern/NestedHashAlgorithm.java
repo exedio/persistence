@@ -23,7 +23,7 @@ import com.exedio.cope.pattern.HashAlgorithm;
 
 /**
  * Implements a hash migration strategy using nested hashes.
- * See also {@linktourl http://crypto.stackexchange.com/questions/2945/is-this-password-migration-strategy-secure}.
+ * @see <a href="http://crypto.stackexchange.com/questions/2945/is-this-password-migration-strategy-secure">stackexchange</a>
  */
 public final class NestedHashAlgorithm
 {
