@@ -130,9 +130,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	}
 
 	@Override
-	public SetValue<String> map(final String plaintext)
+	public SetValue<String> map(final String value)
 	{
-		return SetValue.map(this, plaintext);
+		return SetValue.map(this, value);
 	}
 
 	@Override
