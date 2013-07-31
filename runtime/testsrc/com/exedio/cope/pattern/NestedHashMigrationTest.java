@@ -23,18 +23,18 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
 
-public class CustomerTest extends AbstractRuntimeTest
+public class NestedHashMigrationTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(Customer.TYPE);
+	private static final Model MODEL = new Model(NestedHashMigrationItem.TYPE);
 
-	public CustomerTest()
+	public NestedHashMigrationTest()
 	{
 		super(MODEL);
 	}
 
 	public void testSetNull()
 	{
-		final Customer item = deleteOnTearDown(new Customer("111111", 1.1));
+		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
 
 		try
 		{
@@ -47,7 +47,7 @@ public class CustomerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.set(Customer.password.map(null));
+			item.set(NestedHashMigrationItem.password.map(null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -56,7 +56,7 @@ public class CustomerTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Customer(null);
+			new NestedHashMigrationItem(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -66,7 +66,7 @@ public class CustomerTest extends AbstractRuntimeTest
 
 		try
 		{
-			Customer.migratePassword(null);
+			NestedHashMigrationItem.migratePassword(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -77,16 +77,16 @@ public class CustomerTest extends AbstractRuntimeTest
 
 	public void testMigratePasswordOnChange()
 	{
-		final Customer item = deleteOnTearDown(new Customer("111111", 1.1));
-		assertNotNull(Customer.password.getOldHash().getHash(item));
-		assertNull(Customer.password.getNewHash().getHash(item));
+		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
+		assertNotNull(NestedHashMigrationItem.password.getOldHash().getHash(item));
+		assertNull(NestedHashMigrationItem.password.getNewHash().getHash(item));
 
 		assertTrue(item.checkPassword("111111"));
 		assertFalse(item.checkPassword("222222"));
 
 		item.setPassword("222222");
-		assertNull(Customer.password.getOldHash().getHash(item));
-		assertNotNull(Customer.password.getNewHash().getHash(item));
+		assertNull(NestedHashMigrationItem.password.getOldHash().getHash(item));
+		assertNotNull(NestedHashMigrationItem.password.getNewHash().getHash(item));
 		assertTrue(item.checkPassword("222222"));
 		assertFalse(item.checkPassword("333333"));
 		assertFalse(item.checkPassword("111111"));
@@ -94,30 +94,30 @@ public class CustomerTest extends AbstractRuntimeTest
 
 	public void testMigratePasswordAutomatically()
 	{
-		final Customer itemA = deleteOnTearDown(new Customer("111111A", 1.1));
-		final Customer itemB = deleteOnTearDown(new Customer("111111B", 1.1));
-		final Customer itemX = deleteOnTearDown(new Customer("111111X"));
-		assertNotNull(Customer.password.getOldHash().getHash(itemA));
-		assertNotNull(Customer.password.getOldHash().getHash(itemB));
-		assertNull(Customer.password.getOldHash().getHash(itemX));
-		assertNull(Customer.password.getNewHash().getHash(itemA));
-		assertNull(Customer.password.getNewHash().getHash(itemB));
-		assertNotNull(Customer.password.getNewHash().getHash(itemX));
+		final NestedHashMigrationItem itemA = deleteOnTearDown(new NestedHashMigrationItem("111111A", 1.1));
+		final NestedHashMigrationItem itemB = deleteOnTearDown(new NestedHashMigrationItem("111111B", 1.1));
+		final NestedHashMigrationItem itemX = deleteOnTearDown(new NestedHashMigrationItem("111111X"));
+		assertNotNull(NestedHashMigrationItem.password.getOldHash().getHash(itemA));
+		assertNotNull(NestedHashMigrationItem.password.getOldHash().getHash(itemB));
+		assertNull(NestedHashMigrationItem.password.getOldHash().getHash(itemX));
+		assertNull(NestedHashMigrationItem.password.getNewHash().getHash(itemA));
+		assertNull(NestedHashMigrationItem.password.getNewHash().getHash(itemB));
+		assertNotNull(NestedHashMigrationItem.password.getNewHash().getHash(itemX));
 		model.commit();
 
 		{
 			final MyJobContext ctx = new MyJobContext();
-			Customer.migratePassword(ctx);
+			NestedHashMigrationItem.migratePassword(ctx);
 			assertEquals(2, ctx.progress);
 		}
 
 		model.startTransaction("test result");
-		assertNull(Customer.password.getOldHash().getHash(itemA));
-		assertNull(Customer.password.getOldHash().getHash(itemB));
-		assertNull(Customer.password.getOldHash().getHash(itemX));
-		assertNotNull(Customer.password.getNewHash().getHash(itemA));
-		assertNotNull(Customer.password.getNewHash().getHash(itemB));
-		assertNotNull(Customer.password.getNewHash().getHash(itemX));
+		assertNull(NestedHashMigrationItem.password.getOldHash().getHash(itemA));
+		assertNull(NestedHashMigrationItem.password.getOldHash().getHash(itemB));
+		assertNull(NestedHashMigrationItem.password.getOldHash().getHash(itemX));
+		assertNotNull(NestedHashMigrationItem.password.getNewHash().getHash(itemA));
+		assertNotNull(NestedHashMigrationItem.password.getNewHash().getHash(itemB));
+		assertNotNull(NestedHashMigrationItem.password.getNewHash().getHash(itemX));
 		assertTrue(itemA.checkPassword("111111A"));
 		assertTrue(itemB.checkPassword("111111B"));
 		assertTrue(itemX.checkPassword("111111X"));
@@ -125,7 +125,7 @@ public class CustomerTest extends AbstractRuntimeTest
 
 		{
 			final MyJobContext ctx = new MyJobContext();
-			Customer.migratePassword(ctx);
+			NestedHashMigrationItem.migratePassword(ctx);
 			assertEquals(0, ctx.progress);
 		}
 
