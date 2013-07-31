@@ -96,11 +96,11 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
 		final Type<?> type = getType();
+		final Model model = type.getModel();
 		final Iterator<? extends Item> it = TypeIterator.iterateTransactionally(type, getOldHash().isNotNull(), 100);
 		while(it.hasNext())
 		{
 			ctx.stopIfRequested();
-			final Model model = type.getModel();
 			try
 			{
 				final Item item = it.next();
