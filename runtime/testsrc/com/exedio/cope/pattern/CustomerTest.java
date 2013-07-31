@@ -66,6 +66,12 @@ public class CustomerTest extends AbstractRuntimeTest
 		final Customer customerX = deleteOnTearDown(new Customer("111111X"));
 		customerA.set(Customer.password.getOldHash().map("111111A"), Customer.password.getNewHash().map(null));
 		customerB.set(Customer.password.getOldHash().map("111111B"), Customer.password.getNewHash().map(null));
+		assertNotNull(Customer.password.getOldHash().getHash(customerA));
+		assertNotNull(Customer.password.getOldHash().getHash(customerB));
+		assertNull(Customer.password.getOldHash().getHash(customerX));
+		assertNull(Customer.password.getNewHash().getHash(customerA));
+		assertNull(Customer.password.getNewHash().getHash(customerB));
+		assertNotNull(Customer.password.getNewHash().getHash(customerX));
 		model.commit();
 
 		final MyJobContext ctx = new MyJobContext();
