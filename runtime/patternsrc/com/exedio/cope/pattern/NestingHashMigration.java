@@ -140,7 +140,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue<?>[]{
-				assertSingleton(oldHash.execute(null, exceptionItem)),
+				assertSingleton(oldHash.execute(null,  exceptionItem)),
 				assertSingleton(newHash.execute(value, exceptionItem))};
 	}
 
