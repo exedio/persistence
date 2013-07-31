@@ -40,7 +40,7 @@ public final class NestedHashAlgorithm
 		if(!inner.hash(plainText).equals(inner.hash(plainText)))
 			throw new IllegalArgumentException("inner algorithm must be deterministic (i.e. unsalted), but was " + inner.getDescription());
 
-		return new Algorithm(outer, inner);
+		return new Algorithm(inner, outer);
 	}
 
 	private static final class Algorithm implements HashAlgorithm
@@ -48,7 +48,7 @@ public final class NestedHashAlgorithm
 		final HashAlgorithm outer;
 		final HashAlgorithm inner;
 
-		Algorithm(final HashAlgorithm outer, final HashAlgorithm inner)
+		Algorithm(final HashAlgorithm inner, final HashAlgorithm outer)
 		{
 			this.outer = outer;
 			this.inner = inner;
