@@ -152,13 +152,13 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	@Override
 	public boolean isFinal()
 	{
-		return newHash.isFinal();
+		return newHash.isFinal(); // TODO allow final as well
 	}
 
 	@Override
 	public boolean isMandatory()
 	{
-		return true;
+		return true; // TODO allow optional as well
 	}
 
 	@Override
