@@ -93,7 +93,8 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 				newHash.map(plaintext));
 	}
 
-	@Wrap(order=60, doc="Re-hashes all old passwords to new ones.")
+	@Wrap(order=60,
+			doc="Re-hashes all old passwords to new ones.")
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
 		if(ctx==null)
