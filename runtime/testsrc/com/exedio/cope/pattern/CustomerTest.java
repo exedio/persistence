@@ -1,6 +1,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
 
@@ -11,6 +12,21 @@ public class CustomerTest extends AbstractRuntimeTest
 	public CustomerTest()
 	{
 		super(MODEL);
+	}
+
+	public void testSetNull()
+	{
+		final Customer item = deleteOnTearDown(new Customer("111111", 1.1));
+
+		try
+		{
+			item.setPassword(null);
+			fail();
+		}
+		catch(final CheckViolationException e)
+		{
+			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
+		}
 	}
 
 	public void testMigratePasswordOnChange()
