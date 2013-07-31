@@ -45,7 +45,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
-		return (path.getName().indexOf("Name")>=0) ? getCatchphrase() : null;
+		return getCatchphrase();
 	}
 
 
