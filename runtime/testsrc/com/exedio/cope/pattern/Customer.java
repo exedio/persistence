@@ -25,7 +25,7 @@ import com.exedio.cope.util.CharsetName;
 
 final class Customer extends Item
 {
-	static final NestingHashMigration password = new NestingHashMigration(
+	static final NestedHashMigration password = new NestedHashMigration(
 			MessageDigestHashAlgorithm.create(CharsetName.UTF8, "MD5", 0, null, 1),
 			MessageDigestHashAlgorithm.create(CharsetName.UTF8, "MD5", 1, new SecureRandom(), 1));
 

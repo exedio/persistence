@@ -44,7 +44,7 @@ import com.exedio.cope.util.JobContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public final class NestingHashMigration extends Pattern implements HashInterface
+public final class NestedHashMigration extends Pattern implements HashInterface
 {
 	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
 
@@ -59,7 +59,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	 * @param oldAlgorithm the algorithm the passwords are currently hashed with
 	 * @param newAlgorithm the algorithm the passwords are to be hashed with in the future
 	 */
-	public NestingHashMigration(final HashAlgorithm oldAlgorithm, final HashAlgorithm newAlgorithm)
+	public NestedHashMigration(final HashAlgorithm oldAlgorithm, final HashAlgorithm newAlgorithm)
 	{
 		this.newAlgorithm = newAlgorithm;
 		addSource(oldHash = new Hash(oldAlgorithm).optional(), "old", ComputedElement.get());
