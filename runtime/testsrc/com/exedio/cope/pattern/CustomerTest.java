@@ -63,6 +63,7 @@ public class CustomerTest extends AbstractRuntimeTest
 	{
 		final Customer customerA = deleteOnTearDown(new Customer("newnew"));
 		final Customer customerB = deleteOnTearDown(new Customer("newnew"));
+		final Customer customerX = deleteOnTearDown(new Customer("111111X"));
 		customerA.set(Customer.password.getOldHash().map("111111A"), Customer.password.getNewHash().map(null));
 		customerB.set(Customer.password.getOldHash().map("111111B"), Customer.password.getNewHash().map(null));
 		model.commit();
@@ -74,9 +75,12 @@ public class CustomerTest extends AbstractRuntimeTest
 		model.startTransaction("test result");
 		assertNull(Customer.password.getOldHash().getHash(customerA));
 		assertNull(Customer.password.getOldHash().getHash(customerB));
+		assertNull(Customer.password.getOldHash().getHash(customerX));
 		assertNotNull(Customer.password.getNewHash().getHash(customerA));
 		assertNotNull(Customer.password.getNewHash().getHash(customerB));
+		assertNotNull(Customer.password.getNewHash().getHash(customerX));
 		assertTrue(customerA.checkPassword("111111A"));
 		assertTrue(customerB.checkPassword("111111B"));
+		assertTrue(customerX.checkPassword("111111X"));
 	}
 }
