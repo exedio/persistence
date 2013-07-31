@@ -1,7 +1,8 @@
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
+
 import java.security.SecureRandom;
-import java.util.Iterator;
 import java.util.Set;
 
 import com.exedio.cope.CheckConstraint;
@@ -15,7 +16,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
-import com.exedio.cope.misc.TypeIterator;
+import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.JobContext;
 
@@ -100,13 +101,12 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 
 		final Type<?> type = getType();
 		final Model model = type.getModel();
-		final Iterator<? extends Item> it = TypeIterator.iterateTransactionally(type, getOldHash().isNotNull(), 100);
-		while(it.hasNext())
+		for(final Item item : Iterables.once(
+				iterateTransactionally(type, getOldHash().isNotNull(), 100)))
 		{
 			ctx.stopIfRequested();
 			try
 			{
-				final Item item = it.next();
 				model.startTransaction(getClass().getSimpleName() + ".migrate(): " + getID() + ", " + item.getCopeID());
 				item.set(
 						oldHash.map(null),
