@@ -132,7 +132,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 				{
 					if(logger.isInfoEnabled())
 						logger.info( MessageFormat.format(
-								"Already migrated {1} by {0}, probably due to concurrent dispatching.",
+								"Already migrated {1} by {0}, probably due to concurrent migrating.",
 								id, itemID ) );
 					continue;
 				}
