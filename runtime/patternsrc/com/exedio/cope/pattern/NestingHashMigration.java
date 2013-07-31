@@ -93,13 +93,13 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	}
 
 	@Wrap(order=60, doc="Re-hashes all old passwords to new ones.")
-	public <P extends Item> void migrate(final Class<P> parent, @Parameter("context") final JobContext context)
+	public <P extends Item> void migrate(final Class<P> parent, @Parameter("ctx") final JobContext ctx)
 	{
 		final Type<P> type = getType().as(parent);
 		final Iterator<P> it = TypeIterator.iterateTransactionally(type, getOldHash().getStorage().isNotNull(), 100);
 		while(it.hasNext())
 		{
-			context.stopIfRequested();
+			ctx.stopIfRequested();
 			final Model model = type.getModel();
 			try
 			{
@@ -112,8 +112,8 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			{
 				model.rollbackIfNotCommitted();
 			}
-			if (context.supportsProgress())
-				context.incrementProgress();
+			if(ctx.supportsProgress())
+				ctx.incrementProgress();
 		}
 	}
 
