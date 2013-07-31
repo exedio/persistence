@@ -110,13 +110,16 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 
 		final Type<?> type = getType();
 		final Model model = type.getModel();
+		final String id = getID();
+
 		for(final Item item : Iterables.once(
 				iterateTransactionally(type, getOldHash().isNotNull(), 100)))
 		{
 			ctx.stopIfRequested();
+			final String itemID = item.getCopeID();
 			try
 			{
-				model.startTransaction(getClass().getSimpleName() + ".migrate(): " + getID() + ", " + item.getCopeID());
+				model.startTransaction(id + " migrate " + itemID);
 				item.set(
 						oldHash.map(null),
 						newHash.getStorage().map(newAlgorithm.hash(oldHash.getHash(item))));
