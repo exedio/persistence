@@ -17,6 +17,11 @@ public class CustomerTest extends AbstractRuntimeTest
 	{
 		int progress = 0;
 
+		MyJobContext()
+		{
+			// make package private
+		}
+
 		@Override
 		public void stopIfRequested()
 		{
