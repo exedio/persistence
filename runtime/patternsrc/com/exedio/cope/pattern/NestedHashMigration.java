@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
+import static com.exedio.cope.pattern.NestedHashAlgorithm.create;
 
 import java.security.SecureRandom;
 import java.text.MessageFormat;
@@ -63,7 +64,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	{
 		this.targetAlgorithm = target;
 		addSource(legacyHash = new Hash(legacy).optional(), "legacy", ComputedElement.get());
-		addSource(targetHash = new Hash(NestedHashAlgorithm.create(legacy, target)).optional(), "target");
+		addSource(targetHash = new Hash(create(legacy, target)).optional(), "target");
 		addSource(new CheckConstraint(
 			Cope.or(
 				legacyHash.isNull().and(targetHash.isNotNull()),
