@@ -7,6 +7,7 @@ import java.util.Set;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -140,6 +141,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	@Override
 	public SetValue<?>[] execute(final String value, final Item exceptionItem)
 	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, exceptionItem);
+
 		return new SetValue<?>[]{assertSingleton(newHash.execute(value, exceptionItem)), assertSingleton(oldHash.execute(null, exceptionItem))};
 	}
 
