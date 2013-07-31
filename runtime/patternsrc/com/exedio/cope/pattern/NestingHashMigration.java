@@ -23,7 +23,7 @@ import com.exedio.cope.util.JobContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-final public class NestingHashMigration extends Pattern implements HashInterface
+public final class NestingHashMigration extends Pattern implements HashInterface
 {
 	private static final long serialVersionUID = 1l;
 
