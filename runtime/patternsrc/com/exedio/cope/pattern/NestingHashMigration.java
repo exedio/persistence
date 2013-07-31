@@ -3,7 +3,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 
 import java.security.SecureRandom;
+import java.text.MessageFormat;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
@@ -24,6 +28,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class NestingHashMigration extends Pattern implements HashInterface
 {
+	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
+
 	private static final long serialVersionUID = 1l;
 
 	private final Hash oldHash;
@@ -120,9 +126,21 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			try
 			{
 				model.startTransaction(id + " migrate " + itemID);
+
+				final String oldHashValue = oldHash.getHash(item);
+				if(oldHashValue==null)
+				{
+					if(logger.isInfoEnabled())
+						logger.info( MessageFormat.format(
+								"Already migrated {1} by {0}, probably due to concurrent dispatching.",
+								id, itemID ) );
+					continue;
+				}
+
 				item.set(
 						oldHash.map(null),
-						newHash.getStorage().map(newAlgorithm.hash(oldHash.getHash(item))));
+						newHash.getStorage().map(newAlgorithm.hash(oldHashValue)));
+
 				model.commit();
 			}
 			finally
