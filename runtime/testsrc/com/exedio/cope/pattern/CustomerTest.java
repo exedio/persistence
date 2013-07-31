@@ -1,7 +1,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
@@ -24,9 +23,9 @@ public class CustomerTest extends AbstractRuntimeTest
 			item.setPassword(null);
 			fail();
 		}
-		catch(final CheckViolationException e) // TODO
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
+			assertEquals("mandatory violation on " + item + " for Customer.password", e.getMessage());
 		}
 		try
 		{

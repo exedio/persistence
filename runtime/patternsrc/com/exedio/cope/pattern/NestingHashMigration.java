@@ -87,6 +87,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			thrownGetter=Thrown.class)
 	public void set(final Item item, final String plaintext)
 	{
+		if(plaintext==null)
+			throw MandatoryViolationException.create(this, item);
+
 		item.set(oldHash.map(null), newHash.map(plaintext));
 	}
 
@@ -181,6 +184,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return newHash.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = newHash.getInitialExceptions();
+		if(isMandatory())
+			result.add(MandatoryViolationException.class);
+		return result;
 	}
 }
