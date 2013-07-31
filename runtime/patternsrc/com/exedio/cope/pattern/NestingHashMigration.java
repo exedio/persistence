@@ -95,6 +95,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	@Wrap(order=60, doc="Re-hashes all old passwords to new ones.")
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
+		if(ctx==null)
+			throw new NullPointerException("ctx");
+
 		final Type<?> type = getType();
 		final Model model = type.getModel();
 		final Iterator<? extends Item> it = TypeIterator.iterateTransactionally(type, getOldHash().isNotNull(), 100);

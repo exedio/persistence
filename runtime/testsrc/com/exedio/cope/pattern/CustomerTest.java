@@ -45,6 +45,16 @@ public class CustomerTest extends AbstractRuntimeTest
 		{
 			assertEquals("mandatory violation for Customer.password", e.getMessage());
 		}
+
+		try
+		{
+			Customer.migratePassword(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	public void testMigratePasswordOnChange()
