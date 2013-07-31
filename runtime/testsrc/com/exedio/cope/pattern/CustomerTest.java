@@ -36,7 +36,7 @@ public class CustomerTest extends AbstractRuntimeTest
 
 	public void testMigratePasswordOnChange()
 	{
-		final Customer customer = deleteOnTearDown(new Customer("email", "newnew"));
+		final Customer customer = deleteOnTearDown(new Customer("newnew"));
 		customer.set(Customer.password.getOldHash().map("111111"), Customer.password.getNewHash().map(null));
 		assertNotNull(Customer.password.getOldHash().getHash(customer));
 		assertNull(Customer.password.getNewHash().getHash(customer));
@@ -54,7 +54,7 @@ public class CustomerTest extends AbstractRuntimeTest
 
 	public void testMigratePasswordAutomatically()
 	{
-		final Customer customer = deleteOnTearDown(new Customer("email", "newnew"));
+		final Customer customer = deleteOnTearDown(new Customer("newnew"));
 		customer.set(Customer.password.getOldHash().map("111111"), Customer.password.getNewHash().map(null));
 		model.commit();
 
