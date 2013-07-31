@@ -73,7 +73,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	@Override
 	public void blind(final String actualPlainText)
 	{
-		newHash.blind(actualPlainText);	// has
+		newHash.blind(actualPlainText);
 	}
 
 	@Override
