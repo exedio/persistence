@@ -34,6 +34,15 @@ final class Customer extends Item
 			MessageDigestHashAlgorithm.create(CharsetName.UTF8, "MD5", 1, new SecureRandom(), 1));
 
 
+	Customer(
+			final String password,
+			@SuppressWarnings("unused") final double dummy)
+	{
+		this(
+			Customer.password.getOldHash().map(password),
+			Customer.password.getNewHash().map(null));
+	}
+
 	/**
 
 	 **
