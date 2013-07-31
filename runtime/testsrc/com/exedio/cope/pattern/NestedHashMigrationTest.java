@@ -112,6 +112,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		{
 			final MyJobContext ctx = new MyJobContext();
 			migratePassword(ctx);
+			assertEquals(2, ctx.stopIfRequested);
 			assertEquals(2, ctx.progress);
 		}
 
@@ -130,6 +131,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		{
 			final MyJobContext ctx = new MyJobContext();
 			migratePassword(ctx);
+			assertEquals(0, ctx.stopIfRequested);
 			assertEquals(0, ctx.progress);
 		}
 
@@ -141,6 +143,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 
 	private static class MyJobContext extends AssertionErrorJobContext
 	{
+		int stopIfRequested = 0;
 		int progress = 0;
 
 		MyJobContext()
@@ -151,7 +154,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		@Override
 		public void stopIfRequested()
 		{
-			// nop
+			stopIfRequested++;
 		}
 
 		@Override
