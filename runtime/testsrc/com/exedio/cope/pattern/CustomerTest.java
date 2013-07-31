@@ -72,9 +72,11 @@ public class CustomerTest extends AbstractRuntimeTest
 		assertNotNull(Customer.password.getNewHash().getHash(customerX));
 		model.commit();
 
-		final MyJobContext ctx = new MyJobContext();
-		Customer.migratePassword(ctx);
-		assertEquals(2, ctx.progress);
+		{
+			final MyJobContext ctx = new MyJobContext();
+			Customer.migratePassword(ctx);
+			assertEquals(2, ctx.progress);
+		}
 
 		model.startTransaction("test result");
 		assertNull(Customer.password.getOldHash().getHash(customerA));
@@ -83,6 +85,18 @@ public class CustomerTest extends AbstractRuntimeTest
 		assertNotNull(Customer.password.getNewHash().getHash(customerA));
 		assertNotNull(Customer.password.getNewHash().getHash(customerB));
 		assertNotNull(Customer.password.getNewHash().getHash(customerX));
+		assertTrue(customerA.checkPassword("111111A"));
+		assertTrue(customerB.checkPassword("111111B"));
+		assertTrue(customerX.checkPassword("111111X"));
+		model.commit();
+
+		{
+			final MyJobContext ctx = new MyJobContext();
+			Customer.migratePassword(ctx);
+			assertEquals(0, ctx.progress);
+		}
+
+		model.startTransaction("test result");
 		assertTrue(customerA.checkPassword("111111A"));
 		assertTrue(customerB.checkPassword("111111B"));
 		assertTrue(customerX.checkPassword("111111X"));
