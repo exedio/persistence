@@ -37,7 +37,7 @@ final class NestedHashMigrationItem extends Item
 	{
 		this(
 			NestedHashMigrationItem.password.getLegacyHash().map(password),
-			NestedHashMigrationItem.password.getNewHash().map(null));
+			NestedHashMigrationItem.password.getTargetHash().map(null));
 	}
 
 	/**

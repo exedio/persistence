@@ -29,9 +29,9 @@ public final class NestedHashAlgorithm
 {
 	public static final HashAlgorithm create(
 			final HashAlgorithm legacy,
-			final HashAlgorithm outer)
+			final HashAlgorithm target)
 	{
-		if(outer==null)
+		if(target==null)
 			throw new NullPointerException();
 		if(legacy==null)
 			throw new NullPointerException();
@@ -40,48 +40,48 @@ public final class NestedHashAlgorithm
 		if(!legacy.hash(plainText).equals(legacy.hash(plainText)))
 			throw new IllegalArgumentException("legacy algorithm must be deterministic (i.e. unsalted), but was " + legacy.getDescription());
 
-		return new Algorithm(legacy, outer);
+		return new Algorithm(legacy, target);
 	}
 
 	private static final class Algorithm implements HashAlgorithm
 	{
 		final HashAlgorithm legacy;
-		final HashAlgorithm outer;
+		final HashAlgorithm target;
 
-		Algorithm(final HashAlgorithm legacy, final HashAlgorithm outer)
+		Algorithm(final HashAlgorithm legacy, final HashAlgorithm target)
 		{
 			this.legacy = legacy;
-			this.outer = outer;
+			this.target = target;
 		}
 
 		@Override
 		public String getID()
 		{
-			return legacy.getID() + '-' + outer.getID();
+			return legacy.getID() + '-' + target.getID();
 		}
 
 		@Override
 		public String getDescription()
 		{
-			return legacy.getDescription() + '-' + outer.getDescription();
+			return legacy.getDescription() + '-' + target.getDescription();
 		}
 
 		@Override
 		public StringField constrainStorage(final StringField storage)
 		{
-			return outer.constrainStorage(storage);
+			return target.constrainStorage(storage);
 		}
 
 		@Override
 		public String hash(final String plainText)
 		{
-			return outer.hash(legacy.hash(plainText));
+			return target.hash(legacy.hash(plainText));
 		}
 
 		@Override
 		public boolean check(final String plainText, final String hash)
 		{
-			return outer.check(legacy.hash(plainText), hash);
+			return target.check(legacy.hash(plainText), hash);
 		}
 	}
 

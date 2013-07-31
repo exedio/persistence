@@ -51,23 +51,23 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	private static final long serialVersionUID = 1l;
 
 	private final Hash legacyHash;
-	private final Hash newHash;
+	private final Hash targetHash;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final HashAlgorithm newAlgorithm;
+	private final HashAlgorithm targetAlgorithm;
 
 	/**
 	 * @param legacyAlgorithm the algorithm the passwords are currently hashed with
-	 * @param newAlgorithm the algorithm the passwords are to be hashed with in the future
+	 * @param targetAlgorithm the algorithm the passwords are to be hashed with in the future
 	 */
-	public NestedHashMigration(final HashAlgorithm legacyAlgorithm, final HashAlgorithm newAlgorithm)
+	public NestedHashMigration(final HashAlgorithm legacyAlgorithm, final HashAlgorithm targetAlgorithm)
 	{
-		this.newAlgorithm = newAlgorithm;
+		this.targetAlgorithm = targetAlgorithm;
 		addSource(legacyHash = new Hash(legacyAlgorithm).optional(), "legacy", ComputedElement.get());
-		addSource(newHash = new Hash(NestedHashAlgorithm.create(legacyAlgorithm, newAlgorithm)).optional(), "new");
+		addSource(targetHash = new Hash(NestedHashAlgorithm.create(legacyAlgorithm, targetAlgorithm)).optional(), "target");
 		addSource(new CheckConstraint(
 			Cope.or(
-				legacyHash.isNull().and(newHash.isNotNull()),
-				legacyHash.isNotNull().and(newHash.isNull())
+				legacyHash.isNull().and(targetHash.isNotNull()),
+				legacyHash.isNotNull().and(targetHash.isNull())
 			)),
 			"xor");
 	}
@@ -77,9 +77,9 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return legacyHash;
 	}
 
-	public Hash getNewHash()
+	public Hash getTargetHash()
 	{
-		return newHash;
+		return targetHash;
 	}
 
 	@Wrap(order=10,
@@ -94,7 +94,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		if(legacyHash.getHash(item)!=null)
 			return legacyHash;
 		else
-			return newHash;
+			return targetHash;
 	}
 
 	@Wrap(order=20,
@@ -103,13 +103,13 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	@Override
 	public void blind(final String actualPlainText)
 	{
-		newHash.blind(actualPlainText);
+		targetHash.blind(actualPlainText);
 	}
 
 	@Override
 	public String newRandomPassword(final SecureRandom random)
 	{
-		return newHash.newRandomPassword(random);
+		return targetHash.newRandomPassword(random);
 	}
 
 	@Wrap(order=30,
@@ -122,11 +122,11 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 		item.set(
 				legacyHash.map(null),
-				newHash.map(plaintext));
+				targetHash.map(plaintext));
 	}
 
 	@Wrap(order=60,
-			doc="Re-hashes all legacy passwords to new ones.")
+			doc="Re-hashes all legacy passwords to target ones.")
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
 		if(ctx==null)
@@ -157,7 +157,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 				item.set(
 						legacyHash.map(null),
-						newHash.getStorage().map(newAlgorithm.hash(legacyHashValue)));
+						targetHash.getStorage().map(targetAlgorithm.hash(legacyHashValue)));
 
 				model.commit();
 			}
@@ -183,7 +183,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 		return new SetValue<?>[]{
 				assertSingleton(legacyHash.execute(null,  exceptionItem)),
-				assertSingleton(newHash.execute(value, exceptionItem))};
+				assertSingleton(targetHash.execute(value, exceptionItem))};
 	}
 
 	private static <T> T assertSingleton(final T[] array)
@@ -195,7 +195,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	@Override
 	public boolean isFinal()
 	{
-		return newHash.isFinal(); // TODO allow final as well
+		return targetHash.isFinal(); // TODO allow final as well
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Set<Class<? extends Throwable>> result = newHash.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = targetHash.getInitialExceptions();
 		if(isMandatory())
 			result.add(MandatoryViolationException.class);
 		return result;

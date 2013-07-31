@@ -83,14 +83,14 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 	{
 		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
 		assertNotNull(password.getLegacyHash().getHash(item));
-		assertNull(password.getNewHash().getHash(item));
+		assertNull(password.getTargetHash().getHash(item));
 
 		assertTrue(item.checkPassword("111111"));
 		assertFalse(item.checkPassword("222222"));
 
 		item.setPassword("222222");
 		assertNull(password.getLegacyHash().getHash(item));
-		assertNotNull(password.getNewHash().getHash(item));
+		assertNotNull(password.getTargetHash().getHash(item));
 		assertTrue(item.checkPassword("222222"));
 		assertFalse(item.checkPassword("333333"));
 		assertFalse(item.checkPassword("111111"));
@@ -104,9 +104,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		assertNotNull(password.getLegacyHash().getHash(itemA));
 		assertNotNull(password.getLegacyHash().getHash(itemB));
 		assertNull(password.getLegacyHash().getHash(itemX));
-		assertNull(password.getNewHash().getHash(itemA));
-		assertNull(password.getNewHash().getHash(itemB));
-		assertNotNull(password.getNewHash().getHash(itemX));
+		assertNull(password.getTargetHash().getHash(itemA));
+		assertNull(password.getTargetHash().getHash(itemB));
+		assertNotNull(password.getTargetHash().getHash(itemX));
 		model.commit();
 
 		{
@@ -119,9 +119,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		assertNull(password.getLegacyHash().getHash(itemA));
 		assertNull(password.getLegacyHash().getHash(itemB));
 		assertNull(password.getLegacyHash().getHash(itemX));
-		assertNotNull(password.getNewHash().getHash(itemA));
-		assertNotNull(password.getNewHash().getHash(itemB));
-		assertNotNull(password.getNewHash().getHash(itemX));
+		assertNotNull(password.getTargetHash().getHash(itemA));
+		assertNotNull(password.getTargetHash().getHash(itemB));
+		assertNotNull(password.getTargetHash().getHash(itemX));
 		assertTrue(itemA.checkPassword("111111A"));
 		assertTrue(itemB.checkPassword("111111B"));
 		assertTrue(itemX.checkPassword("111111X"));
