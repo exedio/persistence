@@ -117,8 +117,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			{
 				model.rollbackIfNotCommitted();
 			}
-			if(ctx.supportsProgress())
-				ctx.incrementProgress();
+			ctx.incrementProgress();
 		}
 	}
 

@@ -133,12 +133,6 @@ public class CustomerTest extends AbstractRuntimeTest
 		}
 
 		@Override
-		public boolean supportsProgress()
-		{
-			return true;
-		}
-
-		@Override
 		public void incrementProgress()
 		{
 			progress++;
