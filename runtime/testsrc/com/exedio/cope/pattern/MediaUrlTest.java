@@ -19,14 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
-import static com.exedio.cope.pattern.MediaUrlItem.file;
 import static com.exedio.cope.pattern.MediaUrlItem.fileName;
 import static com.exedio.cope.pattern.MediaUrlItem.fileNameSecure;
-import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
-import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoName;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoNameSecure;
-import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.name;
 
 import java.util.Arrays;
@@ -64,14 +60,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				name,
-				foto,
-				foto.getBody(),
-				foto.getLastModified(),
-				foto.getUnison(),
-				fotoSecure,
-				fotoSecure.getBody(),
-				fotoSecure.getLastModified(),
-				fotoSecure.getUnison(),
 				fotoName,
 				fotoName.getBody(),
 				fotoName.getLastModified(),
@@ -80,14 +68,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				fotoNameSecure.getBody(),
 				fotoNameSecure.getLastModified(),
 				fotoNameSecure.getUnison(),
-				file,
-				file.getBody(),
-				file.getLastModified(),
-				file.getUnison(),
-				fileSecure,
-				fileSecure.getBody(),
-				fileSecure.getLastModified(),
-				fileSecure.getUnison(),
 				fileName,
 				fileName.getBody(),
 				fileName.getLastModified(),
@@ -99,48 +79,28 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 			}), TYPE.getFeatures());
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertFalse(foto.isUrlGuessingPrevented());
-		assertFalse(file.isUrlGuessingPrevented());
 		assertFalse(fotoName.isUrlGuessingPrevented());
 		assertFalse(fileName.isUrlGuessingPrevented());
-		assertTrue(fotoSecure.isUrlGuessingPrevented());
-		assertTrue(fileSecure.isUrlGuessingPrevented());
 		assertTrue(fotoNameSecure.isUrlGuessingPrevented());
 		assertTrue(fileNameSecure.isUrlGuessingPrevented());
-		assertEquals(null, named.getFotoSecureURL());
-		assertEquals(null, named.getFotoSecureLocator());
-		assertEquals(null, anond.getFotoSecureURL());
-		assertEquals(null, anond.getFotoSecureLocator());
-		assertEquals(null, named.getFileSecureURL());
-		assertEquals(null, named.getFileSecureLocator());
-		assertEquals(null, anond.getFileSecureURL());
-		assertEquals(null, anond.getFileSecureLocator());
+		assertEquals(null, named.getFotoNameSecureURL());
+		assertEquals(null, named.getFotoNameSecureLocator());
+		assertEquals(null, anond.getFotoNameSecureURL());
+		assertEquals(null, anond.getFotoNameSecureLocator());
+		assertEquals(null, named.getFileNameSecureURL());
+		assertEquals(null, named.getFileNameSecureLocator());
+		assertEquals(null, anond.getFileNameSecureURL());
+		assertEquals(null, anond.getFileNameSecureLocator());
 
-		named.setFoto(bytes4, "image/jpeg");
-		named.setFotoSecure(bytes4, "image/jpeg");
 		named.setFotoName(bytes4, "image/jpeg");
 		named.setFotoNameSecure(bytes4, "image/jpeg");
-		anond.setFoto(bytes4, "image/jpeg");
-		anond.setFotoSecure(bytes4, "image/jpeg");
 		anond.setFotoName(bytes4, "image/jpeg");
 		anond.setFotoNameSecure(bytes4, "image/jpeg");
-		named.setFile(bytes4, "foo/bar");
-		named.setFileSecure(bytes4, "foo/bar");
 		named.setFileName(bytes4, "foo/bar");
 		named.setFileNameSecure(bytes4, "foo/bar");
-		anond.setFile(bytes4, "foo/bar");
-		anond.setFileSecure(bytes4, "foo/bar");
 		anond.setFileName(bytes4, "foo/bar");
 		anond.setFileNameSecure(bytes4, "foo/bar");
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-		assertIt("MediaUrlItem/foto/", foto, named, ".jpg");
-		assertIt("MediaUrlItem/foto/", foto, anond, ".jpg");
-		assertIt("MediaUrlItem/file/", file, named, ""    );
-		assertIt("MediaUrlItem/file/", file, anond, ""    );
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond, ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, named,     "?t=MediaUrlItem.fileSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,     "?t=MediaUrlItem.fileSecure-MediaUrlItem-1");
 		assertIt("MediaUrlItem/fotoName/", fotoName, named, "/name.jpg");
 		assertIt("MediaUrlItem/fotoName/", fotoName, anond,      ".jpg");
 		assertIt("MediaUrlItem/fileName/", fileName, named, "/name"    );
@@ -157,14 +117,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		model.connect(getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		model.startTransaction("MediaUrlTest");
-		assertIt("MediaUrlItem/foto/", foto, named, ".jpg");
-		assertIt("MediaUrlItem/foto/", foto, anond, ".jpg");
-		assertIt("MediaUrlItem/file/", file, named, ""    );
-		assertIt("MediaUrlItem/file/", file, anond, ""    );
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, ".jpg?t=c156b63cb8a39ae5f16c");
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond, ".jpg?t=f3da9d7e6856a2f9df6c");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, named,     "?t=91f7b44e250a56f61ae9");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,     "?t=faf24676503317102086");
 		assertIt("MediaUrlItem/fotoName/", fotoName, named, "/name.jpg");
 		assertIt("MediaUrlItem/fotoName/", fotoName, anond,      ".jpg");
 		assertIt("MediaUrlItem/fileName/", fileName, named, "/name"    );
