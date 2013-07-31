@@ -90,7 +90,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 		if(plaintext==null)
 			throw MandatoryViolationException.create(this, item);
 
-		item.set(oldHash.map(null), newHash.map(plaintext));
+		item.set(
+				oldHash.map(null),
+				newHash.map(plaintext));
 	}
 
 	private static final class Thrown implements ThrownGetter<NestingHashMigration>
