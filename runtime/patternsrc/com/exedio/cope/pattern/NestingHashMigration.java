@@ -65,6 +65,14 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 		return select(item).check(item, actualPlainText);
 	}
 
+	private Hash select(final Item item)
+	{
+		if(oldHash.getHash(item)!=null)
+			return oldHash;
+		else
+			return newHash;
+	}
+
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
@@ -120,14 +128,6 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			}
 			ctx.incrementProgress();
 		}
-	}
-
-	private Hash select(final Item item)
-	{
-		if (oldHash.getHash(item) != null)
-			return oldHash;
-		else
-			return newHash;
 	}
 
 	@Override
