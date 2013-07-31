@@ -21,6 +21,10 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.HashAlgorithm;
 
+/**
+ * Implements a hash migration strategy using nested hashes.
+ * @see http://crypto.stackexchange.com/questions/2945/is-this-password-migration-strategy-secure
+ */
 public final class NestedHashAlgorithm
 {
 	public static final HashAlgorithm create(final HashAlgorithm outer, final HashAlgorithm inner)
