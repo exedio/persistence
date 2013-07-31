@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
+import static com.exedio.cope.pattern.MediaUrlItem.catchphrase;
 import static com.exedio.cope.pattern.MediaUrlItem.fileName;
 import static com.exedio.cope.pattern.MediaUrlItem.fileNameSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoName;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoNameSecure;
-import static com.exedio.cope.pattern.MediaUrlItem.name;
 
 import java.util.Arrays;
 
@@ -59,7 +59,7 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
-				name,
+				catchphrase,
 				fotoName,
 				fotoName.getBody(),
 				fotoName.getLastModified(),
