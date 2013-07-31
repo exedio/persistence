@@ -69,7 +69,9 @@ public final class MediaCatchphraseTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("wrong/phrase", e.getMessage());
+			assertEquals(
+					"illegal catchphrase on " + wrong + " for MediaCatchPhraseSuperItem.feature: >wrong/phrase< [5]",
+					e.getMessage());
 		}
 		try
 		{
@@ -78,7 +80,9 @@ public final class MediaCatchphraseTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("wrong/phrase", e.getMessage());
+			assertEquals(
+					"illegal catchphrase on " + wrong + " for MediaCatchPhraseSuperItem.feature: >wrong/phrase< [5]",
+					e.getMessage());
 		}
 	}
 

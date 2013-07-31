@@ -246,7 +246,11 @@ public abstract class MediaPath extends Pattern
 		{
 			final char c = result.charAt(i);
 			if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
-				throw new IllegalArgumentException(result);
+				throw new IllegalArgumentException(
+						"illegal catchphrase" +
+						" on " + item.getCopeID() +
+						" for " + getID() +
+						": >" + result + "< [" + i + ']');
 		}
 
 		return result;
