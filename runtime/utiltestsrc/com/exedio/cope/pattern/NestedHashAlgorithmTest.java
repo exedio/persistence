@@ -30,8 +30,8 @@ public class NestedHashAlgorithmTest extends TestCase
 				MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100),
 				MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200));
 
-		assertEquals("SHA512s8i200-MD5i100", a.getID());
-		assertEquals("SHA512s8i200-MD5i100", a.getDescription());
+		assertEquals("MD5i100-SHA512s8i200", a.getID());
+		assertEquals("MD5i100-SHA512s8i200", a.getDescription());
 
 		final String hash = a.hash("1234");
 		assertEquals(true,  a.check("1234", hash));

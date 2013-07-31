@@ -45,25 +45,25 @@ public final class NestedHashAlgorithm
 
 	private static final class Algorithm implements HashAlgorithm
 	{
-		final HashAlgorithm outer;
 		final HashAlgorithm inner;
+		final HashAlgorithm outer;
 
 		Algorithm(final HashAlgorithm inner, final HashAlgorithm outer)
 		{
-			this.outer = outer;
 			this.inner = inner;
+			this.outer = outer;
 		}
 
 		@Override
 		public String getID()
 		{
-			return outer.getID() + '-' + inner.getID();
+			return inner.getID() + '-' + outer.getID();
 		}
 
 		@Override
 		public String getDescription()
 		{
-			return outer.getDescription() + '-' + inner.getDescription();
+			return inner.getDescription() + '-' + outer.getDescription();
 		}
 
 		@Override
