@@ -27,8 +27,8 @@ public class NestedHashAlgorithmTest extends TestCase
 	public void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
-				MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200),
-				MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100));
+				MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100),
+				MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200));
 
 		assertEquals("SHA512s8i200-MD5i100", a.getID());
 		assertEquals("SHA512s8i200-MD5i100", a.getDescription());
@@ -48,7 +48,7 @@ public class NestedHashAlgorithmTest extends TestCase
 
 		final HashAlgorithm neu = MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200);
 		final String newHash = neu.hash(oldHash);
-		final HashAlgorithm a = NestedHashAlgorithm.create(neu, old);
+		final HashAlgorithm a = NestedHashAlgorithm.create(old, neu);
 		assertEquals(true,  a.check("1234", newHash));
 		assertEquals(false, a.check("12345", newHash));
 	}
@@ -58,8 +58,8 @@ public class NestedHashAlgorithmTest extends TestCase
 		try
 		{
 			NestedHashAlgorithm.create(
-					MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100),
-					MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200));
+					MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200),
+					MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100));
 		}
 		catch(final IllegalArgumentException e)
 		{

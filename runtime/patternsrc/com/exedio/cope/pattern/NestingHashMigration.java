@@ -63,7 +63,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	{
 		this.newAlgorithm = newAlgorithm;
 		addSource(oldHash = new Hash(oldAlgorithm).optional(), "old", ComputedElement.get());
-		addSource(newHash = new Hash(NestedHashAlgorithm.create(newAlgorithm, oldAlgorithm)).optional(), "new");
+		addSource(newHash = new Hash(NestedHashAlgorithm.create(oldAlgorithm, newAlgorithm)).optional(), "new");
 		addSource(new CheckConstraint(
 			Cope.or(
 				oldHash.isNull().and(newHash.isNotNull()),
