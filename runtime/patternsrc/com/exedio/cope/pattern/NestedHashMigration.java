@@ -63,14 +63,19 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	public NestedHashMigration(final HashAlgorithm legacy, final HashAlgorithm target)
 	{
 		this.targetAlgorithm = target;
-		addSource(legacyHash = new Hash(legacy).optional(), "legacy", ComputedElement.get());
-		addSource(targetHash = new Hash(create(legacy, target)).optional(), "target");
+		addSource(legacyHash = hash(       legacy         ), "legacy", ComputedElement.get());
+		addSource(targetHash = hash(create(legacy, target)), "target");
 		addSource(new CheckConstraint(
 			Cope.or(
 				legacyHash.isNull().and(targetHash.isNotNull()),
 				legacyHash.isNotNull().and(targetHash.isNull())
 			)),
 			"xor");
+	}
+
+	private static Hash hash(final HashAlgorithm algorithm)
+	{
+		return new Hash(algorithm).optional();
 	}
 
 	public Hash getLegacyHash()
