@@ -13,13 +13,10 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.TypeIterator;
-import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.HashAlgorithm;
-import com.exedio.cope.pattern.HashInterface;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.JobContext;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -84,7 +81,7 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class)
+			thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(final Item item, final String plaintext)
 	{
 		if(plaintext==null)
@@ -93,15 +90,6 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 		item.set(
 				oldHash.map(null),
 				newHash.map(plaintext));
-	}
-
-	private static final class Thrown implements ThrownGetter<NestingHashMigration>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final NestingHashMigration feature)
-		{
-			return feature.getInitialExceptions();
-		}
 	}
 
 	@Wrap(order=60, doc="Re-hashes all old passwords to new ones.")
