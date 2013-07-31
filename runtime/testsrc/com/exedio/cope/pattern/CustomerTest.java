@@ -15,6 +15,8 @@ public class CustomerTest extends AbstractRuntimeTest
 
 	private static class MyJobContext extends AssertionErrorJobContext
 	{
+		int progress = 0;
+
 		@Override
 		public void stopIfRequested()
 		{
@@ -30,7 +32,7 @@ public class CustomerTest extends AbstractRuntimeTest
 		@Override
 		public void incrementProgress()
 		{
-			// nop
+			progress++;
 		}
 	}
 
@@ -60,7 +62,9 @@ public class CustomerTest extends AbstractRuntimeTest
 		customerB.set(Customer.password.getOldHash().map("111111B"), Customer.password.getNewHash().map(null));
 		model.commit();
 
-		Customer.migratePassword(new MyJobContext());
+		final MyJobContext ctx = new MyJobContext();
+		Customer.migratePassword(ctx);
+		assertEquals(2, ctx.progress);
 
 		model.startTransaction("test result");
 		assertNull(Customer.password.getOldHash().getHash(customerA));
