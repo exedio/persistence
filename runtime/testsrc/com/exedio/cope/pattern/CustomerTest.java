@@ -13,34 +13,6 @@ public class CustomerTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private static class MyJobContext extends AssertionErrorJobContext
-	{
-		int progress = 0;
-
-		MyJobContext()
-		{
-			// make package private
-		}
-
-		@Override
-		public void stopIfRequested()
-		{
-			// nop
-		}
-
-		@Override
-		public boolean supportsProgress()
-		{
-			return true;
-		}
-
-		@Override
-		public void incrementProgress()
-		{
-			progress++;
-		}
-	}
-
 	public void testMigratePasswordOnChange()
 	{
 		final Customer item = deleteOnTearDown(new Customer("111111", 1.1));
@@ -99,5 +71,33 @@ public class CustomerTest extends AbstractRuntimeTest
 		assertTrue(itemA.checkPassword("111111A"));
 		assertTrue(itemB.checkPassword("111111B"));
 		assertTrue(itemX.checkPassword("111111X"));
+	}
+
+	private static class MyJobContext extends AssertionErrorJobContext
+	{
+		int progress = 0;
+
+		MyJobContext()
+		{
+			// make package private
+		}
+
+		@Override
+		public void stopIfRequested()
+		{
+			// nop
+		}
+
+		@Override
+		public boolean supportsProgress()
+		{
+			return true;
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			progress++;
+		}
 	}
 }
