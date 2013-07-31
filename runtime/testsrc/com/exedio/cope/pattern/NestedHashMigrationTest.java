@@ -82,14 +82,14 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 	public void testMigratePasswordOnChange()
 	{
 		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
-		assertNotNull(password.getOldHash().getHash(item));
+		assertNotNull(password.getLegacyHash().getHash(item));
 		assertNull(password.getNewHash().getHash(item));
 
 		assertTrue(item.checkPassword("111111"));
 		assertFalse(item.checkPassword("222222"));
 
 		item.setPassword("222222");
-		assertNull(password.getOldHash().getHash(item));
+		assertNull(password.getLegacyHash().getHash(item));
 		assertNotNull(password.getNewHash().getHash(item));
 		assertTrue(item.checkPassword("222222"));
 		assertFalse(item.checkPassword("333333"));
@@ -101,9 +101,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		final NestedHashMigrationItem itemA = deleteOnTearDown(new NestedHashMigrationItem("111111A", 1.1));
 		final NestedHashMigrationItem itemB = deleteOnTearDown(new NestedHashMigrationItem("111111B", 1.1));
 		final NestedHashMigrationItem itemX = deleteOnTearDown(new NestedHashMigrationItem("111111X"));
-		assertNotNull(password.getOldHash().getHash(itemA));
-		assertNotNull(password.getOldHash().getHash(itemB));
-		assertNull(password.getOldHash().getHash(itemX));
+		assertNotNull(password.getLegacyHash().getHash(itemA));
+		assertNotNull(password.getLegacyHash().getHash(itemB));
+		assertNull(password.getLegacyHash().getHash(itemX));
 		assertNull(password.getNewHash().getHash(itemA));
 		assertNull(password.getNewHash().getHash(itemB));
 		assertNotNull(password.getNewHash().getHash(itemX));
@@ -116,9 +116,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		}
 
 		model.startTransaction("test result");
-		assertNull(password.getOldHash().getHash(itemA));
-		assertNull(password.getOldHash().getHash(itemB));
-		assertNull(password.getOldHash().getHash(itemX));
+		assertNull(password.getLegacyHash().getHash(itemA));
+		assertNull(password.getLegacyHash().getHash(itemB));
+		assertNull(password.getLegacyHash().getHash(itemX));
 		assertNotNull(password.getNewHash().getHash(itemA));
 		assertNotNull(password.getNewHash().getHash(itemB));
 		assertNotNull(password.getNewHash().getHash(itemX));

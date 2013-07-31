@@ -28,42 +28,42 @@ import com.exedio.cope.pattern.HashAlgorithm;
 public final class NestedHashAlgorithm
 {
 	public static final HashAlgorithm create(
-			final HashAlgorithm inner,
+			final HashAlgorithm legacy,
 			final HashAlgorithm outer)
 	{
 		if(outer==null)
 			throw new NullPointerException();
-		if(inner==null)
+		if(legacy==null)
 			throw new NullPointerException();
 
 		final String plainText = "1234";
-		if(!inner.hash(plainText).equals(inner.hash(plainText)))
-			throw new IllegalArgumentException("inner algorithm must be deterministic (i.e. unsalted), but was " + inner.getDescription());
+		if(!legacy.hash(plainText).equals(legacy.hash(plainText)))
+			throw new IllegalArgumentException("legacy algorithm must be deterministic (i.e. unsalted), but was " + legacy.getDescription());
 
-		return new Algorithm(inner, outer);
+		return new Algorithm(legacy, outer);
 	}
 
 	private static final class Algorithm implements HashAlgorithm
 	{
-		final HashAlgorithm inner;
+		final HashAlgorithm legacy;
 		final HashAlgorithm outer;
 
-		Algorithm(final HashAlgorithm inner, final HashAlgorithm outer)
+		Algorithm(final HashAlgorithm legacy, final HashAlgorithm outer)
 		{
-			this.inner = inner;
+			this.legacy = legacy;
 			this.outer = outer;
 		}
 
 		@Override
 		public String getID()
 		{
-			return inner.getID() + '-' + outer.getID();
+			return legacy.getID() + '-' + outer.getID();
 		}
 
 		@Override
 		public String getDescription()
 		{
-			return inner.getDescription() + '-' + outer.getDescription();
+			return legacy.getDescription() + '-' + outer.getDescription();
 		}
 
 		@Override
@@ -75,13 +75,13 @@ public final class NestedHashAlgorithm
 		@Override
 		public String hash(final String plainText)
 		{
-			return outer.hash(inner.hash(plainText));
+			return outer.hash(legacy.hash(plainText));
 		}
 
 		@Override
 		public boolean check(final String plainText, final String hash)
 		{
-			return outer.check(inner.hash(plainText), hash);
+			return outer.check(legacy.hash(plainText), hash);
 		}
 	}
 

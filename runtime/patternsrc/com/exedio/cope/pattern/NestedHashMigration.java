@@ -50,31 +50,31 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	private static final long serialVersionUID = 1l;
 
-	private final Hash oldHash;
+	private final Hash legacyHash;
 	private final Hash newHash;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final HashAlgorithm newAlgorithm;
 
 	/**
-	 * @param oldAlgorithm the algorithm the passwords are currently hashed with
+	 * @param legacyAlgorithm the algorithm the passwords are currently hashed with
 	 * @param newAlgorithm the algorithm the passwords are to be hashed with in the future
 	 */
-	public NestedHashMigration(final HashAlgorithm oldAlgorithm, final HashAlgorithm newAlgorithm)
+	public NestedHashMigration(final HashAlgorithm legacyAlgorithm, final HashAlgorithm newAlgorithm)
 	{
 		this.newAlgorithm = newAlgorithm;
-		addSource(oldHash = new Hash(oldAlgorithm).optional(), "old", ComputedElement.get());
-		addSource(newHash = new Hash(NestedHashAlgorithm.create(oldAlgorithm, newAlgorithm)).optional(), "new");
+		addSource(legacyHash = new Hash(legacyAlgorithm).optional(), "legacy", ComputedElement.get());
+		addSource(newHash = new Hash(NestedHashAlgorithm.create(legacyAlgorithm, newAlgorithm)).optional(), "new");
 		addSource(new CheckConstraint(
 			Cope.or(
-				oldHash.isNull().and(newHash.isNotNull()),
-				oldHash.isNotNull().and(newHash.isNull())
+				legacyHash.isNull().and(newHash.isNotNull()),
+				legacyHash.isNotNull().and(newHash.isNull())
 			)),
 			"xor");
 	}
 
-	public Hash getOldHash()
+	public Hash getLegacyHash()
 	{
-		return oldHash;
+		return legacyHash;
 	}
 
 	public Hash getNewHash()
@@ -91,8 +91,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	private Hash select(final Item item)
 	{
-		if(oldHash.getHash(item)!=null)
-			return oldHash;
+		if(legacyHash.getHash(item)!=null)
+			return legacyHash;
 		else
 			return newHash;
 	}
@@ -121,12 +121,12 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			throw MandatoryViolationException.create(this, item);
 
 		item.set(
-				oldHash.map(null),
+				legacyHash.map(null),
 				newHash.map(plaintext));
 	}
 
 	@Wrap(order=60,
-			doc="Re-hashes all old passwords to new ones.")
+			doc="Re-hashes all legacy passwords to new ones.")
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
 		if(ctx==null)
@@ -137,7 +137,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		final String id = getID();
 
 		for(final Item item : Iterables.once(
-				iterateTransactionally(type, getOldHash().isNotNull(), 100)))
+				iterateTransactionally(type, getLegacyHash().isNotNull(), 100)))
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
@@ -145,8 +145,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			{
 				model.startTransaction(id + " migrate " + itemID);
 
-				final String oldHashValue = oldHash.getHash(item);
-				if(oldHashValue==null)
+				final String legacyHashValue = legacyHash.getHash(item);
+				if(legacyHashValue==null)
 				{
 					if(logger.isInfoEnabled())
 						logger.info( MessageFormat.format(
@@ -156,8 +156,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 				}
 
 				item.set(
-						oldHash.map(null),
-						newHash.getStorage().map(newAlgorithm.hash(oldHashValue)));
+						legacyHash.map(null),
+						newHash.getStorage().map(newAlgorithm.hash(legacyHashValue)));
 
 				model.commit();
 			}
@@ -182,7 +182,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue<?>[]{
-				assertSingleton(oldHash.execute(null,  exceptionItem)),
+				assertSingleton(legacyHash.execute(null,  exceptionItem)),
 				assertSingleton(newHash.execute(value, exceptionItem))};
 	}
 

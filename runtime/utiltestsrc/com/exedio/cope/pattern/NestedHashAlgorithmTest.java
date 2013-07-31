@@ -40,15 +40,15 @@ public class NestedHashAlgorithmTest extends TestCase
 
 	public void testMigration()
 	{
-		final HashAlgorithm old = MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100);
+		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100);
 
-		final String oldHash = old.hash("1234");
-		assertEquals(true,  old.check("1234", oldHash));
-		assertEquals(false, old.check("12345", oldHash));
+		final String legacyHash = legacy.hash("1234");
+		assertEquals(true,  legacy.check("1234", legacyHash));
+		assertEquals(false, legacy.check("12345", legacyHash));
 
 		final HashAlgorithm neu = MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200);
-		final String newHash = neu.hash(oldHash);
-		final HashAlgorithm a = NestedHashAlgorithm.create(old, neu);
+		final String newHash = neu.hash(legacyHash);
+		final HashAlgorithm a = NestedHashAlgorithm.create(legacy, neu);
 		assertEquals(true,  a.check("1234", newHash));
 		assertEquals(false, a.check("12345", newHash));
 	}
@@ -63,7 +63,7 @@ public class NestedHashAlgorithmTest extends TestCase
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("inner algorithm must be deterministic (i.e. unsalted), but was SHA512s8i200", e.getMessage());
+			assertEquals("legacy algorithm must be deterministic (i.e. unsalted), but was SHA512s8i200", e.getMessage());
 		}
 		// TODO test nulls etc
 	}
