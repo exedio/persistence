@@ -23,7 +23,7 @@ public class CustomerTest extends AbstractRuntimeTest
 			item.setPassword(null);
 			fail();
 		}
-		catch(final CheckViolationException e)
+		catch(final CheckViolationException e) // TODO
 		{
 			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
 		}
@@ -32,7 +32,7 @@ public class CustomerTest extends AbstractRuntimeTest
 			item.set(Customer.password.map(null));
 			fail();
 		}
-		catch(final CheckViolationException e)
+		catch(final CheckViolationException e) // TODO
 		{
 			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
 		}
@@ -41,7 +41,7 @@ public class CustomerTest extends AbstractRuntimeTest
 			new Customer(null, 1.1);
 			fail();
 		}
-		catch(final CheckViolationException e)
+		catch(final CheckViolationException e) // TODO
 		{
 			assertEquals("check violation for Customer.password-xor", e.getMessage());
 		}
