@@ -113,7 +113,7 @@ final class Customer extends Item
 	 */
 	static final void migratePassword(final com.exedio.cope.util.JobContext ctx)
 	{
-		Customer.password.migrate(Customer.class,ctx);
+		Customer.password.migrate(ctx);
 	}/**
 
 	 **

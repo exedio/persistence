@@ -93,17 +93,17 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 	}
 
 	@Wrap(order=60, doc="Re-hashes all old passwords to new ones.")
-	public <P extends Item> void migrate(final Class<P> parent, @Parameter("ctx") final JobContext ctx)
+	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
-		final Type<P> type = getType().as(parent);
-		final Iterator<P> it = TypeIterator.iterateTransactionally(type, getOldHash().getStorage().isNotNull(), 100);
+		final Type<?> type = getType();
+		final Iterator<? extends Item> it = TypeIterator.iterateTransactionally(type, getOldHash().getStorage().isNotNull(), 100);
 		while(it.hasNext())
 		{
 			ctx.stopIfRequested();
 			final Model model = type.getModel();
 			try
 			{
-				final P item = it.next();
+				final Item item = it.next();
 				model.startTransaction(getClass().getSimpleName() + ".migrate(): " + getID() + ", " + item.getCopeID());
 				item.set(oldHash.map(null), newHash.getStorage().map(newAlgorithm.hash(oldHash.getHash(item))));
 				model.commit();
