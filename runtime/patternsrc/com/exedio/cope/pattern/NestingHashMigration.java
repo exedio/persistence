@@ -105,7 +105,9 @@ public final class NestingHashMigration extends Pattern implements HashInterface
 			{
 				final Item item = it.next();
 				model.startTransaction(getClass().getSimpleName() + ".migrate(): " + getID() + ", " + item.getCopeID());
-				item.set(oldHash.map(null), newHash.getStorage().map(newAlgorithm.hash(oldHash.getHash(item))));
+				item.set(
+						oldHash.map(null),
+						newHash.getStorage().map(newAlgorithm.hash(oldHash.getHash(item))));
 				model.commit();
 			}
 			finally
