@@ -27,6 +27,24 @@ public class CustomerTest extends AbstractRuntimeTest
 		{
 			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
 		}
+		try
+		{
+			item.set(Customer.password.map(null));
+			fail();
+		}
+		catch(final CheckViolationException e)
+		{
+			assertEquals("check violation on " + item + " for Customer.password-xor", e.getMessage());
+		}
+		try
+		{
+			new Customer(null, 1.1);
+			fail();
+		}
+		catch(final CheckViolationException e)
+		{
+			assertEquals("check violation for Customer.password-xor", e.getMessage());
+		}
 	}
 
 	public void testMigratePasswordOnChange()
