@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MediaPathTest extends AbstractRuntimeTest
 {
@@ -298,6 +300,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 
 	private static final class MyMediaServlet extends MediaServlet
 	{
+		@SuppressFBWarnings("MSF_MUTABLE_SERVLET_FIELD")
 		boolean failOnException = true;
 
 		MyMediaServlet()
