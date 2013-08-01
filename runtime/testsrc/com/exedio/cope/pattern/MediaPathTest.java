@@ -116,6 +116,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk("/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
 	public void testRedirectFromExtension() throws ServletException, IOException
@@ -124,6 +127,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk("/MediaPathItem/normal/" + id + ".jpg");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
 	public void testRedirectFromPhrase() throws ServletException, IOException
@@ -133,6 +139,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk("/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
 	public void testRedirectFromPhraseExtension() throws ServletException, IOException
@@ -142,6 +151,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk("/MediaPathItem/normal/" + id + "/phrase.jpg");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
 	public void testCatchphrase() throws ServletException, IOException
