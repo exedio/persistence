@@ -156,14 +156,6 @@ public class MediaServlet extends HttpServlet
 			final HttpServletResponse response)
 		throws IOException
 	{
-		serveContent(request, response);
-	}
-
-	private void serveContent(
-			final HttpServletRequest request,
-			final HttpServletResponse response)
-		throws IOException
-	{
 		final String pathInfo = request.getPathInfo();
 		//System.out.println("pathInfo="+pathInfo);
 		final MediaPath path;
