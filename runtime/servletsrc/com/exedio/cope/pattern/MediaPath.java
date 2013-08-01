@@ -674,7 +674,7 @@ public abstract class MediaPath extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	@Deprecated
-	public final static class Log
+	public static final class Log
 	{
 		private Log()
 		{
