@@ -23,7 +23,6 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -160,29 +159,6 @@ public class MediaServlet extends HttpServlet
 		serveContent(request, response);
 	}
 
-	private static void serveError(
-			final HttpServletResponse response,
-			final int sc,
-			final String body)
-		throws IOException
-	{
-		response.setStatus(sc);
-		response.setContentType("text/html");
-		response.setCharacterEncoding("us-ascii");
-
-		PrintStream out = null;
-		try
-		{
-			out = new PrintStream(response.getOutputStream(), false, "us-ascii");
-			out.print(body);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
-		}
-	}
-
 	private void serveContent(
 			final HttpServletRequest request,
 			final HttpServletResponse response)
@@ -256,9 +232,9 @@ public class MediaServlet extends HttpServlet
 		{
 			path.incException();
 			onException(request, e);
-			serveError(
-				response,
-				SC_INTERNAL_SERVER_ERROR,
+
+			response.setStatus(SC_INTERNAL_SERVER_ERROR);
+			MediaUtil.send("text/html", "us-ascii",
 				"<html>\n" +
 					"<head>\n" +
 						"<title>Internal Server Error</title>\n" +
@@ -269,7 +245,7 @@ public class MediaServlet extends HttpServlet
 						"<h1>Internal Server Error</h1>\n" +
 						"An internal error occured on the server.\n" +
 					"</body>\n" +
-				"</html>\n");
+				"</html>\n", response);
 		}
 	}
 
