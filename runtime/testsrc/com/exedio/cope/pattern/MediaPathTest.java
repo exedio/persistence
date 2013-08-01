@@ -108,14 +108,58 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertError(pathInfo);
 	}
 
+	private static final String prefix = "testScheme://testHostHeader/testContextPath/testServletPath";
+
 	public void testRedirectFrom() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
-
 		assertOk("/MediaPathItem/normal/" + id);
-		final String prefix = "testScheme://testHostHeader/testContextPath/testServletPath/";
-		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+	}
+
+	public void testRedirectFromExtension() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		assertOk("/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+	}
+
+	public void testRedirectFromPhrase() throws ServletException, IOException
+	{
+		item.setNormalContentType("blah/foo");
+		item.setCatchphrase("phrase");
+		assertOk("/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+	}
+
+	public void testRedirectFromPhraseExtension() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		assertOk("/MediaPathItem/normal/" + id + "/phrase.jpg");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
+	}
+
+	public void testCatchphrase() throws ServletException, IOException
+	{
+		item.setNormalContentType("blah/foo");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/normal/" + id + "/phrase";
+		assertOk(ok);
+		assertRedirect("/MediaPathItem/normal/" + id, prefix + ok);
+	}
+
+	public void testCatchphraseExtension() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
+		assertOk(ok);
+		assertRedirect("/MediaPathItem/normal/" + id, prefix + ok);
 	}
 
 	private void assertOk(
