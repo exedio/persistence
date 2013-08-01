@@ -236,7 +236,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	@Override()
 	public String getHeader(final String name)
 	{
-		throw new AssertionError();
+		throw new AssertionError(name);
 	}
 
 	@Override()

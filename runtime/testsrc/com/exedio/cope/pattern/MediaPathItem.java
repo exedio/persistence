@@ -30,6 +30,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	static final StringField catchphrase = new StringField().optional();
 
 
+	@RedirectFrom({"normalRedirect1", "normalRedirect2"})
 	static final MediaPathFeature normal = new MediaPathFeature();
 
 

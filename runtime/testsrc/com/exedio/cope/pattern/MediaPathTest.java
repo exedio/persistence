@@ -108,6 +108,16 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertError(pathInfo);
 	}
 
+	public void testRedirectFrom() throws ServletException, IOException
+	{
+		item.setNormalContentType("blah/foo");
+
+		assertOk("/MediaPathItem/normal/" + id);
+		final String prefix = "testScheme://testHostHeader/testContextPath/testServletPath/";
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "MediaPathItem/normal/" + id);
+	}
+
 	private void assertOk(
 			final String pathInfo)
 		throws ServletException, IOException
@@ -164,6 +174,18 @@ public final class MediaPathTest extends AbstractRuntimeTest
 				"</html>\n");
 	}
 
+	private void assertRedirect(
+			final String pathInfo,
+			final String location)
+		throws ServletException, IOException
+	{
+		MODEL.commit();
+		final Response response = new Response();
+		servlet.service(new Request(pathInfo), response);
+		MODEL.startTransaction("MediaPathTest");
+		response.assertRedirect(location);
+	}
+
 	private static final class Request extends HttpServletRequestDummy
 	{
 		private final String pathInfo;
@@ -177,6 +199,33 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		public String getMethod()
 		{
 			return "GET";
+		}
+
+		@Override()
+		public String getScheme()
+		{
+			return "testScheme";
+		}
+
+		@Override()
+		public String getHeader(final String name)
+		{
+			if("Host".equals(name))
+				return "testHostHeader";
+			else
+				return super.getHeader(name);
+		}
+
+		@Override()
+		public String getContextPath()
+		{
+			return "/testContextPath";
+		}
+
+		@Override()
+		public String getServletPath()
+		{
+			return "/testServletPath";
 		}
 
 		@Override
@@ -197,6 +246,23 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		Response()
 		{
 			// make package private
+		}
+
+
+		private String location;
+
+		@Override()
+		public void setHeader(final String name, final String value)
+		{
+			if("Location".equals(name))
+			{
+				assertNotNull(value);
+				assertEquals(this.location, null);
+				assertNull(out);
+				this.location = value;
+			}
+			else
+				super.setHeader(name, value);
 		}
 
 
@@ -276,6 +342,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 
 		void assertOk()
 		{
+			assertEquals("location",      null, this.location);
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
@@ -290,11 +357,22 @@ public final class MediaPathTest extends AbstractRuntimeTest
 				final String content)
 			throws UnsupportedEncodingException
 		{
+			assertEquals("location",      null,             this.location);
 			assertEquals("sc",            sc,               this.status);
 			assertEquals("charset",       charset,          this.charset);
 			assertEquals("contentType",   contentType,      this.contentType);
 			assertEquals("content",       content, new String(this.out.toByteArray(), UTF8));
 			assertEquals("contentLength", content.length(), this.contentLength);
+		}
+
+		void assertRedirect(final String location)
+		{
+			assertEquals("location",      location, this.location);
+			assertEquals("sc",            SC_MOVED_PERMANENTLY, this.status);
+			assertEquals("charset",       null, this.charset);
+			assertEquals("contentType",   null, this.contentType);
+			assertEquals("content",       null, this.out);
+			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 		}
 	}
 
