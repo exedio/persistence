@@ -34,6 +34,8 @@ import com.exedio.cope.instrument.Wrap;
 
 public final class MediaPathFeature extends MediaPath
 {
+	private static final long serialVersionUID = 1l;
+
 	enum Result
 	{
 		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException;
