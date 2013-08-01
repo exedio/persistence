@@ -26,6 +26,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings("NM_CONFUSING")
 class HttpServletResponseDummy implements HttpServletResponse
 {
 

@@ -32,6 +32,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+@SuppressFBWarnings("NM_CONFUSING")
 class HttpServletRequestDummy implements HttpServletRequest
 {
 	@Override()
