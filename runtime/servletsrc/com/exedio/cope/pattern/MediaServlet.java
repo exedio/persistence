@@ -89,7 +89,7 @@ public class MediaServlet extends HttpServlet
 		boolean mustReturn = true;
 		try
 		{
-			initConnected();
+			initConnected(connectToken.getModel());
 			mustReturn = false;
 		}
 		finally
@@ -104,9 +104,8 @@ public class MediaServlet extends HttpServlet
 		// OTHERWISE ConnectTokens MAY BE LOST
 	}
 
-	private void initConnected()
+	void initConnected(final Model model)
 	{
-		final Model model = connectToken.getModel();
 		model.reviseIfSupportedAndAutoEnabled();
 		for(final Type<?> type : model.getTypes())
 		{
@@ -210,6 +209,7 @@ public class MediaServlet extends HttpServlet
 			//System.out.println("featureString="+featureString);
 
 			path = pathes.get(featureString);
+			//System.out.println("path="+path);
 			if(path==null)
 			{
 				final MediaPath alt = pathesRedirectFrom.get(featureString);
