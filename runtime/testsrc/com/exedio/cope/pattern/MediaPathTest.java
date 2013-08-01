@@ -114,10 +114,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	{
 		item.setNormalContentType("blah/foo");
 		assertOk("/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg",        prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase",     prefix + "/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
@@ -125,10 +125,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	{
 		item.setNormalContentType("image/jpeg");
 		assertOk("/MediaPathItem/normal/" + id + ".jpg");
-		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg",        prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase",     prefix + "/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
@@ -137,10 +137,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
 		assertOk("/MediaPathItem/normal/" + id + "/phrase");
-		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg",        prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase",     prefix + "/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
@@ -149,10 +149,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
 		assertOk("/MediaPathItem/normal/" + id + "/phrase.jpg");
-		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id, prefix + "/MediaPathItem/normal/" + id);
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg", prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase", prefix + "/MediaPathItem/normal/" + id + "/phrase");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + ".jpg",        prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase",     prefix + "/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
