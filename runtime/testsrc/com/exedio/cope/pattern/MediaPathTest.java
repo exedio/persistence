@@ -150,7 +150,11 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setCatchphrase("phrase");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase";
 		assertOk(ok);
-		assertRedirect("/MediaPathItem/normal/" + id, prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.jpg",      prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase.jpg", prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
 	public void testCatchphraseExtension() throws ServletException, IOException
@@ -159,7 +163,11 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setCatchphrase("phrase");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
 		assertOk(ok);
-		assertRedirect("/MediaPathItem/normal/" + id, prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase.jpg", prefix + ok);
+		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
 	private void assertOk(
