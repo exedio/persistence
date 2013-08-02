@@ -24,6 +24,7 @@ public final class MediaSummary
 {
 	private final int redirectFrom;
 	private final int exception;
+	private final int invalidSpecial;
 	private final int guessedUrl;
 	private final int notAnItem;
 	private final int noSuchItem;
@@ -37,6 +38,7 @@ public final class MediaSummary
 	{
 		int redirectFrom = 0;
 		int exception = 0;
+		int invalidSpecial = 0;
 		int guessedUrl = 0;
 		int notAnItem = 0;
 		int noSuchItem = 0;
@@ -50,6 +52,7 @@ public final class MediaSummary
 		{
 			redirectFrom  += info.getRedirectFrom();
 			exception     += info.getException();
+			invalidSpecial+= info.getInvalidSpecial();
 			guessedUrl    += info.getGuessedUrl();
 			notAnItem     += info.getNotAnItem();
 			noSuchItem    += info.getNoSuchItem();
@@ -62,6 +65,7 @@ public final class MediaSummary
 
 		this.redirectFrom = redirectFrom;
 		this.exception = exception;
+		this.invalidSpecial = invalidSpecial;
 		this.guessedUrl = guessedUrl;
 		this.notAnItem = notAnItem;
 		this.noSuchItem = noSuchItem;
@@ -80,6 +84,11 @@ public final class MediaSummary
 	public int getException()
 	{
 		return exception;
+	}
+
+	public int getInvalidSpecial()
+	{
+		return invalidSpecial;
 	}
 
 	public int getGuessedUrl()
