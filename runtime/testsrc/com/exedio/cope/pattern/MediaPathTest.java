@@ -227,7 +227,12 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		service(new Request(ok)).assertExpiresOffset(Long.MIN_VALUE).assertOk();
 
 		item.setNormalLastModified(new Date(77772000l));
-		service(new Request(ok)).assertExpiresOffset(5000).assertOkAndCache(77772000l);
+		final Response response = service(new Request(ok));
+		final int mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
+		if(mediaOffsetExpires>0)
+			response.assertExpiresOffset(mediaOffsetExpires).assertOkAndCache(77772000l);
+		else
+			response.assertExpiresOffset(Long.MIN_VALUE).assertOkAndCache(77772000l);
 	}
 
 	private void assertOk(
