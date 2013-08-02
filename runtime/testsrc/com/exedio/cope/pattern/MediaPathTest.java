@@ -218,6 +218,18 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
 	}
 
+	public void testExpires() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertExpiresOffset(Long.MIN_VALUE).assertOk();
+
+		item.setNormalLastModified(new Date(77772000l));
+		service(new Request(ok)).assertExpiresOffset(5000).assertOkAndCache(77772000l);
+	}
+
 	private void assertOk(
 			final String pathInfo)
 		throws ServletException, IOException
@@ -379,6 +391,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 
 
 		private long lastModified = Long.MIN_VALUE;
+		private long expiresOffset = Long.MIN_VALUE;
 
 		@Override()
 		public void setDateHeader(final String name, final long date)
@@ -393,7 +406,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			else if("Expires".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
+				assertEquals(this.expiresOffset, Long.MIN_VALUE);
 				assertNull(out);
+				this.expiresOffset = date - System.currentTimeMillis(); // may cause sporadic failures
 			}
 			else
 				super.setDateHeader(name, date);
@@ -532,6 +547,12 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+		}
+
+		Response assertExpiresOffset(final long expiresOffset)
+		{
+			assertEquals("may cause sporadic failures", expiresOffset, this.expiresOffset);
+			return this;
 		}
 	}
 
