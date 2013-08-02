@@ -77,12 +77,12 @@ public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeTest
 
 		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type021C(5))));
 		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(1, this02A.checkTypeColumn()); // TODO
+		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 
 		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type021C(5))));
 		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(2, this02A.checkTypeColumn()); // TODO
+		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 	}
 
