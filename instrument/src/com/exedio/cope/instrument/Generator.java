@@ -99,6 +99,7 @@ final class Generator
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
+	private int typeIndent = Integer.MIN_VALUE;
 
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
@@ -771,7 +772,9 @@ final class Generator
 
 				try
 				{
+					typeIndent = type.indent;
 					writeClassFeatures(type);
+					typeIndent = Integer.MIN_VALUE;
 				}
 				catch (final RuntimeException e)
 				{
@@ -821,12 +824,14 @@ final class Generator
 
 	private void writeIdent()
 	{
-		writeIdentInternal(1);
+		assert typeIndent>=0 : typeIndent;
+		writeIdentInternal(typeIndent);
 	}
 
 	private void writeIdent(final int additionalLevel)
 	{
-		writeIdentInternal(1 + additionalLevel);
+		assert typeIndent>=0 : typeIndent;
+		writeIdentInternal(typeIndent + additionalLevel);
 	}
 
 	private void writeIdentInternal(final int level)
