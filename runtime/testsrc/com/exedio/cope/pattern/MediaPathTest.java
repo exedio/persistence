@@ -381,7 +381,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			if("Location".equals(name))
 			{
 				assertNotNull(value);
-				assertEquals(this.location, null);
+				assertEquals(null, this.location);
 				assertNull(out);
 				this.location = value;
 			}
@@ -399,14 +399,14 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			if("Last-Modified".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
-				assertEquals(this.lastModified, Long.MIN_VALUE);
+				assertEquals(Long.MIN_VALUE, this.lastModified);
 				assertNull(out);
 				this.lastModified = date;
 			}
 			else if("Expires".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
-				assertEquals(this.expiresOffset, Long.MIN_VALUE);
+				assertEquals(Long.MIN_VALUE, this.expiresOffset);
 				assertNull(out);
 				this.expiresOffset = date - System.currentTimeMillis(); // may cause sporadic failures
 			}
@@ -421,7 +421,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		public void setStatus(final int sc)
 		{
 			assertFalse(sc==Integer.MIN_VALUE);
-			assertEquals(this.status, Integer.MIN_VALUE);
+			assertEquals(Integer.MIN_VALUE, this.status);
 			assertNull(out);
 			this.status = sc;
 		}
@@ -433,7 +433,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		public void setCharacterEncoding(final String charset)
 		{
 			assertNotNull(charset);
-			assertEquals(this.charset, null);
+			assertEquals(null, this.charset);
 			assertNull(out);
 			this.charset = charset;
 		}
@@ -445,7 +445,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		public void setContentType(final String contentType)
 		{
 			assertNotNull(contentType);
-			assertEquals(this.contentType, null);
+			assertEquals(null, this.contentType);
 			assertNull(out);
 			this.contentType = contentType;
 		}
@@ -457,7 +457,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		public void setContentLength(final int contentLength)
 		{
 			assertFalse(contentLength==Integer.MIN_VALUE);
-			assertEquals(this.contentLength, Integer.MIN_VALUE);
+			assertEquals(Integer.MIN_VALUE, this.contentLength);
 			assertNull(out);
 			this.contentLength = contentLength;
 		}
