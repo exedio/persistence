@@ -84,7 +84,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	@Override()
 	public String getParameter(final String name)
 	{
-		throw new AssertionError();
+		throw new AssertionError(name);
 	}
 
 	@Override()
