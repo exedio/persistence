@@ -134,13 +134,13 @@ public abstract class MediaPath extends Pattern
 
 		Locator(
 				final Item item,
-				final long fingerprint,
+				final Date fingerprint,
 				final String catchphrase,
 				final String extension,
 				final String secret)
 		{
 			this.item = item;
-			this.fingerprint = fingerprint;
+			this.fingerprint = fingerprint!=null ? fingerprint.getTime() : Long.MIN_VALUE;
 			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
@@ -188,6 +188,14 @@ public abstract class MediaPath extends Pattern
 		void appendPathInfo(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+
+			if(fingerprint!=Long.MIN_VALUE)
+			{
+				bf.append(".f").
+					append(fingerprint). // TODO
+					append('/');
+			}
+
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -216,7 +224,7 @@ public abstract class MediaPath extends Pattern
 			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
-				mount().urlFingerPrinting ? getLastModified(item).getTime() : Long.MIN_VALUE,
+				mount().urlFingerPrinting ? getLastModified(item) : null,
 				makeUrlCatchphrase(item),
 				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
@@ -362,6 +370,7 @@ public abstract class MediaPath extends Pattern
 	private static final VolatileInt noSuchPath = new VolatileInt();
 	private final VolatileInt redirectFrom = new VolatileInt();
 	private final VolatileInt exception = new VolatileInt();
+	private final VolatileInt invalidSpecial = new VolatileInt();
 	private final VolatileInt guessedUrl = new VolatileInt();
 	private final VolatileInt notAnItem = new VolatileInt();
 	private final VolatileInt noSuchItem = new VolatileInt();
@@ -431,6 +440,11 @@ public abstract class MediaPath extends Pattern
 		return new NotFound("no such path", noSuchPath);
 	}
 
+	private NotFound notFoundInvalidSpecial()
+	{
+		return new NotFound("invalid special", invalidSpecial);
+	}
+
 	private NotFound notFoundGuessedUrl()
 	{
 		return new NotFound("guessed url", guessedUrl);
@@ -480,10 +494,35 @@ public abstract class MediaPath extends Pattern
 
 	final void doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String pathInfo, final int fromIndex)
+			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
 		//final long start = System.currentTimeMillis();
+
+		final int fromIndex;
+		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
+		{
+			final int kindIndex = fromIndexWithSpecial+1;
+			if(!(pathInfo.length()>kindIndex))
+				throw notFoundInvalidSpecial();
+
+			switch(pathInfo.charAt(kindIndex))
+			{
+				case 'f':
+					final int slash = pathInfo.indexOf('/', kindIndex);
+					if(slash<0)
+						throw notFoundInvalidSpecial();
+					fromIndex = slash + 1;
+					break;
+
+				default:
+					throw notFoundInvalidSpecial();
+			}
+		}
+		else
+		{
+			fromIndex = fromIndexWithSpecial;
+		}
 
 		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;

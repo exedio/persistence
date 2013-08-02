@@ -189,6 +189,54 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
+	public void testFingerNotFound() throws ServletException, IOException
+	{
+		item.setNormalContentType("blah/foo");
+		assertNotFound("/MediaPathItem/normal/."   , "invalid special");
+		assertNotFound("/MediaPathItem/normal/.X"  , "invalid special");
+		assertNotFound("/MediaPathItem/normal/.X/" , "invalid special");
+		assertNotFound("/MediaPathItem/normal/.f"  , "invalid special");
+		assertNotFound("/MediaPathItem/normal/.f/" , "not an item");
+		assertNotFound("/MediaPathItem/normal/.fx" , "invalid special");
+		assertNotFound("/MediaPathItem/normal/.fx/", "not an item");
+	}
+
+	public void testFingerWithoutLastModified() throws ServletException, IOException
+	{
+		item.setFingerContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/finger/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getFingerLocator().getPath());
+		assertOk(ok);
+		assertRedirect("/MediaPathItem/finger/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase.jpg", prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
+	}
+
+	public void testFinger() throws ServletException, IOException
+	{
+		item.setFingerContentType("image/jpeg");
+		item.setFingerLastModified(new Date(333338888));
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/finger/.f333338888/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getFingerLocator().getPath());
+		service(new Request(ok)).assertOkAndCache(333339000l);
+
+		assertRedirect("/MediaPathItem/finger/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase.jpg", prefix + ok);
+		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
+
+		assertRedirect("/MediaPathItem/finger/.fx/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/otherPhrase.jpg", prefix + ok);
+		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
+	}
+
 	public void testConditional() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
