@@ -40,6 +40,7 @@ final class CopeType
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
 	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
+	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
 	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
 
@@ -59,6 +60,7 @@ final class CopeType
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
 	final Option activationConstructorOption;
+	final int indent;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
@@ -77,6 +79,8 @@ final class CopeType
 		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
 		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
 		this.activationConstructorOption = new Option(Tags.getLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
+		final String indentLine = Tags.getLine(docComment, TAG_INDENT);
+		this.indent = indentLine!=null ? Integer.parseInt(indentLine) : 1;
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);

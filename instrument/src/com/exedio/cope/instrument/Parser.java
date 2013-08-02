@@ -301,6 +301,9 @@ final class Parser
 
 		while (true)
 		{
+			if(!(c instanceof CharToken))
+				throw lexer.newParseException("characters expected, but was '" + c + '\'');
+
 			switch(((CharToken)c).value)
 			{
 				case ';' :

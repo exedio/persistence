@@ -64,11 +64,6 @@ public final class AntTask extends Task
 		params.finalArgs = value;
 	}
 
-	public void setActivationConstructorOnBottom(final boolean value)
-	{
-		params.activationConstructorOnBottom = value;
-	}
-
 	public void setSuppressUnusedWarningOnPrivateActivationConstructor(final boolean value)
 	{
 		params.suppressUnusedWarningOnPrivateActivationConstructor = value;

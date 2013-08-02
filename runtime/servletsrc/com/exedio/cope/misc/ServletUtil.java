@@ -113,7 +113,6 @@ public final class ServletUtil
 		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
 		final String name = config.getName();
-		final ServletContext context = config.getServletContext();
 
 		final String description =
 					config.getKind() + ' ' +
@@ -124,7 +123,7 @@ public final class ServletUtil
 		final String modelNameSource;
 		if(initParam==null)
 		{
-			final String contextParam = context.getInitParameter(PARAMETER_MODEL);
+			final String contextParam = config.getServletContext().getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
 				throw new IllegalArgumentException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
 			modelName = contextParam;

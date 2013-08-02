@@ -54,7 +54,7 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		named = deleteOnTearDown(new MediaUrlItem("name"));
+		named = deleteOnTearDown(new MediaUrlItem("phrase"));
 		anond = deleteOnTearDown(new MediaUrlItem(null));
 	}
 
@@ -141,19 +141,18 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		fileFinger.getLastModified().set(anond, new Date(2360));
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
-
-		assertIt("MediaUrlItem/foto/", foto, named, "/name.jpg");
-		assertIt("MediaUrlItem/foto/", foto, anond,      ".jpg");
-		assertIt("MediaUrlItem/file/", file, named, "/name"    );
-		assertIt("MediaUrlItem/file/", file, anond,      ""    );
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, "/name.jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond,      ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/name"+ "?t=MediaUrlItem.fileSecure-MediaUrlItem-0");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,          "?t=MediaUrlItem.fileSecure-MediaUrlItem-1");
-		assertIt("MediaUrlItem/fotoFinger/.f1350/", fotoFinger, named, "/name.jpg");
-		assertIt("MediaUrlItem/fotoFinger/.f1360/", fotoFinger, anond,      ".jpg");
-		assertIt("MediaUrlItem/fileFinger/.f2350/", fileFinger, named, "/name"    );
-		assertIt("MediaUrlItem/fileFinger/.f2360/", fileFinger, anond,      ""    );
+		assertIt("MediaUrlItem/foto/", foto, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/foto/", foto, anond,        ".jpg");
+		assertIt("MediaUrlItem/file/", file, named, "/phrase"    );
+		assertIt("MediaUrlItem/file/", file, anond,        ""    );
+		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, "/phrase.jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-0");
+		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond,        ".jpg?t=MediaUrlItem.fotoSecure-MediaUrlItem-1");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/phrase"+ "?t=MediaUrlItem.fileSecure-MediaUrlItem-0");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,            "?t=MediaUrlItem.fileSecure-MediaUrlItem-1");
+		assertIt("MediaUrlItem/fotoFinger/.f1350/", fotoFinger, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/fotoFinger/.f1360/", fotoFinger, anond,        ".jpg");
+		assertIt("MediaUrlItem/fileFinger/.f2350/", fileFinger, named, "/phrase"    );
+		assertIt("MediaUrlItem/fileFinger/.f2360/", fileFinger, anond,        ""    );
 
 		// TODO separate tests
 		model.commit();
@@ -162,18 +161,18 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		model.connect(getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		model.startTransaction("MediaUrlTest");
-		assertIt("MediaUrlItem/foto/", foto, named, "/name.jpg");
-		assertIt("MediaUrlItem/foto/", foto, anond,      ".jpg");
-		assertIt("MediaUrlItem/file/", file, named, "/name"    );
-		assertIt("MediaUrlItem/file/", file, anond,      ""    );
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, "/name.jpg?t=c156b63cb8a39ae5f16c");
-		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond,      ".jpg?t=f3da9d7e6856a2f9df6c");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/name"+ "?t=91f7b44e250a56f61ae9");
-		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,          "?t=faf24676503317102086");
-		assertIt("MediaUrlItem/fotoFinger/.f1350/", fotoFinger, named, "/name.jpg");
-		assertIt("MediaUrlItem/fotoFinger/.f1360/", fotoFinger, anond,      ".jpg");
-		assertIt("MediaUrlItem/fileFinger/.f2350/", fileFinger, named, "/name"    );
-		assertIt("MediaUrlItem/fileFinger/.f2360/", fileFinger, anond,      ""    );
+		assertIt("MediaUrlItem/foto/", foto, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/foto/", foto, anond,        ".jpg");
+		assertIt("MediaUrlItem/file/", file, named, "/phrase"    );
+		assertIt("MediaUrlItem/file/", file, anond,        ""    );
+		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, named, "/phrase.jpg?t=c156b63cb8a39ae5f16c");
+		assertIt("MediaUrlItem/fotoSecure/", fotoSecure, anond,        ".jpg?t=f3da9d7e6856a2f9df6c");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, named, "/phrase"+ "?t=91f7b44e250a56f61ae9");
+		assertIt("MediaUrlItem/fileSecure/", fileSecure, anond,            "?t=faf24676503317102086");
+		assertIt("MediaUrlItem/fotoFinger/.f1350/", fotoFinger, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/fotoFinger/.f1360/", fotoFinger, anond,        ".jpg");
+		assertIt("MediaUrlItem/fileFinger/.f2350/", fileFinger, named, "/phrase"    );
+		assertIt("MediaUrlItem/fileFinger/.f2360/", fileFinger, anond,        ""    );
 	}
 
 	private void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)

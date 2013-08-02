@@ -278,7 +278,11 @@ public abstract class MediaPath extends Pattern
 		{
 			final char c = result.charAt(i);
 			if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
-				throw new IllegalArgumentException(result);
+				throw new IllegalArgumentException(
+						"illegal catchphrase" +
+						" on " + item.getCopeID() +
+						" for " + getID() +
+						": >" + result + "< [" + i + ']');
 		}
 
 		return result;
@@ -702,7 +706,7 @@ public abstract class MediaPath extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	@Deprecated
-	public final static class Log
+	public static final class Log
 	{
 		private Log()
 		{

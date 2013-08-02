@@ -1172,7 +1172,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(table.typeColumn!=null)
 			bf.append(table.typeColumn);
 		else
-			bf.appendParameter(schemaId);
+			bf.appendParameter(getOnlyPossibleTypeOfInstances().schemaId);
 
 		bf.append("<>").append(superTable.typeColumn);
 
