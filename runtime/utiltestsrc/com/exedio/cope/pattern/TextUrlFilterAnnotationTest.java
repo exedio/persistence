@@ -37,21 +37,43 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		assertFalse(AnItem.simple.getSource().isAnnotationPresent(PreventUrlGuessing.class));
 		assertTrue (pasteValue(AnItem.secret).isAnnotationPresent(PreventUrlGuessing.class));
 		assertTrue (AnItem.secret.getSource().isAnnotationPresent(PreventUrlGuessing.class));
+		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(PreventUrlGuessing.class));
+		assertFalse(AnItem.finger.getSource().isAnnotationPresent(PreventUrlGuessing.class));
 
 		assertNull   (pasteValue(AnItem.simple).getAnnotation(PreventUrlGuessing.class));
 		assertNull   (AnItem.simple.getSource().getAnnotation(PreventUrlGuessing.class));
 		assertNotNull(pasteValue(AnItem.secret).getAnnotation(PreventUrlGuessing.class));
 		assertNotNull(AnItem.secret.getSource().getAnnotation(PreventUrlGuessing.class));
+		assertNull   (pasteValue(AnItem.finger).getAnnotation(PreventUrlGuessing.class));
+		assertNull   (AnItem.finger.getSource().getAnnotation(PreventUrlGuessing.class));
+
+		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(UrlFingerPrinting.class));
+		assertFalse(AnItem.simple.getSource().isAnnotationPresent(UrlFingerPrinting.class));
+		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(UrlFingerPrinting.class));
+		assertFalse(AnItem.secret.getSource().isAnnotationPresent(UrlFingerPrinting.class));
+		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(UrlFingerPrinting.class)); // TODO
+		assertFalse(AnItem.finger.getSource().isAnnotationPresent(UrlFingerPrinting.class)); // TODO
+
+		assertNull   (pasteValue(AnItem.simple).getAnnotation(UrlFingerPrinting.class));
+		assertNull   (AnItem.simple.getSource().getAnnotation(UrlFingerPrinting.class));
+		assertNull   (pasteValue(AnItem.secret).getAnnotation(UrlFingerPrinting.class));
+		assertNull   (AnItem.secret.getSource().getAnnotation(UrlFingerPrinting.class));
+		assertNull   (pasteValue(AnItem.finger).getAnnotation(UrlFingerPrinting.class)); // TODO
+		assertNull   (AnItem.finger.getSource().getAnnotation(UrlFingerPrinting.class)); // TODO
 
 		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(Deprecated.class));
 		assertFalse(AnItem.simple.getSource().isAnnotationPresent(Deprecated.class));
 		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(Deprecated.class));
 		assertFalse(AnItem.secret.getSource().isAnnotationPresent(Deprecated.class));
+		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(Deprecated.class));
+		assertFalse(AnItem.finger.getSource().isAnnotationPresent(Deprecated.class));
 
 		assertNull(pasteValue(AnItem.simple).getAnnotation(Deprecated.class));
 		assertNull(AnItem.simple.getSource().getAnnotation(Deprecated.class));
 		assertNull(pasteValue(AnItem.secret).getAnnotation(Deprecated.class));
 		assertNull(AnItem.secret.getSource().getAnnotation(Deprecated.class));
+		assertNull(pasteValue(AnItem.finger).getAnnotation(Deprecated.class));
+		assertNull(AnItem.finger.getSource().getAnnotation(Deprecated.class));
 	}
 
 	static final class AnItem extends Item
@@ -66,6 +88,8 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing
 		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
+		@UrlFingerPrinting
+		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
 	}
 
 	static final class ATextUrlFilter extends TextUrlFilter
