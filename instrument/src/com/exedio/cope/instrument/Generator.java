@@ -338,9 +338,7 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(ACTIVATION + " ap)");
-		write('{');
-		write("super(ap);");
+		write(ACTIVATION + " ap){super(ap);");
 		write(lineSeparator);
 		write("}");
 	}
@@ -723,9 +721,7 @@ final class Generator
 			write(type.name);
 			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
 			write(type.name);
-			write(".class)");
-
-			write(';');
+			write(".class);");
 		}
 	}
 
