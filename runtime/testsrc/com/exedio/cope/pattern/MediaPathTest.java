@@ -113,6 +113,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	public void testRedirectFrom() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
+		assertEquals("MediaPathItem/normal/" + id, item.getNormalLocator().getPath());
 		assertOk("/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
@@ -124,6 +125,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	public void testRedirectFromExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
+		assertEquals("MediaPathItem/normal/" + id + ".jpg", item.getNormalLocator().getPath());
 		assertOk("/MediaPathItem/normal/" + id + ".jpg");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
@@ -136,6 +138,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	{
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
+		assertEquals("MediaPathItem/normal/" + id + "/phrase", item.getNormalLocator().getPath());
 		assertOk("/MediaPathItem/normal/" + id + "/phrase");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
@@ -148,6 +151,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
+		assertEquals("MediaPathItem/normal/" + id + "/phrase.jpg", item.getNormalLocator().getPath());
 		assertOk("/MediaPathItem/normal/" + id + "/phrase.jpg");
 		assertRedirect("/MediaPathItem/normalRedirect1/" + id,                 prefix + "/MediaPathItem/normal/" + id);
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id,                 prefix + "/MediaPathItem/normal/" + id);
@@ -161,6 +165,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		assertOk(ok);
 		assertRedirect("/MediaPathItem/normal/" + id,                      prefix + ok);
 		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase",     prefix + ok);
@@ -174,6 +179,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		assertOk(ok);
 		assertRedirect("/MediaPathItem/normal/" + id,                      prefix + ok);
 		assertRedirect("/MediaPathItem/normal/" + id + "/otherPhrase",     prefix + ok);
