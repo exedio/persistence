@@ -26,6 +26,10 @@ import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 
 final class InnerContainer
 {
+	/**
+	 * TODO does not work
+	 * @cope.generic.constructor public
+	 */
 	static class Super extends Item
 	{
 		static final ItemField<Target> superField = ItemField.create(Target.class).toFinal();
