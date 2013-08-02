@@ -187,7 +187,7 @@ class HttpServletResponseDummy implements HttpServletResponse
 	@Override()
 	public void setDateHeader(final String name, final long date)
 	{
-		throw new AssertionError();
+		throw new AssertionError(name);
 	}
 
 	@Override()

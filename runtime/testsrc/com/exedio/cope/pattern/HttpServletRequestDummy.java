@@ -230,7 +230,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	@Override()
 	public long getDateHeader(final String name)
 	{
-		throw new AssertionError();
+		throw new AssertionError(name);
 	}
 
 	@Override()
