@@ -340,7 +340,7 @@ final class Generator
 		write(finalArgPrefix);
 		write(ACTIVATION + " ap){super(ap);");
 		write(lineSeparator);
-		write("}");
+		write('}');
 	}
 
 	private void writeFeature(final CopeFeature feature)
