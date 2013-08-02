@@ -25,6 +25,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -188,6 +189,35 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
+	public void testConditional() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		assertOk(ok);
+
+		item.setNormalLastModified(new Date(77771000l));
+		service(new Request(ok)).assertOkAndCache(77771000l);
+
+		item.setNormalLastModified(new Date(77771001l));
+		service(new Request(ok)).assertOkAndCache(77772000l);
+
+		item.setNormalLastModified(new Date(77771999l));
+		service(new Request(ok)).assertOkAndCache(77772000l);
+
+		item.setNormalLastModified(new Date(77772000l));
+		service(new Request(ok)).assertOkAndCache(77772000l);
+
+		item.setNormalLastModified(new Date(77772001l));
+		service(new Request(ok)).assertOkAndCache(77773000l);
+
+		item.setNormalLastModified(new Date(77772000l));
+		service(new Request(ok).ifModifiedSince(77771999l)).assertOkAndCache (77772000l);
+		service(new Request(ok).ifModifiedSince(77772000l)).assertNotModified(77772000l);
+		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
+	}
+
 	private void assertOk(
 			final String pathInfo)
 		throws ServletException, IOException
@@ -255,10 +285,17 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	private static final class Request extends HttpServletRequestDummy
 	{
 		private final String pathInfo;
+		private long ifModifiedSince = -1;
 
 		Request(final String pathInfo)
 		{
 			this.pathInfo = pathInfo;
+		}
+
+		Request ifModifiedSince(final long ifModifiedSince)
+		{
+			this.ifModifiedSince = ifModifiedSince;
+			return this;
 		}
 
 		@Override
@@ -280,6 +317,15 @@ public final class MediaPathTest extends AbstractRuntimeTest
 				return "testHostHeader";
 			else
 				return super.getHeader(name);
+		}
+
+		@Override()
+		public long getDateHeader(final String name)
+		{
+			if("If-Modified-Since".equals(name))
+				return ifModifiedSince;
+			else
+				return super.getDateHeader(name);
 		}
 
 		@Override()
@@ -329,6 +375,28 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			}
 			else
 				super.setHeader(name, value);
+		}
+
+
+		private long lastModified = Long.MIN_VALUE;
+
+		@Override()
+		public void setDateHeader(final String name, final long date)
+		{
+			if("Last-Modified".equals(name))
+			{
+				assertFalse(date==Long.MIN_VALUE);
+				assertEquals(this.lastModified, Long.MIN_VALUE);
+				assertNull(out);
+				this.lastModified = date;
+			}
+			else if("Expires".equals(name))
+			{
+				assertFalse(date==Long.MIN_VALUE);
+				assertNull(out);
+			}
+			else
+				super.setDateHeader(name, date);
 		}
 
 
@@ -409,7 +477,30 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		void assertOk()
 		{
 			assertEquals("location",      null, this.location);
+			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
+			assertEquals("charset",       null, this.charset);
+			assertEquals("contentType",   null, this.contentType);
+			assertEquals("content",       null, this.out);
+			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+		}
+
+		void assertOkAndCache(final long lastModified)
+		{
+			assertEquals("location",      null, this.location);
+			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("sc",            Integer.MIN_VALUE, this.status);
+			assertEquals("charset",       null, this.charset);
+			assertEquals("contentType",   null, this.contentType);
+			assertEquals("content",       null, this.out);
+			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+		}
+
+		void assertNotModified(final long lastModified)
+		{
+			assertEquals("location",      null, this.location);
+			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("sc",            SC_NOT_MODIFIED, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
@@ -424,6 +515,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			throws UnsupportedEncodingException
 		{
 			assertEquals("location",      null,             this.location);
+			assertEquals("lastModified",  Long.MIN_VALUE,   this.lastModified);
 			assertEquals("sc",            sc,               this.status);
 			assertEquals("charset",       charset,          this.charset);
 			assertEquals("contentType",   contentType,      this.contentType);
@@ -434,6 +526,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		void assertRedirect(final String location)
 		{
 			assertEquals("location",      location, this.location);
+			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
 			assertEquals("sc",            SC_MOVED_PERMANENTLY, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
