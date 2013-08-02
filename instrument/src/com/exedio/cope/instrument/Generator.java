@@ -145,14 +145,14 @@ final class Generator
 	{
 		if(!exceptions.isEmpty())
 		{
-			writeIdent(2);
+			writeIndent(2);
 			write("throws");
 			final CharSeparator comma = new CharSeparator(',');
 			for(final Class<? extends Throwable> e : exceptions)
 			{
 				comma.appendTo(output);
 				write(lineSeparator);
-				writeIdent(3);
+				writeIndent(3);
 				write(e.getCanonicalName());
 			}
 			write(lineSeparator);
@@ -166,7 +166,7 @@ final class Generator
 		if(longJavadoc)
 		{
 			write(lineSeparator);
-			writeIdent();
+			writeIndent();
 			write(" **");
 			write(lineSeparator);
 		}
@@ -179,18 +179,18 @@ final class Generator
 
 	private void writeCommentFooter(final String extraComment)
 	{
-		writeIdent();
+		writeIndent();
 		write(" * @" + TAG_GENERATED + ' ');
 		write(GENERATED);
 		write(lineSeparator);
 		if(extraComment!=null)
 		{
-			writeIdent();
+			writeIndent();
 			write(" *       ");
 			write(extraComment);
 			write(lineSeparator);
 		}
-		writeIdent();
+		writeIndent();
 		write(" */");
 		write(lineSeparator);
 	}
@@ -209,13 +209,13 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		writeCommentHeader();
-		writeIdent();
+		writeIndent();
 		write(" * ");
 		write(format(CONSTRUCTOR_INITIAL, type.name));
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			writeIdent();
+			writeIndent();
 			write(" * @param ");
 			write(feature.name);
 			write(' ');
@@ -228,7 +228,7 @@ final class Generator
 			if(a==null)
 				continue;
 
-			writeIdent();
+			writeIndent();
 			write(" * @throws ");
 			write(constructorException.getCanonicalName());
 			write(' ');
@@ -250,7 +250,7 @@ final class Generator
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
 
-		writeIdent();
+		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
 		write(type.name);
 		write('(');
@@ -260,7 +260,7 @@ final class Generator
 		{
 			comma.appendTo(output);
 			write(lineSeparator);
-			writeIdent(3);
+			writeIndent(3);
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');
@@ -270,10 +270,10 @@ final class Generator
 		write(')');
 		write(lineSeparator);
 		writeThrowsClause(constructorExceptions);
-		writeIdent();
+		writeIndent();
 		write('{');
 		write(lineSeparator);
-		writeIdent(1);
+		writeIndent(1);
 		write("this(new " + SET_VALUE);
 		if(genericSetValueArray)
 			write("<?>");
@@ -281,7 +281,7 @@ final class Generator
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			writeIdent(2);
+			writeIndent(2);
 			final CopeType parent = feature.parent;
 			if(parent==type)
 				write(type.name);
@@ -294,10 +294,10 @@ final class Generator
 			write("),");
 			write(lineSeparator);
 		}
-		writeIdent(1);
+		writeIndent(1);
 		write("});");
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write('}');
 	}
 
@@ -308,26 +308,26 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		writeIdent();
+		writeIndent();
 		write(" * ");
 		write(format(CONSTRUCTOR_GENERIC, type.name));
 		write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
-		writeIdent();
+		writeIndent();
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
 		write(SET_VALUE + "<?>... setValues)");
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write('{');
 		write(lineSeparator);
-		writeIdent(1);
+		writeIndent(1);
 		write("super(setValues);");
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write('}');
 	}
 
@@ -341,16 +341,16 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		writeIdent();
+		writeIndent();
 		write(" * ");
 		write(CONSTRUCTOR_ACTIVATION);
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
 		write(lineSeparator);
 		writeCommentFooter();
 
-		writeIdent();
+		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
@@ -430,12 +430,12 @@ final class Generator
 
 			if(wrapper.isMethodDeprecated())
 			{
-				writeIdent();
+				writeIndent();
 				write("@Deprecated");
 				write(lineSeparator);
 			}
 
-			writeIdent();
+			writeIndent();
 
 			if(option.override)
 			{
@@ -499,10 +499,10 @@ final class Generator
 			write(')');
 			write(lineSeparator);
 			writeThrowsClause(throwsClause.keySet());
-			writeIdent();
+			writeIndent();
 			write('{');
 			write(lineSeparator);
-			writeIdent(1);
+			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
 		if(feature.parent.isComposite)
@@ -555,7 +555,7 @@ final class Generator
 		}
 			write(';');
 			write(lineSeparator);
-			writeIdent();
+			writeIndent();
 			write('}');
 		}
 	}
@@ -598,7 +598,7 @@ final class Generator
 		if(lines.length>0)
 		{
 			final String line = lines[0];
-			writeIdent();
+			writeIndent();
 			write(" *");
 			if(!prefix1.isEmpty())
 			{
@@ -615,7 +615,7 @@ final class Generator
 		for(int i = 1; i<lines.length; i++)
 		{
 			final String line = lines[i];
-			writeIdent();
+			writeIndent();
 			write(" *");
 			if(!line.isEmpty())
 			{
@@ -639,20 +639,20 @@ final class Generator
 		final String className = attributes[0].getParent().name;
 
 		writeCommentHeader();
-		writeIdent();
+		writeIndent();
 		write(" * ");
 		write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		write(lineSeparator);
 		for(final CopeAttribute attribute : attributes)
 		{
-			writeIdent();
+			writeIndent();
 			write(" * @param ");
 			write(attribute.name);
 			write(' ');
 			write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
 			write(lineSeparator);
 		}
-		writeIdent();
+		writeIndent();
 		write(" * @return ");
 		write(FINDER_UNIQUE_RETURN);
 		write(lineSeparator);
@@ -669,7 +669,7 @@ final class Generator
 				"in the comment of the field."
 		);
 
-		writeIdent();
+		writeIndent();
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
 		write(className);
 		write(" for");
@@ -688,10 +688,10 @@ final class Generator
 		}
 		write(')');
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write('{');
 		write(lineSeparator);
-		writeIdent(1);
+		writeIndent(1);
 		write("return ");
 
 		write(attributes[0].parent.name);
@@ -708,7 +708,7 @@ final class Generator
 		}
 		write(");");
 		write(lineSeparator);
-		writeIdent();
+		writeIndent();
 		write('}');
 	}
 
@@ -725,7 +725,7 @@ final class Generator
 			writeCommentHeader();
 			writeCommentFooter();
 
-			writeIdent();
+			writeIndent();
 			writeModifier(PRIVATE|STATIC|FINAL);
 			write("long serialVersionUID = 1l;");
 		}
@@ -740,13 +740,13 @@ final class Generator
 		if(option.exists)
 		{
 			writeCommentHeader();
-			writeIdent();
+			writeIndent();
 			write(" * ");
 			write(format(TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
-			writeIdent();
+			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			write(TYPE_NAME + '<');
 			write(type.name);
@@ -822,19 +822,19 @@ final class Generator
 		return "for".equals(s); // TODO
 	}
 
-	private void writeIdent()
+	private void writeIndent()
 	{
 		assert typeIndent>=0 : typeIndent;
-		writeIdentInternal(typeIndent);
+		writeIndentInternal(typeIndent);
 	}
 
-	private void writeIdent(final int additionalLevel)
+	private void writeIndent(final int additionalLevel)
 	{
 		assert typeIndent>=0 : typeIndent;
-		writeIdentInternal(typeIndent + additionalLevel);
+		writeIndentInternal(typeIndent + additionalLevel);
 	}
 
-	private void writeIdentInternal(final int level)
+	private void writeIndentInternal(final int level)
 	{
 		for(int i = 0; i<level; i++)
 			output.append('\t');
