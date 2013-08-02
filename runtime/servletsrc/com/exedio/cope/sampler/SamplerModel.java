@@ -179,6 +179,7 @@ final class SamplerModel extends Item
 
 	private static final IntegerField mediasRedirectFrom  = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasException     = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasInvalidSpecial= new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasGuessedUrl    = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasNotAnItem     = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasNoSuchItem    = new IntegerField().toFinal().min(0);
@@ -195,6 +196,7 @@ final class SamplerModel extends Item
 		return Arrays.asList((SetValue<?>)
 			diff(mediasRedirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
 			diff(mediasException,     from.getException(),     to.getException()),
+			diff(mediasInvalidSpecial,from.getInvalidSpecial(),to.getInvalidSpecial()),
 			diff(mediasGuessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
 			diff(mediasNotAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
 			diff(mediasNoSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),

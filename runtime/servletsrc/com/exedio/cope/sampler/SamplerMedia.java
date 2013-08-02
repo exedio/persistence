@@ -57,6 +57,7 @@ final class SamplerMedia extends Item
 
 	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
 	private static final IntegerField exception     = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidSpecial= new IntegerField().toFinal().min(0);
 	private static final IntegerField guessedUrl    = new IntegerField().toFinal().min(0);
 	private static final IntegerField notAnItem     = new IntegerField().toFinal().min(0);
 	private static final IntegerField noSuchItem    = new IntegerField().toFinal().min(0);
@@ -74,6 +75,7 @@ final class SamplerMedia extends Item
 			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
 			diff(redirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
 			diff(exception,     from.getException(),     to.getException()),
+			diff(invalidSpecial,from.getInvalidSpecial(),to.getInvalidSpecial()),
 			diff(guessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
 			diff(notAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
 			diff(noSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),
