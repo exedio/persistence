@@ -175,6 +175,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SchemaNamePolymorphicTest.class );
 		suite.addTestSuite( CheckTypeColumnTest.class );
 		suite.addTestSuite( CheckTypeColumnAbstractTest.class );
+		suite.addTestSuite( CheckTypeColumnAbstractLinearTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTestSuite( DefaultInheritanceTest.class );
