@@ -96,7 +96,6 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean longJavadoc;
 	private final String finalArgPrefix;
-	private final boolean activationConstructorOnBottom;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
@@ -118,7 +117,6 @@ final class Generator
 
 		this.longJavadoc = params.longJavadoc;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
-		this.activationConstructorOnBottom = params.activationConstructorOnBottom;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
@@ -341,21 +339,9 @@ final class Generator
 		write('(');
 		write(finalArgPrefix);
 		write(ACTIVATION + " ap)");
-		if(!activationConstructorOnBottom)
-		{
-			write(lineSeparator);
-			write('\t');
-		}
 		write('{');
-		if(!activationConstructorOnBottom)
-		{
-			write(lineSeparator);
-			write("\t\t");
-		}
 		write("super(ap);");
 		write(lineSeparator);
-		if(!activationConstructorOnBottom)
-			write('\t');
 		write("}");
 	}
 
@@ -738,8 +724,6 @@ final class Generator
 			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
 			write(type.name);
 			write(".class)");
-			if(!activationConstructorOnBottom)
-				write(lineSeparator);
 
 			write(';');
 		}
@@ -780,8 +764,6 @@ final class Generator
 		{
 			writeInitialConstructor(type);
 			writeGenericConstructor(type);
-			if(!activationConstructorOnBottom)
-				writeActivationConstructor(type);
 
 			for(final CopeFeature feature : type.getFeatures())
 			{
@@ -792,8 +774,7 @@ final class Generator
 
 			writeSerialVersionUID();
 			writeType(type);
-			if(activationConstructorOnBottom)
-				writeActivationConstructor(type);
+			writeActivationConstructor(type);
 		}
 	}
 

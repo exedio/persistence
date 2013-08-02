@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* instrumentor removes support for old code layout of Activation Constructors.
+	In build.xml, the following parameter:
+		<instrument activationConstructorOnBottom="false" ...
+	is no longer supported.
+	The instrumentor now behaves as specified by the default (true) of the option.
 * bugfix: This#checkTypeColumn did report false positives in certain
 	cases of type inheritance.
 * NestedHashMigration and NestedHashAlgorithm added

@@ -24,7 +24,6 @@ final class Params
 	String encoding = "ascii";
 	boolean longJavadoc = true;
 	boolean finalArgs = false;
-	boolean activationConstructorOnBottom = true;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
 	boolean genericSetValueArray = true;
