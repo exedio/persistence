@@ -51,15 +51,15 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		assertFalse(AnItem.simple.getSource().isAnnotationPresent(UrlFingerPrinting.class));
 		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(UrlFingerPrinting.class));
 		assertFalse(AnItem.secret.getSource().isAnnotationPresent(UrlFingerPrinting.class));
-		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(UrlFingerPrinting.class)); // TODO
-		assertFalse(AnItem.finger.getSource().isAnnotationPresent(UrlFingerPrinting.class)); // TODO
+		assertTrue (pasteValue(AnItem.finger).isAnnotationPresent(UrlFingerPrinting.class));
+		assertTrue (AnItem.finger.getSource().isAnnotationPresent(UrlFingerPrinting.class));
 
 		assertNull   (pasteValue(AnItem.simple).getAnnotation(UrlFingerPrinting.class));
 		assertNull   (AnItem.simple.getSource().getAnnotation(UrlFingerPrinting.class));
 		assertNull   (pasteValue(AnItem.secret).getAnnotation(UrlFingerPrinting.class));
 		assertNull   (AnItem.secret.getSource().getAnnotation(UrlFingerPrinting.class));
-		assertNull   (pasteValue(AnItem.finger).getAnnotation(UrlFingerPrinting.class)); // TODO
-		assertNull   (AnItem.finger.getSource().getAnnotation(UrlFingerPrinting.class)); // TODO
+		assertNotNull(pasteValue(AnItem.finger).getAnnotation(UrlFingerPrinting.class));
+		assertNotNull(AnItem.finger.getSource().getAnnotation(UrlFingerPrinting.class));
 
 		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(Deprecated.class));
 		assertFalse(AnItem.simple.getSource().isAnnotationPresent(Deprecated.class));
