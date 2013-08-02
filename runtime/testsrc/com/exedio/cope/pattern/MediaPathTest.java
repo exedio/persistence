@@ -192,11 +192,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			final String pathInfo)
 		throws ServletException, IOException
 	{
-		MODEL.commit();
-		final Response response = new Response();
-		servlet.service(new Request(pathInfo), response);
-		MODEL.startTransaction("MediaPathTest");
-		response.assertOk();
+		service(new Request(pathInfo)).assertOk();
 	}
 
 	private void assertNotFound(
@@ -204,11 +200,8 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			final String reason)
 		throws ServletException, IOException
 	{
-		MODEL.commit();
-		final Response response = new Response();
-		servlet.service(new Request(pathInfo), response);
-		MODEL.startTransaction("MediaPathTest");
-		response.assertError(SC_NOT_FOUND, "us-ascii", "text/html",
+		service(new Request(pathInfo)).assertError(
+				SC_NOT_FOUND, "us-ascii", "text/html",
 				"<html>\n" +
 				"<head>\n" +
 				"<title>Not Found</title>\n" +
@@ -226,11 +219,8 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			final String pathInfo)
 		throws ServletException, IOException
 	{
-		MODEL.commit();
-		final Response response = new Response();
-		servlet.service(new Request(pathInfo), response);
-		MODEL.startTransaction("MediaPathTest");
-		response.assertError(SC_INTERNAL_SERVER_ERROR, "us-ascii", "text/html",
+		service(new Request(pathInfo)).assertError(
+				SC_INTERNAL_SERVER_ERROR, "us-ascii", "text/html",
 				"<html>\n" +
 				"<head>\n" +
 				"<title>Internal Server Error</title>\n" +
@@ -249,11 +239,17 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			final String location)
 		throws ServletException, IOException
 	{
+		service(new Request(pathInfo)).assertRedirect(location);
+	}
+
+	private Response service(final Request request)
+		throws ServletException, IOException
+	{
 		MODEL.commit();
 		final Response response = new Response();
-		servlet.service(new Request(pathInfo), response);
+		servlet.service(request, response);
 		MODEL.startTransaction("MediaPathTest");
-		response.assertRedirect(location);
+		return response;
 	}
 
 	private static final class Request extends HttpServletRequestDummy
