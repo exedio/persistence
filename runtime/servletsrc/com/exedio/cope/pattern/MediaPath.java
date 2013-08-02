@@ -671,9 +671,21 @@ public abstract class MediaPath extends Pattern
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 		//System.out.println("ifModifiedSince="+ifModifiedSince);
 
-		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
-		if(mediaOffsetExpires>0)
-			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+		if(isUrlFingerPrinted())
+		{
+			// RFC 2616:
+			// To mark a response as "never expires," an origin server sends an
+			// Expires date approximately one year from the time the response is
+			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
+			// year in the future.
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*360));
+		}
+		else
+		{
+			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+			if(mediaOffsetExpires>0)
+				response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+		}
 
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{

@@ -231,9 +231,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setFingerContentType("image/jpeg");
 		item.setFingerLastModified(new Date(333338888));
 		item.setCatchphrase("phrase");
+		final long ALMOST_ONE_YEAR = 31104000000l;
 		final String ok = "/MediaPathItem/finger/.f333338888/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getFingerLocator().getPath());
-		service(new Request(ok)).assertOkAndCache(333339000l);
+		service(new Request(ok)).assertExpiresOffset(ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
 
 		assertRedirect("/MediaPathItem/finger/" + id,                      prefix + ok);
 		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase",     prefix + ok);
