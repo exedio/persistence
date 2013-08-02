@@ -161,6 +161,17 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
+	public void testRedirectFromFinger() throws ServletException, IOException
+	{
+		item.setFingerContentType("image/jpeg");
+		item.setFingerLastModified(new Date(333338888));
+		assertRedirect("/MediaPathItem/fingerRedirect1/.f/"          + id, prefix + "/MediaPathItem/finger/.f/"          + id);
+		assertRedirect("/MediaPathItem/fingerRedirect2/.f/"          + id, prefix + "/MediaPathItem/finger/.f/"          + id);
+		assertRedirect("/MediaPathItem/fingerRedirect1/.fx/"         + id, prefix + "/MediaPathItem/finger/.fx/"         + id);
+		assertRedirect("/MediaPathItem/fingerRedirect1/.f333338888/" + id, prefix + "/MediaPathItem/finger/.f333338888/" + id);
+		assertRedirect("/MediaPathItem/fingerRedirect1/.f333339000/" + id, prefix + "/MediaPathItem/finger/.f333339000/" + id);
+	}
+
 	public void testCatchphrase() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
