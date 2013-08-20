@@ -47,7 +47,7 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws NotAvailableException is that information is not available
+	 * @throws NotAvailableException if that information is not available
 	 * @see ClusterSenderInfo#getNodeID()
 	 * @see #getRemoteNodeIDString()
 	 */
@@ -57,7 +57,7 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws NotAvailableException is that information is not available
+	 * @throws NotAvailableException if that information is not available
 	 * @see ClusterSenderInfo#getNodeIDString()
 	 * @see #getRemoteNodeID()
 	 */
@@ -67,7 +67,7 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws NotAvailableException is that information is not available
+	 * @throws NotAvailableException if that information is not available
 	 * @see Transaction#getID()
 	 */
 	public long getTransactionID() throws NotAvailableException
@@ -76,7 +76,7 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws NotAvailableException is that information is not available
+	 * @throws NotAvailableException if that information is not available
 	 * @see Transaction#getName()
 	 */
 	public String getTransactionName() throws NotAvailableException
@@ -85,7 +85,7 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws NotAvailableException is that information is not available
+	 * @throws NotAvailableException if that information is not available
 	 * @see Transaction#getStartDate()
 	 */
 	public Date getTransactionStartDate() throws NotAvailableException
