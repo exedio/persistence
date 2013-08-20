@@ -47,48 +47,48 @@ public final class ChangeEvent
 	}
 
 	/**
-	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @throws NotAvailableException is that information is not available
 	 * @see ClusterSenderInfo#getNodeID()
 	 * @see #getRemoteNodeIDString()
 	 */
-	public int getRemoteNodeID() throws ChangeEvent.NotAvailableException
+	public int getRemoteNodeID() throws NotAvailableException
 	{
 		return transactionInfo.getRemoteNodeID();
 	}
 
 	/**
-	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @throws NotAvailableException is that information is not available
 	 * @see ClusterSenderInfo#getNodeIDString()
 	 * @see #getRemoteNodeID()
 	 */
-	public String getRemoteNodeIDString() throws ChangeEvent.NotAvailableException
+	public String getRemoteNodeIDString() throws NotAvailableException
 	{
 		return ClusterSenderInfo.toStringNodeID(transactionInfo.getRemoteNodeID());
 	}
 
 	/**
-	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @throws NotAvailableException is that information is not available
 	 * @see Transaction#getID()
 	 */
-	public long getTransactionID() throws ChangeEvent.NotAvailableException
+	public long getTransactionID() throws NotAvailableException
 	{
 		return transactionInfo.getID();
 	}
 
 	/**
-	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @throws NotAvailableException is that information is not available
 	 * @see Transaction#getName()
 	 */
-	public String getTransactionName() throws ChangeEvent.NotAvailableException
+	public String getTransactionName() throws NotAvailableException
 	{
 		return transactionInfo.getName();
 	}
 
 	/**
-	 * @throws ChangeEvent.NotAvailableException is that information is not available
+	 * @throws NotAvailableException is that information is not available
 	 * @see Transaction#getStartDate()
 	 */
-	public Date getTransactionStartDate() throws ChangeEvent.NotAvailableException
+	public Date getTransactionStartDate() throws NotAvailableException
 	{
 		return transactionInfo.getStartDate();
 	}
@@ -115,7 +115,7 @@ public final class ChangeEvent
 	 * @deprecated Use {@link #getRemoteNodeID()} instead
 	 */
 	@Deprecated
-	public int getOriginClusterNodeID() throws ChangeEvent.NotAvailableException
+	public int getOriginClusterNodeID() throws NotAvailableException
 	{
 		return getRemoteNodeID();
 	}
