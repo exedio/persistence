@@ -698,7 +698,7 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*360));
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
 		}
 		else
 		{
