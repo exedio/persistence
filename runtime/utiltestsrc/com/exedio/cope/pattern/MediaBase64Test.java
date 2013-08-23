@@ -24,7 +24,7 @@ import java.util.Date;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class MediaPathFingerprintTest extends CopeAssert
+public class MediaBase64Test extends CopeAssert
 {
 	public void testIt()
 	{

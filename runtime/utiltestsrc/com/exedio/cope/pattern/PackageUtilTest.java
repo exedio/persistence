@@ -39,7 +39,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(JavaViewGetterMissingTest.class);
 		suite.addTestSuite(JavaViewInPatternTest.class);
 		suite.addTestSuite(MediaPathPostTest.class);
-		suite.addTestSuite(MediaPathFingerprintTest.class);
+		suite.addTestSuite(MediaBase64Test.class);
 		suite.addTestSuite(MediaTypeTest.class);
 		suite.addTestSuite(MediaTypeMediaTest.class);
 		suite.addTestSuite(MediaSummaryTest.class);
