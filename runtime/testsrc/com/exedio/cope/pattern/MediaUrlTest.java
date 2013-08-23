@@ -33,6 +33,7 @@ import java.util.Date;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 
 public final class MediaUrlTest extends AbstractRuntimeTest
 {
@@ -177,6 +178,9 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 
 	public void testFingerprintLimit()
 	{
+		if(!SchemaInfo.supportsNativeDate(model))
+			return;
+
 		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+2));
 		assertIt("MediaUrlItem/fileFinger/.f.-_________H/", fileFinger, anond, "");
 
