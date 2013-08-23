@@ -34,7 +34,7 @@ final class MediaBase64
 		while(fingerprint>0)
 		{
 			bf.append(alphabet[(int)(fingerprint & 63)]);
-			fingerprint = fingerprint >> 6;
+			fingerprint >>= 6;
 		}
 	}
 
