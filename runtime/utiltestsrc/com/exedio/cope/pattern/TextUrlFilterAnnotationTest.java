@@ -21,7 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
+import java.lang.annotation.Annotation;
+
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -33,25 +36,28 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 	{
 		newType(AnItem.class);
 
-		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(PreventUrlGuessing.class));
-		assertFalse(AnItem.simple.getSource().isAnnotationPresent(PreventUrlGuessing.class));
-		assertTrue (pasteValue(AnItem.secret).isAnnotationPresent(PreventUrlGuessing.class));
-		assertTrue (AnItem.secret.getSource().isAnnotationPresent(PreventUrlGuessing.class));
+		assertPresent(false, pasteValue(AnItem.simple), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.simple.getSource(), PreventUrlGuessing.class);
+		assertPresent(true,  pasteValue(AnItem.secret), PreventUrlGuessing.class);
+		assertPresent(true,  AnItem.secret.getSource(), PreventUrlGuessing.class);
 
-		assertNull   (pasteValue(AnItem.simple).getAnnotation(PreventUrlGuessing.class));
-		assertNull   (AnItem.simple.getSource().getAnnotation(PreventUrlGuessing.class));
-		assertNotNull(pasteValue(AnItem.secret).getAnnotation(PreventUrlGuessing.class));
-		assertNotNull(AnItem.secret.getSource().getAnnotation(PreventUrlGuessing.class));
+		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
+		assertPresent(false, AnItem.simple.getSource(), Deprecated.class);
+		assertPresent(false, pasteValue(AnItem.secret), Deprecated.class);
+		assertPresent(false, AnItem.secret.getSource(), Deprecated.class);
+	}
 
-		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(Deprecated.class));
-		assertFalse(AnItem.simple.getSource().isAnnotationPresent(Deprecated.class));
-		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(Deprecated.class));
-		assertFalse(AnItem.secret.getSource().isAnnotationPresent(Deprecated.class));
-
-		assertNull(pasteValue(AnItem.simple).getAnnotation(Deprecated.class));
-		assertNull(AnItem.simple.getSource().getAnnotation(Deprecated.class));
-		assertNull(pasteValue(AnItem.secret).getAnnotation(Deprecated.class));
-		assertNull(AnItem.secret.getSource().getAnnotation(Deprecated.class));
+	private static final void assertPresent(
+			final boolean expected,
+			final Feature feature,
+			final Class<? extends Annotation> annotationClass)
+	{
+		assertEquals(expected, feature.isAnnotationPresent(annotationClass));
+		final Annotation ann = feature.getAnnotation(annotationClass);
+		if(expected)
+			assertNotNull(ann);
+		else
+			assertNull(ann);
 	}
 
 	static final class AnItem extends Item
