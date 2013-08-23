@@ -108,6 +108,9 @@ public abstract class MediaPath extends Pattern
 
 	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
 	{
+		if(fingerprint==Long.MIN_VALUE)
+			return;
+
 		bf.append(".f");
 		MediaBase64.append(bf, fingerprint);
 		bf.append('/');
@@ -180,10 +183,7 @@ public abstract class MediaPath extends Pattern
 		public void appendPath(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
-
-			if(fingerprint!=Long.MIN_VALUE)
-				appendFingerprintSegment(bf, fingerprint);
-
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -200,10 +200,7 @@ public abstract class MediaPath extends Pattern
 		void appendPathInfo(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
-
-			if(fingerprint!=Long.MIN_VALUE)
-				appendFingerprintSegment(bf, fingerprint);
-
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
