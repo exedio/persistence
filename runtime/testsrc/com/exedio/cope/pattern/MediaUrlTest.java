@@ -178,7 +178,7 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 
 	public void testFingerprintLimit()
 	{
-		if(!SchemaInfo.supportsNativeDate(model))
+		if(model.getConnectProperties().isSupportDisabledForPreparedStatements())
 			return;
 
 		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+2));
