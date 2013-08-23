@@ -23,12 +23,14 @@ final class MediaBase64
 	static void append(final StringBuilder bf, long fingerprint)
 	{
 		assert fingerprint!=Long.MIN_VALUE;
+
 		if(fingerprint<0)
 		{
 			// use dot instead of a minus, since minus is already part of alphabet
 			bf.append('.');
 			fingerprint = -fingerprint;
 		}
+
 		while(fingerprint>0)
 		{
 			bf.append(alphabet[(int)(fingerprint & 63)]);
