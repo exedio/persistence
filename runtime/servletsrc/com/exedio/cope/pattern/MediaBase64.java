@@ -31,7 +31,7 @@ final class MediaBase64
 		}
 		while(fingerprint>0)
 		{
-			bf.append(fingerprintAlphabet[(int)(fingerprint & 63)]);
+			bf.append(alphabet[(int)(fingerprint & 63)]);
 			fingerprint = fingerprint >> 6;
 		}
 	}
@@ -40,7 +40,7 @@ final class MediaBase64
 	 * RFC 4648
 	 * Base 64 Encoding with URL and Filename Safe Alphabet (base64url)
 	 */
-   private static final char fingerprintAlphabet[] = {
+   private static final char alphabet[] = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
