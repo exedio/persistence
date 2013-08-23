@@ -166,11 +166,7 @@ public abstract class MediaPath extends Pattern
 			bf.append(getUrlPath());
 
 			if(fingerprint!=Long.MIN_VALUE)
-			{
-				bf.append(".f");
-				appendFingerprint(bf, fingerprint);
-				bf.append('/');
-			}
+				appendFingerprintSegment(bf, fingerprint);
 
 			item.appendCopeID(bf);
 
@@ -190,11 +186,7 @@ public abstract class MediaPath extends Pattern
 			bf.append(getUrlPath());
 
 			if(fingerprint!=Long.MIN_VALUE)
-			{
-				bf.append(".f");
-				appendFingerprint(bf, fingerprint);
-				bf.append('/');
-			}
+				appendFingerprintSegment(bf, fingerprint);
 
 			item.appendCopeID(bf);
 
@@ -212,9 +204,11 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	static void appendFingerprint(final StringBuilder bf, final long fingerprint)
+	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
 	{
+		bf.append(".f");
 		bf.append(fingerprint);
+		bf.append('/');
 	}
 
 	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
@@ -253,11 +247,7 @@ public abstract class MediaPath extends Pattern
 		bf.append(getUrlPath());
 
 		if(mount().urlFingerPrinting)
-		{
-			bf.append(".f");
-			appendFingerprint(bf, getLastModified(item).getTime());
-			bf.append('/');
-		}
+			appendFingerprintSegment(bf, getLastModified(item).getTime());
 
 		item.appendCopeID(bf);
 
