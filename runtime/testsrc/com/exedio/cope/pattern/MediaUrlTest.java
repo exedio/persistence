@@ -180,10 +180,14 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		if(model.getConnectProperties().isSupportDisabledForPreparedStatements())
 			return;
 
-		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+2));
+		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 2));
 		assertIt("MediaUrlItem/fileFinger/.f.-_________H/", fileFinger, anond, "");
 
-		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+1));
+		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 1));
+		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
+
+		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE));
+		assertEquals(new Date(Long.MIN_VALUE), fileFinger.getLastModified().get(anond));
 		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
 	}
 
