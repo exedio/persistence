@@ -21,7 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
+import java.lang.annotation.Annotation;
+
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -33,47 +36,39 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 	{
 		newType(AnItem.class);
 
-		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(PreventUrlGuessing.class));
-		assertFalse(AnItem.simple.getSource().isAnnotationPresent(PreventUrlGuessing.class));
-		assertTrue (pasteValue(AnItem.secret).isAnnotationPresent(PreventUrlGuessing.class));
-		assertTrue (AnItem.secret.getSource().isAnnotationPresent(PreventUrlGuessing.class));
-		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(PreventUrlGuessing.class));
-		assertFalse(AnItem.finger.getSource().isAnnotationPresent(PreventUrlGuessing.class));
+		assertPresent(false, pasteValue(AnItem.simple), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.simple.getSource(), PreventUrlGuessing.class);
+		assertPresent(true,  pasteValue(AnItem.secret), PreventUrlGuessing.class);
+		assertPresent(true,  AnItem.secret.getSource(), PreventUrlGuessing.class);
+		assertPresent(false, pasteValue(AnItem.finger), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.finger.getSource(), PreventUrlGuessing.class);
 
-		assertNull   (pasteValue(AnItem.simple).getAnnotation(PreventUrlGuessing.class));
-		assertNull   (AnItem.simple.getSource().getAnnotation(PreventUrlGuessing.class));
-		assertNotNull(pasteValue(AnItem.secret).getAnnotation(PreventUrlGuessing.class));
-		assertNotNull(AnItem.secret.getSource().getAnnotation(PreventUrlGuessing.class));
-		assertNull   (pasteValue(AnItem.finger).getAnnotation(PreventUrlGuessing.class));
-		assertNull   (AnItem.finger.getSource().getAnnotation(PreventUrlGuessing.class));
+		assertPresent(false, pasteValue(AnItem.simple), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.simple.getSource(), UrlFingerPrinting.class);
+		assertPresent(false, pasteValue(AnItem.secret), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.secret.getSource(), UrlFingerPrinting.class);
+		assertPresent(true,  pasteValue(AnItem.finger), UrlFingerPrinting.class);
+		assertPresent(true,  AnItem.finger.getSource(), UrlFingerPrinting.class);
 
-		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(UrlFingerPrinting.class));
-		assertFalse(AnItem.simple.getSource().isAnnotationPresent(UrlFingerPrinting.class));
-		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(UrlFingerPrinting.class));
-		assertFalse(AnItem.secret.getSource().isAnnotationPresent(UrlFingerPrinting.class));
-		assertTrue (pasteValue(AnItem.finger).isAnnotationPresent(UrlFingerPrinting.class));
-		assertTrue (AnItem.finger.getSource().isAnnotationPresent(UrlFingerPrinting.class));
+		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
+		assertPresent(false, AnItem.simple.getSource(), Deprecated.class);
+		assertPresent(false, pasteValue(AnItem.secret), Deprecated.class);
+		assertPresent(false, AnItem.secret.getSource(), Deprecated.class);
+		assertPresent(false, pasteValue(AnItem.finger), Deprecated.class);
+		assertPresent(false, AnItem.finger.getSource(), Deprecated.class);
+	}
 
-		assertNull   (pasteValue(AnItem.simple).getAnnotation(UrlFingerPrinting.class));
-		assertNull   (AnItem.simple.getSource().getAnnotation(UrlFingerPrinting.class));
-		assertNull   (pasteValue(AnItem.secret).getAnnotation(UrlFingerPrinting.class));
-		assertNull   (AnItem.secret.getSource().getAnnotation(UrlFingerPrinting.class));
-		assertNotNull(pasteValue(AnItem.finger).getAnnotation(UrlFingerPrinting.class));
-		assertNotNull(AnItem.finger.getSource().getAnnotation(UrlFingerPrinting.class));
-
-		assertFalse(pasteValue(AnItem.simple).isAnnotationPresent(Deprecated.class));
-		assertFalse(AnItem.simple.getSource().isAnnotationPresent(Deprecated.class));
-		assertFalse(pasteValue(AnItem.secret).isAnnotationPresent(Deprecated.class));
-		assertFalse(AnItem.secret.getSource().isAnnotationPresent(Deprecated.class));
-		assertFalse(pasteValue(AnItem.finger).isAnnotationPresent(Deprecated.class));
-		assertFalse(AnItem.finger.getSource().isAnnotationPresent(Deprecated.class));
-
-		assertNull(pasteValue(AnItem.simple).getAnnotation(Deprecated.class));
-		assertNull(AnItem.simple.getSource().getAnnotation(Deprecated.class));
-		assertNull(pasteValue(AnItem.secret).getAnnotation(Deprecated.class));
-		assertNull(AnItem.secret.getSource().getAnnotation(Deprecated.class));
-		assertNull(pasteValue(AnItem.finger).getAnnotation(Deprecated.class));
-		assertNull(AnItem.finger.getSource().getAnnotation(Deprecated.class));
+	private static final void assertPresent(
+			final boolean expected,
+			final Feature feature,
+			final Class<? extends Annotation> annotationClass)
+	{
+		assertEquals(expected, feature.isAnnotationPresent(annotationClass));
+		final Annotation ann = feature.getAnnotation(annotationClass);
+		if(expected)
+			assertNotNull(ann);
+		else
+			assertNull(ann);
 	}
 
 	static final class AnItem extends Item
