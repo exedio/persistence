@@ -33,7 +33,6 @@ import java.util.Date;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.SchemaInfo;
 
 public final class MediaUrlTest extends AbstractRuntimeTest
 {
