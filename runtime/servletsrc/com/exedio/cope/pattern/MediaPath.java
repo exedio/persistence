@@ -106,12 +106,36 @@ public abstract class MediaPath extends Pattern
 		return mount().urlFingerPrinting;
 	}
 
-	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
+	static void appendFingerprintSegment(final StringBuilder bf, long fingerprint)
 	{
 		bf.append(".f");
-		bf.append(fingerprint);
+		assert fingerprint!=Long.MIN_VALUE;
+		if(fingerprint<0)
+		{
+			// use dot instead of a minus, since minus is already part of alphabet
+			bf.append('.');
+			fingerprint = -fingerprint;
+		}
+		while(fingerprint>0)
+		{
+			bf.append(fingerprintAlphabet[(int)(fingerprint & 63)]);
+			fingerprint = fingerprint >> 6;
+		}
 		bf.append('/');
 	}
+
+	/**
+	 * RFC 4648
+	 * Base 64 Encoding with URL and Filename Safe Alphabet (base64url)
+	 */
+   private static final char fingerprintAlphabet[] = {
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+		'-', '_'
+   };
 
 	private final String getMediaRootUrl()
 	{
