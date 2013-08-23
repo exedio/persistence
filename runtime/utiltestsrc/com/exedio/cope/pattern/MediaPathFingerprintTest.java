@@ -57,8 +57,8 @@ public class MediaPathFingerprintTest extends CopeAssert
 	private static void assertIt(final String expected, final long actual)
 	{
 		final StringBuilder bf = new StringBuilder();
-		MediaPath.appendFingerprintSegment(bf, actual);
-		assertEquals(".f" + expected + "/", bf.toString());
+		MediaBase64.append(bf, actual);
+		assertEquals(expected, bf.toString());
 	}
 
 	public void testShow() throws ParseException
