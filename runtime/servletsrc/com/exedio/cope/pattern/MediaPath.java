@@ -113,9 +113,13 @@ public abstract class MediaPath extends Pattern
 		bf.append('/');
 	}
 
-	static long fixFingerprint(final long fingerprint)
+	static long fixFingerprint(final Date fingerprint)
 	{
-		return fingerprint!=Long.MIN_VALUE ? fingerprint : (Long.MIN_VALUE+1);
+		if(fingerprint==null)
+			return Long.MIN_VALUE;
+
+		final long fingerprintTime = fingerprint.getTime();
+		return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
 	}
 
 	private final String getMediaRootUrl()
@@ -152,7 +156,7 @@ public abstract class MediaPath extends Pattern
 				final String secret)
 		{
 			this.item = item;
-			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint.getTime()) : Long.MIN_VALUE;
+			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint) : Long.MIN_VALUE;
 			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
@@ -252,7 +256,7 @@ public abstract class MediaPath extends Pattern
 		bf.append(getUrlPath());
 
 		if(mount().urlFingerPrinting)
-			appendFingerprintSegment(bf, fixFingerprint(getLastModified(item).getTime()));
+			appendFingerprintSegment(bf, fixFingerprint(getLastModified(item)));
 
 		item.appendCopeID(bf);
 
