@@ -175,6 +175,15 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertIt("MediaUrlItem/fileFinger/.fYD/", fileFinger, anond,        ""    );
 	}
 
+	public void testFingerprintLimit()
+	{
+		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+2));
+		assertIt("MediaUrlItem/fileFinger/.f.-_________H/", fileFinger, anond, "");
+
+		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE+1));
+		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
+	}
+
 	private void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
 	{
 		final String pathInfo = prefix + item.getCopeID() + postfix;
