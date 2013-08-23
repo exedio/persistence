@@ -39,19 +39,19 @@ public class MediaBase64Test extends CopeAssert
 		assertIt( "CB",  66);
 		assertIt( "DB",  67);
 
-		assertIt( ".B",   -1);
-		assertIt( ".C",   -2);
-		assertIt( ".-",  -62);
-		assertIt( ".DB", -67);
+		assertIt( ".B",  -1);
+		assertIt( ".C",  -2);
+		assertIt( ".-", -62);
+		assertIt(".DB", -67);
 
-		assertIt( "8_________H", Long.MAX_VALUE - 3);
-		assertIt( "9_________H", Long.MAX_VALUE - 2);
-		assertIt( "-_________H", Long.MAX_VALUE - 1);
-		assertIt( "__________H", Long.MAX_VALUE    );
+		assertIt("8_________H", Long.MAX_VALUE - 3);
+		assertIt("9_________H", Long.MAX_VALUE - 2);
+		assertIt("-_________H", Long.MAX_VALUE - 1);
+		assertIt("__________H", Long.MAX_VALUE    );
 
-		assertIt( ".9_________H", Long.MIN_VALUE + 3);
-		assertIt( ".-_________H", Long.MIN_VALUE + 2);
-		assertIt( ".__________H", Long.MIN_VALUE + 1);
+		assertIt(".9_________H", Long.MIN_VALUE + 3);
+		assertIt(".-_________H", Long.MIN_VALUE + 2);
+		assertIt(".__________H", Long.MIN_VALUE + 1);
 	}
 
 	private static void assertIt(final String expected, final long actual)
