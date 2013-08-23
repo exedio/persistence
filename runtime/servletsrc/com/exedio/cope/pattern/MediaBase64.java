@@ -22,6 +22,9 @@ final class MediaBase64
 {
 	static void append(final StringBuilder bf, long src)
 	{
+		// NOTE
+		// algorithm does not work for Long.MIN_VALUE because
+		// arithmetic negation does not work for Long.MIN_VALUE
 		assert src!=Long.MIN_VALUE;
 
 		if(src<0)
