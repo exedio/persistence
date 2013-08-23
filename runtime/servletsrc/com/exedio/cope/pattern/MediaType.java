@@ -120,6 +120,7 @@ public final class MediaType
 	public static final String PNG  = "image/png";
 	public static final String GIF  = "image/gif";
 	public static final String ICON = "image/vnd.microsoft.icon";
+	public static final String SVG  = "image/svg+xml";
 	public static final String ZIP  = "application/zip";
 	public static final String PDF  = "application/pdf";
 	public static final String JAVASCRIPT = "application/javascript";
@@ -175,7 +176,7 @@ public final class MediaType
 			new MediaType(
 					".svg",
 					// http://www.w3.org/TR/SVG/mimereg.html
-					"image/svg+xml"),
+					SVG),
 			new MediaType(
 					".eot",
 					// http://www.w3.org/Submission/EOT/
