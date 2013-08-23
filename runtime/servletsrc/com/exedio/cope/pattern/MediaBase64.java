@@ -20,21 +20,21 @@ package com.exedio.cope.pattern;
 
 final class MediaBase64
 {
-	static void append(final StringBuilder bf, long fingerprint)
+	static void append(final StringBuilder bf, long src)
 	{
-		assert fingerprint!=Long.MIN_VALUE;
+		assert src!=Long.MIN_VALUE;
 
-		if(fingerprint<0)
+		if(src<0)
 		{
 			// use dot instead of a minus, since minus is already part of alphabet
 			bf.append('.');
-			fingerprint = -fingerprint;
+			src = -src;
 		}
 
-		while(fingerprint>0)
+		while(src>0)
 		{
-			bf.append(alphabet[(int)(fingerprint & 63)]);
-			fingerprint >>= 6;
+			bf.append(alphabet[(int)(src & 63)]);
+			src >>= 6;
 		}
 	}
 
