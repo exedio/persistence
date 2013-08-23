@@ -61,7 +61,7 @@ public class MediaBase64Test extends CopeAssert
 		assertEquals(expected, bf.toString());
 	}
 
-	public void testShow() throws ParseException
+	public void xtestShow() throws ParseException
 	{
 		final Date d = new Date();
 		{
