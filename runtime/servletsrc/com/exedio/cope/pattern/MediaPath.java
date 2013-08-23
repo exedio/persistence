@@ -106,6 +106,13 @@ public abstract class MediaPath extends Pattern
 		return mount().urlFingerPrinting;
 	}
 
+	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
+	{
+		bf.append(".f");
+		bf.append(fingerprint);
+		bf.append('/');
+	}
+
 	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
@@ -202,13 +209,6 @@ public abstract class MediaPath extends Pattern
 		{
 			return getPath();
 		}
-	}
-
-	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
-	{
-		bf.append(".f");
-		bf.append(fingerprint);
-		bf.append('/');
 	}
 
 	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
