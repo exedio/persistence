@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Date;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
+
 final class TransactionInfoRemote extends TransactionInfo
 {
 	private final int remoteNode;
@@ -42,25 +44,25 @@ final class TransactionInfoRemote extends TransactionInfo
 	}
 
 	@Override
-	long getID() throws ChangeEvent.NotAvailableException
+	long getID() throws NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
 	@Override
-	String getName() throws ChangeEvent.NotAvailableException
+	String getName() throws NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
 	@Override
-	Date getStartDate() throws ChangeEvent.NotAvailableException
+	Date getStartDate() throws NotAvailableException
 	{
 		throw newRemoteException();
 	}
 
-	private static ChangeEvent.NotAvailableException newRemoteException()
+	private static NotAvailableException newRemoteException()
 	{
-		return new ChangeEvent.NotAvailableException("remote");
+		return new NotAvailableException("remote");
 	}
 }

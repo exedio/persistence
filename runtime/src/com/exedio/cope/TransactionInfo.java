@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import java.util.Date;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
+
 abstract class TransactionInfo
 {
 	abstract boolean isRemote();
-	abstract int getRemoteNodeID() throws ChangeEvent.NotAvailableException;
-	abstract long getID() throws ChangeEvent.NotAvailableException;
-	abstract String getName() throws ChangeEvent.NotAvailableException;
-	abstract Date getStartDate() throws ChangeEvent.NotAvailableException;
+	abstract int getRemoteNodeID() throws NotAvailableException;
+	abstract long getID() throws NotAvailableException;
+	abstract String getName() throws NotAvailableException;
+	abstract Date getStartDate() throws NotAvailableException;
 }
