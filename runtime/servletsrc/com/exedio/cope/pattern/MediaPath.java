@@ -109,7 +109,7 @@ public abstract class MediaPath extends Pattern
 	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
 	{
 		bf.append(".f");
-		MediaBase64.appendFingerprintSegment(bf, fingerprint);
+		MediaBase64.appendFingerprint(bf, fingerprint);
 		bf.append('/');
 	}
 

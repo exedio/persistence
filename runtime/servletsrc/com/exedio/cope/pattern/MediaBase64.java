@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 final class MediaBase64
 {
-	static void appendFingerprintSegment(final StringBuilder bf, long fingerprint)
+	static void appendFingerprint(final StringBuilder bf, long fingerprint)
 	{
 		assert fingerprint!=Long.MIN_VALUE;
 		if(fingerprint<0)
