@@ -308,12 +308,21 @@ public class MediaServletTest extends TestCase
 		return assertTxt(url, contentType, -1, false);
 	}
 
-	private static long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(
+			final String url,
+			final long ifModifiedSince,
+			final boolean expectNotModified)
+		throws IOException
 	{
 		return assertTxt(url, "text/plain", ifModifiedSince, expectNotModified);
 	}
 
-	private static long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static long assertTxt(
+			final String url,
+			final String contentType,
+			final long ifModifiedSince,
+			final boolean expectNotModified)
+		throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -424,17 +433,27 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static long assertBin(final String url, final String contentType) throws IOException
+	private static long assertBin(
+			final String url,
+			final String contentType)
+		throws IOException
 	{
 		return assertBin(url, contentType, null);
 	}
 
-	private static long assertBinPrivate(final String url, final String contentType) throws IOException
+	private static long assertBinPrivate(
+			final String url,
+			final String contentType)
+		throws IOException
 	{
 		return assertBin(url, contentType, "private");
 	}
 
-	private static long assertBin(final String url, final String contentType, final String cacheControl) throws IOException
+	private static long assertBin(
+			final String url,
+			final String contentType,
+			final String cacheControl)
+		throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -558,7 +577,7 @@ public class MediaServletTest extends TestCase
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final long resolution = 1000;
 		final long leftTolerance = 995;
@@ -575,7 +594,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfterCeil.before(actual));
 	}
 
-	public final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =
