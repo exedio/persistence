@@ -32,9 +32,10 @@ final class MediaPatternItem extends Item
 		pattern.setSourceFeature(this, body, contentType, hour);
 	}
 
-	void addSourceItem(final byte[] body, final String contentType)
+	void addSourceItem(final byte[] body, final String contentType, final int hour)
+		throws ParseException
 	{
-		pattern.addSourceItem(this, body, contentType);
+		pattern.addSourceItem(this, body, contentType, hour);
 	}
 
 	/**

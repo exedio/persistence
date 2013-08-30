@@ -56,11 +56,14 @@ public final class MediaPattern extends Pattern
 		this.sourceFeature.getLastModified().set(item, hour(hour));
 	}
 
-	public void addSourceItem(final Item item, final byte[] body, final String contentType)
+	public void addSourceItem(final Item item, final byte[] body, final String contentType, final int hour)
+		throws ParseException
 	{
-		sourceType.newItem(
+		final SourceItem result =
+			sourceType.newItem(
 				Cope.mapAndCast(this.parent, item),
 				this.sourceTypeValue.map(Media.toValue(body, contentType)));
+		this.sourceTypeValue.getLastModified().set(result, hour(hour));
 	}
 
 	private static Date hour(final int hour) throws ParseException

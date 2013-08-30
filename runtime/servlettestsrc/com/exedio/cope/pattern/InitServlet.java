@@ -118,8 +118,8 @@ public class InitServlet extends HttpServlet
 
 			final MediaPatternItem pattern = new MediaPatternItem();
 			pattern.setSourceFeature(textValue, "text/plain", 10);
-			pattern.addSourceItem(textValue, "text/plain");
-			pattern.addSourceItem(textValue, "text/plain");
+			pattern.addSourceItem(textValue, "text/plain", 20);
+			pattern.addSourceItem(textValue, "text/plain", 21);
 
 			final MediaServletItem catchPhrase = new MediaServletItem();
 			assertID("MediaServletItem-14", catchPhrase);
