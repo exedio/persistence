@@ -35,6 +35,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -87,13 +89,13 @@ public class MediaServletTest extends TestCase
 		final String itemUnkown   = prefix + "content/"    + ITEM_UNK;
 		final String itemName     = prefix + "nameServer/" + ITEM_NAME_OK + ".txt";
 
-		final long lmTxt = assertTxt(itemTxt);
-		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" );
-		final long lmJpg = assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg");
-		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
-		final long lmUnk = assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi");
+		assertTxt(itemTxt, hour8(0));
+		assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" , hour8(2));
+		assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
+		assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi", hour8(4));
 
-		assertEquals(lmTxt, assertTxt(itemTxt));
+		assertTxt(itemTxt, hour8(0));
 		assertMoved(prefix + "content/" + ITEM_TXT + ".jpg"      , itemTxt);
 		assertMoved(prefix + "content/" + ITEM_TXT + ".zick"     , itemTxt); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TXT + "."         , itemTxt); // TODO should be 404
@@ -112,7 +114,7 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + ".zick", itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "."    , itemTxtCatch); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH          , itemTxtCatch);
-		assertTxt(itemTxtCatch);
+		assertTxt(itemTxtCatch, hour8(14));
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zack.txt" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.jpg" , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/zick.zack", itemTxtCatch);
@@ -164,20 +166,20 @@ public class MediaServletTest extends TestCase
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
 
-		assertTxt     (app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-0.txt", "text/plain");
+		assertTxt     (app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-0.txt", "text/plain", hour9(10));
 		assertNotFound(app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-1.txt", NO_SUCH_ITEM);
-		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-0.txt", "text/plain");
-		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-1.txt", "text/plain");
+		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-0.txt", "text/plain", hour9(20));
+		assertTxt     (app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-1.txt", "text/plain", hour9(21));
 		assertNotFound(app + "media/MediaPatternItem-pattern/value/MediaPatternItem-pattern-2.txt", NO_SUCH_ITEM);
 
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt-1   , false));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt     , true ));
-		assertEquals(lmTxt, assertTxt(prefix + "content/" + ITEM_TXT + ".txt", lmTxt+5000, true ));
+		assertTxt(prefix + "content/" + ITEM_TXT + ".txt", hour8(0), addMillis(hour8(0),    -1), false);
+		assertTxt(prefix + "content/" + ITEM_TXT + ".txt", hour8(0), addMillis(hour8(0),     0), true );
+		assertTxt(prefix + "content/" + ITEM_TXT + ".txt", hour8(0), addMillis(hour8(0), +5000), true );
 
 		assertMoved(prefix + "content/" + ITEM_UNK + ".unknownma.unknownmi", itemUnkown); // TODO should be 404
 		assertMoved(prefix + "content/" + ITEM_UNK + ".jpg"                , itemUnkown);
 		assertMoved(prefix + "content/" + ITEM_UNK + "."                   , itemUnkown); // TODO should be 404
-		assertEquals(lmUnk, assertTxt(itemUnkown, "unknownma/unknownmi"));
+		assertTxt(itemUnkown, "unknownma/unknownmi", hour8(4));
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.unknownma.unknownmi", itemUnkown);
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick.jpg"                , itemUnkown);
 		assertMoved(prefix + "content/" + ITEM_UNK + "/zick."                   , itemUnkown);
@@ -198,34 +200,35 @@ public class MediaServletTest extends TestCase
 
 		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg"));
+		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
+		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		if(!"OpenJDK Runtime Environment".equals(System.getProperty("java.runtime.name"))) // OpenJDK does not like GIF
+			assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg"));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png", hour8(2));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png", hour8(3));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif"));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png" , hour8(2));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
 
 		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
-		final long lmFilter = assertBin(prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html" );
-		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8"));
-		assertMoved(                     prefix + "html/" + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
+		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
+		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));
+		assertMoved(prefix + "html/"    + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
 
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);
@@ -247,7 +250,7 @@ public class MediaServletTest extends TestCase
 		final String TOKEN;
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertEquals(lmJpg, assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg", hour8(3));
 		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
@@ -297,22 +300,33 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 	}
 
-	private static long assertTxt(final String url) throws IOException
+	private static void assertTxt(final String url, final Date lastModified) throws IOException
 	{
-		return assertTxt(url, -1, false);
+		assertTxt(url, lastModified, -1, false);
 	}
 
-	private static long assertTxt(final String url, final String contentType) throws IOException
+	private static void assertTxt(final String url, final String contentType, final Date lastModified) throws IOException
 	{
-		return assertTxt(url, contentType, -1, false);
+		assertTxt(url, contentType, lastModified, -1, false);
 	}
 
-	private static long assertTxt(final String url, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static void assertTxt(
+			final String url,
+			final Date lastModified,
+			final long ifModifiedSince,
+			final boolean expectNotModified)
+		throws IOException
 	{
-		return assertTxt(url, "text/plain", ifModifiedSince, expectNotModified);
+		assertTxt(url, "text/plain", lastModified, ifModifiedSince, expectNotModified);
 	}
 
-	private static long assertTxt(final String url, final String contentType, final long ifModifiedSince, final boolean expectNotModified) throws IOException
+	private static void assertTxt(
+			final String url,
+			final String contentType,
+			final Date lastModified,
+			final long ifModifiedSince,
+			final boolean expectNotModified)
+		throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -326,9 +340,9 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
-		final long lastModified = conn.getLastModified();
-		//System.out.println("LastModified: "+new Date(lastModified));
-		assertTrue((date+2000)>=lastModified);
+		final long actualLastModified = conn.getLastModified();
+		//System.out.println("LastModified: "+new Date(actualLastModified));
+		assertEqualsDate(lastModified, new Date(actualLastModified));
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
 		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
@@ -350,7 +364,6 @@ public class MediaServletTest extends TestCase
 
 		//textConn.setIfModifiedSince();
 		assertOnExceptionEmpty();
-		return lastModified;
 	}
 
 	private static String getContentAsString( final InputStream is ) throws IOException
@@ -423,17 +436,30 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static long assertBin(final String url, final String contentType) throws IOException
+	private static void assertBin(
+			final String url,
+			final String contentType,
+			final Date lastModified)
+		throws IOException
 	{
-		return assertBin(url, contentType, null);
+		assertBin(url, contentType, lastModified, null);
 	}
 
-	private static long assertBinPrivate(final String url, final String contentType) throws IOException
+	private static void assertBinPrivate(
+			final String url,
+			final String contentType,
+			final Date lastModified)
+		throws IOException
 	{
-		return assertBin(url, contentType, "private");
+		assertBin(url, contentType, lastModified, "private");
 	}
 
-	private static long assertBin(final String url, final String contentType, final String cacheControl) throws IOException
+	private static void assertBin(
+			final String url,
+			final String contentType,
+			final Date lastModified,
+			final String cacheControl)
+		throws IOException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
@@ -445,9 +471,9 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
-		final long lastModified = conn.getLastModified();
-		//System.out.println("LastModified: "+new Date(lastModified));
-		assertTrue((date+2000)>=lastModified);
+		final long actualLastModified = conn.getLastModified();
+		//System.out.println("LastModified: "+new Date(actualLastModified));
+		assertEqualsDate(lastModified, new Date(actualLastModified));
 		if(!contentType.equals(conn.getContentType()))
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
@@ -456,7 +482,6 @@ public class MediaServletTest extends TestCase
 		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
 
 		assertOnExceptionEmpty();
-		return lastModified;
 	}
 
 	private static void assertInternalError(final String url) throws IOException
@@ -553,11 +578,36 @@ public class MediaServletTest extends TestCase
 		}
 	}
 
+	private static Date hour8(final int hour) throws ParseException
+	{
+		return
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
+			parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
+	}
+
+	private static Date hour9(final int hour) throws ParseException
+	{
+		return
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
+			parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
+	}
+
+	private static long addMillis(final Date date, final int millis)
+	{
+		return date.getTime() + millis;
+	}
+
 	// ----------------------------------- adapted from CopeAssert
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	public final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private final static void assertEqualsDate(final Date expected, final Date actual)
+	{
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		assertEquals("expected " + df.format(expected) + ", but got " + df.format(actual), expected, actual);
+	}
+
+	private final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final long resolution = 1000;
 		final long leftTolerance = 995;
@@ -574,7 +624,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfterCeil.before(actual));
 	}
 
-	public final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =

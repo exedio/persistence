@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
@@ -44,16 +49,28 @@ public final class MediaPattern extends Pattern
 		addSource(sourceFeature, "sourceFeature");
 	}
 
-	public void setSourceFeature(final Item item, final byte[] body, final String contentType)
+	public void setSourceFeature(final Item item, final byte[] body, final String contentType, final int hour)
+		throws ParseException
 	{
 		this.sourceFeature.set(item, body, contentType);
+		this.sourceFeature.getLastModified().set(item, hour(hour));
 	}
 
-	public void addSourceItem(final Item item, final byte[] body, final String contentType)
+	public void addSourceItem(final Item item, final byte[] body, final String contentType, final int hour)
+		throws ParseException
 	{
-		sourceType.newItem(
+		final SourceItem result =
+			sourceType.newItem(
 				Cope.mapAndCast(this.parent, item),
 				this.sourceTypeValue.map(Media.toValue(body, contentType)));
+		this.sourceTypeValue.getLastModified().set(result, hour(hour));
+	}
+
+	private static Date hour(final int hour) throws ParseException
+	{
+		return
+			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
+			parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:55.555");
 	}
 
 	@Override
