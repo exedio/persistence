@@ -18,15 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import java.text.ParseException;
+
 import com.exedio.cope.Item;
 
 final class MediaPatternItem extends Item
 {
 	static final MediaPattern pattern = new MediaPattern();
 
-	void setSourceFeature(final byte[] body, final String contentType)
+	void setSourceFeature(final byte[] body, final String contentType, final int hour)
+		throws ParseException
 	{
-		pattern.setSourceFeature(this, body, contentType);
+		pattern.setSourceFeature(this, body, contentType, hour);
 	}
 
 	void addSourceItem(final byte[] body, final String contentType)

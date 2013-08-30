@@ -117,7 +117,7 @@ public class InitServlet extends HttpServlet
 			html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "tree.jpg" ), "image/jpeg" ) );
 
 			final MediaPatternItem pattern = new MediaPatternItem();
-			pattern.setSourceFeature(textValue, "text/plain");
+			pattern.setSourceFeature(textValue, "text/plain", 10);
 			pattern.addSourceItem(textValue, "text/plain");
 			pattern.addSourceItem(textValue, "text/plain");
 
