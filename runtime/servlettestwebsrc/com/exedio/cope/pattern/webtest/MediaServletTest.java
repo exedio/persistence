@@ -90,9 +90,9 @@ public class MediaServletTest extends TestCase
 		final String itemName     = prefix + "nameServer/" + ITEM_NAME_OK + ".txt";
 
 		assertTxt(itemTxt, hour8(0));
-		final long lmPng = assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" );
-		final long lmJpg = assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg");
-		final long lmGif = assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" );
+		assertBin(prefix + "content/" + ITEM_PNG + ".png", "image/png" , hour8(2));
+		assertBin(prefix + "content/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "content/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
 		assertTxt(prefix + "content/" + ITEM_UNK         , "unknownma/unknownmi", hour8(4));
 
 		assertTxt(itemTxt, hour8(0));
@@ -200,35 +200,35 @@ public class MediaServletTest extends TestCase
 
 		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg"));
+		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
+		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		if(!"OpenJDK Runtime Environment".equals(System.getProperty("java.runtime.name"))) // OpenJDK does not like GIF
-			assertEquals(lmGif, assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg"));
+			assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg"));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png"));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png", hour8(2));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png", hour8(3));
+		assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png", hour8(8));
 
 		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_TXT, NOT_COMPUTABLE);
 		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_EMP, IS_NULL);
-		assertEquals(lmPng, assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png"));
-		assertEquals(lmJpg, assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg"));
-		assertEquals(lmGif, assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif"));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png" , hour8(2));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
+		assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
 
 		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
-		final long lmFilter = assertBin(prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html" );
-		assertEquals(lmFilter, assertBin(prefix + "html/" + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8"));
-		assertMoved(                     prefix + "html/" + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
+		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
+		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));
+		assertMoved(prefix + "html/"    + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
 
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);
@@ -250,7 +250,7 @@ public class MediaServletTest extends TestCase
 		final String TOKEN;
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertEquals(lmJpg, assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg"));
+		assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg", hour8(3));
 		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
 
 		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
@@ -436,25 +436,28 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static long assertBin(
-			final String url,
-			final String contentType)
-		throws IOException
-	{
-		return assertBin(url, contentType, null);
-	}
-
-	private static long assertBinPrivate(
-			final String url,
-			final String contentType)
-		throws IOException
-	{
-		return assertBin(url, contentType, "private");
-	}
-
-	private static long assertBin(
+	private static void assertBin(
 			final String url,
 			final String contentType,
+			final Date lastModified)
+		throws IOException
+	{
+		assertBin(url, contentType, lastModified, null);
+	}
+
+	private static void assertBinPrivate(
+			final String url,
+			final String contentType,
+			final Date lastModified)
+		throws IOException
+	{
+		assertBin(url, contentType, lastModified, "private");
+	}
+
+	private static void assertBin(
+			final String url,
+			final String contentType,
+			final Date lastModified,
 			final String cacheControl)
 		throws IOException
 	{
@@ -468,9 +471,9 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
-		final long lastModified = conn.getLastModified();
-		//System.out.println("LastModified: "+new Date(lastModified));
-		assertTrue((date+2000)>=lastModified);
+		final long actualLastModified = conn.getLastModified();
+		//System.out.println("LastModified: "+new Date(actualLastModified));
+		assertEqualsDate(lastModified, new Date(actualLastModified));
 		if(!contentType.equals(conn.getContentType()))
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
@@ -479,7 +482,6 @@ public class MediaServletTest extends TestCase
 		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
 
 		assertOnExceptionEmpty();
-		return lastModified;
 	}
 
 	private static void assertInternalError(final String url) throws IOException
