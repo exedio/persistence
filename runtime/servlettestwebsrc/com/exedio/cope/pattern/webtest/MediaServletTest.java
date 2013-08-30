@@ -273,6 +273,16 @@ public class MediaServletTest extends TestCase
 
 		assertNotFound(prefix + "content/" + ITEM_JPG + ".jpg?t=" + TOKEN, NOT_AN_ITEM);
 
+		// finger
+
+		final long ALMOST_ONE_YEAR = 31363200000l;
+		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), null, ALMOST_ONE_YEAR);
+		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), null, ALMOST_ONE_YEAR);
+		assertMoved(prefix + "finger/.fjYxVepS/" + ITEM_JPG + ".jpg",
+						prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "finger/"           + ITEM_JPG + ".jpg",
+						prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg");
+
 		// nameServer
 
 		assertNameURL(prefix + "nameServer/" + ITEM_NAME_OK + ".txt");
@@ -461,6 +471,17 @@ public class MediaServletTest extends TestCase
 			final String cacheControl)
 		throws IOException
 	{
+		assertBin(url, contentType, lastModified, cacheControl, 5000);
+	}
+
+	private static void assertBin(
+			final String url,
+			final String contentType,
+			final Date lastModified,
+			final String cacheControl,
+			final long expires)
+		throws IOException
+	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
@@ -479,7 +500,7 @@ public class MediaServletTest extends TestCase
 		assertEquals(contentType, conn.getContentType());
 		assertEquals(cacheControl, conn.getHeaderField(CACHE_CONTROL));
 		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
-		assertWithin(new Date(date+3000), new Date(date+6000), new Date(conn.getExpiration()));
+		assertWithin(new Date(date+expires-2000), new Date(date+expires+1000), new Date(conn.getExpiration()));
 
 		assertOnExceptionEmpty();
 	}
