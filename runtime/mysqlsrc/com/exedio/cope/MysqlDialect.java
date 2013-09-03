@@ -366,7 +366,7 @@ final class MysqlDialect extends Dialect
 			append(quotedName).
 			append(" () VALUES ()");
 
-		return (int)(executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
+		final long result = executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
 		{
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
@@ -377,7 +377,11 @@ final class MysqlDialect extends Dialect
 					throw new RuntimeException("null in sequence " + quotedName);
 				return (Long)o;
 			}
-		}).longValue() - 1);
+		}).longValue() - 1;
+
+		if(result>Integer.MAX_VALUE || result<Integer.MIN_VALUE)
+			throw new RuntimeException(quotedName + '/' + result);
+		return (int)result;
 	}
 
 	@Override
