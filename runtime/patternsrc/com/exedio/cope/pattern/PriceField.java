@@ -38,7 +38,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	private final IntegerField integer;
 	private final boolean isfinal;
-	private final boolean optional;
+	private final boolean mandatory;
 
 	public PriceField()
 	{
@@ -50,7 +50,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.integer = integer;
 		addSource(integer, "int", ComputedElement.get());
 		this.isfinal = integer.isFinal();
-		this.optional = !integer.isMandatory();
+		this.mandatory = integer.isMandatory();
 	}
 
 	public PriceField toFinal()
@@ -100,7 +100,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	public boolean isMandatory()
 	{
-		return !optional;
+		return mandatory;
 	}
 
 	public Price getDefaultConstant()
@@ -143,7 +143,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
-		if(value==null && !optional)
+		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 
 		integer.set(item, value!=null ? value.store : null);
@@ -156,7 +156,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
-		if(value==null && !optional)
+		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue<?>[]{ integer.map(value!=null ? value.store : null) };
