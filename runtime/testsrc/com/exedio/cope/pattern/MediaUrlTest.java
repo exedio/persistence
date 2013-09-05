@@ -63,19 +63,15 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				foto,
 				foto.getBody(),
 				foto.getLastModified(),
-				foto.getUnison(),
 				fotoSecure,
 				fotoSecure.getBody(),
 				fotoSecure.getLastModified(),
-				fotoSecure.getUnison(),
 				file,
 				file.getBody(),
 				file.getLastModified(),
-				file.getUnison(),
 				fileSecure,
 				fileSecure.getBody(),
 				fileSecure.getLastModified(),
-				fileSecure.getUnison(),
 			}), TYPE.getFeatures());
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
