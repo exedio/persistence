@@ -72,7 +72,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				fotoFinger,
 				fotoFinger.getBody(),
 				fotoFinger.getLastModified(),
-				fotoFinger.getUnison(),
 				file,
 				file.getBody(),
 				file.getLastModified(),
@@ -82,7 +81,6 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 				fileFinger,
 				fileFinger.getBody(),
 				fileFinger.getLastModified(),
-				fileFinger.getUnison(),
 			}), TYPE.getFeatures());
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
