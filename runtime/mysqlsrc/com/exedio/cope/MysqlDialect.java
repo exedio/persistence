@@ -364,7 +364,7 @@ final class MysqlDialect extends Dialect
 		final Statement bf = executor.newStatement();
 		bf.append("INSERT INTO ").
 			append(quotedName).
-			append(" () VALUES ()");
+			append("()VALUES()");
 
 		final long result = executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
 		{
