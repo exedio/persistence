@@ -40,11 +40,22 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.simple.getSource(), PreventUrlGuessing.class);
 		assertPresent(true,  pasteValue(AnItem.secret), PreventUrlGuessing.class);
 		assertPresent(true,  AnItem.secret.getSource(), PreventUrlGuessing.class);
+		assertPresent(false, pasteValue(AnItem.finger), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.finger.getSource(), PreventUrlGuessing.class);
+
+		assertPresent(false, pasteValue(AnItem.simple), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.simple.getSource(), UrlFingerPrinting.class);
+		assertPresent(false, pasteValue(AnItem.secret), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.secret.getSource(), UrlFingerPrinting.class);
+		assertPresent(true,  pasteValue(AnItem.finger), UrlFingerPrinting.class);
+		assertPresent(true,  AnItem.finger.getSource(), UrlFingerPrinting.class);
 
 		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
 		assertPresent(false, AnItem.simple.getSource(), Deprecated.class);
 		assertPresent(false, pasteValue(AnItem.secret), Deprecated.class);
 		assertPresent(false, AnItem.secret.getSource(), Deprecated.class);
+		assertPresent(false, pasteValue(AnItem.finger), Deprecated.class);
+		assertPresent(false, AnItem.finger.getSource(), Deprecated.class);
 	}
 
 	private static final void assertPresent(
@@ -72,6 +83,8 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing
 		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
+		@UrlFingerPrinting
+		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
 	}
 
 	static final class ATextUrlFilter extends TextUrlFilter

@@ -54,16 +54,23 @@ public abstract class MediaPath extends Pattern
 	{
 		final String urlPath;
 		final boolean preventUrlGuessing;
+		final boolean urlFingerPrinting;
 
 		Mount(final MediaPath feature)
 		{
 			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
 			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
+			this.urlFingerPrinting = feature.isAnnotationPresent(UrlFingerPrinting.class);
 			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
 				throw new RuntimeException(
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
 						" at " + feature.getID() +
 						" together with @" + RedirectFrom.class.getSimpleName());
+			if(preventUrlGuessing && urlFingerPrinting)
+				throw new RuntimeException(
+						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+						" at " + feature.getID() +
+						" together with @" + UrlFingerPrinting.class.getSimpleName());
 		}
 	}
 
@@ -94,6 +101,30 @@ public abstract class MediaPath extends Pattern
 		return mount().preventUrlGuessing;
 	}
 
+	public final boolean isUrlFingerPrinted()
+	{
+		return mount().urlFingerPrinting;
+	}
+
+	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
+	{
+		if(fingerprint==Long.MIN_VALUE)
+			return;
+
+		bf.append(".f");
+		MediaBase64.append(bf, fingerprint);
+		bf.append('/');
+	}
+
+	static long fixFingerprint(final Date fingerprint)
+	{
+		if(fingerprint==null)
+			return Long.MIN_VALUE;
+
+		final long fingerprintTime = fingerprint.getTime();
+		return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
+	}
+
 	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
@@ -115,17 +146,20 @@ public abstract class MediaPath extends Pattern
 	public final class Locator
 	{
 		private final Item item;
+		private final long fingerprint;
 		private final String catchphrase;
 		private final String extension;
 		private final String secret;
 
 		Locator(
 				final Item item,
+				final Date fingerprint,
 				final String catchphrase,
 				final String extension,
 				final String secret)
 		{
 			this.item = item;
+			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint) : Long.MIN_VALUE;
 			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
@@ -149,6 +183,7 @@ public abstract class MediaPath extends Pattern
 		public void appendPath(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -165,6 +200,7 @@ public abstract class MediaPath extends Pattern
 		void appendPathInfo(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -193,6 +229,7 @@ public abstract class MediaPath extends Pattern
 			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
+				mount().urlFingerPrinting ? getLastModified(item) : null,
 				makeUrlCatchphrase(item),
 				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
@@ -214,6 +251,10 @@ public abstract class MediaPath extends Pattern
 		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
 
 		bf.append(getUrlPath());
+
+		if(mount().urlFingerPrinting)
+			appendFingerprintSegment(bf, fixFingerprint(getLastModified(item)));
+
 		item.appendCopeID(bf);
 
 		final String catchphrase = makeUrlCatchphrase(item);
@@ -330,6 +371,7 @@ public abstract class MediaPath extends Pattern
 	private static final VolatileInt noSuchPath = new VolatileInt();
 	private final VolatileInt redirectFrom = new VolatileInt();
 	private final VolatileInt exception = new VolatileInt();
+	private final VolatileInt invalidSpecial = new VolatileInt();
 	private final VolatileInt guessedUrl = new VolatileInt();
 	private final VolatileInt notAnItem = new VolatileInt();
 	private final VolatileInt noSuchItem = new VolatileInt();
@@ -399,6 +441,11 @@ public abstract class MediaPath extends Pattern
 		return new NotFound("no such path", noSuchPath);
 	}
 
+	private NotFound notFoundInvalidSpecial()
+	{
+		return new NotFound("invalid special", invalidSpecial);
+	}
+
 	private NotFound notFoundGuessedUrl()
 	{
 		return new NotFound("guessed url", guessedUrl);
@@ -435,6 +482,7 @@ public abstract class MediaPath extends Pattern
 				this,
 				redirectFrom.get(),
 				exception.get(),
+				invalidSpecial.get(),
 				guessedUrl.get(),
 				notAnItem.get(),
 				noSuchItem.get(),
@@ -448,10 +496,35 @@ public abstract class MediaPath extends Pattern
 
 	final void doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String pathInfo, final int fromIndex)
+			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
 		//final long start = System.currentTimeMillis();
+
+		final int fromIndex;
+		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
+		{
+			final int kindIndex = fromIndexWithSpecial+1;
+			if(!(pathInfo.length()>kindIndex))
+				throw notFoundInvalidSpecial();
+
+			switch(pathInfo.charAt(kindIndex))
+			{
+				case 'f':
+					final int slash = pathInfo.indexOf('/', kindIndex);
+					if(slash<0)
+						throw notFoundInvalidSpecial();
+					fromIndex = slash + 1;
+					break;
+
+				default:
+					throw notFoundInvalidSpecial();
+			}
+		}
+		else
+		{
+			fromIndex = fromIndexWithSpecial;
+		}
 
 		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;
@@ -600,9 +673,21 @@ public abstract class MediaPath extends Pattern
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 		//System.out.println("ifModifiedSince="+ifModifiedSince);
 
-		final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
-		if(mediaOffsetExpires>0)
-			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+		if(isUrlFingerPrinted())
+		{
+			// RFC 2616:
+			// To mark a response as "never expires," an origin server sends an
+			// Expires date approximately one year from the time the response is
+			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
+			// year in the future.
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
+		}
+		else
+		{
+			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+			if(mediaOffsetExpires>0)
+				response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+		}
 
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{

@@ -24,6 +24,7 @@ public final class MediaInfo
 
 	private final int redirectFrom;
 	private final int exception;
+	private final int invalidSpecial;
 	private final int guessedUrl;
 	private final int notAnItem;
 	private final int noSuchItem;
@@ -37,6 +38,7 @@ public final class MediaInfo
 			final MediaPath path,
 			final int redirectFrom,
 			final int exception,
+			final int invalidSpecial,
 			final int guessedUrl,
 			final int notAnItem,
 			final int noSuchItem,
@@ -49,6 +51,7 @@ public final class MediaInfo
 		this.path = path;
 		this.redirectFrom = redirectFrom;
 		this.exception = exception;
+		this.invalidSpecial = invalidSpecial;
 		this.guessedUrl = guessedUrl;
 		this.notAnItem = notAnItem;
 		this.noSuchItem = noSuchItem;
@@ -72,6 +75,11 @@ public final class MediaInfo
 	public int getException()
 	{
 		return exception;
+	}
+
+	public int getInvalidSpecial()
+	{
+		return invalidSpecial;
 	}
 
 	public int getGuessedUrl()

@@ -72,10 +72,12 @@ public class InitServlet extends HttpServlet
 			final MediaServletItem png = new MediaServletItem();
 			assertID("MediaServletItem-2", png);
 			png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png", 2);
+			assertPath("MediaServletItem/finger/.fjeCiepS/MediaServletItem-2.jpg", png.getFingerLocator());
 
 			final MediaServletItem jpeg = new MediaServletItem();
 			assertID("MediaServletItem-3", jpeg);
 			jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg", 3);
+			assertPath("MediaServletItem/finger/.fjYxvepS/MediaServletItem-3.jpg", jpeg.getFingerLocator());
 
 			final MediaServletItem unknown = new MediaServletItem();
 			assertID("MediaServletItem-4", unknown);
@@ -154,6 +156,13 @@ public class InitServlet extends HttpServlet
 	{
 		if(!id.equals(item.getCopeID()))
 			throw new RuntimeException(item.getCopeID());
+	}
+
+	private static final void assertPath(final String expected, final Media.Locator locator)
+	{
+		final String path = locator.getPath();
+		if(!expected.equals(path))
+			throw new RuntimeException(path);
 	}
 
 	@Override

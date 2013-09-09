@@ -378,7 +378,7 @@ public class TextUrlFilter extends MediaFilter
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return
-				(PreventUrlGuessing.class==annotationClass)
+				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 				? TextUrlFilter.this.isAnnotationPresent(annotationClass)
 				: false;
 		}
@@ -386,7 +386,7 @@ public class TextUrlFilter extends MediaFilter
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			return
-				(PreventUrlGuessing.class==annotationClass)
+				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 				? TextUrlFilter.this.getAnnotation(annotationClass)
 				: null;
 		}
