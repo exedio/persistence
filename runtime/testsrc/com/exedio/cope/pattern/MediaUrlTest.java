@@ -171,7 +171,7 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 
 	public void testFingerprintLimit()
 	{
-		if(model.getConnectProperties().isSupportDisabledForPreparedStatements())
+		if(model.getConnectProperties().isSupportDisabledForPreparedStatements() || postgresql)
 			return;
 
 		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 2));
