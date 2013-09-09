@@ -88,7 +88,6 @@ public final class MediaTest extends AbstractRuntimeTest
 				photo,
 				photo.getBody(),
 				photo.getLastModified(),
-				photo.getUnison(),
 				foto,
 				sheet,
 				sheet.getBody(),

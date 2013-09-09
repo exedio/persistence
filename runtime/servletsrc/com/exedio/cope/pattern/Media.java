@@ -33,12 +33,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
@@ -50,6 +50,7 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 
@@ -95,19 +96,18 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 
 		if(optional)
 		{
-			final ArrayList<Condition> isNull    = new ArrayList<Condition>();
-			final ArrayList<Condition> isNotNull = new ArrayList<Condition>();
+			final ArrayList<Function<?>> functions  = new ArrayList<Function<?>>();
 			// TODO include body as well, needs DataField#isNull
 			if(contentTypeField!=null)
-			{
-				isNull   .add(contentTypeField.isNull());
-				isNotNull.add(contentTypeField.isNotNull());
-			}
-			isNull   .add(this.lastModified.isNull());
-			isNotNull.add(this.lastModified.isNotNull());
-			addSource(
-					this.unison = new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))),
-					"unison");
+				functions.add(contentTypeField);
+			functions.add(this.lastModified);
+			final Condition condition = Conditions.unisonNull(functions);
+			if(condition!=Condition.TRUE)
+				addSource(
+						this.unison = new CheckConstraint(condition),
+						"unison");
+			else
+				this.unison = null;
 		}
 		else
 		{
@@ -117,7 +117,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 		assert optional == !body.isMandatory();
 		assert (contentTypeField==null) || (optional == !contentTypeField.isMandatory());
 		assert optional == !lastModified.isMandatory();
-		assert optional == (unison!=null);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
