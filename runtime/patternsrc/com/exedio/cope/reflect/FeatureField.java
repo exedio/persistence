@@ -49,7 +49,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private final Class<E> valueClass;
 	private final StringField idField;
 	private final boolean isfinal;
-	private final boolean optional;
+	private final boolean mandatory;
 
 	public static FeatureField<Feature> create()
 	{
@@ -70,7 +70,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		this.idField = integer;
 		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameEmpty.get()));
 		this.isfinal = integer.isFinal();
-		this.optional = !integer.isMandatory();
+		this.mandatory = integer.isMandatory();
 	}
 
 	public FeatureField<E> toFinal()
@@ -110,7 +110,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public boolean isMandatory()
 	{
-		return !optional;
+		return mandatory;
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
@@ -153,7 +153,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
-		if(value==null && !optional)
+		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 
 		idField.set(item, value!=null ? value.getID() : null);
@@ -166,7 +166,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		if(value==null && !optional)
+		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 		return new SetValue<?>[]{ idField.map(value!=null ? value.getID() : null) };
