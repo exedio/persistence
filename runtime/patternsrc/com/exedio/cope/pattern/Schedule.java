@@ -238,9 +238,6 @@ public final class Schedule extends Pattern
 			model.rollbackIfNotCommitted();
 		}
 
-		if(toRun.isEmpty())
-			return;
-
 		for(final P item : toRun)
 		{
 			ctx.stopIfRequested();
