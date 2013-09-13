@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.util.Arrays;
 import java.util.List;
-
 import junit.framework.TestCase;
 
 public class InstrumentorTest extends TestCase

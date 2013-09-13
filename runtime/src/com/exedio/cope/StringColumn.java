@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.util.CharSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.exedio.cope.util.CharSet;
 
 class StringColumn extends Column
 {

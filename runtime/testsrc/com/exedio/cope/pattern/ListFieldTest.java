@@ -29,9 +29,6 @@ import static com.exedio.cope.pattern.ListFieldItem.itemsParent;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -44,6 +41,8 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import java.util.Date;
+import java.util.Iterator;
 
 public class ListFieldTest extends AbstractRuntimeTest
 {

@@ -18,15 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.search.ExtremumAggregate;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.search.ExtremumAggregate;
 
 /**
  * A <tt>view</tt> represents a value computed from the

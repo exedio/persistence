@@ -18,15 +18,14 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
-import com.exedio.cope.SetValue;
 
 public class SettableFixedParamImpl extends Pattern implements SettableFixedParamInterface
 {

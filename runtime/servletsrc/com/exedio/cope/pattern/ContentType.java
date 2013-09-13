@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FunctionField;
@@ -27,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.util.CharSet;
+import java.util.List;
 
 abstract class ContentType<B>
 {

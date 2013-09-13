@@ -23,19 +23,16 @@ import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.ServletOutputStream;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.CharsetName;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import javax.servlet.ServletOutputStream;
 
 public class TextUrlFilterTest extends AbstractRuntimeTest
 {

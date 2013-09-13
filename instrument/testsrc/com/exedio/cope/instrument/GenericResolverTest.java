@@ -20,15 +20,14 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.GenericResolver.neW;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Arrays;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.Arrays;
 
 public class GenericResolverTest extends CopeAssert
 {

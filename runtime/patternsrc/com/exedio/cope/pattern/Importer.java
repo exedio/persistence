@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
-
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -30,6 +28,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
+import java.util.List;
 
 public final class Importer<K extends Object> extends Pattern
 {

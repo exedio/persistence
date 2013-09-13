@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

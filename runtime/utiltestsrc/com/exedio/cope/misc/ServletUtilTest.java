@@ -21,9 +21,15 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
+import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.util.Enumeration;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -32,14 +38,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Item;
-import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 
 public class ServletUtilTest extends CopeAssert
 {

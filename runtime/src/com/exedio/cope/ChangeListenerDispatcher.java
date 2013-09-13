@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 

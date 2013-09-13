@@ -22,11 +22,10 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 {

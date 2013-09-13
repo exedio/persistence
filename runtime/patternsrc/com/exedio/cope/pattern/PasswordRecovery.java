@@ -18,10 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -37,6 +33,9 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.List;
 
 public final class PasswordRecovery extends Pattern
 {

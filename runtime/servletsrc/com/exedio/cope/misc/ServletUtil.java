@@ -18,18 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
+import com.exedio.cope.servletutil.ServletProperties;
+import com.exedio.cope.util.Properties;
 import java.io.File;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-
-import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Model;
-import com.exedio.cope.servletutil.ServletProperties;
-import com.exedio.cope.util.Properties;
 
 public final class ServletUtil
 {

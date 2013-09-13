@@ -18,14 +18,13 @@
 
 package com.exedio.cope.mxsampler;
 
-import java.lang.management.MemoryPoolMXBean;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import java.lang.management.MemoryPoolMXBean;
 
 final class MxSamplerMemoryPoolName extends Item
 {

@@ -18,6 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.misc.DirectRevisionsFactory;
+import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.Properties;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Schema;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -31,19 +39,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.misc.DirectRevisionsFactory;
-import com.exedio.cope.util.ModificationListener;
-import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.Properties;
-import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.Schema;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Model implements Serializable
 {

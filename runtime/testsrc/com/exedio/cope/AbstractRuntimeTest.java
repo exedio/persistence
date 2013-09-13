@@ -23,6 +23,15 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
+import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.dsmf.CheckConstraint;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.ForeignKeyConstraint;
+import com.exedio.dsmf.PrimaryKeyConstraint;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.UniqueConstraint;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,17 +42,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeTest;
-import com.exedio.cope.pattern.MediaPath;
-import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.PrimaryKeyConstraint;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.UniqueConstraint;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class AbstractRuntimeTest extends CopeTest
 {

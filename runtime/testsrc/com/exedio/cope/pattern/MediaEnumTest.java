@@ -21,9 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
@@ -31,6 +28,8 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MediaEnumTest extends AbstractRuntimeTest
 {

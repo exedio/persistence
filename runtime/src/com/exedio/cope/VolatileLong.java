@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.io.Serializable;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 
 final class VolatileLong implements Serializable
 {

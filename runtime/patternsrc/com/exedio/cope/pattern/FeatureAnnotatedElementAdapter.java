@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 
 /**
  * Adapts a {@link Feature} to {@link AnnotatedElement}.

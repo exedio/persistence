@@ -22,15 +22,13 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.DispatcherModelTest.MODEL;
 import static java.lang.System.nanoTime;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.junit.Assert;
-
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.junit.Assert;
 
 public final class DispatcherItem extends Item implements Dispatchable
 {

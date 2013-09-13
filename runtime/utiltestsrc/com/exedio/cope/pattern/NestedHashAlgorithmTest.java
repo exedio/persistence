@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import java.security.SecureRandom;
-
 import junit.framework.TestCase;
 
 public class NestedHashAlgorithmTest extends TestCase

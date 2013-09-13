@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.util.Hex;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,14 +36,6 @@ import java.net.HttpURLConnection;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import com.exedio.cope.instrument.ThrownGetter;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.misc.instrument.FinalSettableGetter;
-import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
-import com.exedio.cope.util.Hex;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class DataField extends Field<DataField.Value>
 {

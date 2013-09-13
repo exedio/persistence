@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.util.Properties.Source;
+import java.util.Collection;
 
 public class ConnectSource
 {

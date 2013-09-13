@@ -21,6 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static java.lang.annotation.ElementType.FIELD;
 
+import com.exedio.cope.IntegerField;
+import com.exedio.cope.LongField;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
@@ -29,13 +35,6 @@ import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.LongField;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.misc.Computed;
 
 public class CompositeMountTest extends CopeAssert
 {

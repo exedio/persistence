@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 final class ConnectionPool
 {

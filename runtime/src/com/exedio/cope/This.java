@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.Collection;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
 
 public final class This<E extends Item> extends Feature
 	implements ItemFunction<E>

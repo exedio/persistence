@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Feature;
 import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.Feature;
 
 final class WrapperX
 {

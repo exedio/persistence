@@ -18,10 +18,9 @@
 
 package com.exedio.cope.misc.instrument;
 
-import java.util.Set;
-
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.ThrownGetter;
+import java.util.Set;
 
 public final class InitialExceptionsSettableGetter implements ThrownGetter<Settable<?>>
 {

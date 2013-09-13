@@ -21,6 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
 
+import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.Compare;
+import com.exedio.cope.misc.SetValueUtil;
+import com.exedio.cope.util.Cast;
+import com.exedio.cope.util.CharSet;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -40,14 +46,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Compare;
-import com.exedio.cope.misc.SetValueUtil;
-import com.exedio.cope.util.Cast;
-import com.exedio.cope.util.CharSet;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
 {

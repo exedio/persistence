@@ -21,6 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,14 +33,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Wrap;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {

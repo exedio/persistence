@@ -25,10 +25,9 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionCopeTest extends CopeAssert
 {

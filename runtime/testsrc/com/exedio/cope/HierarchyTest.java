@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-
-import com.exedio.dsmf.Constraint;
 
 public class HierarchyTest extends AbstractRuntimeTest
 {

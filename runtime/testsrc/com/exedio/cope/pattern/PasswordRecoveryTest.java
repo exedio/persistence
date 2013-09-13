@@ -23,9 +23,6 @@ import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
 
-import java.util.Arrays;
-import java.util.Date;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -33,6 +30,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
+import java.util.Arrays;
+import java.util.Date;
 
 public class PasswordRecoveryTest extends AbstractRuntimeTest
 {

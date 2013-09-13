@@ -18,12 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.CharSet;
+import java.util.List;
 
 final class SubContentType extends ContentType<String>
 {

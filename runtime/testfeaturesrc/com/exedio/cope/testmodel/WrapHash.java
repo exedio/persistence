@@ -18,12 +18,11 @@
 
 package com.exedio.cope.testmodel;
 
-import java.security.SecureRandom;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.HashAlgorithm;
+import java.security.SecureRandom;
 
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.

@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Feature;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -26,8 +27,6 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.LinkedList;
-
-import com.exedio.cope.Feature;
 
 final class Context
 {

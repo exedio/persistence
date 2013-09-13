@@ -18,15 +18,14 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Set;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.Set;
 
 public class SettableOpen<Z> extends Pattern implements Settable<Z>
 {

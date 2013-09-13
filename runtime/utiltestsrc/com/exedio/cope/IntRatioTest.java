@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.IntRatio.ratio;
 import static java.lang.Integer.MAX_VALUE;
+
 import junit.framework.TestCase;
 
 public class IntRatioTest extends TestCase

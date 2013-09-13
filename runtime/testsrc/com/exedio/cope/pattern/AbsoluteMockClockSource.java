@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
-
 import org.junit.Assert;
 
 final class AbsoluteMockClockSource implements Clock.Source

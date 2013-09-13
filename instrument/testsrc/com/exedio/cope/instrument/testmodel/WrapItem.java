@@ -18,13 +18,12 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.zip.ZipEntry;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.WrapFeature;
 import com.exedio.cope.instrument.testfeature.WrapGeneric;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.zip.ZipEntry;
 
 final class WrapItem extends Item
 {

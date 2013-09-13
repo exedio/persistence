@@ -28,13 +28,12 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
+import java.util.Arrays;
 
 public class MessageDigestHashTest extends AbstractRuntimeTest
 {

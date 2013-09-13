@@ -18,10 +18,6 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.SettableFixed;
 import com.exedio.cope.instrument.testfeature.SettableFixedParam;
@@ -33,6 +29,9 @@ import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcard;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcardSub;
 import com.exedio.cope.instrument.testfeature.SettableFixedSub;
 import com.exedio.cope.instrument.testfeature.SettableOpen;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 final class SettableItem extends Item
 {

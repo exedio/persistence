@@ -20,10 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Cast.verboseCast;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
@@ -36,8 +32,10 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MapField<K,V> extends Pattern
 {

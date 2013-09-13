@@ -20,6 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.Column;
+import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
+import com.exedio.dsmf.UniqueConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,13 +35,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.dsmf.Column;
-import com.exedio.dsmf.SQLRuntimeException;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
-import com.exedio.dsmf.UniqueConstraint;
 
 public final class Revisions
 {

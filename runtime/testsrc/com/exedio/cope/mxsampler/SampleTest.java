@@ -21,14 +21,13 @@ package com.exedio.cope.mxsampler;
 import static com.exedio.cope.mxsampler.Stuff.sampler;
 import static com.exedio.cope.mxsampler.Stuff.samplerModel;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.JobContexts;
+import java.util.Date;
+import java.util.Iterator;
 
 public class SampleTest extends ConnectedTest
 {

@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.ListUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.misc.ListUtil;
 
 final class FeatureSubSet<F extends Feature>
 {

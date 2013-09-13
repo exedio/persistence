@@ -23,8 +23,6 @@ import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.text;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
-import java.util.Arrays;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
@@ -32,6 +30,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Arrays;
 
 public class RangeFieldModelTest extends CopeAssert
 {

@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.ItemCacheSummary;
+import java.util.Date;
 
 public class ItemCacheSummaryTest extends CopeAssert
 {

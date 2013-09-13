@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
-
 import junit.framework.TestCase;
 
 public class FeaturesTest extends TestCase

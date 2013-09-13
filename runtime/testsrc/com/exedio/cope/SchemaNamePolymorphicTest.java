@@ -22,12 +22,11 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 {

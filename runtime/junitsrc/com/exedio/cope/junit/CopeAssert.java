@@ -18,6 +18,9 @@
 
 package com.exedio.cope.junit;
 
+import com.exedio.cope.Query;
+import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,12 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import junit.framework.TestCase;
-
-import com.exedio.cope.Query;
-import com.exedio.cope.QueryInfo;
-import com.exedio.cope.Transaction;
 
 public abstract class CopeAssert extends TestCase
 {

@@ -18,13 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-import java.util.Set;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.instrument.Wrap;
+import java.util.Date;
+import java.util.Set;
 
 public abstract class MediaFilter extends MediaPath
 {

@@ -18,15 +18,13 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {

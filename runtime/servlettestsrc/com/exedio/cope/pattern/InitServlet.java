@@ -20,17 +20,15 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
 
+import com.exedio.cope.Model;
+import com.exedio.cope.misc.ConnectToken;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.Model;
-import com.exedio.cope.misc.ConnectToken;
 
 public class InitServlet extends HttpServlet
 {

@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -34,8 +32,8 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.JobContext;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
 
 public final class PasswordLimiter extends Pattern
 {

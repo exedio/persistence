@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.EnumAnnotatedElement;
 import gnu.trove.TIntObjectHashMap;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import com.exedio.cope.misc.EnumAnnotatedElement;
 
 final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 {

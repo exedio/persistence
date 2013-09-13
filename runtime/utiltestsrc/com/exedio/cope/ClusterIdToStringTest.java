@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterSenderInfo.toStringNodeID;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+
 import junit.framework.TestCase;
 
 public class ClusterIdToStringTest extends TestCase

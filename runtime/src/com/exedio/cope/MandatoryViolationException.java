@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

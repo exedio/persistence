@@ -23,7 +23,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class SamplerProperties extends Properties

@@ -18,11 +18,10 @@
 
 package com.exedio.cope.mxsampler;
 
-import java.lang.management.MemoryUsage;
-
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
+import java.lang.management.MemoryUsage;
 
 final class MxSamplerMemoryUsage extends Composite
 {

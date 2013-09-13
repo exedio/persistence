@@ -21,10 +21,9 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
+import com.exedio.cope.Query;
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.exedio.cope.Query;
 
 public class PurgeTest extends ConnectedTest
 {

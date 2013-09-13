@@ -25,14 +25,13 @@ import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DataTest extends AbstractRuntimeTest
 {

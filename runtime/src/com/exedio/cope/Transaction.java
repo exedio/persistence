@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -28,11 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.dsmf.SQLRuntimeException;
 
 public final class Transaction
 {

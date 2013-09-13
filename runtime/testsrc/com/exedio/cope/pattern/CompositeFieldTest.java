@@ -29,8 +29,6 @@ import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
@@ -42,6 +40,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
+import java.util.Arrays;
 
 public class CompositeFieldTest extends AbstractRuntimeTest
 {

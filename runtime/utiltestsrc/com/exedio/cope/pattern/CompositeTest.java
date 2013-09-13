@@ -23,8 +23,6 @@ import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 
-import java.util.Date;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
@@ -38,6 +36,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
+import java.util.Date;
 
 public class CompositeTest extends CopeAssert
 {

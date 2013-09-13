@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.util.MessageDigestUtil;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-
-import com.exedio.cope.util.MessageDigestUtil;
 
 /**
  * Uses hash algorithms from {@link MessageDigest}.

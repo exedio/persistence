@@ -27,21 +27,18 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Collections;
-
-import javax.servlet.ServletOutputStream;
-
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.Properties;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Collections;
+import javax.servlet.ServletOutputStream;
 
 public final class ThumbnailMagickTest extends CopeTest
 {

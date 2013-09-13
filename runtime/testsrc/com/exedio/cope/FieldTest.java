@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
+import java.util.List;
 
 
 public abstract class FieldTest extends TestmodelTest

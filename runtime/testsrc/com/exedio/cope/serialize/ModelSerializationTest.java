@@ -20,12 +20,6 @@ package com.exedio.cope.serialize;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;
@@ -35,6 +29,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.ListField;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 public class ModelSerializationTest extends CopeAssert
 {

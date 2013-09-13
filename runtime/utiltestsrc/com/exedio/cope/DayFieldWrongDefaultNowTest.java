@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class DayFieldWrongDefaultNowTest extends CopeAssert
 {

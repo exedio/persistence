@@ -21,11 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someDate;
 
+import com.exedio.cope.testmodel.AttributeItem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.exedio.cope.testmodel.AttributeItem;
 
 public class FieldDateTest extends FieldTest
 {

@@ -21,14 +21,13 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
+import com.exedio.cope.Query;
+import com.exedio.cope.SchemaInfo;
+import com.exedio.cope.junit.CopeAssert;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import com.exedio.cope.Query;
-import com.exedio.cope.SchemaInfo;
-import com.exedio.cope.junit.CopeAssert;
 
 public class DifferentiateTest extends ConnectedTest
 {

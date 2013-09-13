@@ -19,13 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.IntRatio.ratio;
+
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TIntLongHashMap;
 import gnu.trove.TIntLongIterator;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TIntObjectIterator;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

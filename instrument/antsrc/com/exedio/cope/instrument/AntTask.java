@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;

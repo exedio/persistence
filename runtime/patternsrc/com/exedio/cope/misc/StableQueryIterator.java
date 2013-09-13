@@ -18,10 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Query;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.Query;
 
 public final class StableQueryIterator<E>
 {

@@ -24,12 +24,11 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.text;
 
-import java.util.EnumMap;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import java.util.EnumMap;
 
 public class EnumMapFieldMandatoryTest extends AbstractRuntimeTest
 {

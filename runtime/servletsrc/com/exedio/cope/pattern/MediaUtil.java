@@ -18,15 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.DataField;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.DataField;
 
 public final class MediaUtil
 {

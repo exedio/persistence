@@ -21,13 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.photo;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MediaFixedTest extends AbstractRuntimeTest
 {

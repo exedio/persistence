@@ -18,12 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Collection;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties;
 
 public final class ClusterSenderMulticastTest extends CopeAssert
 {

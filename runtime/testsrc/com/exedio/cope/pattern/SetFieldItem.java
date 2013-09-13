@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.util.Date;
 
 public final class SetFieldItem extends Item
 {

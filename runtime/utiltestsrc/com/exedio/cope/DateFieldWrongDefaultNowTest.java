@@ -20,12 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
 {

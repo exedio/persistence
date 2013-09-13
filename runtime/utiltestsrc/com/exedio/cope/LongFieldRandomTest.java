@@ -21,11 +21,9 @@ package com.exedio.cope;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 
-import java.util.Random;
-
-import junit.framework.AssertionFailedError;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Random;
+import junit.framework.AssertionFailedError;
 
 public class LongFieldRandomTest extends CopeAssert
 {

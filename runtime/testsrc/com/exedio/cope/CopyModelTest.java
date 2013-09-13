@@ -27,11 +27,9 @@ import static com.exedio.cope.CopySourceItem.targetItem;
 import static com.exedio.cope.CopySourceItem.templateItem;
 import static com.exedio.cope.CopySourceItem.templateString;
 
-import java.util.Arrays;
-
 import com.exedio.cope.junit.CopeAssert;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 
 public class CopyModelTest extends CopeAssert
 {

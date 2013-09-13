@@ -18,11 +18,10 @@
 
 package com.exedio.cope.sampler;
 
+import com.exedio.cope.util.AssertionErrorJobContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.util.AssertionErrorJobContext;
 
 final class MockJobContext extends AssertionErrorJobContext
 {

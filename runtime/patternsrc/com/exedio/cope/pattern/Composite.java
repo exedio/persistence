@@ -18,10 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Date;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
@@ -35,6 +31,9 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.util.Day;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Date;
 
 public abstract class Composite implements Serializable
 {

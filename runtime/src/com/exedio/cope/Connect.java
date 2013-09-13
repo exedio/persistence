@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PoolCounter;
+import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TIntHashSet;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -28,10 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.PoolCounter;
-import com.exedio.dsmf.SQLRuntimeException;
 
 final class Connect
 {

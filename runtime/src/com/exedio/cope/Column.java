@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 abstract class Column
 {

@@ -18,11 +18,10 @@
 
 package com.exedio.dsmf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class Node
 {

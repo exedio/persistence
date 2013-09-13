@@ -18,18 +18,16 @@
 
 package com.exedio.cope;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
 import com.exedio.cope.serialize.ModelSerializationTest;
 import com.exedio.cope.serialize.SerializationSizeTest;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class PackageTest extends TestCase
 {

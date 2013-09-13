@@ -22,11 +22,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
-
 import junit.framework.AssertionFailedError;
 
 public class AssertionFailedServletContext implements ServletContext

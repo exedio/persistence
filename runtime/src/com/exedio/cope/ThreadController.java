@@ -21,10 +21,9 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.Thread.State;
 import java.text.MessageFormat;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ThreadController
 {

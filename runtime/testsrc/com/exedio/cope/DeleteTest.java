@@ -29,10 +29,9 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class DeleteTest extends AbstractRuntimeTest
 {

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.Arrays;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,10 +29,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.misc.Arrays;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class Statement
 {

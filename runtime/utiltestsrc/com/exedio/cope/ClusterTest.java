@@ -18,17 +18,15 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.Properties;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
-
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.Properties;
 
 /**
  * BEWARE: This test listens to port 14446, thus must not be included into exedio-cope-test.jar.

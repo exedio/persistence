@@ -23,17 +23,16 @@ import static com.exedio.cope.pattern.MediaMandatoryItem.file;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 
 public class MediaMandatoryTest extends AbstractRuntimeTest
 {

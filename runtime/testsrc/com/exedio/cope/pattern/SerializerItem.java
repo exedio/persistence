@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Map;
-
 import com.exedio.cope.Item;
+import java.util.Map;
 
 /**
  * @cope.generic.constructor package

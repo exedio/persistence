@@ -18,21 +18,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.cojen.classfile.ClassFile;
-import org.cojen.classfile.CodeBuilder;
-import org.cojen.classfile.MethodInfo;
-import org.cojen.classfile.Modifiers;
-import org.cojen.classfile.TypeDesc;
-import org.cojen.util.ClassInjector;
-
 import bsh.Interpreter;
 import bsh.UtilEvalError;
-
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
@@ -42,8 +29,17 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import org.cojen.classfile.ClassFile;
+import org.cojen.classfile.CodeBuilder;
+import org.cojen.classfile.MethodInfo;
+import org.cojen.classfile.Modifiers;
+import org.cojen.classfile.TypeDesc;
+import org.cojen.util.ClassInjector;
 
 final class JavaRepository
 {

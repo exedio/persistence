@@ -20,11 +20,10 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class TimeUtilTest extends CopeAssert
 {

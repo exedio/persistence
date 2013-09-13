@@ -25,12 +25,11 @@ import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
 import static java.lang.Integer.valueOf;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Query;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Query;
 
 public class MapFieldTest extends AbstractRuntimeTest
 {

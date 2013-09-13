@@ -21,9 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
 
-import java.util.List;
-
 import com.exedio.cope.misc.DatabaseListener;
+import java.util.List;
 
 public class DatabaseLogTest extends AbstractRuntimeTest
 {

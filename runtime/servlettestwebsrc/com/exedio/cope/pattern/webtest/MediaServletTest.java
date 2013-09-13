@@ -25,6 +25,7 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
 import static java.net.HttpURLConnection.HTTP_OK;
 
+import com.exedio.cope.util.StrictFile;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,10 +40,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import junit.framework.TestCase;
-
-import com.exedio.cope.util.StrictFile;
 
 public class MediaServletTest extends TestCase
 {

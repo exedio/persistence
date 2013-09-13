@@ -18,10 +18,9 @@
 
 package com.exedio.cope.util;
 
-import java.util.Collection;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Transaction;
+import java.util.Collection;
 
 public interface ModificationListener
 {

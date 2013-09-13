@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import org.junit.Assert;
-
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
+import org.junit.Assert;
 
 public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implements MediaUrlCatchphraseProvider
 {

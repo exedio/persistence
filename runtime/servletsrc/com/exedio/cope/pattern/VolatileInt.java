@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.Serializable;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 
 final class VolatileInt implements Serializable
 {

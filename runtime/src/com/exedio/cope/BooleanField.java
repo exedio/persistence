@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class BooleanField extends FunctionField<Boolean>

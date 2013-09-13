@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.HierarchySuper.TYPE;
 
+import com.exedio.cope.misc.Compare;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.exedio.cope.misc.Compare;
 
 public class HierarchyCompareTest extends AbstractRuntimeTest
 {

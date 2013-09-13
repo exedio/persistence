@@ -26,9 +26,8 @@ import static com.exedio.cope.DumperItem.unique;
 import static com.exedio.cope.DumperSubItem.subString;
 import static com.exedio.cope.util.Hex.decodeLower;
 
-import java.io.IOException;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
 
 public class DumperTest extends AbstractRuntimeTest
 {

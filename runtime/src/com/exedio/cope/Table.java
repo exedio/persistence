@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.dsmf.Schema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.dsmf.Schema;
 
 final class Table
 {

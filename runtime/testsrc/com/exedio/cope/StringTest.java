@@ -32,12 +32,11 @@ import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
 import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
+import com.exedio.cope.testmodel.StringItem;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import com.exedio.cope.testmodel.StringItem;
 
 public class StringTest extends AbstractRuntimeTest
 {

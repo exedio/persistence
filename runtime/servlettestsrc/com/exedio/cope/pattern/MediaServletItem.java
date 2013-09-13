@@ -18,16 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
+import com.exedio.cope.util.CharsetName;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
-import com.exedio.cope.util.CharsetName;
 
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider

@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.Set;
-
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.util.Set;
 
 public final class DoubleField extends NumberField<Double>
 {

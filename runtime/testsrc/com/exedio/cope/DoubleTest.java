@@ -29,11 +29,9 @@ import static java.lang.Double.NaN;
 import static java.lang.Double.POSITIVE_INFINITY;
 import static java.lang.Double.valueOf;
 
-import java.util.Date;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
 
 public class DoubleTest extends AbstractRuntimeTest
 {

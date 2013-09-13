@@ -21,11 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 
-import java.util.List;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
+import java.util.List;
 
 public class FindItemPatternTest extends AbstractRuntimeTest
 {

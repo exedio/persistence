@@ -39,11 +39,10 @@ import static com.exedio.cope.CompareFunctionConditionItem.rightItem;
 import static com.exedio.cope.CompareFunctionConditionItem.rightLong;
 import static com.exedio.cope.CompareFunctionConditionItem.rightString;
 
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
+import java.util.Date;
+import java.util.List;
 
 public class CoalesceFunctionTest extends AbstractRuntimeTest
 {

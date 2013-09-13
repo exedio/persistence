@@ -24,17 +24,6 @@ import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Date;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DoubleRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
@@ -53,6 +42,16 @@ import com.exedio.cope.instrument.testmodel.Super;
 import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Date;
 
 public class GeneratorTest extends InstrumentorTest
 {

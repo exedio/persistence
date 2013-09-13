@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class MediaBase64Test extends CopeAssert
 {

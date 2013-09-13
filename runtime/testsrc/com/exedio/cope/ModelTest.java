@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.EnumSet;
-
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import java.util.EnumSet;
 
 /**
  * @author baumgaertel

@@ -27,11 +27,6 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.num3;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
@@ -42,6 +37,10 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class LimitedListFieldModelTest extends CopeAssert
 {

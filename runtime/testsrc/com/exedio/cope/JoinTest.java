@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
 
-import java.util.List;
-
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import java.util.List;
 
 public class JoinTest extends TestmodelTest
 {

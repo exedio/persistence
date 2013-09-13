@@ -21,7 +21,6 @@ package com.exedio.cope;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
-
 import junit.framework.TestCase;
 
 public class EnviromentInfoTest extends TestCase

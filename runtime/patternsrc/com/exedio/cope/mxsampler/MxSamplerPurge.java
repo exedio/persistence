@@ -25,12 +25,6 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -41,8 +35,12 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 final class MxSamplerPurge extends Item
 {

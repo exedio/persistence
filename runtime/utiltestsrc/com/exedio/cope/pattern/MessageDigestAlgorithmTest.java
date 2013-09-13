@@ -20,13 +20,12 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class MessageDigestAlgorithmTest extends CopeAssert
 {

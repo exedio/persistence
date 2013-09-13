@@ -18,10 +18,9 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.ArrayList;
-
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.UniqueConstraint;
+import java.util.ArrayList;
 
 
 /**

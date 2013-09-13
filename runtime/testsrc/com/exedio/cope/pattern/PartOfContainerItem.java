@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.util.List;
 
 public final class PartOfContainerItem extends Item
 {

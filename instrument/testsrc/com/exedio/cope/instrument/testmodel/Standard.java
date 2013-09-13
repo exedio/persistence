@@ -18,10 +18,6 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DoubleField;
@@ -35,6 +31,9 @@ import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MessageDigestHash;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * TODO: length constraint

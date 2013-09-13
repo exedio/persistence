@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.DirectRevisionsFactory.make;
 
-import java.sql.SQLException;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.DirectRevisionsFactory;
+import java.sql.SQLException;
 
 public class DirectRevisionsFactoryTest extends CopeAssert
 {

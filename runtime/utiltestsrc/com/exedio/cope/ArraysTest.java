@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import junit.framework.TestCase;
-
 import com.exedio.cope.misc.Arrays;
+import junit.framework.TestCase;
 
 public class ArraysTest extends TestCase
 {

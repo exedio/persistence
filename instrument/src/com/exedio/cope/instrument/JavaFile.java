@@ -19,11 +19,10 @@
 
 package com.exedio.cope.instrument;
 
+import bsh.UtilEvalError;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import bsh.UtilEvalError;
 
 /**
  * Represents a parsed java file.

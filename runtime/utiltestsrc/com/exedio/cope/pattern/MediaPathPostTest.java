@@ -20,11 +20,9 @@ package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.io.IOException;
+import javax.servlet.ServletException;
 
 public final class MediaPathPostTest extends CopeAssert
 {

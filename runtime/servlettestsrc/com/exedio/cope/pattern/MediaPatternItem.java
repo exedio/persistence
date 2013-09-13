@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.text.ParseException;
-
 import com.exedio.cope.Item;
+import java.text.ParseException;
 
 final class MediaPatternItem extends Item
 {

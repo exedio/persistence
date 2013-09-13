@@ -18,14 +18,13 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class OracleDialect extends Dialect
 {

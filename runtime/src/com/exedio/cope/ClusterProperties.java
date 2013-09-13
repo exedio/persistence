@@ -22,6 +22,9 @@ import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import com.exedio.cope.util.PrefixSource;
+import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -29,11 +32,6 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Random;
-
-import com.exedio.cope.util.PrefixSource;
-import com.exedio.cope.util.Properties;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class ClusterProperties extends Properties
 {

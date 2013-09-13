@@ -20,11 +20,10 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
 
-import java.util.ArrayList;
-
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.ArrayList;
 
 public class SetValueUtilTest extends CopeAssert
 {

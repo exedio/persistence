@@ -25,8 +25,6 @@ import static com.exedio.cope.pattern.MapFieldItem.nameLength;
 import static com.exedio.cope.pattern.MapFieldItem.nameParent;
 import static com.exedio.cope.pattern.MapFieldItem.string;
 
-import java.io.Serializable;
-
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -35,8 +33,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 
 public class MapFieldModelTest extends CopeAssert
 {

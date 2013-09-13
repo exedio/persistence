@@ -20,15 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.

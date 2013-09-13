@@ -18,9 +18,8 @@
 
 package com.exedio.cope.misc;
 
-import java.util.Date;
-
 import com.exedio.cope.ItemCacheInfo;
+import java.util.Date;
 
 public final class ItemCacheSummary
 {

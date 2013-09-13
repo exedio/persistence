@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Arrays;
-
 import junit.framework.TestCase;
 
 public class ClusterIntTest extends TestCase

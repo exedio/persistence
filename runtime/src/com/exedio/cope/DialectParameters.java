@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -25,8 +26,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.exedio.dsmf.SQLRuntimeException;
 
 final class DialectParameters
 {

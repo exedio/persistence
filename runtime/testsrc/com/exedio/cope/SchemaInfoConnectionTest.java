@@ -26,10 +26,9 @@ import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 {

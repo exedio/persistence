@@ -20,12 +20,11 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.io.IOException;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 import com.exedio.cope.util.CharsetName;
+import java.io.IOException;
 
 public final class TextUrlFilterItem extends Item
 {

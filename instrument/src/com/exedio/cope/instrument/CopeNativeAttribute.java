@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -32,6 +29,8 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.NumberFunction;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.util.Day;
+import java.util.Date;
+import java.util.HashMap;
 
 final class CopeNativeAttribute extends CopeAttribute
 {

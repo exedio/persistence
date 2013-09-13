@@ -24,13 +24,12 @@ import static com.exedio.cope.pattern.SingletonItem.einzigartig;
 import static com.exedio.cope.pattern.SingletonItem.integer;
 import static com.exedio.cope.pattern.SingletonItem.integer55;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
 
 public final class SingletonTest extends AbstractRuntimeTest
 {

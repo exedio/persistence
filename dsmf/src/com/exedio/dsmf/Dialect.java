@@ -18,11 +18,10 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
-import com.exedio.dsmf.Node.ResultSetHandler;
 
 public abstract class Dialect
 {

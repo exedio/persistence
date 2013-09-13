@@ -18,11 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-
 import com.exedio.cope.util.Hex;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 
 public final class StartsWithCondition extends Condition
 {

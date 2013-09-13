@@ -20,13 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.getFeatures;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Media;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.Media;
 
 public class TypesBoundFeaturesTest extends CopeAssert
 {

@@ -22,16 +22,6 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static java.lang.System.nanoTime;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.text.MessageFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
@@ -51,8 +41,15 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.CharsetName;
 import com.exedio.cope.util.JobContext;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Dispatcher extends Pattern
 {

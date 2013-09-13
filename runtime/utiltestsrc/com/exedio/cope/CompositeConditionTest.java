@@ -23,9 +23,8 @@ import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 
-import java.util.Collections;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Collections;
 
 public class CompositeConditionTest extends CopeAssert
 {

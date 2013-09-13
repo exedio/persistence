@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class JavaViewItem extends Item

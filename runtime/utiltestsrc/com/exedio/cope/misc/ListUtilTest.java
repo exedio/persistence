@@ -20,9 +20,8 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ListUtil.trimUnmodifiable;
 
-import java.util.ArrayList;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.ArrayList;
 
 public class ListUtilTest extends CopeAssert
 {

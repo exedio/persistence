@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,10 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-
-import com.exedio.cope.util.Day;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class Marshallers
 {

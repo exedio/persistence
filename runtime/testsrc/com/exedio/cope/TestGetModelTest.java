@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
-
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.DynamicModelTest;
+import java.util.HashMap;
 
 public class TestGetModelTest extends CopeAssert
 {

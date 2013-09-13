@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import junit.framework.TestCase;
-
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
+import java.io.IOException;
+import java.io.InputStream;
+import junit.framework.TestCase;
 
 /**
  * This tests makes sure, that no properties are changed by accident.

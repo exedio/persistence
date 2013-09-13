@@ -22,6 +22,13 @@ import static com.exedio.cope.RevisionInfo.parse;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.Properties.Source;
+import com.exedio.dsmf.Column;
+import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,16 +42,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
-
 import org.apache.log4j.Logger;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.Properties.Source;
-import com.exedio.dsmf.Column;
-import com.exedio.dsmf.SQLRuntimeException;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
 
 public class ReviseTest extends CopeAssert
 {

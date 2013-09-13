@@ -18,13 +18,12 @@
 
 package com.exedio.cope.misc;
 
-import java.util.List;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+import java.util.List;
 
 public final class Delete
 {

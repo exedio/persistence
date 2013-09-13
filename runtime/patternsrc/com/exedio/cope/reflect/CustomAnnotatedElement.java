@@ -18,11 +18,10 @@
 
 package com.exedio.cope.reflect;
 
+import com.exedio.cope.misc.Arrays;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.HashMap;
-
-import com.exedio.cope.misc.Arrays;
 
 final class CustomAnnotatedElement
 {

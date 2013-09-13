@@ -18,17 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class DispatcherTest extends CopeModelTest
 {

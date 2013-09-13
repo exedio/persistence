@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.List;
 
 public class QuerySerializeTest extends CopeAssert
 {

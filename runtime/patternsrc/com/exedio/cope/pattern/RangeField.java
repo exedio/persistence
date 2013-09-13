@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Set;
-
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -30,6 +28,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.util.Set;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {

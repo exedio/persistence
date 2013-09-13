@@ -26,12 +26,11 @@ import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.util.Iterator;
-
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import java.util.Iterator;
 
 public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeTest
 {

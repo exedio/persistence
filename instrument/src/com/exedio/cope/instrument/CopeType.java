@@ -21,6 +21,8 @@ package com.exedio.cope.instrument;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,9 +31,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Item;
 
 final class CopeType
 {

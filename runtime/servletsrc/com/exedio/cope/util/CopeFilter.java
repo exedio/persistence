@@ -18,18 +18,16 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.Model;
+import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.misc.ServletUtil;
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import com.exedio.cope.Model;
-import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.misc.ServletUtil;
 
 /**
  * @deprecated Use {@link com.exedio.cope.misc.CopeFilter} instead

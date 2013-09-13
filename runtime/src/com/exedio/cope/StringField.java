@@ -18,11 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Set;
-
 import com.exedio.cope.util.CharSet;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Set;
 
 /**
  * Represents a field within a {@link Type type},

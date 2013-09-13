@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ModificationListener;
 import gnu.trove.TIntHashSet;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,11 +28,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.cope.util.ModificationListener;
 
 final class ModificationListeners
 {

@@ -27,16 +27,14 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
 
+import com.exedio.cope.Feature;
+import com.exedio.cope.Model;
+import com.exedio.cope.junit.CopeAssert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
-
-import com.exedio.cope.Feature;
-import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ThumbnailMagickModelTest extends CopeAssert
 {

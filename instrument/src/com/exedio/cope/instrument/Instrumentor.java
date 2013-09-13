@@ -19,9 +19,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.ArrayList;
-
 import com.exedio.cope.instrument.Lexer.CommentToken;
+import java.util.ArrayList;
 
 final class Instrumentor implements ParseConsumer
 {

@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
-
 import com.exedio.cope.instrument.ConstructorComment;
+import java.sql.SQLException;
 
 /**
  * Signals, that an attempt to write an field has been failed,

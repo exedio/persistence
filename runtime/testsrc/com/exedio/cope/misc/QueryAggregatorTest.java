@@ -21,11 +21,10 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 
-import java.util.List;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import java.util.List;
 
 public class QueryAggregatorTest extends AbstractRuntimeTest
 {

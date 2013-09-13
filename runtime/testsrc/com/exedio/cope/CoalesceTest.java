@@ -29,11 +29,10 @@ import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
 
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
+import java.util.Date;
+import java.util.List;
 
 public class CoalesceTest extends AbstractRuntimeTest
 {

@@ -20,6 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.CharSet;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -29,11 +32,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.CharSet;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class Feature implements Serializable
 {

@@ -18,8 +18,6 @@
 
 package com.exedio.cope.testmodel;
 
-import java.util.Date;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
 import com.exedio.cope.MandatoryViolationException;
@@ -29,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UppercaseView;
 import com.exedio.cope.util.CharSet;
+import java.util.Date;
 
 /**
  * @cope.generic.constructor public

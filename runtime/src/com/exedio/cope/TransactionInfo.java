@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
 import com.exedio.cope.ChangeEvent.NotAvailableException;
+import java.util.Date;
 
 abstract class TransactionInfo
 {

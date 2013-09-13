@@ -19,18 +19,16 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-
 import com.exedio.cope.instrument.Lexer.CharToken;
 import com.exedio.cope.instrument.Lexer.CommentToken;
 import com.exedio.cope.instrument.Lexer.EndException;
 import com.exedio.cope.instrument.Lexer.ParseException;
 import com.exedio.cope.instrument.Lexer.StringToken;
 import com.exedio.cope.instrument.Lexer.Token;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 /**
  * Implements a modifying java parser.

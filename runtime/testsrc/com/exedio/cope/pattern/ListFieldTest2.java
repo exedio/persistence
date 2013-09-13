@@ -20,13 +20,12 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 
-import java.util.Iterator;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
+import java.util.Iterator;
 
 /**
  * Tests complicated situations for the setter.

@@ -18,15 +18,13 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.Date;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class DayField extends FunctionField<Day>
 {

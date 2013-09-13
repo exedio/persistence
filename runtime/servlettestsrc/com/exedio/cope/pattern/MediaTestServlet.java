@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-
 import javax.servlet.http.HttpServletRequest;
 
 public final class MediaTestServlet extends MediaServlet

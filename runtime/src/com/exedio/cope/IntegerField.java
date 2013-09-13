@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.Set;
-
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Set;
 
 /**
  * Represents a field within a {@link Type type},

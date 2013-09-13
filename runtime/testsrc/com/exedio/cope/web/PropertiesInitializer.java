@@ -26,9 +26,6 @@ import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.misc.ServletUtil.getConnectProperties;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopyModelTest;
@@ -50,6 +47,8 @@ import com.exedio.cope.pattern.LimitedListFieldModelTest;
 import com.exedio.cope.pattern.ListFieldTest;
 import com.exedio.cope.pattern.MD5Test;
 import com.exedio.cope.sampler.Stuff;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * Initializes connect properties for all models in runtime/web.xml.

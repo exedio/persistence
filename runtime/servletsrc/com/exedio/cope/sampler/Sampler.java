@@ -22,14 +22,6 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.sampler.Util.diff;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
@@ -43,6 +35,13 @@ import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Sampler
 {

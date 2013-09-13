@@ -18,13 +18,12 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.Model;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-
-import com.exedio.cope.Model;
 
 /**
  * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead

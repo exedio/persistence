@@ -27,12 +27,11 @@ import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 
-import java.util.Arrays;
-import java.util.Date;
-
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import java.util.Arrays;
+import java.util.Date;
 
 public final class MediaUrlTest extends AbstractRuntimeModelTest
 {

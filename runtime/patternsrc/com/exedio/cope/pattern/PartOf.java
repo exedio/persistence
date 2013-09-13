@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
@@ -34,6 +31,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Cast;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class PartOf<C extends Item> extends Pattern
 {

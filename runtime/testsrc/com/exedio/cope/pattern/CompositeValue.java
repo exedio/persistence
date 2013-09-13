@@ -23,7 +23,6 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CompositeValue extends Composite

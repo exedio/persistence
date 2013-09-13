@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.pattern.HashAlgorithm;
 
 /**
  * Implements a hash migration strategy using nested hashes.

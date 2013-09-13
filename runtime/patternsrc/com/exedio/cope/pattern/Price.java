@@ -18,12 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.misc.Compare;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-
-import com.exedio.cope.misc.Compare;
 
 // TODO cache of common small values
 public final class Price implements Serializable, Comparable<Price>

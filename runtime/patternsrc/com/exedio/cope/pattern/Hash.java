@@ -21,9 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.security.SecureRandom;
-import java.util.Set;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FinalViolationException;
@@ -42,8 +39,9 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.security.SecureRandom;
+import java.util.Set;
 
 public class Hash extends Pattern implements HashInterface
 {

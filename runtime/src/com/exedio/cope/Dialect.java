@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -27,9 +29,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
-
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
 
 /**
  * Adapts COPE to different RDBMS.

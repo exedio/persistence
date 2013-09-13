@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
+import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import gnu.trove.TIntObjectHashMap;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -29,13 +34,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.SQLRuntimeException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntObjectHashMap;
 
 final class OracleDialect extends Dialect
 {

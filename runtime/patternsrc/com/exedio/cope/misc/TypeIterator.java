@@ -18,16 +18,15 @@
 
 package com.exedio.cope.misc;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public final class TypeIterator
 {

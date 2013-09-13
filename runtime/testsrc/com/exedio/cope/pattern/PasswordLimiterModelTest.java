@@ -23,13 +23,12 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 
-import java.util.Arrays;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
 
 public class PasswordLimiterModelTest extends CopeAssert
 {

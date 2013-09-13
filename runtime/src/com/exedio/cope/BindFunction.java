@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
+import java.util.Collection;
 
 public class BindFunction<E> implements Function<E>
 {

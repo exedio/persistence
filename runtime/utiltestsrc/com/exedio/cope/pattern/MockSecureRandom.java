@@ -21,9 +21,8 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.security.SecureRandom;
-
 import com.exedio.cope.misc.Arrays;
+import java.security.SecureRandom;
 
 final class MockSecureRandom extends SecureRandom
 {

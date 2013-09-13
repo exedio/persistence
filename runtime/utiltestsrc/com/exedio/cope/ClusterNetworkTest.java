@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.io.File;
-import java.util.Collection;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
+import java.io.File;
+import java.util.Collection;
 
 public abstract class ClusterNetworkTest extends CopeAssert
 {

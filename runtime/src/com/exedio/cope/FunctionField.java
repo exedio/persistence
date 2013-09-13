@@ -18,14 +18,6 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
@@ -35,6 +27,13 @@ import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
+import java.lang.reflect.AnnotatedElement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public abstract class FunctionField<E extends Object> extends Field<E>
 	implements Function<E>

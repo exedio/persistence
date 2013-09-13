@@ -20,11 +20,6 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.AbsoluteModel.replaceByCopy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.CompareFunctionCondition;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -40,6 +35,10 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 final class AbsoluteDifferentiate
 {

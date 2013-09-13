@@ -20,9 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
 import com.exedio.cope.testmodel.CollisionItem2;
@@ -32,6 +29,8 @@ import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.dsmf.Constraint;
+import java.util.Arrays;
+import java.util.EnumSet;
 
 public class ItemTest extends TestmodelTest
 {

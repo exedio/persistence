@@ -18,14 +18,13 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-
-import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ListUtil;
 
 /**
  * A common super class for all patterns.

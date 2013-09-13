@@ -25,16 +25,15 @@ import static com.exedio.cope.ClusterConstants.MAGIC0;
 import static com.exedio.cope.ClusterConstants.MAGIC1;
 import static com.exedio.cope.ClusterConstants.MAGIC2;
 import static com.exedio.cope.ClusterConstants.MAGIC3;
+
+import com.exedio.cope.util.SequenceChecker;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
-
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.util.SequenceChecker;
 
 abstract class ClusterListener
 {

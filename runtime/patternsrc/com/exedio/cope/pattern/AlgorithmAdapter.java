@@ -18,12 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
-
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash.Algorithm;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+import java.io.UnsupportedEncodingException;
 
 final class AlgorithmAdapter implements HashAlgorithm
 {

@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.util.CharsetName;
+import java.security.SecureRandom;
 
 final class NestedHashMigrationItem extends Item
 {

@@ -18,6 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.Feature;
+import com.exedio.cope.FunctionField;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.InstrumentContext;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -27,13 +33,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.InstrumentContext;
 
 final class CompositeType<X>
 {

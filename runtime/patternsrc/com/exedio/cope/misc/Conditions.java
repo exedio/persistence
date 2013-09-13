@@ -18,12 +18,11 @@
 
 package com.exedio.cope.misc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Conditions
 {

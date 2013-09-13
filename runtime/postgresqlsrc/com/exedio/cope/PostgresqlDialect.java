@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,9 +27,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.cope.util.Hex;
 
 final class PostgresqlDialect extends Dialect
 {

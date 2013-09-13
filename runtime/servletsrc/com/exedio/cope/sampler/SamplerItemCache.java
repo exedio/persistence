@@ -21,10 +21,6 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Util.diff;
 import static com.exedio.cope.sampler.Util.same;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
@@ -37,6 +33,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Purgeable()
 @CopeSchemaName("DiffItemCache")

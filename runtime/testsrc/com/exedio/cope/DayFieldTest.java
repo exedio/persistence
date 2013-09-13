@@ -22,9 +22,8 @@ import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.DayItem.day;
 import static com.exedio.cope.DayItem.optionalDay;
 
-import java.util.List;
-
 import com.exedio.cope.util.Day;
+import java.util.List;
 
 public class DayFieldTest extends AbstractRuntimeTest
 {

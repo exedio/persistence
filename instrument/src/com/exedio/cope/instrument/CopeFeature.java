@@ -18,15 +18,14 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Type;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
+import java.lang.reflect.Type;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 class CopeFeature
 {

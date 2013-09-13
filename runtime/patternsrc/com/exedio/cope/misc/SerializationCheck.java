@@ -18,16 +18,15 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.Model;
-import com.exedio.cope.Type;
 
 public final class SerializationCheck
 {

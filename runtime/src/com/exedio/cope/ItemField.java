@@ -21,11 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Set;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>

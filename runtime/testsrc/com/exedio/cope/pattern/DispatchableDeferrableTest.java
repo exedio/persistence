@@ -18,14 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import org.junit.Assert;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.JobContexts;
+import org.junit.Assert;
 
 public class DispatchableDeferrableTest extends AbstractRuntimeTest
 {

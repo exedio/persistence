@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ItemField.DeletePolicy;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -26,10 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import com.exedio.cope.ItemField.DeletePolicy;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class TypesBound
 {

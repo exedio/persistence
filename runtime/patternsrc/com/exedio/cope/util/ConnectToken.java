@@ -18,12 +18,11 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.Model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import com.exedio.cope.Model;
 
 /**
  * @deprecated Use {@link com.exedio.cope.misc.ConnectToken} instead

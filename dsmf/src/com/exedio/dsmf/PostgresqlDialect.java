@@ -18,11 +18,10 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
-import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class PostgresqlDialect extends Dialect
 {

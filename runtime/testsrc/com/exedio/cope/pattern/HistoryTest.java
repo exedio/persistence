@@ -25,9 +25,6 @@ import static com.exedio.cope.pattern.HistoryItem.auditEventParent;
 import static com.exedio.cope.pattern.HistoryItem.comment;
 import static java.lang.Double.valueOf;
 
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -35,6 +32,8 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
+import java.util.Date;
+import java.util.List;
 
 public class HistoryTest extends AbstractRuntimeTest
 {

@@ -18,16 +18,14 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Model;
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import com.exedio.cope.Model;
 
 /**
  * A filter for starting/closing cope transactions.

@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.misc.ModelByString;
 import com.exedio.cope.util.Cast;
+import java.util.List;
 
 /**
  * Utility class for creating conditions.

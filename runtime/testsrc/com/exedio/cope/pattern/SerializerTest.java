@@ -23,16 +23,15 @@ import static com.exedio.cope.pattern.SerializerItem.integer;
 import static com.exedio.cope.pattern.SerializerItem.map;
 import static java.lang.Integer.valueOf;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SerializerTest extends AbstractRuntimeTest
 {

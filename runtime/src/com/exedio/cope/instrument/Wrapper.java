@@ -18,16 +18,14 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Feature;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.Feature;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * @deprecated Use {@link Wrap} annotations instead.

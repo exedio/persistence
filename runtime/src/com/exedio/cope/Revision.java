@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 
+import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -30,13 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.dsmf.SQLRuntimeException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Revision
 {

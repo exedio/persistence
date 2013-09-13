@@ -22,11 +22,10 @@ import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 
-import java.util.Date;
-
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Date;
 
 public class ConnectTokenTest extends CopeAssert
 {

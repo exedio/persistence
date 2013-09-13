@@ -22,15 +22,13 @@ import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Set;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Set;
 
 public final class ThumbnailTest extends AbstractRuntimeTest
 {

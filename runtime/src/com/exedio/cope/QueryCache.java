@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +29,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.util.CharsetName;
 
 final class QueryCache
 {

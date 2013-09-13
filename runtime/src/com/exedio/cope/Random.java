@@ -18,12 +18,11 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.search.SumAggregate;
+import java.util.Collection;
 
 public class Random implements NumberFunction<Double>
 {

@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 public abstract class TestmodelTest extends AbstractRuntimeTest
 {

@@ -22,15 +22,14 @@ import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.TypeIterator.iterate;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class TypeIteratorTest extends AbstractRuntimeTest
 {

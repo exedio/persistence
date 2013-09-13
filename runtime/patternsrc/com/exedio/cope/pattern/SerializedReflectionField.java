@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Feature;
 import java.io.InvalidObjectException;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-
-import com.exedio.cope.Feature;
 
 final class SerializedReflectionField implements Serializable
 {

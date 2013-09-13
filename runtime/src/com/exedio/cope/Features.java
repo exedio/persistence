@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.ListUtil;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +26,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.misc.ListUtil;
 
 public final class Features
 {

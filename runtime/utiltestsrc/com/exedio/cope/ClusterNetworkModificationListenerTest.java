@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ModificationListener;
 import java.util.Collection;
 import java.util.List;
-
-import com.exedio.cope.util.ModificationListener;
 
 public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 {

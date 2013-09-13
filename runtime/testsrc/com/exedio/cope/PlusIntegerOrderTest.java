@@ -25,11 +25,10 @@ import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.plusAB;
 import static java.lang.Integer.valueOf;
 
+import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeModelTest;
 
 public class PlusIntegerOrderTest extends CopeModelTest
 {

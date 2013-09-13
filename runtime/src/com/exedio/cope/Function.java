@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.search.ExtremumAggregate;
+import java.util.Collection;
 
 public interface Function<E> extends Selectable<E>
 {

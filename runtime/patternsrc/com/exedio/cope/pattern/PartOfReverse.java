@@ -18,14 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ListUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 final class PartOfReverse
 {

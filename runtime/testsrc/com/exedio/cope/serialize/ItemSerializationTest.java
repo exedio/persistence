@@ -26,11 +26,10 @@ import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
 import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import java.util.Arrays;
 
 public class ItemSerializationTest extends AbstractRuntimeTest
 {

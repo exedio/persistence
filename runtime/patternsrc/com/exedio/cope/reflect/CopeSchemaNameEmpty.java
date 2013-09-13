@@ -18,9 +18,8 @@
 
 package com.exedio.cope.reflect;
 
-import java.lang.annotation.Annotation;
-
 import com.exedio.cope.CopeSchemaName;
+import java.lang.annotation.Annotation;
 
 final class CopeSchemaNameEmpty
 {

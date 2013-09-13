@@ -20,10 +20,6 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Util.cutAndMap;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
@@ -36,6 +32,9 @@ import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Purgeable()
 @CopeSchemaName("DiffTransaction")

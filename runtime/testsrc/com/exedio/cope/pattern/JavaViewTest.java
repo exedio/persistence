@@ -25,12 +25,11 @@ import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class JavaViewTest extends AbstractRuntimeTest
 {

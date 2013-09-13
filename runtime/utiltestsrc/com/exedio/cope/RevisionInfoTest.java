@@ -18,15 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.RevisionInfoRevise.Body;
+import com.exedio.cope.junit.CopeAssert;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
-
-import com.exedio.cope.RevisionInfoRevise.Body;
-import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionInfoTest extends CopeAssert
 {

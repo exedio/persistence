@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.Random;
-
-import com.exedio.cope.util.Day;
 
 /**
  * @cope.generic.constructor package

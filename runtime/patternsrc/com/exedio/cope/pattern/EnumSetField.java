@@ -18,12 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.Set;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -34,6 +28,11 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.Set;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {

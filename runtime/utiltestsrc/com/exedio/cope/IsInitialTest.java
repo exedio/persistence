@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.Date;
-
 import junit.framework.TestCase;
 
 public class IsInitialTest extends TestCase

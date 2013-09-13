@@ -19,13 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
-import gnu.trove.TIntObjectHashMap;
 
+import gnu.trove.TIntObjectHashMap;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import junit.framework.TestCase;
 
 public class LRUMapTest extends TestCase

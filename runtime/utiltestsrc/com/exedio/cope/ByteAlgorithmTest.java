@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.io.UnsupportedEncodingException;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
+import java.io.UnsupportedEncodingException;
 
 public class ByteAlgorithmTest extends CopeAssert
 {

@@ -25,9 +25,8 @@ import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 
-import java.math.BigDecimal;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.math.BigDecimal;
 
 public final class PriceTest extends CopeAssert
 {

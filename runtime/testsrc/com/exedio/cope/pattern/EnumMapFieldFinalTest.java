@@ -24,13 +24,12 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 
-import java.util.EnumMap;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import java.util.EnumMap;
 
 public class EnumMapFieldFinalTest extends AbstractRuntimeTest
 {

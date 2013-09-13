@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-
 import com.exedio.cope.util.JobContext;
+import java.util.Date;
 
 public interface Scheduleable
 {

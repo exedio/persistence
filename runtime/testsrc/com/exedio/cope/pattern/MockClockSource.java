@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import java.util.Collections;
 import java.util.LinkedList;
-
 import org.junit.Assert;
 
 final class MockClockSource implements Clock.Source

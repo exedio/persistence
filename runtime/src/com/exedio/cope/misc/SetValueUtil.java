@@ -18,12 +18,10 @@
 
 package com.exedio.cope.misc;
 
-import java.util.List;
-
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public final class SetValueUtil
 {

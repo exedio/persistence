@@ -27,16 +27,15 @@ import static com.exedio.cope.pattern.MediaItem.name;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 
 public final class MediaTest extends AbstractRuntimeTest
 {

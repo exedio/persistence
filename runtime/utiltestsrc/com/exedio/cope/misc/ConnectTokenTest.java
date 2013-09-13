@@ -25,15 +25,13 @@ import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
-import java.io.File;
-import java.util.Date;
-
-import org.apache.log4j.Logger;
-
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
+import java.io.File;
+import java.util.Date;
+import org.apache.log4j.Logger;
 
 public class ConnectTokenTest extends CopeAssert
 {

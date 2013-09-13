@@ -22,13 +22,12 @@ import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Condition;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Condition;
 
 public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 {

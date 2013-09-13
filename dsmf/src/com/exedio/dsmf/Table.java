@@ -18,13 +18,12 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Constraint.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
-
-import com.exedio.dsmf.Constraint.Type;
 
 public final class Table extends Node
 {

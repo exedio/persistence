@@ -18,18 +18,17 @@
 
 package com.exedio.cope.serialize;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Cope;
+import com.exedio.cope.Item;
+import com.exedio.cope.Query;
+import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Cope;
-import com.exedio.cope.Item;
-import com.exedio.cope.Query;
-import com.exedio.cope.pattern.ListField;
 
 public class SerializationSizeTest extends AbstractRuntimeTest
 {

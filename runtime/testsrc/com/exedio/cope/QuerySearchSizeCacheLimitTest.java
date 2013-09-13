@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DayItem.TYPE;
 
+import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
-
-import com.exedio.cope.util.Day;
 
 public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeTest
 {

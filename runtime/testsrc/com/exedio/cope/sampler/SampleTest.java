@@ -23,14 +23,13 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static java.util.Arrays.asList;
 
-import java.util.Date;
-import java.util.Iterator;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Date;
+import java.util.Iterator;
 
 public class SampleTest extends ConnectedTest
 {

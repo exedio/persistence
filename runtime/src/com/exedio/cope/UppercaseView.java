@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Locale;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Locale;
 
 public final class UppercaseView extends StringView
 {

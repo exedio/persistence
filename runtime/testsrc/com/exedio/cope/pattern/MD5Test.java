@@ -24,11 +24,10 @@ import static com.exedio.cope.pattern.MessageDigestHashTest.algo;
 import static com.exedio.cope.pattern.MessageDigestHashTest.encoding;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import java.util.Arrays;
 
 public class MD5Test extends AbstractRuntimeTest
 {

@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
-
-import com.exedio.cope.junit.CopeAssert;
 
 abstract class RawDatabaseTest extends CopeAssert
 {

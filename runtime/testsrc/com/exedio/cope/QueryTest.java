@@ -22,9 +22,8 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Query.newQuery;
 
-import java.util.List;
-
 import com.exedio.cope.util.Day;
+import java.util.List;
 
 public class QueryTest extends AbstractRuntimeTest
 {

@@ -19,7 +19,6 @@
 package com.exedio.dsmf;
 
 import java.sql.Connection;
-
 import junit.framework.TestCase;
 
 public class NodeTest extends TestCase

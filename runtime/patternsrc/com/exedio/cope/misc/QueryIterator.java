@@ -18,9 +18,8 @@
 
 package com.exedio.cope.misc;
 
-import java.util.Iterator;
-
 import com.exedio.cope.Query;
+import java.util.Iterator;
 
 /**
  * @deprecated Use {@link StableQueryIterator} instead.

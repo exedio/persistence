@@ -20,9 +20,6 @@ package com.exedio.cope.junit;
 
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
-import java.util.Collection;
-import java.util.List;
-
 import com.exedio.cope.ChangeEvent;
 import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Item;
@@ -30,6 +27,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
+import java.util.Collection;
+import java.util.List;
 
 public abstract class CopeModelTestTest extends CopeModelTest
 {

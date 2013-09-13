@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-
 import com.exedio.dsmf.Schema;
+import java.sql.Connection;
 
 final class SequenceX
 {

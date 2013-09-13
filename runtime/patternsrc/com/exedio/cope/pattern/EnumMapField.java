@@ -18,11 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.Type;
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -32,6 +27,10 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import java.lang.reflect.Type;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
 {

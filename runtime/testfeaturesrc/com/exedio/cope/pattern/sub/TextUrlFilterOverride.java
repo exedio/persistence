@@ -20,12 +20,11 @@ package com.exedio.cope.pattern.sub;
 
 import static junit.framework.Assert.assertNotNull;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.TextUrlFilter;
+import javax.servlet.http.HttpServletRequest;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
 {

@@ -31,13 +31,12 @@ import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.testmodel.AttributeItem.someStringLength;
 import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 import com.exedio.cope.testmodel.EmptyItem;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public class SelectTest extends TestmodelTest
 {

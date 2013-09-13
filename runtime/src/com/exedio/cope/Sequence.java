@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.Wrap;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class Sequence extends Feature

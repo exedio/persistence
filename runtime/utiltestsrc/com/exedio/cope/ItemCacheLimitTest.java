@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Properties.getSource;
 
 import java.util.Properties;
-
 import junit.framework.TestCase;
 
 public class ItemCacheLimitTest extends TestCase

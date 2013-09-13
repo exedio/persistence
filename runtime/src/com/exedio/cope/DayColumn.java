@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Day;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,8 +26,6 @@ import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import com.exedio.cope.util.Day;
 
 final class DayColumn extends Column
 {

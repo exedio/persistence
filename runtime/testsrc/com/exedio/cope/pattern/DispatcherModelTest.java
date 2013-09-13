@@ -25,15 +25,13 @@ import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 
-import java.util.List;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public class DispatcherModelTest extends CopeAssert
 {

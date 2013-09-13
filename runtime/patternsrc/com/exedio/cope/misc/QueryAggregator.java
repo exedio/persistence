@@ -20,13 +20,12 @@ package com.exedio.cope.misc;
 
 import static java.util.Collections.unmodifiableList;
 
+import com.exedio.cope.Query;
+import com.exedio.cope.Query.Result;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import com.exedio.cope.Query;
-import com.exedio.cope.Query.Result;
 
 public final class QueryAggregator<R>
 {

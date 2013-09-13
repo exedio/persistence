@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
+import com.exedio.cope.misc.Compare;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -33,10 +36,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
-import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
-import com.exedio.cope.misc.Compare;
 
 final class WrapperByAnnotations
 {

@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.lang.reflect.Type;
 import java.util.Set;
-
 import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase

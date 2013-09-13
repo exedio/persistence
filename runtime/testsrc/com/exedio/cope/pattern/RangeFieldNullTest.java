@@ -22,10 +22,9 @@ import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
+import com.exedio.cope.AbstractRuntimeTest;
 import java.util.Arrays;
 import java.util.List;
-
-import com.exedio.cope.AbstractRuntimeTest;
 
 public class RangeFieldNullTest extends AbstractRuntimeTest
 {

@@ -24,9 +24,8 @@ import static com.exedio.cope.CopyMultiToSourceItem.copyA;
 import static com.exedio.cope.CopyMultiToSourceItem.copyB;
 import static com.exedio.cope.CopyMultiToSourceItem.target;
 
-import java.util.Arrays;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Arrays;
 
 public class CopyMultiToTest extends CopeAssert
 {

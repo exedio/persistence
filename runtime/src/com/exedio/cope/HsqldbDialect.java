@@ -18,17 +18,15 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
+import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.SQLRuntimeException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 final class HsqldbDialect extends Dialect
 {

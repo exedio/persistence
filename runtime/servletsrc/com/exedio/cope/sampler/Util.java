@@ -18,14 +18,13 @@
 
 package com.exedio.cope.sampler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Util
 {

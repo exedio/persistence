@@ -18,12 +18,11 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.Hash;
 
 /**
  * @author baumgaertel

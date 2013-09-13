@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Date;
 
 public class ClockTest extends CopeAssert
 {

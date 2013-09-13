@@ -20,8 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Properties.getSource;
 
-import java.util.Properties;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopeSchemaName;
@@ -32,6 +30,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Properties;
 
 public class EnumMapFieldSchemaNameTest extends CopeAssert
 {

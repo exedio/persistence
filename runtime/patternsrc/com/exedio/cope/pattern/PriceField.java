@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Set;
-
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -31,6 +29,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import java.util.Set;
 
 public final class PriceField extends Pattern implements Settable<Price>
 {

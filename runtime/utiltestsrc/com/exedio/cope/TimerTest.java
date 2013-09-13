@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Timer.Interval;
 import junit.framework.TestCase;
-
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.cope.Timer.Interval;
 
 public class TimerTest extends TestCase
 {

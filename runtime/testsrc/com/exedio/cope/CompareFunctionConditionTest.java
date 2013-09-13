@@ -36,10 +36,9 @@ import static com.exedio.cope.CompareFunctionConditionItem.rightItem;
 import static com.exedio.cope.CompareFunctionConditionItem.rightLong;
 import static com.exedio.cope.CompareFunctionConditionItem.rightString;
 
-import java.util.Date;
-
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
+import java.util.Date;
 
 public class CompareFunctionConditionTest extends AbstractRuntimeTest
 {

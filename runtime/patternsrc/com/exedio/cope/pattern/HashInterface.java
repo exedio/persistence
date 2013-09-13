@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import java.security.SecureRandom;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Settable;
+import java.security.SecureRandom;
 
 public interface HashInterface extends Settable<String>
 {

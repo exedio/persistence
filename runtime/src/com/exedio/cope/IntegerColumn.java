@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.exedio.cope.Executor.ResultSetHandler;
 
 class IntegerColumn extends Column
 {

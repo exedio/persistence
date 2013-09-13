@@ -19,7 +19,6 @@
 package com.exedio.cope.misc;
 
 import java.text.MessageFormat;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

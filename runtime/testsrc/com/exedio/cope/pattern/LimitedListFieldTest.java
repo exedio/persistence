@@ -22,10 +22,9 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 
-import java.util.Date;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.SetValue;
+import java.util.Date;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
 {

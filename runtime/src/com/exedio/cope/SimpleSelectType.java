@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
-
 import com.exedio.cope.util.Day;
+import java.util.Date;
 
 final class SimpleSelectType<E> implements SelectType<E>
 {

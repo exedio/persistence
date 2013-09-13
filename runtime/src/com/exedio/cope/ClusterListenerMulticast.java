@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -26,11 +27,8 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.exedio.cope.util.Hex;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {

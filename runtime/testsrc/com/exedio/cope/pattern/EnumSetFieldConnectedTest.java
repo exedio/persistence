@@ -24,10 +24,9 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 
-import java.util.EnumSet;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
+import java.util.EnumSet;
 
 public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 {

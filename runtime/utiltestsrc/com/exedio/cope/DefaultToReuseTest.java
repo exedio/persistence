@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.Random;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Random;
 
 public class DefaultToReuseTest extends CopeAssert
 {

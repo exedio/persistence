@@ -18,11 +18,9 @@
 
 package com.exedio.cope.misc;
 
-import java.util.Iterator;
-
-import junit.framework.AssertionFailedError;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Iterator;
+import junit.framework.AssertionFailedError;
 
 public class IterablesTest extends CopeAssert
 {

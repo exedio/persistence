@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
-import static com.exedio.cope.pattern.MediaCatchPhraseItem.feature;
+import static com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;

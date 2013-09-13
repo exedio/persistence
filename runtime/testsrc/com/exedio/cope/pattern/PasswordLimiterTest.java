@@ -21,11 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
+import java.util.Date;
+import java.util.List;
 
 public class PasswordLimiterTest extends CopeTest
 {

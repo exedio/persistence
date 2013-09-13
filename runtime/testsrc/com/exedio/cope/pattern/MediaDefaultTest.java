@@ -23,11 +23,6 @@ import static com.exedio.cope.pattern.MediaItem.file;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
@@ -36,6 +31,10 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 
 public class MediaDefaultTest extends AbstractRuntimeTest
 {

@@ -26,6 +26,8 @@ import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,9 +37,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.StrictFile;
 
 public class MediaTypeTest extends CopeAssert
 {

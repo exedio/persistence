@@ -19,16 +19,15 @@
 
 package com.exedio.cope.instrument;
 
+import bsh.EvalError;
+import bsh.Primitive;
+import bsh.UtilEvalError;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import bsh.EvalError;
-import bsh.Primitive;
-import bsh.UtilEvalError;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Represents a class parsed by the java parser.

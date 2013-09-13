@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,8 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
-import com.exedio.cope.Executor.ResultSetHandler;
 
 public final class Query<R> implements Serializable
 {

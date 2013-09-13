@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.EnumSet;
-
 import com.exedio.dsmf.Constraint;
+import java.util.EnumSet;
 
 public class HierarchyEmptyTest extends AbstractRuntimeTest
 {

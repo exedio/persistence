@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import junit.framework.Assert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import junit.framework.Assert;
 
 public class DumperItem extends Item
 {

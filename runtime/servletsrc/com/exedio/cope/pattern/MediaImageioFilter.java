@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,7 +30,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
@@ -39,11 +41,6 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Wrap;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {

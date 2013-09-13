@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
+import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,13 +30,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.SQLRuntimeException;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This MySQL driver requires the InnoDB engine.

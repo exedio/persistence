@@ -44,11 +44,9 @@ import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-import java.util.Date;
-
 import com.exedio.cope.util.Day;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
 
 public class DefaultToConnectedTest extends AbstractRuntimeTest
 {

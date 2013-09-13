@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.ListUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import gnu.trove.TIntHashSet;
+import gnu.trove.TIntIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,12 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-
-import com.exedio.cope.misc.ListUtil;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
 
 final class Types
 {

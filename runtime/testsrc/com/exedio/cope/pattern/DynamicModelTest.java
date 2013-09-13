@@ -22,8 +22,6 @@ import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
 import static com.exedio.cope.pattern.DynamicModelItem.features;
 import static com.exedio.cope.pattern.DynamicModelItem.small;
 
-import java.util.Arrays;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
@@ -32,6 +30,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
+import java.util.Arrays;
 
 public class DynamicModelTest extends AbstractRuntimeTest
 {

@@ -25,8 +25,6 @@ import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
 
-import java.util.Arrays;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
@@ -34,8 +32,8 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 
 public class PriceFieldModelTest extends CopeAssert
 {

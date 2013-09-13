@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Cast;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.exedio.cope.util.Cast;
 
 /**
  * An <tt>field</tt> represents a persistently

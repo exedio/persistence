@@ -18,10 +18,9 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.Settable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-
-import com.exedio.cope.Settable;
 
 public interface SettableFixedParamInterface extends Settable<AtomicReference<AtomicBoolean>>
 {

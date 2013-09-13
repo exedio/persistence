@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.sql.SQLException;
-
 import com.exedio.cope.junit.CopeAssert;
+import java.sql.SQLException;
 
 public class DirectRevisionsFutureTest extends CopeAssert
 {

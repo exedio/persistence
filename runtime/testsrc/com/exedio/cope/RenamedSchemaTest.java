@@ -29,11 +29,10 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.util.Iterator;
-
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
+import java.util.Iterator;
 
 public class RenamedSchemaTest extends AbstractRuntimeTest
 {

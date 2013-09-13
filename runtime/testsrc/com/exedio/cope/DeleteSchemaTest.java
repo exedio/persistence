@@ -20,13 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DeleteSchemaItem.nextSequence;
 
+import com.exedio.cope.misc.DirectRevisionsFactory;
 import java.util.Date;
 import java.util.Map;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
-import com.exedio.cope.misc.DirectRevisionsFactory;
 
 public class DeleteSchemaTest extends AbstractRuntimeTest
 {

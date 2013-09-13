@@ -21,14 +21,13 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import java.lang.annotation.Annotation;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import java.lang.annotation.Annotation;
 
 public class TextUrlFilterAnnotationTest extends CopeAssert
 {

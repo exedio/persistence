@@ -20,8 +20,6 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.SerializationCheck.check;
 
-import java.lang.reflect.Field;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -29,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import java.lang.reflect.Field;
 
 public class SerializationCheckTest extends CopeAssert
 {

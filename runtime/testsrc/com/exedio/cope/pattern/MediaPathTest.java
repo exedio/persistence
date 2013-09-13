@@ -22,20 +22,17 @@ import static com.exedio.cope.util.CharsetName.UTF8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Model;
+import com.exedio.cope.pattern.MediaPathFeature.Result;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Model;
-import com.exedio.cope.pattern.MediaPathFeature.Result;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MediaPathTest extends AbstractRuntimeTest
 {

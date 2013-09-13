@@ -18,12 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
@@ -31,6 +25,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
+import java.io.IOException;
+import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public final class MediaPathFeature extends MediaPath
 {

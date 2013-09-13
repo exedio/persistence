@@ -20,12 +20,11 @@ package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Specifies a http redirect (moved permanently) to

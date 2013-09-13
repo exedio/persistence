@@ -22,15 +22,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.ScheduleTest.Log;
 import com.exedio.cope.util.JobContext;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public final class ScheduleItem extends Item implements Scheduleable
 {
