@@ -30,11 +30,11 @@ import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 import java.util.Arrays;
 import java.util.Date;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public final class MediaUrlTest extends AbstractRuntimeTest
+public final class MediaUrlTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(MediaUrlItem.TYPE);
 
@@ -54,12 +54,14 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		named = deleteOnTearDown(new MediaUrlItem("phrase"));
-		anond = deleteOnTearDown(new MediaUrlItem(null));
+		named = new MediaUrlItem("phrase");
+		anond = new MediaUrlItem(null);
 	}
 
 	public void testIt()
 	{
+		final byte[] bytes  = {-86,122,-8,23};
+
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				catchphrase,
@@ -116,18 +118,18 @@ public final class MediaUrlTest extends AbstractRuntimeTest
 		assertEquals(null, anond.getFileFingerURL());
 		assertEquals(null, anond.getFileFingerLocator());
 
-		named.setFoto(bytes4, "image/jpeg");
-		named.setFotoSecure(bytes4, "image/jpeg");
-		named.setFotoFinger(bytes4, "image/jpeg");
-		anond.setFoto(bytes4, "image/jpeg");
-		anond.setFotoSecure(bytes4, "image/jpeg");
-		anond.setFotoFinger(bytes4, "image/jpeg");
-		named.setFile(bytes4, "foo/bar");
-		named.setFileSecure(bytes4, "foo/bar");
-		named.setFileFinger(bytes4, "foo/bar");
-		anond.setFile(bytes4, "foo/bar");
-		anond.setFileSecure(bytes4, "foo/bar");
-		anond.setFileFinger(bytes4, "foo/bar");
+		named.setFoto(bytes, "image/jpeg");
+		named.setFotoSecure(bytes, "image/jpeg");
+		named.setFotoFinger(bytes, "image/jpeg");
+		anond.setFoto(bytes, "image/jpeg");
+		anond.setFotoSecure(bytes, "image/jpeg");
+		anond.setFotoFinger(bytes, "image/jpeg");
+		named.setFile(bytes, "foo/bar");
+		named.setFileSecure(bytes, "foo/bar");
+		named.setFileFinger(bytes, "foo/bar");
+		anond.setFile(bytes, "foo/bar");
+		anond.setFileSecure(bytes, "foo/bar");
+		anond.setFileFinger(bytes, "foo/bar");
 
 		fotoFinger.getLastModified().set(named, new Date(23 + 128)); // XC
 		fotoFinger.getLastModified().set(anond, new Date(23 + 192)); // XD
