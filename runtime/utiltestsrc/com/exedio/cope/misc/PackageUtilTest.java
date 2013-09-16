@@ -30,6 +30,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ComputedTest.class);
 		suite.addTestSuite(ConnectTokenNotSetTest.class);
 		suite.addTestSuite(ConnectTokenSetTest.class);
+		suite.addTestSuite(ConditionsTest.class);
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(ConnectTokenNullModelTest.class);
 		suite.addTestSuite(EnumAnnotatedElementTest.class);
