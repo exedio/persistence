@@ -24,6 +24,11 @@ import static com.exedio.cope.SequenceItem.limited;
 import static com.exedio.cope.SequenceItem.nextFull;
 import static com.exedio.cope.SequenceItem.nextLimited;
 import static com.exedio.cope.SequenceModelTest.MODEL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SequenceTest extends AbstractRuntimeTest
 {
@@ -98,5 +103,34 @@ public class SequenceTest extends AbstractRuntimeTest
 
 
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
+	}
+
+	public void testParallelSequenceAccess() throws InterruptedException
+	{
+		final int start = nextFull();
+		final Thread[] threads = new Thread[ 10 ];
+		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );
+		final Set<Integer> expected = new HashSet<Integer>();
+		for ( int i=0; i<threads.length; i++ )
+		{
+			expected.add( start+i+1 );
+			threads[i] = new Thread()
+			{
+				@Override()
+				public void run()
+				{
+					fullIds.add( nextFull() );
+				}
+			};
+		}
+		for ( Thread t: threads )
+		{
+			t.start();
+		}
+		for ( Thread t: threads )
+		{
+			t.join();
+		}
+		assertEquals( expected, fullIds );
 	}
 }

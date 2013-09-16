@@ -190,7 +190,7 @@ final class HsqldbDialect extends Dialect
 		}
 		{
 			final Statement bf = executor.newStatement();
-			bf.append("CREATE TEMPORARY TABLE ").
+			bf.append("DECLARE LOCAL TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x integer)");
 			executor.update(connection, null, bf);
@@ -225,7 +225,7 @@ final class HsqldbDialect extends Dialect
 		}
 		{
 			final Statement bf = executor.newStatement();
-			bf.append("DROP TABLE ").
+			bf.append("DROP TABLE session.").
 				append(TEMP_TABLE);
 			executor.update(connection, null, bf);
 		}
