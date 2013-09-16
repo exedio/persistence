@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Arrays.asList;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
@@ -25,26 +27,22 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
-import java.util.ArrayList;
+import java.util.Collections;
 
 public class ConditionsTest extends CopeAssert
 {
 	public void testIt()
 	{
-		final ArrayList<Function<?>> l = new ArrayList<Function<?>>();
-		assertEquals("TRUE", Conditions.unisonNull(l).toString());
-		l.add(AnItem.name1);
-		assertEquals("TRUE", Conditions.unisonNull(l).toString());
-		l.add(AnItem.name2);
+		assertEquals("TRUE", Conditions.unisonNull(Collections.<Function<?>>emptyList()).toString());
+		assertEquals("TRUE", Conditions.unisonNull(asList(AnItem.name1)).toString());
 		assertEquals("(" +
 				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
 				"(AnItem.name1 is not null AND AnItem.name2 is not null))",
-				Conditions.unisonNull(l).toString());
-		l.add(AnItem.name3);
+				Conditions.unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
 		assertEquals("(" +
 				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
 				"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
-				Conditions.unisonNull(l).toString());
+				Conditions.unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
 	}
 
 	public void testError()

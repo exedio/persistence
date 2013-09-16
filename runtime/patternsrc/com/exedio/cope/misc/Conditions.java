@@ -26,7 +26,7 @@ import java.util.List;
 
 public final class Conditions
 {
-	public static Condition unisonNull(final List<Function<?>> functions)
+	public static Condition unisonNull(final List<? extends Function<?>> functions)
 	{
 		if(functions.size()<=1)
 			return Condition.TRUE;
