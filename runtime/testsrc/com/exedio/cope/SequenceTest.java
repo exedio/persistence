@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;
@@ -29,12 +30,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SequenceTest extends AbstractRuntimeTest
+public class SequenceTest extends AbstractRuntimeModelTest
 {
 	public SequenceTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testIt()
@@ -106,13 +112,12 @@ public class SequenceTest extends AbstractRuntimeTest
 
 	public void testParallelSequenceAccess() throws InterruptedException
 	{
-		final int start = nextFull();
 		final Thread[] threads = new Thread[ 10 ];
 		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );
 		final Set<Integer> expected = new HashSet<Integer>();
 		for ( int i=0; i<threads.length; i++ )
 		{
-			expected.add( start+i+1 );
+			expected.add( i );
 			threads[i] = new Thread()
 			{
 				@Override()
