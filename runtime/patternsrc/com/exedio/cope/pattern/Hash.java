@@ -45,10 +45,12 @@ import java.util.Set;
 
 public class Hash extends Pattern implements HashInterface
 {
+	private static final int DEFAULT_PLAINTEXT_LIMIT = 1000;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
+	private final int plainTextLimit;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final HashAlgorithm algorithm;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -56,17 +58,17 @@ public class Hash extends Pattern implements HashInterface
 
 	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
 	{
-		this(storage, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, wrap(algorithm, UTF8), DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, UTF8), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm, final String encoding)
 	{
-		this(newStorage(wrap(algorithm, encoding)), wrap(algorithm, encoding), DEFAULT_VALIDATOR);
+		this(newStorage(wrap(algorithm, encoding)), DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm)
@@ -76,21 +78,24 @@ public class Hash extends Pattern implements HashInterface
 
 	public Hash(final HashAlgorithm algorithm)
 	{
-		this(newStorage(algorithm), algorithm, DEFAULT_VALIDATOR);
+		this(newStorage(algorithm), DEFAULT_PLAINTEXT_LIMIT, algorithm, DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final StringField storage, final HashAlgorithm algorithm)
 	{
-		this(storage, algorithm, DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, algorithm, DEFAULT_VALIDATOR);
 	}
 
 	private Hash(
 			final StringField storage,
+			final int plainTextLimit,
 			final HashAlgorithm algorithm,
 			final PlainTextValidator validator)
 	{
 		if(storage==null)
 			throw new NullPointerException("storage");
+		if(plainTextLimit<10)
+			throw new IllegalArgumentException("plainTextLimit must be at least 10, but was " + plainTextLimit);
 		if(algorithm==null)
 			throw new NullPointerException("algorithm");
 		if (validator==null)
@@ -102,6 +107,7 @@ public class Hash extends Pattern implements HashInterface
 			throw new IllegalArgumentException("algorithmID must not be empty");
 
 		addSource(this.storage = storage, algorithmID, ComputedElement.get());
+		this.plainTextLimit = plainTextLimit;
 
 		this.validator = validator;
 	}
@@ -109,6 +115,14 @@ public class Hash extends Pattern implements HashInterface
 	public final StringField getStorage()
 	{
 		return storage;
+	}
+
+	/**
+	 * @see #limit(int)
+	 */
+	public final int getPlainTextLimit()
+	{
+		return plainTextLimit;
 	}
 
 	public final HashAlgorithm getAlgorithm2()
@@ -218,17 +232,30 @@ public class Hash extends Pattern implements HashInterface
 
 	public final Hash toFinal()
 	{
-		return new Hash(storage.toFinal(), algorithm, validator);
+		return new Hash(storage.toFinal(), plainTextLimit, algorithm, validator);
 	}
 
 	public final Hash optional()
 	{
-		return new Hash(storage.optional(), algorithm, validator);
+		return new Hash(storage.optional(), plainTextLimit, algorithm, validator);
+	}
+
+	/**
+	 * Creates a new hash with a new plain text limit.
+	 * The default is 1000.
+	 * Setting hashes longer than the limit will cause an {@link InvalidPlainTextException}.
+	 * {@link #check(Item,String) Checking} for hashes longer than the limit will silently return false.
+	 * This is a precaution against DOS attacks with very long plain texts.
+	 * @see #getPlainTextLimit()
+	 */
+	public final Hash limit(final int plainTextLimit)
+	{
+		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
 
 	public final Hash validate(final PlainTextValidator validator)
 	{
-		return new Hash(storage.copy(), algorithm, validator);
+		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
 
 	@Wrap(order=30,
@@ -251,7 +278,10 @@ public class Hash extends Pattern implements HashInterface
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
-			return (expectedHash!=null) && algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
+			return
+					(expectedHash!=null) &&
+					checkPlainTextLimit(actualPlainText) &&
+					algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -336,12 +366,24 @@ public class Hash extends Pattern implements HashInterface
 		if(plainText==null)
 			return null;
 
+		if(!checkPlainTextLimit(plainText))
+			throw new InvalidPlainTextException(
+					"plain text length violation, " +
+					"must be no longer than " + plainTextLimit + ", " +
+					"but was " + plainText.length(),
+					plainText, exceptionItem, this);
+
 		validator.validate(plainText, exceptionItem, this);
 
 		final String result = algorithmHash(plainText);
 		if(result==null)
 			throw new NullPointerException();
 		return result;
+	}
+
+	private boolean checkPlainTextLimit(final String plainText)
+	{
+		return plainText.length()<=plainTextLimit;
 	}
 
 	public final Condition isNull()

@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.HashItem.explicitExternal;
 import static com.exedio.cope.pattern.HashItem.explicitExternalWrap;
 import static com.exedio.cope.pattern.HashItem.implicitExternal;
 import static com.exedio.cope.pattern.HashItem.internal;
+import static com.exedio.cope.pattern.HashItem.limited15;
 import static com.exedio.cope.pattern.HashItem.with3PinValidator;
 import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
 
@@ -33,6 +34,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -65,6 +67,8 @@ public class HashTest extends AbstractRuntimeTest
 				implicitExternal.getStorage(),
 				internal,
 				internal.getStorage(),
+				limited15,
+				limited15.getStorage(),
 				withCorruptValidator,
 				withCorruptValidator.getStorage(),
 				with3PinValidator,
@@ -173,6 +177,51 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
+	}
+
+	public void testLimit()
+	{
+		final String ok = "012345678901234";
+		assertEquals("[" + ok + "]", HashItem.internal.hash(ok));
+
+		final String tooLong = ok + "x";
+		try
+		{
+			limited15.hash(tooLong);
+			fail();
+		}
+		catch(final InvalidPlainTextException e)
+		{
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage());
+			assertEquals(limited15, e.getFeature());
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
+			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
+			assertEquals(tooLong, e.getPlainText());
+			assertEquals(null, e.getItem());
+		}
+
+		item.setLimited15(ok);
+		assertEquals(true, item.checkLimited15(ok));
+
+		try
+		{
+			item.setLimited15(tooLong);
+			fail();
+		}
+		catch(final InvalidPlainTextException e)
+		{
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage());
+			assertEquals(limited15, e.getFeature());
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
+			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
+			assertEquals(tooLong, e.getPlainText());
+			assertEquals(item, e.getItem());
+		}
+		assertEquals(true, item.checkLimited15(ok));
+
+		item.setLimited15wrap("[" + tooLong + "]");
+		assertEquals(false, item.checkLimited15(ok));
+		assertEquals(false, item.checkLimited15(tooLong));
 	}
 
 	public void testConditions()
