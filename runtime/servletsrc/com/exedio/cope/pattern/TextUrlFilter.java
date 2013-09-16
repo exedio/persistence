@@ -59,7 +59,7 @@ public class TextUrlFilter extends MediaFilter
 	final StringField pasteKey;
 	final Media pasteValue;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final PreventUrlGuessingProxy preventUrlGuessingProxy = new PreventUrlGuessingProxy();
+	private final AnnotationProxy annotationProxy = new AnnotationProxy();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
@@ -109,7 +109,7 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteStop = pasteStop;
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
-		addSource(raw, "Raw", preventUrlGuessingProxy);
+		addSource(raw, "Raw", annotationProxy);
 	}
 
 	Type<Paste> getPasteType()
@@ -196,7 +196,7 @@ public class TextUrlFilter extends MediaFilter
 		features.put("parent", pasteParent);
 		features.put("key", pasteKey);
 		features.put("parentAndKey", pasteParentAndKey);
-		features.put("value", pasteValue, preventUrlGuessingProxy);
+		features.put("value", pasteValue, annotationProxy);
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
 		final Type<Paste> pasteType = newSourceType(Paste.class, features);
 		this.mountIfMounted = new Mount(pasteParent, pasteType);
@@ -365,9 +365,9 @@ public class TextUrlFilter extends MediaFilter
 		}
 	}
 
-	private final class PreventUrlGuessingProxy implements AnnotatedElement
+	private final class AnnotationProxy implements AnnotatedElement
 	{
-		PreventUrlGuessingProxy()
+		AnnotationProxy()
 		{
 			// just to make non-private
 		}
@@ -401,7 +401,7 @@ public class TextUrlFilter extends MediaFilter
 		@Override
 		public String toString()
 		{
-			return TextUrlFilter.this.toString() + "-preventUrlGuessingAnnotations";
+			return TextUrlFilter.this.toString() + "-annotations";
 		}
 	}
 
