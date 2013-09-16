@@ -24,10 +24,9 @@ import static com.exedio.cope.SequenceItem.limited;
 import static com.exedio.cope.SequenceItem.nextFull;
 import static com.exedio.cope.SequenceItem.nextLimited;
 import static com.exedio.cope.SequenceModelTest.MODEL;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SequenceTest extends AbstractRuntimeTest
@@ -123,11 +122,11 @@ public class SequenceTest extends AbstractRuntimeTest
 				}
 			};
 		}
-		for ( Thread t: threads )
+		for ( final Thread t: threads )
 		{
 			t.start();
 		}
-		for ( Thread t: threads )
+		for ( final Thread t: threads )
 		{
 			t.join();
 		}
