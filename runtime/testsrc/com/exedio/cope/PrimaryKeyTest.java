@@ -36,19 +36,19 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		skipTransactionManagement();
 	}
 
-	private void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfo(type, count, first, last, info);
 		assertEquals("check", check, type.checkPrimaryKey());
 	}
 
-	private void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
+	private static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		assertInfo(feature, count, first, last, info);
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
-	private void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
+	private static void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
 	{
 		assertInfo(feature, info);
 		assertEquals("check", check, feature.checkDefaultToNext());

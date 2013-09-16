@@ -585,17 +585,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(0, ci.length);
 	}
 
-	protected void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
+	protected static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 	}
 
-	protected void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
+	protected static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 
-	protected void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
+	protected static void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
 	}
@@ -612,17 +612,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertEquals("last", last, info.getLast());
 	}
 
-	protected void assertInfo(final Type<?> type, final SequenceInfo info)
+	protected static void assertInfo(final Type<?> type, final SequenceInfo info)
 	{
 		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 	}
 
-	protected void assertInfo(final IntegerField feature, final SequenceInfo info)
+	protected static void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 	}
 
-	protected void assertInfo(final Sequence feature, final SequenceInfo info)
+	protected static void assertInfo(final Sequence feature, final SequenceInfo info)
 	{
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
