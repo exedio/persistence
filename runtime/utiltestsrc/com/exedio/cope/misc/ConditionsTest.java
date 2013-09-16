@@ -47,6 +47,19 @@ public class ConditionsTest extends CopeAssert
 				Conditions.unisonNull(l).toString());
 	}
 
+	public void testError()
+	{
+		try
+		{
+			Conditions.unisonNull(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
 	static final class AnItem extends Item
 	{
 		static final StringField name1 = new StringField();
