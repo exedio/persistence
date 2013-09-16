@@ -458,6 +458,11 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		@Override()
 		public void setDateHeader(final String name, final long date)
 		{
+			// NOTE
+			// we fetch currentTimeMillis as early as possible
+			// to reduce sporadic failures
+			final long currentTimeMillis = System.currentTimeMillis();
+
 			if("Last-Modified".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
@@ -470,7 +475,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 				assertFalse(date==Long.MIN_VALUE);
 				assertEquals(Long.MIN_VALUE, this.expiresOffset);
 				assertNull(out);
-				this.expiresOffset = date - System.currentTimeMillis(); // may cause sporadic failures
+				this.expiresOffset = date - currentTimeMillis; // may cause sporadic failures
 			}
 			else
 				super.setDateHeader(name, date);
