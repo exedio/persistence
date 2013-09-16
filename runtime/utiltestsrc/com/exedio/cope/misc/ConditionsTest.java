@@ -37,13 +37,13 @@ public class ConditionsTest extends CopeAssert
 		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(AnItem.name1)).toString());
 		assertEquals("(" +
-				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
-				"(AnItem.name1 is not null AND AnItem.name2 is not null))",
-				unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
+			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
+			"(AnItem.name1 is not null AND AnItem.name2 is not null))",
+			unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
 		assertEquals("(" +
-				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
-				"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
-				unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
+			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
+			"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
+			unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
 	}
 
 	public void testError()
