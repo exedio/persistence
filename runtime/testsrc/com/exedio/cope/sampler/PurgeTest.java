@@ -27,7 +27,7 @@ import java.util.Date;
 
 public class PurgeTest extends ConnectedTest
 {
-	public void testPurge()
+	public void testPurge() throws InterruptedException
 	{
 		assertEquals(0, samplerModel.getConnectProperties().getItemCacheLimit());
 		assertEquals(0, samplerModel.getConnectProperties().getQueryCacheLimit());
@@ -58,6 +58,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
+		sleepLongerThan( 1 );
 		sampler.sample();
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
