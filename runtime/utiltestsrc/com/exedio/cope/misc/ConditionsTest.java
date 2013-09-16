@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Conditions.unisonNull;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;
@@ -33,16 +34,16 @@ public class ConditionsTest extends CopeAssert
 {
 	public void testIt()
 	{
-		assertEquals("TRUE", Conditions.unisonNull(Collections.<Function<?>>emptyList()).toString());
-		assertEquals("TRUE", Conditions.unisonNull(asList(AnItem.name1)).toString());
+		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
+		assertEquals("TRUE", unisonNull(asList(AnItem.name1)).toString());
 		assertEquals("(" +
 				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
 				"(AnItem.name1 is not null AND AnItem.name2 is not null))",
-				Conditions.unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
+				unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
 		assertEquals("(" +
 				"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
 				"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
-				Conditions.unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
+				unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
 	}
 
 	public void testError()
