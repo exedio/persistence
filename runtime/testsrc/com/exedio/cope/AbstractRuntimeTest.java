@@ -655,7 +655,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	protected void assertInfo(final List<SequenceInfo> actual, final Feature... expected)
+	protected static void assertInfo(final List<SequenceInfo> actual, final Feature... expected)
 	{
 		assertUnmodifiable(actual);
 		final ArrayList<Feature> actualTypes = new ArrayList<Feature>();
