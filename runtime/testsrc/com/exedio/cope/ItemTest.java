@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
 
 import com.exedio.cope.testmodel.AttributeItem;

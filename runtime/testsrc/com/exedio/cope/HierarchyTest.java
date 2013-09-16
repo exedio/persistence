@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
+
 import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertInfo;
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;

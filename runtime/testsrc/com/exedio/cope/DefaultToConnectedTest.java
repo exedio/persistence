@@ -41,6 +41,7 @@ import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.THREE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 

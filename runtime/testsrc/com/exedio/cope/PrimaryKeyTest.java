@@ -38,19 +38,19 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 
 	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
-		assertInfo(type, count, first, last, info);
+		SequenceInfoAssert.assertInfo(type, count, first, last, info);
 		assertEquals("check", check, type.checkPrimaryKey());
 	}
 
 	private static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
-		assertInfo(feature, count, first, last, info);
+		SequenceInfoAssert.assertInfo(feature, count, first, last, info);
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
 	private static void assertInfo(final IntegerField feature, final SequenceInfo info, final int check)
 	{
-		assertInfo(feature, info);
+		SequenceInfoAssert.assertInfo(feature, info);
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
@@ -91,10 +91,10 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	{
 		final boolean c = model.getConnectProperties().primaryKeyGenerator.persistent;
 
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
+		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
-		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
+		SequenceInfoAssert.assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
+		SequenceInfoAssert.assertInfo(next, next.getDefaultToNextInfo());
 
 		deleteOnTearDown(newPrimaryKeyItem("first", 5));
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo(), 0);
