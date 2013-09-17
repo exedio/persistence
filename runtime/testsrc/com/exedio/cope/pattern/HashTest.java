@@ -219,9 +219,13 @@ public class HashTest extends AbstractRuntimeTest
 		}
 		assertEquals(true, item.checkLimited15(ok));
 
-		item.setLimited15wrap("[" + tooLong + "]");
+		final String tooLongHash = "[" + tooLong + "]";
+		item.setLimited15wrap(tooLongHash);
+		item.setInternalwrap(tooLongHash);
 		assertEquals(false, item.checkLimited15(ok));
 		assertEquals(false, item.checkLimited15(tooLong));
+		assertEquals(false, item.checkInternal(ok));
+		assertEquals(true,  item.checkInternal(tooLong));
 	}
 
 	public void testConditions()
