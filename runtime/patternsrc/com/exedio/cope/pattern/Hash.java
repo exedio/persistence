@@ -45,7 +45,7 @@ import java.util.Set;
 
 public class Hash extends Pattern implements HashInterface
 {
-	private static final int DEFAULT_PLAINTEXT_LIMIT = 1000;
+	private static final int DEFAULT_PLAINTEXT_LIMIT = 150;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
 
@@ -242,7 +242,7 @@ public class Hash extends Pattern implements HashInterface
 
 	/**
 	 * Creates a new hash with a new plain text limit.
-	 * The default is 1000.
+	 * The default is 150.
 	 * Setting hashes longer than the limit will cause an {@link InvalidPlainTextException}.
 	 * {@link #check(Item,String) Checking} for hashes longer than the limit will silently return false.
 	 * This is a precaution against DOS attacks with very long plain texts.

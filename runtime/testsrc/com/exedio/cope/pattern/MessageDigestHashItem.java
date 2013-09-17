@@ -24,7 +24,7 @@ import com.exedio.cope.util.Hex;
 public final class MessageDigestHashItem extends Item
 {
 	/** @cope.set none */
-	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional();
+	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional().limit(200);
 	/** @cope.set none */
 	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()), "ISO-8859-1").optional();
 	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).toFinal();

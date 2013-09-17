@@ -25,7 +25,7 @@ public class HashPlainTextLimitTest extends CopeAssert
 	public void testIt()
 	{
 		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
-		assertEquals(1000, vanillaHash.getPlainTextLimit());
+		assertEquals(150, vanillaHash.getPlainTextLimit());
 		try
 		{
 			vanillaHash.limit(9);
