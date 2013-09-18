@@ -65,7 +65,6 @@ performance / memory consumption
 			* for Firefox workaround ?
 			* for proxies near client
 		- cookieless domain or CDN
-		- imagemagick with -thumbnail and -quality
 		- minify .css and .js
 		- put dimensions of images into html or css
 	* @PreventUrlGuessing
