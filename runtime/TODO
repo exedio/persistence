@@ -76,6 +76,11 @@ performance / memory consumption
 		by periodic expiry of connections that have not been used for some time.
 	* show information about expired connection / last expiry run in console
 - Use auto-increment instead of sequences
+- less updating:
+	- omit updates, when a setter sets a field to an unchanged value
+	- update only columns, that have changed
+	- update only tables (in type hierarchy) with changed columns
+	This will decrease the size of MySQL binary logs (and similar functions of other RDBMS) as well.
 - ItemCache: store values in three arrays int[], double[], String[] instead of a Map,
 	saves lots of objects going through full GC.
 	* implement pooling for various classes, especcially when trove LinkedHashMap is done
