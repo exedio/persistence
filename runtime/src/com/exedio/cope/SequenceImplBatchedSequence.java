@@ -1,21 +1,16 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Sequence;
-import java.sql.Connection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 final class SequenceImplBatchedSequence implements SequenceImpl
 {
-	private final int start;
-	private final Executor executor;
-	private final ConnectionPool connectionPool;
-	private final String name;
-	private final String quotedName;
+	private static final int BATCH_SIZE = 1024;
+	
+	private final SequenceImplSequence sequence;
 
 	private final Object lock = new Object();
+	private int batchStart = Integer.MIN_VALUE;
+	private int batchIndex = 0;
 
 	SequenceImplBatchedSequence(
 			final IntegerColumn column,
@@ -23,50 +18,17 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			final ConnectionPool connectionPool,
 			final Database database)
 	{
-		this.start = start;
-		this.executor = database.executor;
-		this.connectionPool = connectionPool;
-		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"));
-		this.quotedName = database.dsmfDialect.quoteName(this.name);
+		this.sequence = new SequenceImplSequence( column, start, connectionPool, database );
 	}
 
-	SequenceImplBatchedSequence(
-			final String name,
-			final int start,
-			final ConnectProperties properties,
-			final ConnectionPool connectionPool,
-			final Executor executor,
-			final com.exedio.dsmf.Dialect dsmfDialect)
-	{
-		this.start = start;
-		this.executor = executor;
-		this.connectionPool = connectionPool;
-		this.name = properties.filterTableName(name);
-		this.quotedName = dsmfDialect.quoteName(this.name);
-	}
-
+	@Override
 	public void makeSchema(final Schema schema)
 	{
-		new Sequence(schema, name, start);
+		sequence.makeSchema( schema );
 	}
 
-	private int batchStart = Integer.MIN_VALUE;
-	private int batchIndex = 0;
-	private static final int BATCH_SIZE = 1024;
-
-	private Set<Integer> doubleCheck = Collections.synchronizedSet( new HashSet<Integer>() );
-
+	@Override
 	public int next()
-	{
-		final int result = nextInternal();
-		if ( !doubleCheck.add(result) )
-		{
-			throw new RuntimeException( "duplicate: "+result );
-		}
-		return result;
-	}
-
-	private int nextInternal()
 	{
 		synchronized ( lock )
 		{
@@ -76,15 +38,8 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			}
 			if ( batchStart==Integer.MIN_VALUE || batchIndex+1==BATCH_SIZE )
 			{
-				final Connection connection = connectionPool.get(true);
-				try
-				{
-					batchStart = executor.dialect.nextSequence(executor, connection, quotedName).intValue();
-				}
-				finally
-				{
-					connectionPool.put(connection);
-				}
+				// get from database:
+				batchStart = sequence.next();
 				if ( batchStart>(Integer.MAX_VALUE/BATCH_SIZE)-1 )
 				{
 					throw new RuntimeException( "overflow" );
@@ -104,21 +59,14 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 		}
 	}
 
+	@Override
 	public int getNext()
 	{
 		synchronized ( lock )
 		{
 			if ( batchStart==Integer.MIN_VALUE || batchIndex==BATCH_SIZE )
 			{
-				final Connection connection = connectionPool.get(true);
-				try
-				{
-					return executor.dialect.getNextSequence(executor, connection, name)*BATCH_SIZE;
-				}
-				finally
-				{
-					connectionPool.put(connection);
-				}
+				return sequence.getNext() * BATCH_SIZE;
 			}
 			else
 			{
@@ -127,18 +75,22 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 		}
 	}
 
+	@Override
 	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
-		dialect.deleteSequence(bf, quotedName, start);
+		sequence.delete( bf, dialect );
 	}
 
+	@Override
 	public void flush()
 	{
-		// empty
+		batchStart = Integer.MIN_VALUE;
+		batchIndex = 0;
 	}
 
+	@Override
 	public String getSchemaName()
 	{
-		return name;
+		return sequence.getSchemaName();
 	}
 }
