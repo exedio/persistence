@@ -51,6 +51,11 @@ public abstract class MediaFilter extends MediaPath
 		return source.getLastModified(item);
 	}
 
+	/**
+	 * Returns the same result as {@link #getURL()},
+	 * if this filter supports filtering the {@link #getSource() source media} for this item.
+	 * Otherwise it returns {@link #getSource()}.{@link #getURL()}.
+	 */
 	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.") // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
 	{
