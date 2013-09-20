@@ -188,10 +188,24 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			: name;
 	}
 
-	protected final void assertPrimaryKeySequenceName(final String name, final Type<?> type)
+	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
+	{
+		assertPrimaryKeySequenceName( sequenceNameBase, sequenceNameBase+"6", type );
+	}
+
+	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
 	{
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
+			final String name;
+			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
+			{
+				name = batchedSequenceNameBase;
+			}
+			else
+			{
+				name = sequenceNameBase;
+			}
 			assertEquals(filterTableName(name), getPrimaryKeySequenceName(type));
 		}
 		else
@@ -400,6 +414,20 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertSame(o1, o2);
 		else
 			assertNotSame(o1, o2);
+	}
+
+	final String primaryKeySequenceName(final String nameBase)
+	{
+		final String name;
+		if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
+		{
+			name = nameBase+"6";
+		}
+		else
+		{
+			name = nameBase;
+		}
+		return filterTableName( name );
 	}
 
 	final String filterTableName(final String name)

@@ -119,15 +119,26 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, stringLongColumn.getError());
 		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
 
-		final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
-		if(model.getConnectProperties().primaryKeyGenerator.persistent)
+		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
-			assertEquals(null, sequence.getError());
-			assertEquals(Schema.Color.OK, sequence.getParticularColor());
-		}
-		else
-		{
-			assertNull(sequence);
+			case memory:
+				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq")) );
+				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
+				break;
+			case sequence:
+				final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
+				assertEquals(null, sequence.getError());
+				assertEquals(Schema.Color.OK, sequence.getParticularColor());
+				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
+				break;
+			case batchedSequence:
+				final Sequence batchedSequence = schema.getSequence(filterTableName("SchemaItem_this_Seq6"));
+				assertEquals(null, batchedSequence.getError());
+				assertEquals(Schema.Color.OK, batchedSequence.getParticularColor());
+				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq")) );
+				break;
+			default:
+				fail();
 		}
 
 		assertEquals(Schema.Color.OK, table.getCumulativeColor());

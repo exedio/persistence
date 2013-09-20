@@ -22,13 +22,14 @@ import com.exedio.dsmf.Schema;
 
 final class SequenceImplBatchedSequence implements SequenceImpl
 {
-	private static final int BATCH_SIZE = 1024;
+	private static final int BATCH_POWER = 6;
+	private static final int BATCH_SIZE = 1 << BATCH_POWER;
 	
 	private final SequenceImplSequence sequence;
 
 	private final Object lock = new Object();
 	private int batchStart = Integer.MIN_VALUE;
-	private int batchIndex = 0;
+	private int indexInBatch = 0;
 
 	SequenceImplBatchedSequence(
 			final IntegerColumn column,
@@ -36,7 +37,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			final ConnectionPool connectionPool,
 			final Database database)
 	{
-		this.sequence = new SequenceImplSequence( column, start, connectionPool, database );
+		this.sequence = new SequenceImplSequence( column, start, connectionPool, database, String.valueOf(BATCH_POWER) );
 	}
 
 	@Override
@@ -50,11 +51,11 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	{
 		synchronized ( lock )
 		{
-			if ( batchIndex<0 || batchIndex>=BATCH_SIZE )
+			if ( indexInBatch<0 || indexInBatch>=BATCH_SIZE )
 			{
-				throw new RuntimeException( "expected 0 < "+batchIndex+" < "+BATCH_SIZE );
+				throw new RuntimeException( "expected 0 < "+indexInBatch+" < "+BATCH_SIZE );
 			}
-			if ( batchStart==Integer.MIN_VALUE || batchIndex+1==BATCH_SIZE )
+			if ( batchStart==Integer.MIN_VALUE || indexInBatch+1==BATCH_SIZE )
 			{
 				// get from database:
 				batchStart = sequence.next();
@@ -67,13 +68,13 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 					// double check, because we use MIN_VALUE as magic value for "not initialized"
 					throw new RuntimeException();
 				}
-				batchIndex = 0;
+				indexInBatch = 0;
 			}
 			else
 			{
-				batchIndex++;
+				indexInBatch++;
 			}
-			return batchStart*BATCH_SIZE + batchIndex;
+			return batchStart*BATCH_SIZE + indexInBatch;
 		}
 	}
 
@@ -82,13 +83,13 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	{
 		synchronized ( lock )
 		{
-			if ( batchStart==Integer.MIN_VALUE || batchIndex==BATCH_SIZE )
+			if ( batchStart==Integer.MIN_VALUE || indexInBatch==BATCH_SIZE )
 			{
 				return sequence.getNext() * BATCH_SIZE;
 			}
 			else
 			{
-				return batchStart*BATCH_SIZE + batchIndex + 1;
+				return batchStart*BATCH_SIZE + indexInBatch + 1;
 			}
 		}
 	}
@@ -103,7 +104,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	public void flush()
 	{
 		batchStart = Integer.MIN_VALUE;
-		batchIndex = 0;
+		indexInBatch = 0;
 	}
 
 	@Override

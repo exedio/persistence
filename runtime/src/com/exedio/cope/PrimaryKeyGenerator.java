@@ -41,7 +41,7 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return new SequenceImplSequence(column, start, connectionPool, database);
+			return new SequenceImplSequence(column, start, connectionPool, database, "");
 		}
 	},
 	batchedSequence(true)
@@ -59,7 +59,7 @@ enum PrimaryKeyGenerator
 			}
 			else
 			{
-				return new SequenceImplSequence(column, start, connectionPool, database);
+				return new SequenceImplSequence(column, start, connectionPool, database, "");
 			}
 		}
 	};
