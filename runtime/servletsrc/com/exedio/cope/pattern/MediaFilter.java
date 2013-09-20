@@ -52,9 +52,9 @@ public abstract class MediaFilter extends MediaPath
 	}
 
 	/**
-	 * Returns the same result as {@link #getURL()},
+	 * Returns the same result as {@link #getURL(Item) getURL},
 	 * if this filter supports filtering the {@link #getSource() source media} for this item.
-	 * Otherwise it returns {@link #getSource()}.{@link #getURL()}.
+	 * Otherwise it returns {@link #getSource()}.{@link #getURL(Item) getURL(item)}.
 	 */
 	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.") // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
