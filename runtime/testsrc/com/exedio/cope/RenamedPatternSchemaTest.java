@@ -85,13 +85,13 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(filterTableName("RawItem_raw"), getTableName(RawItem.raw.getSourceType()));
 		assertEquals(filterTableName("RawItem_raw_tail"), getTableName(RawItem.raw.getSourceTypePostfix()));
 		assertPrimaryKeySequenceName("ZackItem_zack_this_Seq", pattern.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", pattern.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", "ZackItem_zac_tai_thi_Seq6", pattern.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("ZackItem_raw_this_Seq", raw.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_raw_tail_thi_Seq", raw.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("ZackItem_raw_tail_thi_Seq", "ZackItem_raw_tai_thi_Seq6", raw.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("RawItem_zack_this_Seq", RawItem.pattern.getSourceType());
-		assertPrimaryKeySequenceName("RawItem_zack_tail_thi_Seq", RawItem.pattern.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("RawItem_zack_tail_thi_Seq", "RawItem_zack_tai_thi_Seq6", RawItem.pattern.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("RawItem_raw_this_Seq", RawItem.raw.getSourceType());
-		assertPrimaryKeySequenceName("RawItem_raw_tail_this_Seq", RawItem.raw.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("RawItem_raw_tail_this_Seq", "RawItem_raw_tail_thi_Seq6", RawItem.raw.getSourceTypePostfix());
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
 	}

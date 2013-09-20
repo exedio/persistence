@@ -34,12 +34,13 @@ final class SequenceImplSequence implements SequenceImpl
 			final IntegerColumn column,
 			final int start,
 			final ConnectionPool connectionPool,
-			final Database database)
+			final Database database,
+			final String nameSuffix)
 	{
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"));
+		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"+nameSuffix));
 		this.quotedName = database.dsmfDialect.quoteName(this.name);
 	}
 

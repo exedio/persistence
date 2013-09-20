@@ -41,7 +41,26 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return new SequenceImplSequence(column, start, connectionPool, database);
+			return new SequenceImplSequence(column, start, connectionPool, database, "");
+		}
+	},
+	batchedSequence(true)
+	{
+		@Override
+		SequenceImpl newSequenceImpl(
+				final IntegerColumn column,
+				final int start,
+				final ConnectionPool connectionPool,
+				final Database database)
+		{
+			if ( column.primaryKey )
+			{
+				return new SequenceImplBatchedSequence(column, start, connectionPool, database);
+			}
+			else
+			{
+				return new SequenceImplSequence(column, start, connectionPool, database, "");
+			}
 		}
 	};
 

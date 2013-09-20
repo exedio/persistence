@@ -96,14 +96,14 @@ public class NameTest extends AbstractRuntimeTest
 
 		assertEquals(filterTableName("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionloooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
-		assertPrimaryKeySequenceName("NameCollisioItem_this_Seq", NameCollisionlongaItem.TYPE);
+		assertPrimaryKeySequenceName("NameCollisioItem_this_Seq", "NameCollisiItem_this_Seq6", NameCollisionlongaItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 
 		assertEquals(filterTableName("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
-		assertPrimaryKeySequenceName("NameCollisiBItem_this_Seq", NameCollisionlongbItem.TYPE);
+		assertPrimaryKeySequenceName("NameCollisiBItem_this_Seq", "NameCollisBItem_this_Seq6", NameCollisionlongbItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 
 		model.commit();

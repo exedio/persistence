@@ -81,7 +81,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(filterTableName("ZackItem_this_Seq"), sequence.getName());
+			assertEquals(primaryKeySequenceName("ZackItem_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartWith());
 		}
 		if(cluster)
@@ -98,7 +98,14 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(filterTableName("RenamScheTargItem_thi_Seq"), sequence.getName());
+			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
+			{
+				assertEquals(primaryKeySequenceName("RenaScheTargItem_thi_Seq"), sequence.getName());
+			}
+			else
+			{
+				assertEquals(primaryKeySequenceName("RenamScheTargItem_thi_Seq"), sequence.getName());
+			}
 			assertEquals(0, sequence.getStartWith());
 		}
 		assertFalse(sequences.hasNext());
