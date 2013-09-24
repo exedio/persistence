@@ -148,7 +148,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
-		assertEquals(null, emp.getThumbURL());
+		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
 		assertContains(emp, TYPE.search(file.isNull()));
 		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
