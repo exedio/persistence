@@ -150,6 +150,13 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
+		// test locator fallback
+		assertEquals("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals(null, emp.getThumbLocatorWithFallbackToSource());
+
 		assertContains(emp, TYPE.search(file.isNull()));
 		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text

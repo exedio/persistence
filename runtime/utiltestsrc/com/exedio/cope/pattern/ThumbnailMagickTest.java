@@ -219,6 +219,19 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 
+		// locator fallback
+		assertEquals("ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals(null, emp.getThumbLocatorWithFallbackToSource());
+
+		assertEquals("ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullLocatorWithFallbackToSource().getPath());
+		assertEquals(null, emp.getThumbFullLocatorWithFallbackToSource());
+
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
 		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(file.isNotNull()));

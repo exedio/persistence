@@ -65,6 +65,18 @@ public abstract class MediaFilter extends MediaPath
 		return (myURL!=null) ? myURL : source.getURL(item);
 	}
 
+	/**
+	 * Returns the same result as {@link #getLocator(Item) getLocator},
+	 * if this filter supports filtering the {@link #getSource() source media} for this item.
+	 * Otherwise it returns {@link #getSource()}.{@link #getLocator(Item) getLocator(item)}.
+	 */
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class)
+	public final Locator getLocatorWithFallbackToSource(final Item item)
+	{
+		final Locator myURL = getLocator(item);
+		return (myURL!=null) ? myURL : source.getLocator(item);
+	}
+
 	private static final class URLWithFallbackToSourceGetter implements BooleanGetter<MediaFilter>
 	{
 		@SuppressWarnings("synthetic-access")
