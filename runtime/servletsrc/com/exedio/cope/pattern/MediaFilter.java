@@ -58,7 +58,7 @@ public abstract class MediaFilter extends MediaPath
 	 * if this filter supports filtering the {@link #getSource() source media} for this item.
 	 * Otherwise it returns {@link #getSource()}.{@link #getURL(Item) getURL(item)}.
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.", hide=URLWithFallbackToSourceGetter.class) // TODO better text
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class)
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);
