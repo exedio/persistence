@@ -21,8 +21,10 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public abstract class MediaFilter extends MediaPath
@@ -56,11 +58,35 @@ public abstract class MediaFilter extends MediaPath
 	 * if this filter supports filtering the {@link #getSource() source media} for this item.
 	 * Otherwise it returns {@link #getSource()}.{@link #getURL(Item) getURL(item)}.
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.") // TODO better text
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.", hide=URLWithFallbackToSourceGetter.class) // TODO better text
 	public final String getURLWithFallbackToSource(final Item item)
 	{
 		final String myURL = getURL(item);
 		return (myURL!=null) ? myURL : source.getURL(item);
+	}
+
+	private static final class URLWithFallbackToSourceGetter implements BooleanGetter<MediaFilter>
+	{
+		@SuppressWarnings("synthetic-access")
+		public boolean get(final MediaFilter feature)
+		{
+			return !feature.isURLWithFallbackToSourceWrapped();
+		}
+	}
+
+	private boolean isURLWithFallbackToSourceWrapped()
+	{
+		final List<String> contentTypesAllowed = source.getContentTypesAllowed();
+		if(contentTypesAllowed==null)
+			return true;
+
+		final Set<String> supportedSourceContentTypes = getSupportedSourceContentTypes();
+
+		for(final String s : contentTypesAllowed)
+			if(!supportedSourceContentTypes.contains(s))
+				return true;
+
+		return false;
 	}
 
 	@Override
