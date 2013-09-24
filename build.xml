@@ -365,6 +365,8 @@
 				verbose="false">
 			<fileset dir="runtime/utiltestsrc">
 				<include name="com/exedio/cope/pattern/ThumbnailMagickItem.java" />
+				<include name="com/exedio/cope/pattern/ThumbnailUrlFallbackItem.java" />
+				<include name="com/exedio/cope/pattern/ThumbnailMagickUrlFallbackItem.java" />
 			</fileset>
 		</instrument>
 	</target>
