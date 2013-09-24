@@ -358,8 +358,19 @@
 		</zip>
 	</target>
 	
+	<target name="runtime.utiltest.instrument">
+		<instrument
+				verify="${instrument.verify}"
+				finalArgs="true"
+				verbose="false">
+			<fileset dir="runtime/utiltestsrc">
+				<include name="com/exedio/cope/pattern/ThumbnailMagickItem.java" />
+			</fileset>
+		</instrument>
+	</target>
+	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile, runtime.utiltest.instrument">
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -881,7 +892,7 @@
 	
 	<target name="src" depends="index" description="creates all sources, so the IDE does not complain" />
 	
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.utiltest.instrument, runtime.test.instrument" />
 	
 	<target name="compile"
 			  depends="runtime.compile,
