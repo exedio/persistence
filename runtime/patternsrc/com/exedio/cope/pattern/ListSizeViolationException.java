@@ -42,7 +42,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	private final int border;
 
 	/**
-	 * Creates a new ListSizeViolationException with the neccessary information about the violation.
+	 * Creates a new ListSizeViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param size initializes, what is returned by {@link #getSize()}.

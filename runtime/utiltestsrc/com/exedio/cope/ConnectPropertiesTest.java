@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 
 /**
  * This tests makes sure, that no properties are changed by accident.
- * Adapt if neccessary.
+ * Adapt if necessary.
  */
 public class ConnectPropertiesTest extends TestCase
 {

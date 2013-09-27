@@ -36,7 +36,7 @@ public final class FinalViolationException extends ConstraintViolationException
 	private final Feature feature;
 
 	/**
-	 * Creates a new FinalViolationException with the neccessary information about the violation.
+	 * Creates a new FinalViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */

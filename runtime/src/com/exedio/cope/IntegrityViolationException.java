@@ -37,7 +37,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	private final ItemField<?> feature;
 
 	/**
-	 * Creates a new IntegrityViolationException with the neccessary information about the violation.
+	 * Creates a new IntegrityViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>item</tt> or <tt>feature</tt> is null.

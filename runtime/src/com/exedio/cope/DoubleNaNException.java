@@ -37,7 +37,7 @@ public final class DoubleNaNException extends ConstraintViolationException
 	private final DoubleField feature;
 
 	/**
-	 * Creates a new DoubleNaNException with the neccessary information about the violation.
+	 * Creates a new DoubleNaNException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */

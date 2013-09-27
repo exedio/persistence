@@ -42,7 +42,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	private final Feature feature;
 
 	/**
-	 * Creates a new MandatoryViolationException with the neccessary information about the violation.
+	 * Creates a new MandatoryViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */

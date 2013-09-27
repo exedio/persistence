@@ -40,7 +40,7 @@ public abstract class RangeViolationException extends ConstraintViolationExcepti
 	private final Number border;
 
 	/**
-	 * Creates a new RangeViolationException with the neccessary information about the violation.
+	 * Creates a new RangeViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
