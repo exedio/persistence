@@ -39,7 +39,7 @@ public class ColorFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(ColorFieldModelTest.class, "MODEL");
 	}
 
-	private static final IntegerField colorRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
+	private static final IntegerField mandatoryRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
 	private static final IntegerField optionalRgb = (IntegerField)TYPE.getFeature("optional-rgb");
 
 	public void testIt()
@@ -50,37 +50,37 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				mandatory,
-				colorRgb,
+				mandatoryRgb,
 				optional,
 				optionalRgb,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				mandatory,
-				colorRgb,
+				mandatoryRgb,
 				optional,
 				optionalRgb,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
-		assertEquals(TYPE, colorRgb.getType());
+		assertEquals(TYPE, mandatoryRgb.getType());
 		assertEquals("mandatory", mandatory.getName());
-		assertEquals("mandatory-rgb", colorRgb.getName());
+		assertEquals("mandatory-rgb", mandatoryRgb.getName());
 		assertEquals("optional", optional.getName());
 		assertEquals("optional-rgb", optionalRgb.getName());
 
-		assertEquals(list(colorRgb), mandatory.getSourceFeatures());
-		assertEquals(mandatory, colorRgb.getPattern());
+		assertEquals(list(mandatoryRgb), mandatory.getSourceFeatures());
+		assertEquals(mandatory, mandatoryRgb.getPattern());
 		assertEquals(list(optionalRgb), optional.getSourceFeatures());
 		assertEquals(optional, optionalRgb.getPattern());
 
 		assertSerializedSame(mandatory, 392);
-		assertSerializedSame(colorRgb, 396);
+		assertSerializedSame(mandatoryRgb, 396);
 		assertSerializedSame(optional, 391);
 		assertSerializedSame(optionalRgb, 395);
 
-		assertEquals(0, colorRgb.getMinimum());
-		assertEquals(0xffffff, colorRgb.getMaximum());
+		assertEquals(0, mandatoryRgb.getMinimum());
+		assertEquals(0xffffff, mandatoryRgb.getMaximum());
 		assertEquals(0, optionalRgb.getMinimum());
 		assertEquals(0xffffff, optionalRgb.getMaximum());
 	}
