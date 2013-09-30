@@ -96,4 +96,47 @@ public class ColorFieldTest extends CopeTest
 		}
 		assertContains(i, TYPE.search());
 	}
+
+	public void testColorTransparencyViolation()
+	{
+		final Color transparent = new Color(55, 66, 77, 254);
+		try
+		{
+			i.setColor(transparent);
+			fail();
+		}
+		catch(final ColorTransparencyViolationException e)
+		{
+			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(color, e.getFeature());
+		}
+		assertEquals(new Color(1, 2, 3), i.getColor());
+
+		try
+		{
+			i.set(color.map(transparent));
+			fail();
+		}
+		catch(final ColorTransparencyViolationException e)
+		{
+			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(color, e.getFeature());
+		}
+		assertEquals(new Color(1, 2, 3), i.getColor());
+
+		try
+		{
+			new ColorFieldItem(transparent);
+			fail();
+		}
+		catch(final ColorTransparencyViolationException e)
+		{
+			assertEquals("transparency violation, java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals(null, e.getItem());
+			assertEquals(color, e.getFeature());
+		}
+		assertContains(i, TYPE.search());
+	}
 }

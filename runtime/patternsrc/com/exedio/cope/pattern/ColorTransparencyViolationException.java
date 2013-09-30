@@ -79,7 +79,7 @@ public final class ColorTransparencyViolationException extends ConstraintViolati
 	{
 		return
 			"transparency violation" + getItemPhrase() +
-			", " + value + " is transparent " +
+			", " + value + " is transparent" +
 			(withFeature ? (" for " + feature) : "");
 	}
 }
