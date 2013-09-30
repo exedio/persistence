@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
-import static com.exedio.cope.pattern.ColorFieldItem.color;
+import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeTest;
@@ -43,45 +43,45 @@ public class ColorFieldTest extends CopeTest
 
 	public void testMandatory()
 	{
-		assertEquals(new Color(1, 2, 3), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
-		i.setColor(new Color(11, 12, 13));
-		assertEquals(new Color(11, 12, 13), i.getColor());
+		i.setMandatory(new Color(11, 12, 13));
+		assertEquals(new Color(11, 12, 13), i.getMandatory());
 
-		i.set(color.map(new Color(21, 22, 23)));
-		assertEquals(new Color(21, 22, 23), i.getColor());
+		i.set(mandatory.map(new Color(21, 22, 23)));
+		assertEquals(new Color(21, 22, 23), i.getMandatory());
 
-		i.setColor(new Color(31, 32, 33, 255));
-		assertEquals(new Color(31, 32, 33), i.getColor());
+		i.setMandatory(new Color(31, 32, 33, 255));
+		assertEquals(new Color(31, 32, 33), i.getMandatory());
 	}
 
 	public void testMandatoryViolation()
 	{
 		try
 		{
-			i.setColor(null);
+			i.setMandatory(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
-		assertEquals(new Color(1, 2, 3), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
-			i.set(color.map(null));
+			i.set(mandatory.map(null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
-		assertEquals(new Color(1, 2, 3), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
@@ -90,9 +90,9 @@ public class ColorFieldTest extends CopeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals("mandatory violation for ColorFieldItem.color", e.getMessage());
+			assertEquals("mandatory violation for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(null, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
 		assertContains(i, TYPE.search());
 	}
@@ -102,29 +102,29 @@ public class ColorFieldTest extends CopeTest
 		final Color transparent = new Color(55, 66, 77, 254);
 		try
 		{
-			i.setColor(transparent);
+			i.setMandatory(transparent);
 			fail();
 		}
 		catch(final ColorTransparencyViolationException e)
 		{
-			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
-		assertEquals(new Color(1, 2, 3), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
-			i.set(color.map(transparent));
+			i.set(mandatory.map(transparent));
 			fail();
 		}
 		catch(final ColorTransparencyViolationException e)
 		{
-			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
-		assertEquals(new Color(1, 2, 3), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
@@ -133,9 +133,9 @@ public class ColorFieldTest extends CopeTest
 		}
 		catch(final ColorTransparencyViolationException e)
 		{
-			assertEquals("transparency violation, java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.color", e.getMessage());
+			assertEquals("transparency violation, java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(null, e.getItem());
-			assertEquals(color, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 		}
 		assertContains(i, TYPE.search());
 	}
