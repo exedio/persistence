@@ -35,8 +35,8 @@ public final class ColorField extends Pattern implements Settable<Color>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final boolean mandatory;
 	private final IntegerField rgb;
+	private final boolean mandatory;
 
 	public ColorField()
 	{
