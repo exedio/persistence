@@ -35,13 +35,28 @@ public final class ColorField extends Pattern implements Settable<Color>
 {
 	private static final long serialVersionUID = 1l;
 
+	private final boolean mandatory;
 	private final IntegerField rgb;
 
 	public ColorField()
 	{
-		addSource(
-			this.rgb = new IntegerField().range(0, 0xffffff),
-			"rgb");
+		this(true);
+	}
+
+	private ColorField(final boolean mandatory)
+	{
+		this.mandatory = mandatory;
+
+		IntegerField rgb = new IntegerField().range(0, 0xffffff);
+		if(!mandatory)
+			rgb = rgb.optional();
+		addSource(this.rgb = rgb, "rgb");
+	}
+
+	@SuppressWarnings("static-method")
+	public ColorField optional()
+	{
+		return new ColorField(false);
 	}
 
 	public boolean isInitial()
@@ -56,7 +71,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	public boolean isMandatory()
 	{
-		return true;
+		return mandatory;
 	}
 
 	@Deprecated
@@ -76,7 +91,15 @@ public final class ColorField extends Pattern implements Settable<Color>
 			doc="Returns the value of {0}.")
 	public Color get(final Item item)
 	{
-		return new Color(rgb.get(item));
+		if(mandatory)
+		{
+			return new Color(rgb.getMandatory(item));
+		}
+		else
+		{
+			final Integer rgb = this.rgb.get(item);
+			return rgb!=null ? new Color(rgb) : null;
+		}
 	}
 
 	@Wrap(order=20,
@@ -85,8 +108,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(final Item item, final Color value)
 	{
-		check(value, item);
-		rgb.set(item, rgb(value));
+		rgb.set(item, rgb(value, item));
 	}
 
 	public SetValue<Color> map(final Color value)
@@ -96,20 +118,24 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	public SetValue<?>[] execute(final Color value, final Item exceptionItem)
 	{
-		check(value, exceptionItem);
-		return new SetValue<?>[]{ rgb.map(rgb(value)) };
+		return new SetValue<?>[]{ rgb.map(rgb(value, exceptionItem)) };
 	}
 
-	private void check(final Color value, final Item exceptionItem)
+	private Integer rgb(final Color value, final Item exceptionItem)
 	{
 		if(value==null)
-			throw MandatoryViolationException.create(this, exceptionItem);
-		if(value.getAlpha()<255)
-			throw new ColorTransparencyViolationException(this, exceptionItem, value);
-	}
+		{
+			if(mandatory)
+				throw MandatoryViolationException.create(this, exceptionItem);
 
-	private static int rgb(final Color value)
-	{
-		return value.getRGB() & 0xffffff;
+			return null;
+		}
+		else
+		{
+			if(value.getAlpha()<255)
+				throw new ColorTransparencyViolationException(this, exceptionItem, value);
+
+			return value.getRGB() & 0xffffff;
+		}
 	}
 }

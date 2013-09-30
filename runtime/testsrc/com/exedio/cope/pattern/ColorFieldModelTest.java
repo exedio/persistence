@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
+import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
@@ -39,6 +40,7 @@ public class ColorFieldModelTest extends CopeAssert
 	}
 
 	private static final IntegerField colorRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
+	private static final IntegerField optionalRgb = (IntegerField)TYPE.getFeature("optional-rgb");
 
 	public void testIt()
 	{
@@ -49,25 +51,37 @@ public class ColorFieldModelTest extends CopeAssert
 				TYPE.getThis(),
 				mandatory,
 				colorRgb,
+				optional,
+				optionalRgb,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				mandatory,
 				colorRgb,
+				optional,
+				optionalRgb,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
 		assertEquals(TYPE, colorRgb.getType());
 		assertEquals("mandatory", mandatory.getName());
 		assertEquals("mandatory-rgb", colorRgb.getName());
+		assertEquals("optional", optional.getName());
+		assertEquals("optional-rgb", optionalRgb.getName());
 
 		assertEquals(list(colorRgb), mandatory.getSourceFeatures());
 		assertEquals(mandatory, colorRgb.getPattern());
+		assertEquals(list(optionalRgb), optional.getSourceFeatures());
+		assertEquals(optional, optionalRgb.getPattern());
 
 		assertSerializedSame(mandatory, 392);
 		assertSerializedSame(colorRgb, 396);
+		assertSerializedSame(optional, 391);
+		assertSerializedSame(optionalRgb, 395);
 
 		assertEquals(0, colorRgb.getMinimum());
 		assertEquals(0xffffff, colorRgb.getMaximum());
+		assertEquals(0, optionalRgb.getMinimum());
+		assertEquals(0xffffff, optionalRgb.getMaximum());
 	}
 }
