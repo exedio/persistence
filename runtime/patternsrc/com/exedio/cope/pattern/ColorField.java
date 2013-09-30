@@ -49,7 +49,6 @@ public final class ColorField extends Pattern implements Settable<Color>
 		this.mandatory = rgb.isMandatory();
 	}
 
-	@SuppressWarnings("static-method")
 	public ColorField optional()
 	{
 		return new ColorField(rgb.optional());
