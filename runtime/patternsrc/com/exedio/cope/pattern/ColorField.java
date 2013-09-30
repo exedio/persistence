@@ -33,6 +33,8 @@ import java.util.Set;
 
 public final class ColorField extends Pattern implements Settable<Color>
 {
+	private static final long serialVersionUID = 1l;
+
 	private final IntegerField rgb;
 
 	public ColorField()
