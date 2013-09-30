@@ -86,7 +86,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 	public void set(final Item item, final Color value)
 	{
 		check(value, item);
-		rgb.set(item, value.getRGB());
+		rgb.set(item, rgb(value));
 	}
 
 	public SetValue<Color> map(final Color value)
@@ -97,14 +97,19 @@ public final class ColorField extends Pattern implements Settable<Color>
 	public SetValue<?>[] execute(final Color value, final Item exceptionItem)
 	{
 		check(value, exceptionItem);
-		return new SetValue<?>[]{ rgb.map(value.getRGB()) };
+		return new SetValue<?>[]{ rgb.map(rgb(value)) };
 	}
 
 	private void check(final Color value, final Item exceptionItem)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, exceptionItem);
-		if(value.getAlpha()>0)
+		if(value.getAlpha()<255)
 			throw new ColorTransparencyViolationException(this, exceptionItem, value);
+	}
+
+	private static int rgb(final Color value)
+	{
+		return value.getRGB() & 0xffffff;
 	}
 }
