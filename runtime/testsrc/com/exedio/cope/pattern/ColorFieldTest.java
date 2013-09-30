@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.color;
 
 import com.exedio.cope.MandatoryViolationException;
@@ -77,5 +78,16 @@ public class ColorFieldTest extends CopeTest
 			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
 		}
 		assertEquals(new Color(1, 2, 3), i.getColor());
+
+		try
+		{
+			new ColorFieldItem(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation for ColorFieldItem.color", e.getMessage());
+		}
+		assertContains(i, TYPE.search());
 	}
 }
