@@ -65,6 +65,8 @@ public class ColorFieldTest extends CopeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(color, e.getFeature());
 		}
 		assertEquals(new Color(1, 2, 3), i.getColor());
 
@@ -76,6 +78,8 @@ public class ColorFieldTest extends CopeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(color, e.getFeature());
 		}
 		assertEquals(new Color(1, 2, 3), i.getColor());
 
@@ -87,6 +91,8 @@ public class ColorFieldTest extends CopeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals("mandatory violation for ColorFieldItem.color", e.getMessage());
+			assertEquals(null, e.getItem());
+			assertEquals(color, e.getFeature());
 		}
 		assertContains(i, TYPE.search());
 	}
