@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.ColorFieldItem.color;
+
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeTest;
 import java.awt.Color;
 
@@ -34,11 +37,45 @@ public class ColorFieldTest extends CopeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		i = deleteOnTearDown(new ColorFieldItem(new Color(1, 2, 3 )));
+		i = deleteOnTearDown(new ColorFieldItem(new Color(1, 2, 3)));
 	}
 
-	public void testIt()
+	public void testMandatory()
 	{
-		assertEquals(new Color(1, 2, 3 ), i.getColor());
+		assertEquals(new Color(1, 2, 3), i.getColor());
+
+		i.setColor(new Color(11, 12, 13));
+		assertEquals(new Color(11, 12, 13), i.getColor());
+
+		i.set(color.map(new Color(21, 22, 23)));
+		assertEquals(new Color(21, 22, 23), i.getColor());
+
+		i.setColor(new Color(31, 32, 33, 255));
+		assertEquals(new Color(31, 32, 33), i.getColor());
+	}
+
+	public void testMandatoryViolation()
+	{
+		try
+		{
+			i.setColor(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+		}
+		assertEquals(new Color(1, 2, 3), i.getColor());
+
+		try
+		{
+			i.set(color.map(null));
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.color", e.getMessage());
+		}
+		assertEquals(new Color(1, 2, 3), i.getColor());
 	}
 }
