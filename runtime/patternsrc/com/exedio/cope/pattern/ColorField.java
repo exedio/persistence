@@ -40,23 +40,19 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	public ColorField()
 	{
-		this(true);
+		this(new IntegerField().range(0, 0xffffff));
 	}
 
-	private ColorField(final boolean mandatory)
+	private ColorField(final IntegerField rgb)
 	{
-		this.mandatory = mandatory;
-
-		IntegerField rgb = new IntegerField().range(0, 0xffffff);
-		if(!mandatory)
-			rgb = rgb.optional();
 		addSource(this.rgb = rgb, "rgb");
+		this.mandatory = rgb.isMandatory();
 	}
 
 	@SuppressWarnings("static-method")
 	public ColorField optional()
 	{
-		return new ColorField(false);
+		return new ColorField(rgb.optional());
 	}
 
 	public boolean isInitial()
