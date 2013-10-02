@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
+import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
@@ -41,6 +42,7 @@ public class ColorFieldModelTest extends CopeAssert
 
 	private static final IntegerField mandatoryRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
 	private static final IntegerField optionalRgb = (IntegerField)TYPE.getFeature("optional-rgb");
+	private static final IntegerField defaultToRgb = (IntegerField)TYPE.getFeature("defaultTo-rgb");
 
 	public void testIt()
 	{
@@ -53,6 +55,8 @@ public class ColorFieldModelTest extends CopeAssert
 				mandatoryRgb,
 				optional,
 				optionalRgb,
+				defaultTo,
+				defaultToRgb,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -60,6 +64,8 @@ public class ColorFieldModelTest extends CopeAssert
 				mandatoryRgb,
 				optional,
 				optionalRgb,
+				defaultTo,
+				defaultToRgb,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
