@@ -74,20 +74,28 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals("mandatory-rgb", mandatoryRgb.getName());
 		assertEquals("optional", optional.getName());
 		assertEquals("optional-rgb", optionalRgb.getName());
+		assertEquals("defaultTo", defaultTo.getName());
+		assertEquals("defaultTo-rgb", defaultToRgb.getName());
 
 		assertEquals(list(mandatoryRgb), mandatory.getSourceFeatures());
 		assertEquals(mandatory, mandatoryRgb.getPattern());
 		assertEquals(list(optionalRgb), optional.getSourceFeatures());
 		assertEquals(optional, optionalRgb.getPattern());
+		assertEquals(list(defaultToRgb), defaultTo.getSourceFeatures());
+		assertEquals(defaultTo, defaultToRgb.getPattern());
 
 		assertSerializedSame(mandatory, 392);
 		assertSerializedSame(mandatoryRgb, 396);
 		assertSerializedSame(optional, 391);
 		assertSerializedSame(optionalRgb, 395);
+		assertSerializedSame(defaultTo, 392);
+		assertSerializedSame(defaultToRgb, 396);
 
 		assertEquals(0, mandatoryRgb.getMinimum());
 		assertEquals(0xffffff, mandatoryRgb.getMaximum());
 		assertEquals(0, optionalRgb.getMinimum());
 		assertEquals(0xffffff, optionalRgb.getMaximum());
+		assertEquals(0, defaultToRgb.getMinimum());
+		assertEquals(0xffffff, defaultToRgb.getMaximum());
 	}
 }
