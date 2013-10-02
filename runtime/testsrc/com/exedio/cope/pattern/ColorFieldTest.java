@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
+import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
@@ -162,5 +163,26 @@ public class ColorFieldTest extends CopeTest
 
 		i.set(optional.map(null));
 		assertEquals(null, i.getOptional());
+	}
+
+	public void testDefaultTo()
+	{
+		assertEquals(new Color(22, 33, 44), i.getDefaultTo());
+
+		i.setDefaultTo(new Color(11, 12, 13));
+		assertEquals(new Color(11, 12, 13), i.getDefaultTo());
+
+		try
+		{
+			i.setDefaultTo(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.defaultTo", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(defaultTo, e.getFeature());
+		}
+		assertEquals(new Color(11, 12, 13), i.getDefaultTo());
 	}
 }

@@ -54,6 +54,11 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return new ColorField(rgb.optional());
 	}
 
+	public ColorField defaultTo(final Color defaultConstant)
+	{
+		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
+	}
+
 	public boolean isInitial()
 	{
 		return rgb.isInitial();
