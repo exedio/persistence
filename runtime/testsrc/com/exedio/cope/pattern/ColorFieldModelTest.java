@@ -41,7 +41,7 @@ public class ColorFieldModelTest extends CopeAssert
 	}
 
 	private static final IntegerField mandatoryRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
-	private static final IntegerField optionalRgb = (IntegerField)TYPE.getFeature("optional-rgb");
+	private static final IntegerField optionalRgb  = (IntegerField)TYPE.getFeature("optional-rgb" );
 	private static final IntegerField defaultToRgb = (IntegerField)TYPE.getFeature("defaultTo-rgb");
 
 	public void testIt()
