@@ -172,6 +172,16 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	private static int reverseAlpha(final int rgb)
 	{
+		final int oldAlpha = (rgb >> 24) & 0xff;
+		final int newAlpha = 255 - oldAlpha;
+		final int result = (newAlpha << 24) | (rgb & 0xffffff);
+
+		assert result==reverseAlphaAssert(rgb) : result;
+		return result;
+	}
+
+	private static int reverseAlphaAssert(final int rgb)
+	{
 		final Color value = new Color(rgb, true);
 		return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha()).getRGB();
 	}
