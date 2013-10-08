@@ -170,6 +170,15 @@ public final class ColorField extends Pattern implements Settable<Color>
 		}
 	}
 
+	/**
+	 * This methods transforms the typical alpha value of
+	 * 0 (means transparent) to 255 (means opaque) into
+	 * 255 (means transparent) to 0 (means opaque).
+	 * This transformation ensures, that the persistent value
+	 * of any opaque {@link Color} does not depend on whether
+	 * the {@link ColorField}
+	 * {@link #isAlphaAllowed() allows alpha} or not.
+	 */
 	private static int reverseAlpha(final int rgb)
 	{
 		final int oldAlpha = (rgb >> 24) & 0xff;
