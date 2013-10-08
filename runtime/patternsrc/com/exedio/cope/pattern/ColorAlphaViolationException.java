@@ -78,8 +78,8 @@ public final class ColorAlphaViolationException extends ConstraintViolationExcep
 	protected String getMessage(final boolean withFeature)
 	{
 		return
-			"transparency violation" + getItemPhrase() +
-			", " + value + " is transparent" +
+			"alpha violation" + getItemPhrase() +
+			", " + value + " has alpha" +
 			(withFeature ? (" for " + feature) : "");
 	}
 }

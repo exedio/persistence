@@ -155,7 +155,7 @@ public class ColorFieldTest extends CopeTest
 		}
 		catch(final ColorAlphaViolationException e)
 		{
-			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
+			assertEquals("alpha violation on " + i + ", java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
 			assertEquals(mandatory, e.getFeature());
 			assertEquals(transparent, e.getValue());
@@ -169,7 +169,7 @@ public class ColorFieldTest extends CopeTest
 		}
 		catch(final ColorAlphaViolationException e)
 		{
-			assertEquals("transparency violation on " + i + ", java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
+			assertEquals("alpha violation on " + i + ", java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
 			assertEquals(mandatory, e.getFeature());
 			assertEquals(transparent, e.getValue());
@@ -183,7 +183,7 @@ public class ColorFieldTest extends CopeTest
 		}
 		catch(final ColorAlphaViolationException e)
 		{
-			assertEquals("transparency violation, java.awt.Color[r=55,g=66,b=77] is transparent for ColorFieldItem.mandatory", e.getMessage());
+			assertEquals("alpha violation, java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(null, e.getItem());
 			assertEquals(mandatory, e.getFeature());
 			assertEquals(transparent, e.getValue());
