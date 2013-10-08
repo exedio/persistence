@@ -108,6 +108,8 @@ public final class ColorField extends Pattern implements Settable<Color>
 	{
 		final Set<Class<? extends Throwable>> result = rgb.getInitialExceptions();
 		result.remove(IntegerRangeViolationException.class);
+		if(!alphaAllowed)
+			result.add(ColorAlphaViolationException.class);
 		return result;
 	}
 
