@@ -82,8 +82,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	public Color getDefaultConstant()
 	{
-		final Integer rgb = this.rgb.getDefaultConstant();
-		return rgb!=null ? new Color(rgb) : null;
+		return color(this.rgb.getDefaultConstant());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
@@ -103,9 +102,13 @@ public final class ColorField extends Pattern implements Settable<Color>
 		}
 		else
 		{
-			final Integer rgb = this.rgb.get(item);
-			return rgb!=null ? new Color(rgb) : null;
+			return color(this.rgb.get(item));
 		}
+	}
+
+	private static Color color(final Integer rgb)
+	{
+		return rgb!=null ? new Color(rgb) : null;
 	}
 
 	@Wrap(order=20,
