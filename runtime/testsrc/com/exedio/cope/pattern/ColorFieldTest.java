@@ -238,6 +238,13 @@ public class ColorFieldTest extends CopeTest
 		assertPersistence(new Color(  0, 255, 255),    65535);
 		assertPersistence(new Color(255,   0, 255), 16711935);
 		assertPersistence(new Color(255, 255,   0), 16776960);
+
+		assertPersistence(new Color(255, 255,   0,  60), 16776960, -1006633216);
+		assertPersistence(new Color(  0,   0,   0,  60),        0, -1023410176);
+		assertPersistence(new Color(255, 255, 255,  60), 16777215, -1006632961);
+		assertPersistence(new Color( 55,  66,  77,  60),  3621453, -1019788723);
+		assertPersistence(new Color( 55,  66,  77,   0),  3621453,   -13155763);
+		assertPersistence(new Color( 55,  66,  77, 255),  3621453,     3621453);
 	}
 
 	private void assertPersistence(final Color color, final int value)
@@ -245,5 +252,18 @@ public class ColorFieldTest extends CopeTest
 		i.setOptionalAndAlpha(color);
 		assertEquals("optional", value, i.getOptionalRgb());
 		assertEquals("alpha"   , value, i.getAlphaRgb   ());
+	}
+
+	private void assertPersistence(final Color color, final int optional, final int alpha)
+	{
+		i.setOptional(new Color(color.getRed(), color.getGreen(), color.getBlue()));
+		i.setAlpha(color);
+		assertEquals("optional", optional, i.getOptionalRgb());
+		assertEquals("alpha"   , alpha   , i.getAlphaRgb   ());
+
+		// NOTE
+		// The following mask is the transition from ColorField with alpha
+		// allowed, to a ColorField with alpha not allowed.
+		assertEquals(optional, alpha & 0xffffff);
 	}
 }
