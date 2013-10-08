@@ -42,10 +42,10 @@ public class ColorFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(ColorFieldModelTest.class, "MODEL");
 	}
 
-	private static final IntegerField mandatoryRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
-	private static final IntegerField optionalRgb  = (IntegerField)TYPE.getFeature("optional-rgb" );
-	private static final IntegerField defaultToRgb = (IntegerField)TYPE.getFeature("defaultTo-rgb");
-	private static final IntegerField alphaRgb     = (IntegerField)TYPE.getFeature("alpha-rgb"    );
+	private static final IntegerField mandatoryRgb = mandatory.getRgb();
+	private static final IntegerField optionalRgb  = optional .getRgb();
+	private static final IntegerField defaultToRgb = defaultTo.getRgb();
+	private static final IntegerField alphaRgb     = alpha    .getRgb();
 
 	public void testIt()
 	{

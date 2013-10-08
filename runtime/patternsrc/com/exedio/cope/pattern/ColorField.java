@@ -99,6 +99,11 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return color(this.rgb.getDefaultConstant());
 	}
 
+	public IntegerField getRgb()
+	{
+		return rgb;
+	}
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = rgb.getInitialExceptions();
