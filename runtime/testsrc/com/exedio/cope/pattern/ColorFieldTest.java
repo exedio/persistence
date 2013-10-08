@@ -55,6 +55,14 @@ public class ColorFieldTest extends CopeTest
 		assertMandatory(new Color( 31,  32,  33, 255));
 		assertMandatory(new Color(255, 255, 255, 255));
 		assertMandatory(new Color(  0,   0,   0, 255));
+
+		assertMandatory(new Color(255,   0,   0, 255));
+		assertMandatory(new Color(  0, 255,   0, 255));
+		assertMandatory(new Color(  0,   0, 255, 255));
+
+		assertMandatory(new Color(  0, 255, 255, 255));
+		assertMandatory(new Color(255,   0, 255, 255));
+		assertMandatory(new Color(255, 255,   0, 255));
 	}
 
 	private void assertMandatory(final Color color)
