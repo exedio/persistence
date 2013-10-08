@@ -126,10 +126,10 @@ public final class ColorField extends Pattern implements Settable<Color>
 		if(rgb==null)
 			return null;
 
-		final Color value = new Color(rgb, hasalpha);
-		if(!hasalpha)
-			return value;
-		return reverseAlpha(value);
+		return
+			hasalpha
+			? reverseAlpha(new Color(rgb, true))
+			: new Color(rgb, false);
 	}
 
 	@Wrap(order=20,
