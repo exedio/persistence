@@ -244,6 +244,6 @@ public class ColorFieldTest extends CopeTest
 	{
 		i.setOptionalAndAlpha(color);
 		assertEquals("optional", optional, i.getOptionalRgb());
-		assertEquals("alpha"   , alpha   , i.getAlphaRgb   ());
+		assertEquals("alpha"   , optional, i.getAlphaRgb   ());
 	}
 }

@@ -123,7 +123,13 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	private Color color(final Integer rgb)
 	{
-		return rgb!=null ? new Color(rgb, hasalpha) : null;
+		if(rgb==null)
+			return null;
+
+		final Color value = new Color(rgb, hasalpha);
+		if(!hasalpha)
+			return value;
+		return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha());
 	}
 
 	@Wrap(order=20,
@@ -156,7 +162,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		}
 		else if(hasalpha)
 		{
-			return value.getRGB();
+			return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha()).getRGB();
 		}
 		else
 		{
