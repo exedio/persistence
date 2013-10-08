@@ -26,7 +26,7 @@ import java.awt.Color;
 
 /**
  * Signals, that an attempt to write an {@link ColorField} has been failed,
- * because the value to be written had a transparency component.
+ * because the value to be written had a alpha component.
  *
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
@@ -34,7 +34,7 @@ import java.awt.Color;
  * @author Ralf Wiebicke
  */
 @ConstructorComment("if {0} violates its transparency constraint.")
-public final class ColorTransparencyViolationException extends ConstraintViolationException
+public final class ColorAlphaViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 
@@ -42,12 +42,12 @@ public final class ColorTransparencyViolationException extends ConstraintViolati
 	private final Color value;
 
 	/**
-	 * Creates a new TransparencyViolationException with the necessary information about the violation.
+	 * Creates a new ColorAlphaViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	ColorTransparencyViolationException(
+	ColorAlphaViolationException(
 			final ColorField feature,
 			final Item item,
 			final Color value)

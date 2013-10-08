@@ -161,7 +161,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		else
 		{
 			if(value.getAlpha()!=255)
-				throw new ColorTransparencyViolationException(this, exceptionItem, value);
+				throw new ColorAlphaViolationException(this, exceptionItem, value);
 
 			return value.getRGB() & 0xffffff;
 		}

@@ -129,7 +129,7 @@ public class ColorFieldModelTest extends CopeAssert
 			field.defaultTo(new Color(11, 22, 33, 44));
 			fail();
 		}
-		catch(final ColorTransparencyViolationException e)
+		catch(final ColorAlphaViolationException e)
 		{
 			assertEquals("transparency violation, java.awt.Color[r=11,g=22,b=33] is transparent for " + field, e.getMessage());
 			assertEquals(null, e.getItem());
