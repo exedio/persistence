@@ -128,7 +128,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 		return
 			hasalpha
-			? reverseAlpha(rgb)
+			? new Color(reverseAlpha(rgb), true)
 			: new Color(rgb, false);
 	}
 
@@ -162,7 +162,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		}
 		else if(hasalpha)
 		{
-			return reverseAlpha(value.getRGB()).getRGB();
+			return reverseAlpha(value.getRGB());
 		}
 		else
 		{
@@ -173,9 +173,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 		}
 	}
 
-	private static Color reverseAlpha(final int rgb)
+	private static int reverseAlpha(final int rgb)
 	{
 		final Color value = new Color(rgb, true);
-		return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha());
+		return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha()).getRGB();
 	}
 }
