@@ -33,7 +33,7 @@ import java.awt.Color;
  *
  * @author Ralf Wiebicke
  */
-@ConstructorComment("if {0} violates its transparency constraint.")
+@ConstructorComment("if {0} violates its alpha constraint.")
 public final class ColorAlphaViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
