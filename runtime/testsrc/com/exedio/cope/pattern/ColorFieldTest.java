@@ -47,20 +47,20 @@ public class ColorFieldTest extends CopeTest
 	{
 		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
-		i.setMandatory(new Color(11, 12, 13));
-		assertEquals(new Color(11, 12, 13), i.getMandatory());
+		assertMandatory(new Color(11, 12, 13));
 
 		i.set(mandatory.map(new Color(21, 22, 23)));
 		assertEquals(new Color(21, 22, 23), i.getMandatory());
 
-		i.setMandatory(new Color(31, 32, 33, 255));
-		assertEquals(new Color(31, 32, 33), i.getMandatory());
+		assertMandatory(new Color( 31,  32,  33, 255));
+		assertMandatory(new Color(255, 255, 255, 255));
+		assertMandatory(new Color(  0,   0,   0, 255));
+	}
 
-		i.setMandatory(new Color(255, 255, 255, 255));
-		assertEquals(new Color(255, 255, 255), i.getMandatory());
-
-		i.setMandatory(new Color(0, 0, 0, 255));
-		assertEquals(new Color(0, 0, 0), i.getMandatory());
+	private void assertMandatory(final Color color)
+	{
+		i.setMandatory(color);
+		assertEquals(color, i.getMandatory());
 	}
 
 	public void testMandatoryViolation()
