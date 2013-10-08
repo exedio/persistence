@@ -240,10 +240,10 @@ public class ColorFieldTest extends CopeTest
 		assertPersistence(new Color(255, 255,   0), 16776960);
 	}
 
-	private void assertPersistence(final Color color, final int optional)
+	private void assertPersistence(final Color color, final int value)
 	{
 		i.setOptionalAndAlpha(color);
-		assertEquals("optional", optional, i.getOptionalRgb());
-		assertEquals("alpha"   , optional, i.getAlphaRgb   ());
+		assertEquals("optional", value, i.getOptionalRgb());
+		assertEquals("alpha"   , value, i.getAlphaRgb   ());
 	}
 }
