@@ -30,6 +30,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import java.util.Arrays;
 
@@ -47,6 +48,7 @@ public class ColorFieldModelTest extends CopeAssert
 	private static final IntegerField defaultToRgb = defaultTo.getRgb();
 	private static final IntegerField alphaRgb     = alpha    .getRgb();
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
