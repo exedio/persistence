@@ -113,7 +113,7 @@ public class ColorFieldTest extends CopeTest
 		assertContains(i, TYPE.search());
 	}
 
-	public void testColorTransparency()
+	public void testAlpha()
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
 
@@ -145,12 +145,12 @@ public class ColorFieldTest extends CopeTest
 		assertEquals(color, i.getAlpha());
 	}
 
-	public void testColorTransparencyViolation()
+	public void testAlphaViolation()
 	{
-		final Color transparent = new Color(55, 66, 77, 254);
+		final Color alpha = new Color(55, 66, 77, 254);
 		try
 		{
-			i.setMandatory(transparent);
+			i.setMandatory(alpha);
 			fail();
 		}
 		catch(final ColorAlphaViolationException e)
@@ -158,13 +158,13 @@ public class ColorFieldTest extends CopeTest
 			assertEquals("alpha violation on " + i + ", java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
 			assertEquals(mandatory, e.getFeature());
-			assertEquals(transparent, e.getValue());
+			assertEquals(alpha, e.getValue());
 		}
 		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
-			i.set(mandatory.map(transparent));
+			i.set(mandatory.map(alpha));
 			fail();
 		}
 		catch(final ColorAlphaViolationException e)
@@ -172,13 +172,13 @@ public class ColorFieldTest extends CopeTest
 			assertEquals("alpha violation on " + i + ", java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(i, e.getItem());
 			assertEquals(mandatory, e.getFeature());
-			assertEquals(transparent, e.getValue());
+			assertEquals(alpha, e.getValue());
 		}
 		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
 		try
 		{
-			new ColorFieldItem(transparent);
+			new ColorFieldItem(alpha);
 			fail();
 		}
 		catch(final ColorAlphaViolationException e)
@@ -186,7 +186,7 @@ public class ColorFieldTest extends CopeTest
 			assertEquals("alpha violation, java.awt.Color[r=55,g=66,b=77] has alpha for ColorFieldItem.mandatory", e.getMessage());
 			assertEquals(null, e.getItem());
 			assertEquals(mandatory, e.getFeature());
-			assertEquals(transparent, e.getValue());
+			assertEquals(alpha, e.getValue());
 		}
 		assertContains(i, TYPE.search());
 	}
