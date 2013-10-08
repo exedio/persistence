@@ -96,14 +96,10 @@ public final class ColorField extends Pattern implements Settable<Color>
 			doc="Returns the value of {0}.")
 	public Color get(final Item item)
 	{
-		if(mandatory)
-		{
-			return new Color(rgb.getMandatory(item));
-		}
-		else
-		{
-			return color(this.rgb.get(item));
-		}
+		return
+			mandatory
+			? new Color(rgb.getMandatory(item))
+			: color(this.rgb.get(item));
 	}
 
 	private static Color color(final Integer rgb)
