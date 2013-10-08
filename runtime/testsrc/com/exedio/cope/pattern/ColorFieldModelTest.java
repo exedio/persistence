@@ -29,6 +29,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import java.awt.Color;
 import java.util.Arrays;
 
 public class ColorFieldModelTest extends CopeAssert
@@ -97,5 +98,9 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(0xffffff, optionalRgb.getMaximum());
 		assertEquals(0, defaultToRgb.getMinimum());
 		assertEquals(0xffffff, defaultToRgb.getMaximum());
+
+		assertEquals(null, mandatory.getDefaultConstant());
+		assertEquals(null, optional .getDefaultConstant());
+		assertEquals(new Color(22, 33, 44), defaultTo.getDefaultConstant());
 	}
 }
