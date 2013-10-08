@@ -37,7 +37,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	private final IntegerField rgb;
 	private final boolean mandatory;
-	private final boolean hasalpha;
+	private final boolean alphaAllowed;
 
 	public ColorField()
 	{
@@ -48,9 +48,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 	{
 		addSource(this.rgb = rgb, "rgb");
 		this.mandatory = rgb.isMandatory();
-		this.hasalpha = (rgb.getMinimum()==Integer.MIN_VALUE);
-		assert (hasalpha?Integer.MIN_VALUE:0       )==rgb.getMinimum();
-		assert (hasalpha?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
+		this.alphaAllowed = (rgb.getMinimum()==Integer.MIN_VALUE);
+		assert (alphaAllowed?Integer.MIN_VALUE:0       )==rgb.getMinimum();
+		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
 	}
 
 	public ColorField optional()
@@ -85,7 +85,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	public boolean isAlphaAllowed()
 	{
-		return hasalpha;
+		return alphaAllowed;
 	}
 
 	@Deprecated
@@ -126,7 +126,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		if(rgb==null)
 			return null;
 
-		return new Color(hasalpha ? reverseAlpha(rgb) : rgb, hasalpha);
+		return new Color(alphaAllowed ? reverseAlpha(rgb) : rgb, alphaAllowed);
 	}
 
 	@Wrap(order=20,
@@ -157,7 +157,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 			return null;
 		}
-		else if(hasalpha)
+		else if(alphaAllowed)
 		{
 			return reverseAlpha(value.getRGB());
 		}
