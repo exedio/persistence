@@ -79,7 +79,7 @@ public final class ColorAlphaViolationException extends ConstraintViolationExcep
 	{
 		return
 			"alpha violation" + getItemPhrase() +
-			", " + value + " has alpha" +
+			", " + value + " has alpha of " + value.getAlpha() +
 			(withFeature ? (" for " + feature) : "");
 	}
 }

@@ -133,7 +133,7 @@ public class ColorFieldModelTest extends CopeAssert
 		}
 		catch(final ColorAlphaViolationException e)
 		{
-			assertEquals("alpha violation, java.awt.Color[r=11,g=22,b=33] has alpha for " + field, e.getMessage());
+			assertEquals("alpha violation, java.awt.Color[r=11,g=22,b=33] has alpha of 44 for " + field, e.getMessage());
 			assertEquals(null, e.getItem());
 			// TODO
 			// feature is wrong, should be without feature,
