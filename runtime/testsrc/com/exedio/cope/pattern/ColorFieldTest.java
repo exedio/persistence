@@ -113,6 +113,38 @@ public class ColorFieldTest extends CopeTest
 		assertContains(i, TYPE.search());
 	}
 
+	public void testColorTransparency()
+	{
+		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
+
+		assertAlpha(null);
+		assertAlpha(new Color( 55,  66,  77, 254));
+		assertAlpha(new Color(  0,   0,   0,   0));
+		assertAlpha(new Color(  0,   0,   0, 255));
+		assertAlpha(new Color(  0,   0, 255,   0));
+		assertAlpha(new Color(  0,   0, 255, 255));
+		assertAlpha(new Color(  0, 255,   0,   0));
+		assertAlpha(new Color(  0, 255,   0, 255));
+		assertAlpha(new Color(  0, 255, 255,   0));
+		assertAlpha(new Color(  0, 255, 255, 255));
+		assertAlpha(new Color(255,   0,   0,   0));
+		assertAlpha(new Color(255,   0,   0, 255));
+		assertAlpha(new Color(255,   0, 255,   0));
+		assertAlpha(new Color(255,   0, 255, 255));
+		assertAlpha(new Color(255, 255,   0,   0));
+		assertAlpha(new Color(255, 255,   0, 255));
+		assertAlpha(new Color(255, 255, 255,   0));
+		assertAlpha(new Color(255, 255, 255, 255));
+
+		// TODO test same db values
+	}
+
+	private void assertAlpha(final Color color)
+	{
+		i.setAlpha(color);
+		assertEquals(color, i.getAlpha());
+	}
+
 	public void testColorTransparencyViolation()
 	{
 		final Color transparent = new Color(55, 66, 77, 254);

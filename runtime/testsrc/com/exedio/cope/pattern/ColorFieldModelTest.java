@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
+import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
@@ -44,6 +45,7 @@ public class ColorFieldModelTest extends CopeAssert
 	private static final IntegerField mandatoryRgb = (IntegerField)TYPE.getFeature("mandatory-rgb");
 	private static final IntegerField optionalRgb  = (IntegerField)TYPE.getFeature("optional-rgb" );
 	private static final IntegerField defaultToRgb = (IntegerField)TYPE.getFeature("defaultTo-rgb");
+	private static final IntegerField alphaRgb     = (IntegerField)TYPE.getFeature("alpha-rgb"    );
 
 	public void testIt()
 	{
@@ -58,6 +60,8 @@ public class ColorFieldModelTest extends CopeAssert
 				optionalRgb,
 				defaultTo,
 				defaultToRgb,
+				alpha,
+				alphaRgb,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -67,6 +71,8 @@ public class ColorFieldModelTest extends CopeAssert
 				optionalRgb,
 				defaultTo,
 				defaultToRgb,
+				alpha,
+				alphaRgb,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
@@ -77,6 +83,8 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals("optional-rgb", optionalRgb.getName());
 		assertEquals("defaultTo", defaultTo.getName());
 		assertEquals("defaultTo-rgb", defaultToRgb.getName());
+		assertEquals("alpha", alpha.getName());
+		assertEquals("alpha-rgb", alphaRgb.getName());
 
 		assertEquals(list(mandatoryRgb), mandatory.getSourceFeatures());
 		assertEquals(mandatory, mandatoryRgb.getPattern());
@@ -84,6 +92,8 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(optional, optionalRgb.getPattern());
 		assertEquals(list(defaultToRgb), defaultTo.getSourceFeatures());
 		assertEquals(defaultTo, defaultToRgb.getPattern());
+		assertEquals(list(alphaRgb), alpha.getSourceFeatures());
+		assertEquals(alpha, alphaRgb.getPattern());
 
 		assertSerializedSame(mandatory, 392);
 		assertSerializedSame(mandatoryRgb, 396);
@@ -91,6 +101,8 @@ public class ColorFieldModelTest extends CopeAssert
 		assertSerializedSame(optionalRgb, 395);
 		assertSerializedSame(defaultTo, 392);
 		assertSerializedSame(defaultToRgb, 396);
+		assertSerializedSame(alpha, 388);
+		assertSerializedSame(alphaRgb, 392);
 
 		assertEquals(0, mandatoryRgb.getMinimum());
 		assertEquals(0xffffff, mandatoryRgb.getMaximum());
@@ -98,9 +110,34 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(0xffffff, optionalRgb.getMaximum());
 		assertEquals(0, defaultToRgb.getMinimum());
 		assertEquals(0xffffff, defaultToRgb.getMaximum());
+		assertEquals(Integer.MIN_VALUE, alphaRgb.getMinimum());
+		assertEquals(Integer.MAX_VALUE, alphaRgb.getMaximum());
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
-		assertEquals(new Color(22, 33, 44), defaultTo.getDefaultConstant());
+		assertEquals(new Color(22, 33, 44     ), defaultTo.getDefaultConstant());
+		assertEquals(new Color(77, 88, 99, 254), alpha    .getDefaultConstant());
+
+		assertEquals(false, new ColorField().optional().allowAlpha().isMandatory());
+		assertEquals(true,  new ColorField().optional().allowAlpha().isAlphaAllowed());
+		assertEquals(false, new ColorField().allowAlpha().optional().isMandatory());
+		assertEquals(true,  new ColorField().allowAlpha().optional().isAlphaAllowed());
+
+		final ColorField field = new ColorField();
+		try
+		{
+			field.defaultTo(new Color(11, 22, 33, 44));
+			fail();
+		}
+		catch(final ColorTransparencyViolationException e)
+		{
+			assertEquals("transparency violation, java.awt.Color[r=11,g=22,b=33] is transparent for " + field, e.getMessage());
+			assertEquals(null, e.getItem());
+			// TODO
+			// feature is wrong, should be without feature,
+			// since feature is not yet mounted.
+			assertEquals(field, e.getFeature());
+			assertEquals(new Color(11, 22, 33, 44), e.getValue());
+		}
 	}
 }

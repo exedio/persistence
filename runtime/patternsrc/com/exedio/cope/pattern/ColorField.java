@@ -37,6 +37,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	private final IntegerField rgb;
 	private final boolean mandatory;
+	private final boolean hasalpha;
 
 	public ColorField()
 	{
@@ -47,6 +48,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 	{
 		addSource(this.rgb = rgb, "rgb");
 		this.mandatory = rgb.isMandatory();
+		this.hasalpha = (rgb.getMinimum()==Integer.MIN_VALUE);
+		assert (hasalpha?Integer.MIN_VALUE:0       )==rgb.getMinimum();
+		assert (hasalpha?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
 	}
 
 	public ColorField optional()
@@ -57,6 +61,11 @@ public final class ColorField extends Pattern implements Settable<Color>
 	public ColorField defaultTo(final Color defaultConstant)
 	{
 		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
+	}
+
+	public ColorField allowAlpha()
+	{
+		return new ColorField(rgb.range(Integer.MIN_VALUE, Integer.MAX_VALUE));
 	}
 
 	public boolean isInitial()
@@ -72,6 +81,11 @@ public final class ColorField extends Pattern implements Settable<Color>
 	public boolean isMandatory()
 	{
 		return mandatory;
+	}
+
+	public boolean isAlphaAllowed()
+	{
+		return hasalpha;
 	}
 
 	@Deprecated
@@ -102,9 +116,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 			: color(this.rgb.get(item));
 	}
 
-	private static Color color(final Integer rgb)
+	private Color color(final Integer rgb)
 	{
-		return rgb!=null ? new Color(rgb) : null;
+		return rgb!=null ? new Color(rgb, hasalpha) : null;
 	}
 
 	@Wrap(order=20,
@@ -134,6 +148,10 @@ public final class ColorField extends Pattern implements Settable<Color>
 				throw MandatoryViolationException.create(this, exceptionItem);
 
 			return null;
+		}
+		else if(hasalpha)
+		{
+			return value.getRGB();
 		}
 		else
 		{
