@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* PriceField supports convenience methods for conditions:
+	is[Not]Null, [not]Equal, less[OrEqual], greater[OrEqual], between
 * ColorField added
 * instrumentor omits MediaFilter#getURLWithFallbackToSource, if it makes
 	no sense to call this method, because it behaves equally to #getURL.
