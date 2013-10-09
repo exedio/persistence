@@ -22,14 +22,14 @@ import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 
-public class PriceFieldTest extends AbstractRuntimeTest
+public class PriceFieldTest extends AbstractRuntimeModelTest
 {
 	public PriceFieldTest()
 	{
