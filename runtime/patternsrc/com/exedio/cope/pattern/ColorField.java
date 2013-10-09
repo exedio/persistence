@@ -63,6 +63,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
 	}
 
+	/**
+	 * @see #isAlphaAllowed()
+	 */
 	public ColorField allowAlpha()
 	{
 		return new ColorField(rgb.range(Integer.MIN_VALUE, Integer.MAX_VALUE));
@@ -83,6 +86,14 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return mandatory;
 	}
 
+	/**
+	 * If this method returns false, this ColorField
+	 * allows opaque colors only.
+	 * This means, the {@link Color#getAlpha() alpha value}
+	 * must be 255.
+	 * If this method returns true, this ColorField
+	 * allows any colors with any {@link Color#getAlpha() alpha value}.
+	 */
 	public boolean isAlphaAllowed()
 	{
 		return alphaAllowed;
