@@ -99,6 +99,30 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return color(this.rgb.getDefaultConstant());
 	}
 
+	/**
+	 * Returns the field containing <b>almost</b>
+	 * the result of {@link Color#getRGB()}
+	 * of the persisted color.
+	 * The difference is as follows:
+	 * <p>
+	 * For {@link Color#getRGB()}
+	 * an {@link Color#getAlpha() alpha value} of 255
+	 * means that the color is completely opaque and
+	 * an {@link Color#getAlpha() alpha value} of 0
+	 * means that the color is completely transparent.
+	 * <p>
+	 * Values of the IntegerField returned by this method
+	 * do have the reverse meaning:
+	 * An alpha value of 255
+	 * means that the color is completely transparent and
+	 * an alpha value of 0
+	 * means that the color is completely opaque.
+	 * <p>
+	 * This transformation ensures, that the persistent value
+	 * of any opaque {@link Color} does not depend on whether
+	 * the {@link ColorField}
+	 * {@link #isAlphaAllowed() allows alpha} or not.
+	 */
 	public IntegerField getRGB()
 	{
 		return rgb;
@@ -173,13 +197,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 	}
 
 	/**
-	 * This methods transforms the typical alpha value of
-	 * 0 (means transparent) to 255 (means opaque) into
-	 * 255 (means transparent) to 0 (means opaque).
-	 * This transformation ensures, that the persistent value
-	 * of any opaque {@link Color} does not depend on whether
-	 * the {@link ColorField}
-	 * {@link #isAlphaAllowed() allows alpha} or not.
+	 * @see #getRGB()
 	 */
 	private static int reverseAlpha(final int rgb)
 	{
