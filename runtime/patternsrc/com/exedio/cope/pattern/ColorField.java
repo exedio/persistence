@@ -99,7 +99,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		return color(this.rgb.getDefaultConstant());
 	}
 
-	public IntegerField getRgb()
+	public IntegerField getRGB()
 	{
 		return rgb;
 	}

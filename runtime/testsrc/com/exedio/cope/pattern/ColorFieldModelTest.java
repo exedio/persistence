@@ -43,10 +43,10 @@ public class ColorFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(ColorFieldModelTest.class, "MODEL");
 	}
 
-	private static final IntegerField mandatoryRgb = mandatory.getRgb();
-	private static final IntegerField optionalRgb  = optional .getRgb();
-	private static final IntegerField defaultToRgb = defaultTo.getRgb();
-	private static final IntegerField alphaRgb     = alpha    .getRgb();
+	private static final IntegerField mandatoryRGB = mandatory.getRGB();
+	private static final IntegerField optionalRGB  = optional .getRGB();
+	private static final IntegerField defaultToRGB = defaultTo.getRGB();
+	private static final IntegerField alphaRGB     = alpha    .getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
@@ -57,63 +57,63 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				mandatory,
-				mandatoryRgb,
+				mandatoryRGB,
 				optional,
-				optionalRgb,
+				optionalRGB,
 				defaultTo,
-				defaultToRgb,
+				defaultToRGB,
 				alpha,
-				alphaRgb,
+				alphaRGB,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				mandatory,
-				mandatoryRgb,
+				mandatoryRGB,
 				optional,
-				optionalRgb,
+				optionalRGB,
 				defaultTo,
-				defaultToRgb,
+				defaultToRGB,
 				alpha,
-				alphaRgb,
+				alphaRGB,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
-		assertEquals(TYPE, mandatoryRgb.getType());
+		assertEquals(TYPE, mandatoryRGB.getType());
 		assertEquals("mandatory", mandatory.getName());
-		assertEquals("mandatory-rgb", mandatoryRgb.getName());
+		assertEquals("mandatory-rgb", mandatoryRGB.getName());
 		assertEquals("optional", optional.getName());
-		assertEquals("optional-rgb", optionalRgb.getName());
+		assertEquals("optional-rgb", optionalRGB.getName());
 		assertEquals("defaultTo", defaultTo.getName());
-		assertEquals("defaultTo-rgb", defaultToRgb.getName());
+		assertEquals("defaultTo-rgb", defaultToRGB.getName());
 		assertEquals("alpha", alpha.getName());
-		assertEquals("alpha-rgb", alphaRgb.getName());
+		assertEquals("alpha-rgb", alphaRGB.getName());
 
-		assertEquals(list(mandatoryRgb), mandatory.getSourceFeatures());
-		assertEquals(mandatory, mandatoryRgb.getPattern());
-		assertEquals(list(optionalRgb), optional.getSourceFeatures());
-		assertEquals(optional, optionalRgb.getPattern());
-		assertEquals(list(defaultToRgb), defaultTo.getSourceFeatures());
-		assertEquals(defaultTo, defaultToRgb.getPattern());
-		assertEquals(list(alphaRgb), alpha.getSourceFeatures());
-		assertEquals(alpha, alphaRgb.getPattern());
+		assertEquals(list(mandatoryRGB), mandatory.getSourceFeatures());
+		assertEquals(mandatory, mandatoryRGB.getPattern());
+		assertEquals(list(optionalRGB), optional.getSourceFeatures());
+		assertEquals(optional, optionalRGB.getPattern());
+		assertEquals(list(defaultToRGB), defaultTo.getSourceFeatures());
+		assertEquals(defaultTo, defaultToRGB.getPattern());
+		assertEquals(list(alphaRGB), alpha.getSourceFeatures());
+		assertEquals(alpha, alphaRGB.getPattern());
 
 		assertSerializedSame(mandatory, 392);
-		assertSerializedSame(mandatoryRgb, 396);
+		assertSerializedSame(mandatoryRGB, 396);
 		assertSerializedSame(optional, 391);
-		assertSerializedSame(optionalRgb, 395);
+		assertSerializedSame(optionalRGB, 395);
 		assertSerializedSame(defaultTo, 392);
-		assertSerializedSame(defaultToRgb, 396);
+		assertSerializedSame(defaultToRGB, 396);
 		assertSerializedSame(alpha, 388);
-		assertSerializedSame(alphaRgb, 392);
+		assertSerializedSame(alphaRGB, 392);
 
-		assertEquals(0, mandatoryRgb.getMinimum());
-		assertEquals(0xffffff, mandatoryRgb.getMaximum());
-		assertEquals(0, optionalRgb.getMinimum());
-		assertEquals(0xffffff, optionalRgb.getMaximum());
-		assertEquals(0, defaultToRgb.getMinimum());
-		assertEquals(0xffffff, defaultToRgb.getMaximum());
-		assertEquals(Integer.MIN_VALUE, alphaRgb.getMinimum());
-		assertEquals(Integer.MAX_VALUE, alphaRgb.getMaximum());
+		assertEquals(0, mandatoryRGB.getMinimum());
+		assertEquals(0xffffff, mandatoryRGB.getMaximum());
+		assertEquals(0, optionalRGB.getMinimum());
+		assertEquals(0xffffff, optionalRGB.getMaximum());
+		assertEquals(0, defaultToRGB.getMinimum());
+		assertEquals(0xffffff, defaultToRGB.getMaximum());
+		assertEquals(Integer.MIN_VALUE, alphaRGB.getMinimum());
+		assertEquals(Integer.MAX_VALUE, alphaRGB.getMaximum());
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());

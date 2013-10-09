@@ -250,16 +250,16 @@ public class ColorFieldTest extends CopeTest
 	private void assertPersistence(final Color color, final int value)
 	{
 		i.setOptionalAndAlpha(color);
-		assertEquals("optional", value, i.getOptionalRgb());
-		assertEquals("alpha"   , value, i.getAlphaRgb   ());
+		assertEquals("optional", value, i.getOptionalRGB());
+		assertEquals("alpha"   , value, i.getAlphaRGB   ());
 	}
 
 	private void assertPersistence(final Color color, final int optional, final int alpha)
 	{
 		i.setOptional(new Color(color.getRed(), color.getGreen(), color.getBlue()));
 		i.setAlpha(color);
-		assertEquals("optional", optional, i.getOptionalRgb());
-		assertEquals("alpha"   , alpha   , i.getAlphaRgb   ());
+		assertEquals("optional", optional, i.getOptionalRGB());
+		assertEquals("alpha"   , alpha   , i.getAlphaRGB   ());
 
 		// NOTE
 		// The following mask is the transition from ColorField with alpha

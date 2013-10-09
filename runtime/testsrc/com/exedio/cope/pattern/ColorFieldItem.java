@@ -35,14 +35,14 @@ final class ColorFieldItem extends Item
 		setAlpha(color);
 	}
 
-	int getOptionalRgb()
+	int getOptionalRGB()
 	{
-		return optional.getRgb().get(this);
+		return optional.getRGB().get(this);
 	}
 
-	int getAlphaRgb()
+	int getAlphaRGB()
 	{
-		return alpha.getRgb().get(this);
+		return alpha.getRGB().get(this);
 	}
 
 
