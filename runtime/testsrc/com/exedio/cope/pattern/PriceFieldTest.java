@@ -42,7 +42,7 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new PriceFieldItem(storeOf(555), storeOf(7777)));
+		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 
 	public void testIt()
@@ -128,10 +128,10 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getItem());
 		}
 
-		final PriceFieldItem item2 = deleteOnTearDown(new PriceFieldItem(new SetValue<?>[]{
+		final PriceFieldItem item2 = new PriceFieldItem(new SetValue<?>[]{
 				finalPrice.map(storeOf(567)),
 				bigPrice.map(storeOf(5001)),
-		}));
+		});
 		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());
 		assertEquals(storeOf(5001), item2.getBigPrice());
