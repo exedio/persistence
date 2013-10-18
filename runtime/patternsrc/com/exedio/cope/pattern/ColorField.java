@@ -18,6 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Cope;
+
+import com.exedio.cope.Condition;
+import com.exedio.cope.IsNullCondition;
+
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.Item;
@@ -224,5 +229,54 @@ public final class ColorField extends Pattern implements Settable<Color>
 	{
 		final Color value = new Color(rgb, true);
 		return new Color(value.getRed(), value.getGreen(), value.getBlue(), 255 - value.getAlpha()).getRGB();
+	}
+
+	// convenience methods for conditions and views ---------------------------------
+
+
+	public final IsNullCondition<?> isNull()
+	{
+		return rgb.isNull();
+	}
+
+	public final IsNullCondition<?> isNotNull()
+	{
+		return rgb.isNotNull();
+	}
+
+	public Condition equal(final Color value)
+	{
+		if (value == null)
+			return rgb.isNull();
+		if (!alphaAllowed && value.getAlpha() != 255)
+			return Condition.FALSE;
+		return rgb.equal(reverseAlpha(value.getRGB()));
+	}
+
+	/**
+	 * NOT EQUAL Condition.
+	 *
+	 * Note: according to SQL, a NULL value is evaluated to unknown, so a NOT EQUAL using a non null RHS is false for null values
+	 */
+	public Condition notEqual(final Color value)
+	{
+		if (value == null)
+			return rgb.isNotNull();
+		if (!alphaAllowed && value.getAlpha() != 255)
+			// ensure the fact:
+			// a null value in DB is neither equal nor not equal to a given non-null param,
+			// independent if this is in value range or not
+			return rgb.isNotNull();
+		return rgb.notEqual(reverseAlpha(value.getRGB()));
+	}
+
+	public Condition isOpaque()
+	{
+		return Cope.and(rgb.lessOrEqual(0xFFFFFF), rgb.greaterOrEqual(0));
+	}
+
+	public Condition isNotOpaque()
+	{
+		return Cope.or(rgb.greater(0xFFFFFF), rgb.less(0));
 	}
 }
