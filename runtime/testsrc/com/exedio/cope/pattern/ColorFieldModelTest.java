@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
+import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
 import com.exedio.cope.Feature;
@@ -43,10 +44,11 @@ public class ColorFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(ColorFieldModelTest.class, "MODEL");
 	}
 
-	private static final IntegerField mandatoryRGB = mandatory.getRGB();
-	private static final IntegerField optionalRGB  = optional .getRGB();
-	private static final IntegerField defaultToRGB = defaultTo.getRGB();
-	private static final IntegerField alphaRGB     = alpha    .getRGB();
+	private static final IntegerField mandatoryRGB      = mandatory     .getRGB();
+	private static final IntegerField optionalRGB       = optional      .getRGB();
+	private static final IntegerField defaultToRGB      = defaultTo     .getRGB();
+	private static final IntegerField alphaRGB          = alpha         .getRGB();
+	private static final IntegerField mandatoryAlphaRGB = mandatoryAlpha.getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
@@ -64,6 +66,8 @@ public class ColorFieldModelTest extends CopeAssert
 				defaultToRGB,
 				alpha,
 				alphaRGB,
+				mandatoryAlpha,
+				mandatoryAlphaRGB,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -75,6 +79,8 @@ public class ColorFieldModelTest extends CopeAssert
 				defaultToRGB,
 				alpha,
 				alphaRGB,
+				mandatoryAlpha,
+				mandatoryAlphaRGB,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
@@ -87,6 +93,8 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals("defaultTo-rgb", defaultToRGB.getName());
 		assertEquals("alpha", alpha.getName());
 		assertEquals("alpha-rgb", alphaRGB.getName());
+		assertEquals("mandatoryAlpha", mandatoryAlpha.getName());
+		assertEquals("mandatoryAlpha-rgb", mandatoryAlphaRGB.getName());
 
 		assertEquals(list(mandatoryRGB), mandatory.getSourceFeatures());
 		assertEquals(mandatory, mandatoryRGB.getPattern());
@@ -96,6 +104,8 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(defaultTo, defaultToRGB.getPattern());
 		assertEquals(list(alphaRGB), alpha.getSourceFeatures());
 		assertEquals(alpha, alphaRGB.getPattern());
+		assertEquals(list(mandatoryAlphaRGB), mandatoryAlpha.getSourceFeatures());
+		assertEquals(mandatoryAlpha, mandatoryAlphaRGB.getPattern());
 
 		assertSerializedSame(mandatory, 392);
 		assertSerializedSame(mandatoryRGB, 396);
@@ -105,6 +115,9 @@ public class ColorFieldModelTest extends CopeAssert
 		assertSerializedSame(defaultToRGB, 396);
 		assertSerializedSame(alpha, 388);
 		assertSerializedSame(alphaRGB, 392);
+		assertSerializedSame(mandatoryAlpha, 397);
+		assertSerializedSame(mandatoryAlphaRGB, 401);
+
 
 		assertEquals(0, mandatoryRGB.getMinimum());
 		assertEquals(0xffffff, mandatoryRGB.getMaximum());
@@ -114,11 +127,14 @@ public class ColorFieldModelTest extends CopeAssert
 		assertEquals(0xffffff, defaultToRGB.getMaximum());
 		assertEquals(Integer.MIN_VALUE, alphaRGB.getMinimum());
 		assertEquals(Integer.MAX_VALUE, alphaRGB.getMaximum());
+		assertEquals(Integer.MIN_VALUE, mandatoryAlphaRGB.getMinimum());
+		assertEquals(Integer.MAX_VALUE, mandatoryAlphaRGB.getMaximum());
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
-		assertEquals(new Color(22, 33, 44     ), defaultTo.getDefaultConstant());
-		assertEquals(new Color(77, 88, 99, 254), alpha    .getDefaultConstant());
+		assertEquals(new Color(22, 33, 44     ), defaultTo     .getDefaultConstant());
+		assertEquals(new Color(77, 88, 99, 254), alpha         .getDefaultConstant());
+		assertEquals(new Color(77, 88, 99, 254), mandatoryAlpha.getDefaultConstant());
 
 		assertEquals(false, new ColorField().optional().allowAlpha().isMandatory());
 		assertEquals(true,  new ColorField().optional().allowAlpha().isAlphaAllowed());

@@ -117,7 +117,6 @@ public class ColorFieldTest extends CopeTest
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
 
-		assertAlpha(null);
 		assertAlpha(new Color( 55,  66,  77, 254));
 		assertAlpha(new Color(  0,   0,   0,   0));
 		assertAlpha(new Color(  0,   0,   0, 255));
@@ -141,6 +140,36 @@ public class ColorFieldTest extends CopeTest
 	{
 		i.setAlpha(color);
 		assertEquals(color, i.getAlpha());
+	}
+
+	public void testMandatoryAlpha()
+	{
+		assertEquals(new Color(77, 88, 99, 254), i.getMandatoryAlpha());
+
+		assertAlpha(null);
+		assertMandatoryAlpha(new Color( 55,  66,  77, 254));
+		assertMandatoryAlpha(new Color(  0,   0,   0,   0));
+		assertMandatoryAlpha(new Color(  0,   0,   0, 255));
+		assertMandatoryAlpha(new Color(  0,   0, 255,   0));
+		assertMandatoryAlpha(new Color(  0,   0, 255, 255));
+		assertMandatoryAlpha(new Color(  0, 255,   0,   0));
+		assertMandatoryAlpha(new Color(  0, 255,   0, 255));
+		assertMandatoryAlpha(new Color(  0, 255, 255,   0));
+		assertMandatoryAlpha(new Color(  0, 255, 255, 255));
+		assertMandatoryAlpha(new Color(255,   0,   0,   0));
+		assertMandatoryAlpha(new Color(255,   0,   0, 255));
+		assertMandatoryAlpha(new Color(255,   0, 255,   0));
+		assertMandatoryAlpha(new Color(255,   0, 255, 255));
+		assertMandatoryAlpha(new Color(255, 255,   0,   0));
+		assertMandatoryAlpha(new Color(255, 255,   0, 255));
+		assertMandatoryAlpha(new Color(255, 255, 255,   0));
+		assertMandatoryAlpha(new Color(255, 255, 255, 255));
+	}
+
+	private void assertMandatoryAlpha(final Color color)
+	{
+		i.setMandatoryAlpha(color);
+		assertEquals(color, i.getMandatoryAlpha());
 	}
 
 	public void testAlphaViolation()
