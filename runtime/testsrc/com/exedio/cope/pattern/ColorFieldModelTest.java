@@ -118,7 +118,6 @@ public class ColorFieldModelTest extends CopeAssert
 		assertSerializedSame(mandatoryAlpha, 397);
 		assertSerializedSame(mandatoryAlphaRGB, 401);
 
-
 		assertEquals(0, mandatoryRGB.getMinimum());
 		assertEquals(0xffffff, mandatoryRGB.getMaximum());
 		assertEquals(0, optionalRGB.getMinimum());
