@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.virgnTemp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.wrongTemp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.TYPE;
@@ -55,6 +56,9 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 		assertEquals(          "namedTemp", ann(virgnComp.of(wrongTemp))); // TODO virgnComp-namedTemp
 		assertEquals(null                 , ann(wrongComp.of(virgnTemp))); // TODO namedComp-virgnTemp
 		assertEquals(          "namedTemp", ann(wrongComp.of(wrongTemp))); // TODO namedComp-namedTemp
+
+		assertEquals("virgnTemp", getTemplateName(virgnTemp));
+		assertEquals("wrongTemp", getTemplateName(wrongTemp)); // TODO namedTemp
 
 		assertEquals("virgnComp-virgnTemp", virgnComp.of(virgnTemp).getName());
 		assertEquals("virgnComp-wrongTemp", virgnComp.of(wrongTemp).getName()); // TODO virgnComp-namedTemp
