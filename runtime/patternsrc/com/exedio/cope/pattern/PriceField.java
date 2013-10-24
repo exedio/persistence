@@ -135,7 +135,10 @@ public final class PriceField extends Pattern implements Settable<Price>
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Price get(final Item item)
 	{
-		return Price.storeOf(integer.get(item));
+		return
+			mandatory
+			? Price.storeOf(integer.getMandatory(item))
+			: Price.storeOf(integer.get(item));
 	}
 
 	@Wrap(order=20,
