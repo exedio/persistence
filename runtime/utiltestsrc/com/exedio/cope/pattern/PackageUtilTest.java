@@ -32,6 +32,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(CompositeMountTest.class);
 		suite.addTestSuite(CompositeFieldComputedTest.class);
+		suite.addTestSuite(CompositeFieldRenamedIdTest.class);
 		suite.addTestSuite(DispatcherConfigTest.class);
 		suite.addTestSuite(EnumMapFieldSchemaNameTest.class);
 		suite.addTestSuite(EnumSetFieldSchemaNameTest.class);
