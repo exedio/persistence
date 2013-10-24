@@ -166,6 +166,11 @@ public final class ColorField extends Pattern implements Settable<Color>
 		if(rgb==null)
 			return null;
 
+		return color(rgb.intValue());
+	}
+
+	private Color color(final int rgb)
+	{
 		return new Color(alphaAllowed ? reverseAlpha(rgb) : rgb, alphaAllowed);
 	}
 
