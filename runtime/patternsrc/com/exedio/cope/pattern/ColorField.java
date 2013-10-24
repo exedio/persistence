@@ -18,13 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.Cope;
-
 import com.exedio.cope.Condition;
-import com.exedio.cope.IsNullCondition;
-
+import com.exedio.cope.Cope;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
