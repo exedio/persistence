@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
+import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
 import com.exedio.cope.MandatoryViolationException;
@@ -117,6 +118,7 @@ public class ColorFieldTest extends CopeTest
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
 
+		assertAlpha(null);
 		assertAlpha(new Color( 55,  66,  77, 254));
 		assertAlpha(new Color(  0,   0,   0,   0));
 		assertAlpha(new Color(  0,   0,   0, 255));
@@ -146,7 +148,17 @@ public class ColorFieldTest extends CopeTest
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getMandatoryAlpha());
 
-		assertAlpha(null);
+		try
+		{
+			i.setMandatoryAlpha(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for ColorFieldItem.mandatoryAlpha", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(mandatoryAlpha, e.getFeature());
+		}
 		assertMandatoryAlpha(new Color( 55,  66,  77, 254));
 		assertMandatoryAlpha(new Color(  0,   0,   0,   0));
 		assertMandatoryAlpha(new Color(  0,   0,   0, 255));
