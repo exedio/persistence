@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
 
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CopeID
+public @interface CopeName
 {
 	String value();
 }

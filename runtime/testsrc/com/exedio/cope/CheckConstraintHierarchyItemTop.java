@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeID("ItemTop")
+@CopeName("ItemTop")
 public class CheckConstraintHierarchyItemTop extends Item
 {
 	static final IntegerField top1 = new IntegerField().defaultTo(100);

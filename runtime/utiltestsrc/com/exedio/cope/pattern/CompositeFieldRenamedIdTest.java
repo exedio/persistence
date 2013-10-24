@@ -26,7 +26,7 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.virgnCo
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.wrongComp;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.CopeID;
+import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -68,14 +68,14 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 
 	private static String ann(final Feature f)
 	{
-		final CopeID a = f.getAnnotation(CopeID.class);
+		final CopeName a = f.getAnnotation(CopeName.class);
 		return a!=null ? a.value() : null;
 	}
 
 	static final class MyComposite extends Composite
 	{
 		static final StringField virgnTemp = new StringField();
-		@CopeID("namedTemp")
+		@CopeName("namedTemp")
 		static final StringField wrongTemp = new StringField();
 
 		private MyComposite(final SetValue<?>... setValues) { super(setValues); }
@@ -85,7 +85,7 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 	static final class MyItem extends Item
 	{
 		static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);
-		@CopeID("namedComp")
+		@CopeName("namedComp")
 		static final CompositeField<MyComposite> wrongComp = CompositeField.create(MyComposite.class);
 
 		private MyItem(final SetValue<?>... setValues) { super(setValues); }

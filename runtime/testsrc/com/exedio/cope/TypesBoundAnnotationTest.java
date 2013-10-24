@@ -85,7 +85,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertTestAnnotationNull(AnItem.setField.getElement());
 	}
 
-	@CopeID("AnItemAnn")
+	@CopeName("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
 	static class AnItem extends Item
 	{
@@ -101,7 +101,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 			super(ap);
 		}
 
-		@CopeID("intFieldAnn")
+		@CopeName("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")
 		static final IntegerField intField = new IntegerField();
 

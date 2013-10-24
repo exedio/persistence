@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.CopeID;
+import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
@@ -86,7 +86,7 @@ final class CompositeType<X>
 
 	private static String name(final java.lang.reflect.Field field)
 	{
-		final CopeID annotation = field.getAnnotation(CopeID.class);
+		final CopeName annotation = field.getAnnotation(CopeName.class);
 		return
 			annotation!=null
 			? annotation.value()

@@ -25,7 +25,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
-@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem")
+@CopeName("NameCollisionlooooooooooooooooooooooooooooooooooooooooongaItem")
 final class NameCollisionlongaItem extends Item
 {
 

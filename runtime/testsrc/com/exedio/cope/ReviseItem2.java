@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeID("ReviseItem")
+@CopeName("ReviseItem")
 final class ReviseItem2 extends Item
 {
 	static final StringField field5 = new StringField();

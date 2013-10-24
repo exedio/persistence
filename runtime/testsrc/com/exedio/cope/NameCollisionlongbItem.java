@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 @CopeSchemaName("NameCollisionlongBItem")
-@CopeID("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem")
+@CopeName("NameCollisionlooooooooooooooooooooooooooooooooooooooooongbItem")
 final class NameCollisionlongbItem extends Item
 {
 

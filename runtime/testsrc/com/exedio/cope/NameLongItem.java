@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 @CopeSchemaName("NameLongItem")
-@CopeID("NameLongNameLongNameLongNameLongNameLongNameLongItem")
+@CopeName("NameLongNameLongNameLongNameLongNameLongNameLongItem")
 class NameLongItem extends Item
 {
 
