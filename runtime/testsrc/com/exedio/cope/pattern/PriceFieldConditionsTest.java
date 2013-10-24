@@ -19,7 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.storeOf;
-import static com.exedio.cope.pattern.PriceFieldItem.*;
+import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
+import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;

@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.ColorFieldItem.*;
-
-import java.awt.Color;
+import static com.exedio.cope.pattern.ColorFieldItem.alpha;
+import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Query;
+import java.awt.Color;
 import java.util.Arrays;
 
 public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
