@@ -231,7 +231,6 @@ public final class ColorField extends Pattern implements Settable<Color>
 
 	// convenience methods for conditions and views ---------------------------------
 
-
 	public final IsNullCondition<?> isNull()
 	{
 		return rgb.isNull();
