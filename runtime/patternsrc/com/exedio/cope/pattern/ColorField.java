@@ -157,8 +157,8 @@ public final class ColorField extends Pattern implements Settable<Color>
 	{
 		return
 			mandatory
-			? color(this.rgb.getMandatory(item))
-			: color(this.rgb.get(item));
+			? color(rgb.getMandatory(item))
+			: color(rgb.get(item));
 	}
 
 	private Color color(final Integer rgb)
