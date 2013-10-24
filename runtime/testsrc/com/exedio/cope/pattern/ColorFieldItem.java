@@ -27,7 +27,7 @@ final class ColorFieldItem extends Item
 	static final ColorField optional = new ColorField().optional();
 	static final ColorField defaultTo = new ColorField().defaultTo(new Color(22, 33, 44));
 	static final ColorField alpha = new ColorField().optional().allowAlpha().defaultTo(new Color(77, 88, 99, 254));
-	static final ColorField mandatoryAlpha = new ColorField().allowAlpha().defaultTo(new Color(77, 88, 99, 254));
+	static final ColorField mandatoryAlpha = new ColorField().allowAlpha().defaultTo(new Color(122, 133, 199, 253));
 
 
 	void setOptionalAndAlpha(final Color color)

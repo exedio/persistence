@@ -131,9 +131,9 @@ public class ColorFieldModelTest extends CopeAssert
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
-		assertEquals(new Color(22, 33, 44     ), defaultTo     .getDefaultConstant());
-		assertEquals(new Color(77, 88, 99, 254), alpha         .getDefaultConstant());
-		assertEquals(new Color(77, 88, 99, 254), mandatoryAlpha.getDefaultConstant());
+		assertEquals(new Color( 22,  33,  44     ), defaultTo     .getDefaultConstant());
+		assertEquals(new Color( 77,  88,  99, 254), alpha         .getDefaultConstant());
+		assertEquals(new Color(122, 133, 199, 253), mandatoryAlpha.getDefaultConstant());
 
 		assertEquals(false, new ColorField().optional().allowAlpha().isMandatory());
 		assertEquals(true,  new ColorField().optional().allowAlpha().isAlphaAllowed());

@@ -146,7 +146,7 @@ public class ColorFieldTest extends CopeTest
 
 	public void testMandatoryAlpha()
 	{
-		assertEquals(new Color(77, 88, 99, 254), i.getMandatoryAlpha());
+		assertEquals(new Color(122, 133, 199, 253), i.getMandatoryAlpha());
 
 		try
 		{
