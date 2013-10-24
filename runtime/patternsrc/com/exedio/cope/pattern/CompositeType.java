@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.CopeID;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
@@ -72,14 +73,24 @@ final class CompositeType<X>
 				final FunctionField<?> template = (FunctionField<?>)feature;
 				if(template.isFinal())
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
-				templates.put(field.getName(), template);
+				final String fieldName = name(field);
+				templates.put(fieldName, template);
 				templatePositions.put(template, position++);
 				template.mount(fieldID, SerializedReflectionField.make(feature, field), field);
-				templateNames.put(template, field.getName());
+				templateNames.put(template, fieldName);
 			}
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templates.values()));
 		this.componentSize = templates.size();
+	}
+
+	private static String name(final java.lang.reflect.Field field)
+	{
+		final CopeID annotation = field.getAnnotation(CopeID.class);
+		return
+			annotation!=null
+			? annotation.value()
+			: field.getName();
 	}
 
 	Object[] values(final SetValue<?>... setValues)

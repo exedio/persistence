@@ -58,12 +58,12 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 		assertEquals(          "namedTemp", ann(wrongComp.of(wrongTemp))); // TODO namedComp-namedTemp
 
 		assertEquals("virgnTemp", getTemplateName(virgnTemp));
-		assertEquals("wrongTemp", getTemplateName(wrongTemp)); // TODO namedTemp
+		assertEquals("namedTemp", getTemplateName(wrongTemp));
 
 		assertEquals("virgnComp-virgnTemp", virgnComp.of(virgnTemp).getName());
-		assertEquals("virgnComp-wrongTemp", virgnComp.of(wrongTemp).getName()); // TODO virgnComp-namedTemp
+		assertEquals("virgnComp-namedTemp", virgnComp.of(wrongTemp).getName());
 		assertEquals("namedComp-virgnTemp", wrongComp.of(virgnTemp).getName());
-		assertEquals("namedComp-wrongTemp", wrongComp.of(wrongTemp).getName()); // TODO namedComp-namedTemp
+		assertEquals("namedComp-namedTemp", wrongComp.of(wrongTemp).getName());
 	}
 
 	private static String ann(final Feature f)
