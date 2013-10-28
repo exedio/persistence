@@ -42,7 +42,6 @@ import java.util.SortedSet;
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
-	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String BATZEN_TYPE_NAME = BatzenType.class.getName();
@@ -350,6 +349,8 @@ final class Generator
 			return;
 
 		final boolean batzen = type.isBatzen;
+		final Class<?> constructor = batzen ? Batzen.class : Item.class;
+		final String activation = batzen ? ACTIVATION_BATZEN : ACTIVATION;
 
 		writeCommentHeader();
 		writeIndent();
@@ -357,10 +358,13 @@ final class Generator
 		write(CONSTRUCTOR_ACTIVATION);
 		write(lineSeparator);
 		writeIndent();
-		if(batzen)
-			write(" * @see " + Batzen.class.getName() + "#Batzen(" + ACTIVATION_BATZEN + ")");
-		else
-			write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
+		write(" * @see ");
+		write(constructor.getName());
+		write('#');
+		write(constructor.getSimpleName());
+		write('(');
+		write(activation);
+		write(')');
 		write(lineSeparator);
 		writeCommentFooter();
 
@@ -371,7 +375,8 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(batzen ? ACTIVATION_BATZEN : ACTIVATION); write(" ap){super(ap);");
+		write(batzen ? ACTIVATION_BATZEN : ACTIVATION);
+		write(" ap){super(ap);");
 		write(lineSeparator);
 		write('}');
 	}
