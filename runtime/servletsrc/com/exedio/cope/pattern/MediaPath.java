@@ -395,7 +395,7 @@ public abstract class MediaPath extends Pattern
 	public static final class NotFound extends Exception
 	{
 		private final String reason;
-		private final ErrorLog counter;
+		private final transient ErrorLog counter;
 
 		NotFound(final String reason, final ErrorLog counter)
 		{
@@ -419,7 +419,10 @@ public abstract class MediaPath extends Pattern
 				final HttpServletResponse response)
 		throws IOException
 		{
-			counter.count(request, this);
+			// counter may be null if exception had been deserialized
+			if(counter!=null)
+				counter.count(request, this);
+
 			final String body =
 				"<html>\n" +
 					"<head>\n" +
