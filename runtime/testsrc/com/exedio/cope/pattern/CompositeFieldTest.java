@@ -253,12 +253,12 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 			final CompositeValue v = second.newValue(
 					CompositeValue.aString.map("firstString1"),
 					CompositeValue.anInt.map(1),
-					CompositeValue.anEnum.map(AnEnum.anEnumConstant1),
+					CompositeValue.anEnum.map(AnEnum.facet1),
 					CompositeValue.anItem.map(target1));
-			assertEquals("firstString1",              v.getAString());
-			assertEquals(1,                           v.getAnInt());
-			assertEquals(AnEnum.anEnumConstant1, v.getAnEnum());
-			assertEquals(target1,                     v.getAnItem());
+			assertEquals("firstString1", v.getAString());
+			assertEquals(1,              v.getAnInt());
+			assertEquals(AnEnum.facet1,  v.getAnEnum());
+			assertEquals(target1,        v.getAnItem());
 
 			try
 			{
@@ -308,23 +308,23 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, oItem.getDuo());
 
 		fItem = new CompositeFinalItem("final1",
-						new CompositeValue("firstString1",  1, AnEnum.anEnumConstant1, target1),
-						new CompositeValue("secondString1", 2, AnEnum.anEnumConstant2, target2));
+						new CompositeValue("firstString1",  1, AnEnum.facet1, target1),
+						new CompositeValue("secondString1", 2, AnEnum.facet2, target2));
 		assertEquals("final1", fItem.getCode());
 		assertEquals("firstString1", fItem.getFirst().getAString());
 		assertEquals(1, fItem.getFirst().getAnInt());
-		assertEquals(AnEnum.anEnumConstant1, fItem.getFirst().getAnEnum());
+		assertEquals(AnEnum.facet1, fItem.getFirst().getAnEnum());
 		assertEquals(target1, fItem.getFirst().getAnItem());
 		assertEquals("secondString1", fItem.getSecond().getAString());
 		assertEquals(2, fItem.getSecond().getAnInt());
-		assertEquals(AnEnum.anEnumConstant2, fItem.getSecond().getAnEnum());
+		assertEquals(AnEnum.facet2, fItem.getSecond().getAnEnum());
 		assertEquals(target2, fItem.getSecond().getAnItem());
 
 		oItem.setDuo(fItem.getFirst());
 		assertEquals(null, oItem.getUno());
 		assertEquals("firstString1", oItem.getDuo().getAString());
 		assertEquals(1, oItem.getDuo().getAnInt());
-		assertEquals(AnEnum.anEnumConstant1, oItem.getDuo().getAnEnum());
+		assertEquals(AnEnum.facet1, oItem.getDuo().getAnEnum());
 		assertEquals(target1, oItem.getDuo().getAnItem());
 
 		oItem.setDuo(null);
@@ -336,8 +336,8 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, duo.of(anItem ).get(oItem));
 
 		item = new CompositeItem("default",
-						new CompositeValue("einsString1", 1, AnEnum.anEnumConstant1, target1),
-						new CompositeValue("zweiString1", 2, AnEnum.anEnumConstant2, target2));
+						new CompositeValue("einsString1", 1, AnEnum.facet1, target1),
+						new CompositeValue("zweiString1", 2, AnEnum.facet2, target2));
 		try
 		{
 			item.setEins(null);
@@ -350,7 +350,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		try
 		{
 			new CompositeItem("defaultFailure",
-					new CompositeValue("einsString1", 1, AnEnum.anEnumConstant1, target1),
+					new CompositeValue("einsString1", 1, AnEnum.facet1, target1),
 					null);
 			fail();
 		}
@@ -369,7 +369,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		}
 		try
 		{
-			first.set(fItem, new CompositeValue("finalViolation", 1, AnEnum.anEnumConstant1, target1));
+			first.set(fItem, new CompositeValue("finalViolation", 1, AnEnum.facet1, target1));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -406,7 +406,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 
 		// test serialization
-		final CompositeValue serializedValue = reserialize(value, 486);
+		final CompositeValue serializedValue = reserialize(value, 477);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 		assertEquals("firstString1X", value.getAString());
@@ -415,7 +415,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 
 	public void testConditions()
 	{
-		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnum.anEnumConstant1, target1);
+		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnum.facet1, target1);
 		final CompositeItem i1 = new CompositeItem("i1", v, v);
 		final CompositeItem i2 = new CompositeItem("i1", v, v);
 		final CompositeOptionalItem o1 = new CompositeOptionalItem("o1");
@@ -441,7 +441,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		final CompositeItemHolder h1 = new CompositeItemHolder(target1);
 		new CompositeItemHolder(target2);
 
-		final CompositeValue uno1 = new CompositeValue("uno1", 1, AnEnum.anEnumConstant1, target1);
+		final CompositeValue uno1 = new CompositeValue("uno1", 1, AnEnum.facet1, target1);
 		target1.setUno( uno1 );
 
 		{

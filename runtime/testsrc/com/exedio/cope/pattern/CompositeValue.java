@@ -29,7 +29,7 @@ public final class CompositeValue extends Composite
 {
 	enum AnEnum
 	{
-		anEnumConstant1, anEnumConstant2;
+		facet1, facet2;
 	}
 
 	static final StringField aString = new StringField();
