@@ -333,6 +333,13 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 
+	public static final class DummyBatzen extends Batzen
+	{
+		private static final long serialVersionUID = 1l;
+		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
+		protected DummyBatzen(final BatzenField<?> field, final Item item) { super(field, item); }
+	}
+
 	static final class DummyComposite extends Composite
 	{
 		protected DummyComposite(final SetValue<?>... setValues)
@@ -341,12 +348,5 @@ final class JavaRepository
 		}
 
 		private static final long serialVersionUID = 1l;
-	}
-
-	public static final class DummyBatzen extends Batzen
-	{
-		private static final long serialVersionUID = 1l;
-		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
-		protected DummyBatzen(final BatzenField<?> field, final Item item) { super(field, item); }
 	}
 }
