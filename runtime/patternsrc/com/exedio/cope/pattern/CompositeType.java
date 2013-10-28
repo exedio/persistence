@@ -35,9 +35,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class CompositeType<X>
+final class CompositeType<E>
 {
-	private final Constructor<X> constructor;
+	private final Constructor<E> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
 	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
 	final List<FunctionField<?>> templateList;
@@ -45,7 +45,7 @@ final class CompositeType<X>
 
 	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<FunctionField<?>, String>();
 
-	private CompositeType(final Class<X> valueClass)
+	private CompositeType(final Class<E> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
 		final String classID = valueClass.getName();
@@ -133,7 +133,7 @@ final class CompositeType<X>
 		return result.intValue();
 	}
 
-	public X newValue(final SetValue<?>... setValues)
+	public E newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
