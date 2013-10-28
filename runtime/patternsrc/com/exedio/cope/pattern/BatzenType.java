@@ -48,13 +48,13 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 		final String classID = javaClass.getName();
 		try
 		{
-			constructor = javaClass.getDeclaredConstructor(BatzenField.class, Item.class);
+			constructor = javaClass.getDeclaredConstructor(Batzen.ActivationParameters.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
 					classID + " does not have a constructor " +
-					javaClass.getSimpleName() + '(' + BatzenField.class.getName() + ',' + Item.class.getName() + ')', e);
+					javaClass.getSimpleName() + '(' + Batzen.ActivationParameters.class.getName() + ')', e);
 		}
 		constructor.setAccessible(true);
 
@@ -92,7 +92,7 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 	{
 		try
 		{
-			return constructor.newInstance(field, item);
+			return constructor.newInstance(new Batzen.ActivationParameters(field, item));
 		}
 		catch(final IllegalArgumentException e)
 		{

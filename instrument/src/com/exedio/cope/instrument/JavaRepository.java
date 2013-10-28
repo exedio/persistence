@@ -29,7 +29,6 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Batzen;
-import com.exedio.cope.pattern.BatzenField;
 import com.exedio.cope.pattern.BatzenType;
 import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -351,7 +350,7 @@ final class JavaRepository
 	{
 		private static final long serialVersionUID = 1l;
 		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
-		protected DummyBatzen(final BatzenField<?> field, final Item item) { super(field, item); }
+		protected DummyBatzen(final Batzen.ActivationParameters ap) { super(ap); }
 	}
 
 	static final class DummyComposite extends Composite

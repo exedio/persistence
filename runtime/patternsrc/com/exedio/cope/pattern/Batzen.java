@@ -32,15 +32,36 @@ public abstract class Batzen implements Serializable
 	 * Activation constructor.
 	 * Is used for internal purposes only.
 	 */
-	protected Batzen(final BatzenField<?> field, final Item item)
+	protected Batzen(final ActivationParameters ap)
 	{
-		this.field = field;
-		this.item  = item;
+		if(ap==null)
+			throw new RuntimeException(
+					"activation constructor is for internal purposes only, " +
+					"don't use it in your application!");
 
-		if(field==null)
-			throw new NullPointerException("field");
-		if(item==null)
-			throw new NullPointerException("item");
+		this.field = ap.field;
+		this.item  = ap.item ;
+	}
+
+	public static final class ActivationParameters
+	{
+		final BatzenField<?> field;
+		final Item item;
+
+		ActivationParameters(final BatzenField<?> field, final Item item)
+		{
+			this.field = field;
+			this.item  = item;
+		}
+
+		/**
+		 * This method is equivalent to {@link Item#toString()}.
+		 */
+		@Override
+		public String toString()
+		{
+			return field.toString() + '#' + item.toString();
+		}
 	}
 
 	public final BatzenField<?> field()
