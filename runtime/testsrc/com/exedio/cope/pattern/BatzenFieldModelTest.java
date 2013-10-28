@@ -170,7 +170,7 @@ public class BatzenFieldModelTest extends CopeAssert
 		}
 	}
 
-	static final class AnItem extends Item
+	static final class AnItem extends com.exedio.cope.Item
 	{
 		static final StringField code = new StringField().toFinal();
 
