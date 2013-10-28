@@ -55,7 +55,7 @@ public abstract class Batzen implements Serializable
 		}
 
 		/**
-		 * This method is equivalent to {@link Item#toString()}.
+		 * This method is equivalent to {@link Batzen#toString()}.
 		 */
 		@Override
 		public String toString()
