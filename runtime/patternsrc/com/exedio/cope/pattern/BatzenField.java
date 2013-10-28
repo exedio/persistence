@@ -84,7 +84,10 @@ public final class BatzenField<E extends Batzen> extends Pattern
 
 	private static Feature copy(final Feature f)
 	{
-		return ((FunctionField<?>)f).copy();
+		return
+				(f instanceof ListField) ?
+				((ListField<?>)f).copy():
+				((FunctionField<?>)f).copy();
 	}
 
 	public <X extends Feature> X of(final X template)

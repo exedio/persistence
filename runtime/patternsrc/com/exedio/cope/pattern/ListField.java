@@ -62,6 +62,11 @@ public final class ListField<E> extends AbstractListField<E>
 		return new ListField<E>(element);
 	}
 
+	public ListField<E> copy()
+	{
+		return new ListField<E>(element.copy());
+	}
+
 	@Override
 	protected void onMount()
 	{

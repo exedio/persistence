@@ -393,6 +393,8 @@ final class Generator
 
 			if(!option.exists)
 				continue;
+			if(feature.parent.isBatzen && wrapper.hasStaticClassToken())
+				continue;
 
 			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();

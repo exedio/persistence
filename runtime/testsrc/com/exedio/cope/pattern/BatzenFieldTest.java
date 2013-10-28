@@ -57,6 +57,10 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, b1b.getAnItem());
 		assertEquals(null, b2a.getAnItem());
 		assertEquals(null, b2b.getAnItem());
+		assertEquals(list(), b1a.getAList());
+		assertEquals(list(), b1b.getAList());
+		assertEquals(list(), b2a.getAList());
+		assertEquals(list(), b2b.getAList());
 		final ABatzen b1A = i1.getEins();
 		assertEquals(null, b1A.getAnItem());
 
@@ -66,6 +70,12 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(i1,   b1A.getAnItem());
 		assertEquals(null, b2a.getAnItem());
 		assertEquals(null, b2b.getAnItem());
+
+		b1a.addToAList("aListElement1");
+		assertEquals(list("aListElement1"), b1a.getAList());
+		assertEquals(list(), b1b.getAList());
+		assertEquals(list(), b2a.getAList());
+		assertEquals(list(), b2b.getAList());
 
 		// hashCode
 		assertEquals(b1a, b1a);
