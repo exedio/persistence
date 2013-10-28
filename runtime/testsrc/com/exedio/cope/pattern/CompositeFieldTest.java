@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.CompositeFinalItem.first;
 import static com.exedio.cope.pattern.CompositeFinalItem.second;
 import static com.exedio.cope.pattern.CompositeItem.eins;
@@ -29,7 +30,7 @@ import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
@@ -42,7 +43,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnumClass;
 import java.util.Arrays;
 
-public class CompositeFieldTest extends AbstractRuntimeTest
+public class CompositeFieldTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(CompositeItem.TYPE, CompositeOptionalItem.TYPE, CompositeFinalItem.TYPE, CompositeItemHolder.TYPE);
 

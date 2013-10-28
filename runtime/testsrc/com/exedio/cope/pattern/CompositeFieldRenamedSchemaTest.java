@@ -25,12 +25,12 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.wrongComp;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 
-public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeTest
+public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 
