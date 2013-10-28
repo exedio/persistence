@@ -30,6 +30,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Batzen;
 import com.exedio.cope.pattern.BatzenField;
+import com.exedio.cope.pattern.BatzenType;
 import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
@@ -342,12 +343,14 @@ final class JavaRepository
 		private static final long serialVersionUID = 1l;
 	}
 
-	static final class DummyBatzen extends Batzen
+	public static final class DummyBatzen extends Batzen
 	{
 		protected DummyBatzen(final BatzenField<?> field, final Item item)
 		{
 			super(field, item);
 		}
+
+		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
 
 		private static final long serialVersionUID = 1l;
 	}
