@@ -66,6 +66,13 @@ public class BatzenFieldModelTest extends CopeAssert
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
+		assertEquals(AnItem.TYPE, eins.of(aString).getType());
+		assertEquals(AnItem.TYPE, eins.getType());
+		assertEquals("eins-aString", eins.of(aString).getName());
+		assertEquals("eins", eins.getName());
+		assertEquals(eins, eins.of(aString).getPattern());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList)), eins.getSourceFeatures());
+
 		assertEquals(true,  eins.of(aString).isInitial());
 		assertEquals(false, eins.of(aString).isFinal());
 		assertEquals(true,  eins.of(aString).isMandatory());
