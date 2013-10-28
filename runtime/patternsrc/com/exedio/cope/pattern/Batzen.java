@@ -28,6 +28,10 @@ public abstract class Batzen implements Serializable
 	private final BatzenField<?> field;
 	private final Item item;
 
+	/**
+	 * Activation constructor.
+	 * Is used for internal purposes only.
+	 */
 	protected Batzen(final BatzenField<?> field, final Item item)
 	{
 		this.field = field;
