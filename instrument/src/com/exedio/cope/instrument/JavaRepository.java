@@ -87,10 +87,11 @@ final class JavaRepository
 				continue;
 
 			final boolean isItem = isItem(javaClass);
+			final boolean isBatzen = isBatzen(javaClass);
 			final boolean isComposite = isComposite(javaClass);
-			if(isItem||isComposite)
+			if(isItem||isBatzen||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass, isComposite);
+				final CopeType type = new CopeType(javaClass, isBatzen, isComposite);
 
 				feature: for(final JavaField javaField : javaClass.getFields())
 				{
@@ -174,6 +175,19 @@ final class JavaRepository
 			System.out.println("unknown type " + classExtends + " in " + javaClass);
 			return false;
 		}
+	}
+
+	static boolean isBatzen(final JavaClass javaClass)
+	{
+		final String classExtends = javaClass.classExtends;
+		if(classExtends==null)
+			return false;
+
+		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
+		if(extendsClass!=null)
+			return Batzen.class.isAssignableFrom(extendsClass);
+
+		return false;
 	}
 
 	static boolean isComposite(final JavaClass javaClass)

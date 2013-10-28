@@ -30,6 +30,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.pattern.BatzenField;
+import com.exedio.cope.pattern.BatzenType;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,6 +45,7 @@ final class Generator
 	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
+	private static final String BATZEN_TYPE_NAME = BatzenType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
 	private static final String OVERRIDE = Override.class.getName();
 
@@ -73,6 +76,7 @@ final class Generator
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String TYPE = "The persistent type information for {0}.";
+	private static final String TYPE_BATZEN = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + ' ' +
 																Option.TEXT_VISIBILITY_PUBLIC + '|' +
@@ -201,6 +205,8 @@ final class Generator
 
 	private void writeInitialConstructor(final CopeType type)
 	{
+		if(type.isBatzen)
+			return;
 		if(!type.hasInitialConstructor())
 			return;
 
@@ -302,6 +308,9 @@ final class Generator
 
 	private void writeGenericConstructor(final CopeType type)
 	{
+		if(type.isBatzen)
+			return;
+
 		final Option option = type.genericConstructorOption;
 		if(!option.exists)
 			return;
@@ -339,6 +348,8 @@ final class Generator
 		if(!option.exists)
 			return;
 
+		final boolean batzen = type.isBatzen;
+
 		writeCommentHeader();
 		writeIndent();
 		write(" * ");
@@ -356,7 +367,10 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(ACTIVATION + " ap){super(ap);");
+		if(batzen)
+			write(BatzenField.class.getName() + "<?> field," + ITEM + " item){super(field,item);");
+		else
+			write(ACTIVATION + " ap){super(ap);");
 		write(lineSeparator);
 		write('}');
 	}
@@ -522,9 +536,14 @@ final class Generator
 		}
 		else
 		{
+			final boolean batzen = feature.parent.isBatzen;
+			if(batzen)
+				write("field().of(");
 			write(feature.parent.name);
 			write('.');
 			write(feature.name);
+			if(batzen)
+				write(')');
 			write('.');
 			write(methodName);
 			write('(');
@@ -542,7 +561,7 @@ final class Generator
 				else
 				{
 					comma.appendTo(output);
-					write("this");
+					write(batzen ? "item()" : "this");
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -738,18 +757,20 @@ final class Generator
 		final Option option = type.typeOption;
 		if(option.exists)
 		{
+			final boolean batzen = type.isBatzen;
+
 			writeCommentHeader();
 			writeIndent();
 			write(" * ");
-			write(format(TYPE, lowerCamelCase(type.name)));
+			write(format(batzen ? TYPE_BATZEN : TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(TYPE_NAME + '<');
+			write(batzen?BATZEN_TYPE_NAME:TYPE_NAME);write('<');
 			write(type.name);
-			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
+			write("> TYPE = ");write(batzen?BATZEN_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
 			write(type.name);
 			write(".class);");
 		}
