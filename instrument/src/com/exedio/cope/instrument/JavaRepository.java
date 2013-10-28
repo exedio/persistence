@@ -345,13 +345,13 @@ final class JavaRepository
 
 	public static final class DummyBatzen extends Batzen
 	{
+		private static final long serialVersionUID = 1l;
+
+		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
+
 		protected DummyBatzen(final BatzenField<?> field, final Item item)
 		{
 			super(field, item);
 		}
-
-		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
-
-		private static final long serialVersionUID = 1l;
 	}
 }
