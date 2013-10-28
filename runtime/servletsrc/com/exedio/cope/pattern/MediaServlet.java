@@ -204,7 +204,7 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final NotFound notFound)
 		{
-			notFound.serve(response);
+			notFound.serve(request, response);
 			return;
 		}
 
@@ -214,11 +214,11 @@ public class MediaServlet extends HttpServlet
 		}
 		catch(final NotFound notFound)
 		{
-			notFound.serve(response);
+			notFound.serve(request, response);
 		}
 		catch(final Exception e)
 		{
-			path.incException();
+			path.countException(request, e);
 			onException(request, e);
 
 			response.setStatus(SC_INTERNAL_SERVER_ERROR);

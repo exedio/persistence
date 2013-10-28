@@ -36,6 +36,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(DispatcherConfigTest.class);
 		suite.addTestSuite(EnumMapFieldSchemaNameTest.class);
 		suite.addTestSuite(EnumSetFieldSchemaNameTest.class);
+		suite.addTestSuite(ErrorLogTest.class);
 		suite.addTestSuite(HashAlgorithmAdapterTest.class);
 		suite.addTestSuite(HashPlainTextLimitTest.class);
 		suite.addTestSuite(JavaViewGetterMissingTest.class);

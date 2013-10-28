@@ -39,6 +39,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -366,16 +367,16 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	private static final VolatileInt noSuchPath = new VolatileInt();
+	private static final ErrorLog noSuchPath = new ErrorLog();
 	private final VolatileInt redirectFrom = new VolatileInt();
-	private final VolatileInt exception = new VolatileInt();
-	private final VolatileInt invalidSpecial = new VolatileInt();
-	private final VolatileInt guessedUrl = new VolatileInt();
-	private final VolatileInt notAnItem = new VolatileInt();
-	private final VolatileInt noSuchItem = new VolatileInt();
+	private final ErrorLog    exception = new ErrorLog();
+	private final ErrorLog    invalidSpecial = new ErrorLog();
+	private final ErrorLog    guessedUrl = new ErrorLog();
+	private final ErrorLog    notAnItem = new ErrorLog();
+	private final ErrorLog    noSuchItem = new ErrorLog();
 	private final VolatileInt moved = new VolatileInt();
-	private final VolatileInt isNull = new VolatileInt();
-	private final VolatileInt notComputable = new VolatileInt();
+	private final ErrorLog    isNull = new ErrorLog();
+	private final ErrorLog    notComputable = new ErrorLog();
 	private final VolatileInt notModified = new VolatileInt();
 	private final VolatileInt delivered = new VolatileInt();
 
@@ -384,17 +385,19 @@ public abstract class MediaPath extends Pattern
 		redirectFrom.inc();
 	}
 
-	final void incException()
+	final void countException(
+			final HttpServletRequest request,
+			final Exception exception)
 	{
-		exception.inc();
+		this.exception.count(request, exception);
 	}
 
 	public static final class NotFound extends Exception
 	{
 		private final String reason;
-		private final VolatileInt counter;
+		private final ErrorLog counter;
 
-		NotFound(final String reason, final VolatileInt counter)
+		NotFound(final String reason, final ErrorLog counter)
 		{
 			this.reason = reason;
 			this.counter = counter;
@@ -411,9 +414,12 @@ public abstract class MediaPath extends Pattern
 			return reason;
 		}
 
-		void serve(final HttpServletResponse response) throws IOException
+		void serve(
+				final HttpServletRequest request,
+				final HttpServletResponse response)
+		throws IOException
 		{
-			counter.inc();
+			counter.count(request, this);
 			final String body =
 				"<html>\n" +
 					"<head>\n" +
@@ -489,6 +495,46 @@ public abstract class MediaPath extends Pattern
 				notComputable.get(),
 				notModified.get(),
 				delivered.get());
+	}
+
+	public static final List<MediaRequestLog> getNoSuchPathLogs()
+	{
+		return noSuchPath.getLogs();
+	}
+
+	public final List<MediaRequestLog> getExceptionLogs()
+	{
+		return exception.getLogs();
+	}
+
+	public final List<MediaRequestLog> getInvalidSpecialLogs()
+	{
+		return invalidSpecial.getLogs();
+	}
+
+	public final List<MediaRequestLog> getGuessedUrlLogs()
+	{
+		return guessedUrl.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNotAnItemLogs()
+	{
+		return notAnItem.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNoSuchItemLogs()
+	{
+		return noSuchItem.getLogs();
+	}
+
+	public final List<MediaRequestLog> getIsNullLogs()
+	{
+		return isNull.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNotComputableLogs()
+	{
+		return notComputable.getLogs();
 	}
 
 

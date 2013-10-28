@@ -389,6 +389,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		{
 			if("Host".equals(name))
 				return "testHostHeader";
+			else if("Referer".equals(name))
+				return "testReferer";
+			else if("User-Agent".equals(name))
+				return "testUserAgent";
 			else
 				return super.getHeader(name);
 		}
