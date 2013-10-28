@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
@@ -31,7 +30,7 @@ final class FeatureAnnotatedElementAdapter implements AnnotatedElement
 {
 	private final Feature feature;
 
-	FeatureAnnotatedElementAdapter(final FunctionField<?> feature)
+	FeatureAnnotatedElementAdapter(final Feature feature)
 	{
 		this.feature = feature;
 	}

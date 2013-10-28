@@ -28,6 +28,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Batzen;
+import com.exedio.cope.pattern.BatzenField;
 import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
@@ -294,6 +296,10 @@ final class JavaRepository
 				{
 					return DummyComposite.class;
 				}
+				if("Batzen".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				{
+					return DummyBatzen.class;
+				}
 			}
 
 			return null;
@@ -331,6 +337,16 @@ final class JavaRepository
 		protected DummyComposite(final SetValue<?>... setValues)
 		{
 			super(setValues);
+		}
+
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class DummyBatzen extends Batzen
+	{
+		protected DummyBatzen(final BatzenField<?> field, final Item item)
+		{
+			super(field, item);
 		}
 
 		private static final long serialVersionUID = 1l;
