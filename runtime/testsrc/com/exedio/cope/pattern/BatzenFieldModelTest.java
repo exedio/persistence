@@ -70,7 +70,6 @@ public class BatzenFieldModelTest extends CopeAssert
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aList), eins.getTemplates());
-
 		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aList)), eins.getComponents());
 
 		assertSerializedSame(eins, 380);
