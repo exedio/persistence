@@ -85,8 +85,8 @@ public final class BatzenField<E extends Batzen> extends Pattern
 	private static Feature copy(final Feature f)
 	{
 		return
-				(f instanceof ListField) ?
-				((ListField<?>)f).copy():
+				(f instanceof ListField ) ? ((ListField<?>)f).copy() :
+				(f instanceof ColorField) ? ((ColorField  )f).copy() :
 				((FunctionField<?>)f).copy();
 	}
 

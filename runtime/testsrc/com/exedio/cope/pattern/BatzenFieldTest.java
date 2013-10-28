@@ -22,6 +22,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen;
 import com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.AnEnum;
 import com.exedio.cope.pattern.BatzenFieldModelTest.AnItem;
+import java.awt.Color;
 
 public class BatzenFieldTest extends AbstractRuntimeModelTest
 {
@@ -57,6 +58,10 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, b1b.getAnItem());
 		assertEquals(null, b2a.getAnItem());
 		assertEquals(null, b2b.getAnItem());
+		assertEquals(new Color( 10,  20,  30), b1a.getAColor());
+		assertEquals(new Color(110, 120, 130), b1b.getAColor());
+		assertEquals(new Color( 10,  20,  30), b2a.getAColor());
+		assertEquals(new Color(110, 120, 130), b2b.getAColor());
 		assertEquals(list(), b1a.getAList());
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
