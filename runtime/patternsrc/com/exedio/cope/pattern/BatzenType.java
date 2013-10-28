@@ -34,7 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BatzenType<E>
+public final class BatzenType<E> // TODO make Serializable as singleton
 {
 	final Class<E> javaClass;
 	private final Constructor<E> constructor;
