@@ -56,6 +56,11 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.mandatory = integer.isMandatory();
 	}
 
+	public PriceField copy()
+	{
+		return new PriceField(integer.copy());
+	}
+
 	public PriceField toFinal()
 	{
 		return new PriceField(integer.toFinal());
