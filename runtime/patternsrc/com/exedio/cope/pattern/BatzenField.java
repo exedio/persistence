@@ -88,15 +88,7 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		// TODO ----------------------------------------------------------------
 		try
 		{
-			return
-					(f instanceof ListField ) ? ((ListField<?>)f).copy() :
-					(f instanceof ColorField) ? ((ColorField  )f).copy() :
-					(Class.forName("com.exedio.cope.pattern.Media").isInstance(f)) ? copyR(f) :
-					((FunctionField<?>)f).copy();
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
+			return (Feature)(f.getClass().getMethod("copy").invoke(f));
 		}
 		catch(final NoSuchMethodException e)
 		{
@@ -110,11 +102,6 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		{
 			throw new RuntimeException(e);
 		}
-	}
-
-	private static Feature copyR(final Feature f) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
-	{
-		return (Feature)(f.getClass().getMethod("copy").invoke(f));
 	}
 
 	public <X extends Feature> X of(final X template)
