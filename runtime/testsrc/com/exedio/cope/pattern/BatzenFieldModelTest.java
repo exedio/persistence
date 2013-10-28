@@ -61,6 +61,7 @@ public class BatzenFieldModelTest extends CopeAssert
 		assertEquals(false, eins.of(aString).isFinal());
 		assertEquals(true,  eins.of(aString).isMandatory());
 
+		assertEquals(ABatzen.TYPE, eins.getValueType());
 		assertEquals(ABatzen.class, eins.getValueClass());
 
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
@@ -159,7 +160,10 @@ public class BatzenFieldModelTest extends CopeAssert
 		 */
 		private static final long serialVersionUID = 1L;
 
-		// TODO make a type
+		/**
+		 * TODO generate by instrumentor
+		 */
+		static final BatzenType<ABatzen> TYPE = BatzenType.newType(ABatzen.class);
 
 		/**
 		 * TODO generate by instrumentor
@@ -174,8 +178,8 @@ public class BatzenFieldModelTest extends CopeAssert
 	{
 		static final StringField code = new StringField().toFinal();
 
-		static final BatzenField<ABatzen> eins = BatzenField.create(ABatzen.class);
-		static final BatzenField<ABatzen> zwei = BatzenField.create(ABatzen.class);
+		static final BatzenField<ABatzen> eins = BatzenField.create(ABatzen.TYPE);
+		static final BatzenField<ABatzen> zwei = BatzenField.create(ABatzen.TYPE);
 
 		AnItem(final String code, final int n)
 		{

@@ -44,11 +44,11 @@ public final class BatzenField<E extends Batzen> extends Pattern
 	private final HashMap<Feature, Feature> componentToTemplate;
 	private final List<Feature> componentList;
 
-	private BatzenField(final Class<E> valueClass)
+	private BatzenField(final BatzenType<E> valueType)
 	{
-		this.valueClass = valueClass;
+		this.valueClass = valueType.javaClass;
 
-		this.valueType = BatzenType.get(valueClass);
+		this.valueType = valueType;
 
 		if(!InstrumentContext.isRunning())
 		{
@@ -77,9 +77,9 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		}
 	}
 
-	public static <E extends Batzen> BatzenField<E> create(final Class<E> valueClass)
+	public static <E extends Batzen> BatzenField<E> create(final BatzenType<E> valueType)
 	{
-		return new BatzenField<E>(valueClass);
+		return new BatzenField<E>(valueType);
 	}
 
 	private static Feature copy(final Feature f)
@@ -120,6 +120,11 @@ public final class BatzenField<E extends Batzen> extends Pattern
 	public E get(final Item item)
 	{
 		return valueType.newValue(this, item);
+	}
+
+	public BatzenType<E> getValueType()
+	{
+		return valueType;
 	}
 
 	public Class<E> getValueClass()

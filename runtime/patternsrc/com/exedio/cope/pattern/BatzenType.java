@@ -34,30 +34,32 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class BatzenType<E>
+public final class BatzenType<E>
 {
+	final Class<E> javaClass;
 	private final Constructor<E> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<String, Feature>();
 	final List<Feature> templateList;
 	final int componentSize;
 
-	private BatzenType(final Class<E> valueClass)
+	private BatzenType(final Class<E> javaClass)
 	{
-		final String classID = valueClass.getName();
+		this.javaClass = javaClass;
+		final String classID = javaClass.getName();
 		try
 		{
-			constructor = valueClass.getDeclaredConstructor(BatzenField.class, Item.class);
+			constructor = javaClass.getDeclaredConstructor(BatzenField.class, Item.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
 					classID + " does not have a constructor " +
-					valueClass.getSimpleName() + '(' + BatzenField.class.getName() + ',' + Item.class.getName() + ')', e);
+					javaClass.getSimpleName() + '(' + BatzenField.class.getName() + ',' + Item.class.getName() + ')', e);
 		}
 		constructor.setAccessible(true);
 
 		{
-			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(valueClass).entrySet())
+			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 			{
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
@@ -120,31 +122,36 @@ final class BatzenType<E>
 
 	private static final HashMap<Class<?>, BatzenType<?>> types = new HashMap<Class<?>, BatzenType<?>>();
 
-	static final <E> BatzenType<E> get(final Class<E> valueClass)
+	static <T extends Batzen> BatzenType<T> forClass(final Class<T> javaClass)
 	{
-		if(valueClass==null)
+		final BatzenType<?> result = types.get(javaClass);
+		if(result==null)
+			throw new IllegalArgumentException("there is no type for " + javaClass);
+		@SuppressWarnings("unchecked")
+		final BatzenType<T> casted = (BatzenType<T>)result;
+		return casted;
+	}
+
+	public static <T extends Batzen> BatzenType<T> newType(final Class<T> javaClass)
+	{
+		if(javaClass==null)
 			throw new NullPointerException("valueClass");
-		if(!Batzen.class.isAssignableFrom(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Batzen.class.getName() + ": "+valueClass.getName());
-		if(Batzen.class.equals(valueClass))
+		if(types.containsKey(javaClass))
+			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
+		if(!Batzen.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException("is not a subclass of " + Batzen.class.getName() + ": "+javaClass.getName());
+		if(Batzen.class.equals(javaClass))
 			throw new IllegalArgumentException("is not a subclass of " + Batzen.class.getName() + " but Batzen itself");
-		if(!Modifier.isFinal(valueClass.getModifiers()))
-			throw new IllegalArgumentException("is not final: " + valueClass.getName());
+		if(!Modifier.isFinal(javaClass.getModifiers()))
+			throw new IllegalArgumentException("is not final: " + javaClass.getName());
 
-		synchronized(types)
-		{
-			@SuppressWarnings({"unchecked", "rawtypes"})
-			BatzenType<E> result = (BatzenType)types.get(valueClass);
-			if(result==null)
-			{
-				result = new BatzenType<E>(valueClass);
-				types.put(valueClass, result);
-			}
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		final BatzenType<T> result = new BatzenType<T>(javaClass);
+		types.put(javaClass, result);
 
-			if(result.componentSize==0 && !InstrumentContext.isRunning())
-				throw new IllegalArgumentException("composite has no templates");
+		if(result.componentSize==0 && !InstrumentContext.isRunning())
+			throw new IllegalArgumentException("composite has no templates");
 
-			return result;
-		}
+		return result;
 	}
 }
