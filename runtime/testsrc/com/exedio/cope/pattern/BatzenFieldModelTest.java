@@ -110,9 +110,10 @@ public class BatzenFieldModelTest extends CopeAssert
 		{
 			assertEquals("AnItem.code is not a component of AnItem.eins", e.getMessage());
 		}
+		final StringField zweiString = zwei.of(aString);
 		try
 		{
-			eins.getTemplate(zwei.of(aString));
+			eins.getTemplate(zweiString);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
