@@ -81,7 +81,7 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, b2b.getAnItem());
 
 		b1a.setAMedia(new byte[]{1, 2, 3}, "text/plain");
-		assertEquals("media/AnItem/eins-aMedia/AnItem-0.txt", b1a.getAMediaURL());
+		assertEquals("AnItem/eins-aMedia/AnItem-0.txt", b1a.getAMediaLocator().getPath());
 		assertEquals(null, b1b.getAMediaURL());
 		assertEquals(null, b2a.getAMediaURL());
 		assertEquals(null, b2b.getAMediaURL());
