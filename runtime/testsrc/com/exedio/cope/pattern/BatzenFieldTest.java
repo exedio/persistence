@@ -62,6 +62,10 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(new Color(110, 120, 130), b1b.getAColor());
 		assertEquals(new Color( 10,  20,  30), b2a.getAColor());
 		assertEquals(new Color(110, 120, 130), b2b.getAColor());
+		assertEquals(null, b1a.getAMediaURL());
+		assertEquals(null, b1b.getAMediaURL());
+		assertEquals(null, b2a.getAMediaURL());
+		assertEquals(null, b2b.getAMediaURL());
 		assertEquals(list(), b1a.getAList());
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
@@ -75,6 +79,12 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(i1,   b1A.getAnItem());
 		assertEquals(null, b2a.getAnItem());
 		assertEquals(null, b2b.getAnItem());
+
+		b1a.setAMedia(new byte[]{1, 2, 3}, "text/plain");
+		assertEquals("media/AnItem/eins-aMedia/AnItem-0.txt", b1a.getAMediaURL());
+		assertEquals(null, b1b.getAMediaURL());
+		assertEquals(null, b2a.getAMediaURL());
+		assertEquals(null, b2b.getAMediaURL());
 
 		b1a.addToAList("aListElement1");
 		assertEquals(list("aListElement1"), b1a.getAList());

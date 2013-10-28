@@ -134,6 +134,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
 	}
 
+	public Media copy()
+	{
+		return new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());
+	}
+
 	public Media toFinal()
 	{
 		return new Media(true, optional, body.getMaximumLength(), contentType.toFinal());

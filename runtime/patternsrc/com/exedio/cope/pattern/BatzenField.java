@@ -25,6 +25,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -84,10 +85,36 @@ public final class BatzenField<E extends Batzen> extends Pattern
 
 	private static Feature copy(final Feature f)
 	{
-		return
-				(f instanceof ListField ) ? ((ListField<?>)f).copy() :
-				(f instanceof ColorField) ? ((ColorField  )f).copy() :
-				((FunctionField<?>)f).copy();
+		// TODO ----------------------------------------------------------------
+		try
+		{
+			return
+					(f instanceof ListField ) ? ((ListField<?>)f).copy() :
+					(f instanceof ColorField) ? ((ColorField  )f).copy() :
+					(Class.forName("com.exedio.cope.pattern.Media").isInstance(f)) ? copyR(f) :
+					((FunctionField<?>)f).copy();
+		}
+		catch(final ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
+		catch(final InvocationTargetException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static Feature copyR(final Feature f) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+	{
+		return (Feature)(f.getClass().getMethod("copy").invoke(f));
 	}
 
 	public <X extends Feature> X of(final X template)
