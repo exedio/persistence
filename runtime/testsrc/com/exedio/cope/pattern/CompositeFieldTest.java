@@ -67,8 +67,8 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		target1 = deleteOnTearDown(new CompositeOptionalItem("target1"));
-		target2 = deleteOnTearDown(new CompositeOptionalItem("target2"));
+		target1 = new CompositeOptionalItem("target1");
+		target2 = new CompositeOptionalItem("target2");
 	}
 
 	public void testIt()
@@ -302,15 +302,14 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 
 
 		// test persistence
-		oItem = deleteOnTearDown(new CompositeOptionalItem("optional1"));
+		oItem = new CompositeOptionalItem("optional1");
 		assertEquals("optional1", oItem.getCode());
 		assertEquals(null, oItem.getUno());
 		assertEquals(null, oItem.getDuo());
 
-		fItem = deleteOnTearDown(
-				new CompositeFinalItem("final1",
+		fItem = new CompositeFinalItem("final1",
 						new CompositeValue("firstString1",  1, AnEnumClass.anEnumConstant1, target1),
-						new CompositeValue("secondString1", 2, AnEnumClass.anEnumConstant2, target2)));
+						new CompositeValue("secondString1", 2, AnEnumClass.anEnumConstant2, target2));
 		assertEquals("final1", fItem.getCode());
 		assertEquals("firstString1", fItem.getFirst().getAString());
 		assertEquals(1, fItem.getFirst().getAnInt());
@@ -336,10 +335,9 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, duo.of(anEnum ).get(oItem));
 		assertEquals(null, duo.of(anItem ).get(oItem));
 
-		item = deleteOnTearDown(
-				new CompositeItem("default",
+		item = new CompositeItem("default",
 						new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1),
-						new CompositeValue("zweiString1", 2, AnEnumClass.anEnumConstant2, target2)));
+						new CompositeValue("zweiString1", 2, AnEnumClass.anEnumConstant2, target2));
 		try
 		{
 			item.setEins(null);
@@ -418,10 +416,10 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 	public void testConditions()
 	{
 		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnumClass.anEnumConstant1, target1);
-		final CompositeItem i1 = deleteOnTearDown(new CompositeItem("i1", v, v));
-		final CompositeItem i2 = deleteOnTearDown(new CompositeItem("i1", v, v));
-		final CompositeOptionalItem o1 = deleteOnTearDown(new CompositeOptionalItem("o1"));
-		final CompositeOptionalItem o2 = deleteOnTearDown(new CompositeOptionalItem("o2"));
+		final CompositeItem i1 = new CompositeItem("i1", v, v);
+		final CompositeItem i2 = new CompositeItem("i1", v, v);
+		final CompositeOptionalItem o1 = new CompositeOptionalItem("o1");
+		final CompositeOptionalItem o2 = new CompositeOptionalItem("o2");
 		o1.setUno(v);
 		o2.setDuo(v);
 
@@ -440,8 +438,8 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 
 	public void testBindingInConditions()
 	{
-		final CompositeItemHolder h1 = deleteOnTearDown(new CompositeItemHolder(target1));
-		deleteOnTearDown(new CompositeItemHolder(target2));
+		final CompositeItemHolder h1 = new CompositeItemHolder(target1);
+		new CompositeItemHolder(target2);
 
 		final CompositeValue uno1 = new CompositeValue("uno1", 1, AnEnumClass.anEnumConstant1, target1);
 		target1.setUno( uno1 );

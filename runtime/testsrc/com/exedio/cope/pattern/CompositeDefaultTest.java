@@ -37,16 +37,14 @@ public class CompositeDefaultTest extends AbstractRuntimeModelTest
 
 	public void testIt()
 	{
-		final CompositeDefaultItem isDefault =
-			deleteOnTearDown(new CompositeDefaultItem());
+		final CompositeDefaultItem isDefault = new CompositeDefaultItem();
 		assertNull(isDefault.getField());
 
-		final CompositeDefaultItem isNull =
-			deleteOnTearDown(new CompositeDefaultItem(null));
+		final CompositeDefaultItem isNull = new CompositeDefaultItem(null);
 		assertNull(isNull.getField());
 
 		final CompositeDefaultItem isNotNull =
-			deleteOnTearDown(new CompositeDefaultItem(new CompositeDefaultValue("normalValue")));
+			new CompositeDefaultItem(new CompositeDefaultValue("normalValue"));
 		assertEquals("normalValue", isNotNull.getField().getNormal());
 		assertEquals(5, isNotNull.getField().getDeflt());
 	}
