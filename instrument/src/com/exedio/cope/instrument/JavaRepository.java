@@ -293,13 +293,13 @@ final class JavaRepository
 							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
 					return define(cf);
 				}
-				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
-				{
-					return DummyComposite.class;
-				}
 				if("Batzen".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
 					return DummyBatzen.class;
+				}
+				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				{
+					return DummyComposite.class;
 				}
 			}
 
