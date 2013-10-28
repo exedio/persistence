@@ -30,6 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.pattern.Batzen;
 import com.exedio.cope.pattern.BatzenField;
 import com.exedio.cope.pattern.BatzenType;
 import java.lang.reflect.Modifier;
@@ -356,7 +357,10 @@ final class Generator
 		write(CONSTRUCTOR_ACTIVATION);
 		write(lineSeparator);
 		writeIndent();
-		write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
+		if(batzen)
+			write(" * @see " + Batzen.class.getName() + "#Batzen(" + BatzenField.class.getName() + "," + ITEM + ")");
+		else
+			write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
 		write(lineSeparator);
 		writeCommentFooter();
 
