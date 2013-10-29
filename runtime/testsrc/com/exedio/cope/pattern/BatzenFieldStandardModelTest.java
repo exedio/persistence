@@ -70,7 +70,7 @@ public class BatzenFieldStandardModelTest extends CopeAssert
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-aString", eins.of(aString).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BatzenFieldModelTest$ABatzen#aString", aString.toString());
+		assertEquals("com.exedio.cope.pattern.BatzenFieldStandardModelTest$ABatzen#aString", aString.toString());
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
