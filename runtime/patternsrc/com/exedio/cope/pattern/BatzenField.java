@@ -132,7 +132,7 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		return componentList;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10, name="{1}", doc="Returns the value of {0}.")
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(final Item item)
 	{

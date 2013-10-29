@@ -38,10 +38,10 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals("item1", i1.getCode());
 		assertEquals("item2", i2.getCode());
 
-		final ABatzen b1a = i1.getEins();
-		final ABatzen b1b = i1.getZwei();
-		final ABatzen b2a = i2.getEins();
-		final ABatzen b2b = i2.getZwei();
+		final ABatzen b1a = i1.eins();
+		final ABatzen b1b = i1.zwei();
+		final ABatzen b2a = i2.eins();
+		final ABatzen b2b = i2.zwei();
 		assertEquals("item1-1A", b1a.getAString());
 		assertEquals("item1-1B", b1b.getAString());
 		assertEquals("item2-2A", b2a.getAString());
@@ -70,7 +70,7 @@ public class BatzenFieldTest extends AbstractRuntimeModelTest
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
 		assertEquals(list(), b2b.getAList());
-		final ABatzen b1A = i1.getEins();
+		final ABatzen b1A = i1.eins();
 		assertEquals(null, b1A.getAnItem());
 
 		b1a.setAnItem(i1);
