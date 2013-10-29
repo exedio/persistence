@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
@@ -134,7 +135,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
 	}
 
-	public Media copy()
+	public Media copy(final CopyMapper mapper)
 	{
 		return new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());
 	}

@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CompareCondition;
 import com.exedio.cope.CompareFunctionCondition;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IsNullCondition;
@@ -56,9 +57,9 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.mandatory = integer.isMandatory();
 	}
 
-	public PriceField copy()
+	public PriceField copy(final CopyMapper mapper)
 	{
-		return new PriceField(integer.copy());
+		return new PriceField(mapper.copy(integer));
 	}
 
 	public PriceField toFinal()

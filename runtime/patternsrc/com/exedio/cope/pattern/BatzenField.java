@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -57,10 +58,11 @@ public final class BatzenField<E extends Batzen> extends Pattern
 			final HashMap<Feature, Feature> componentToTemplate =
 				new HashMap<Feature, Feature>();
 
+			final CopyMapper mapper = new CopyMapper();
 			for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
 			{
 				final Feature template = e.getValue();
-				final Feature component = copy(template);
+				final Feature component = copy(mapper, template);
 				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
@@ -82,12 +84,12 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		return new BatzenField<E>(valueType);
 	}
 
-	private static Feature copy(final Feature f)
+	private static Feature copy(final CopyMapper mapper, final Feature f)
 	{
 		// TODO ----------------------------------------------------------------
 		try
 		{
-			return (Feature)(f.getClass().getMethod("copy").invoke(f));
+			return (Feature)(f.getClass().getMethod("copy", CopyMapper.class).invoke(f, mapper));
 		}
 		catch(final NoSuchMethodException e)
 		{

@@ -212,6 +212,11 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public abstract FunctionField<E> copy();
 
+	public final <F extends FunctionField<E>> F copy(final CopyMapper mapper)
+	{
+		return (F)mapper.copy(this);
+	}
+
 	/**
 	 * Returns a new FunctionField,
 	 * that differs from this FunctionField

@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -62,9 +63,9 @@ public final class ListField<E> extends AbstractListField<E>
 		return new ListField<E>(element);
 	}
 
-	public ListField<E> copy()
+	public ListField<E> copy(final CopyMapper mapper)
 	{
-		return new ListField<E>(element.copy());
+		return new ListField<E>(mapper.copy(element));
 	}
 
 	@Override

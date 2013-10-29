@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
@@ -56,9 +57,9 @@ public final class ColorField extends Pattern implements Settable<Color>
 		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
 	}
 
-	public ColorField copy()
+	public ColorField copy(final CopyMapper mapper)
 	{
-		return new ColorField(rgb.copy());
+		return new ColorField(mapper.copy(rgb));
 	}
 
 	public ColorField optional()
