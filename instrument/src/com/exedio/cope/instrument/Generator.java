@@ -656,6 +656,9 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
+		if(constraint.parent.isBatzen)
+			return;
+
 		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
 		final Option option = new Option(
 				Tags.getLine(constraint.docComment, optionTagname), true);
