@@ -417,18 +417,24 @@ public final class PriceTest extends CopeAssert
 		assertToString("-0.23", storeOf( -23));
 		assertToString( "0.03", storeOf(   3));
 		assertToString("-0.03", storeOf(  -3));
-		assertToString( "0.00", storeOf(   0));
-		assertToString( "1.20", storeOf( 120));
-		assertToString("-1.20", storeOf(-120));
-		assertToString( "1.00", storeOf( 100));
-		assertToString("-1.00", storeOf(-100));
+		assertToString( "0.00", storeOf(   0),  "0"  );
+		assertToString( "1.20", storeOf( 120),  "1.2");
+		assertToString("-1.20", storeOf(-120), "-1.2");
+		assertToString( "1.00", storeOf( 100),  "1"  );
+		assertToString("-1.00", storeOf(-100), "-1"  );
 		assertToString("-21474836.48", MIN_VALUE);
 		assertToString( "21474836.47", MAX_VALUE);
 	}
 
 	private static void assertToString(final String expected, final Price actual)
 	{
-		assertEquals(expected, actual.toString());
+		assertToString(expected, actual, expected);
+	}
+
+	private static void assertToString(final String expected, final Price actual, final String expectedShort)
+	{
+		assertEquals("toString", expected, actual.toString());
+		assertEquals("toStringShort", expectedShort, actual.toStringShort());
 	}
 
 	public static void testSerialization()
