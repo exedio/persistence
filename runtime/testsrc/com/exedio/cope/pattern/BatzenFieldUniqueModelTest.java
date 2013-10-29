@@ -75,6 +75,12 @@ public class BatzenFieldUniqueModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(alpha, beta, constraint), eins.getTemplates());
 		assertEqualsUnmodifiable(list(eins.of(alpha), eins.of(beta), eins.of(constraint)), eins.getComponents());
 
+		assertSerializedSame(alpha, 339);
+		assertSerializedSame(constraint, 344);
+		assertSerializedSame(eins.of(alpha), 392);
+		assertSerializedSame(eins.of(constraint), 397);
+		assertSerializedSame(zwei.of(alpha), 392);
+		assertSerializedSame(zwei.of(constraint), 397);
 		assertSerializedSame(eins, 386);
 		assertSerializedSame(zwei, 386);
 	}
