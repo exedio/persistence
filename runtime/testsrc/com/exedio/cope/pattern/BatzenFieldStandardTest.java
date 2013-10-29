@@ -113,7 +113,7 @@ public class BatzenFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals("AnItem.zwei#AnItem-1", b2b.toString());
 
 		// serialization
-		final ABatzen b1aS = reserialize(b1a, 686);
+		final ABatzen b1aS = reserialize(b1a, 710);
 		assertEquals(b1aS, b1a);
 		assertNotSame(b1aS, b1a);
 		assertFalse(b1aS.equals(b1b));
