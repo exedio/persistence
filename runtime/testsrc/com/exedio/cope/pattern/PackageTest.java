@@ -96,6 +96,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(BatzenFieldModelTest.class);
 		suite.addTestSuite(BatzenFieldUniqueModelTest.class);
 		suite.addTestSuite(BatzenFieldTest.class);
+		suite.addTestSuite(BatzenFieldUniqueTest.class);
 		return suite;
 	}
 }
