@@ -78,6 +78,13 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 
 
+	void suppressUnusedWarnings()
+	{
+		simpleBarePrivate();
+		simpleOverrideInternalInternal();
+		simpleOverridePrivate();
+	}
+
    /**
 
 	 **
