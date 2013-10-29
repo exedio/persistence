@@ -18,14 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import junit.framework.AssertionFailedError;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import junit.framework.AssertionFailedError;
 
 public class JavaViewInPatternTest extends CopeAssert
 {

@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
