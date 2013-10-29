@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.InstrumentContext;
@@ -113,7 +112,7 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		return result;
 	}
 
-	public <X extends FunctionField<?>> X getTemplate(final X component)
+	public <X extends Feature> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")
 		final X result = (X)componentToTemplate.get(component);

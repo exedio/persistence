@@ -78,6 +78,11 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
+	public UniqueConstraint copy()
+	{
+		return new UniqueConstraint(fields);
+	}
+
 	public List<FunctionField<?>> getFields()
 	{
 		return fieldList;
