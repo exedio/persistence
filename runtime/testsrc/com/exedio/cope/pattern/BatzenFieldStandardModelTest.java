@@ -19,15 +19,15 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.aColor;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.aList;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.aMedia;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.aString;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.anEnum;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.anInt;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.anItem;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.AnItem.eins;
-import static com.exedio.cope.pattern.BatzenFieldModelTest.AnItem.zwei;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aColor;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aList;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aMedia;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aString;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anEnum;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anInt;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anItem;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.AnItem.zwei;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
@@ -39,13 +39,13 @@ import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.util.Arrays;
 
-public class BatzenFieldModelTest extends CopeAssert
+public class BatzenFieldStandardModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(BatzenFieldModelTest.class, "MODEL");
+		MODEL.enableSerialization(BatzenFieldStandardModelTest.class, "MODEL");
 	}
 
 	public void testIt()

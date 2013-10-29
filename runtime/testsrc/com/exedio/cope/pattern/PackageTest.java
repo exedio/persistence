@@ -93,9 +93,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(RangeFieldNullTest.class);
 		suite.addTestSuite(PatternTest.class);
 		suite.addTestSuite(RecursiveTest.class);
-		suite.addTestSuite(BatzenFieldModelTest.class);
+		suite.addTestSuite(BatzenFieldStandardModelTest.class);
 		suite.addTestSuite(BatzenFieldUniqueModelTest.class);
-		suite.addTestSuite(BatzenFieldTest.class);
+		suite.addTestSuite(BatzenFieldStandardTest.class);
 		suite.addTestSuite(BatzenFieldUniqueTest.class);
 		return suite;
 	}

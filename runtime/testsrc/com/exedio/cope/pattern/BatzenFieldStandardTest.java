@@ -19,16 +19,16 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen;
-import com.exedio.cope.pattern.BatzenFieldModelTest.ABatzen.AnEnum;
-import com.exedio.cope.pattern.BatzenFieldModelTest.AnItem;
+import com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen;
+import com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.AnEnum;
+import com.exedio.cope.pattern.BatzenFieldStandardModelTest.AnItem;
 import java.awt.Color;
 
-public class BatzenFieldTest extends AbstractRuntimeModelTest
+public class BatzenFieldStandardTest extends AbstractRuntimeModelTest
 {
-	public BatzenFieldTest()
+	public BatzenFieldStandardTest()
 	{
-		super(BatzenFieldModelTest.MODEL);
+		super(BatzenFieldStandardModelTest.MODEL);
 	}
 
 	public void testIt()
