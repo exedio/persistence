@@ -19,7 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraint;
+import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraintPrice;
 import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.Price.storeOf;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;
@@ -33,7 +35,7 @@ public class BatzenFieldUniqueTest extends AbstractRuntimeModelTest
 		super(BatzenFieldUniqueModelTest.MODEL);
 	}
 
-	public void testIt()
+	public void testField()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);
@@ -63,6 +65,40 @@ public class BatzenFieldUniqueTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("unique violation on AnItem-0 for AnItem.eins-constraint", e.getMessage());
 			assertEquals(eins.of(constraint), e.getFeature());
+			assertEquals(i1, e.getItem());
+		}
+	}
+
+	public void testPrice()
+	{
+		final AnItem i1 = new AnItem("item1", 1);
+		final AnItem i2 = new AnItem("item2", 2);
+		assertEquals("item1", i1.getCode());
+		assertEquals("item2", i2.getCode());
+
+		final ABatzen b1a = i1.eins();
+		final ABatzen b1b = i1.zwei();
+		final ABatzen b2a = i2.eins();
+		final ABatzen b2b = i2.zwei();
+		assertEquals(storeOf(151), b1a.getAlphaPrice());
+		assertEquals(storeOf(251), b1b.getAlphaPrice());
+		assertEquals(storeOf(152), b2a.getAlphaPrice());
+		assertEquals(storeOf(252), b2b.getAlphaPrice());
+		assertEquals(storeOf(161), b1a.getBetaPrice());
+		assertEquals(storeOf(261), b1b.getBetaPrice());
+		assertEquals(storeOf(162), b2a.getBetaPrice());
+		assertEquals(storeOf(262), b2b.getBetaPrice());
+
+		b1a.setAlphaPrice(storeOf(152));
+		try
+		{
+			b1a.setBetaPrice(storeOf(162));
+			fail();
+		}
+		catch(final UniqueViolationException e)
+		{
+			assertEquals("unique violation on AnItem-0 for AnItem.eins-constraintPrice", e.getMessage());
+			assertEquals(eins.of(constraintPrice), e.getFeature());
 			assertEquals(i1, e.getItem());
 		}
 	}
