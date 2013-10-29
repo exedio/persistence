@@ -418,6 +418,10 @@ public final class PriceTest extends CopeAssert
 		assertToString( "0.03", storeOf(   3));
 		assertToString("-0.03", storeOf(  -3));
 		assertToString( "0.00", storeOf(   0));
+		assertToString( "1.20", storeOf( 120));
+		assertToString("-1.20", storeOf(-120));
+		assertToString( "1.00", storeOf( 100));
+		assertToString("-1.00", storeOf(-100));
 		assertToString("-21474836.48", MIN_VALUE);
 		assertToString( "21474836.47", MAX_VALUE);
 	}
