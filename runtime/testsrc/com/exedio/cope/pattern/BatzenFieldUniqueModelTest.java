@@ -65,6 +65,7 @@ public class BatzenFieldUniqueModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(eins.of(alpha), eins.of(beta), eins.of(constraint)), eins.getSourceFeatures());
 
 		assertEquals(list(eins.of(alpha), eins.of(beta)), eins.of(constraint).getFields());
+		assertEquals(list(zwei.of(alpha), zwei.of(beta)), zwei.of(constraint).getFields());
 		assertEquals(list(alpha, beta), constraint.getFields());
 
 		assertEquals(ABatzen.TYPE, eins.getValueType());
