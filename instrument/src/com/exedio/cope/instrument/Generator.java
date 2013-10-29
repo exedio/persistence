@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Batzen;
+import com.exedio.cope.pattern.BatzenActivationParameters;
 import com.exedio.cope.pattern.BatzenType;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
@@ -46,7 +47,7 @@ final class Generator
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String BATZEN_TYPE_NAME = BatzenType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
-	private static final String ACTIVATION_BATZEN = Batzen.ActivationParameters.class.getCanonicalName();
+	private static final String ACTIVATION_BATZEN = BatzenActivationParameters.class.getCanonicalName();
 	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
