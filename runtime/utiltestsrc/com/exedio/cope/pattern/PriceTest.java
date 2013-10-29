@@ -420,8 +420,10 @@ public final class PriceTest extends CopeAssert
 		assertEquals( "0.00", storeOf(   0).toString());
 		assertEquals("-21474836.48", MIN_VALUE.toString());
 		assertEquals( "21474836.47", MAX_VALUE.toString());
+	}
 
-		// serialization
+	public static void testSerialization()
+	{
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 62));
 	}
