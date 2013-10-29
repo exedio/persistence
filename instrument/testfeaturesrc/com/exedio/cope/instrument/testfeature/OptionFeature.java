@@ -31,5 +31,11 @@ public final class OptionFeature extends Pattern
 		throw new RuntimeException();
 	}
 
+	@SuppressWarnings("static-method")
+	public OptionFeature fail()
+	{
+		throw new RuntimeException("deliberatly fail");
+	}
+
 	private static final long serialVersionUID = 1l;
 }

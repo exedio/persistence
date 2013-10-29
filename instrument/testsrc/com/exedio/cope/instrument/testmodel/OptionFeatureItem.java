@@ -74,7 +74,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	static final OptionFeature override = new OptionFeature();
 
 	/** @cope.ignore */
-	static final OptionFeature ignore = new OptionFeature(); // TODO
+	static final OptionFeature ignore = new OptionFeature().fail();
 
 
 
