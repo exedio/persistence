@@ -212,12 +212,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public abstract FunctionField<E> copy();
 
-	public final <F extends FunctionField<E>> F copy(final CopyMapper mapper)
+	public final FunctionField<E> copy(final CopyMapper mapper)
 	{
-		final FunctionField<E> result = mapper.copy(this);
-		@SuppressWarnings("unchecked")
-		final F casted = (F)result;
-		return casted;
+		return mapper.copy(this);
 	}
 
 	/**
