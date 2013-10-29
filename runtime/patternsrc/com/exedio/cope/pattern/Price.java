@@ -266,7 +266,11 @@ public final class Price implements Serializable, Comparable<Price>
 	public String toString()
 	{
 		final int minor = Math.abs(store%FACTOR_I);
-		return ((store<0 && store>(-FACTOR_I)) ? "-" : "") + String.valueOf(store/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
+		return
+			((store<0 && store>(-FACTOR_I)) ? "-" : "") +
+			String.valueOf(store/FACTOR_I) + '.' +
+			(minor<10?"0":"") +
+			minor;
 	}
 
 	/**
