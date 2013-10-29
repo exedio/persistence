@@ -25,7 +25,8 @@ public final class NameFeatureItem extends Item
 {
 	static final NameFeature feature = new NameFeature();
 
-/**
+
+	/**
 
 	 **
 	 * Creates a new NameFeatureItem with all the fields initially needed.
