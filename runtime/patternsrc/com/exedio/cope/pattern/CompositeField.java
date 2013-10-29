@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -126,6 +127,12 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public static <E extends Composite> CompositeField<E> create(final Class<E> valueClass)
 	{
 		return new CompositeField<E>(false, false, valueClass);
+	}
+
+	@Override
+	public CompositeField<E> copy(final CopyMapper mapper)
+	{
+		return new CompositeField<E>(isfinal, optional, valueClass);
 	}
 
 	public CompositeField<E> toFinal()

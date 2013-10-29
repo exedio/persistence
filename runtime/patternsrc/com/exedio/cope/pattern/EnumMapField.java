@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -64,6 +65,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final FunctionField<V> value)
 	{
 		return new EnumMapField<K,V>(keyClass, value, new EnumMap<K, V>(keyClass));
+	}
+
+	@Override
+	public EnumMapField<K,V> copy(final CopyMapper mapper)
+	{
+		return new EnumMapField<K,V>(keyClass, mapper.copy(valueTemplate), defaultConstant);
 	}
 
 	public EnumMapField<K,V> defaultTo(final K key, final V value)

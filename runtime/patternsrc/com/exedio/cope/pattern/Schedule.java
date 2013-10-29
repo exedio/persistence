@@ -33,6 +33,7 @@ import static java.util.Calendar.WEEK_OF_MONTH;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
@@ -89,6 +90,12 @@ public final class Schedule extends Pattern
 		this.locale = locale;
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
+	}
+
+	@Override
+	public Schedule copy(final CopyMapper mapper)
+	{
+		return new Schedule(locale);
 	}
 
 	public Locale getLocale()

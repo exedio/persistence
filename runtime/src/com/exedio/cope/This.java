@@ -39,6 +39,12 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
+	public This<E> copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
+	}
+
+	@Override
 	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);

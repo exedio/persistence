@@ -57,6 +57,7 @@ public final class ColorField extends Pattern implements Settable<Color>
 		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
 	}
 
+	@Override
 	public ColorField copy(final CopyMapper mapper)
 	{
 		return new ColorField(mapper.copy(rgb));

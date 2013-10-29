@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
@@ -55,6 +56,12 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	public static final <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
+	{
+		return new EnumSetField<E>(elementClass);
+	}
+
+	@Override
+	public EnumSetField<E> copy(final CopyMapper mapper)
 	{
 		return new EnumSetField<E>(elementClass);
 	}

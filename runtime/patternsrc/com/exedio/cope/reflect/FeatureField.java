@@ -20,6 +20,7 @@ package com.exedio.cope.reflect;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
@@ -70,6 +71,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameEmpty.get()));
 		this.isfinal = integer.isFinal();
 		this.mandatory = integer.isMandatory();
+	}
+
+	@Override
+	public FeatureField<E> copy(final CopyMapper mapper)
+	{
+		return new FeatureField<E>(valueClass, mapper.copy(idField));
 	}
 
 	public FeatureField<E> toFinal()

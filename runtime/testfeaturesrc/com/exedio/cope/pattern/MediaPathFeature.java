@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import junit.framework.AssertionFailedError;
 
 public final class MediaPathFeature extends MediaPath
 {
@@ -48,6 +50,12 @@ public final class MediaPathFeature extends MediaPath
 		addSource(result, "result");
 		addSource(contentType, "contentType");
 		addSource(lastModified, "lastModified");
+	}
+
+	@Override
+	public MediaPathFeature copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	@Wrap(order=10)

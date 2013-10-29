@@ -84,6 +84,12 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		return new BatzenField<E>(valueType);
 	}
 
+	@Override
+	public BatzenField<E> copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
+	}
+
 	private static Feature copy(final CopyMapper mapper, final Feature f)
 	{
 		// TODO ----------------------------------------------------------------

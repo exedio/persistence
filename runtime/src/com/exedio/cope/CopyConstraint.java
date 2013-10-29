@@ -49,6 +49,12 @@ public final class CopyConstraint extends Feature
 		this.copy = copy;
 	}
 
+	@Override
+	public CopyConstraint copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
+	}
+
 	public ItemField<?> getTarget()
 	{
 		return target;

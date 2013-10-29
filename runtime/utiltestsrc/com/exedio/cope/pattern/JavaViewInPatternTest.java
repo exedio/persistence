@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import junit.framework.AssertionFailedError;
+
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
@@ -31,6 +34,12 @@ public class JavaViewInPatternTest extends CopeAssert
 		Muster()
 		{
 			addSource(new JavaView(), "schau");
+		}
+
+		@Override
+		public Muster copy(final CopyMapper mapper)
+		{
+			throw new AssertionFailedError();
 		}
 
 		private static final long serialVersionUID = 1l;

@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Function;
@@ -44,6 +45,12 @@ import java.util.List;
 public final class History extends Pattern
 {
 	private static final long serialVersionUID = 1l;
+
+	@Override
+	public History copy(final CopyMapper mapper)
+	{
+		return new History();
+	}
 
 	ItemField<?> eventParent = null;
 	PartOf<?> eventEvents = null;

@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
@@ -79,6 +80,12 @@ public final class PasswordRecovery extends Pattern
 			throw new NullPointerException("password");
 		if(random==null)
 			throw new NullPointerException("random");
+	}
+
+	@Override
+	public PasswordRecovery copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
 	}
 
 	@Override

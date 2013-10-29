@@ -135,6 +135,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
 	}
 
+	@Override
 	public Media copy(final CopyMapper mapper)
 	{
 		return new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());

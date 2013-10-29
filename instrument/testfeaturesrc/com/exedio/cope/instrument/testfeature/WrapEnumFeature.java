@@ -18,8 +18,10 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import junit.framework.AssertionFailedError;
 
 public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
 {
@@ -44,6 +46,12 @@ public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
 			throw new IllegalArgumentException("className is null");
 		if(!className.equals(clazz.getName()))
 			throw new IllegalArgumentException("className mismatch: " + clazz.getName());
+	}
+
+	@Override
+	public WrapEnumFeature<E> copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	@Wrap(order=10)

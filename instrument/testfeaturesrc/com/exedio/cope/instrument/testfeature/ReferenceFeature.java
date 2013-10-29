@@ -18,8 +18,10 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import junit.framework.AssertionFailedError;
 
 public final class ReferenceFeature extends Pattern
 {
@@ -38,6 +40,12 @@ public final class ReferenceFeature extends Pattern
 
 	private ReferenceFeature()
 	{
+	}
+
+	@Override
+	public ReferenceFeature copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	@Wrap(order=10)

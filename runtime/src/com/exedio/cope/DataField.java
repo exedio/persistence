@@ -60,6 +60,12 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	@Override
+	public DataField copy(final CopyMapper mapper)
+	{
+		return new DataField(isfinal, optional, maximumLength);
+	}
+
+	@Override
 	public DataField toFinal()
 	{
 		return new DataField(true, optional, maximumLength);

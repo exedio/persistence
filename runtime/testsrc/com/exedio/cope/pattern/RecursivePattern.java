@@ -18,9 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
+import junit.framework.AssertionFailedError;
 
 class RecursivePattern extends Pattern
 {
@@ -33,6 +35,12 @@ class RecursivePattern extends Pattern
 	{
 		addSource(media, "media");
 		addSource(fetch, "fetch");
+	}
+
+	@Override
+	public RecursivePattern copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	void set(final Item item, final String value)

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -26,10 +27,17 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import junit.framework.AssertionFailedError;
 
 public class SettableFixedParamImpl extends Pattern implements SettableFixedParamInterface
 {
 	private static final long serialVersionUID = 1l;
+
+	@Override
+	public SettableFixedParamImpl copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
+	}
 
 	@Override
 	public boolean isInitial()

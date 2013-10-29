@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
+import junit.framework.AssertionFailedError;
 
 final class PatternComputedPattern extends Pattern
 {
@@ -32,6 +33,12 @@ final class PatternComputedPattern extends Pattern
 	{
 		addSource(virgnSource, "virgnSource");
 		addSource(compuSource, "compuSource", ComputedElement.get());
+	}
+
+	@Override
+	public PatternComputedPattern copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	Type<?> virgnType = null;

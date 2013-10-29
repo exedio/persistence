@@ -78,6 +78,7 @@ public final class UniqueConstraint extends Feature
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
+	@Override
 	public UniqueConstraint copy(final CopyMapper mapper)
 	{
 		return new UniqueConstraint(mapper.get(fields));

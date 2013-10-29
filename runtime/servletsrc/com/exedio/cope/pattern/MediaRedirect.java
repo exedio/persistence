@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,12 @@ public final class MediaRedirect extends MediaPath
 			throw new NullPointerException("target");
 
 		this.target = target;
+	}
+
+	@Override
+	public MediaRedirect copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
 	}
 
 	public MediaPath getTarget()

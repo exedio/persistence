@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.Cast.verboseCast;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -66,6 +67,12 @@ public final class MapField<K,V> extends Pattern
 	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new MapField<K,V>(key, value);
+	}
+
+	@Override
+	public MapField<K,V> copy(final CopyMapper mapper)
+	{
+		return new MapField<K,V>(mapper.copy(key), mapper.copy(value));
 	}
 
 	@Override

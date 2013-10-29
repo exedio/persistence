@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import junit.framework.AssertionFailedError;
+
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
@@ -38,6 +41,12 @@ final class MediaCustom extends MediaPath
 	MediaCustom(final StringField source)
 	{
 		this.source = source;
+	}
+
+	@Override
+	public MediaCustom copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	StringField getSource()

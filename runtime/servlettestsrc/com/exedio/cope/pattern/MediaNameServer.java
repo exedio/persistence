@@ -21,12 +21,14 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import junit.framework.AssertionFailedError;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
@@ -43,6 +45,12 @@ final class MediaNameServer extends MediaPath
 		this.source = source;
 		if(source!=null)
 			addSource(source, "Source");
+	}
+
+	@Override
+	public MediaNameServer copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
 	}
 
 	StringField getSource()

@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -123,6 +124,12 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			return null;
 		return
 			supportedContentTypes.contains(type) ? type : null;
+	}
+
+	@Override
+	public final MediaImageMagickFilter copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
 	}
 
 	@Override

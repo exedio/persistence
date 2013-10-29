@@ -72,6 +72,12 @@ public abstract class View<E> extends Feature
 		}
 	}
 
+	@Override
+	public final View<E> copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
+	}
+
 	public final List<Function<?>> getSources()
 	{
 		return sourceList;

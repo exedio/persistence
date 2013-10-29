@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.NestedHashAlgorithm.create;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
@@ -73,6 +74,12 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	private static Hash hash(final HashAlgorithm algorithm)
 	{
 		return new Hash(algorithm).optional();
+	}
+
+	@Override
+	public NestedHashMigration copy(final CopyMapper mapper)
+	{
+		return new NestedHashMigration(legacyHash.getAlgorithm2(), targetHash.getAlgorithm2());
 	}
 
 	public Hash getLegacyHash()

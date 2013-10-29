@@ -18,14 +18,22 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import junit.framework.AssertionFailedError;
 
 public class WrapFeature extends Pattern
 {
+	@Override
+	public WrapFeature copy(final CopyMapper mapper)
+	{
+		throw new AssertionFailedError();
+	}
+
 	@Wrap(order=10)
 	public int simple(
 			@SuppressWarnings("unused") final Item item)

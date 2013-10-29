@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -56,6 +57,12 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
 
 		return new RangeField<E>(borderTemplate);
+	}
+
+	@Override
+	public RangeField<E> copy(final CopyMapper mapper)
+	{
+		throw copyNotYetImplemented();
 	}
 
 	public FunctionField<E> getFrom()
