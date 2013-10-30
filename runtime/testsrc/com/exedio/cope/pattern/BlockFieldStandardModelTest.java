@@ -19,15 +19,15 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aColor;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aList;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aMedia;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.aString;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anEnum;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anInt;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.ABatzen.anItem;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.AnItem.eins;
-import static com.exedio.cope.pattern.BatzenFieldStandardModelTest.AnItem.zwei;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aColor;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aList;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aMedia;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aString;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anEnum;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anInt;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anItem;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.zwei;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
@@ -39,13 +39,13 @@ import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.util.Arrays;
 
-public class BatzenFieldStandardModelTest extends CopeAssert
+public class BlockFieldStandardModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(BatzenFieldStandardModelTest.class, "MODEL");
+		MODEL.enableSerialization(BlockFieldStandardModelTest.class, "MODEL");
 	}
 
 	public void testIt()

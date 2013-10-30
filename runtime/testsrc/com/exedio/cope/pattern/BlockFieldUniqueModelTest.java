@@ -19,14 +19,14 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.alpha;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.alphaPrice;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.beta;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.betaPrice;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraint;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraintPrice;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.AnItem.eins;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.AnItem.zwei;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.alpha;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.alphaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.beta;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.betaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.zwei;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
@@ -36,13 +36,13 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 
-public class BatzenFieldUniqueModelTest extends CopeAssert
+public class BlockFieldUniqueModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(BatzenFieldUniqueModelTest.class, "MODEL");
+		MODEL.enableSerialization(BlockFieldUniqueModelTest.class, "MODEL");
 	}
 
 	public void testIt()

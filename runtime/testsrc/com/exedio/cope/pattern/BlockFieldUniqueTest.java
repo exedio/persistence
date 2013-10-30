@@ -18,21 +18,21 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraint;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen.constraintPrice;
-import static com.exedio.cope.pattern.BatzenFieldUniqueModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.Price.storeOf;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.pattern.BatzenFieldUniqueModelTest.ABatzen;
-import com.exedio.cope.pattern.BatzenFieldUniqueModelTest.AnItem;
+import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen;
+import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
 
-public class BatzenFieldUniqueTest extends AbstractRuntimeModelTest
+public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 {
-	public BatzenFieldUniqueTest()
+	public BlockFieldUniqueTest()
 	{
-		super(BatzenFieldUniqueModelTest.MODEL);
+		super(BlockFieldUniqueModelTest.MODEL);
 	}
 
 	public void testField()
