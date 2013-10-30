@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.ScheduleItem.report;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;

@@ -45,7 +45,7 @@ import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-import com.exedio.cope.pattern.AbsoluteMockClockStrategy;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
