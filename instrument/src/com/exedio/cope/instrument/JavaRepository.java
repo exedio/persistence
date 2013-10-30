@@ -307,7 +307,7 @@ final class JavaRepository
 							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
 					return define(cf);
 				}
-				if("Batzen".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				if("Block".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
 					return DummyBatzen.class;
 				}
