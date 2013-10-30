@@ -45,9 +45,9 @@ final class Generator
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
-	private static final String BATZEN_TYPE_NAME = BlockType.class.getName();
+	private static final String BLOCK_TYPE_NAME = BlockType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
-	private static final String ACTIVATION_BATZEN = BlockActivationParameters.class.getCanonicalName();
+	private static final String ACTIVATION_BLOCK = BlockActivationParameters.class.getCanonicalName();
 	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
@@ -77,7 +77,7 @@ final class Generator
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String TYPE = "The persistent type information for {0}.";
-	private static final String TYPE_BATZEN = "The type information for {0}.";
+	private static final String TYPE_BLOCK = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + ' ' +
 																Option.TEXT_VISIBILITY_PUBLIC + '|' +
@@ -351,7 +351,7 @@ final class Generator
 
 		final boolean batzen = type.isBlock;
 		final Class<?> constructor = batzen ? Block.class : Item.class;
-		final String activation = batzen ? ACTIVATION_BATZEN : ACTIVATION;
+		final String activation = batzen ? ACTIVATION_BLOCK : ACTIVATION;
 
 		writeCommentHeader();
 		writeIndent();
@@ -376,7 +376,7 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(batzen ? ACTIVATION_BATZEN : ACTIVATION);
+		write(batzen ? ACTIVATION_BLOCK : ACTIVATION);
 		write(" ap){super(ap);");
 		write(lineSeparator);
 		write('}');
@@ -774,15 +774,15 @@ final class Generator
 			writeCommentHeader();
 			writeIndent();
 			write(" * ");
-			write(format(batzen ? TYPE_BATZEN : TYPE, lowerCamelCase(type.name)));
+			write(format(batzen ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(batzen?BATZEN_TYPE_NAME:TYPE_NAME);write('<');
+			write(batzen?BLOCK_TYPE_NAME:TYPE_NAME);write('<');
 			write(type.name);
-			write("> TYPE = ");write(batzen?BATZEN_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
+			write("> TYPE = ");write(batzen?BLOCK_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
 			write(type.name);
 			write(".class);");
 		}
