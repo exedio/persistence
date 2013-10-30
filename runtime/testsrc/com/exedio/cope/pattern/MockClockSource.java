@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.util.Clock;
 import java.util.Collections;
 import java.util.LinkedList;
 import org.junit.Assert;

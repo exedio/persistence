@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
@@ -53,13 +54,13 @@ public class DispatcherTest extends CopeModelTest
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
 		clock = new MockClockSource();
-		Dispatcher.clock.override(clock);
+		Clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Dispatcher.clock.clearOverride();
+		Clock.clearOverride();
 		super.tearDown();
 	}
 

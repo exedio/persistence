@@ -40,6 +40,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.CharsetName;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
@@ -58,8 +59,6 @@ public final class Dispatcher extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private static final String ENCODING = CharsetName.UTF8;
-
-	static final Clock clock = new Clock();
 
 	private final BooleanField pending;
 
@@ -251,7 +250,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				final long start = clock.currentTimeMillis();
+				final long start = Clock.currentTimeMillis();
 				final long nanoStart = nanoTime();
 				try
 				{

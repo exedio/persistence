@@ -32,6 +32,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -42,7 +43,6 @@ public final class PasswordRecovery extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private static final long NOT_A_SECRET = 0l;
-	static final Clock clock = new Clock();
 
 	private final HashInterface password;
 
@@ -138,7 +138,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		final int expiry = config.getExpiryMillis();
 		final int reuse = config.getReuseMillis();
-		final long now = clock.currentTimeMillis();
+		final long now = Clock.currentTimeMillis();
 
 		if(config.getReuseMillis()>0)
 		{
@@ -179,7 +179,7 @@ public final class PasswordRecovery extends Pattern
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
-				this.expires.greaterOrEqual(new Date(clock.currentTimeMillis()))));
+				this.expires.greaterOrEqual(new Date(Clock.currentTimeMillis()))));
 
 		if(!tokens.isEmpty())
 		{
@@ -240,7 +240,7 @@ public final class PasswordRecovery extends Pattern
 			@Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
-				tokenType.newQuery(this.expires.less(new Date(clock.currentTimeMillis()))),
+				tokenType.newQuery(this.expires.less(new Date(Clock.currentTimeMillis()))),
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}

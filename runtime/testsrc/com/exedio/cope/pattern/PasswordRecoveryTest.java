@@ -30,6 +30,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
+import com.exedio.cope.util.Clock;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -56,13 +57,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
 		clock = new MockClockSource();
-		PasswordRecovery.clock.override(clock);
+		Clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		PasswordRecovery.clock.clearOverride();
+		Clock.clearOverride();
 		super.tearDown();
 	}
 
