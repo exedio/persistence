@@ -16,37 +16,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.instrument.testfeature;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import org.junit.Assert;
+import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.Wrap;
 
-final class MockClockSource implements Clock.Source
+public final class OptionFeatureGet extends Pattern
 {
-	private final LinkedList<Long> events = new LinkedList<Long>();
-	private long date = 1000l*60*60*24*1000;
-
-	public long currentTimeMillis()
+	@SuppressWarnings("static-method")
+	@Wrap(order=10)
+	public void get(@SuppressWarnings("unused") final Item item)
 	{
-		Assert.assertFalse("no pending clock events", events.isEmpty());
-		return events.removeFirst();
+		throw new RuntimeException();
 	}
 
-	public long addNow()
-	{
-		return addOffset(0);
-	}
-
-	public long addOffset(final long date)
-	{
-		this.date += date;
-		events.add(this.date);
-		return this.date;
-	}
-
-	public void assertEmpty()
-	{
-		Assert.assertEquals("pending clock events", Collections.EMPTY_LIST, events);
-	}
+	private static final long serialVersionUID = 1l;
 }

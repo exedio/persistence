@@ -409,19 +409,36 @@ public final class PriceTest extends CopeAssert
 
 	public static void testToString()
 	{
-		assertEquals( "1.23", storeOf( 123).toString());
-		assertEquals("-1.23", storeOf(-123).toString());
-		assertEquals( "1.03", storeOf( 103).toString());
-		assertEquals("-1.03", storeOf(-103).toString());
-		assertEquals( "0.23", storeOf(  23).toString());
-		assertEquals("-0.23", storeOf( -23).toString());
-		assertEquals( "0.03", storeOf(   3).toString());
-		assertEquals("-0.03", storeOf(  -3).toString());
-		assertEquals( "0.00", storeOf(   0).toString());
-		assertEquals("-21474836.48", MIN_VALUE.toString());
-		assertEquals( "21474836.47", MAX_VALUE.toString());
+		assertToString( "1.23", storeOf( 123));
+		assertToString("-1.23", storeOf(-123));
+		assertToString( "1.03", storeOf( 103));
+		assertToString("-1.03", storeOf(-103));
+		assertToString( "0.23", storeOf(  23));
+		assertToString("-0.23", storeOf( -23));
+		assertToString( "0.03", storeOf(   3));
+		assertToString("-0.03", storeOf(  -3));
+		assertToString( "0.00", storeOf(   0),  "0"  );
+		assertToString( "1.20", storeOf( 120),  "1.2");
+		assertToString("-1.20", storeOf(-120), "-1.2");
+		assertToString( "1.00", storeOf( 100),  "1"  );
+		assertToString("-1.00", storeOf(-100), "-1"  );
+		assertToString("-21474836.48", MIN_VALUE);
+		assertToString( "21474836.47", MAX_VALUE);
+	}
 
-		// serialization
+	private static void assertToString(final String expected, final Price actual)
+	{
+		assertToString(expected, actual, expected);
+	}
+
+	private static void assertToString(final String expected, final Price actual, final String expectedShort)
+	{
+		assertEquals("toString", expected, actual.toString());
+		assertEquals("toStringShort", expectedShort, actual.toStringShort());
+	}
+
+	public static void testSerialization()
+	{
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 62));
 	}

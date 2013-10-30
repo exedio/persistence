@@ -25,9 +25,11 @@ import static com.exedio.cope.pattern.ScheduleItem.report;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -53,7 +55,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	}
 
 	ScheduleItem item;
-	AbsoluteMockClockSource clock;
+	AbsoluteMockClockStrategy clock;
 	ArrayList<ExpectedRun> expectedRuns;
 
 	@Override
@@ -61,15 +63,15 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		item = deleteOnTearDown(new ScheduleItem());
-		clock = new AbsoluteMockClockSource();
-		Schedule.clock.setSource(clock);
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
 		expectedRuns = new ArrayList<ExpectedRun>();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Schedule.clock.removeSource();
+		Clock.clearOverride();
 		super.tearDown();
 	}
 

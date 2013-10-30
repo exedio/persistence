@@ -18,8 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Properties.getSource;
-
+import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import junit.framework.TestCase;
 
@@ -63,7 +62,7 @@ public class ItemCacheLimitTest extends TestCase
 		source.setProperty("connection.password", "");
 		source.setProperty("cache.item.limit", String.valueOf(limit));
 		return new ConnectProperties(
-				getSource(source , "MediaUrlSecretTestSource" ),
+				Sources.view(source , "MediaUrlSecretTestSource"),
 				null);
 	}
 

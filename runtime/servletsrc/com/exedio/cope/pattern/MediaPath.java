@@ -32,6 +32,7 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -727,13 +728,13 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
+			response.setDateHeader(RESPONSE_EXPIRES, Clock.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
 		}
 		else
 		{
 			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
-				response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+				response.setDateHeader(RESPONSE_EXPIRES, Clock.currentTimeMillis() + mediaOffsetExpires);
 		}
 
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)

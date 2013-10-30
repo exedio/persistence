@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.CompositeField.create;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
@@ -32,7 +34,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			CompositeField.create(null);
+			create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -41,7 +43,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(NonFinal.class);
+			create(NonFinal.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -52,7 +54,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(NoConstructor.class);
+			create(NoConstructor.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -64,7 +66,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(NoFields.class);
+			create(NoFields.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,7 +75,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(NullField.class);
+			create(NullField.class);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -82,7 +84,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(PatternField.class);
+			create(PatternField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -91,7 +93,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(Composite.class);
+			create(Composite.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -100,7 +102,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		try
 		{
-			CompositeField.create(FinalField.class);
+			create(FinalField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -114,7 +116,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			CompositeField.create((Class)CompositeErrorTest.class);
+			create((Class)CompositeErrorTest.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

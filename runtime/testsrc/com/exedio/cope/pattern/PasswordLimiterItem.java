@@ -26,7 +26,7 @@ public final class PasswordLimiterItem extends Item
 	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
 
-	final boolean checkPasswordLimited(final String password, final MockClockSource clock)
+	final boolean checkPasswordLimited(final String password, final RelativeMockClockStrategy clock)
 	{
 		clock.addNow();
 		final boolean result = checkPasswordLimited(password);
@@ -34,7 +34,7 @@ public final class PasswordLimiterItem extends Item
 		return result;
 	}
 
-	final boolean checkPasswordLimitedVerbosely(final String password, final MockClockSource clock) throws ExceededException
+	final boolean checkPasswordLimitedVerbosely(final String password, final RelativeMockClockStrategy clock) throws ExceededException
 	{
 		clock.addNow();
 		final boolean result = checkPasswordLimitedVerbosely(password);

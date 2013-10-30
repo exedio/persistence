@@ -4,9 +4,18 @@ CHANGELOG for cops
 This file lists all changes relevant for the user - especially all
 API changes and new features recommended for most users. The log may
 omit bug fixes.
-The items are sorted inversely, i.e. lastest items are on top
+The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Pager#init(List) added
+* depends on JDK 1.6.0_15
+* logging via slf4j
+* Cop#getSecureURL added
+* bugfix: Cop#redirectToCanonical uses HttpServletRequest#getPathInfo()
+	instead of getRequestURI(), fixes infinite redirect loop with
+	jsessionid in url
+* PropertiesServlet adds method getDisplayCaption() for override.
+* PropertiesServlet.Overridable
 * PropertiesServlet supports getTests
 * fix endless redirection loop in Cop#redirectToCanonical, if
 	addParameter(String, Cop) is used with parameters containing non-safe

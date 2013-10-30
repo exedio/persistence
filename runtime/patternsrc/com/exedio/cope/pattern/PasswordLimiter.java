@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -38,7 +39,6 @@ import java.util.Date;
 public final class PasswordLimiter extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-	static final Clock clock = new Clock();
 
 	private final HashInterface password;
 	private final long period;
@@ -159,7 +159,7 @@ public final class PasswordLimiter extends Pattern
 			final Item item,
 			@Parameter("password") final String password)
 	{
-		final long now = clock.currentTimeMillis();
+		final long now = Clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
@@ -176,7 +176,7 @@ public final class PasswordLimiter extends Pattern
 			@Parameter("password") final String password)
 	throws ExceededException
 	{
-		final long now = clock.currentTimeMillis();
+		final long now = Clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
@@ -262,7 +262,7 @@ public final class PasswordLimiter extends Pattern
 	public void purge(
 			@Parameter("ctx") final JobContext ctx)
 	{
-		final long now = clock.currentTimeMillis();
+		final long now = Clock.currentTimeMillis();
 		Delete.delete(
 				mount().refusalType.newQuery(
 						this.date.less(getExpiryDate(now))),

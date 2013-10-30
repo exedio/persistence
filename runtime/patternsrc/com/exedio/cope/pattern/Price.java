@@ -262,11 +262,48 @@ public final class Price implements Serializable, Comparable<Price>
 			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
 	}
 
+	/**
+	 * Returns a string representation of this price.
+	 *	The result has trailing zeros, such as "1.20" or "1.00".
+	 * If you don't want trailing zeros, use {@link #toStringShort()} instead.
+	 */
 	@Override
 	public String toString()
 	{
 		final int minor = Math.abs(store%FACTOR_I);
-		return ((store<0 && store>(-FACTOR_I)) ? "-" : "") + String.valueOf(store/FACTOR_I) + '.' + (minor<10?"0":"") + minor;
+		return
+			((store<0 && store>(-FACTOR_I)) ? "-" : "") +
+			String.valueOf(store/FACTOR_I) + '.' +
+			(minor<10?"0":"") +
+			minor;
+	}
+
+	/**
+	 * Returns a string representation of this price without trailing zeros.
+	 * If you want trailing zeros, use {@link #toString()} instead.
+	 */
+	public String toStringShort()
+	{
+		final StringBuilder bf = new StringBuilder();
+		if((store<0 && store>(-FACTOR_I)))
+			bf.append('-');
+		bf.append(store/FACTOR_I);
+		final int minor = Math.abs(store%FACTOR_I);
+		if(minor!=0)
+		{
+			bf.append('.');
+			final int x = minor % 10;
+			if(x==0)
+				bf.append(minor/10);
+			else
+			{
+				if(minor<=10)
+					bf.append('0');
+				bf.append(minor);
+			}
+		}
+
+		return bf.toString();
 	}
 
 	/**

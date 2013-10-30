@@ -47,6 +47,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -57,8 +58,6 @@ import java.util.Locale;
 public final class Schedule extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-
-	static final Clock clock = new Clock();
 
 	public enum Interval
 	{
@@ -196,7 +195,7 @@ public final class Schedule extends Pattern
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
-		final Date now = new Date(clock.currentTimeMillis());
+		final Date now = new Date(Clock.currentTimeMillis());
 		cal.setTime(now);
 		cal.set(MILLISECOND, 0);
 		cal.set(SECOND, 0);

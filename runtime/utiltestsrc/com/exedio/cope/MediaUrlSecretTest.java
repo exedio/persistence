@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Properties.getSource;
-
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import junit.framework.TestCase;
 
@@ -72,8 +71,8 @@ public class MediaUrlSecretTest extends TestCase
 		if(secret!=null)
 			context.setProperty("media.url.secret", secret);
 		return new ConnectProperties(
-				getSource(source , "MediaUrlSecretTestSource" ),
-				getSource(context, "MediaUrlSecretTestContext"));
+				Sources.view(source , "MediaUrlSecretTestSource" ),
+				Sources.view(context, "MediaUrlSecretTestContext"));
 	}
 
 	public void testOffNoContext()
@@ -125,7 +124,7 @@ public class MediaUrlSecretTest extends TestCase
 		if(secret!=null)
 			source.setProperty("media.url.secret", secret);
 		return new ConnectProperties(
-				getSource(source , "MediaUrlSecretTestSource"),
+				Sources.view(source , "MediaUrlSecretTestSource"),
 				null);
 	}
 
