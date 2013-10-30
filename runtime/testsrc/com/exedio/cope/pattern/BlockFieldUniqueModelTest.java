@@ -63,7 +63,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-constraint", eins.of(constraint).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BatzenFieldUniqueModelTest$ABatzen#constraint", constraint.toString());
+		assertEquals("com.exedio.cope.pattern.BlockFieldUniqueModelTest$ABatzen#constraint", constraint.toString());
 		assertEquals("AnItem.eins-constraint", eins.of(constraint).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(constraint).getPattern());
@@ -92,14 +92,14 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 				eins.of(alphaPrice), eins.of(betaPrice), eins.of(constraintPrice)),
 			eins.getComponents());
 
-		assertSerializedSame(alpha, 337);
-		assertSerializedSame(constraint, 342);
-		assertSerializedSame(eins.of(alpha), 392);
-		assertSerializedSame(eins.of(constraint), 397);
-		assertSerializedSame(zwei.of(alpha), 392);
-		assertSerializedSame(zwei.of(constraint), 397);
-		assertSerializedSame(eins, 386);
-		assertSerializedSame(zwei, 386);
+		assertSerializedSame(alpha, 336);
+		assertSerializedSame(constraint, 341);
+		assertSerializedSame(eins.of(alpha), 391);
+		assertSerializedSame(eins.of(constraint), 396);
+		assertSerializedSame(zwei.of(alpha), 391);
+		assertSerializedSame(zwei.of(constraint), 396);
+		assertSerializedSame(eins, 385);
+		assertSerializedSame(zwei, 385);
 	}
 
 	static final class ABatzen extends Block

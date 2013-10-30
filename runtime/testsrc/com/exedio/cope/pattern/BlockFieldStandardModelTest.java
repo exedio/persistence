@@ -70,7 +70,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-aString", eins.of(aString).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BatzenFieldStandardModelTest$ABatzen#aString", aString.toString());
+		assertEquals("com.exedio.cope.pattern.BlockFieldStandardModelTest$ABatzen#aString", aString.toString());
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
@@ -89,12 +89,12 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList), eins.getTemplates());
 		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList)), eins.getComponents());
 
-		assertSerializedSame(aString, 341);
-		assertSerializedSame(aColor , 340);
-		assertSerializedSame(eins.of(aString), 396);
-		assertSerializedSame(eins.of(aColor ), 395);
-		assertSerializedSame(eins, 388);
-		assertSerializedSame(zwei, 388);
+		assertSerializedSame(aString, 340);
+		assertSerializedSame(aColor , 339);
+		assertSerializedSame(eins.of(aString), 395);
+		assertSerializedSame(eins.of(aColor ), 394);
+		assertSerializedSame(eins, 387);
+		assertSerializedSame(zwei, 387);
 
 		try
 		{
