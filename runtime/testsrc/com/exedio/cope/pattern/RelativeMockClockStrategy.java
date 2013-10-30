@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class MockClockSource implements Clock.Strategy
+final class RelativeMockClockStrategy implements Clock.Strategy
 {
 	private final LinkedList<Long> events = new LinkedList<Long>();
 	private long date = 1000l*60*60*24*1000;

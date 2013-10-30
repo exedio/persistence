@@ -49,14 +49,14 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	}
 
 	PasswordRecoveryItem i;
-	MockClockSource clock;
+	RelativeMockClockStrategy clock;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
-		clock = new MockClockSource();
+		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}
 

@@ -43,7 +43,7 @@ public class DispatcherTest extends CopeModelTest
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	MockClockSource clock;
+	RelativeMockClockStrategy clock;
 
 	@Override
 	public void setUp() throws Exception
@@ -53,7 +53,7 @@ public class DispatcherTest extends CopeModelTest
 		item2 = new DispatcherItem("item2", true);
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
-		clock = new MockClockSource();
+		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}
 
