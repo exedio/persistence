@@ -24,7 +24,9 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
+import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -51,6 +53,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
+	private AbsoluteMockClockStrategy clock;
 
 	@Override
 	public void setUp() throws Exception
@@ -60,11 +63,14 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
 		servlet.initConnected(MODEL);
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
 	}
 
 	@Override
 	public void tearDown() throws Exception
 	{
+		Clock.clearOverride();
 		servlet.destroy();
 		servlet = null;
 		super.tearDown();
@@ -231,7 +237,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		final long ALMOST_ONE_YEAR = 31363200000l;
 		final String ok = "/MediaPathItem/finger/.fIkl3T/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getFingerLocator().getPath());
-		service(new Request(ok)).assertExpiresOffset(ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
+		clock.add(333348888);
+		service(new Request(ok)).assertExpires(333348888 + ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
+		clock.assertEmpty();
 
 		assertRedirect("/MediaPathItem/finger/" + id,                      prefix + ok);
 		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase",     prefix + ok);
@@ -255,24 +263,39 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk(ok);
 
 		item.setNormalLastModified(new Date(77771000l));
+		clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77771000l);
+		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77771001l));
+		clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
 
 		item.setNormalLastModified(new Date(77771999l));
+		clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
+		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772000l));
+		clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
+		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772001l));
+		clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77773000l);
+		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772000l));
+		clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77771999l)).assertOkAndCache (77772000l);
+		clock.assertEmpty();
+		clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77772000l)).assertNotModified(77772000l);
+		clock.assertEmpty();
+		clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
+		clock.assertEmpty();
 	}
 
 	public void testExpires() throws ServletException, IOException
@@ -281,15 +304,17 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		item.setCatchphrase("phrase");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
-		service(new Request(ok)).assertExpiresOffset(Long.MIN_VALUE).assertOk();
+		service(new Request(ok)).assertExpires(Long.MIN_VALUE).assertOk();
 
 		item.setNormalLastModified(new Date(77772000l));
+		clock.add(1234567890);
 		final Response response = service(new Request(ok));
+		clock.assertEmpty();
 		final int mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
 		if(mediaOffsetExpires>0)
-			response.assertExpiresOffset(mediaOffsetExpires).assertOkAndCache(77772000l);
+			response.assertExpires(1234567890 + mediaOffsetExpires).assertOkAndCache(77772000l);
 		else
-			response.assertExpiresOffset(Long.MIN_VALUE).assertOkAndCache(77772000l);
+			response.assertExpires(Long.MIN_VALUE).assertOkAndCache(77772000l);
 	}
 
 	private void assertOk(
@@ -457,16 +482,11 @@ public final class MediaPathTest extends AbstractRuntimeTest
 
 
 		private long lastModified = Long.MIN_VALUE;
-		private long expiresOffset = Long.MIN_VALUE;
+		private long expires = Long.MIN_VALUE;
 
 		@Override()
 		public void setDateHeader(final String name, final long date)
 		{
-			// NOTE
-			// we fetch currentTimeMillis as early as possible
-			// to reduce sporadic failures
-			final long currentTimeMillis = System.currentTimeMillis();
-
 			if("Last-Modified".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
@@ -477,9 +497,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			else if("Expires".equals(name))
 			{
 				assertFalse(date==Long.MIN_VALUE);
-				assertEquals(Long.MIN_VALUE, this.expiresOffset);
+				assertEquals(Long.MIN_VALUE, this.expires);
 				assertNull(out);
-				this.expiresOffset = date - currentTimeMillis; // may cause sporadic failures
+				this.expires = date;
 			}
 			else
 				super.setDateHeader(name, date);
@@ -620,9 +640,9 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 		}
 
-		Response assertExpiresOffset(final long expiresOffset)
+		Response assertExpires(final long expires)
 		{
-			assertEquals("may cause sporadic failures", expiresOffset, this.expiresOffset);
+			assertEquals(expires, this.expires);
 			return this;
 		}
 	}
