@@ -128,7 +128,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testPatternField()
+	public void testNotCopyable()
 	{
 		try
 		{
