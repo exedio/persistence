@@ -21,9 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.BlockType.newType;
 
 import com.exedio.cope.Copyable;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
-import com.exedio.cope.StringField;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.junit.CopeAssert;
 
 public class BlockErrorTest extends CopeAssert
@@ -145,7 +144,12 @@ public class BlockErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 		private PatternField(final BlockActivationParameters ap) { super(ap); }
-		static final Feature patternField = MapField.create(new StringField(), new StringField());
+		static final NotCopyable patternField = new NotCopyable();
+	}
+
+	static final class NotCopyable extends Pattern
+	{
+		private static final long serialVersionUID = 1l;
 	}
 
 
