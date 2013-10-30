@@ -981,6 +981,7 @@
 				<pathelement location="lib/exedio-cope-console.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
 			<assertions><enable/></assertions>
