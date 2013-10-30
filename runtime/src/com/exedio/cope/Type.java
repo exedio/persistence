@@ -922,7 +922,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
-		final long now = Clock.currentTimeMillis();
+		long now = Long.MIN_VALUE;
+		boolean needsNow = true;
 		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
@@ -931,6 +932,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				final DefaultSource<?> defaultSource = ff.defaultSource;
 				if(defaultSource!=null)
 				{
+					if(needsNow)
+					{
+						now = Clock.currentTimeMillis();
+						needsNow = false;
+					}
+
 					final Object defaultValue = defaultSource.generate(now);
 					if(defaultValue==null)
 						throw new RuntimeException(ff.getID());

@@ -144,7 +144,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			clock.add(new Date(3333));
+			clock.assertEmpty();
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanTrue.map(false),
 					booleanNone.map(true),
