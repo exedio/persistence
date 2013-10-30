@@ -20,19 +20,19 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
-public final class BatzenActivationParameters
+public final class BlockActivationParameters
 {
-	final BatzenField<?> field;
+	final BlockField<?> field;
 	final Item item;
 
-	BatzenActivationParameters(final BatzenField<?> field, final Item item)
+	BlockActivationParameters(final BlockField<?> field, final Item item)
 	{
 		this.field = field;
 		this.item  = item;
 	}
 
 	/**
-	 * This method is equivalent to {@link Batzen#toString()}.
+	 * This method is equivalent to {@link Block#toString()}.
 	 */
 	@Override
 	public String toString()

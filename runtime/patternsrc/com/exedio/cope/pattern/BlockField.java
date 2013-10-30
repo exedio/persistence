@@ -33,19 +33,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BatzenField<E extends Batzen> extends Pattern
+public final class BlockField<E extends Block> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final BatzenType<E> valueType;
+	private final BlockType<E> valueType;
 	private final LinkedHashMap<Feature, Feature> templateToComponent;
 	private final HashMap<Feature, Feature> componentToTemplate;
 	private final List<Feature> componentList;
 
-	private BatzenField(final BatzenType<E> valueType)
+	private BlockField(final BlockType<E> valueType)
 	{
 		this.valueClass = valueType.javaClass;
 
@@ -79,9 +79,9 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		}
 	}
 
-	public static <E extends Batzen> BatzenField<E> create(final BatzenType<E> valueType)
+	public static <E extends Block> BlockField<E> create(final BlockType<E> valueType)
 	{
-		return new BatzenField<E>(valueType);
+		return new BlockField<E>(valueType);
 	}
 
 	public <X extends Feature> X of(final X template)
@@ -119,7 +119,7 @@ public final class BatzenField<E extends Batzen> extends Pattern
 		return valueType.newValue(this, item);
 	}
 
-	public BatzenType<E> getValueType()
+	public BlockType<E> getValueType()
 	{
 		return valueType;
 	}

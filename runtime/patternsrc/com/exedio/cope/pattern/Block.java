@@ -21,18 +21,18 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import java.io.Serializable;
 
-public abstract class Batzen implements Serializable
+public abstract class Block implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	private final BatzenField<?> field;
+	private final BlockField<?> field;
 	private final Item item;
 
 	/**
 	 * Activation constructor.
 	 * Is used for internal purposes only.
 	 */
-	protected Batzen(final BatzenActivationParameters ap)
+	protected Block(final BlockActivationParameters ap)
 	{
 		if(ap==null)
 			throw new RuntimeException(
@@ -43,7 +43,7 @@ public abstract class Batzen implements Serializable
 		this.item  = ap.item ;
 	}
 
-	public final BatzenField<?> field()
+	public final BlockField<?> field()
 	{
 		return field;
 	}
@@ -62,7 +62,7 @@ public abstract class Batzen implements Serializable
 		if(other==null || !getClass().equals(other.getClass()))
 			return false;
 
-		final Batzen o = (Batzen)other;
+		final Block o = (Block)other;
 		return
 			field.equals(o.field) &&
 			item .equals(o.item );

@@ -35,7 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BatzenType<E> // TODO make Serializable as singleton
+public final class BlockType<E> // TODO make Serializable as singleton
 {
 	final Class<E> javaClass;
 	private final Constructor<E> constructor;
@@ -43,19 +43,19 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 	final List<Feature> templateList;
 	final int componentSize;
 
-	private BatzenType(final Class<E> javaClass)
+	private BlockType(final Class<E> javaClass)
 	{
 		this.javaClass = javaClass;
 		final String classID = javaClass.getName();
 		try
 		{
-			constructor = javaClass.getDeclaredConstructor(BatzenActivationParameters.class);
+			constructor = javaClass.getDeclaredConstructor(BlockActivationParameters.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
 					classID + " does not have a constructor " +
-					javaClass.getSimpleName() + '(' + BatzenActivationParameters.class.getName() + ')', e);
+					javaClass.getSimpleName() + '(' + BlockActivationParameters.class.getName() + ')', e);
 		}
 		constructor.setAccessible(true);
 
@@ -92,11 +92,11 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 		return Collections.unmodifiableMap(templates);
 	}
 
-	E newValue(final BatzenField<?> field, final Item item)
+	E newValue(final BlockField<?> field, final Item item)
 	{
 		try
 		{
-			return constructor.newInstance(new BatzenActivationParameters(field, item));
+			return constructor.newInstance(new BlockActivationParameters(field, item));
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -124,33 +124,33 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 
 	// static registry
 
-	private static final HashMap<Class<?>, BatzenType<?>> types = new HashMap<Class<?>, BatzenType<?>>();
+	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<Class<?>, BlockType<?>>();
 
-	static <T extends Batzen> BatzenType<T> forClass(final Class<T> javaClass)
+	static <T extends Block> BlockType<T> forClass(final Class<T> javaClass)
 	{
-		final BatzenType<?> result = types.get(javaClass);
+		final BlockType<?> result = types.get(javaClass);
 		if(result==null)
 			throw new IllegalArgumentException("there is no type for " + javaClass);
 		@SuppressWarnings("unchecked")
-		final BatzenType<T> casted = (BatzenType<T>)result;
+		final BlockType<T> casted = (BlockType<T>)result;
 		return casted;
 	}
 
-	public static <T extends Batzen> BatzenType<T> newType(final Class<T> javaClass)
+	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
 		if(javaClass==null)
 			throw new NullPointerException("valueClass");
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
-		if(!Batzen.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + Batzen.class.getName() + ": "+javaClass.getName());
-		if(Batzen.class.equals(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + Batzen.class.getName() + " but Batzen itself");
+		if(!Block.class.isAssignableFrom(javaClass))
+			throw new IllegalArgumentException("is not a subclass of " + Block.class.getName() + ": "+javaClass.getName());
+		if(Block.class.equals(javaClass))
+			throw new IllegalArgumentException("is not a subclass of " + Block.class.getName() + " but Batzen itself");
 		if(!Modifier.isFinal(javaClass.getModifiers()))
 			throw new IllegalArgumentException("is not final: " + javaClass.getName());
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
-		final BatzenType<T> result = new BatzenType<T>(javaClass);
+		final BlockType<T> result = new BlockType<T>(javaClass);
 		types.put(javaClass, result);
 
 		if(result.componentSize==0 && !InstrumentContext.isRunning())

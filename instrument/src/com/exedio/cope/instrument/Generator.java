@@ -30,9 +30,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Batzen;
-import com.exedio.cope.pattern.BatzenActivationParameters;
-import com.exedio.cope.pattern.BatzenType;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.BlockActivationParameters;
+import com.exedio.cope.pattern.BlockType;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,9 +45,9 @@ final class Generator
 	private static final String SET_VALUE = SetValue.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
-	private static final String BATZEN_TYPE_NAME = BatzenType.class.getName();
+	private static final String BATZEN_TYPE_NAME = BlockType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
-	private static final String ACTIVATION_BATZEN = BatzenActivationParameters.class.getCanonicalName();
+	private static final String ACTIVATION_BATZEN = BlockActivationParameters.class.getCanonicalName();
 	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
@@ -350,7 +350,7 @@ final class Generator
 			return;
 
 		final boolean batzen = type.isBatzen;
-		final Class<?> constructor = batzen ? Batzen.class : Item.class;
+		final Class<?> constructor = batzen ? Block.class : Item.class;
 		final String activation = batzen ? ACTIVATION_BATZEN : ACTIVATION;
 
 		writeCommentHeader();

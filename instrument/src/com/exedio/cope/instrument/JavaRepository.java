@@ -28,9 +28,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.Batzen;
-import com.exedio.cope.pattern.BatzenActivationParameters;
-import com.exedio.cope.pattern.BatzenType;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.BlockActivationParameters;
+import com.exedio.cope.pattern.BlockType;
 import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
@@ -185,7 +185,7 @@ final class JavaRepository
 
 		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 		if(extendsClass!=null)
-			return Batzen.class.isAssignableFrom(extendsClass);
+			return Block.class.isAssignableFrom(extendsClass);
 
 		return false;
 	}
@@ -347,11 +347,11 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 
-	public static final class DummyBatzen extends Batzen
+	public static final class DummyBatzen extends Block
 	{
 		private static final long serialVersionUID = 1l;
-		public static final BatzenType<DummyBatzen> TYPE = BatzenType.newType(DummyBatzen.class);
-		protected DummyBatzen(final BatzenActivationParameters ap) { super(ap); }
+		public static final BlockType<DummyBatzen> TYPE = BlockType.newType(DummyBatzen.class);
+		protected DummyBatzen(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	static final class DummyComposite extends Composite
