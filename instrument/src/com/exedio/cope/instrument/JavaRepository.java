@@ -87,11 +87,11 @@ final class JavaRepository
 				continue;
 
 			final boolean isItem = isItem(javaClass);
-			final boolean isBatzen = isBatzen(javaClass);
+			final boolean isBlock = isBlock(javaClass);
 			final boolean isComposite = isComposite(javaClass);
-			if(isItem||isBatzen||isComposite)
+			if(isItem||isBlock||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass, isBatzen, isComposite);
+				final CopeType type = new CopeType(javaClass, isBlock, isComposite);
 
 				feature: for(final JavaField javaField : javaClass.getFields())
 				{
@@ -177,7 +177,7 @@ final class JavaRepository
 		}
 	}
 
-	static boolean isBatzen(final JavaClass javaClass)
+	static boolean isBlock(final JavaClass javaClass)
 	{
 		final String classExtends = javaClass.classExtends;
 		if(classExtends==null)
@@ -309,7 +309,7 @@ final class JavaRepository
 				}
 				if("Block".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
-					return DummyBatzen.class;
+					return DummyBlock.class;
 				}
 				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
@@ -347,11 +347,11 @@ final class JavaRepository
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
 
-	public static final class DummyBatzen extends Block
+	public static final class DummyBlock extends Block
 	{
 		private static final long serialVersionUID = 1l;
-		public static final BlockType<DummyBatzen> TYPE = BlockType.newType(DummyBatzen.class);
-		protected DummyBatzen(final BlockActivationParameters ap) { super(ap); }
+		public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
+		protected DummyBlock(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	static final class DummyComposite extends Composite
