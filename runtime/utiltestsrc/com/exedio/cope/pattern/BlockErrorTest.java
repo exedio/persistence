@@ -103,11 +103,7 @@ public class BlockErrorTest extends CopeAssert
 	static final class NoFields extends Block
 	{
 		private static final long serialVersionUID = 1l;
-
-		private NoFields(final BlockActivationParameters ap)
-		{
-			super(ap);
-		}
+		private NoFields(final BlockActivationParameters ap) { super(ap); }
 	}
 
 
@@ -127,12 +123,7 @@ public class BlockErrorTest extends CopeAssert
 	static final class NullField extends Block
 	{
 		private static final long serialVersionUID = 1l;
-
-		private NullField(final BlockActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		private NullField(final BlockActivationParameters ap) { super(ap); }
 		static final Field<?> nullField = null;
 	}
 
@@ -153,12 +144,7 @@ public class BlockErrorTest extends CopeAssert
 	static final class PatternField extends Block
 	{
 		private static final long serialVersionUID = 1l;
-
-		private PatternField(final BlockActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		private PatternField(final BlockActivationParameters ap) { super(ap); }
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
