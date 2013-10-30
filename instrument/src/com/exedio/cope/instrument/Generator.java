@@ -780,9 +780,12 @@ final class Generator
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(block?BLOCK_TYPE_NAME:TYPE_NAME);write('<');
+			write(block ? BLOCK_TYPE_NAME : TYPE_NAME);
+			write('<');
 			write(type.name);
-			write("> TYPE = ");write(block?BLOCK_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
+			write("> TYPE = ");
+			write(block ? BLOCK_TYPE_NAME : TYPES_BOUND_NAME);
+			write(".newType(");
 			write(type.name);
 			write(".class);");
 		}
