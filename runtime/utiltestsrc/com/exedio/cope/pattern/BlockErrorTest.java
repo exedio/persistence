@@ -41,6 +41,7 @@ public class BlockErrorTest extends CopeAssert
 		}
 	}
 
+
 	public void testNonFinal()
 	{
 		try
@@ -55,6 +56,13 @@ public class BlockErrorTest extends CopeAssert
 					NonFinal.class.getName(), e.getMessage());
 		}
 	}
+
+	static class NonFinal extends Block
+	{
+		private static final long serialVersionUID = 1l;
+		private NonFinal(final BlockActivationParameters ap) { super(ap); }
+	}
+
 
 	public void testNoConstructor()
 	{
@@ -72,6 +80,13 @@ public class BlockErrorTest extends CopeAssert
 		}
 	}
 
+	static final class NoConstructor extends Block
+	{
+		private static final long serialVersionUID = 1l;
+		private NoConstructor() { super((BlockActivationParameters)null); }
+	}
+
+
 	public void testNoFields()
 	{
 		try
@@ -85,6 +100,17 @@ public class BlockErrorTest extends CopeAssert
 		}
 	}
 
+	static final class NoFields extends Block
+	{
+		private static final long serialVersionUID = 1l;
+
+		private NoFields(final BlockActivationParameters ap)
+		{
+			super(ap);
+		}
+	}
+
+
 	public void testNullField()
 	{
 		try
@@ -95,68 +121,6 @@ public class BlockErrorTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
-		}
-	}
-
-	public void testPatternField()
-	{
-		try
-		{
-			newType(PatternField.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
-		}
-	}
-
-	public void testBlockItself()
-	{
-		try
-		{
-			newType(Block.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("is not a subclass of " + Block.class.getName() + " but Block itself", e.getMessage());
-		}
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testNoBlock()
-	{
-		try
-		{
-			newType((Class)BlockErrorTest.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("is not a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
-		}
-	}
-
-	static class NonFinal extends Block
-	{
-		private static final long serialVersionUID = 1l;
-		private NonFinal(final BlockActivationParameters ap) { super(ap); }
-	}
-
-	static final class NoConstructor extends Block
-	{
-		private static final long serialVersionUID = 1l;
-		private NoConstructor() { super((BlockActivationParameters)null); }
-	}
-
-	static final class NoFields extends Block
-	{
-		private static final long serialVersionUID = 1l;
-
-		private NoFields(final BlockActivationParameters ap)
-		{
-			super(ap);
 		}
 	}
 
@@ -172,6 +136,20 @@ public class BlockErrorTest extends CopeAssert
 		static final Field<?> nullField = null;
 	}
 
+
+	public void testPatternField()
+	{
+		try
+		{
+			newType(PatternField.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
+		}
+	}
+
 	static final class PatternField extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -182,5 +160,34 @@ public class BlockErrorTest extends CopeAssert
 		}
 
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
+	}
+
+
+	public void testBlockItself()
+	{
+		try
+		{
+			newType(Block.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Block.class.getName() + " but Block itself", e.getMessage());
+		}
+	}
+
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	public void testNoBlock()
+	{
+		try
+		{
+			newType((Class)BlockErrorTest.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("is not a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
+		}
 	}
 }
