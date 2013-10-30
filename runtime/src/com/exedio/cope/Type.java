@@ -26,6 +26,7 @@ import com.exedio.cope.misc.Compare;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -921,7 +922,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
-		final long now = System.currentTimeMillis();
+		final long now = Clock.currentTimeMillis();
 		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))

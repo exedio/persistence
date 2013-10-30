@@ -45,6 +45,8 @@ import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+import com.exedio.cope.pattern.AbsoluteMockClockStrategy;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -56,6 +58,23 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		super(DefaultToTest.MODEL);
 	}
 
+	private AbsoluteMockClockStrategy clock;
+
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Clock.clearOverride();
+		super.tearDown();
+	}
+
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
@@ -64,11 +83,12 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date before = new Date();
+			final Date now = clock.add(new Date(1111));
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanNone.map(false)
 			));
-			final Date after = new Date();
+			clock.assertEmpty();
+
 			assertEquals(TRUE, item.getBooleanTrue());
 			assertEquals(false, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());
@@ -77,13 +97,12 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
-			assertWithin(before, after, item.getDateNow());
-			assertWithin(before, after, item.getDateNowOpt());
-			assertEquals(item.getDateNow(), item.getDateNowOpt());
+			assertEquals(now, item.getDateNow());
+			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1008, 8, 8), item.getDayEight());
-			assertEquals(new Day(item.getDateNow()), item.getDayNow());
-			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
+			assertEquals(new Day(now), item.getDayNow());
+			assertEquals(new Day(now), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -95,11 +114,12 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date before = new Date();
+			final Date now = clock.add(new Date(2222));
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanNone.map(false)
 			));
-			final Date after = new Date();
+			clock.assertEmpty();
+
 			assertEquals(TRUE, item.getBooleanTrue());
 			assertEquals(false, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());
@@ -108,12 +128,11 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
-			assertWithin(before, after, item.getDateNow());
-			assertWithin(before, after, item.getDateNowOpt());
-			assertEquals(item.getDateNow(), item.getDateNowOpt());
+			assertEquals(now, item.getDateNow());
+			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(new Day(item.getDateNow()), item.getDayNow());
-			assertEquals(new Day(item.getDateNow()), item.getDayNowOpt());
+			assertEquals(new Day(now), item.getDayNow());
+			assertEquals(new Day(now), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -125,6 +144,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
+			clock.add(new Date(3333));
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanTrue.map(false),
 					booleanNone.map(true),
@@ -145,6 +165,8 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 					enumTwo.map(ONE),
 					enumNone.map(TWO)
 			));
+			clock.assertEmpty();
+
 			assertEquals(FALSE, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(6, item.getIntegerFive());
@@ -170,7 +192,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date before = new Date();
+			final Date now = clock.add(new Date(4444));
 			final DefaultToItem item = new DefaultToItem(
 					booleanTrue.map(null),
 					booleanNone.map(true),
@@ -186,7 +208,8 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 					enumTwo.map(null),
 					enumNone.map(null)
 			);
-			final Date after = new Date();
+			clock.assertEmpty();
+
 			deleteOnTearDown(item);
 			assertEquals(null, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
@@ -196,11 +219,11 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(null, item.getDateEighty());
-			assertWithin(before, after, item.getDateNow());
+			assertEquals(now, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1008, 8, 8), item.getDayEight());
-			assertEquals(new Day(item.getDateNow()), item.getDayNow());
+			assertEquals(new Day(now), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertEquals(null, item.getLongRandom());

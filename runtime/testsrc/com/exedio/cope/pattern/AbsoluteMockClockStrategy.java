@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class AbsoluteMockClockStrategy implements Clock.Strategy
+public final class AbsoluteMockClockStrategy implements Clock.Strategy
 {
 	private final LinkedList<Date> events = new LinkedList<Date>();
 
@@ -34,9 +34,10 @@ final class AbsoluteMockClockStrategy implements Clock.Strategy
 		return events.removeFirst().getTime();
 	}
 
-	public void add(final Date date)
+	public Date add(final Date date)
 	{
 		events.add(date);
+		return date;
 	}
 
 	public void assertEmpty()
