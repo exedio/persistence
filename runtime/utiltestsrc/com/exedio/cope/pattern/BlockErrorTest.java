@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class BlockErrorTest extends CopeAssert
 {
-	public void testIt()
+	public void testNull()
 	{
 		try
 		{
@@ -39,6 +39,10 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals("valueClass", e.getMessage());
 		}
+	}
+
+	public void testNonFinal()
+	{
 		try
 		{
 			newType(NonFinal.class);
@@ -50,6 +54,10 @@ public class BlockErrorTest extends CopeAssert
 					"is not final: " +
 					NonFinal.class.getName(), e.getMessage());
 		}
+	}
+
+	public void testNoConstructor()
+	{
 		try
 		{
 			newType(NoConstructor.class);
@@ -62,6 +70,10 @@ public class BlockErrorTest extends CopeAssert
 					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+	}
+
+	public void testNoFields()
+	{
 		try
 		{
 			newType(NoFields.class);
@@ -71,6 +83,10 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals("composite has no templates", e.getMessage());
 		}
+	}
+
+	public void testNullField()
+	{
 		try
 		{
 			newType(NullField.class);
@@ -80,6 +96,10 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
 		}
+	}
+
+	public void testPatternField()
+	{
 		try
 		{
 			newType(PatternField.class);
@@ -89,6 +109,10 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
 		}
+	}
+
+	public void testBlockItself()
+	{
 		try
 		{
 			newType(Block.class);
@@ -101,7 +125,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	public void testNoBlock()
 	{
 		try
 		{
