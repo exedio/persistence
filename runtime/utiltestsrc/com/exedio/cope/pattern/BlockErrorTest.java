@@ -136,7 +136,7 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(NotCopyableField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
+			assertEquals(NotCopyableField.class.getName() + "#notCopyableField must be an instance of " + Copyable.class, e.getMessage());
 		}
 	}
 
@@ -144,7 +144,7 @@ public class BlockErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 		private NotCopyableField(final BlockActivationParameters ap) { super(ap); }
-		static final NotCopyable patternField = new NotCopyable();
+		static final NotCopyable notCopyableField = new NotCopyable();
 	}
 
 	static final class NotCopyable extends Pattern
