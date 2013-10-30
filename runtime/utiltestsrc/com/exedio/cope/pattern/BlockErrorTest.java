@@ -131,19 +131,19 @@ public class BlockErrorTest extends CopeAssert
 	{
 		try
 		{
-			newType(PatternField.class);
+			newType(NotCopyableField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
+			assertEquals(NotCopyableField.class.getName() + "#patternField must be an instance of " + Copyable.class, e.getMessage());
 		}
 	}
 
-	static final class PatternField extends Block
+	static final class NotCopyableField extends Block
 	{
 		private static final long serialVersionUID = 1l;
-		private PatternField(final BlockActivationParameters ap) { super(ap); }
+		private NotCopyableField(final BlockActivationParameters ap) { super(ap); }
 		static final NotCopyable patternField = new NotCopyable();
 	}
 
