@@ -102,11 +102,13 @@ final class Connect
 		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
-		this.connectionPool = new ConnectionPool(new Pool<Connection>(
+		@SuppressWarnings("deprecation") // TODO when property context is not supported anymore
+		final Pool<Connection> pool = new Pool<Connection>(
 				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
-				new PoolCounter()));
+				new PoolCounter());
+		this.connectionPool = new ConnectionPool(pool);
 		this.marshallers = new Marshallers(supportsNativeDate());
 		this.executor = new Executor(dialect, properties, marshallers);
 		this.database = new Database(
