@@ -18,21 +18,13 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import java.io.Reader;
-import junit.framework.AssertionFailedError;
 
 public class WrapGenericSuper<A, B, Z, F> extends Pattern
 {
-	@Override
-	public WrapGenericSuper<A,B,Z,F> copy(final CopyMapper mapper)
-	{
-		throw new AssertionFailedError();
-	}
-
 	@Wrap(order=10)
 	public void method(
 			@SuppressWarnings("unused") @Parameter("a") final A a,

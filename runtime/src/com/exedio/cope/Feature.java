@@ -38,16 +38,6 @@ public abstract class Feature implements Serializable
 	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
 	final int instantiationOrder = instantiationOrderSource.getAndIncrement();
 
-
-	public abstract Feature copy(CopyMapper mapper);
-
-	@SuppressWarnings("static-method")
-	protected final RuntimeException copyNotYetImplemented()
-	{
-		return new RuntimeException("copy not yet implemented");
-	}
-
-
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mountIfMounted = null;
 

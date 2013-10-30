@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -55,12 +54,6 @@ public final class Importer<K extends Object> extends Pattern
 	public static final <K> Importer<K> create(final FunctionField<K> key)
 	{
 		return new Importer<K>(key);
-	}
-
-	@Override
-	public Importer<K> copy(final CopyMapper mapper)
-	{
-		return new Importer<K>(mapper.copy(key));
 	}
 
 	public FunctionField<K> getKey()

@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -31,7 +30,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import junit.framework.AssertionFailedError;
 
 public final class MediaPattern extends Pattern
 {
@@ -48,12 +46,6 @@ public final class MediaPattern extends Pattern
 		this.sourceFeature = new Media().optional();
 		this.sourceTypeValue = new Media();
 		addSource(sourceFeature, "sourceFeature");
-	}
-
-	@Override
-	public MediaPattern copy(final CopyMapper mapper)
-	{
-		throw new AssertionFailedError();
 	}
 
 	public void setSourceFeature(final Item item, final byte[] body, final String contentType, final int hour)

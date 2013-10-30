@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
@@ -82,12 +81,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	public static final <E> Serializer<E> create(final Class<E> valueClass)
 	{
 		return new Serializer<E>(valueClass, new DataField());
-	}
-
-	@Override
-	public Serializer<E> copy(final CopyMapper mapper)
-	{
-		return new Serializer<E>(valueClass, source.copy(mapper));
 	}
 
 	public Serializer<E> optional()

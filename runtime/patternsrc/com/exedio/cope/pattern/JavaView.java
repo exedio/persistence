@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
@@ -29,12 +28,6 @@ import java.lang.reflect.Method;
 public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
-
-	@Override
-	public JavaView copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
-	}
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted;

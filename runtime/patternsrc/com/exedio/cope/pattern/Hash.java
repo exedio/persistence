@@ -23,7 +23,6 @@ import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
@@ -229,12 +228,6 @@ public class Hash extends Pattern implements HashInterface
 		 * @throws NullPointerException if other is null
 		 */
 		boolean compatibleTo(Algorithm other);
-	}
-
-	@Override
-	public final Hash copy(final CopyMapper mapper)
-	{
-		return new Hash(mapper.copy(storage), plainTextLimit, algorithm, validator);
 	}
 
 	public final Hash toFinal()

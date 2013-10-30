@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
@@ -29,7 +28,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
 import java.lang.reflect.AnnotatedElement;
-import junit.framework.AssertionFailedError;
 
 class PatternTestPattern extends Pattern
 {
@@ -62,12 +60,6 @@ class PatternTestPattern extends Pattern
 	{
 		addSource(ownString, "ownString", af("ownString"));
 		addSource(ownInt, "ownInt", af("ownInt"));
-	}
-
-	@Override
-	public PatternTestPattern copy(final CopyMapper mapper)
-	{
-		throw new AssertionFailedError();
 	}
 
 	@Override

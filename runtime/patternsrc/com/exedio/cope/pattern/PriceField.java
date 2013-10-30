@@ -57,7 +57,6 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.mandatory = integer.isMandatory();
 	}
 
-	@Override
 	public PriceField copy(final CopyMapper mapper)
 	{
 		return new PriceField(mapper.copy(integer));

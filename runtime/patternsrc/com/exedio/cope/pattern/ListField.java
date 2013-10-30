@@ -63,7 +63,6 @@ public final class ListField<E> extends AbstractListField<E>
 		return new ListField<E>(element);
 	}
 
-	@Override
 	public ListField<E> copy(final CopyMapper mapper)
 	{
 		return new ListField<E>(mapper.copy(element));

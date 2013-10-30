@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.lang.reflect.Type;
 import java.util.Set;
-import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
@@ -34,12 +33,6 @@ public class SetValueTest extends TestCase
 		MockSettable(final String toString)
 		{
 			this.toString = toString;
-		}
-
-		@Override
-		public MockSettable copy(final CopyMapper mapper)
-		{
-			throw new AssertionFailedError();
 		}
 
 		public SetValue<?>[] execute(final String value, final Item exceptionItem)

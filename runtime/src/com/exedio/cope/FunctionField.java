@@ -212,7 +212,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public abstract FunctionField<E> copy();
 
-	@Override
 	public final FunctionField<E> copy(final CopyMapper mapper)
 	{
 		return mapper.copy(this);

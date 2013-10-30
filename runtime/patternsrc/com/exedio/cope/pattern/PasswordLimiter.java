@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
@@ -73,12 +72,6 @@ public final class PasswordLimiter extends Pattern
 			throw new IllegalArgumentException("period must be greater zero, but was " + period);
 		if(limit<=0)
 			throw new IllegalArgumentException("limit must be greater zero, but was " + limit);
-	}
-
-	@Override
-	public PasswordLimiter copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
 	}
 
 	public HashInterface getPassword()

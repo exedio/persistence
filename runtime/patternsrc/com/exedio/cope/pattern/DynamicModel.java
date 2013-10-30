@@ -25,7 +25,6 @@ import static java.lang.Math.max;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
@@ -163,12 +162,6 @@ public final class DynamicModel<L> extends Pattern
 						"int doubleCapacity, " +
 						"int enumCapacity) " +
 					"to increase capacities.");
-	}
-
-	@Override
-	public DynamicModel<L> copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
 	}
 
 	@Override

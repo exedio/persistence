@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -43,12 +42,6 @@ public final class MediaThumbnail extends MediaImageioFilter
 			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
 		if(boundY<MIN_BOUND)
 			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
-	}
-
-	@Override
-	public MediaThumbnail copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
 	}
 
 	public int getBoundX()

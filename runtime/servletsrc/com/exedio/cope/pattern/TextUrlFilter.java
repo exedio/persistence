@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
@@ -111,12 +110,6 @@ public class TextUrlFilter extends MediaFilter
 		this.pasteKey = pasteKey;
 		this.pasteValue = pasteValue;
 		addSource(raw, "Raw", annotationProxy);
-	}
-
-	@Override
-	public TextUrlFilter copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
 	}
 
 	Type<Paste> getPasteType()

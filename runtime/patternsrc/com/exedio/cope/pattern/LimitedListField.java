@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -127,13 +126,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public LimitedListField<E> copy(final CopyMapper mapper)
-	{
-		return new LimitedListField<E>((FunctionField<E>[])mapper.get(sources));
-	}
 
 	public IntegerField getLength()
 	{

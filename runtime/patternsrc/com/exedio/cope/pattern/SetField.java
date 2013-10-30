@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -67,12 +66,6 @@ public final class SetField<E> extends Pattern
 	public static final <E> SetField<E> create(final FunctionField<E> element)
 	{
 		return new SetField<E>(element);
-	}
-
-	@Override
-	public SetField<E> copy(final CopyMapper mapper)
-	{
-		return new SetField<E>(mapper.copy(element));
 	}
 
 	@Override

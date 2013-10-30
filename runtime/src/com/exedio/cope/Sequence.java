@@ -47,12 +47,6 @@ public final class Sequence extends Feature
 		this.sequenceX = new SequenceX(this, start, start, end);
 	}
 
-	@Override
-	public Sequence copy(final CopyMapper mapper)
-	{
-		return new Sequence(start, end);
-	}
-
 	public int getStart()
 	{
 		return start;

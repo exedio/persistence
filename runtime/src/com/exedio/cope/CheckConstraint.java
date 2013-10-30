@@ -40,12 +40,6 @@ public final class CheckConstraint extends Feature
 		this.condition = condition;
 	}
 
-	@Override
-	public CheckConstraint copy(final CopyMapper mapper)
-	{
-		throw copyNotYetImplemented();
-	}
-
 	public Condition getCondition()
 	{
 		return condition;

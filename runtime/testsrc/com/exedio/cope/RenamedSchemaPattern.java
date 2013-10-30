@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import junit.framework.AssertionFailedError;
 
 class RenamedSchemaPattern extends Pattern
 {
@@ -87,12 +86,6 @@ class RenamedSchemaPattern extends Pattern
 		{
 			throw new RuntimeException();
 		}
-	}
-
-	@Override
-	public RenamedSchemaPattern copy(final CopyMapper mapper)
-	{
-		throw new AssertionFailedError();
 	}
 
 	@Override

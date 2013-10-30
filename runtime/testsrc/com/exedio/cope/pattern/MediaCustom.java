@@ -19,13 +19,11 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import junit.framework.AssertionFailedError;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extensions of MediaPath.
@@ -40,12 +38,6 @@ final class MediaCustom extends MediaPath
 	MediaCustom(final StringField source)
 	{
 		this.source = source;
-	}
-
-	@Override
-	public MediaCustom copy(final CopyMapper mapper)
-	{
-		throw new AssertionFailedError();
 	}
 
 	StringField getSource()

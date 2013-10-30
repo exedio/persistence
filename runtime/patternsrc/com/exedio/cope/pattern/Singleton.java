@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -40,12 +39,6 @@ public final class Singleton extends Pattern
 	public Singleton()
 	{
 		addSource(source, "once", ComputedElement.get());
-	}
-
-	@Override
-	public Singleton copy(final CopyMapper mapper)
-	{
-		return new Singleton();
 	}
 
 	public IntegerField getSource()

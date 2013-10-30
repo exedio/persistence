@@ -25,7 +25,6 @@ import static java.lang.System.nanoTime;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Features;
@@ -82,12 +81,6 @@ public final class Dispatcher extends Pattern
 	{
 		this.pending = pending;
 		addSource(pending, "pending");
-	}
-
-	@Override
-	public Dispatcher copy(final CopyMapper mapper)
-	{
-		return new Dispatcher(mapper.copy(pending));
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)

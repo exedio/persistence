@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -62,12 +61,6 @@ public final class PartOf<C extends Item> extends Pattern
 			throw new NullPointerException("order");
 
 		return new PartOf<C>(container, order);
-	}
-
-	@Override
-	public PartOf<C> copy(final CopyMapper mapper)
-	{
-		return new PartOf<C>(mapper.get(container), mapper.get(order));
 	}
 
 	public ItemField<C> getContainer()
