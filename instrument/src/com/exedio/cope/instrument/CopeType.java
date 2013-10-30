@@ -65,11 +65,11 @@ final class CopeType
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
 
-	public CopeType(final JavaClass javaClass, final boolean isBatzen, final boolean isComposite)
+	public CopeType(final JavaClass javaClass, final boolean isBlock, final boolean isComposite)
 		throws ParserException
 	{
 		this.javaClass = javaClass;
-		this.isBlock = isBatzen;
+		this.isBlock = isBlock;
 		this.isComposite = isComposite;
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
