@@ -54,7 +54,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	}
 
 	ScheduleItem item;
-	AbsoluteMockClockSource clock;
+	AbsoluteMockClockStrategy clock;
 	ArrayList<ExpectedRun> expectedRuns;
 
 	@Override
@@ -62,7 +62,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 		item = deleteOnTearDown(new ScheduleItem());
-		clock = new AbsoluteMockClockSource();
+		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		expectedRuns = new ArrayList<ExpectedRun>();
 	}

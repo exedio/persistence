@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class AbsoluteMockClockSource implements Clock.Strategy
+final class AbsoluteMockClockStrategy implements Clock.Strategy
 {
 	private final LinkedList<Date> events = new LinkedList<Date>();
 
