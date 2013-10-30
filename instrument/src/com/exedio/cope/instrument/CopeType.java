@@ -52,7 +52,7 @@ final class CopeType
 
 
 	final JavaClass javaClass;
-	final boolean isBatzen;
+	final boolean isBlock;
 	final boolean isComposite;
 	final String name;
 	final Visibility visibility;
@@ -69,7 +69,7 @@ final class CopeType
 		throws ParserException
 	{
 		this.javaClass = javaClass;
-		this.isBatzen = isBatzen;
+		this.isBlock = isBatzen;
 		this.isComposite = isComposite;
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
@@ -104,7 +104,7 @@ final class CopeType
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
 
-		if(isBatzen||isComposite)
+		if(isBlock||isComposite)
 			return;
 
 		final String extname = javaClass.classExtends;

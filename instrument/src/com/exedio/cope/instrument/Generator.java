@@ -206,7 +206,7 @@ final class Generator
 
 	private void writeInitialConstructor(final CopeType type)
 	{
-		if(type.isBatzen)
+		if(type.isBlock)
 			return;
 		if(!type.hasInitialConstructor())
 			return;
@@ -309,7 +309,7 @@ final class Generator
 
 	private void writeGenericConstructor(final CopeType type)
 	{
-		if(type.isBatzen)
+		if(type.isBlock)
 			return;
 
 		final Option option = type.genericConstructorOption;
@@ -349,7 +349,7 @@ final class Generator
 		if(!option.exists)
 			return;
 
-		final boolean batzen = type.isBatzen;
+		final boolean batzen = type.isBlock;
 		final Class<?> constructor = batzen ? Block.class : Item.class;
 		final String activation = batzen ? ACTIVATION_BATZEN : ACTIVATION;
 
@@ -394,7 +394,7 @@ final class Generator
 
 			if(!option.exists)
 				continue;
-			if(feature.parent.isBatzen && wrapper.hasStaticClassToken())
+			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -545,7 +545,7 @@ final class Generator
 		}
 		else
 		{
-			final boolean batzen = feature.parent.isBatzen;
+			final boolean batzen = feature.parent.isBlock;
 			if(batzen)
 				write("field().of(");
 			write(feature.parent.name);
@@ -656,7 +656,7 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
-		if(constraint.parent.isBatzen)
+		if(constraint.parent.isBlock)
 			return;
 
 		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
@@ -769,7 +769,7 @@ final class Generator
 		final Option option = type.typeOption;
 		if(option.exists)
 		{
-			final boolean batzen = type.isBatzen;
+			final boolean batzen = type.isBlock;
 
 			writeCommentHeader();
 			writeIndent();
