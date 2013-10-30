@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.alpha;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.alphaPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.beta;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.betaPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraint;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alpha;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alphaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.beta;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.betaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.zwei;
 
@@ -63,7 +63,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-constraint", eins.of(constraint).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BlockFieldUniqueModelTest$ABatzen#constraint", constraint.toString());
+		assertEquals("com.exedio.cope.pattern.BlockFieldUniqueModelTest$ABlock#constraint", constraint.toString());
 		assertEquals("AnItem.eins-constraint", eins.of(constraint).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(constraint).getPattern());
@@ -79,8 +79,8 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		assertEquals(list(alpha, beta), constraint.getFields());
 		assertEquals(list(alphaPrice.getInt(), betaPrice.getInt()), constraintPrice.getFields());
 
-		assertEquals(ABatzen.TYPE, eins.getValueType());
-		assertEquals(ABatzen.class, eins.getValueClass());
+		assertEquals(ABlock.TYPE, eins.getValueType());
+		assertEquals(ABlock.class, eins.getValueClass());
 
 		assertSame(constraint, eins.getTemplate(eins.of(constraint)));
 		assertEqualsUnmodifiable(list(
@@ -92,8 +92,8 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 				eins.of(alphaPrice), eins.of(betaPrice), eins.of(constraintPrice)),
 			eins.getComponents());
 
-		assertSerializedSame(alpha, 336);
-		assertSerializedSame(constraint, 341);
+		assertSerializedSame(alpha, 335);
+		assertSerializedSame(constraint, 340);
 		assertSerializedSame(eins.of(alpha), 391);
 		assertSerializedSame(eins.of(constraint), 396);
 		assertSerializedSame(zwei.of(alpha), 391);
@@ -102,7 +102,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		assertSerializedSame(zwei, 385);
 	}
 
-	static final class ABatzen extends Block
+	static final class ABlock extends Block
 	{
 		static final StringField alpha = new StringField();
 		static final IntegerField beta = new IntegerField();
@@ -122,7 +122,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 */
 	final java.lang.String getAlpha()
 	{
-		return field().of(ABatzen.alpha).get(item());
+		return field().of(ABlock.alpha).get(item());
 	}/**
 
 	 **
@@ -136,7 +136,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		field().of(ABatzen.alpha).set(item(),alpha);
+		field().of(ABlock.alpha).set(item(),alpha);
 	}/**
 
 	 **
@@ -146,7 +146,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 */
 	final int getBeta()
 	{
-		return field().of(ABatzen.beta).getMandatory(item());
+		return field().of(ABlock.beta).getMandatory(item());
 	}/**
 
 	 **
@@ -158,7 +158,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
-		field().of(ABatzen.beta).set(item(),beta);
+		field().of(ABlock.beta).set(item(),beta);
 	}/**
 
 	 **
@@ -168,7 +168,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 */
 	final com.exedio.cope.pattern.Price getAlphaPrice()
 	{
-		return field().of(ABatzen.alphaPrice).get(item());
+		return field().of(ABlock.alphaPrice).get(item());
 	}/**
 
 	 **
@@ -181,7 +181,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		field().of(ABatzen.alphaPrice).set(item(),alphaPrice);
+		field().of(ABlock.alphaPrice).set(item(),alphaPrice);
 	}/**
 
 	 **
@@ -191,7 +191,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 */
 	final com.exedio.cope.pattern.Price getBetaPrice()
 	{
-		return field().of(ABatzen.betaPrice).get(item());
+		return field().of(ABlock.betaPrice).get(item());
 	}/**
 
 	 **
@@ -204,7 +204,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
 	{
-		field().of(ABatzen.betaPrice).set(item(),betaPrice);
+		field().of(ABlock.betaPrice).set(item(),betaPrice);
 	}/**
 
 	 **
@@ -217,22 +217,22 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
-	static final com.exedio.cope.pattern.BlockType<ABatzen> TYPE = com.exedio.cope.pattern.BlockType.newType(ABatzen.class);/**
+	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 */
-	@SuppressWarnings("unused") private ABatzen(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
+	@SuppressWarnings("unused") private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
 }}
 
 	static final class AnItem extends com.exedio.cope.Item
 	{
 		static final StringField code = new StringField().toFinal();
 
-		static final BlockField<ABatzen> eins = BlockField.create(ABatzen.TYPE);
-		static final BlockField<ABatzen> zwei = BlockField.create(ABatzen.TYPE);
+		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
+		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);
 
 		AnItem(final String code, final int n)
 		{
@@ -295,7 +295,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
-	final ABatzen eins()
+	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}/**
@@ -305,7 +305,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
-	final ABatzen zwei()
+	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}/**

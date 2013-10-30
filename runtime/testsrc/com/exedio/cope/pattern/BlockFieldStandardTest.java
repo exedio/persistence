@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen;
-import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.AnEnum;
+import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
+import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
 import java.awt.Color;
 
@@ -38,10 +38,10 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals("item1", i1.getCode());
 		assertEquals("item2", i2.getCode());
 
-		final ABatzen b1a = i1.eins();
-		final ABatzen b1b = i1.zwei();
-		final ABatzen b2a = i2.eins();
-		final ABatzen b2b = i2.zwei();
+		final ABlock b1a = i1.eins();
+		final ABlock b1b = i1.zwei();
+		final ABlock b2a = i2.eins();
+		final ABlock b2b = i2.zwei();
 		assertEquals("item1-1A", b1a.getAString());
 		assertEquals("item1-1B", b1b.getAString());
 		assertEquals("item2-2A", b2a.getAString());
@@ -70,7 +70,7 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
 		assertEquals(list(), b2b.getAList());
-		final ABatzen b1A = i1.eins();
+		final ABlock b1A = i1.eins();
 		assertEquals(null, b1A.getAnItem());
 
 		b1a.setAnItem(i1);
@@ -113,7 +113,7 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals("AnItem.zwei#AnItem-1", b2b.toString());
 
 		// serialization
-		final ABatzen b1aS = reserialize(b1a, 705);
+		final ABlock b1aS = reserialize(b1a, 704);
 		assertEquals(b1aS, b1a);
 		assertNotSame(b1aS, b1a);
 		assertFalse(b1aS.equals(b1b));

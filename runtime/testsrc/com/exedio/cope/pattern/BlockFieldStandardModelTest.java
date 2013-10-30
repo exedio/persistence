@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aColor;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aList;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aMedia;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.aString;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anEnum;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anInt;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABatzen.anItem;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aMedia;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aString;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anEnum;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt;
+import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anItem;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.zwei;
 
@@ -70,7 +70,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-aString", eins.of(aString).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BlockFieldStandardModelTest$ABatzen#aString", aString.toString());
+		assertEquals("com.exedio.cope.pattern.BlockFieldStandardModelTest$ABlock#aString", aString.toString());
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
@@ -80,8 +80,8 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		assertEquals(false, eins.of(aString).isFinal());
 		assertEquals(true,  eins.of(aString).isMandatory());
 
-		assertEquals(ABatzen.TYPE, eins.getValueType());
-		assertEquals(ABatzen.class, eins.getValueClass());
+		assertEquals(ABlock.TYPE, eins.getValueType());
+		assertEquals(ABlock.class, eins.getValueClass());
 
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
@@ -89,8 +89,8 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList), eins.getTemplates());
 		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList)), eins.getComponents());
 
-		assertSerializedSame(aString, 340);
-		assertSerializedSame(aColor , 339);
+		assertSerializedSame(aString, 339);
+		assertSerializedSame(aColor , 338);
 		assertSerializedSame(eins.of(aString), 395);
 		assertSerializedSame(eins.of(aColor ), 394);
 		assertSerializedSame(eins, 387);
@@ -126,7 +126,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		}
 	}
 
-	static final class ABatzen extends Block
+	static final class ABlock extends Block
 	{
 		enum AnEnum
 		{
@@ -151,7 +151,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final java.lang.String getAString()
 	{
-		return field().of(ABatzen.aString).get(item());
+		return field().of(ABlock.aString).get(item());
 	}/**
 
 	 **
@@ -164,7 +164,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		field().of(ABatzen.aString).set(item(),aString);
+		field().of(ABlock.aString).set(item(),aString);
 	}/**
 
 	 **
@@ -174,7 +174,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final int getAnInt()
 	{
-		return field().of(ABatzen.anInt).getMandatory(item());
+		return field().of(ABlock.anInt).getMandatory(item());
 	}/**
 
 	 **
@@ -184,7 +184,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final void setAnInt(final int anInt)
 	{
-		field().of(ABatzen.anInt).set(item(),anInt);
+		field().of(ABlock.anInt).set(item(),anInt);
 	}/**
 
 	 **
@@ -194,7 +194,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final AnEnum getAnEnum()
 	{
-		return field().of(ABatzen.anEnum).get(item());
+		return field().of(ABlock.anEnum).get(item());
 	}/**
 
 	 **
@@ -206,7 +206,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		field().of(ABatzen.anEnum).set(item(),anEnum);
+		field().of(ABlock.anEnum).set(item(),anEnum);
 	}/**
 
 	 **
@@ -216,7 +216,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final AnItem getAnItem()
 	{
-		return field().of(ABatzen.anItem).get(item());
+		return field().of(ABlock.anItem).get(item());
 	}/**
 
 	 **
@@ -226,7 +226,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final void setAnItem(final AnItem anItem)
 	{
-		field().of(ABatzen.anItem).set(item(),anItem);
+		field().of(ABlock.anItem).set(item(),anItem);
 	}/**
 
 	 **
@@ -236,7 +236,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final java.awt.Color getAColor()
 	{
-		return field().of(ABatzen.aColor).get(item());
+		return field().of(ABlock.aColor).get(item());
 	}/**
 
 	 **
@@ -249,7 +249,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
-		field().of(ABatzen.aColor).set(item(),aColor);
+		field().of(ABlock.aColor).set(item(),aColor);
 	}/**
 
 	 **
@@ -259,7 +259,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final java.lang.String getAMediaURL()
 	{
-		return field().of(ABatzen.aMedia).getURL(item());
+		return field().of(ABlock.aMedia).getURL(item());
 	}/**
 
 	 **
@@ -269,7 +269,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
 	{
-		return field().of(ABatzen.aMedia).getLocator(item());
+		return field().of(ABlock.aMedia).getLocator(item());
 	}/**
 
 	 **
@@ -279,7 +279,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final boolean isAMediaNull()
 	{
-		return field().of(ABatzen.aMedia).isNull(item());
+		return field().of(ABlock.aMedia).isNull(item());
 	}/**
 
 	 **
@@ -289,7 +289,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final java.util.Date getAMediaLastModified()
 	{
-		return field().of(ABatzen.aMedia).getLastModified(item());
+		return field().of(ABlock.aMedia).getLastModified(item());
 	}/**
 
 	 **
@@ -299,7 +299,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final long getAMediaLength()
 	{
-		return field().of(ABatzen.aMedia).getLength(item());
+		return field().of(ABlock.aMedia).getLength(item());
 	}/**
 
 	 **
@@ -309,7 +309,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final byte[] getAMediaBody()
 	{
-		return field().of(ABatzen.aMedia).getBody(item());
+		return field().of(ABlock.aMedia).getBody(item());
 	}/**
 
 	 **
@@ -323,7 +323,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				java.io.IOException
 	{
-		field().of(ABatzen.aMedia).getBody(item(),body);
+		field().of(ABlock.aMedia).getBody(item(),body);
 	}/**
 
 	 **
@@ -337,7 +337,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				java.io.IOException
 	{
-		field().of(ABatzen.aMedia).getBody(item(),body);
+		field().of(ABlock.aMedia).getBody(item(),body);
 	}/**
 
 	 **
@@ -350,7 +350,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				java.io.IOException
 	{
-		field().of(ABatzen.aMedia).set(item(),aMedia);
+		field().of(ABlock.aMedia).set(item(),aMedia);
 	}/**
 
 	 **
@@ -360,7 +360,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final void setAMedia(final byte[] body,final java.lang.String contentType)
 	{
-		field().of(ABatzen.aMedia).set(item(),body,contentType);
+		field().of(ABlock.aMedia).set(item(),body,contentType);
 	}/**
 
 	 **
@@ -373,7 +373,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				java.io.IOException
 	{
-		field().of(ABatzen.aMedia).set(item(),body,contentType);
+		field().of(ABlock.aMedia).set(item(),body,contentType);
 	}/**
 
 	 **
@@ -386,7 +386,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 			throws
 				java.io.IOException
 	{
-		field().of(ABatzen.aMedia).set(item(),body,contentType);
+		field().of(ABlock.aMedia).set(item(),body,contentType);
 	}/**
 
 	 **
@@ -396,7 +396,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final java.util.List<String> getAList()
 	{
-		return field().of(ABatzen.aList).get(item());
+		return field().of(ABlock.aList).get(item());
 	}/**
 
 	 **
@@ -406,7 +406,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 */
 	final com.exedio.cope.Query<String> getAListQuery()
 	{
-		return field().of(ABatzen.aList).getQuery(item());
+		return field().of(ABlock.aList).getQuery(item());
 	}/**
 
 	 **
@@ -420,7 +420,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
-		field().of(ABatzen.aList).add(item(),aList);
+		field().of(ABlock.aList).add(item(),aList);
 	}/**
 
 	 **
@@ -434,7 +434,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
 	{
-		field().of(ABatzen.aList).set(item(),aList);
+		field().of(ABlock.aList).set(item(),aList);
 	}/**
 
 	 **
@@ -447,22 +447,22 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
-	static final com.exedio.cope.pattern.BlockType<ABatzen> TYPE = com.exedio.cope.pattern.BlockType.newType(ABatzen.class);/**
+	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 */
-	@SuppressWarnings("unused") private ABatzen(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
+	@SuppressWarnings("unused") private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
 }}
 
 	static final class AnItem extends com.exedio.cope.Item
 	{
 		static final StringField code = new StringField().toFinal();
 
-		static final BlockField<ABatzen> eins = BlockField.create(ABatzen.TYPE);
-		static final BlockField<ABatzen> zwei = BlockField.create(ABatzen.TYPE);
+		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
+		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);
 
 		AnItem(final String code, final int n)
 		{
@@ -470,11 +470,11 @@ public class BlockFieldStandardModelTest extends CopeAssert
 				AnItem.code.map(code),
 				AnItem.eins.of(aString).map(code + '-' + n + 'A'),
 				AnItem.eins.of(anInt).map(n),
-				AnItem.eins.of(anEnum).map(ABatzen.AnEnum.facet1),
+				AnItem.eins.of(anEnum).map(ABlock.AnEnum.facet1),
 				AnItem.eins.of(aColor).map(new Color(10, 20, 30)),
 				AnItem.zwei.of(aString).map(code + '-' + n + 'B'),
 				AnItem.zwei.of(anInt).map(n + 10),
-				AnItem.zwei.of(anEnum).map(ABatzen.AnEnum.facet2),
+				AnItem.zwei.of(anEnum).map(ABlock.AnEnum.facet2),
 				AnItem.zwei.of(aColor).map(new Color(110, 120, 130)));
 		}
 
@@ -525,7 +525,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
-	final ABatzen eins()
+	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}/**
@@ -535,7 +535,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
-	final ABatzen zwei()
+	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}/**

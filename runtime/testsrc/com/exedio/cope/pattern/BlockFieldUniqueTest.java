@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraint;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.Price.storeOf;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABatzen;
+import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
 
 public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
@@ -42,10 +42,10 @@ public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 		assertEquals("item1", i1.getCode());
 		assertEquals("item2", i2.getCode());
 
-		final ABatzen b1a = i1.eins();
-		final ABatzen b1b = i1.zwei();
-		final ABatzen b2a = i2.eins();
-		final ABatzen b2b = i2.zwei();
+		final ABlock b1a = i1.eins();
+		final ABlock b1b = i1.zwei();
+		final ABlock b2a = i2.eins();
+		final ABlock b2b = i2.zwei();
 		assertEquals("item1-1A", b1a.getAlpha());
 		assertEquals("item1-1B", b1b.getAlpha());
 		assertEquals("item2-2A", b2a.getAlpha());
@@ -76,10 +76,10 @@ public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 		assertEquals("item1", i1.getCode());
 		assertEquals("item2", i2.getCode());
 
-		final ABatzen b1a = i1.eins();
-		final ABatzen b1b = i1.zwei();
-		final ABatzen b2a = i2.eins();
-		final ABatzen b2b = i2.zwei();
+		final ABlock b1a = i1.eins();
+		final ABlock b1b = i1.zwei();
+		final ABlock b2a = i2.eins();
+		final ABlock b2b = i2.zwei();
 		assertEquals(storeOf(151), b1a.getAlphaPrice());
 		assertEquals(storeOf(251), b1b.getAlphaPrice());
 		assertEquals(storeOf(152), b2a.getAlphaPrice());
