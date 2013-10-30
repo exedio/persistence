@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -37,7 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public final class ListField<E> extends AbstractListField<E>
+public final class ListField<E> extends AbstractListField<E> implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -63,6 +64,7 @@ public final class ListField<E> extends AbstractListField<E>
 		return new ListField<E>(element);
 	}
 
+	@Override
 	public ListField<E> copy(final CopyMapper mapper)
 	{
 		return new ListField<E>(mapper.copy(element));

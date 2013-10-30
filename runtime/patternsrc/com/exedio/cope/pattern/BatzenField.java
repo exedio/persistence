@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public final class BatzenField<E extends Batzen> extends Pattern
 			for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
 			{
 				final Feature template = e.getValue();
-				final Feature component = copy(mapper, template);
+				final Feature component = ((Copyable)template).copy(mapper);
 				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
@@ -82,27 +82,6 @@ public final class BatzenField<E extends Batzen> extends Pattern
 	public static <E extends Batzen> BatzenField<E> create(final BatzenType<E> valueType)
 	{
 		return new BatzenField<E>(valueType);
-	}
-
-	private static Feature copy(final CopyMapper mapper, final Feature f)
-	{
-		// TODO ----------------------------------------------------------------
-		try
-		{
-			return (Feature)(f.getClass().getMethod("copy", CopyMapper.class).invoke(f, mapper));
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InvocationTargetException e)
-		{
-			throw new RuntimeException(e);
-		}
 	}
 
 	public <X extends Feature> X of(final X template)

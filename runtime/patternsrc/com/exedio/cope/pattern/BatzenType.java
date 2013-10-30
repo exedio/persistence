@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.CopeName;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
@@ -64,6 +65,9 @@ public final class BatzenType<E> // TODO make Serializable as singleton
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = classID + '#' + field.getName();
+				// TODO test
+				if(!(feature instanceof Copyable))
+					throw new IllegalArgumentException(fieldID + " must be an instance of " + Copyable.class);
 				final String fieldName = name(field);
 
 				templates.put(fieldName, feature);
