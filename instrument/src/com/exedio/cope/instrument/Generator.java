@@ -349,9 +349,9 @@ final class Generator
 		if(!option.exists)
 			return;
 
-		final boolean batzen = type.isBlock;
-		final Class<?> constructor = batzen ? Block.class : Item.class;
-		final String activation = batzen ? ACTIVATION_BLOCK : ACTIVATION;
+		final boolean block = type.isBlock;
+		final Class<?> constructor = block ? Block.class : Item.class;
+		final String activation = block ? ACTIVATION_BLOCK : ACTIVATION;
 
 		writeCommentHeader();
 		writeIndent();
@@ -376,7 +376,7 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(batzen ? ACTIVATION_BLOCK : ACTIVATION);
+		write(block ? ACTIVATION_BLOCK : ACTIVATION);
 		write(" ap){super(ap);");
 		write(lineSeparator);
 		write('}');
@@ -545,13 +545,13 @@ final class Generator
 		}
 		else
 		{
-			final boolean batzen = feature.parent.isBlock;
-			if(batzen)
+			final boolean block = feature.parent.isBlock;
+			if(block)
 				write("field().of(");
 			write(feature.parent.name);
 			write('.');
 			write(feature.name);
-			if(batzen)
+			if(block)
 				write(')');
 			write('.');
 			write(methodName);
@@ -570,7 +570,7 @@ final class Generator
 				else
 				{
 					comma.appendTo(output);
-					write(batzen ? "item()" : "this");
+					write(block ? "item()" : "this");
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -769,20 +769,20 @@ final class Generator
 		final Option option = type.typeOption;
 		if(option.exists)
 		{
-			final boolean batzen = type.isBlock;
+			final boolean block = type.isBlock;
 
 			writeCommentHeader();
 			writeIndent();
 			write(" * ");
-			write(format(batzen ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
+			write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(batzen?BLOCK_TYPE_NAME:TYPE_NAME);write('<');
+			write(block?BLOCK_TYPE_NAME:TYPE_NAME);write('<');
 			write(type.name);
-			write("> TYPE = ");write(batzen?BLOCK_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
+			write("> TYPE = ");write(block?BLOCK_TYPE_NAME:TYPES_BOUND_NAME);write(".newType(");
 			write(type.name);
 			write(".class);");
 		}
