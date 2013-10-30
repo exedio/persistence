@@ -25,6 +25,7 @@ import static java.lang.String.valueOf;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.Sources;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -613,7 +614,7 @@ public class ReviseTest extends CopeAssert
 
 		TestSource()
 		{
-			fallback = com.exedio.cope.util.Properties.getSource(ConnectProperties.getDefaultPropertyFile());
+			fallback = Sources.load(ConnectProperties.getDefaultPropertyFile());
 		}
 
 		@Override()

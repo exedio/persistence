@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
+import com.exedio.cope.util.Clock;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class PasswordLimiterTest extends CopeTest
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
-	MockClockSource clock;
+	RelativeMockClockStrategy clock;
 
 	@Override
 	protected void setUp() throws Exception
@@ -43,14 +44,14 @@ public class PasswordLimiterTest extends CopeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
 		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
-		clock = new MockClockSource();
-		PasswordLimiter.clock.setSource(clock);
+		clock = new RelativeMockClockStrategy();
+		Clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		PasswordLimiter.clock.removeSource();
+		Clock.clearOverride();
 		super.tearDown();
 	}
 

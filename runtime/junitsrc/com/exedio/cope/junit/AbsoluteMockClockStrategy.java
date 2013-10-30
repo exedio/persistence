@@ -16,37 +16,39 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.junit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import com.exedio.cope.util.Clock;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
-import org.junit.Assert;
 
-final class MockClockSource implements Clock.Source
+public final class AbsoluteMockClockStrategy implements Clock.Strategy
 {
-	private final LinkedList<Long> events = new LinkedList<Long>();
-	private long date = 1000l*60*60*24*1000;
+	private final LinkedList<Date> events = new LinkedList<Date>();
 
 	public long currentTimeMillis()
 	{
-		Assert.assertFalse("no pending clock events", events.isEmpty());
-		return events.removeFirst();
+		assertFalse("no pending clock events", events.isEmpty());
+		return events.removeFirst().getTime();
 	}
 
-	public long addNow()
+	public Date add(final Date date)
 	{
-		return addOffset(0);
+		events.add(date);
+		return date;
 	}
 
-	public long addOffset(final long date)
+	public Date add(final long date)
 	{
-		this.date += date;
-		events.add(this.date);
-		return this.date;
+		return add(new Date(date));
 	}
 
 	public void assertEmpty()
 	{
-		Assert.assertEquals("pending clock events", Collections.EMPTY_LIST, events);
+		assertEquals("pending clock events", Collections.EMPTY_LIST, events);
 	}
 }

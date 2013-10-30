@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.Sources;
 import java.io.IOException;
 import java.io.InputStream;
 import junit.framework.TestCase;
@@ -52,7 +52,7 @@ public class ConnectPropertiesTest extends TestCase
 		{
 			final java.util.Properties result = new java.util.Properties();
 			result.load(stream);
-			return Properties.getSource(result, "test");
+			return Sources.view(result, "test");
 		}
 		finally
 		{

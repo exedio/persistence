@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.Properties.getSource;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopeSchemaName;
@@ -30,6 +28,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Sources;
 import java.util.Properties;
 
 public class EnumMapFieldSchemaNameTest extends CopeAssert
@@ -77,7 +76,7 @@ public class EnumMapFieldSchemaNameTest extends CopeAssert
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:EnumMapFieldSchemaNameTest");
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
-		MODEL.connect(new ConnectProperties(getSource(source , "EnumMapFieldSchemaNameTest" ), null));
+		MODEL.connect(new ConnectProperties(Sources.view(source , "EnumMapFieldSchemaNameTest"), null));
 	}
 
 	@Override

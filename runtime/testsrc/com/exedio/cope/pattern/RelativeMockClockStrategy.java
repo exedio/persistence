@@ -18,24 +18,32 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.util.Clock;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class AbsoluteMockClockSource implements Clock.Source
+final class RelativeMockClockStrategy implements Clock.Strategy
 {
-	private final LinkedList<Date> events = new LinkedList<Date>();
+	private final LinkedList<Long> events = new LinkedList<Long>();
+	private long date = 1000l*60*60*24*1000;
 
 	public long currentTimeMillis()
 	{
 		Assert.assertFalse("no pending clock events", events.isEmpty());
-		return events.removeFirst().getTime();
+		return events.removeFirst();
 	}
 
-	public void add(final Date date)
+	public long addNow()
 	{
-		events.add(date);
+		return addOffset(0);
+	}
+
+	public long addOffset(final long date)
+	{
+		this.date += date;
+		events.add(this.date);
+		return this.date;
 	}
 
 	public void assertEmpty()
