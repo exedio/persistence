@@ -42,6 +42,11 @@ public final class AbsoluteMockClockStrategy implements Clock.Strategy
 		return date;
 	}
 
+	public Date add(final long date)
+	{
+		return add(new Date(date));
+	}
+
 	public void assertEmpty()
 	{
 		assertEquals("pending clock events", Collections.EMPTY_LIST, events);

@@ -83,7 +83,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(new Date(1111));
+			final Date now = clock.add(1111);
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanNone.map(false)
 			));
@@ -114,7 +114,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(new Date(2222));
+			final Date now = clock.add(2222);
 			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
 					booleanNone.map(false)
 			));
@@ -192,7 +192,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(new Date(4444));
+			final Date now = clock.add(4444);
 			final DefaultToItem item = new DefaultToItem(
 					booleanTrue.map(null),
 					booleanNone.map(true),
