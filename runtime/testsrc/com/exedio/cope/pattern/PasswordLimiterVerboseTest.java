@@ -45,13 +45,13 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
 		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
 		clock = new MockClockSource();
-		PasswordLimiter.clock.setSource(clock);
+		PasswordLimiter.clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		PasswordLimiter.clock.removeSource();
+		PasswordLimiter.clock.clearOverride();
 		super.tearDown();
 	}
 

@@ -56,13 +56,13 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
 		clock = new MockClockSource();
-		PasswordRecovery.clock.setSource(clock);
+		PasswordRecovery.clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		PasswordRecovery.clock.removeSource();
+		PasswordRecovery.clock.clearOverride();
 		super.tearDown();
 	}
 

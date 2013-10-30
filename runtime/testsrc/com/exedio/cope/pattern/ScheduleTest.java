@@ -62,14 +62,14 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new ScheduleItem());
 		clock = new AbsoluteMockClockSource();
-		Schedule.clock.setSource(clock);
+		Schedule.clock.override(clock);
 		expectedRuns = new ArrayList<ExpectedRun>();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Schedule.clock.removeSource();
+		Schedule.clock.clearOverride();
 		super.tearDown();
 	}
 

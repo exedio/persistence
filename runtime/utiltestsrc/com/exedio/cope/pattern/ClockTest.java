@@ -36,7 +36,7 @@ public class ClockTest extends CopeAssert
 
 		try
 		{
-			c.setSource(null);
+			c.override(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -50,13 +50,13 @@ public class ClockTest extends CopeAssert
 		}
 
 		final MockSource ms = new MockSource();
-		c.setSource(ms);
+		c.override(ms);
 		assertEquals(444, c.currentTimeMillis());
 		assertEquals(1, ms.currentTimeMillisCount);
 
 		try
 		{
-			c.setSource(null);
+			c.override(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -66,7 +66,7 @@ public class ClockTest extends CopeAssert
 		assertEquals(444, c.currentTimeMillis());
 		assertEquals(2, ms.currentTimeMillisCount);
 
-		c.removeSource();
+		c.clearOverride();
 		{
 			final Date before = new Date();
 			final long date = c.currentTimeMillis();
@@ -75,7 +75,7 @@ public class ClockTest extends CopeAssert
 		}
 	}
 
-	private static final class MockSource implements Clock.Source
+	private static final class MockSource implements Clock.Strategy
 	{
 		int currentTimeMillisCount = 0;
 

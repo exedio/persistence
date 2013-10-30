@@ -53,13 +53,13 @@ public class DispatcherTest extends CopeModelTest
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
 		clock = new MockClockSource();
-		Dispatcher.clock.setSource(clock);
+		Dispatcher.clock.override(clock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		Dispatcher.clock.removeSource();
+		Dispatcher.clock.clearOverride();
 		super.tearDown();
 	}
 

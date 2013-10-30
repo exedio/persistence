@@ -20,18 +20,18 @@ package com.exedio.cope.pattern;
 
 final class Clock
 {
-	private Source source = null;
+	private Strategy source = null;
 
 	public long currentTimeMillis()
 	{
-		final Source source = this.source;
+		final Strategy source = this.source;
 		if(source!=null)
 			return source.currentTimeMillis();
 
 		return System.currentTimeMillis();
 	}
 
-	public void setSource(final Source source)
+	public void override(final Strategy source)
 	{
 		if(source==null)
 			throw new NullPointerException("source");
@@ -39,12 +39,12 @@ final class Clock
 		this.source = source;
 	}
 
-	public void removeSource()
+	public void clearOverride()
 	{
 		source = null;
 	}
 
-	interface Source
+	interface Strategy
 	{
 		long currentTimeMillis();
 	}
