@@ -92,8 +92,8 @@ public class BatzenFieldUniqueModelTest extends CopeAssert
 				eins.of(alphaPrice), eins.of(betaPrice), eins.of(constraintPrice)),
 			eins.getComponents());
 
-		assertSerializedSame(alpha, 339);
-		assertSerializedSame(constraint, 344);
+		assertSerializedSame(alpha, 337);
+		assertSerializedSame(constraint, 342);
 		assertSerializedSame(eins.of(alpha), 392);
 		assertSerializedSame(eins.of(constraint), 397);
 		assertSerializedSame(zwei.of(alpha), 392);
