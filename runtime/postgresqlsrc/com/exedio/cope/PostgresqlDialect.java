@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,30 +18,18 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.postgresql.Driver;
-
-import com.exedio.cope.util.Hex;
+import java.util.List;
 
 final class PostgresqlDialect extends Dialect
 {
-	static
-	{
-		try
-		{
-			Class.forName(Driver.class.getName());
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
@@ -161,7 +149,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction source, final Join join)
+	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("TRIM(TO_CHAR(").
 			append(source, join).
@@ -190,5 +178,106 @@ final class PostgresqlDialect extends Dialect
 	boolean subqueryRequiresAlias()
 	{
 		return true;
+	}
+
+	@Override
+	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	{
+		bf.append("ALTER SEQUENCE ").
+			append(quotedName).
+			append(" RESTART;");
+	}
+
+	@Override
+	protected Integer nextSequence(
+			final Executor executor,
+			final Connection connection,
+			final String quotedName)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT nextval('").
+			append(quotedName).
+			append("')");
+
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + quotedName);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + quotedName);
+				return ((Long)o).intValue();
+			}
+		});
+	}
+
+	@Override
+	protected Integer getNextSequence(
+			final Executor executor,
+			final Connection connection,
+			final String name)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT last_value FROM ").
+			append(dsmfDialect.quoteName(name));
+
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		{
+			public Integer handle(final ResultSet resultSet) throws SQLException
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty in sequence " + name);
+				final Object o = resultSet.getObject(1);
+				if(o==null)
+					throw new RuntimeException("null in sequence " + name);
+				return ((Long)o).intValue() + 1;
+			}
+		});
+	}
+
+	@Override
+	protected void deleteSchema(
+			final List<Table> tables,
+			final List<SequenceX> sequences,
+			final ConnectionPool connectionPool)
+	{
+		final StringBuilder bf = new StringBuilder();
+
+		if(!tables.isEmpty())
+		{
+			bf.append("truncate ");
+			boolean first = true;
+			for(final Table table : tables)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+
+				bf.append(table.quotedID);
+			}
+			bf.append(" cascade;");
+		}
+
+		for(final SequenceX sequence : sequences)
+			sequence.delete(bf, this);
+
+		if(bf.length()>0)
+			execute(connectionPool, bf.toString());
+	}
+
+	private static void execute(final ConnectionPool connectionPool, final String sql)
+	{
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			Executor.update(connection, sql);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,96 +19,35 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ImporterItem.TYPE;
-import static com.exedio.cope.pattern.ImporterItem.byCode;
-import static com.exedio.cope.pattern.ImporterItem.code;
 import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
 
-import java.util.ArrayList;
-
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
+import java.util.ArrayList;
 
 public class ImporterTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(ImporterItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(ImporterTest.class, "MODEL");
-	}
-
 	public ImporterTest()
 	{
-		super(MODEL);
+		super(ImporterModelTest.model);
 	}
 
-	public void testIt()
+	public void testNonInitial()
 	{
-		// test model
-		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
-		assertEquals(ImporterItem.class, TYPE.getJavaClass());
-		assertEquals(true, TYPE.isBound());
-		assertEquals(null, TYPE.getPattern());
+		doTest(false);
+	}
 
-		assertEqualsUnmodifiable(list(
-				TYPE.getThis(),
-				code,
-				code.getImplicitUniqueConstraint(),
-				byCode,
-				description,
-				description2
-			), TYPE.getFeatures());
+	public void testInitial()
+	{
+		doTest(true);
+	}
 
-		assertEquals(TYPE, byCode.getType());
-		assertEquals("byCode", byCode.getName());
-		assertSame(code, byCode.getKey());
-		assertEquals(list(), byCode.getSourceFeatures());
-		assertEquals(list(), byCode.getSourceTypes());
-		assertSerializedSame(byCode, 380);
+	private void doTest(final boolean hintInitial)
+	{
+		ImporterItem.byCode.setHintInitialExerimental(hintInitial);
 
-		try
-		{
-			Importer.newImporter(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be final", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField().toFinal().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be mandatory", e.getMessage());
-		}
-		try
-		{
-			Importer.newImporter(new StringField().toFinal());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be unique", e.getMessage());
-		}
-
-		// test persistence
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
 		final ImporterItem itemA = deleteOnTearDown(
@@ -138,7 +77,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
 
-		final ArrayList<SetValue> list = new ArrayList<SetValue>();
+		final ArrayList<SetValue<?>> list = new ArrayList<SetValue<?>>();
 		list.add(description.map("descBl"));
 		list.add(description2.map("desc2Bl"));
 		assertEquals(itemB, importByCode("codeB", list));

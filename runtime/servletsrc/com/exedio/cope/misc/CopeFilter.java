@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,14 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Model;
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import com.exedio.cope.Model;
 
 /**
  * A filter for starting/closing cope transactions.
@@ -58,7 +56,7 @@ public final class CopeFilter implements Filter
 	private ConnectToken connectToken = null;
 	private Model model;
 
-	public void init(final FilterConfig config) throws ServletException
+	public void init(final FilterConfig config)
 	{
 		connectToken = ServletUtil.getConnectedModel(this, config);
 		model = connectToken.getModel();
@@ -78,7 +76,7 @@ public final class CopeFilter implements Filter
 			// Cannot do this in init(), because filters are always initialized on startup.
 			// So the whole application would be useless, if the database schema is not yet created,
 			// including the COPE Console usually used to create the schema.
-			model.reviseIfSupported();
+			model.reviseIfSupportedAndAutoEnabled();
 			revised = true;
 		}
 
@@ -96,7 +94,10 @@ public final class CopeFilter implements Filter
 
 	public void destroy()
 	{
-		connectToken.returnIt();
-		connectToken = null;
+		if(connectToken!=null)
+		{
+			connectToken.returnIt();
+			connectToken = null;
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,12 @@
  */
 
 package com.exedio.cope;
+
+import static com.exedio.cope.testmodel.PointerItem.pointer;
+import static com.exedio.cope.testmodel.PointerItem.pointer2;
+import static com.exedio.cope.testmodel.PointerTargetItem.code;
+import static com.exedio.cope.testmodel.PointerTargetItem.num1;
+import static com.exedio.cope.testmodel.PointerTargetItem.num2;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
@@ -40,38 +46,38 @@ public class JoinMultipleTest extends TestmodelTest
 	public void testMultipleJoin()
 	{
 		{
-			final Query query = source.TYPE.newQuery(null);
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
 
-			final Join join1 = query.join(target1.TYPE);
+			final Join join1 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1), query.getJoins());
-			join1.setCondition(source.pointer.equalTarget(join1));
+			join1.setCondition(pointer.equalTarget(join1));
 			assertEqualsUnmodifiable(listg(source), query.search());
 
-			final Join join2 = query.join(target2.TYPE);
+			final Join join2 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1, join2), query.getJoins());
-			join2.setCondition(source.pointer2.equalTarget(join2));
+			join2.setCondition(pointer2.equalTarget(join2));
 			assertEqualsUnmodifiable(list(source), query.search());
 
-			query.setCondition(target1.code.equal(join1, "target1"));
+			query.setCondition(code.equal(join1, "target1"));
 			assertEqualsUnmodifiable(list(source), query.search());
 		}
 		{
 			// test using BindItemFunction
-			final Query query = source.TYPE.newQuery(null);
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
 			assertEqualsUnmodifiable(list(), query.getJoins());
 
-			final Join join1 = query.join(target1.TYPE);
+			final Join join1 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1), query.getJoins());
-			join1.setCondition(source.pointer.equal(target1.TYPE.getThis().bind(join1)));
+			join1.setCondition(pointer.equal(PointerTargetItem.TYPE.getThis().bind(join1)));
 			assertEqualsUnmodifiable(list(source), query.search());
 
-			final Join join2 = query.join(target2.TYPE);
+			final Join join2 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1, join2), query.getJoins());
-			join2.setCondition(source.pointer2.equal(target2.TYPE.getThis().bind(join2)));
+			join2.setCondition(pointer2.equal(PointerTargetItem.TYPE.getThis().bind(join2)));
 			assertEqualsUnmodifiable(list(source), query.search());
 
-			query.setCondition(target1.code.equal(join1, "target1"));
+			query.setCondition(code.equal(join1, "target1"));
 			assertEqualsUnmodifiable(list(source), query.search());
 
 			assertEquals(
@@ -86,11 +92,11 @@ public class JoinMultipleTest extends TestmodelTest
 			// TODO test with functions on joined types
 		}
 		{
-			final Query query = source.TYPE.newQuery(null);
-			final Join join1 = query.join(target1.TYPE);
-			query.setCondition((target1.num1.plus(target1.num2)).greater(2));
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
+			final Join join1 = query.join(PointerTargetItem.TYPE);
+			query.setCondition((num1.plus(num2)).greater(2));
 			assertEquals("select this from PointerItem join PointerTargetItem p1 where plus(PointerTargetItem.num1,PointerTargetItem.num2)>'2'", query.toString());
-			query.setCondition((target1.num1.plus(target1.num2)).bind(join1).greater(2));
+			query.setCondition((num1.plus(num2)).bind(join1).greater(2));
 			assertEquals("select this from PointerItem join PointerTargetItem p1 where p1.plus(PointerTargetItem.num1,PointerTargetItem.num2)>'2'", query.toString()); // TODO put join on fields
 		}
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import java.util.Date;
 
 public final class CompareCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final CompareFunctionCondition.Operator operator;
 	private final Function<E> left;
 	private final E right;
@@ -60,7 +62,7 @@ public final class CompareCondition<E> extends Condition
 	{
 		bf.append(left, (Join)null).
 			append(operator.sql).
-			appendParameter(left, right);
+			appendParameterAny(right);
 	}
 
 	@Override
@@ -78,10 +80,10 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompareCondition))
+		if(!(other instanceof CompareCondition<?>))
 			return false;
 
-		final CompareCondition o = (CompareCondition)other;
+		final CompareCondition<?> o = (CompareCondition<?>)other;
 
 		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
@@ -93,7 +95,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		left.toString(bf, defaultType);
 		bf.append(operator.sql).
@@ -102,7 +104,7 @@ public final class CompareCondition<E> extends Condition
 		bf.append('\'');
 	}
 
-	private void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
+	private static void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
 	{
 		if(o instanceof Item)
 		{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
+import java.sql.Connection;
 
 final class SequenceImplSequence implements SequenceImpl
 {
@@ -29,13 +28,35 @@ final class SequenceImplSequence implements SequenceImpl
 	private final Executor executor;
 	private final ConnectionPool connectionPool;
 	private final String name;
+	private final String quotedName;
 
-	SequenceImplSequence(final IntegerColumn column, final int start, final ConnectionPool connectionPool, final Database database)
+	SequenceImplSequence(
+			final IntegerColumn column,
+			final int start,
+			final ConnectionPool connectionPool,
+			final Database database,
+			final String nameSuffix)
 	{
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalID("Seq");
+		this.name = database.properties.filterTableName(column.makeGlobalID("Seq"+nameSuffix));
+		this.quotedName = database.dsmfDialect.quoteName(this.name);
+	}
+
+	SequenceImplSequence(
+			final String name,
+			final int start,
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor,
+			final com.exedio.dsmf.Dialect dsmfDialect)
+	{
+		this.start = start;
+		this.executor = executor;
+		this.connectionPool = connectionPool;
+		this.name = properties.filterTableName(name);
+		this.quotedName = dsmfDialect.quoteName(this.name);
 	}
 
 	public void makeSchema(final Schema schema)
@@ -48,7 +69,7 @@ final class SequenceImplSequence implements SequenceImpl
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.nextSequence(executor, connection, name);
+			return executor.dialect.nextSequence(executor, connection, quotedName).intValue();
 		}
 		finally
 		{
@@ -69,8 +90,18 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
+	public void delete(final StringBuilder bf, final Dialect dialect)
+	{
+		dialect.deleteSequence(bf, quotedName, start);
+	}
+
 	public void flush()
 	{
 		// empty
+	}
+
+	public String getSchemaName()
+	{
+		return name;
 	}
 }

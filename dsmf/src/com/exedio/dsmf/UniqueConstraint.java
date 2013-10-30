@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class UniqueConstraint extends Constraint
+public final class UniqueConstraint extends Constraint
 {
 	final String clause;
 
@@ -45,13 +45,13 @@ public class UniqueConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+clause);
 	}
 
-	public final String getClause()
+	public String getClause()
 	{
 		return clause;
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -60,23 +60,19 @@ public class UniqueConstraint extends Constraint
 	}
 
 	@Override
-	public final void create(final StatementListener listener)
+	void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" add constraint ").
 			append(quoteName(name)).
 			append(" unique").
 			append(clause);
-
-		executeSQL(bf.toString(), listener);
 	}
 
 	@Override
-	public final void drop(final StatementListener listener)
+	void drop(final StringBuilder bf)
 	{
-		executeSQL(dialect.dropUniqueConstraint(quoteName(table.name), quoteName(name)), listener);
+		dialect.dropUniqueConstraint(bf, quoteName(table.name), quoteName(name));
 	}
-
 }

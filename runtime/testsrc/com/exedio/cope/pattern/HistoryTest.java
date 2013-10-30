@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
-import java.util.List;
+import static com.exedio.cope.pattern.HistoryItem.TYPE;
+import static com.exedio.cope.pattern.HistoryItem.amount;
+import static com.exedio.cope.pattern.HistoryItem.audit;
+import static com.exedio.cope.pattern.HistoryItem.auditEventParent;
+import static com.exedio.cope.pattern.HistoryItem.comment;
+import static java.lang.Double.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
@@ -28,10 +32,12 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
+import java.util.Date;
+import java.util.List;
 
 public class HistoryTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(HistoryItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -54,53 +60,53 @@ public class HistoryTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Type<?> eventType = item.audit.getEventType();
-		final Type<?> featureType = item.audit.getFeatureType();
+		final Type<?> eventType = audit.getEventType();
+		final Type<?> featureType = audit.getFeatureType();
 
 		// test model
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				eventType,
 				featureType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
-				item.TYPE,
+				TYPE,
 				eventType,
 				featureType
 			), model.getTypesSortedByHierarchy());
-		assertEquals(HistoryItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
+		assertEquals(HistoryItem.class, TYPE.getJavaClass());
+		assertEquals(true, TYPE.isBound());
+		assertEquals(null, TYPE.getPattern());
 		assertEqualsUnmodifiable(list(HistoryItem.audit.eventType, HistoryItem.audit.featureType), HistoryItem.audit.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				item.amount,
-				item.comment,
-				item.audit
-			), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				amount,
+				comment,
+				audit
+			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				eventType.getThis(),
-				item.auditEventParent(),
-				item.audit.getEventDate(),
-				item.audit.getEventEvents(),
-				item.audit.getEventAuthor(),
-				item.audit.getEventNew()
+				auditEventParent(),
+				audit.getEventDate(),
+				audit.getEventEvents(),
+				audit.getEventAuthor(),
+				audit.getEventNew()
 			), eventType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				featureType.getThis(),
-				item.audit.getFeatureEvent(),
-				item.audit.getFeatureFeatures(),
-				item.audit.getFeature(),
-				item.audit.getFeatureId(),
-				item.audit.getFeatureUniqueConstraint(),
-				item.audit.getFeatureName(),
-				item.audit.getFeatureOld(),
-				item.audit.getFeatureNew()
+				audit.getFeatureEvent(),
+				audit.getFeatureFeatures(),
+				audit.getFeature(),
+				audit.getFeatureId(),
+				audit.getFeatureUniqueConstraint(),
+				audit.getFeatureName(),
+				audit.getFeatureOld(),
+				audit.getFeatureNew()
 			), featureType.getFeatures());
 
-		assertEquals(item.TYPE, item.audit.getType());
-		assertEquals("audit", item.audit.getName());
+		assertEquals(TYPE, audit.getType());
+		assertEquals("audit", audit.getName());
 
 		assertEquals("HistoryItem-audit-Event", eventType.getID());
 		assertEquals(History.Event.class, eventType.getJavaClass());
@@ -124,46 +130,46 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(featureType, featureType.getThis().getValueType());
 		assertEquals(model, featureType.getModel());
 
-		assertEquals(eventType, item.auditEventParent().getType());
-		assertEquals(eventType, item.audit.getEventDate().getType());
-		assertEquals(eventType, item.audit.getEventAuthor().getType());
-		assertEquals(eventType, item.audit.getEventNew().getType());
-		assertEquals(featureType, item.audit.getFeatureEvent().getType());
-		assertEquals(featureType, item.audit.getFeature().getType());
-		assertEquals(featureType, item.audit.getFeatureId().getType());
-		assertEquals(featureType, item.audit.getFeatureUniqueConstraint().getType());
-		assertEquals(featureType, item.audit.getFeatureName().getType());
-		assertEquals(featureType, item.audit.getFeatureOld().getType());
-		assertEquals(featureType, item.audit.getFeatureNew().getType());
+		assertEquals(eventType, auditEventParent().getType());
+		assertEquals(eventType, audit.getEventDate().getType());
+		assertEquals(eventType, audit.getEventAuthor().getType());
+		assertEquals(eventType, audit.getEventNew().getType());
+		assertEquals(featureType, audit.getFeatureEvent().getType());
+		assertEquals(featureType, audit.getFeature().getType());
+		assertEquals(featureType, audit.getFeatureId().getType());
+		assertEquals(featureType, audit.getFeatureUniqueConstraint().getType());
+		assertEquals(featureType, audit.getFeatureName().getType());
+		assertEquals(featureType, audit.getFeatureOld().getType());
+		assertEquals(featureType, audit.getFeatureNew().getType());
 
-		assertEquals("parent", item.auditEventParent().getName());
-		assertEquals("date", item.audit.getEventDate().getName());
-		assertEquals("author", item.audit.getEventAuthor().getName());
-		assertEquals("new", item.audit.getEventNew().getName());
-		assertEquals("event", item.audit.getFeatureEvent().getName());
-		assertEquals("id", item.audit.getFeature().getName());
-		assertEquals("id-id", item.audit.getFeatureId().getName());
-		assertEquals("uniqueConstraint", item.audit.getFeatureUniqueConstraint().getName());
-		assertEquals("name", item.audit.getFeatureName().getName());
-		assertEquals("old", item.audit.getFeatureOld().getName());
-		assertEquals("new", item.audit.getFeatureNew().getName());
+		assertEquals("parent", auditEventParent().getName());
+		assertEquals("date", audit.getEventDate().getName());
+		assertEquals("author", audit.getEventAuthor().getName());
+		assertEquals("new", audit.getEventNew().getName());
+		assertEquals("event", audit.getFeatureEvent().getName());
+		assertEquals("id", audit.getFeature().getName());
+		assertEquals("id-id", audit.getFeatureId().getName());
+		assertEquals("uniqueConstraint", audit.getFeatureUniqueConstraint().getName());
+		assertEquals("name", audit.getFeatureName().getName());
+		assertEquals("old", audit.getFeatureOld().getName());
+		assertEquals("new", audit.getFeatureNew().getName());
 
-		assertEqualsUnmodifiable(list(item.audit.getFeatureEvent(), item.audit.getFeatureId()), item.audit.getFeatureUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(audit.getFeatureEvent(), audit.getFeatureId()), audit.getFeatureUniqueConstraint().getFields());
 
 		assertTrue(eventType.isAssignableFrom(eventType));
 		assertTrue(!eventType.isAssignableFrom(featureType));
-		assertTrue(!item.TYPE.isAssignableFrom(eventType));
-		assertTrue(!eventType.isAssignableFrom(item.TYPE));
+		assertTrue(!TYPE.isAssignableFrom(eventType));
+		assertTrue(!eventType.isAssignableFrom(TYPE));
 
-		assertSame(HistoryItem.class, item.auditEventParent().getValueClass());
-		assertSame(HistoryItem.TYPE, item.auditEventParent().getValueType());
-		assertSame(History.Event.class, item.audit.getFeatureEvent().getValueClass());
-		assertSame(item.audit.getEventType(), item.audit.getFeatureEvent().getValueType());
+		assertSame(HistoryItem.class, auditEventParent().getValueClass());
+		assertSame(HistoryItem.TYPE, auditEventParent().getValueType());
+		assertSame(History.Event.class, audit.getFeatureEvent().getValueClass());
+		assertSame(audit.getEventType(), audit.getFeatureEvent().getValueType());
 
-		assertSame(item.auditEventParent(), item.audit.getEventEvents().getContainer());
-		assertSame(item.audit.getEventDate(), item.audit.getEventEvents().getOrder());
-		assertSame(item.audit.getFeatureEvent(), item.audit.getFeatureFeatures().getContainer());
-		assertSame(null, item.audit.getFeatureFeatures().getOrder());
+		assertSame(auditEventParent(), audit.getEventEvents().getContainer());
+		assertSame(audit.getEventDate(), audit.getEventEvents().getOrder());
+		assertSame(audit.getFeatureEvent(), audit.getFeatureFeatures().getContainer());
+		assertSame(null, audit.getFeatureFeatures().getOrder());
 
 		assertTrue(  eventType.isAnnotationPresent(Computed.class));
 		assertTrue(featureType.isAnnotationPresent(Computed.class));
@@ -171,14 +177,14 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
 		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
 
-		final List<PartOf> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
+		final List<PartOf<?>> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
 		assertEquals(1, historyPartOfs.size());
-		final PartOf eventPartOf = historyPartOfs.get(0);
+		final PartOf<?> eventPartOf = historyPartOfs.get(0);
 		assertSame(eventType, eventPartOf.getType());
 		assertEquals(list(eventPartOf), PartOf.getPartOfs(HistoryItem.audit));
-		final List<PartOf> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
+		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
 		assertEquals(1, eventPartOfs.size());
-		final PartOf featurePartOf = eventPartOfs.get(0);
+		final PartOf<?> featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
 
@@ -192,7 +198,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		final Date before1 = new Date();
 		final History.Event event1 = item.createAuditEvent("author1", true);
 		final Date after1 = new Date();
-		assertSame(item.audit, event1.getPattern());
+		assertSame(audit, event1.getPattern());
 		assertEquals(item, event1.getParent());
 		assertWithin(before1, after1, event1.getDate());
 		assertEquals("author1", event1.getAuthor());
@@ -200,21 +206,21 @@ public class HistoryTest extends AbstractRuntimeTest
 		assertEquals(list(), event1.getFeatures());
 		assertEqualsUnmodifiable(list(event1), item.getAuditEvents());
 
-		final Feature feature11 = event1.createFeature(item.amount, "Amount", new Double(1.1), new Double(2.2));
-		assertSame(item.audit, feature11.getPattern());
+		final Feature feature11 = event1.createFeature(amount, "Amount", valueOf(1.1), valueOf(2.2));
+		assertSame(audit, feature11.getPattern());
 		assertEquals(event1, feature11.getEvent());
-		assertSame(item.amount, feature11.getFeature());
-		assertEquals(item.amount.getID(), feature11.getFeatureID());
+		assertSame(amount, feature11.getFeature());
+		assertEquals(amount.getID(), feature11.getFeatureID());
 		assertEquals("Amount", feature11.getName());
 		assertEquals("1.1", feature11.getOld());
 		assertEquals("2.2", feature11.getNew());
 		assertEquals(list(feature11), event1.getFeatures());
 
-		final Feature feature12 = event1.createFeature(item.comment, "Comment", "blub", "blah");
-		assertSame(item.audit, feature12.getPattern());
+		final Feature feature12 = event1.createFeature(comment, "Comment", "blub", "blah");
+		assertSame(audit, feature12.getPattern());
 		assertEquals(event1, feature12.getEvent());
-		assertSame(item.comment, feature12.getFeature());
-		assertEquals(item.comment.getID(), feature12.getFeatureID());
+		assertSame(comment, feature12.getFeature());
+		assertEquals(comment.getID(), feature12.getFeatureID());
 		assertEquals("Comment", feature12.getName());
 		assertEquals("blub", feature12.getOld());
 		assertEquals("blah", feature12.getNew());
@@ -223,7 +229,7 @@ public class HistoryTest extends AbstractRuntimeTest
 		final Date before2 = new Date();
 		final History.Event event2 = item.createAuditEvent("author2", false);
 		final Date after2 = new Date();
-		assertSame(item.audit, event2.getPattern());
+		assertSame(audit, event2.getPattern());
 		assertEquals(item, event2.getParent());
 		assertWithin(before2, after2, event2.getDate());
 		assertEquals("author2", event2.getAuthor());
@@ -237,11 +243,11 @@ public class HistoryTest extends AbstractRuntimeTest
 		final String LONG_STRING_BASE = "01234567890123456789012345678901234567890123456789012345678901234567890123456";
 		final String LONG_STRING_SHORT = LONG_STRING_BASE + "...";
 		final String LONG_STRING = LONG_STRING_SHORT + "789X";
-		final Feature feature21 = event2.createFeature(item.comment, "Short", LONG_STRING, "newValue");
+		final Feature feature21 = event2.createFeature(comment, "Short", LONG_STRING, "newValue");
 		assertEquals(LONG_STRING_SHORT, feature21.getOld());
 		assertEquals("newValue", feature21.getNew());
 
-		final Feature feature22 = event2.createFeature(item.amount, "Short", "oldValue", LONG_STRING);
+		final Feature feature22 = event2.createFeature(amount, "Short", "oldValue", LONG_STRING);
 		assertEquals("oldValue", feature22.getOld());
 		assertEquals(LONG_STRING_SHORT, feature22.getNew());
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class LikeCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	public final StringFunction function;
 	public final String value;
 
@@ -47,7 +49,7 @@ public final class LikeCondition extends Condition
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendParameter(function, value);
+			appendParameterAny(value);
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
 		bf.append(" like '").

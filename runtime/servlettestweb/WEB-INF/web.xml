@@ -11,7 +11,7 @@
 
 	<servlet>
 		<servlet-name>media</servlet-name>
-		<servlet-class>com.exedio.cope.pattern.MediaServlet</servlet-class>
+		<servlet-class>com.exedio.cope.pattern.MediaTestServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
 			<param-value>com.exedio.cope.pattern.InitServlet#model</param-value>

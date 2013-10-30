@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.sql.SQLException;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -39,14 +40,17 @@ public final class UniqueViolationException extends ConstraintViolationException
 	private final UniqueConstraint feature;
 
 	/**
-	 * Creates a new UniqueViolationException with the neccessary information about the violation.
+	 * Creates a new UniqueViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>constraint</tt> is null.
 	 */
-	UniqueViolationException(final UniqueConstraint feature, final Item item)
+	UniqueViolationException(
+			final UniqueConstraint feature,
+			final Item item,
+			final SQLException cause)
 	{
-		super(item, null);
+		super(item, cause);
 		this.feature = feature;
 	}
 

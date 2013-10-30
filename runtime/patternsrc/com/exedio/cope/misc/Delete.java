@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,33 +18,15 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
-
-import java.util.List;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
+import com.exedio.cope.util.JobStop;
+import java.util.List;
 
 public final class Delete
 {
-	public static int delete(
-			final Query<? extends Item> query,
-			final String transactionName,
-			final Interrupter interrupter)
-	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				delete(query, transactionName, ctx);
-			}}
-		);
-	}
-
 	public static void delete(
 			final Query<? extends Item> query,
 			final String transactionName,
@@ -54,32 +36,33 @@ public final class Delete
 			throw new NullPointerException("ctx");
 
 		final int LIMIT = 100;
+		query.setLimit(0, LIMIT);
 		final Model model = query.getType().getModel();
-		for(int transaction = 0; transaction<30; transaction++)
+		for(int transaction = 0; ; transaction++)
 		{
-			if(ctx.requestedToStop())
-				return;
-
+			ctx.stopIfRequested();
 			try
 			{
 				model.startTransaction(transactionName + '#' + transaction);
 
-				query.setLimit(0, LIMIT);
 				final List<? extends Item> items = query.search();
 				final int itemsSize = items.size();
 				if(itemsSize==0)
 					return;
 				for(final Item item : items)
 				{
+					ctx.stopIfRequested();
 					item.deleteCopeItem();
 					ctx.incrementProgress();
 				}
-				if(itemsSize<LIMIT)
-				{
-					model.commit();
-					return;
-				}
 
+				model.commit();
+
+				if(itemsSize<LIMIT)
+					return;
+			}
+			catch(final JobStop js)
+			{
 				model.commit();
 			}
 			finally
@@ -87,12 +70,30 @@ public final class Delete
 				model.rollbackIfNotCommitted();
 			}
 		}
-
-		System.out.println("Aborting " + transactionName);
 	}
 
 	private Delete()
 	{
 		// prevent instantiation
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #delete(Query,String,JobContext)} instead.
+	 */
+	@Deprecated
+	public static int delete(
+			final Query<? extends Item> query,
+			final String transactionName,
+			final com.exedio.cope.util.Interrupter interrupter)
+	{
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
+			interrupter,
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			{
+				delete(query, transactionName, ctx);
+			}}
+		);
 	}
 }

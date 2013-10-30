@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,23 +18,24 @@
 
 package com.exedio.cope.misc;
 
-import java.util.List;
-
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public final class SetValueUtil
 {
-	public static SetValue[] toArray(final List<? extends SetValue> list)
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	public static SetValue<?>[] toArray(final List<? extends SetValue<?>> list)
 	{
 		return
 			list!=null
-			? list.toArray(list.toArray(new SetValue[list.size()]))
+			? list.toArray(list.toArray(new SetValue<?>[list.size()]))
 			: null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <E> E getFirst(final List<SetValue> setValues, final Settable<E> settable)
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
 		for(final SetValue setValue : setValues)
 			if(settable==setValue.settable)

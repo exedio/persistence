@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
+import java.util.Properties;
 
 public class ProtocolWriter extends AbstractRuntimeTest
 {
@@ -35,8 +35,8 @@ public class ProtocolWriter extends AbstractRuntimeTest
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		if(prefix!=null)
 		{
-			final java.util.Properties databaseInfo = model.getEnvironmentInfo().asProperties();
-			final java.util.Properties prefixed = new java.util.Properties();
+			final Properties databaseInfo = model.getEnvironmentInfo().asProperties();
+			final Properties prefixed = new Properties();
 			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
 			for(final Object nameObject : databaseInfo.keySet())
 			{
@@ -53,9 +53,15 @@ public class ProtocolWriter extends AbstractRuntimeTest
 					&& field.getValue()!=null)
 					prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
 			}
-			final PrintStream out = new PrintStream(new FileOutputStream(file, true));
-			prefixed.store(out, null);
-			out.close();
+			final FileOutputStream out = new FileOutputStream(file, true);
+			try
+			{
+				prefixed.store(out, null);
+			}
+			finally
+			{
+				out.close();
+			}
 		}
 	}
 }

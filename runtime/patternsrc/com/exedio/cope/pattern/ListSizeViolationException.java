@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,17 +37,21 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 {
 	private static final long serialVersionUID = 1l;
 
-	private final AbstractListField feature;
+	private final AbstractListField<?> feature;
 	private final int size;
 	private final int border;
 
 	/**
-	 * Creates a new ListSizeViolationException with the neccessary information about the violation.
+	 * Creates a new ListSizeViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param size initializes, what is returned by {@link #getSize()}.
 	 */
-	public ListSizeViolationException(final AbstractListField feature, final Item item, final int size, final int border)
+	ListSizeViolationException(
+			final AbstractListField<?> feature,
+			final Item item,
+			final int size,
+			final int border)
 	{
 		super(item, null);
 		this.feature = feature;
@@ -59,7 +63,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	 * Returns the field, that was attempted to be written.
 	 */
 	@Override
-	public AbstractListField getFeature()
+	public AbstractListField<?> getFeature()
 	{
 		return feature;
 	}

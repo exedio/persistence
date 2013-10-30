@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ExampleAnnTest.class);
 		suite.addTestSuite(ResolveImportTest.class);
 		suite.addTestSuite(GeneratorTest.class);
+		suite.addTestSuite(GenericResolverTest.class);
 		return suite;
 	}
 

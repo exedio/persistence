@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,25 +19,18 @@
 package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
 
 public class Main
 {
-	public static final Type[] modelTypes = new Type[]
-	{
+	public static final Model model = new Model(
 		EmptyItem.TYPE,
 		EmptyItem2.TYPE,
 		AttributeItem.TYPE,
-		StringItem.TYPE,
 		PointerTargetItem.TYPE,
 		PointerItem.TYPE,
 		FinalItem.TYPE,
 		CollisionItem1.TYPE,
-		CollisionItem2.TYPE,
-	};
-
-	public static final Model model = new Model(
-		modelTypes);
+		CollisionItem2.TYPE);
 
 	static
 	{

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,8 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.cojen.classfile.ClassFile;
-import org.cojen.classfile.CodeBuilder;
-import org.cojen.classfile.MethodInfo;
-import org.cojen.classfile.Modifiers;
-import org.cojen.classfile.TypeDesc;
-import org.cojen.util.ClassInjector;
-
 import bsh.Interpreter;
 import bsh.UtilEvalError;
-
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
@@ -42,6 +29,17 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Composite;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import org.cojen.classfile.ClassFile;
+import org.cojen.classfile.CodeBuilder;
+import org.cojen.classfile.MethodInfo;
+import org.cojen.classfile.Modifiers;
+import org.cojen.classfile.TypeDesc;
+import org.cojen.util.ClassInjector;
 
 final class JavaRepository
 {
@@ -101,27 +99,30 @@ final class JavaRepository
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
-					final Class typeClass = javaField.file.findTypeExternally(javaField.type);
+					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.type);
 					if(typeClass==null)
 						continue feature;
 
-					if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
+					if(Feature.class.isAssignableFrom(typeClass))
 					{
-						if(
-							EnumField.class.equals(typeClass)||
-							ItemField.class.equals(typeClass))
+						if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 						{
-							new CopeObjectAttribute(type, javaField);
+							if(
+								EnumField.class.equals(typeClass)||
+								ItemField.class.equals(typeClass))
+							{
+								new CopeObjectAttribute(type, javaField);
+							}
+							else
+							{
+								new CopeNativeAttribute(type, javaField, typeClass);
+							}
 						}
+						else if(UniqueConstraint.class.isAssignableFrom(typeClass))
+							new CopeUniqueConstraint(type, javaField);
 						else
-						{
-							new CopeNativeAttribute(type, javaField, typeClass);
-						}
+							new CopeFeature(type, javaField);
 					}
-					else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-						new CopeUniqueConstraint(type, javaField);
-					else if(Feature.class.isAssignableFrom(typeClass))
-						new CopeFeature(type, javaField);
 				}
 			}
 		}
@@ -153,7 +154,7 @@ final class JavaRepository
 
 			//System.out.println("--------------**"+javaClass.getFullName());
 			{
-				final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+				final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 				//System.out.println("--------------*1"+extendsClass);
 				if(extendsClass!=null)
 					return Item.class.isAssignableFrom(extendsClass);
@@ -172,13 +173,13 @@ final class JavaRepository
 		}
 	}
 
-	boolean isComposite(final JavaClass javaClass)
+	static boolean isComposite(final JavaClass javaClass)
 	{
 		final String classExtends = javaClass.classExtends;
 		if(classExtends==null)
 			return false;
 
-		final Class extendsClass = javaClass.file.findTypeExternally(classExtends);
+		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
 		if(extendsClass!=null)
 			return Composite.class.isAssignableFrom(extendsClass);
 
@@ -212,7 +213,24 @@ final class JavaRepository
 
 	final JavaClass getJavaClass(final String name)
 	{
-		return (name.indexOf('.')<0) ? javaClassBySimpleName.get(name) : javaClassByFullName.get(name);
+		if(name.indexOf('.')<0)
+		{
+			return javaClassBySimpleName.get(name);
+		}
+		else
+		{
+			final JavaClass byFullName = javaClassByFullName.get(name);
+			if(byFullName!=null)
+				return byFullName;
+
+			// for inner classes
+			final int dot = name.indexOf('.'); // cannot be negative in else branch
+			final JavaClass outer = javaClassBySimpleName.get(name.substring(0, dot));
+			if(outer!=null)
+				return javaClassByFullName.get(outer.file.getPackageName() + '.' + name.replace('.', '$'));
+
+			return null;
+		}
 	}
 
 	void add(final CopeType copeType)
@@ -239,6 +257,7 @@ final class JavaRepository
 		return result;
 	}
 
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
@@ -249,11 +268,11 @@ final class JavaRepository
 		}
 
 		@Override
-		public Class getClass(final String name) throws UtilEvalError
+		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
 
-			final Class superResult = super.getClass(name);
+			final Class<?> superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
 
@@ -273,18 +292,14 @@ final class JavaRepository
 				}
 				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
-					final ClassFile cf =
-						new ClassFile(javaClass.getFullName(), Composite.class);
-					addDelegateConstructor(cf,
-							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
-					return define(cf);
+					return DummyComposite.class;
 				}
 			}
 
 			return null;
 		}
 
-		private final Class define(final ClassFile cf)
+		private final Class<?> define(final ClassFile cf)
 		{
 			return ClassInjector.createExplicit(
 					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
@@ -309,5 +324,15 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
+	}
+
+	static final class DummyComposite extends Composite
+	{
+		protected DummyComposite(final SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 }

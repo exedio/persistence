@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.CharsetName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +32,10 @@ import java.util.Map;
 
 final class QueryCache
 {
+	// TODO use guava ComputingMap
+	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap map;
-	private volatile long hits = 0, misses = 0, invalidations = 0;
+	private final VolatileLong hits = new VolatileLong(), misses = new VolatileLong(), invalidations = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
@@ -56,24 +59,30 @@ final class QueryCache
 		}
 		if ( result==null )
 		{
-			result = new Value(query, query.searchUncached(transaction, totalOnly));
+			final ArrayList<Object> resultList =
+				query.searchUncached(transaction, totalOnly);
+		if(totalOnly || resultList.size()<=query.getSearchSizeCacheLimit())
+		{
+			result = new Value(query, resultList);
 			synchronized(map)
 			{
 				map.put(key, result);
 			}
-			misses++;
+		}
+			misses.inc();
+			return resultList;
 		}
 		else
 		{
-			hits++;
-			result.hits++;
+			hits.inc();
+			result.hits.inc();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("query cache hit #" + result.hits + " for " + key.getText()));
-		}
+				queryInfos.add(new QueryInfo("query cache hit #" + result.hits.get() + " for " + key.getText()));
 
-		return result.list;
+			return result.list;
+		}
 	}
 
 	boolean isEnabled()
@@ -112,7 +121,7 @@ final class QueryCache
 					}
 				}
 			}
-			this.invalidations += invalidationsCounter;
+			this.invalidations.inc(invalidationsCounter);
 		}
 	}
 
@@ -141,7 +150,7 @@ final class QueryCache
 		else
 			level = 0;
 
-		return new QueryCacheInfo(hits, misses, map!=null ? map.replacements : 0l, invalidations, level);
+		return new QueryCacheInfo(hits.get(), misses.get(), map!=null ? map.replacements.get() : 0l, invalidations.get(), level);
 	}
 
 	QueryCacheHistogram[] getHistogram()
@@ -162,7 +171,7 @@ final class QueryCache
 		int i = result.length-1;
 		int j = 0;
 		for(final Key key : keys)
-			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits);
+			result[i--] = new QueryCacheHistogram(key.getText(), values[j].list.size(), values[j++].hits.get());
 
 		return result;
 	}
@@ -172,7 +181,7 @@ final class QueryCache
 		private final byte[] text;
 		private final int hashCode;
 
-		private static final String CHARSET = "utf8";
+		private static final String CHARSET = CharsetName.UTF8;
 
 		Key(final Query<? extends Object> query, final boolean totalOnly)
 		{
@@ -189,6 +198,7 @@ final class QueryCache
 			hashCode = Arrays.hashCode(text);
 		}
 
+		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)
 		{
@@ -225,7 +235,7 @@ final class QueryCache
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
-		volatile long hits = 0;
+		final VolatileLong hits = new VolatileLong();
 
 		Value(final Query<? extends Object> query, final ArrayList<Object> list)
 		{
@@ -236,7 +246,7 @@ final class QueryCache
 			if(joins!=null)
 			{
 				for(final Join join : joins)
-					for(final Type t : join.type.getTypesOfInstances())
+					for(final Type<?> t : join.type.getTypesOfInstances())
 						typeSet.add(t.cacheIdTransiently);
 			}
 			this.invalidationTypesTransiently = typeSet.toArray();
@@ -250,7 +260,7 @@ final class QueryCache
 		private static final long serialVersionUID = 1l;
 
 		private final int maxSize;
-		volatile long replacements = 0;
+		final VolatileLong replacements = new VolatileLong();
 
 		LRUMap(final int maxSize)
 		{
@@ -264,7 +274,7 @@ final class QueryCache
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
 			final boolean result = size() > maxSize;
 			if(result)
-				replacements++;
+				replacements.inc();
 			return result;
 		}
 	}

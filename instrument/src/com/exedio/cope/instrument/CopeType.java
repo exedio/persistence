@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
+
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,9 +32,6 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Item;
-
 final class CopeType
 {
 	private static final String TAG_PREFIX = CopeFeature.TAG_PREFIX;
@@ -37,6 +39,7 @@ final class CopeType
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
 	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
+	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
 	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
 
@@ -56,6 +59,7 @@ final class CopeType
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
 	final Option activationConstructorOption;
+	final int indent;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
@@ -74,14 +78,16 @@ final class CopeType
 		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
 		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
 		this.activationConstructorOption = new Option(Tags.getLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
+		final String indentLine = Tags.getLine(docComment, TAG_INDENT);
+		this.indent = indentLine!=null ? Integer.parseInt(indentLine) : 1;
 		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
 	}
 
-	public boolean isAbstract()
+	private boolean isFinal()
 	{
-		return javaClass.isAbstract();
+		return javaClass.isFinal();
 	}
 
 	public boolean isInterface()
@@ -90,7 +96,6 @@ final class CopeType
 	}
 
 	private CopeType supertype;
-	private final ArrayList<CopeType> subtypes = new ArrayList<CopeType>();
 
 	void endBuildStage()
 	{
@@ -108,25 +113,12 @@ final class CopeType
 		}
 		else
 		{
-			final Class externalType = javaClass.file.findTypeExternally(extname);
+			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
 			if(externalType==Item.class)
-			{
 				supertype = null;
-			}
 			else
-			{
 				supertype = javaClass.file.repository.getCopeType(extname);
-				supertype.addSubtype(this);
-			}
 		}
-	}
-
-	void addSubtype(final CopeType subtype)
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-
-		subtypes.add(subtype);
 	}
 
 	public CopeType getSuperclass()
@@ -136,18 +128,16 @@ final class CopeType
 		return supertype;
 	}
 
-	public List<CopeType> getSubtypes()
-	{
-		assert !javaClass.file.repository.isBuildStage();
-
-		return subtypes;
-	}
-
 	boolean allowSubtypes()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 
-		return isAbstract() || !getSubtypes().isEmpty();
+		return !isFinal();
+	}
+
+	int getSubtypeModifier()
+	{
+		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
 	public void register(final CopeFeature feature)
@@ -237,9 +227,9 @@ final class CopeType
 		return constructorExceptions;
 	}
 
-	static final Comparator<Class> CLASS_COMPARATOR = new Comparator<Class>()
+	static final Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
 	{
-		public int compare(final Class c1, final Class c2)
+		public int compare(final Class<?> c1, final Class<?> c2)
 		{
 			return c1.getName().compareTo(c2.getName());
 		}

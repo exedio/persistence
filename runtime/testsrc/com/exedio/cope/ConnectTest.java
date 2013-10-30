@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,12 +29,6 @@ public class ConnectTest extends AbstractRuntimeTest
 	public ConnectTest()
 	{
 		super(MODEL);
-	}
-
-	public void testSupportsReadCommitted()
-	{
-		assertEquals( true, model.hasCurrentTransaction() );
-		assertEquals(dialect.supportsReadCommitted, model.supportsReadCommitted());
 	}
 
 	public static final void assertEquals(final String expected, final String actual)
@@ -84,7 +78,7 @@ public class ConnectTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Model(new Type[]{});
+			new Model(new Type<?>[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -108,9 +102,10 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
+			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
 
@@ -119,9 +114,10 @@ public class ConnectTest extends AbstractRuntimeTest
 			model.disconnect();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
+			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
 		}
 		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 abstract class Column
 {
 	final Table table;
-	private final Field field;
 	final String id;
 	final String quotedID;
 	final String idForGlobal;
@@ -39,7 +37,6 @@ abstract class Column
 
 	Column(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean synthetic,
 			final boolean primaryKey,
@@ -47,8 +44,7 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.field = field;
-		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames.booleanValue()) ? (id+table.id) : id));
+		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
 		this.synthetic = synthetic;
@@ -91,29 +87,15 @@ abstract class Column
 	abstract Object cacheToDatabasePrepared(Object cache);
 	abstract Object getCheckValue();
 
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable, final boolean supportsNotNull)
 	{
-		final String databaseType;
-		if(field!=null)
-		{
-			final CopeSchemaType annotation = field.getAnnotation(CopeSchemaType.class);
-			if(annotation!=null)
-			{
-				final String dialectName = table.database.dialect.getClass().getSimpleName();
-				assert dialectName.endsWith("Dialect");
-				final String dialectCode = dialectName.substring(0, dialectName.length()-"Dialect".length());
-				databaseType =
-					dialectCode.equals(annotation.dialect())
-					? annotation.type()
-					: getDatabaseType();
-			}
-			else
-				databaseType = getDatabaseType();
-		}
-		else
-			databaseType = getDatabaseType();
+		final String databaseType = getDatabaseType();
+		final String databaseTypeClause =
+			!optional && supportsNotNull
+			? databaseType + " not null"
+			: databaseType;
 
-		new com.exedio.dsmf.Column(dsmfTable, id, databaseType);
+		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
 		final String checkNotNull = getCheckConstraintIfNotNull();
 		if(primaryKey)
@@ -147,9 +129,19 @@ abstract class Column
 			else
 			{
 				if(checkNotNull!=null)
-					checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
+				{
+					if(supportsNotNull)
+						checkConstraint = checkNotNull;
+					else
+						checkConstraint = "(" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ')';
+				}
 				else
-					checkConstraint = quotedID + " IS NOT NULL";
+				{
+					if(supportsNotNull)
+						checkConstraint = null;
+					else
+						checkConstraint = quotedID + " IS NOT NULL";
+				}
 			}
 
 			if(checkConstraint!=null)

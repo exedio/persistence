@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -25,10 +27,8 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
-import com.exedio.dsmf.Schema;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Adapts COPE to different RDBMS.
@@ -43,21 +43,44 @@ abstract class Dialect
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
 	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 
-	private final boolean nullsAreSortedLow;
+	private final NullsAreSorted nullsAreSorted;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 
 	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect)
 	{
-		this.nullsAreSortedLow = parameters.nullsAreSortedLow;
+		this.nullsAreSorted = parameters.nullsAreSorted;
 		this.dsmfDialect = dsmfDialect;
 	}
 
 	/**
 	 * @param info used in subclasses
 	 */
-	protected void completeConnectionInfo(final java.util.Properties info)
+	protected void completeConnectionInfo(final Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void prepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
+	 * @param out used in subclasses
+	 * @throws IOException thrown by subclasses
+	 */
+	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	protected int getTransationIsolation()
+	{
+		return Connection.TRANSACTION_REPEATABLE_READ;
 	}
 
 	protected static final String EXPLAIN_PLAN = "explain plan";
@@ -111,7 +134,7 @@ abstract class Dialect
 
 	boolean nullsAreSortedLow()
 	{
-		return nullsAreSortedLow;
+		return nullsAreSorted.low();
 	}
 
 	boolean supportsEmptyStrings()
@@ -119,12 +142,12 @@ abstract class Dialect
 		return true;
 	}
 
-	boolean supportsRandom()
+	boolean supportsNotNull()
 	{
 		return false;
 	}
 
-	boolean fakesSupportTransactionIsolationReadCommitted()
+	boolean supportsRandom()
 	{
 		return false;
 	}
@@ -132,6 +155,28 @@ abstract class Dialect
 	boolean subqueryRequiresAlias()
 	{
 		return false;
+	}
+
+	boolean subqueryRequiresAliasInSelect()
+	{
+		return false;
+	}
+
+	/**
+	 * @see #extractUniqueViolation(SQLException)
+	 */
+	boolean supportsUniqueViolation()
+	{
+		return false;
+	}
+
+	/**
+	 * @param exception used in subclasses
+	 * @see #supportsUniqueViolation()
+	 */
+	String extractUniqueViolation(final SQLException exception)
+	{
+		throw new RuntimeException("not supported");
 	}
 
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
@@ -143,8 +188,8 @@ abstract class Dialect
 
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
-			final NumberFunction<E> dividend,
-			final NumberFunction<E> divisor,
+			final Function<E> dividend,
+			final Function<E> divisor,
 			final Join join)
 	{
 		bf.append(dividend, join).
@@ -173,11 +218,13 @@ abstract class Dialect
 	abstract String getDateTimestampType();
 	abstract String getBlobType(long maximumLength);
 
-	protected void appendOrderBy(final Statement bf, final Function function, final boolean ascending)
+	/**
+	 * @param bf the statement, the postfix is to be appended to
+	 * @param ascending whether the order by is ascending or descending
+	 */
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		bf.append(function, (Join)null);
-		if(!ascending)
-			bf.append(" desc");
+		// do nothing
 	}
 
 	abstract LimitSupport getLimitSupport();
@@ -208,15 +255,15 @@ abstract class Dialect
 	 */
 	abstract void appendLimitClause2(Statement bf, int offset, int limit);
 
-	abstract void appendAsString(Statement bf, NumberFunction source, Join join);
+	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
-	protected final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
+	protected static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" like ").
-			appendParameter(function, LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
+			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
 	String getBlobLength()
@@ -239,35 +286,8 @@ abstract class Dialect
 		return null;
 	}
 
-	/**
-	 * @param schema used in subclasses
-	 */
-	protected void completeSchema(final Schema schema)
-	{
-		// empty default implementation
-	}
-
-	/**
-	 * @param executor used in subclasses
-	 * @param connection used in subclasses
-	 */
-	protected Integer nextSequence(
-			final Executor executor,
-			final Connection connection,
-			final String name)
-	{
-		throw new RuntimeException("sequences not implemented: " + name);
-	}
-
-	/**
-	 * @param executor used in subclasses
-	 * @param connection used in subclasses
-	 */
-	protected Integer getNextSequence(
-			final Executor executor,
-			final Connection connection,
-			final String name)
-	{
-		throw new RuntimeException("sequences not implemented: " + name);
-	}
+	protected abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
+	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
+	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
+	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 }

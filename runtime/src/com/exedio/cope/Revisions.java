@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
-import static java.lang.System.nanoTime;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.Column;
+import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
+import com.exedio.dsmf.UniqueConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,20 +35,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.dsmf.Column;
-import com.exedio.dsmf.SQLRuntimeException;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
-import com.exedio.dsmf.UniqueConstraint;
 
 public final class Revisions
 {
-	static final Logger logger = Logger.getLogger(Revisions.class.getName());
-
 	private final int number;
 	private final Revision[] revisions;
 
@@ -56,6 +50,9 @@ public final class Revisions
 		this.revisions = new Revision[0];
 	}
 
+	/**
+	 * @param revisions See {@link #getList()} for further information.
+	 */
 	public Revisions(final Revision... revisions)
 	{
 		if(revisions==null)
@@ -94,6 +91,11 @@ public final class Revisions
 		return number;
 	}
 
+	/**
+	 * {@link Revision Revisions} listed here
+	 * are guaranteed to be executed subsequently
+	 * reversely to the order specified the list.
+	 */
 	public List<Revision> getList()
 	{
 		return Collections.unmodifiableList(Arrays.asList(revisions));
@@ -104,7 +106,9 @@ public final class Revisions
 		if(departureNumber==number)
 			return Collections.emptyList();
 		if(departureNumber>number)
-			throw new IllegalArgumentException("cannot revise backwards, expected " + number + ", but was " + departureNumber);
+			throw new IllegalArgumentException(
+					"cannot revise backwards, expected " + number +
+					", but was " + departureNumber);
 
 		final int startIndex = number - departureNumber - 1;
 		if(startIndex>=revisions.length)
@@ -125,15 +129,21 @@ public final class Revisions
 	static final String COLUMN_NUMBER_NAME = "v";
 	static final String COLUMN_INFO_NAME = "i";
 
-	void makeSchema(final Schema result, final ConnectProperties properties, final Dialect dialect)
+	static void makeSchema(
+			final Schema result,
+			final ConnectProperties properties,
+			final Dialect dialect)
 	{
-		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName.stringValue());
+		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName);
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new UniqueConstraint(table, properties.revisionUniqueName.stringValue(), '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new UniqueConstraint(table, properties.revisionUniqueName, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
 	}
 
-	private int getActualNumber(final ConnectProperties properties, final Connection connection, final Executor executor)
+	private static int getActualNumber(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
@@ -142,20 +152,15 @@ public final class Revisions
 		bf.append("select max(").
 			append(revision).
 			append(") from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append(" where ").
 			append(revision).
 			append(">=0");
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
-	}
-
-	Map<Integer, byte[]> getLogs(final ConnectProperties properties, final ConnectionPool connectionPool, final Executor executor)
-	{
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return getLogs(properties, connection, executor);
+			return executor.query(connection, bf, null, false, integerResultSetHandler);
 		}
 		finally
 		{
@@ -163,9 +168,10 @@ public final class Revisions
 		}
 	}
 
-	private Map<Integer, byte[]> getLogs(
+	static Map<Integer, byte[]> getLogs(
+			final boolean withMutex,
 			final ConnectProperties properties,
-			final Connection connection,
+			final ConnectionPool connectionPool,
 			final Executor executor)
 	{
 		final Dialect dialect = executor.dialect;
@@ -178,29 +184,39 @@ public final class Revisions
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
 			append(" from ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
-			append(" where ").
-			append(revision).
-			append(">=0");
+			append(dsmfDialect.quoteName(properties.revisionTableName));
+
+		if(!withMutex)
+			bf.append(" where ").
+				append(revision).
+				append(">=0");
 
 		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
 
-		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
+		final Connection connection = connectionPool.get(true);
+		try
 		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
-				while(resultSet.next())
+				public Void handle(final ResultSet resultSet) throws SQLException
 				{
-					final int revision = resultSet.getInt(1);
-					final byte[] info = dialect.getBytes(resultSet, 2);
-					final byte[] previous = result.put(revision, info);
-					if(previous!=null)
-						throw new RuntimeException("duplicate revision " + revision);
-				}
+					while(resultSet.next())
+					{
+						final int revision = resultSet.getInt(1);
+						final byte[] info = dialect.getBytes(resultSet, 2);
+						final byte[] previous = result.put(revision, info);
+						if(previous!=null)
+							throw new RuntimeException("duplicate revision " + revision);
+					}
 
-				return null;
-			}
-		});
+					return null;
+				}
+			});
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 		return Collections.unmodifiableMap(result);
 	}
 
@@ -210,90 +226,91 @@ public final class Revisions
 			final Executor executor,
 			final Map<String, String> environment)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			new RevisionInfoCreate(getNumber(), new Date(), environment).insert(properties, connection, executor);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
+		new RevisionInfoCreate(getNumber(), new Date(), environment).
+			insert(properties, connectionPool, executor);
 	}
 
 	void revise(
 			final ConnectProperties properties,
+			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Map<String, String> environment)
+			final DialectParameters dialectParameters,
+			final boolean explicitRequest)
 	{
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			final int actualNumber = getActualNumber(properties, connection, executor);
-			final List<Revision> revisionsToRun = getListToRun(actualNumber);
+		final int actualNumber = getActualNumber(properties, connectionPool, executor);
+		final List<Revision> revisionsToRun = getListToRun(actualNumber);
 
-			if(!revisionsToRun.isEmpty())
-				revise(properties, connection, executor, environment, revisionsToRun, actualNumber);
-		}
-		finally
+		if(!revisionsToRun.isEmpty())
 		{
-			connectionPool.put(connection);
+			if ( !explicitRequest && !properties.autoReviseEnabled )
+			{
+				throw new IllegalStateException(
+					"Model#reviseIfSupportedAndAutoEnabled called with auto-revising disabled and " +
+					revisionsToRun.size()+" revisions pending " +
+					"(last revision in DB: "+actualNumber+"; last revision in model: "+number+")"
+				);
+			}
+			final Date date = new Date();
+			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
+			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
+			try
+			{
+				mutex.insert(properties, connectionPool, executor);
+			}
+			catch(final SQLRuntimeException e)
+			{
+				throw new IllegalStateException(
+						"Revision mutex set: " +
+						"Either a revision is currently underway, " +
+						"or a revision has failed unexpectedly.", e);
+			}
+			for(final Revision revision : revisionsToRun)
+			{
+				revision.execute(date, environment, connectionFactory).
+					insert(properties, connectionPool, executor);
+			}
+			RevisionInfoMutex.delete(properties, connectionPool, executor);
 		}
 	}
 
-	private void revise(
-			final ConnectProperties properties,
-			final Connection con,
-			final Executor executor,
-			final Map<String, String> environment,
-			final List<Revision> revisionsToRun,
-			final int actualNumber)
+	@Override
+	public String toString()
 	{
-		final Date date = new Date();
-		try
+		final int length = revisions.length;
+		return
+			"Revisions(" +
+			(
+				length>0
+				? (String.valueOf(number) + '-' + revisions[length-1].number)
+				: String.valueOf(number)
+			) +
+			')';
+	}
+
+	/**
+	 * If you supply an instance of {@link Factory} to a {@link Model}
+	 * via {@link Model#Model(Revisions.Factory, Type...)} etc.
+	 * the model takes care, that {@link #create(Context)}
+	 * is called only while the model is connected and only once for each connect.
+	 */
+	public static interface Factory
+	{
+		Revisions create(Context ctx);
+
+		public static final class Context
 		{
-			new RevisionInfoMutex(date, environment, getNumber(), actualNumber).insert(properties, con, executor);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			throw new IllegalStateException(
-					"Revision mutex set: " +
-					"Either a revision is currently underway, " +
-					"or a revision has failed unexpectedly.", e);
-		}
-		for(final Revision revision : revisionsToRun)
-		{
-			final int number = revision.number;
-			final String[] body = revision.body;
-			final RevisionInfoRevise.Body[] bodyInfo = new RevisionInfoRevise.Body[body.length];
-			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
+			private final EnvironmentInfo environment;
+
+			Context(final EnvironmentInfo environment)
 			{
-				final String sql = body[bodyIndex];
-				if(logger.isLoggable(Level.INFO))
-					logger.log(Level.INFO, "revise {0}/{1}:{2}", new Object[]{number, bodyIndex, sql});
-				final Statement bf = executor.newStatement();
-				bf.append(sql);
-				final long start = nanoTime();
-				final int rows = executor.update(con, bf);
-				final long elapsed = (nanoTime() - start) / 1000000;
-				if(logger.isLoggable(Level.WARNING) && elapsed>1000)
-					logger.log(Level.WARNING, "revise {0}/{1}:{2} is slow, takes {3}ms", new Object[]{number, bodyIndex, sql, elapsed});
-				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
+				this.environment = environment;
 			}
-			final RevisionInfoRevise info = new RevisionInfoRevise(number, date, environment, revision.comment, bodyInfo);
-			info.insert(properties, con, executor);
-		}
-		{
-			final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-			final Statement bf = executor.newStatement();
-			bf.append("delete from ").
-				append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
-				append(" where ").
-				append(dsmfDialect.quoteName(COLUMN_NUMBER_NAME)).
-				append('=').
-				appendParameter(RevisionInfoMutex.NUMBER);
-			executor.updateStrict(con, bf);
+
+			public EnvironmentInfo getEnvironment()
+			{
+				return environment;
+			}
 		}
 	}
 }

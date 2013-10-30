@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -93,12 +93,12 @@ abstract class JavaFeature
 
 	final boolean isStatic()
 	{
-		return (modifier & Modifier.STATIC) > 0;
+		return Modifier.isStatic(modifier);
 	}
 
-	final boolean isAbstract()
+	final boolean isFinal()
 	{
-		return (modifier & Modifier.ABSTRACT) > 0;
+		return Modifier.isFinal(modifier);
 	}
 
 	final Visibility getVisibility()

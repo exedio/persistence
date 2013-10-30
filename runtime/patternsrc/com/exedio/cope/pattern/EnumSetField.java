@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,51 +18,45 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.List;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.EnumAnnotatedElement;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.Set;
 
-public final class EnumSetField<E extends Enum<E>> extends Pattern
+public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
 
-	private EnumSetField(final Class<E> keyClass)
+	private EnumSetField(final Class<E> elementClass)
 	{
-		this.elementClass = keyClass;
-		this.fields = new EnumMap<E, BooleanField>(keyClass);
+		this.elementClass = elementClass;
+		this.fields = new EnumMap<E, BooleanField>(elementClass);
 
-		for(final E key : keyClass.getEnumConstants())
+		for(final E element : elementClass.getEnumConstants())
 		{
 			final BooleanField value = new BooleanField().defaultTo(false);
-			addSource(value, key.name());
-			fields.put(key, value);
+			addSource(value, element.name(), EnumAnnotatedElement.get(element));
+			fields.put(element, value);
 		}
 	}
 
-	public static final <K extends Enum<K>> EnumSetField<K> newSet(final Class<K> keyClass)
+	public static final <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
 	{
-		return new EnumSetField<K>(keyClass);
-	}
-
-	/**
-	 * @deprecated Use {@link #getElementClass()} instead
-	 */
-	@Deprecated
-	public Class<E> getKeyClass()
-	{
-		return getElementClass();
+		return new EnumSetField<E>(elementClass);
 	}
 
 	public Class<E> getElementClass()
@@ -75,38 +69,6 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 		return fields.get(element);
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final char KEY = 'k';
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("contains").
-			setReturn(boolean.class).
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-
-		result.add(
-			new Wrapper("add").
-			addParameter(Wrapper.TypeVariable0.class));
-
-		result.add(
-			new Wrapper("remove").
-			addParameter(Wrapper.TypeVariable0.class));
-
-		final java.lang.reflect.Type valueType =
-			Wrapper.generic(EnumSet.class, Wrapper.TypeVariable0.class);
-		result.add(
-			new Wrapper("get").
-			setReturn(valueType));
-		result.add(
-			new Wrapper("set").
-			addParameter(valueType));
-
-		return Collections.unmodifiableList(result);
-	}
-
 	private void assertElement(final E element)
 	{
 		if(element==null)
@@ -115,47 +77,126 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}
 
-	public boolean contains(final Item item, final E element)
+	@Wrap(order=10)
+	public boolean contains(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		return fields.get(element).get(item);
 	}
 
-	public void add(final Item item, final E element)
+	@Wrap(order=20)
+	public void add(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, true);
 	}
 
-	public void remove(final Item item, final E element)
+	@Wrap(order=30)
+	public void remove(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, false);
 	}
 
+	/**
+	 * BEWARE:
+	 * Results are not unmodifiable, since EnumSets cannot be unmodifiable.
+	 */
+	@Wrap(order=40)
 	public EnumSet<E> get(final Item item)
 	{
 		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
-		for(final E key : fields.keySet())
+		for(final E element : fields.keySet())
 		{
-			if(fields.get(key).getMandatory(item))
-				result.add(key);
+			if(fields.get(element).getMandatory(item))
+				result.add(element);
 		}
 		return result;
 	}
 
+	@Wrap(order=50)
 	public void set(final Item item, final EnumSet<E> value)
 	{
-		final SetValue[] setValues = new SetValue[fields.size()];
+		final SetValue<?>[] setValues = new SetValue<?>[fields.size()];
 		int i = 0;
-		for(final E key : fields.keySet())
-			setValues[i++] = fields.get(key).map(value.contains(key));
+		for(final E element : fields.keySet())
+			setValues[i++] = fields.get(element).map(value.contains(element));
 		item.set(setValues);
+	}
+
+	@Override
+	public SetValue<EnumSet<E>> map(final EnumSet<E> value)
+	{
+		return SetValue.map(this, value);
+	}
+
+	@Override
+	public SetValue<?>[] execute(final EnumSet<E> value, final Item exceptionItem)
+	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, exceptionItem);
+
+		final E[] elements = elementClass.getEnumConstants();
+		final SetValue<?>[] result = new SetValue<?>[elements.length];
+		for(final E element : elements)
+			result[element.ordinal()] = fields.get(element).map(value.contains(element));
+		return result;
+	}
+
+	@Override
+	public boolean isFinal()
+	{
+		return false; // TODO implement final EnumSetField
+	}
+
+	@Override
+	public boolean isMandatory()
+	{
+		return true; // set is never null
+	}
+
+	@Override
+	public boolean isInitial()
+	{
+		return false;
+	}
+
+	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		return Collections.emptySet();
 	}
 
 	public Condition contains(final E element)
 	{
 		assertElement(element);
 		return getField(element).equal(true);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	@Override
+	@Deprecated
+	public Type getInitialType()
+	{
+		throw new RuntimeException("not implemented");
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Class)} instead
+	 */
+	@Deprecated
+	public static final <E extends Enum<E>> EnumSetField<E> newSet(final Class<E> elementClass)
+	{
+		return create(elementClass);
+	}
+
+	/**
+	 * @deprecated Use {@link #getElementClass()} instead
+	 */
+	@Deprecated
+	public Class<E> getKeyClass()
+	{
+		return getElementClass();
 	}
 }

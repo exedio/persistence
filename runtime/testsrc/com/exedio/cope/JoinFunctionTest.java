@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.JoinFunctionItem.TYPE;
+import static com.exedio.cope.JoinFunctionItem.integer;
+import static com.exedio.cope.JoinFunctionItemSingle.name;
 
 public class JoinFunctionTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(JoinFunctionItem.TYPE, JoinFunctionItemSingle.TYPE);
+	static final Model MODEL = new Model(TYPE, JoinFunctionItemSingle.TYPE);
 
 	public JoinFunctionTest()
 	{
@@ -29,6 +32,7 @@ public class JoinFunctionTest extends AbstractRuntimeTest
 	}
 
 	private JoinFunctionItemSingle single;
+	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem a1;
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem a2;
@@ -52,13 +56,13 @@ public class JoinFunctionTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		{
-			final Query<JoinFunctionItemSingle> q = single.TYPE.newQuery(null);
-			final Join j1 = q.join(a1.TYPE, single.name.equal("single"));
-			final Join j2 = q.join(a1.TYPE, single.name.equal("single"));
+			final Query<JoinFunctionItemSingle> q = JoinFunctionItemSingle.TYPE.newQuery(null);
+			final Join j1 = q.join(TYPE, name.equal("single"));
+			final Join j2 = q.join(TYPE, name.equal("single"));
 			q.setCondition(
-					a1.integer.bind(j1).
+					integer.bind(j1).
 						plus(
-					a1.integer.bind(j2)).
+					integer.bind(j2)).
 							greaterOrEqual(6));
 			assertContains(single, q.search());
 			// TODO let j1 be the principal type of query

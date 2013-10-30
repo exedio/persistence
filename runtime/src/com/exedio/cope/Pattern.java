@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public abstract class Pattern extends Feature
 	{
 		if(postfix==null)
 			throw new NullPointerException("postfix");
-		if(postfix.length()==0)
+		if(postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(feature==null)
 			throw new NullPointerException("feature");
@@ -97,7 +98,13 @@ public abstract class Pattern extends Feature
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
-				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+			{
+				return getAnnotation(annotationClass)!=null;
+			}
+			else if(Computed.class==annotationClass)
+			{
+				return getAnnotation(annotationClass)!=null;
+			}
 
 			if(source==null)
 				return false;
@@ -125,13 +132,20 @@ public abstract class Pattern extends Feature
 				if(sourceName!=null)
 				{
 					final String v = sourceName.value();
-					if(v.length()>0)
+					if(!v.isEmpty())
 						bf.append('-').append(v);
 				}
 				else
 					bf.append('-').append(postfix);
 
 				return annotationClass.cast(schemaName(bf.toString()));
+			}
+			else if(Computed.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				if(patternAnn!=null)
+					return patternAnn;
+				return source!=null ? source.getAnnotation(annotationClass) : null;
 			}
 
 			if(source==null)
@@ -192,7 +206,7 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
-		if(postfix!=null && postfix.length()==0)
+		if(postfix!=null && postfix.isEmpty())
 			throw new IllegalArgumentException("postfix must not be empty");
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
@@ -217,7 +231,9 @@ public abstract class Pattern extends Feature
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
-				throw new RuntimeException(Pattern.this.toString()); // not implemented, thus inconsistent to getAnnotation(Class)
+				return getAnnotation(annotationClass)!=null;
+			else if(Computed.class==annotationClass)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;
@@ -244,6 +260,13 @@ public abstract class Pattern extends Feature
 							postfix)
 					));
 				}
+			}
+			else if(Computed.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				if(patternAnn!=null)
+					return patternAnn;
+				return source.getAnnotation(annotationClass);
 			}
 
 			if(source==null)
@@ -313,8 +336,7 @@ public abstract class Pattern extends Feature
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
 		this.sourceFeaturesGather = null;
 
-		this.sourceTypesWhileGather.trimToSize();
-		this.sourceTypes = Collections.unmodifiableList(sourceTypesWhileGather);
+		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
 	}
 
@@ -353,20 +375,20 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceFeatures()} instead
 	 */
 	@Deprecated
-	public List<? extends Field> getSourceFields()
+	public List<? extends Field<?>> getSourceFields()
 	{
-		final ArrayList<Field> result = new ArrayList<Field>();
+		final ArrayList<Field<?>> result = new ArrayList<Field<?>>();
 		for(final Feature f : getSourceFeatures())
-			if(f instanceof Field)
-				result.add((Field)f);
-		return Type.finish(result);
+			if(f instanceof Field<?>)
+				result.add((Field<?>)f);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	/**
 	 * @deprecated Use {@link #getSourceFields()} instead
 	 */
 	@Deprecated
-	public final List<? extends Field> getSources()
+	public final List<? extends Field<?>> getSources()
 	{
 		return getSourceFields();
 	}
@@ -384,7 +406,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #addSource(Feature,String)} instead
 	 */
 	@Deprecated
-	protected final void registerSource(final Field field, final String postfix)
+	protected final void registerSource(final Field<?> field, final String postfix)
 	{
 		addSource(field, postfix);
 	}

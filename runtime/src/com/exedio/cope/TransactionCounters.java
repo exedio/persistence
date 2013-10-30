@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,52 +18,52 @@
 
 package com.exedio.cope;
 
-public class TransactionCounters
+public final class TransactionCounters
 {
-	private final long commitWithoutConnection;
-	private final long commitWithConnection;
-	private final long rollbackWithoutConnection;
-	private final long rollbackWithConnection;
+	private final long commitWithout;
+	private final long commitWith;
+	private final long rollbackWithout;
+	private final long rollbackWith;
 
 	TransactionCounters(
-			final long commitWithoutConnection,
-			final long commitWithConnection,
-			final long rollbackWithoutConnection,
-			final long rollbackWithConnection)
+			final long commitWithout,
+			final long commitWith,
+			final long rollbackWithout,
+			final long rollbackWith)
 	{
-		this.commitWithoutConnection = commitWithoutConnection;
-		this.commitWithConnection = commitWithConnection;
-		this.rollbackWithoutConnection = rollbackWithoutConnection;
-		this.rollbackWithConnection = rollbackWithConnection;
+		this.commitWithout = commitWithout;
+		this.commitWith = commitWith;
+		this.rollbackWithout = rollbackWithout;
+		this.rollbackWith = rollbackWith;
 	}
 
 	public long getCommit()
 	{
-		return commitWithoutConnection + commitWithConnection;
+		return commitWithout + commitWith;
 	}
 
 	public long getCommitWithoutConnection()
 	{
-		return commitWithoutConnection;
+		return commitWithout;
 	}
 
 	public long getCommitWithConnection()
 	{
-		return commitWithConnection;
+		return commitWith;
 	}
 
 	public long getRollback()
 	{
-		return rollbackWithoutConnection + rollbackWithConnection;
+		return rollbackWithout + rollbackWith;
 	}
 
 	public long getRollbackWithoutConnection()
 	{
-		return rollbackWithoutConnection;
+		return rollbackWithout;
 	}
 
 	public long getRollbackWithConnection()
 	{
-		return rollbackWithConnection;
+		return rollbackWith;
 	}
 }

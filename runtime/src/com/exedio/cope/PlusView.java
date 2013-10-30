@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,34 +18,64 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class PlusView<E extends Number> extends NumberView<E>
 {
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
+	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2)
+	{
+		return new PlusView<E>(new Function[]{addend1, addend2});
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
+	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2, final Function<E> addend3)
+	{
+		return new PlusView<E>(new Function[]{addend1, addend2, addend3});
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction[] addends;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Function<E>[] addends;
 
-	static Class valueClass(final NumberFunction[] sources)
+	static <E> Class<E> valueClass(final Function<E>[] sources)
 	{
-		final Class result = sources[0].getValueClass();
+		final Class<E> result = sources[0].getValueClass();
 		for(int i = 1; i<sources.length; i++)
 			if(!result.equals(sources[i].getValueClass()))
 				throw new RuntimeException(result.getName()+'/'+sources[i].getValueClass().getName()+'/'+i);
 		return result;
 	}
 
-	/**
-	 * Creates a new PlusView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#plus(NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction)
-	 * @see Cope#plus(NumberFunction,NumberFunction,NumberFunction)
-	 */
-	@SuppressWarnings("unchecked")
-	public PlusView(final NumberFunction[] addends)
+	static <E> SelectType<E> selectType(final Function<E>[] sources)
 	{
-		super(addends, "plus", valueClass(addends));
+		final SelectType<E> result = sources[0].getValueType();
+		for(int i = 1; i<sources.length; i++)
+			if(result!=sources[i].getValueType())
+				throw new RuntimeException(result.toString()+'/'+sources[i].getValueType()+'/'+i);
+		return result;
+	}
+
+	static <E> Class<E> checkClass(final Class<? super E> limit, final Class<E> clazz)
+	{
+		if(!limit.isAssignableFrom(clazz))
+			throw new ClassCastException(clazz.getName());
+
+		return clazz;
+	}
+
+	private PlusView(final Function<E>[] addends)
+	{
+		super(addends, "plus", checkClass(Number.class, valueClass(addends)));
 		this.addends = com.exedio.cope.misc.Arrays.copyOf(addends);
+	}
+
+	@SuppressWarnings("unchecked")
+	public SelectType<E> getValueType()
+	{
+		return selectType(addends);
 	}
 
 	@Override
@@ -101,5 +131,17 @@ public final class PlusView<E extends Number> extends NumberView<E>
 			bf.append(addends[i], join);
 		}
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link PlusView#PlusView(Function[])} instead.
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Deprecated
+	public PlusView(final NumberFunction[] addends)
+	{
+		this((Function<E>[])addends);
 	}
 }

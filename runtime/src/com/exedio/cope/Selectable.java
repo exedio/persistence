@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,18 @@
 
 package com.exedio.cope;
 
-public interface Selectable<E extends Object>
+public interface Selectable<E extends Object> extends java.io.Serializable
 {
+	/**
+	 * Returns {@link #getValueType()}.{@link SelectType#getJavaClass() getJavaClass()}
+	 */
+	Class<E> getValueClass();
+
+	SelectType<E> getValueType();
+
 	Type<? extends Item> getType();
 
-	void toString(StringBuilder bf, Type defaultType);
+	void toString(StringBuilder bf, Type<?> defaultType);
 
 	/**
 	 * @deprecated For internal use within COPE only.
@@ -40,5 +47,5 @@ public interface Selectable<E extends Object>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void appendSelect(Statement bf, Join join, Holder<Column> columnHolder, Holder<Type> typeHolder);
+	void appendSelect(Statement bf, Join join);
 }

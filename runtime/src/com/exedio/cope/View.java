@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,18 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.search.ExtremumAggregate;
 import java.lang.reflect.AnnotatedElement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.search.ExtremumAggregate;
 
 /**
  * A <tt>view</tt> represents a value computed from the
@@ -68,7 +64,7 @@ public abstract class View<E> extends Feature
 		if(sources[0] instanceof Feature)
 		{
 			final Feature f = (Feature)sources[0];
-			this.sourceType = f.isMounted() ? f.getType() : null;
+			this.sourceType = f.isMountedToType() ? f.getType() : null;
 		}
 		else
 		{
@@ -83,12 +79,6 @@ public abstract class View<E> extends Feature
 
 	protected abstract E mapJava(Object[] sourceValues);
 
-	abstract Object load(ResultSet resultSet, int columnIndex) throws SQLException;
-
-	abstract String surface2Database(Object value);
-
-	abstract void surface2DatabasePrepared(Statement bf, Object value);
-
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -99,18 +89,7 @@ public abstract class View<E> extends Feature
 			source.check(tc, join);
 	}
 
-	@Override
-	public final List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(valueClass)); // TODO box into primitives
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
 	public final E get(final Item item)
 	{
 		final Object[] values = new Object[sources.length];
@@ -139,25 +118,13 @@ public abstract class View<E> extends Feature
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		if(bf.parameters==null)
-			bf.append(surface2Database(value));
-		else
-			surface2DatabasePrepared(bf, value);
-	}
-
 	@Override
-	final void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name);
 		bf.append('(');
@@ -165,7 +132,7 @@ public abstract class View<E> extends Feature
 		{
 			if(i>0)
 				bf.append(',');
-			bf.append(sources[i].toString());
+			sources[i].toString(bf, defaultType);
 		}
 		bf.append(')');
 	}
@@ -173,10 +140,10 @@ public abstract class View<E> extends Feature
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof View))
+		if(!(other instanceof View<?>))
 			return false;
 
-		final View o = (View)other;
+		final View<?> o = (View<?>)other;
 
 		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;
@@ -246,7 +213,7 @@ public abstract class View<E> extends Feature
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

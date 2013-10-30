@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.util.Hex;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,13 +33,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
-
-import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.util.Hex;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -82,6 +84,7 @@ public final class DataField extends Field<DataField.Value>
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private BlobColumn column;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
@@ -89,12 +92,12 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final Type type = getType();
+		final Type<?> type = getType();
 		this.model = type.getModel();
 		final ConnectProperties properties = model.getConnectProperties();
-		column = new BlobColumn(table, this, name, optional, maximumLength);
-		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault.intValue(), maximumLength);
-		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit.intValue(), maximumLength);
+		column = new BlobColumn(table, name, optional, maximumLength);
+		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
+		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit, maximumLength);
 
 		return column;
 	}
@@ -118,81 +121,16 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	@Override
-	public Class getInitialType()
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return byte[].class; // TODO remove (use DataField.Value.class)
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("isNull").
-			addComment("Returns, whether there is no data for field {0}.").
-			setReturn(boolean.class));
-
-		result.add(
-			new Wrapper("getLength").
-			addComment("Returns the length of the data of the data field {0}.").
-			setReturn(long.class));
-
-		result.add(
-			new Wrapper("getArray").
-			addComment("Returns the value of the persistent field {0}."). // TODO better text
-			setReturn(byte[].class));
-
-		result.add(
-			new Wrapper("get").
-			addComment("Writes the data of this persistent data field into the given stream.").
-			addThrows(IOException.class).
-			addParameter(OutputStream.class));
-
-		result.add(
-			new Wrapper("get").
-			addComment("Writes the data of this persistent data field into the given file.").
-			addThrows(IOException.class).
-			addParameter(File.class));
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for the persistent field {0}."). // TODO better text
-				addThrows(exceptions).
-				addParameter(Value.class));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for the persistent field {0}."). // TODO better text
-				addThrows(exceptions).
-				addParameter(byte[].class));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for the persistent field {0}."). // TODO better text
-				addThrows(exceptions).
-				addThrows(IOException.class).
-				addParameter(InputStream.class));
-
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for the persistent field {0}."). // TODO better text
-				addThrows(exceptions).
-				addThrows(IOException.class).
-				addParameter(File.class));
-		}
-
-		return Collections.unmodifiableList(result);
 	}
 
 	/**
 	 * Returns, whether there is no data for this field.
 	 */
+	@Wrap(order=10, doc="Returns, whether there is no data for field {0}.")
 	public boolean isNull(final Item item)
 	{
 		// TODO make this more efficient !!!
@@ -203,6 +141,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns the length of the data of this persistent data field.
 	 * Returns -1, if there is no data for this field.
 	 */
+	@Wrap(order=20,doc="Returns the length of the data of the data field {0}.")
 	public long getLength(final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
@@ -224,6 +163,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns the data of this persistent data field.
 	 * Returns null, if there is no data for this field.
 	 */
+	@Wrap(order=30, doc="Returns the value of the persistent field {0}.") // TODO better text
 	public byte[] getArray(final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
@@ -238,6 +178,9 @@ public final class DataField extends Field<DataField.Value>
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
 	 */
+	@Wrap(order=40,
+			doc="Writes the data of this persistent data field into the given stream.",
+			thrown=@Wrap.Thrown(IOException.class))
 	public void get(final Item item, final OutputStream data) throws IOException
 	{
 		if(data==null)
@@ -255,6 +198,9 @@ public final class DataField extends Field<DataField.Value>
 	 *         if data is null.
 	 * @throws IOException if writing data throws an IOException.
 	 */
+	@Wrap(order=50,
+			doc="Writes the data of this persistent data field into the given file.",
+			thrown=@Wrap.Thrown(IOException.class))
 	public void get(final Item item, final File data) throws IOException
 	{
 		if(data==null)
@@ -283,16 +229,20 @@ public final class DataField extends Field<DataField.Value>
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 */
+	@Wrap(order=100,
+			doc="Sets a new value for the persistent field {0}.", // TODO better text
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	@Override
 	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		if(isfinal)
-			throw new FinalViolationException(this, this, item);
+			throw FinalViolationException.create(this, item);
 
 		if(data==null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, this, item);
+				throw MandatoryViolationException.create(this, item);
 		}
 		else
 		{
@@ -311,6 +261,10 @@ public final class DataField extends Field<DataField.Value>
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 */
+	@Wrap(order=110,
+			doc="Sets a new value for the persistent field {0}.", // TODO better text
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
 	{
 		set(item, toValue(data));
@@ -326,6 +280,10 @@ public final class DataField extends Field<DataField.Value>
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
+	@Wrap(order=120,
+			doc="Sets a new value for the persistent field {0}.", // TODO better text
+			thrownGetter=InitialAndIOThrown.class,
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final InputStream data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
@@ -341,10 +299,24 @@ public final class DataField extends Field<DataField.Value>
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
+	@Wrap(order=130,
+			doc="Sets a new value for the persistent field {0}.", // TODO better text
+			thrownGetter=InitialAndIOThrown.class,
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final File data)
 	throws MandatoryViolationException, DataLengthViolationException, IOException
 	{
 		set(item, toValue(data));
+	}
+
+	private static final class InitialAndIOThrown implements ThrownGetter<Field<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final Field<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			result.add(IOException.class);
+			return result;
+		}
 	}
 
 	/**
@@ -371,17 +343,25 @@ public final class DataField extends Field<DataField.Value>
 		return file!=null ? new FileValue(file) : null;
 	}
 
-	public SetValue map(final byte[] array)
+	/**
+	 * Returns null, if <code>file</code> is null.
+	 */
+	public static Value toValue(final ZipFile file, final ZipEntry entry)
+	{
+		return file!=null ? new ZipValue(file, entry) : null;
+	}
+
+	public SetValue<?> map(final byte[] array)
 	{
 		return map(toValue(array));
 	}
 
-	public SetValue map(final InputStream stream)
+	public SetValue<?> map(final InputStream stream)
 	{
 		return map(toValue(stream));
 	}
 
-	public SetValue map(final File file)
+	public SetValue<?> map(final File file)
 	{
 		return map(toValue(file));
 	}
@@ -435,8 +415,16 @@ public final class DataField extends Field<DataField.Value>
 
 			final byte[] result = new byte[toInt(length)];
 			final int readBytes = in.read(result);
+			// TODO
+			// method InputStream.read(byte[]) may read less than result.length bytes
+			// even is the stream is not yet at its end
+			// Probably we could use
+			//    new BufferedInputStream(in).read(result);
+			// to rely on complete reading guaranteed by
+			// BufferedInputStream#read(byte[]) which extends contract of
+			// InputStream#read(byte[])
 			if(readBytes!=length)
-				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes);
+				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes + ", TODO not yet fully implemented");
 
 			final int tooManyBytes = in.read(new byte[1]);
 			if(tooManyBytes!=-1)
@@ -474,7 +462,9 @@ public final class DataField extends Field<DataField.Value>
 		 * an {@link DataLengthViolationException} is thrown nevertheless,
 		 * but only after fetching at least {@link DataField#getMaximumLength()} bytes from the source.
 		 * A typical source of the estimated length is
-		 * {@link File#length()} or {@link HttpURLConnection#getContentLength()}.
+		 * {@link File#length()} or
+		 * {@link HttpURLConnection#getContentLength()} or
+		 * {@link ZipEntry#getSize()}.
 		 */
 		abstract long estimateLength();
 
@@ -519,6 +509,7 @@ public final class DataField extends Field<DataField.Value>
 			return array;
 		}
 
+		@SuppressFBWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
 		public byte[] asArray()
 		{
 			return array;
@@ -638,6 +629,42 @@ public final class DataField extends Field<DataField.Value>
 		public String toString()
 		{
 			return "DataField.Value:" + file.toString();
+		}
+	}
+
+	final static class ZipValue extends AbstractStreamValue
+	{
+		private final ZipFile file;
+		private final ZipEntry entry;
+
+		ZipValue(final ZipFile file, final ZipEntry entry)
+		{
+			this.file = file;
+			this.entry = entry;
+
+			assert file!=null;
+			assert entry!=null;
+		}
+
+		@Override
+		long estimateLength()
+		{
+			// NOTICE
+			// The following code is needed to avoid the zip bomb,
+			// see http://en.wikipedia.org/wiki/Zip_bomb
+			return entry.getSize();
+		}
+
+		@Override
+		InputStream openStream() throws IOException
+		{
+			return file.getInputStream(entry);
+		}
+
+		@Override
+		public String toString()
+		{
+			return "DataField.Value:" + file.toString() + '#' + entry.getName();
 		}
 	}
 

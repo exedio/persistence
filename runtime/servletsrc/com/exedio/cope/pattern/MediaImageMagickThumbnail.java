@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -87,7 +87,14 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 
 	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
+		if(contentType==null)
+			throw new NullPointerException("outputContentType");
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
+	}
+
+	public MediaImageMagickThumbnail outputContentTypeSame()
+	{
+		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, null);
 	}
 
 	public MediaImageMagickThumbnail density(final int density)

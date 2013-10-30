@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ public abstract class Dialect
 		return true;
 	}
 
-	public boolean supportsSequences()
+	public boolean supportsSemicolon()
 	{
 		return true;
 	}
@@ -69,9 +70,6 @@ public abstract class Dialect
 						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
 							continue;
 						//printRow(resultSet);
-
-						if(ignoreTable(schema, tableName))
-							continue;
 
 						schema.notifyExistentTable(tableName);
 						//System.out.println("EXISTS:"+tableName);
@@ -104,11 +102,30 @@ public abstract class Dialect
 			});
 	}
 
-	boolean ignoreTable(
-			@SuppressWarnings("unused") final Schema schema,
-			@SuppressWarnings("unused") final String name)
+	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
-		return false;
+		schema.querySQL(
+			sql,
+			new ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String tableName = resultSet.getString(2);
+						final Table table = schema.getTable(tableName);
+						if(table!=null)
+							table.notifyExistentForeignKeyConstraint(
+									resultSet.getString(1), // constraintName
+									resultSet.getString(3), // foreignKeyColumn
+									resultSet.getString(4), // targetTable
+									resultSet.getString(5)  // targetColumn
+							);
+					}
+				}
+			});
 	}
 
 	/**
@@ -122,6 +139,14 @@ public abstract class Dialect
 	boolean needsTargetColumnName()
 	{
 		return false;
+	}
+
+	/**
+	 * @param bf used in subclasses
+	 */
+	void appendForeignKeyCreateStatement(final StringBuilder bf)
+	{
+		// empty default implementation
 	}
 
 	// derby needs a different syntax
@@ -139,49 +164,45 @@ public abstract class Dialect
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private final String dropConstraint(final String tableName, final String constraintName)
+	private static final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop constraint ").
 			append(constraintName);
-		return bf.toString();
 	}
 
-	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
+	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public String dropUniqueConstraint(final String tableName, final String constraintName)
+	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		return dropConstraint(tableName, constraintName);
+		dropConstraint(bf, tableName, constraintName);
 	}
 
-	public String createSequence(final String sequenceName, final int startWith)
-	{
-		throw new RuntimeException("sequences not implemented: " + sequenceName + '(' + startWith + ')');
-	}
+	abstract void createSequence(StringBuilder bf, String sequenceName, int startWith);
 
-	public String dropSequence(final String sequenceName)
+	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("drop sequence ").
 			append(sequenceName);
-		return bf.toString();
 	}
 
 	/**
 	 * The default implementation just drops and re-creates the schema.
 	 * Subclasses are encouraged to provide a more efficient implementation.
+	 * @deprecated Use {@link com.exedio.cope.Model#deleteSchema()} instead.
 	 */
-	public void deleteSchema(final Schema schema)
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public final void deleteSchema(final Schema schema)
 	{
 		schema.drop();
 		schema.create();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -25,13 +26,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
-
 public final class OracleDialect extends Dialect
 {
 	public OracleDialect(final String schema)
 	{
 		super(schema);
+	}
+
+	@Override
+	public boolean supportsSemicolon()
+	{
+		return false;
 	}
 
 	@Override
@@ -79,12 +84,12 @@ public final class OracleDialect extends Dialect
 		}
 	}
 
-	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList columns)
+	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList<?> columns)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
 		boolean first = true;
-		for(final Iterator i = columns.iterator(); i.hasNext(); )
+		for(final Iterator<?> i = columns.iterator(); i.hasNext(); )
 		{
 			if(first)
 				first = false;
@@ -126,6 +131,7 @@ public final class OracleDialect extends Dialect
 				"left outer join user_cons_columns ucc " +
 					"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 					"and uc.TABLE_NAME=ucc.TABLE_NAME " +
+				"where uc.CONSTRAINT_TYPE in ('C','P','U')" +
 				"order by uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 			new ResultSetHandler()
 			{
@@ -162,8 +168,6 @@ public final class OracleDialect extends Dialect
 						}
 						else if("P".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("R".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("U".equals(constraintType))
 						{
 							final String columnName = resultSet.getString(5);
@@ -193,6 +197,15 @@ public final class OracleDialect extends Dialect
 						makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
 				}
 			});
+
+		verifyForeignKeyConstraints(
+				"select uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
+				"from USER_CONSTRAINTS uc " +
+				"join USER_cons_columns ucc on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+				"join USER_IND_COLUMNS uic on uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
+				"where uc.CONSTRAINT_TYPE='R'",
+				schema);
+
 		schema.querySQL(
 				"select SEQUENCE_NAME " +
 				"from USER_SEQUENCES",
@@ -252,18 +265,27 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	public String createSequence(final String sequenceName, final int startWith)
+	void appendForeignKeyCreateStatement(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
+		bf.append(" deferrable");
+	}
+
+	@Override
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		createSequenceStatic(bf, sequenceName, startWith);
+	}
+
+	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
 					" increment by 1" +
-					" start with " + startWith +
+					" start with ").append(startWith).append(
 					" maxvalue " + Integer.MAX_VALUE +
-					" minvalue " + startWith +
+					" minvalue ").append(startWith).append(
 					" nocycle" +
 					" noorder");
-		return bf.toString();
 	}
 }

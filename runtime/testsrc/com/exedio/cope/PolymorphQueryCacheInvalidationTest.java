@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
 {
 	public PolymorphQueryCacheInvalidationTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	InstanceOfAItem itema;
@@ -37,7 +37,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Query q = itema.TYPE.newQuery(null);
+		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		assertContains(itema, q.search());
 
 		final InstanceOfB1Item itemb1a = deleteOnTearDown(new InstanceOfB1Item("itemb1a"));

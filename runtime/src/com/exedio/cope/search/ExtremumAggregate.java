@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import com.exedio.cope.Function;
 
 public final class ExtremumAggregate<E> extends Aggregate<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	final boolean minimum;
 
 	/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
 public class CacheTouchTest extends AbstractRuntimeTest
@@ -41,56 +41,54 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		if(hsqldb||oracle) return; // TODO
+		if(!cache || hsqldb || oracle) return; // TODO
 		initCache();
 
-		assertModificationCount(0, MIN_VALUE);
+		assertUpdateCount(0, MIN_VALUE);
 		assertCache(0, 0, 0, 0, 0);
 		model.commit();
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 0, 1, 0);
 
 		item.setName("itemName2");
-		assertModificationCount(1, 0);
+		assertUpdateCount(1, 0);
 		assertCache(1, 0, 1, 1, 0);
 
 		model.commit();
 
 		// load row
 		model.joinTransaction(loader);
-		assertModificationCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 1, 2, 1);
 
 	final ConnectProperties props = model.getConnectProperties();
-	if(!props.connectionTransactionIsolationReadCommitted.booleanValue() &&
-		!props.itemCacheInvalidateLast.booleanValue())
+	if(!props.itemCacheInvalidateLast)
 	{
 		assertEquals("itemName", item.getName());
-		assertModificationCount(0, 0);
+		assertUpdateCount(0, 0);
 		assertCache(1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertModificationCount(MIN_VALUE, 0);
+		assertUpdateCount(MIN_VALUE, 0);
 		assertCache(1, 0, 2, 2, 1);
 
-		if(isConcurrentModificationDetectionEnabled(model))
 		{
 			try
 			{
@@ -103,40 +101,32 @@ public class CacheTouchTest extends AbstractRuntimeTest
 			{
 				// ok
 			}
-			assertModificationCount(MIN_VALUE, MIN_VALUE);
+			assertUpdateCount(MIN_VALUE, MIN_VALUE);
 			assertCache(0, 1, 2, 2, 1);
 
 			assertEquals("itemName2", item.getName());
 		}
-		else
-		{
-			item.setName("itemName3");
-			assertModificationCount(MIN_VALUE, 0);
-			assertCache(1, 1, 2, 2, 1);
-
-			assertEquals("itemName3", item.getName());
-		}
 	}
 	else
 	{
-		final boolean rr = !props.connectionTransactionIsolationReadCommitted.booleanValue();
-		final boolean il = props.itemCacheInvalidateLast.booleanValue();
+		final boolean rr = !hsqldb;
+		final boolean il = props.itemCacheInvalidateLast;
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());
-		assertModificationCount(rr?0:1, il?MIN_VALUE:1);
+		assertUpdateCount(rr?0:1, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertModificationCount(MIN_VALUE, il?MIN_VALUE:1);
+		assertUpdateCount(MIN_VALUE, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
 		// repeatable-read isolation and does no itemCacheInvalidateLast.
 		item.setName("itemName3");
-		assertModificationCount(2, 1);
+		assertUpdateCount(2, 1);
 		assertCache(1, il?0:1, il?3:2, 2, 1);
 
 		assertEquals("itemName3", item.getName());
@@ -144,16 +134,16 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
-	private void assertModificationCount(final int expected, final int global)
+	private void assertUpdateCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		if(isConcurrentModificationDetectionEnabled(model))
+		if(isUpdateCounterEnabled(model))
 		{
-			assertEquals("transaction", expected, item.getModificationCountIfActive());
+			assertEquals("transaction", expected, item.getUpdateCountIfActive());
 			if(props.getItemCacheLimit()>0)
-				assertEquals("global", global, item.getModificationCountGlobal());
+				assertEquals("global", global, item.getUpdateCountGlobal());
 			else
-				assertEquals("global", Integer.MIN_VALUE, item.getModificationCountGlobal());
+				assertEquals("global", Integer.MIN_VALUE, item.getUpdateCountGlobal());
 		}
 	}
 

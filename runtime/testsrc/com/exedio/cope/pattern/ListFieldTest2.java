@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import static com.exedio.cope.pattern.ListFieldItem.strings;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
+import java.util.Iterator;
 
 /**
  * Tests complicated situations for the setter.
@@ -48,12 +48,12 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Type<?> type = item.strings.getRelationType();
-		final IntegerField order = item.strings.getOrder();
-		final FunctionField<String> element = item.strings.getElement();
+		final Type<?> type = strings.getRelationType();
+		final IntegerField order = strings.getOrder();
+		final FunctionField<String> element = strings.getElement();
 
-		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
-		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
+		item.setStrings(listg("0zero", "1one", "2two"));
+		assertEqualsUnmodifiable(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r0;
 		final Item r1;
 		final Item r2;
@@ -74,7 +74,7 @@ public class ListFieldTest2 extends AbstractRuntimeTest
 		r1.deleteCopeItem(); // could happen, if element was a CASCADE ItemField
 		assertEquals(list("0zero", "2two"), item.getStrings());
 
-		item.setStrings(Arrays.asList("0zero", "1one", "2two"));
+		item.setStrings(listg("0zero", "1one", "2two"));
 		assertEquals(list("0zero", "1one", "2two"), item.getStrings());
 		final Item r3;
 		{

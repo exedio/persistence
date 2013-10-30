@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,12 +29,11 @@ final class ItemColumn extends IntegerColumn
 
 	ItemColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, field, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
+		super(table, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
 		assert targetType!=null;
 		this.targetType = targetType;
 		this.integrityConstraintName = intern(makeGlobalID("Fk"));
@@ -52,9 +51,9 @@ final class ItemColumn extends IntegerColumn
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable, final boolean supportsNotNull)
 	{
-		super.makeSchema(dsmfTable);
+		super.makeSchema(dsmfTable, supportsNotNull);
 		final Table targetTable = targetType.getTable();
 		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.idLower, targetTable.primaryKey.id);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,8 @@
  */
 
 package com.exedio.cope;
+
+import static com.exedio.cope.DataField.toValue;
 
 import java.io.IOException;
 
@@ -36,7 +38,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataFinalItem(data4));
+		item = deleteOnTearDown(new DataFinalItem(toValue(bytes4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException
@@ -46,11 +48,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 		assertEquals(false, data.isMandatory());
 
 		// test persistence
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, data6);
+			data.set(item, bytes6);
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -58,11 +60,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			item.set(data.map(data6));
+			item.set(data.map(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -70,11 +72,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, stream(data6));
+			data.set(item, stream(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -82,11 +84,11 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
-			data.set(item, file(data6));
+			data.set(item, file(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -94,6 +96,6 @@ public class DataFinalTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 	}
 }

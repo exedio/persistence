@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,25 +18,27 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted;
 
 	private static final class Mount
 	{
 		final Method getter;
-		final Class valueType;
+		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Mount(final Type<? extends Item> type, final String name)
 		{
 			final String getterName =
@@ -52,6 +54,7 @@ public final class JavaView extends Pattern
 			{
 				throw new IllegalArgumentException("no suitable getter method " + getterName + " found for java view " + name, e);
 			}
+			getter.setAccessible(true);
 
 			this.getter = getter;
 			this.valueType = getter.getReturnType();
@@ -74,7 +77,7 @@ public final class JavaView extends Pattern
 		return result;
 	}
 
-	public Class getValueType()
+	public Class<?> getValueType()
 	{
 		return mount().valueType;
 	}

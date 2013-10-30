@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-
 import com.exedio.dsmf.Schema;
+import java.sql.Connection;
 
 final class SequenceImplMax implements SequenceImpl
 {
@@ -97,11 +96,21 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
+	public void delete(final StringBuilder bf, final Dialect dialect)
+	{
+		flush();
+	}
+
 	public void flush()
 	{
 		synchronized(lock)
 		{
 			computed = false;
 		}
+	}
+
+	public String getSchemaName()
+	{
+		return null;
 	}
 }

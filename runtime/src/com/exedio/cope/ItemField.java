@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,25 +19,34 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.TypesBound.future;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
+import java.util.Set;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
+	private final FunctionField<?>[] copyTo;
+	private final CopyConstraint[] implicitCopyConstraintsTo;
 
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final FunctionField<?>[] copyTo,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, unique, valueTypeFuture.javaClass, null/* defaultConstant makes no sense for ItemField */);
+		super(isfinal, optional, unique, copyFrom, valueTypeFuture.javaClass, null/* defaultSource makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
@@ -52,53 +61,113 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			if(isfinal)
 				throw new IllegalArgumentException("final item field cannot have delete policy nullify");
 		}
-		checkDefaultConstant();
+		this.copyTo = copyTo;
+		this.implicitCopyConstraintsTo = (copyTo!=null) ? newCopyConstraintsTo(copyTo) : null;
+		mountDefaultSource();
 	}
 
-	ItemField(final TypeFuture<E> valueTypeFuture)
+	private CopyConstraint[] newCopyConstraintsTo(final FunctionField<?>[] copyFrom)
 	{
-		this(false, false, false, valueTypeFuture, Item.FORBID);
+		assert copyFrom.length>0;
+		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
+		for(int i = 0; i<copyFrom.length; i++)
+			result[i] = newCopyConstraint(this, copyFrom[i]);
+		return result;
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	{
+		return new CopyConstraint(target, copy);
 	}
 
 	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, false, null, null, valueTypeFuture, policy);
+	}
+
+	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
+	{
+		return create(valueClass, DeletePolicy.FORBID);
+	}
+
+	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return new ItemField<E>(future(valueClass), policy);
 	}
 
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, valueTypeFuture, policy);
+		return new ItemField<E>(true, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, true, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, valueTypeFuture, policy);
+		return new ItemField<E>(isfinal, optional, false, copyFrom, copyTo, valueTypeFuture, policy);
+	}
+
+	@Override
+	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new ItemField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
+	}
+
+	public ItemField<E> copyTo(final FunctionField<?> copyTo)
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
+	}
+
+	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
+	{
+		if(copyTo==null)
+			throw new NullPointerException("copyTo");
+		if(this.copyTo==null)
+			return new FunctionField<?>[]{copyTo};
+
+		final int length = this.copyTo.length;
+		final FunctionField<?>[] result = new FunctionField<?>[length+1];
+		System.arraycopy(this.copyTo, 0, result, 0, length);
+		result[length] = copyTo;
+		return result;
 	}
 
 	@Override
 	public ItemField<E> noDefault()
 	{
 		return copy(); // no defaults for item fields
+	}
+
+	/**
+	 * Additionally makes the field {@link #optional() optional}.
+	 */
+	public ItemField<E> nullify()
+	{
+		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
+	}
+
+	public ItemField<E> cascade()
+	{
+		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -115,10 +184,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	/**
+	 * @see #asExtends(Class)
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Item> ItemField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -130,7 +199,29 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (ItemField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final ItemField<X> result = (ItemField<X>)this;
+		return result;
+	}
+
+	/**
+	 * @see #as(Class)
+	 * @see Class#asSubclass(Class)
+	 */
+	public <X extends Item> ItemField<? extends X> asExtends(final Class<X> clazz)
+	{
+		if(!clazz.isAssignableFrom(valueClass))
+		{
+			final String n = ItemField.class.getName();
+			// exception message consistent with Cope.verboseCast(Class, Object)
+			throw new ClassCastException(
+					"expected a " + n + "<? extends " + clazz.getName() +
+					">, but was a " + n + '<' + valueClass.getName() + '>');
+		}
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final ItemField<X> result = (ItemField<X>)this;
+		return result;
 	}
 
 	public DeletePolicy getDeletePolicy()
@@ -139,16 +230,29 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 
+	@Override
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	{
+		super.mount(type, name, annotationSource);
+
+		if(implicitCopyConstraintsTo!=null)
+			for(final CopyConstraint constraint : implicitCopyConstraintsTo)
+				constraint.mount(type, constraint.getCopy().getName() + "CopyFrom" + name, null);
+	}
+
 	private Type<E> valueType = null;
 
-	void resolveValueType()
+	void resolveValueType(final Set<Type<?>> typesAllowed)
 	{
-		if(!isMounted())
+		if(!isMountedToType())
 			throw new RuntimeException();
 		if(valueType!=null)
 			throw new RuntimeException(getID());
 
-		valueType = valueTypeFuture.get();
+		final Type<E> valueType = valueTypeFuture.get();
+		if(!typesAllowed.contains(valueType))
+			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
+		this.valueType = valueType;
 		assert valueClass.equals(valueType.getJavaClass());
 	}
 
@@ -158,7 +262,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
-			throw new IllegalStateException("valueType of " + this.toString() + " not yet resolved: " + valueTypeFuture.toString());
+			throw new IllegalStateException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to any model");
 
 		return valueType;
 	}
@@ -166,13 +270,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private StringColumn typeColumn = null;
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		if(valueType==null)
-			throw new RuntimeException(toString());
+		final Type<E> valueType = getValueType();
 		if(connected)
 			throw new RuntimeException(toString());
 		if(onlyPossibleValueType!=null)
@@ -180,7 +284,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(typeColumn!=null)
 			throw new RuntimeException(toString());
 
-		final ItemColumn result = new ItemColumn(table, this, name, optional, valueType);
+		final ItemColumn result = new ItemColumn(table, name, optional, valueType);
 
 		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
@@ -228,9 +332,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
-		super.appendSelect(bf, join, columnHolder, typeHolder);
+		super.appendSelect(bf, join);
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn, join);
@@ -246,7 +350,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	E get(final Row row, final Query query)
+	E get(final Row row)
 	{
 		final StringColumn typeColumn = getTypeColumn();
 		final Object cell = row.get(getColumn());
@@ -254,7 +358,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(cell==null)
 		{
 			if(typeColumn!=null && row.get(typeColumn)!=null)
-				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row + " --- query: " + query);
+				throw new RuntimeException("inconsistent type column on field " + toString() + ": " + row.get(typeColumn) + " --- row: " + row);
 
 			return null;
 		}
@@ -301,7 +405,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final Item valueItem = surface;
 			row.put(getColumn(), Integer.valueOf(valueItem.pk));
 			if(typeColumn!=null)
-				row.put(typeColumn, valueItem.type.id);
+				row.put(typeColumn, valueItem.type.schemaId);
 		}
 	}
 
@@ -312,10 +416,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public int checkTypeColumn()
 	{
-		if(!needsCheckTypeColumn())
-			throw new RuntimeException("no check for type column needed for " + this);
+		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
-		final Type type = getType();
+		final Type<?> type = getType();
 		final Transaction tx = type.getModel().currentTransaction();
 		final Connection connection = tx.getConnection();
 		final Executor executor = tx.connect.executor;
@@ -352,12 +455,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -388,6 +491,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -413,6 +517,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -463,6 +568,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -493,6 +599,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

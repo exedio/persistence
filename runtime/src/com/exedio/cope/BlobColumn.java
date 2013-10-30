@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.exedio.cope.Executor.ResultSetHandler;
 
 final class BlobColumn extends Column
 {
@@ -33,12 +32,11 @@ final class BlobColumn extends Column
 
 	BlobColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.maximumLength = maximumLength;
 
 		if(table.database.dialect.getBlobType(maximumLength)==null)
@@ -191,6 +189,6 @@ final class BlobColumn extends Column
 			appendTypeCheck(table, item.type);
 
 		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, bf);
+		executor.updateStrict(connection, null, bf);
 	}
 }

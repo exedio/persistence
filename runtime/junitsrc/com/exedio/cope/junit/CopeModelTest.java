@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -37,17 +37,25 @@ public abstract class CopeModelTest extends CopeAssert
 		this.model = model;
 	}
 
+	public final Model getModel()
+	{
+		return model;
+	}
+
 	/**
 	 * Override this method to provide your own connect properties
 	 * to method {@link #setUp()} for connecting.
 	 */
-	protected ConnectProperties getConnectProperties()
+	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getSystemPropertySource());
+		return new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
 	}
 
-	private boolean manageTransactions;
-
+	/**
+	 * Override this method returning false if you do not want
+	 * method {@link #setUp()} to create a transaction for you.
+	 * The default implementation returns true.
+	 */
 	protected boolean doesManageTransactions()
 	{
 		return true;
@@ -58,22 +66,20 @@ public abstract class CopeModelTest extends CopeAssert
 	{
 		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
+		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
-		manageTransactions = doesManageTransactions();
-		if(manageTransactions)
-		{
+		if(doesManageTransactions())
 			model.startTransaction("tx:" + getClass().getName());
-			model.checkEmptySchema();
-		}
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		if(manageTransactions)
-			model.rollbackIfNotCommitted();
+		// NOTE:
+		// do rollback even if manageTransactions is false
+		// because test could have started a transaction
+		model.rollbackIfNotCommitted();
 
-		model.deleteSchema();
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);
@@ -91,9 +97,19 @@ public abstract class CopeModelTest extends CopeAssert
 	 * deletes the contents of the database.
 	 * Does not do anything.
 	 */
+	@SuppressWarnings("static-method")
 	@Deprecated
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
 		return item;
+	}
+
+	/**
+	 * @deprecated Is not used anymore, has been replaced by log4j
+	 */
+	@Deprecated
+	protected boolean doesWriteTiming()
+	{
+		return false;
 	}
 }

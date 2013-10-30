@@ -1,8 +1,0 @@
-
-<Context
-		path="/copetest"
-		docBase="../../build/copernica/web"
-		debug="0"
-		privileged="true">
-	<Parameter override="false" name="webapp" value="copetest" />
-</Context>

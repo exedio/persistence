@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,13 +36,17 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	private final boolean lengthExact;
 
 	/**
-	 * Creates a new LengthViolationRuntimeException with the neccessary information about the violation.
+	 * Creates a new LengthViolationRuntimeException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param length initializes, what is returned by {@link #getLength()}.
 	 * @param lengthExact initializes, what is returned by {@link #isLengthExact()}.
 	 */
-	public DataLengthViolationException(final DataField feature, final Item item, final long length, final boolean lengthExact)
+	DataLengthViolationException(
+			final DataField feature,
+			final Item item,
+			final long length,
+			final boolean lengthExact)
 	{
 		super(item, null);
 

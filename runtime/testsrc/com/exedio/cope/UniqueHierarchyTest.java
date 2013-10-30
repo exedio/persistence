@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,8 @@
  */
 
 package com.exedio.cope;
+
+import static com.exedio.cope.UniqueHierarchySubItem.subField;
 
 /**
  * Test for bug 30
@@ -48,8 +50,9 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
+			assertEquals(null, e.getCause());
 		}
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
@@ -57,7 +60,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		final UniqueHierarchySubItem item2 = new UniqueHierarchySubItem("super2", "sub2");
 		deleteOnTearDown(item2);
 		assertEquals(list(item, item2), UniqueHierarchySuperItem.TYPE.search(null, UniqueHierarchySuperItem.TYPE.getThis(), true));
-		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, item.TYPE.getThis(), true));
+		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, UniqueHierarchySubItem.TYPE.getThis(), true));
 
 		try
 		{
@@ -66,8 +69,9 @@ public class UniqueHierarchyTest extends AbstractRuntimeTest
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(item.subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
+			assertEquals(null, e.getCause());
 		}
 		assertEquals("sub2", item2.getSubField());
 

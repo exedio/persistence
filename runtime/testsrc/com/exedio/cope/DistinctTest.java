@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PlusIntegerItem.TYPE;
+import static com.exedio.cope.PlusIntegerItem.numA;
+import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.Query.newQuery;
 
 import java.util.List;
@@ -44,135 +47,156 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	public void testDistinctSingle()
 	{
-		{
-			final Query<Integer> q = new Query<Integer>(item1.numB, item1.TYPE, null);
-			assertContains(2, 3, 4, 4, 4, q.search());
-			assertEquals(5, q.total());
+		final Query<Integer> q = new Query<Integer>(numB, TYPE, null);
+		assertContains(2, 3, 4, 4, 4, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(2, 3, 4, q.search());
-			assertEquals(3, q.total());
+		q.setDistinct(true);
+		assertContains(2, 3, 4, q.search());
+		assertEquals(3, q.total());
 
-			item1.setNumB(null);
-			q.setDistinct(false);
-			assertContains(null, 3, 4, 4, 4, q.search());
-			assertEquals(5, q.total());
+		item1.setNumB(null);
+		q.setDistinct(false);
+		assertContains(null, 3, 4, 4, 4, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(null, 3, 4, q.search());
-			assertEquals(3, q.total());
+		q.setDistinct(true);
+		assertContains(null, 3, 4, q.search());
+		assertEquals(3, q.total());
 
-			item4.setNumB(null);
-			q.setDistinct(false);
-			assertContains(null, 3, 4, 4, null, q.search());
-			assertEquals(5, q.total());
+		item4.setNumB(null);
+		q.setDistinct(false);
+		assertContains(null, 3, 4, 4, null, q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(null, 3, 4, q.search());
-			assertEquals(3, q.total());
-		}
+		q.setDistinct(true);
+		assertContains(null, 3, 4, q.search());
+		assertEquals(3, q.total());
 	}
 
 	public void testDistinctMulti()
 	{
-		{
-			final Query<List<Object>> q = newQuery(new Function[]{item1.numA, item1.numB}, item1.TYPE, null);
-			assertContains(
-					list(1, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(5, q.total());
+		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numB}, TYPE, null);
+		assertContains(
+				list(1, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(1, 2),
-					list(1, 3),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(1, 2),
+				list(1, 3),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item1.setNumA(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item1.setNumA(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(2, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(2, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item4.setNumA(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item4.setNumA(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, 2),
-					list(1, 3),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, 2),
+				list(1, 3),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item1.setNumB(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(5, q.total());
+		item1.setNumB(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(null, 4),
-				q.search());
-			assertEquals(4, q.total());
+		q.setDistinct(true);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(null, 4),
+			q.search());
+		assertEquals(4, q.total());
 
-			item4.setNumB(null);
-			q.setDistinct(false);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-					list(1, 4),
-					list(null, null),
-				q.search());
-			assertEquals(5, q.total());
+		item4.setNumB(null);
+		q.setDistinct(false);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+				list(1, 4),
+				list(null, null),
+			q.search());
+		assertEquals(5, q.total());
 
-			q.setDistinct(true);
-			assertContains(
-					list(null, null),
-					list(1, 3),
-					list(1, 4),
-				q.search());
-			assertEquals(3, q.total());
-		}
+		q.setDistinct(true);
+		assertContains(
+				list(null, null),
+				list(1, 3),
+				list(1, 4),
+			q.search());
+		assertEquals(3, q.total());
+	}
+
+	public void testDistinctDuplicateColumns()
+	{
+		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numA}, TYPE, null);
+		assertContains(
+				list(1, 1),
+				list(1, 1),
+				list(1, 1),
+				list(1, 1),
+				list(2, 2),
+			q.search());
+		assertEquals(5, q.total());
+
+		q.setDistinct(true);
+		assertContains(
+				list(1, 1),
+				list(2, 2),
+			q.search());
+
+		// Triggers special handling for total together with distinct
+		// which may cause problems.
+		// On MySQL the error message read:
+		//    Duplicate column name 'numA'
+		assertEquals(2, q.total());
 	}
 }

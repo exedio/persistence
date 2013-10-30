@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,27 +18,30 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static com.exedio.cope.util.CharsetName.UTF8;
+import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import com.exedio.cope.util.Properties;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public abstract class MediaPath extends Pattern
 {
@@ -50,16 +53,23 @@ public abstract class MediaPath extends Pattern
 	{
 		final String urlPath;
 		final boolean preventUrlGuessing;
+		final boolean urlFingerPrinting;
 
 		Mount(final MediaPath feature)
 		{
 			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
 			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
+			this.urlFingerPrinting = feature.isAnnotationPresent(UrlFingerPrinting.class);
 			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
 				throw new RuntimeException(
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
 						" at " + feature.getID() +
 						" together with @" + RedirectFrom.class.getSimpleName());
+			if(preventUrlGuessing && urlFingerPrinting)
+				throw new RuntimeException(
+						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
+						" at " + feature.getID() +
+						" together with @" + UrlFingerPrinting.class.getSimpleName());
 		}
 	}
 
@@ -90,6 +100,30 @@ public abstract class MediaPath extends Pattern
 		return mount().preventUrlGuessing;
 	}
 
+	public final boolean isUrlFingerPrinted()
+	{
+		return mount().urlFingerPrinting;
+	}
+
+	static void appendFingerprintSegment(final StringBuilder bf, final long fingerprint)
+	{
+		if(fingerprint==Long.MIN_VALUE)
+			return;
+
+		bf.append(".f");
+		MediaBase64.append(bf, fingerprint);
+		bf.append('/');
+	}
+
+	static long fixFingerprint(final Date fingerprint)
+	{
+		if(fingerprint==null)
+			return Long.MIN_VALUE;
+
+		final long fingerprintTime = fingerprint.getTime();
+		return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
+	}
+
 	private final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
@@ -98,46 +132,9 @@ public abstract class MediaPath extends Pattern
 		return mediaRootUrl;
 	}
 
-	private static final HashMap<String, String> contentTypeToExtension = new HashMap<String, String>();
-
-	static
+	public boolean isContentTypeWrapped()
 	{
-		contentTypeToExtension.put("image/jpeg", ".jpg");
-		contentTypeToExtension.put("image/pjpeg", ".jpg");
-		contentTypeToExtension.put("image/gif", ".gif");
-		contentTypeToExtension.put("image/png", ".png");
-		contentTypeToExtension.put("image/x-icon", ".ico");
-		contentTypeToExtension.put("image/icon", ".ico");
-		contentTypeToExtension.put("image/vnd.microsoft.icon", ".ico"); // http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
-		contentTypeToExtension.put("text/html", ".html");
-		contentTypeToExtension.put("text/plain", ".txt");
-		contentTypeToExtension.put("text/css", ".css");
-		contentTypeToExtension.put("application/java-archive", ".jar");
-		contentTypeToExtension.put("application/pdf", ".pdf"); // http://en.wikipedia.org/wiki/PDF
-	}
-
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getURL").
-			addComment("Returns a URL the content of {0} is available under.").
-			setReturn(String.class));
-		result.add(
-			new Wrapper("getLocator").
-			addComment("Returns a Locator the content of {0} is available under.").
-			setReturn(Locator.class));
-
-		if((!(this instanceof Media)) || (((Media)this).getContentType()!=null))
-			result.add(
-				new Wrapper("getContentType").
-				addComment("Returns the content type of the media {0}.").
-				setReturn(String.class));
-
-		return Collections.unmodifiableList(result);
+		return true;
 	}
 
 	/**
@@ -148,17 +145,20 @@ public abstract class MediaPath extends Pattern
 	public final class Locator
 	{
 		private final Item item;
+		private final long fingerprint;
 		private final String catchphrase;
 		private final String extension;
 		private final String secret;
 
 		Locator(
 				final Item item,
+				final Date fingerprint,
 				final String catchphrase,
 				final String extension,
 				final String secret)
 		{
 			this.item = item;
+			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint) : Long.MIN_VALUE;
 			this.catchphrase = catchphrase;
 			this.extension = extension;
 			this.secret = secret;
@@ -182,6 +182,7 @@ public abstract class MediaPath extends Pattern
 		public void appendPath(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -198,6 +199,7 @@ public abstract class MediaPath extends Pattern
 		void appendPathInfo(final StringBuilder bf)
 		{
 			bf.append(getUrlPath());
+			appendFingerprintSegment(bf, fingerprint);
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -214,6 +216,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -221,10 +224,13 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
+		final MediaType mediaType =
+			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
+				mount().urlFingerPrinting ? getLastModified(item) : null,
 				makeUrlCatchphrase(item),
-				contentTypeToExtension.get(contentType),
+				mediaType!=null ? mediaType.getExtension() : null,
 				makeUrlToken(item));
 	}
 
@@ -233,6 +239,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -243,15 +250,19 @@ public abstract class MediaPath extends Pattern
 		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
 
 		bf.append(getUrlPath());
+
+		if(mount().urlFingerPrinting)
+			appendFingerprintSegment(bf, fixFingerprint(getLastModified(item)));
+
 		item.appendCopeID(bf);
 
 		final String catchphrase = makeUrlCatchphrase(item);
 		if(catchphrase!=null)
 			bf.append('/').append(catchphrase);
 
-		final String extension = contentTypeToExtension.get(contentType);
-		if(extension!=null)
-			bf.append(extension);
+		final MediaType type = MediaType.forNameAndAliases(contentType);
+		if(type!=null)
+			bf.append(type.getExtension());
 
 		final String secret = makeUrlToken(item);
 		if(secret!=null)
@@ -267,15 +278,19 @@ public abstract class MediaPath extends Pattern
 			return null;
 
 		final String result = ((MediaUrlCatchphraseProvider)item).getMediaUrlCatchphrase(this);
-		if(result==null || result.length()==0)
+		if(result==null || result.isEmpty())
 			return null;
 
 		final int l = result.length();
 		for(int i = 0; i<l; i++)
 		{
 			final char c = result.charAt(i);
-			if(!(('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')))
-				throw new IllegalArgumentException(result);
+			if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
+				throw new IllegalArgumentException(
+						"illegal catchphrase" +
+						" on " + item.getCopeID() +
+						" for " + getID() +
+						": >" + result + "< [" + i + ']');
 		}
 
 		return result;
@@ -323,7 +338,7 @@ public abstract class MediaPath extends Pattern
 		try
 		{
 			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
-			messageDigest.update(plainText.getBytes("utf8"));
+			messageDigest.update(plainText.getBytes(UTF8));
 			final byte[] digest = messageDigest.digest();
 			final byte[] digestShrink = new byte[10];
 			int j = 0;
@@ -343,39 +358,125 @@ public abstract class MediaPath extends Pattern
 
 	public static final boolean isUrlGuessingPreventedSecurely(final ConnectProperties properties)
 	{
-		return getNonGuessableUrlSecret(properties)!=null;
+		return properties.getMediaUrlSecret()!=null;
 	}
 
 	private final String getNonGuessableUrlSecret()
 	{
-		return getNonGuessableUrlSecret(getType().getModel().getConnectProperties());
+		return getType().getModel().getConnectProperties().getMediaUrlSecret();
 	}
 
-	private static final String getNonGuessableUrlSecret(final ConnectProperties properties)
+
+	private static final ErrorLog noSuchPath = new ErrorLog();
+	private final VolatileInt redirectFrom = new VolatileInt();
+	private final ErrorLog    exception = new ErrorLog();
+	private final ErrorLog    invalidSpecial = new ErrorLog();
+	private final ErrorLog    guessedUrl = new ErrorLog();
+	private final ErrorLog    notAnItem = new ErrorLog();
+	private final ErrorLog    noSuchItem = new ErrorLog();
+	private final VolatileInt moved = new VolatileInt();
+	private final ErrorLog    isNull = new ErrorLog();
+	private final ErrorLog    notComputable = new ErrorLog();
+	private final VolatileInt notModified = new VolatileInt();
+	private final VolatileInt delivered = new VolatileInt();
+
+	final void incRedirectFrom()
 	{
-		final Properties.Source context = properties.getContext();
-		if(context==null)
-			return null;
-
-		final String result = context.get("media.url.secret");
-		if(result==null || result.length()<10)
-			return null;
-
-		return result;
+		redirectFrom.inc();
 	}
 
+	final void countException(
+			final HttpServletRequest request,
+			final Exception exception)
+	{
+		this.exception.count(request, exception);
+	}
 
-	static final Log noSuchPath = new Log("no such path"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log redirectFrom      = new Log("redirectFrom"  , HttpServletResponse.SC_MOVED_PERMANENTLY);
-	final Log exception         = new Log("exception"     , HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	private final Log guessedUrl = new Log("guessed url"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log notAnItem         = new Log("not an item"   , HttpServletResponse.SC_NOT_FOUND);
-	final Log noSuchItem        = new Log("no such item"  , HttpServletResponse.SC_NOT_FOUND);
-	final Log moved             = new Log("moved"         , HttpServletResponse.SC_OK);
-	public final Log isNull            = new Log("is null"       , HttpServletResponse.SC_NOT_FOUND);
-	final Log notComputable     = new Log("not computable", HttpServletResponse.SC_NOT_FOUND);
-	final Log notModified       = new Log("not modified"  , HttpServletResponse.SC_OK);
-	public final Log delivered         = new Log("delivered"     , HttpServletResponse.SC_OK);
+	public static final class NotFound extends Exception
+	{
+		private final String reason;
+		private final transient ErrorLog counter;
+
+		NotFound(final String reason, final ErrorLog counter)
+		{
+			this.reason = reason;
+			this.counter = counter;
+
+			if(reason==null)
+				throw new NullPointerException();
+			if(counter==null)
+				throw new NullPointerException();
+		}
+
+		@Override
+		public String getMessage()
+		{
+			return reason;
+		}
+
+		void serve(
+				final HttpServletRequest request,
+				final HttpServletResponse response)
+		throws IOException
+		{
+			// counter may be null if exception had been deserialized
+			if(counter!=null)
+				counter.count(request, this);
+
+			final String body =
+				"<html>\n" +
+					"<head>\n" +
+						"<title>Not Found</title>\n" +
+						"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+					"</head>\n" +
+					"<body>\n" +
+						"<h1>Not Found</h1>\n" +
+						"The requested URL was not found on this server (" + reason + ").\n" +
+					"</body>\n" +
+				"</html>\n";
+
+			response.setStatus(SC_NOT_FOUND);
+			MediaUtil.send("text/html", "us-ascii", body, response);
+		}
+
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final NotFound notFoundNoSuchPath()
+	{
+		return new NotFound("no such path", noSuchPath);
+	}
+
+	private NotFound notFoundInvalidSpecial()
+	{
+		return new NotFound("invalid special", invalidSpecial);
+	}
+
+	private NotFound notFoundGuessedUrl()
+	{
+		return new NotFound("guessed url", guessedUrl);
+	}
+
+	final NotFound notFoundNotAnItem()
+	{
+		return new NotFound("not an item", notAnItem);
+	}
+
+	private NotFound notFoundNoSuchItem()
+	{
+		return new NotFound("no such item", noSuchItem);
+	}
+
+	protected final NotFound notFoundIsNull()
+	{
+		return new NotFound("is null", isNull);
+	}
+
+	protected final NotFound notFoundNotComputable()
+	{
+		return new NotFound("not computable", notComputable);
+	}
 
 	public static final int getNoSuchPath()
 	{
@@ -388,6 +489,7 @@ public abstract class MediaPath extends Pattern
 				this,
 				redirectFrom.get(),
 				exception.get(),
+				invalidSpecial.get(),
 				guessedUrl.get(),
 				notAnItem.get(),
 				noSuchItem.get(),
@@ -398,13 +500,78 @@ public abstract class MediaPath extends Pattern
 				delivered.get());
 	}
 
+	public static final List<MediaRequestLog> getNoSuchPathLogs()
+	{
+		return noSuchPath.getLogs();
+	}
 
-	final Media.Log doGet(
+	public final List<MediaRequestLog> getExceptionLogs()
+	{
+		return exception.getLogs();
+	}
+
+	public final List<MediaRequestLog> getInvalidSpecialLogs()
+	{
+		return invalidSpecial.getLogs();
+	}
+
+	public final List<MediaRequestLog> getGuessedUrlLogs()
+	{
+		return guessedUrl.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNotAnItemLogs()
+	{
+		return notAnItem.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNoSuchItemLogs()
+	{
+		return noSuchItem.getLogs();
+	}
+
+	public final List<MediaRequestLog> getIsNullLogs()
+	{
+		return isNull.getLogs();
+	}
+
+	public final List<MediaRequestLog> getNotComputableLogs()
+	{
+		return notComputable.getLogs();
+	}
+
+
+	final void doGet(
 			final HttpServletRequest request, final HttpServletResponse response,
-			final String pathInfo, final int fromIndex)
-		throws IOException
+			final String pathInfo, final int fromIndexWithSpecial)
+		throws IOException, NotFound
 	{
 		//final long start = System.currentTimeMillis();
+
+		final int fromIndex;
+		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
+		{
+			final int kindIndex = fromIndexWithSpecial+1;
+			if(!(pathInfo.length()>kindIndex))
+				throw notFoundInvalidSpecial();
+
+			switch(pathInfo.charAt(kindIndex))
+			{
+				case 'f':
+					final int slash = pathInfo.indexOf('/', kindIndex);
+					if(slash<0)
+						throw notFoundInvalidSpecial();
+					fromIndex = slash + 1;
+					break;
+
+				default:
+					throw notFoundInvalidSpecial();
+			}
+		}
+		else
+		{
+			fromIndex = fromIndexWithSpecial;
+		}
 
 		final int slash = pathInfo.indexOf('/', fromIndex);
 		final String id;
@@ -428,14 +595,14 @@ public abstract class MediaPath extends Pattern
 		{
 			final String x = request.getParameter(URL_TOKEN);
 			if(!token.equals(x))
-				return guessedUrl;
+				throw notFoundGuessedUrl();
 		}
 
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
 		try
 		{
-			model.startTransaction("MediaServlet");
+			model.startTransaction("MediaPath#doGet " + pathInfo);
 			final Item item = model.getItem(id);
 			//System.out.println("item="+item);
 			{
@@ -457,22 +624,24 @@ public abstract class MediaPath extends Pattern
 							append('/');
 						locator.appendPath(location);
 
-						response.setStatus(response.SC_MOVED_PERMANENTLY);
+						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
-						return moved;
+						moved.inc();
+						return;
 					}
 				}
 			}
 
-			final Media.Log result = doGet(request, response, item);
-			model.commit();
+			doGetAndCommitWithCache(request, response, item);
 
-			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + result.name + ", " + id);
-			return result;
+			if(model.hasCurrentTransaction())
+				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
+
+			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
 		}
 		catch(final NoSuchIDException e)
 		{
-			return e.notAnID() ? notAnItem : noSuchItem;
+			throw e.notAnID() ? notFoundNotAnItem() : notFoundNoSuchItem();
 		}
 		finally
 		{
@@ -480,10 +649,139 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	protected final void commit()
+	{
+		getType().getModel().commit();
+	}
+
+	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
 	public abstract String getContentType(Item item);
 
-	public abstract Media.Log doGet(HttpServletRequest request, HttpServletResponse response, Item item)
-		throws IOException;
+	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
+	{
+		public boolean get(final MediaPath feature)
+		{
+			return !feature.isContentTypeWrapped();
+		}
+	}
+
+	// cache
+
+	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
+	private static final String RESPONSE_EXPIRES = "Expires";
+	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
+	private static final String RESPONSE_CACHE_CONTROL = "Cache-Control";
+	private static final String RESPONSE_CACHE_CONTROL_PRIVATE = "private";
+
+	private final void doGetAndCommitWithCache(
+			final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Item item)
+		throws IOException, NotFound
+	{
+		// NOTE
+		// This code prevents a Denial of Service attack against the caching mechanism.
+		// Query strings can be used to effectively disable the cache by using many urls
+		// for one media value. Therefore they are forbidden completely.
+		if(isUrlGuessingPrevented())
+		{
+			final String[] tokens = request.getParameterValues(URL_TOKEN);
+			if(tokens!=null&&tokens.length>1)
+				throw notFoundNotAnItem();
+			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
+				if(!URL_TOKEN.equals(e.nextElement()))
+					throw notFoundNotAnItem();
+
+			response.setHeader(RESPONSE_CACHE_CONTROL, RESPONSE_CACHE_CONTROL_PRIVATE);
+		}
+		else
+		{
+			if(request.getQueryString()!=null)
+				throw notFoundNotAnItem();
+		}
+
+		final Date lastModifiedRaw = getLastModified(item);
+		// if there is no LastModified, then there is no caching
+		if(lastModifiedRaw==null)
+		{
+			doGetAndCommit(request, response, item);
+			delivered.inc(); // TODO deliveredUnconditional
+			return;
+		}
+
+		// NOTE:
+		// Last Modification Date must be rounded to full seconds,
+		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
+		final long lastModified = roundLastModified(lastModifiedRaw);
+		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
+		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+
+		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
+		//System.out.println("ifModifiedSince="+ifModifiedSince);
+
+		if(isUrlFingerPrinted())
+		{
+			// RFC 2616:
+			// To mark a response as "never expires," an origin server sends an
+			// Expires date approximately one year from the time the response is
+			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
+			// year in the future.
+			response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
+		}
+		else
+		{
+			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+			if(mediaOffsetExpires>0)
+				response.setDateHeader(RESPONSE_EXPIRES, System.currentTimeMillis() + mediaOffsetExpires);
+		}
+
+		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
+		{
+			commit();
+
+			//System.out.println("not modified");
+			response.setStatus(SC_NOT_MODIFIED);
+
+			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
+
+			notModified.inc();
+		}
+		else
+		{
+			doGetAndCommit(request, response, item);
+			delivered.inc(); // deliveredConditional
+		}
+	}
+
+	/**
+	 * Copied from com.exedio.cops.Resource.
+	 */
+	private static long roundLastModified(final Date lastModifiedDate)
+	{
+		final long lastModified = lastModifiedDate.getTime();
+		final long remainder = lastModified%1000;
+		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
+	}
+
+	/**
+	 * The default implementations returns null.
+	 * @param item the item which has the LastModified information
+	 */
+	public Date getLastModified(final Item item)
+	{
+		return null;
+	}
+
+	/**
+	 * The implementor MUST {@link #commit() commit} the transaction,
+	 * if the method completes normally (without exception).
+	 * Otherwise the implementor may or may not commit the transaction.
+	 */
+	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
+
+
+	// convenience methods
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
@@ -491,48 +789,36 @@ public abstract class MediaPath extends Pattern
 	public abstract Condition isNull();
 
 	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 */
+	public abstract Condition isNull(final Join join);
+
+	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
 	 */
 	public abstract Condition isNotNull();
 
-
-	public final static class Log
-	{
-		private volatile int counter = 0;
-		final String name;
-		public final int responseStatus;
-
-		Log(final String name, final int responseStatus)
-		{
-			if(name==null)
-				throw new NullPointerException();
-			switch(responseStatus)
-			{
-				case HttpServletResponse.SC_OK:
-				case HttpServletResponse.SC_MOVED_PERMANENTLY:
-				case HttpServletResponse.SC_NOT_FOUND:
-				case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(responseStatus));
-			}
-
-			this.name = name;
-			this.responseStatus = responseStatus;
-		}
-
-		void increment()
-		{
-			counter++; // may loose a few counts due to concurrency, but this is ok
-		}
-
-		public int get()
-		{
-			return counter;
-		}
-	}
+	/**
+	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 */
+	public abstract Condition isNotNull(final Join join);
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	public static final class Log
+	{
+		private Log()
+		{
+			// prevent instantiation
+		}
+
+		@SuppressWarnings("static-method")
+		public int get()
+		{
+			throw new NoSuchMethodError();
+		}
+	}
 
 	/**
 	 * @param name is ignored

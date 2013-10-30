@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,20 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.util.Cast;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.exedio.cope.util.Cast;
-
 public final class UniqueConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<?>[] fields;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
@@ -40,41 +41,41 @@ public final class UniqueConstraint extends Feature
 	{
 		this.fields = fields;
 		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
-		for(final FunctionField f : fields)
+		for(final FunctionField<?> f : fields)
 			f.registerUniqueConstraint(this);
 	}
 
 	/**
 	 * Is not public, because one should use {@link FunctionField#unique()} etc.
 	 */
-	UniqueConstraint(final FunctionField field)
+	UniqueConstraint(final FunctionField<?> field)
 	{
-		this(new FunctionField[]{field});
+		this(new FunctionField<?>[]{field});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2)
 	{
-		this(new FunctionField[]{field1, field2});
+		this(new FunctionField<?>[]{field1, field2});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3)
 	{
-		this(new FunctionField[]{field1, field2, field3});
+		this(new FunctionField<?>[]{field1, field2, field3});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4});
+		this(new FunctionField<?>[]{field1, field2, field3, field4});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4, final FunctionField field5)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5});
 	}
 
-	public UniqueConstraint(final FunctionField field1, final FunctionField field2, final FunctionField field3, final FunctionField field4, final FunctionField field5, final FunctionField field6)
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6)
 	{
-		this(new FunctionField[]{field1, field2, field3, field4, field5, field6});
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
 	public List<FunctionField<?>> getFields()
@@ -94,6 +95,8 @@ public final class UniqueConstraint extends Feature
 			? fields[0].getSchemaName()
 			: getSchemaName();
 		this.databaseID = intern(table.makeGlobalID(schemaName + "_Unq"));
+
+		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
 
 	void disconnect()
@@ -129,14 +132,14 @@ public final class UniqueConstraint extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf)
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append("unique(");
-		bf.append(fields[0].toString());
+		fields[0].toString(bf, defaultType);
 		for(int i = 1; i<fields.length; i++)
 		{
 			bf.append(',');
-			bf.append(fields[i].toString());
+			fields[i].toString(bf, defaultType);
 		}
 		bf.append(')');
 	}
@@ -173,10 +176,10 @@ public final class UniqueConstraint extends Feature
 		return Cast.verboseCast(typeClass, search(values));
 	}
 
-	void check(final Item item, final Map<? extends Field, ?> fieldValues)
+	void check(final Item item, final Map<? extends Field<?>, ?> fieldValues)
 	{
 		field:
-		for(final FunctionField testField : fields)
+		for(final FunctionField<?> testField : fields)
 		{
 			if(fieldValues.containsKey(testField))
 			{
@@ -193,7 +196,7 @@ public final class UniqueConstraint extends Feature
 
 				final Item collision = search(values);
 				if(collision!=null && (item==null || !item.equals(collision)))
-					throw new UniqueViolationException(this, item);
+					throw new UniqueViolationException(this, item, null);
 
 				break field;
 			}

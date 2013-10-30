@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,20 +18,22 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import com.exedio.cope.CompareCondition;
+import com.exedio.cope.CompareFunctionCondition;
+import com.exedio.cope.Condition;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import java.util.Set;
 
 public final class PriceField extends Pattern implements Settable<Price>
 {
@@ -39,7 +41,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 
 	private final IntegerField integer;
 	private final boolean isfinal;
-	private final boolean optional;
+	private final boolean mandatory;
 
 	public PriceField()
 	{
@@ -51,7 +53,7 @@ public final class PriceField extends Pattern implements Settable<Price>
 		this.integer = integer;
 		addSource(integer, "int", ComputedElement.get());
 		this.isfinal = integer.isFinal();
-		this.optional = !integer.isMandatory();
+		this.mandatory = integer.isMandatory();
 	}
 
 	public PriceField toFinal()
@@ -64,9 +66,24 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return new PriceField(integer.optional());
 	}
 
-	public PriceField min(final int minimum)
+	public PriceField defaultTo(final Price defaultConstant)
 	{
-		return new PriceField(integer.min(minimum));
+		return new PriceField(integer.defaultTo(defaultConstant.store));
+	}
+
+	public PriceField range(final Price minimum, final Price maximum)
+	{
+		return new PriceField(integer.range(minimum.store, maximum.store));
+	}
+
+	public PriceField min(final Price minimum)
+	{
+		return new PriceField(integer.min(minimum.store));
+	}
+
+	public PriceField max(final Price maximum)
+	{
+		return new PriceField(integer.max(maximum.store));
 	}
 
 	public IntegerField getInt()
@@ -84,7 +101,28 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return isfinal;
 	}
 
-	public Class getInitialType()
+	public boolean isMandatory()
+	{
+		return mandatory;
+	}
+
+	public Price getDefaultConstant()
+	{
+		return Price.storeOf(integer.getDefaultConstant());
+	}
+
+	public Price getMinimum()
+	{
+		return Price.storeOf(integer.getMinimum());
+	}
+
+	public Price getMaximum()
+	{
+		return Price.storeOf(integer.getMaximum());
+	}
+
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return Price.class;
 	}
@@ -94,54 +132,127 @@ public final class PriceField extends Pattern implements Settable<Price>
 		return integer.getInitialExceptions();
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Price.class));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(Price.class));
-		}
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Price get(final Item item)
 	{
-		return Price.storeOf(integer.get(item));
+		return
+			mandatory
+			? Price.storeOf(integer.getMandatory(item))
+			: Price.storeOf(integer.get(item));
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final Price value)
 	{
 		if(isfinal)
-			throw new FinalViolationException(this, this, item);
-		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, item);
+			throw FinalViolationException.create(this, item);
+		if(value==null && mandatory)
+			throw MandatoryViolationException.create(this, item);
 
 		integer.set(item, value!=null ? value.store : null);
 	}
 
 	public SetValue<Price> map(final Price value)
 	{
-		return new SetValue<Price>(this, value);
+		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Price value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
-		if(value==null && !optional)
-			throw new MandatoryViolationException(this, this, exceptionItem);
+		if(value==null && mandatory)
+			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue[]{ integer.map(value!=null ? value.store : null) };
+		return new SetValue<?>[]{ integer.map(value!=null ? value.store : null) };
+	}
+
+	// convenience methods for conditions and views ---------------------------------
+
+	public final IsNullCondition<?> isNull()
+	{
+		return integer.isNull();
+	}
+
+	public final IsNullCondition<?> isNotNull()
+	{
+		return integer.isNotNull();
+	}
+
+	public Condition equal(final Price value)
+	{
+		return value!=null ? integer.equal(value.store()) : integer.isNull();
+	}
+
+	public Condition notEqual(final Price value)
+	{
+		return value!=null ? integer.notEqual(value.store()) : integer.isNotNull();
+	}
+
+	public final CompareCondition<?> less(final Price value)
+	{
+		return integer.less(value.store());
+	}
+
+	public final CompareCondition<?> lessOrEqual(final Price value)
+	{
+		return integer.lessOrEqual(value.store());
+	}
+
+	public final CompareCondition<?> greater(final Price value)
+	{
+		return integer.greater(value.store());
+	}
+
+	public final CompareCondition<?> greaterOrEqual(final Price value)
+	{
+		return integer.greaterOrEqual(value.store());
+	}
+
+	public Condition between(final Price lowerBound, final Price upperBound)
+	{
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
+	}
+
+	public final CompareFunctionCondition<?> equal(final PriceField right)
+	{
+		return integer.equal(right.integer);
+	}
+
+	public final CompareFunctionCondition<?> notEqual(final PriceField right)
+	{
+		return integer.notEqual(right.integer);
+	}
+
+	public final CompareFunctionCondition<?> less(final PriceField right)
+	{
+		return integer.less(right.integer);
+	}
+
+	public final CompareFunctionCondition<?> lessOrEqual(final PriceField right)
+	{
+		return integer.lessOrEqual(right.integer);
+	}
+
+	public final CompareFunctionCondition<?> greater(final PriceField right)
+	{
+		return integer.greater(right.integer);
+	}
+
+	public final CompareFunctionCondition<?> greaterOrEqual(final PriceField right)
+	{
+		return integer.greaterOrEqual(right.integer);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #min(Price)} instead.
+	 */
+	@Deprecated
+	public PriceField min(final int minimum)
+	{
+		return new PriceField(integer.min(minimum));
 	}
 }

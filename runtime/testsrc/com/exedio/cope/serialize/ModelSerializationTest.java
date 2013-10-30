@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,6 @@ package com.exedio.cope.serialize;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;
@@ -35,6 +29,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.ListField;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 public class ModelSerializationTest extends CopeAssert
 {
@@ -60,7 +59,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertNotNull(model.toString());
 
 		try
@@ -159,7 +158,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertEquals(ModelSerializationTest.class.getName() + "#model", model.toString());
 
 		try
@@ -180,10 +179,10 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.field, Type.class);
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.newList(new StringField()), ListField.class);
+		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
 
-	private static final void assertNotSerializable(final Serializable value, final Class exceptionMessage) throws IOException
+	private static final void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		final ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -213,7 +212,7 @@ public class ModelSerializationTest extends CopeAssert
 		}
 
 		static final StringField field = new StringField();
-		static final ListField<String> pattern = ListField.newList(new StringField());
+		static final ListField<String> pattern = ListField.create(new StringField());
 
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 	}

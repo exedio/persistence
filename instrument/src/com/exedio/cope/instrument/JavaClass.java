@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,15 +19,15 @@
 
 package com.exedio.cope.instrument;
 
+import bsh.EvalError;
+import bsh.Primitive;
+import bsh.UtilEvalError;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import bsh.EvalError;
-import bsh.Primitive;
-import bsh.UtilEvalError;
 
 /**
  * Represents a class parsed by the java parser.
@@ -109,9 +109,28 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
+	public String getCanonicalName()
+	{
+		final StringBuilder buf=new StringBuilder();
+		final String packagename = file.getPackageName();
+		if(packagename!=null)
+		{
+			buf.append(packagename);
+			buf.append('.');
+		}
+		final int pos=buf.length();
+		for(JavaClass i=this; i!=null; i=i.parent)
+		{
+			if(i!=this)
+				buf.insert(pos, '.');
+			buf.insert(pos, i.name);
+		}
+		return buf.toString();
+	}
+
 	public final boolean isInterface()
 	{
-		return (modifier & Modifier.INTERFACE) > 0;
+		return Modifier.isInterface(modifier);
 	}
 
 	@Override
@@ -165,12 +184,17 @@ final class JavaClass extends JavaFeature
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
 		}
-		catch(final EvalError e) // TODO method should throw this
+		catch(final NoClassDefFoundError e)
+		{
+			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
+		}
+		catch(final EvalError e)
 		{
 			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
 		}
 	}
 
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
 		private static final long serialVersionUID = 1l;
@@ -192,9 +216,12 @@ final class JavaClass extends JavaFeature
 			}
 
 			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
-			final JavaField ja = getFields(name);
-			if(ja!=null)
-				return ja.evaluate();
+			for(CopeType ct = CopeType.getCopeType(JavaClass.this); ct!=null; ct = ct.getSuperclass())
+			{
+				final JavaField ja = ct.javaClass.getFields(name);
+				if(ja!=null)
+					return ja.evaluate();
+			}
 
 			return Primitive.VOID;
 	   }

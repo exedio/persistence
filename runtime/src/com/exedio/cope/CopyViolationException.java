@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,11 @@ public final class CopyViolationException extends ConstraintViolationException
 	private final Object actualValue;
 	private final Item targetItem;
 
-	public CopyViolationException(final Item targetItem, final CopyConstraint feature, final Object expectedValue, final Object actualValue)
+	CopyViolationException(
+			final Item targetItem,
+			final CopyConstraint feature,
+			final Object expectedValue,
+			final Object actualValue)
 	{
 		super(null, null);
 		this.feature = feature;

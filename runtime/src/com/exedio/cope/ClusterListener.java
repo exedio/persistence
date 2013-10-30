@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,16 +25,15 @@ import static com.exedio.cope.ClusterConstants.MAGIC0;
 import static com.exedio.cope.ClusterConstants.MAGIC1;
 import static com.exedio.cope.ClusterConstants.MAGIC2;
 import static com.exedio.cope.ClusterConstants.MAGIC3;
+
+import com.exedio.cope.util.SequenceChecker;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
-
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.util.SequenceChecker;
 
 abstract class ClusterListener
 {
@@ -52,8 +51,8 @@ abstract class ClusterListener
 		this.properties = properties;
 		this.secret = properties.getSecret();
 		this.localNode = properties.node;
-		this.log = properties.log.booleanValue();
-		this.sequenceCheckerCapacity = properties.listenSeqCheckCap.intValue();
+		this.log = properties.log;
+		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
 	}
 
@@ -63,20 +62,20 @@ abstract class ClusterListener
 
 		if(!iter.checkBytes(MAGIC))
 		{
-			missingMagic++;
+			missingMagic.inc();
 			return;
 		}
 
 		if(secret!=iter.nextInt())
 		{
-			wrongSecret++;
+			wrongSecret.inc();
 			return;
 		}
 
 		final int node = iter.nextInt();
 		if(localNode==node)
 		{
-			fromMyself++;
+			fromMyself.inc();
 			return;
 		}
 
@@ -228,21 +227,37 @@ abstract class ClusterListener
 
 	// info
 
-	volatile long exception = 0;
-	private volatile long missingMagic = 0;
-	private volatile long wrongSecret = 0;
-	private volatile long fromMyself = 0;
+	final VolatileLong exception = new VolatileLong();
+	private final VolatileLong missingMagic = new VolatileLong();
+	private final VolatileLong wrongSecret = new VolatileLong();
+	private final VolatileLong fromMyself = new VolatileLong();
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
 
 	private static final class Node
 	{
+		private static boolean check(final SequenceChecker checker, final int sequence)
+		{
+			synchronized(checker)
+			{
+				return checker.check(sequence);
+			}
+		}
+
+		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
+		{
+			synchronized(checker)
+			{
+				return checker.getInfo();
+			}
+		}
+
 		final int id;
 		final long firstEncounter;
 		final InetAddress address;
 		final int port;
+		final SequenceChecker invalidateSequenceChecker;
 		final SequenceChecker pingSequenceChecker;
 		final SequenceChecker pongSequenceChecker;
-		final SequenceChecker invalidateSequenceChecker;
 
 		Node(
 				final int id,
@@ -254,21 +269,21 @@ abstract class ClusterListener
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
+			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
-			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			if(log)
 				System.out.println("COPE Cluster Listener encountered new node " + id);
 		}
 
-		boolean pingPong(final boolean ping, final int sequence)
-		{
-			return (ping ? pingSequenceChecker : pongSequenceChecker).check(sequence);
-		}
-
 		boolean invalidate(final int sequence)
 		{
-			return invalidateSequenceChecker.check(sequence);
+			return check(invalidateSequenceChecker, sequence);
+		}
+
+		boolean pingPong(final boolean ping, final int sequence)
+		{
+			return check((ping ? pingSequenceChecker : pongSequenceChecker), sequence);
 		}
 
 		ClusterListenerInfo.Node getInfo()
@@ -277,9 +292,9 @@ abstract class ClusterListener
 					id,
 					new Date(firstEncounter),
 					address, port,
-					pingSequenceChecker.getInfo(),
-					pongSequenceChecker.getInfo(),
-					invalidateSequenceChecker.getInfo());
+					getInfo(invalidateSequenceChecker),
+					getInfo(pingSequenceChecker),
+					getInfo(pongSequenceChecker));
 		}
 	}
 
@@ -309,10 +324,10 @@ abstract class ClusterListener
 
 		return new ClusterListenerInfo(
 				getReceiveBufferSize(),
-				exception,
-				missingMagic,
-				wrongSecret,
-				fromMyself,
+				exception.get(),
+				missingMagic.get(),
+				wrongSecret.get(),
+				fromMyself.get(),
 				infoNodes);
 	}
 }

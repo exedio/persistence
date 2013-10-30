@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ModificationListener;
 import gnu.trove.TIntHashSet;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,14 +28,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.exedio.cope.util.ModificationListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ModificationListeners
 {
-	static final Logger logger = Logger.getLogger(ModificationListeners.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(ModificationListeners.class);
 
 	private final Types types;
 	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
@@ -136,13 +134,13 @@ final class ModificationListeners
 			}
 			catch(final RuntimeException e)
 			{
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
+				if(logger.isErrorEnabled())
+					logger.error("Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 			catch(final AssertionError e)
 			{
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from modification listener " + listener.getClass().getName(), e);
+				if(logger.isErrorEnabled())
+					logger.error( "Suppressing exception from modification listener " + listener.getClass().getName(), e);
 			}
 		}
 	}

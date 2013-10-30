@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import junit.framework.TestCase;
 
 public abstract class SchemaTest extends TestCase
@@ -52,13 +51,15 @@ public abstract class SchemaTest extends TestCase
 
 	private final class Properties extends com.exedio.cope.util.Properties
 	{
-		final StringField databaseUrl =  new StringField("database.url");
-		final StringField databaseUser =  new StringField("database.user");
-		final StringField databasePassword =  new StringField("database.password", true);
+		final String connectionUrl      = value      ("connection.url",      (String)null);
+		final String connectionUsername = value      ("connection.username", (String)null);
+		final String connectionPassword = valueHidden("connection.password", (String)null);
+		final String mysqlRowFormat     = value      ("schema.mysql.rowFormat", "NONE");
 
+		@SuppressWarnings("deprecation")
 		Properties()
 		{
-			super(getSource(getDefaultPropertyFile()), getSystemPropertySource());
+			super(getSource(getDefaultPropertyFile()), SYSTEM_PROPERTY_SOURCE);
 		}
 	}
 
@@ -68,9 +69,10 @@ public abstract class SchemaTest extends TestCase
 		super.setUp();
 
 		final Properties config = new Properties();
-		final String url = config.databaseUrl.stringValue();
-		final String user = config.databaseUser.stringValue();
-		final String password = config.databasePassword.stringValue();
+		final String url = config.connectionUrl;
+		final String username = config.connectionUsername;
+		final String password = config.connectionPassword;
+		final String mysqlRowFormat = config.mysqlRowFormat;
 
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
@@ -85,9 +87,9 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			dialect = new MysqlDialect("this");
-			stringType = "varchar(8) character set utf8 binary";
-			intType = "integer";
+			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat, "this");
+			stringType = "varchar(8) character set utf8 collate utf8_bin";
+			intType = "int";
 			intType2 = "bigint";
 			hsqldb = false;
 			postgresql = false;
@@ -95,7 +97,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:oracle:"))
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			dialect = new OracleDialect(user.toUpperCase());
+			dialect = new OracleDialect(username.toUpperCase());
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
@@ -116,8 +118,8 @@ public abstract class SchemaTest extends TestCase
 			throw new RuntimeException(url);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
-		connection1 = DriverManager.getConnection(url, user, password);
-		connection2 = DriverManager.getConnection(url, user, password);
+		connection1 = DriverManager.getConnection(url, username, password);
+		connection2 = DriverManager.getConnection(url, username, password);
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
 	}
 
@@ -153,6 +155,11 @@ public abstract class SchemaTest extends TestCase
 		{
 			assert connection.getAutoCommit()==true;
 			connections.add(connection);
+		}
+
+		public boolean isSemicolonEnabled()
+		{
+			return false;
 		}
 	}
 

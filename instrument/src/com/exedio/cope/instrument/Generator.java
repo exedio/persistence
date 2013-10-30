@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,26 +20,22 @@ package com.exedio.cope.instrument;
 
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PROTECTED;
-import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
-
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
 
 final class Generator
 {
@@ -48,6 +44,7 @@ final class Generator
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
+	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -100,7 +97,8 @@ final class Generator
 	private final String finalArgPrefix;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
-	private final boolean skipDeprecated;
+	private final boolean genericSetValueArray;
+	private int typeIndent = Integer.MIN_VALUE;
 
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
@@ -121,7 +119,7 @@ final class Generator
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
-		this.skipDeprecated = !params.createDeprecated;
+		this.genericSetValueArray = params.genericSetValueArray;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -146,16 +144,14 @@ final class Generator
 	{
 		if(!exceptions.isEmpty())
 		{
-			write("\t\t\tthrows");
-			boolean first = true;
-			for(final Class e : exceptions)
+			writeIndent(2);
+			write("throws");
+			final CharSeparator comma = new CharSeparator(',');
+			for(final Class<? extends Throwable> e : exceptions)
 			{
-				if(first)
-					first = false;
-				else
-					write(',');
+				comma.appendTo(output);
 				write(lineSeparator);
-				write("\t\t\t\t");
+				writeIndent(3);
 				write(e.getCanonicalName());
 			}
 			write(lineSeparator);
@@ -169,7 +165,8 @@ final class Generator
 		if(longJavadoc)
 		{
 			write(lineSeparator);
-			write("\t **");
+			writeIndent();
+			write(" **");
 			write(lineSeparator);
 		}
 	}
@@ -181,16 +178,19 @@ final class Generator
 
 	private void writeCommentFooter(final String extraComment)
 	{
-		write("\t * @" + TAG_GENERATED + ' ');
+		writeIndent();
+		write(" * @" + TAG_GENERATED + ' ');
 		write(GENERATED);
 		write(lineSeparator);
 		if(extraComment!=null)
 		{
-			write("\t *       ");
+			writeIndent();
+			write(" *       ");
 			write(extraComment);
 			write(lineSeparator);
 		}
-		write("\t */");
+		writeIndent();
+		write(" */");
 		write(lineSeparator);
 	}
 
@@ -208,12 +208,14 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		writeCommentHeader();
-		write("\t * ");
+		writeIndent();
+		write(" * ");
 		write(format(CONSTRUCTOR_INITIAL, type.name));
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			write("\t * @param ");
+			writeIndent();
+			write(" * @param ");
 			write(feature.name);
 			write(' ');
 			write(format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
@@ -225,47 +227,41 @@ final class Generator
 			if(a==null)
 				continue;
 
-			write("\t * @throws ");
+			writeIndent();
+			write(" * @throws ");
 			write(constructorException.getCanonicalName());
 			write(' ');
 
-			boolean first = true;
-			final StringBuilder initialAttributesBuf = new StringBuilder();
+			final StringSeparator comma = new StringSeparator(", ");
+			final StringBuilder fields = new StringBuilder();
 			for(final CopeFeature feature : initialFeatures)
 			{
 				if(!feature.getInitialExceptions().contains(constructorException))
 					continue;
 
-				if(first)
-					first = false;
-				else
-					initialAttributesBuf.append(", ");
-				initialAttributesBuf.append(feature.name);
+				comma.appendTo(fields);
+				fields.append(feature.name);
 			}
 
 			final String pattern = a.value();
-			write(format(pattern, initialAttributesBuf.toString()));
+			write(format(pattern, fields.toString()));
 			write(lineSeparator);
 		}
 		writeCommentFooter(CONSTRUCTOR_INITIAL_CUSTOMIZE);
 
-		write('\t');
+		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
 		write(type.name);
 		write('(');
 
-		boolean first = true;
+		final CharSeparator comma = new CharSeparator(',');
 		for(final CopeFeature feature : initialFeatures)
 		{
-			if(first)
-				first = false;
-			else
-				write(',');
-
+			comma.appendTo(output);
 			write(lineSeparator);
-			write("\t\t\t\t");
+			writeIndent(3);
 			write(finalArgPrefix);
-			write(toString(((Settable<?>)feature.getInstance()).getInitialType(), feature));
+			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');
 			write(feature.name);
 		}
@@ -273,13 +269,18 @@ final class Generator
 		write(')');
 		write(lineSeparator);
 		writeThrowsClause(constructorExceptions);
-		write("\t{");
+		writeIndent();
+		write('{');
 		write(lineSeparator);
-		write("\t\tthis(new " + SET_VALUE + "[]{");
+		writeIndent(1);
+		write("this(new " + SET_VALUE);
+		if(genericSetValueArray)
+			write("<?>");
+		write("[]{");
 		write(lineSeparator);
 		for(final CopeFeature feature : initialFeatures)
 		{
-			write("\t\t\t");
+			writeIndent(2);
 			final CopeType parent = feature.parent;
 			if(parent==type)
 				write(type.name);
@@ -292,9 +293,11 @@ final class Generator
 			write("),");
 			write(lineSeparator);
 		}
-		write("\t\t});");
+		writeIndent(1);
+		write("});");
 		write(lineSeparator);
-		write("\t}");
+		writeIndent();
+		write('}');
 	}
 
 	private void writeGenericConstructor(final CopeType type)
@@ -304,23 +307,27 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		write("\t * ");
+		writeIndent();
+		write(" * ");
 		write(format(CONSTRUCTOR_GENERIC, type.name));
 		write(lineSeparator);
 		writeCommentFooter(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
-		write('\t');
-		writeModifier(option.getModifier(type.allowSubtypes() ? PROTECTED : PRIVATE));
+		writeIndent();
+		writeModifier(option.getModifier(type.getSubtypeModifier()));
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
 		write(SET_VALUE + "<?>... setValues)");
 		write(lineSeparator);
-		write("\t{");
+		writeIndent();
+		write('{');
 		write(lineSeparator);
-		write("\t\tsuper(setValues);");
+		writeIndent(1);
+		write("super(setValues);");
 		write(lineSeparator);
-		write("\t}");
+		writeIndent();
+		write('}');
 	}
 
 	private void writeActivationConstructor(final CopeType type)
@@ -333,57 +340,45 @@ final class Generator
 			return;
 
 		writeCommentHeader();
-		write("\t * ");
+		writeIndent();
+		write(" * ");
 		write(CONSTRUCTOR_ACTIVATION);
 		write(lineSeparator);
-		write("\t * @see " + ITEM + "#Item(" + ACTIVATION + ")");
+		writeIndent();
+		write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
 		write(lineSeparator);
 		writeCommentFooter();
 
-		final boolean allowSubtypes = type.allowSubtypes();
-		write('\t');
-		if(suppressUnusedWarningOnPrivateActivationConstructor && !allowSubtypes)
+		writeIndent();
+		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
-		writeModifier(option.getModifier(allowSubtypes ? PROTECTED : PRIVATE));
+		writeModifier(option.getModifier(type.getSubtypeModifier()));
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(ACTIVATION + " ap)");
+		write(ACTIVATION + " ap){super(ap);");
 		write(lineSeparator);
-		write("\t{");
-		write(lineSeparator);
-		write("\t\tsuper(ap);");
-		write(lineSeparator);
-		write("\t}");
+		write('}');
 	}
 
 	private void writeFeature(final CopeFeature feature)
 	throws ParserException
 	{
 		final Feature instance = feature.getInstance();
-		for(final Wrapper wrapper : instance.getWrappers())
+		for(final WrapperX wrapper : getWrappers(instance))
 		{
-			final boolean deprecated = wrapper.isDeprecated();
-			if(deprecated && skipDeprecated)
-				continue;
-
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
-			final Option option =
-				modifierTag!=null
-				? new Option(Tags.getLine(
-									feature.docComment,
-									CopeFeature.TAG_PREFIX + modifierTag),
-						true)
-				: null;
+			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
 
-			if(option!=null && !option.exists)
+			if(!option.exists)
 				continue;
 
+			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
-			final List<Wrapper.Parameter> parameters = wrapper.getParameters();
-			final Map<Class<? extends Throwable>, String> throwsClause = wrapper.getThrowsClause();
+			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
+			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final int modifier = feature.modifier;
@@ -396,50 +391,26 @@ final class Generator
 					featureNameCamelCase};
 			{
 				writeCommentHeader();
-				for(final String comment : wrapper.getComments())
+				writeCommentParagraph("", " ", wrapper.getCommentArray(), arguments);
+
+				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
-					write("\t * ");
-					write(format(comment, arguments));
-					write(lineSeparator);
+					writeCommentParagraph(
+							"@param " + format(parameter.getName(), arguments),
+							"        ",
+							parameter.getComment(), arguments);
 				}
-				for(final Wrapper.Parameter parameter : wrapper.getParameters())
+				writeCommentParagraph(
+						"@return",
+						"         ",
+						wrapper.getReturnComment(), arguments);
+
+				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
-					final String comment = parameter.getComment();
-					if(comment!=null)
-					{
-						write("\t * @param ");
-						write(format(parameter.getName(), arguments));
-						write(' ');
-						write(format(comment, arguments));
-						write(lineSeparator);
-					}
-				}
-				{
-					final String comment = wrapper.getReturnComment();
-					if(comment!=null)
-					{
-						write("\t * @return ");
-						write(format(comment, arguments));
-						write(lineSeparator);
-					}
-				}
-				for(final Map.Entry<Class<? extends Throwable>, String> e : throwsClause.entrySet())
-				{
-					final String comment = e.getValue();
-					if(comment!=null)
-					{
-						write("\t * @throws ");
-						write(e.getKey().getCanonicalName());
-						write(' ');
-						write(format(comment, arguments));
-						write(lineSeparator);
-					}
-				}
-				if(deprecated)
-				{
-					write("\t * @deprecated ");
-					write(format(wrapper.getDeprecationComment(), arguments));
-					write(lineSeparator);
+					writeCommentParagraph(
+							"@throws " + e.getKey().getCanonicalName(),
+							"         ",
+							e.getValue(), arguments);
 				}
 				writeCommentFooter(
 					modifierTag!=null
@@ -456,25 +427,25 @@ final class Generator
 					: null);
 			}
 
-			if(deprecated)
+			if(wrapper.isMethodDeprecated())
 			{
-				write('\t');
+				writeIndent();
 				write("@Deprecated");
 				write(lineSeparator);
 			}
 
-			write('\t');
-			writeModifier(
-				(
-					option!=null
-					? option.getModifier(modifier)
-					: ((modifier & (PUBLIC|PROTECTED|PRIVATE)) | FINAL)
-				)
-				|
-				(isStatic ? STATIC : 0)
-			);
-			write(toString(methodReturnType, feature));
-			if(option!=null && useIs && option.booleanAsIs)
+			writeIndent();
+
+			if(option.override)
+			{
+				write('@');
+				write(OVERRIDE);
+				write(' ');
+			}
+
+			writeModifier(option.getModifier(modifier) | (isStatic ? STATIC : 0));
+			write(ctx.write(methodReturnType));
+			if(useIs && option.booleanAsIs)
 			{
 				write(" is");
 				write(featureNameCamelCase);
@@ -503,27 +474,22 @@ final class Generator
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
-			if(option!=null)
-				write(option.suffix);
+			write(option.suffix);
 			write('(');
 			{
-				boolean first = true;
-				for(final Wrapper.Parameter parameter : parameters)
+				final CharSeparator comma = new CharSeparator(',');
+				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(first)
-						first = false;
-					else
-						write(',');
-
+					comma.appendTo(output);
 					write(finalArgPrefix);
 					if(parameter.isVararg())
 					{
-						write(((Class)parameter.getType()).getComponentType().getCanonicalName());
+						write(((Class<?>)parameter.getType()).getComponentType().getCanonicalName());
 						write("...");
 					}
 					else
 					{
-						write(toString(parameter.getType(), feature));
+						write(ctx.write(parameter.getType()));
 					}
 					write(' ');
 					write(format(parameter.getName(), arguments));
@@ -532,9 +498,10 @@ final class Generator
 			write(')');
 			write(lineSeparator);
 			writeThrowsClause(throwsClause.keySet());
-			write("\t{");
+			writeIndent();
+			write('{');
 			write(lineSeparator);
-			write("\t\t");
+			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
 		if(feature.parent.isComposite)
@@ -545,7 +512,7 @@ final class Generator
 				write(feature.parent.name);
 				write('.');
 				write(feature.name);
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
 					write(format(parameter.getName(), arguments));
@@ -562,28 +529,24 @@ final class Generator
 			write(methodName);
 			write('(');
 			{
-				boolean first = true;
+				final CharSeparator comma = new CharSeparator(',');
 				if(isStatic)
 				{
 					if(wrapper.hasStaticClassToken())
 					{
-						first = false;
+						comma.appendTo(output);
 						write(feature.parent.name);
 						write(".class");
 					}
 				}
 				else
 				{
-					first = false;
+					comma.appendTo(output);
 					write("this");
 				}
-				for(final Wrapper.Parameter parameter : parameters)
+				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(first)
-						first = false;
-					else
-						write(',');
-
+					comma.appendTo(output);
 					write(format(parameter.getName(), arguments));
 				}
 			}
@@ -591,8 +554,24 @@ final class Generator
 		}
 			write(';');
 			write(lineSeparator);
-			write("\t}");
+			writeIndent();
+			write('}');
 		}
+	}
+
+	private List<WrapperX> getWrappers(final Feature feature)
+	{
+		return getWrappers(feature.getClass(), feature);
+	}
+
+	private List<WrapperX> getWrappers(final Class<? extends Feature> clazz, final Feature feature)
+	{
+		return WrapperByAnnotations.make(
+				clazz,
+				feature,
+				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
+				? getWrappers(clazz.getSuperclass().asSubclass(Feature.class), feature)
+				: Collections.<WrapperX>emptyList());
 	}
 
 	private void writeName(final String methodName, final String featureName)
@@ -610,79 +589,48 @@ final class Generator
 		write(featureName);
 	}
 
-	private static final String toString(final Class c, final CopeFeature feature)
+	private void writeCommentParagraph(
+			final String prefix1, final String prefixN,
+			final String[] lines,
+			final Object[] arguments)
 	{
-		if(Wrapper.ClassVariable.class.equals(c))
-			return feature.parent.name;
-		else if(Wrapper.TypeVariable0.class.equals(c))
-			return toStringType(feature, 0);
-		else if(Wrapper.TypeVariable1.class.equals(c))
-			return toStringType(feature, 1);
-		else
-			return c.getCanonicalName();
-	}
-
-	private static final String toStringType(final CopeFeature feature, final int number)
-	{
-		return Generics.get(feature.javaField.type).get(number);
-	}
-
-	private static final String toString(final ParameterizedType t, final CopeFeature feature)
-	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
-		bf.append('<');
-		boolean first = true;
-		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		if(lines.length>0)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append(toString(a, feature));
+			final String line = lines[0];
+			writeIndent();
+			write(" *");
+			if(!prefix1.isEmpty())
+			{
+				write(' ');
+				write(prefix1);
+			}
+			if(!line.isEmpty())
+			{
+				write(' ');
+				write(format(line, arguments));
+			}
+			write(lineSeparator);
 		}
-		bf.append('>');
-
-		return bf.toString();
-	}
-
-	private static final String toString(final Wrapper.ExtendsType t, final CopeFeature feature)
-	{
-		final StringBuilder bf = new StringBuilder(toString(t.getRawType(), feature));
-		bf.append('<');
-		boolean first = true;
-		for(final java.lang.reflect.Type a : t.getActualTypeArguments())
+		for(int i = 1; i<lines.length; i++)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append("? extends ");
-			bf.append(toString(a, feature));
+			final String line = lines[i];
+			writeIndent();
+			write(" *");
+			if(!line.isEmpty())
+			{
+				write(prefixN);
+				write(format(line, arguments));
+			}
+			write(lineSeparator);
 		}
-		bf.append('>');
-
-		return bf.toString();
 	}
 
-	private static final String toString(final java.lang.reflect.Type t, final CopeFeature feature)
-	{
-		if(t instanceof Class)
-			return toString((Class)t, feature);
-		else if(t instanceof ParameterizedType)
-			return toString((ParameterizedType)t, feature);
-		else if(t instanceof Wrapper.ExtendsType)
-			return toString((Wrapper.ExtendsType)t, feature);
-		else
-			throw new RuntimeException(t.toString());
-	}
-
-	private void writeUniqueFinder(final CopeUniqueConstraint constraint, final boolean deprecated)
+	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
+		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
 		final Option option = new Option(
-				Tags.getLine(constraint.docComment, CopeFeature.TAG_PREFIX + "finder"), true);
+				Tags.getLine(constraint.docComment, optionTagname), true);
 		if(!option.exists)
 			return;
 
@@ -690,41 +638,40 @@ final class Generator
 		final String className = attributes[0].getParent().name;
 
 		writeCommentHeader();
-		write("\t * ");
+		writeIndent();
+		write(" * ");
 		write(format(FINDER_UNIQUE, lowerCamelCase(className)));
 		write(lineSeparator);
-		if(deprecated)
-		{
-			write("\t * @deprecated use for");
-			write(toCamelCase(constraint.name));
-			write(" instead.");
-			write(lineSeparator);
-		}
 		for(final CopeAttribute attribute : attributes)
 		{
-			write("\t * @param ");
+			writeIndent();
+			write(" * @param ");
 			write(attribute.name);
 			write(' ');
 			write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
 			write(lineSeparator);
 		}
-		write("\t * @return ");
+		writeIndent();
+		write(" * @return ");
 		write(FINDER_UNIQUE_RETURN);
 		write(lineSeparator);
 
-		writeCommentFooter();
+		writeCommentFooter(
+				"It can be customized with the tag " +
+				"<tt>@" + optionTagname + ' ' +
+				Option.TEXT_VISIBILITY_PUBLIC + '|' +
+				Option.TEXT_VISIBILITY_PACKAGE + '|' +
+				Option.TEXT_VISIBILITY_PROTECTED + '|' +
+				Option.TEXT_VISIBILITY_PRIVATE + '|' +
+				Option.TEXT_NONE + '|' +
+				Option.TEXT_NON_FINAL + "</tt> " +
+				"in the comment of the field."
+		);
 
-		if(deprecated)
-		{
-			write('\t');
-			write("@Deprecated");
-			write(lineSeparator);
-		}
-
-		write('\t');
+		writeIndent();
 		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
 		write(className);
-		write(deprecated ? " findBy" : " for");
+		write(" for");
 		write(toCamelCase(constraint.name));
 
 		write('(');
@@ -740,9 +687,11 @@ final class Generator
 		}
 		write(')');
 		write(lineSeparator);
-		write("\t{");
+		writeIndent();
+		write('{');
 		write(lineSeparator);
-		write("\t\treturn ");
+		writeIndent(1);
+		write("return ");
 
 		write(attributes[0].parent.name);
 		write('.');
@@ -758,11 +707,12 @@ final class Generator
 		}
 		write(");");
 		write(lineSeparator);
-		write("\t}");
+		writeIndent();
+		write('}');
 	}
 
 	@SuppressWarnings("deprecation")
-	private String getBoxedType(final CopeAttribute a)
+	private static String getBoxedType(final CopeAttribute a)
 	{
 		return a.getBoxedType();
 	}
@@ -774,7 +724,7 @@ final class Generator
 			writeCommentHeader();
 			writeCommentFooter();
 
-			write('\t');
+			writeIndent();
 			writeModifier(PRIVATE|STATIC|FINAL);
 			write("long serialVersionUID = 1l;");
 		}
@@ -789,21 +739,19 @@ final class Generator
 		if(option.exists)
 		{
 			writeCommentHeader();
-			write("\t * ");
+			writeIndent();
+			write(" * ");
 			write(format(TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
-			write('\t');
+			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
 			write(TYPE_NAME + '<');
 			write(type.name);
 			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
 			write(type.name);
-			write(".class)");
-			write(lineSeparator);
-
-			write(';');
+			write(".class);");
 		}
 	}
 
@@ -821,7 +769,16 @@ final class Generator
 				if(previousClassEndPosition<classEndPosition)
 					output.append(buffer, previousClassEndPosition, classEndPosition);
 
-				writeClassFeatures(type);
+				try
+				{
+					typeIndent = type.indent;
+					writeClassFeatures(type);
+					typeIndent = Integer.MIN_VALUE;
+				}
+				catch (final RuntimeException e)
+				{
+					throw new RuntimeException("Failed to generate class features for " + javaClass, e);
+				}
 				previousClassEndPosition = classEndPosition;
 			}
 		}
@@ -835,28 +792,24 @@ final class Generator
 		{
 			writeInitialConstructor(type);
 			writeGenericConstructor(type);
-			writeActivationConstructor(type);
 
 			for(final CopeFeature feature : type.getFeatures())
 			{
 				writeFeature(feature);
 				if(feature instanceof CopeUniqueConstraint)
-				{
-					writeUniqueFinder((CopeUniqueConstraint)feature, false);
-					if(!skipDeprecated)
-						writeUniqueFinder((CopeUniqueConstraint)feature, true);
-				}
+					writeUniqueFinder((CopeUniqueConstraint)feature);
 			}
 
 			writeSerialVersionUID();
 			writeType(type);
+			writeActivationConstructor(type);
 		}
 	}
 
 	private void writeModifier(final int modifier)
 	{
 		final String modifierString = Modifier.toString(modifier);
-		if(modifierString.length()>0)
+		if(!modifierString.isEmpty())
 		{
 			write(modifierString);
 			write(' ');
@@ -866,6 +819,24 @@ final class Generator
 	private static boolean isKeyword(final String s)
 	{
 		return "for".equals(s); // TODO
+	}
+
+	private void writeIndent()
+	{
+		assert typeIndent>=0 : typeIndent;
+		writeIndentInternal(typeIndent);
+	}
+
+	private void writeIndent(final int additionalLevel)
+	{
+		assert typeIndent>=0 : typeIndent;
+		writeIndentInternal(typeIndent + additionalLevel);
+	}
+
+	private void writeIndentInternal(final int level)
+	{
+		for(int i = 0; i<level; i++)
+			output.append('\t');
 	}
 
 	private void write(final String s)

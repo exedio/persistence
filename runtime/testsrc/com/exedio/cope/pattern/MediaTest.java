@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,18 +18,28 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaItem.TYPE;
+import static com.exedio.cope.pattern.MediaItem.custom;
+import static com.exedio.cope.pattern.MediaItem.file;
+import static com.exedio.cope.pattern.MediaItem.foto;
+import static com.exedio.cope.pattern.MediaItem.image;
+import static com.exedio.cope.pattern.MediaItem.name;
+import static com.exedio.cope.pattern.MediaItem.photo;
+import static com.exedio.cope.pattern.MediaItem.sheet;
+
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Join;
+import com.exedio.cope.Model;
+import com.exedio.cope.Query;
+import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Feature;
-import com.exedio.cope.Model;
-import com.exedio.cope.misc.Computed;
-
 public final class MediaTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(MediaItem.TYPE);
+	static final Model MODEL = new Model(TYPE, MediaItemHolder.TYPE);
 
 	static
 	{
@@ -43,7 +53,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	// TODO test various combinations of internal, external implicit, and external explicit source
 
-	protected MediaItem item;
+	private MediaItem item;
 
 	@Override
 	public void setUp() throws Exception
@@ -54,50 +64,49 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	public void testData() throws IOException
 	{
-		assertEquals(0, data0.length);
-		assertEquals(4, data4.length);
-		assertEquals(6, data6.length);
-		assertEquals(8, data8.length);
-		assertEquals(20, data20.length);
-		assertEquals(21, data21.length);
+		assertEquals(0, bytes0.length);
+		assertEquals(4, bytes4.length);
+		assertEquals(6, bytes6.length);
+		assertEquals(8, bytes8.length);
+		assertEquals(20, bytes20.length);
+		assertEquals(21, bytes21.length);
 
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.name,
-				item.file,
-				item.file.getBody(),
-				item.file.getContentType(),
-				item.file.getLastModified(),
-				item.file.getUnison(),
-				item.image,
-				item.image.getBody(),
-				item.image.getContentType(),
-				item.image.getLastModified(),
-				item.image.getUnison(),
-				item.photo,
-				item.photo.getBody(),
-				item.photo.getLastModified(),
-				item.photo.getUnison(),
-				item.foto,
-				item.sheet,
-				item.sheet.getBody(),
-				item.sheet.getContentType(),
-				item.sheet.getLastModified(),
-				item.sheet.getUnison(),
-				item.custom,
-			}), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				name,
+				file,
+				file.getBody(),
+				file.getContentType(),
+				file.getLastModified(),
+				file.getUnison(),
+				image,
+				image.getBody(),
+				image.getContentType(),
+				image.getLastModified(),
+				image.getUnison(),
+				photo,
+				photo.getBody(),
+				photo.getLastModified(),
+				foto,
+				sheet,
+				sheet.getBody(),
+				sheet.getContentType(),
+				sheet.getLastModified(),
+				sheet.getUnison(),
+				custom,
+			}), TYPE.getFeatures());
 
 		// foto
-		assertEquals(item.TYPE, item.foto.getType());
-		assertEquals("foto", item.foto.getName());
-		assertSame(item.photo, item.foto.getTarget());
-		assertEquals(item.photo.isNull(), item.foto.isNull());
-		assertEquals(item.photo.isNotNull(), item.foto.isNotNull());
+		assertEquals(TYPE, foto.getType());
+		assertEquals("foto", foto.getName());
+		assertSame(photo, foto.getTarget());
+		assertEquals(photo.isNull(), foto.isNull());
+		assertEquals(photo.isNotNull(), foto.isNotNull());
 
 		assertEquals(null, item.getFotoContentType());
 		assertEquals(null, item.getFotoURL());
 
-		item.setPhoto(data4, "image/jpeg");
+		item.setPhoto(bytes4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
 		assertEquals(mediaRootUrl + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
 
@@ -106,50 +115,64 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(null, item.getFotoURL());
 
 		// custom
-		assertEquals(item.TYPE, item.custom.getType());
-		assertEquals("custom", item.custom.getName());
-		assertSame(item.name, item.custom.getSource());
+		assertEquals(TYPE, custom.getType());
+		assertEquals("custom", custom.getName());
+		assertSame(name, custom.getSource());
 		assertEquals("text/plain", item.getCustomContentType());
 		assertEquals(mediaRootUrl + "MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomURL());
 
-		assertFalse(item.file.isAnnotationPresent(Computed.class));
-		assertTrue(item.file.getBody        ().isAnnotationPresent(Computed.class));
-		assertTrue(item.file.getContentType ().isAnnotationPresent(Computed.class));
-		assertTrue(item.file.getLastModified().isAnnotationPresent(Computed.class));
+		assertFalse(file.isAnnotationPresent(Computed.class));
+		assertTrue(file.getBody        ().isAnnotationPresent(Computed.class));
+		assertTrue(file.getContentType ().isAnnotationPresent(Computed.class));
+		assertTrue(file.getLastModified().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(item.file,   372);
-		assertSerializedSame(item.image,  373);
-		assertSerializedSame(item.photo,  373);
-		assertSerializedSame(item.foto,   372);
-		assertSerializedSame(item.sheet,  373);
-		assertSerializedSame(item.custom, 374);
-
-
-		// logs -----------------------------------------------
-
-		assertEquals(0, item.photo.noSuchItem.get());
-		assertEquals(0, item.photo.isNull.get());
-		assertEquals(0, item.photo.notModified.get());
-		assertEquals(0, item.photo.delivered.get());
-
-		item.photo.noSuchItem.increment();
-		assertEquals(1, item.photo.noSuchItem.get());
-		assertEquals(0, item.photo.isNull.get());
-		assertEquals(0, item.photo.notModified.get());
-		assertEquals(0, item.photo.delivered.get());
-
-		item.photo.noSuchItem.increment();
-		item.photo.isNull.increment();
-		item.photo.notModified.increment();
-		item.photo.delivered.increment();
-		assertEquals(2, item.photo.noSuchItem.get());
-		assertEquals(1, item.photo.isNull.get());
-		assertEquals(1, item.photo.notModified.get());
-		assertEquals(1, item.photo.delivered.get());
+		assertSerializedSame(file,   372);
+		assertSerializedSame(image,  373);
+		assertSerializedSame(photo,  373);
+		assertSerializedSame(foto,   372);
+		assertSerializedSame(sheet,  373);
+		assertSerializedSame(custom, 374);
 	}
 
+	public void testConditions()
+	{
+		final MediaItem item2 = deleteOnTearDown(new MediaItem("other media item"));
+		deleteOnTearDown(new MediaItemHolder(item));
+		final MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
+
+		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull()));
+		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));
+
+		{
+			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(MediaItem.TYPE);
+			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+
+			final Join join2 = query.join(MediaItem.TYPE);
+			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			query.narrow( MediaItem.photo.isNull(join2) );
+
+			assertEquals( list(m2), query.search() );
+		}
+
+		{
+			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
+			final Join join1 = query.join(MediaItem.TYPE);
+			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+
+			final Join join2 = query.join(MediaItem.TYPE);
+			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			query.narrow( MediaItem.photo.isNotNull(join2) );
+
+			assertEquals( list(), query.search() );
+		}
+	}
+
+
 	@Deprecated
-	public void testDeprecated()
+	public static void testDeprecated()
 	{
 		try
 		{

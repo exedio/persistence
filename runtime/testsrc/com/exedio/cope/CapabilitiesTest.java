@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,20 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
-		assertEquals(mysql, model.nullsAreSortedLow());
-		assertEquals(!oracle && !props.getDatabaseDontSupportEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(mysql || (hsqldb&&props.hsqldbNullsAreSortedLow), model.nullsAreSortedLow());
+		assertEquals(!oracle && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
 		assertEquals(mysql, model.supportsRandom());
 
 		// SchemaInfo
 		assertEquals(!mysql, SchemaInfo.supportsCheckConstraints(model));
-		assertEquals(!mysql && !props.getDatabaseDontSupportNativeDate(), SchemaInfo.supportsNativeDate(model));
-		assertEquals(!postgresql, SchemaInfo.supportsSequences(model));
+		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), SchemaInfo.supportsNativeDate(model));
+		assertEquals(mysql && !props.isSupportDisabledForNotNull(), SchemaInfo.supportsNotNull(model));
+		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation() && model.connect().database.dialectParameters.environmentInfo.isDatabaseVersionAtLeast(5, 1), SchemaInfo.supportsUniqueViolation(model));
+	}
+
+	@Deprecated
+	public void testDeprecated()
+	{
+		assertEquals(true, SchemaInfo.supportsSequences(model));
 	}
 }

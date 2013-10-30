@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,11 +29,14 @@ public final class IllegalContentTypeException extends ConstraintViolationExcept
 	private final String contentType;
 
 	/**
-	 * Creates a new IllegalContentTypeException with the neccessary information about the violation.
+	 * Creates a new IllegalContentTypeException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	IllegalContentTypeException(final Media feature, final Item item, final String contentType)
+	IllegalContentTypeException(
+			final Media feature,
+			final Item item,
+			final String contentType)
 	{
 		super(item, null);
 		this.feature = feature;

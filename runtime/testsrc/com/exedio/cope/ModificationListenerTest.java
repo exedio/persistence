@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,17 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ModificationListener;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-
-import com.exedio.cope.util.ModificationListener;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
+	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
+
 	public ModificationListenerTest()
 	{
 		super(MatchTest.MODEL);
@@ -33,25 +36,26 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	TestLogHandler log = null;
+	TestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
-		ModificationListeners.logger.addHandler(log);
-		ModificationListeners.logger.setUseParentHandlers(false);
+		log = new TestLogAppender();
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ModificationListeners.logger.removeHandler(log);
+		logger.removeAppender(log);
 		log = null;
-		ModificationListeners.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
+
+	// dead store is needed to assign null for testing garbage collection
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt()
 	{
@@ -146,7 +150,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		model.commit();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.SEVERE, "Suppressing exception from modification listener " + MockListener.class.getName());
+		log.assertMessage(Level.ERROR, "Suppressing exception from modification listener " + MockListener.class.getName());
 
 		model.removeModificationListener(l);
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
@@ -238,7 +242,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailListener implements ModificationListener
+	private static final class FailListener implements ModificationListener
 	{
 		FailListener()
 		{

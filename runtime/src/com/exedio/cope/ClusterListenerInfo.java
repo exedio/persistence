@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.SequenceChecker;
 import java.net.InetAddress;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import com.exedio.cope.util.SequenceChecker;
 
 public final class ClusterListenerInfo
 {
@@ -83,35 +82,35 @@ public final class ClusterListenerInfo
 	public static final class Node
 	{
 		private final int id;
-		final long firstEncounter;
+		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
+		private final SequenceChecker.Info invalidateInfo;
 		private final SequenceChecker.Info pingInfo;
 		private final SequenceChecker.Info pongInfo;
-		private final SequenceChecker.Info invalidateInfo;
 
-		public Node(
+		Node(
 				final int id,
 				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
+				final SequenceChecker.Info invalidateInfo,
 				final SequenceChecker.Info pingInfo,
-				final SequenceChecker.Info pongInfo,
-				final SequenceChecker.Info invalidateInfo)
+				final SequenceChecker.Info pongInfo)
 		{
 			this.id = id;
 			this.firstEncounter = firstEncounter.getTime();
 			this.address = address;
 			this.port = port;
+			this.invalidateInfo = invalidateInfo;
 			this.pingInfo = pingInfo;
 			this.pongInfo = pongInfo;
-			this.invalidateInfo = invalidateInfo;
 
+			if(invalidateInfo==null)
+				throw new NullPointerException();
 			if(pingInfo==null)
 				throw new NullPointerException();
 			if(pongInfo==null)
-				throw new NullPointerException();
-			if(invalidateInfo==null)
 				throw new NullPointerException();
 		}
 
@@ -138,14 +137,25 @@ public final class ClusterListenerInfo
 			return new Date(firstEncounter);
 		}
 
+		/**
+		 * @see java.net.DatagramPacket#getAddress()
+		 */
 		public InetAddress getAddress()
 		{
 			return address;
 		}
 
+		/**
+		 * @see java.net.DatagramPacket#getPort()
+		 */
 		public int getPort()
 		{
 			return port;
+		}
+
+		public SequenceChecker.Info getInvalidateInfo()
+		{
+			return invalidateInfo;
 		}
 
 		public SequenceChecker.Info getPingInfo()
@@ -156,11 +166,6 @@ public final class ClusterListenerInfo
 		public SequenceChecker.Info getPongInfo()
 		{
 			return pongInfo;
-		}
-
-		public SequenceChecker.Info getInvalidateInfo()
-		{
-			return invalidateInfo;
 		}
 
 		@Override

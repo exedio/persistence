@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,12 +36,14 @@ public final class CheckViolationException extends ConstraintViolationException
 	private final CheckConstraint feature;
 
 	/**
-	 * Creates a new CheckViolationException with the neccessary information about the violation.
+	 * Creates a new CheckViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <code>constraint</code> is null.
 	 */
-	CheckViolationException(final Item item, final CheckConstraint feature)
+	CheckViolationException(
+			final Item item,
+			final CheckConstraint feature)
 	{
 		super(item, null);
 		this.feature = feature;

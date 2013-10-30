@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,13 +27,23 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(ComputedTest.class);
 		suite.addTestSuite(ConnectTokenNotSetTest.class);
 		suite.addTestSuite(ConnectTokenSetTest.class);
+		suite.addTestSuite(ConditionsTest.class);
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(ConnectTokenNullModelTest.class);
+		suite.addTestSuite(EnumAnnotatedElementTest.class);
+		suite.addTestSuite(IterablesTest.class);
+		suite.addTestSuite(ListUtilTest.class);
 		suite.addTestSuite(ServletUtilTest.class);
 		suite.addTestSuite(ServletUtilContextTest.class);
+		suite.addTestSuite(TimeUtilTest.class);
+		suite.addTestSuite(CompareTest.class);
 		suite.addTestSuite(SetValueUtilTest.class);
+		suite.addTestSuite(SerializationCheckTest.class);
+		suite.addTestSuite(DigitPinValidatorTest.class);
+		suite.addTestSuite(ModelByStringTest.class);
 		return suite;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
@@ -37,9 +32,14 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public final class History extends Pattern
 {
@@ -54,7 +54,7 @@ public final class History extends Pattern
 
 	ItemField<Event> featureEvent = null;
 	PartOf<Event> featureFeatures = null;
-	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.newField().toFinal();
+	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.create().toFinal();
 	private UniqueConstraint featureUnique = null;
 	final StringField featureName = new StringField().toFinal();
 	final StringField featureOld = new StringField().toFinal().optional();
@@ -68,7 +68,7 @@ public final class History extends Pattern
 		final Type<?> type = getType();
 
 		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		eventEvents = PartOf.newPartOf(eventParent, eventDate);
+		eventEvents = PartOf.create(eventParent, eventDate);
 		final Features features = new Features();
 		features.put("parent", eventParent);
 		features.put("date", eventDate);
@@ -79,7 +79,7 @@ public final class History extends Pattern
 
 		features.clear();
 		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		featureFeatures = PartOf.newPartOf(featureEvent);
+		featureFeatures = PartOf.create(featureEvent);
 		featureUnique = new UniqueConstraint(featureEvent, featureId.getIdField());
 		features.put("event", featureEvent);
 		features.put("features", featureFeatures);
@@ -91,13 +91,14 @@ public final class History extends Pattern
 		featureType = newSourceType(Feature.class, features, "Feature");
 	}
 
+	@Wrap(order=100, name="{1}EventParent", doc="Returns the parent field of the event type of {0}.")
 	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
 	{
 		assert eventParent!=null;
 		return eventParent.as(parentClass);
 	}
 
-	public PartOf getEventEvents()
+	public PartOf<?> getEventEvents()
 	{
 		return eventEvents;
 	}
@@ -147,12 +148,12 @@ public final class History extends Pattern
 		return featureEvent;
 	}
 
-	public PartOf getFeatureFeatures()
+	public PartOf<?> getFeatureFeatures()
 	{
 		return featureFeatures;
 	}
 
-	public FeatureField getFeature()
+	public FeatureField<?> getFeature()
 	{
 		return featureId;
 	}
@@ -189,44 +190,21 @@ public final class History extends Pattern
 		return featureType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getEvents").
-			addComment("Returns the events of the history {0}.").
-			setReturn(Wrapper.genericExtends(List.class, Event.class)));
-
-		result.add(
-			new Wrapper("createEvent").
-			addComment("Creates a new event for the history {0}.").
-			setReturn(Event.class).
-			addParameter(String.class, "author").
-			addParameter(boolean.class, "isNew"));
-
-		result.add(
-			new Wrapper("getEventParent").
-			addComment("Returns the parent field of the event type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}EventParent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10, doc="Returns the events of the history {0}.")
 	public List<Event> getEvents(final Item item)
 	{
 		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
 		q.setOrderBy(
-				new Function[]{ eventDate, eventType.getThis() },
-				new boolean []{ false,     false });
+				new Function<?>[]{ eventDate, eventType.getThis() },
+				new boolean    []{ false,     false });
 		return q.search();
 	}
 
-	public Event createEvent(final Item item, final String author, final boolean isNew)
+	@Wrap(order=20, doc="Creates a new event for the history {0}.")
+	public Event createEvent(
+			final Item item,
+			@Parameter("author") final String author,
+			@Parameter("isNew") final boolean isNew)
 	{
 		return eventType.newItem(
 				Cope.mapAndCast(eventParent, item),
@@ -294,7 +272,7 @@ public final class History extends Pattern
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 
-		private static final SetValue cut(final StringField f, final Object o)
+		private static final SetValue<?> cut(final StringField f, final Object o)
 		{
 			final String result;
 

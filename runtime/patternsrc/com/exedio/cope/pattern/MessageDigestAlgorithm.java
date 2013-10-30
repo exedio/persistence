@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.util.MessageDigestUtil;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-
-import com.exedio.cope.util.MessageDigestUtil;
 
 /**
  * Uses hash algorithms from {@link MessageDigest}.
@@ -31,8 +30,6 @@ import com.exedio.cope.util.MessageDigestUtil;
  */
 public final class MessageDigestAlgorithm implements Hash.Algorithm
 {
-	private static final long serialVersionUID = 1l;
-
 	private final String digest;
 	private final int digestLength;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,6 +21,8 @@ package com.exedio.cope;
 public final class BindStringFunction extends BindFunction<String>
 	implements StringFunction
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
-public abstract class Condition
+public abstract class Condition implements java.io.Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	abstract void append(Statement statment);
 
 	public abstract boolean get(Item item);
@@ -117,8 +119,10 @@ public abstract class Condition
 
 	static class Literal extends Condition
 	{
+		private static final long serialVersionUID = 1l;
+
 		final boolean value;
-		private final String name;
+		private final transient String name; // restored by readResolve
 
 		Literal(final boolean value, final String name)
 		{
@@ -164,9 +168,19 @@ public abstract class Condition
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+		void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 		{
 			bf.append(name);
+		}
+
+		/**
+		 * Enforces singleton on deserialization,
+		 * otherwise {@link #equals(Object)} would be wrong.
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return Condition.valueOf(value);
 		}
 	}
 
@@ -202,5 +216,5 @@ public abstract class Condition
 		return bf.toString();
 	}
 
-	abstract void toString(StringBuilder bf, boolean key, Type defaultType);
+	abstract void toString(StringBuilder bf, boolean key, Type<?> defaultType);
 }

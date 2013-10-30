@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,134 +18,138 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import com.exedio.cope.instrument.Wrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class DateField extends FunctionField<Date>
 {
+	private static final Logger logger = LoggerFactory.getLogger(DateField.class);
+
 	private static final long serialVersionUID = 1l;
 
-	final boolean defaultNow;
-	private final boolean suspiciousForWrongDefaultNow;
-
 	private DateField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Date defaultConstant, final boolean defaultNow)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<Date> defaultSource)
 	{
-		super(isfinal, optional, unique, Date.class, defaultConstant);
-		this.defaultNow = defaultNow;
-		this.suspiciousForWrongDefaultNow = defaultConstant!=null && Math.abs(defaultConstant.getTime()-System.currentTimeMillis())<100;
-
-		if(defaultConstant!=null && defaultNow)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
-		checkDefaultConstant();
+		super(isfinal, optional, unique, copyFrom, Date.class, defaultSource);
+		mountDefaultSource();
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, false);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, defaultConstant, defaultNow);
+		return new DateField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, false, copyFrom, defaultSource);
+	}
+
+	@Override
+	public DateField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, null, false);
+		return new DateField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
 	}
+
+	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
+	{
+		@Override
+		Date generate(final long now)
+		{
+			return new Date(now);
+		}
+
+		@Override
+		DefaultSource<Date> forNewField()
+		{
+			return this;
+		}
+
+		@Override
+		void mount(final FunctionField<Date> field)
+		{
+			// nothing to be checked
+		}
+	};
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, defaultConstant, true);
+		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultNow;
+		return defaultSource==DEFAULT_TO_NOW;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
+	public SelectType<Date> getValueType()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			exceptions.remove(MandatoryViolationException.class); // cannot set null
-
-			result.add(
-				new Wrapper("touch").
-				addComment("Sets the current date for the date field {0}."). // TODO better text
-				addThrows(exceptions));
-		}
-
-		return Collections.unmodifiableList(result);
-	}
-
-	/**
-	 * Returns true, if a value for the field should be specified
-	 * on the creation of an item.
-	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && {@link #getDefaultConstant() getDefaultConstant()}==null && ! {@link #isDefaultNow()}</tt>.
-	 */
-	@Override
-	public boolean isInitial()
-	{
-		return !defaultNow && super.isInitial();
+		return SimpleSelectType.DATE;
 	}
 
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(suspiciousForWrongDefaultNow)
-			System.out.println(
-					"WARNING: " +
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field " + type.getID() + '.' + name + ". " +
-					"This will not work as expected, use \"defaultToNow()\" instead.");
-
 		super.mount(type, name, annotationSource);
+
+		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
+			logger.warn(
+					"Very probably you called \"DateField.defaultTo(new Date())\" on field {}. " +
+					"This will not work as expected, use \"defaultToNow()\" instead.",
+					getID());
+	}
+
+	private boolean suspiciousForWrongDefaultNow()
+	{
+		final Date defaultConstant = getDefaultConstant();
+		if(defaultConstant==null)
+			return false;
+
+		return Math.abs(defaultConstant.getTime()-getDefaultConstantCreatedTimeMillis())<100;
 	}
 
 	@Override
@@ -153,12 +157,12 @@ public final class DateField extends FunctionField<Date>
 	{
 		return
 				getType().getModel().connect().supportsNativeDate()
-				? (Column)new TimestampColumn(table, this, name, optional)
-				: (Column)new IntegerColumn(table, this, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+				? (Column)new TimestampColumn(table, name, optional)
+				: (Column)new IntegerColumn(table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
 	}
 
 	@Override
-	Date get(final Row row, final Query query)
+	Date get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : new Date(((Long)cell).longValue());
@@ -174,6 +178,9 @@ public final class DateField extends FunctionField<Date>
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.
 	 */
+	@Wrap(order=10,
+			doc="Sets the current date for the date field {0}.", // TODO better text
+			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 		throws
 			UniqueViolationException,

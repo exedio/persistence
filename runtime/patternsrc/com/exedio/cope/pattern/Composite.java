@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,19 +18,22 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.DateField;
+import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.util.Day;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Date;
 
 public abstract class Composite implements Serializable
 {
@@ -38,33 +41,9 @@ public abstract class Composite implements Serializable
 
 	private final Object[] values;
 
-	protected Composite(final SetValue... setValues)
+	protected Composite(final SetValue<?>... setValues)
 	{
-		final CompositeType<?> type = type();
-		values = new Object[type.componentSize];
-		final boolean[] valueSet = new boolean[values.length];
-		for(final SetValue v : setValues)
-		{
-			final Integer position = type.templatePositions.get(v.settable);
-			if(position==null)
-				throw new IllegalArgumentException("not a member");
-
-			values[position.intValue()] = v.value;
-			valueSet[position.intValue()] = true;
-		}
-		for(int i = 0; i<valueSet.length; i++)
-			if(!valueSet[i])
-				values[i] = type.templateList.get(i).getDefaultConstant();
-
-		int i = 0;
-		for(final FunctionField ff : type.templateList)
-			check(ff, values[i++]);
-	}
-
-	@SuppressWarnings("unchecked")
-	private static final <E> void check(final FunctionField field, final Object value)
-	{
-		field.check(value);
+		values = type().values(setValues);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -111,6 +90,16 @@ public abstract class Composite implements Serializable
 		values[position(member)] = value;
 	}
 
+	public final void touch(final DateField member)
+	{
+		set(member, new Date());
+	}
+
+	public final void touch(final DayField member)
+	{
+		set(member, new Day());
+	}
+
 
 	private transient CompositeType<?> typeIfSet = null;
 
@@ -126,11 +115,12 @@ public abstract class Composite implements Serializable
 
 	private final int position(final FunctionField<?> member)
 	{
-		final CompositeType<?> type = type();
-		final Integer result = type.templatePositions.get(member);
-		if(result==null)
-			throw new IllegalArgumentException("not a member");
-		return result.intValue();
+		return type().position(member);
+	}
+
+	public static final String getTemplateName(final FunctionField<?> template)
+	{
+		return CompositeType.getTemplateName(template);
 	}
 
 	@Override
@@ -151,20 +141,32 @@ public abstract class Composite implements Serializable
 		return getClass().hashCode() ^ Arrays.hashCode(values);
 	}
 
-	// convenience for subclasses --------------------------------------------------
+	// ------------------- deprecated stuff -------------------
 
+	/**
+	 * @deprecated Use {@link EnumField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
-		return Item.newEnumField(valueClass);
+		return EnumField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return Item.newItemField(valueClass);
+		return ItemField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return Item.newItemField(valueClass, policy);
+		return ItemField.create(valueClass, policy);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.util.Date;
 
 abstract class TransactionInfo
 {
 	abstract boolean isRemote();
-	abstract int getRemoteNodeID() throws ChangeEvent.NotAvailableException;
-	abstract long getID() throws ChangeEvent.NotAvailableException;
-	abstract String getName() throws ChangeEvent.NotAvailableException;
-	abstract Date getStartDate() throws ChangeEvent.NotAvailableException;
+	abstract int getRemoteNodeID() throws NotAvailableException;
+	abstract long getID() throws NotAvailableException;
+	abstract String getName() throws NotAvailableException;
+	abstract Date getStartDate() throws NotAvailableException;
 }

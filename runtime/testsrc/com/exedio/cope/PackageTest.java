@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,17 +18,16 @@
 
 package com.exedio.cope;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
 import com.exedio.cope.serialize.ModelSerializationTest;
 import com.exedio.cope.serialize.SerializationSizeTest;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class PackageTest extends TestCase
 {
@@ -39,6 +38,7 @@ public class PackageTest extends TestCase
 
 		suite.addTest( com.exedio.cope.junit.PackageTest.suite() );
 
+		suite.addTestSuite( ConnectPropertiesValidTest.class );
 		suite.addTestSuite( PrimaryKeyTest.class );
 		suite.addTestSuite( CapabilitiesTest.class );
 		suite.addTestSuite( ModelCharSetTest.class );
@@ -46,9 +46,13 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FeaturesTest.class );
 		suite.addTestSuite( FinalTest.class );
 		suite.addTestSuite( QueryTest.class );
+		suite.addTestSuite( QueryGroupingTest.class );
 		suite.addTestSuite( QueryCopyTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( QuerySearchSizeLimitTest.class );
+		suite.addTestSuite( QuerySearchSizeLimitSetTest.class );
+		suite.addTestSuite( QuerySearchSizeCacheLimitTest.class );
+		suite.addTestSuite( QuerySearchSizeCacheLimitSetTest.class );
 		suite.addTestSuite( ConnectTest.class );
 		suite.addTestSuite( TypesBoundAnnotationTest.class );
 		suite.addTestSuite( FeatureTest.class );
@@ -56,12 +60,14 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ItemTest.class );
 		suite.addTestSuite( FindItemHierarchyTest.class );
 		suite.addTestSuite( FindItemHierarchyEmptyTest.class );
+		suite.addTestSuite( ModelTest.class );
 		suite.addTestSuite( ModelSerializationTest.class );
 		suite.addTestSuite( ItemSerializationTest.class );
 		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
 		suite.addTestSuite( SchemaInfoConnectionTest.class );
+		suite.addTestSuite( DumperTest.class );
 
 		suite.addTestSuite( FieldIntegerTest.class );
 		suite.addTestSuite( FieldLongTest.class );
@@ -77,21 +83,34 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DeleteHierarchyTest.class );
 		suite.addTestSuite( DeleteSchemaTest.class );
 		suite.addTestSuite( NameTest.class );
+		suite.addTestSuite( StringModelTest.class );
 		suite.addTestSuite( StringTest.class );
+		suite.addTestSuite( IntegerModelTest.class );
 		suite.addTestSuite( IntegerTest.class );
+		suite.addTestSuite( LongModelTest.class );
+		suite.addTestSuite( LongTest.class );
 		suite.addTestSuite( DoubleTest.class );
 		suite.addTestSuite( EnumTest.class );
-		suite.addTestSuite( EnumSchemaTest.class );
 		suite.addTestSuite( DefaultToTest.class );
+		suite.addTestSuite( DefaultToConnectedTest.class );
+		suite.addTestSuite( SequenceModelTest.class );
+		suite.addTestSuite( SequenceTest.class );
 		suite.addTestSuite( MatchTest.class );
 		suite.addTestSuite( DataTest.class );
 		suite.addTestSuite( DataFinalTest.class );
 		suite.addTestSuite( DataMandatoryTest.class );
 		suite.addTestSuite( UniqueTest.class );
+		suite.addTestSuite( UniqueDoubleModelTest.class );
+		suite.addTestSuite( UniqueDoubleTest.class );
+		suite.addTestSuite( UniqueDoubleNullTest.class );
 		suite.addTestSuite( CheckConstraintTest.class );
-		suite.addTestSuite( CheckConstraintDataTest.class );
+		suite.addTestSuite( CheckConstraintSchemaTest.class );
+		suite.addTestSuite( CheckConstraintConnectedTest.class );
+		suite.addTestSuite( CheckConstraintHierarchyTest.class );
+		suite.addTestSuite( CheckConstraintHierarchySchemaTest.class );
 		suite.addTestSuite( HierarchyTest.class );
 		suite.addTestSuite( HierarchyEmptyTest.class );
+		suite.addTestSuite( HierarchyCompareTest.class );
 		suite.addTestSuite( SearchTest.class );
 		suite.addTestSuite( AsStringTest.class );
 		suite.addTestSuite( PlusIntegerTest.class );
@@ -101,6 +120,9 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( PlusLongOrderTest.class );
 		suite.addTestSuite( PlusDoubleTest.class );
 		suite.addTestSuite( PlusDoubleOrderTest.class );
+		suite.addTestSuite( MinusIntegerTest.class );
+		suite.addTestSuite( MinusLongTest.class );
+		suite.addTestSuite( MinusDoubleTest.class );
 		suite.addTestSuite( DivideIntegerTest.class );
 		suite.addTestSuite( DivideLongTest.class );
 		suite.addTestSuite( DivideDoubleTest.class );
@@ -109,8 +131,11 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SelectBindTest.class );
 		suite.addTestSuite( DistinctTest.class );
 		suite.addTestSuite( FunctionTest.class );
+		suite.addTestSuite( CoalesceTest.class );
+		suite.addTestSuite( CoalesceFunctionTest.class );
 		suite.addTestSuite( CompareConditionTest.class );
 		suite.addTestSuite( CompareFunctionConditionTest.class );
+		suite.addTestSuite( InstanceOfModelTest.class );
 		suite.addTestSuite( InstanceOfTest.class );
 		suite.addTestSuite( JoinTest.class );
 		suite.addTestSuite( JoinOuterTest.class );
@@ -128,29 +153,38 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( TransactionCountersTest.class );
 		suite.addTestSuite( CacheIsolationTest.class );
 		suite.addTestSuite( CacheTouchTest.class );
-		suite.addTestSuite( ModCountKillTest.class );
+		suite.addTestSuite( UpdateCounterRecoverTest.class );
 		suite.addTestSuite( ItemCacheDataTest.class );
 		suite.addTestSuite( ItemCacheInvalidateLastPurgeTest.class );
 		suite.addTestSuite( PolymorphQueryCacheInvalidationTest.class );
 		suite.addTestSuite( TransactionOnlyTest.class );
 		suite.addTestSuite( ChangeListenerTest.class );
 		suite.addTestSuite( ModificationListenerTest.class );
-		suite.addTestSuite( RevisionTest.class );
-		suite.addTestSuite( RevisionsTest.class );
-		suite.addTestSuite( RevisionInfoTest.class );
 		suite.addTestSuite( ReviseTest.class );
 		suite.addTestSuite( DatabaseLogTest.class );
 		suite.addTestSuite( QueryCacheTest.class );
 		suite.addTestSuite( UniqueHierarchyTest.class );
+		suite.addTestSuite( CopyModelTest.class );
 		suite.addTestSuite( CopyTest.class );
+		suite.addTestSuite( CopyMultiTest.class );
+		suite.addTestSuite( CopyMultiConnectedTest.class );
+		suite.addTestSuite( CopyMultiToTest.class );
+		suite.addTestSuite( CopyMultiToConnectedTest.class );
+		suite.addTestSuite( SchemaNamePolymorphicTest.class );
+		suite.addTestSuite( CheckTypeColumnTest.class );
+		suite.addTestSuite( CheckTypeColumnAbstractTest.class );
+		suite.addTestSuite( CheckTypeColumnAbstractLinearTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
+		suite.addTestSuite( DefaultInheritanceTest.class );
 		suite.addTestSuite( PolymorphicBoundSelectTest.class );
+		suite.addTestSuite( DeleteAfterUniqueViolationTest.class );
 		suite.addTest( com.exedio.cope.reflect.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.misc.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.sampler.PackageTest.suite() );
+		suite.addTest( com.exedio.cope.mxsampler.PackageTest.suite() );
 
 		return suite;
 	}
@@ -164,9 +198,16 @@ public class PackageTest extends TestCase
 			if(!models.containsKey(model))
 				models.put(model, copeTest.getConnectProperties());
 		}
+		else if(test instanceof com.exedio.cope.junit.CopeModelTest)
+		{
+			final com.exedio.cope.junit.CopeModelTest copeTest = (com.exedio.cope.junit.CopeModelTest)test;
+			final Model model = copeTest.getModel();
+			if(!models.containsKey(model))
+				models.put(model, copeTest.getConnectProperties());
+		}
 		else if(test instanceof TestSuite)
 		{
-			for(final Enumeration e = ((TestSuite)test).tests(); e.hasMoreElements(); )
+			for(final Enumeration<?> e = ((TestSuite)test).tests(); e.hasMoreElements(); )
 				collectModels((Test)e.nextElement(), models);
 		}
 	}
@@ -181,10 +222,11 @@ public class PackageTest extends TestCase
 	public static void main(final String[] args)
 	{
 		final HashMap<Model, ConnectProperties> models = getModels(PackageTest.suite());
-		for(final Model m : models.keySet())
+		for(final Map.Entry<Model, ConnectProperties> e : models.entrySet())
 		{
+			final Model m = e.getKey();
 			//System.out.println("teardown " + m.getTypes());
-			m.connect(models.get(m));
+			m.connect(e.getValue());
 			m.tearDownSchema();
 			m.disconnect();
 		}

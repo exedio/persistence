@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,28 +18,36 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
+	public static final <E extends Number> MultiplyLiteralView<E> multiply(final Function<E> multiplier1, final E multiplier2)
+	{
+		return new MultiplyLiteralView<E>(multiplier1, multiplier2);
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction<E> left;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Function<E> left;
 	private final E right;
 
-	/**
-	 * Creates a new MultiplyView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#multiply(Number)
-	 */
-	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
+	private MultiplyLiteralView(final Function<E> left, final E right)
 	{
-		super(new Function[]{left}, "multiply", left.getValueClass());
+		super(new Function<?>[]{left}, "multiply", left.getValueClass());
 
 		if(right==null)
 			throw new NullPointerException("right");
 
 		this.left = left;
 		this.right = right;
+	}
+
+	public SelectType<E> getValueType()
+	{
+		return left.getValueType();
 	}
 
 	@Override
@@ -67,6 +75,16 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
+	@Override
+	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	{
+		bf.append('(');
+		left.toString(bf, defaultType);
+		bf.append('*');
+		bf.append(right);
+		bf.append(')');
+	}
+
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
@@ -75,5 +93,16 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		bf.append('*');
 		bf.appendParameter(right);
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #MultiplyLiteralView(Function,Number)} instead.
+	 */
+	@Deprecated
+	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
+	{
+		this((Function<E>)left, right);
 	}
 }

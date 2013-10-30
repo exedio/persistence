@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,22 +18,19 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Constraint.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
-
-import com.exedio.dsmf.Constraint.Type;
+import java.util.Set;
 
 public final class Table extends Node
 {
 	final Schema schema;
 	final String name;
-	final String options;
 	private final boolean required;
 	private boolean exists;
-
-	private boolean defensive = false;
 
 	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
 	private final ArrayList<Column> columnList = new ArrayList<Column>();
@@ -41,17 +38,12 @@ public final class Table extends Node
 	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
 	private final ArrayList<Constraint> constraintList = new ArrayList<Constraint>();
 
-	public Table(final Schema schema, final String name, final String options)
-	{
-		this(schema, name, options, true);
-	}
-
 	public Table(final Schema schema, final String name)
 	{
-		this(schema, name, null, true);
+		this(schema, name, true);
 	}
 
-	Table(final Schema schema, final String name, final String options, final boolean required)
+	Table(final Schema schema, final String name, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider);
 
@@ -60,36 +52,25 @@ public final class Table extends Node
 
 		this.schema = schema;
 		this.name = name;
-		this.options = options;
 		this.required = required;
 		this.exists = !required;
 
 		schema.register(this);
 	}
 
-	public final void makeDefensive()
-	{
-		defensive = true;
-	}
-
-	public final String getName()
+	public String getName()
 	{
 		return name;
 	}
 
-	public final String getOptions()
-	{
-		return options;
-	}
-
-	final void register(final Column column)
+	void register(final Column column)
 	{
 		if(columnMap.put(column.name, column)!=null)
 			throw new RuntimeException("duplicate column name in table " + name + ": " + column.name);
 		columnList.add(column);
 	}
 
-	final void register(final Constraint constraint)
+	void register(final Constraint constraint)
 	{
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
@@ -97,12 +78,12 @@ public final class Table extends Node
 		schema.register(constraint);
 	}
 
-	final void notifyExists()
+	void notifyExists()
 	{
 		exists = true;
 	}
 
-	final Column notifyExistentColumn(final String columnName, final String existingType)
+	Column notifyExistentColumn(final String columnName, final String existingType)
 	{
 		Column result = columnMap.get(columnName);
 		if(result==null)
@@ -113,7 +94,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -125,7 +106,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -137,19 +118,23 @@ public final class Table extends Node
 		return result;
 	}
 
-	final Constraint notifyExistentForeignKeyConstraint(final String constraintName)
+	Constraint notifyExistentForeignKeyConstraint(
+			final String constraintName,
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
 	{
-		Constraint result = constraintMap.get(constraintName);
+		ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new ForeignKeyConstraint(this, constraintName, false, null, null, null);
+			result = new ForeignKeyConstraint(this, constraintName, false, foreignKeyColumn, targetTable, targetColumn);
 		else
-			result.notifyExists();
+			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 
 		return result;
 	}
 
-	final Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
 		Constraint result = constraintMap.get(constraintName);
 
@@ -161,32 +146,32 @@ public final class Table extends Node
 		return result;
 	}
 
-	public final boolean required()
+	public boolean required()
 	{
 		return required;
 	}
 
-	public final boolean exists()
+	public boolean exists()
 	{
 		return exists;
 	}
 
-	public final Collection<Column> getColumns()
+	public Collection<Column> getColumns()
 	{
 		return columnList;
 	}
 
-	public final Column getColumn(final String columnName)
+	public Column getColumn(final String columnName)
 	{
 		return columnMap.get(columnName);
 	}
 
-	public final Collection<Constraint> getConstraints()
+	public Collection<Constraint> getConstraints()
 	{
 		return constraintList;
 	}
 
-	public final Constraint getConstraint(final String constraintName)
+	public Constraint getConstraint(final String constraintName)
 	{
 		return constraintMap.get(constraintName);
 	}
@@ -232,15 +217,18 @@ public final class Table extends Node
 		}
 	}
 
-	public final void create()
+	public void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
-	public final void create(final StatementListener listener)
+	void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
+		create(bf, null);
+	}
 
+	void create(final StringBuilder bf, final Set<ForeignKeyConstraint> constraintsBroken)
+	{
 		bf.append("create table ").
 			append(quoteName(name)).
 			append('(');
@@ -260,66 +248,48 @@ public final class Table extends Node
 
 		for(final Constraint c : constraintList)
 		{
-			if(!c.type.secondPhase)
+			if(c.isSupported() && (constraintsBroken!=null ? !constraintsBroken.contains(c) : !c.type.secondPhase))
 				c.createInTable(bf);
 		}
 
 		bf.append(')');
 
-		// TODO: may be this should be done using this.options
 		dialect.appendTableCreateStatement(bf);
-
-		if(options!=null)
-		{
-			bf.append(' ').
-				append(options);
-		}
-
-		//System.out.println("createTable:"+bf.toString());
-		if(defensive)
-		{
-			try
-			{
-				executeSQL(bf.toString(), listener);
-			}
-			catch(final SQLRuntimeException e)
-			{
-				// ignore it in defensive mode
-			}
-		}
-		else
-			executeSQL(bf.toString(), listener);
-
 	}
 
-	public final void drop()
+	public void create(final StatementListener listener)
 	{
-		drop(null);
+		create(listener, null);
 	}
 
-	public final void drop(final StatementListener listener)
+	void create(final StatementListener listener, final Set<ForeignKeyConstraint> constraintsBroken)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("drop table ").
-			append(quoteName(name));
-
-		if(defensive)
-		{
-			try
-			{
-				executeSQL(bf.toString(), listener);
-			}
-			catch(final SQLRuntimeException e)
-			{
-				// ignore it in defensive mode
-			}
-		}
-		else
-			executeSQL(bf.toString(), listener);
+		create(bf, constraintsBroken);
+		executeSQL(bf.toString(), listener);
 
 	}
 
-	final void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	public void drop()
+	{
+		drop((StatementListener)null);
+	}
+
+	void drop(final StringBuilder bf)
+	{
+		bf.append("drop table ").
+			append(quoteName(name));
+	}
+
+	public void drop(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		drop(bf);
+		executeSQL(bf.toString(), listener);
+
+	}
+
+	void createConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -328,7 +298,7 @@ public final class Table extends Node
 		}
 	}
 
-	final void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	void dropConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -337,7 +307,7 @@ public final class Table extends Node
 		}
 	}
 
-	final void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
+	void tearDownConstraints(final EnumSet<Type> types, final boolean secondPhase, final StatementListener listener)
 	{
 		for(final Constraint constraint : constraintList)
 		{
@@ -356,17 +326,17 @@ public final class Table extends Node
 		}
 	}
 
-	public final void renameTo(final String newName)
+	public void renameTo(final String newName)
 	{
 		renameTo(newName, null);
 	}
 
-	public final void renameTo(final String newName, final StatementListener listener)
+	public void renameTo(final String newName, final StatementListener listener)
 	{
 		executeSQL(dialect.renameTable(quoteName(name), quoteName(newName)), listener);
 	}
 
-	public final void checkUnsupportedConstraints()
+	public void checkUnsupportedConstraints()
 	{
 		for(final Constraint c : getConstraints())
 			if(!c.isSupported())
@@ -378,9 +348,39 @@ public final class Table extends Node
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return name;
 	}
 
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #Table(Schema, String)} instead
+	 * @param options is ignored
+	 */
+	@Deprecated
+	public Table(final Schema schema, final String name, final String options)
+	{
+		this(schema, name, true);
+	}
+
+	/**
+	 * @deprecated Is not supported anymore, does nothing.
+	 */
+	@Deprecated
+	public void makeDefensive()
+	{
+		// do nothing
+	}
+
+	/**
+	 * @deprecated Not supported anymore, always returns null.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public String getOptions()
+	{
+		return null;
+	}
 }

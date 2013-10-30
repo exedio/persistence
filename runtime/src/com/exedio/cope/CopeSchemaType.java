@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,9 @@ import java.lang.annotation.Target;
 /**
  * This annotation specifies the database column type
  * for fields different from the default types.
+ * @deprecated Is not supported anymore and does not cause anything in cope.
  */
+@Deprecated
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CopeSchemaType

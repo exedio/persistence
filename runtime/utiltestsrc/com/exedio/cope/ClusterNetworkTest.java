@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.io.File;
-import java.util.Collection;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
+import java.io.File;
+import java.util.Collection;
 
 public abstract class ClusterNetworkTest extends CopeAssert
 {
@@ -35,8 +34,8 @@ public abstract class ClusterNetworkTest extends CopeAssert
 				{
 					public String get(final String key)
 					{
-						if(key.equals("cluster"))
-							return "true";
+						if(key.equals("schema.primaryKeyGenerator"))
+							return PrimaryKeyGenerator.sequence.name();
 						else
 							return source.get(key);
 					}
@@ -101,7 +100,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 	{
 		TypeA()
 		{
-			super(new SetValue[]{});
+			super(new SetValue<?>[]{});
 		}
 
 		private TypeA(final ActivationParameters ap)

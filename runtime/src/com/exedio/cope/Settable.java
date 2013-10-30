@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,14 +22,21 @@ import java.util.Set;
 
 public interface Settable<E>
 {
-	SetValue map(E value);
-	SetValue[] execute(E value, Item exceptionItem);
+	/**
+	  * All implementations of this method should return
+	  * <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
+	  */
+	SetValue<E> map(E value);
+
+	SetValue<?>[] execute(E value, Item exceptionItem);
 
 	/**
 	 * Returns true, if a value for the settable can be specified
 	 * on the creation of an item only, thus cannot be modified later.
 	 */
 	boolean isFinal();
+
+	boolean isMandatory();
 
 	// used by instrumentor for creation constructors
 
@@ -39,6 +46,10 @@ public interface Settable<E>
 	 */
 	boolean isInitial();
 
+	/**
+	 * @deprecated Is not needed anymore by the instrumentor nor any other part of the framework.
+	 */
+	@Deprecated
 	java.lang.reflect.Type getInitialType();
 
 	/**

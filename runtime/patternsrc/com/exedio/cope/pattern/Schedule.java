@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -28,13 +29,6 @@ import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.WEEK_OF_MONTH;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -50,16 +44,21 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.Interrupter;
-import com.exedio.cope.util.InterrupterJobContextAdapter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 
 public final class Schedule extends Pattern
 {
 	private static final long serialVersionUID = 1l;
+
+	static final Clock clock = new Clock();
 
 	public enum Interval
 	{
@@ -71,14 +70,10 @@ public final class Schedule extends Pattern
 	private final Locale locale;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
-	private final EnumField<Interval> interval = Item.newEnumField(Interval.class).defaultTo(Interval.DAILY);
+	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(Interval.DAILY);
 
-	final DateField runFrom = new DateField().toFinal();
-	final DateField runUntil = new DateField().toFinal();
-	final DateField runRun = new DateField().toFinal();
-	final LongField runElapsed = new LongField().toFinal();
-
-	private Mount mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	final Runs runs = new Runs();
 
 	/**
 	 * @param locale
@@ -111,46 +106,7 @@ public final class Schedule extends Pattern
 					"type of " + getID() + " must implement " + Scheduleable.class +
 					", but was " + type.getJavaClass().getName());
 
-		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runFrom);
-		final Features features = new Features();
-		features.put("parent", runParent);
-		features.put("from",  runFrom);
-		features.put("runs",  runRuns);
-		features.put("until", runUntil);
-		features.put("run",   runRun);
-		features.put("elapsed", runElapsed);
-		final Type<Run> runType = newSourceType(Run.class, features, "Run");
-		this.mount = new Mount(runParent, runRuns, runType);
-	}
-
-	private static final class Mount
-	{
-		final ItemField<?> runParent;
-		final PartOf<?> runRuns;
-		final Type<Run> runType;
-
-		Mount(
-				final ItemField<?> runParent,
-				final PartOf<?> runRuns,
-				final Type<Run> runType)
-		{
-			assert runParent!=null;
-			assert runRuns!=null;
-			assert runType!=null;
-
-			this.runParent = runParent;
-			this.runRuns = runRuns;
-			this.runType = runType;
-		}
-	}
-
-	final Mount mount()
-	{
-		final Mount mount = this.mount;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		runs.onMount(this, type);
 	}
 
 	public BooleanField getEnabled()
@@ -165,127 +121,82 @@ public final class Schedule extends Pattern
 
 	public ItemField<?> getRunParent()
 	{
-		return mount().runParent;
+		return runs.mount().parent;
 	}
 
 	public PartOf<?> getRunRuns()
 	{
-		return mount().runRuns;
+		return runs.mount().parentPartOf;
 	}
 
 	public DateField getRunFrom()
 	{
-		return runFrom;
+		return runs.from;
 	}
 
 	public DateField getRunUntil()
 	{
-		return runUntil;
+		return runs.until;
 	}
 
 	public DateField getRunRun()
 	{
-		return runRun;
+		return runs.run;
 	}
 
 	public LongField getRunElapsed()
 	{
-		return runElapsed;
+		return runs.elapsed;
 	}
 
 	public Type<Run> getRunType()
 	{
-		return mount().runType;
+		return runs.mount().type;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("isEnabled").
-			setReturn(boolean.class));
-		result.add(
-			new Wrapper("setEnabled").
-			addParameter(boolean.class, "enabled"));
-		result.add(
-			new Wrapper("getInterval").
-			setReturn(Interval.class));
-		result.add(
-			new Wrapper("setInterval").
-			addParameter(Interval.class, "interval"));
-		result.add(
-			new Wrapper("run").
-			setReturn(int.class).
-			addParameter(Interrupter.class, "interrupter").
-			setStatic(false));
-		result.add(
-			new Wrapper("run").
-			addParameter(JobContext.class, "ctx").
-			setStatic(false));
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10)
 	public boolean isEnabled(final Item item)
 	{
 		return this.enabled.getMandatory(item);
 	}
 
-	public void setEnabled(final Item item, final boolean enabled)
+	@Wrap(order=20)
+	public void setEnabled(
+			final Item item,
+			@Parameter("enabled") final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
 
+	@Wrap(order=30)
 	public Interval getInterval(final Item item)
 	{
 		return this.interval.get(item);
 	}
 
-	public void setInterval(final Item item, final Interval interval)
+	@Wrap(order=40)
+	public void setInterval(
+			final Item item,
+			@Parameter("interval") final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
 
-	public int run(final Interrupter interrupter)
-	{
-		return run(interrupter, new Date());
-	}
-
-	public void run(final JobContext ctx)
-	{
-		run(ctx, new Date());
-	}
-
-	int run(final Interrupter interrupter, final Date now)
-	{
-		final Schedule s = this;
-		return InterrupterJobContextAdapter.run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				s.run(ctx, now);
-			}}
-		);
-	}
-
-	void run(final JobContext ctx, final Date now)
-	{
-		run(getType(), ctx, now);
-	}
-
-	private <P extends Item> void run(final Type<P> type, final JobContext ctx, final Date now)
+	@Wrap(order=60)
+	public <P extends Item & Scheduleable> void run(
+			final Class<P> parentClass,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		if(ctx==null)
 			throw new NullPointerException("ctx");
 
-		final Mount mount = mount();
+		final Type<P> type = getType().as(parentClass);
+		final Runs.Mount mount = runs.mount();
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
+		final Date now = new Date(clock.currentTimeMillis());
 		cal.setTime(now);
 		cal.set(MILLISECOND, 0);
 		cal.set(SECOND, 0);
@@ -305,14 +216,14 @@ public final class Schedule extends Pattern
 			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
-					mount.runType.getThis().isNull()));
-			q.joinOuterLeft(mount.runType,
+					mount.type.getThis().isNull()));
+			q.joinOuterLeft(mount.type,
 					Cope.and(
-						mount.runParent.as(type.getJavaClass()).equal(typeThis),
+						mount.parent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
-							interval.equal(Interval.DAILY ).and(runUntil.greaterOrEqual(untilDaily)),
-							interval.equal(Interval.WEEKLY).and(runUntil.greaterOrEqual(untilWeekly)),
-							interval.equal(Interval.MONTHLY).and(runUntil.greaterOrEqual(untilMonthly))
+							interval.equal(Interval.DAILY  ).and(runs.until.greaterOrEqual(untilDaily  )),
+							interval.equal(Interval.WEEKLY ).and(runs.until.greaterOrEqual(untilWeekly )),
+							interval.equal(Interval.MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
 						)
 					)
 			);
@@ -325,23 +236,9 @@ public final class Schedule extends Pattern
 			model.rollbackIfNotCommitted();
 		}
 
-		if(toRun.isEmpty())
-			return;
-
-		final Interrupter interrupterForItem = new Interrupter()
-		{
-			public boolean isRequested()
-			{
-				return ctx.requestedToStop();
-			}
-		};
-
 		for(final P item : toRun)
 		{
-			if(ctx.requestedToStop())
-				return;
-
-			final Scheduleable itemCasted = (Scheduleable)item;
+			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
 			try
 			{
@@ -365,14 +262,9 @@ public final class Schedule extends Pattern
 				}
 				final Date from = cal.getTime();
 				final long elapsedStart = nanoTime();
-				itemCasted.run(this, from, until, interrupterForItem);
+				item.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
-				mount.runType.newItem(
-					Cope.mapAndCast(mount.runParent, item),
-					this.runFrom.map(from),
-					this.runUntil.map(until),
-					this.runRun.map(now),
-					this.runElapsed.map((elapsedEnd - elapsedStart) / 1000000));
+				runs.newItem(item, from, until, now, toMillies(elapsedEnd, elapsedStart));
 				model.commit();
 				ctx.incrementProgress();
 			}
@@ -380,6 +272,83 @@ public final class Schedule extends Pattern
 			{
 				model.rollbackIfNotCommitted();
 			}
+		}
+	}
+
+	private static final class Runs
+	{
+		final DateField from = new DateField().toFinal();
+		final DateField until = new DateField().toFinal();
+		final DateField run = new DateField().toFinal();
+		final LongField elapsed = new LongField().toFinal().min(0);
+
+		private Mount mountIfMounted = null;
+
+		Runs()
+		{
+			// make non-private
+		}
+
+		void onMount(final Schedule pattern, final Type<?> type)
+		{
+			final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+			final PartOf<?> runs = PartOf.create(parent, from);
+			final Features features = new Features();
+			features.put("parent", parent);
+			features.put("from",  from);
+			features.put("runs",  runs);
+			features.put("until", until);
+			features.put("run",   run);
+			features.put("elapsed", elapsed);
+			@SuppressWarnings("synthetic-access")
+			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
+			this.mountIfMounted = new Mount(parent, runs, runType);
+		}
+
+		private static final class Mount
+		{
+			final ItemField<?> parent;
+			final PartOf<?> parentPartOf;
+			final Type<Run> type;
+
+			Mount(
+					final ItemField<?> parent,
+					final PartOf<?> parentPartOf,
+					final Type<Run> type)
+			{
+				assert parent!=null;
+				assert parentPartOf!=null;
+				assert type!=null;
+
+				this.parent = parent;
+				this.parentPartOf = parentPartOf;
+				this.type = type;
+			}
+		}
+
+		final Mount mount()
+		{
+			final Mount mount = this.mountIfMounted;
+			if(mount==null)
+				throw new IllegalStateException("feature not mounted");
+			return mount;
+		}
+
+		Run newItem(
+				final Item item,
+				final Date from,
+				final Date until,
+				final Date now,
+				final long elapsed)
+		{
+			final Mount mount = mount();
+			return
+				mount.type.newItem(
+					Cope.mapAndCast(mount.parent, item),
+					this.from.map(from),
+					this.until.map(until),
+					this.run.map(now),
+					this.elapsed.map(elapsed));
 		}
 	}
 
@@ -400,27 +369,27 @@ public final class Schedule extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().mount().runParent.get(this);
+			return getPattern().runs.mount().parent.get(this);
 		}
 
 		public Date getFrom()
 		{
-			return getPattern().runFrom.get(this);
+			return getPattern().runs.from.get(this);
 		}
 
 		public Date getUntil()
 		{
-			return getPattern().runUntil.get(this);
+			return getPattern().runs.until.get(this);
 		}
 
 		public Date getRun()
 		{
-			return getPattern().runRun.get(this);
+			return getPattern().runs.run.get(this);
 		}
 
 		public long getElapsed()
 		{
-			return getPattern().runElapsed.getMandatory(this);
+			return getPattern().runs.elapsed.getMandatory(this);
 		}
 	}
 
@@ -436,11 +405,20 @@ public final class Schedule extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #run(Interrupter)} instead.
+	 * @deprecated Use {@link #run(Class,JobContext)} instead.
 	 */
+	@Wrap(order=50)
 	@Deprecated
-	public <P extends Item> int run(@SuppressWarnings("unused") final Class<P> parentClass, final Interrupter interrupter)
+	public <P extends Item & Scheduleable> int run(
+			@SuppressWarnings("unused") final Class<P> parentClass,
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
-		return run(interrupter);
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
+			interrupter,
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			{
+				Schedule.this.run(parentClass, ctx);
+			}}
+		);
 	}
 }

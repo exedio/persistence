@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -25,73 +29,91 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	static final int[] ALLOWED_VALUES = {0, 1};
 
-	private BooleanField(final boolean isfinal, final boolean optional, final boolean unique, final Boolean defaultConstant)
+	private BooleanField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<Boolean> defaultSource)
 	{
-		super(isfinal, optional, unique, Boolean.class, defaultConstant);
-		checkDefaultConstant();
+		super(isfinal, optional, unique, copyFrom, Boolean.class, defaultSource);
+		mountDefaultSource();
 	}
 
 	public BooleanField()
 	{
-		this(false, false, false, null);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public BooleanField copy()
 	{
-		return new BooleanField(isfinal, optional, unique, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField toFinal()
 	{
-		return new BooleanField(true, optional, unique, defaultConstant);
+		return new BooleanField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField optional()
 	{
-		return new BooleanField(isfinal, true, unique, defaultConstant);
+		return new BooleanField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField unique()
 	{
-		return new BooleanField(isfinal, optional, true, defaultConstant);
+		return new BooleanField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public BooleanField nonUnique()
 	{
-		return new BooleanField(isfinal, optional, false, defaultConstant);
+		return new BooleanField(isfinal, optional, false, copyFrom, defaultSource);
+	}
+
+	@Override
+	public BooleanField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new BooleanField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
 	public BooleanField noDefault()
 	{
-		return new BooleanField(isfinal, optional, unique, null);
+		return new BooleanField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public BooleanField defaultTo(final Boolean defaultConstant)
 	{
-		return new BooleanField(isfinal, optional, unique, defaultConstant);
+		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant));
 	}
 
 	@Override
-	public Class getInitialType()
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return optional ? Boolean.class : boolean.class;
+	}
+
+	public SelectType<Boolean> getValueType()
+	{
+		return SimpleSelectType.BOOLEAN;
 	}
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, this, name, optional, ALLOWED_VALUES);
+		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 
+	@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 	@Override
-	Boolean get(final Row row, final Query query)
+	Boolean get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		if(cell==null)
@@ -111,7 +133,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	static final Integer FALSE = Integer.valueOf(0);
-	static final Integer TRUE = Integer.valueOf(1);
+	static final Integer TRUE  = Integer.valueOf(1);
 
 	@Override
 	void set(final Row row, final Boolean surface)
@@ -122,19 +144,37 @@ public final class BooleanField extends FunctionField<Boolean>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public final boolean getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).booleanValue();
+		return getMandatoryObject(item).booleanValue();
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalSettableGetter.class, OptionalGetter.class},
+			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final boolean value)
 		throws
 			UniqueViolationException,
 			FinalViolationException
 	{
 		set(item, Boolean.valueOf(value));
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={OptionalGetter.class, NonUniqueGetter.class})
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final boolean value)
+	{
+		return super.searchUnique(typeClass, Boolean.valueOf(value));
 	}
 }

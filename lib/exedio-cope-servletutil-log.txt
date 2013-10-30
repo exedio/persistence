@@ -1,0 +1,9 @@
+
+CHANGELOG for cope servletutil
+
+This file lists all changes relevant for the user - especially all
+API changes and new features recommended for most users. The log may
+omit bug fixes.
+The items are sorted inversely, i.e. latest items are on top
+
+--------------------------------------------------------------------------

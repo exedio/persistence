@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.List;
+import static com.exedio.cope.pattern.ListFieldItem.strings;
+import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
+import java.util.List;
 
 public class FindItemPatternTest extends AbstractRuntimeTest
 {
@@ -45,9 +47,9 @@ public class FindItemPatternTest extends AbstractRuntimeTest
 
 	public void test() throws NoSuchIDException
 	{
-		final List<? extends Item> items = item.strings.getRelationType().search(
-				item.stringsParent().equal(item),
-				item.strings.getOrder(),
+		final List<? extends Item> items = strings.getRelationType().search(
+				stringsParent().equal(item),
+				strings.getOrder(),
 				true);
 		final Item item0 = items.get(0);
 		final Item item1 = items.get(1);

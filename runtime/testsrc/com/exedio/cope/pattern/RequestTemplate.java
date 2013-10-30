@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,6 @@ import java.security.Principal;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
@@ -59,12 +58,12 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getHeaderNames()
+	public Enumeration<?> getHeaderNames()
 	{
 		throw new RuntimeException();
 	}
 
-	public Enumeration getHeaders(final String name)
+	public Enumeration<?> getHeaders(final String name)
 	{
 		throw new RuntimeException();
 	}
@@ -165,7 +164,7 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getAttributeNames()
+	public Enumeration<?> getAttributeNames()
 	{
 		throw new RuntimeException();
 	}
@@ -210,7 +209,7 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Enumeration getLocales()
+	public Enumeration<?> getLocales()
 	{
 		throw new RuntimeException();
 	}
@@ -220,12 +219,12 @@ public class RequestTemplate implements HttpServletRequest
 		throw new RuntimeException();
 	}
 
-	public Map getParameterMap()
+	public Map<?,?> getParameterMap()
 	{
 		throw new RuntimeException();
 	}
 
-	public Enumeration getParameterNames()
+	public Enumeration<?> getParameterNames()
 	{
 		throw new RuntimeException();
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,106 +18,102 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntObjectHashMap;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
-
-import com.exedio.cope.instrument.Wrapper;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final EnumFieldType<E> valueType;
-	private final List<E> values;
-	private final TIntObjectHashMap<E> numbersToValues;
-	private final int[] ordinalsToNumbers;
 
-	private EnumField(final boolean isfinal, final boolean optional, final boolean unique, final Class<E> valueClass, final E defaultConstant)
+	private EnumField(
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final Class<E> valueClass,
+			final DefaultSource<E> defaultSource)
 	{
-		super(isfinal, optional, unique, valueClass, defaultConstant);
-		checkValueClass(Enum.class);
+		super(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
 
 		this.valueType = EnumFieldType.get(valueClass);
-		this.values = valueType.values;
-		this.numbersToValues = valueType.numbersToValues;
-		this.ordinalsToNumbers = valueType.ordinalsToNumbers;
 
-		checkDefaultConstant();
+		checkValueClass(Enum.class);
+		mountDefaultSource();
 	}
 
-	EnumField(final Class<E> valueClass)
+	public static final <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
 	{
-		this(false, false, false, valueClass, null);
+		return new EnumField<E>(false, false, false, null, valueClass, null);
 	}
 
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<E>(true, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(true, optional, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<E>(isfinal, true, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, true, unique, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> unique()
 	{
-		return new EnumField<E>(isfinal, optional, true, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, true, copyFrom, valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> nonUnique()
 	{
-		return new EnumField<E>(isfinal, optional, false, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, false, copyFrom, valueClass, defaultSource);
+	}
+
+	@Override
+	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
+	{
+		return new EnumField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), valueClass, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> noDefault()
 	{
-		return new EnumField<E>(isfinal, optional, unique, valueClass, null);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, null);
 	}
 
 	@Override
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);
-		return new EnumField<E>(isfinal, optional, unique, valueClass, defaultConstant);
+		return new EnumField<E>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant(defaultConstant));
 	}
 
 	public List<E> getValues()
 	{
-		assert values!=null;
-		return values;
+		return valueType.values;
 	}
 
+	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
-		return Wrapper.TypeVariable0.class; // TODO return valueClass
+		return com.exedio.cope.instrument.Wrapper.TypeVariable0.class; // TODO return valueClass
 	}
 
-	private E getValue(final int number)
+	public SelectType<E> getValueType()
 	{
-		final E result = numbersToValues.get(number);
-		assert result!=null : toString() + number;
-		return result;
-	}
-
-	private int getNumber(final E value)
-	{
-		assert valueType.isValid(value);
-		return ordinalsToNumbers[value.ordinal()];
+		return valueType;
 	}
 
 	/**
@@ -133,7 +129,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 * @see ItemField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: is checked on runtime
 	public <X extends Enum<X>> EnumField<X> as(final Class<X> clazz)
 	{
 		if(!valueClass.equals(clazz))
@@ -145,13 +140,15 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 
-		return (EnumField<X>)this;
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final EnumField<X> result = (EnumField<X>)this;
+		return result;
 	}
 
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(!this.optional && ordinalsToNumbers.length==1)
+		if(!this.optional && valueType.isSingle())
 			throw new IllegalArgumentException(
 					"mandatory enum field is not allowed on valueClass with one enum value only: "
 					+ type.getID() + '.' + name +
@@ -163,24 +160,24 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new IntegerColumn(table, this, name, optional, ordinalsToNumbers);
+		return new IntegerColumn(table, name, optional, valueType.getNumbers());
 	}
 
 	@Override
-	E get(final Row row, final Query query)
+	E get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return
 			cell==null ?
 				null :
-				getValue(((Integer)cell).intValue());
+				valueType.getValueByNumber(((Integer)cell).intValue());
 	}
 
 	@Override
 	void set(final Row row, final E surface)
 	{
 		assert valueType.isValid(surface);
-		row.put(getColumn(), surface==null ? null : getNumber(surface));
+		row.put(getColumn(), surface==null ? null : valueType.getNumber(surface));
 	}
 
 	// ------------------- deprecated stuff -------------------

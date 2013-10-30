@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,8 +21,7 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
-public class CheckConstraint extends Constraint
+public final class CheckConstraint extends Constraint
 {
 	public CheckConstraint(
 			final Table table,
@@ -86,8 +85,9 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
+		assert isSupported() : getRequiredCondition();
 		bf.append(",constraint ").
 			append(quoteName(name)).
 			append(" check(").
@@ -96,9 +96,8 @@ public class CheckConstraint extends Constraint
 	}
 
 	@Override
-	public final void create(final StatementListener listener)
+	void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" add constraint ").
@@ -106,20 +105,14 @@ public class CheckConstraint extends Constraint
 			append(" check(").
 			append(requiredCondition).
 			append(')');
-
-		executeSQL(bf.toString(), listener);
 	}
 
 	@Override
-	public final void drop(final StatementListener listener)
+	void drop(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" drop constraint ").
 			append(quoteName(name));
-
-		executeSQL(bf.toString(), listener);
 	}
-
 }

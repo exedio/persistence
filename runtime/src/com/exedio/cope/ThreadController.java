@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,10 @@ package com.exedio.cope;
 
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.Thread.State;
-import java.util.logging.Level;
+import java.text.MessageFormat;
 
 public final class ThreadController
 {
@@ -102,6 +104,7 @@ public final class ThreadController
 		thread.start();
 	}
 
+	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public long getId()
 	{
 		final Thread thread = this.thread;
@@ -120,6 +123,7 @@ public final class ThreadController
 		return thread!=null ? thread.getState() : null;
 	}
 
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public StackTraceElement[] getStackTrace()
 	{
 		final Thread thread = this.thread;
@@ -139,11 +143,8 @@ public final class ThreadController
 		if(thread!=null)
 		{
 			thread.join();
-			if(ThreadSwarm.logger.isLoggable(Level.INFO))
-				ThreadSwarm.logger.log(
-						Level.INFO,
-						"{1} ({0}) done.",
-						new Object[]{thread.getId(), thread.getName()});
+			if(ThreadSwarm.logger.isInfoEnabled())
+				ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) done.", thread.getName(), thread.getId()));
 		}
 	}
 

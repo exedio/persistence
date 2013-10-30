@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class NotCondition extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	final Condition argument;
 
 	/**
@@ -77,7 +79,7 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append("!(");
 		argument.toString(bf, key, defaultType);

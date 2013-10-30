@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class PrimaryKeyConstraint extends Constraint
+public final class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
 
@@ -45,13 +45,13 @@ public class PrimaryKeyConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+primaryKeyColumn);
 	}
 
-	public final String getPrimaryKeyColumn()
+	public String getPrimaryKeyColumn()
 	{
 		return primaryKeyColumn;
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -61,9 +61,8 @@ public class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	public final void create(final StatementListener listener)
+	void create(final StringBuilder bf)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" add constraint ").
@@ -71,13 +70,11 @@ public class PrimaryKeyConstraint extends Constraint
 			append(" primary key(").
 			append(quoteName(primaryKeyColumn)).
 			append(')');
-
-		executeSQL(bf.toString(), listener);
 	}
 
 	@Override
-	public final void drop(final StatementListener listener)
+	void drop(final StringBuilder bf)
 	{
-		executeSQL(dialect.dropPrimaryKeyConstraint(quoteName(table.name), quoteName(name)), listener);
+		dialect.dropPrimaryKeyConstraint(bf, quoteName(table.name), quoteName(name));
 	}
 }

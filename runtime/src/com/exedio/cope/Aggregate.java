@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public abstract class Aggregate<E> implements Selectable<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	/**
 	 * I'm not yet sure, whether the type of the aggregate
 	 * always equals the type of the source, but it does for
@@ -53,6 +55,16 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name;
 	}
 
+	public final Class<E> getValueClass()
+	{
+		return source.getValueClass();
+	}
+
+	public final SelectType<E> getValueType()
+	{
+		return source.getValueType();
+	}
+
 	public final Type<? extends Item> getType()
 	{
 		return source.getType();
@@ -82,20 +94,20 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
-			appendSelect(source, join, columnHolder, typeHolder).
+			appendSelect(source, join).
 			append(')');
 	}
 
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof Aggregate))
+		if(!(other instanceof Aggregate<?>))
 			return false;
 
-		final Aggregate a = (Aggregate)other;
+		final Aggregate<?> a = (Aggregate<?>)other;
 
 		return name.equals(a.name) && source.equals(a.source);
 	}
@@ -112,7 +124,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name + '(' + source + ')';
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name).
 			append('(');

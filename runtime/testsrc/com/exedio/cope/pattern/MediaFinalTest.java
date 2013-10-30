@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.SafeFile.delete;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
+import static com.exedio.cope.pattern.MediaFinalItem.TYPE;
+import static com.exedio.cope.pattern.MediaFinalItem.file;
+import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
@@ -33,10 +31,14 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
 
 public class MediaFinalTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(MediaFinalItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	public MediaFinalTest()
 	{
@@ -52,94 +54,93 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(20, data20.length);
 
 		// test model
-		final MediaFinalItem t = null;
-		assertEquals(true, t.file.isInitial());
-		assertEquals(true, t.file.isFinal());
-		assertEquals(false, t.file.isMandatory());
-		assertEquals(Media.Value.class, t.file.getInitialType());
-		assertContains(FinalViolationException.class, t.file.getInitialExceptions());
-		assertEquals(true, t.file.checkContentType("irgendwas/anderswas"));
-		assertEquals("*/*", t.file.getContentTypeDescription());
-		assertEquals(null, t.file.getContentTypesAllowed());
-		assertEquals(20, t.file.getMaximumLength());
+		assertEquals(true, file.isInitial());
+		assertEquals(true, file.isFinal());
+		assertEquals(false, file.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(file));
+		assertContains(FinalViolationException.class, file.getInitialExceptions());
+		assertEquals(true, file.checkContentType("irgendwas/anderswas"));
+		assertEquals("*/*", file.getContentTypeDescription());
+		assertEquals(null, file.getContentTypesAllowed());
+		assertEquals(20, file.getMaximumLength());
 
-		final DataField body = t.file.getBody();
-		assertSame(t.TYPE, body.getType());
+		final DataField body = file.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("file-body", body.getName());
 		assertEquals(true, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(20, body.getMaximumLength());
-		assertEquals(t.file, body.getPattern());
-		assertSame(t.file, Media.get(body));
+		assertEquals(file, body.getPattern());
+		assertSame(file, Media.get(body));
 
-		final StringField contentType = (StringField)t.file.getContentType();
-		assertSame(t.TYPE, contentType.getType());
+		final StringField contentType = (StringField)file.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("file-contentType", contentType.getName());
 		assertEquals(true, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(61, contentType.getMaximumLength());
-		assertEquals(t.file, contentType.getPattern());
+		assertEquals(file, contentType.getPattern());
 
-		final DateField lastModified = t.file.getLastModified();
-		assertSame(t.TYPE, lastModified.getType());
+		final DateField lastModified = file.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("file-lastModified", lastModified.getName());
 		assertEquals(true, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
-		assertEquals(t.file, lastModified.getPattern());
+		assertEquals(file, lastModified.getPattern());
 
-		final CheckConstraint unison = t.file.getUnison();
-		assertSame(t.TYPE, unison.getType());
+		final CheckConstraint unison = file.getUnison();
+		assertSame(TYPE, unison.getType());
 		assertEquals("file-unison", unison.getName());
-		assertEquals(t.file, unison.getPattern());
+		assertEquals(file, unison.getPattern());
 		assertEquals(Cope.or(
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
 
 		// test persistence
-		assertEquals(list(), t.TYPE.search());
+		assertEquals(list(), TYPE.search());
 
 		final Date before = new Date();
 		final MediaFinalItem item = deleteOnTearDown(new MediaFinalItem(data20, "major/minor"));
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
-			item.file.set(item, (byte[])null, null);
+			file.set(item, (byte[])null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
 
 		try
 		{
-			item.file.set(item, (InputStream)null, null);
+			file.set(item, (InputStream)null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
 
 		try
 		{
-			item.file.set(item, (File)null, null);
+			file.set(item, (File)null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -164,14 +165,14 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(item, expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
-		assertWithin(before, after, new Date(item.getFileLastModified()));
+		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
 	}
 
-	private final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
+	private static final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
-		final File tempFile = File.createTempFile("exedio-cope-MediaTest-", ".tmp");
+		final File tempFile = createTempFile(MediaDefaultTest.class.getName(), ".tmp");
 		delete(tempFile);
 		assertFalse(tempFile.exists());
 
@@ -179,12 +180,12 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEqualContent(expectedData, tempFile);
 	}
 
-	private void assertContentNull(final MediaFinalItem item)
+	private static void assertContentNull(final MediaFinalItem item)
 	{
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());
 		assertEquals(-1, item.getFileLength());
-		assertEquals(-1, item.getFileLastModified());
+		assertEquals(null, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
 		assertEquals(null, item.getFileURL());
 	}

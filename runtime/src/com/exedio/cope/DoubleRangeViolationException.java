@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,33 +30,29 @@ import com.exedio.cope.instrument.ConstructorComment;
  * @author Ralf Wiebicke
  */
 @ConstructorComment("if {0} violates its range constraint.")
-public final class DoubleRangeViolationException extends ConstraintViolationException
+public final class DoubleRangeViolationException extends RangeViolationException
 {
 	private static final long serialVersionUID = 1l;
 
 	private final DoubleField feature;
 	private final double value;
-	private final boolean isTooSmall;
-	private final double border;
 
 	/**
-	 * Creates a new DoubleRangeViolationException with the neccessary information about the violation.
+	 * Creates a new DoubleRangeViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public DoubleRangeViolationException(
+	DoubleRangeViolationException(
 			final DoubleField feature,
 			final Item item,
 			final double value,
 			final boolean isTooSmall,
 			final double border)
 	{
-		super(item, null);
+		super(feature, item, value, isTooSmall, border);
 		this.feature = feature;
 		this.value = value;
-		this.isTooSmall = isTooSmall;
-		this.border = border;
 	}
 
 	/**
@@ -74,22 +70,5 @@ public final class DoubleRangeViolationException extends ConstraintViolationExce
 	public double getValue()
 	{
 		return value;
-	}
-
-	public boolean isTooSmall()
-	{
-		return isTooSmall;
-	}
-
-	@Override
-	protected String getMessage(final boolean withFeature)
-	{
-		return
-			"range violation" + getItemPhrase() +
-			", " + value + " is too " +
-			(isTooSmall?"small":"big") +
-			(withFeature ? (" for " + feature) : "") +
-			", must be at " + (isTooSmall?"least":"most") +
-			' ' + border + '.';
 	}
 }

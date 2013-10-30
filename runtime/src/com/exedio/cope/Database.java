@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.ConnectionProvider;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Schema;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,23 +32,21 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.dsmf.ConnectionProvider;
-import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.Schema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Database
 {
 	private final Trimmer nameTrimmer = new Trimmer(25);
 	private final ArrayList<Table> tables = new ArrayList<Table>();
-	private final ArrayList<Sequence> sequences = new ArrayList<Sequence>();
+	private final ArrayList<SequenceX> sequences = new ArrayList<SequenceX>();
 	private boolean buildStage = true;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final DialectParameters dialectParameters;
 	final Dialect dialect;
-	private final Revisions revisions;
+	final Transactions transactions;
+	private final RevisionsConnect revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
@@ -57,12 +59,14 @@ final class Database
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Revisions revisions)
+			final Transactions transactions,
+			final RevisionsConnect revisions)
 	{
 		this.properties = dialectParameters.properties;
 		this.dsmfDialect = dsmfDialect;
 		this.dialectParameters = dialectParameters;
 		this.dialect = dialect;
+		this.transactions = transactions;
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
@@ -72,12 +76,21 @@ final class Database
 		//System.out.println("using database "+getClass());
 	}
 
+	boolean supportsNotNull()
+	{
+		return !properties.isSupportDisabledForNotNull() && dialect.supportsNotNull();
+	}
+
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
 	{
 		return
-			properties.cluster.booleanValue()
-			? new SequenceImplSequence(column, start, connectionPool, this)
-			: new SequenceImplMax(column, start, connectionPool);
+			properties.primaryKeyGenerator.newSequenceImpl(column, start, connectionPool, this);
+	}
+
+	SequenceImpl newSequenceImplCluster(final int start, final String name)
+	{
+		return
+			new SequenceImplSequence(name, start, properties, connectionPool, executor, dsmfDialect);
 	}
 
 	void addTable(final Table table)
@@ -87,7 +100,7 @@ final class Database
 		tables.add(table);
 	}
 
-	void addSequence(final Sequence sequence)
+	void addSequence(final SequenceX sequence)
 	{
 		if(!buildStage)
 			throw new RuntimeException();
@@ -97,7 +110,7 @@ final class Database
 	List<SequenceInfo> getSequenceInfo()
 	{
 		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
-		for(final Sequence sequence : sequences)
+		for(final SequenceX sequence : sequences)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
 	}
@@ -106,17 +119,22 @@ final class Database
 	{
 		buildStage = false;
 
-		makeSchema(true).create();
+		makeSchema().create();
 
 		if(revisions!=null)
-			revisions.insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
+			revisions.get().insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
+
+		for(final Table table : tables)
+			table.knownToBeEmptyForTest = true;
+		for(final SequenceX sequence : sequences)
+			sequence.knownToBeEmptyForTest = true;
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema(true).createConstraints(types);
+		makeSchema().createConstraints(types);
 	}
 
 	//private static int checkTableTime = 0;
@@ -180,15 +198,15 @@ final class Database
 						appendParameter("x");
 				}
 
-				final Column modificationCount = table.modificationCount;
-				if(modificationCount!=null)
+				final Column updateCounter = table.updateCounter;
+				if(updateCounter!=null)
 				{
 					if(first)
 						first = false;
 					else
 						bf.append(" and ");
 
-					bf.append(modificationCount).
+					bf.append(updateCounter).
 						append('=').
 						appendParameter(Integer.MIN_VALUE);
 				}
@@ -229,58 +247,88 @@ final class Database
 		buildStage = false;
 
 		flushSequences();
-		makeSchema(true).drop();
+		makeSchema().drop();
 	}
 
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema(true).dropConstraints(types);
+		makeSchema().dropConstraints(types);
 	}
 
 	void tearDownSchema()
 	{
 		buildStage = false;
 
-		makeSchema(true).tearDown();
+		makeSchema().tearDown();
 	}
 
 	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
 		buildStage = false;
 
-		makeSchema(true).tearDownConstraints(types);
+		makeSchema().tearDownConstraints(types);
 	}
 
 	void checkEmptySchema(final Connection connection)
 	{
 		buildStage = false;
 
-		//final long time = System.currentTimeMillis();
+		final StringBuilder bf = new StringBuilder();
+		bf.append("select t,c from(");
+		int n = 0;
 		for(final Table table : tables)
 		{
-			final int count = table.count(connection, executor);
-			if(count>0)
-				throw new RuntimeException("there are "+count+" items left for table "+table.id);
+			if(n>0)
+				bf.append("union");
+
+			bf.append("(select '").
+				append(table.id).
+				append("' t, count(*) c, ").
+				append(n++).
+				append(" n from ").
+				append(table.quotedID).
+				append(')');
 		}
+		bf.append(") b where c>0 order by n");
+
+		final String message = Executor.query(connection, bf.toString(), new ResultSetHandler<String>()
+		{
+			public String handle(final ResultSet resultSet) throws SQLException
+			{
+				StringBuilder message = null;
+				while(resultSet.next())
+				{
+					if(message==null)
+						message = new StringBuilder("schema not empty: ");
+					else
+						message.append(", ");
+
+					message.
+						append(resultSet.getString(1).trim()). // trim needed for hsqldb
+						append(':').
+						append(resultSet.getInt(2));
+				}
+				return message!=null ? message.toString() : null;
+			}
+
+		});
+		if(message!=null)
+			throw new IllegalStateException(message);
 
 		// NOTICE
 		// The following flushSequences() makes CopeTest work again, so that sequences do start
 		// from their initial value for each test. This is rather a hack, so we should deprecate
 		// CopeTest in favor of CopeModelTest in the future.
 		flushSequences();
-
-		//final long amount = (System.currentTimeMillis()-time);
-		//checkEmptyTableTime += amount;
-		//System.out.println("CHECK EMPTY TABLES "+amount+"ms  accumulated "+checkEmptyTableTime);
 	}
 
 	WrittenState load(final Connection connection, final Item item)
 	{
 		buildStage = false;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 
 		executor.testListener().load(connection, item);
 
@@ -288,19 +336,19 @@ final class Database
 		bf.append("select ");
 
 		boolean first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
-			final Table table = superType.getTable();
+			final Table table = currentType.getTable();
 
-			final IntegerColumn modificationCountColumn = table.modificationCount;
-			if(modificationCountColumn!=null)
+			final IntegerColumn updateCounter = table.updateCounter;
+			if(updateCounter!=null)
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(',');
 
-				bf.append(modificationCountColumn);
+				bf.append(updateCounter);
 			}
 
 			for(final Column column : table.getColumns())
@@ -325,7 +373,7 @@ final class Database
 
 		bf.append(" from ");
 		first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
@@ -337,17 +385,17 @@ final class Database
 
 		bf.append(" where ");
 		first = true;
-		for(Type superType = type; superType!=null; superType = superType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
 			else
 				bf.append(" and ");
 
-			bf.appendPK(superType, (Join)null).
+			bf.appendPK(currentType, (Join)null).
 				append('=').
 				appendParameter(item.pk).
-				appendTypeCheck(superType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
+				appendTypeCheck(currentType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 
 		//System.out.println(bf.toString());
@@ -361,28 +409,28 @@ final class Database
 
 				final Row row = new Row();
 				int columnIndex = 1;
-				int modificationCount = Integer.MIN_VALUE;
-				for(Type superType = type; superType!=null; superType = superType.supertype)
+				int updateCount = Integer.MIN_VALUE;
+				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
 
-					final IntegerColumn modificationCountColumn = table.modificationCount;
-					if(modificationCountColumn!=null)
+					final IntegerColumn updateCounter = table.updateCounter;
+					if(updateCounter!=null)
 					{
 						final int value = resultSet.getInt(columnIndex++);
-						if(modificationCount==Integer.MIN_VALUE)
+						if(updateCount==Integer.MIN_VALUE)
 						{
 							if(value<0)
-								throw new RuntimeException("invalid modification counter for row " + item.pk + " in table " + table.id + ": " + value);
-							modificationCount = value;
+								throw new RuntimeException("invalid update counter for row " + item.pk + " in table " + table.id + ": " + value);
+							updateCount = value;
 						}
 						else
 						{
-							if(modificationCount!=value)
+							if(updateCount!=value)
 								throw new RuntimeException(
-										"inconsistent modification counter for row " + item.pk + " in table " + table.id +
+										"inconsistent update counter for row " + item.pk + " in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
-										+ value + '/' + modificationCount);
+										+ value + '/' + updateCount);
 						}
 					}
 
@@ -393,7 +441,7 @@ final class Database
 					}
 				}
 
-				return new WrittenState(item, row, modificationCount);
+				return new WrittenState(item, row, updateCount);
 			}
 		});
 
@@ -404,26 +452,26 @@ final class Database
 			final Connection connection,
 			final State state,
 			final boolean present,
-			final boolean modCount,
+			final boolean incrementUpdateCounter,
 			final Map<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, modCount, blobs, state.type);
+		store(connection, state, present, incrementUpdateCounter, blobs, state.type);
 	}
 
 	private void store(
 			final Connection connection,
 			final State state,
 			final boolean present,
-			final boolean modCount,
+			final boolean incrementUpdateCounter,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
 		buildStage = false;
-		assert present || modCount;
+		assert present || incrementUpdateCounter;
 
-		final Type supertype = type.supertype;
+		final Type<?> supertype = type.supertype;
 		if(supertype!=null)
-			store(connection, state, present, modCount, blobs, supertype);
+			store(connection, state, present, incrementUpdateCounter, blobs, supertype);
 
 		final Table table = type.getTable();
 
@@ -431,7 +479,7 @@ final class Database
 
 		final Statement bf = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
-		final IntegerColumn modificationCountColumn = modCount ? table.modificationCount : null;
+		final IntegerColumn updateCounter = incrementUpdateCounter ? table.updateCounter : null;
 		if(present)
 		{
 			bf.append("update ").
@@ -440,11 +488,11 @@ final class Database
 
 			boolean first = true;
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
-				bf.append(modificationCountColumn.quotedID).
+				bf.append(updateCounter.quotedID).
 					append('=').
-					appendParameter(modificationCountColumn, state.modificationCount+1);
+					appendParameter(updateCounter, state.updateCount+1);
 				first = false;
 			}
 
@@ -475,12 +523,12 @@ final class Database
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(" and ").
-					append(modificationCountColumn.quotedID).
+					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(state.modificationCount);
+					appendParameter(state.updateCount);
 			}
 		}
 		else
@@ -496,10 +544,10 @@ final class Database
 					append(typeColumn.quotedID);
 			}
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(',').
-					append(modificationCountColumn.quotedID);
+					append(updateCounter.quotedID);
 			}
 
 			for(final Column column : columns)
@@ -517,13 +565,13 @@ final class Database
 			if(typeColumn!=null)
 			{
 				bf.append(',').
-					appendParameter(state.type.id);
+					appendParameter(state.type.schemaId);
 			}
 
-			if(modificationCountColumn!=null)
+			if(updateCounter!=null)
 			{
 				bf.append(',').
-					appendParameter(state.modificationCount+1); // is initialized to -1
+					appendParameter(state.updateCount+1); // is initialized to -1
 			}
 
 			for(final Column column : columns)
@@ -546,7 +594,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, bf);
+		executor.updateStrict(connection, present ? state.item : null, bf);
 	}
 
 	String makeName(final String longName)
@@ -554,13 +602,16 @@ final class Database
 		return nameTrimmer.trimString(longName);
 	}
 
-	Schema makeSchema(final boolean withRevisions)
+	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
+		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
 			public Connection getConnection()
 			{
+				transactions.assertNoCurrentTransaction();
+
 				return connectionPool.get(true);
 			}
 
@@ -568,29 +619,72 @@ final class Database
 			{
 				connectionPool.put(connection);
 			}
+
+			public boolean isSemicolonEnabled()
+			{
+				return semicolonEnabled;
+			}
 		});
 		for(final Table t : tables)
-			t.makeSchema(result);
+			t.makeSchema(result, supportsNotNull());
 
-		if(withRevisions && revisions!=null)
-			revisions.makeSchema(result, properties, dialect);
-		for(final Sequence sequence : sequences)
+		if(revisions!=null)
+			Revisions.makeSchema(result, properties, dialect);
+		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
 
-		dialect.completeSchema(result);
 		return result;
 	}
 
 	Schema makeVerifiedSchema()
 	{
-		final Schema result = makeSchema(true);
+		final Schema result = makeSchema();
 		result.verify();
 		return result;
 	}
 
 	void flushSequences()
 	{
-		for(final Sequence sequence : sequences)
+		for(final SequenceX sequence : sequences)
 			sequence.flush();
+	}
+
+	private static final Logger deleteLogger = LoggerFactory.getLogger(Database.class.getName() + "#deleteSchema");
+
+	void deleteSchema(final boolean forTest)
+	{
+		final ArrayList<Table> tables;
+		final ArrayList<SequenceX> sequences;
+		if(forTest)
+		{
+			tables = new ArrayList<Table>();
+			for(final Table table : this.tables)
+				if(!table.knownToBeEmptyForTest)
+					tables.add(table);
+			sequences = new ArrayList<SequenceX>();
+			for(final SequenceX sequence : this.sequences)
+				if(!sequence.knownToBeEmptyForTest)
+					sequences.add(sequence);
+		}
+		else
+		{
+			tables = this.tables;
+			sequences = this.sequences;
+		}
+
+		if(deleteLogger.isDebugEnabled())
+			deleteLogger.debug(
+					"deleteSchemaForTest  tables {} {} sequences {} {}",
+					new Object[]{tables.size(), tables, sequences.size(), sequences});
+
+		dialect.deleteSchema(
+				Collections.unmodifiableList(tables),
+				Collections.unmodifiableList(sequences),
+				connectionPool);
+
+		for(final Table table : tables)
+			table.knownToBeEmptyForTest = true;
+		for(final SequenceX sequence : sequences)
+			sequence.knownToBeEmptyForTest = true;
 	}
 }

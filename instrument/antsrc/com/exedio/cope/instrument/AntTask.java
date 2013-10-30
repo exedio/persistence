@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -44,6 +43,16 @@ public final class AntTask extends Task
 		fileSetsOrLists.add(value);
 	}
 
+	public void setVerify(final boolean value)
+	{
+		params.verify = value;
+	}
+
+	public void setEncoding(final String value)
+	{
+		params.encoding = value;
+	}
+
 	public void setLongJavadoc(final boolean value)
 	{
 		params.longJavadoc = value;
@@ -64,9 +73,9 @@ public final class AntTask extends Task
 		params.serialVersionUID = value;
 	}
 
-	public void setCreateDeprecated(final boolean value)
+	public void setGenericSetValueArray(final boolean value)
 	{
-		params.createDeprecated = value;
+		params.genericSetValueArray = value;
 	}
 
 	public void setVerbose(final boolean value)

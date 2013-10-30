@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
 
 public final class DoubleField extends NumberField<Double>
@@ -31,11 +34,15 @@ public final class DoubleField extends NumberField<Double>
 	private final double maximum;
 
 	private DoubleField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Double defaultConstant,
-			final double minimum, final double maximum)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<Double> defaultSource,
+			final double minimum,
+			final double maximum)
 	{
-		super(isfinal, optional, unique, Double.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, Double.class, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -44,7 +51,7 @@ public final class DoubleField extends NumberField<Double>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultConstant();
+		mountDefaultSource();
 	}
 
 	private static final void assertLimit(final double value, final String name)
@@ -57,64 +64,70 @@ public final class DoubleField extends NumberField<Double>
 
 	public DoubleField()
 	{
-		this(false, false, false, null, MIN, MAX);
+		this(false, false, false, null, null, MIN, MAX);
 	}
 
 	@Override
 	public DoubleField copy()
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField toFinal()
 	{
-		return new DoubleField(true, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(true, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField optional()
 	{
-		return new DoubleField(isfinal, true, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, true, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField unique()
 	{
-		return new DoubleField(isfinal, optional, true, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, true, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField nonUnique()
 	{
-		return new DoubleField(isfinal, optional, false, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, false, copyFrom, defaultSource, minimum, maximum);
+	}
+
+	@Override
+	public DoubleField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DoubleField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField noDefault()
 	{
-		return new DoubleField(isfinal, optional, unique, null, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
 	}
 
 	@Override
 	public DoubleField defaultTo(final Double defaultConstant)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
 	public DoubleField range(final double minimum, final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public DoubleField min(final double minimum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public DoubleField max(final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, defaultConstant, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public double getMinimum()
@@ -136,20 +149,26 @@ public final class DoubleField extends NumberField<Double>
 		return result;
 	}
 
+	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Double.class : double.class;
+	}
+
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.DOUBLE;
 	}
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DoubleColumn(table, this, name, optional, minimum, maximum);
+		return new DoubleColumn(table, name, optional, minimum, maximum);
 	}
 
 	@Override
-	Double get(final Row row, final Query query)
+	Double get(final Row row)
 	{
 		return (Double)row.get(getColumn());
 	}
@@ -165,11 +184,8 @@ public final class DoubleField extends NumberField<Double>
 	{
 		final double valuePrimitive = value.doubleValue();
 
-		// TODO better exceptions
-		if(Double.isInfinite(valuePrimitive))
-			throw new RuntimeException(getID() + '#' + valuePrimitive);
 		if(Double.isNaN(valuePrimitive))
-			throw new RuntimeException(getID() + '#' + valuePrimitive);
+			throw new DoubleNaNException(this, exceptionItem);
 
 		if(valuePrimitive<minimum)
 			throw new DoubleRangeViolationException(this, exceptionItem, value, true, minimum);
@@ -180,14 +196,16 @@ public final class DoubleField extends NumberField<Double>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public final double getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).doubleValue();
+		return getMandatoryObject(item).doubleValue();
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalSettableGetter.class, OptionalGetter.class},
+			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final double value)
 		throws
 			UniqueViolationException,
@@ -201,6 +219,22 @@ public final class DoubleField extends NumberField<Double>
 		{
 			throw new RuntimeException(toString(), e);
 		}
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={OptionalGetter.class, NonUniqueGetter.class})
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final double value)
+	{
+		return super.searchUnique(typeClass, Double.valueOf(value));
 	}
 
 	@Override

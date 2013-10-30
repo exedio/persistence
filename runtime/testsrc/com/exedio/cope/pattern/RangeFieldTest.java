@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,139 +18,72 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.newRange;
-
-import java.util.Arrays;
+import static com.exedio.cope.pattern.Range.valueOf;
+import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
+import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Feature;
-import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.IntegerField;
-import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.CheckViolationException;
 
 public class RangeFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(RangeFieldItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(RangeFieldTest.class, "MODEL");
-	}
-
 	public RangeFieldTest()
 	{
-		super(MODEL);
+		super(RangeFieldModelTest.MODEL);
 	}
 
 	RangeFieldItem item;
 
 	public void testIt()
 	{
-		// test model
-		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.valid,
-				item.valid.getFrom(),
-				item.valid.getTo(),
-				item.text,
-				item.text.getFrom(),
-				item.text.getTo(),
-			}), item.TYPE.getFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.valid,
-				item.valid.getFrom(),
-				item.valid.getTo(),
-				item.text,
-				item.text.getFrom(),
-				item.text.getTo(),
-			}), item.TYPE.getDeclaredFeatures());
+		item = deleteOnTearDown(new RangeFieldItem(valueOf(3, 5), valueOf("alpha", "beta")));
 
-		assertEquals(item.TYPE, item.valid.getFrom().getType());
-		assertEquals(item.TYPE, item.valid.getTo().getType());
-		assertEquals(item.TYPE, item.valid.getType());
-		assertEquals("valid-from", item.valid.getFrom().getName());
-		assertEquals("valid-to",   item.valid.getTo().getName());
-		assertEquals("valid",     item.valid.getName());
-		assertEquals(item.valid, item.valid.getFrom().getPattern());
-
-		assertEquals(true, item.valid.isInitial());
-		assertEquals(false, item.valid.isFinal());
-		assertEquals(false, item.valid.getFrom().isFinal());
-		assertEquals(false, item.valid.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, Integer.class), item.valid.getInitialType());
-		assertContains(MandatoryViolationException.class, item.valid.getInitialExceptions());
-		assertSerializedSame(item.valid, 383);
-
-		assertEquals(true, item.text.isInitial());
-		assertEquals(true, item.text.isFinal());
-		assertEquals(true, item.text.getFrom().isFinal());
-		assertEquals(true, item.text.getTo().isFinal());
-		assertEquals(Wrapper.generic(Range.class, String.class), item.text.getInitialType());
-		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, item.text.getInitialExceptions());
-		assertSerializedSame(item.text, 382);
-
-		// test persistence
-		item = deleteOnTearDown(new RangeFieldItem(newRange(3, 5), newRange("alpha", "beta")));
-
-		assertEquals(newRange(3, 5), item.getValid());
+		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
-		item.setValidFrom(8);
-		assertEquals(newRange(8, 5), item.getValid());
-		assertEquals(i8, item.getValidFrom());
+		try
+		{
+			item.setValidFrom(8);
+			fail();
+		}
+		catch(final CheckViolationException e)
+		{
+			assertEquals(valid.getUnison(), e.getFeature());
+		}
+		assertEquals(valueOf(3, 5), item.getValid());
+		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
 		item.setValidTo(9);
-		assertEquals(newRange(8, 9), item.getValid());
-		assertEquals(i8, item.getValidFrom());
+		assertEquals(valueOf(3, 9), item.getValid());
+		assertEquals(i3, item.getValidFrom());
 		assertEquals(i9, item.getValidTo());
 
-		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(newRange(4, 4), newRange("alpha", "beta")));
-		assertEquals(newRange(4, 4), item2.getValid());
+		item.setValidFrom(8);
+		assertEquals(valueOf(8, 9), item.getValid());
+		assertEquals(i8, item.getValidFrom());
+		assertEquals(i9, item.getValidTo());
+		assertEquals(false, item.doesValidContain( 7));
+		assertEquals(true,  item.doesValidContain( 8));
+		assertEquals(true,  item.doesValidContain( 9));
+		assertEquals(false, item.doesValidContain(10));
+
+		final RangeFieldItem item2 = deleteOnTearDown(new RangeFieldItem(valueOf(4, 4), valueOf("alpha", "beta")));
+		assertEquals(valueOf(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
+		assertEquals(false, item2.doesValidContain(3));
+		assertEquals(true,  item2.doesValidContain(4));
+		assertEquals(false, item2.doesValidContain(5));
 
-		assertContains(       item.TYPE.search(item.valid.contains(3)));
-		assertContains(item2, item.TYPE.search(item.valid.contains(4)));
-		assertContains(       item.TYPE.search(item.valid.contains(5)));
+		assertContains(       TYPE.search(valid.contains(3)));
+		assertContains(item2, TYPE.search(valid.contains(4)));
+		assertContains(       TYPE.search(valid.contains(5)));
 
-		assertContains(      item.TYPE.search(item.valid.contains(7)));
-		assertContains(item, item.TYPE.search(item.valid.contains(8)));
-		assertContains(item, item.TYPE.search(item.valid.contains(9)));
-		assertContains(      item.TYPE.search(item.valid.contains(10)));
-
-		try
-		{
-			RangeField.newRange(new IntegerField().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("optional borderTemplate not yet implemented", e.getMessage());
-		}
-		try
-		{
-			RangeField.newRange(new IntegerField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unique borderTemplate is not supported", e.getMessage());
-		}
-
-		try
-		{
-			item.valid.contains(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("right", e.getMessage());
-		}
+		assertContains(      TYPE.search(valid.contains(7)));
+		assertContains(item, TYPE.search(valid.contains(8)));
+		assertContains(item, TYPE.search(valid.contains(9)));
+		assertContains(      TYPE.search(valid.contains(10)));
 	}
 }

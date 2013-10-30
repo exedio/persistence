@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,25 +18,26 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.Type;
+import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
+import java.util.List;
 
-public final class Importer<E extends Object> extends Pattern
+public final class Importer<K extends Object> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private final FunctionField<E> key;
+	private final FunctionField<K> key;
+	private boolean hintInitial = false;
 
-	private Importer(final FunctionField<E> key)
+	private Importer(final FunctionField<K> key)
 	{
 		if(key==null)
 			throw new NullPointerException("key");
@@ -50,59 +51,38 @@ public final class Importer<E extends Object> extends Pattern
 		this.key = key;
 	}
 
-	public static final <E> Importer<E> newImporter(final FunctionField<E> key)
+	public static final <K> Importer<K> create(final FunctionField<K> key)
 	{
-		return new Importer<E>(key);
+		return new Importer<K>(key);
 	}
 
-	public FunctionField<E> getKey()
+	public FunctionField<K> getKey()
 	{
 		return key;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("doImport").
-			setMethodWrapperPattern("import{0}").
-			addComment("Import {0}.").
-			setReturn(Wrapper.ClassVariable.class, "the imported item").
-			addParameter(key.getInitialType(), "keyValue").
-			addParameterVararg(SetValue[].class, "setValues").
-			setStatic());
-		result.add(
-			new Wrapper("doImport").
-			setMethodWrapperPattern("import{0}").
-			addComment("Import {0}.").
-			setReturn(Wrapper.ClassVariable.class, "the imported item").
-			addParameter(key.getInitialType(), "keyValue").
-			addParameter(Wrapper.genericExtends(List.class, SetValue.class), "setValues").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final E keyValue,
-			final List<? extends SetValue> setValues)
+			@Parameter("keyValue") final K keyValue,
+			@Parameter("setValues") final List<? extends SetValue<?>> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
 
+	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item")
 	public <P extends Item> P doImport(
 			final Class<P> parentClass,
-			final E keyValue,
-			final SetValue... setValues)
+			@Parameter("keyValue") final K keyValue,
+			@Parameter("setValues") final SetValue<?>... setValues)
 	{
 		if(keyValue==null)
 			throw new NullPointerException("keyValue");
 		if(setValues==null)
 			throw new NullPointerException("setValues");
+
+		if(hintInitial)
+			return doImportInitial(parentClass, keyValue, setValues);
 
 		final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
 		if(existent!=null)
@@ -112,10 +92,57 @@ public final class Importer<E extends Object> extends Pattern
 		}
 		else
 		{
-			final SetValue[] setValuesNew = new SetValue[setValues.length + 1];
-			setValuesNew[0] = key.map(keyValue);
-			System.arraycopy(setValues, 0, setValuesNew, 1, setValues.length);
-			return getType().as(parentClass).newItem(setValuesNew);
+			return getType().as(parentClass).newItem(prepend(key.map(keyValue), setValues));
 		}
+	}
+
+	private <P extends Item> P doImportInitial(
+			final Class<P> parentClass,
+			final K keyValue,
+			final SetValue<?>... setValues)
+	{
+		final SetValue<?>[] setValuesNew = prepend(key.map(keyValue), setValues);
+		final Type<P> type = getType().as(parentClass);
+
+		try
+		{
+			return type.newItem(setValuesNew);
+		}
+		catch(final UniqueViolationException e)
+		{
+			final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
+			existent.set(setValues);
+			return existent;
+		}
+	}
+
+	/**
+	 * When setting to true,
+	 * method {@link #doImport(Class, Object, SetValue...)}
+	 * becomes more efficient when item do not yet exist
+	 * and less efficient when items already do exist.
+	 */
+	public void setHintInitialExerimental(final boolean hintInitial)
+	{
+		this.hintInitial = hintInitial;
+	}
+
+	private static SetValue<?>[] prepend(final SetValue<?> head, final SetValue<?>[] tail)
+	{
+		final SetValue<?>[] result = new SetValue<?>[tail.length + 1];
+		result[0] = head;
+		System.arraycopy(tail, 0, result, 1, tail.length);
+		return result;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <K> Importer<K> newImporter(final FunctionField<K> key)
+	{
+		return create(key);
 	}
 }

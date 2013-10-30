@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,13 +45,13 @@ public class EnumTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		assertEquals(EnumItem.Status.class, item.status.getValueClass());
-		assertEquals(EnumItem2.Status.class, item2.status.getValueClass());
+		assertEquals(EnumItem.Status.class, EnumItem.status.getValueClass());
+		assertEquals(EnumItem2.Status.class, EnumItem2.status.getValueClass());
 
-		assertSame(item.status, item.status.as(EnumItem.Status.class));
+		assertSame(EnumItem.status, EnumItem.status.as(EnumItem.Status.class));
 		try
 		{
-			item.status.as(EnumItem2.Status.class);
+			EnumItem.status.as(EnumItem2.Status.class);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -72,7 +72,7 @@ public class EnumTest extends AbstractRuntimeTest
 		assertEquals(null, item.getSingle());
 
 		{
-			final EnumField<Single> wrong = item.newEnumField(Single.class);
+			final EnumField<Single> wrong = EnumField.create(Single.class);
 			final Features features = new Features();
 			features.put("wrong", wrong);
 			try

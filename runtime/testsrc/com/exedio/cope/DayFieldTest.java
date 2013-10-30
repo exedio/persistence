@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,16 @@
 
 package com.exedio.cope;
 
-import java.util.List;
+import static com.exedio.cope.DayItem.TYPE;
+import static com.exedio.cope.DayItem.day;
+import static com.exedio.cope.DayItem.optionalDay;
 
 import com.exedio.cope.util.Day;
+import java.util.List;
 
 public class DayFieldTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DayItem.TYPE);
+	public static final Model MODEL = new Model(DayItem.TYPE);
 
 	static
 	{
@@ -50,53 +53,53 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Day day = new Day(2005, 9, 23);
+		final Day thisDay = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);
 		final Day nextDay = new Day(2005, 9, 24);
 
-		assertEquals(item.TYPE, item.day.getType());
-		assertEquals(Day.class, item.day.getValueClass());
-		assertSerializedSame(item.day, 364);
+		assertEquals(TYPE, day.getType());
+		assertEquals(Day.class, day.getValueClass());
+		assertSerializedSame(day, 364);
 
 		// test persistence
 		assertEquals(DEFAULT, item.getDay());
-		assertContains(item.TYPE.search(item.day.equal((Day)null)));
-		assertContains(item.TYPE.search(item.day.isNull()));
-		assertContains(item, item2, item.TYPE.search(item.day.notEqual((Day)null)));
-		assertContains(item, item2, item.TYPE.search(item.day.isNotNull()));
+		assertContains(TYPE.search(day.equal((Day)null)));
+		assertContains(TYPE.search(day.isNull()));
+		assertContains(item, item2, TYPE.search(day.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(day.isNotNull()));
 		assertEquals(null, item.getOptionalDay());
-		assertContains(item, item2, item.TYPE.search(item.optionalDay.equal((Day)null)));
-		assertContains(item, item2, item.TYPE.search(item.optionalDay.isNull()));
-		assertContains(item.TYPE.search(item.optionalDay.notEqual((Day)null)));
-		assertContains(item.TYPE.search(item.optionalDay.isNotNull()));
+		assertContains(item, item2, TYPE.search(optionalDay.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optionalDay.isNull()));
+		assertContains(TYPE.search(optionalDay.notEqual((Day)null)));
+		assertContains(TYPE.search(optionalDay.isNotNull()));
 
-		item.setDay(day);
-		assertEquals(day, item.getDay());
+		item.setDay(thisDay);
+		assertEquals(thisDay, item.getDay());
 
-		assertContains(day, DEFAULT2, search(item.day));
-		assertContains(day, search(item.day, item.day.equal(day)));
-		assertContains(null, null, search(item.optionalDay));
+		assertContains(thisDay, DEFAULT2, search(day));
+		assertContains(thisDay, search(day, day.equal(thisDay)));
+		assertContains(null, null, search(optionalDay));
 
 		restartTransaction();
-		assertEquals(day, item.getDay());
-		assertEquals(list(item), item.TYPE.search(item.day.equal(day)));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(day).and(item.day.lessOrEqual(day))));
-		assertEquals(list(item2), item.TYPE.search(item.day.notEqual(day)));
-		assertEquals(list(), item.TYPE.search(item.day.equal((Day)null)));
-		assertEquals(list(), item.TYPE.search(item.day.isNull()));
-		assertContains(item, item2, item.TYPE.search(item.day.notEqual((Day)null)));
-		assertContains(item, item2, item.TYPE.search(item.day.isNotNull()));
-		assertEquals(list(), item.TYPE.search(item.day.equal(beforeDay)));
-		assertEquals(list(), item.TYPE.search(item.day.equal(nextDay)));
-		assertEquals(list(), item.TYPE.search(item.day.greaterOrEqual(beforeDay).and(item.day.lessOrEqual(beforeDay))));
-		assertEquals(list(), item.TYPE.search(item.day.greaterOrEqual(nextDay).and(item.day.lessOrEqual(nextDay))));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(day).and(item.day.lessOrEqual(nextDay))));
-		assertEquals(list(item), item.TYPE.search(item.day.greaterOrEqual(beforeDay).and(item.day.lessOrEqual(day))));
+		assertEquals(thisDay, item.getDay());
+		assertEquals(list(item), TYPE.search(day.equal(thisDay)));
+		assertEquals(list(item), TYPE.search(day.greaterOrEqual(thisDay).and(day.lessOrEqual(thisDay))));
+		assertEquals(list(item2), TYPE.search(day.notEqual(thisDay)));
+		assertEquals(list(), TYPE.search(day.equal((Day)null)));
+		assertEquals(list(), TYPE.search(day.isNull()));
+		assertContains(item, item2, TYPE.search(day.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(day.isNotNull()));
+		assertEquals(list(), TYPE.search(day.equal(beforeDay)));
+		assertEquals(list(), TYPE.search(day.equal(nextDay)));
+		assertEquals(list(), TYPE.search(day.greaterOrEqual(beforeDay).and(day.lessOrEqual(beforeDay))));
+		assertEquals(list(), TYPE.search(day.greaterOrEqual(nextDay).and(day.lessOrEqual(nextDay))));
+		assertEquals(list(item), TYPE.search(day.greaterOrEqual(thisDay).and(day.lessOrEqual(nextDay))));
+		assertEquals(list(item), TYPE.search(day.greaterOrEqual(beforeDay).and(day.lessOrEqual(thisDay))));
 		assertEquals(null, item.getOptionalDay());
-		assertContains(item, item2, item.TYPE.search(item.optionalDay.equal((Day)null)));
-		assertContains(item, item2, item.TYPE.search(item.optionalDay.isNull()));
-		assertEquals(list(), item.TYPE.search(item.optionalDay.notEqual((Day)null)));
-		assertEquals(list(), item.TYPE.search(item.optionalDay.isNotNull()));
+		assertContains(item, item2, TYPE.search(optionalDay.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optionalDay.isNull()));
+		assertEquals(list(), TYPE.search(optionalDay.notEqual((Day)null)));
+		assertEquals(list(), TYPE.search(optionalDay.isNotNull()));
 
 		item.setDay(nextDay);
 		restartTransaction();
@@ -127,17 +130,17 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getOptionalDay());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.day, Integer.valueOf(10));
+			item.set((FunctionField)day, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.day + '.', e.getMessage());
+			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + day + '.', e.getMessage());
 		}
 	}
 
@@ -149,5 +152,10 @@ public class DayFieldTest extends AbstractRuntimeTest
 	protected static List<? extends Day> search(final DayField selectField, final Condition condition)
 	{
 		return new Query<Day>(selectField, condition).search();
+	}
+
+	public void testSchema()
+	{
+		assertSchema();
 	}
 }

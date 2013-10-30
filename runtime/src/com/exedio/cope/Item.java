@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.Compare;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -27,9 +30,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Compare;
 
 /**
  * This is the super class for all classes,
@@ -110,7 +110,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not neccessarily equivalent to <tt>getCopeID().hashCode()</tt>.
+	 * Note, that this is not necessarily equivalent to <tt>getCopeID().hashCode()</tt>.
 	 * Does not activate this item, if it's not already active.
 	 */
 	@Override
@@ -119,13 +119,21 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return type.hashCode() ^ pk;
 	}
 
-	public int compareTo(final Item other)
+	/**
+	 * Defines an order consistent to the query result order when using
+	 * {@link Query#setOrderBy(Selectable, boolean) Query.setOrderBy}
+	 * methods with any {@link ItemFunction}.
+	 */
+	public int compareTo(final Item o)
 	{
-		final int typeResult = type.compareTo(other.type);
+		if(this==o)
+			return 0;
+
+		final int typeResult = type.toptype.compareTo(o.type.toptype);
 		if(typeResult!=0)
 			return typeResult;
 
-		return Compare.compare(pk, other.pk);
+		return Compare.compare(pk, o.pk);
 	}
 
 	/**
@@ -164,15 +172,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return getEntity().getItem();
 	}
 
-	protected Item(final SetValue... setValues)
+	protected Item(final SetValue<?>... setValues)
 	{
 		this.type = TypesBound.forClass(getClass());
-		final LinkedHashMap<Field, Object> fieldValues = type.prepareCreate(setValues);
+		final LinkedHashMap<Field<?>, Object> fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
 
-	void doCreate(final LinkedHashMap<Field, Object> fieldValues)
+	void doCreate(final LinkedHashMap<Field<?>, Object> fieldValues)
 	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
@@ -205,7 +213,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 	protected Item(final ActivationParameters ap)
 	{
 		if(ap==null)
-			throw new RuntimeException("activation constructor is for internal purposes only, don't use it in your application!");
+			throw new RuntimeException(
+					"activation constructor is for internal purposes only, " +
+					"don't use it in your application!");
+
 		this.type = ap.type;
 		this.pk = ap.pk;
 		//System.out.println("activate item:"+type+" "+pk);
@@ -233,10 +244,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		private static final long serialVersionUID = 1l;
 
-		private final Type type;
+		private final Type<?> type;
 		private final int pk;
 
-		Serialized(final Type type, final int pk)
+		Serialized(final Type<?> type, final int pk)
 		{
 			this.type = type;
 			this.pk = pk;
@@ -276,7 +287,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		type.assertBelongs(field);
 
 		if(field.isfinal)
-			throw new FinalViolationException(field, field, this);
+			throw FinalViolationException.create(field, this);
 
 		field.check(value, this);
 
@@ -297,7 +308,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
-	public final void set(final SetValue... setValues)
+	public final void set(final SetValue<?>... setValues)
 		throws
 			UniqueViolationException,
 			MandatoryViolationException,
@@ -310,14 +321,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(setValues.length==0)
 			return;
 
-		final LinkedHashMap<Field, Object> fieldValues = executeSetValues(setValues, this);
-		for(final Map.Entry<Field, Object> e : fieldValues.entrySet())
+		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
-			final Field field = e.getKey();
+			final Field<?> field = e.getKey();
 			type.assertBelongs(field);
 
 			if(field.isfinal)
-				throw new FinalViolationException(field, field, this);
+				throw FinalViolationException.create(field, this);
 
 			field.check(e.getValue(), this);
 		}
@@ -346,7 +357,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			{
 				case FORBID:
 				{
-					final Collection s = field.getType().search(Cope.equalAndCast(field, this));
+					final Collection<?> s = field.getType().search(Cope.equalAndCast(field, this));
 					if(!s.isEmpty())
 						throw new IntegrityViolationException(field, this);
 					break;
@@ -436,7 +447,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return getEntity(true);
 	}
 
-	private final Entity getEntity(final boolean present)
+	final Entity getEntity(final boolean present)
 	{
 		return type.getModel().currentTransaction().getEntity(this, present);
 	}
@@ -450,63 +461,64 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getModificationCountIfActive()
+	int getUpdateCountIfActive()
 	{
 		final Entity entity = getEntityIfActive();
 		return
 			entity==null
 			? Integer.MIN_VALUE
-			: entity.getModificationCount();
+			: entity.getUpdateCount();
 	}
 
 	/**
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getModificationCountGlobal()
+	int getUpdateCountGlobal()
 	{
 		final WrittenState state =
 			type.getModel().currentTransaction().getGlobalState(this);
 		return
 			state==null
 			? Integer.MIN_VALUE
-			: state.modificationCount;
+			: state.updateCount;
 	}
 
-	static final LinkedHashMap<Field, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	static final LinkedHashMap<Field<?>, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
-		final LinkedHashMap<Field, Object> result = new LinkedHashMap<Field, Object>();
+		final LinkedHashMap<Field<?>, Object> result = new LinkedHashMap<Field<?>, Object>();
 		for(final SetValue<?> source : sources)
 		{
-			if(source.settable instanceof Field)
+			if(source.settable instanceof Field<?>)
 			{
 				putField(result, source);
 			}
 			else
 			{
-				for(final SetValue part : execute(source, exceptionItem))
+				for(final SetValue<?> part : execute(source, exceptionItem))
 					putField(result, part);
 			}
 		}
 		return result;
 	}
 
-	private static final void putField(final LinkedHashMap<Field, Object> result, final SetValue<?> setValue)
+	private static final void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
 	{
-		if(result.put((Field)setValue.settable, setValue.value)!=null)
+		if(result.put((Field<?>)setValue.settable, setValue.value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
-	private static final <X> SetValue[] execute(final SetValue<X> sv, final Item exceptionItem)
+	private static final <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	private static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field, Object> fieldValues, final Item exceptionItem)
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
+	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
 
-		for(final Field field : fieldValues.keySet())
+		for(final Field<?> field : fieldValues.keySet())
 		{
 			if(!(field instanceof DataField))
 				continue;
@@ -518,28 +530,52 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return result;
 	}
 
-	// convenience for subclasses --------------------------------------------------
+	// ------------------- deprecated stuff -------------------
 
+	/**
+	 * @deprecated Is default delete policy anyway.
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy FORBID = ItemField.DeletePolicy.FORBID;
+
+	/**
+	 * @deprecated Use {@link ItemField#nullify()} instead
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy NULLIFY = ItemField.DeletePolicy.NULLIFY;
+
+	/**
+	 * @deprecated Use {@link ItemField#cascade()} instead
+	 */
+	@Deprecated
 	public static final ItemField.DeletePolicy CASCADE = ItemField.DeletePolicy.CASCADE;
 
+	/**
+	 * @deprecated Use {@link EnumField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
 	{
-		return new EnumField<E>(valueClass);
+		return EnumField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
-		return TypesBound.newItemField(valueClass);
+		return ItemField.create(valueClass);
 	}
 
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
 	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return TypesBound.newItemField(valueClass, policy);
+		return ItemField.create(valueClass, policy);
 	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Renamed to {@link #newEnumField(Class)}.

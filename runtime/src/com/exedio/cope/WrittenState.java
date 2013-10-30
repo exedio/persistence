@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,25 +25,25 @@ final class WrittenState extends State
 	private final Row row;
 	private long lastUsageMillis;
 
-	WrittenState(final Item item, final Row row, final int modificationCount)
+	WrittenState(final Item item, final Row row, final int updateCount)
 	{
-		super(item, modificationCount);
+		super(item, updateCount);
 		this.row = row;
 		lastUsageMillis = System.currentTimeMillis();
 	}
 
 	WrittenState(final State original)
 	{
-		super(original.item, original.modificationCount+1);
+		super(original.item, original.updateCount+1);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 		lastUsageMillis = System.currentTimeMillis();
 	}
 
 	@Override
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
-		return field.get(row, null);
+		return field.get(row);
 	}
 
 	@Override

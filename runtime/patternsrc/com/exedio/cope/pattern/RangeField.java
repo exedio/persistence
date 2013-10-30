@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,36 +18,40 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.util.Set;
 
-public final class RangeField<E> extends Pattern implements Settable<Range<E>>
+public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
+	private final CheckConstraint unison;
 
 	private RangeField(final FunctionField<E> borderTemplate)
 	{
 		addSource(from = borderTemplate.copy(), "from");
 		addSource(to   = borderTemplate.copy(), "to");
+		addSource(unison = new CheckConstraint(Cope.or(isNull(from), isNull(to), from.lessOrEqual(to))), "unison");
 	}
 
-	public static final <E> RangeField<E> newRange(final FunctionField<E> borderTemplate)
+	private static Condition isNull(final FunctionField<?> field)
 	{
-		if(!borderTemplate.isMandatory())
-			throw new IllegalArgumentException("optional borderTemplate not yet implemented");
+		return field.isMandatory() ? Condition.FALSE : field.isNull();
+	}
+
+	public static final <E extends Comparable<E>> RangeField<E> create(final FunctionField<E> borderTemplate)
+	{
 		if(borderTemplate.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
 
@@ -64,74 +68,64 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		return to;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
+	public CheckConstraint getUnison()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-		final boolean isfinal = from.isFinal();
-
-		result.add(
-			new Wrapper("get").
-			setReturn(Wrapper.generic(Range.class, from.getValueClass())));
-
-		if(!isfinal)
-			result.add(
-				new Wrapper("set").
-				addParameter(Wrapper.genericExtends(Range.class, from.getValueClass())));
-
-		result.add(
-			new Wrapper("getFrom").
-			setReturn(Wrapper.TypeVariable0.class));
-
-		result.add(
-			new Wrapper("getTo").
-			setReturn(Wrapper.TypeVariable0.class));
-
-		if(!isfinal)
-		{
-			result.add(
-				new Wrapper("setFrom").
-				addParameter(Wrapper.TypeVariable0.class));
-
-			result.add(
-				new Wrapper("setTo").
-				addParameter(Wrapper.TypeVariable0.class));
-		}
-
-		return Collections.unmodifiableList(result);
+		return unison;
 	}
 
+	@Wrap(order=10)
 	public Range<E> get(final Item item)
 	{
-		return new Range<E>(from.get(item), to.get(item));
+		return Range.valueOf(from.get(item), to.get(item));
 	}
 
+	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void set(final Item item, final Range<? extends E> value)
 	{
 		item.set(
-				this.from.map(value.from),
-				this.to  .map(value.to  ));
+				this.from.map(value.getFrom()),
+				this.to  .map(value.getTo  ()));
 	}
 
+	@Wrap(order=30)
 	public E getFrom(final Item item)
 	{
 		return from.get(item);
 	}
 
+	@Wrap(order=40)
 	public E getTo(final Item item)
 	{
 		return to.get(item);
 	}
 
+	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void setFrom(final Item item, final E from)
 	{
 		this.from.set(item, from);
 	}
 
+	@Wrap(order=60, hide=FinalSettableGetter.class)
 	public void setTo(final Item item, final E to)
 	{
 		this.to.set(item, to);
+	}
+
+	@Wrap(order=70)
+	public boolean doesContain(final Item item, final E value)
+	{
+		if(value==null)
+			throw new NullPointerException("value");
+
+		final E from = getFrom(item);
+		if(from!=null && from.compareTo(value)>0)
+			return false;
+
+		final E to   = getTo  (item);
+		if(to  !=null && to  .compareTo(value)<0)
+			return false;
+
+		return true;
 	}
 
 	public Condition contains(final E value)
@@ -143,14 +137,14 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 
 	public SetValue<Range<E>> map(final Range<E> value)
 	{
-		return new SetValue<Range<E>>(this, value);
+		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final Range<E> value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
-		return new SetValue[]{
-				from.map(value.from),
-				to  .map(value.to  )};
+		return new SetValue<?>[]{
+				from.map(value.getFrom()),
+				to  .map(value.getTo  ())};
 	}
 
 	public boolean isFinal()
@@ -158,18 +152,35 @@ public final class RangeField<E> extends Pattern implements Settable<Range<E>>
 		return from.isFinal();
 	}
 
+	public boolean isMandatory()
+	{
+		return from.isMandatory();
+	}
+
 	public boolean isInitial()
 	{
 		return from.isInitial();
 	}
 
+	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
-		return Wrapper.generic(Range.class, from.getValueClass());
+		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return from.getInitialExceptions();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)
+	{
+		return create(borderTemplate);
 	}
 }

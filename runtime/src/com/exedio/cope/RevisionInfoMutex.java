@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,17 +18,18 @@
 
 package com.exedio.cope;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
-final class RevisionInfoMutex extends RevisionInfo
+public final class RevisionInfoMutex extends RevisionInfo
 {
 	static final int NUMBER = -1;
 	private final int expectedNumber;
 	private final int actualNumber;
 
-	RevisionInfoMutex(
+	public RevisionInfoMutex(
 			final Date date,
 			final Map<String, String> environment,
 			final int expectedNumber,
@@ -45,12 +46,12 @@ final class RevisionInfoMutex extends RevisionInfo
 		this.actualNumber = actualNumber;
 	}
 
-	int getExpectedNumber()
+	public int getExpectedNumber()
 	{
 		return expectedNumber;
 	}
 
-	int getActualNumber()
+	public int getActualNumber()
 	{
 		return actualNumber;
 	}
@@ -82,5 +83,30 @@ final class RevisionInfoMutex extends RevisionInfo
 				environment,
 				Integer.valueOf(p.getProperty(EXPECTED)),
 				Integer.valueOf(p.getProperty(ACTUAL)));
+	}
+
+	static final void delete(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
+	{
+		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
+		final Statement bf = executor.newStatement();
+		bf.append("delete from ").
+			append(dsmfDialect.quoteName(properties.revisionTableName)).
+			append(" where ").
+			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
+			append('=').
+			appendParameter(NUMBER);
+
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			executor.updateStrict(connection, null, bf);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Set;
 
 /**
@@ -30,37 +34,75 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final Integer defaultNextStart;
-	final Sequence defaultToNextSequence;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	final SequenceX defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
 	private IntegerField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Integer defaultConstant, final Integer defaultNextStart,
-			final int minimum, final int maximum)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<Integer> defaultSource,
+			final int minimum,
+			final int maximum)
 	{
-		super(isfinal, optional, unique, Integer.class, defaultConstant);
-		this.defaultNextStart = defaultNextStart;
+		super(isfinal, optional, unique, copyFrom, Integer.class, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
-		if(defaultConstant!=null && defaultNextStart!=null)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNext together");
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
 
-		checkDefaultConstant();
-		if(defaultNextStart!=null)
+		mountDefaultSource();
+		this.defaultToNextSequence =
+				(this.defaultSource instanceof DefaultNext)
+				? ((DefaultNext)this.defaultSource).getSequence()
+				: null;
+	}
+
+	private static final class DefaultNext extends DefaultSource<Integer>
+	{
+		final int start;
+		private SequenceX sequence;
+
+		DefaultNext(final int start)
 		{
+			this.start = start;
+		}
+
+		SequenceX getSequence()
+		{
+			assert sequence!=null;
+			return sequence;
+		}
+
+		@Override
+		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // TODO think of a better design
+		Integer generate(final long now)
+		{
+			return sequence.next();
+		}
+
+		@Override
+		DefaultSource<Integer> forNewField()
+		{
+			return new DefaultNext(start);
+		}
+
+		@Override
+		void mount(final FunctionField<Integer> field)
+		{
+			final IntegerField f = (IntegerField)field;
 			try
 			{
-				check(defaultNextStart, null);
+				field.check(start, null);
 			}
 			catch(final ConstraintViolationException e)
 			{
 				// BEWARE
-				// Must not make exception e available to public,
+				// Must not make exception available to public,
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new IllegalArgumentException(
@@ -68,13 +110,10 @@ public final class IntegerField extends NumberField<Integer>
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
 						": " + e.getMessageWithoutFeature() +
-						" Start value was '" + defaultNextStart + "'.");
+						" Start value was '" + start + "'.");
 			}
-			this.defaultToNextSequence = new Sequence(this, defaultNextStart.intValue(), minimum, maximum);
-		}
-		else
-		{
-			this.defaultToNextSequence = null;
+			assert sequence==null;
+			sequence = new SequenceX(f, start, f.getMinimum(), f.getMaximum());
 		}
 	}
 
@@ -89,73 +128,79 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultSource, minimum, maximum);
+	}
+
+	@Override
+	public IntegerField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField noDefault()
 	{
-		return new IntegerField(isfinal, optional, unique, null, null, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, start, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, new DefaultNext(start), minimum, maximum);
 	}
 
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, defaultConstant, defaultNextStart, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
 	}
 
 	public boolean isDefaultNext()
 	{
-		return defaultNextStart!=null;
+		return defaultSource instanceof DefaultNext;
 	}
 
 	public Integer getDefaultNextStart()
 	{
-		return defaultNextStart;
+		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).start : null;
 	}
 
 	public int getMinimum()
@@ -168,18 +213,6 @@ public final class IntegerField extends NumberField<Integer>
 		return maximum;
 	}
 
-	/**
-	 * Returns true, if a value for the field should be specified
-	 * on the creation of an item.
-	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) && !{@link #isDefaultNext()}</tt>.
-	 */
-	@Override
-	public boolean isInitial()
-	{
-		return (defaultNextStart==null) && super.isInitial();
-	}
-
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
@@ -189,16 +222,22 @@ public final class IntegerField extends NumberField<Integer>
 		return result;
 	}
 
+	@Deprecated
 	@Override
-	public Class getInitialType()
+	public Class<?> getInitialType()
 	{
 		return optional ? Integer.class : int.class;
+	}
+
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.INTEGER;
 	}
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final IntegerColumn result = new IntegerColumn(table, this, name, false, optional, minimum, maximum, false);
+		final IntegerColumn result = new IntegerColumn(table, name, false, optional, minimum, maximum, false);
 		if(defaultToNextSequence!=null)
 		{
 			final Database database = table.database;
@@ -217,7 +256,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
-	Integer get(final Row row, final Query query)
+	Integer get(final Row row)
 	{
 		return (Integer)row.get(getColumn());
 	}
@@ -231,14 +270,16 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
+	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public int getMandatory(final Item item)
 	{
-		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
-
-		return get(item).intValue();
+		return getMandatoryObject(item).intValue();
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			hide={FinalSettableGetter.class, OptionalGetter.class},
+			thrownGetter=InitialThrown.class)
 	public void set(final Item item, final int value)
 		throws
 			UniqueViolationException,
@@ -246,6 +287,22 @@ public final class IntegerField extends NumberField<Integer>
 			IntegerRangeViolationException
 	{
 		set(item, Integer.valueOf(value));
+	}
+
+	/**
+	 * Finds an item by it's unique fields.
+	 * @return null if there is no matching item.
+	 * @see FunctionField#searchUnique(Class, Object)
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by it''s {0}.",
+			docReturn="null if there is no matching item.",
+			hide={OptionalGetter.class, NonUniqueGetter.class})
+	public final <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final int value)
+	{
+		return super.searchUnique(typeClass, Integer.valueOf(value));
 	}
 
 	@Override
@@ -263,10 +320,32 @@ public final class IntegerField extends NumberField<Integer>
 		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
 	}
 
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel().connect().connectionPool) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;
 	}
+
+	String getDefaultToNextSequenceName()
+	{
+		if(defaultToNextSequence==null)
+			throw new IllegalArgumentException("is not defaultToNext: " + this);
+
+		return defaultToNextSequence.getSchemaName();
+	}
+
+	public IntegerField rangeDigits(final int digits)
+	{
+		return IntegerFieldRangeDigits.rangeDigits(this, digits);
+	}
+
+	public IntegerField rangeDigits(final int minimumDigits, final int maximumDigits)
+	{
+		return IntegerFieldRangeDigits.rangeDigits(this, minimumDigits, maximumDigits);
+	}
+
 
 	@Override
 	public Condition equal(final Integer value)

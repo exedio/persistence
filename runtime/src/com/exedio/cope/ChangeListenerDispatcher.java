@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,15 +19,10 @@
 package com.exedio.cope;
 
 import gnu.trove.TIntHashSet;
-
-import java.text.SimpleDateFormat;
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
 
-import com.exedio.cope.util.Interrupter;
-
-final class ChangeListenerDispatcher implements Runnable, Interrupter
+final class ChangeListenerDispatcher implements Runnable
 {
 	private final Types types;
 	private final ChangeListeners manager;
@@ -35,32 +30,32 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 	private final ThreadSwarm threads;
 	private boolean threadRun = true;
-	private volatile long overflow = 0;
-	private volatile long exception = 0;
+	private final VolatileLong overflow = new VolatileLong();
+	private final VolatileLong exception = new VolatileLong();
 
 	ChangeListenerDispatcher(
 			final Types types,
 			final String name,
 			final ChangeListeners manager,
-			final ConnectProperties connectProperties)
+			final ConnectProperties properties)
 	{
 		this.types = types;
 		this.manager = manager;
-		this.queue = new LimitedQueue<ChangeEvent>(connectProperties.changeListenersQueueCapacity.intValue());
+		this.queue = new LimitedQueue<ChangeEvent>(properties.changeListenersQueueCapacity);
 
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Change Listener Dispatcher " + name,
-				connectProperties.changeListenersThreadsMax.intValue()
+				properties.changeListenersThreadsMax
 		);
-		if(connectProperties.changeListenersPrioritySet.booleanValue())
-			threads.setPriority(connectProperties.changeListenersPriority.intValue());
-		threads.start(connectProperties.changeListenersThreads.intValue());
+		if(properties.changeListenersPrioritySet)
+			threads.setPriority(properties.changeListenersPriority);
+		threads.start(properties.changeListenersThreads);
 	}
 
 	ChangeListenerDispatcherInfo getInfo()
 	{
-		return new ChangeListenerDispatcherInfo(overflow, exception, queue.size());
+		return new ChangeListenerDispatcherInfo(overflow.get(), exception.get(), queue.size());
 	}
 
 	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
@@ -73,13 +68,13 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 		if(!queue.offer(event))
 		{
-			overflow++;
-			if(ChangeListeners.logger.isLoggable(Level.SEVERE))
-				ChangeListeners.logger.log(Level.SEVERE, "COPE Change Listener Dispatcher overflows");
+			overflow.inc();
+			if(ChangeListeners.logger.isErrorEnabled())
+				ChangeListeners.logger.error("COPE Change Listener Dispatcher overflows");
 		}
 	}
 
-	public boolean isRequested()
+	boolean requestedToStop()
 	{
 		return !threadRun;
 	}
@@ -106,7 +101,7 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 					return;
 				}
 
-				manager.handle(event, this);
+				manager.dispatch(event, this);
 	      }
 			catch(final InterruptedException e)
 			{
@@ -127,22 +122,17 @@ final class ChangeListenerDispatcher implements Runnable, Interrupter
 
 	private void handleException(final Throwable e)
 	{
-		exception++;
-		System.out.println("--------ChangeListenerDispatcher-----");
-		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-		e.printStackTrace(System.out);
-		System.out.println("-------/ChangeListenerDispatcher-----");
+		exception.inc();
+		if(ChangeListeners.logger.isErrorEnabled())
+			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 
-	private void logTerminate()
+	private static void logTerminate()
 	{
-		if(ThreadSwarm.logger.isLoggable(Level.INFO))
+		if(ThreadSwarm.logger.isInfoEnabled())
 		{
 			final Thread t = Thread.currentThread();
-			ThreadSwarm.logger.log(
-					Level.INFO,
-					"{1} ({0}) terminates.",
-					new Object[]{t.getId(), t.getName()});
+			ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) terminates.", t.getName(), t.getId()));
 		}
 	}
 

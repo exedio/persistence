@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,13 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.search.ExtremumAggregate;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 
-import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.search.ExtremumAggregate;
-
 public final class This<E extends Item> extends Feature
-	implements Function<E>, ItemFunction<E>
+	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -70,14 +69,13 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
-		final Type selectType = getType();
+		final Type<?> selectType = getType();
 		bf.appendPK(selectType, join);
 
 		final IntegerColumn column = selectType.getTable().primaryKey;
 		assert column.primaryKey;
-		columnHolder.value = column;
 
 		final StringColumn typeColumn = column.table.typeColumn;
 		if(typeColumn!=null)
@@ -85,8 +83,6 @@ public final class This<E extends Item> extends Feature
 			bf.append(',').
 				append(typeColumn, join);
 		}
-		else
-			typeHolder.value = selectType.getOnlyPossibleTypeOfInstances();
 	}
 
 	@Deprecated // OK: for internal use within COPE only
@@ -108,16 +104,13 @@ public final class This<E extends Item> extends Feature
 
 	public boolean needsCheckTypeColumn()
 	{
-		return type.supertype!=null && type.supertype.getTable().typeColumn!=null;
+		return type.needsCheckTypeColumn();
 	}
 
 	public int checkTypeColumn()
 	{
-		if(!needsCheckTypeColumn())
-			throw new RuntimeException("no check for type column needed for " + this);
-
-		final Transaction tx = type.getModel().currentTransaction();
-		return type.checkTypeColumn(tx.getConnection(), tx.connect.executor);
+		ItemFunctionUtil.checkTypeColumnNeeded(this);
+		return type.checkTypeColumn();
 	}
 
 	// convenience methods for conditions and views ---------------------------------
@@ -153,7 +146,7 @@ public final class This<E extends Item> extends Feature
 		return CompositeCondition.in(this, values);
 	}
 
-	public Condition in(final Collection<E> values)
+	public Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
@@ -233,12 +226,12 @@ public final class This<E extends Item> extends Feature
 		return new BindItemFunction<E>(this, join);
 	}
 
-	public CompareFunctionCondition equalTarget()
+	public CompareFunctionCondition<?> equalTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
-	public CompareFunctionCondition equalTarget(final Join targetJoin)
+	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return equal(getValueType().thisFunction.bind(targetJoin));
 	}
@@ -263,6 +256,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, false, types);
@@ -288,6 +282,7 @@ public final class This<E extends Item> extends Feature
 		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<E>(this, true, types);
@@ -320,6 +315,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -350,6 +346,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Deprecated
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

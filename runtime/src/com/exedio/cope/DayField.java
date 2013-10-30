@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,138 +18,149 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Date;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class DayField extends FunctionField<Day>
 {
+	private static final Logger logger = LoggerFactory.getLogger(DayField.class);
+
 	private static final long serialVersionUID = 1l;
 
-	final boolean defaultNow;
-	private final boolean suspiciousForWrongDefaultNow;
-
 	private DayField(
-			final boolean isfinal, final boolean optional, final boolean unique,
-			final Day defaultConstant, final boolean defaultNow)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<Day> defaultSource)
 	{
-		super(isfinal, optional, unique, Day.class, defaultConstant);
-		this.defaultNow = defaultNow;
-		this.suspiciousForWrongDefaultNow = defaultConstant!=null && defaultConstant.equals(new Day());
-
-		if(defaultConstant!=null && defaultNow)
-			throw new IllegalStateException("cannot use defaultConstant and defaultNow together");
-		checkDefaultConstant();
+		super(isfinal, optional, unique, copyFrom, Day.class, defaultSource);
+		mountDefaultSource();
 	}
 
 	public DayField()
 	{
-		this(false, false, false, null, false);
+		this(false, false, false, null, null);
 	}
 
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, defaultConstant, defaultNow);
+		return new DayField(true, optional, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, true, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, false, copyFrom, defaultSource);
+	}
+
+	@Override
+	public DayField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
 	public DayField noDefault()
 	{
-		return new DayField(isfinal, optional, unique, null, false);
+		return new DayField(isfinal, optional, unique, copyFrom, null);
 	}
 
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, defaultNow);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
 	}
+
+	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()
+	{
+		@Override
+		Day generate(final long now)
+		{
+			return new Day(new Date(now));
+		}
+
+		@Override
+		DefaultSource<Day> forNewField()
+		{
+			return this;
+		}
+
+		@Override
+		void mount(final FunctionField<Day> field)
+		{
+			// nothing to be checked
+		}
+	};
 
 	public DayField defaultToNow()
 	{
-		return new DayField(isfinal, optional, unique, defaultConstant, true);
+		return new DayField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultNow;
+		return defaultSource==DEFAULT_TO_NOW;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
+	public SelectType<Day> getValueType()
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		if(!isfinal)
-		{
-			final Set<Class<? extends Throwable>> exceptions = getInitialExceptions();
-			exceptions.remove(MandatoryViolationException.class); // cannot set null
-
-			result.add(
-				new Wrapper("touch").
-				addComment("Sets today for the date field {0}.").
-				addThrows(exceptions));
-		}
-
-		return Collections.unmodifiableList(result);
-	}
-
-	@Override
-	public boolean isInitial()
-	{
-		return !defaultNow && super.isInitial();
+		return SimpleSelectType.DAY;
 	}
 
 	@Override
 	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(suspiciousForWrongDefaultNow)
-			System.out.println(
-					"WARNING: " +
-					"Very probably you called \"DayField.defaultTo(new Day())\" on field " + type.getID() + '.' + name + ". " +
-					"This will not work as expected, use \"defaultToNow()\" instead.");
-
 		super.mount(type, name, annotationSource);
+
+		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
+			logger.warn(
+					"Very probably you called \"DayField.defaultTo(new Day())\" on field {}. " +
+					"This will not work as expected, use \"defaultToNow()\" instead.",
+					getID());
+	}
+
+	private boolean suspiciousForWrongDefaultNow()
+	{
+		final Day defaultConstant = getDefaultConstant();
+		if(defaultConstant==null)
+			return false;
+
+		return defaultConstant.equals(new Day(new Date(getDefaultConstantCreatedTimeMillis())));
 	}
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DayColumn(table, this, name, optional);
+		return new DayColumn(table, name, optional);
 	}
 
 	@Override
-	Day get(final Row row, final Query query)
+	Day get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
 		return cell==null ? null : DayColumn.getDay(((Integer)cell).intValue());
@@ -165,6 +176,9 @@ public final class DayField extends FunctionField<Day>
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.
 	 */
+	@Wrap(order=10,
+			doc="Sets today for the date field {0}.", // TODO better text
+			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 		throws
 			UniqueViolationException,

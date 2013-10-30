@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,17 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.AnnotatedElement;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
-import com.exedio.cope.ItemField.DeletePolicy;
+import java.lang.reflect.AnnotatedElement;
 
 class PatternTestPattern extends Pattern
 {
@@ -87,12 +86,12 @@ class PatternTestPattern extends Pattern
 		return ownItem;
 	}
 
-	public Type<PatternTestTypeItem> getSuperType()
+	public Type<PatternTestTypeItem> getPatternSuperType()
 	{
 		return superType;
 	}
 
-	public Type<PatternTestTypeItem> getSubType()
+	public Type<PatternTestTypeItem> getPatternSubType()
 	{
 		return subType;
 	}

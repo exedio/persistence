@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope.junit;
 
+import com.exedio.cope.Query;
+import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,12 +35,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import junit.framework.TestCase;
-
-import com.exedio.cope.Query;
-import com.exedio.cope.QueryInfo;
-import com.exedio.cope.Transaction;
 
 public abstract class CopeAssert extends TestCase
 {
@@ -127,22 +125,22 @@ public abstract class CopeAssert extends TestCase
 
 	public static final List<Object> list(final Object... o)
 	{
-		return Arrays.asList(o);
+		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
 	public static final <T> List<T> listg(final T... o)
 	{
-		return Arrays.asList(o);
+		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
 	public static final Map<Object, Object> map()
 	{
-		return Collections.<Object, Object>emptyMap();
+		return Collections.unmodifiableMap(Collections.<Object, Object>emptyMap());
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1)
 	{
-		return Collections.<Object, Object>singletonMap(key1, value1);
+		return Collections.unmodifiableMap(Collections.<Object, Object>singletonMap(key1, value1));
 	}
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
@@ -150,7 +148,7 @@ public abstract class CopeAssert extends TestCase
 		final HashMap<Object, Object> result = new HashMap<Object, Object>();
 		result.put(key1, value1);
 		result.put(key2, value2);
-		return result;
+		return Collections.unmodifiableMap(result);
 	}
 
 	public static final <T extends Object> void assertUnmodifiable(final Collection<T> c)
@@ -196,7 +194,7 @@ public abstract class CopeAssert extends TestCase
 			}
 			catch(final UnsupportedOperationException e) {/*OK*/}
 
-			final Iterator iterator = c.iterator();
+			final Iterator<?> iterator = c.iterator();
 			try
 			{
 				iterator.next();
@@ -206,7 +204,7 @@ public abstract class CopeAssert extends TestCase
 			catch(final UnsupportedOperationException e) {/*OK*/}
 		}
 
-		if(c instanceof List)
+		if(c instanceof List<?>)
 		{
 			final List<T> l = (List<T>)c;
 
@@ -230,10 +228,49 @@ public abstract class CopeAssert extends TestCase
 
 	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
+		try
+		{
+			actual.clear();
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.put(null, null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.putAll(null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
+		try
+		{
+			actual.remove(null);
+			fail("should have thrown UnsupportedOperationException");
+		}
+		catch(final UnsupportedOperationException e) {/*OK*/}
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
 		assertUnmodifiable(actual.entrySet());
 		assertEquals(expected, actual);
+	}
+
+	public static void assertEqualsStrict(final Object expected, final Object actual)
+	{
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
+		if(expected!=null)
+			assertEquals(expected.hashCode(), actual.hashCode());
+	}
+
+	public static void assertNotEqualsStrict(final Object expected, final Object actual)
+	{
+		assertTrue(!expected.equals(actual));
+		assertTrue(!actual.equals(expected));
+		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
@@ -259,7 +296,7 @@ public abstract class CopeAssert extends TestCase
 		try
 		{
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
+			final ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos);
 			oos.writeObject(value);
 			oos.close();
 
@@ -277,6 +314,41 @@ public abstract class CopeAssert extends TestCase
 		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
+		}
+	}
+
+	private static final class DeduplicateStringsObjectOutputStream extends ObjectOutputStream
+	{
+		private HashMap<String, String> strings = null;
+
+		DeduplicateStringsObjectOutputStream(final ByteArrayOutputStream out) throws IOException
+		{
+			super(out);
+			enableReplaceObject(true);
+		}
+
+		@Override
+		protected Object replaceObject(final Object obj)
+		{
+			if(obj instanceof String)
+			{
+				final String string = (String)obj;
+				if(strings==null)
+					strings = new HashMap<String, String>();
+
+				final String replacement = strings.get(string);
+				if(replacement==null)
+				{
+					strings.put(string, string);
+					return string;
+				}
+				else
+				{
+					return replacement;
+				}
+			}
+			else
+				return obj;
 		}
 	}
 
@@ -319,11 +391,11 @@ public abstract class CopeAssert extends TestCase
 	 * Calls {@link Query#search()} on the given query and returns the result.
 	 * Prints the statement info to standard out.
 	 */
-	public static final Collection infoSearch(final Query query)
+	public static final Collection<?> infoSearch(final Query<?> query)
 	{
 		final Transaction transaction = query.getType().getModel().currentTransaction();
 		transaction.setQueryInfoEnabled(true);
-		final Collection result = query.search();
+		final Collection<?> result = query.search();
 		System.out.println("INFO-------------------");
 		final List<QueryInfo> infos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);

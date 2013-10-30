@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.EnumSet;
-
 import com.exedio.dsmf.Constraint;
+import java.util.EnumSet;
 
 public class HierarchyEmptyTest extends AbstractRuntimeTest
 {
@@ -93,50 +92,50 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
 		// test persistence
-		assertCheckModificationCounters();
+		assertCheckUpdateCounters();
 
 		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
-		assertCheckModificationCounters();
+		assertCheckUpdateCounters();
 		assertEquals(0, subItem.getSuperInt());
 
 		subItem.setSuperInt(2);
-		assertCheckModificationCounters();
+		assertCheckUpdateCounters();
 		assertEquals(2, subItem.getSuperInt());
 
-		assertEquals(list(subItem), subItem.TYPE.search(subItem.superInt.equal(2)));
-		assertEquals(list(subItem), subItem.TYPE.search(null));
-		assertEquals(list(), subItem.TYPE.search(subItem.superInt.equal(1)));
+		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(2)));
+		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(null));
+		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(1)));
 
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
-		assertCheckModificationCounters();
+		assertCheckUpdateCounters();
 		assertEquals(3, superItem.getSuperInt());
 
 		superItem.setSuperInt(4);
-		assertCheckModificationCounters();
+		assertCheckUpdateCounters();
 		assertEquals(4, superItem.getSuperInt());
 
-		assertEquals(list(superItem), superItem.TYPE.search(superItem.superInt.equal(4)));
-		assertEquals(list(subItem), superItem.TYPE.search(superItem.superInt.equal(2)));
-		assertContains(superItem, subItem, superItem.TYPE.search(null));
-		assertEquals(list(), superItem.TYPE.search(superItem.superInt.equal(1)));
+		assertEquals(list(superItem), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(4)));
+		assertEquals(list(subItem), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(2)));
+		assertContains(superItem, subItem, HierarchyEmptySuper.TYPE.search(null));
+		assertEquals(list(), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 	}
 
 	public void testModel()
 	{
 		model.checkSchema();
-		if(!postgresql)
-		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-		}
+
+		model.commit();
+
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySub.TYPE,
@@ -166,6 +165,8 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 }

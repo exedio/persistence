@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ public class RandomTest extends AbstractRuntimeTest
 
 	CompareConditionItem item1, item2, item3, item4, item5, itemX;
 	List<Long> expected5, expected6;
-	List expected6Sort;
+	List<?> expected6Sort;
 
 	@Override
 	public void setUp() throws Exception
@@ -192,7 +192,7 @@ public class RandomTest extends AbstractRuntimeTest
 		assertEquals(result, q.search());
 	}
 
-	private static void assertNotSupported(final Query q)
+	private static void assertNotSupported(final Query<?> q)
 	{
 		try
 		{

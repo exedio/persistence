@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.junit.CopeAssert;
 
-public class EnumMapFieldTest extends AbstractRuntimeTest
+public class EnumMapFieldTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
 
@@ -35,28 +39,8 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		MODEL.enableSerialization(EnumMapFieldTest.class, "MODEL");
 	}
 
-	private static final EnumMapFieldItem.Language DE = EnumMapFieldItem.Language.DE;
-	private static final EnumMapFieldItem.Language EN = EnumMapFieldItem.Language.EN;
-	private static final EnumMapFieldItem.Language PL = EnumMapFieldItem.Language.PL;
-
-	public EnumMapFieldTest()
-	{
-		super(MODEL);
-	}
-
-	EnumMapFieldItem item, itemX;
-
-	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-		item = deleteOnTearDown(new EnumMapFieldItem());
-		itemX = deleteOnTearDown(new EnumMapFieldItem());
-	}
-
 	public void testIt()
 	{
-		// test model
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
 
@@ -87,82 +71,19 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
 				TYPE.getFields());
 
-		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
 		assertSerializedSame(name      , 386);
 		assertSerializedSame(nameLength, 392);
-
-		// test persistence
-		assertEquals(null, item.getName(DE));
-		assertEquals(null, item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals("defaultDE", item.getDefaults(DE));
-		assertEquals(null, item.getDefaults(EN));
-		assertEquals(null, item.getDefaults(PL));
-
-		item.setName(DE, "nameDE");
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(null, item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setNameLength(DE, 5);
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(5), item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setNameLength(DE, 6);
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
-		assertEquals(null, item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setName(EN, "nameEN");
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
-		assertEquals("nameEN", item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		item.setName(DE, null);
-		assertEquals(null, item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
-		assertEquals("nameEN", item.getName(EN));
-		assertEquals(null, item.getNameLength(EN));
-		assertEquals(null, itemX.getName(DE));
-
-		try
-		{
-			item.getName(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			item.setName(null, "hallo");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			((EnumMapField)name).get(item, X.A);
+			((EnumMapField)name).get((EnumMapFieldItem)null, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -171,7 +92,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			((EnumMapField)name).set(item, X.A, "hallo");
+			((EnumMapField)name).set((EnumMapFieldItem)null, X.A, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)

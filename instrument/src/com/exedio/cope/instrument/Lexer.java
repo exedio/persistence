@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,10 +19,12 @@
 
 package com.exedio.cope.instrument;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
@@ -67,6 +69,7 @@ final class Lexer
 	 * the input stream to be parsed.
 	 */
 	public Lexer(final File inputFile,
+							final Charset charset,
 							final JavaFile javaFile)
 		throws IOException
 	{
@@ -82,11 +85,11 @@ final class Lexer
 		{
 			fis.close();
 		}
-		final Charset charset = Charset.defaultCharset(); // TODO make configurable
 		final CharsetDecoder decoder = charset.newDecoder();
 
-		this.input = decoder.decode(ByteBuffer.wrap(inputBytes)).array();
-		this.inputLength = input.length;
+		final CharBuffer buffer = decoder.decode(ByteBuffer.wrap(inputBytes));
+		this.input = buffer.array();
+		this.inputLength = buffer.length(); // BEWARE: May be less than input.length
 
 		this.fileName = inputFile.getName();
 		this.output = javaFile.buffer;
@@ -175,6 +178,7 @@ final class Lexer
 	 * If not, there is no comment,
 	 * and this next character is returned, casted to int.
 	 */
+	@SuppressFBWarnings("UCF_USELESS_CONTROL_FLOW") // evaluate !!!
 	private int readComment() throws EndException
 	{
 		char x;
@@ -190,14 +194,20 @@ final class Lexer
 					if (read() != '*')
 						continue;
 					char c;
-					while ((c = read()) == '*');
+					while ((c = read()) == '*')
+					{
+						// do nothing
+					}
 					if (c == '/')
 						break;
 				}
 				break;
 			case '/' :
 				// this is a '//' comment
-				do;
+				do
+				{
+					// do nothing
+				}
 				while (read() != '\n');
 				break;
 			default :
@@ -438,6 +448,7 @@ final class Lexer
 		return new ParseException(message, input, inputPosition);
 	}
 
+	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	final class ParseException extends ParserException
 	{
 		private static final long serialVersionUID = 1l;
@@ -626,10 +637,10 @@ final class Lexer
 
 	boolean inputEqual(final StringBuilder bf)
 	{
-		if(input.length!=bf.length())
+		if(inputLength!=bf.length())
 			return false;
 
-		for(int i = 0; i<input.length; i++)
+		for(int i = 0; i<inputLength; i++)
 			if(input[i]!=bf.charAt(i))
 				return false;
 

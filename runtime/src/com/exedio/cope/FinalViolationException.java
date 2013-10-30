@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Signals, that an attempt to write an field has been failed,
  * because it cannot be written with any value.
@@ -34,11 +36,21 @@ public final class FinalViolationException extends ConstraintViolationException
 	private final Feature feature;
 
 	/**
-	 * Creates a new FinalViolationException with the neccessary information about the violation.
+	 * Creates a new FinalViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	public FinalViolationException(final Feature feature, final Settable settable, final Item item)
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+	public static <F extends Feature & Settable<?>> FinalViolationException create(final F feature, final Item item)
+	{
+		return new FinalViolationException(feature, feature, item);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Feature, Item)} instead.
+	 */
+	@Deprecated
+	public FinalViolationException(final Feature feature, final Settable<?> settable, final Item item)
 	{
 		super(item, null);
 

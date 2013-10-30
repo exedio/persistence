@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,17 +18,26 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Arrays;
+import static com.exedio.cope.pattern.MessageDigestHashItem.TYPE;
+import static com.exedio.cope.pattern.MessageDigestHashItem.blindPassword;
+import static com.exedio.cope.pattern.MessageDigestHashItem.blindPasswordLatin;
+import static com.exedio.cope.pattern.MessageDigestHashItem.blindPasswordMandatory;
+import static com.exedio.cope.pattern.MessageDigestHashItem.password;
+import static com.exedio.cope.pattern.MessageDigestHashItem.passwordFinal;
+import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
+import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
+import java.util.Arrays;
 
 public class MessageDigestHashTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(MessageDigestHashItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -48,102 +57,110 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal    .getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("885406ef34cef302"));
+		expectSalt(passwordFinal, "885406ef34cef302");
+		expectSalt(passwordMandatory, "885406ef34cef302");
 		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
+	}
+
+	private static final void expectSalt(final Hash hash, final String bytes)
+	{
+		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
 	}
 
 	public void testMD5()
 	{
 		assertEquals(Arrays.asList(
-				item.TYPE.getThis(),
-				item.password,
-				item.password.getStorage(),
-				item.passwordLatin,
-				item.passwordLatin.getStorage(),
-				item.passwordFinal,
-				item.passwordFinal.getStorage(),
-				item.passwordMandatory,
-				item.passwordMandatory.getStorage()),
-			item.TYPE.getFeatures());
+				TYPE.getThis(),
+				password,
+				password.getStorage(),
+				passwordLatin,
+				passwordLatin.getStorage(),
+				passwordFinal,
+				passwordFinal.getStorage(),
+				passwordMandatory,
+				passwordMandatory.getStorage()),
+			TYPE.getFeatures());
 
-		assertEquals(item.TYPE, item.password.getType());
-		assertEquals("password", item.password.getName());
-		assertEquals("SHA512s8i5", item.password.getAlgorithmName());
-		assertEquals(item.TYPE, item.password.getStorage().getType());
-		assertEquals("password-SHA512s8i5", item.password.getStorage().getName());
-		assertEquals(false, item.password.getStorage().isFinal());
-		assertEquals(false, item.password.getStorage().isMandatory());
-		assertEquals(144, item.password.getStorage().getMinimumLength());
-		assertEquals(144, item.password.getStorage().getMaximumLength());
-		assertEquals(item.password, item.password.getStorage().getPattern());
-		assertEquals(false, item.password.isInitial());
-		assertEquals(false, item.password.isFinal());
-		assertEquals(false, item.password.isMandatory());
-		assertEquals(String.class, item.password.getInitialType());
-		assertContains(item.password.getInitialExceptions());
-		assertEquals("utf8", item.password.getEncoding());
-		assertEquals(5, ((MessageDigestAlgorithm)item.password.getAlgorithm()).getIterations());
+		assertEquals(TYPE, password.getType());
+		assertEquals("password", password.getName());
+		assertEquals("SHA512s8i5", password.getAlgorithmID());
+		assertEquals(TYPE, password.getStorage().getType());
+		assertEquals("password-SHA512s8i5", password.getStorage().getName());
+		assertEquals(false, password.getStorage().isFinal());
+		assertEquals(false, password.getStorage().isMandatory());
+		assertEquals(144, password.getStorage().getMinimumLength());
+		assertEquals(144, password.getStorage().getMaximumLength());
+		assertEquals(password, password.getStorage().getPattern());
+		assertEquals(false, password.isInitial());
+		assertEquals(false, password.isFinal());
+		assertEquals(false, password.isMandatory());
+		assertEquals(String.class, getInitialType(password));
+		assertContains(password.getInitialExceptions());
+		assertEquals(UTF8, encoding(password));
+		assertEquals(5, algo(password).getIterations());
 
-		assertEquals(item.TYPE, item.passwordLatin.getType());
-		assertEquals("passwordLatin", item.passwordLatin.getName());
-		assertEquals(item.passwordLatin, item.passwordLatin.getStorage().getPattern());
-		assertEquals(false, item.passwordLatin.isInitial());
-		assertEquals(false, item.passwordLatin.isFinal());
-		assertEquals(false, item.passwordLatin.isMandatory());
-		assertEquals(String.class, item.passwordLatin.getInitialType());
-		assertContains(item.passwordLatin.getInitialExceptions());
-		assertEquals("ISO-8859-1", item.passwordLatin.getEncoding());
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordLatin.getAlgorithm()).getIterations());
+		assertEquals(TYPE, passwordLatin.getType());
+		assertEquals("passwordLatin", passwordLatin.getName());
+		assertEquals(passwordLatin, passwordLatin.getStorage().getPattern());
+		assertEquals(false, passwordLatin.isInitial());
+		assertEquals(false, passwordLatin.isFinal());
+		assertEquals(false, passwordLatin.isMandatory());
+		assertEquals(String.class, getInitialType(passwordLatin));
+		assertContains(passwordLatin.getInitialExceptions());
+		assertEquals("ISO-8859-1", encoding(passwordLatin));
+		assertEquals(5, algo(passwordLatin).getIterations());
 
-		assertEquals(item.TYPE, item.passwordFinal.getType());
-		assertEquals("passwordFinal", item.passwordFinal.getName());
-		assertEquals("SHA512s8i5", item.passwordFinal.getAlgorithmName());
-		assertEquals(item.passwordFinal, item.passwordFinal.getStorage().getPattern());
-		assertEquals(true, item.passwordFinal.isInitial());
-		assertEquals(true, item.passwordFinal.isFinal());
-		assertEquals(true, item.passwordFinal.isMandatory());
-		assertEquals(String.class, item.passwordFinal.getInitialType());
-		assertContains(MandatoryViolationException.class, FinalViolationException.class, item.passwordFinal.getInitialExceptions());
-		assertEquals("utf8", item.passwordFinal.getEncoding());
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getIterations());
+		assertEquals(TYPE, passwordFinal.getType());
+		assertEquals("passwordFinal", passwordFinal.getName());
+		assertEquals("SHA512s8i5", passwordFinal.getAlgorithmID());
+		assertEquals(passwordFinal, passwordFinal.getStorage().getPattern());
+		assertEquals(true, passwordFinal.isInitial());
+		assertEquals(true, passwordFinal.isFinal());
+		assertEquals(true, passwordFinal.isMandatory());
+		assertEquals(String.class, getInitialType(passwordFinal));
+		assertContains(MandatoryViolationException.class, FinalViolationException.class, passwordFinal.getInitialExceptions());
+		assertEquals(UTF8, encoding(passwordFinal));
+		assertEquals(5, algo(passwordFinal).getIterations());
 
-		assertEquals(item.TYPE, item.passwordMandatory.getType());
-		assertEquals("passwordMandatory", item.passwordMandatory.getName());
-		assertEquals("SHA512s8i5", item.passwordMandatory.getAlgorithmName());
-		assertEquals(item.passwordMandatory, item.passwordMandatory.getStorage().getPattern());
-		assertEquals(true, item.passwordMandatory.isInitial());
-		assertEquals(false, item.passwordMandatory.isFinal());
-		assertEquals(true, item.passwordMandatory.isMandatory());
-		assertEquals(String.class, item.passwordMandatory.getInitialType());
-		assertContains(MandatoryViolationException.class, item.passwordMandatory.getInitialExceptions());
-		assertEquals("utf8", item.passwordMandatory.getEncoding());
-		assertEquals(5, ((MessageDigestAlgorithm)item.passwordMandatory.getAlgorithm()).getIterations());
+		assertEquals(TYPE, passwordMandatory.getType());
+		assertEquals("passwordMandatory", passwordMandatory.getName());
+		assertEquals("SHA512s8i5", passwordMandatory.getAlgorithmID());
+		assertEquals(passwordMandatory, passwordMandatory.getStorage().getPattern());
+		assertEquals(true, passwordMandatory.isInitial());
+		assertEquals(false, passwordMandatory.isFinal());
+		assertEquals(true, passwordMandatory.isMandatory());
+		assertEquals(String.class, getInitialType(passwordMandatory));
+		assertContains(MandatoryViolationException.class, passwordMandatory.getInitialExceptions());
+		assertEquals(UTF8, encoding(passwordMandatory));
+		assertEquals(5, algo(passwordMandatory).getIterations());
 
-		assertSerializedSame(item.password         , 400);
-		assertSerializedSame(item.passwordLatin    , 405);
-		assertSerializedSame(item.passwordMandatory, 409);
+		assertSerializedSame(password         , 400);
+		assertSerializedSame(passwordLatin    , 405);
+		assertSerializedSame(passwordMandatory, 409);
 
-		item.blindPassword(null);
-		item.blindPassword("");
-		item.blindPassword("bing");
-		item.blindPasswordLatin(null);
-		item.blindPasswordLatin("");
-		item.blindPasswordLatin("bing");
-		item.blindPasswordMandatory(null);
-		item.blindPasswordMandatory("");
-		item.blindPasswordMandatory("bing");
+		blindPassword(null);
+		expectSalt(password, "885406ef34cef302");
+		blindPassword("");
+		blindPassword("bing");
+		blindPasswordLatin(null);
+		expectSalt(passwordLatin, "885406ef34cef302");
+		blindPasswordLatin("");
+		blindPasswordLatin("bing");
+		blindPasswordMandatory(null);
+		expectSalt(passwordMandatory, "885406ef34cef302");
+		blindPasswordMandatory("");
+		blindPasswordMandatory("bing");
 
 		assertNull(item.getPasswordSHA512s8i5());
 		assertTrue(item.checkPassword(null));
 		assertTrue(!item.checkPassword("bing"));
-		assertContains(item, item.TYPE.search(item.password.isNull()));
+		assertContains(item, TYPE.search(password.isNull()));
 
 		item.setPasswordSHA512s8i5("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234");
 		assertEquals("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234", item.getPasswordSHA512s8i5());
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"));
-		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(TYPE.search(password.isNull()));
 
 		// duplicated in  MessageDigestAlgorithmTest
 		item.setPassword("knollo");
@@ -151,7 +168,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(!item.checkPassword(null));
 		assertTrue(!item.checkPassword("bello"));
 		assertTrue(item.checkPassword("knollo"));
-		assertContains(item.TYPE.search(item.password.isNull()));
+		assertContains(TYPE.search(password.isNull()));
 
 		// duplicated in  MessageDigestAlgorithmTest
 		final String longPlainText =
@@ -183,35 +200,35 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordFinal("finalox"));
 		assertTrue(!item.checkPasswordFinal(""));
 		assertTrue(!item.checkPasswordFinal(null));
-		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
+		assertContains(TYPE.search(passwordFinal.isNull()));
+		assertContains(item, TYPE.search(passwordFinal.isNotNull()));
 
-		((MockSecureRandom2)((MessageDigestAlgorithm)item.passwordFinal.getAlgorithm()).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		expectSalt(passwordFinal, "aeab417a9b5a7cf3");
 		try
 		{
-			item.passwordFinal.set(item, "finalox");
+			passwordFinal.set(item, "finalox");
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.passwordFinal.getStorage(), e.getFeature()); // TODO should be passwordFinal
+			assertEquals(passwordFinal.getStorage(), e.getFeature()); // TODO should be passwordFinal
 		}
 		assertEquals("885406ef34cef302ae05cffbfc7d490a7a38e92c241014c2cb8667fa30f039590c649c0d80b5ab21a0d5bae8ab016dcb43d9b233962917c61827f1e924c98ffed30e4675ab08230c", item.getPasswordFinalSHA512s8i5());
 		assertTrue(item.checkPasswordFinal("finalo"));
 		assertTrue(!item.checkPasswordFinal("finalox"));
 		assertTrue(!item.checkPasswordFinal(""));
 		assertTrue(!item.checkPasswordFinal(null));
-		assertContains(item.TYPE.search(item.passwordFinal.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordFinal.isNotNull()));
+		assertContains(TYPE.search(passwordFinal.isNull()));
+		assertContains(item, TYPE.search(passwordFinal.isNotNull()));
 
 		assertEquals("885406ef34cef302a5b5577715808f6cae847208da6117c46119ab13d30f7c464ccc72e28e9d9b52c0be210c0ac25f7938327f63c6c8b67557e1f011b5d0e68a5a7beab6485b495a", item.getPasswordMandatorySHA512s8i5());
 		assertTrue(item.checkPasswordMandatory("musso"));
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
+		assertContains(TYPE.search(passwordMandatory.isNull()));
+		assertContains(item, TYPE.search(passwordMandatory.isNotNull()));
 
 		item.setPasswordMandatory("mussx");
 		assertEquals("aeab417a9b5a7cf3d970dd5d411fe76615c3f8934a224cd32d98ecb34de62c27e1c488e895695f1d04655cd4ea8183d668a3093a9df730493e0cf61a75839a5cca91659d8ba551b6", item.getPasswordMandatorySHA512s8i5());
@@ -219,8 +236,8 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(item.checkPasswordMandatory("mussx"));
 		assertTrue(!item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
+		assertContains(TYPE.search(passwordMandatory.isNull()));
+		assertContains(item, TYPE.search(passwordMandatory.isNotNull()));
 
 		// duplicated in  MessageDigestAlgorithmTest
 		item.setPasswordMandatory("");
@@ -229,8 +246,8 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
+		assertContains(TYPE.search(passwordMandatory.isNull()));
+		assertContains(item, TYPE.search(passwordMandatory.isNotNull()));
 
 		try
 		{
@@ -239,35 +256,48 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.passwordMandatory.getStorage(), e.getFeature());
+			assertEquals(passwordMandatory.getStorage(), e.getFeature());
 		}
 		assertEquals(EMPTY_HASH, item.getPasswordMandatorySHA512s8i5());
 		assertTrue(!item.checkPasswordMandatory("musso"));
 		assertTrue(!item.checkPasswordMandatory("mussx"));
 		assertTrue(item.checkPasswordMandatory(""));
 		assertTrue(!item.checkPasswordMandatory(null));
-		assertContains(item.TYPE.search(item.passwordMandatory.isNull()));
-		assertContains(item, item.TYPE.search(item.passwordMandatory.isNotNull()));
+		assertContains(TYPE.search(passwordMandatory.isNull()));
+		assertContains(item, TYPE.search(passwordMandatory.isNotNull()));
 
 		item.setPasswordSHA512s8i5("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234");
 		assertEquals("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234", item.getPasswordSHA512s8i5());
 		assertTrue(!item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.isNull()));
-		assertContains(item, item.TYPE.search(item.password.isNotNull()));
+		assertContains(TYPE.search(password.isNull()));
+		assertContains(item, TYPE.search(password.isNotNull()));
 
 		item.setPassword("");
 		assertEquals(EMPTY_HASH, item.getPasswordSHA512s8i5());
 		assertTrue(item.checkPassword(""));
 		assertTrue(!item.checkPassword(null));
-		assertContains(item.TYPE.search(item.password.isNull()));
-		assertContains(item, item.TYPE.search(item.password.isNotNull()));
+		assertContains(TYPE.search(password.isNull()));
+		assertContains(item, TYPE.search(password.isNotNull()));
 
 		item.setPassword(null);
 		assertEquals(null, item.getPasswordSHA512s8i5());
 		assertTrue(!item.checkPassword(""));
 		assertTrue(item.checkPassword(null));
-		assertContains(item, item.TYPE.search(item.password.isNull()));
-		assertContains(item.TYPE.search(item.password.isNotNull()));
+		assertContains(item, TYPE.search(password.isNull()));
+		assertContains(TYPE.search(password.isNotNull()));
+	}
+
+	@SuppressWarnings("deprecation")
+	static MessageDigestAlgorithm algo(final Hash hash)
+	{
+		return (MessageDigestAlgorithm)hash.getAlgorithm();
+	}
+
+	static String encoding(final Hash hash)
+	{
+		@SuppressWarnings("deprecation")
+		final String result = hash.getEncoding();
+		return result;
 	}
 }

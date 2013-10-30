@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,10 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.HashSet;
+
 public final class CheckConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Condition condition;
 
 	public CheckConstraint(final Condition condition)
@@ -52,12 +56,55 @@ public final class CheckConstraint extends Feature
 
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
 	{
-		final Statement statement = new Statement(table.database.dialect);
+		if(!isSupportedBySchemaIfSupportedByDialect())
+			return;
+
+		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
 		condition.append(statement);
 
 		new com.exedio.dsmf.CheckConstraint(
 				dsmfTable,
 				intern(table.makeGlobalID(getSchemaName())),
 				statement.getText());
+	}
+
+	/**
+	 * Return true iff this check constraint can be supported by
+	 * a database dialect supporting check constraints.
+	 * This is the case, iff all table columns mentioned by
+	 * {@link #getCondition() the condition}
+	 * if the check constraints are located within the same database table.
+	 * <p>
+	 * The result of this method does not depend on
+	 * {@link SchemaInfo#supportsCheckConstraints(Model)}.
+	 * <p>
+	 * If returns false, you should call {@link #check()} for checking
+	 * database consistency after any modifications of the database
+	 * bypassing cope.
+	 */
+	public boolean isSupportedBySchemaIfSupportedByDialect()
+	{
+		final Type<?> type = getType();
+		final HashSet<Table> tables = type.newQuery(condition).getTables();
+
+		assert tables.contains(type.table);
+		return tables.size()==1;
+	}
+
+	/**
+	 * Checks, whether the database fulfills this check constraint.
+	 * Should be called {@link #check()} for checking
+	 * database consistency after any modifications of the database
+	 * bypassing cope.
+	 * Is needed especially iff {@link CheckConstraint#isSupportedBySchemaIfSupportedByDialect()}
+	 * returns false.
+	 * <p>
+	 * Returns the number of items violating the check constraint.
+	 * As a consequence, this methods return 0 (zero),
+	 * iff the database fulfills this check constraint
+	 */
+	public int check()
+	{
+		return getType().newQuery(condition.not()).total();
 	}
 }

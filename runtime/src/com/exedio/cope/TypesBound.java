@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,16 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Modifier;
-import java.util.HashMap;
-
 import com.exedio.cope.ItemField.DeletePolicy;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public final class TypesBound
 {
@@ -63,13 +68,13 @@ public final class TypesBound
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
 		// id
-		final String id = id(javaClass, javaClass.getSimpleName());
+		final String id = name(javaClass, javaClass.getSimpleName());
 
 		// abstract
 		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 
 		// supertype
-		final Class superclass = javaClass.getSuperclass();
+		final Class<?> superclass = javaClass.getSuperclass();
 
 		final Type<? super T> supertype;
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
@@ -79,26 +84,12 @@ public final class TypesBound
 
 		// features
 		final Features features = new Features();
-		try
+		for(final Map.Entry<Feature, Field> entry : getFeatures(javaClass).entrySet())
 		{
-			for(final java.lang.reflect.Field field : javaClass.getDeclaredFields())
-			{
-				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-					continue;
-				if(!Feature.class.isAssignableFrom(field.getType()))
-					continue;
-
-				field.setAccessible(true);
-				final Feature feature = (Feature)field.get(null);
-				if(feature==null)
-					throw new NullPointerException(javaClass.getName() + '#' + field.getName());
-				final String featureName = id(field, field.getName());
-				features.put(featureName, feature, (AnnotatedElement)field);
-			}
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(javaClass.getName(), e);
+			final Feature feature = entry.getKey();
+			final Field field = entry.getValue();
+			final String featureName = name(field, field.getName());
+			features.put(featureName, feature, (AnnotatedElement)field);
 		}
 
 		final Type<T> result = new Type<T>(
@@ -111,42 +102,87 @@ public final class TypesBound
 				supertype,
 				features);
 
-		final Type previous = types.put(javaClass, result);
+		final Type<?> previous = types.put(javaClass, result);
 		if(previous!=null)
 			throw new RuntimeException(javaClass.getName());
 
 		return result;
 	}
 
-	@SuppressWarnings("unchecked") // OK: Class.getSuperclass() does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: Class.getSuperclass() does not support generics
 	private static Class<Item> castSupertype(final Class o)
 	{
 		return o;
 	}
 
+	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
+	{
+		// needed for not relying on order of result of Method#getDeclaredFields
+		final TreeMap<Feature, Field> result =
+			new TreeMap<Feature, Field>(INSTANTIATION_COMPARATOR);
+		try
+		{
+			for(final Field field : clazz.getDeclaredFields())
+			{
+				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
+					continue;
+				if(!Feature.class.isAssignableFrom(field.getType()))
+					continue;
+
+				field.setAccessible(true);
+				final Feature feature = (Feature)field.get(null);
+				if(feature==null)
+					throw new NullPointerException(clazz.getName() + '#' + field.getName());
+				result.put(feature, field);
+			}
+		}
+		catch(final IllegalAccessException e)
+		{
+			throw new RuntimeException(clazz.getName(), e);
+		}
+		return result;
+	}
+
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 
-	private static final String id(final AnnotatedElement annotatedElement, final String fallback)
+	private static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
 	{
-		final CopeID featureAnnotation =
-			annotatedElement.getAnnotation(CopeID.class);
+		@Override
+		public int compare(final Feature f1, final Feature f2)
+		{
+			if(f1==f2)
+				return 0;
+
+			final int o1 = f1.instantiationOrder;
+			final int o2 = f2.instantiationOrder;
+
+			if(o1<o2)
+				return -1;
+			else
+			{
+				assert o1>o2 : f1.toString() + '/' + f2;
+				return 1;
+			}
+		}
+	};
+
+	private static final String name(final AnnotatedElement annotatedElement, final String fallback)
+	{
+		final CopeName annotation =
+			annotatedElement.getAnnotation(CopeName.class);
 		return
-			featureAnnotation!=null
-			? featureAnnotation.value()
+			annotation!=null
+			? annotation.value()
 			: fallback;
 	}
 
 
-	// ItemField
-
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	// TODO reuse futures
+	// TODO use some direct future if javaclass is already in types
+	static final <E extends Item> Future<E> future(final Class<E> javaClass)
 	{
-		return new ItemField<E>(new Future<E>(valueClass));
-	}
-
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return new ItemField<E>(new Future<E>(valueClass), policy);
+		return new Future<E>(javaClass);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>
@@ -167,5 +203,25 @@ public final class TypesBound
 		{
 			return javaClass.getName();
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link ItemField#create(Class)} instead
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	{
+		return ItemField.create(valueClass);
+	}
+
+	/**
+	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
+	 */
+	@Deprecated
+	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	{
+		return ItemField.create(valueClass, policy);
 	}
 }

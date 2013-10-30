@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,26 +18,28 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Properties.Source;
+import java.io.File;
 import java.util.Collection;
 
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties.Source;
-
-public class ClusterPropertiesTest extends CopeAssert
+public final class ClusterPropertiesTest extends CopeAssert
 {
-	public void testListenThreadsOk()
+	@SuppressWarnings("static-method")
+	public void testOk()
 	{
 		final Source s = new Source()
 		{
 			public String get(final String key)
 			{
-				if(key.equals("secret"))
+				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("log"))
+				else if(key.equals("cluster.log"))
 					return "false";
-				else if(key.equals("listenThreads"))
+				else if(key.equals("cluster.listenThreads"))
 					return "5";
-				else if(key.equals("listenThreadsMax"))
+				else if(key.equals("cluster.listenThreadsMax"))
 					return "5";
 				else
 					return null;
@@ -54,24 +56,26 @@ public class ClusterPropertiesTest extends CopeAssert
 			}
 		};
 
-		final ClusterProperties p = ClusterProperties.get(s);
+		model.connect(new ConnectProperties(ConnectSource.get(), s));
+		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.getListenThreads());
 		assertEquals(5, p.getListenThreadsMax());
 	}
 
-	public void testListenThreadsFail()
+	@SuppressWarnings("static-method")
+	public void testFailListenThreads()
 	{
 		final Source s = new Source()
 		{
 			public String get(final String key)
 			{
-				if(key.equals("secret"))
+				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("log"))
+				else if(key.equals("cluster.log"))
 					return "false";
-				else if(key.equals("listenThreads"))
+				else if(key.equals("cluster.listenThreads"))
 					return "5";
-				else if(key.equals("listenThreadsMax"))
+				else if(key.equals("cluster.listenThreadsMax"))
 					return "4";
 				else
 					return null;
@@ -88,14 +92,95 @@ public class ClusterPropertiesTest extends CopeAssert
 			}
 		};
 
+		final ConnectProperties properties = new ConnectProperties(ConnectSource.get(), s);
 		try
 		{
-			ClusterProperties.get(s);
+			model.connect(properties);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("listenThreads=5 must be less or equal listenThreadsMax=4", e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("static-method")
+	public void testFailPrimaryKeyGeneratorMemory()
+	{
+		final Properties.Source defaultSource =
+				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
+		final Properties.Source source = new Properties.Source()
+		{
+			public String get(final String key)
+			{
+				if(key.equals("cluster"))
+					return "false";
+				else
+					return defaultSource.get(key);
+			}
+
+			public String getDescription()
+			{
+				return defaultSource.getDescription();
+			}
+
+			public Collection<String> keySet()
+			{
+				return defaultSource.keySet();
+			}
+		};
+		final Properties.Source context = new Properties.Source()
+		{
+			public String get(final String key)
+			{
+				if(key.equals("cluster.secret"))
+					return "1234";
+				else
+					return null;
+			}
+
+			public String getDescription()
+			{
+				return "Connect Properties Context";
+			}
+
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
+
+		final ConnectProperties props = new ConnectProperties(source, context);
+		// TODO throw exception below already above
+		try
+		{
+			model.connect(props);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory", e.getMessage());
+		}
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		if(model.isConnected())
+			model.disconnect();
+		super.tearDown();
+	}
+
+	private static final class AType extends Item
+	{
+		private AType(final ActivationParameters ap) { super(ap); }
+		private static final long serialVersionUID = 1l;
+	}
+
+	private static final Model model = new Model(TypesBound.newType(AType.class));
+
+	static
+	{
+		model.enableSerialization(ClusterPropertiesTest.class, "model");
 	}
 }

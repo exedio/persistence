@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Collection;
 
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.Properties;
-
-public class ClusterSenderMulticastTest extends CopeAssert
+public final class ClusterSenderMulticastTest extends CopeAssert
 {
-	private ClusterProperties properties;
 	private ClusterSenderMulticast sender;
 
 	private static final int SECRET = 0x88776655;
@@ -36,16 +34,18 @@ public class ClusterSenderMulticastTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		properties = ClusterProperties.get(
+		final ClusterProperties properties = ClusterProperties.get(
+			new ConnectProperties(
+				ConnectSource.get(),
 				new Properties.Source()
 				{
 					public String get(final String key)
 					{
-						if(key.equals("packetSize"))
+						if(key.equals("cluster.packetSize"))
 							return "47";
-						else if(key.equals("secret"))
+						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("log"))
+						else if(key.equals("cluster.log"))
 							return "false";
 						else
 							return null;
@@ -61,7 +61,7 @@ public class ClusterSenderMulticastTest extends CopeAssert
 						return null;
 					}
 				}
-			);
+			));
 		sender = new ClusterSenderMulticast(properties);
 	}
 

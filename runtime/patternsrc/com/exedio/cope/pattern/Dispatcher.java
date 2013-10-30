@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,18 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
+import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static java.lang.System.nanoTime;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -43,29 +34,43 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.Interrupter;
+import com.exedio.cope.misc.Iterables;
+import com.exedio.cope.util.CharsetName;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.text.MessageFormat;
+import java.util.Date;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Dispatcher extends Pattern
 {
-	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
 
 	private static final long serialVersionUID = 1l;
 
-	private static final String ENCODING = "utf8";
+	private static final String ENCODING = CharsetName.UTF8;
+
+	static final Clock clock = new Clock();
 
 	private final BooleanField pending;
 
 	final DateField runDate = new DateField().toFinal();
-	final LongField runElapsed = new LongField().toFinal();
+	final LongField runElapsed = new LongField().toFinal().min(0);
 	final BooleanField runSuccess = new BooleanField().toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
-	private Mount mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private Mount mountIfMounted = null;
+
+	private volatile boolean probeRequired = true;
 
 	public Dispatcher()
 	{
@@ -94,7 +99,7 @@ public final class Dispatcher extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		final ItemField<?> runParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final PartOf<?> runRuns = PartOf.newPartOf(runParent, runDate);
+		final PartOf<?> runRuns = PartOf.create(runParent, runDate);
 		final Features features = new Features();
 		features.put("parent", runParent);
 		features.put("date", runDate);
@@ -103,7 +108,7 @@ public final class Dispatcher extends Pattern
 		features.put("success", runSuccess);
 		features.put("failure", runFailure);
 		final Type<Run> runType = newSourceType(Run.class, features, "Run");
-		this.mount = new Mount(runParent, runRuns, runType);
+		this.mountIfMounted = new Mount(runParent, runRuns, runType);
 	}
 
 	private static final class Mount
@@ -129,7 +134,7 @@ public final class Dispatcher extends Pattern
 
 	final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
@@ -140,12 +145,13 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
+	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
 	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
 	}
 
-	public PartOf getRunRuns()
+	public PartOf<?> getRunRuns()
 	{
 		return mount().runRuns;
 	}
@@ -175,219 +181,179 @@ public final class Dispatcher extends Pattern
 		return mount().runType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
+	@Wrap(order=20, doc="Dispatch by {0}.")
+	public <P extends Item & Dispatchable> void dispatch(
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("ctx") final JobContext ctx)
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			setReturn(int.class, "the number of successfully dispatched items").
-			addParameter(Config.class, "config").
-			addParameter(Interrupter.class, "interrupter").
-			setStatic());
-
-		result.add(
-			new Wrapper("dispatch").
-			addComment("Dispatch by {0}.").
-			addParameter(Config.class, "config").
-			addParameter(JobContext.class, "ctx").
-			setStatic());
-
-		result.add(
-			new Wrapper("isPending").
-			addComment("Returns, whether this item is yet to be dispatched by {0}.").
-			setReturn(boolean.class));
-
-		result.add(
-			new Wrapper("setPending").
-			addComment("Sets whether this item is yet to be dispatched by {0}.").
-			addParameter(boolean.class, "pending"));
-
-		result.add(
-			new Wrapper("getLastSuccessDate").
-			addComment("Returns the date, this item was last successfully dispatched by {0}.").
-			setReturn(Date.class));
-
-		result.add(
-			new Wrapper("getLastSuccessElapsed").
-			addComment("Returns the milliseconds, this item needed to be last successfully dispatched by {0}.").
-			setReturn(Long.class));
-
-		result.add(
-			new Wrapper("getRuns").
-			addComment("Returns the attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
-
-		result.add(
-			new Wrapper("getFailures").
-			addComment("Returns the failed attempts to dispatch this item by {0}.").
-			setReturn(Wrapper.generic(List.class, Run.class)));
-
-		result.add(
-			new Wrapper("getRunParent").
-			addComment("Returns the parent field of the run type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}RunParent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
+		dispatch(parentClass, config, EMPTY_PROBE, ctx);
 	}
 
-	/**
-	 * @return the number of successfully dispatched items
-	 */
-	public <P extends Item> int dispatch(final Class<P> parentClass, final Config config, final Interrupter interrupter)
+	private static final EmptyProbe EMPTY_PROBE = new EmptyProbe();
+
+	private static final class EmptyProbe implements Runnable
 	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				dispatch(parentClass, config, ctx);
-			}}
-		);
+		EmptyProbe() { // make constructor non-private
+		}
+		public void run() { // do nothing
+		}
 	}
 
-	public <P extends Item> void dispatch(final Class<P> parentClass, final Config config, final JobContext ctx)
+	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
+	@Wrap(order=21, doc="Dispatch by {0}.")
+	public <P extends Item & Dispatchable> void dispatch(
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("probe") final Runnable probe,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		if(config==null)
 			throw new NullPointerException("config");
+		if(probe==null)
+			throw new NullPointerException("probe");
 		if(ctx==null)
 			throw new NullPointerException("ctx");
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
-		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String id = getID();
+		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
-		P lastDispatched = null;
-		while(true)
+		for(final P item : Iterables.once(
+				iterateTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
-			final List<P> toDispatch;
+			ctx.stopIfRequested();
+			if(probeRequired)
+			{
+				probe.run();
+				probeRequired = false;
+			}
+
+			final String itemID = item.getCopeID();
 			try
 			{
-				model.startTransaction(id + " search");
-				final Query<P> q  = type.newQuery(pending.equal(true));
-				if(lastDispatched!=null)
-					q.narrow(typeThis.greater(lastDispatched));
-				q.setOrderBy(typeThis, true);
-				q.setLimit(0, config.getSearchSize());
-				toDispatch = q.search();
-				model.commit();
+				model.startTransaction(id + " dispatch " + itemID);
+
+				if(!isPending(item))
+				{
+					if(logger.isInfoEnabled())
+						logger.info( MessageFormat.format(
+								"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
+								id, itemID ) );
+					continue;
+				}
+
+				if(isDeferred(item))
+				{
+					model.commit();
+					continue;
+				}
+
+				final long start = clock.currentTimeMillis();
+				final long nanoStart = nanoTime();
+				try
+				{
+					item.dispatch(this);
+
+					final long elapsed = toMillies(nanoTime(), nanoStart);
+					pending.set(item, false);
+					mount.runType.newItem(
+							runParent.map(item),
+							runDate.map(new Date(start)),
+							runElapsed.map(elapsed),
+							runSuccess.map(true));
+
+					model.commit();
+				}
+				catch(final Exception cause)
+				{
+					final long elapsed = toMillies(nanoTime(), nanoStart);
+					probeRequired = true;
+					model.rollbackIfNotCommitted();
+
+					model.startTransaction(id + " register failure " + itemID);
+					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					final PrintStream out;
+					try
+					{
+						out = new PrintStream(baos, false, ENCODING);
+					}
+					catch(final UnsupportedEncodingException e)
+					{
+						throw new RuntimeException(ENCODING, e);
+					}
+					cause.printStackTrace(out);
+					out.close();
+
+					mount.runType.newItem(
+						runParent.map(item),
+						runDate.map(new Date(start)),
+						runElapsed.map(elapsed),
+						runSuccess.map(false),
+						runFailure.map(baos.toByteArray()));
+
+					final boolean finalFailure =
+						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
+					if(finalFailure)
+						pending.set(item, false);
+
+					model.commit();
+
+					if(finalFailure)
+						item.notifyFinalFailure(this, cause);
+				}
 			}
 			finally
 			{
 				model.rollbackIfNotCommitted();
 			}
-
-			if(toDispatch.isEmpty())
-				break;
-
-			final ItemField<P> runParent = mount.runParent.as(parentClass);
-
-			for(final P item : toDispatch)
-			{
-				if(ctx.requestedToStop())
-					return;
-
-				lastDispatched = item;
-				final Dispatchable itemCasted = (Dispatchable)item;
-				final String itemID = item.getCopeID();
-				try
-				{
-					model.startTransaction(id + " dispatch " + itemID);
-
-					if(!isPending(item))
-					{
-						if(logger.isLoggable(Level.INFO))
-							logger.log(
-									Level.INFO,
-									"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
-									new Object[]{id, itemID});
-						continue;
-					}
-
-					final long start = System.currentTimeMillis();
-					final long nanoStart = nanoTime();
-					try
-					{
-						itemCasted.dispatch(this);
-
-						final long elapsed = (nanoTime() - nanoStart) / 1000000;
-						pending.set(item, false);
-						mount.runType.newItem(
-								runParent.map(item),
-								runDate.map(new Date(start)),
-								runElapsed.map(elapsed),
-								runSuccess.map(true));
-
-						model.commit();
-						ctx.incrementProgress();
-					}
-					catch(final Exception cause)
-					{
-						final long elapsed = (nanoTime() - nanoStart) / 1000000;
-						model.rollbackIfNotCommitted();
-
-						model.startTransaction(id + " register failure " + itemID);
-						final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-						final PrintStream out;
-						try
-						{
-							out = new PrintStream(baos, false, ENCODING);
-						}
-						catch(final UnsupportedEncodingException e)
-						{
-							throw new RuntimeException(ENCODING, e);
-						}
-						cause.printStackTrace(out);
-						out.close();
-
-						mount.runType.newItem(
-							runParent.map(item),
-							runDate.map(new Date(start)),
-							runElapsed.map(elapsed),
-							runSuccess.map(false),
-							runFailure.map(baos.toByteArray()));
-
-						final boolean finalFailure =
-							mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
-						if(finalFailure)
-							pending.set(item, false);
-
-						model.commit();
-
-						if(finalFailure)
-							((Dispatchable)item).notifyFinalFailure(this, cause);
-					}
-				}
-				finally
-				{
-					model.rollbackIfNotCommitted();
-				}
-			}
+			ctx.incrementProgress();
 		}
 	}
 
+	/**
+	 * This helper method is needed to work around two unchecked cast warnings
+	 * issued by jdk1.7 javac.
+	 */
+	private boolean isDeferred(final Item item)
+	{
+		return
+			(item instanceof DispatchDeferrable) &&
+			((DispatchDeferrable)item).isDeferred(this);
+	}
+
+	/**
+	 * For junit tests only
+	 */
+	void setProbeRequired(final boolean probeRequired)
+	{
+		this.probeRequired = probeRequired;
+	}
+
+	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
-	public void setPending(final Item item, final boolean pending)
+	@Wrap(order=40, doc="Sets whether this item is yet to be dispatched by {0}.")
+	public void setPending(
+			final Item item,
+			@Parameter("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
 
+	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
 
+	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = getLastSuccess(item);
@@ -406,6 +372,7 @@ public final class Dispatcher extends Pattern
 		return q.searchSingleton();
 	}
 
+	@Wrap(order=70, doc="Returns the attempts to dispatch this item by {0}.")
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();
@@ -416,6 +383,7 @@ public final class Dispatcher extends Pattern
 					true);
 	}
 
+	@Wrap(order=80, doc="Returns the failed attempts to dispatch this item by {0}.")
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();
@@ -506,5 +474,29 @@ public final class Dispatcher extends Pattern
 				throw new RuntimeException(ENCODING, e);
 			}
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #dispatch(Class,Config,JobContext)} instead.
+	 * @return the number of successfully dispatched items
+	 */
+	@Wrap(order=10,
+			doc="Dispatch by {0}.",
+			docReturn="the number of successfully dispatched items")
+	@Deprecated
+	public <P extends Item & Dispatchable> int dispatch(
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+	{
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
+			interrupter,
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			{
+				dispatch(parentClass, config, ctx);
+			}}
+		);
 	}
 }

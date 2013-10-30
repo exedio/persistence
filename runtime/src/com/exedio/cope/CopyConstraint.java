@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,10 +24,17 @@ public final class CopyConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
-	private final ItemField target;
-	private final FunctionField copy;
+	private final ItemField<?> target;
+	private final FunctionField<?> copy;
 
-	public CopyConstraint(final ItemField target, final FunctionField copy)
+	/**
+	 * @deprecated
+	 * Use <tt>copy.{@link FunctionField#copyFrom(ItemField) copyFrom}(target)</tt>
+	 * or <tt>target.{@link ItemField#copyTo(FunctionField) copyTo}(copy)</tt>
+	 * instead.
+	 */
+	@Deprecated
+	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
 		if(target==null)
 			throw new NullPointerException("target");
@@ -42,37 +49,44 @@ public final class CopyConstraint extends Feature
 		this.copy = copy;
 	}
 
-	public ItemField getTarget()
+	public ItemField<?> getTarget()
 	{
 		return target;
 	}
 
-	public FunctionField getCopy()
+	public FunctionField<?> getCopy()
 	{
 		return copy;
 	}
 
-	private FunctionField template = null;
+	private FunctionField<?> templateIfSet = null;
 
-	public FunctionField getTemplate()
+	void resolveTemplate()
 	{
-		if(template!=null)
-			return template;
+		if(templateIfSet!=null)
+			throw new RuntimeException(toString());
 
 		final Feature feature = target.getValueType().getFeature(copy.getName());
 		if(feature==null)
 			throw new RuntimeException("not found on copy: " + this);
-		if(!(feature instanceof FunctionField))
+		if(!(feature instanceof FunctionField<?>))
 			throw new ClassCastException("not a FunctionField on copy: " + this + '/' + feature + '/' + feature.getClass().getName());
-		final FunctionField result = (FunctionField)feature;
+		final FunctionField<?> result = (FunctionField<?>)feature;
 		if(!result.isfinal)
 			throw new RuntimeException("not final on copy: " + this + '/' + result);
 
-		template = result;
+		templateIfSet = result;
+	}
+
+	public FunctionField<?> getTemplate()
+	{
+		final FunctionField<?> result = templateIfSet;
+		if(result==null)
+			throw new IllegalStateException("template not resolved " + this);
 		return result;
 	}
 
-	void check(final Map<Field, Object> fieldValues)
+	void check(final Map<Field<?>, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem!=null)
@@ -84,7 +98,7 @@ public final class CopyConstraint extends Feature
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static final Condition notEqual(final FunctionField f1, final Function f2)
 	{
 		return f1.notEqual(f2);
@@ -92,7 +106,7 @@ public final class CopyConstraint extends Feature
 
 	public int check()
 	{
-		final Query q = getType().newQuery();
+		final Query<?> q = getType().newQuery();
 		final Join j = q.join(target.getValueType());
 		j.setCondition(target.equalTarget(j));
 		q.setCondition(notEqual(copy, getTemplate().bind(j)));

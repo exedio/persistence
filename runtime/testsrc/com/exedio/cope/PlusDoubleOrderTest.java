@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,13 @@
  */
 
 package com.exedio.cope;
+
+import static com.exedio.cope.PlusDoubleItem.TYPE;
+import static com.exedio.cope.PlusDoubleItem.multiplyBC;
+import static com.exedio.cope.PlusDoubleItem.numA;
+import static com.exedio.cope.PlusDoubleItem.numB;
+import static com.exedio.cope.PlusDoubleItem.plusAB;
+import static java.lang.Double.valueOf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,19 +56,19 @@ public class PlusDoubleOrderTest extends AbstractRuntimeTest
 		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);
 		assertEquals(d3.doubleValue(), item2.getPlusAB(), EPS);
 		assertEquals(d8, item3.getPlusAB());
-		assertEquals(new Double(6.6 * -1000.99), item1.getMultiplyBC());
-		assertEquals(new Double(1.1 * -1000.99), item2.getMultiplyBC());
-		assertEquals(new Double(2.2 * -1000.99), item3.getMultiplyBC());
+		assertEquals(valueOf(6.6 * -1000.99), item1.getMultiplyBC());
+		assertEquals(valueOf(1.1 * -1000.99), item2.getMultiplyBC());
+		assertEquals(valueOf(2.2 * -1000.99), item3.getMultiplyBC());
 
-		assertOrder(list(item1, item2, item3), item1.numA);
-		assertOrder(list(item2, item3, item1), item1.numB);
-		assertOrder(list(item2, item1, item3), item1.plusAB);
-		assertOrder(list(item1, item3, item2), item1.multiplyBC);
+		assertOrder(list(item1, item2, item3), numA);
+		assertOrder(list(item2, item3, item1), numB);
+		assertOrder(list(item2, item1, item3), plusAB);
+		assertOrder(list(item1, item3, item2), multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query query = item1.TYPE.newQuery(null);
+		final Query<PlusDoubleItem> query = TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 

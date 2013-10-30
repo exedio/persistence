@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 
 public final class Singleton extends Pattern
@@ -50,23 +46,10 @@ public final class Singleton extends Pattern
 		return source;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("instance").
-			addComment("Gets the single instance of {2}.").
-			addComment("Creates an instance, if none exists.").
-			setMethodWrapperPattern("instance").
-			setStatic().
-			setReturn(Wrapper.ClassVariable.class, "never returns null."));
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10,
+			name="instance",
+			doc={"Gets the single instance of {2}.", "Creates an instance, if none exists."},
+			docReturn="never returns null.")
 	public final <P extends Item> P instance(final Class<P> typeClass)
 	{
 		final Type<P> type = getType().as(typeClass);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,10 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
+import com.exedio.cope.Executor.ResultSetHandler;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.exedio.cope.Executor.ResultSetHandler;
 
 class IntegerColumn extends Column
 {
@@ -35,7 +34,6 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean synthetic,
 			final boolean optional,
@@ -43,7 +41,7 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		super(table, field, id, synthetic, false, optional);
+		super(table, id, synthetic, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -54,12 +52,11 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.minimum = 0;
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
@@ -96,7 +93,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table)
 	{
-		super(table, null, Table.PK_COLUMN_NAME, true, true, true);
+		super(table, Table.PK_COLUMN_NAME, true, true, true);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = PK.MAX_VALUE;
 		this.longInsteadOfInt = false;

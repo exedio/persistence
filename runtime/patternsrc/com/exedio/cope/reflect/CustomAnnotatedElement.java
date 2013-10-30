@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.cope.reflect;
 
+import com.exedio.cope.misc.Arrays;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.HashMap;
-
-import com.exedio.cope.misc.Arrays;
 
 final class CustomAnnotatedElement
 {
@@ -32,7 +31,7 @@ final class CustomAnnotatedElement
 			throw new NullPointerException("annotations");
 		if(annotations.length==0)
 			throw new IllegalArgumentException("annotations must not be empty");
-		final HashMap<Class, Annotation> annotationMap = new HashMap<Class, Annotation>();
+		final HashMap<Class<?>, Annotation> annotationMap = new HashMap<Class<?>, Annotation>();
 		for(int i = 0; i<annotations.length; i++)
 		{
 			final Annotation a = annotations[i];
@@ -48,9 +47,9 @@ final class CustomAnnotatedElement
 	private static final class AnnotationSource implements AnnotatedElement
 	{
 		private final Annotation[] annotations;
-		private final HashMap<Class, Annotation> annotationMap;
+		private final HashMap<Class<?>, Annotation> annotationMap;
 
-		AnnotationSource(final Annotation[] annotations, final HashMap<Class, Annotation> annotationMap)
+		AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
 		{
 			this.annotations = annotations;
 			this.annotationMap = annotationMap;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,16 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.search.SumAggregate;
+import java.util.Collection;
 
 public class Random implements NumberFunction<Double>
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Type<?> type;
 	private final int seed;
 
@@ -47,6 +48,11 @@ public class Random implements NumberFunction<Double>
 	public Class<Double> getValueClass()
 	{
 		return Double.class;
+	}
+
+	public SelectType<Double> getValueType()
+	{
+		return SimpleSelectType.DOUBLE;
 	}
 
 	public Type<? extends Item> getType()
@@ -70,7 +76,7 @@ public class Random implements NumberFunction<Double>
 		return type.hashCode() ^ seed;
 	}
 
-	public void toString(final StringBuilder bf, final Type defaultType)
+	public void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		if(defaultType!=type)
 			bf.append(type.id).
@@ -90,12 +96,6 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(final Statement bf, final Double value)
-	{
-		throw new RuntimeException();
-	}
-
-	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
 		if(!type.getModel().supportsRandom())
@@ -107,7 +107,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}
@@ -150,7 +150,7 @@ public class Random implements NumberFunction<Double>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<Double> values)
+	public final Condition in(final Collection<? extends Double> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
@@ -230,29 +230,52 @@ public class Random implements NumberFunction<Double>
 		return new AsStringView(this);
 	}
 
+	/**
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
-		return new PlusLiteralView<Double>(this, value);
+		return PlusLiteralView.plus(this, value);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyLiteralView<Double> multiply(final Double value)
 	{
-		return new MultiplyLiteralView<Double>(this, value);
+		return MultiplyLiteralView.multiply(this, value);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final PlusView<Double> plus(final NumberFunction<Double> other)
 	{
-		return new PlusView<Double>(new NumberFunction[]{this, other});
+		return PlusView.plus(this, other);
 	}
 
+	/**
+	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
+	public final MinusView<Double> minus(final NumberFunction<Double> other)
+	{
+		return MinusView.minus(this, other);
+	}
+
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)
 	{
-		return new MultiplyView<Double>(new NumberFunction[]{this, other});
+		return MultiplyView.multiply(this, other);
 	}
 
+	/**
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public final DivideView<Double> divide(final NumberFunction<Double> other)
 	{
-		return new DivideView<Double>(this, other);
+		return DivideView.divide(this, other);
 	}
 
 	public final SumAggregate<Double> sum()

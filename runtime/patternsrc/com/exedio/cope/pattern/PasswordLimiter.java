@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -34,27 +27,38 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
 
 public final class PasswordLimiter extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 	static final Clock clock = new Clock();
 
-	private final Hash password;
+	private final HashInterface password;
 	private final long period;
 	private final int limit;
 
 	final DateField date = new DateField().toFinal();
-	private Mount mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private Mount mountIfMounted = null;
 
+	// for binary backwards compatibility
 	public PasswordLimiter(
 			final Hash password,
+			final long period,
+			final int limit)
+	{
+		this((HashInterface)password, period, limit);
+	}
+
+	public PasswordLimiter(
+			final HashInterface password,
 			final long period,
 			final int limit)
 	{
@@ -70,7 +74,7 @@ public final class PasswordLimiter extends Pattern
 			throw new IllegalArgumentException("limit must be greater zero, but was " + limit);
 	}
 
-	public Hash getPassword()
+	public HashInterface getPassword()
 	{
 		return password;
 	}
@@ -92,13 +96,13 @@ public final class PasswordLimiter extends Pattern
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final PartOf<?>refusals = PartOf.newPartOf(parent, date);
+		final PartOf<?>refusals = PartOf.create(parent, date);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("date", date);
 		features.put("refusals", refusals);
 		final Type<Refusal> refusalType = newSourceType(Refusal.class, features, "Refusal");
-		this.mount = new Mount(parent, refusals, refusalType);
+		this.mountIfMounted = new Mount(parent, refusals, refusalType);
 	}
 
 	private static final class Mount
@@ -124,7 +128,7 @@ public final class PasswordLimiter extends Pattern
 
 	Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
@@ -135,7 +139,7 @@ public final class PasswordLimiter extends Pattern
 		return mount().parent.as(parentClass);
 	}
 
-	public PartOf getRefusals()
+	public PartOf<?> getRefusals()
 	{
 		return mount().refusals;
 	}
@@ -150,49 +154,30 @@ public final class PasswordLimiter extends Pattern
 		return mount().refusalType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
+	@Wrap(order=10)
+	public boolean check(
+			final Item item,
+			@Parameter("password") final String password)
 	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("check").
-			addParameter(String.class, "password").
-			setReturn(boolean.class));
-		result.add(
-			new Wrapper("checkVerbosely").
-			addParameter(String.class, "password").
-			setReturn(boolean.class).
-			addThrows(ExceededException.class));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(Interrupter.class, "interrupter").
-			setReturn(int.class, "the number of refusals purged"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(JobContext.class, "ctx"));
-
-		return Collections.unmodifiableList(result);
-	}
-
-	public boolean check(final Item item, final String password)
-	{
-		final Query<Refusal> query = getCheckQuery(item);
+		final long now = clock.currentTimeMillis();
+		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
 			// prevent Timing Attacks
 			this.password.blind(password);
 			return false;
 		}
-		return checkInternally(item, password);
+		return checkInternally(item, password, now);
 	}
 
-	public boolean checkVerbosely(final Item item, final String password) throws ExceededException
+	@Wrap(order=20, thrown=@Wrap.Thrown(ExceededException.class))
+	public boolean checkVerbosely(
+			final Item item,
+			@Parameter("password") final String password)
+	throws ExceededException
 	{
-		final Query<Refusal> query = getCheckQuery(item);
+		final long now = clock.currentTimeMillis();
+		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
 			query.setOrderBy(this.date, true);
@@ -203,19 +188,19 @@ public final class PasswordLimiter extends Pattern
 					item,
 					query.searchSingletonStrict().getDate().getTime() + period);
 		}
-		return checkInternally(item, password);
+		return checkInternally(item, password, now);
 	}
 
-	private Query<Refusal> getCheckQuery(final Item item)
+	private Query<Refusal> getCheckQuery(final Item item, final long now)
 	{
 		final Mount mount = mount();
 		return
 			mount.refusalType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.parent, item),
-				this.date.greater(getExpiryDate())));
+				this.date.greater(getExpiryDate(now))));
 	}
 
-	private boolean checkInternally(final Item item, final String password)
+	private boolean checkInternally(final Item item, final String password, final long now)
 	{
 		final boolean result = this.password.check(item, password);
 
@@ -224,7 +209,7 @@ public final class PasswordLimiter extends Pattern
 			final Mount mount = mount();
 			mount.refusalType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				this.date.map(new Date(clock.currentTimeMillis())));
+				this.date.map(new Date(now)));
 		}
 
 		return result;
@@ -273,29 +258,21 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
-	public int purge(final Interrupter interrupter)
+	@Wrap(order=40)
+	public void purge(
+			@Parameter("ctx") final JobContext ctx)
 	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				purge(ctx);
-			}}
-		);
-	}
-
-	public void purge(final JobContext ctx)
-	{
+		final long now = clock.currentTimeMillis();
 		Delete.delete(
 				mount().refusalType.newQuery(
-						this.date.less(getExpiryDate())),
+						this.date.less(getExpiryDate(now))),
 				"PasswordLimiter#purge " + getID(),
 				ctx);
 	}
 
-	private Date getExpiryDate()
+	private Date getExpiryDate(final long now)
 	{
-		return new Date(clock.currentTimeMillis()-period);
+		return new Date(now-period);
 	}
 
 	@Computed
@@ -327,11 +304,28 @@ public final class PasswordLimiter extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #purge(Interrupter)} instead.
+	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
+	}
+
+	/**
+	 * @deprecated Use {@link #purge(JobContext)} instead.
+	 */
+	@Wrap(order=30, docReturn="the number of refusals purged")
+	@Deprecated
+	public int purge(
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+	{
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
+			interrupter,
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			{
+				purge(ctx);
+			}}
+		);
 	}
 }

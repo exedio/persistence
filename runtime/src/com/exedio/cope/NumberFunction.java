@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	PlusLiteralView<E> plus(E value);
 	MultiplyLiteralView<E> multiply(E value);
 	PlusView<E> plus(NumberFunction<E> other);
+	MinusView<E> minus(NumberFunction<E> other);
 	MultiplyView<E> multiply(NumberFunction<E> other);
 	DivideView<E> divide(NumberFunction<E> other);
 

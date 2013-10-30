@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,193 +18,103 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.junit.CopeModelTest;
+import com.exedio.cope.pattern.Dispatcher.Run;
+import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.JobStop;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Item;
-import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.misc.Computed;
-import com.exedio.cope.pattern.Dispatcher.Run;
-import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobContext;
-
-public class DispatcherTest extends AbstractRuntimeTest
+public class DispatcherTest extends CopeModelTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DispatcherItem.TYPE);
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
-
-	static
-	{
-		MODEL.enableSerialization(DispatcherTest.class, "MODEL");
-	}
 
 	public DispatcherTest()
 	{
-		super(MODEL);
+		super(DispatcherModelTest.MODEL);
 	}
 
-	DispatcherItem item;
 	DispatcherItem item1;
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
+	MockClockSource clock;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new DispatcherItem("item1", false));
-		item2 = deleteOnTearDown(new DispatcherItem("item2", true));
-		item3 = deleteOnTearDown(new DispatcherItem("item3", false));
-		item4 = deleteOnTearDown(new DispatcherItem("item4", true));
+		item1 = new DispatcherItem("item1", false);
+		item2 = new DispatcherItem("item2", true);
+		item3 = new DispatcherItem("item3", false);
+		item4 = new DispatcherItem("item4", true);
+		clock = new MockClockSource();
+		Dispatcher.clock.setSource(clock);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Dispatcher.clock.removeSource();
+		super.tearDown();
 	}
 
 	public void testIt()
 	{
-		final Type<?> runType = item.toTarget.getRunType();
-
-		// test model
-		assertEqualsUnmodifiable(list(
-				item.TYPE,
-				runType
-			), model.getTypes());
-		assertEqualsUnmodifiable(list(
-				item.TYPE,
-				runType
-			), model.getTypesSortedByHierarchy());
-		assertEquals(DispatcherItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
-
-		final List<PartOf> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
-		assertEquals(1, partOfs.size());
-		final PartOf partOf = partOfs.get(0);
-		assertSame(runType, partOf.getType());
-		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
-		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());
-		assertEquals(list(partOf), PartOf.getPartOfs(DispatcherItem.toTarget));
-
-		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				item.body,
-				item.dispatchCountCommitted,
-				item.toTarget,
-				item.toTarget.getPending()
-			), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(
-				runType.getThis(),
-				item.toTargetRunParent(),
-				item.toTarget.getRunDate(),
-				item.toTarget.getRunRuns(),
-				item.toTarget.getRunElapsed(),
-				item.toTarget.getRunSuccess(),
-				item.toTarget.getRunFailure()
-			), runType.getFeatures());
-
-		assertEquals(item.TYPE, item.toTarget.getType());
-		assertEquals("toTarget", item.toTarget.getName());
-
-		assertSame(item.TYPE, item.toTarget.getPending().getType());
-		assertSame("toTarget-pending", item.toTarget.getPending().getName());
-		assertSame(item.toTarget, item.toTarget.getPending().getPattern());
-		assertSame(Boolean.TRUE, item.toTarget.getPending().getDefaultConstant());
-
-		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
-		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
-		assertEquals(false, runType.isBound());
-		assertSame(DispatcherItem.toTarget, runType.getPattern());
-		assertEquals(null, runType.getSupertype());
-		assertEqualsUnmodifiable(list(), runType.getSubtypes());
-		assertEquals(false, runType.isAbstract());
-		assertEquals(Item.class, runType.getThis().getValueClass().getSuperclass());
-		assertEquals(runType, runType.getThis().getValueType());
-		assertEquals(model, runType.getModel());
-
-		assertEquals(runType, item.toTargetRunParent().getType());
-		assertEquals(runType, item.toTarget.getRunDate().getType());
-		assertEquals(runType, item.toTarget.getRunFailure().getType());
-
-		assertEquals("parent", item.toTargetRunParent().getName());
-		assertEquals("date", item.toTarget.getRunDate().getName());
-		assertEquals("failure", item.toTarget.getRunFailure().getName());
-
-		assertSame(DispatcherItem.class, item.toTargetRunParent().getValueClass());
-		assertSame(DispatcherItem.TYPE, item.toTargetRunParent().getValueType());
-
-		assertSame(item.toTargetRunParent(), item.toTarget.getRunRuns().getContainer());
-		assertSame(item.toTarget.getRunDate(), item.toTarget.getRunRuns().getOrder());
-
-		assertFalse(item.toTarget.getPending().isAnnotationPresent(Computed.class));
-		assertTrue (item.toTarget.getRunType().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(item.toTarget, 386);
-
-		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
-		try
-		{
-			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"type of DispatcherNoneItem.wrong must implement " + Dispatchable.class +
-					", but was " + DispatcherNoneItem.class.getName(),
-					e.getMessage());
-		}
-
-		// test persistence
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
 
-		final DateRange d1 = dispatch(2);
-		assertSuccess(item1, 1, d1, list());
-		assertPending(item2, 0, list(d1));
-		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1));
+		final Date[] d1 = dispatch(4);
+		assertSuccess(item1, 1, d1[0], list());
+		assertPending(item2, 0, list(d1[1]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertPending(item4, 0, list(d1[3]));
 
-		final DateRange d2 = dispatch(0);
-		assertSuccess(item1, 1, d1, list());
-		assertPending(item2, 0, list(d1, d2));
-		assertSuccess(item3, 1, d1, list());
-		assertPending(item4, 0, list(d1, d2));
+		final Date[] d2 = dispatch(2);
+		assertSuccess(item1, 1, d1[0], list());
+		assertPending(item2, 0, list(d1[1], d2[0]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertPending(item4, 0, list(d1[3], d2[1]));
 
 		DispatcherItem.logs.get(item2).fail = false;
-		final DateRange d3 = dispatch(1);
-		assertSuccess(item1, 1, d1, list());
-		assertSuccess(item2, 1, d3, list(d1, d2));
-		assertSuccess(item3, 1, d1, list());
-		assertFailed (item4, 0, list(d1, d2, d3));
+		final Date[] d3 = dispatch(2);
+		assertSuccess(item1, 1, d1[0], list());
+		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
 		dispatch(0);
-		assertSuccess(item1, 1, d1, list());
-		assertSuccess(item2, 1, d3, list(d1, d2));
-		assertSuccess(item3, 1, d1, list());
-		assertFailed (item4, 0, list(d1, d2, d3));
+		assertSuccess(item1, 1, d1[0], list());
+		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
 		item1.setToTargetPending(true);
-		final DateRange d4 = dispatch(1);
-		assertSuccess(item1, 2, d4, list());
-		assertSuccess(item2, 1, d3, list(d1, d2));
-		assertSuccess(item3, 1, d1, list());
-		assertFailed (item4, 0, list(d1, d2, d3));
+		final Date[] d4 = dispatch(1);
+		assertSuccess(item1, 2, d4[0], list());
+		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
 		dispatch(0);
-		assertSuccess(item1, 2, d4, list());
-		assertSuccess(item2, 1, d3, list(d1, d2));
-		assertSuccess(item3, 1, d1, list());
-		assertFailed (item4, 0, list(d1, d2, d3));
+		assertSuccess(item1, 2, d4[0], list());
+		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
+		assertSuccess(item3, 1, d1[2], list());
+		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
+	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	public void testUnchecked()
+	{
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -213,7 +123,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, null, (JobContext)null);
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -222,7 +132,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch(HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -242,8 +152,8 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop1()
 	{
-		final DateRange d = dispatch(1, 1);
-		assertSuccess(item1, 1, d, list());
+		final Date[] d = dispatch(1, 1);
+		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
@@ -251,69 +161,65 @@ public class DispatcherTest extends AbstractRuntimeTest
 
 	public void testStop2()
 	{
-		final DateRange d = dispatch(1, 2);
-		assertSuccess(item1, 1, d, list());
-		assertPending(item2, 0, list(d));
+		final Date[] d = dispatch(2, 2);
+		assertSuccess(item1, 1, d[0], list());
+		assertPending(item2, 0, list(d[1]));
 		assertPending(item3, 0, list());
 		assertPending(item4, 0, list());
 	}
 
 	public void testStop3()
 	{
-		final DateRange d = dispatch(2, 3);
-		assertSuccess(item1, 1, d, list());
-		assertPending(item2, 0, list(d));
-		assertSuccess(item3, 1, d, list());
+		final Date[] d = dispatch(3, 3);
+		assertSuccess(item1, 1, d[0], list());
+		assertPending(item2, 0, list(d[1]));
+		assertSuccess(item3, 1, d[2], list());
 		assertPending(item4, 0, list());
 	}
 
 	public void testStop4()
 	{
-		final DateRange d = dispatch(2, 4, 4);
-		assertSuccess(item1, 1, d, list());
-		assertPending(item2, 0, list(d));
-		assertSuccess(item3, 1, d, list());
-		assertPending(item4, 0, list(d));
+		final Date[] d = dispatch(4, 4, 4);
+		assertSuccess(item1, 1, d[0], list());
+		assertPending(item2, 0, list(d[1]));
+		assertSuccess(item3, 1, d[2], list());
+		assertPending(item4, 0, list(d[3]));
 	}
 
 	public void testStop5()
 	{
-		final DateRange d = dispatch(2, 5, 4);
-		assertSuccess(item1, 1, d, list());
-		assertPending(item2, 0, list(d));
-		assertSuccess(item3, 1, d, list());
-		assertPending(item4, 0, list(d));
+		final Date[] d = dispatch(4, 5, 4);
+		assertSuccess(item1, 1, d[0], list());
+		assertPending(item2, 0, list(d[1]));
+		assertSuccess(item3, 1, d[2], list());
+		assertPending(item4, 0, list(d[3]));
 	}
 
-	private static class DateRange
-	{
-		final Date before;
-		final Date after;
-
-		DateRange(final Date before, final Date after)
-		{
-			this.before = before;
-			this.after = after;
-			assertTrue(!after.before(before));
-		}
-	}
-
-	private DateRange dispatch(final int expectedProgress)
+	private Date[] dispatch(final int expectedProgress)
 	{
 		final JC ci = new JC(Integer.MAX_VALUE);
-		final DateRange result = dispatch(ci);
+		final Date[] result = dispatch(expectedProgress, ci);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
 
-	private DateRange dispatch(final JC ctx)
+	private Date[] dispatch(final int expectedDates, final JC ctx)
 	{
 		model.commit();
-		final Date before = new Date();
-		item.dispatchToTarget(config, ctx);
-		final Date after = new Date();
+		final Date[] dates = new Date[expectedDates];
+		for(int i = 0; i<expectedDates; i++)
+			dates[i] = new Date(clock.addOffset(10));
+		try
+		{
+			DispatcherItem.dispatchToTarget(config, ctx);
+		}
+		catch(final JobStop js)
+		{
+			assertEquals("JC", js.getMessage());
+		}
+		clock.assertEmpty();
 		model.startTransaction("DispatcherTest");
-		return new DateRange(before, after);
+		return dates;
 	}
 
 	private static class JC extends AssertionErrorJobContext
@@ -327,9 +233,9 @@ public class DispatcherTest extends AbstractRuntimeTest
 			this.requestsBeforeStop = requestsBeforeStop;
 		}
 
-		@Override public boolean requestedToStop()
+		@Override public void stopIfRequested()
 		{
-			return (requestsToStop++)>=requestsBeforeStop;
+			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
 		}
 
 		@Override
@@ -339,7 +245,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 		}
 	}
 
-	private DateRange dispatch(
+	private Date[] dispatch(
 			final int expectedProgress,
 			final int requestsBeforeStop)
 	{
@@ -349,13 +255,13 @@ public class DispatcherTest extends AbstractRuntimeTest
 				requestsBeforeStop+1);
 	}
 
-	private DateRange dispatch(
+	private Date[] dispatch(
 			final int expectedProgress,
 			final int requestsBeforeStop,
 			final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
-		final DateRange result = dispatch(ci);
+		final Date[] result = dispatch(expectedProgress, ci);
 		assertEquals(expectedRequestsToStop, ci.requestsToStop);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
@@ -364,12 +270,12 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertSuccess(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final DateRange date,
-			final List failures)
+			final Date date,
+			final List<?> failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
-		assertWithin(date.before, date.after, item.getToTargetLastSuccessDate());
+		assertEquals(date, item.getToTargetLastSuccessDate());
 		assertTrue(
 				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
 				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
@@ -379,7 +285,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertPending(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -390,7 +296,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertFailed(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List failures)
+			final List<?> failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -401,7 +307,7 @@ public class DispatcherTest extends AbstractRuntimeTest
 	private static void assertIt(
 			final int dispatchCountCommitted,
 			final int dispatchCount,
-			final List failures,
+			final List<?> failures,
 			final DispatcherItem item,
 			final int notifyFinalFailureCount)
 	{
@@ -412,18 +318,18 @@ public class DispatcherTest extends AbstractRuntimeTest
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 
-		final List<Integer> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
+		final List<Long> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
 		assertEquals(failures.size(), failuresElapsed.size());
-		final Iterator<Integer> failureElapsedIter = failuresElapsed.iterator();
+		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
 
-		final Iterator expectedFailureIter = failures.iterator();
+		final Iterator<?> expectedFailureIter = failures.iterator();
 		for(final Run actual : actualFailures)
 		{
-			final Integer failureElapsed = failureElapsedIter.next();
-			final DateRange expected = (DateRange)expectedFailureIter.next();
-			assertSame(item.toTarget, actual.getPattern());
+			final Long failureElapsed = failureElapsedIter.next();
+			final Date expected = (Date)expectedFailureIter.next();
+			assertSame(DispatcherItem.toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
-			assertWithin(expected.before, expected.after, actual.getDate());
+			assertEquals(expected, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
 			assertFalse(actual.isSuccess());
 			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.ListUtil;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +110,7 @@ public final class Features
 		{
 			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
-			if(!source.isMounted())
+			if(!source.isMountedToType())
 				source.mount(type, name + '-' + postfix, getAnnotationSource(source));
 			final Type<? extends Item> sourceType = source.getType();
 			//System.out.println("----------check"+source);
@@ -118,7 +119,7 @@ public final class Features
 			result.add(source);
 		}
 
-		return Type.finish(result);
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	// ------------------- deprecated stuff -------------------

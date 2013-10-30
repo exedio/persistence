@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,25 +18,34 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class DivideView<E extends Number> extends NumberView<E>
 {
+	public static final <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
+	{
+		return new DivideView<E>(dividend, divisor);
+	}
+
+
 	private static final long serialVersionUID = 1l;
 
-	private final NumberFunction<E> dividend;
-	private final NumberFunction<E> divisor;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Function<E> dividend;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Function<E> divisor;
 
-	/**
-	 * Creates a new MultiplyView.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods.
-	 * @see NumberFunction#divide(NumberFunction)
-	 */
-	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
+	private DivideView(final Function<E> dividend, final Function<E> divisor)
 	{
-		super(new NumberFunction[]{dividend, divisor}, "divide", dividend.getValueClass());
+		super(new Function<?>[]{dividend, divisor}, "divide", PlusView.checkClass(Number.class, dividend.getValueClass()));
 
 		this.dividend = dividend;
 		this.divisor = divisor;
+	}
+
+	public SelectType<E> getValueType()
+	{
+		return dividend.getValueType();
 	}
 
 	@Override
@@ -82,5 +91,16 @@ public final class DivideView<E extends Number> extends NumberView<E>
 			bf.dialect.appendIntegerDivision(bf, dividend, divisor, join);
 		}
 		bf.append(')');
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #DivideView(Function,Function)} instead.
+	 */
+	@Deprecated
+	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
+	{
+		this((Function<E>)dividend, (Function<E>)divisor);
 	}
 }

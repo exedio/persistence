@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,14 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class LengthView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final StringFunction source;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Function<String> source;
 
 	/**
 	 * Creates a new LengthView.
@@ -30,10 +33,15 @@ public final class LengthView extends NumberView<Integer>
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringFunction#length()}.
 	 */
-	public LengthView(final StringFunction source)
+	public LengthView(final Function<String> source)
 	{
-		super(new StringFunction[]{source}, "length", Integer.class);
+		super(new Function<?>[]{source}, "length", Integer.class);
 		this.source = source;
+	}
+
+	public SelectType<Integer> getValueType()
+	{
+		return SimpleSelectType.INTEGER;
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,23 +18,29 @@
 
 package com.exedio.cope.pattern;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
+import static com.exedio.cope.pattern.JavaViewItem.TYPE;
+import static com.exedio.cope.pattern.JavaViewItem.n;
+import static com.exedio.cope.pattern.JavaViewItem.number;
+import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
+import static com.exedio.cope.pattern.JavaViewItem.numberString;
+import static com.exedio.cope.pattern.JavaViewItem.privat;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 public class JavaViewTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(JavaViewItem.TYPE, JavaViewItem2.TYPE);
+	private static final Model MODEL = new Model(TYPE, JavaViewItem2.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(JavaViewTest.class, "MODEL");
 	}
 
-	private static final Double d2 = new Double(2.25d);
+	private static final Double d2 = Double.valueOf(2.25d);
 
 	public JavaViewTest()
 	{
@@ -55,26 +61,27 @@ public class JavaViewTest extends AbstractRuntimeTest
 	public void testNumber()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
-				item.TYPE.getThis(),
-				item.numberString,
-				item.number,
-				item.numberPrimitive,
-				item.n,
-			}), item.TYPE.getDeclaredFeatures());
-		assertEquals(item.TYPE.getDeclaredFeatures(), item.TYPE.getFeatures());
+				TYPE.getThis(),
+				numberString,
+				number,
+				numberPrimitive,
+				n,
+				privat,
+			}), TYPE.getDeclaredFeatures());
+		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
 
-		assertEquals(item.TYPE, item.number.getType());
-		assertEquals("number", item.number.getName());
-		assertEquals(null, item.numberString.getPattern());
-		assertEquals(Double.class, item.number.getValueType());
-		assertEquals(Double.class, item.number.getValueGenericType());
+		assertEquals(TYPE, number.getType());
+		assertEquals("number", number.getName());
+		assertEquals(null, numberString.getPattern());
+		assertEquals(Double.class, number.getValueType());
+		assertEquals(Double.class, number.getValueGenericType());
 
-		assertSerializedSame(item.number         , 380);
-		assertSerializedSame(item.numberPrimitive, 389);
+		assertSerializedSame(number         , 380);
+		assertSerializedSame(numberPrimitive, 389);
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
-		assertNull(item.number.get(item));
+		assertNull(number.get(item));
 		try
 		{
 			item.getNumberPrimitive();
@@ -86,7 +93,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.numberPrimitive.get(item);
+			numberPrimitive.get(item);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -102,16 +109,17 @@ public class JavaViewTest extends AbstractRuntimeTest
 		item.setNumberString("2.25");
 		assertEquals("2.25", item.getNumberString());
 		assertEquals(d2, item.getNumber());
-		assertEquals(d2, item.number.get(item));
+		assertEquals(d2, number.get(item));
 		assertEquals(2.25, item.getNumberPrimitive());
-		assertEquals(2.25, item.numberPrimitive.get(item));
+		assertEquals(2.25, numberPrimitive.get(item));
 		assertEquals("N2.25", item.getN());
-		assertEquals("N2.25", item.n.get(item));
+		assertEquals("N2.25", n.get(item));
+		assertEquals("Privat2.25", privat.get(item));
 
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
-		assertNull(item.number.get(item));
+		assertNull(number.get(item));
 		try
 		{
 			item.getNumberPrimitive();
@@ -123,7 +131,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.numberPrimitive.get(item);
+			numberPrimitive.get(item);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -138,7 +146,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.number.get(null);
+			number.get(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -147,7 +155,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			item.number.get(item2);
+			number.get(item2);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

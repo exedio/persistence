@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,84 +18,32 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
+import static com.exedio.cope.reflect.FeatureFieldItem.feature;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
+import static com.exedio.cope.reflect.FeatureFieldItem.forFeatureUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
-import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
-import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
+import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
-import static com.exedio.cope.reflect.FeatureFieldItem.string3;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
-import com.exedio.cope.misc.Computed;
 
 public class FeatureFieldTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(FeatureFieldItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(FeatureFieldTest.class, "MODEL");
-	}
-
 	public FeatureFieldTest()
 	{
-		super(MODEL);
+		super(FeatureFieldModelTest.MODEL);
 	}
 
 	FeatureFieldItem item;
 
 	public void testIt()
 	{
-		// test model
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE), model.getTypesSortedByHierarchy());
-		assertEquals(FeatureFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
-		assertEqualsUnmodifiable(list(FeatureFieldItem.feature.getIdField()), FeatureFieldItem.feature.getSourceFeatures());
-		assertEqualsUnmodifiable(list(), FeatureFieldItem.feature.getSourceTypes());
-
-		assertEqualsUnmodifiable(list(
-				item.TYPE.getThis(),
-				integer1, integer2, integer3,
-				string1,  string2,  string3,
-				item.feature, item.feature.getIdField(),
-				item.featureFinal, item.featureFinal.getIdField(),
-				item.featureOptional, item.featureOptional.getIdField(),
-				item.featureRenamed, item.featureRenamed.getIdField(),
-				item.string, item.string.getIdField()
-			), item.TYPE.getFeatures());
-
-		assertEquals(item.TYPE, item.feature.getType());
-		assertEquals("feature", item.feature.getName());
-		assertTrue(item.feature.getIdField().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(FeatureFieldItem.feature, 389);
-
-		assertEqualsUnmodifiable(item.TYPE.getFeatures(), item.feature.getValues());
-		assertEqualsUnmodifiable(list(
-				string1, string2, string3,
-				item.feature.getIdField(),
-				item.featureFinal.getIdField(),
-				item.featureOptional.getIdField(),
-				item.featureRenamed.getIdField(),
-				item.string.getIdField()), item.string.getValues());
-
-		try
-		{
-			FeatureField.newField(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("valueClass", e.getMessage());
-		}
-
-		// test persistence
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
 
@@ -110,12 +58,14 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(integer1, item.getFeatureOptional());
 		assertSame(null, item.getString());
+		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
 
 		item.setFeatureOptional(null);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
 
 		item.setString(string2);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
@@ -136,7 +86,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.feature, e.getFeature());
+			assertEquals(feature, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertSame(FeatureFieldItem.string1, item.getFeature());
@@ -146,12 +96,12 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.featureFinal.set(item, integer1);
+			featureFinal.set(item, integer1);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(item.featureFinal, e.getFeature());
+			assertEquals(featureFinal, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertSame(FeatureFieldItem.string1, item.getFeature());
@@ -159,7 +109,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
 
-		item.feature.getIdField().set(item, "zack");
+		feature.getIdField().set(item, "zack");
 		try
 		{
 			item.getFeature();
@@ -171,7 +121,7 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 		}
 		item.setFeature(string1);
 
-		item.string.getIdField().set(item, integer1.getID());
+		string.getIdField().set(item, integer1.getID());
 		try
 		{
 			item.getString();
@@ -182,5 +132,20 @@ public class FeatureFieldTest extends AbstractRuntimeTest
 			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
 		}
 		item.setString(null);
+
+		assertEquals(null, forFeatureUnique(string1));
+		assertEquals(null, forFeatureUnique(string2));
+		item.setFeatureUnique(string1);
+		assertEquals(item, forFeatureUnique(string1));
+		assertEquals(null, forFeatureUnique(string2));
+		try
+		{
+			forFeatureUnique(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }

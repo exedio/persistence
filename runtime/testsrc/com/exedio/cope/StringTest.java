@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,33 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.StringItem.TYPE;
+import static com.exedio.cope.testmodel.StringItem.any;
+import static com.exedio.cope.testmodel.StringItem.exact6;
+import static com.exedio.cope.testmodel.StringItem.long1K;
+import static com.exedio.cope.testmodel.StringItem.long1M;
+import static com.exedio.cope.testmodel.StringItem.lowercase;
+import static com.exedio.cope.testmodel.StringItem.mandatory;
+import static com.exedio.cope.testmodel.StringItem.max4;
+import static com.exedio.cope.testmodel.StringItem.min4;
+import static com.exedio.cope.testmodel.StringItem.min4Max8;
+import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
+import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
+import static com.exedio.cope.util.CharsetName.UTF8;
+
+import com.exedio.cope.testmodel.StringItem;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.exedio.cope.testmodel.StringItem;
-import com.exedio.cope.util.CharSet;
-
-public class StringTest extends TestmodelTest
+public class StringTest extends AbstractRuntimeTest
 {
+	public StringTest()
+	{
+		super(StringModelTest.MODEL);
+	}
+
 	boolean supports;
 	String emptyString;
 	StringItem item, item2;
@@ -46,162 +63,48 @@ public class StringTest extends TestmodelTest
 
 	public void testStrings()
 	{
-		// test model
-		assertEquals(item.TYPE, item.any.getType());
-		assertEquals("any", item.any.getName());
-		assertEquals(false, item.any.isMandatory());
-		assertEquals(null, item.any.getPattern());
-		assertEquals(0, item.any.getMinimumLength());
-		assertEquals(StringField.DEFAULT_LENGTH, item.any.getMaximumLength());
-		assertEquals(null, item.any.getCharSet());
-
-		assertEquals(item.TYPE, item.mandatory.getType());
-		assertEquals("mandatory", item.mandatory.getName());
-		assertEquals(true, item.mandatory.isMandatory());
-
-		assertEquals(4, item.min4.getMinimumLength());
-		assertEquals(StringField.DEFAULT_LENGTH, item.min4.getMaximumLength());
-
-		assertEquals(0, item.max4.getMinimumLength());
-		assertEquals(4, item.max4.getMaximumLength());
-		assertEquals(null, item.max4.getCharSet());
-
-		assertEquals(4, item.min4Max8.getMinimumLength());
-		assertEquals(8, item.min4Max8.getMaximumLength());
-		assertEquals(null, item.min4Max8.getCharSet());
-
-		assertEquals(6, item.exact6.getMinimumLength());
-		assertEquals(6, item.exact6.getMaximumLength());
-		assertEquals(null, item.exact6.getCharSet());
-
-		assertEquals(0, item.lowercase.getMinimumLength());
-		assertEquals(StringField.DEFAULT_LENGTH, item.lowercase.getMaximumLength());
-		assertEquals(new CharSet('a', 'z'), item.lowercase.getCharSet());
-
-		assertEquals(item.TYPE, item.min4Upper.getType());
-		assertEquals("min4Upper", item.min4Upper.getName());
-
-		{
-			final StringField orig = new StringField().optional();
-			assertEquals(false, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertEquals(0, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
-
-			final StringField copy = orig.copy();
-			assertEquals(false, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertEquals(0, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
-		}
-		{
-			final StringField orig = new StringField().toFinal().optional().lengthMin(10);
-			assertEquals(true, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertNull(orig.getImplicitUniqueConstraint());
-			assertEquals(10, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
-
-			final StringField copy = orig.copy();
-			assertEquals(true, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertNull(copy.getImplicitUniqueConstraint());
-			assertEquals(10, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
-		}
-		{
-			final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
-			assertEquals(true, orig.isFinal());
-			assertEquals(false, orig.isMandatory());
-			assertNotNull(orig.getImplicitUniqueConstraint());
-			assertEquals(20, orig.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, orig.getMaximumLength());
-
-			final StringField copy = orig.copy();
-			assertEquals(true, copy.isFinal());
-			assertEquals(false, copy.isMandatory());
-			assertNotNull(copy.getImplicitUniqueConstraint());
-			assertEquals(20, copy.getMinimumLength());
-			assertEquals(StringField.DEFAULT_LENGTH, copy.getMaximumLength());
-		}
-		{
-			final StringField orig = new StringField().lengthRange(10, 20);
-			assertEquals(false, orig.isFinal());
-			assertEquals(true, orig.isMandatory());
-			assertEquals(10, orig.getMinimumLength());
-			assertEquals(20, orig.getMaximumLength());
-
-			final StringField copy = orig.copy();
-			assertEquals(false, copy.isFinal());
-			assertEquals(true, copy.isMandatory());
-			assertEquals(10, copy.getMinimumLength());
-			assertEquals(20, copy.getMaximumLength());
-		}
-
-		assertWrongLength(-1, 20, "mimimum length must be positive, but was -1.");
-		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
-		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
-
-		// test conditions
-		assertEquals(item.any.equal("hallo"), item.any.equal("hallo"));
-		assertNotEquals(item.any.equal("hallo"), item.any.equal("bello"));
-		assertNotEquals(item.any.equal("hallo"), item.any.equal((String)null));
-		assertNotEquals(item.any.equal("hallo"), item.any.like("hallo"));
-		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
-		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
-
-		// test convenience for conditions
-		assertEquals(item.any.startsWith("hallo"), item.any.like("hallo%"));
-		assertEquals(item.any.endsWith("hallo"), item.any.like("%hallo"));
-		assertEquals(item.any.contains("hallo"), item.any.like("%hallo%"));
-		assertEquals(item.any.equalIgnoreCase("hallo"), item.any.toUpperCase().equal("HALLO"));
-		assertEquals(item.any.likeIgnoreCase("hallo%"), item.any.toUpperCase().like("HALLO%"));
-		assertEquals(item.any.startsWithIgnoreCase("hallo"), item.any.toUpperCase().like("HALLO%"));
-		assertEquals(item.any.endsWithIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO"));
-		assertEquals(item.any.containsIgnoreCase("hallo"), item.any.toUpperCase().like("%HALLO%"));
-
 		// test check method
 		try
 		{
-			item.mandatory.check(null);
+			mandatory.check(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
 		try
 		{
-			item.mandatory.check("");
+			mandatory.check("");
 			assert supports;
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
 		try
 		{
-			item.min4.check("123");
+			min4.check("123");
 			fail();
 		}
 		catch(final StringLengthViolationException e)
 		{
-			assertEquals(item.min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
 					"length violation, " +
-					"'123' is too short for " + item.min4 + ", " +
+					"'123' is too short for " + min4 + ", " +
 					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
-		item.min4.check("1234");
+		min4.check("1234");
 
 		// any
 		item.setAny("1234");
@@ -211,12 +114,12 @@ public class StringTest extends TestmodelTest
 
 		// standard tests
 		item.setAny(null);
-		assertString(item, item2, item.any);
-		assertString(item, item2, item.long1K);
-		assertString(item, item2, item.long1M);
-		assertString(item, item2, item.oracleNoCLOB);
-		assertString(item, item2, item.oracleCLOB);
-		assertStringSet(item, item.max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
+		assertString(item, item2, any);
+		assertString(item, item2, long1K);
+		assertString(item, item2, long1M);
+		assertString(item, item2, oracleNoCLOB);
+		assertString(item, item2, oracleCLOB);
+		assertStringSet(item, max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
 
 		{
 			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));
@@ -240,13 +143,13 @@ public class StringTest extends TestmodelTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
 		}
 		assertEquals("someOtherString", item.getMandatory());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new StringItem((String)null);
@@ -255,26 +158,26 @@ public class StringTest extends TestmodelTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new StringItem(new SetValue[]{});
+			new StringItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// mandatory and empty string
 		try
@@ -288,15 +191,15 @@ public class StringTest extends TestmodelTest
 		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
 			assertEquals("someOtherString", item.getMandatory());
 		}
 
 		StringItem item3 = null;
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			item3 = deleteOnTearDown(new StringItem("", 0.0));
@@ -309,12 +212,12 @@ public class StringTest extends TestmodelTest
 		catch(final MandatoryViolationException e)
 		{
 			assertTrue(!supports);
-			assertEquals(item3.mandatory, e.getFeature());
-			assertEquals(item3.mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
 			assertEquals(item3, e.getItem());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4
 		try
@@ -325,13 +228,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4, e.getFeature());
-			assertEquals(item.min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'123' is too short for " + item.min4 + ", " +
+					"'123' is too short for " + min4 + ", " +
 					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
@@ -353,13 +256,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'12345' is too long for " + item.max4 + ", " +
+					"'12345' is too long for " + max4 + ", " +
 					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
@@ -367,7 +270,7 @@ public class StringTest extends TestmodelTest
 		restartTransaction();
 		assertEquals("1234", item.getMax4());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new StringItem("12345", (Date)null);
@@ -376,37 +279,37 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
 					"length violation, " +
-					"'12345' is too long for " + item.max4 + ", " +
+					"'12345' is too long for " + max4 + ", " +
 					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			StringItem.TYPE.newItem(
-					item.mandatory.map("defaultByMax4"),
-					item.max4.map("12345")
+					mandatory.map("defaultByMax4"),
+					max4.map("12345")
 			);
 			fail();
 		}
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
 					"length violation, " +
-					"'12345' is too long for " + item.max4 + ", " +
+					"'12345' is too long for " + max4 + ", " +
 					"must be at most 4 characters, but was 5.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4max8
 		try
@@ -417,13 +320,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'123' is too short for " + item.min4Max8 + ", " +
+					"'123' is too short for " + min4Max8 + ", " +
 					"must be at least 4 characters, but was 3.",
 					e.getMessage());
 		}
@@ -448,13 +351,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals("123456789", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'123456789' is too long for " + item.min4Max8 + ", " +
+					"'123456789' is too long for " + min4Max8 + ", " +
 					"must be at most 8 characters, but was 9.",
 					e.getMessage());
 		}
@@ -471,13 +374,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.exact6, e.getFeature());
-			assertEquals(item.exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'12345' is too short for " + item.exact6 + ", " +
+					"'12345' is too short for " + exact6 + ", " +
 					"must be exactly 6 characters, but was 5.",
 					e.getMessage());
 		}
@@ -499,13 +402,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.exact6, e.getFeature());
-			assertEquals(item.exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
 					"length violation on " + item + ", " +
-					"'1234567' is too long for " + item.exact6 + ", " +
+					"'1234567' is too long for " + exact6 + ", " +
 					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
@@ -513,7 +416,7 @@ public class StringTest extends TestmodelTest
 		restartTransaction();
 		assertEquals("123456", item.getExact6());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new StringItem("1234567", 40);
@@ -522,39 +425,39 @@ public class StringTest extends TestmodelTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.exact6, e.getFeature());
-			assertEquals(item.exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
 					"length violation, " +
-					"'1234567' is too long for " + item.exact6 + ", " +
+					"'1234567' is too long for " + exact6 + ", " +
 					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			StringItem.TYPE.newItem(
-					item.mandatory.map("defaultByExact6"),
-					item.exact6.map("1234567")
+					mandatory.map("defaultByExact6"),
+					exact6.map("1234567")
 			);
 			fail();
 		}
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.exact6, e.getFeature());
-			assertEquals(item.exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
+			assertEquals(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
 					"length violation, " +
-					"'1234567' is too long for " + item.exact6 + ", " +
+					"'1234567' is too long for " + exact6 + ", " +
 					"must be exactly 6 characters, but was 7.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// lowercase
 		try
@@ -565,13 +468,13 @@ public class StringTest extends TestmodelTest
 		catch(final StringCharSetViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.lowercase, e.getFeature());
+			assertEquals(lowercase, e.getFeature());
 			assertEquals("abcABC", e.getValue());
 			assertEquals('A', e.getCharacter());
 			assertEquals(3, e.getPosition());
 			assertEquals(
 					"character set violation on " + item + ", " +
-					"'abcABC' for " + item.lowercase + ", " +
+					"'abcABC' for " + lowercase + ", " +
 					"contains forbidden character 'A' on position 3.",
 					e.getMessage());
 		}
@@ -583,33 +486,22 @@ public class StringTest extends TestmodelTest
 		restartTransaction();
 		assertEquals("abcdef", item.getLowercase());
 
+		model.commit();
 		model.checkUnsupportedConstraints();
+		model.startTransaction();
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.any, Integer.valueOf(10));
+			item.set((FunctionField)any, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName() + " for " + item.any + '.', e.getMessage());
-		}
-	}
-
-	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
-	{
-		try
-		{
-			new StringField().optional().lengthRange(minimumLength, maximumLength);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
+			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName() + " for " + any + '.', e.getMessage());
 		}
 	}
 
@@ -740,6 +632,37 @@ public class StringTest extends TestmodelTest
 		// the following lines will throw a SQLException
 		// due to column "hijackedColumn" not found
 		assertStringSet(item, sa, "value',hijackedColumn='otherValue");
+
+		assertStringSet(item, sa, "a'b");
+		assertStringSet(item, sa, "ab'");
+		assertStringSet(item, sa, "'ab");
+		assertStringSet(item, sa, "a''b");
+		assertStringSet(item, sa, "ab''");
+		assertStringSet(item, sa, "''ab");
+
+		// MySQL and PostgreSQL do interpret backslash sequences
+		// if prepared statements are disabled
+		// http://dev.mysql.com/doc/refman/5.1/en/string-syntax.html
+		// http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
+		if( !(postgresql && model.getConnectProperties().isSupportDisabledForPreparedStatements()) )
+		{
+			assertStringSet(item, sa, "-\\0- slash zero");
+			assertStringSet(item, sa, "-\\'- slash quote");
+			assertStringSet(item, sa, "-\\\"- slash double quote");
+			assertStringSet(item, sa, "-\\b- slash b");
+			assertStringSet(item, sa, "-\\f- slash f");
+			assertStringSet(item, sa, "-\\n- slash n");
+			assertStringSet(item, sa, "-\\r- slash r");
+			assertStringSet(item, sa, "-\\t- slash t");
+			assertStringSet(item, sa, "-\\z- slash z");
+			assertStringSet(item, sa, "-\\Z- slash Z");
+			assertStringSet(item, sa, "-\\\\- slash slash");
+			assertStringSet(item, sa, "-\\%- slash percent");
+			assertStringSet(item, sa, "-\\_- slash underscore");
+			assertStringSet(item, sa, "-\\xaf- slash hex");
+			assertStringSet(item, sa, "-\\uafec- slash unicode");
+		}
+
 		// TODO use streams for oracle
 		assertStringSet(item, sa, makeString(Math.min(sa.getMaximumLength(), oracle ? (1300/*32766-1*/) : (4 * 1000 * 1000))));
 
@@ -760,7 +683,7 @@ public class StringTest extends TestmodelTest
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 
-		final Type type = item.getCopeType();
+		final Type<?> type = item.getCopeType();
 		sa.set(item, value);
 		assertEquals(value, sa.get(item));
 		restartTransaction();
@@ -776,7 +699,7 @@ public class StringTest extends TestmodelTest
 		final String message;
 		try
 		{
-			message = value+'('+valueChars+','+value.getBytes("utf8").length+')';
+			message = value+'('+valueChars+','+value.getBytes(UTF8).length+')';
 		}
 		catch(final UnsupportedEncodingException e)
 		{
@@ -800,5 +723,10 @@ public class StringTest extends TestmodelTest
 	private boolean searchEnabled(final StringField field)
 	{
 		return !oracle || field.getMaximumLength()<=com.exedio.cope.Dialect.ORACLE_VARCHAR_MAX_CHARS;
+	}
+
+	public void testSchema()
+	{
+		assertSchema();
 	}
 }

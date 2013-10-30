@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,15 @@
 
 package com.exedio.cope;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ThreadSwarm
 {
-	static final Logger logger = Logger.getLogger(ThreadSwarm.class.getName());
+	static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
 
 	private final ThreadController[] threads;
 
@@ -59,11 +60,8 @@ final class ThreadSwarm
 				continue;
 
 			thread.start();
-			if(logger.isLoggable(Level.INFO))
-				logger.log(
-						Level.INFO,
-						"{1} ({0}) started.",
-						new Object[]{thread.getId(), thread.getName()});
+			if(logger.isInfoEnabled())
+				logger.info(MessageFormat.format("{0} ({1}) started.", thread.getName(), thread.getId()));
 		}
 	}
 

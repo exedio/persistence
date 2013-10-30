@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.instrument.Lexer.CommentToken;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
-
 import junit.framework.AssertionFailedError;
-
-import com.exedio.cope.instrument.Lexer.CommentToken;
 
 public abstract class ParserTest extends InstrumentorTest
 {
@@ -53,7 +52,7 @@ public abstract class ParserTest extends InstrumentorTest
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser parser = new Parser(new Lexer(inputFile, javaFile), testParseConsumer, javaFile);
+		final Parser parser = new Parser(new Lexer(inputFile, Charset.forName("ascii"), javaFile), testParseConsumer, javaFile);
 		if(assertText)
 			testParseConsumer.output = parser.javaFile.buffer;
 		parser.parseFile();
@@ -67,7 +66,7 @@ public abstract class ParserTest extends InstrumentorTest
 		return parseEvents.removeFirst();
 	}
 
-	private String format(final String s)
+	private static String format(final String s)
 	{
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}

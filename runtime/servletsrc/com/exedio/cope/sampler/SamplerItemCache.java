@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,11 @@
 
 package com.exedio.cope.sampler;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.CopyConstraint;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -31,86 +30,75 @@ import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
+@Purgeable()
+@CopeSchemaName("DiffItemCache")
 final class SamplerItemCache extends Item
 {
-	private static final ItemField<SamplerModel> model = newItemField(SamplerModel.class).toFinal();
-	private static final StringField type = new StringField().toFinal();
+	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
+	private static final ItemField<SamplerTypeId> type = ItemField.create(SamplerTypeId.class).toFinal();
 
-	private static final DateField date = new DateField().toFinal();
+	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
-	private static final DateField initializeDate = new DateField().toFinal();
-	private static final DateField connectDate = new DateField().toFinal();
-	private static final IntegerField thread = new IntegerField().toFinal();
-	private static final IntegerField running = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unused") private static final CopyConstraint dateCC = new CopyConstraint(model, date);
-	@SuppressWarnings("unused") private static final CopyConstraint initializeDateCC = new CopyConstraint(model, initializeDate);
-	@SuppressWarnings("unused") private static final CopyConstraint connectDateCC = new CopyConstraint(model, connectDate);
-	@SuppressWarnings("unused") private static final CopyConstraint threadCC = new CopyConstraint(model, thread);
-	@SuppressWarnings("unused") private static final CopyConstraint runningCC = new CopyConstraint(model, running);
-
-	static List<SetValue> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue)
+		return Arrays.asList((SetValue<?>)
 			model         .map(m),
-			date          .map(SamplerModel.date.get(m)),
-			initializeDate.map(SamplerModel.initializeDate.get(m)),
-			connectDate   .map(SamplerModel.connectDate.get(m)),
-			thread        .map(SamplerModel.thread.get(m)),
-			running       .map(SamplerModel.running.get(m)));
+			date          .map(SamplerModel.date.get(m)));
 	}
 
 
 	private static final IntegerField limit = new IntegerField().toFinal().min(0);
 	private static final IntegerField level = new IntegerField().toFinal().min(0);
-	private static final LongField hits = new LongField().toFinal();
-	private static final LongField misses = new LongField().toFinal();
-	private static final LongField concurrentLoads = new LongField().toFinal();
+	private static final IntegerField hits = new IntegerField().toFinal().min(0);
+	private static final IntegerField misses = new IntegerField().toFinal().min(0);
+	private static final IntegerField concurrentLoads = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
 	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
 	private static final LongField ageAverageMillis = new LongField().toFinal();
 	private static final LongField ageMinimumMillis = new LongField().toFinal();
 	private static final LongField ageMaximumMillis = new LongField().toFinal();
-	private static final LongField invalidationsOrdered = new LongField().toFinal();
-	private static final LongField invalidationsDone = new LongField().toFinal();
+	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidationsDone = new IntegerField().toFinal().min(0);
 	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
-	private static final LongField invalidateLastHits = new LongField().toFinal();
-	private static final LongField invalidateLastPurged = new LongField().toFinal();
-	private static final LongField invalidationBucketHits = new LongField().toFinal();
+	private static final IntegerField invalidateLastHits = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidateLastPurged = new IntegerField().toFinal().min(0);
 
-	static List<SetValue> map(final ItemCacheInfo info)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+			final ItemCacheInfo from,
+			final ItemCacheInfo to)
 	{
-		return Arrays.asList((SetValue)
-			type  .map(info.getType().getID()),
-			limit .map(info.getLimit()),
-			level .map(info.getLevel()),
-			hits  .map(info.getHits()),
-			misses.map(info.getMisses()),
+		return Arrays.asList((SetValue<?>)
+			type  .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
+			limit .map(to.getLimit()),
+			level .map(to.getLevel()),
+			diff(hits,   from.getHits(), to.getHits()),
+			diff(misses, from.getMisses(), to.getMisses()),
 
-			concurrentLoads.map(info.getConcurrentLoads()),
+			diff(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
 
-			replacementRuns   .map(info.getReplacementRuns()),
-			replacements      .map(info.getReplacements()),
-			lastReplacementRun.map(info.getLastReplacementRun()),
+			diff(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			diff(replacements,    from.getReplacements(),    to.getReplacements()),
+			lastReplacementRun.map(to.getLastReplacementRun()),
 
-			ageAverageMillis.map(info.getAgeAverageMillis()),
-			ageMinimumMillis.map(info.getAgeMinimumMillis()),
-			ageMaximumMillis.map(info.getAgeMaximumMillis()),
+			ageAverageMillis.map(to.getAgeAverageMillis()),
+			ageMinimumMillis.map(to.getAgeMinimumMillis()),
+			ageMaximumMillis.map(to.getAgeMaximumMillis()),
 
-			invalidationsOrdered.map(info.getInvalidationsOrdered()),
-			invalidationsDone   .map(info.getInvalidationsDone()),
+			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			diff(invalidationsDone,    from.getInvalidationsDone(),    to.getInvalidationsDone()),
 
-			invalidateLastSize.map(info.getInvalidateLastSize()),
-			invalidateLastHits.map(info.getInvalidateLastHits()),
-			invalidateLastPurged.map(info.getInvalidateLastPurged()),
-
-			invalidationBucketHits.map(info.getInvalidationBucketHits()));
+			invalidateLastSize.map(to.getInvalidateLastSize()),
+			diff(invalidateLastHits,   from.getInvalidateLastHits(),   to.getInvalidateLastHits()),
+			diff(invalidateLastPurged, from.getInvalidateLastPurged(), to.getInvalidateLastPurged()));
 	}
 
 
@@ -127,32 +115,12 @@ final class SamplerItemCache extends Item
 
 	String getType()
 	{
-		return type.get(this);
+		return type.get(this).getID();
 	}
 
 	Date getDate()
 	{
 		return date.get(this);
-	}
-
-	Date getInitalizeDate()
-	{
-		return initializeDate.get(this);
-	}
-
-	Date getConnectDate()
-	{
-		return connectDate.get(this);
-	}
-
-	int getThread()
-	{
-		return thread.getMandatory(this);
-	}
-
-	int getRunning()
-	{
-		return running.getMandatory(this);
 	}
 
 	private static final long serialVersionUID = 1l;

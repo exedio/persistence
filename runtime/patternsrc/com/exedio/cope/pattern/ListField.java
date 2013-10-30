@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
@@ -34,7 +27,14 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public final class ListField<E> extends AbstractListField<E>
 {
@@ -42,7 +42,8 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
-	private Mount mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private Mount mountIfMounted = null;
 
 	private ListField(final FunctionField<E> element)
 	{
@@ -56,7 +57,7 @@ public final class ListField<E> extends AbstractListField<E>
 			throw new IllegalArgumentException("element must not be unique");
 	}
 
-	public static final <E> ListField<E> newList(final FunctionField<E> element)
+	public static final <E> ListField<E> create(final FunctionField<E> element)
 	{
 		return new ListField<E>(element);
 	}
@@ -75,7 +76,7 @@ public final class ListField<E> extends AbstractListField<E>
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mount = new Mount(parent, uniqueConstraint, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 
 	private static final class Mount
@@ -101,12 +102,14 @@ public final class ListField<E> extends AbstractListField<E>
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
 	}
 
+	@Wrap(order=1000, name="{1}Parent",
+			doc="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -138,59 +141,10 @@ public final class ListField<E> extends AbstractListField<E>
 		return mount().relationType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getQuery").
-			addComment("Returns a query for the value of {0}.").
-			setReturn(Wrapper.generic(Query.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getDistinctParents").
-			addComment("Returns the items, for which field list {0} contains the given element.").
-			setReturn(Wrapper.generic(List.class, Wrapper.ClassVariable.class)).
-			setStatic().
-			setMethodWrapperPattern("getDistinctParentsOf{0}").
-			addParameter(Wrapper.TypeVariable0.class, "element"));
-
-		final Set<Class<? extends Throwable>> exceptions = element.getInitialExceptions();
-		exceptions.add(ClassCastException.class);
-
-		result.add(
-			new Wrapper("add").
-			setMethodWrapperPattern("addTo{0}").
-			addComment("Adds a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.TypeVariable0.class));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("getParent").
-			addComment("Returns the parent field of the type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}Parent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
-	}
-
 	/**
 	 * @see #getQuery(Item)
 	 */
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
@@ -200,6 +154,7 @@ public final class ListField<E> extends AbstractListField<E>
 	/**
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
+	@Wrap(order=20, doc="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
@@ -214,7 +169,11 @@ public final class ListField<E> extends AbstractListField<E>
 	 * even if the element is contained in this field list for an item more than once.
 	 * The order of the result is unspecified.
 	 */
-	public <P extends Item> List<P> getDistinctParents(final Class<P> parentClass, final E element)
+	@Wrap(order=30, name="getDistinctParentsOf{0}",
+			doc="Returns the items, for which field list {0} contains the given element.")
+	public <P extends Item> List<P> getDistinctParents(
+			final Class<P> parentClass,
+			@Parameter("element") final E element)
 	{
 		final Query<P> q = new Query<P>(
 				mount().parent.as(parentClass),
@@ -223,6 +182,9 @@ public final class ListField<E> extends AbstractListField<E>
 		return q.search();
 	}
 
+	@Wrap(order=40, name="addTo{0}",
+			doc="Adds a new value for {0}.",
+			thrownGetter=Thrown.class)
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
@@ -237,6 +199,9 @@ public final class ListField<E> extends AbstractListField<E>
 				this.element.map(value));
 	}
 
+	@Wrap(order=50,
+			doc="Sets a new value for {0}.",
+			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
@@ -278,5 +243,27 @@ public final class ListField<E> extends AbstractListField<E>
 				this.element.set(tupel, expected.next());
 			}
 		}
+	}
+
+	private static final class Thrown implements ThrownGetter<ListField<?>>
+	{
+		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> exceptions =
+				feature.getElement().getInitialExceptions();
+			exceptions.add(ClassCastException.class);
+			return exceptions;
+		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <E> ListField<E> newList(final FunctionField<E> element)
+	{
+		return create(element);
 	}
 }

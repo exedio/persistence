@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -40,12 +40,17 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	private final int position;
 
 	/**
-	 * Creates a new LengthViolationException with the neccessary information about the violation.
+	 * Creates a new LengthViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
 	 */
-	public StringCharSetViolationException(final StringField feature, final Item item, final String value, final char character, final int position)
+	StringCharSetViolationException(
+			final StringField feature,
+			final Item item,
+			final String value,
+			final char character,
+			final int position)
 	{
 		super(item, null);
 		this.feature = feature;

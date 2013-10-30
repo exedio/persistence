@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,21 +23,21 @@ import java.util.Map;
 abstract class State
 {
 	final Item item;
-	final Type type;
+	final Type<?> type;
 	final int pk;
-	final int modificationCount;
+	final int updateCount;
 
-	protected State(final Item item, final int modificationCount)
+	protected State(final Item item, final int updateCount)
 	{
 		this.item = item;
 		this.type = item.type;
 		this.pk = item.pk;
-		this.modificationCount = modificationCount;
+		this.updateCount = updateCount;
 
 		assert PK.isValid(pk) : pk;
 	}
 
-	abstract Object get(FunctionField field);
+	abstract Object get(FunctionField<?> field);
 
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
 
@@ -58,7 +58,7 @@ abstract class State
 	abstract boolean exists();
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		return getClass().getName()+"-"+item.getCopeID();
 	}

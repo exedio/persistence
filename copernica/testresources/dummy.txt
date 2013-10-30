@@ -1,3 +1,0 @@
-This is an example file
-for testing data
-attributes in copernica.

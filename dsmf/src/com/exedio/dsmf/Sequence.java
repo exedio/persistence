@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -36,8 +36,6 @@ public final class Sequence extends Node
 
 		if(name==null)
 			throw new RuntimeException();
-		if(!schema.dialect.supportsSequences())
-			throw new RuntimeException("database does not support sequences");
 
 		this.name = name;
 		this.startWith = startWith;
@@ -57,7 +55,7 @@ public final class Sequence extends Node
 		return startWith;
 	}
 
-	final void notifyExists()
+	void notifyExists()
 	{
 		exists = true;
 	}
@@ -103,22 +101,36 @@ public final class Sequence extends Node
 
 	public void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
 	public void create(final StatementListener listener)
 	{
-		executeSQL(dialect.createSequence(quoteName(name), startWith), listener);
+		final StringBuilder bf = new StringBuilder();
+		create(bf);
+		executeSQL(bf.toString(), listener);
+	}
+
+	void create(final StringBuilder bf)
+	{
+		dialect.createSequence(bf, quoteName(name), startWith);
 	}
 
 	public void drop()
 	{
-		drop(null);
+		drop((StatementListener)null);
 	}
 
 	public void drop(final StatementListener listener)
 	{
-		executeSQL(dialect.dropSequence(quoteName(name)), listener);
+		final StringBuilder bf = new StringBuilder();
+		drop(bf);
+		executeSQL(bf.toString(), listener);
+	}
+
+	void drop(final StringBuilder bf)
+	{
+		dialect.dropSequence(bf, quoteName(name));
 	}
 
 	@Override

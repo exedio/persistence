@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,20 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
+import static com.exedio.cope.DoubleItem.TYPE;
+import static com.exedio.cope.DoubleItem.any;
+import static com.exedio.cope.DoubleItem.mandatory;
+import static com.exedio.cope.DoubleItem.max4;
+import static com.exedio.cope.DoubleItem.min4;
+import static com.exedio.cope.DoubleItem.min4Max8;
+import static java.lang.Double.NEGATIVE_INFINITY;
+import static java.lang.Double.NaN;
+import static java.lang.Double.POSITIVE_INFINITY;
+import static java.lang.Double.valueOf;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
 
 public class DoubleTest extends AbstractRuntimeTest
 {
@@ -54,137 +65,137 @@ public class DoubleTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(item.TYPE, item.any.getType());
-		assertEquals("any", item.any.getName());
-		assertEquals(false, item.any.isMandatory());
-		assertEquals(null, item.any.getPattern());
-		assertEquals(MIN, item.any.getMinimum());
-		assertEquals(MAX, item.any.getMaximum());
-		assertContains(item.any.getInitialExceptions());
+		assertEquals(TYPE, any.getType());
+		assertEquals("any", any.getName());
+		assertEquals(false, any.isMandatory());
+		assertEquals(null, any.getPattern());
+		assertEquals(MIN, any.getMinimum());
+		assertEquals(MAX, any.getMaximum());
+		assertContains(any.getInitialExceptions());
 
-		assertEquals(item.TYPE, item.mandatory.getType());
-		assertEquals("mandatory", item.mandatory.getName());
-		assertEquals(true, item.mandatory.isMandatory());
-		assertEquals(MIN, item.mandatory.getMinimum());
-		assertEquals(MAX, item.mandatory.getMaximum());
-		assertContains(MandatoryViolationException.class, item.mandatory.getInitialExceptions());
+		assertEquals(TYPE, mandatory.getType());
+		assertEquals("mandatory", mandatory.getName());
+		assertEquals(true, mandatory.isMandatory());
+		assertEquals(MIN, mandatory.getMinimum());
+		assertEquals(MAX, mandatory.getMaximum());
+		assertContains(MandatoryViolationException.class, mandatory.getInitialExceptions());
 
-		assertEquals(false, item.min4.isMandatory());
-		assertEquals(4.0, item.min4.getMinimum());
-		assertEquals(MAX, item.min4.getMaximum());
-		assertContains(DoubleRangeViolationException.class, item.min4.getInitialExceptions());
+		assertEquals(false, min4.isMandatory());
+		assertEquals(4.0, min4.getMinimum());
+		assertEquals(MAX, min4.getMaximum());
+		assertContains(DoubleRangeViolationException.class, min4.getInitialExceptions());
 
-		assertEquals(false, item.max4.isMandatory());
-		assertEquals(MIN, item.max4.getMinimum());
-		assertEquals(4.0, item.max4.getMaximum());
-		assertContains(DoubleRangeViolationException.class, item.max4.getInitialExceptions());
+		assertEquals(false, max4.isMandatory());
+		assertEquals(MIN, max4.getMinimum());
+		assertEquals(4.0, max4.getMaximum());
+		assertContains(DoubleRangeViolationException.class, max4.getInitialExceptions());
 
-		assertEquals(false, item.min4Max8.isMandatory());
-		assertEquals(4.0, item.min4Max8.getMinimum());
-		assertEquals(8.0, item.min4Max8.getMaximum());
-		assertContains(DoubleRangeViolationException.class, item.min4Max8.getInitialExceptions());
+		assertEquals(false, min4Max8.isMandatory());
+		assertEquals(4.0, min4Max8.getMinimum());
+		assertEquals(8.0, min4Max8.getMaximum());
+		assertContains(DoubleRangeViolationException.class, min4Max8.getInitialExceptions());
 
 		// test condition canonization
 		{
-			assertEquals(in(item.any), item.any.isNull());
-			assertEquals(nn(item.any), item.any.isNotNull());
-			assertEquals(in(item.any), item.any.equal((Double)null));
-			assertEquals(nn(item.any), item.any.notEqual((Double)null));
-			assertEquals(cc(Operator.Equal, item.any, 0.0), item.any.equal(0.0));
-			assertEquals(cc(Operator.Equal, item.any, MIN), item.any.equal(MIN));
-			assertEquals(cc(Operator.Equal, item.any, MAX), item.any.equal(MAX));
-			assertEquals(cc(Operator.NotEqual, item.any, 0.0), item.any.notEqual(0.0));
-			assertEquals(cc(Operator.NotEqual, item.any, MIN), item.any.notEqual(MIN));
-			assertEquals(cc(Operator.NotEqual, item.any, MAX), item.any.notEqual(MAX));
-			assertEquals(cc(Operator.Less, item.any, 0.0), item.any.less(0.0));
-			assertEquals(cc(Operator.Less, item.any, MIN), item.any.less(MIN));
-			assertEquals(cc(Operator.Less, item.any, MAX), item.any.less(MAX));
-			assertEquals(cc(Operator.LessEqual, item.any, 0.0), item.any.lessOrEqual(0.0));
-			assertEquals(cc(Operator.LessEqual, item.any, MIN), item.any.lessOrEqual(MIN));
-			assertEquals(cc(Operator.LessEqual, item.any, MAX), item.any.lessOrEqual(MAX));
-			assertEquals(cc(Operator.Greater, item.any, 0.0), item.any.greater(0.0));
-			assertEquals(cc(Operator.Greater, item.any, MIN), item.any.greater(MIN));
-			assertEquals(cc(Operator.Greater, item.any, MAX), item.any.greater(MAX));
-			assertEquals(cc(Operator.GreaterEqual, item.any, 0.0), item.any.greaterOrEqual(0.0));
-			assertEquals(cc(Operator.GreaterEqual, item.any, MIN), item.any.greaterOrEqual(MIN));
-			assertEquals(cc(Operator.GreaterEqual, item.any, MAX), item.any.greaterOrEqual(MAX));
+			assertEquals(in(any), any.isNull());
+			assertEquals(nn(any), any.isNotNull());
+			assertEquals(in(any), any.equal((Double)null));
+			assertEquals(nn(any), any.notEqual((Double)null));
+			assertEquals(cc(Operator.Equal, any, 0.0), any.equal(0.0));
+			assertEquals(cc(Operator.Equal, any, MIN), any.equal(MIN));
+			assertEquals(cc(Operator.Equal, any, MAX), any.equal(MAX));
+			assertEquals(cc(Operator.NotEqual, any, 0.0), any.notEqual(0.0));
+			assertEquals(cc(Operator.NotEqual, any, MIN), any.notEqual(MIN));
+			assertEquals(cc(Operator.NotEqual, any, MAX), any.notEqual(MAX));
+			assertEquals(cc(Operator.Less, any, 0.0), any.less(0.0));
+			assertEquals(cc(Operator.Less, any, MIN), any.less(MIN));
+			assertEquals(cc(Operator.Less, any, MAX), any.less(MAX));
+			assertEquals(cc(Operator.LessEqual, any, 0.0), any.lessOrEqual(0.0));
+			assertEquals(cc(Operator.LessEqual, any, MIN), any.lessOrEqual(MIN));
+			assertEquals(cc(Operator.LessEqual, any, MAX), any.lessOrEqual(MAX));
+			assertEquals(cc(Operator.Greater, any, 0.0), any.greater(0.0));
+			assertEquals(cc(Operator.Greater, any, MIN), any.greater(MIN));
+			assertEquals(cc(Operator.Greater, any, MAX), any.greater(MAX));
+			assertEquals(cc(Operator.GreaterEqual, any, 0.0), any.greaterOrEqual(0.0));
+			assertEquals(cc(Operator.GreaterEqual, any, MIN), any.greaterOrEqual(MIN));
+			assertEquals(cc(Operator.GreaterEqual, any, MAX), any.greaterOrEqual(MAX));
 
-			assertEquals(in(item.mandatory), item.mandatory.isNull());
-			assertEquals(nn(item.mandatory), item.mandatory.isNotNull());
-			assertEquals(in(item.mandatory), item.mandatory.equal((Double)null));
-			assertEquals(nn(item.mandatory), item.mandatory.notEqual((Double)null));
-			assertEquals(cc(Operator.Equal, item.mandatory, 0.0), item.mandatory.equal(0.0));
-			assertEquals(cc(Operator.Equal, item.mandatory, MIN), item.mandatory.equal(MIN));
-			assertEquals(cc(Operator.Equal, item.mandatory, MAX), item.mandatory.equal(MAX));
+			assertEquals(in(mandatory), mandatory.isNull());
+			assertEquals(nn(mandatory), mandatory.isNotNull());
+			assertEquals(in(mandatory), mandatory.equal((Double)null));
+			assertEquals(nn(mandatory), mandatory.notEqual((Double)null));
+			assertEquals(cc(Operator.Equal, mandatory, 0.0), mandatory.equal(0.0));
+			assertEquals(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
+			assertEquals(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
 
-			assertEquals(in(item.min4), item.min4.equal((Double)null));
-			assertEquals(FALSE,                              item.min4.equal(0.0));
-			assertEquals(FALSE,                              item.min4.equal(3.9));
-			assertEquals(cc(Operator.Equal, item.min4, 4.0), item.min4.equal(4.0));
-			assertEquals(FALSE,                              item.min4.equal(MIN));
-			assertEquals(cc(Operator.Equal, item.min4, MAX), item.min4.equal(MAX));
+			assertEquals(in(min4), min4.equal((Double)null));
+			assertEquals(FALSE,                         min4.equal(0.0));
+			assertEquals(FALSE,                         min4.equal(3.9));
+			assertEquals(cc(Operator.Equal, min4, 4.0), min4.equal(4.0));
+			assertEquals(FALSE,                         min4.equal(MIN));
+			assertEquals(cc(Operator.Equal, min4, MAX), min4.equal(MAX));
 
-			assertEquals(in(item.max4), item.max4.equal((Double)null));
-			assertEquals(cc(Operator.Equal, item.max4, 0.0), item.max4.equal(0.0));
-			assertEquals(cc(Operator.Equal, item.max4, 3.9), item.max4.equal(3.9));
-			assertEquals(cc(Operator.Equal, item.max4, 4.0), item.max4.equal(4.0));
-			assertEquals(FALSE,                              item.max4.equal(4.1));
-			assertEquals(cc(Operator.Equal, item.max4, MIN), item.max4.equal(MIN));
-			assertEquals(FALSE,                              item.max4.equal(MAX));
+			assertEquals(in(max4), max4.equal((Double)null));
+			assertEquals(cc(Operator.Equal, max4, 0.0), max4.equal(0.0));
+			assertEquals(cc(Operator.Equal, max4, 3.9), max4.equal(3.9));
+			assertEquals(cc(Operator.Equal, max4, 4.0), max4.equal(4.0));
+			assertEquals(FALSE,                         max4.equal(4.1));
+			assertEquals(cc(Operator.Equal, max4, MIN), max4.equal(MIN));
+			assertEquals(FALSE,                         max4.equal(MAX));
 
-			assertEquals(in(item.min4Max8), item.min4Max8.isNull());
-			assertEquals(nn(item.min4Max8), item.min4Max8.isNotNull());
-			assertEquals(in(item.min4Max8), item.min4Max8.equal((Double)null));
-			assertEquals(nn(item.min4Max8), item.min4Max8.notEqual((Double)null));
-			assertEquals(FALSE,                                  item.min4Max8.equal(0.0));
-			assertEquals(FALSE,                                  item.min4Max8.equal(3.9));
-			assertEquals(cc(Operator.Equal, item.min4Max8, 4.0), item.min4Max8.equal(4.0));
-			assertEquals(cc(Operator.Equal, item.min4Max8, 8.0), item.min4Max8.equal(8.0));
-			assertEquals(FALSE,                                  item.min4Max8.equal(8.1));
-			assertEquals(FALSE,                                  item.min4Max8.equal(MIN));
-			assertEquals(FALSE,                                  item.min4Max8.equal(MAX));
-			assertEquals(TRUE,                                      item.min4Max8.notEqual(0.0));
-			assertEquals(TRUE,                                      item.min4Max8.notEqual(3.9));
-			assertEquals(cc(Operator.NotEqual, item.min4Max8, 4.0), item.min4Max8.notEqual(4.0));
-			assertEquals(cc(Operator.NotEqual, item.min4Max8, 8.0), item.min4Max8.notEqual(8.0));
-			assertEquals(TRUE,                                      item.min4Max8.notEqual(8.1));
-			assertEquals(TRUE,                                      item.min4Max8.notEqual(MIN));
-			assertEquals(TRUE,                                      item.min4Max8.notEqual(MAX));
-			assertEquals(cc(Operator.Less, item.min4Max8, 0.0), item.min4Max8.less(0.0));
-			assertEquals(cc(Operator.Less, item.min4Max8, 3.9), item.min4Max8.less(3.9));
-			assertEquals(cc(Operator.Less, item.min4Max8, 4.0), item.min4Max8.less(4.0));
-			assertEquals(cc(Operator.Less, item.min4Max8, 5.0), item.min4Max8.less(5.0));
-			assertEquals(cc(Operator.Less, item.min4Max8, MIN), item.min4Max8.less(MIN));
-			assertEquals(cc(Operator.Less, item.min4Max8, MAX), item.min4Max8.less(MAX));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 0.0), item.min4Max8.lessOrEqual(0.0));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 3.3), item.min4Max8.lessOrEqual(3.3));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 4.4), item.min4Max8.lessOrEqual(4.4));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 5.5), item.min4Max8.lessOrEqual(5.5));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 8.8), item.min4Max8.lessOrEqual(8.8));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, 9.9), item.min4Max8.lessOrEqual(9.9));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8,10.0), item.min4Max8.lessOrEqual(10.0));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, MIN), item.min4Max8.lessOrEqual(MIN));
-			assertEquals(cc(Operator.LessEqual, item.min4Max8, MAX), item.min4Max8.lessOrEqual(MAX));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 0.0), item.min4Max8.greater(0.0));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 2.2), item.min4Max8.greater(2.2));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 3.3), item.min4Max8.greater(3.3));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 4.4), item.min4Max8.greater(4.4));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 6.6), item.min4Max8.greater(6.6));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 7.7), item.min4Max8.greater(7.7));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 8.8), item.min4Max8.greater(8.8));
-			assertEquals(cc(Operator.Greater, item.min4Max8, 9.9), item.min4Max8.greater(9.9));
-			assertEquals(cc(Operator.Greater, item.min4Max8, MIN), item.min4Max8.greater(MIN));
-			assertEquals(cc(Operator.Greater, item.min4Max8, MAX), item.min4Max8.greater(MAX));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 0.0), item.min4Max8.greaterOrEqual(0.0));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 2.2), item.min4Max8.greaterOrEqual(2.2));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 3.3), item.min4Max8.greaterOrEqual(3.3));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 4.4), item.min4Max8.greaterOrEqual(4.4));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 6.6), item.min4Max8.greaterOrEqual(6.6));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 7.7), item.min4Max8.greaterOrEqual(7.7));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 8.8), item.min4Max8.greaterOrEqual(8.8));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, 9.9), item.min4Max8.greaterOrEqual(9.9));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, MIN), item.min4Max8.greaterOrEqual(MIN));
-			assertEquals(cc(Operator.GreaterEqual, item.min4Max8, MAX), item.min4Max8.greaterOrEqual(MAX));
+			assertEquals(in(min4Max8), min4Max8.isNull());
+			assertEquals(nn(min4Max8), min4Max8.isNotNull());
+			assertEquals(in(min4Max8), min4Max8.equal((Double)null));
+			assertEquals(nn(min4Max8), min4Max8.notEqual((Double)null));
+			assertEquals(FALSE,                             min4Max8.equal(0.0));
+			assertEquals(FALSE,                             min4Max8.equal(3.9));
+			assertEquals(cc(Operator.Equal, min4Max8, 4.0), min4Max8.equal(4.0));
+			assertEquals(cc(Operator.Equal, min4Max8, 8.0), min4Max8.equal(8.0));
+			assertEquals(FALSE,                             min4Max8.equal(8.1));
+			assertEquals(FALSE,                             min4Max8.equal(MIN));
+			assertEquals(FALSE,                             min4Max8.equal(MAX));
+			assertEquals(TRUE,                                 min4Max8.notEqual(0.0));
+			assertEquals(TRUE,                                 min4Max8.notEqual(3.9));
+			assertEquals(cc(Operator.NotEqual, min4Max8, 4.0), min4Max8.notEqual(4.0));
+			assertEquals(cc(Operator.NotEqual, min4Max8, 8.0), min4Max8.notEqual(8.0));
+			assertEquals(TRUE,                                 min4Max8.notEqual(8.1));
+			assertEquals(TRUE,                                 min4Max8.notEqual(MIN));
+			assertEquals(TRUE,                                 min4Max8.notEqual(MAX));
+			assertEquals(cc(Operator.Less, min4Max8, 0.0), min4Max8.less(0.0));
+			assertEquals(cc(Operator.Less, min4Max8, 3.9), min4Max8.less(3.9));
+			assertEquals(cc(Operator.Less, min4Max8, 4.0), min4Max8.less(4.0));
+			assertEquals(cc(Operator.Less, min4Max8, 5.0), min4Max8.less(5.0));
+			assertEquals(cc(Operator.Less, min4Max8, MIN), min4Max8.less(MIN));
+			assertEquals(cc(Operator.Less, min4Max8, MAX), min4Max8.less(MAX));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 0.0), min4Max8.lessOrEqual(0.0));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 3.3), min4Max8.lessOrEqual(3.3));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 4.4), min4Max8.lessOrEqual(4.4));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 5.5), min4Max8.lessOrEqual(5.5));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 8.8), min4Max8.lessOrEqual(8.8));
+			assertEquals(cc(Operator.LessEqual, min4Max8, 9.9), min4Max8.lessOrEqual(9.9));
+			assertEquals(cc(Operator.LessEqual, min4Max8,10.0), min4Max8.lessOrEqual(10.0));
+			assertEquals(cc(Operator.LessEqual, min4Max8, MIN), min4Max8.lessOrEqual(MIN));
+			assertEquals(cc(Operator.LessEqual, min4Max8, MAX), min4Max8.lessOrEqual(MAX));
+			assertEquals(cc(Operator.Greater, min4Max8, 0.0), min4Max8.greater(0.0));
+			assertEquals(cc(Operator.Greater, min4Max8, 2.2), min4Max8.greater(2.2));
+			assertEquals(cc(Operator.Greater, min4Max8, 3.3), min4Max8.greater(3.3));
+			assertEquals(cc(Operator.Greater, min4Max8, 4.4), min4Max8.greater(4.4));
+			assertEquals(cc(Operator.Greater, min4Max8, 6.6), min4Max8.greater(6.6));
+			assertEquals(cc(Operator.Greater, min4Max8, 7.7), min4Max8.greater(7.7));
+			assertEquals(cc(Operator.Greater, min4Max8, 8.8), min4Max8.greater(8.8));
+			assertEquals(cc(Operator.Greater, min4Max8, 9.9), min4Max8.greater(9.9));
+			assertEquals(cc(Operator.Greater, min4Max8, MIN), min4Max8.greater(MIN));
+			assertEquals(cc(Operator.Greater, min4Max8, MAX), min4Max8.greater(MAX));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 0.0), min4Max8.greaterOrEqual(0.0));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 2.2), min4Max8.greaterOrEqual(2.2));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 3.3), min4Max8.greaterOrEqual(3.3));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 4.4), min4Max8.greaterOrEqual(4.4));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 6.6), min4Max8.greaterOrEqual(6.6));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 7.7), min4Max8.greaterOrEqual(7.7));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 8.8), min4Max8.greaterOrEqual(8.8));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, 9.9), min4Max8.greaterOrEqual(9.9));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, MIN), min4Max8.greaterOrEqual(MIN));
+			assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX), min4Max8.greaterOrEqual(MAX));
 		}
 
 		{
@@ -259,12 +270,12 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(20.2, copy.getMaximum());
 		}
 
-		assertIllegalRange(Double.POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
-		assertIllegalRange(44.22, Double.POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
-		assertIllegalRange(Double.NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
-		assertIllegalRange(44.22, Double.NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
-		assertIllegalRange(Double.NaN, 44.22, "minimum must not be NaN, but was NaN.");
-		assertIllegalRange(44.22, Double.NaN, "maximum must not be NaN, but was NaN.");
+		assertIllegalRange(POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
+		assertIllegalRange(44.22, POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
+		assertIllegalRange(NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
+		assertIllegalRange(44.22, NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
+		assertIllegalRange(NaN, 44.22, "minimum must not be NaN, but was NaN.");
+		assertIllegalRange(44.22, NaN, "maximum must not be NaN, but was NaN.");
 		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
 		assertIllegalRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
 		assertIllegalRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");
@@ -273,18 +284,18 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertIllegalRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
 
 		// test conditions
-		assertEquals(item.any.equal(1.1), item.any.equal(1.1));
-		assertNotEquals(item.any.equal(1.1), item.any.equal(2.2));
-		assertNotEquals(item.any.equal(1.1), item.any.equal((Double)null));
-		assertNotEquals(item.any.equal(1.1), item.any.greater(1.1));
-		assertEquals(item.any.equal(item.mandatory), item.any.equal(item.mandatory));
-		assertNotEquals(item.any.equal(item.mandatory), item.any.equal(item.any));
+		assertEquals(any.equal(1.1), any.equal(1.1));
+		assertNotEquals(any.equal(1.1), any.equal(2.2));
+		assertNotEquals(any.equal(1.1), any.equal((Double)null));
+		assertNotEquals(any.equal(1.1), any.greater(1.1));
+		assertEquals(any.equal(mandatory), any.equal(mandatory));
+		assertNotEquals(any.equal(mandatory), any.equal(any));
 
 		// any
 		item.setAny(1234.56);
-		assertEquals(new Double(1234.56), item.getAny());
+		assertEquals(valueOf(1234.56), item.getAny());
 		item.setAny(123.45);
-		assertEquals(new Double(123.45), item.getAny());
+		assertEquals(valueOf(123.45), item.getAny());
 
 		// mandatory
 		assertEquals(2201.01, item.getMandatory());
@@ -294,19 +305,19 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		try
 		{
-			item.mandatory.set(item, null);
+			mandatory.set(item, null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation on " + item + " for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
 		}
 		assertEquals(52201.52, item.getMandatory());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new DoubleItem((Double)null);
@@ -315,26 +326,93 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new DoubleItem(new SetValue[]{});
+			new DoubleItem(new SetValue<?>[]{});
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals(item.mandatory, e.getFeature());
-			assertEquals("mandatory violation for " + item.mandatory, e.getMessage());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
+
+		try
+		{
+			item.setMandatory(NaN);
+			fail();
+		}
+		catch(final DoubleNaNException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(
+					"Not a Number (NaN) on " + item + " for " + mandatory,
+					e.getMessage());
+		}
+		try
+		{
+			new DoubleItem(NaN);
+			fail();
+		}
+		catch(final DoubleNaNException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(
+					"Not a Number (NaN) for " + mandatory,
+					e.getMessage());
+		}
+
+		assertTrue(3.0<POSITIVE_INFINITY);
+		assertTrue(3.0>NEGATIVE_INFINITY);
+		assertTrue( Double.MAX_VALUE<POSITIVE_INFINITY);
+		assertTrue(-Double.MAX_VALUE>NEGATIVE_INFINITY);
+		try
+		{
+			item.setMandatory(POSITIVE_INFINITY);
+			fail();
+		}
+		catch(final DoubleRangeViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(POSITIVE_INFINITY, e.getValue());
+			assertEquals(false, e.isTooSmall());
+			assertEquals(
+					"range violation on " + item + ", " +
+					"Infinity is too big for " + mandatory + ", " +
+					"must be at most " + MAX + ".",
+					e.getMessage());
+		}
+
+		try
+		{
+			item.setMandatory(NEGATIVE_INFINITY);
+			fail();
+		}
+		catch(final DoubleRangeViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(mandatory, e.getFeature());
+			assertEquals(NEGATIVE_INFINITY, e.getValue());
+			assertEquals(true, e.isTooSmall());
+			assertEquals(
+					"range violation on " + item + ", " +
+					"-Infinity is too small for " + mandatory + ", " +
+					"must be at least " + MIN + ".",
+					e.getMessage());
+		}
 
 		// min4
 		try
@@ -345,13 +423,13 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4, e.getFeature());
-			assertEquals(item.min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
+			assertEquals(min4, e.getFeature());
 			assertEquals(3.9, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"3.9 is too small for " + item.min4 + ", " +
+					"3.9 is too small for " + min4 + ", " +
 					"must be at least 4.0.",
 					e.getMessage());
 		}
@@ -360,11 +438,11 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4());
 
 		item.setMin4(4.0);
-		assertEquals(new Double(4.0), item.getMin4());
+		assertEquals(valueOf(4.0), item.getMin4());
 
 		// max4
 		item.setMax4(4.0);
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 		try
 		{
 			item.setMax4(4.1);
@@ -373,21 +451,21 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(4.1, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"4.1 is too big for " + item.max4 + ", " +
+					"4.1 is too big for " + max4 + ", " +
 					"must be at most 4.0.",
 					e.getMessage());
 		}
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 		restartTransaction();
-		assertEquals(new Double(4.0), item.getMax4());
+		assertEquals(valueOf(4.0), item.getMax4());
 
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			new DoubleItem(4.1, (Date)null);
@@ -396,37 +474,37 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(4.1, e.getValue());
 			assertEquals(
 					"range violation, " +
-					"4.1 is too big for " + item.max4 + ", " +
+					"4.1 is too big for " + max4 + ", " +
 					"must be at most 4.0.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
 			DoubleItem.TYPE.newItem(
-					item.mandatory.map(12345.67),
-					item.max4.map(4.1)
+					mandatory.map(12345.67),
+					max4.map(4.1)
 			);
 			fail();
 		}
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(item.max4, e.getFeature());
-			assertEquals(item.max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
+			assertEquals(max4, e.getFeature());
 			assertEquals(4.1, e.getValue());
 			assertEquals(
 					"range violation, " +
-					"4.1 is too big for " + item.max4 + ", " +
+					"4.1 is too big for " + max4 + ", " +
 					"must be at most 4.0.",
 					e.getMessage());
 		}
-		assertEquals(numberOfItems, item.TYPE.search(null).size());
+		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4max8
 		try
@@ -437,13 +515,13 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals(3.9, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"3.9 is too small for " + item.min4Max8 + ", " +
+					"3.9 is too small for " + min4Max8 + ", " +
 					"must be at least 4.0.",
 					e.getMessage());
 		}
@@ -452,13 +530,13 @@ public class DoubleTest extends AbstractRuntimeTest
 		assertEquals(null, item.getMin4Max8());
 
 		item.setMin4Max8(4.0);
-		assertEquals(new Double(4.0), item.getMin4Max8());
+		assertEquals(valueOf(4.0), item.getMin4Max8());
 
 		item.setMin4Max8(8.0);
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
 		restartTransaction();
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
 		try
 		{
@@ -468,43 +546,46 @@ public class DoubleTest extends AbstractRuntimeTest
 		catch(final DoubleRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(item.min4Max8, e.getFeature());
-			assertEquals(item.min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
+			assertEquals(min4Max8, e.getFeature());
 			assertEquals(8.1, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
-					"8.1 is too big for " + item.min4Max8 + ", " +
+					"8.1 is too big for " + min4Max8 + ", " +
 					"must be at most 8.0.",
 					e.getMessage());
 		}
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 		restartTransaction();
-		assertEquals(new Double(8.0), item.getMin4Max8());
+		assertEquals(valueOf(8.0), item.getMin4Max8());
 
-
+		model.commit();
 		model.checkUnsupportedConstraints();
+		model.startTransaction();
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.any, "hallo");
+			item.set((FunctionField)any, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Double.class.getName() + ", but was a " + String.class.getName() + " for " + item.any + '.', e.getMessage());
+			assertEquals("expected a " + Double.class.getName() + ", but was a " + String.class.getName() + " for " + any + '.', e.getMessage());
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
+		final DoubleField f = new DoubleField().optional();
 		try
 		{
-			new DoubleField().optional().range(minimum, maximum);
+			f.range(minimum, maximum);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -531,5 +612,10 @@ public class DoubleTest extends AbstractRuntimeTest
 			final Double value)
 	{
 		return new CompareCondition<Double>(operator, field, value);
+	}
+
+	public void testSchema()
+	{
+		assertSchema();
 	}
 }

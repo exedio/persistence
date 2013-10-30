@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someDate;
+
+import com.exedio.cope.testmodel.AttributeItem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.exedio.cope.testmodel.AttributeItem;
 
 public class FieldDateTest extends FieldTest
 {
@@ -33,15 +35,15 @@ public class FieldDateTest extends FieldTest
 		final Date beforeDate = new Date(date.getTime()-1l);
 		final Date nextDate = new Date(date.getTime()+1l);
 
-		assertEquals(item.TYPE, item.someDate.getType());
-		assertEquals(Date.class, item.someDate.getValueClass());
-		assertSerializedSame(item.someDate, 377);
+		assertEquals(TYPE, someDate.getType());
+		assertEquals(Date.class, someDate.getValueClass());
+		assertSerializedSame(someDate, 377);
 
 		assertEquals(null, item.getSomeDate());
-		assertContains(item, item2, item.TYPE.search(item.someDate.equal((Date)null)));
-		assertContains(item, item2, item.TYPE.search(item.someDate.isNull()));
-		assertContains(item.TYPE.search(item.someDate.notEqual((Date)null)));
-		assertContains(item.TYPE.search(item.someDate.isNotNull()));
+		assertContains(item, item2, TYPE.search(someDate.equal((Date)null)));
+		assertContains(item, item2, TYPE.search(someDate.isNull()));
+		assertContains(TYPE.search(someDate.notEqual((Date)null)));
+		assertContains(TYPE.search(someDate.isNotNull()));
 
 		item.setSomeDate(date);
 		final Date date2 = item.getSomeDate();
@@ -51,24 +53,24 @@ public class FieldDateTest extends FieldTest
 		assertNotSame(date, date2);
 		assertNotSame(date2, item.getSomeDate());
 
-		assertContains(date, null, search(item.someDate));
-		assertContains(date, search(item.someDate, item.someDate.equal(date)));
+		assertContains(date, null, search(someDate));
+		assertContains(date, search(someDate, someDate.equal(date)));
 
 		restartTransaction();
 		assertEquals(date, item.getSomeDate());
-		assertEquals(list(item), item.TYPE.search(item.someDate.equal(date)));
-		assertEquals(list(item), item.TYPE.search(item.someDate.greaterOrEqual(date).and(item.someDate.lessOrEqual(date))));
-		assertEquals(list(), item.TYPE.search(item.someDate.notEqual(date)));
-		assertEquals(list(item2), item.TYPE.search(item.someDate.equal((Date)null)));
-		assertEquals(list(item2), item.TYPE.search(item.someDate.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someDate.notEqual((Date)null)));
-		assertEquals(list(item), item.TYPE.search(item.someDate.isNotNull()));
-		assertEquals(list(), item.TYPE.search(item.someDate.equal(beforeDate)));
-		assertEquals(list(), item.TYPE.search(item.someDate.equal(nextDate)));
-		assertEquals(list(), item.TYPE.search(item.someDate.greaterOrEqual(beforeDate).and(item.someDate.lessOrEqual(beforeDate))));
-		assertEquals(list(), item.TYPE.search(item.someDate.greaterOrEqual(nextDate).and(item.someDate.lessOrEqual(nextDate))));
-		assertEquals(list(item), item.TYPE.search(item.someDate.greaterOrEqual(date).and(item.someDate.lessOrEqual(nextDate))));
-		assertEquals(list(item), item.TYPE.search(item.someDate.greaterOrEqual(beforeDate).and(item.someDate.lessOrEqual(date))));
+		assertEquals(list(item), TYPE.search(someDate.equal(date)));
+		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(date).and(someDate.lessOrEqual(date))));
+		assertEquals(list(), TYPE.search(someDate.notEqual(date)));
+		assertEquals(list(item2), TYPE.search(someDate.equal((Date)null)));
+		assertEquals(list(item2), TYPE.search(someDate.isNull()));
+		assertEquals(list(item), TYPE.search(someDate.notEqual((Date)null)));
+		assertEquals(list(item), TYPE.search(someDate.isNotNull()));
+		assertEquals(list(), TYPE.search(someDate.equal(beforeDate)));
+		assertEquals(list(), TYPE.search(someDate.equal(nextDate)));
+		assertEquals(list(), TYPE.search(someDate.greaterOrEqual(beforeDate).and(someDate.lessOrEqual(beforeDate))));
+		assertEquals(list(), TYPE.search(someDate.greaterOrEqual(nextDate).and(someDate.lessOrEqual(nextDate))));
+		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(date).and(someDate.lessOrEqual(nextDate))));
+		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(beforeDate).and(someDate.lessOrEqual(date))));
 
 		item.setSomeDate(nextDate);
 		restartTransaction();
@@ -94,17 +96,17 @@ public class FieldDateTest extends FieldTest
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.someDate, Integer.valueOf(10));
+			item.set((FunctionField)someDate, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDate + '.', e.getMessage());
+			assertEquals("expected a " + Date.class.getName() + ", but was a " + Integer.class.getName() + " for " + someDate + '.', e.getMessage());
 		}
 	}
 
@@ -112,8 +114,8 @@ public class FieldDateTest extends FieldTest
 	{
 		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
-		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1));
+		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1));
 		dates[0] = new Date();
 		for ( int i=1; i<dates.length; i++ )
 		{
@@ -160,8 +162,8 @@ public class FieldDateTest extends FieldTest
 	{
 		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
-		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
-		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, someItem, AttributeItem.SomeEnum.enumValue1));
+		item3 = deleteOnTearDown(new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1));
+		item4 = deleteOnTearDown(new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1));
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		dates[0] = format.parse("2005-09-22 10:26:46.031");
 		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item
@@ -221,4 +223,8 @@ public class FieldDateTest extends FieldTest
 		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
 	}
 
+	public void testSchema()
+	{
+		assertSchema();
+	}
 }

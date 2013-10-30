@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someData;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,14 +28,14 @@ public class FieldMediaTest extends FieldTest
 {
 	public void testSomeData() throws IOException
 	{
-		assertEquals(item.TYPE, item.someData.getType());
-		assertEquals("someData", item.someData.getName());
-		assertEquals(true, item.someData.checkContentType("what/ever"));
-		assertEquals("*/*", item.someData.getContentTypeDescription());
-		assertEquals(null, item.someData.getContentTypesAllowed());
+		assertEquals(TYPE, someData.getType());
+		assertEquals("someData", someData.getName());
+		assertEquals(true, someData.checkContentType("what/ever"));
+		assertEquals("*/*", someData.getContentTypeDescription());
+		assertEquals(null, someData.getContentTypesAllowed());
 
 		// TODO: test with not null data
-		assertEquals(item.TYPE, item.someData.getType());
+		assertEquals(TYPE, someData.getType());
 		assertEquals(null, item.getSomeDataURL());
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());

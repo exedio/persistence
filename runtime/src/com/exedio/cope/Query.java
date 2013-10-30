@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.Executor.ResultSetHandler;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,17 +27,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
-import com.exedio.cope.Executor.ResultSetHandler;
-
-public final class Query<R>
+public final class Query<R> implements Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	final static int UNLIMITED = -66;
 
 	final Model model;
 	private Selectable<? extends R> selectSingle;
-	private Selectable[] selectsMulti;
+	private Selectable<?>[] selectsMulti;
+	private Selectable<?>[] groupBy;
 	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
@@ -43,7 +47,7 @@ public final class Query<R>
 	private Condition condition;
 
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
-	private Function[] orderBy = null;
+	private Selectable<?>[] orderBy = null;
 	private boolean[] orderAscending;
 
 	private int offset = 0;
@@ -51,6 +55,9 @@ public final class Query<R>
 
 	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
+
+	private static final int SEARCH_SIZE_CACHE_LIMIT_DEFAULT = Integer.MIN_VALUE;
+	private int searchSizeCacheLimit = SEARCH_SIZE_CACHE_LIMIT_DEFAULT;
 
 	public Query(final Selectable<? extends R> select)
 	{
@@ -104,7 +111,7 @@ public final class Query<R>
 		this.searchSizeLimit = query.searchSizeLimit;
 	}
 
-	public Query(final Selectable<R> select, final Type type, final Condition condition)
+	public Query(final Selectable<R> select, final Type<?> type, final Condition condition)
 	{
 		if(select==null)
 			throw new NullPointerException("select");
@@ -118,7 +125,7 @@ public final class Query<R>
 	 * @deprecated Use {@link #newQuery(Selectable[], Type, Condition)} instead
 	 */
 	@Deprecated
-	public Query(final Selectable[] selects, final Type type, final Condition condition)
+	public Query(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selectsMulti = checkAndCopy(selects);
@@ -127,15 +134,15 @@ public final class Query<R>
 	}
 
 	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
-	public static Query<List<Object>> newQuery(final Selectable[] selects, final Type type, final Condition condition)
+	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		return new Query<List<Object>>(selects, type, condition);
 	}
 
-	Selectable[] selects()
+	Selectable<?>[] selects()
 	{
 		if(selectSingle!=null)
-			return new Selectable[]{selectSingle};
+			return new Selectable<?>[]{selectSingle};
 		else
 			return selectsMulti;
 	}
@@ -148,16 +155,24 @@ public final class Query<R>
 		this.selectSingle = select;
 	}
 
-	public void setSelects(final Selectable... selects)
+	public void setSelects(final Selectable<?>... selects)
 	{
-		final Selectable[] selectsCopy = checkAndCopy(selects);
+		final Selectable<?>[] selectsCopy = checkAndCopy(selects);
 		if(selectsMulti==null)
 			throw new IllegalStateException("use setSelect instead");
 		assert selectSingle==null;
 		this.selectsMulti = selectsCopy;
 	}
 
-	private static final Selectable[] checkAndCopy(final Selectable[] selects)
+	/** grouping functionality is 'beta' - API may change */
+	public void setGroupBy( final Selectable<?>... groupBy )
+	{
+		if(selectsMulti==null)
+			throw new IllegalStateException("grouping not supported for single-select queries");
+		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
+	}
+
+	private static final Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
 	{
 		if(selects.length<2)
 			throw new IllegalArgumentException("must have at least 2 selects, but was " + Arrays.asList(selects));
@@ -177,7 +192,7 @@ public final class Query<R>
 		this.distinct = distinct;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
 	}
@@ -218,7 +233,7 @@ public final class Query<R>
 	/**
 	 * Does an inner join with the given type without any join condition.
 	 */
-	public Join join(final Type type)
+	public Join join(final Type<?> type)
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, null));
 	}
@@ -226,17 +241,17 @@ public final class Query<R>
 	/**
 	 * Does an inner join with the given type on the given join condition.
 	 */
-	public Join join(final Type type, final Condition condition)
+	public Join join(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, condition));
 	}
 
-	public Join joinOuterLeft(final Type type, final Condition condition)
+	public Join joinOuterLeft(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_LEFT, type, condition));
 	}
 
-	public Join joinOuterRight(final Type type, final Condition condition)
+	public Join joinOuterRight(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_RIGHT, type, condition));
 	}
@@ -246,11 +261,11 @@ public final class Query<R>
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 
-	public List<Function> getOrderByFunctions()
+	public List<Selectable<?>> getOrderByFunctions()
 	{
 		return
 			orderBy==null
-			? Collections.<Function>emptyList()
+			? Collections.<Selectable<?>>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(orderBy));
 	}
 
@@ -267,32 +282,32 @@ public final class Query<R>
 
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Function[]{type.thisFunction};
+		this.orderBy = new Selectable<?>[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderBy(final Function orderBy, final boolean ascending)
+	public void setOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy};
+		this.orderBy = new Selectable<?>[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
-	public void setOrderByAndThis(final Function orderBy, final boolean ascending)
+	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(orderBy==null)
 			throw new NullPointerException("orderBy");
 
-		this.orderBy = new Function[]{orderBy, type.thisFunction};
+		this.orderBy = new Selectable<?>[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
 	}
 
 	/**
 	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
-	public void setOrderBy(final Function[] orderBy, final boolean[] ascending)
+	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
 			throw new IllegalArgumentException(
@@ -307,24 +322,24 @@ public final class Query<R>
 		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
 
-	public void addOrderBy(final Function orderBy)
+	public void addOrderBy(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, true);
 	}
 
-	public void addOrderByDescending(final Function orderBy)
+	public void addOrderByDescending(final Selectable<?> orderBy)
 	{
 		addOrderBy(orderBy, false);
 	}
 
-	public void addOrderBy(final Function orderBy, final boolean ascending)
+	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		if(this.orderBy==null)
-			this.orderBy = new Function[]{ orderBy };
+			this.orderBy = new Selectable<?>[]{ orderBy };
 		else
 		{
 			final int l = this.orderBy.length;
-			final Function[] result = new Function[l+1];
+			final Selectable<?>[] result = new Selectable<?>[l+1];
 			System.arraycopy(this.orderBy, 0, result, 0, l);
 			result[l] = orderBy;
 			this.orderBy = result;
@@ -361,6 +376,7 @@ public final class Query<R>
 	/**
 	 * @see #setLimit(int)
 	 * @param limit the maximum number of items to be found.
+	 *        For specifying no limit use {@link #setLimit(int)} instead.
 	 * @throws IllegalArgumentException if offset is a negative value
 	 * @throws IllegalArgumentException if limit is a negative value
 	 */
@@ -426,6 +442,42 @@ public final class Query<R>
 	}
 
 	/**
+	 * @see #setSearchSizeCacheLimit(int)
+	 */
+	public int getSearchSizeCacheLimit()
+	{
+		return
+			(searchSizeCacheLimit==SEARCH_SIZE_CACHE_LIMIT_DEFAULT)
+			? model.getConnectProperties().getQueryCacheSizeLimit()
+			: searchSizeCacheLimit;
+	}
+
+	/**
+	 * Sets the search size cache limit for this query.
+	 * <p>
+	 * Results of method {@link #search()} will not be considered for inclusion
+	 * into query cache as soon as the size of the result set exceeds the
+	 * search size cache limit.
+	 * Method {@link #total()} is not affected by this limit.
+	 * <p>
+	 * Setting the search size cache limit does not guarantee,
+	 * that {@link #search()} is not satisfied from the cache.
+	 * <p>
+	 * If search size cache limit is not set, it defaults to
+	 * {@link ConnectProperties#getQueryCacheSizeLimit()}.
+	 *
+	 * @see #getSearchSizeCacheLimit()
+	 */
+	public void setSearchSizeCacheLimit(final int searchSizeCacheLimit)
+	{
+		if(searchSizeCacheLimit<1)
+			throw new IllegalArgumentException(
+					"searchSizeCacheLimit must be greater zero, but was " + searchSizeCacheLimit);
+
+		this.searchSizeCacheLimit = searchSizeCacheLimit;
+	}
+
+	/**
 	 * Searches for items matching this query.
 	 * <p>
 	 * Returns an unmodifiable collection.
@@ -447,7 +499,7 @@ public final class Query<R>
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
 	}
 
-	@SuppressWarnings("unchecked") // TODO: Database#search does not support generics
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // TODO: Database#search does not support generics
 	private List<R> castQL(final List o)
 	{
 		return o;
@@ -483,7 +535,7 @@ public final class Query<R>
 	{
 		final TC tc = new TC(this);
 
-		for(final Selectable select : selects())
+		for(final Selectable<?> select : selects())
 			Cope.check(select, tc, null);
 
 		if(condition!=null)
@@ -496,10 +548,15 @@ public final class Query<R>
 		}
 
 		if(orderBy!=null)
-			for(final Function ob : orderBy)
+			for(final Selectable<?> ob : orderBy)
 				Cope.check(ob, tc, null);
 
 		return tc;
+	}
+
+	HashSet<Table> getTables()
+	{
+		return check().getTables();
 	}
 
 	/**
@@ -539,17 +596,6 @@ public final class Query<R>
 					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==-1)))
 					? (offset+dataSize)
 					: query.total();
-		}
-
-		/**
-		 * Creates an empty Result.
-		 */
-		Result()
-		{
-			this.data = Collections.emptyList();
-			this.total = 0;
-			this.offset = 0;
-			this.limit = -1;
 		}
 
 		public Result(
@@ -614,10 +660,10 @@ public final class Query<R>
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Result))
+			if(!(other instanceof Result<?>))
 				return false;
 
-			final Result o = (Result)other;
+			final Result<?> o = (Result<?>)other;
 
 			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);
 		}
@@ -634,6 +680,15 @@ public final class Query<R>
 			return data.toString() + '(' + total + ')';
 		}
 
+		@SuppressWarnings("unchecked") // OK: for singleton property
+		public static <R> Result<R> empty()
+		{
+			return EMPTY;
+		}
+
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: for singleton property
+		private static final Result EMPTY = new Result(Collections.EMPTY_LIST, 0, 0);
+
 		// ------------------- deprecated stuff -------------------
 
 		/**
@@ -644,11 +699,6 @@ public final class Query<R>
 		{
 			return getTotal();
 		}
-	}
-
-	public static <R> Result<R> emptyResult()
-	{
-		return new Result<R>();
 	}
 
 	/**
@@ -718,9 +768,15 @@ public final class Query<R>
 		return toString(false, false);
 	}
 
+	/**
+	 * BEWARE:
+	 * The results of this method also determinates,
+	 * whether to queries are equal for a hit in the query cache.
+	 * Do not forget anything !!!
+	 */
 	String toString(final boolean key, final boolean totalOnly)
 	{
-		final Type type = this.type;
+		final Type<?> type = this.type;
 		final StringBuilder bf = new StringBuilder();
 
 		bf.append("select ");
@@ -734,7 +790,7 @@ public final class Query<R>
 		}
 		else
 		{
-			final Selectable[] selects = selects();
+			final Selectable<?>[] selects = selects();
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
@@ -757,6 +813,18 @@ public final class Query<R>
 		{
 			bf.append(" where ");
 			condition.toString(bf, key, type);
+		}
+
+		if(groupBy!=null)
+		{
+			bf.append(" group by ");
+			for(int i = 0; i<groupBy.length; i++)
+			{
+				if(i>0)
+					bf.append(',');
+
+				groupBy[i].toString(bf, type);
+			}
 		}
 
 		if(!totalOnly)
@@ -795,6 +863,7 @@ public final class Query<R>
 				transaction.getConnection(),
 				transaction.connect.executor,
 				totalOnly,
+				(StringBuilder)null,
 				transaction.queryInfos);
 	}
 
@@ -803,10 +872,11 @@ public final class Query<R>
 		return c==Condition.TRUE ? null : c;
 	}
 
-	private ArrayList<Object> search(
+	ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
 			final boolean totalOnly,
+			final StringBuilder sqlOnlyBuffer,
 			final ArrayList<QueryInfo> queryInfos)
 	{
 		executor.testListener().search(connection, this, totalOnly);
@@ -821,7 +891,7 @@ public final class Query<R>
 			throw new RuntimeException();
 
 		final ArrayList<Join> joins = this.joins;
-		final Statement bf = executor.newStatement(this);
+		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
 		if (totalOnly && distinct)
 		{
@@ -833,31 +903,31 @@ public final class Query<R>
 
 		bf.append("select ");
 
-		final Selectable[] selects = this.selects();
-		final Column[] selectColumns = new Column[selects.length];
-		final Type[] selectTypes = new Type[selects.length];
+		final Selectable<?>[] selects = this.selects();
+		final Marshaller<?>[] selectMarshallers;
 
 		if(!distinct&&totalOnly)
 		{
 			bf.append("count(*)");
+			selectMarshallers = null;
 		}
 		else
 		{
 			if(distinct)
 				bf.append("distinct ");
 
-			final Holder<Column> selectColumn = new Holder<Column>();
-			final Holder<Type  > selectType   = new Holder<Type  >();
+			selectMarshallers = new Marshaller<?>[selects.length];
+			final Marshallers marshallers = model.connect().marshallers;
+			int copeTotalDistinctCount = 0;
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
 					bf.append(',');
 
-				selectColumn.value = null;
-				selectType  .value = null;
-				bf.appendSelect(selects[i], null, selectColumn, selectType);
-				selectColumns[i] = selectColumn.value;
-				selectTypes  [i] = selectType  .value;
+				bf.appendSelect(selects[i], null);
+				if(totalOnly && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
+					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
+				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
 		}
 
@@ -876,9 +946,22 @@ public final class Query<R>
 			this.condition.append(bf);
 		}
 
+		if (this.groupBy!=null)
+		{
+			for ( int i=0; i<groupBy.length; i++ )
+			{
+				if(i==0)
+					bf.append(" group by ");
+				else
+					bf.append(',');
+
+				bf.appendSelect(groupBy[i], null);
+			}
+		}
+
 		if(!totalOnly)
 		{
-			final Function[] orderBy = this.orderBy;
+			final Selectable<?>[] orderBy = this.orderBy;
 
 			if(orderBy!=null)
 			{
@@ -890,7 +973,10 @@ public final class Query<R>
 					else
 						bf.append(',');
 
-					dialect.appendOrderBy(bf, orderBy[i], orderAscending[i]);
+					bf.append(orderBy[i], (Join)null);
+					if(!orderAscending[i])
+						bf.append(" desc");
+					dialect.appendOrderByPostfix(bf, orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}
@@ -908,7 +994,6 @@ public final class Query<R>
 			}
 		}
 
-		final Model model = this.model;
 		final ArrayList<Object> result = new ArrayList<Object>();
 
 		if(totalOnly && distinct)
@@ -923,6 +1008,13 @@ public final class Query<R>
 		QueryInfo queryInfo = null;
 		if(queryInfos!=null)
 			queryInfos.add(queryInfo = new QueryInfo(toString()));
+
+		if(sqlOnlyBuffer!=null)
+		{
+			assert bf.getParameters()==null;
+			sqlOnlyBuffer.append(bf.getText());
+			return null;
+		}
 
 		//System.out.println(bf.toString());
 
@@ -948,71 +1040,12 @@ public final class Query<R>
 
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;
-					final Row dummyRow = new Row();
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
-						final Selectable select;
-						{
-							Selectable select0 = selects[selectIndex];
-							if(select0 instanceof BindFunction)
-								select0 = ((BindFunction)select0).function;
-							if(select0 instanceof Aggregate)
-								select0 = ((Aggregate)select0).getSource();
-							select = select0;
-						}
-
-						final Object resultCell;
-						if(select instanceof FunctionField)
-						{
-							selectColumns[selectIndex].load(resultSet, columnIndex++, dummyRow);
-							final FunctionField selectField = (FunctionField)select;
-							if(select instanceof ItemField)
-							{
-								final StringColumn typeColumn = ((ItemField)selectField).getTypeColumn();
-								if(typeColumn!=null)
-									typeColumn.load(resultSet, columnIndex++, dummyRow);
-							}
-							resultCell = selectField.get(dummyRow, Query.this);
-						}
-						else if(select instanceof View)
-						{
-							final View selectFunction = (View)select;
-							resultCell = selectFunction.load(resultSet, columnIndex++);
-						}
-						else if(select instanceof Random)
-						{
-							resultCell = resultSet.getObject(columnIndex);
-						}
-						else
-						{
-							final Number pk = (Number)resultSet.getObject(columnIndex++);
-							//System.out.println("pk:"+pk);
-							if(pk==null)
-							{
-								// can happen when using right outer joins
-								resultCell = null;
-							}
-							else
-							{
-								final Type type = selectTypes[selectIndex];
-								final Type currentType;
-								if(type==null)
-								{
-									final String typeID = resultSet.getString(columnIndex++);
-									currentType = model.getType(typeID);
-									if(currentType==null)
-										throw new RuntimeException("no type with type id "+typeID);
-								}
-								else
-									currentType = type;
-
-								final int pkPrimitive = pk.intValue();
-								if(!PK.isValid(pkPrimitive))
-									throw new RuntimeException("invalid primary key " + pkPrimitive + " for type " + type.id);
-								resultCell = currentType.getItemObject(pkPrimitive);
-							}
-						}
+						final Object resultCell =
+							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
+						columnIndex += selectMarshallers[selectIndex].columns;
 						if(resultRow!=null)
 							resultRow[selectIndex] = resultCell;
 						else
@@ -1027,6 +1060,38 @@ public final class Query<R>
 		});
 
 		return result;
+	}
+
+	// ------------------- binary compatibility -------------------
+
+	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderBy((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
+	{
+		setOrderByAndThis((Selectable<?>)orderBy, ascending);
+	}
+
+	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
+	{
+		setOrderBy((Selectable<?>[])orderBy, ascending);
+	}
+
+	public void addOrderBy(final Function<?> orderBy)
+	{
+		addOrderBy((Selectable<?>)orderBy);
+	}
+
+	public void addOrderByDescending(final Function<?> orderBy)
+	{
+		addOrderByDescending((Selectable<?>)orderBy);
+	}
+
+	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
+	{
+		addOrderBy((Selectable<?>)orderBy, ascending);
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -1056,5 +1121,14 @@ public final class Query<R>
 	public R searchUnique()
 	{
 		return searchSingleton();
+	}
+
+	/**
+	 * @deprecated Use {@link Result#empty()} instead
+	 */
+	@Deprecated
+	public static <R> Result<R> emptyResult()
+	{
+		return Result.empty();
 	}
 }

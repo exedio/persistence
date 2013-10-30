@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SetValue<E>
 {
 	public final Settable<E> settable;
@@ -25,12 +27,26 @@ public final class SetValue<E>
 
 	/**
 	 * Creates a new SetValue.
-	 * Instead of using this constructor directly,
+	 * Instead of using this method directly,
 	 * you may want to use the convenience functions.
 	 * @see Settable#map(Object)
 	 */
+	@SuppressWarnings("deprecation") // OK
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
+	{
+		return new SetValue<E>(settable, value);
+	}
+
+	/**
+	 * @deprecated Use {@link #map(Feature, Object)} instead.
+	 */
+	@Deprecated
 	public SetValue(final Settable<E> settable, final E value)
 	{
+		if(settable==null)
+			throw new NullPointerException("settable");
+
 		this.settable = settable;
 		this.value = value;
 	}

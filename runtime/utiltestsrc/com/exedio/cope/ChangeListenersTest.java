@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,16 +22,30 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ChangeListenersTest extends CopeAssert
 {
+	/**
+	 * Makes tests tolerate previous tests.
+	 * Needed for JDK 1.7
+	 */
+	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		baselineInfo = model.getChangeListenersInfo();
+	}
+
 	public void testIt()
 	{
+		assertInfo(0, 0, 0);
 		final FailListener l = new FailListener();
 
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(0, 0, 0);
 
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		try
 		{
@@ -43,7 +57,7 @@ public class ChangeListenersTest extends CopeAssert
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
 		try
 		{
@@ -55,39 +69,41 @@ public class ChangeListenersTest extends CopeAssert
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 
-		assertInfo(0, 0);
+		assertInfo(1, 0, 0);
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(0, 0, 1);
 	}
 
 	public void testWeakness()
 	{
+		assertInfo(0, 0, 0);
+
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(1, 0, 0);
 
 		System.gc();
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1);
+		assertInfo(1, 0, 0);
 
 		l1 = null;
 		System.gc();
-		assertInfo(0, 1);
+		assertInfo(1, 0, 0);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(1, 1);
+		assertInfo(0, 1, 0);
 
 		final FailListener l2 = new FailListener();
 		model.addChangeListener(l2);
 		model.addChangeListener(new FailListener());
 		System.gc();
 		model.removeChangeListener(l2);
-		assertInfo(2, 2);
+		assertInfo(0, 2, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(2, 2);
+		assertInfo(0, 2, 1);
 	}
 
 	private final class FailListener implements ChangeListener
@@ -104,15 +120,16 @@ public class ChangeListenersTest extends CopeAssert
 		}
 	}
 
-	private void assertInfo(final int cleared, final int removed)
+	private void assertInfo(final int size, final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
-		assertEquals(cleared, info.getCleared());
-		assertEquals(removed, info.getRemoved());
-		assertEquals(0,       info.getFailed());
+		assertEquals("size",    size,    info.getSize());
+		assertEquals("cleared", cleared, info.getCleared() - baselineInfo.getCleared());
+		assertEquals("removed", removed, info.getRemoved() - baselineInfo.getRemoved());
+		assertEquals("failed",  0,       info.getFailed()  - baselineInfo.getFailed() );
 
 		@SuppressWarnings("deprecation")
-		final int clearedDeprecated = model.getChangeListenersCleared();
+		final int clearedDeprecated = model.getChangeListenersCleared() - baselineInfo.getCleared();
 		assertEquals(cleared, clearedDeprecated);
 
 		try
@@ -120,9 +137,9 @@ public class ChangeListenersTest extends CopeAssert
 			model.getChangeListenerDispatcherInfo();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
 		}
 	}
 
@@ -132,9 +149,6 @@ public class ChangeListenersTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,9 @@ import static com.exedio.cope.ClusterConstants.MAGIC0;
 import static com.exedio.cope.ClusterConstants.MAGIC1;
 import static com.exedio.cope.ClusterConstants.MAGIC2;
 import static com.exedio.cope.ClusterConstants.MAGIC3;
+
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
-
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 

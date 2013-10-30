@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class MessageDigestAlgorithmTest extends CopeAssert
 {
@@ -301,7 +302,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 		final byte[] plainTextBytes;
 		try
 		{
-			plainTextBytes = plainText.getBytes("utf8");
+			plainTextBytes = plainText.getBytes(UTF8);
 		}
 		catch(final UnsupportedEncodingException e)
 		{
@@ -320,7 +321,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 
 		try
 		{
-			assertFalse(algorithm.check((plainText+"x").getBytes("utf8"), Hex.decodeLower(expectedHash)));
+			assertFalse(algorithm.check((plainText+"x").getBytes(UTF8), Hex.decodeLower(expectedHash)));
 		}
 		catch(final UnsupportedEncodingException e)
 		{

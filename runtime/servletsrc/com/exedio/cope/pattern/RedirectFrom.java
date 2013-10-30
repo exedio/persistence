@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -46,7 +45,7 @@ import java.lang.annotation.Target;
  *
  * @author Ralf Wiebicke
  */
-@Target({TYPE, FIELD})
+@Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RedirectFrom
 {

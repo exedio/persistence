@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,34 +18,124 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.newRange;
+import static com.exedio.cope.pattern.Range.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
 
 public class RangeTest extends CopeAssert
 {
-	public void testIt()
+	public void testAB()
 	{
-		assertEquals(newRange(1, 3), newRange(1, 3));
-		assertNotEquals(newRange(1, 3), newRange(2, 3));
-		assertNotEquals(newRange(1, 3), newRange(1, 4));
-		assertNotEquals(newRange(1, 3), newRange(3, 1));
+		final Range<Integer> r = valueOf(1, 3);
+		assertEquals(1, r.getFrom().intValue());
+		assertEquals(3, r.getTo().intValue());
 
-		assertEquals(newRange(5, 5), newRange(5, 5));
-		assertNotEquals(newRange(5, 5), newRange(6, 6));
+		assertEquals(false, r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(false, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
-	private static void assertEquals(final Range c1, final Range c2)
+	public void testNA()
 	{
-		assertEquals((Object)c1, (Object)c2);
-		assertEquals((Object)c2, (Object)c1);
-		assertEquals(c1.hashCode(), c2.hashCode());
+		final Range<Integer> r = valueOf(null, 3);
+		assertEquals(null, r.getFrom());
+		assertEquals(3, r.getTo().intValue());
+
+		assertEquals(true,  r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(false, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 
-	private static void assertNotEquals(final Range c1, final Range c2)
+	public void testAN()
 	{
-		assertTrue(!c1.equals(c2));
-		assertTrue(!c2.equals(c1));
-		assertTrue(c1.hashCode()!=c2.hashCode());
+		final Range<Integer> r = valueOf(1, null);
+		assertEquals(1, r.getFrom().intValue());
+		assertEquals(null, r.getTo());
+
+		assertEquals(false, r.contains(0));
+		assertEquals(true,  r.contains(1));
+		assertEquals(true,  r.contains(3));
+		assertEquals(true,  r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
+	}
+
+	public void testNN()
+	{
+		final Range<Integer> r = valueOf((Integer)null, null);
+		assertEquals(null, r.getFrom());
+		assertEquals(null, r.getTo());
+
+		assertEquals(true, r.contains(0));
+		assertEquals(true, r.contains(1));
+		assertEquals(true, r.contains(3));
+		assertEquals(true, r.contains(4));
+
+		try
+		{
+			r.contains(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
+	}
+
+	public void testEquals()
+	{
+		assertEqualsStrict(valueOf(1, 3), valueOf(1, 3));
+		assertEqualsStrict(valueOf(null, 3), valueOf(null, 3));
+		assertEqualsStrict(valueOf(1, null), valueOf(1, null));
+		assertEqualsStrict(valueOf((Integer)null, null), valueOf((Integer)null, null));
+		assertNotEqualsStrict(valueOf(1, 3), valueOf(2, 3));
+		assertNotEqualsStrict(valueOf(1, 3), valueOf(1, 4));
+		try
+		{
+			valueOf(3, 2);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("from 3 greater than to 2", e.getMessage());
+		}
+
+		assertEqualsStrict(valueOf(5, 5), valueOf(5, 5));
+		assertNotEqualsStrict(valueOf(5, 5), valueOf(6, 6));
+
+		assertNotSame(valueOf(1, 3), valueOf(1, 3));
+		assertNotSame(valueOf(null, 3), valueOf(null, 3));
+		assertNotSame(valueOf(1, null), valueOf(1, null));
+		assertSame(valueOf((Integer)null, null), valueOf((Integer)null, null));
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -71,10 +71,12 @@ public abstract class RevisionInfo
 	private static final String REVISION = "revision";
 	private static final String DATE = "dateUTC";
 	private static final String ENVIRONMENT_PREFIX = "env.";
-	private static final SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-	static
+
+	private static SimpleDateFormat df()
 	{
-		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZone.getTimeZone("UTC"));
+		return result;
 	}
 
 	Properties getStore()
@@ -84,7 +86,7 @@ public abstract class RevisionInfo
 		if(number>=0)
 			store.setProperty(REVISION, String.valueOf(number));
 
-		store.setProperty(DATE, df.format(date));
+		store.setProperty(DATE, df().format(date));
 
 		for(final Map.Entry<String, String> e : environment.entrySet())
 			store.setProperty(ENVIRONMENT_PREFIX + e.getKey(), e.getValue());
@@ -117,7 +119,7 @@ public abstract class RevisionInfo
 		final Date date;
 		try
 		{
-			date = df.parse(p.getProperty(DATE));
+			date = df().parse(p.getProperty(DATE));
 		}
 		catch(final ParseException e)
 		{
@@ -211,13 +213,16 @@ public abstract class RevisionInfo
 	}
 
 
-	final void insert(final ConnectProperties properties, final Connection connection, final Executor executor)
+	final void insert(
+			final ConnectProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
 		final Statement bf = executor.newStatement();
 		bf.append("insert into ").
-			append(dsmfDialect.quoteName(properties.revisionTableName.stringValue())).
+			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append('(').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append(',').
@@ -228,6 +233,14 @@ public abstract class RevisionInfo
 			appendParameterBlob(toBytes()).
 			append(')');
 
-		executor.updateStrict(connection, bf);
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			executor.updateStrict(connection, null, bf);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

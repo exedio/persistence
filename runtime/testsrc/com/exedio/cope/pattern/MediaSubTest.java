@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.io.InputStream;
+import static com.exedio.cope.pattern.MediaItem.TYPE;
+import static com.exedio.cope.pattern.MediaItem.image;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
@@ -28,6 +28,8 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MediaSubTest extends AbstractRuntimeTest
 {
@@ -49,101 +51,100 @@ public class MediaSubTest extends AbstractRuntimeTest
 	{
 		// test model
 
-		assertEquals(false, item.image.isInitial());
-		assertEquals(false, item.image.isFinal());
-		assertEquals(false, item.image.isMandatory());
-		assertEquals(Media.Value.class, item.image.getInitialType());
-		assertContains(item.image.getInitialExceptions());
-		assertEquals(true, item.image.checkContentType("image/png"));
-		assertEquals(true, item.image.checkContentType("image/jpg"));
-		assertEquals(false, item.image.checkContentType("application/jpg"));
-		assertEquals("image/*", item.image.getContentTypeDescription());
-		assertEquals(null, item.image.getContentTypesAllowed());
-		assertEquals(Media.DEFAULT_LENGTH, item.image.getMaximumLength());
+		assertEquals(false, image.isInitial());
+		assertEquals(false, image.isFinal());
+		assertEquals(false, image.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(image));
+		assertContains(image.getInitialExceptions());
+		assertEquals(true, image.checkContentType("image/png"));
+		assertEquals(true, image.checkContentType("image/jpg"));
+		assertEquals(false, image.checkContentType("application/jpg"));
+		assertEquals("image/*", image.getContentTypeDescription());
+		assertEquals(null, image.getContentTypesAllowed());
+		assertEquals(Media.DEFAULT_LENGTH, image.getMaximumLength());
 
-		final DataField body = item.image.getBody();
-		assertSame(item.TYPE, body.getType());
+		final DataField body = image.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("image-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(Media.DEFAULT_LENGTH, body.getMaximumLength());
-		assertEquals(item.image, body.getPattern());
-		assertSame(item.image, Media.get(body));
+		assertEquals(image, body.getPattern());
+		assertSame(image, Media.get(body));
 
-		final StringField contentType = (StringField)item.image.getContentType();
-		assertSame(item.TYPE, contentType.getType());
+		final StringField contentType = (StringField)image.getContentType();
+		assertSame(TYPE, contentType.getType());
 		assertEquals("image-minor", contentType.getName());
-		assertEquals(item.image, contentType.getPattern());
+		assertEquals(image, contentType.getPattern());
 		assertEquals(false, contentType.isFinal());
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
 		assertEquals(30, contentType.getMaximumLength());
 
-		final DateField lastModified = item.image.getLastModified();
-		assertSame(item.TYPE, lastModified.getType());
+		final DateField lastModified = image.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("image-lastModified", lastModified.getName());
-		assertEquals(item.image, lastModified.getPattern());
+		assertEquals(image, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 
-		final CheckConstraint unison = item.image.getUnison();
-		assertSame(item.TYPE, unison.getType());
+		final CheckConstraint unison = image.getUnison();
+		assertSame(TYPE, unison.getType());
 		assertEquals("image-unison", unison.getName());
-		assertEquals(item.image, unison.getPattern());
+		assertEquals(image, unison.getPattern());
 		assertEquals(Cope.or(
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
 
-		assertEquals(contentType.equal("png"),  item.image.contentTypeEqual("image/png"));
-		assertEquals(contentType.equal("jpeg"), item.image.contentTypeEqual("image/jpeg"));
-		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("image"));
-		assertEquals(Condition.FALSE,           item.image.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(),     item.image.contentTypeEqual(null));
-		assertNotNull(item.image.bodyMismatchesContentType());
+		assertEquals(contentType.equal("png"),  image.contentTypeEqual("image/png"));
+		assertEquals(contentType.equal("jpeg"), image.contentTypeEqual("image/jpeg"));
+		assertEquals(Condition.FALSE,           image.contentTypeEqual("image"));
+		assertEquals(Condition.FALSE,           image.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(),     image.contentTypeEqual(null));
 
 		// test persistence
 
 		assertNull();
 
-		item.setImage(stream(data4), "image/image-minor");
+		item.setImage(stream(bytes4), "image/image-minor");
 		assertStreamClosed();
-		assertContent(data4, "image/image-minor", "");
+		assertContent(bytes4, "image/image-minor", "");
 
-		item.setImage(stream(data6), "image/jpeg");
+		item.setImage(stream(bytes6), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data6, "image/jpeg", ".jpg");
+		assertContent(bytes6, "image/jpeg", ".jpg");
 
 		try
 		{
-			item.setImage(stream(data4), "illegalContentType");
+			item.setImage(stream(bytes4), "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.image, e.getFeature());
+			assertSame(image, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertContent(data6, "image/jpeg", ".jpg");
+			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
 		try
 		{
-			item.setImage(stream(data4), "text/html");
+			item.setImage(stream(bytes4), "text/html");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.image, e.getFeature());
+			assertSame(image, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("text/html", e.getContentType());
 			assertEquals("illegal content type 'text/html' on " + item + " for MediaItem.image, allowed is 'image/*\' only.", e.getMessage());
-			assertContent(data6, "image/jpeg", ".jpg");
+			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
 		item.setImage((InputStream)null, null);

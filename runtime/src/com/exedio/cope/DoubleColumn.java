@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,13 +28,12 @@ final class DoubleColumn extends Column
 
 	DoubleColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional,
 			final double minimum,
 			final double maximum)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 

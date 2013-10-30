@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -85,13 +85,13 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		assertTestAnnotationNull(AnItem.setField.getElement());
 	}
 
-	@CopeID("AnItemAnn")
+	@CopeName("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final SetValue[] setValues)
+		private AnItem(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -101,7 +101,7 @@ public class TypesBoundAnnotationTest extends CopeAssert
 			super(ap);
 		}
 
-		@CopeID("intFieldAnn")
+		@CopeName("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")
 		static final IntegerField intField = new IntegerField();
 
@@ -109,6 +109,6 @@ public class TypesBoundAnnotationTest extends CopeAssert
 		static final BooleanField boolField = new BooleanField();
 
 		@TestAnnotation("setFieldAnnVal")
-		static final SetField<String> setField = SetField.newSet(new StringField());
+		static final SetField<String> setField = SetField.create(new StringField());
 	}
 }

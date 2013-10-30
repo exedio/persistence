@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,17 @@ public class PackageTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(CopeModelTestTest.class);
+
+		// BEWARE
+		// execution order of tests does matter !!!
+		suite.addTestSuite(CopeModelTestTestBefore.class);
+		suite.addTestSuite(CopeModelTestTestCommitted.class);
+		suite.addTestSuite(CopeModelTestTestRolledback.class);
+		suite.addTestSuite(CopeModelTestTestRestart.class);
+		suite.addTestSuite(CopeModelTestTestNoTx.class);
+		suite.addTestSuite(CopeModelTestTestAfter.class);
+		// end of: order of tests does matter
+
 		return suite;
 	}
 }

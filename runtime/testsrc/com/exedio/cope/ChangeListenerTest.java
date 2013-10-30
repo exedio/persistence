@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,18 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class ChangeListenerTest extends AbstractRuntimeTest
 {
+	private static final Logger logger = Logger.getLogger(ChangeListeners.class);
+
 	public ChangeListenerTest()
 	{
 		super(MatchTest.MODEL);
@@ -33,34 +37,35 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	final MockListener l = new MockListener();
 
-	TestLogHandler log = null;
+	TestLogAppender log = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		log = new TestLogHandler();
-		ChangeListeners.logger.addHandler(log);
-		ChangeListeners.logger.setUseParentHandlers(false);
+		log = new TestLogAppender();
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		ChangeListeners.logger.removeHandler(log);
+		logger.removeAppender(log);
 		log = null;
-		ChangeListeners.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
+
+	// dead store is needed to assign null for testing garbage collection
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0, 0);
+		assertInfo(0, 0, 0, 0);
 
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0, 0);
+		assertInfo(1, 0, 0, 0);
 
 		try
 		{
@@ -72,7 +77,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0, 0);
+		assertInfo(1, 0, 0, 0);
 
 		try
 		{
@@ -84,7 +89,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertEquals("listener", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(0, 0, 0);
+		assertInfo(1, 0, 0, 0);
 
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
@@ -98,14 +103,14 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEquals("item1", item1.getText());
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
 		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
 		l.assertIt(null, null);
 		model.commit();
-		waitWhilePending();;
+		waitWhilePending();
 		l.assertIt(list(item2), t3);
 
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");
@@ -155,37 +160,37 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.SEVERE, "Suppressing exception from change listener " + MockListener.class.getName());
+		log.assertMessage(Level.ERROR, "change listener [" + item1.toString() + "] " + l.toString());
 
-		assertInfo(0, 0, 1);
+		assertInfo(1, 0, 0, 1);
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 1, 1);
+		assertInfo(0, 0, 1, 1);
 
 		// test weakness
 		FailListener l1 = new FailListener();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1, 1);
+		assertInfo(1, 0, 1, 1);
 
 		System.gc();
 		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(0, 1, 1);
+		assertInfo(1, 0, 1, 1);
 
 		l1 = null;
 		System.gc();
-		assertInfo(0, 1, 1);
+		assertInfo(1, 0, 1, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(1, 1, 1);
+		assertInfo(0, 1, 1, 1);
 
 		final FailListener l2 = new FailListener();
 		model.addChangeListener(l2);
 		model.addChangeListener(new FailListener());
 		System.gc();
 		model.removeChangeListener(l2);
-		assertInfo(2, 2, 1);
+		assertInfo(0, 2, 2, 1);
 		assertEquals(list(), model.getChangeListeners());
-		assertInfo(2, 2, 1);
+		assertInfo(0, 2, 2, 1);
 
 		model.startTransaction("CommitListenerTestX");
 		log.assertEmpty();
@@ -205,9 +210,10 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		{
 			final Collection<Item> items = event.getItems();
 
-			assertTrue(items!=null);
+			assertNotNull(items);
 			assertTrue(!items.isEmpty());
 			assertUnmodifiable(items);
+			assertEquals(items.toString(), event.toString());
 
 			try
 			{
@@ -250,6 +256,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
+				assertEquals(event.getItems().toString(), event.toString());
 				assertNull(expectedTransaction.getBoundThread());
 				assertTrue(expectedTransaction.isClosed());
 			}
@@ -263,7 +270,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private final class FailListener implements ChangeListener
+	private static final class FailListener implements ChangeListener
 	{
 		FailListener()
 		{
@@ -299,7 +306,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		// out of the queue.
 		try
 		{
-			sleepLongerThan(10);
+			sleepLongerThan(50);
 		}
 		catch (final InterruptedException e)
 		{
@@ -307,9 +314,10 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		}
 	}
 
-	private void assertInfo(final int cleared, final int removed, final int failed)
+	private void assertInfo(final int size, final int cleared, final int removed, final int failed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
+		assertEquals(size,    info.getSize());
 		assertEquals(cleared, info.getCleared());
 		assertEquals(removed, info.getRemoved());
 		assertEquals(failed,  info.getFailed ());
@@ -332,8 +340,8 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		final ArrayList<String> expectedAlive = new ArrayList<String>();
 		final ArrayList<String> expectedIdle  = new ArrayList<String>();
 		{
-			final int num = model.getConnectProperties().changeListenersThreads.intValue();
-			final int max = model.getConnectProperties().changeListenersThreadsMax.intValue();
+			final int num = model.getConnectProperties().changeListenersThreads;
+			final int max = model.getConnectProperties().changeListenersThreadsMax;
 			assert num<=max;
 			for(int n = 0; n<max; n++)
 				((n<num) ? expectedAlive : expectedIdle).add(prefix2 + String.valueOf(n+1) + '/' + max);

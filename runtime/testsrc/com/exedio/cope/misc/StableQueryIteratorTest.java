@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,12 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.StableQueryIterator.iterate;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Query;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Query;
 
 public class StableQueryIteratorTest extends AbstractRuntimeTest
 {
@@ -97,7 +96,7 @@ public class StableQueryIteratorTest extends AbstractRuntimeTest
 		assertIt(listg(item2, item3, item4, item5, item6), q);
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)
 	{
 		assertEquals(expected, l(iterate(q,  1)));
 		assertEquals(expected, l(iterate(q,  2)));

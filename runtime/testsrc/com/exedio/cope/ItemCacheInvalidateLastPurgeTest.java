@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		quit =
 			props.getItemCacheLimit()==0 ||
-			!props.itemCacheInvalidateLast.booleanValue();
+			!props.itemCacheInvalidateLast;
 		if(quit)
 			return;
 
@@ -86,7 +86,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 	public void testOverlappingOnce()
 	{
-		if(quit)
+		if(quit||hsqldb)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -147,7 +147,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 
 	public void testOverlappingTwice()
 	{
-		if(quit)
+		if(quit||hsqldb)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 

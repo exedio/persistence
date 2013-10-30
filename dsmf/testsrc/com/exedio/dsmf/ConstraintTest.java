@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,10 +21,10 @@ package com.exedio.dsmf;
 
 public class ConstraintTest extends SchemaReadyTest
 {
-	private static final Class CHECK = CheckConstraint.class;
-	private static final Class PK = PrimaryKeyConstraint.class;
-	private static final Class FK = ForeignKeyConstraint.class;
-	private static final Class UNIQUE = UniqueConstraint.class;
+	private static final Class<?> CHECK = CheckConstraint.class;
+	private static final Class<?> PK = PrimaryKeyConstraint.class;
+	private static final Class<?> FK = ForeignKeyConstraint.class;
+	private static final Class<?> UNIQUE = UniqueConstraint.class;
 
 	private static final String TABLE = "ConstraintTable";
 
@@ -139,7 +139,7 @@ public class ConstraintTest extends SchemaReadyTest
 	private void assertFkConstraint(final Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
 	{
 		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, null);
+			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, foreignKeyColumn + "->" + targetTable + '.' + targetColumn);
 
 		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
@@ -154,7 +154,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(clause, constraint.getClause());
 	}
 
-	private Constraint assertConstraint(final Table table, final Class constraintType, final String constraintName, final String requiredCondition)
+	private Constraint assertConstraint(final Table table, final Class<?> constraintType, final String constraintName, final String requiredCondition)
 	{
 		final Constraint constraint = table.getConstraint(constraintName);
 		if(supportsCheckConstraints || constraintType!=CHECK)

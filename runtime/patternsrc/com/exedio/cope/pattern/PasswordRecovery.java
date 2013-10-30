@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.InterrupterJobContextAdapter.run;
-
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -34,21 +26,25 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Query;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
-import com.exedio.cope.util.Interrupter;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.InterrupterJobContextAdapter.Body;
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.List;
 
 public final class PasswordRecovery extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
 	private static final long NOT_A_SECRET = 0l;
+	static final Clock clock = new Clock();
 
-	private final Hash password;
+	private final HashInterface password;
 
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
@@ -56,13 +52,33 @@ public final class PasswordRecovery extends Pattern
 	final DateField expires = new DateField().toFinal();
 	Type<Token> tokenType = null;
 
-	private final SecureRandom random = new SecureRandom();
+	private final SecureRandom random;
 
+	// for binary backwards compatibility
 	public PasswordRecovery(final Hash password)
 	{
+		this((HashInterface)password);
+	}
+
+	public PasswordRecovery(final HashInterface password)
+	{
+		this(password, new SecureRandom());
+	}
+
+	// for binary backwards compatibility
+	public PasswordRecovery(final Hash password, final SecureRandom random)
+	{
+		this((HashInterface)password, random);
+	}
+
+	public PasswordRecovery(final HashInterface password, final SecureRandom random)
+	{
 		this.password = password;
+		this.random = random;
 		if(password==null)
 			throw new NullPointerException("password");
+		if(random==null)
+			throw new NullPointerException("random");
 	}
 
 	@Override
@@ -72,7 +88,7 @@ public final class PasswordRecovery extends Pattern
 		final Type<?> type = getType();
 
 		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		tokens = PartOf.newPartOf(parent, expires);
+		tokens = PartOf.create(parent, expires);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("secret", secret);
@@ -81,7 +97,7 @@ public final class PasswordRecovery extends Pattern
 		tokenType = newSourceType(Token.class, features, "Token");
 	}
 
-	public Hash getPassword()
+	public HashInterface getPassword()
 	{
 		return password;
 	}
@@ -92,7 +108,7 @@ public final class PasswordRecovery extends Pattern
 		return parent.as(parentClass);
 	}
 
-	public PartOf getTokens()
+	public PartOf<?> getTokens()
 	{
 		return tokens;
 	}
@@ -112,40 +128,30 @@ public final class PasswordRecovery extends Pattern
 		return tokenType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("issue").
-			addParameter(int.class, "expiryMillis", "the time span, after which this token will not be valid anymore, in milliseconds").
-			setReturn(Token.class));
-		result.add(
-			new Wrapper("redeem").
-			addParameter(long.class, "secret", "a token secret for password recovery").
-			setReturn(String.class, "a new password, if the token was valid, otherwise null"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(Interrupter.class, "interrupter").
-			setReturn(int.class, "the number of tokens purged"));
-		result.add(
-			new Wrapper("purge").
-			setStatic(false).
-			addParameter(JobContext.class, "ctx"));
-
-		return Collections.unmodifiableList(result);
-	}
-
 	/**
 	 * @return a valid token for password recovery
 	 */
-	public Token issue(final Item item, final int expiryMillis)
+	@Wrap(order=10)
+	public Token issue(
+			final Item item,
+			@Parameter("config") final Config config)
 	{
-		if(expiryMillis<=0)
-			throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+		final int expiry = config.getExpiryMillis();
+		final int reuse = config.getReuseMillis();
+		final long now = clock.currentTimeMillis();
+
+		if(config.getReuseMillis()>0)
+		{
+			final Query<Token> tokens =
+				tokenType.newQuery(Cope.and(
+					Cope.equalAndCast(this.parent, item),
+					this.expires.greaterOrEqual(new Date(now + expiry - reuse))));
+			tokens.setOrderBy(this.expires, false);
+			tokens.setLimit(0, 1);
+			final Token token = tokens.searchSingleton();
+			if(token!=null)
+				return token;
+		}
 
 		long secret = NOT_A_SECRET;
 		while(secret==NOT_A_SECRET)
@@ -154,14 +160,17 @@ public final class PasswordRecovery extends Pattern
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
-			this.expires.map(new Date(System.currentTimeMillis() + expiryMillis)));
+			this.expires.map(new Date(now + expiry)));
 	}
 
 	/**
 	 * @param secret a token for password recovery
 	 * @return a new password, if the token was valid, otherwise null
 	 */
-	public String redeem(final Item item, final long secret)
+	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
+	public String redeem(
+			final Item item,
+			@Parameter(value="secret", doc="a token secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
@@ -170,11 +179,11 @@ public final class PasswordRecovery extends Pattern
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
-				this.expires.greaterOrEqual(new Date())));
+				this.expires.greaterOrEqual(new Date(clock.currentTimeMillis()))));
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = Long.toString(Math.abs(random.nextLong()), 36);
+			final String newPassword = password.newRandomPassword(random);
 			item.set(this.password.map(newPassword));
 			for(final Token t : tokens)
 				t.deleteCopeItem();
@@ -184,21 +193,54 @@ public final class PasswordRecovery extends Pattern
 		return null;
 	}
 
-	public int purge(final Interrupter interrupter)
+	public static final class Config
 	{
-		return run(
-			interrupter,
-			new Body(){public void run(final JobContext ctx)
-			{
-				purge(ctx);
-			}}
-		);
+		private final int expiryMillis;
+		private final int reuseMillis;
+
+		/**
+		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
+		 */
+		public Config(final int expiryMillis)
+		{
+			this(expiryMillis, Math.min(10*1000, expiryMillis));
+		}
+
+		/**
+		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
+		 * @param reuseMillis limits the number of tokens created within that time span.
+		 *        This is against Denial-Of-service attacks filling up the database.
+		 */
+		public Config(final int expiryMillis, final int reuseMillis)
+		{
+			if(expiryMillis<=0)
+				throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
+			if(reuseMillis<0)
+				throw new IllegalArgumentException("reuseMillis must be greater or equal zero, but was " + reuseMillis);
+			if(reuseMillis>expiryMillis)
+				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
+
+			this.expiryMillis = expiryMillis;
+			this.reuseMillis = reuseMillis;
+		}
+
+		public int getExpiryMillis()
+		{
+			return expiryMillis;
+		}
+
+		public int getReuseMillis()
+		{
+			return reuseMillis;
+		}
 	}
 
-	public void purge(final JobContext ctx)
+	@Wrap(order=110)
+	public void purge(
+			@Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
-				tokenType.newQuery(this.expires.less(new Date())),
+				tokenType.newQuery(this.expires.less(new Date(clock.currentTimeMillis()))),
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}
@@ -237,11 +279,41 @@ public final class PasswordRecovery extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #purge(Interrupter)} instead.
+	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
 	 */
 	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class parentClass, final Interrupter interrupter)
+	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return purge(interrupter);
+	}
+
+	/**
+	 * @deprecated Use {@link #purge(JobContext)} instead.
+	 */
+	@Wrap(order=100, docReturn="the number of tokens purged")
+	@Deprecated
+	public int purge(
+			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+	{
+		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
+			interrupter,
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			{
+				purge(ctx);
+			}}
+		);
+	}
+
+	/**
+	 * @deprecated Use {@link #issue(Item, Config)} instead.
+	 * @return a valid token for password recovery
+	 */
+	@Deprecated
+	@Wrap(order=11)
+	public Token issue(
+			final Item item,
+			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
+	{
+		return issue(item, new Config(expiryMillis));
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,22 @@ package com.exedio.cope.util;
 
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
-import static com.exedio.cope.util.Properties.getSystemPropertySource;
-
-import java.util.Date;
+import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Date;
 
 public class ConnectTokenTest extends CopeAssert
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
-	private static final ConnectProperties props = new ConnectProperties(getSystemPropertySource());
+	private static final ConnectProperties props = new ConnectProperties(SYSTEM_PROPERTY_SOURCE);
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(false);
 		setProperties(model, props);
 	}
 
@@ -45,7 +43,6 @@ public class ConnectTokenTest extends CopeAssert
 	protected void tearDown() throws Exception
 	{
 		removeProperties(model);
-		com.exedio.cope.misc.ConnectToken.logger.setUseParentHandlers(true);
 		super.tearDown();
 	}
 
@@ -57,9 +54,9 @@ public class ConnectTokenTest extends CopeAssert
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
 		}
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));
@@ -108,9 +105,9 @@ public class ConnectTokenTest extends CopeAssert
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(model, e.getModel());
 		}
 		assertNull(model.getConnectDate());
 		assertEqualsUnmodifiable(list(), ConnectToken.getTokens(model));

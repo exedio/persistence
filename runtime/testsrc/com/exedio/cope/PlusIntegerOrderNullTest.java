@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,16 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numC;
 
+import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeModelTest;
 
 public class PlusIntegerOrderNullTest extends CopeModelTest
 {
@@ -62,9 +62,9 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function... orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
 	{
-		final Query query = item0.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = TYPE.newQuery(null);
 		final boolean[] ascending = new boolean[orderBy.length];
 		Arrays.fill(ascending, true);
 		query.setOrderBy(orderBy, ascending);

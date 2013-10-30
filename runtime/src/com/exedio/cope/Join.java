@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
-public final class Join
+public final class Join implements java.io.Serializable
 {
+	private static final long serialVersionUID = 1l;
+
 	static enum Kind
 	{
 		INNER("join "),
@@ -39,7 +41,7 @@ public final class Join
 	final Type<?> type;
 	private Condition condition;
 
-	Join(final int index, final Kind kind, final Type type, final Condition condition)
+	Join(final int index, final Kind kind, final Type<?> type, final Condition condition)
 	{
 		this.index = index;
 		this.kind = kind;
@@ -52,19 +54,24 @@ public final class Join
 			throw new NullPointerException("type");
 	}
 
-	public void setCondition(final Condition condition)
-	{
-		this.condition = condition;
-	}
-
 	public Kind getKind()
 	{
 		return kind;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
+	}
+
+	public void setCondition(final Condition condition)
+	{
+		this.condition = condition;
+	}
+
+	public Condition getCondition()
+	{
+		return condition;
 	}
 
 	@Override
@@ -99,7 +106,7 @@ public final class Join
 		return bf.toString();
 	}
 
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append(' ').
 			append(kind.sql).

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,12 @@
 
 package com.exedio.cope.util;
 
+import com.exedio.cope.Model;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
-import com.exedio.cope.Model;
 
 /**
  * @deprecated Use {@link com.exedio.cope.misc.ServletUtil} instead
@@ -43,7 +41,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
-	throws ServletException
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(servlet));
 	}
@@ -53,7 +50,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return new ConnectToken(com.exedio.cope.misc.ServletUtil.getConnectedModel(filter, config));
 	}
@@ -88,7 +84,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Servlet servlet)
-	throws ServletException
 	{
 		return getConnectedModel(servlet);
 	}
@@ -98,7 +93,6 @@ public final class ServletUtil
 	 */
 	@Deprecated
 	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
-	throws ServletException
 	{
 		return getConnectedModel(filter, config);
 	}

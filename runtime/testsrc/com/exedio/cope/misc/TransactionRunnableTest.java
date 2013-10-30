@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,7 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class TransactionRunnableTest extends AbstractRuntimeTest
 {
@@ -48,6 +49,8 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		assertFalse(model.hasCurrentTransaction());
 		final TransactionRunnable tr1 =
 			new TransactionRunnable(model, new Runnable(){
+				// no thread is spawned, thus asserts still can cause the test to fail.
+				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals("name1", model.currentTransaction().getName());
@@ -57,6 +60,8 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 			"name1");
 		final TransactionRunnable tr2 =
 			new TransactionRunnable(model, new Runnable(){
+				// no thread is spawned, thus asserts still can cause the test to fail.
+				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
 					assertEquals(null, model.currentTransaction().getName());

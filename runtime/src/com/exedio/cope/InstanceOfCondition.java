@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,8 @@ import java.util.TreeSet;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final ItemFunction<E> function;
 	private final boolean not;
 	private Type<E>[] types;
@@ -44,7 +46,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	public InstanceOfCondition(
 			final ItemFunction<E> function,
 			final boolean not,
-			final Type[] types)
+			final Type<?>[] types)
 	{
 		if(function==null)
 			throw new NullPointerException("function");
@@ -58,7 +60,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		this.types = InstanceOfCondition.<E>cast(types);
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private final static <T extends Item> Type<T>[] cast(final Type[] o)
 	{
 		return o;
@@ -66,22 +68,22 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
-		this(function, not, new Type[]{type1});
+		this(function, not, new Type<?>[]{type1});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		this(function, not, new Type[]{type1, type2});
+		this(function, not, new Type<?>[]{type1, type2});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		this(function, not, new Type[]{type1, type2, type3});
+		this(function, not, new Type<?>[]{type1, type2, type3});
 	}
 
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
-		this(function, not, new Type[]{type1, type2, type3, type4});
+		this(function, not, new Type<?>[]{type1, type2, type3, type4});
 	}
 
 	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
@@ -105,8 +107,8 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 			if(!type.isAssignableFrom(t))
 				throw new IllegalArgumentException("type " + type + " is not assignable from type " + t);
 
-			for(final Type ti : t.getTypesOfInstances())
-				typeIds.add(ti.id);
+			for(final Type<?> ti : t.getTypesOfInstances())
+				typeIds.add(ti.schemaId);
 		}
 
 		if(typeIds.isEmpty())
@@ -129,7 +131,10 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	public boolean get(final Item item)
 	{
 		final Item value = function.get(item);
-		final Type valueType = value.getCopeType();
+		if(value==null)
+			return false;
+
+		final Type<?> valueType = value.getCopeType();
 		for(final Type<?> t : types)
 			if(t.isAssignableFrom(valueType))
 				return !not;
@@ -145,10 +150,10 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof InstanceOfCondition))
+		if(!(other instanceof InstanceOfCondition<?>))
 			return false;
 
-		final InstanceOfCondition o = (InstanceOfCondition)other;
+		final InstanceOfCondition<?> o = (InstanceOfCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not && equals(types, o.types);
 	}
@@ -160,7 +165,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
 

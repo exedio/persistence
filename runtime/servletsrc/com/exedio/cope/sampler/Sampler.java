@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,42 +19,35 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.sampler.Util.diff;
 
+import com.exedio.cope.ClusterListenerInfo;
+import com.exedio.cope.DateField;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Model;
+import com.exedio.cope.Query;
+import com.exedio.cope.Selectable;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Transaction;
+import com.exedio.cope.Type;
+import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.Properties;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import com.exedio.cope.ChangeListenerDispatcherInfo;
-import com.exedio.cope.ChangeListenerInfo;
-import com.exedio.cope.ClusterListenerInfo;
-import com.exedio.cope.ClusterSenderInfo;
-import com.exedio.cope.DateField;
-import com.exedio.cope.Feature;
-import com.exedio.cope.ItemCacheInfo;
-import com.exedio.cope.Model;
-import com.exedio.cope.QueryCacheInfo;
-import com.exedio.cope.Selectable;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.TransactionCounters;
-import com.exedio.cope.Type;
-import com.exedio.cope.misc.ItemCacheSummary;
-import com.exedio.cope.misc.MediaSummary;
-import com.exedio.cope.pattern.MediaInfo;
-import com.exedio.cope.pattern.MediaPath;
-import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.Properties;
-
-public final class Sampler
+public class Sampler
 {
 	private final Model samplerModel;
 
 	private final Model sampledModel;
-	private final AtomicInteger runningSource = new AtomicInteger(0);
 	private final MediaPath[] medias;
 
 	public Sampler(final Model sampledModel)
@@ -66,11 +59,22 @@ public final class Sampler
 
 		this.samplerModel =
 			new Model(
-				SamplerRevisions.REVISIONS,
+				new SamplerRevisions(),
+				SamplerTypeId.TYPE,
+				SamplerMediaId.TYPE,
+
 				SamplerModel.TYPE,
+				SamplerTransaction.TYPE,
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
+
+				AbsoluteModel.TYPE,
+				AbsoluteTransaction.TYPE,
+				AbsoluteItemCache.TYPE,
+				AbsoluteClusterNode.TYPE,
+				AbsoluteMedia.TYPE,
+
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
@@ -81,17 +85,21 @@ public final class Sampler
 		this.medias = medias.toArray(new MediaPath[medias.size()]);
 	}
 
-	public Model getModel()
+	public final Model getModel()
 	{
 		return samplerModel;
 	}
 
-	public static Properties.Source maskConnectSource(final Properties.Source original)
+	public static final Properties.Source maskConnectSource(final Properties.Source original)
 	{
 		return new Properties.Source(){
 
 			public String get(final String key)
 			{
+				// TODO
+				// implement a @CopeNoCache annotation and use it
+				// for purged types
+				// Then remove the lines below
 				if("cache.item.limit".equals(key) || "cache.query.limit".equals(key))
 					return "0";
 
@@ -118,9 +126,38 @@ public final class Sampler
 		};
 	}
 
-	public void check()
+	public final ConnectToken connect(final String tokenName)
 	{
-		samplerModel.reviseIfSupported();
+		final ConnectToken result = ConnectToken.issue(samplerModel, tokenName);
+
+		boolean mustReturn = true;
+		try
+		{
+			checkInternal();
+			mustReturn = false;
+		}
+		finally
+		{
+			if(mustReturn)
+				result.returnIt();
+		}
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
+		return result;
+	}
+
+	/**
+	 * @deprecated Use {@link #connect(String)} for connecting AND checking instead
+	 */
+	@Deprecated
+	public final void check()
+	{
+		checkInternal();
+	}
+
+	void checkInternal()
+	{
+		samplerModel.reviseIfSupportedAndAutoEnabled();
 		try
 		{
 			samplerModel.startTransaction("check");
@@ -133,93 +170,83 @@ public final class Sampler
 		}
 	}
 
-	public void sample()
+	public final void sample()
 	{
-		// prepare
-		final int thread = System.identityHashCode(this);
-		final MediaInfo[] mediaInfos = new MediaInfo[medias.length];
+		sampleInternal();
+	}
 
-		// gather data
-		final long start = System.nanoTime();
-		final Date date = new Date();
-		final Date initializeDate = sampledModel.getInitializeDate();
-		final Date connectDate = sampledModel.getConnectDate();
-		final Pool.Info connectionPoolInfo = sampledModel.getConnectionPoolInfo();
-		final long nextTransactionId = sampledModel.getNextTransactionId();
-		final TransactionCounters transactionCounters = sampledModel.getTransactionCounters();
-		final ItemCacheInfo[] itemCacheInfos = sampledModel.getItemCacheInfo();
-		final QueryCacheInfo queryCacheInfo = sampledModel.getQueryCacheInfo();
-		final ChangeListenerInfo changeListenerInfo = sampledModel.getChangeListenersInfo();
-		final ChangeListenerDispatcherInfo changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
-		final int mediasNoSuchPath = MediaPath.getNoSuchPath();
-		int mediaValuesIndex = 0;
-		for(final MediaPath path : medias)
-			mediaInfos[mediaValuesIndex++] = path.getInfo();
-		final ClusterSenderInfo clusterSenderInfo = sampledModel.getClusterSenderInfo();
-		final ClusterListenerInfo clusterListenerInfo = sampledModel.getClusterListenerInfo();
-		final long duration = System.nanoTime() - start;
+	private SamplerStep lastStep = null;
 
-		// process data
-		final ItemCacheSummary itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
-		final MediaSummary mediaSummary = new MediaSummary(mediaInfos);
-		final ArrayList<SetValue> sv = new ArrayList<SetValue>();
-		final int running = runningSource.getAndIncrement();
+	SamplerModel sampleInternal()
+	{
+		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
+		final SamplerStep from = lastStep;
+		lastStep = to;
+		if(!to.isCompatibleTo(from))
+			return null;
 
+		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
 		// save data
 		try
 		{
 			samplerModel.startTransaction(toString() + " sample");
-			final SamplerModel model;
+
+			sv.clear();
+			sv.add(SamplerModel.from.map(from.date));
+			sv.add(SamplerModel.date.map(to.date));
+			sv.add(SamplerModel.duration.map(to.duration));
+			sv.add(SamplerModel.initialized.map(to.initialized));
+			sv.add(SamplerModel.connected.map(to.connected));
+			sv.addAll(SamplerModel.map(from.connectionPoolInfo, to.connectionPoolInfo));
+			sv.add(diff(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
+			sv.addAll(SamplerModel.map(from.transactionCounters, to.transactionCounters));
+			sv.addAll(SamplerModel.map(from.itemCacheSummary, to.itemCacheSummary));
+			sv.addAll(SamplerModel.map(from.queryCacheInfo, to.queryCacheInfo));
+			sv.addAll(SamplerModel.map(from.changeListenerInfo, to.changeListenerInfo));
+			sv.addAll(SamplerModel.map(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
+			sv.add(diff(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
+			sv.addAll(SamplerModel.map(from.mediaSummary, to.mediaSummary));
+			sv.add(SamplerModel.map(from.clusterSenderInfo, to.clusterSenderInfo));
+			sv.add(SamplerModel.map(from.clusterListenerInfo, to.clusterListenerInfo));
+			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
+
+			for(final Transaction transaction : to.transactions)
 			{
 				sv.clear();
-				sv.add(SamplerModel.date.map(date));
-				sv.add(SamplerModel.duration.map(duration));
-				sv.add(SamplerModel.initializeDate.map(initializeDate));
-				sv.add(SamplerModel.connectDate.map(connectDate));
-				sv.add(SamplerModel.thread.map(thread));
-				sv.add(SamplerModel.running.map(running));
-				sv.addAll(SamplerModel.map(connectionPoolInfo));
-				sv.add(SamplerModel.nextTransactionId.map(nextTransactionId));
-				sv.addAll(SamplerModel.map(transactionCounters));
-				sv.addAll(SamplerModel.map(itemCacheSummary));
-				sv.addAll(SamplerModel.map(queryCacheInfo));
-				sv.addAll(SamplerModel.map(changeListenerInfo));
-				sv.addAll(SamplerModel.map(changeListenerDispatcherInfo));
-				sv.add(SamplerModel.mediasNoSuchPath.map(mediasNoSuchPath));
-				sv.addAll(SamplerModel.map(mediaSummary));
-				sv.addAll(SamplerModel.map(clusterSenderInfo));
-				sv.addAll(SamplerModel.map(clusterListenerInfo));
-				model = SamplerModel.TYPE.newItem(sv);
+				sv.addAll(SamplerTransaction.map(model));
+				sv.addAll(SamplerTransaction.map(transaction));
+				SamplerTransaction.TYPE.newItem(sv);
 			}
+			for(int i = 0; i<to.itemCacheInfos.length; i++)
 			{
-				for(final ItemCacheInfo info : itemCacheInfos)
-				{
-					sv.clear();
-					sv.addAll(SamplerItemCache.map(model));
-					sv.addAll(SamplerItemCache.map(info));
-					SamplerItemCache.TYPE.newItem(sv);
-				}
+				sv.clear();
+				sv.addAll(SamplerItemCache.map(model));
+				sv.addAll(SamplerItemCache.map(from.itemCacheInfos[i], to.itemCacheInfos[i]));
+				SamplerItemCache.TYPE.newItem(sv);
 			}
+			for(int i = 0; i<to.mediaInfos.length; i++)
 			{
-				for(final MediaInfo info : mediaInfos)
-				{
-					sv.clear();
-					sv.addAll(SamplerMedia.map(model));
-					sv.addAll(SamplerMedia.map(info));
-					SamplerMedia.TYPE.newItem(sv);
-				}
+				sv.clear();
+				sv.addAll(SamplerMedia.map(model));
+				sv.addAll(SamplerMedia.map(from.mediaInfos[i], to.mediaInfos[i]));
+				SamplerMedia.TYPE.newItem(sv);
 			}
-			if(clusterListenerInfo!=null)
+			if(to.clusterListenerInfo!=null)
 			{
-				for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
+				for(final ClusterListenerInfo.Node toNode : to.clusterListenerInfo.getNodes())
 				{
-					sv.clear();
-					sv.addAll(SamplerClusterNode.map(model));
-					sv.addAll(SamplerClusterNode.map(node));
-					SamplerClusterNode.TYPE.newItem(sv);
+					final ClusterListenerInfo.Node fromNode = from.map(toNode);
+					if(fromNode!=null)
+					{
+						sv.clear();
+						sv.addAll(SamplerClusterNode.map(model));
+						sv.addAll(SamplerClusterNode.map(fromNode, toNode));
+						SamplerClusterNode.TYPE.newItem(sv);
+					}
 				}
 			}
 			samplerModel.commit();
+			return model;
 		}
 		finally
 		{
@@ -227,7 +254,17 @@ public final class Sampler
 		}
 	}
 
-	int analyzeCount(final Type type)
+	/**
+	 * Return the minimum duration (in milliseconds)
+	 * for a transaction to be recorded by the sampler.
+	 * This default implementation returns 10 seconds.
+	 */
+	public long getTransactionDuration()
+	{
+		return (10*1000);
+	}
+
+	int analyzeCount(final Type<?> type)
 	{
 		final int result;
 		try
@@ -243,14 +280,14 @@ public final class Sampler
 		return result;
 	}
 
-	Date[] analyzeDate(final Type type)
+	Date[] analyzeDate(final Type<?> type)
 	{
 		final DateField date = (DateField)type.getFeature("date");
-		final List dates;
+		final List<?> dates;
 		try
 		{
 			samplerModel.startTransaction("sampler analyzeDate");
-			dates = newQuery(new Selectable[]{date.min(), date.max()}, type, null).searchSingleton();
+			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			samplerModel.commit();
 		}
 		finally
@@ -263,30 +300,44 @@ public final class Sampler
 			};
 	}
 
-	public void purge(final int days, final JobContext ctx)
+	public final void purge(final int days, final JobContext ctx)
 	{
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
 
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(cal.DATE, -days);
+		cal.add(GregorianCalendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
 
-	public void purge(final Date limit, final JobContext ctx)
+	public final void purge(final Date limit, final JobContext ctx)
 	{
+		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> lastTypes = new ArrayList<Type<?>>();
+		for(final Type<?> type : samplerModel.getTypes())
+		{
+			final Purgeable purgeable = type.getAnnotation(Purgeable.class);
+			if(purgeable!=null)
+			{
+				(purgeable.last() ? lastTypes : types).add(type);
+			}
+		}
+		types.addAll(lastTypes);
+
 		final String samplerString = toString();
 		try
 		{
-			for(final Type type : samplerModel.getTypes())
-				if(SamplerModel.TYPE!=type && // purge SamplerModel at the end
-					SamplerPurge.TYPE!=type)
-				{
-					SamplerPurge.purge(type, limit, ctx, samplerString);
-				}
-
-			SamplerPurge.purge(SamplerModel.TYPE, limit, ctx, samplerString);
+			final Connection connection = newConnection(samplerModel);
+			try
+			{
+				for(final Type<?> type : types)
+					SamplerPurge.purge(connection, type, limit, ctx, samplerString);
+			}
+			finally
+			{
+				connection.close();
+			}
 		}
 		catch (final SQLException e)
 		{
@@ -294,8 +345,19 @@ public final class Sampler
 		}
 	}
 
+	public final List<Query<List<Object>>> differentiate()
+	{
+		return differentiate(null, null);
+	}
+
+	@SuppressWarnings("static-method")
+	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
+	{
+		return AbsoluteDifferentiate.differentiate(from, until);
+	}
+
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		// NOTE:
 		// The result of sampledModel.toString() may not be

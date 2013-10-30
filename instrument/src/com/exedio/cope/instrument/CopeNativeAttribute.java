@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Date;
-import java.util.HashMap;
-
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -32,16 +29,18 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.NumberFunction;
 import com.exedio.cope.StringFunction;
 import com.exedio.cope.util.Day;
+import java.util.Date;
+import java.util.HashMap;
 
 final class CopeNativeAttribute extends CopeAttribute
 {
-	final Class typeClass;
+	final Class<?> typeClass;
 	final String nativeType;
 
 	public CopeNativeAttribute(
 			final CopeType parent,
 			final JavaField javaField,
-			final Class typeClass)
+			final Class<?> typeClass)
 		throws ParserException
 	{
 		super(parent, javaField, getPersistentType(typeClass));
@@ -50,7 +49,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		this.nativeType = toNativeTypeMapping.get(this.typeClass);
 	}
 
-	private static final Class normalizeTypeClass(final Class typeClass)
+	private static final Class<?> normalizeTypeClass(final Class<?> typeClass)
 	{
 		if(StringFunction.class.isAssignableFrom(typeClass))
 			return StringFunction.class;
@@ -60,7 +59,7 @@ final class CopeNativeAttribute extends CopeAttribute
 			return typeClass;
 	}
 
-	private static final String getPersistentType(final Class typeClass)
+	private static final String getPersistentType(final Class<?> typeClass)
 	{
 		final String result = toPersistentTypeMapping.get(normalizeTypeClass(typeClass));
 
@@ -70,10 +69,10 @@ final class CopeNativeAttribute extends CopeAttribute
 		return result;
 	}
 
-	private static final HashMap<Class, String> toPersistentTypeMapping = new HashMap<Class, String>(3);
-	private static final HashMap<Class, String> toNativeTypeMapping = new HashMap<Class, String>(3);
+	private static final HashMap<Class<?>, String> toPersistentTypeMapping = new HashMap<Class<?>, String>(3);
+	private static final HashMap<Class<?>, String> toNativeTypeMapping = new HashMap<Class<?>, String>(3);
 
-	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType, final Class nativeType)
+	private static final void fillNativeTypeMap(final Class<?> typeClass, final Class<?> persistentType, final Class<?> nativeType)
 	{
 		if(persistentType.isPrimitive())
 			throw new RuntimeException(nativeType.toString());
@@ -89,7 +88,7 @@ final class CopeNativeAttribute extends CopeAttribute
 		}
 	}
 
-	private static final void fillNativeTypeMap(final Class typeClass, final Class persistentType)
+	private static final void fillNativeTypeMap(final Class<?> typeClass, final Class<?> persistentType)
 	{
 		fillNativeTypeMap(typeClass, persistentType, null);
 	}
@@ -118,7 +117,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	public final boolean isBoxed()
 	{
 		final Feature instance = getInstance();
-		final boolean mandatory = instance instanceof Field && ((Field)instance).isMandatory();
+		final boolean mandatory = instance instanceof Field<?> && ((Field<?>)instance).isMandatory();
 
 		return mandatory && nativeType!=null;
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,115 +18,71 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import com.exedio.dsmf.Schema;
-
-final class Sequence
+public final class Sequence extends Feature
 {
-	private final Feature feature;
+	private static final long serialVersionUID = 1l;
+
 	private final int start;
-	private final int minimum;
-	private final int maximum;
+	private final int end;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final SequenceX sequenceX;
 
-	private SequenceImpl impl;
-	private IntegerColumn column = null;
-	private volatile int count = 0;
-	private volatile int first = Integer.MAX_VALUE;
-	private volatile int last = Integer.MIN_VALUE;
-
-	Sequence(final Feature feature, final int start, final int minimum, final int maximum)
+	public Sequence(final int start)
 	{
-		if(feature==null)
-			throw new NullPointerException();
-		if(start<minimum || start>maximum)
-			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
-
-		this.feature = feature;
-		this.start = start;
-		this.minimum = minimum;
-		this.maximum = maximum;
+		this(start, Integer.MAX_VALUE);
 	}
 
-	void connect(final Database database, final IntegerColumn column)
+	public Sequence(final int start, final int end)
 	{
-		if(impl!=null)
-			throw new IllegalStateException("already connected " + feature);
-		impl = database.newSequenceImpl(start, column);
-		this.column = column;
+		if(start<0)
+			throw new IllegalArgumentException("start must be positive, but was " + start + '.');
+		if(start>=end)
+			throw new IllegalArgumentException("start must be less than end, but was " + start + " and " + end + '.');
+
+		this.start = start;
+		this.end = end;
+		this.sequenceX = new SequenceX(this, start, start, end);
+	}
+
+	public int getStart()
+	{
+		return start;
+	}
+
+	public int getEnd()
+	{
+		return end;
+	}
+
+	/**
+	 * The result of this method is not managed by a {@link Transaction},
+	 * and you don't need one for calling this method.
+	 */
+	@Wrap(
+			order=10,
+			doc={"Generates a new sequence number.",
+					"The result is not managed by a '{@link com.exedio.cope.Transaction}'."})
+	public int next()
+	{
+		return sequenceX.next();
+	}
+
+	public SequenceInfo getInfo()
+	{
+		return sequenceX.getInfo();
+	}
+
+	void connect(final Database database)
+	{
+		sequenceX.connectCluster(database, database.makeName(getType().schemaId + '_' + getSchemaName()));
+		database.addSequence(sequenceX);
 	}
 
 	void disconnect()
 	{
-		if(impl==null)
-			throw new IllegalStateException("not yet connected " + feature);
-		impl = null;
-		column = null;
-	}
-
-	private SequenceImpl impl()
-	{
-		final SequenceImpl impl = this.impl;
-		if(impl==null)
-			throw new IllegalStateException("not yet connected " + feature);
-		return impl;
-	}
-
-	void makeSchema(final Schema schema)
-	{
-		impl().makeSchema(schema);
-	}
-
-	int next()
-	{
-		final int result = impl().next();
-
-		if(result<minimum || result>maximum)
-			throw new RuntimeException("sequence overflow to " + result + " in " + feature);
-		if((count++)==0)
-			first = result;
-		last = result;
-
-		return result;
-	}
-
-	void flush()
-	{
-		impl().flush();
-		count = 0;
-		first = Integer.MAX_VALUE;
-		last = Integer.MIN_VALUE;
-	}
-
-	SequenceInfo getInfo()
-	{
-		final int count = this.count;
-		final int first = this.first;
-		final int last  = this.last;
-		return
-			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
-			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
-			: new SequenceInfo(feature, start, minimum, maximum);
-	}
-
-	int check(final ConnectionPool connectionPool)
-	{
-		final Integer maxO;
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			maxO = column.max(connection, column.table.database.executor);
-			if(maxO==null)
-				return 0;
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
-
-		final int max = maxO.intValue();
-		final int current = impl().getNext();
-		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);
-		return (max<current) ? 0 : (max-current+1);
+		sequenceX.disconnect();
 	}
 }

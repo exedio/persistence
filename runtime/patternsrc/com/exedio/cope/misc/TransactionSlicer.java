@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ public final class TransactionSlicer
 			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
 	}
 
-	public boolean biteOff()
+	public boolean commitAndStartPossibly()
 	{
 		if((--bitsLeft)>0)
 			return false;
@@ -64,5 +64,16 @@ public final class TransactionSlicer
 	public int getSliceCount()
 	{
 		return sliceCount;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #commitAndStartPossibly()} instead
+	 */
+	@Deprecated
+	public boolean biteOff()
+	{
+		return commitAndStartPossibly();
 	}
 }

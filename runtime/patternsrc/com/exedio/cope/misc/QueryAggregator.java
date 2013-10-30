@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,12 @@ package com.exedio.cope.misc;
 
 import static java.util.Collections.unmodifiableList;
 
+import com.exedio.cope.Query;
+import com.exedio.cope.Query.Result;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import com.exedio.cope.Query;
-import com.exedio.cope.Query.Result;
 
 public final class QueryAggregator<R>
 {
@@ -110,7 +109,7 @@ public final class QueryAggregator<R>
 	 */
 	public Result<R> searchAndTotal()
 	{
-		for(final Query q : queries)
+		for(final Query<?> q : queries)
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
 

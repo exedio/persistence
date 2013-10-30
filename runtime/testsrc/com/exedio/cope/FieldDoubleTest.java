@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,56 +18,61 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someDouble;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;
+import static java.lang.Double.valueOf;
+
 public class FieldDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;
 
 	public void testSomeDouble()
 	{
-		assertEquals(item.TYPE, item.someDouble.getType());
-		assertEquals(Double.class, item.someDouble.getValueClass());
-		assertSerializedSame(item.someDouble, 379);
+		assertEquals(TYPE, someDouble.getType());
+		assertEquals(Double.class, someDouble.getValueClass());
+		assertSerializedSame(someDouble, 379);
 
 		assertEquals(null, item.getSomeDouble());
-		assertContains(item, item2, item.TYPE.search(item.someDouble.equal((Double)null)));
-		assertContains(item, item2, item.TYPE.search(item.someDouble.isNull()));
-		assertContains(item.TYPE.search(item.someDouble.notEqual((Double)null)));
-		assertContains(item.TYPE.search(item.someDouble.isNotNull()));
+		assertContains(item, item2, TYPE.search(someDouble.equal((Double)null)));
+		assertContains(item, item2, TYPE.search(someDouble.isNull()));
+		assertContains(TYPE.search(someDouble.notEqual((Double)null)));
+		assertContains(TYPE.search(someDouble.isNotNull()));
 
-		item.someDouble.set(item, new Double(44.44));
-		assertEquals(new Double(44.44), item.getSomeDouble());
+		someDouble.set(item, valueOf(44.44));
+		assertEquals(valueOf(44.44), item.getSomeDouble());
 
-		item.someDouble.set(item, 33.33);
-		assertEquals(new Double(33.33), item.getSomeDouble());
+		someDouble.set(item, 33.33);
+		assertEquals(valueOf(33.33), item.getSomeDouble());
 
-		item.setSomeDouble(new Double(22.22));
-		assertEquals(new Double(22.22), item.getSomeDouble());
-		assertEquals(new Double(22.22), item.someDouble.get(item));
+		item.setSomeDouble(valueOf(22.22));
+		assertEquals(valueOf(22.22), item.getSomeDouble());
+		assertEquals(valueOf(22.22), someDouble.get(item));
 		try
 		{
-			item.someDouble.getMandatory(item);
+			someDouble.getMandatory(item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field "+item.someDouble+" is not mandatory", e.getMessage());
+			assertEquals("field "+someDouble+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();
-		assertEquals(new Double(22.22), item.getSomeDouble());
+		assertEquals(valueOf(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
-			item.TYPE.search(item.someDouble.equal(22.22)));
+			TYPE.search(someDouble.equal(22.22)));
 		assertEquals(
 			list(),
-			item.TYPE.search(item.someDouble.notEqual(22.22)));
-		assertEquals(list(item2), item.TYPE.search(item.someDouble.equal((Double)null)));
-		assertEquals(list(item2), item.TYPE.search(item.someDouble.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someDouble.notEqual((Double)null)));
-		assertEquals(list(item), item.TYPE.search(item.someDouble.isNotNull()));
+			TYPE.search(someDouble.notEqual(22.22)));
+		assertEquals(list(item2), TYPE.search(someDouble.equal((Double)null)));
+		assertEquals(list(item2), TYPE.search(someDouble.isNull()));
+		assertEquals(list(item), TYPE.search(someDouble.notEqual((Double)null)));
+		assertEquals(list(item), TYPE.search(someDouble.isNotNull()));
 
-		assertContains(new Double(22.22), null, search(item.someDouble));
-		assertContains(new Double(22.22), search(item.someDouble, item.someDouble.equal(new Double(22.22))));
+		assertContains(valueOf(22.22), null, search(someDouble));
+		assertContains(valueOf(22.22), search(someDouble, someDouble.equal(valueOf(22.22))));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
@@ -76,34 +81,34 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(null, item.getSomeDouble());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.someDouble, Integer.valueOf(10));
+			item.set((FunctionField)someDouble, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName() + " for " + item.someDouble + '.', e.getMessage());
+			assertEquals("expected a " + Double.class.getName() + ", but was a " + Integer.class.getName() + " for " + someDouble + '.', e.getMessage());
 		}
 	}
 
 	public void testSomeNotNullDouble()
 	{
-		assertEquals(item.TYPE, item.someNotNullDouble.getType());
+		assertEquals(TYPE, someNotNullDouble.getType());
 		assertEquals(2.2, item.getSomeNotNullDouble(), 0.0);
 
 		item.setSomeNotNullDouble(2.5);
 		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
-		assertEquals(new Double(2.5), item.someNotNullDouble.get(item));
-		assertEquals(2.5, item.someNotNullDouble.getMandatory(item), 0.0);
+		assertEquals(valueOf(2.5), someNotNullDouble.get(item));
+		assertEquals(2.5, someNotNullDouble.getMandatory(item), 0.0);
 
-		item.someNotNullDouble.set(item, 2.9);
+		someNotNullDouble.set(item, 2.9);
 		assertEquals(2.9, item.getSomeNotNullDouble(), 0.0);
 
-		item.someNotNullDouble.set(item, new Double(3.1));
+		someNotNullDouble.set(item, valueOf(3.1));
 		assertEquals(3.1, item.getSomeNotNullDouble(), 0.0);
 
 		item.setSomeNotNullDouble(0.0);
@@ -112,7 +117,7 @@ public class FieldDoubleTest extends FieldTest
 		restartTransaction();
 		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
 		assertContains(item,
-			item.TYPE.search(item.someNotNullDouble.equal(0.0)));
+			TYPE.search(someNotNullDouble.equal(0.0)));
 
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);
@@ -121,8 +126,8 @@ public class FieldDoubleTest extends FieldTest
 		assertContains(
 			item,
 			Search.search(
-				item.TYPE,
-				Search.equal(item.someNotNullDouble, Double.MIN_VALUE))));
+				TYPE,
+				Search.equal(someNotNullDouble, Double.MIN_VALUE))));
 
 		item.setSomeNotNullDouble(Double.MAX_VALUE);
 		// TODO: passivate
@@ -130,7 +135,7 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(
 			item,
 			Search.search(
-				item.TYPE,
-				Search.equal(item.someNotNullDouble, Double.MAX_VALUE))));*/
+				TYPE,
+				Search.equal(someNotNullDouble, Double.MAX_VALUE))));*/
 	}
 }

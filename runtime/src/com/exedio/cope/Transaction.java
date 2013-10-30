@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,20 +18,23 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
-
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import com.exedio.dsmf.SQLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Transaction
 {
+	private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
+
 	final Connect connect;
 	final long id;
 	final String name;
@@ -62,10 +65,13 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
-		this.entityMaps = cast(new TIntObjectHashMap[concreteTypeCount]);
+		this.entityMaps = cast(new TIntObjectHashMap<?>[concreteTypeCount]);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
 	{
 		return o;
@@ -113,7 +119,7 @@ public final class Transaction
 	{
 		assert !closed : name;
 
-		final Type type = item.type;
+		final Type<?> type = item.type;
 		final int pk = item.pk;
 
 		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
@@ -150,7 +156,7 @@ public final class Transaction
 		{
 			if ( !present )
 			{
-				throw new RuntimeException("tried to create entity that is already in cache: "+item.getCopeID());
+				throw new RuntimeException("tried to create entity that is already in cache: " + item.getCopeID() + '/' + result);
 			}
 			return result;
 		}
@@ -249,7 +255,7 @@ public final class Transaction
 		invalidationsForType.add(item.pk);
 	}
 
-	Entity getEntityIfActive(final Type type, final int pk)
+	Entity getEntityIfActive(final Type<?> type, final int pk)
 	{
 		assert !closed : name;
 
@@ -270,7 +276,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		this.connectionNanos = System.nanoTime() - connect.properties.itemCacheInvalidateLastMargin.intValue();
+		this.connectionNanos = System.nanoTime() - connect.properties.itemCacheInvalidateLastMargin;
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 
@@ -301,6 +307,12 @@ public final class Transaction
 	{
 		assert !closed : name;
 
+		if(!rollback && invalidations!=null)
+		{
+			assert entityMaps.length==invalidations.length;
+			model.types.unsetKnownToBeEmptyForTest(invalidations);
+		}
+
 		// notify database
 		boolean hadConnection = false;
 		try
@@ -317,7 +329,18 @@ public final class Transaction
 				}
 				catch(final SQLException e)
 				{
+					logger.warn( "commit or rollback failed", e );
 					throw new SQLRuntimeException(e, rollback ? "rollback" : "commit");
+				}
+				catch(final RuntimeException e)
+				{
+					logger.warn( "commit or rollback failed", e );
+					throw e;
+				}
+				catch(final Error e)
+				{
+					logger.warn( "commit or rollback failed", e );
+					throw e;
 				}
 			}
 		}
@@ -336,21 +359,19 @@ public final class Transaction
 
 		if(invalidations!=null)
 		{
-			// notify global cache
-			if(!rollback || !connect.supportsTransactionIsolationReadCommitted)
-			{
-				connect.invalidate(invalidations, true);
-			}
-
-			// notify ChangeListeners
 			if(!rollback)
 			{
+				// notify global cache
+				connect.invalidate(invalidations, true);
 				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
 				model.modificationListeners.invalidate(invalidations, this);
 			}
 		}
 
 		transactionCounter.count(rollback, hadConnection);
+
+		if(logger.isDebugEnabled())
+			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (rollback ? "rollback" : "commit")));
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,10 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Cast.verboseCast;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
@@ -34,7 +30,12 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MapField<K,V> extends Pattern
 {
@@ -42,23 +43,27 @@ public final class MapField<K,V> extends Pattern
 
 	private final FunctionField<K> key;
 	private final FunctionField<V> value;
-	private Mount mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private Mount mountIfMounted = null;
 
 	private MapField(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		this.key = key;
-		this.value = value;
-		if(key==null)
-			throw new NullPointerException("key");
-		if(key.getImplicitUniqueConstraint()!=null)
-			throw new IllegalArgumentException("key must not be unique");
-		if(value==null)
-			throw new NullPointerException("value");
-		if(value.getImplicitUniqueConstraint()!=null)
-			throw new IllegalArgumentException("value must not be unique");
+		this.key   = check(key,   "key"  );
+		this.value = check(value, "value");
 	}
 
-	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	private static <K> FunctionField<K> check(final FunctionField<K> field, final String name)
+	{
+		if(field==null)
+			throw new NullPointerException(name);
+		if(!field.isMandatory())
+			throw new IllegalArgumentException(name + " must be mandatory");
+		if(field.getImplicitUniqueConstraint()!=null)
+			throw new IllegalArgumentException(name + " must not be unique");
+		return field;
+	}
+
+	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new MapField<K,V>(key, value);
 	}
@@ -77,7 +82,7 @@ public final class MapField<K,V> extends Pattern
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mount = new Mount(parent, uniqueConstraint, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 
 	private static final class Mount
@@ -103,12 +108,14 @@ public final class MapField<K,V> extends Pattern
 
 	private final Mount mount()
 	{
-		final Mount mount = this.mount;
+		final Mount mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
 	}
 
+	@Wrap(order=200, name="{1}Parent",
+			doc="Returns the parent field of the type of {0}.")
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
@@ -139,36 +146,13 @@ public final class MapField<K,V> extends Pattern
 		return mount().relationType;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final char KEY = 'k';
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
+	private static final String KEY = "k";
 
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.").
-			setReturn(Wrapper.TypeVariable1.class).
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.").
-			addParameter(Wrapper.TypeVariable0.class, String.valueOf(KEY)).
-			addParameter(Wrapper.TypeVariable1.class));
-
-		result.add(
-			new Wrapper("getParent").
-			addComment("Returns the parent field of the type of {0}.").
-			setReturn(Wrapper.generic(ItemField.class, Wrapper.ClassVariable.class)).
-			setMethodWrapperPattern("{1}Parent").
-			setStatic());
-
-		return Collections.unmodifiableList(result);
-	}
-
-	public V get(final Item item, final K key)
+	@Wrap(order=10,
+			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	public V get(
+			final Item item,
+			@Parameter(KEY) final K key)
 	{
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
@@ -179,7 +163,12 @@ public final class MapField<K,V> extends Pattern
 			return null;
 	}
 
-	public void set(final Item item, final K key, final V value)
+	@Wrap(order=20,
+			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
+	public void set(
+			final Item item,
+			@Parameter(KEY) final K key,
+			final V value)
 	{
 		final Mount mount = mount();
 
@@ -189,7 +178,7 @@ public final class MapField<K,V> extends Pattern
 		if(relationItem==null)
 		{
 			if(value!=null)
-				mount.uniqueConstraint.getType().newItem(
+				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						this.key.map(key),
 						this.value.map(value)
@@ -204,6 +193,43 @@ public final class MapField<K,V> extends Pattern
 		}
 	}
 
+	@Wrap(order=110)
+	public Map<K,V> getMap(final Item item)
+	{
+		final Mount mount = mount();
+		final HashMap<K,V> result = new HashMap<K,V>();
+		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+			result.put(key.get(relationItem), value.get(relationItem));
+		return Collections.unmodifiableMap(result);
+	}
+
+	@Wrap(order=120)
+	public void setMap(final Item item, final Map<? extends K,? extends V> map)
+	{
+		final Mount mount = mount();
+		final HashMap<K,V> done = new HashMap<K,V>();
+
+		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		{
+			final K key = this.key.get(relationItem);
+			if(map.containsKey(key))
+				value.set(relationItem, map.get(key));
+			else
+				relationItem.deleteCopeItem();
+
+			done.put(key, null); // value not needed here
+		}
+		for(final Map.Entry<? extends K, ? extends V> entry : map.entrySet())
+		{
+			final K key = entry.getKey();
+			if(!done.containsKey(key))
+				mount.relationType.newItem(
+						Cope.mapAndCast(mount.parent, item),
+						this.key.map(key),
+						this.value.map(entry.getValue()));
+		}
+	}
+
 	public V getAndCast(final Item item, final Object key)
 	{
 		return get(item, verboseCast(this.key.getValueClass(), key));
@@ -214,11 +240,22 @@ public final class MapField<K,V> extends Pattern
 		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
 	}
 
-	public Join join(final Query q, final K key)
+	public Join join(final Query<?> q, final K key)
 	{
 		return q.joinOuterLeft(
 				getRelationType(),
 				mount().parent.equalTarget().
 					and(this.key.equal(key)));
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	{
+		return create(key, value);
 	}
 }

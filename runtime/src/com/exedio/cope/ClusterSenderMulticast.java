@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,7 +34,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	{
 		super(properties);
 		this.address = properties.sendAddress;
-		this.port = properties.sendDestinationPort.intValue();
+		this.port = properties.sendDestinationPort;
 		this.socket = properties.newSendSocket();
 	}
 
@@ -61,7 +61,7 @@ final class ClusterSenderMulticast extends ClusterSender
 		}
 		catch(final SocketException e)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -74,7 +74,7 @@ final class ClusterSenderMulticast extends ClusterSender
 		}
 		catch(final SocketException e)
 		{
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,27 @@
 
 package com.exedio.cope;
 
-import java.util.Date;
+import static com.exedio.cope.CompareFunctionConditionItem.TYPE;
+import static com.exedio.cope.CompareFunctionConditionItem.leftDate;
+import static com.exedio.cope.CompareFunctionConditionItem.leftDay;
+import static com.exedio.cope.CompareFunctionConditionItem.leftDouble;
+import static com.exedio.cope.CompareFunctionConditionItem.leftEnum;
+import static com.exedio.cope.CompareFunctionConditionItem.leftInt;
+import static com.exedio.cope.CompareFunctionConditionItem.leftItem;
+import static com.exedio.cope.CompareFunctionConditionItem.leftLong;
+import static com.exedio.cope.CompareFunctionConditionItem.leftString;
+import static com.exedio.cope.CompareFunctionConditionItem.rightDate;
+import static com.exedio.cope.CompareFunctionConditionItem.rightDay;
+import static com.exedio.cope.CompareFunctionConditionItem.rightDouble;
+import static com.exedio.cope.CompareFunctionConditionItem.rightEnum;
+import static com.exedio.cope.CompareFunctionConditionItem.rightInt;
+import static com.exedio.cope.CompareFunctionConditionItem.rightItem;
+import static com.exedio.cope.CompareFunctionConditionItem.rightLong;
+import static com.exedio.cope.CompareFunctionConditionItem.rightString;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
+import java.util.Date;
 
 public class CompareFunctionConditionTest extends AbstractRuntimeTest
 {
@@ -66,84 +83,84 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
-		assertEquals(item1.leftString.less(item1.rightString), item1.leftString.less(item1.rightString));
-		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.less(item1.leftString));
-		assertNotEquals(item1.leftString.less(item1.rightString), item1.rightString.less(item1.rightString));
-		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.lessOrEqual(item1.rightString));
-		assertNotEquals(item1.leftString.less(item1.rightString), item1.leftString.equal(item1.rightString));
+		assertEquals(leftString.less(rightString), leftString.less(rightString));
+		assertNotEquals(leftString.less(rightString), leftString.less(leftString));
+		assertNotEquals(leftString.less(rightString), rightString.less(rightString));
+		assertNotEquals(leftString.less(rightString), leftString.lessOrEqual(rightString));
+		assertNotEquals(leftString.less(rightString), leftString.equal(rightString));
 
 		// test toString
-		assertEquals("CompareFunctionConditionItem.leftString=CompareFunctionConditionItem.rightString",  item1.leftString.equal(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString<CompareFunctionConditionItem.rightString",  item1.leftString.less(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString<=CompareFunctionConditionItem.rightString", item1.leftString.lessOrEqual(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString>CompareFunctionConditionItem.rightString",  item1.leftString.greater(item1.rightString).toString());
-		assertEquals("CompareFunctionConditionItem.leftString>=CompareFunctionConditionItem.rightString", item1.leftString.greaterOrEqual(item1.rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString=CompareFunctionConditionItem.rightString",  leftString.equal(rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString<CompareFunctionConditionItem.rightString",  leftString.less(rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString<=CompareFunctionConditionItem.rightString", leftString.lessOrEqual(rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString>CompareFunctionConditionItem.rightString",  leftString.greater(rightString).toString());
+		assertEquals("CompareFunctionConditionItem.leftString>=CompareFunctionConditionItem.rightString", leftString.greaterOrEqual(rightString).toString());
 
 
 		// equal
-		assertCondition(item3, item1.TYPE, item1.leftString.equal(item1.rightString));
-		assertCondition(item3, item1.TYPE, item1.leftInt.equal(item1.rightInt));
-		assertCondition(item3, item1.TYPE, item1.leftLong.equal(item1.rightLong));
-		assertCondition(item3, item1.TYPE, item1.leftDouble.equal(item1.rightDouble));
-		assertCondition(item3, item1.TYPE, item1.leftDate.equal(item1.rightDate));
-		assertCondition(item3, item1.TYPE, item1.leftDay.equal(item1.rightDay));
-		assertCondition(item3, item1.TYPE, item1.leftEnum.equal(item1.rightEnum));
-		assertCondition(item3, item1.TYPE, item1.leftItem.equal(item1.rightItem));
-		assertCondition(item3, item1.TYPE, item1.TYPE.getThis().equal(item1.rightItem));
+		assertCondition(item3, TYPE, leftString.equal(rightString));
+		assertCondition(item3, TYPE, leftInt.equal(rightInt));
+		assertCondition(item3, TYPE, leftLong.equal(rightLong));
+		assertCondition(item3, TYPE, leftDouble.equal(rightDouble));
+		assertCondition(item3, TYPE, leftDate.equal(rightDate));
+		assertCondition(item3, TYPE, leftDay.equal(rightDay));
+		assertCondition(item3, TYPE, leftEnum.equal(rightEnum));
+		assertCondition(item3, TYPE, leftItem.equal(rightItem));
+		assertCondition(item3, TYPE, TYPE.getThis().equal(rightItem));
 
 		// notEqual
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftString.notEqual(item1.rightString));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftInt.notEqual(item1.rightInt));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftLong.notEqual(item1.rightLong));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftDouble.notEqual(item1.rightDouble));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftDate.notEqual(item1.rightDate));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftDay.notEqual(item1.rightDay));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftEnum.notEqual(item1.rightEnum));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.leftItem.notEqual(item1.rightItem));
-		assertCondition(item1, item2, item4, item5, item1.TYPE, item1.TYPE.getThis().notEqual(item1.rightItem));
+		assertCondition(item1, item2, item4, item5, TYPE, leftString.notEqual(rightString));
+		assertCondition(item1, item2, item4, item5, TYPE, leftInt.notEqual(rightInt));
+		assertCondition(item1, item2, item4, item5, TYPE, leftLong.notEqual(rightLong));
+		assertCondition(item1, item2, item4, item5, TYPE, leftDouble.notEqual(rightDouble));
+		assertCondition(item1, item2, item4, item5, TYPE, leftDate.notEqual(rightDate));
+		assertCondition(item1, item2, item4, item5, TYPE, leftDay.notEqual(rightDay));
+		assertCondition(item1, item2, item4, item5, TYPE, leftEnum.notEqual(rightEnum));
+		assertCondition(item1, item2, item4, item5, TYPE, leftItem.notEqual(rightItem));
+		assertCondition(item1, item2, item4, item5, TYPE, TYPE.getThis().notEqual(rightItem));
 
 		// less
-		assertCondition(item1, item2, item1.TYPE, item1.leftString.less(item1.rightString));
-		assertCondition(item1, item2, item1.TYPE, item1.leftInt.less(item1.rightInt));
-		assertCondition(item1, item2, item1.TYPE, item1.leftLong.less(item1.rightLong));
-		assertCondition(item1, item2, item1.TYPE, item1.leftDouble.less(item1.rightDouble));
-		assertCondition(item1, item2, item1.TYPE, item1.leftDate.less(item1.rightDate));
-		assertCondition(item1, item2, item1.TYPE, item1.leftDay.less(item1.rightDay));
-		assertCondition(item1, item2, item1.TYPE, item1.leftEnum.less(item1.rightEnum));
-		assertCondition(item1, item2, item1.TYPE, item1.leftItem.less(item1.rightItem));
-		assertCondition(item1, item2, item1.TYPE, item1.TYPE.getThis().less(item1.rightItem));
+		assertCondition(item1, item2, TYPE, leftString.less(rightString));
+		assertCondition(item1, item2, TYPE, leftInt.less(rightInt));
+		assertCondition(item1, item2, TYPE, leftLong.less(rightLong));
+		assertCondition(item1, item2, TYPE, leftDouble.less(rightDouble));
+		assertCondition(item1, item2, TYPE, leftDate.less(rightDate));
+		assertCondition(item1, item2, TYPE, leftDay.less(rightDay));
+		assertCondition(item1, item2, TYPE, leftEnum.less(rightEnum));
+		assertCondition(item1, item2, TYPE, leftItem.less(rightItem));
+		assertCondition(item1, item2, TYPE, TYPE.getThis().less(rightItem));
 
 		// lessOrEqual
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftString.lessOrEqual(item1.rightString));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftInt.lessOrEqual(item1.rightInt));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftLong.lessOrEqual(item1.rightLong));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftDouble.lessOrEqual(item1.rightDouble));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftDate.lessOrEqual(item1.rightDate));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftDay.lessOrEqual(item1.rightDay));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftEnum.lessOrEqual(item1.rightEnum));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.leftItem.lessOrEqual(item1.rightItem));
-		assertCondition(item1, item2, item3, item1.TYPE, item1.TYPE.getThis().lessOrEqual(item1.rightItem));
+		assertCondition(item1, item2, item3, TYPE, leftString.lessOrEqual(rightString));
+		assertCondition(item1, item2, item3, TYPE, leftInt.lessOrEqual(rightInt));
+		assertCondition(item1, item2, item3, TYPE, leftLong.lessOrEqual(rightLong));
+		assertCondition(item1, item2, item3, TYPE, leftDouble.lessOrEqual(rightDouble));
+		assertCondition(item1, item2, item3, TYPE, leftDate.lessOrEqual(rightDate));
+		assertCondition(item1, item2, item3, TYPE, leftDay.lessOrEqual(rightDay));
+		assertCondition(item1, item2, item3, TYPE, leftEnum.lessOrEqual(rightEnum));
+		assertCondition(item1, item2, item3, TYPE, leftItem.lessOrEqual(rightItem));
+		assertCondition(item1, item2, item3, TYPE, TYPE.getThis().lessOrEqual(rightItem));
 
 		// greater
-		assertCondition(item4, item5, item1.TYPE, item1.leftString.greater(item1.rightString));
-		assertCondition(item4, item5, item1.TYPE, item1.leftInt.greater(item1.rightInt));
-		assertCondition(item4, item5, item1.TYPE, item1.leftLong.greater(item1.rightLong));
-		assertCondition(item4, item5, item1.TYPE, item1.leftDouble.greater(item1.rightDouble));
-		assertCondition(item4, item5, item1.TYPE, item1.leftDate.greater(item1.rightDate));
-		assertCondition(item4, item5, item1.TYPE, item1.leftDay.greater(item1.rightDay));
-		assertCondition(item4, item5, item1.TYPE, item1.leftEnum.greater(item1.rightEnum));
-		assertCondition(item4, item5, item1.TYPE, item1.leftItem.greater(item1.rightItem));
-		assertCondition(item4, item5, item1.TYPE, item1.TYPE.getThis().greater(item1.rightItem));
+		assertCondition(item4, item5, TYPE, leftString.greater(rightString));
+		assertCondition(item4, item5, TYPE, leftInt.greater(rightInt));
+		assertCondition(item4, item5, TYPE, leftLong.greater(rightLong));
+		assertCondition(item4, item5, TYPE, leftDouble.greater(rightDouble));
+		assertCondition(item4, item5, TYPE, leftDate.greater(rightDate));
+		assertCondition(item4, item5, TYPE, leftDay.greater(rightDay));
+		assertCondition(item4, item5, TYPE, leftEnum.greater(rightEnum));
+		assertCondition(item4, item5, TYPE, leftItem.greater(rightItem));
+		assertCondition(item4, item5, TYPE, TYPE.getThis().greater(rightItem));
 
 		// greaterOrEqual
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftString.greaterOrEqual(item1.rightString));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftInt.greaterOrEqual(item1.rightInt));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftLong.greaterOrEqual(item1.rightLong));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftDouble.greaterOrEqual(item1.rightDouble));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftDate.greaterOrEqual(item1.rightDate));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftDay.greaterOrEqual(item1.rightDay));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftEnum.greaterOrEqual(item1.rightEnum));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.leftItem.greaterOrEqual(item1.rightItem));
-		assertCondition(item3, item4, item5, item1.TYPE, item1.TYPE.getThis().greaterOrEqual(item1.rightItem));
+		assertCondition(item3, item4, item5, TYPE, leftString.greaterOrEqual(rightString));
+		assertCondition(item3, item4, item5, TYPE, leftInt.greaterOrEqual(rightInt));
+		assertCondition(item3, item4, item5, TYPE, leftLong.greaterOrEqual(rightLong));
+		assertCondition(item3, item4, item5, TYPE, leftDouble.greaterOrEqual(rightDouble));
+		assertCondition(item3, item4, item5, TYPE, leftDate.greaterOrEqual(rightDate));
+		assertCondition(item3, item4, item5, TYPE, leftDay.greaterOrEqual(rightDay));
+		assertCondition(item3, item4, item5, TYPE, leftEnum.greaterOrEqual(rightEnum));
+		assertCondition(item3, item4, item5, TYPE, leftItem.greaterOrEqual(rightItem));
+		assertCondition(item3, item4, item5, TYPE, TYPE.getThis().greaterOrEqual(rightItem));
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,31 +18,37 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ConnectionFactory implements Pool.Factory<Connection>
 {
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionFactory.class);
+
 	private final String url;
-	private final java.util.Properties info;
-	private final boolean transactionIsolationReadCommitted;
+	private final Driver driver;
+	private final Properties info;
+	private final int transactionIsolation;
 
-	ConnectionFactory(final ConnectProperties properties, final Dialect dialect)
+	ConnectionFactory(
+			final ConnectProperties properties,
+			final Driver driver,
+			final Dialect dialect)
 	{
-		this.url = properties.getDatabaseUrl();
+		this.url = properties.getConnectionUrl();
+		this.driver = driver;
 
-		info = new java.util.Properties();
-		info.setProperty("user", properties.getDatabaseUser());
-		info.setProperty("password", properties.getDatabasePassword());
+		info = properties.newConnectionInfo();
 		dialect.completeConnectionInfo(info);
 
-		this.transactionIsolationReadCommitted =
-			properties.connectionTransactionIsolationReadCommitted.booleanValue();
+		this.transactionIsolation = dialect.getTransationIsolation();
 	}
 
 	public Connection create()
@@ -59,9 +65,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	Connection createRaw() throws SQLException
 	{
-		final Connection result = DriverManager.getConnection(url, info);
-		if(transactionIsolationReadCommitted)
-			result.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+		final Connection result = driver.connect(url, info);
+		if(result==null)
+			throw new RuntimeException(driver.toString() + '/' + url);
+		result.setTransactionIsolation(transactionIsolation);
 		return result;
 	}
 
@@ -81,7 +88,8 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			System.out.println("warning: pooled connection invalid: " + ex.getMessage());
+			if(logger.isWarnEnabled())
+				logger.warn( "invalid on get", ex );
 			return false;
 		}
 	}

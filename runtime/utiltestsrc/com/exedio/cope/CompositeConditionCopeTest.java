@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,10 +25,9 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
 
+import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeConditionCopeTest extends CopeAssert
 {

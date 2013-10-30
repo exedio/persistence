@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PlusIntegerItem.TYPE;
+import static com.exedio.cope.PlusIntegerItem.multiplyBC;
+import static com.exedio.cope.PlusIntegerItem.numA;
+import static com.exedio.cope.PlusIntegerItem.numB;
+import static com.exedio.cope.PlusIntegerItem.plusAB;
 import static java.lang.Integer.valueOf;
 
+import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.junit.CopeModelTest;
 
 public class PlusIntegerOrderTest extends CopeModelTest
 {
@@ -55,15 +59,15 @@ public class PlusIntegerOrderTest extends CopeModelTest
 		assertEquals(valueOf(-1000), item2.getMultiplyBC());
 		assertEquals(valueOf(-2000), item3.getMultiplyBC());
 
-		assertOrder(list(item1, item2, item3), item1.numA);
-		assertOrder(list(item2, item3, item1), item1.numB);
-		assertOrder(list(item2, item1, item3), item1.plusAB);
-		assertOrder(list(item1, item3, item2), item1.multiplyBC);
+		assertOrder(list(item1, item2, item3), numA);
+		assertOrder(list(item2, item3, item1), numB);
+		assertOrder(list(item2, item1, item3), plusAB);
+		assertOrder(list(item1, item3, item2), multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query query = item1.TYPE.newQuery(null);
+		final Query<PlusIntegerItem> query = TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 

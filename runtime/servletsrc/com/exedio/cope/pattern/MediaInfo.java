@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@ public final class MediaInfo
 
 	private final int redirectFrom;
 	private final int exception;
+	private final int invalidSpecial;
 	private final int guessedUrl;
 	private final int notAnItem;
 	private final int noSuchItem;
@@ -37,6 +38,7 @@ public final class MediaInfo
 			final MediaPath path,
 			final int redirectFrom,
 			final int exception,
+			final int invalidSpecial,
 			final int guessedUrl,
 			final int notAnItem,
 			final int noSuchItem,
@@ -49,6 +51,7 @@ public final class MediaInfo
 		this.path = path;
 		this.redirectFrom = redirectFrom;
 		this.exception = exception;
+		this.invalidSpecial = invalidSpecial;
 		this.guessedUrl = guessedUrl;
 		this.notAnItem = notAnItem;
 		this.noSuchItem = noSuchItem;
@@ -72,6 +75,11 @@ public final class MediaInfo
 	public int getException()
 	{
 		return exception;
+	}
+
+	public int getInvalidSpecial()
+	{
+		return invalidSpecial;
 	}
 
 	public int getGuessedUrl()

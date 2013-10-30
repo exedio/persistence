@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntObjectHashMap;
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 
+import gnu.trove.TIntObjectHashMap;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import junit.framework.TestCase;
 
 public class LRUMapTest extends TestCase
@@ -127,7 +127,7 @@ public class LRUMapTest extends TestCase
 		for(int i = 0; i<100000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
-		System.out.print(" " + ((end-start)/1000000) + "ms");
+		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
 	private static void assertPerformance(final TIntObjectHashMap<String> map)
@@ -142,7 +142,7 @@ public class LRUMapTest extends TestCase
 		for(int i = 0; i<100000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
-		System.out.print(" " + ((end-start)/1000000) + "ms");
+		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
 	private static long mem()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,19 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 
-import java.util.Arrays;
-
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
 
-public class PasswordLimiterModelTest extends AbstractRuntimeTest
+public class PasswordLimiterModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(PasswordLimiterItem.TYPE);
 
@@ -39,14 +39,9 @@ public class PasswordLimiterModelTest extends AbstractRuntimeTest
 		MODEL.enableSerialization(PasswordLimiterModelTest.class, "MODEL");
 	}
 
-	public PasswordLimiterModelTest()
-	{
-		super(MODEL);
-	}
-
 	public void testIt()
 	{
-		assertEquals(Arrays.asList(new Type[]{
+		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,
 				passwordLimited.getRefusalType(),
 		}), MODEL.getTypes());

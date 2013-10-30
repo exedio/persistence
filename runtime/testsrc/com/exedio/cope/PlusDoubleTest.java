@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -98,6 +98,12 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertNotEquals(plusAB, plusBC);
 		assertNotEquals(plusAB, numA);
 		assertNotEquals(plusBC, multiplyBC);
+
+		// toString
+		assertEquals("("+numB+"+5.5)", numB.plus(5.5).toString());
+		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
+		assertEquals("("+numB+"*5.5)", numB.multiply(5.5).toString());
+		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
 
 		// serialization
 		assertSerializedSame(plusA9    , 376);

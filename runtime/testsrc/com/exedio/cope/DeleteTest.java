@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,24 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DeleteItem.otherCascade;
+import static com.exedio.cope.DeleteItem.otherForbid;
+import static com.exedio.cope.DeleteItem.otherNullify;
+import static com.exedio.cope.DeleteItem.selfCascade;
+import static com.exedio.cope.DeleteItem.selfCascade2;
+import static com.exedio.cope.DeleteItem.selfForbid;
+import static com.exedio.cope.DeleteItem.selfNullify;
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
+import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
 
 public class DeleteTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
+	public static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
 
 	public DeleteTest()
 	{
@@ -35,31 +47,31 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	public void testForbid()
 	{
-		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(item.selfForbid, item.selfNullify, item.selfCascade, item.selfCascade2), item.TYPE.getReferences());
-		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getDeclaredReferences());
-		assertEqualsUnmodifiable(list(item.otherForbid, item.otherNullify, item.otherCascade), other.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getReferences());
+		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), DeleteOtherItem.TYPE.getDeclaredReferences());
+		assertEqualsUnmodifiable(list(otherForbid, otherNullify, otherCascade), DeleteOtherItem.TYPE.getReferences());
 
-		assertSame(Item.FORBID, item.selfForbid.getDeletePolicy());
-		assertSame(Item.FORBID, item.otherForbid.getDeletePolicy());
+		assertSame(FORBID, selfForbid.getDeletePolicy());
+		assertSame(FORBID, otherForbid.getDeletePolicy());
 
 		// other type
 		other = new DeleteOtherItem("other");
 		item = new DeleteItem("item");
 		item.setOtherForbid(other);
-		assertDeleteFails(other, item.otherForbid);
+		assertDeleteFails(other, otherForbid);
 
 		// other item
 		final DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
 		item.setSelfForbid(item2);
-		assertDeleteFails(item2, item.selfForbid);
+		assertDeleteFails(item2, selfForbid);
 
 		// same item
 		item.setSelfForbid(item);
 		if(true) // TODO allow self references
 		{
-			assertDeleteFails(item, item.selfForbid);
+			assertDeleteFails(item, selfForbid);
 			item.setSelfForbid(null);
 		}
 		assertDelete(item);
@@ -69,7 +81,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		item2.setSelfCascade(item);
 		final DeleteItem item3 = new DeleteItem("item3");
 		item3.setSelfForbid(item2);
-		assertDeleteFails(item, item.selfForbid, item2);
+		assertDeleteFails(item, selfForbid, item2);
 
 		assertDelete(other);
 		assertDelete(item3);
@@ -77,16 +89,17 @@ public class DeleteTest extends AbstractRuntimeTest
 		assertDelete(item);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testNullify()
 	{
-		assertSame(Item.NULLIFY, item.selfNullify.getDeletePolicy());
-		assertSame(Item.NULLIFY, item.otherNullify.getDeletePolicy());
-		assertFalse(item.selfNullify.isMandatory());
-		assertFalse(item.otherNullify.isMandatory());
+		assertSame(NULLIFY, selfNullify.getDeletePolicy());
+		assertSame(NULLIFY, otherNullify.getDeletePolicy());
+		assertFalse(selfNullify.isMandatory());
+		assertFalse(otherNullify.isMandatory());
 
 		try
 		{
-			Item.newItemField(Item.class, null);
+			ItemField.create(Item.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -95,17 +108,17 @@ public class DeleteTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			Item.newItemField(DeleteItem.class, null);
+			ItemField.create(DeleteItem.class, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("policy", e.getMessage());
 		}
-		assertEquals(false, Item.newItemField(DeleteItem.class, Item.NULLIFY).isMandatory());
+		assertEquals(false, ItemField.create(DeleteItem.class).nullify().isMandatory());
 		try
 		{
-			Item.newItemField(DeleteItem.class, Item.NULLIFY).toFinal();
+			ItemField.create(DeleteItem.class).nullify().toFinal();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -148,8 +161,8 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	public void testCascade()
 	{
-		assertSame(Item.CASCADE, item.selfCascade.getDeletePolicy());
-		assertSame(Item.CASCADE, item.otherCascade.getDeletePolicy());
+		assertSame(CASCADE, selfCascade.getDeletePolicy());
+		assertSame(CASCADE, otherCascade.getDeletePolicy());
 
 		DeleteItem item2;
 		DeleteItem item3;
@@ -247,7 +260,7 @@ public class DeleteTest extends AbstractRuntimeTest
 		final DeleteItem item = deleteOnTearDown(new DeleteItem("forbid"));
 		item.setSelfForbid(middle2);
 
-		assertDeleteFails(todelete, item.selfForbid, middle2);
+		assertDeleteFails(todelete, selfForbid, middle2);
 		assertTrue(todelete.existsCopeItem());
 		assertTrue(middle1.existsCopeItem());
 		assertTrue(middle2.existsCopeItem());
@@ -264,21 +277,21 @@ public class DeleteTest extends AbstractRuntimeTest
 		final DeleteItem item2 = deleteOnTearDown(new DeleteItem("item2"));
 
 		// test Model.getItem
-		assertSame(item, item.TYPE.getModel().getItem(item.getCopeID()));
+		assertSame(item, DeleteItem.TYPE.getModel().getItem(item.getCopeID()));
 
 		// test Item.get(ItemAttribute)
 		item.setSelfNullify(item2);
 		assertSame(item2, item.getSelfNullify());
 
 		// test Query.search
-		final Query query1 = item.TYPE.newQuery(null);
+		final Query<?> query1 = DeleteItem.TYPE.newQuery(null);
 		query1.setOrderByThis(true);
-		final Collection searchResult1 = query1.search();
+		final Collection<?> searchResult1 = query1.search();
 		assertEquals(list(item, item2), searchResult1);
 		assertSame(item, searchResult1.iterator().next());
 
 		// test Query.search with selects
-		final Query<DeleteItem> query2 = new Query<DeleteItem>(item.selfNullify);
+		final Query<DeleteItem> query2 = new Query<DeleteItem>(selfNullify);
 		query2.setOrderByThis(true);
 		final List<? extends DeleteItem> searchResult2 = query2.search();
 		assertEquals(list(item2, null), searchResult2);
@@ -311,6 +324,15 @@ public class DeleteTest extends AbstractRuntimeTest
 		{
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
-		model.reviseIfSupported();
+		try
+		{
+			model.getRevisionLogsAndMutex();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("revisions are not enabled", e.getMessage());
+		}
+		model.reviseIfSupportedAndAutoEnabled();
 	}
 }

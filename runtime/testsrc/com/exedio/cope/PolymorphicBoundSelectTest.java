@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		final PolymorphicBoundSelectSubItem subItem = deleteOnTearDown(new PolymorphicBoundSelectSubItem(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
-			new Selectable[]{PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent},
+			new Selectable<?>[]{PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent},
 			PolymorphicBoundSelectSubItem.TYPE,
 			null
 		);
@@ -52,7 +52,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PolymorphicBoundSelectSubItem(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
-			new Selectable[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSubItem.parent},
+			new Selectable<?>[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSubItem.parent},
 			PolymorphicBoundSelectSuperItem.TYPE,
 			null
 		);

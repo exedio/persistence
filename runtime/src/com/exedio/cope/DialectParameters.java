@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.SQLRuntimeException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -26,16 +27,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.exedio.dsmf.SQLRuntimeException;
-
 final class DialectParameters
 {
 	final ConnectProperties properties;
 
 	// probed on the initial connection
-	final boolean supportsTransactionIsolationReadCommitted;
 	final EnvironmentInfo environmentInfo;
-	final boolean nullsAreSortedLow;
+	final NullsAreSorted nullsAreSorted;
 
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
@@ -44,31 +42,8 @@ final class DialectParameters
 		try
 		{
 			final DatabaseMetaData dmd = connection.getMetaData();
-			supportsTransactionIsolationReadCommitted = dmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_READ_COMMITTED);
 			this.environmentInfo = new EnvironmentInfo(dmd);
-			if("HSQL Database Engine".equals(dmd.getDatabaseProductName()))
-			{
-				if(!dmd.nullsAreSortedAtStart())
-					throw new IllegalStateException("not supported: !nullsAreSortedAtStart");
-				if(dmd.nullsAreSortedAtEnd())
-					throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
-				if(dmd.nullsAreSortedHigh())
-					throw new IllegalStateException("not supported: nullsAreSortedHigh");
-				if(dmd.nullsAreSortedLow())
-					throw new IllegalStateException("not supported: nullsAreSortedLow");
-				this.nullsAreSortedLow = false;
-			}
-			else
-			{
-			if(dmd.nullsAreSortedAtStart())
-				throw new IllegalStateException("not supported: nullsAreSortedAtStart");
-			if(dmd.nullsAreSortedAtEnd())
-				throw new IllegalStateException("not supported: nullsAreSortedAtEnd");
-			final boolean nullsAreSortedLow = dmd.nullsAreSortedLow();
-			if(nullsAreSortedLow==dmd.nullsAreSortedHigh())
-				throw new IllegalStateException("inconsistent: nullsAreSortedLow=" + nullsAreSortedLow + " nullsAreSortedHigh=" + dmd.nullsAreSortedHigh());
-			this.nullsAreSortedLow = nullsAreSortedLow;
-			}
+			this.nullsAreSorted = NullsAreSorted.valueOf(dmd);
 		}
 		catch(final SQLException e)
 		{
@@ -78,28 +53,20 @@ final class DialectParameters
 
 	Map<String, String> getRevisionEnvironment()
 	{
-		final HashMap<String, String> store = new HashMap<String, String>();
+		final HashMap<String, String> env = new HashMap<String, String>();
 
 		try
 		{
-			store.put("hostname", InetAddress.getLocalHost().getHostName());
+			env.put("hostname", InetAddress.getLocalHost().getHostName());
 		}
 		catch(final UnknownHostException e)
 		{
 			// do not put in hostname
 		}
 
-		store.put("jdbc.url",  properties.getDatabaseUrl());
-		store.put("jdbc.user", properties.getDatabaseUser());
-		store.put("database.name",    environmentInfo.getDatabaseProductName());
-		store.put("database.version", environmentInfo.getDatabaseProductVersion());
-		store.put("database.version.major", String.valueOf(environmentInfo.getDatabaseMajorVersion()));
-		store.put("database.version.minor", String.valueOf(environmentInfo.getDatabaseMinorVersion()));
-		store.put("driver.name",    environmentInfo.getDriverName());
-		store.put("driver.version", environmentInfo.getDriverVersion());
-		store.put("driver.version.major", String.valueOf(environmentInfo.getDriverMajorVersion()));
-		store.put("driver.version.minor", String.valueOf(environmentInfo.getDriverMinorVersion()));
+		properties.putRevisionEnvironment(env);
+		environmentInfo.putRevisionEnvironment(env);
 
-		return store;
+		return env;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import java.util.Date;
 
 public final class ItemCacheInfo
 {
-	private final Type type;
+	private final Type<?> type;
 	private final int limit;
 	private final int level;
 	private final long hits;
@@ -39,10 +39,9 @@ public final class ItemCacheInfo
 	private final int  invalidateLastSize;
 	private final long invalidateLastHits;
 	private final long invalidateLastPurged;
-	private final long invalidationBucketHits;
 
 	ItemCacheInfo(
-			final Type type,
+			final Type<?> type,
 			final int limit,
 			final int level,
 			final long hits, final long misses,
@@ -50,8 +49,8 @@ public final class ItemCacheInfo
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone,
-			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged,
-			final long invalidationBucketHits)
+			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged
+			)
 	{
 		this.type = type;
 		this.limit = limit;
@@ -70,10 +69,9 @@ public final class ItemCacheInfo
 		this.invalidateLastSize = invalidateLastSize;
 		this.invalidateLastHits = invalidateLastHits;
 		this.invalidateLastPurged = invalidateLastPurged;
-		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
-	public Type getType()
+	public Type<?> getType()
 	{
 		return type;
 	}
@@ -164,9 +162,15 @@ public final class ItemCacheInfo
 		return invalidateLastPurged;
 	}
 
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getInvalidationBucketHits()
 	{
-		return invalidationBucketHits;
+		return 0l;
 	}
 
 	// ------------------- deprecated stuff -------------------

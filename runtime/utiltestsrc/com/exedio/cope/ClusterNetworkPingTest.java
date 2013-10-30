@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,8 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.util.SequenceChecker;
+import java.util.List;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
@@ -31,9 +30,9 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			modelA.getThreadControllers();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final Model.NotConnectedException e)
 		{
-			assertEquals("model not yet connected, use Model#connect", e.getMessage());
+			assertEquals(modelA, e.getModel());
 		}
 
 		modelA.connect(getProperties(true, -1, -1));

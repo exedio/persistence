@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,6 +86,7 @@ public abstract class Node
 		public void run(ResultSet resultSet) throws SQLException;
 	}
 
+	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;
@@ -152,6 +154,7 @@ public abstract class Node
 		}
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
 		Connection connection = null;
@@ -198,6 +201,26 @@ public abstract class Node
 					// exception is already thrown
 				}
 			}
+		}
+	}
+
+	final String getCatalog()
+	{
+		try
+		{
+			final Connection connection = connectionProvider.getConnection();
+			try
+			{
+				return connection.getCatalog();
+			}
+			finally
+			{
+				connectionProvider.putConnection(connection);
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getCatalog");
 		}
 	}
 

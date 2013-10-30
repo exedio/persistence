@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,9 +29,10 @@ import com.exedio.cope.pattern.Media;
 public class SampledModelItem extends Item
 {
 	static final StringField code = new StringField();
-	static final Media media = new Media();
+	static final Media mediaA= new Media();
+	static final Media mediaB = new Media();
 
-	SampledModelItem(final SetValue... values)
+	SampledModelItem(final SetValue<?>... values)
 	{
 		super(values);
 	}

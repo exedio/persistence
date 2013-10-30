@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 public final class Schema extends Node
 {
@@ -39,18 +40,18 @@ public final class Schema extends Node
 		super(dialect, connectionProvider);
 	}
 
-	final void register(final Table table)
+	void register(final Table table)
 	{
 		if(tableMap.put(table.name, table)!=null)
 			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
 
-	final Table notifyExistentTable(final String tableName)
+	Table notifyExistentTable(final String tableName)
 	{
 		Table result = tableMap.get(tableName);
 		if(result==null)
-			result = new Table(this, tableName, null, false);
+			result = new Table(this, tableName, false);
 		else
 			result.notifyExists();
 
@@ -67,14 +68,14 @@ public final class Schema extends Node
 		return tableList;
 	}
 
-	final void register(final Sequence sequence)
+	void register(final Sequence sequence)
 	{
 		if(sequenceMap.put(sequence.name, sequence)!=null)
 			throw new RuntimeException("duplicate sequence name in schema: " + sequence.name);
 		sequenceList.add(sequence);
 	}
 
-	final Sequence notifyExistentSequence(final String sequenceName)
+	Sequence notifyExistentSequence(final String sequenceName)
 	{
 		Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
@@ -95,7 +96,7 @@ public final class Schema extends Node
 		return sequenceList;
 	}
 
-	final void register(final Constraint constraint)
+	void register(final Constraint constraint)
 	{
 		if(!constraint.required())
 			return;
@@ -135,56 +136,111 @@ public final class Schema extends Node
 		}
 	}
 
-	//private static int createTableTime = 0, dropTableTime = 0, checkEmptyTableTime = 0;
-
-	public final void create()
+	public void create()
 	{
 		create(null);
 	}
 
-	public final void create(final StatementListener listener)
+	public void create(final StatementListener listener)
 	{
-		//final long time = System.currentTimeMillis();
-		for(final Sequence s : sequenceList)
-			s.create(listener);
+		final Graph graph = new Graph(this);
+		final Set<ForeignKeyConstraint> constraintsBroken = graph.getConstraintsBroken();
 
-		for(final Table t : tableList)
-			t.create(listener);
+		if(connectionProvider.isSemicolonEnabled())
+		{
+			final StringBuilder bf = new StringBuilder();
+			boolean first = true;
 
-		for(final Table t : tableList)
-			t.createConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
+			for(final Sequence s : sequenceList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
 
-		//final long amount = (System.currentTimeMillis()-time);
-		//createTableTime += amount;
-		//System.out.println("CREATE TABLES "+amount+"ms  accumulated "+createTableTime);
+				s.create(bf);
+			}
+
+			for(final Table t : graph.getTablesOrdered())
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				t.create(bf, constraintsBroken);
+			}
+
+			executeSQL(bf.toString(), listener);
+		}
+		else
+		{
+			for(final Sequence s : sequenceList)
+				s.create(listener);
+			for(final Table t : graph.getTablesOrdered())
+				t.create(listener, constraintsBroken);
+		}
+
+		for(final ForeignKeyConstraint c : constraintsBroken)
+			c.create(listener);
 	}
 
-	public final void drop()
+	public void drop()
 	{
 		drop(null);
 	}
 
-	public final void drop(final StatementListener listener)
+	public void drop(final StatementListener listener)
 	{
-		//final long time = System.currentTimeMillis();
+		final Graph graph = new Graph(this);
+
 		// must delete in reverse order, to obey integrity constraints
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().drop(listener);
-		for(final ListIterator<Sequence> i = sequenceList.listIterator(sequenceList.size()); i.hasPrevious(); )
-			i.previous().drop(listener);
-		//final long amount = (System.currentTimeMillis()-time);
-		//dropTableTime += amount;
-		//System.out.println("DROP TABLES "+amount+"ms  accumulated "+dropTableTime);
+
+		for(final ForeignKeyConstraint c : graph.getConstraintsBroken())
+			c.drop(listener);
+
+		if(connectionProvider.isSemicolonEnabled())
+		{
+			final StringBuilder bf = new StringBuilder();
+			boolean first = true;
+
+			for(final Sequence s : sequenceList)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				s.drop(bf);
+			}
+
+			for(final Table t : reverse(graph.getTablesOrdered()))
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				t.drop(bf);
+			}
+
+			executeSQL(bf.toString(), listener);
+		}
+		else
+		{
+			for(final Table t : reverse(graph.getTablesOrdered()))
+				t.drop(listener);
+			for(final Sequence s : reverse(sequenceList))
+				s.drop(listener);
+		}
 	}
 
-	public final void tearDown()
+	public void tearDown()
 	{
 		tearDown(null);
 	}
 
-	public final void tearDown(final StatementListener listener)
+	public void tearDown(final StatementListener listener)
 	{
 		for(final Sequence sequence : sequenceList)
 		{
@@ -208,7 +264,7 @@ public final class Schema extends Node
 		tearDownTables(listener);
 	}
 
-	private final void tearDownForeignKeys(final StatementListener listener)
+	private void tearDownForeignKeys(final StatementListener listener)
 	{
 		for(final Table table : tableList)
 		{
@@ -224,12 +280,11 @@ public final class Schema extends Node
 		}
 	}
 
-	private final void tearDownTables(final StatementListener listener)
+	private void tearDownTables(final StatementListener listener)
 	{
 		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
 
 		boolean deleted;
-		//int run = 1;
 		do
 		{
 			deleted = false;
@@ -253,17 +308,16 @@ public final class Schema extends Node
 					//System.err.println("failed:"+e2.getMessage());
 				}
 			}
-			//System.err.println("FINISH STAGE "+(run++));
 		}
 		while(deleted);
 	}
 
-	public final void createConstraints(final EnumSet<Constraint.Type> types)
+	public void createConstraints(final EnumSet<Constraint.Type> types)
 	{
 		createConstraints(types, null);
 	}
 
-	public final void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		for(final Table t : tableList)
 			t.createConstraints(types, false, listener);
@@ -271,36 +325,65 @@ public final class Schema extends Node
 			t.createConstraints(types, true, listener);
 	}
 
-	public final void dropConstraints(final EnumSet<Constraint.Type> types)
+	public void dropConstraints(final EnumSet<Constraint.Type> types)
 	{
 		dropConstraints(types, null);
 	}
 
-	public final void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(types, true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().dropConstraints(types, false, listener);
+		for(final Table t : reverse(tableList))
+			t.dropConstraints(types, true, listener);
+		for(final Table t : reverse(tableList))
+			t.dropConstraints(types, false, listener);
 	}
 
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> types)
+	public void tearDownConstraints(final EnumSet<Constraint.Type> types)
 	{
 		tearDownConstraints(types, null);
 	}
 
-	public final void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
+	public void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
 		System.err.println("TEAR DOWN CONSTRAINTS");
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(types, true, listener);
-		for(final ListIterator<Table> i = tableList.listIterator(tableList.size()); i.hasPrevious(); )
-			i.previous().tearDownConstraints(types, false, listener);
+		for(final Table t : reverse(tableList))
+			t.tearDownConstraints(types, true, listener);
+		for(final Table t : reverse(tableList))
+			t.tearDownConstraints(types, false, listener);
 	}
 
-	public final void checkUnsupportedConstraints()
+	public void checkUnsupportedConstraints()
 	{
 		for(final Table t : getTables())
 			t.checkUnsupportedConstraints();
+	}
+
+	private static <E> Iterable<E> reverse(final List<E> l)
+	{
+		return new Iterable<E>(){
+			public Iterator<E> iterator()
+			{
+				final ListIterator<E> iterator = l.listIterator(l.size());
+				return new Iterator<E>()
+				{
+					public boolean hasNext()
+					{
+						return iterator.hasPrevious();
+					}
+
+					@Override
+					public E next()
+					{
+						return iterator.previous();
+					}
+
+					@Override
+					public void remove()
+					{
+						throw new UnsupportedOperationException();
+					}
+				};
+			}
+		};
 	}
 }

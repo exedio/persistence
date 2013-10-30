@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,5 +32,7 @@ interface SequenceImpl
 	 * return the same value again and again.
 	 */
 	int getNext();
+	void delete(StringBuilder bf, Dialect dialect);
 	void flush();
+	String getSchemaName();
 }

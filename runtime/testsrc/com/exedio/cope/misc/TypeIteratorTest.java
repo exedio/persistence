@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,13 +22,14 @@ import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.TypeIterator.iterate;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Condition;
+import com.exedio.cope.QueryInfo;
+import com.exedio.cope.Transaction;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Condition;
 
 public class TypeIteratorTest extends AbstractRuntimeTest
 {
@@ -75,9 +76,52 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 		assertIt(listg(item0, item1, item2, item3, item4), intx.greater(-1));
 		assertIt(listg(item2, item3, item4), intx.greater(1));
 		assertIt(listg(item0, item1), intx.less(2));
+
+		{
+			final Transaction tx = model.currentTransaction();
+			final String pre = "select this from QueryAggregatorItem ";
+			final String post = " order by this limit '3'";
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(list(), l(iterate(TYPE, intx.less(0), 3)));
+			assertEquals(list(
+					pre + "where intx<'0'" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0), l(iterate(TYPE, intx.less(1), 3)));
+			assertEquals(list(
+					pre + "where intx<'1'" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1), l(iterate(TYPE, intx.less(2), 3)));
+			assertEquals(list(
+					pre + "where intx<'2'" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1, item2), l(iterate(TYPE, intx.less(3), 3)));
+			assertEquals(list(
+					pre + "where intx<'3'" + post,
+					pre + "where (intx<'3' AND this>'" + item2 + "')" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(listg(item0, item1, item2, item3), l(iterate(TYPE, intx.less(4), 3)));
+			assertEquals(list(
+					pre + "where intx<'4'" + post,
+					pre + "where (intx<'4' AND this>'" + item2 + "')" + post),
+				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+		}
 	}
 
-	private void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
+	private static void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
 	{
 		assertEquals(expected, l(iterate(TYPE, c, 1)));
 		assertEquals(expected, l(iterate(TYPE, c, 2)));
@@ -101,6 +145,14 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 		{
 			assertEquals(null, e.getMessage());
 		}
+		return result;
+	}
+
+	private static List<String> toString(final List<QueryInfo> l)
+	{
+		final ArrayList<String> result = new ArrayList<String>(l.size());
+		for(final QueryInfo q : l)
+			result.add(q.getText());
 		return result;
 	}
 }

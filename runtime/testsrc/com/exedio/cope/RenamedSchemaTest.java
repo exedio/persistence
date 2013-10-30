@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
+import static com.exedio.cope.RenamedSchemaItem.integer;
 import static com.exedio.cope.RenamedSchemaItem.item;
 import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
@@ -28,11 +29,10 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
-import java.util.List;
-
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
+import java.util.Iterator;
 
 public class RenamedSchemaTest extends AbstractRuntimeTest
 {
@@ -41,6 +41,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
+		skipTransactionManagement();
 	}
 
 	public void testSchema()
@@ -48,11 +49,14 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		if(postgresql) return;
 
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
+		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);
 		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zackItem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
 		assertEquals("zackString", getColumnName(string));
+		assertEquals("zackInteger", getColumnName(integer));
+		assertDefaultToNextSequenceName("ZackItem_zackInteger_Seq", integer);
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -63,26 +67,51 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 
 		assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), filterTableName("RenamedSchemaTargetItem"), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 
-		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND ("+l(string)+"<=4)) OR ("+q(string)+" IS NULL)");
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND (("+l(string)+">=1) AND ("+l(string)+"<=4))) OR ("+q(string)+" IS NULL)");
 
-		final List<Sequence> sequences = schema.getSequences();
-		if(SchemaInfo.supportsSequences(model) && model.getConnectProperties().cluster.booleanValue())
+		final ConnectProperties props = model.getConnectProperties();
+		final boolean cluster = props.primaryKeyGenerator.persistent;
+		final Iterator<Sequence> sequences = schema.getSequences().iterator();
+		if(cluster)
 		{
-			final Sequence sequence = sequences.get(0);
-			assertEquals("ZackItem_this_Seq", sequence.getName());
+			final Sequence sequence = sequences.next();
+			assertEquals(primaryKeySequenceName("ZackItem_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartWith());
 		}
-		else
-			assertEquals(list(), sequences);
+		if(cluster)
+		{
+			final Sequence sequence = sequences.next();
+			assertEquals(filterTableName("ZackItem_zackInteger_Seq"), sequence.getName());
+			assertEquals(1234, sequence.getStartWith());
+		}
+		{
+			final Sequence sequence = sequences.next();
+			assertEquals(props.filterTableName("ZackItem_zackSequence"), sequence.getName());
+			assertEquals(555, sequence.getStartWith());
+		}
+		if(cluster)
+		{
+			final Sequence sequence = sequences.next();
+			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
+			{
+				assertEquals(primaryKeySequenceName("RenaScheTargItem_thi_Seq"), sequence.getName());
+			}
+			else
+			{
+				assertEquals(primaryKeySequenceName("RenamScheTargItem_thi_Seq"), sequence.getName());
+			}
+			assertEquals(0, sequence.getStartWith());
+		}
+		assertFalse(sequences.hasNext());
 	}
 
-	private final String q(final Field f)
+	private final String q(final Field<?> f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
 	}

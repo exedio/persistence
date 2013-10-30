@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-public class ForeignKeyConstraint extends Constraint
+public final class ForeignKeyConstraint extends Constraint
 {
 	final String foreignKeyColumn;
 	final String targetTable;
@@ -42,14 +42,14 @@ public class ForeignKeyConstraint extends Constraint
 			final String targetTable,
 			final String targetColumn)
 	{
-		super(table, name, Type.ForeignKey, required, null);
+		super(table, name, Type.ForeignKey, required, makeClause(foreignKeyColumn, targetTable, targetColumn));
 
-		if(required && foreignKeyColumn==null)
-			throw new RuntimeException(name);
-		if(required && targetTable==null)
-			throw new RuntimeException(name);
-		if(required && targetColumn==null)
-			throw new RuntimeException(name);
+		if(foreignKeyColumn==null)
+			throw new NullPointerException(name);
+		if(targetTable==null)
+			throw new NullPointerException(name);
+		if(targetColumn==null)
+			throw new NullPointerException(name);
 
 		this.foreignKeyColumn = foreignKeyColumn;
 		this.targetTable = targetTable;
@@ -57,25 +57,40 @@ public class ForeignKeyConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
 
-	public final String getForeignKeyColumn()
+	private static String makeClause(
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
+	{
+		return foreignKeyColumn + "->" + targetTable + '.' + targetColumn;
+	}
+
+	public String getForeignKeyColumn()
 	{
 		return foreignKeyColumn;
 	}
 
-	public final String getTargetTable()
+	public String getTargetTable()
 	{
 		return targetTable;
 	}
 
-	public final String getTargetColumn()
+	public String getTargetColumn()
 	{
 		return targetColumn;
 	}
 
-	@Override
-	public final void create(final StatementListener listener)
+	void notifyExists(
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
 	{
-		final StringBuilder bf = new StringBuilder();
+		notifyExistsCondition(makeClause(foreignKeyColumn, targetTable, targetColumn));
+	}
+
+	@Override
+	void create(final StringBuilder bf)
+	{
 		bf.append("alter table ").
 			append(quoteName(table.name)).
 			append(" add constraint ").
@@ -92,18 +107,17 @@ public class ForeignKeyConstraint extends Constraint
 				append(')');
 		}
 
-		//System.out.println("createForeignKeyConstraints:"+bf);
-		executeSQL(bf.toString(), listener);
+		dialect.appendForeignKeyCreateStatement(bf);
 	}
 
 	@Override
-	public final void drop(final StatementListener listener)
+	void drop(final StringBuilder bf)
 	{
-		executeSQL(dialect.dropForeignKeyConstraint(quoteName(table.name), quoteName(name)), listener);
+		dialect.dropForeignKeyConstraint(bf, quoteName(table.name), quoteName(name));
 	}
 
 	@Override
-	final void createInTable(final StringBuilder bf)
+	void createInTable(final StringBuilder bf)
 	{
 		bf.append(",constraint ").
 			append(quoteName(name)).
@@ -118,6 +132,7 @@ public class ForeignKeyConstraint extends Constraint
 				append(quoteName(targetColumn)).
 				append(')');
 		}
-	}
 
+		dialect.appendForeignKeyCreateStatement(bf);
+	}
 }

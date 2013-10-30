@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -65,7 +65,7 @@ public class TypesBoundErrorTest extends CopeAssert
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
-		final Type wrongActivationConstructor = newType(WrongActivationConstructor.class);
+		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
 		try
 		{
 			new Model(wrongActivationConstructor);
@@ -101,9 +101,9 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("valueType of " + NonResolvingItemField.itemField.toString() + " not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
-		final Type nonResolvingItemField = newType(NonResolvingItemField.class);
+		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -111,7 +111,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("valueType of NonResolvingItemField.itemField not yet resolved: " + NullFeature.class.getName(), e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		try
 		{
@@ -185,7 +185,7 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		static final ItemField itemField = Item.newItemField(NullFeature.class);
+		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
 
 		NonResolvingItemField(final ActivationParameters ap)
 		{
@@ -197,8 +197,8 @@ public class TypesBoundErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings("unused")
-		private final SetValue[] beforeNewCopeItem(final SetValue[] setValues)
+		@SuppressWarnings({"unused", "static-method"})
+		private final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return setValues;
 		}
@@ -214,7 +214,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings("unused")
-		private static final String beforeNewCopeItem(final SetValue[] setValues)
+		private static final String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return "";
 		}
@@ -225,7 +225,7 @@ public class TypesBoundErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	private static final Class<Item> castItemClass(final Class c)
 	{
 		return c;

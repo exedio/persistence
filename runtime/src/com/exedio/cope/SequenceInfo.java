@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -39,6 +39,8 @@ public final class SequenceInfo
 			final int first,
 			final int last)
 	{
+		assert feature!=null;
+
 		this.feature = feature;
 		this.start = start;
 		this.minimum = minimum;
@@ -50,12 +52,14 @@ public final class SequenceInfo
 		this.last = last;
 	}
 
-	public SequenceInfo(
+	SequenceInfo(
 			final Feature feature,
 			final int start,
 			final int minimum,
 			final int maximum)
 	{
+		assert feature!=null;
+
 		this.feature = feature;
 		this.start = start;
 		this.minimum = minimum;
@@ -117,5 +121,11 @@ public final class SequenceInfo
 			throw new IllegalStateException("not known");
 
 		return last;
+	}
+
+	@Override
+	public String toString()
+	{
+		return feature.toString();
 	}
 }

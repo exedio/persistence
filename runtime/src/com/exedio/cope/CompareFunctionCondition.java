@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class CompareFunctionCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Operator operator;
 	private final Function<E> left;
 	private final Function<? extends E> right;
@@ -76,10 +78,10 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompareFunctionCondition))
+		if(!(other instanceof CompareFunctionCondition<?>))
 			return false;
 
-		final CompareFunctionCondition o = (CompareFunctionCondition)other;
+		final CompareFunctionCondition<?> o = (CompareFunctionCondition<?>)other;
 
 		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
 	}
@@ -91,7 +93,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		left.toString(bf, defaultType);
 		bf.append(operator.sql);
@@ -103,7 +105,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		Equal("=")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable left, final Comparable right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return left.equals(right);
 			}
@@ -111,7 +113,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		NotEqual("<>")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable left, final Comparable right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return !left.equals(right);
 			}
@@ -119,7 +121,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		Less("<")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return left.compareTo(right)<0;
 			}
@@ -127,7 +129,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		LessEqual("<=")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return left.compareTo(right)<=0;
 			}
@@ -135,7 +137,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		Greater(">")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return left.compareTo(right)>0;
 			}
@@ -143,7 +145,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		GreaterEqual(">=")
 		{
 			@Override
-			boolean evaluateNotNull(final Comparable<Comparable> left, final Comparable<Comparable> right)
+			boolean evaluateNotNull(final Comparable<Comparable<?>> left, final Comparable<Comparable<?>> right)
 			{
 				return left.compareTo(right)>=0;
 			}
@@ -163,10 +165,10 @@ public final class CompareFunctionCondition<E> extends Condition
 				(left!=null) &&
 				(right!=null) &&
 				evaluateNotNull(
-						(Comparable<Comparable>)left, // TODO make casts to Comparable redundant
-						(Comparable<Comparable>)right);
+						(Comparable<Comparable<?>>)left, // TODO make casts to Comparable redundant
+						(Comparable<Comparable<?>>)right);
 		}
 
-		abstract boolean evaluateNotNull(Comparable<Comparable> left, Comparable<Comparable> right);
+		abstract boolean evaluateNotNull(Comparable<Comparable<?>> left, Comparable<Comparable<?>> right);
 	}
 }

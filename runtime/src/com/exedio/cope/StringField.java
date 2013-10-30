@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import java.util.Set;
-
 import com.exedio.cope.util.CharSet;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Set;
 
 /**
  * Represents a field within a {@link Type type},
@@ -31,19 +31,28 @@ import com.exedio.cope.util.CharSet;
 public final class StringField extends FunctionField<String>
 	implements StringFunction
 {
+	public static final int DEFAULT_MINIMUM_LENGTH = 1;
+	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
+
 	private static final long serialVersionUID = 1l;
+
 
 	private final int minimumLength;
 	private final int maximumLength;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CharSet charSet;
 
-	public static final int DEFAULT_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
-
 	private StringField(
-			final boolean isfinal, final boolean optional, final boolean unique, final String defaultConstant,
-			final int minimumLength, final int maximumLength, final CharSet charSet)
+			final boolean isfinal,
+			final boolean optional,
+			final boolean unique,
+			final ItemField<?>[] copyFrom,
+			final DefaultSource<String> defaultSource,
+			final int minimumLength,
+			final int maximumLength,
+			final CharSet charSet)
 	{
-		super(isfinal, optional, unique, String.class, defaultConstant);
+		super(isfinal, optional, unique, copyFrom, String.class, defaultSource);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -55,82 +64,101 @@ public final class StringField extends FunctionField<String>
 		if(minimumLength>maximumLength)
 			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
 
-		checkDefaultConstant();
+		mountDefaultSource();
 	}
+
+	public StringField(final StringFieldMinimumLength minimumLength)
+	{
+		this(false, false, false, null, null, minimumLength.value, DEFAULT_MAXIMUM_LENGTH, null);
+	}
+
+	/**
+	 * @deprecated
+	 * Check carefully, if empty string should really be allowed.
+	 * If yes, use {@link #lengthMin(int) lengthMin(0)} instead.
+	 */
+	@Deprecated
+	public static final StringFieldMinimumLength EMPTY = new StringFieldMinimumLength(0);
 
 	/**
 	 * Creates a new mandatory <tt>StringField</tt>.
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, 0, DEFAULT_LENGTH, null);
+		this(false, false, false, null, null, DEFAULT_MINIMUM_LENGTH, DEFAULT_MAXIMUM_LENGTH, null);
 	}
 
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(true, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, true, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField unique()
 	{
-		return new StringField(isfinal, optional, true, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, true, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField nonUnique()
 	{
-		return new StringField(isfinal, optional, false, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, false, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
+	}
+
+	@Override
+	public StringField copyFrom(final ItemField<?> copyFrom)
+	{
+		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField noDefault()
 	{
-		return new StringField(isfinal, optional, unique, null, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, null, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, DEFAULT_LENGTH, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, 0, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, exactLength, exactLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, exactLength, exactLength, charSet);
 	}
 
 	public StringField charSet(final CharSet charSet)
 	{
-		return new StringField(isfinal, optional, unique, defaultConstant, minimumLength, maximumLength, charSet);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
 	public final int getMinimumLength()
@@ -158,17 +186,22 @@ public final class StringField extends FunctionField<String>
 		return result;
 	}
 
+	public SelectType<String> getValueType()
+	{
+		return SimpleSelectType.STRING;
+	}
+
 	private boolean convertEmptyStrings = false;
 
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
-		return new StringColumn(table, this, name, optional, minimumLength, maximumLength, charSet);
+		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet);
 	}
 
 	@Override
-	String get(final Row row, final Query query)
+	String get(final Row row)
 	{
 		return (String)row.get(getColumn());
 	}
@@ -181,7 +214,7 @@ public final class StringField extends FunctionField<String>
 			cell = surface;
 		else
 		{
-			if(surface!=null && surface.length()==0)
+			if(surface!=null && surface.isEmpty())
 				cell = null;
 			else
 				cell = surface;
@@ -194,8 +227,8 @@ public final class StringField extends FunctionField<String>
 		throws
 			StringLengthViolationException, StringCharSetViolationException
 	{
-		if(convertEmptyStrings && value.length()==0 && !optional)
-			throw new MandatoryViolationException(this, this, exceptionItem);
+		if(convertEmptyStrings && value.isEmpty() && !optional)
+			throw MandatoryViolationException.create(this, exceptionItem);
 
 		final int length = value.length();
 		if(length<minimumLength||length>maximumLength)
@@ -308,4 +341,10 @@ public final class StringField extends FunctionField<String>
 	{
 		return new com.exedio.cope.util.CharacterSet(getCharSet());
 	}
+
+	/**
+	 * @deprecated Use {@link #DEFAULT_MAXIMUM_LENGTH} instead
+	 */
+	@Deprecated
+	public static final int DEFAULT_LENGTH = DEFAULT_MAXIMUM_LENGTH;
 }

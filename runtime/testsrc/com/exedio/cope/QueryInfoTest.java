@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 	public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
-		final Query query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
+		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> infos = transaction.getQueryInfos();
@@ -46,7 +46,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
 		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
-		if(!model.getConnectProperties().getDatabaseDontSupportPreparedStatements())
+		if(!model.getConnectProperties().isSupportDisabledForPreparedStatements())
 		{
 			final Iterator<QueryInfo> statementInfoChilds = statementInfo.getChilds().iterator();
 			{
@@ -62,14 +62,33 @@ public class QueryInfoTest extends AbstractRuntimeTest
 		}
 		{
 			final QueryInfo timing = rootChilds.next();
-			assertTrue(timing.getText(), timing.getText().startsWith("timing "));
-			assertContains(timing.getChilds());
+			assertTrue(timing.getText(), timing.getText().startsWith("time elapsed "));
+			final Iterator<QueryInfo> timingInfoChilds = timing.getChilds().iterator();
+			{
+				final QueryInfo timingPrepare = timingInfoChilds.next();
+				assertTrue(timingPrepare.getText(), timingPrepare.getText().startsWith("prepare "));
+				assertContains(timingPrepare.getChilds());
+			}
+			{
+				final QueryInfo timingExecute = timingInfoChilds.next();
+				assertTrue(timingExecute.getText(), timingExecute.getText().startsWith("execute "));
+				assertContains(timingExecute.getChilds());
+			}
+			{
+				final QueryInfo timingReadResult = timingInfoChilds.next();
+				assertTrue(timingReadResult.getText(), timingReadResult.getText().startsWith("result "));
+				assertContains(timingReadResult.getChilds());
+			}
+			{
+				final QueryInfo timingClose = timingInfoChilds.next();
+				assertTrue(timingClose.getText(), timingClose.getText().startsWith("close "));
+				assertContains(timingClose.getChilds());
+			}
+			assertTrue(!timingInfoChilds.hasNext());
 		}
 
 		switch(dialect)
 		{
-			case HSQLDB:
-				break;
 			case MYSQL:
 			{
 				final QueryInfo plan = rootChilds.next();
@@ -107,6 +126,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 				}
 				break;
 			}
+			case HSQLDB:
 			case POSTGRESQL:
 				break;
 			default:

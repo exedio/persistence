@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,14 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -34,7 +34,8 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 {
 	public SchemaInfoConnectionTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	private Connection c;
@@ -48,34 +49,42 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 		super.tearDown();
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
 			append(q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE))).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfAItem.TYPE)));
-		if(isConcurrentModificationDetectionEnabled(model))
-			bf.append(',').
-			append(q(getModificationCounterColumnName(InstanceOfAItem.TYPE)));
-		bf.append(',').
+			append(q(getTypeColumnName(InstanceOfAItem.TYPE))).
+			append(',').
+			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE))).
+			append(',').
 			append(q(getColumnName(InstanceOfAItem.code))).
 			append(" from ").
 			append(q(getTableName(InstanceOfAItem.TYPE)));
 
 		c = newConnection(model);
-		c.createStatement().execute(bf.toString());
+		final java.sql.Statement statement = c.createStatement();
+		try
+		{
+			statement.execute(bf.toString());
+		}
+		finally
+		{
+			statement.close();
+		}
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)));
-		if(isConcurrentModificationDetectionEnabled(model))
-			bf.append(',').
-				append(q(getModificationCounterColumnName(InstanceOfRefItem.TYPE)));
-		bf.append(',').
+			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE))).
+			append(',').
+			append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE))).
+			append(',').
 			append(q(getColumnName(InstanceOfRefItem.ref))).
 			append(',').
 			append(q(getTypeColumnName(InstanceOfRefItem.ref))).
@@ -83,7 +92,15 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getTableName(InstanceOfRefItem.TYPE)));
 
 		c = newConnection(model);
-		c.createStatement().execute(bf.toString());
+		final java.sql.Statement statement = c.createStatement();
+		try
+		{
+			statement.execute(bf.toString());
+		}
+		finally
+		{
+			statement.close();
+		}
 	}
 
 	private String q(final String name)

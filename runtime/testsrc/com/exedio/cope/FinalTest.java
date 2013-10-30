@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 
 public final class FinalTest extends AbstractRuntimeTest
 {
@@ -46,43 +46,19 @@ public final class FinalTest extends AbstractRuntimeTest
 		assertEquals(22, item2c.getSubIntNone());
 	}
 
-	public void testModificationCounter()
+	public void testUpdateCounter()
 	{
-		if(SchemaInfo.isConcurrentModificationDetectionEnabled(model))
-		{
-			assertEquals(synthetic("catch", "FinalSuperItem"), getModificationCounterColumnName(FinalSuperItem.TYPE));
-			assertEquals(synthetic("catch", "FinalSubNoneItem"), getModificationCounterColumnName(FinalSubNoneItem.TYPE));
-		}
-		else
-		{
-			try
-			{
-				getModificationCounterColumnName(FinalSuperItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no modification counter column for FinalSuperItem", e.getMessage());
-			}
-			try
-			{
-				getModificationCounterColumnName(FinalSubNoneItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no modification counter column for FinalSubNoneItem", e.getMessage());
-			}
-		}
+		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
+		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
 
 		try
 		{
-			getModificationCounterColumnName(FinalSubItem.TYPE);
+			getUpdateCounterColumnName(FinalSubItem.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no modification counter column for FinalSubItem", e.getMessage());
+			assertEquals("no update counter for FinalSubItem", e.getMessage());
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Day;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,17 +27,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import com.exedio.cope.util.Day;
-
 final class DayColumn extends Column
 {
 	DayColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 	}
 
 	@Override

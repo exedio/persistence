@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public class CacheIsolationTest extends AbstractRuntimeTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(CacheIsolationItem.TYPE);
+	public static final Model MODEL = new Model(CacheIsolationItem.TYPE);
 
 	CacheIsolationItem item, collisionItem;
 
@@ -29,6 +29,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
+	boolean unq;
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
@@ -40,6 +41,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
 		collisionItem.setUniqueString( "unique" );
 
+		unq = model.connect().executor.supportsUniqueViolation;
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheInfo();
@@ -55,11 +57,6 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		model.commit();
 		assertInvalidations(2, 0);
 		final Transaction txChangeItem = model.startTransaction( "change item" );
-		if ( ! model.supportsReadCommitted() )
-		{
-			// forced preload as work-around of hsql shortcoming:
-			assertEquals( "collision", collisionItem.getName() );
-		}
 		model.leaveTransaction();
 		final Transaction txChangeCollisionItem = model.startTransaction( "change collision item" );
 		collisionItem.setName( "othercollision" );
@@ -83,17 +80,14 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		assertEquals( "collision", collisionItem.getName() );
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
-		if ( model.supportsReadCommitted() )
-		{
-			assertEquals( null, item.getUniqueString() );
-		}
+		assertEquals( null, item.getUniqueString() );
 		assertInvalidations(2, 0);
 		model.commit();
-		assertInvalidations(2, 0);
+		assertInvalidations(unq?3:2, 0);
 		model.joinTransaction( txChangeCollisionItem );
-		assertInvalidations(2, 0);
+		assertInvalidations(unq?3:2, 0);
 		model.commit();
-		assertInvalidations(3, 1);
+		assertInvalidations(unq?4:3, 1);
 		model.startTransaction("just for tearDown");
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
@@ -112,29 +106,15 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setTestDatabaseListener(listener));
 		listener.expectLoad( txLoadCache, item );
-		if ( model.supportsReadCommitted() )
-		{
-			assertEquals( "blub", item.getName() );
-		}
-		else
-		{
-			assertEquals( "somenewname", item.getName() );
-		}
+		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
 		assertInvalidations(2, 0);
 		model.commit();
 		assertInvalidations(2, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
-		final Transaction txCheck = model.startTransaction( "check" );
-		if ( model.supportsReadCommitted() )
-		{
-			listener.expectNoCall();
-		}
-		else
-		{
-			listener.expectLoad( txCheck, item );
-		}
+		model.startTransaction( "check" );
+		listener.expectNoCall();
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
 		assertSame(listener, model.setTestDatabaseListener(null));
@@ -142,7 +122,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 
 	public void testSearch() throws MandatoryViolationException
 	{
-		if ( ! model.supportsReadCommitted() ) return;
+		if(hsqldb) return;
 
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		assertInvalidations(0, 0);

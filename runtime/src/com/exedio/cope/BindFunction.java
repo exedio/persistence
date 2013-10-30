@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
+import java.util.Collection;
 
 public class BindFunction<E> implements Function<E>
 {
+	private static final long serialVersionUID = 1l;
+
 	final Function<E> function;
 	final Join join;
 
@@ -52,6 +53,11 @@ public class BindFunction<E> implements Function<E>
 		return function.getValueClass();
 	}
 
+	public SelectType<E> getValueType()
+	{
+		return function.getValueType();
+	}
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -74,18 +80,9 @@ public class BindFunction<E> implements Function<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join, final Holder<Column> columnHolder, final Holder<Type> typeHolder)
+	public final void appendSelect(final Statement bf, final Join join)
 	{
-		function.appendSelect(bf, this.join, columnHolder, typeHolder);
-	}
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendParameter(final Statement bf, final E value)
-	{
-		bf.appendParameter(function, value);
+		function.appendSelect(bf, this.join);
 	}
 
 	public final Type<? extends Item> getType()
@@ -96,10 +93,10 @@ public class BindFunction<E> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof BindFunction))
+		if(!(other instanceof BindFunction<?>))
 			return false;
 
-		final BindFunction o = (BindFunction)other;
+		final BindFunction<?> o = (BindFunction<?>)other;
 
 		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}
@@ -116,7 +113,7 @@ public class BindFunction<E> implements Function<E>
 		return join.getToStringAlias() + '.' + function.toString();
 	}
 
-	public final void toString(final StringBuilder bf, final Type defaultType)
+	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(join.getToStringAlias()).
 			append('.');
@@ -150,7 +147,7 @@ public class BindFunction<E> implements Function<E>
 		return CompositeCondition.in(this, values);
 	}
 
-	public final Condition in(final Collection<E> values)
+	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}

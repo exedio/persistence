@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,11 +28,10 @@ final class TimestampColumn extends Column
 {
 	TimestampColumn(
 			final Table table,
-			final Field field,
 			final String id,
 			final boolean optional)
 	{
-		super(table, field, id, false, false, optional);
+		super(table, id, false, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,31 +20,35 @@ package com.exedio.cope;
 
 final class TransactionCounter
 {
-	private volatile long commitWithoutConnection = 0;
-	private volatile long commitWithConnection = 0;
-	private volatile long rollbackWithoutConnection = 0;
-	private volatile long rollbackWithConnection = 0;
+	private final VolatileLong commitWithout = new VolatileLong();
+	private final VolatileLong commitWith = new VolatileLong();
+	private final VolatileLong rollbackWithout = new VolatileLong();
+	private final VolatileLong rollbackWith = new VolatileLong();
 
 	void count(final boolean rollback, final boolean hadConnection)
 	{
+		final VolatileLong c;
+
 		if(hadConnection)
 			if(rollback)
-				rollbackWithConnection++;
+				c = rollbackWith;
 			else
-				commitWithConnection++;
+				c = commitWith;
 		else
 			if(rollback)
-				rollbackWithoutConnection++;
+				c = rollbackWithout;
 			else
-				commitWithoutConnection++;
+				c = commitWithout;
+
+		c.inc();
 	}
 
-	TransactionCounters getCounters()
+	TransactionCounters get()
 	{
 		return new TransactionCounters(
-				commitWithoutConnection,
-				commitWithConnection,
-				rollbackWithoutConnection,
-				rollbackWithConnection);
+				commitWithout.get(),
+				commitWith.get(),
+				rollbackWithout.get(),
+				rollbackWith.get());
 	}
 }

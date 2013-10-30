@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,8 +18,7 @@
 
 package com.exedio.cope.junit;
 
-import java.util.Collection;
-import java.util.List;
+import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
 import com.exedio.cope.ChangeEvent;
 import com.exedio.cope.ChangeListener;
@@ -28,8 +27,10 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.util.ModificationListener;
+import java.util.Collection;
+import java.util.List;
 
-public class CopeModelTestTest extends CopeModelTest
+public abstract class CopeModelTestTest extends CopeModelTest
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 
@@ -38,9 +39,11 @@ public class CopeModelTestTest extends CopeModelTest
 		super(MODEL);
 	}
 
-	public void testNotEmpty()
+	protected final void doTest()
 	{
-		assertBlank();
+		assertTrue(model.hasCurrentTransaction());
+		assertEquals("tx:" + getClass().getName(), model.currentTransaction().getName());
+		model.checkEmptySchema();
 
 		final JUnitTestItem i1 = new JUnitTestItem(100);
 		final JUnitTestItem i2 = new JUnitTestItem(101);
@@ -56,28 +59,13 @@ public class CopeModelTestTest extends CopeModelTest
 		assertEquals(1001, i2.getNext());
 		assertEquals(1002, i3.getNext());
 		assertEquals(1003, i4.getNext());
-	}
 
-	public void testFlushSequences()
-	{
-		assertBlank();
+		assertEquals(2000, nextSequence());
+		assertEquals(2001, nextSequence());
+		assertEquals(2002, nextSequence());
+		assertEquals(2003, nextSequence());
 
-		final JUnitTestItem i1 = new JUnitTestItem(200);
-		assertEquals("JUnitTestItem-0", i1.getCopeID());
-		assertEquals(1000, i1.getNext());
-	}
-
-	public void testNoTransaction()
-	{
-		assertBlank();
-
-		model.commit();
-	}
-
-	public void testDatabaseListener()
-	{
-		assertBlank();
-
+		assertEquals(null, model.getDatabaseListener());
 		model.setDatabaseListener(new DatabaseListener(){
 
 			public void onStatement(
@@ -88,12 +76,8 @@ public class CopeModelTestTest extends CopeModelTest
 				// do nothing
 			}
 		});
-	}
 
-	public void testChangeListener()
-	{
-		assertBlank();
-
+		assertEquals(list(), model.getChangeListeners());
 		model.addChangeListener(new ChangeListener()
 		{
 			public void onChange(final ChangeEvent event)
@@ -101,12 +85,8 @@ public class CopeModelTestTest extends CopeModelTest
 				throw new RuntimeException();
 			}
 		});
-	}
 
-	public void testModificationListener()
-	{
-		assertBlank();
-
+		assertEquals(list(), model.getModificationListeners());
 		model.addModificationListener(new ModificationListener()
 		{
 			@Deprecated
@@ -115,20 +95,5 @@ public class CopeModelTestTest extends CopeModelTest
 				throw new RuntimeException();
 			}
 		});
-	}
-
-	public void testLast()
-	{
-		assertBlank();
-	}
-
-	private void assertBlank()
-	{
-		assertTrue(model.hasCurrentTransaction());
-		assertEquals("tx:com.exedio.cope.junit.CopeModelTestTest", model.currentTransaction().getName());
-		model.checkEmptySchema();
-		assertEquals(null, model.getDatabaseListener());
-		assertEquals(list(), model.getChangeListeners());
-		assertEquals(list(), model.getModificationListeners());
 	}
 }

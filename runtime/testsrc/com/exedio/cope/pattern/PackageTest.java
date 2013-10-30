@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,17 +31,30 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(HashTest.class);
 		suite.addTestSuite(MD5Test.class);
 		suite.addTestSuite(MessageDigestHashTest.class);
+		suite.addTestSuite(PartOfModelTest.class);
 		suite.addTestSuite(PartOfTest.class);
+		suite.addTestSuite(LimitedListFieldModelTest.class);
 		suite.addTestSuite(LimitedListFieldTest.class);
 		suite.addTestSuite(ListFieldTest.class);
 		suite.addTestSuite(ListFieldTest2.class);
 		suite.addTestSuite(SetFieldTest.class);
+		suite.addTestSuite(ColorFieldModelTest.class);
+		suite.addTestSuite(ColorFieldTest.class);
+		suite.addTestSuite(ColorFieldConditionsTest.class);
 		suite.addTestSuite(EnumSetFieldTest.class);
+		suite.addTestSuite(EnumSetFieldConnectedTest.class);
 		suite.addTestSuite(EnumMapFieldTest.class);
+		suite.addTestSuite(EnumMapFieldConnectedTest.class);
+		suite.addTestSuite(EnumMapFieldMandatoryTest.class);
+		suite.addTestSuite(EnumMapFieldDefaultTest.class);
+		suite.addTestSuite(EnumMapFieldFinalTest.class);
+		suite.addTestSuite(MapFieldModelTest.class);
 		suite.addTestSuite(MapFieldTest.class);
 		suite.addTestSuite(JavaViewTest.class);
 		suite.addTestSuite(MediaTest.class);
 		suite.addTestSuite(MediaUrlTest.class);
+		suite.addTestSuite(MediaCatchphraseTest.class);
+		suite.addTestSuite(MediaPathTest.class);
 		suite.addTestSuite(MediaDefaultTest.class);
 		suite.addTestSuite(MediaEnumTest.class);
 		suite.addTestSuite(MediaFixedTest.class);
@@ -49,28 +62,35 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaFinalTest.class);
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
-		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(TextUrlFilterTest.class);
-		suite.addTestSuite(CompositeTest.class);
+		suite.addTestSuite(TextUrlFilterZipTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
 		suite.addTestSuite(CompositeDefaultTest.class);
-		suite.addTestSuite(CompositeErrorTest.class);
+		suite.addTestSuite(CompositeFieldRenamedSchemaTest.class);
 		suite.addTestSuite(SerializerTest.class);
 		suite.addTestSuite(DynamicModelTest.class);
+		suite.addTestSuite(DynamicModelCastTest.class);
 		suite.addTestSuite(HistoryTest.class);
-		suite.addTestSuite(DispatcherConfigTest.class);
+		suite.addTestSuite(DispatcherModelTest.class);
 		suite.addTestSuite(DispatcherTest.class);
+		suite.addTestSuite(DispatcherProbeTest.class);
+		suite.addTestSuite(DispatchableDeferrableTest.class);
+		suite.addTestSuite(ImporterModelTest.class);
 		suite.addTestSuite(ImporterTest.class);
 		suite.addTestSuite(SingletonTest.class);
 		suite.addTestSuite(PasswordLimiterModelTest.class);
 		suite.addTestSuite(PasswordLimiterVerboseTest.class);
 		suite.addTestSuite(PasswordLimiterTest.class);
 		suite.addTestSuite(PasswordRecoveryTest.class);
-		suite.addTestSuite(PriceTest.class);
+		suite.addTestSuite(NestedHashMigrationTest.class);
+		suite.addTestSuite(PriceFieldModelTest.class);
 		suite.addTestSuite(PriceFieldTest.class);
+		suite.addTestSuite(PriceFieldConditionsTest.class);
 		suite.addTestSuite(ScheduleTest.class);
 		suite.addTestSuite(RangeTest.class);
+		suite.addTestSuite(RangeFieldModelTest.class);
 		suite.addTestSuite(RangeFieldTest.class);
+		suite.addTestSuite(RangeFieldNullTest.class);
 		suite.addTestSuite(PatternTest.class);
 		suite.addTestSuite(RecursiveTest.class);
 		return suite;

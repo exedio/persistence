@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,19 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Executor.NO_SUCH_ROW;
-import static com.exedio.cope.Executor.convertSQLResult;
 import static com.exedio.cope.Intern.intern;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.exedio.dsmf.Schema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.exedio.cope.Executor.ResultSetHandler;
-import com.exedio.dsmf.Schema;
 
 final class Table
 {
@@ -40,14 +33,15 @@ final class Table
 	final String quotedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
-	final IntegerColumn modificationCount;
+	final IntegerColumn updateCounter;
+	volatile boolean knownToBeEmptyForTest = false;
 
 	Table(
 			final Database database,
 			final String id,
 			final Type<? extends Item> supertype,
 			final String[] typesOfInstancesColumnValues,
-			final boolean concurrentModificationDetectionEnabled)
+			final boolean updateCounter)
 	{
 		this.database = database;
 		this.id = intern(database.makeName(id));
@@ -59,11 +53,11 @@ final class Table
 			: new IntegerColumn(this);
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
-			? new StringColumn(this, null, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
+			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
 			: null;
-		this.modificationCount =
-			concurrentModificationDetectionEnabled
-			? new IntegerColumn(this, null, CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
+		this.updateCounter =
+			updateCounter
+			? new IntegerColumn(this, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
 			: null;
 		database.addTable(this);
 	}
@@ -94,13 +88,13 @@ final class Table
 	private static final String TYPE_COLUMN_NAME = "class";
 
 	/**
-	 * The column name for the modification counter.
+	 * The column name for the update counter.
 	 * The value "catch" prevents name collisions
 	 * with columns for cope fields,
 	 * since "catch" is a reserved java keyword,
 	 * which cannot be used for java fields.
 	 */
-	private static final String CONCURRENT_MODIFICATION_DETECTION_COLUMN_NAME = "catch";
+	private static final String UPDATE_COUNTER_COLUMN_NAME = "catch";
 
 	/**
 	 * A name for aliases is sql statements.
@@ -188,7 +182,7 @@ final class Table
 	private final boolean assertSynthetic()
 	{
 		for(final Column c : allColumnsModifiable)
-			if(c.synthetic != (primaryKey==c || typeColumn==c || modificationCount==c))
+			if(c.synthetic != (primaryKey==c || typeColumn==c || updateCounter==c))
 				return false;
 
 		return true;
@@ -213,18 +207,12 @@ final class Table
 		return database.makeName(id + '_' + suffix);
 	}
 
-	@Override
-	public final String toString()
+	void makeSchema(final Schema schema, final boolean supportsNotNull)
 	{
-		return id;
-	}
-
-	void makeSchema(final Schema schema)
-	{
-		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower, database.properties.getTableOption(this));
+		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower);
 
 		for(final Column c : getAllColumns())
-			c.makeSchema(result);
+			c.makeSchema(result, supportsNotNull);
 
 		for(final UniqueConstraint uc : getUniqueConstraints())
 			uc.makeSchema(result);
@@ -233,21 +221,9 @@ final class Table
 			cc.makeSchema(this, result);
 	}
 
-	int count(final Connection connection, final Executor executor)
+	@Override
+	public final String toString()
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("select count(*) from ").
-			append(quotedID);
-
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
-		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
-			{
-				if(!resultSet.next())
-					throw new SQLException(NO_SUCH_ROW);
-
-				return convertSQLResult(resultSet.getObject(1));
-			}
-		});
+		return id;
 	}
 }

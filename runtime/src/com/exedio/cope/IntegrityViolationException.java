@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -34,15 +34,17 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 {
 	private static final long serialVersionUID = 1l;
 
-	private final ItemField feature;
+	private final ItemField<?> feature;
 
 	/**
-	 * Creates a new IntegrityViolationException with the neccessary information about the violation.
+	 * Creates a new IntegrityViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @throws NullPointerException if <tt>item</tt> or <tt>feature</tt> is null.
 	 */
-	IntegrityViolationException(final ItemField feature, final Item item)
+	IntegrityViolationException(
+			final ItemField<?> feature,
+			final Item item)
 	{
 		super(item, null);
 
@@ -57,7 +59,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * Returns null, if the violated constraint is unknown.
 	 */
 	@Override
-	public ItemField getFeature()
+	public ItemField<?> getFeature()
 	{
 		return feature;
 	}
@@ -74,7 +76,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 * @deprecated Renamed to {@link #getFeature()}.
 	 */
 	@Deprecated
-	public ItemField getAttribute()
+	public ItemField<?> getAttribute()
 	{
 		return feature;
 	}

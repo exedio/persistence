@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,11 +19,24 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.testmodel.StringItem.TYPE;
+import static com.exedio.cope.testmodel.StringItem.max4;
+import static com.exedio.cope.testmodel.StringItem.max4Upper;
+import static com.exedio.cope.testmodel.StringItem.max4UpperLength;
+import static com.exedio.cope.testmodel.StringItem.min4;
+import static com.exedio.cope.testmodel.StringItem.min4AndMax4UpperLength;
+import static com.exedio.cope.testmodel.StringItem.min4Upper;
+import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 
 import com.exedio.cope.testmodel.StringItem;
 
-public class FunctionTest extends TestmodelTest
+public class FunctionTest extends AbstractRuntimeTest
 {
+	public FunctionTest()
+	{
+		super(StringModelTest.MODEL);
+	}
+
 	StringItem item1;
 	StringItem item2;
 
@@ -45,11 +58,11 @@ public class FunctionTest extends TestmodelTest
 
 	public void testFunctions()
 	{
-		assertSerializedSame(item1.min4Upper, 375);
-		assertSerializedSame(item1.max4Upper, 375);
-		assertSerializedSame(item1.min4UpperLength, 381);
-		assertSerializedSame(item1.max4UpperLength, 381);
-		assertSerializedSame(item1.min4AndMax4UpperLength, 388);
+		assertSerializedSame(min4Upper, 376);
+		assertSerializedSame(max4Upper, 376);
+		assertSerializedSame(min4UpperLength, 382);
+		assertSerializedSame(max4UpperLength, 382);
+		assertSerializedSame(min4AndMax4UpperLength, 389);
 
 		assertEquals("5ffff", item1.getMin4());
 		assertEquals("5FFFF", item1.getMin4Upper());
@@ -67,22 +80,22 @@ public class FunctionTest extends TestmodelTest
 		assertEquals(Integer.valueOf(2), item2.getMax4UpperLength());
 		assertEquals(Integer.valueOf(8), item2.getMin4AndMax4UpperLength());
 
-		assertContains(item1, item1.TYPE.search(item1.min4.equal("5ffff")));
-		assertContains(item1, item1.TYPE.search(item1.min4Upper.equal("5FFFF")));
-		assertContains(item1, item1.TYPE.search(item1.min4UpperLength.equal(5)));
-		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().equal(5)));
-		assertContains(item1, item1.TYPE.search(item1.min4AndMax4UpperLength.equal(9)));
-		assertContains(item1, item1.TYPE.search(item1.min4Upper.length().plus(item1.max4Upper.length()).equal(9)));
+		assertContains(item1, TYPE.search(min4.equal("5ffff")));
+		assertContains(item1, TYPE.search(min4Upper.equal("5FFFF")));
+		assertContains(item1, TYPE.search(min4UpperLength.equal(5)));
+		assertContains(item1, TYPE.search(min4Upper.length().equal(5)));
+		assertContains(item1, TYPE.search(min4AndMax4UpperLength.equal(9)));
+		assertContains(item1, TYPE.search(min4Upper.length().plus(max4Upper.length()).equal(9)));
 
 		assertContains(
 				list("5ffff",  "5FFFF",  Integer.valueOf(5), "4ddd", "4DDD", Integer.valueOf(4), Integer.valueOf(9), Integer.valueOf(9)),
 				list("6ggggg", "6GGGGG", Integer.valueOf(6), "2b",   "2B",   Integer.valueOf(2), Integer.valueOf(8), Integer.valueOf(8)),
-				newQuery(new Function[]{
-						item1.min4, item1.min4Upper, item1.min4UpperLength,
-						item1.max4, item1.max4Upper, item1.max4UpperLength,
-						item1.min4AndMax4UpperLength,
-						item1.min4Upper.length().plus(item1.max4Upper.length()),
-						}, item1.TYPE, null).search()
+				newQuery(new Function<?>[]{
+						min4, min4Upper, min4UpperLength,
+						max4, max4Upper, max4UpperLength,
+						min4AndMax4UpperLength,
+						min4Upper.length().plus(max4Upper.length()),
+						}, TYPE, null).search()
 				);
 	}
 

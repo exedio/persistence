@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import java.io.UnsupportedEncodingException;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
+import java.io.UnsupportedEncodingException;
 
 public class ByteAlgorithmTest extends CopeAssert
 {

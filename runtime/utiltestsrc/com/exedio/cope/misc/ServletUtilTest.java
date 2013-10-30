@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,27 +21,23 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.Set;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import java.io.File;
+import java.util.Enumeration;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 public class ServletUtilTest extends CopeAssert
 {
@@ -69,7 +65,7 @@ public class ServletUtilTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt() throws ServletException
+	public void testIt()
 	{
 		assertFalse(modelOk.isConnected());
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.misc.ServletUtilTest#modelOk", "nameOk"));
@@ -108,7 +104,6 @@ public class ServletUtilTest extends CopeAssert
 			final Model model,
 			final String tokenName,
 			final MockServlet servlet)
-	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
@@ -123,7 +118,6 @@ public class ServletUtilTest extends CopeAssert
 			final String tokenName,
 			final MockFilter filter,
 			final MockFilterConfig config)
-	throws ServletException
 	{
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
@@ -143,7 +137,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(servlet);
 			fail();
 		}
-		catch(final ServletException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"servlet \"" + name + "\" " +
@@ -163,7 +157,7 @@ public class ServletUtilTest extends CopeAssert
 			ServletUtil.getConnectedModel(filter, config);
 			fail();
 		}
-		catch(final ServletException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"filter \"" + name + "\" " +
@@ -203,7 +197,7 @@ public class ServletUtilTest extends CopeAssert
 					return name;
 				}
 
-				public Enumeration getInitParameterNames()
+				public Enumeration<?> getInitParameterNames()
 				{
 					throw new RuntimeException();
 				}
@@ -299,13 +293,13 @@ public class ServletUtilTest extends CopeAssert
 			return name;
 		}
 
-		public Enumeration getInitParameterNames()
+		public Enumeration<?> getInitParameterNames()
 		{
 			throw new RuntimeException();
 		}
 	}
 
-	private static class MockServletContext implements ServletContext
+	private static class MockServletContext extends AssertionFailedServletContext
 	{
 		final String model;
 
@@ -314,85 +308,7 @@ public class ServletUtilTest extends CopeAssert
 			this.model = model;
 		}
 
-		public ServletContext getContext(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public int getMajorVersion()
-		{
-			throw new RuntimeException();
-		}
-
-		public int getMinorVersion()
-		{
-			throw new RuntimeException();
-		}
-
-		public String getMimeType(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public Set getResourcePaths(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public URL getResource(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public InputStream getResourceAsStream(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public RequestDispatcher getRequestDispatcher(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public RequestDispatcher getNamedDispatcher(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		@Deprecated // OK: implementing external api
-		public Servlet getServlet(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		@Deprecated // OK: implementing external api
-		public Enumeration getServlets()
-		{
-			throw new RuntimeException();
-		}
-
-		@Deprecated // OK: implementing external api
-		public Enumeration getServletNames()
-		{
-			throw new RuntimeException();
-		}
-
-		public void log(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		@Deprecated // OK: implementing external api
-		public void log(final Exception e, final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public void log(final String name, final Throwable arg1)
-		{
-			throw new RuntimeException(name);
-		}
-
+		@Override
 		public String getRealPath(final String name)
 		{
 			if("WEB-INF/cope.properties".equals(name))
@@ -403,11 +319,7 @@ public class ServletUtilTest extends CopeAssert
 				throw new RuntimeException(name);
 		}
 
-		public String getServerInfo()
-		{
-			throw new RuntimeException();
-		}
-
+		@Override
 		public String getInitParameter(final String name)
 		{
 			if("model".equals(name))
@@ -419,36 +331,7 @@ public class ServletUtilTest extends CopeAssert
 			}
 		}
 
-		public Enumeration getInitParameterNames()
-		{
-			throw new RuntimeException();
-		}
-
-		public Object getAttribute(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public Enumeration getAttributeNames()
-		{
-			throw new RuntimeException();
-		}
-
-		public void setAttribute(final String name, final Object claue)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public void removeAttribute(final String name)
-		{
-			throw new RuntimeException(name);
-		}
-
-		public String getServletContextName()
-		{
-			throw new RuntimeException();
-		}
-
+		@Override
 		public String getContextPath()
 		{
 			return "contextPath";
@@ -457,144 +340,22 @@ public class ServletUtilTest extends CopeAssert
 
 	static class ModelOk extends Item
 	{
-	/**
-
-	 **
-	 * Creates a new ModelOk with all the fields initially needed.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
-	 */
-	ModelOk()
-	{
-		this(new com.exedio.cope.SetValue[]{
-		});
-	}/**
-
-	 **
-	 * Creates a new ModelOk and sets the given fields initially.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.generic.constructor public|package|protected|private|none</tt> in the class comment.
-	 */
-	private ModelOk(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}/**
-
-	 **
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	@SuppressWarnings("unused") private ModelOk(final com.exedio.cope.ActivationParameters ap)
-	{
-		super(ap);
-	}/**
-
-	 **
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	private static final long serialVersionUID = 1l;/**
-
-	 **
-	 * The persistent type information for modelOk.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
-	 */
-	static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class)
-;}
+		private static final long serialVersionUID = 1l;
+		static final Type<ModelOk> TYPE = TypesBound.newType(ModelOk.class);
+		private ModelOk(final ActivationParameters ap) { super(ap); }
+	}
 
 	static class ModelOk2 extends Item
 	{
-	/**
+		private static final long serialVersionUID = 1l;
+		static final Type<ModelOk2> TYPE = TypesBound.newType(ModelOk2.class);
+		private ModelOk2(final ActivationParameters ap) { super(ap); }
+	}
 
-	 **
-	 * Creates a new ModelOk2 with all the fields initially needed.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
-	 */
-	ModelOk2()
-	{
-		this(new com.exedio.cope.SetValue[]{
-		});
-	}/**
-
-	 **
-	 * Creates a new ModelOk2 and sets the given fields initially.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.generic.constructor public|package|protected|private|none</tt> in the class comment.
-	 */
-	private ModelOk2(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}/**
-
-	 **
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	@SuppressWarnings("unused") private ModelOk2(final com.exedio.cope.ActivationParameters ap)
-	{
-		super(ap);
-	}/**
-
-	 **
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	private static final long serialVersionUID = 1l;/**
-
-	 **
-	 * The persistent type information for modelOk2.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
-	 */
-	static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class)
-;}
 	static class ModelContext extends Item
 	{
-	/**
-
-	 **
-	 * Creates a new ModelContext with all the fields initially needed.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
-	 */
-	ModelContext()
-	{
-		this(new com.exedio.cope.SetValue[]{
-		});
-	}/**
-
-	 **
-	 * Creates a new ModelContext and sets the given fields initially.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.generic.constructor public|package|protected|private|none</tt> in the class comment.
-	 */
-	private ModelContext(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}/**
-
-	 **
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	@SuppressWarnings("unused") private ModelContext(final com.exedio.cope.ActivationParameters ap)
-	{
-		super(ap);
-	}/**
-
-	 **
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 */
-	private static final long serialVersionUID = 1l;/**
-
-	 **
-	 * The persistent type information for modelContext.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
-	 */
-	static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class)
-;}
+		private static final long serialVersionUID = 1l;
+		static final Type<ModelContext> TYPE = TypesBound.newType(ModelContext.class);
+		private ModelContext(final ActivationParameters ap) { super(ap); }
+	}
 }

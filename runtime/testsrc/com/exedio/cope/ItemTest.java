@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,20 @@
 
 package com.exedio.cope;
 
-import java.util.Arrays;
-import java.util.EnumSet;
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
+import static com.exedio.cope.testmodel.EmptyItem.TYPE;
 
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.CollisionItem1;
+import com.exedio.cope.testmodel.CollisionItem2;
 import com.exedio.cope.testmodel.EmptyItem;
 import com.exedio.cope.testmodel.EmptyItem2;
+import com.exedio.cope.testmodel.FinalItem;
+import com.exedio.cope.testmodel.PointerItem;
+import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.dsmf.Constraint;
+import java.util.Arrays;
+import java.util.EnumSet;
 
 public class ItemTest extends TestmodelTest
 {
@@ -37,6 +44,15 @@ public class ItemTest extends TestmodelTest
 	{
 		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
+		final Type<?>[] modelTypes = new Type<?>[]{
+				EmptyItem.TYPE,
+				EmptyItem2.TYPE,
+				AttributeItem.TYPE,
+				PointerTargetItem.TYPE,
+				PointerItem.TYPE,
+				FinalItem.TYPE,
+				CollisionItem1.TYPE,
+				CollisionItem2.TYPE};
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
 		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
 
@@ -53,26 +69,36 @@ public class ItemTest extends TestmodelTest
 		assertEquals(EmptyItem.TYPE, item2.getCopeType());
 		assertEquals(EmptyItem2.TYPE, item3.getCopeType());
 
-		assertSame(item1, item1.TYPE.cast(item1));
+		assertSame(item1, TYPE.cast(item1));
 		try
 		{
-			item1.TYPE.cast(item3);
+			TYPE.cast(item3);
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + item3.TYPE.getJavaClass().getName(), e.getMessage());
+			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
-		assertSame(item1.TYPE, item1.TYPE.as(EmptyItem.class));
+		assertSame(TYPE, TYPE.as(EmptyItem.class));
+		assertSame(TYPE, TYPE.asExtends(EmptyItem.class));
 		try
 		{
-			item1.TYPE.as(EmptyItem2.class);
+			TYPE.as(EmptyItem2.class);
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + item1.TYPE.getJavaClass().getName(), e.getMessage());
+			assertEquals("expected " + EmptyItem2.class.getName() + ", but was " + TYPE.getJavaClass().getName(), e.getMessage());
+		}
+		try
+		{
+			TYPE.asExtends(EmptyItem2.class);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected ? extends " + EmptyItem2.class.getName() + ", but was " + TYPE.getJavaClass().getName(), e.getMessage());
 		}
 
 		assertEquals("EmptyItem-0", item1.getCopeID());
@@ -109,11 +135,11 @@ public class ItemTest extends TestmodelTest
 		assertEquals(-1, item2.compareTo(item3));
 		assertEquals( 0, item3.compareTo(item3));
 
-		assertSame(item1, item1.get(item1.TYPE.getThis()));
-		assertSame(item1, item1.TYPE.getThis().get(item1));
-		assertContains(item1, item1.TYPE.search(item1.TYPE.getThis().equal(item1)));
-		assertContains(item2, item1.TYPE.search(item1.TYPE.getThis().notEqual(item1)));
-		assertContains(item1, item2, item1.TYPE.search(item1.TYPE.getThis().in(listg(item1, item2))));
+		assertSame(item1, item1.get(TYPE.getThis()));
+		assertSame(item1, TYPE.getThis().get(item1));
+		assertContains(item1, TYPE.search(TYPE.getThis().equal(item1)));
+		assertContains(item2, TYPE.search(TYPE.getThis().notEqual(item1)));
+		assertContains(item1, item2, TYPE.search(TYPE.getThis().in(listg(item1, item2))));
 
 		final EmptyItem item4 = new EmptyItem();
 		assertEquals("EmptyItem-2", item4.getCopeID());
@@ -137,27 +163,29 @@ public class ItemTest extends TestmodelTest
 	public void testCheckDatabase()
 	{
 		model.checkSchema();
-		if(!postgresql)
+
+		model.commit();
+
+		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
+		if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
 		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-			if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
-			{
-				model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-				model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
-			}
-			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
+			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
 		}
+		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
+		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		assertNotNull(model.getItemCacheInfo());
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+
+		model.startTransaction();
 	}
 
 	public void testItemCreation()

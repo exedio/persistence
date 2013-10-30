@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,11 +22,14 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import java.util.Arrays;
+import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
+import static com.exedio.cope.serialize.ItemSerializationItem.list;
+import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import java.util.Arrays;
 
 public class ItemSerializationTest extends AbstractRuntimeTest
 {
@@ -57,12 +60,12 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 	public void testItem()
 	{
 		final String id = item.getCopeID();
-		assertSame(item.TYPE, item.getCopeType());
+		assertSame(TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 
 		final ItemSerializationItem readItem = reserialize(item, 112);
 		assertEquals(id, readItem.getCopeID());
-		assertSame(item.TYPE, readItem.getCopeType());
+		assertSame(TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());
 		assertEquals(item, readItem);
 		assertEquals(item.hashCode(), readItem.hashCode());
@@ -79,14 +82,14 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
-			item.list.getRelationType().searchSingleton(item.listParent().equal(item));
+			list.getRelationType().searchSingleton(listParent().equal(item));
 		final String id = unboundItem.getCopeID();
-		assertEquals(item.list.getRelationType(), unboundItem.getCopeType());
+		assertEquals(list.getRelationType(), unboundItem.getCopeType());
 
 		final Item readItem = reserialize(unboundItem, 390);
 		assertEquals(id, readItem.getCopeID());
-		assertSame(item.list.getRelationType(), readItem.getCopeType());
-		assertEquals("zack", item.list.getElement().get(readItem));
+		assertSame(list.getRelationType(), readItem.getCopeType());
+		assertEquals("zack", list.getElement().get(readItem));
 		assertEquals(unboundItem, readItem);
 		assertEquals(unboundItem.hashCode(), readItem.hashCode());
 		assertNotSame(unboundItem, readItem);

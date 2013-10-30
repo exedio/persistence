@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,9 @@ import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import com.exedio.cope.util.PrefixSource;
+import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -30,15 +33,25 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-import com.exedio.cope.util.Properties;
-
 final class ClusterProperties extends Properties
 {
-	static ClusterProperties get(final Properties.Source source)
+	static ClusterProperties get(final ConnectProperties properties)
 	{
+		if(properties.noContext())
+		{
+			final ClusterProperties result = properties.clusterPropertiesWithoutContext;
+			if(result!=null && !properties.primaryKeyGenerator.persistent)
+				throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name() + " (2)");
+			return result;
+		}
+
+		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
 		final ClusterProperties clusterProperties = new ClusterProperties(source);
 		if(!clusterProperties.isEnabled())
 			return null;
+
+		if(!properties.primaryKeyGenerator.persistent)
+			throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name());
 
 		return clusterProperties;
 	}
@@ -49,65 +62,66 @@ final class ClusterProperties extends Properties
 	/**
 	 * a value of 0 disables cluster invalidation at all
 	 */
-	private final IntField     secret              = new     IntField("secret", 0, MIN_VALUE);
-	private final BooleanField nodeAuto            = new BooleanField("nodeAuto" , true);
-	private final IntField     nodeField           = new     IntField("node"     , 0, MIN_VALUE);
-	        final BooleanField log                 = new BooleanField("log", true);
-	private final BooleanField sendSourcePortAuto  = new BooleanField("sendSourcePortAuto" , true);
-	private final IntField     sendSourcePort      = new     IntField("sendSourcePort"     , 14445, 1);
-	private final StringField  sendAddressField    = new  StringField("sendAddress",         MULTICAST_ADDRESS);
-	        final IntField     sendDestinationPort = new     IntField("sendDestinationPort", MULTICAST_PORT, 1);
-	private final BooleanField sendBufferDefault   = new BooleanField("sendBufferDefault"  , true);
-	private final IntField     sendBuffer          = new     IntField("sendBuffer"         , 50000, 1);
-	private final BooleanField sendTrafficDefault  = new BooleanField("sendTrafficDefault" , true);
-	private final IntField     sendTraffic         = new     IntField("sendTraffic"        , 0, 0);
-	private final StringField  listenAddressField  = new  StringField("listenAddress",       MULTICAST_ADDRESS);
-	private final IntField     listenPort          = new     IntField("listenPort",          MULTICAST_PORT, 1);
-	private final BooleanField listenBufferDefault = new BooleanField("listenBufferDefault", true);
-	private final IntField     listenBuffer        = new     IntField("listenBuffer"       , 50000, 1);
-	private final IntField     listenThreads       = new     IntField("listenThreads",       1, 1);
-	private final IntField     listenThreadsMax    = new     IntField("listenThreadsMax",    10, 1);
-	private final BooleanField listenPrioritySet   = new BooleanField("listenPrioritySet",   false);
-	private final IntField     listenPriority      = new     IntField("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
-	        final IntField     listenSeqCheckCap   = new     IntField("listenSequenceCheckerCapacity", 200, 1);
-	private final BooleanField multicast           = new BooleanField("multicast",           true);
-	private final IntField     packetSizeField     = new     IntField("packetSize",          1400, 32);
+	private final int     secret              = value("secret", 0, MIN_VALUE);
+	private final boolean nodeAuto            = value("nodeAuto" , true);
+	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
+	        final boolean log                 = value("log", true);
+	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
+	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
+	private final String  sendAddressField    = value("sendAddress",         MULTICAST_ADDRESS);
+	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
+	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
+	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
+	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
+	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
+	private final String  listenAddressField  = value("listenAddress",       MULTICAST_ADDRESS);
+	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
+	private final boolean listenBufferDefault = value("listenBufferDefault", true);
+	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
+	private final int     listenThreads       = value("listenThreads",       1, 1);
+	private final int     listenThreadsMax    = value("listenThreadsMax",    10, 1);
+	private final boolean listenPrioritySet   = value("listenPrioritySet",   false);
+	private final int     listenPriority      = value("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
+	        final int     listenSeqCheckCap   = value("listenSequenceCheckerCapacity", 200, 1);
+	private final boolean multicast           = value("multicast",           true);
+	private final int     packetSizeField     = value("packetSize",          1400, 32);
 
 	final int node;
 	final InetAddress sendAddress, listenAddress;
 	final int packetSize;
 	private final byte[] pingPayload;
 
+	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
-		super(source, null);
+		super(source);
 
 		if(isEnabled())
 		{
-			if(nodeAuto.booleanValue())
+			if(nodeAuto)
 			{
 				this.node = new Random().nextInt();
 			}
 			else
 			{
-				this.node = nodeField.intValue();
+				this.node = nodeField;
 				if(node==0)
 					throw new IllegalArgumentException(); // must not be left at default value
 			}
-			if(log.booleanValue())
+			if(log)
 				System.out.println("COPE Cluster Network node id: " + ClusterSenderInfo.toStringNodeID(node));
 
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);
 
-			if(listenThreads.intValue()>listenThreadsMax.intValue())
+			if(listenThreads>listenThreadsMax)
 				throw new IllegalArgumentException(
-						listenThreads.getKey() + '=' + listenThreads.intValue() + " must be less or equal " +
-						listenThreadsMax.getKey() + '=' + listenThreadsMax.intValue());
+						"listenThreads=" + listenThreads + " must be less or equal " +
+						"listenThreadsMax=" + listenThreadsMax);
 
-			this.packetSize = packetSizeField.intValue() & (~3);
+			this.packetSize = packetSizeField & (~3);
 			{
-				final Random r = new Random(secret.intValue());
+				final Random r = new Random(secret);
 				final byte[] pingPayload = new byte[this.packetSize];
 				for(int pos = 20; pos<pingPayload.length; pos++)
 					pingPayload[pos] = (byte)(r.nextInt()>>8);
@@ -124,22 +138,21 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	private InetAddress getAddress(final StringField field)
+	private static InetAddress getAddress(final String field) // TODO remove
 	{
-		final String value = field.stringValue();
 		try
 		{
-			return InetAddress.getByName(value);
+			return InetAddress.getByName(field);
 		}
 		catch(final UnknownHostException e)
 		{
-			throw new RuntimeException(value, e);
+			throw new RuntimeException(field, e);
 		}
 	}
 
 	private boolean isEnabled()
 	{
-		return secret.intValue()!=0;
+		return secret!=0;
 	}
 
 	int getSecret()
@@ -147,7 +160,7 @@ final class ClusterProperties extends Properties
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
 
-		return secret.intValue();
+		return secret;
 	}
 
 	int copyPingPayload(int pos, final byte[] destination)
@@ -175,32 +188,33 @@ final class ClusterProperties extends Properties
 
 		try
 		{
+			@SuppressWarnings("resource") // OK: is closed outside this factory method
 			final DatagramSocket result =
-				sendSourcePortAuto.booleanValue()
+				sendSourcePortAuto
 				? new DatagramSocket()
-				: new DatagramSocket(sendSourcePort.intValue());
-			if(!sendBufferDefault.booleanValue())
-				result.setSendBufferSize(sendBuffer.intValue());
-			if(!sendTrafficDefault.booleanValue())
-				result.setTrafficClass(sendTraffic.intValue());
+				: new DatagramSocket(sendSourcePort);
+			if(!sendBufferDefault)
+				result.setSendBufferSize(sendBuffer);
+			if(!sendTrafficDefault)
+				result.setTrafficClass(sendTraffic);
 			return result;
 		}
 		catch(final SocketException e)
 		{
 			throw new RuntimeException(
-					String.valueOf(sendSourcePort.intValue()) + '/' +
-					String.valueOf(sendSourcePort.intValue()), e);
+					String.valueOf(sendSourcePort) + '/' +
+					String.valueOf(sendSourcePort), e);
 		}
 	}
 
 	int getListenThreads()
 	{
-		return listenThreads.intValue();
+		return listenThreads; // TODO remove
 	}
 
 	int getListenThreadsMax()
 	{
-		return listenThreadsMax.intValue();
+		return listenThreadsMax; // TODO remove
 	}
 
 	DatagramSocket newListenSocket()
@@ -208,12 +222,13 @@ final class ClusterProperties extends Properties
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
 
-		final int port = listenPort.intValue();
+		final int port = listenPort;
 		try
 		{
 			DatagramSocket result;
-			if(multicast.booleanValue())
+			if(multicast)
 			{
+				@SuppressWarnings("resource") // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				resultMulti.joinGroup(listenAddress);
 				result = resultMulti;
@@ -222,13 +237,13 @@ final class ClusterProperties extends Properties
 			{
 				result = new DatagramSocket(port);
 			}
-			if(!listenBufferDefault.booleanValue())
-				result.setReceiveBufferSize(listenBuffer.intValue());
+			if(!listenBufferDefault)
+				result.setReceiveBufferSize(listenBuffer);
 			return result;
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(String.valueOf(port), e);
 		}
 	}
 
@@ -237,7 +252,23 @@ final class ClusterProperties extends Properties
 		if(!isEnabled())
 			throw new IllegalStateException("is disabled");
 
-		if(listenPrioritySet.booleanValue())
-			thread.setPriority(listenPriority.intValue());
+		if(listenPrioritySet)
+			thread.setPriority(listenPriority);
+	}
+
+	static Factory<ClusterProperties> factory()
+	{
+		return new Factory<ClusterProperties>()
+		{
+			@SuppressWarnings("synthetic-access")
+			@Override
+			public ClusterProperties create(final Source source)
+			{
+				final ClusterProperties result = new ClusterProperties(source);
+				if(!result.isEnabled())
+					throw new RuntimeException(source.getDescription());
+				return result;
+			}
+		};
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Cast;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.exedio.cope.util.Cast;
 
 /**
  * An <tt>field</tt> represents a persistently
@@ -47,7 +46,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		this.isfinal = isfinal;
 		this.optional = optional;
 		this.valueClass = valueClass;
-		assert valueClass!=null;
+
+		if(valueClass==null)
+			throw new NullPointerException("valueClass");
 	}
 
 	/**
@@ -94,7 +95,8 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return isfinal || !optional;
 	}
 
-	public Class getInitialType()
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -125,17 +127,17 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	public final SetValue<E> map(final E value)
 	{
-		return new SetValue<E>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public final SetValue<E> mapNull()
 	{
-		return new SetValue<E>(this, null);
+		return SetValue.map(this, null);
 	}
 
-	public final SetValue[] execute(final E value, final Item exceptionItem)
+	public final SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue[]{ map(value) };
+		return new SetValue<?>[]{ map(value) };
 	}
 
 	public final void check(final E value) throws ConstraintViolationException
@@ -157,7 +159,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		if(value == null)
 		{
 			if(!optional)
-				throw new MandatoryViolationException(this, this, exceptionItem);
+				throw MandatoryViolationException.create(this, exceptionItem);
 		}
 		else
 		{

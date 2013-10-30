@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -96,6 +96,9 @@ public abstract class Constraint extends Node
 
 	final void notifyExistsCondition(final String condition)
 	{
+		if(condition==null)
+			throw new NullPointerException();
+
 		assert !exists;
 		assert existingCondition==null;
 
@@ -193,16 +196,29 @@ public abstract class Constraint extends Node
 
 	public final void create()
 	{
-		create(null);
+		create((StatementListener)null);
 	}
 
 	public final void drop()
 	{
-		drop(null);
+		drop((StatementListener)null);
+	}
+
+	public final void create(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		create(bf);
+		executeSQL(bf.toString(), listener);
+	}
+
+	public final void drop(final StatementListener listener)
+	{
+		final StringBuilder bf = new StringBuilder();
+		drop(bf);
+		executeSQL(bf.toString(), listener);
 	}
 
 	abstract void createInTable(StringBuilder bf);
-	public abstract void create(StatementListener listener);
-	public abstract void drop(StatementListener listener);
-
+	abstract void create(StringBuilder bf);
+	abstract void drop(StringBuilder bf);
 }

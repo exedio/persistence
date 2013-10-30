@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,13 +18,14 @@
 
 package com.exedio.cope.instrument;
 
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
+import com.exedio.cope.misc.PrimitiveUtil;
+import java.lang.reflect.Type;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 class CopeFeature
 {
@@ -38,7 +39,10 @@ class CopeFeature
 	final Visibility visibility;
 	final String docComment;
 	final boolean initial;
+
 	private Feature value;
+	private Type initialType;
+	private SortedSet<Class<? extends Throwable>> initialExceptions;
 
 	CopeFeature(final CopeType parent, final JavaField javaField)
 	{
@@ -73,19 +77,64 @@ class CopeFeature
 			return true;
 
 		final Feature instance = getInstance();
-		return instance instanceof Settable && ((Settable)instance).isInitial();
+		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
+	}
+
+	final Type getInitialType()
+	{
+		if(initialType==null)
+			makeInitialTypeAndExceptions();
+
+		return initialType;
 	}
 
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final Feature instance = getInstance();
-		final Set<Class<? extends Throwable>> resultList = ((Settable<?>)instance).getInitialExceptions();
-		final SortedSet<Class<? extends Throwable>> result = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
-		result.addAll(resultList);
-		final java.lang.reflect.Type initialType = ((Settable<?>)instance).getInitialType();
-		if((initialType instanceof Class) && ((Class)initialType).isPrimitive())
-			result.remove(MandatoryViolationException.class);
-		return result;
+		if(initialExceptions==null)
+			makeInitialTypeAndExceptions();
+
+		return initialExceptions;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
+
+	private void makeInitialTypeAndExceptions()
+	{
+		final Settable<?> instance = (Settable<?>)getInstance();
+
+		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
+		final Type initialType;
+		final boolean primitive;
+		if(initialTypeX instanceof Class<?>)
+		{
+			final Class<?> initialClass = (Class<?>)initialTypeX;
+			final Class<?> initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
+			if(initialClassPrimitive!=null && instance.isMandatory())
+			{
+				initialType = initialClassPrimitive;
+				primitive = true;
+			}
+			else
+			{
+				initialType = initialClass;
+				primitive = false;
+			}
+		}
+		else
+		{
+			initialType = initialTypeX;
+			primitive = false;
+		}
+
+		final Set<Class<? extends Throwable>> resultList = instance.getInitialExceptions();
+		final SortedSet<Class<? extends Throwable>> initialExceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
+		initialExceptions.addAll(resultList);
+		if(primitive)
+			initialExceptions.remove(MandatoryViolationException.class);
+
+		this.initialType = initialType;
+		this.initialExceptions = initialExceptions;
 	}
 
 	final boolean isDefault()

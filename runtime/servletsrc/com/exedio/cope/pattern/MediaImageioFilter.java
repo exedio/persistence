@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,18 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
@@ -39,12 +39,8 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Wrapper;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
@@ -101,21 +97,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the body of {0}.").
-			setReturn(byte[].class).
-			addThrows(IOException.class));
-
-		return Collections.unmodifiableList(result);
-	}
-
-	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
 		return Collections.unmodifiableSet(imageReaderSpi.keySet());
@@ -129,39 +110,35 @@ public abstract class MediaImageioFilter extends MediaFilter
 		return (contentType!=null && imageReaderSpi.containsKey(contentType)) ? outputContentType : null;
 	}
 
+	@Override
+	public final boolean isContentTypeWrapped()
+	{
+		return false; // since there is only one outputContentType
+	}
+
 	public abstract BufferedImage filter(BufferedImage in);
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public final void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
-		final ByteArrayOutputStream body = execute(item, contentType, spi);
-		response.setContentType(outputContentType);
+		final ByteArrayOutputStream body = execute(item, contentType, spi, true);
 
-		response.setContentLength(body.size());
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			body.writeTo(out);
-			return delivered;
-		}
-		finally
-		{
-			out.close();
-		}
+		MediaUtil.send(outputContentType, body, response);
 	}
 
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);
@@ -171,36 +148,50 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			return null;
 
-		return execute(item, contentType, spi).toByteArray();
+		return execute(item, contentType, spi, false).toByteArray();
 	}
 
 	private final ByteArrayOutputStream execute(
 			final Item item,
 			final String contentType,
-			final ImageReaderSpi spi)
+			final ImageReaderSpi spi,
+			final boolean commit)
 	throws IOException
 	{
 		final byte[] srcBytes = source.getBody().getArray(item);
+
+		if(commit)
+			commit();
+
 		final BufferedImage srcBuf;
 
 		// Special handling of jpeg
 		// avoids spurious black side bars at least for jpeg and
 		// avoids conversion to DirectColorModel in MediaThumbnail.
 		// Don't know why.
-		if("image/jpeg".equals(contentType))
-			srcBuf = com.sun.image.codec.jpeg.
-				JPEGCodec.createJPEGDecoder(new ByteArrayInputStream(srcBytes)).decodeAsBufferedImage();
+		if("image/jpeg".equals(contentType) && JPEGCodecAccess.available())
+		{
+			srcBuf = JPEGCodecAccess.convert(srcBytes);
+		}
 		else
 		{
-			final ImageReader imageReader = spi.createReaderInstance();
+			final MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes));
 			try
 			{
-				imageReader.setInput(new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)), true, true);
-				srcBuf = imageReader.read(0);
+				final ImageReader imageReader = spi.createReaderInstance();
+				try
+				{
+					imageReader.setInput(input, true, true);
+					srcBuf = imageReader.read(0);
+				}
+				finally
+				{
+					imageReader.dispose();
+				}
 			}
 			finally
 			{
-				imageReader.dispose();
+				input.close();
 			}
 		}
 		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
@@ -214,15 +205,23 @@ public abstract class MediaImageioFilter extends MediaFilter
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
 		{
-			final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+			final MemoryCacheImageOutputStream output = new MemoryCacheImageOutputStream(body);
 			try
 			{
-				imageWriter.setOutput(new MemoryCacheImageOutputStream(body));
-				imageWriter.write(null, iioImage, imageWriteParam);
+				final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
+				try
+				{
+					imageWriter.setOutput(output);
+					imageWriter.write(null, iioImage, imageWriteParam);
+				}
+				finally
+				{
+					imageWriter.dispose();
+				}
 			}
 			finally
 			{
-				imageWriter.dispose();
+				output.close();
 			}
 		}
 		return body;

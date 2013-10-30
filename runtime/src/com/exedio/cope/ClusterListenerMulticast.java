@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,20 +18,22 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
-import java.text.SimpleDateFormat;
+import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.exedio.cope.util.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
 {
+	private static final Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class);
+
 	private final boolean log;
 	private final int packetSize;
 	private final InetAddress address;
@@ -48,7 +50,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final int typeLength, final Connect connect)
 	{
 		super(properties, sender, typeLength, connect);
-		this.log = properties.log.booleanValue();
+		this.log = properties.log;
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.socket = properties.newListenSocket();
@@ -99,7 +101,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				if(threadRun)
 				{
-					exception++;
+					exception.inc();
 					e.printStackTrace();
 				}
 				else
@@ -113,24 +115,22 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception e)
 			{
-				handleException(e, packet);
+				onListenFailure(e, packet);
 			}
 			catch(final AssertionError e)
 			{
-				handleException(e, packet);
+				onListenFailure(e, packet);
 			}
 		}
 		logTerminate();
 	}
 
-	private void handleException(final Throwable e, final DatagramPacket packet)
+	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
 	{
-		exception++;
-		System.out.println("--------ClusterListenerMulticast-----");
-		System.out.println("Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS Z (z)").format(new Date()));
-		e.printStackTrace(System.out);
-		System.out.println(Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()));
-		System.out.println("-------/ClusterListenerMulticast-----");
+		exception.inc();
+		if(logger.isErrorEnabled())
+			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
+					throwable );
 	}
 
 	private void logTerminate()

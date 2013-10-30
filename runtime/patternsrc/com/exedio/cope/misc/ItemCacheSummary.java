@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,9 +18,8 @@
 
 package com.exedio.cope.misc;
 
-import java.util.Date;
-
 import com.exedio.cope.ItemCacheInfo;
+import java.util.Date;
 
 public final class ItemCacheSummary
 {
@@ -40,7 +39,6 @@ public final class ItemCacheSummary
 	private final int  invalidateLastSize;
 	private final long invalidateLastHits;
 	private final long invalidateLastPurged;
-	private final long invalidationBucketHits;
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
@@ -61,7 +59,6 @@ public final class ItemCacheSummary
 		int  invalidateLastSize = 0;
 		long invalidateLastHits = 0l;
 		long invalidateLastPurged = 0l;
-		long invalidationBucketHits = 0l;
 
 		for(final ItemCacheInfo info : infos)
 		{
@@ -102,7 +99,6 @@ public final class ItemCacheSummary
 			invalidateLastSize += info.getInvalidateLastSize();
 			invalidateLastHits += info.getInvalidateLastHits();
 			invalidateLastPurged += info.getInvalidateLastPurged();
-			invalidationBucketHits += info.getInvalidationBucketHits();
 		}
 		this.limit = limit;
 		this.level = level;
@@ -120,7 +116,6 @@ public final class ItemCacheSummary
 		this.invalidateLastSize = invalidateLastSize;
 		this.invalidateLastHits = invalidateLastHits;
 		this.invalidateLastPurged = invalidateLastPurged;
-		this.invalidationBucketHits = invalidationBucketHits;
 	}
 
 	public int getLimit()
@@ -203,9 +198,15 @@ public final class ItemCacheSummary
 		return invalidateLastPurged;
 	}
 
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getInvalidationBucketHits()
 	{
-		return invalidationBucketHits;
+		return 0l;
 	}
 
 	// ------------------- deprecated stuff -------------------

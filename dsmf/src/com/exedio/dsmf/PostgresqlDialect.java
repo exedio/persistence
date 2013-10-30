@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
-import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class PostgresqlDialect extends Dialect
 {
@@ -61,12 +60,6 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	public boolean supportsSequences()
-	{
-		return false; // TODO implement support
-	}
-
-	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
@@ -79,7 +72,7 @@ public final class PostgresqlDialect extends Dialect
 				"uc.consrc " +
 				"from pg_constraint uc " +
 				"inner join pg_class ut on uc.conrelid=ut.oid " +
-				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%'",
+				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%' and uc.contype in ('c','p','u')",
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -103,8 +96,6 @@ public final class PostgresqlDialect extends Dialect
 						}
 						else if("p".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("f".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("u".equals(constraintType))
 							table.notifyExistentUniqueConstraint(constraintName, "postgresql unique constraint dummy clause"); // TODO, still don't know where to get this information
 						else
@@ -114,32 +105,16 @@ public final class PostgresqlDialect extends Dialect
 					}
 				}
 			});
-		/*schema.querySQL(
-				"select uit.relname,uic.relname,ui.indisunique,ui.indisprimary,ui.* from pg_index ui " +
-				"inner join pg_class uit on ui.indrelid=uit.oid " +
-				"inner join pg_class uic on ui.indexrelid=uic.oid " +
-				"where uic.relname not like 'pg_%' and uic.relname not like 'pga_%'",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
-				{
-					//printMeta(resultSet);
-					while(resultSet.next())
-					{
-						//printRow(resultSet);
-						final String tableName = resultSet.getString(1);
-						final String constraintName = resultSet.getString(2);
-						final boolean isUnique = resultSet.getBoolean(3);
-						final boolean isPrimary = resultSet.getBoolean(4);
-						final Table table = schema.notifyExistentTable(tableName);
-						if(isUnique&&!isPrimary)
-						{
-							System.out.println("---------------unique"+constraintName);
-							table.notifyExistentUniqueConstraint(constraintName, null);
-						}
-					}
-				}
-			});*/
+
+		final String catalog = schema.getCatalog();
+
+		verifyForeignKeyConstraints(
+				"select rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
+				"from information_schema.referential_constraints rc " +
+				"join information_schema.key_column_usage src on rc.constraint_name=src.constraint_name " +
+				"join information_schema.key_column_usage tgt on rc.unique_constraint_name=tgt.constraint_name " +
+				"where rc.constraint_catalog='" + catalog + '\'',
+				schema);
 	}
 
 	@Override
@@ -188,5 +163,18 @@ public final class PostgresqlDialect extends Dialect
 			append(' ').
 			append(newColumnType);
 		return bf.toString();
+	}
+
+	@Override
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		bf.append("create sequence ").
+			append(sequenceName).
+			append(
+					" increment by 1" +
+					" start with " + startWith +
+					" maxvalue " + Integer.MAX_VALUE +
+					" minvalue " + startWith +
+					" no cycle");
 	}
 }

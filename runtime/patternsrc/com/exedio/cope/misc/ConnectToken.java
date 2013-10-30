@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Model;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,15 +28,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ConnectToken
 {
-	public static final Logger logger = Logger.getLogger(ConnectToken.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(ConnectToken.class);
 
 	private final Manciple manciple;
 	private final Model model;
@@ -64,14 +64,12 @@ public final class ConnectToken
 		this.conditional = conditional;
 		this.didConnect = didConnect;
 
-		if(logger.isLoggable(Level.INFO))
-			logger.log(
-					Level.INFO,
+		if(logger.isInfoEnabled())
+			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
-					new Object[]{
 						model, id,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
-						name});
+						name ) );
 	}
 
 	void onReturn(final boolean disconnect)
@@ -79,14 +77,12 @@ public final class ConnectToken
 		if(disconnect)
 			model.disconnect();
 
-		if(logger.isLoggable(Level.INFO))
-			logger.log(
-					Level.INFO,
+		if(logger.isInfoEnabled())
+			logger.info( MessageFormat.format(
 					"ConnectToken {0}: {2} {1} ({3})",
-					new Object[]{
 							model, id,
 							disconnect ? "disconnected" : "returned",
-							name});
+							name ) );
 	}
 
 	public Model getModel()
@@ -211,8 +207,6 @@ public final class ConnectToken
 				assert removed;
 				final boolean result = tokens.isEmpty();
 				token.onReturn(result);
-				if(result)
-					nextId = 0;
 				return result;
 			}
 		}
@@ -254,6 +248,21 @@ public final class ConnectToken
 
 			manciples.put(model, new Manciple(properties));
 		}
+	}
+
+	public static final ConnectProperties getProperties(final Model model)
+	{
+		if(model==null)
+			throw new NullPointerException("model");
+
+		final Manciple manciple;
+
+		synchronized(manciples)
+		{
+			manciple = manciples.get(model);
+		}
+
+		return manciple!=null ? manciple.properties : null;
 	}
 
 	/**

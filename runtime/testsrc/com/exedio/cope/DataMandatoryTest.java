@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,14 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.DataMandatoryItem.TYPE;
+import static com.exedio.cope.DataMandatoryItem.data;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class DataMandatoryTest extends AbstractRuntimeTest
 {
-	private static final Model MODEL = new Model(DataMandatoryItem.TYPE);
-	private static final DataField data = DataMandatoryItem.data;
+	private static final Model MODEL = new Model(TYPE);
 
 	public DataMandatoryTest()
 	{
@@ -38,7 +41,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataMandatoryItem(data4));
+		item = deleteOnTearDown(new DataMandatoryItem(toValue(bytes4)));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException
@@ -48,10 +51,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 		assertEquals(true, data.isMandatory());
 
 		// test persistence
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
-		item.setData(data6);
-		assertData(data6, item.getDataArray());
+		item.setData(bytes6);
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{
@@ -63,10 +66,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getDataArray());
+		assertData(bytes6, item.getDataArray());
 
-		item.setData(stream(data4));
-		assertData(data4, item.getDataArray());
+		item.setData(stream(bytes4));
+		assertData(bytes4, item.getDataArray());
 
 		try
 		{
@@ -78,10 +81,10 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data4, item.getDataArray());
+		assertData(bytes4, item.getDataArray());
 
-		item.setData(file(data6));
-		assertData(data6, item.getDataArray());
+		item.setData(file(bytes6));
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{
@@ -93,11 +96,11 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(item, e.getItem());
 		}
-		assertData(data6, item.getDataArray());
+		assertData(bytes6, item.getDataArray());
 
 		try
 		{
-			new DataMandatoryItem((byte[])null);
+			new DataMandatoryItem((DataField.Value)null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -105,11 +108,11 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 
 		try
 		{
-			new DataMandatoryItem(new SetValue[0]);
+			new DataMandatoryItem(new SetValue<?>[0]);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -117,6 +120,6 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 			assertSame(data, e.getFeature());
 			assertSame(null, e.getItem());
 		}
-		assertEquals(list(item), item.TYPE.search());
+		assertEquals(list(item), TYPE.search());
 	}
 }

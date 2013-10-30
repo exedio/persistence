@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,39 +18,58 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
+import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.HashMap;
 
-import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.dsmf.SQLRuntimeException;
-
+@SuppressFBWarnings({"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"})
 final class Executor
 {
 	static final String NO_SUCH_ROW = "no such row";
 
 	final Dialect dialect;
+	final Marshallers marshallers;
 	final boolean prepare;
+	final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
+	private final HashMap<String, UniqueConstraint> uniqueConstraints =
+		new HashMap<String, UniqueConstraint>();
 	volatile DatabaseListener listener = null;
 
 	Executor(
 			final Dialect dialect,
-			final ConnectProperties properties)
+			final ConnectProperties properties,
+			final Marshallers marshallers)
 	{
 		this.dialect = dialect;
-		this.prepare = !properties.getDatabaseDontSupportPreparedStatements();
+		this.marshallers = marshallers;
+		this.prepare = !properties.isSupportDisabledForPreparedStatements();
+		this.supportsUniqueViolation =
+			!properties.isSupportDisabledForUniqueViolation() &&
+			dialect.supportsUniqueViolation();
 		this.limitSupport = dialect.getLimitSupport();
 		this.fulltextIndex = properties.getFulltextIndex();
 
 		if(limitSupport==null)
 			throw new NullPointerException(dialect.toString());
+	}
+
+	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)
+	{
+		if(uniqueConstraints.put(id, uniqueConstraint)!=null)
+			throw new RuntimeException(id);
 	}
 
 	protected Statement newStatement()
@@ -63,9 +82,9 @@ final class Executor
 		return new Statement(this, qualifyTable);
 	}
 
-	protected Statement newStatement(final Query<? extends Object> query)
+	protected Statement newStatement(final Query<? extends Object> query, final boolean sqlOnly)
 	{
-		return new Statement(this, query);
+		return new Statement(this, query, sqlOnly);
 	}
 
 	static interface ResultSetHandler<R>
@@ -124,16 +143,10 @@ final class Executor
 			final R result = resultSetHandler.handle(resultSet);
 			final long nanoResultRead = takeTimes ? nanoTime() : 0;
 
-			if(resultSet!=null)
-			{
-				resultSet.close();
-				resultSet = null;
-			}
-			if(sqlStatement!=null)
-			{
-				sqlStatement.close();
-				sqlStatement = null;
-			}
+			resultSet.close();
+			resultSet = null;
+			sqlStatement.close();
+			sqlStatement = null;
 
 			if(explain)
 				return result;
@@ -144,10 +157,10 @@ final class Executor
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoExecuted, nanoPrepared),
-						n2m(nanoResultRead, nanoExecuted),
-						n2m(nanoEnd, nanoResultRead));
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoExecuted, nanoPrepared),
+						toMillies(nanoResultRead, nanoExecuted),
+						toMillies(nanoEnd, nanoResultRead));
 
 			if(queryInfo!=null)
 				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
@@ -185,18 +198,51 @@ final class Executor
 		}
 	}
 
+	static <R> R query(
+			final Connection connection,
+			final String sql,
+			final ResultSetHandler<R> resultSetHandler)
+	{
+		try
+		{
+			final java.sql.Statement sqlStatement = connection.createStatement();
+			try
+			{
+				final ResultSet resultSet = sqlStatement.executeQuery(sql);
+				try
+				{
+					return resultSetHandler.handle(resultSet);
+				}
+				finally
+				{
+					resultSet.close();
+				}
+			}
+			finally
+			{
+				sqlStatement.close();
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+	}
+
 	void updateStrict(
 			final Connection connection,
+			final Item exceptionItem,
 			final Statement statement)
 		throws UniqueViolationException
 	{
-		final int rows = update(connection, statement);
+		final int rows = update(connection, exceptionItem, statement);
 		if(rows!=1)
 			throw new TemporaryTransactionException(statement.toString(), rows);
 	}
 
 	int update(
 			final Connection connection,
+			final Item exceptionItem,
 			final Statement statement)
 		throws UniqueViolationException
 	{
@@ -225,14 +271,14 @@ final class Executor
 				rows = prepared.executeUpdate();
 			}
 
-			final long timeEnd = listener!=null ? nanoTime() : 0;
+			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 			if(listener!=null)
 				listener.onStatement(
 						statement.text.toString(),
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoPrepared, timeEnd),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
@@ -241,6 +287,7 @@ final class Executor
 		}
 		catch(final SQLException e)
 		{
+			throwViolation(e, exceptionItem);
 			throw new SQLRuntimeException(e, statement.toString());
 		}
 		finally
@@ -259,7 +306,29 @@ final class Executor
 		}
 	}
 
-	<R> R insert(
+	static int update(
+			final Connection connection,
+			final String sql)
+	{
+		try
+		{
+			final java.sql.Statement sqlStatement = connection.createStatement();
+			try
+			{
+				return sqlStatement.executeUpdate(sql);
+			}
+			finally
+			{
+				sqlStatement.close();
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, sql);
+		}
+	}
+
+	<R> R insertAndGetGeneratedKeys(
 			final Connection connection,
 			final Statement statement,
 			final ResultSetHandler<R> generatedKeysHandler)
@@ -278,11 +347,11 @@ final class Executor
 			{
 				sqlStatement = connection.createStatement();
 				nanoPrepared = listener!=null ? nanoTime() : 0;
-				sqlStatement.executeUpdate(sqlText);
+				sqlStatement.executeUpdate(sqlText, RETURN_GENERATED_KEYS);
 			}
 			else
 			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
+				final PreparedStatement prepared = connection.prepareStatement(sqlText, RETURN_GENERATED_KEYS);
 				sqlStatement = prepared;
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
@@ -297,8 +366,8 @@ final class Executor
 				listener.onStatement(
 						sqlText,
 						statement.getParameters(),
-						n2m(nanoPrepared, nanoStart),
-						n2m(nanoEnd, nanoPrepared),
+						toMillies(nanoPrepared, nanoStart),
+						toMillies(nanoEnd, nanoPrepared),
 						0,
 						0);
 
@@ -336,20 +405,34 @@ final class Executor
 		}
 	}
 
+	private void throwViolation(final SQLException sqlException, final Item item)
+	{
+		if(supportsUniqueViolation)
+		{
+			final String id = dialect.extractUniqueViolation(sqlException);
+			if(id!=null)
+			{
+				final UniqueConstraint feature = uniqueConstraints.get(id);
+				if(feature!=null)
+					throw new UniqueViolationException(feature, item, sqlException);
+			}
+		}
+	}
+
 	private void makeQueryInfo(
 			final QueryInfo queryInfo, final Statement statement, final Connection connection,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		queryInfo.addChild(statement.getQueryInfo());
 
-		queryInfo.addChild(new QueryInfo(
-				"timing " +
-				numberFormat.format(end-start) + '/' +
-				numberFormat.format(prepared-start) + '/' +
-				numberFormat.format(executed-prepared) + '/' +
-				numberFormat.format(resultRead-executed) + '/' +
-				numberFormat.format(end-resultRead) +
-				" (total/prepare/execute/readResult/close in ns)"));
+		{
+			final QueryInfo timing = new QueryInfo("time elapsed " + numberFormat.format(end-start) + "ns");
+			timing.addChild(new QueryInfo("prepare " + numberFormat.format(prepared-start)));
+			timing.addChild(new QueryInfo("execute " + numberFormat.format(executed-prepared)));
+			timing.addChild(new QueryInfo("result " + numberFormat.format(resultRead-executed)));
+			timing.addChild(new QueryInfo("close " + numberFormat.format(end-resultRead)));
+			queryInfo.addChild(timing);
+		}
 
 		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
 		if(plan!=null)
@@ -364,11 +447,6 @@ final class Executor
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
 		numberFormat = new DecimalFormat("", nfs);
-	}
-
-	private static final long n2m(final long to, final long from)
-	{
-		return (to-from)/1000000;
 	}
 
 	static int convertSQLResult(final Object sqlInteger)
@@ -388,7 +466,7 @@ final class Executor
 		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
-		public void search(final Connection connection, final Query query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,25 +19,24 @@
 package com.exedio.cope;
 
 import java.lang.ref.WeakReference;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.exedio.cope.util.Interrupter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ChangeListeners
 {
-	static final Logger logger = Logger.getLogger(ChangeListeners.class.getName());
+	static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
-	private int cleared = 0;
-	private int removed = 0;
-	private volatile int failed = 0;
+	private final VolatileInt cleared = new VolatileInt();
+	private final VolatileInt removed = new VolatileInt();
+	private final VolatileInt failed = new VolatileInt();
 
 	ChangeListeners()
 	{
@@ -67,8 +66,7 @@ final class ChangeListeners
 					result.add(listener);
 			}
 
-			if(cleared>0)
-				this.cleared += cleared;
+			this.cleared.inc(cleared);
 
 			return Collections.unmodifiableList(result);
 		}
@@ -81,10 +79,12 @@ final class ChangeListeners
 
 	ChangeListenerInfo getInfo()
 	{
+		final int size;
 		synchronized(list)
 		{
-			return new ChangeListenerInfo(cleared, removed, failed);
+			size = list.size();
 		}
+		return new ChangeListenerInfo(size, cleared.get(), removed.get(), failed.get());
 	}
 
 	void add(final ChangeListener listener)
@@ -123,20 +123,18 @@ final class ChangeListeners
 					removed++;
 				}
 			}
-			if(cleared>0)
-				this.cleared += cleared;
-			if(removed>0)
-				this.removed += removed;
+			this.cleared.inc(cleared);
+			this.removed.inc(removed);
 		}
 	}
 
-	void handle(final ChangeEvent event, final Interrupter interrupter)
+	void dispatch(final ChangeEvent event, final ChangeListenerDispatcher interrupter)
 	{
 		final List<ChangeListener> listeners = get();
 
 		for(final ChangeListener listener : listeners)
 		{
-			if(interrupter.isRequested())
+			if(interrupter.requestedToStop())
 				return;
 
 			try
@@ -145,16 +143,22 @@ final class ChangeListeners
 			}
 			catch(final Exception e)
 			{
-				failed++;
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
+				onDispatchFailure(event, listener, e);
 			}
 			catch(final AssertionError e)
 			{
-				failed++;
-				if(logger.isLoggable(Level.SEVERE))
-					logger.log(Level.SEVERE, "Suppressing exception from change listener " + listener.getClass().getName(), e);
+				onDispatchFailure(event, listener, e);
 			}
 		}
+	}
+
+	private void onDispatchFailure(
+			final ChangeEvent event,
+			final ChangeListener listener,
+			final Throwable throwable)
+	{
+		failed.inc();
+		if(logger.isErrorEnabled())
+			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
 }

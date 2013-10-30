@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import com.exedio.cope.Query;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import com.exedio.cope.Query;
 
 public final class StableQueryIterator<E>
 {

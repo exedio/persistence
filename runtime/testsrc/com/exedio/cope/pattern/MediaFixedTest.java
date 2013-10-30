@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,15 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-import java.io.InputStream;
+import static com.exedio.cope.pattern.MediaItem.TYPE;
+import static com.exedio.cope.pattern.MediaItem.photo;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MediaFixedTest extends AbstractRuntimeTest
 {
@@ -48,91 +48,83 @@ public class MediaFixedTest extends AbstractRuntimeTest
 	{
 		// test model
 
-		assertEquals(false, item.photo.isInitial());
-		assertEquals(false, item.photo.isFinal());
-		assertEquals(false, item.photo.isMandatory());
-		assertEquals(Media.Value.class, item.photo.getInitialType());
-		assertContains(item.photo.getInitialExceptions());
-		assertEquals(true, item.photo.checkContentType("image/jpeg"));
-		assertEquals(false, item.photo.checkContentType("imaxge/jpeg"));
-		assertEquals(false, item.photo.checkContentType("image/jpxeg"));
-		assertEquals("image/jpeg", item.photo.getContentTypeDescription());
-		assertEqualsUnmodifiable(list("image/jpeg"), item.photo.getContentTypesAllowed());
-		assertEquals(2000, item.photo.getMaximumLength());
+		assertEquals(false, photo.isInitial());
+		assertEquals(false, photo.isFinal());
+		assertEquals(false, photo.isMandatory());
+		assertEquals(Media.Value.class, getInitialType(photo));
+		assertContains(photo.getInitialExceptions());
+		assertEquals(true, photo.checkContentType("image/jpeg"));
+		assertEquals(false, photo.checkContentType("imaxge/jpeg"));
+		assertEquals(false, photo.checkContentType("image/jpxeg"));
+		assertEquals("image/jpeg", photo.getContentTypeDescription());
+		assertEqualsUnmodifiable(list("image/jpeg"), photo.getContentTypesAllowed());
+		assertEquals(2000, photo.getMaximumLength());
 
-		final DataField body = item.photo.getBody();
-		assertSame(item.TYPE, body.getType());
+		final DataField body = photo.getBody();
+		assertSame(TYPE, body.getType());
 		assertSame("photo-body", body.getName());
 		assertEquals(false, body.isFinal());
 		assertEquals(false, body.isMandatory());
 		assertEquals(2000, body.getMaximumLength());
-		assertEquals(item.photo, body.getPattern());
-		assertSame(item.photo, Media.get(body));
+		assertEquals(photo, body.getPattern());
+		assertSame(photo, Media.get(body));
 
-		assertEquals(null, item.photo.getContentType());
+		assertEquals(null, photo.getContentType());
 
-		final DateField lastModified = item.photo.getLastModified();
-		assertSame(item.TYPE, lastModified.getType());
+		final DateField lastModified = photo.getLastModified();
+		assertSame(TYPE, lastModified.getType());
 		assertEquals("photo-lastModified", lastModified.getName());
-		assertEquals(item.photo, lastModified.getPattern());
+		assertEquals(photo, lastModified.getPattern());
 		assertEquals(false, lastModified.isFinal());
 		assertEquals(false, lastModified.isMandatory());
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 
-		final CheckConstraint unison = item.photo.getUnison();
-		assertSame(item.TYPE, unison.getType());
-		assertEquals("photo-unison", unison.getName());
-		assertEquals(item.photo, unison.getPattern());
-		assertEquals(Cope.or(
-				lastModified.isNull   (),
-				lastModified.isNotNull()),
-				unison.getCondition());
+		assertNull(photo.getUnison());
 
-		assertEquals(Condition.TRUE,        item.photo.contentTypeEqual("image/jpeg"));
-		assertEquals(Condition.FALSE,       item.photo.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(), item.photo.contentTypeEqual(null));
-		assertNotNull(item.photo.bodyMismatchesContentType());
+		assertEquals(Condition.TRUE,        photo.contentTypeEqual("image/jpeg"));
+		assertEquals(Condition.FALSE,       photo.contentTypeEqual("major/minor"));
+		assertEquals(lastModified.isNull(), photo.contentTypeEqual(null));
 
 		// test persistence
 
 		assertNull();
 
-		item.setPhoto(stream(data4), "image/jpeg");
+		item.setPhoto(stream(bytes4), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data4);
+		assertContent(bytes4);
 
-		item.setPhoto(stream(data6), "image/jpeg");
+		item.setPhoto(stream(bytes6), "image/jpeg");
 		assertStreamClosed();
-		assertContent(data6);
+		assertContent(bytes6);
 
 		try
 		{
-			item.setPhoto(stream(data4), "illegalContentType");
+			item.setPhoto(stream(bytes4), "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.photo, e.getFeature());
+			assertSame(photo, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
 			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertContent(data6);
+			assertContent(bytes6);
 		}
 
 		try
 		{
-			item.setPhoto(stream(data4), "image/png");
+			item.setPhoto(stream(bytes4), "image/png");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
 		{
 			assertStreamClosed();
-			assertSame(item.photo, e.getFeature());
+			assertSame(photo, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("image/png", e.getContentType());
 			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg\' only.", e.getMessage());
-			assertContent(data6);
+			assertContent(bytes6);
 		}
 
 		item.setPhoto((InputStream)null, null);
@@ -141,7 +133,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 
 	private void assertNull()
 	{
-		assertTrue(item.photo.isNull(item));
+		assertTrue(photo.isNull(item));
 		assertTrue(item.isPhotoNull());
 		assertEquals(null, item.getPhotoBody());
 		assertEquals(-1, item.getPhotoLength());

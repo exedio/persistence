@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,13 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.testmodel.Main;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.testmodel.Main;
-
 public abstract class TestmodelTest extends AbstractRuntimeTest
 {
-	public static final Type[] modelTypes = Main.modelTypes;
-
 	public TestmodelTest()
 	{
 		super(Main.model);

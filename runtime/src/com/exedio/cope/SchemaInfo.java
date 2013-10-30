@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -41,6 +41,8 @@ public final class SchemaInfo
 	 */
 	public static Connection newConnection(final Model model) throws SQLException
 	{
+		model.transactions.assertNoCurrentTransaction();
+
 		return model.connect().connectionFactory.createRaw();
 	}
 
@@ -54,7 +56,7 @@ public final class SchemaInfo
 			throw new NullPointerException("model");
 		if(name==null)
 			throw new NullPointerException("name");
-		if(name.length()==0)
+		if(name.isEmpty())
 			throw new IllegalArgumentException("name must not be empty");
 
 		return model.connect().dialect.dsmfDialect.quoteName(name);
@@ -70,9 +72,21 @@ public final class SchemaInfo
 		return model.connect().supportsNativeDate();
 	}
 
-	public static boolean supportsSequences(final Model model)
+	public static boolean supportsNotNull(final Model model)
 	{
-		return model.connect().dialect.dsmfDialect.supportsSequences();
+		return model.connect().database.supportsNotNull();
+	}
+
+	/**
+	 * Returns whether detecting
+	 * {@link UniqueViolationException}s from
+	 * {@link SQLException}s is supported.
+	 * If not, then cope must issue explicit searches before
+	 * any insert/update covering a unique constraint.
+	 */
+	public static boolean supportsUniqueViolation(final Model model)
+	{
+		return model.connect().executor.supportsUniqueViolation;
 	}
 
 	/**
@@ -81,7 +95,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Type#getID() id} of the type.
 	 */
-	public static String getTableName(final Type type)
+	public static String getTableName(final Type<?> type)
 	{
 		return type.table.idLower;
 	}
@@ -91,21 +105,47 @@ public final class SchemaInfo
 	 * If not configured otherwise
 	 * the name equals "this".
 	 */
-	public static String getPrimaryKeyColumnName(final Type type)
+	public static String getPrimaryKeyColumnName(final Type<?> type)
 	{
 		return type.table.primaryKey.id;
+	}
+
+	/**
+	 * Returns the value of primary key column in the database for the item.
+	 */
+	public static int getPrimaryKeyColumnValue(final Item item)
+	{
+		return item.pk;
+	}
+
+	/**
+	 * Returns the name of the sequence for generating values for the
+	 * {@link #getPrimaryKeyColumnName(Type) primary key column}
+	 * of the type.
+	 * @throws IllegalArgumentException
+	 *         if there is no such sequence for this type,
+	 *         because primary keys are generated otherwise.
+	 */
+	public static String getPrimaryKeySequenceName(final Type<?> type)
+	{
+		final String result = type.getPrimaryKeySequenceSchemaName();
+		if(result==null)
+			throw new IllegalArgumentException("no sequence for " + type);
+
+		return result;
 	}
 
 	/**
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "class".
+	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final Type type)
+	public static String getTypeColumnName(final Type<?> type)
 	{
 		final StringColumn column = type.table.typeColumn;
 		if(column==null)
@@ -115,29 +155,31 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @see #getModificationCounterColumnName(Type)
+	 * Returns the value to be put into a type column for the type.
+	 * Defaults to {@link Type#getID()},
+	 * but can be overridden by {@link CopeSchemaName}.
+	 * @see #getTypeColumnName(Type)
+	 * @see #getTypeColumnName(ItemField)
 	 */
-	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	public static String getTypeColumnValue(final Type<?> type)
 	{
-		return model.connect().properties.itemCacheConcurrentModificationDetection.booleanValue();
+		return type.schemaId;
 	}
 
 	/**
-	 * Returns the name of modification counter column in the database for the type.
+	 * Returns the name of update counter column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "catch".
 	 * @throws IllegalArgumentException
-	 *         if there is no modification counter column for this type,
-	 *         because {@link #isConcurrentModificationDetectionEnabled(Model) Concurrent Modification Detection}
-	 *         has been switched off,
-	 *         or because there are no modifiable (non-{@link Field#isFinal() final})
+	 *         if there is no update counter column for this type,
+	 *         because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
 	 */
-	public static String getModificationCounterColumnName(final Type type)
+	public static String getUpdateCounterColumnName(final Type<?> type)
 	{
-		final IntegerColumn column = type.table.modificationCount;
+		final IntegerColumn column = type.table.updateCounter;
 		if(column==null)
-			throw new IllegalArgumentException("no modification counter column for " + type);
+			throw new IllegalArgumentException("no update counter for " + type);
 
 		return column.id;
 	}
@@ -148,7 +190,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field.
 	 */
-	public static String getColumnName(final Field field)
+	public static String getColumnName(final Field<?> field)
 	{
 		return field.getColumn().id;
 	}
@@ -159,12 +201,13 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field
 	 * plus the appendix "Type".
+	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final ItemField field)
+	public static String getTypeColumnName(final ItemField<?> field)
 	{
 		final Column column = field.getTypeColumn();
 		if(column==null)
@@ -176,11 +219,48 @@ public final class SchemaInfo
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.
+	 * Defaults to 10 * ( {@link Enum#ordinal()} + 1 ),
+	 * but can be overridden by {@link CopeSchemaValue}.
 	 */
 	public static <E extends Enum<E>> int getColumnValue(final E value)
 	{
-		return EnumFieldType.get(value.getDeclaringClass()).columnValue(value);
+		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
 	}
+
+	/**
+	 * Returns the name of the sequence for generating values for the
+	 * {@link IntegerField#defaultToNext(int) defaultToNext}
+	 * mechanism of the field.
+	 * @throws IllegalArgumentException
+	 *         if there is no such sequence for this field,
+	 *         because values are generated otherwise.
+	 */
+	public static String getDefaultToNextSequenceName(final IntegerField field)
+	{
+		final String result = field.getDefaultToNextSequenceName();
+		if(result==null)
+			throw new IllegalArgumentException("no sequence for " + field);
+
+		return result;
+	}
+
+	public static String search(final Query<?> query)
+	{
+		return search(query, false);
+	}
+
+	public static String total(final Query<?> query)
+	{
+		return search(query, true);
+	}
+
+	private static String search(final Query<?> query, final boolean totalOnly)
+	{
+		final StringBuilder bf = new StringBuilder();
+		query.search(null, query.getType().getModel().connect().executor, totalOnly, bf, null);
+		return bf.toString();
+	}
+
 
 	private SchemaInfo()
 	{
@@ -195,6 +275,44 @@ public final class SchemaInfo
 	@Deprecated
 	public static <E extends Enum<E>> int getColumnValue(final EnumField<E> field, final E value)
 	{
-		return field.valueType.columnValue(value);
+		return field.valueType.getNumber(value);
+	}
+
+	/**
+	 * @deprecated always returns true
+	 * @see #getUpdateCounterColumnName(Type)
+	 */
+	@Deprecated
+	public static boolean isUpdateCounterEnabled(@SuppressWarnings("unused") final Model model)
+	{
+		return true;
+	}
+
+	/**
+	 * @deprecated Use {@link #isUpdateCounterEnabled(Model)} instead
+	 */
+	@Deprecated
+	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
+	{
+		return isUpdateCounterEnabled(model);
+	}
+
+	/**
+	 * @deprecated Use {@link #getUpdateCounterColumnName(Type)} instead
+	 */
+	@Deprecated
+	public static String getModificationCounterColumnName(final Type<?> type)
+	{
+		return getUpdateCounterColumnName(type);
+	}
+
+	/**
+	 * @deprecated Always returns true, because all databases are required to support sequences.
+	 * @param model is ignored
+	 */
+	@Deprecated
+	public static boolean supportsSequences(final Model model)
+	{
+		return true;
 	}
 }

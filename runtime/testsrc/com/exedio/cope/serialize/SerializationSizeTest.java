@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,18 +18,17 @@
 
 package com.exedio.cope.serialize;
 
+import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.Cope;
+import com.exedio.cope.Item;
+import com.exedio.cope.Query;
+import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Cope;
-import com.exedio.cope.Item;
-import com.exedio.cope.Query;
-import com.exedio.cope.pattern.ListField;
 
 public class SerializationSizeTest extends AbstractRuntimeTest
 {
@@ -136,8 +135,8 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 		item1.addToList("listItem2");
 		item2.addToList("listItem0");
 		item2.addToList("listItem1");
-		final List<? extends Item> list1 = getItems(item1.list, item1);
-		final List<? extends Item> list2 = getItems(item2.list, item2);
+		final List<? extends Item> list1 = getItems(ItemSerializationItem .list, item1);
+		final List<? extends Item> list2 = getItems(ItemSerializationItem2.list, item2);
 
 		assertAccu(386, list1.get(0));
 		assertAccu( 15, list1.get(1));

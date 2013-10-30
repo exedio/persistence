@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import java.util.List;
-
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.misc.ModelByString;
 import com.exedio.cope.util.Cast;
+import java.util.List;
 
 /**
  * Utility class for creating conditions.
@@ -30,9 +30,6 @@ import com.exedio.cope.util.Cast;
  */
 public abstract class Cope
 {
-	Cope()
-	{/* do not allow class to be subclassed by public */}
-
 	public static final <E> Condition equal(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
@@ -121,160 +118,139 @@ public abstract class Cope
 		}
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2});
+		return PlusView.plus(addend1, addend2);
 	}
 
+	/**
+	 * You may want to use {@link PlusView#plus(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
-		return new PlusView<E>(new NumberFunction[]{addend1, addend2, addend3});
+		return PlusView.plus(addend1, addend2, addend3);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2});
+		return MultiplyView.multiply(multiplier1, multiplier2);
 	}
 
+	/**
+	 * You may want to use {@link MultiplyView#multiply(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 */
 	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
 	{
-		return new MultiplyView<E>(new NumberFunction[]{multiplier1, multiplier2, multiplier3});
+		return MultiplyView.multiply(multiplier1, multiplier2, multiplier3);
 	}
 
 	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
-		return new SetValue<X>(a, Cast.verboseCast(a.getValueClass(), o));
+		return SetValue.map(a, Cast.verboseCast(a.getValueClass(), o));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Field#set(Item, Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
-		field.set(item, verboseCast(field.getValueClass(), value));
+		field.set(item, Cast.verboseCast(field.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#equal(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
-		return function.equal(verboseCast(function.getValueClass(), value));
+		return function.equal(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#notEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.notEqual(verboseCast(function.getValueClass(), value));
+		return function.notEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#less(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
-		return function.less(verboseCast(function.getValueClass(), value));
+		return function.less(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#lessOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.lessOrEqual(verboseCast(function.getValueClass(), value));
+		return function.lessOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greater(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
-		return function.greater(verboseCast(function.getValueClass(), value));
+		return function.greater(Cast.verboseCast(function.getValueClass(), value));
 	}
 
 	/**
-	 * {@link #verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>E</tt> before calling
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>value</tt> to <tt>X</tt> before calling
 	 * {@link Function#greaterOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>E</tt>
+	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
 	public static final <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.greaterOrEqual(verboseCast(function.getValueClass(), value));
+		return function.greaterOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
+
+	/**
+	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * <tt>values</tt> to <tt>X</tt> before calling
+	 * {@link Function#between(Object, Object)}
+	 * @throws ClassCastException if one of the <tt>values</tt> is not assignable to <tt>X</tt>
+	 */
+	public static <X> Condition betweenAndCast(final Function<X> function, final Object lowerBound, final Object upperBound)
+	{
+		final Class<X> valueClass = function.getValueClass();
+		return function.between(
+				  Cast.verboseCast(valueClass, lowerBound),
+				  Cast.verboseCast(valueClass, upperBound));
+	}
+
 
 	@SuppressWarnings("deprecation") // OK: Selectable.check is for internal use within COPE only
-	static void check(final Selectable select, final TC tc, final Join join)
+	static void check(final Selectable<?> select, final TC tc, final Join join)
 	{
 		select.check(tc, join);
-	}
-
-	private static final char DIVIDER = '#';
-
-	public static Model getModel(final String name)
-	{
-		final int pos = name.indexOf(DIVIDER);
-		if(pos<=0)
-			throw new IllegalArgumentException("does not contain '" + DIVIDER + "', but was " + name);
-		final String className = name.substring(0, pos);
-		final String fieldName = name.substring(pos+1);
-
-		final Class clazz;
-		try
-		{
-			clazz = Class.forName(className);
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw new IllegalArgumentException("class " + className + " does not exist.", e);
-		}
-
-		final java.lang.reflect.Field field;
-		try
-		{
-			field = clazz.getField(fieldName);
-		}
-		catch(final NoSuchFieldException e)
-		{
-			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
-		}
-
-		final Object result;
-		try
-		{
-			result = field.get(null);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new IllegalArgumentException("accessing " + field.toString(), e);
-		}
-
-		if(result==null)
-			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is null.");
-		if(!(result instanceof Model))
-			throw new IllegalArgumentException("field " + clazz.getName() + '#' + field.getName() + " is not a model, but a " + result.getClass().getName() + '.');
-
-		return (Model)result;
 	}
 
 	public static final void main(final String[] args)
@@ -283,7 +259,7 @@ public abstract class Cope
 			throw new RuntimeException("must have two arguments, model and action");
 
 		final Model model = getModel(args[0]);
-		model.connect(new ConnectProperties(ConnectProperties.getSystemPropertySource()));
+		model.connect(new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE));
 		final String action = args[1];
 		if("create".equals(action))
 			model.createSchema();
@@ -296,13 +272,18 @@ public abstract class Cope
 		model.disconnect();
 	}
 
+	Cope()
+	{
+		// do not allow class to be subclassed by public
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
+	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return plus(addend1, addend2);
 	}
@@ -311,7 +292,7 @@ public abstract class Cope
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
+	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
 		return plus(addend1, addend2, addend3);
 	}
@@ -323,5 +304,14 @@ public abstract class Cope
 	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
 		return Cast.verboseCast(clazz, o);
+	}
+
+	/**
+	 * @deprecated Use {@link ModelByString#get(String)} instead.
+	 */
+	@Deprecated
+	public static Model getModel(final String name)
+	{
+		return ModelByString.get(name);
 	}
 }

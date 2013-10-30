@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,21 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
+import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
+import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
+import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.ThrownGetter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ComputedElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,29 +41,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
-import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.FunctionField;
-import com.exedio.cope.Item;
-import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.misc.ComputedElement;
-
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
 	private static final long serialVersionUID = 1l;
 
+	private final IntegerField length;
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
 	private final boolean isFinal;
+	private final CheckConstraint unison;
 
 	private LimitedListField(final FunctionField<E>[] sources)
 	{
+		this.length = new IntegerField().range(0, sources.length).defaultTo(0);
+		addSource(this.length, "Len", ComputedElement.get());
+
 		this.sources = sources;
 
 		boolean initial = false;
@@ -62,16 +69,22 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 		this.initial = initial;
 		this.isFinal = isFinal;
+
+		final Condition[] unisonConditions = new Condition[sources.length];
+		for(int a = 0; a<sources.length; a++)
+			unisonConditions[a] = length.greater(a).or(sources[a].isNull());
+		this.unison = new CheckConstraint(Cope.and(unisonConditions));
+		addSource(unison, "unison");
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(LimitedListField.<E>cast(new FunctionField[]{source1, source2, source3}));
+		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)
@@ -79,22 +92,22 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		this(template2Sources(template, maximumSize));
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new LimitedListField<E>(source1, source2);
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new LimitedListField<E>(source1, source2, source3);
 	}
 
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
+	public static final <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
 	{
 		return new LimitedListField<E>(template, maximumSize);
 	}
 
-	@SuppressWarnings("unchecked") // OK: no generic array creation
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
 	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;
@@ -105,7 +118,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
 
-		final FunctionField<Y>[] result = cast(new FunctionField[maximumSize]);
+		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
 		for(int i = 0; i<maximumSize; i++)
 			result[i] = template.copy();
@@ -114,9 +127,19 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 
+	public IntegerField getLength()
+	{
+		return length;
+	}
+
 	public List<FunctionField<E>> getListSources()
 	{
 		return Collections.unmodifiableList(Arrays.asList(sources));
+	}
+
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 
 	@Override
@@ -131,30 +154,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return sources.length;
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(Wrapper.generic(List.class, Wrapper.TypeVariable0.class)));
-
-		final Set<Class<? extends Throwable>> exceptions = sources[0].getInitialExceptions();
-		exceptions.add(ClassCastException.class);
-		exceptions.add(ListSizeViolationException.class);
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets a new value for {0}.").
-			addThrows(exceptions).
-			addParameter(Wrapper.genericExtends(Collection.class, Wrapper.TypeVariable0.class)));
-
-		return Collections.unmodifiableList(result);
-	}
-
 	public boolean isInitial()
 	{
 		return initial;
@@ -165,7 +164,13 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return isFinal;
 	}
 
-	public Class getInitialType()
+	public boolean isMandatory()
+	{
+		return true; // list can be empty but not null;
+	}
+
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return List.class;
 	}
@@ -178,18 +183,18 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
 	public List<E> get(final Item item)
 	{
-		final ArrayList<E> result = new ArrayList<E>(sources.length);
+		final int length = this.length.getMandatory(item);
+		final ArrayList<E> result = new ArrayList<E>(length);
 
-		for(final FunctionField<E> source : sources)
+		for(int i = 0; i<length; i++)
 		{
-			final E value = source.get(item);
-			if(value!=null)
-				result.add(value);
+			result.add(sources[i].get(item));
 		}
-		return result;
+		return Collections.unmodifiableList(result);
 	}
 
 	private void assertValue(final Collection<?> value, final Item exceptionItem)
@@ -198,6 +203,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 		throws
@@ -209,33 +217,52 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		assertValue(value, item);
 		int i = 0;
-		final SetValue[] setValues = new SetValue[sources.length];
+		final SetValue<?>[] setValues = new SetValue<?>[sources.length+1];
 
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
+		final int length = i;
+
 		for(; i<sources.length; i++)
 			setValues[i] = sources[i].map(null);
+
+		setValues[i] = this.length.map(length);
 
 		item.set(setValues);
 	}
 
-	public SetValue<Collection<E>> map(final Collection<E> value)
+	private static final class Thrown implements ThrownGetter<LimitedListField<?>>
 	{
-		return new SetValue<Collection<E>>(this, value);
+		public Set<Class<? extends Throwable>> get(final LimitedListField<?> feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			result.add(ClassCastException.class);
+			result.add(ListSizeViolationException.class);
+			return result;
+		}
 	}
 
-	public SetValue[] execute(final Collection value, final Item exceptionItem)
+	public SetValue<Collection<E>> map(final Collection<E> value)
+	{
+		return SetValue.map(this, value);
+	}
+
+	public SetValue<?>[] execute(final Collection<E> value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);
 		int i = 0;
-		final SetValue[] result = new SetValue[sources.length];
+		final SetValue<?>[] result = new SetValue<?>[sources.length+1];
 
 		for(final Object v : value)
 			result[i] = Cope.mapAndCast(sources[i++], v);
 
+		final int length = i;
+
 		for(; i<sources.length; i++)
 			result[i] = Cope.mapAndCast(sources[i], null);
+
+		result[i] = this.length.map(length);
 
 		return result;
 	}
@@ -279,5 +306,34 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			conditions[i] = sources[i].equal(value);
 
 		return Cope.or(conditions);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	{
+		return create(source1, source2);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField,FunctionField,FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	{
+		return create(source1, source2, source3);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField,int)} instead
+	 */
+	@Deprecated
+	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
+	{
+		return create(template, maximumSize);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,31 +18,24 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MapFieldItem.TYPE;
+import static com.exedio.cope.pattern.MapFieldItem.name;
+import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
+import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
+import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
+import static java.lang.Integer.valueOf;
+
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.EnumField;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.StringField;
-import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Computed;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapFieldTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(MapFieldItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(MapFieldTest.class, "MODEL");
-	}
-
-	private static final MapFieldItem.Language DE = MapFieldItem.Language.DE;
-	private static final MapFieldItem.Language EN = MapFieldItem.Language.EN;
-
 	public MapFieldTest()
 	{
-		super(MODEL);
+		super(MapFieldModelTest.MODEL);
 	}
 
 	MapFieldItem item, itemX;
@@ -57,115 +50,12 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
-		assertEquals(item.TYPE, item.name.getType());
-		assertEquals("name", item.name.getName());
-		assertEquals(MapFieldItem.class, item.TYPE.getJavaClass());
-		assertEquals(true, item.TYPE.isBound());
-		assertEquals(null, item.TYPE.getPattern());
-
-		assertEquals(item.TYPE, item.nameParent().getValueType());
-		assertEquals("parent", item.nameParent().getName());
-		assertEquals(DeletePolicy.CASCADE, item.nameParent().getDeletePolicy());
-		assertSame(item.name.getRelationType(), item.nameParent().getType());
-		assertEquals(null, item.nameParent().getPattern());
-		assertSame(item.nameParent(), item.name.getParent());
-
-		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)item.name.getKey()).getValueClass());
-		assertEquals("key", item.name.getKey().getName());
-		assertSame(item.name.getRelationType(), item.name.getKey().getType());
-		assertEquals(null, item.name.getKey().getPattern());
-
-		assertEqualsUnmodifiable(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
-		assertEquals("uniqueConstraint", item.name.getUniqueConstraint().getName());
-		assertSame(item.name.getRelationType(), item.name.getUniqueConstraint().getType());
-		assertEquals(list(item.nameParent(), item.name.getKey()), item.name.getUniqueConstraint().getFields());
-
-		assertEquals(String.class, item.name.getValue().getValueClass());
-		assertEquals("value", item.name.getValue().getName());
-		assertSame(item.name.getRelationType(), item.name.getValue().getType());
-		assertEquals(null, item.name.getValue().getPattern());
-
-		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
-		assertEquals(PatternItem.class, item.name.getRelationType().getJavaClass());
-		assertEquals(false, item.name.getRelationType().isBound());
-		assertSame(item.name, item.name.getRelationType().getPattern());
-		assertEquals(null, item.name.getRelationType().getSupertype());
-		assertEquals(list(), item.name.getRelationType().getSubtypes());
-		assertEqualsUnmodifiable(
-				list(
-						item.name.getRelationType().getThis(),
-						item.nameParent(), item.name.getKey(), item.name.getUniqueConstraint(),
-						item.name.getValue()),
-				item.name.getRelationType().getFeatures());
-		assertEquals(model, item.name.getRelationType().getModel());
-
-		assertEqualsUnmodifiable(list(item.TYPE.getThis(), item.name, item.nameLength, item.string, item.integer), item.TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypes());
-		assertEqualsUnmodifiable(list(item.TYPE, item.name.getRelationType(), item.nameLength.getRelationType(), item.string.getRelationType(), item.integer.getRelationType()), model.getTypesSortedByHierarchy());
-
-		assertEquals("MapFieldItem-name", item.name.getRelationType().getID());
-		assertEquals("MapFieldItem-name.parent", item.name.getParent(MapFieldItem.class).getID());
-		assertEquals("MapFieldItem-name.key", item.name.getKey().getID());
-		assertEquals("MapFieldItem-name.value", item.name.getValue().getID());
-		assertSame(item.name.getRelationType(), model.getType("MapFieldItem-name"));
-		assertSame(item.name.getParent(MapFieldItem.class), model.getFeature("MapFieldItem-name.parent"));
-		assertSame(item.name.getKey(), model.getFeature("MapFieldItem-name.key"));
-		assertSame(item.name.getValue(), model.getFeature("MapFieldItem-name.value"));
-
-		assertTrue(item.name      .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.nameLength.getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.string    .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(item.integer   .getRelationType().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(item.name      , 378);
-		assertSerializedSame(item.nameLength, 384);
-		assertSerializedSame(item.string    , 380);
-		assertSerializedSame(item.integer   , 381);
-
-		try
-		{
-			MapField.newMap(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField().unique(), null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be unique", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
-		try
-		{
-			MapField.newMap(new StringField(), new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must not be unique", e.getMessage());
-		}
-		MapField.newMap(new StringField(), new StringField());
-
-		// test persistence
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
+		assertEqualsUnmodifiable(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameLengthMap());
 
 		item.setName(DE, "nameDE");
 		assertEquals("nameDE", item.getName(DE));
@@ -173,58 +63,86 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameLengthMap());
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
-			item.name.join(q, DE);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			name.join(q, DE);
 			assertContains(item, q.search());
 		}
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameEN"));
-			item.name.join(q, DE);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameEN"));
+			name.join(q, DE);
 			assertContains(q.search());
 		}
 		{
-			final Query<MapFieldItem> q = item.TYPE.newQuery(item.name.getValue().equal("nameDE"));
-			item.name.join(q, EN);
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			name.join(q, EN);
 			assertContains(q.search());
 		}
 
 		item.setNameLength(DE, 5);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(5), item.getNameLength(DE));
+		assertEquals(valueOf(5), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, 5), item.getNameLengthMap());
 
 		item.setNameLength(DE, 6);
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, 6), item.getNameLengthMap());
 
 		item.setName(EN, "nameEN");
 		assertEquals("nameDE", item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEqualsUnmodifiable(map(DE, "nameDE", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, 6), item.getNameLengthMap());
 
 		item.setName(DE, null);
 		assertEquals(null, item.getName(DE));
-		assertEquals(new Integer(6), item.getNameLength(DE));
+		assertEquals(valueOf(6), item.getNameLength(DE));
 		assertEquals("nameEN", item.getName(EN));
 		assertEquals(null, item.getNameLength(EN));
 		assertEquals(null, itemX.getName(DE));
+		assertEqualsUnmodifiable(map(EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, 6), item.getNameLengthMap());
+	}
 
-		try
-		{
-			item.name.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
+	public void testMapSet()
+	{
+		final HashMap<MapFieldItem.Language, String> map = new HashMap<MapFieldItem.Language, String>();
+		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		assertEquals(map(), item.getNameMap());
+
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
+
+		map.put(DE, "nameDE");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+
+		map.put(EN, "nameEN");
+		map.put(DE, "nameDE2");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+
+		map.put(PL, "namePL");
+		map.remove(DE);
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+
+		map.clear();
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
 	}
 }

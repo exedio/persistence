@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,18 +25,18 @@ final class DeletedState extends State
 {
 	DeletedState(final Transaction transaction, final State original)
 	{
-		super(original.item, original.modificationCount);
+		super(original.item, original.updateCount);
 		transaction.addInvalidation(item);
 	}
 
 	@Override
-	Object get(final FunctionField field)
+	Object get(final FunctionField<?> field)
 	{
 		throw new NoSuchItemException(item);
 	}
 
 	@Override
-	State put(final Transaction transaction, final FunctionField field, final Object value)
+	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		throw new NoSuchItemException(item);
 	}
@@ -58,7 +58,7 @@ final class DeletedState extends State
 
 	private void doDelete(final Connection connection, final Executor executor)
 	{
-		for(Type currentType = type; currentType!=null; currentType = currentType.supertype)
+		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
 			final Statement bf = executor.newStatement();
@@ -69,18 +69,18 @@ final class DeletedState extends State
 				append('=').
 				appendParameter(pk);
 
-			final IntegerColumn modificationCountColumn = currentTable.modificationCount;
-			if(modificationCountColumn!=null)
+			final IntegerColumn updateCounter = currentTable.updateCounter;
+			if(updateCounter!=null)
 			{
 				bf.append(" and ").
-					append(modificationCountColumn.quotedID).
+					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(this.modificationCount);
+					appendParameter(this.updateCount);
 			}
 
 			//System.out.println("deleting "+bf.toString());
 
-			executor.updateStrict(connection, bf);
+			executor.updateStrict(connection, null, bf);
 		}
 	}
 

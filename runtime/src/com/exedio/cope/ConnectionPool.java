@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,11 +18,10 @@
 
 package com.exedio.cope;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 final class ConnectionPool
 {
@@ -38,6 +37,10 @@ final class ConnectionPool
 		final Connection result = pool.get();
 		try
 		{
+			// NOTE:
+			// we should avoid network roundtrip if autocommit
+			// mode is already as required:
+			// MySQL: useLocalSessionState=true in connection info
 			result.setAutoCommit(autoCommit);
 		}
 		catch(final SQLException e)

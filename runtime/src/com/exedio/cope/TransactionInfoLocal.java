@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.util.Date;
 
 final class TransactionInfoLocal extends TransactionInfo
@@ -28,9 +29,9 @@ final class TransactionInfoLocal extends TransactionInfo
 
 	TransactionInfoLocal(final Transaction transaction)
 	{
-		this.id = transaction.getID();
-		this.name = transaction.getName();
-		this.startDate = transaction.getStartDate().getTime();
+		this.id = transaction.id;
+		this.name = transaction.name;
+		this.startDate = transaction.startDate;
 	}
 
 	@Override
@@ -40,9 +41,9 @@ final class TransactionInfoLocal extends TransactionInfo
 	}
 
 	@Override
-	int getRemoteNodeID() throws ChangeEvent.NotAvailableException
+	int getRemoteNodeID() throws NotAvailableException
 	{
-		throw new ChangeEvent.NotAvailableException("not remote");
+		throw new NotAvailableException("not remote");
 	}
 
 	@Override

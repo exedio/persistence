@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000  Ralf Wiebicke
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -68,6 +69,25 @@ final class Generics
 		}
 		else
 			return Collections.emptyList();
+	}
+
+	static Type[] getTypes(final String s)
+	{
+		final List<String> x = get(s);
+		final Type[] result = new Type[x.size()];
+		for(int i = 0; i<result.length; i++)
+			result[i] = new SourceType(x.get(i));
+		return result;
+	}
+
+	static class SourceType implements Type
+	{
+		final String name;
+
+		SourceType(final String name)
+		{
+			this.name = name;
+		}
 	}
 
 	private Generics()

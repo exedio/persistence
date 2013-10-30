@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,15 +19,15 @@
 package com.exedio.cope;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Set;
-
 import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
 {
-	private static final class MockSettable implements Settable<String>
+	private static final class MockSettable extends Feature implements Settable<String>
 	{
+		private static final long serialVersionUID = 1l;
+
 		private final String toString;
 
 		MockSettable(final String toString)
@@ -35,7 +35,7 @@ public class SetValueTest extends TestCase
 			this.toString = toString;
 		}
 
-		public SetValue[] execute(final String value, final Item exceptionItem)
+		public SetValue<?>[] execute(final String value, final Item exceptionItem)
 		{
 			throw new RuntimeException();
 		}
@@ -45,6 +45,7 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
+		@Deprecated
 		public Type getInitialType()
 		{
 			throw new RuntimeException();
@@ -55,39 +56,40 @@ public class SetValueTest extends TestCase
 			throw new RuntimeException();
 		}
 
+		public boolean isMandatory()
+		{
+			throw new RuntimeException();
+		}
+
 		public boolean isInitial()
 		{
 			throw new RuntimeException();
 		}
 
-		public SetValue map(final String value)
+		public SetValue<String> map(final String value)
 		{
 			throw new RuntimeException();
 		}
 
 		@Override
-		public String toString()
+		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type<?> defaultType)
 		{
-			return toString;
+			bf.append(toString);
 		}
 	}
 
 	public void testIt()
 	{
-		final Settable<String> alpha = new MockSettable("alpha");
-		final SetValue alphaValue = new SetValue<String>(alpha, "alphaValue");
+		final MockSettable alpha = new MockSettable("alpha");
+		final SetValue<?> alphaValue = SetValue.map(alpha, "alphaValue");
 		assertEquals("alpha=alphaValue", alphaValue.toString());
 
-		final Settable<String> beta = new MockSettable("beta");
-		final SetValue betaValue = new SetValue<String>(beta, "betaValue");
+		final MockSettable beta = new MockSettable("beta");
+		final SetValue<?> betaValue = SetValue.map(beta, "betaValue");
 		assertEquals("beta=betaValue", betaValue.toString());
 
-		final Settable<String> nulla = new MockSettable(null);
-		final SetValue nullValue = new SetValue<String>(nulla, null);
+		final MockSettable nulla = new MockSettable(null);
+		final SetValue<?> nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
-
-		assertEquals(
-				"[alpha=alphaValue, beta=betaValue, null=null]",
-				Arrays.asList(alphaValue, betaValue, nullValue).toString());
 	}
 }

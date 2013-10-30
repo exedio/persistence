@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -51,8 +51,27 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 
+		assertEquals("ZackItem", schemaName(TYPE));
+		assertEquals(null, schemaName(RawItem.TYPE));
+		assertEquals("zack-sourceFeature", schemaName(pattern.sourceFeature));
+		assertEquals(null, schemaName(raw.sourceFeature));
+		assertEquals("zack-sourceFeature", schemaName(RawItem.pattern.sourceFeature));
+		assertEquals(null, schemaName(RawItem.raw.sourceFeature));
+		assertEquals("ZackItem-zack", schemaName(pattern.getSourceType()));
+		assertEquals("ZackItem-zack-tail", schemaName(pattern.getSourceTypePostfix()));
+		assertEquals("ZackItem-raw", schemaName(raw.getSourceType()));
+		assertEquals("ZackItem-raw-tail", schemaName(raw.getSourceTypePostfix()));
+		assertEquals("RawItem-zack", schemaName(RawItem.pattern.getSourceType()));
+		assertEquals("RawItem-zack-tail", schemaName(RawItem.pattern.getSourceTypePostfix()));
+		assertEquals(null, schemaName(RawItem.raw.getSourceType()));
+		assertEquals(null, schemaName(RawItem.raw.getSourceTypePostfix()));
+		assertEquals(null, schemaName(pattern.sourceTypeField));
+		assertEquals(null, schemaName(pattern.sourceTypePostfixField));
+
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
+		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);
+		assertPrimaryKeySequenceName("RawItem_this_Seq", RawItem.TYPE);
 		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
 		assertEquals("raw_sourceFeature", getColumnName(raw.sourceFeature));
 		assertEquals("zack_sourceFeature", getColumnName(RawItem.pattern.sourceFeature));
@@ -65,8 +84,30 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 		assertEquals(filterTableName("RawItem_zack_tail"), getTableName(RawItem.pattern.getSourceTypePostfix()));
 		assertEquals(filterTableName("RawItem_raw"), getTableName(RawItem.raw.getSourceType()));
 		assertEquals(filterTableName("RawItem_raw_tail"), getTableName(RawItem.raw.getSourceTypePostfix()));
+		assertPrimaryKeySequenceName("ZackItem_zack_this_Seq", pattern.getSourceType());
+		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", "ZackItem_zac_tai_thi_Seq6", pattern.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("ZackItem_raw_this_Seq", raw.getSourceType());
+		assertPrimaryKeySequenceName("ZackItem_raw_tail_thi_Seq", "ZackItem_raw_tai_thi_Seq6", raw.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("RawItem_zack_this_Seq", RawItem.pattern.getSourceType());
+		assertPrimaryKeySequenceName("RawItem_zack_tail_thi_Seq", "RawItem_zack_tai_thi_Seq6", RawItem.pattern.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("RawItem_raw_this_Seq", RawItem.raw.getSourceType());
+		assertPrimaryKeySequenceName("RawItem_raw_tail_this_Seq", "RawItem_raw_tail_thi_Seq6", RawItem.raw.getSourceTypePostfix());
 		assertEquals("field", getColumnName(pattern.sourceTypeField));
 		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
+	}
+
+	private static String schemaName(final Type<?> type)
+	{
+		final CopeSchemaName ann = type.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, type.isAnnotationPresent(CopeSchemaName.class));
+		return ann!=null ? ann.value() : null;
+	}
+
+	private static String schemaName(final Field<?> feature)
+	{
+		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, feature.isAnnotationPresent(CopeSchemaName.class));
+		return ann!=null ? ann.value() : null;
 	}
 
 	private static class RawItem extends Item

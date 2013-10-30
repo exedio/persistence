@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,24 +18,26 @@
 
 package com.exedio.cope.sampler;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.search;
+import static com.exedio.cope.misc.TimeUtil.toMillies;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
-import com.exedio.cope.Function;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
-import com.exedio.cope.Query;
-import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 
 final class SamplerPurge extends Item
 {
@@ -43,61 +45,42 @@ final class SamplerPurge extends Item
 	private static final DateField limit = new DateField().toFinal();
 	private static final DateField finished = new DateField().toFinal().defaultToNow();
 	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
-	private static final IntegerField elapsed  = new IntegerField().toFinal().min(0);
+	private static final LongField elapsed  = new LongField().toFinal().min(0);
 
-	static Query<SamplerPurge> newQuery()
-	{
-		final Query<SamplerPurge> q = TYPE.newQuery();
-		q.setOrderBy(new Function[]{finished, TYPE.getThis()}, new boolean[]{false, false});
-		return q;
-	}
-
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
-			final Type type,
+			final Connection con,
+			final Type<?> type,
 			final Date limit,
 			final JobContext ctx,
 			final String samplerString)
 	throws SQLException
 	{
-		if(ctx.requestedToStop())
-			return;
-
-		final DateField field = (DateField)type.getFeature("date");
-		if(field==null)
-			throw new RuntimeException(type.getID());
+		ctx.stopIfRequested();
+		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
 		final String bf =
-			"delete from " + SchemaInfo.quoteName(model, SchemaInfo.getTableName (type )) +
-			" where "      + SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field)) + "<?";
+				"delete " + removePrefix(
+						"select " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
+						search(type.newQuery(field.less(limit)))
+				);
 		final int rows;
 		final long start = System.nanoTime();
-		final Connection con = SchemaInfo.newConnection(model);
+		final Statement stat = con.createStatement();
 		try
 		{
-			final PreparedStatement stat = con.prepareStatement(bf);
-			try
-			{
-				if(SchemaInfo.supportsNativeDate(model))
-					stat.setTimestamp(1, new Timestamp(limit.getTime())); else
-					stat.setLong     (1,               limit.getTime() );
-
-				rows = stat.executeUpdate();
-			}
-			finally
-			{
-				stat.close();
-			}
+			rows = stat.executeUpdate(bf);
 		}
 		finally
 		{
-			con.close();
+			stat.close();
 		}
 		final long end = System.nanoTime();
 
 		try
 		{
 			model.startTransaction(samplerString + " purge register");
-			new SamplerPurge(type, limit, rows, (int)((end-start)/1000000));
+			new SamplerPurge(type, limit, rows, toMillies(end, start));
 			model.commit();
 		}
 		finally
@@ -108,12 +91,19 @@ final class SamplerPurge extends Item
 		ctx.incrementProgress(rows);
 	}
 
+	private static String removePrefix(final String prefix, final String pattern)
+	{
+		if(!pattern.startsWith(prefix))
+			throw new RuntimeException(prefix + "---" + pattern);
+		return pattern.substring(prefix.length());
+	}
+
 
 	SamplerPurge(
-			final Type type,
+			final Type<?> type,
 			final Date limit,
 			final int rows,
-			final int elapsed)
+			final long elapsed)
 	{
 		super(
 			SamplerPurge.type   .map(type.getID()),
@@ -147,7 +137,7 @@ final class SamplerPurge extends Item
 		return rows.getMandatory(this);
 	}
 
-	int getElapsed()
+	long getElapsed()
 	{
 		return elapsed.getMandatory(this);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 public final class IsNullCondition<E> extends Condition
 {
+	private static final long serialVersionUID = 1l;
+
 	private final Function<E> function;
 	private final boolean not;
 
@@ -68,10 +70,10 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof IsNullCondition))
+		if(!(other instanceof IsNullCondition<?>))
 			return false;
 
-		final IsNullCondition o = (IsNullCondition)other;
+		final IsNullCondition<?> o = (IsNullCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not;
 	}
@@ -83,7 +85,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type defaultType)
+	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
 		bf.append(sql());

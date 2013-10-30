@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,13 @@
  */
 
 package com.exedio.cope;
+
+import static com.exedio.cope.PlusLongItem.TYPE;
+import static com.exedio.cope.PlusLongItem.multiplyBC;
+import static com.exedio.cope.PlusLongItem.numA;
+import static com.exedio.cope.PlusLongItem.numB;
+import static com.exedio.cope.PlusLongItem.plusAB;
+import static java.lang.Long.valueOf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,19 +54,19 @@ public class PlusLongOrderTest extends AbstractRuntimeTest
 		assertEquals(l7, item1.getPlusAB());
 		assertEquals(l3, item2.getPlusAB());
 		assertEquals(l8, item3.getPlusAB());
-		assertEquals(new Long(-6000l), item1.getMultiplyBC());
-		assertEquals(new Long(-1000l), item2.getMultiplyBC());
-		assertEquals(new Long(-2000l), item3.getMultiplyBC());
+		assertEquals(valueOf(-6000l), item1.getMultiplyBC());
+		assertEquals(valueOf(-1000l), item2.getMultiplyBC());
+		assertEquals(valueOf(-2000l), item3.getMultiplyBC());
 
-		assertOrder(list(item1, item2, item3), item1.numA);
-		assertOrder(list(item2, item3, item1), item1.numB);
-		assertOrder(list(item2, item1, item3), item1.plusAB);
-		assertOrder(list(item1, item3, item2), item1.multiplyBC);
+		assertOrder(list(item1, item2, item3), numA);
+		assertOrder(list(item2, item3, item1), numB);
+		assertOrder(list(item2, item1, item3), plusAB);
+		assertOrder(list(item1, item3, item2), multiplyBC);
 	}
 
-	private void assertOrder(final List<? extends Object> expectedOrder, final Function orderBy)
+	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
 	{
-		final Query query = item1.TYPE.newQuery(null);
+		final Query<PlusLongItem> query = TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 

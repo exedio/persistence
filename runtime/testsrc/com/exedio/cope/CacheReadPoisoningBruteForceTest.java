@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -70,13 +70,12 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	static class ThreadStoppable extends Thread
 	{
 		boolean proceed = true;
+		String errorName = null;
 	}
 
 	public void testIt() throws InterruptedException
 	{
 		if(!mysql) return; // TODO
-		if(!model.getConnectProperties().itemCacheConcurrentModificationDetection.booleanValue())
-			return;
 
 		for(int i = 0; i<threads.length; i++)
 		{
@@ -93,7 +92,8 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 							//Thread.yield();
 							model.startTransaction("CacheBadReadTest  read " + i);
 							final String name = item.getName();
-							assertTrue(name, name.startsWith("itemName"));
+							if(!name.startsWith("itemName"))
+								errorName = name;
 							model.commit();
 						}
 					}
@@ -121,12 +121,12 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
+				assertTrue("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast.booleanValue());
+				assertFalse("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
 			}
 			finally
 			{
@@ -140,6 +140,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 		for(int i = 0; i<threads.length; i++)
 		{
 			threads[i].join();
+			assertNull(threads[i].errorName);
 			threads[i] = null;
 		}
 	}

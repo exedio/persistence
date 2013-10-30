@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,20 @@
 
 package com.exedio.dsmf;
 
-import java.sql.Connection;
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.StringTokenizer;
-
-import com.exedio.dsmf.Node.ResultSetHandler;
 
 public final class MysqlDialect extends Dialect
 {
+	private final String rowFormat;
 	final String primaryKeyColumnName;
 
-	public MysqlDialect(final String primaryKeyColumnName)
+	public MysqlDialect(final String rowFormat, final String primaryKeyColumnName)
 	{
 		super(null);
+		this.rowFormat = rowFormat;
 		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 
@@ -57,51 +56,12 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet)
 	{
-		final int columnSize = resultSet.getInt("COLUMN_SIZE");
-		switch(dataType)
-		{
-			case Types.INTEGER:
-				return "integer";
-			case Types.BIGINT:
-				return "bigint";
-			case Types.DOUBLE:
-				return "double";
-			case Types.TIMESTAMP:
-				return "timestamp";
-			case Types.DATE:
-				return "DATE";
-			case Types.VARCHAR:
-				return "varchar("+columnSize+") character set utf8 binary";
-			case Types.LONGVARCHAR:
-				switch(columnSize)
-				{
-					case 65535:      return "text character set utf8 binary";
-					case 16277215:   return "mediumtext character set utf8 binary";
-					case 2147483647: return "longtext character set utf8 binary";
-					default:         return "LONGVARCHAR("+columnSize+')';
-				}
-			case Types.BINARY:
-				switch(columnSize)
-				{
-					case 255:        return "TINYBLOB";
-					default:         return "BINARY("+columnSize+')';
-				}
-			case Types.LONGVARBINARY:
-				switch(columnSize)
-				{
-					case 65535:      return "BLOB";
-					case 16277215:   return "MEDIUMBLOB";
-					case 2147483647: return "LONGBLOB";
-					default:         return "LONGVARBINARY("+columnSize+')';
-				}
-			default:
-				return null;
-		}
+		throw new RuntimeException();
 	}
 
-	final String unQuoteName(final String quotedName)
+	static String unQuoteName(final String quotedName)
 	{
 		final int length = quotedName.length();
 		if(length<3)
@@ -117,7 +77,85 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void verify(final Schema schema)
 	{
-		super.verify(schema);
+		final String catalog = schema.getCatalog();
+		schema.querySQL(
+			"select TABLE_NAME " +
+				"from information_schema.TABLES " +
+				"where TABLE_SCHEMA='" + catalog + "' and TABLE_TYPE='BASE TABLE'",
+			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					final String tableName = resultSet.getString(1);
+					//printRow(resultSet);
+
+					final Sequence sequence = schema.getSequence(tableName);
+					if(sequence!=null && sequence.required())
+						sequence.notifyExists();
+					else
+						schema.notifyExistentTable(tableName);
+				}
+			}
+		});
+		schema.querySQL(
+			"select TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
+			"from information_schema.COLUMNS " +
+			"where TABLE_SCHEMA='" + catalog + '\'',
+			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			{
+				//printMeta(resultSet);
+				while(resultSet.next())
+				{
+					//printRow(resultSet);
+					final String tableName = resultSet.getString(1);
+					final String columnName = resultSet.getString(2);
+					final String isNullable = resultSet.getString(3);
+					final String dataType = resultSet.getString(4);
+					final String characterSet = resultSet.getString(6);
+					final String collation = resultSet.getString(7);
+
+					final StringBuilder type = new StringBuilder(dataType);
+					if("varchar".equals(dataType))
+						type.append('(').append(resultSet.getInt(5)).append(')');
+					if(characterSet!=null)
+						type.append(" character set ").append(characterSet);
+					if(collation!=null)
+						type.append(" collate ").append(collation);
+
+					if("NO".equals(isNullable))
+					{
+						if(!"PRI".equals(resultSet.getString(8)))
+							type.append(" not null");
+					}
+					else if(!"YES".equals(isNullable))
+						throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);
+
+					final Table table = schema.getTable(tableName);
+					if(table!=null)
+						table.notifyExistentColumn(columnName, type.toString());
+					else
+					{
+						final Sequence sequence = schema.getSequence(tableName);
+						if(sequence!=null)
+							sequence.notifyExists();
+					}
+				}
+			}
+		});
+
+		verifyForeignKeyConstraints(
+			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
+			"from information_schema.TABLE_CONSTRAINTS tc " +
+			"left join information_schema.KEY_COLUMN_USAGE kcu " +
+				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"and tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+				"and kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
+			"where tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"and tc.TABLE_SCHEMA='" + catalog + "' " +
+				"and tc.CONSTRAINT_TYPE in ('FOREIGN KEY')",
+			schema);
+
 		{
 			for(final Table table : schema.getTables())
 			{
@@ -178,35 +216,6 @@ public final class MysqlDialect extends Dialect
 									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
 									{
 										//System.out.println("----------"+tableName+"---------------"+s);
-										if("CONSTRAINT".equals(s))
-										{
-											if(!t.hasMoreTokens())
-												continue;
-											final String quotedName = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------quotedName:"+quotedName);
-											final String name = unQuoteName(quotedName);
-											//System.out.println("----------"+tableName+"--------------------name:"+name);
-											if(!t.hasMoreTokens() || !"FOREIGN".equals(t.nextToken()) ||
-												!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
-												!t.hasMoreTokens())
-												continue;
-											//final String source =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------source:"+source);
-											if(!t.hasMoreTokens() || !"REFERENCES".equals(t.nextToken()) ||
-												!t.hasMoreTokens())
-												continue;
-											//final String targetTable =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------targetTable:"+targetTable);
-											if(!t.hasMoreTokens())
-												continue;
-											//final String targetAttribute =
-											t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------targetAttribute:"+targetAttribute);
-
-											table.notifyExistentForeignKeyConstraint(name);
-										}
 										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
 										if("UNIQUE".equals(s))
 										{
@@ -234,25 +243,15 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	@Override
-	boolean ignoreTable(final Schema schema, final String name)
-	{
-		final boolean result = isSequence(schema, name);
-		if(result)
-			schema.notifyExistentSequence(name);
-		return result;
-	}
-
-	private boolean isSequence(final Schema schema, final String tableName)
-	{
-		final Sequence sequence = schema.getSequence(tableName);
-		return sequence!=null && sequence.required();
-	}
+	private static final String ENGINE = " engine=innodb";
 
 	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
-		bf.append(" engine=innodb");
+		bf.append(ENGINE);
+		if(rowFormat!=null)
+			bf.append(" row_format=").
+				append(rowFormat);
 	}
 
 	@Override
@@ -304,135 +303,71 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	public String dropPrimaryKeyConstraint(final String tableName, final String constraintName)
+	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop primary key");
-		return bf.toString();
 	}
 
 	@Override
-	public String dropForeignKeyConstraint(final String tableName, final String constraintName)
+	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop foreign key ").
 			append(constraintName);
-		return bf.toString();
 	}
 
 	@Override
-	public String dropUniqueConstraint(final String tableName, final String constraintName)
+	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("alter table ").
 			append(tableName).
 			append(" drop index ").
 			append(constraintName);
-		return bf.toString();
 	}
 
 	public static final String SEQUENCE_COLUMN = "x";
 
 	@Override
-	public String createSequence(final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("create table ").
 			append(sequenceName).
-			append(" (" + SEQUENCE_COLUMN + " integer AUTO_INCREMENT PRIMARY KEY) engine=InnoDB AUTO_INCREMENT=" + (startWith+1));
-		return bf.toString();
+			append("(" + SEQUENCE_COLUMN + " integer auto_increment primary key)" + ENGINE);
+
+		if(rowFormat!=null)
+			bf.append(" row_format=").
+				append(rowFormat);
+
+		initializeSequence(bf, sequenceName, startWith);
+	}
+
+	public static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	{
+		// From the MySQL documentation:
+		//
+		//    InnoDB supports the AUTO_INCREMENT = N table option in CREATE TABLE
+		//    and ALTER TABLE statements, to set the initial counter value or alter
+		//    the current counter value. The effect of this option is canceled by
+		//    a server restart, for reasons discussed earlier in this section.
+		//
+		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
+		if(startWith!=0)
+		{
+			bf.append(";insert into ").
+				append(sequenceName).
+				append(" values(").
+				append(startWith).
+				append(')');
+		}
 	}
 
 	@Override
-	public String dropSequence(final String sequenceName)
+	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("drop table ").
 			append(sequenceName);
-		return bf.toString();
-	}
-
-	@Override
-	public void deleteSchema(final Schema schema)
-	{
-		Connection connection = null;
-		java.sql.Statement sqlStatement = null;
-		final StringBuilder bf = new StringBuilder();
-		try
-		{
-			connection = schema.connectionProvider.getConnection();
-			sqlStatement = connection.createStatement();
-
-			bf.setLength(0);
-			bf.append("set FOREIGN_KEY_CHECKS=0");
-			sqlStatement.executeUpdate(bf.toString());
-
-			for(final Table table : schema.getTables())
-			{
-				bf.setLength(0);
-				bf.append("truncate ").
-					append(quoteName(table.name));
-				sqlStatement.executeUpdate(bf.toString());
-			}
-
-			bf.setLength(0);
-			bf.append("set FOREIGN_KEY_CHECKS=1");
-			sqlStatement.executeUpdate(bf.toString());
-
-			for(final Sequence sequence : schema.getSequences())
-			{
-				bf.setLength(0);
-				bf.append("truncate ").
-					append(quoteName(sequence.name));
-				sqlStatement.executeUpdate(bf.toString());
-
-				final int startWith = sequence.startWith;
-				if(startWith!=0)
-				{
-					bf.setLength(0);
-					bf.append("insert into ").
-						append(sequence.name).
-						append(" values(").
-						append(startWith).
-						append(')');
-					sqlStatement.executeUpdate(bf.toString());
-				}
-			}
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, bf.toString());
-		}
-		finally
-		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(connection!=null)
-			{
-				try
-				{
-					// do not put it into connection pool again
-					// because foreign key constraints are disabled
-					connection.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
 	}
 }

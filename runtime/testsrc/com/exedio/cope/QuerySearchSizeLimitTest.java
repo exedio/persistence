@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -53,7 +53,7 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		final boolean cache = props.getQueryCacheLimit()>0;
 
-		final Query q = TYPE.newQuery();
+		final Query<?> q = TYPE.newQuery();
 		assertEquals(props.getQuerySearchSizeLimit(), q.getSearchSizeLimit());
 		assertEquals(list(i1, i2, i3, i4, i5), q.search());
 
@@ -96,18 +96,6 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals("exceeded hard limit of 4: select this from DayItem", e.getMessage());
-		}
-
-
-
-		try
-		{
-			q.setSearchSizeLimit(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("searchSizeLimit must be greater zero, but was 0", e.getMessage());
 		}
 	}
 }

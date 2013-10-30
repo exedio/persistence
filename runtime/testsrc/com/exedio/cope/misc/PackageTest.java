@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,8 +29,10 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(TransactionSlicerTest.class);
 		suite.addTestSuite(TransactionRunnableTest.class);
+		suite.addTestSuite(DeleteTest.class);
 		suite.addTestSuite(QueryAggregatorTest.class);
 		suite.addTestSuite(TypeIteratorTest.class);
+		suite.addTestSuite(TypeIteratorTransactionallyTest.class);
 		suite.addTestSuite(StableQueryIteratorTest.class);
 		return suite;
 	}

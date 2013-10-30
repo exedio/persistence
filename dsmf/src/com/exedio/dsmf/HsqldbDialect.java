@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -54,19 +54,16 @@ public final class HsqldbDialect extends Dialect
 		}
 	}
 
-	private static final String SYSTEM_TABLE_CONSTRAINTS = "INFORMATION_SCHEMA.TABLE_CONSTRAINTS";
-	private static final String SYSTEM_CHECK_CONSTRAINTS = "INFORMATION_SCHEMA.CHECK_CONSTRAINTS";
-	private static final String SYSTEM_INDEXINFO = "INFORMATION_SCHEMA.SYSTEM_INDEXINFO";
-
 	@Override
 	void verify(final Schema schema)
 	{
 		super.verify(schema);
 
 		schema.querySQL(
-				"select stc.CONSTRAINT_NAME, stc.CONSTRAINT_TYPE, stc.TABLE_NAME, scc.CHECK_CLAUSE " +
-				"from " + SYSTEM_TABLE_CONSTRAINTS + " stc " +
-				"left outer join " + SYSTEM_CHECK_CONSTRAINTS + " scc on stc.CONSTRAINT_NAME = scc.CONSTRAINT_NAME",
+				"select tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"left outer join INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc on tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
+				"where tc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -94,14 +91,12 @@ public final class HsqldbDialect extends Dialect
 						}
 						else if("PRIMARY KEY".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("FOREIGN KEY".equals(constraintType))
-							table.notifyExistentForeignKeyConstraint(constraintName);
 						else if("UNIQUE".equals(constraintType))
 						{
 							//printRow(resultSet);
 							final StringBuilder clause = new StringBuilder();
 							final StringBuilder bf = new StringBuilder();
-							bf.append("select COLUMN_NAME from " + SYSTEM_INDEXINFO + " where INDEX_NAME like 'SYS_IDX_").
+							bf.append("select COLUMN_NAME from INFORMATION_SCHEMA.SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
 								append(constraintName).
 								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
 
@@ -134,6 +129,16 @@ public final class HsqldbDialect extends Dialect
 					}
 				}
 			});
+
+		verifyForeignKeyConstraints(
+				"select tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"left outer join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu on tc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc on tc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"left outer join INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY'" +
+				"where tc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				schema);
+
 		schema.querySQL(
 				"select SEQUENCE_NAME " +
 				"from INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
@@ -187,15 +192,13 @@ public final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	public String createSequence(final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		final StringBuilder bf = new StringBuilder();
 		bf.append("create sequence ").
 			append(sequenceName).
 			append(
 					" as integer" +
 					" start with " + startWith +
 					" increment by 1");
-		return bf.toString();
 	}
 }

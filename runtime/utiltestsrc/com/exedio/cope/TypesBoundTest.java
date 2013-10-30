@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -105,8 +105,8 @@ public class TypesBoundTest extends CopeAssert
 
 		// error if not mounted
 		final String modelMessage =
-			"model not set for type AnItem, " +
-			"probably you forgot to put this type into the model.";
+			"type AnItem (" + AnItem.class.getName() +
+			") does not belong to any model";
 		try
 		{
 			type.getModel();

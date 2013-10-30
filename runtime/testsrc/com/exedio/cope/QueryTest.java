@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,9 +22,8 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Query.newQuery;
 
-import java.util.List;
-
 import com.exedio.cope.util.Day;
+import java.util.List;
 
 public class QueryTest extends AbstractRuntimeTest
 {
@@ -39,7 +38,7 @@ public class QueryTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final Query q = DayItem.TYPE.newQuery(null);
+		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
@@ -61,6 +60,13 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(c1.equals(c2));
 		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
+
+		{
+			final String search = SchemaInfo.search(q);
+			assertTrue(search, search.startsWith("select "));
+			final String total = SchemaInfo.total(q);
+			assertTrue(total, total.startsWith("select count(*) from "));
+		}
 	}
 
 	public void testSetSelect()
@@ -69,7 +75,7 @@ public class QueryTest extends AbstractRuntimeTest
 
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -78,7 +84,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -91,7 +97,7 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			newQuery(new Selectable[]{DayItem.day}, DayItem.TYPE, null);
+			newQuery(new Selectable<?>[]{DayItem.day}, DayItem.TYPE, null);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -99,12 +105,12 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
 
-		final Query<List<Object>> q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
-		q.setSelects(new Selectable[]{DayItem.TYPE.getThis(), DayItem.day});
+		final Query<List<Object>> q = newQuery(new Selectable<?>[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
 
 		try
 		{
-			q.setSelects(new Selectable[]{DayItem.day});
+			q.setSelects(new Selectable<?>[]{DayItem.day});
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -113,7 +119,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
@@ -133,7 +139,7 @@ public class QueryTest extends AbstractRuntimeTest
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
 		{
-			final Query q = DayItem.TYPE.newQuery(TRUE);
+			final Query<?> q = DayItem.TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);
@@ -153,7 +159,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertSame(FALSE, q.getCondition());
 		}
 		{
-			final Query q = DayItem.TYPE.newQuery(FALSE);
+			final Query<?> q = DayItem.TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);
@@ -181,6 +187,8 @@ public class QueryTest extends AbstractRuntimeTest
 			q.narrow(TRUE);
 			assertSame(null, q.getCondition());
 		}
+		assertSerializedSame(TRUE, 103);
+		assertSerializedSame(FALSE, 103);
 	}
 
 	public void testResult()
@@ -188,13 +196,13 @@ public class QueryTest extends AbstractRuntimeTest
 		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
 		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
 
-		assertEquals(list(), Query.emptyResult().getData());
-		assertEquals(0, Query.emptyResult().getTotal());
-		assertEquals(0, Query.emptyResult().getOffset());
-		assertEquals(-1, Query.emptyResult().getLimit());
-		assertNotSame(Query.emptyResult(), Query.emptyResult());
-		assertEquals(Query.emptyResult(), Query.emptyResult());
-		assertEquals(Query.emptyResult().hashCode(), Query.emptyResult().hashCode());
+		assertEquals(list(), Query.Result.empty().getData());
+		assertEquals(0, Query.Result.empty().getTotal());
+		assertEquals(0, Query.Result.empty().getOffset());
+		assertEquals(-1, Query.Result.empty().getLimit());
+		assertSame(Query.Result.empty(), Query.Result.empty());
+		assertEquals(Query.Result.empty(), Query.Result.empty());
+		assertEquals(Query.Result.empty().hashCode(), Query.Result.empty().hashCode());
 
 		deleteOnTearDown(new DayItem(d1));
 		deleteOnTearDown(new DayItem(d2));
@@ -326,5 +334,27 @@ public class QueryTest extends AbstractRuntimeTest
 		assertFalse(expected.equals(actual));
 		assertFalse(actual.equals(expected));
 		assertFalse(actual.hashCode()==expected.hashCode());
+	}
+
+	public void testGroupBy()
+	{
+		final DayItem item1 = deleteOnTearDown( new DayItem(d1) );
+		final DayItem item2a = deleteOnTearDown( new DayItem(d2) );
+		final DayItem item2b = deleteOnTearDown( new DayItem(d2) );
+		final DayItem item3 = deleteOnTearDown( new DayItem(d3) );
+
+		assertContains(
+			item1, item2a, item2b, item3,
+			DayItem.TYPE.search()
+		);
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
+		assertEquals("select day,day from DayItem", query.toString());
+
+		query.setGroupBy( DayItem.day );
+		assertEquals("select day,day from DayItem group by day", query.toString());
+		assertContains(
+			list(d1, d1), list(d2, d2), list(d3, d3),
+			query.search()
+		);
 	}
 }

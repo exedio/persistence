@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,18 +19,18 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getModificationCounterColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.isConcurrentModificationDetectionEnabled;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
 public class SchemaInfoTest extends AbstractRuntimeTest
 {
 	public SchemaInfoTest()
 	{
-		super(InstanceOfTest.MODEL);
+		super(InstanceOfModelTest.MODEL);
 	}
 
 	public void testSchemaInfo()
@@ -75,9 +75,19 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 		{
 			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
 		}
+		try
+		{
+			getPrimaryKeyColumnValue(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 
 		// with sub types
 		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
+		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
@@ -86,6 +96,7 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 
 		// without sub types
 		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
+		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try
 		{
@@ -108,25 +119,10 @@ public class SchemaInfoTest extends AbstractRuntimeTest
 			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
 		}
 
-		if(isConcurrentModificationDetectionEnabled(model))
-		{
-			assertEquals(synthetic("catch", "InstanceOfAItem"), getModificationCounterColumnName(InstanceOfAItem.TYPE));
-		}
-		else
-		{
-			try
-			{
-				getModificationCounterColumnName(InstanceOfAItem.TYPE);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no modification counter column for InstanceOfAItem", e.getMessage());
-			}
-		}
+		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
 
 		assertCacheInfo(
-			new Type[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
-			new int []{5, 1, 1, 1});
+			new Type<?>[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE},
+			new int    []{5, 1, 1, 1});
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.AttributeItem.TYPE;
+import static com.exedio.cope.testmodel.AttributeItem.someInteger;
+import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 
 public class FieldIntegerTest extends FieldTest
 {
@@ -25,50 +28,50 @@ public class FieldIntegerTest extends FieldTest
 
 	public void testSomeInteger()
 	{
-		assertEquals(item.TYPE, item.someInteger.getType());
-		assertEquals(Integer.class, item.someInteger.getValueClass());
-		assertSerializedSame(item.someInteger, 380);
+		assertEquals(TYPE, someInteger.getType());
+		assertEquals(Integer.class, someInteger.getValueClass());
+		assertSerializedSame(someInteger, 380);
 
 		assertEquals(null, item.getSomeInteger());
-		assertContains(item, item2, item.TYPE.search(item.someInteger.equal((Integer)null)));
-		assertContains(item, item2, item.TYPE.search(item.someInteger.isNull()));
-		assertContains(item.TYPE.search(item.someInteger.notEqual((Integer)null)));
-		assertContains(item.TYPE.search(item.someInteger.isNotNull()));
+		assertContains(item, item2, TYPE.search(someInteger.equal((Integer)null)));
+		assertContains(item, item2, TYPE.search(someInteger.isNull()));
+		assertContains(TYPE.search(someInteger.notEqual((Integer)null)));
+		assertContains(TYPE.search(someInteger.isNotNull()));
 
-		item.someInteger.set(item, Integer.valueOf(14));
+		someInteger.set(item, Integer.valueOf(14));
 		assertEquals(Integer.valueOf(14), item.getSomeInteger());
 
-		item.someInteger.set(item, 12);
+		someInteger.set(item, 12);
 		assertEquals(Integer.valueOf(12), item.getSomeInteger());
 
 		item.setSomeInteger(Integer.valueOf(10));
 		assertEquals(Integer.valueOf(10), item.getSomeInteger());
-		assertEquals(Integer.valueOf(10), item.someInteger.get(item));
+		assertEquals(Integer.valueOf(10), someInteger.get(item));
 		try
 		{
-			item.someInteger.getMandatory(item);
+			someInteger.getMandatory(item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("field "+item.someInteger+" is not mandatory", e.getMessage());
+			assertEquals("field "+someInteger+" is not mandatory", e.getMessage());
 		}
 
 		restartTransaction();
 		assertEquals(Integer.valueOf(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
-			item.TYPE.search(item.someInteger.equal(10)));
+			TYPE.search(someInteger.equal(10)));
 		assertEquals(
 			list(),
-			item.TYPE.search(item.someInteger.notEqual(10)));
-		assertEquals(list(item2), item.TYPE.search(item.someInteger.equal((Integer)null)));
-		assertEquals(list(item2), item.TYPE.search(item.someInteger.isNull()));
-		assertEquals(list(item), item.TYPE.search(item.someInteger.notEqual((Integer)null)));
-		assertEquals(list(item), item.TYPE.search(item.someInteger.isNotNull()));
+			TYPE.search(someInteger.notEqual(10)));
+		assertEquals(list(item2), TYPE.search(someInteger.equal((Integer)null)));
+		assertEquals(list(item2), TYPE.search(someInteger.isNull()));
+		assertEquals(list(item), TYPE.search(someInteger.notEqual((Integer)null)));
+		assertEquals(list(item), TYPE.search(someInteger.isNotNull()));
 
-		assertContains(Integer.valueOf(10), null, search(item.someInteger));
-		assertContains(Integer.valueOf(10), search(item.someInteger, item.someInteger.equal(Integer.valueOf(10))));
+		assertContains(Integer.valueOf(10), null, search(someInteger));
+		assertContains(Integer.valueOf(10), search(someInteger, someInteger.equal(Integer.valueOf(10))));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
@@ -77,35 +80,35 @@ public class FieldIntegerTest extends FieldTest
 		assertEquals(null, item.getSomeInteger());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
 		{
-			item.set((FunctionField)item.someInteger, Long.valueOf(10l));
+			item.set((FunctionField)someInteger, Long.valueOf(10l));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName() + " for " + item.someInteger + '.', e.getMessage());
+			assertEquals("expected a " + Integer.class.getName() + ", but was a " + Long.class.getName() + " for " + someInteger + '.', e.getMessage());
 		}
 	}
 
 	public void testSomeNotNullInteger()
 	{
-		assertEquals(item.TYPE, item.someNotNullInteger.getType());
+		assertEquals(TYPE, someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());
 
-		item.someNotNullInteger.set(item, Integer.valueOf(24));
+		someNotNullInteger.set(item, Integer.valueOf(24));
 		assertEquals(24, item.getSomeNotNullInteger());
 
-		item.someNotNullInteger.set(item, 22);
+		someNotNullInteger.set(item, 22);
 		assertEquals(22, item.getSomeNotNullInteger());
 
 		item.setSomeNotNullInteger(20);
 		assertEquals(20, item.getSomeNotNullInteger());
-		assertEquals(Integer.valueOf(20), item.someNotNullInteger.get(item));
-		assertEquals(20, item.someNotNullInteger.getMandatory(item));
+		assertEquals(Integer.valueOf(20), someNotNullInteger.get(item));
+		assertEquals(20, someNotNullInteger.getMandatory(item));
 
 		item.setSomeNotNullInteger(0);
 		assertEquals(0, item.getSomeNotNullInteger());
@@ -113,7 +116,7 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullInteger.equal(0)));
+			TYPE.search(someNotNullInteger.equal(0)));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
@@ -121,7 +124,7 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullInteger.equal(Integer.MIN_VALUE)));
+			TYPE.search(someNotNullInteger.equal(Integer.MIN_VALUE)));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
@@ -129,6 +132,6 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			item.TYPE.search(item.someNotNullInteger.equal(Integer.MAX_VALUE)));
+			TYPE.search(someNotNullInteger.equal(Integer.MAX_VALUE)));
 	}
 }

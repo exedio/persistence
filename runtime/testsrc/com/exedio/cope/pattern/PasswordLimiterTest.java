@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,12 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 
-import java.util.Date;
-import java.util.List;
-
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
-import com.exedio.cope.util.Interrupter;
+import java.util.Date;
+import java.util.List;
 
 public class PasswordLimiterTest extends CopeTest
 {
@@ -37,7 +35,7 @@ public class PasswordLimiterTest extends CopeTest
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
-	PasswordLimiterMockClockSource clock;
+	MockClockSource clock;
 
 	@Override
 	protected void setUp() throws Exception
@@ -45,7 +43,7 @@ public class PasswordLimiterTest extends CopeTest
 		super.setUp();
 		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
 		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
-		clock = new PasswordLimiterMockClockSource();
+		clock = new MockClockSource();
 		PasswordLimiter.clock.setSource(clock);
 	}
 
@@ -151,7 +149,6 @@ public class PasswordLimiterTest extends CopeTest
 	private final Refusal refuse()
 	{
 		final List<Refusal> existing = getRefusals();
-		clock.addNow(); // TODO fetch time once only
 		final long f = clock.addNow();
 		assertEquals(false, i.checkPasswordLimited("wrongpass"));
 		clock.assertEmpty();
@@ -161,16 +158,17 @@ public class PasswordLimiterTest extends CopeTest
 		return result;
 	}
 
-	private final List<Refusal> getRefusals()
+	private static final List<Refusal> getRefusals()
 	{
 		return passwordLimited.getRefusalType().search(null, passwordLimited.getRefusalType().getThis(), true);
 	}
 
 	private final int purge()
 	{
+		final CountJobContext ctx = new CountJobContext();
 		model.commit();
-		final int result = purgePasswordLimited((Interrupter)null);
+		purgePasswordLimited(ctx);
 		model.startTransaction("PasswordRecoveryTest");
-		return result;
+		return ctx.progress;
 	}
 }

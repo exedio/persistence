@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,15 +18,15 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extentions of MediaPath.
@@ -59,46 +59,28 @@ final class MediaNameServer extends MediaPath
 	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
 
 	private static final String RESPONSE_EXPIRES = "Expires";
-	private static final String RESPONSE_CONTENT_LENGTH = "Content-Length";
 
 	@Override
-	public Media.Log doGet(
+	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
-		throws IOException
+		throws IOException, NotFound
 	{
 		final String content = source.get(item);
+
+		commit();
+
 		//System.out.println("contentType="+contentType);
 		if(content==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
 
-		response.setContentType("text/plain");
-
 		final long now = System.currentTimeMillis();
 		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
-		final byte[] contentBytes = content.getBytes("utf-8");
-		final long contentLength = contentBytes.length;
-		//System.out.println("contentLength="+String.valueOf(contentLength));
-		response.setHeader(RESPONSE_CONTENT_LENGTH, String.valueOf(contentLength));
-		//response.setHeader("Cache-Control", "public");
-
-		System.out.println(request.getMethod()+' '+request.getProtocol()+" modified: "+contentLength);
-
-		final ServletOutputStream out = response.getOutputStream();
-		try
-		{
-			out.write(contentBytes);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
-		}
-		return delivered;
+		MediaUtil.send("text/plain", UTF8, content, response);
 	}
 
 	@Override
@@ -108,8 +90,20 @@ final class MediaNameServer extends MediaPath
 	}
 
 	@Override
+	public Condition isNull(final Join join)
+	{
+		return source.bind( join ).isNull();
+	}
+
+	@Override
 	public Condition isNotNull()
 	{
 		return source.isNotNull();
+	}
+
+	@Override
+	public Condition isNotNull(final Join join)
+	{
+		return source.bind(join).isNotNull();
 	}
 }

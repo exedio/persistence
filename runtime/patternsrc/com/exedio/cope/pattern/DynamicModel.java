@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,10 +22,6 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static java.lang.Math.max;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
@@ -40,7 +36,10 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.List;
 
 public final class DynamicModel<L> extends Pattern
 {
@@ -51,7 +50,7 @@ public final class DynamicModel<L> extends Pattern
 	final MapField<L, String> typeLocalization;
 
 	final IntegerField fieldPosition = new IntegerField().toFinal();
-	final EnumField<ValueType> fieldValueType = Item.newEnumField(ValueType.class).toFinal();
+	final EnumField<ValueType> fieldValueType = EnumField.create(ValueType.class).toFinal();
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
 	final MapField<L, String> fieldLocalization;
@@ -68,7 +67,8 @@ public final class DynamicModel<L> extends Pattern
 	private final DoubleField [] doubles;
 	private final ItemField<Enum<L>>[] enums;
 
-	private Mount<L> mount = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private Mount<L> mountIfMounted = null;
 
 	private DynamicModel(
 			final FunctionField<L> locale,
@@ -91,7 +91,7 @@ public final class DynamicModel<L> extends Pattern
 		integers = new IntegerField[integerCapacity];
 		doubles  = new DoubleField [doubleCapacity];
 		enums    = newItemField    (enumCapacity);
-		fields   = new FunctionField[strings.length + booleans.length + integers.length + doubles.length + enums.length];
+		fields   = new FunctionField<?>[strings.length + booleans.length + integers.length + doubles.length + enums.length];
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
@@ -106,16 +106,16 @@ public final class DynamicModel<L> extends Pattern
 
 	private MapField<L, String> newLocalization()
 	{
-		return MapField.newMap(localeTemplate.copy(), new StringField());
+		return MapField.create(localeTemplate.copy(), new StringField());
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // OK: no generic arrays
 	private ItemField<Enum<L>>[] newItemField(final int length)
 	{
 		return new ItemField[length];
 	}
 
-	public static final <L> DynamicModel<L> newModel(
+	public static final <L> DynamicModel<L> create(
 			final FunctionField<L> locale,
 			final int stringCapacity,
 			final int booleanCapacity,
@@ -127,7 +127,7 @@ public final class DynamicModel<L> extends Pattern
 				stringCapacity, booleanCapacity, integerCapacity, doubleCapacity, enumCapacity);
 	}
 
-	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
+	public static final <L> DynamicModel<L> create(final FunctionField<L> locale)
 	{
 		return new DynamicModel<L>(locale, 5, 5, 5, 5, 5);
 	}
@@ -209,7 +209,7 @@ public final class DynamicModel<L> extends Pattern
 		ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
 
-		this.mount = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
+		this.mountIfMounted = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}
 
 	private static final class Mount<L>
@@ -239,25 +239,25 @@ public final class DynamicModel<L> extends Pattern
 
 	Mount<L> mount()
 	{
-		final Mount<L> mount = this.mount;
+		final Mount<L> mount = this.mountIfMounted;
 		if(mount==null)
 			throw new IllegalStateException("feature not mounted");
 		return mount;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
 	{
 		return t;
@@ -278,37 +278,7 @@ public final class DynamicModel<L> extends Pattern
 		return mount().typeType.searchSingleton(typeCode.equal(code));
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		result.add(
-			new Wrapper("getType").
-			addComment("Returns the dynamic type of this item in the model {0}.").
-			setReturn(Wrapper.generic(Type.class, Wrapper.TypeVariable0.class)));
-
-		result.add(
-			new Wrapper("setType").
-			addComment("Sets the dynamic type of this item in the model {0}.").
-			addParameter(Wrapper.generic(Type.class, Wrapper.TypeVariable0.class), "type"));
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of <tt>field</tt> for this item in the model {0}.").
-			setReturn(Object.class).
-			addParameter(Wrapper.generic(Field.class, Wrapper.TypeVariable0.class), "field"));
-
-		result.add(
-			new Wrapper("set").
-			addComment("Sets the value of <tt>field</tt> for this item in the model {0}.").
-			addParameter(Wrapper.generic(Field.class, Wrapper.TypeVariable0.class), "field").
-			addParameter(Object.class, "value"));
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")
 	public Type<L> getType(final Item item)
 	{
 		return mount().type.get(item);
@@ -329,17 +299,17 @@ public final class DynamicModel<L> extends Pattern
 		return mount().enumType;
 	}
 
-	public com.exedio.cope.Type getTypeLocalizationType()
+	public com.exedio.cope.Type<?> getTypeLocalizationType()
 	{
 		return typeLocalization.getRelationType();
 	}
 
-	public com.exedio.cope.Type getFieldLocalizationType()
+	public com.exedio.cope.Type<?> getFieldLocalizationType()
 	{
 		return fieldLocalization.getRelationType();
 	}
 
-	public com.exedio.cope.Type getEnumLocalizationType()
+	public com.exedio.cope.Type<?> getEnumLocalizationType()
 	{
 		return enumLocalization.getRelationType();
 	}
@@ -349,14 +319,17 @@ public final class DynamicModel<L> extends Pattern
 		return mount().type;
 	}
 
-	public void setType(final Item item, final Type<L> type)
+	@Wrap(order=20, doc="Sets the dynamic type of this item in the model {0}.")
+	public void setType(
+			final Item item,
+			@Parameter("type") final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
 					"dynamic model mismatch: new type has model " + type.getModel() +
 					", but must be " + toString());
 
-		final SetValue[] values = new SetValue[1+fields.length];
+		final SetValue<?>[] values = new SetValue<?>[1+fields.length];
 		values[0] = mount().type.map(type);
 		for(int i = 0; i<fields.length; i++)
 			values[1+i] = fields[i].map(null);
@@ -381,9 +354,9 @@ public final class DynamicModel<L> extends Pattern
 		return getField(valueType, pos, field);
 	}
 
-	FunctionField<?> getField(final ValueType valueType, final int pos, final Field field)
+	FunctionField<?> getField(final ValueType valueType, final int pos, final Field<?> field)
 	{
-		final FunctionField[] array = array(valueType);
+		final FunctionField<?>[] array = array(valueType);
 
 		// make a more verbose exception instead
 		// of the ArrayIndexOutOfBoundException
@@ -395,6 +368,7 @@ public final class DynamicModel<L> extends Pattern
 		return array[pos];
 	}
 
+	@SuppressWarnings("static-method")
 	private void assertValueType(final Field<L> field, final ValueType valueType)
 	{
 		final ValueType fieldValueType = field.getValueType();
@@ -418,27 +392,42 @@ public final class DynamicModel<L> extends Pattern
 		return enums[pos];
 	}
 
-	public Object get(final Item item, final Field<L> field)
+	@Wrap(order=30, doc="Returns the value of <tt>field</tt> for this item in the model {0}.")
+	public Object get(
+			final Item item,
+			@Parameter("field") final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
 	}
 
-	public void set(final Item item, final Field<L> field, final Object value)
+	@Wrap(order=40, doc="Sets the value of <tt>field</tt> for this item in the model {0}.")
+	public void set(
+			final Item item,
+			@Parameter("field") final Field<L> field,
+			@Parameter("value") final Object value)
 	{
 		assertType(item, field);
 
 		if(value!=null &&
-			value instanceof DynamicModel.Enum &&
+			value instanceof DynamicModel.Enum<?> &&
 			field.getValueType()==ValueType.ENUM)
 		{
-			final Enum enumValue = (Enum)value;
-			final Field enumValueParent = enumValue.getParent();
+			final Enum<?> enumValue = (Enum<?>)value;
+			final Field<?> enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);
 		}
 
 		Cope.setAndCast(getField(field), item, value);
+	}
+
+	void checkMatchingLocalization(final DynamicModel<?> pattern)
+	{
+		if(localeTemplate.getValueClass()!=pattern.localeTemplate.getValueClass())
+			throw new ClassCastException(
+					"expected a " + localeTemplate.getValueClass().getName() +
+					", but was a " + pattern.localeTemplate.getValueClass().getName());
 	}
 
 	public static enum ValueType
@@ -449,14 +438,14 @@ public final class DynamicModel<L> extends Pattern
 		DOUBLE (Double.class),
 		ENUM   (DynamicModel.Enum.class);
 
-		final Class valueClass;
+		final Class<?> valueClass;
 
-		ValueType(final Class valueClass)
+		ValueType(final Class<?> valueClass)
 		{
 			this.valueClass = valueClass;
 		}
 
-		public final Class getValueClass()
+		public final Class<?> getValueClass()
 		{
 			return valueClass;
 		}
@@ -546,12 +535,12 @@ public final class DynamicModel<L> extends Pattern
 						p.fieldCode.equal(code)));
 		}
 
-		public com.exedio.cope.Type getParentType()
+		public com.exedio.cope.Type<?> getParentType()
 		{
 			return getPattern().getType();
 		}
 
-		public DynamicModel getModel()
+		public DynamicModel<?> getModel()
 		{
 			return getPattern();
 		}
@@ -648,7 +637,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #getModel()} instead
 		 */
 		@Deprecated
-		public DynamicModel getDtypeSystem()
+		public DynamicModel<?> getDtypeSystem()
 		{
 			return getModel();
 		}
@@ -663,7 +652,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();
@@ -723,6 +712,16 @@ public final class DynamicModel<L> extends Pattern
 							p.enumCode.map(code));
 		}
 
+		public Enum<L> as(final Enum<?> value)
+		{
+			assertEnum();
+			getPattern().checkMatchingLocalization(value.getPattern());
+
+			@SuppressWarnings("unchecked") // OK: is checked on runtime
+			final Enum<L> result = (Enum<L>)value;
+			return result;
+		}
+
 		public Type<L> getParent()
 		{
 			return getPattern().mount().fieldParent.get(this);
@@ -779,7 +778,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();
@@ -809,5 +808,32 @@ public final class DynamicModel<L> extends Pattern
 		{
 			getPattern().enumLocalization.set(this, locale, value);
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField,int,int,int,int,int)} instead
+	 */
+	@Deprecated
+	public static final <L> DynamicModel<L> newModel(
+			final FunctionField<L> locale,
+			final int stringCapacity,
+			final int booleanCapacity,
+			final int integerCapacity,
+			final int doubleCapacity,
+			final int enumCapacity)
+	{
+		return create(locale, stringCapacity, booleanCapacity, integerCapacity,
+				doubleCapacity, enumCapacity);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(FunctionField)} instead
+	 */
+	@Deprecated
+	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
+	{
+		return create(locale);
 	}
 }

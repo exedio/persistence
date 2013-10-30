@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,16 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
@@ -39,9 +29,18 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.Cast;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Set;
 
 /**
  * Stores a java object by serialization - use with care!
@@ -74,12 +73,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		addSource(source, "data", ComputedElement.get());
 	}
 
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
+	public static final <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<E>(valueClass, source);
 	}
 
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
+	public static final <E> Serializer<E> create(final Class<E> valueClass)
 	{
 		return new Serializer<E>(valueClass, new DataField());
 	}
@@ -106,7 +105,13 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.isFinal();
 	}
 
-	public Class getInitialType()
+	public boolean isMandatory()
+	{
+		return source.isMandatory();
+	}
+
+	@Deprecated
+	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
@@ -116,31 +121,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.getInitialExceptions();
 	}
 
-	@Override
-	public List<Wrapper> getWrappers()
-	{
-		final ArrayList<Wrapper> result = new ArrayList<Wrapper>();
-		result.addAll(super.getWrappers());
-
-		final Class initialType = getInitialType();
-
-		result.add(
-			new Wrapper("get").
-			addComment("Returns the value of {0}.").
-			setReturn(initialType));
-
-		if(!isFinal())
-		{
-			result.add(
-				new Wrapper("set").
-				addComment("Sets a new value for {0}.").
-				addThrows(getInitialExceptions()).
-				addParameter(initialType));
-		}
-
-		return Collections.unmodifiableList(result);
-	}
-
+	@Wrap(order=10, doc="Returns the value of {0}.")
 	public E get(final Item item)
 	{
 		final byte[] buf = source.getArray(item);
@@ -184,6 +165,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return result;
 	}
 
+	@Wrap(order=20,
+			doc="Sets a new value for {0}.",
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void set(final Item item, final E value)
 		throws
 			UniqueViolationException,
@@ -197,14 +182,15 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 
 	public SetValue<E> map(final E value)
 	{
-		return new SetValue<E>(this, value);
+		return SetValue.map(this, value);
 	}
 
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue[]{ source.map(serialize(value)) };
+		return new SetValue<?>[]{ source.map(serialize(value)) };
 	}
 
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private byte[] serialize(final E value)
 	{
 		if(value==null)
@@ -239,5 +225,25 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			}
 		}
 		return bos.toByteArray();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #create(Class,DataField)} instead
+	 */
+	@Deprecated
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
+	{
+		return create(valueClass, source);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Class)} instead
+	 */
+	@Deprecated
+	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
+	{
+		return create(valueClass);
 	}
 }

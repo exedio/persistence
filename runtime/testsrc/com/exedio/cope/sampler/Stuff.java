@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,14 +20,29 @@ package com.exedio.cope.sampler;
 
 import com.exedio.cope.Model;
 
-final class Stuff
+public final class Stuff
 {
-	static final Model MODEL = new Model(SampledModelItem.TYPE);
+	static final Model MODEL = new Model(SampledModelItem.TYPE, SampledModelItem2.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(Stuff.class, "MODEL");
 	}
 
-	static final Sampler sampler = new Sampler(MODEL);
+	static final Sampler sampler = new MySampler(MODEL);
+	public static final Model samplerModel = sampler.getModel();
+
+	private static class MySampler extends Sampler
+	{
+		MySampler(final Model sampledModel)
+		{
+			super(sampledModel);
+		}
+
+		@Override
+		public long getTransactionDuration()
+		{
+			return 0;
+		}
+	}
 }

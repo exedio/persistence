@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 
-public class CompositeDefaultTest extends AbstractRuntimeTest
+public class CompositeDefaultTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(CompositeDefaultItem.TYPE);
 
@@ -37,16 +37,14 @@ public class CompositeDefaultTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		final CompositeDefaultItem isDefault =
-			deleteOnTearDown(new CompositeDefaultItem());
+		final CompositeDefaultItem isDefault = new CompositeDefaultItem();
 		assertNull(isDefault.getField());
 
-		final CompositeDefaultItem isNull =
-			deleteOnTearDown(new CompositeDefaultItem(null));
+		final CompositeDefaultItem isNull = new CompositeDefaultItem(null);
 		assertNull(isNull.getField());
 
 		final CompositeDefaultItem isNotNull =
-			deleteOnTearDown(new CompositeDefaultItem(new CompositeDefaultValue("normalValue")));
+			new CompositeDefaultItem(new CompositeDefaultValue("normalValue"));
 		assertEquals("normalValue", isNotNull.getField().getNormal());
 		assertEquals(5, isNotNull.getField().getDeflt());
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2009  exedio GmbH (www.exedio.com)
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +18,12 @@
 
 package com.exedio.cope;
 
-import java.util.Collection;
-
 import com.exedio.cope.search.ExtremumAggregate;
+import java.util.Collection;
 
 public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
-
-	Class<E> getValueClass();
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	void appendParameter(Statement bf, E value);
 
 	// convenience methods for conditions and views ---------------------------------
 
@@ -59,7 +50,7 @@ public interface Function<E> extends Selectable<E>
 
 	Condition equal(Join join, E value);
 	Condition in(E... values);
-	Condition in(Collection<E> value);
+	Condition in(Collection<? extends E> value);
 	Condition notEqual(E value);
 
 	/**
