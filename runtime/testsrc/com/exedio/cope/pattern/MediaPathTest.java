@@ -54,6 +54,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	private String id;
 	private MyMediaServlet servlet;
 	private AbsoluteMockClockStrategy clock;
+	private int mediaOffsetExpires;
 
 	@Override
 	public void setUp() throws Exception
@@ -65,6 +66,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		servlet.initConnected(MODEL);
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
+		this.mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
 	}
 
 	@Override
@@ -263,37 +265,46 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		assertOk(ok);
 
 		item.setNormalLastModified(new Date(77771000l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77771000l);
 		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77771001l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
+		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77771999l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
 		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772000l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77772000l);
 		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772001l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok)).assertOkAndCache(77773000l);
 		clock.assertEmpty();
 
 		item.setNormalLastModified(new Date(77772000l));
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77771999l)).assertOkAndCache (77772000l);
 		clock.assertEmpty();
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77772000l)).assertNotModified(77772000l);
 		clock.assertEmpty();
-		clock.add(77777);
+		if(mediaOffsetExpires>0)
+			clock.add(77777);
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
 		clock.assertEmpty();
 	}
@@ -307,10 +318,10 @@ public final class MediaPathTest extends AbstractRuntimeTest
 		service(new Request(ok)).assertExpires(Long.MIN_VALUE).assertOk();
 
 		item.setNormalLastModified(new Date(77772000l));
-		clock.add(1234567890);
+		if(mediaOffsetExpires>0)
+			clock.add(1234567890);
 		final Response response = service(new Request(ok));
 		clock.assertEmpty();
-		final int mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
 		if(mediaOffsetExpires>0)
 			response.assertExpires(1234567890 + mediaOffsetExpires).assertOkAndCache(77772000l);
 		else
