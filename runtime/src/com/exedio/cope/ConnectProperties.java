@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -191,12 +192,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public ConnectProperties(final File file, final Source context)
 	{
-		this(getSource(file), context);
+		this(Sources.load(file), context);
 	}
 
 	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
 	{
-		this(getSource(properties, sourceDescription), context);
+		this(Sources.view(properties, sourceDescription), context);
 	}
 
 	@SuppressWarnings("deprecation")
