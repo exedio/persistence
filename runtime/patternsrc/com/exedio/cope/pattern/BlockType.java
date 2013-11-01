@@ -122,6 +122,12 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		}
 	}
 
+	@Override
+	public String toString()
+	{
+		return javaClass.getName();
+	}
+
 	// static registry
 
 	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<Class<?>, BlockType<?>>();

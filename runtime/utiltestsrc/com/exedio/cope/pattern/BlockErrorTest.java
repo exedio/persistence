@@ -186,6 +186,7 @@ public class BlockErrorTest extends CopeAssert
 	public void testAlreadyBound()
 	{
 		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
+		assertEquals(AlreadyBound.class.getName(), TYPE.toString());
 		try
 		{
 			newType(AlreadyBound.class);
