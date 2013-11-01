@@ -40,7 +40,6 @@ import java.util.Properties;
  */
 final class MysqlDialect extends Dialect
 {
-	private final boolean supportsUniqueViolation;
 	private final String deleteTable;
 
 	protected MysqlDialect(final DialectParameters parameters)
@@ -50,7 +49,6 @@ final class MysqlDialect extends Dialect
 				new com.exedio.dsmf.MysqlDialect(
 						parameters.properties.mysqlRowFormat.sql,
 						Table.PK_COLUMN_NAME));
-		this.supportsUniqueViolation = parameters.environmentInfo.isDatabaseVersionAtLeast(5, 1);
 		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
@@ -489,7 +487,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsUniqueViolation()
 	{
-		return supportsUniqueViolation;
+		return true;
 	}
 
 	private static final String UNIQUE_PREFIX = "Duplicate entry '";
