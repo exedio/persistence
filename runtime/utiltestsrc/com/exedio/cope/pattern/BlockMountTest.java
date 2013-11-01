@@ -228,10 +228,9 @@ public class BlockMountTest extends CopeAssert
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
 		private static final long serialVersionUID = 1l;
+		static final BlockType<?> TYPE = BlockType.newType(Value.class);
 		private Value(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	private static final String valueName = Value.class.getName() + '#';
-
-	static final BlockType<?> TYPE = BlockType.newType(Value.class);
 }
