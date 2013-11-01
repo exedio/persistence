@@ -40,12 +40,6 @@ import java.util.Properties;
  */
 final class MysqlDialect extends Dialect
 {
-	/**
-	 * mysql supports placeholders in version 5.0.7 and higher
-	 */
-	private final boolean placeholdersInLimit;
-	private final boolean supportsUniqueViolation;
-	private final String sessionVariables;
 	private final String deleteTable;
 
 	protected MysqlDialect(final DialectParameters parameters)
@@ -55,30 +49,17 @@ final class MysqlDialect extends Dialect
 				new com.exedio.dsmf.MysqlDialect(
 						parameters.properties.mysqlRowFormat.sql,
 						Table.PK_COLUMN_NAME));
-		this.placeholdersInLimit = parameters.environmentInfo.getDatabaseMajorVersion()>=5;
-		this.supportsUniqueViolation = parameters.environmentInfo.isDatabaseVersionAtLeast(5, 1);
-		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append("sql_mode='" + SQL_MODE + "'");
-
-			// since 5.1.38
-			// http://dev.mysql.com/doc/refman/5.1/en/innodb-parameters.html#sysvar_innodb_strict_mode
-			if(parameters.environmentInfo.isDatabaseVersionAtLeast(5, 2))
-				bf.append(",innodb_strict_mode=1");
-
-			sessionVariables = bf.toString();
-		}
 		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
 	@Override
 	protected void completeConnectionInfo(final Properties info)
 	{
-		// http://dev.mysql.com/doc/refman/5.1/en/connector-j-reference-configuration-properties.html
+		// http://dev.mysql.com/doc/refman/5.5/en/connector-j-reference-configuration-properties.html
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
-		info.setProperty("sessionVariables", sessionVariables);
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "',innodb_strict_mode=1");
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		//info.setProperty("profileSQL", TRUE);
@@ -232,20 +213,11 @@ final class MysqlDialect extends Dialect
 		bf.append(" limit ");
 
 		if(offset>0)
-		{
-			if(placeholdersInLimit)
-				bf.appendParameter(offset).append(',');
-			else
-				bf.append(Integer.toString(offset)).append(',');
-		}
+			bf.appendParameter(offset).append(',');
 
 		// using MAX_VALUE is really the recommended usage, see MySQL doc.
 		final int countInStatement = limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE;
-
-		if(placeholdersInLimit)
-			bf.appendParameter(countInStatement);
-		else
-			bf.append(Integer.toString(countInStatement));
+		bf.appendParameter(countInStatement);
 	}
 
 	@Override
@@ -515,7 +487,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsUniqueViolation()
 	{
-		return supportsUniqueViolation;
+		return true;
 	}
 
 	private static final String UNIQUE_PREFIX = "Duplicate entry '";
