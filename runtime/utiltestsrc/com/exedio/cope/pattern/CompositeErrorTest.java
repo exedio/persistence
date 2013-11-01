@@ -59,6 +59,11 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
+	static class NonFinal extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
 
 	public void testNoConstructor()
 	{
@@ -76,6 +81,11 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
+	static final class NoConstructor extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
 
 	public void testNoFields()
 	{
@@ -88,6 +98,12 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals("composite has no templates", e.getMessage());
 		}
+	}
+
+	static final class NoFields extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		private NoFields(final SetValue<?>[] setValues) { super(setValues); }
 	}
 
 
@@ -104,6 +120,13 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
+	static final class NullField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		private NullField(final SetValue<?>[] setValues) { super(setValues); }
+		static final Field<?> nullField = null;
+	}
+
 
 	public void testNotFunctionField()
 	{
@@ -116,6 +139,13 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
 		}
+	}
+
+	static final class PatternField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		private PatternField(final SetValue<?>[] setValues) { super(setValues); }
+		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
 
@@ -146,6 +176,13 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
+	static final class FinalField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
+		static final BooleanField finalField = new BooleanField().toFinal();
+	}
+
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testNoComposite()
@@ -159,42 +196,5 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
-	}
-
-	static class NonFinal extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-	static final class NoConstructor extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-	static final class NoFields extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-		private NoFields(final SetValue<?>[] setValues) { super(setValues); }
-	}
-
-	static final class NullField extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-		private NullField(final SetValue<?>[] setValues) { super(setValues); }
-		static final Field<?> nullField = null;
-	}
-
-	static final class PatternField extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-		private PatternField(final SetValue<?>[] setValues) { super(setValues); }
-		static final Feature patternField = MapField.create(new StringField(), new StringField());
-	}
-
-	static final class FinalField extends Composite
-	{
-		private static final long serialVersionUID = 1l;
-		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
-		static final BooleanField finalField = new BooleanField().toFinal();
 	}
 }
