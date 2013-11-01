@@ -40,10 +40,6 @@ import java.util.Properties;
  */
 final class MysqlDialect extends Dialect
 {
-	/**
-	 * mysql supports placeholders in version 5.0.7 and higher
-	 */
-	private final boolean placeholdersInLimit;
 	private final boolean supportsUniqueViolation;
 	private final String sessionVariables;
 	private final String deleteTable;
@@ -55,7 +51,6 @@ final class MysqlDialect extends Dialect
 				new com.exedio.dsmf.MysqlDialect(
 						parameters.properties.mysqlRowFormat.sql,
 						Table.PK_COLUMN_NAME));
-		this.placeholdersInLimit = parameters.environmentInfo.getDatabaseMajorVersion()>=5;
 		this.supportsUniqueViolation = parameters.environmentInfo.isDatabaseVersionAtLeast(5, 1);
 		{
 			final StringBuilder bf = new StringBuilder();
@@ -232,20 +227,11 @@ final class MysqlDialect extends Dialect
 		bf.append(" limit ");
 
 		if(offset>0)
-		{
-			if(placeholdersInLimit)
-				bf.appendParameter(offset).append(',');
-			else
-				bf.append(Integer.toString(offset)).append(',');
-		}
+			bf.appendParameter(offset).append(',');
 
 		// using MAX_VALUE is really the recommended usage, see MySQL doc.
 		final int countInStatement = limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE;
-
-		if(placeholdersInLimit)
-			bf.appendParameter(countInStatement);
-		else
-			bf.append(Integer.toString(countInStatement));
+		bf.appendParameter(countInStatement);
 	}
 
 	@Override

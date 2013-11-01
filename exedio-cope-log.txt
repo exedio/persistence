@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* dropped support for MySQL 5.0 and 5.1, new minimum requirement is MySQL 5.5
 * Price supports toStringShort()
 * MediaPath supports MediaRequestLog
 * @CopeID renamed to @CopeName
