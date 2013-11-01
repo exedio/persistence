@@ -137,7 +137,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(NotFunctionField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
+			assertEquals(NotFunctionField.class.getName() + "#notFunctionField must be an instance of " + FunctionField.class, e.getMessage());
 		}
 	}
 
@@ -145,7 +145,7 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 		private NotFunctionField(final SetValue<?>[] setValues) { super(setValues); }
-		static final Feature patternField = MapField.create(new StringField(), new StringField());
+		static final Feature notFunctionField = MapField.create(new StringField(), new StringField());
 	}
 
 
