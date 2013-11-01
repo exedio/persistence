@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockType.newType;
 
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
@@ -179,5 +180,28 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals("is not a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
 		}
+	}
+
+
+	public void testAlreadyBound()
+	{
+		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
+		try
+		{
+			newType(AlreadyBound.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("class is already bound to a type: " + AlreadyBound.class.getName(), e.getMessage());
+		}
+	}
+
+	static final class AlreadyBound extends Block
+	{
+		private static final long serialVersionUID = 1l;
+		private AlreadyBound(final BlockActivationParameters ap) { super(ap); }
+		static final BooleanField field = new BooleanField();
+		static final BlockType<AlreadyBound> TYPE = newType(AlreadyBound.class);
 	}
 }
