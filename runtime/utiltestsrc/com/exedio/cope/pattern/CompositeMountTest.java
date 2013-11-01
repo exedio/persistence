@@ -47,7 +47,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -56,7 +56,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -80,7 +80,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -89,7 +89,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -140,7 +140,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
 		}
 		try
 		{
@@ -149,7 +149,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + compositeName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -166,8 +166,8 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testToString()
 	{
-		assertEquals(compositeName + "string4", MyComposite.string4.toString());
-		assertEquals(compositeName + "intMax4", MyComposite.intMax4.toString());
+		assertEquals(valueName + "string4", MyComposite.string4.toString());
+		assertEquals(valueName + "intMax4", MyComposite.intMax4.toString());
 
 		final LongField negative = new LongField();
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
@@ -264,7 +264,7 @@ public class CompositeMountTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	private static final String compositeName = MyComposite.class.getName() + '#';
+	private static final String valueName = MyComposite.class.getName() + '#';
 
 	/**
 	 * Needed to instantiate {@link CompositeType}.
