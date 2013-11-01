@@ -29,6 +29,7 @@ public class PackageUtilTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(BlockErrorTest.class);
 		suite.addTestSuite(BlockRenamedIdTest.class);
+		suite.addTestSuite(BlockMountTest.class);
 		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(CompositeMountTest.class);
