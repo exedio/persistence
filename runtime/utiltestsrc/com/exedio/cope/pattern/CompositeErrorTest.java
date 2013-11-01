@@ -30,7 +30,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompositeErrorTest extends CopeAssert
 {
-	public void testIt()
+	public void testNull()
 	{
 		try
 		{
@@ -41,6 +41,11 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals("valueClass", e.getMessage());
 		}
+	}
+
+
+	public void testNonFinal()
+	{
 		try
 		{
 			create(NonFinal.class);
@@ -52,6 +57,11 @@ public class CompositeErrorTest extends CopeAssert
 					"is not final: " +
 					NonFinal.class.getName(), e.getMessage());
 		}
+	}
+
+
+	public void testNoConstructor()
+	{
 		try
 		{
 			create(NoConstructor.class);
@@ -64,6 +74,11 @@ public class CompositeErrorTest extends CopeAssert
 					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+	}
+
+
+	public void testNoFields()
+	{
 		try
 		{
 			create(NoFields.class);
@@ -73,6 +88,11 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals("composite has no templates", e.getMessage());
 		}
+	}
+
+
+	public void testNullField()
+	{
 		try
 		{
 			create(NullField.class);
@@ -82,6 +102,11 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
 		}
+	}
+
+
+	public void testNotFunctionField()
+	{
 		try
 		{
 			create(PatternField.class);
@@ -91,6 +116,11 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
 		}
+	}
+
+
+	public void testCompositeItself()
+	{
 		try
 		{
 			create(Composite.class);
@@ -100,6 +130,11 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals("is not a subclass of " + Composite.class.getName() + " but Composite itself", e.getMessage());
 		}
+	}
+
+
+	public void testFinalField()
+	{
 		try
 		{
 			create(FinalField.class);
@@ -111,8 +146,9 @@ public class CompositeErrorTest extends CopeAssert
 		}
 	}
 
+
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	public void testNoComposite()
 	{
 		try
 		{
