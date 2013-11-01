@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.BlockRenamedIdTest.MyComposite.virgnTemp;
-import static com.exedio.cope.pattern.BlockRenamedIdTest.MyComposite.wrongTemp;
+import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.virgnTemp;
+import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.wrongTemp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.wrongComp;
@@ -67,22 +67,22 @@ public final class BlockRenamedIdTest extends CopeAssert
 		return a!=null ? a.value() : null;
 	}
 
-	static final class MyComposite extends Block
+	static final class MyBlock extends Block
 	{
 		static final StringField virgnTemp = new StringField();
 		@CopeName("namedTemp")
 		static final StringField wrongTemp = new StringField();
 
 		private static final long serialVersionUID = 1l;
-		static final BlockType<MyComposite> TYPE = BlockType.newType(MyComposite.class);
-		private MyComposite(final BlockActivationParameters ap) { super(ap); }
+		static final BlockType<MyBlock> TYPE = BlockType.newType(MyBlock.class);
+		private MyBlock(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final BlockField<MyComposite> virgnComp = BlockField.create(MyComposite.TYPE);
+		static final BlockField<MyBlock> virgnComp = BlockField.create(MyBlock.TYPE);
 		@CopeName("namedComp")
-		static final BlockField<MyComposite> wrongComp = BlockField.create(MyComposite.TYPE);
+		static final BlockField<MyBlock> wrongComp = BlockField.create(MyBlock.TYPE);
 
 		private MyItem(final SetValue<?>... setValues) { super(setValues); }
 		private static final long serialVersionUID = 1l;
