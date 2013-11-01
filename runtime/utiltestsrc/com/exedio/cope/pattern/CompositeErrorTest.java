@@ -132,19 +132,19 @@ public class CompositeErrorTest extends CopeAssert
 	{
 		try
 		{
-			create(PatternField.class);
+			create(NotFunctionField.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(PatternField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
+			assertEquals(NotFunctionField.class.getName() + "#patternField must be an instance of " + FunctionField.class, e.getMessage());
 		}
 	}
 
-	static final class PatternField extends Composite
+	static final class NotFunctionField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-		private PatternField(final SetValue<?>[] setValues) { super(setValues); }
+		private NotFunctionField(final SetValue<?>[] setValues) { super(setValues); }
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
