@@ -356,11 +356,7 @@ final class JavaRepository
 
 	static final class DummyComposite extends Composite
 	{
-		protected DummyComposite(final SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
-
+		protected DummyComposite(final SetValue<?>... setValues) { super(setValues); }
 		private static final long serialVersionUID = 1l;
 	}
 }
