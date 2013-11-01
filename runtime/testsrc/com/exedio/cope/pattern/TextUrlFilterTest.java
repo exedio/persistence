@@ -167,7 +167,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 	}
 
-	static class Response extends ResponseTemplate
+	static class Response extends HttpServletResponseDummy
 	{
 		final String body;
 		int contentLength = -1;
