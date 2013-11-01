@@ -79,7 +79,6 @@ public final class CompositeFieldComputedTest extends CopeAssert
 		@Computed()
 		static final CompositeField<MyComposite> compuComp = CompositeField.create(MyComposite.class);
 
-
 		private static final long serialVersionUID = 1l;
 		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
 		private MyItem(final ActivationParameters ap) { super(ap); }
