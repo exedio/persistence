@@ -62,7 +62,7 @@ public final class BlockField<E extends Block> extends Pattern
 			for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
 			{
 				final Feature template = e.getValue();
-				final Feature component = ((Copyable)template).copy(mapper);
+				final Feature component = mapper.put(template, ((Copyable)template).copy(mapper));
 				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);

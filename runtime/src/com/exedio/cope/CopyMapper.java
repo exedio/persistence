@@ -22,11 +22,11 @@ import java.util.HashMap;
 
 public final class CopyMapper
 {
-	private final HashMap<FunctionField<?>, FunctionField<?>> map = new HashMap<FunctionField<?>, FunctionField<?>>();
+	private final HashMap<Feature, Feature> map = new HashMap<Feature, Feature>();
 
-	public <F extends FunctionField<?>> F get(final F template)
+	public <F extends Feature> F get(final F template)
 	{
-		final FunctionField<?> mapped = map.get(template);
+		final Feature mapped = map.get(template);
 		if(mapped==null)
 			throw new IllegalArgumentException("not mapped " + template);
 		@SuppressWarnings("unchecked")
@@ -46,8 +46,13 @@ public final class CopyMapper
 	{
 		@SuppressWarnings("unchecked")
 		final F component = (F)template.copy();
+		return put(template, component);
+	}
+
+	public <F extends Feature> F put(final F template, final F component)
+	{
 		final Feature mapped = map.put(template, component);
-		if(mapped!=null)
+		if(mapped!=null && mapped!=component)
 			throw new IllegalArgumentException("already mapped " + template);
 		return component;
 	}

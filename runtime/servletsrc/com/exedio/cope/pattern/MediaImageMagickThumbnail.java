@@ -112,7 +112,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 	@Override
 	public MediaImageMagickThumbnail copy(final CopyMapper mapper)
 	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, this.getOutputContentType());
+		return new MediaImageMagickThumbnail(mapper.get(getSource()), this.boundX, this.boundY, this.density, this.flattenColor, this.getOutputContentType());
 	}
 
 	public int getBoundX()

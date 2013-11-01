@@ -23,19 +23,24 @@ import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.ABlock.source;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.zwei;
 
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 
-public class BlockFieldMediaFilterTest extends CopeAssert
+public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
 		MODEL.enableSerialization(BlockFieldMediaFilterTest.class, "MODEL");
+	}
+
+	public BlockFieldMediaFilterTest()
+	{
+		super(MODEL);
 	}
 
 	public void testModel()
@@ -67,8 +72,8 @@ public class BlockFieldMediaFilterTest extends CopeAssert
 				eins.of(source), eins.of(filter)),
 			eins.getSourceFeatures());
 
-		assertEquals(source, eins.of(filter).getSource()); // TODO eins.of(source)
-		assertEquals(source, zwei.of(filter).getSource()); // TODO zwei.of(source)
+		assertEquals(eins.of(source), eins.of(filter).getSource());
+		assertEquals(zwei.of(source), zwei.of(filter).getSource());
 		assertEquals(source, filter.getSource());
 
 		assertEquals(ABlock.TYPE, eins.getValueType());
@@ -83,6 +88,21 @@ public class BlockFieldMediaFilterTest extends CopeAssert
 
 	public void testPersistence()
 	{
+		final AnItem i1 = new AnItem("item1");
+		assertEquals("item1", i1.getCode());
+
+		final ABlock b1a = i1.eins();
+		final ABlock b1b = i1.zwei();
+		assertEquals(null, b1a.getSourceURL());
+		assertEquals(null, b1a.getFilterURL());
+		assertEquals(null, b1b.getSourceURL());
+		assertEquals(null, b1b.getFilterURL());
+
+		b1a.setSource(new byte[]{1,2,3}, MediaType.JPEG);
+		assertEquals(mediaRootUrl + "AnItem/eins-source/"+i1+".jpg", b1a.getSourceURL());
+		assertEquals(mediaRootUrl + "AnItem/eins-filter/"+i1+".jpg", b1a.getFilterURL());
+		assertEquals(null, b1b.getSourceURL());
+		assertEquals(null, b1b.getFilterURL());
 	}
 
 	static final class ABlock extends Block
