@@ -351,7 +351,7 @@ final class JavaRepository
 	{
 		private static final long serialVersionUID = 1l;
 		public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
-		protected DummyBlock(final BlockActivationParameters ap) { super(ap); }
+		private DummyBlock(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	static final class DummyComposite extends Composite
