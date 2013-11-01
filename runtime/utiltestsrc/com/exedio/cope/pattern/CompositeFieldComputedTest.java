@@ -18,14 +18,20 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.CompositeFieldComputedComposite.compuTemp;
-import static com.exedio.cope.pattern.CompositeFieldComputedComposite.virgnTemp;
-import static com.exedio.cope.pattern.CompositeFieldComputedItem.TYPE;
-import static com.exedio.cope.pattern.CompositeFieldComputedItem.compuComp;
-import static com.exedio.cope.pattern.CompositeFieldComputedItem.virgnComp;
+import static com.exedio.cope.pattern.CompositeFieldComputedTest.ComputedComposite.compuTemp;
+import static com.exedio.cope.pattern.CompositeFieldComputedTest.ComputedComposite.virgnTemp;
+import static com.exedio.cope.pattern.CompositeFieldComputedTest.ComputedItem.TYPE;
+import static com.exedio.cope.pattern.CompositeFieldComputedTest.ComputedItem.compuComp;
+import static com.exedio.cope.pattern.CompositeFieldComputedTest.ComputedItem.virgnComp;
 
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 
@@ -56,5 +62,27 @@ public final class CompositeFieldComputedTest extends CopeAssert
 		final boolean result = f.isAnnotationPresent(Computed.class);
 		assertEquals(result, f.getAnnotation(Computed.class)!=null);
 		return result;
+	}
+
+	static final class ComputedComposite extends Composite
+	{
+		static final StringField virgnTemp = new StringField();
+		@Computed()
+		static final StringField compuTemp = new StringField();
+
+		private ComputedComposite(final SetValue<?>... setValues) { super(setValues); }
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class ComputedItem extends Item
+	{
+		static final CompositeField<ComputedComposite> virgnComp = CompositeField.create(ComputedComposite.class);
+		@Computed()
+		static final CompositeField<ComputedComposite> compuComp = CompositeField.create(ComputedComposite.class);
+
+
+		private static final long serialVersionUID = 1l;
+		static final Type<ComputedItem> TYPE = TypesBound.newType(ComputedItem.class);
+		private ComputedItem(final ActivationParameters ap) { super(ap); }
 	}
 }
