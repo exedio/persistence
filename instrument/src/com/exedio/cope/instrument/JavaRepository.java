@@ -28,6 +28,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.BlockActivationParameters;
+import com.exedio.cope.pattern.BlockType;
 import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
@@ -84,10 +87,11 @@ final class JavaRepository
 				continue;
 
 			final boolean isItem = isItem(javaClass);
+			final boolean isBlock = isBlock(javaClass);
 			final boolean isComposite = isComposite(javaClass);
-			if(isItem||isComposite)
+			if(isItem||isBlock||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass, isComposite);
+				final CopeType type = new CopeType(javaClass, isBlock, isComposite);
 
 				feature: for(final JavaField javaField : javaClass.getFields())
 				{
@@ -171,6 +175,19 @@ final class JavaRepository
 			System.out.println("unknown type " + classExtends + " in " + javaClass);
 			return false;
 		}
+	}
+
+	static boolean isBlock(final JavaClass javaClass)
+	{
+		final String classExtends = javaClass.classExtends;
+		if(classExtends==null)
+			return false;
+
+		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
+		if(extendsClass!=null)
+			return Block.class.isAssignableFrom(extendsClass);
+
+		return false;
 	}
 
 	static boolean isComposite(final JavaClass javaClass)
@@ -290,6 +307,10 @@ final class JavaRepository
 							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
 					return define(cf);
 				}
+				if("Block".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				{
+					return DummyBlock.class;
+				}
 				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
 					return DummyComposite.class;
@@ -324,6 +345,13 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
+	}
+
+	public static final class DummyBlock extends Block
+	{
+		private static final long serialVersionUID = 1l;
+		public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
+		private DummyBlock(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	static final class DummyComposite extends Composite

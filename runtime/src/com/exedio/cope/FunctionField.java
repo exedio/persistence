@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class FunctionField<E extends Object> extends Field<E>
-	implements Function<E>
+	implements Function<E>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -211,6 +211,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	}
 
 	public abstract FunctionField<E> copy();
+
+	@Override
+	public final FunctionField<E> copy(final CopyMapper mapper)
+	{
+		return mapper.copy(this);
+	}
 
 	/**
 	 * Returns a new FunctionField,

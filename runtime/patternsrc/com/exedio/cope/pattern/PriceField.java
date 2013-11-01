@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CompareCondition;
 import com.exedio.cope.CompareFunctionCondition;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IsNullCondition;
@@ -35,7 +37,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.util.Set;
 
-public final class PriceField extends Pattern implements Settable<Price>
+public final class PriceField extends Pattern implements Settable<Price>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -54,6 +56,12 @@ public final class PriceField extends Pattern implements Settable<Price>
 		addSource(integer, "int", ComputedElement.get());
 		this.isfinal = integer.isFinal();
 		this.mandatory = integer.isMandatory();
+	}
+
+	@Override
+	public PriceField copy(final CopyMapper mapper)
+	{
+		return new PriceField(mapper.copy(integer));
 	}
 
 	public PriceField toFinal()

@@ -93,6 +93,11 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(RangeFieldNullTest.class);
 		suite.addTestSuite(PatternTest.class);
 		suite.addTestSuite(RecursiveTest.class);
+		suite.addTestSuite(BlockFieldStandardModelTest.class);
+		suite.addTestSuite(BlockFieldUniqueModelTest.class);
+		suite.addTestSuite(BlockFieldStandardTest.class);
+		suite.addTestSuite(BlockFieldUniqueTest.class);
+		suite.addTestSuite(BlockFieldMediaFilterTest.class);
 		return suite;
 	}
 }

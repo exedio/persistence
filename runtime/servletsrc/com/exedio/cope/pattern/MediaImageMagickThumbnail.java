@@ -18,9 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import java.util.ArrayList;
 
-public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
+public final class MediaImageMagickThumbnail extends MediaImageMagickFilter implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -105,6 +107,12 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	public MediaImageMagickThumbnail flatten(final String color)
 	{
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, color, this.getOutputContentType());
+	}
+
+	@Override
+	public MediaImageMagickThumbnail copy(final CopyMapper mapper)
+	{
+		return new MediaImageMagickThumbnail(mapper.get(getSource()), this.boundX, this.boundY, this.density, this.flattenColor, this.getOutputContentType());
 	}
 
 	public int getBoundX()

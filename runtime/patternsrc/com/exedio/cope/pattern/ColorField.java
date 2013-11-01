@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
@@ -34,7 +36,7 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.awt.Color;
 import java.util.Set;
 
-public final class ColorField extends Pattern implements Settable<Color>
+public final class ColorField extends Pattern implements Settable<Color>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -54,6 +56,12 @@ public final class ColorField extends Pattern implements Settable<Color>
 		this.alphaAllowed = (rgb.getMinimum()==Integer.MIN_VALUE);
 		assert (alphaAllowed?Integer.MIN_VALUE:0       )==rgb.getMinimum();
 		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
+	}
+
+	@Override
+	public ColorField copy(final CopyMapper mapper)
+	{
+		return new ColorField(mapper.copy(rgb));
 	}
 
 	public ColorField optional()

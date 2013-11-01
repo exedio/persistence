@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
@@ -53,7 +55,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public final class Media extends MediaPath implements Settable<Media.Value>
+public final class Media extends MediaPath implements Settable<Media.Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -132,6 +134,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>
 	public Media()
 	{
 		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
+	}
+
+	@Override
+	public Media copy(final CopyMapper mapper)
+	{
+		return new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());
 	}
 
 	public Media toFinal()

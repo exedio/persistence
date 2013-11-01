@@ -30,6 +30,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.BlockActivationParameters;
+import com.exedio.cope.pattern.BlockType;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,10 +43,11 @@ import java.util.SortedSet;
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
-	private static final String ITEM = Item.class.getName();
 	private static final String TYPE_NAME = Type.class.getName();
 	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
+	private static final String BLOCK_TYPE_NAME = BlockType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
+	private static final String ACTIVATION_BLOCK = BlockActivationParameters.class.getCanonicalName();
 	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
@@ -73,6 +77,7 @@ final class Generator
 	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
 	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String TYPE = "The persistent type information for {0}.";
+	private static final String TYPE_BLOCK = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + ' ' +
 																Option.TEXT_VISIBILITY_PUBLIC + '|' +
@@ -201,6 +206,8 @@ final class Generator
 
 	private void writeInitialConstructor(final CopeType type)
 	{
+		if(type.isBlock)
+			return;
 		if(!type.hasInitialConstructor())
 			return;
 
@@ -302,6 +309,9 @@ final class Generator
 
 	private void writeGenericConstructor(final CopeType type)
 	{
+		if(type.isBlock)
+			return;
+
 		final Option option = type.genericConstructorOption;
 		if(!option.exists)
 			return;
@@ -339,13 +349,23 @@ final class Generator
 		if(!option.exists)
 			return;
 
+		final boolean block = type.isBlock;
+		final Class<?> constructor = block ? Block.class : Item.class;
+		final String activation = block ? ACTIVATION_BLOCK : ACTIVATION;
+
 		writeCommentHeader();
 		writeIndent();
 		write(" * ");
 		write(CONSTRUCTOR_ACTIVATION);
 		write(lineSeparator);
 		writeIndent();
-		write(" * @see " + ITEM + "#Item(" + ACTIVATION + ")");
+		write(" * @see ");
+		write(constructor.getName());
+		write('#');
+		write(constructor.getSimpleName());
+		write('(');
+		write(activation);
+		write(')');
 		write(lineSeparator);
 		writeCommentFooter();
 
@@ -356,7 +376,8 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(ACTIVATION + " ap){super(ap);");
+		write(block ? ACTIVATION_BLOCK : ACTIVATION);
+		write(" ap){super(ap);");
 		write(lineSeparator);
 		write('}');
 	}
@@ -372,6 +393,8 @@ final class Generator
 			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
 
 			if(!option.exists)
+				continue;
+			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -522,9 +545,14 @@ final class Generator
 		}
 		else
 		{
+			final boolean block = feature.parent.isBlock;
+			if(block)
+				write("field().of(");
 			write(feature.parent.name);
 			write('.');
 			write(feature.name);
+			if(block)
+				write(')');
 			write('.');
 			write(methodName);
 			write('(');
@@ -542,7 +570,7 @@ final class Generator
 				else
 				{
 					comma.appendTo(output);
-					write("this");
+					write(block ? "item()" : "this");
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -628,6 +656,9 @@ final class Generator
 	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
 	throws ParserException
 	{
+		if(constraint.parent.isBlock)
+			return;
+
 		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
 		final Option option = new Option(
 				Tags.getLine(constraint.docComment, optionTagname), true);
@@ -738,18 +769,23 @@ final class Generator
 		final Option option = type.typeOption;
 		if(option.exists)
 		{
+			final boolean block = type.isBlock;
+
 			writeCommentHeader();
 			writeIndent();
 			write(" * ");
-			write(format(TYPE, lowerCamelCase(type.name)));
+			write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(TYPE_NAME + '<');
+			write(block ? BLOCK_TYPE_NAME : TYPE_NAME);
+			write('<');
 			write(type.name);
-			write("> TYPE = " + TYPES_BOUND_NAME + ".newType(");
+			write("> TYPE = ");
+			write(block ? BLOCK_TYPE_NAME : TYPES_BOUND_NAME);
+			write(".newType(");
 			write(type.name);
 			write(".class);");
 		}
