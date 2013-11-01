@@ -227,8 +227,8 @@ public class BlockMountTest extends CopeAssert
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		private Value(final BlockActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
+		private Value(final BlockActivationParameters ap) { super(ap); }
 	}
 
 	private static final String valueName = Value.class.getName() + '#';
