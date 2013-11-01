@@ -46,10 +46,8 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),
-				eins,
-				eins.of(source), eins.of(source).getBody(), eins.of(source).getLastModified(), eins.of(filter),
-				zwei,
-				zwei.of(source), zwei.of(source).getBody(), zwei.of(source).getLastModified(), zwei.of(filter),
+				eins, eins.of(source), eins.of(source).getBody(), eins.of(source).getLastModified(), eins.of(filter),
+				zwei, zwei.of(source), zwei.of(source).getBody(), zwei.of(source).getLastModified(), zwei.of(filter),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
