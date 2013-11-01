@@ -174,46 +174,27 @@ public class CompositeErrorTest extends CopeAssert
 	static final class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-
-		private NoFields(final SetValue<?>[] setValues)
-		{
-			super(setValues);
-		}
+		private NoFields(final SetValue<?>[] setValues) { super(setValues); }
 	}
 
 	static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-
-		private NullField(final SetValue<?>[] setValues)
-		{
-			super(setValues);
-		}
-
+		private NullField(final SetValue<?>[] setValues) { super(setValues); }
 		static final Field<?> nullField = null;
 	}
 
 	static final class PatternField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-
-		private PatternField(final SetValue<?>[] setValues)
-		{
-			super(setValues);
-		}
-
+		private PatternField(final SetValue<?>[] setValues) { super(setValues); }
 		static final Feature patternField = MapField.create(new StringField(), new StringField());
 	}
 
 	static final class FinalField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
-
-		private FinalField(final SetValue<?>[] setValues)
-		{
-			super(setValues);
-		}
-
+		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
 		static final BooleanField finalField = new BooleanField().toFinal();
 	}
 }
