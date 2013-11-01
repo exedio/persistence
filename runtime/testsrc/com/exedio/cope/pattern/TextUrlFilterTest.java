@@ -152,7 +152,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		model.startTransaction(TextUrlFilterTest.class.getName());
 	}
 
-	static class Request extends RequestTemplate
+	static class Request extends HttpServletRequestDummy
 	{
 		@Override
 		public String getContextPath()
@@ -167,7 +167,7 @@ public class TextUrlFilterTest extends AbstractRuntimeTest
 		}
 	}
 
-	static class Response extends ResponseTemplate
+	static class Response extends HttpServletResponseDummy
 	{
 		final String body;
 		int contentLength = -1;

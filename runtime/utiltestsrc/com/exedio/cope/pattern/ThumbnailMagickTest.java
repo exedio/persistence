@@ -266,7 +266,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}
 
-	private static final class Response extends DummyResponse
+	private static final class Response extends HttpServletResponseUtilDummy
 	{
 		Response()
 		{
@@ -331,7 +331,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(feature);
 		assertNotNull(item);
 
-		final DummyResponse response = new DummyResponse();
+		final HttpServletResponseUtilDummy response = new HttpServletResponseUtilDummy();
 
 		try
 		{
