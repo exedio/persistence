@@ -73,9 +73,9 @@ public final class BlockRenamedIdTest extends CopeAssert
 		@CopeName("namedTemp")
 		static final StringField wrongTemp = new StringField();
 
+		private static final long serialVersionUID = 1l;
 		static final BlockType<MyComposite> TYPE = BlockType.newType(MyComposite.class);
 		private MyComposite(final BlockActivationParameters ap) { super(ap); }
-		private static final long serialVersionUID = 1l;
 	}
 
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
