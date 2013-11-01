@@ -42,7 +42,7 @@ public class CompositeMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getType();
+			MyComposite.string4.getType();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -51,7 +51,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		try
 		{
-			Value.intMax4.getType();
+			MyComposite.intMax4.getType();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -75,7 +75,7 @@ public class CompositeMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getName();
+			MyComposite.string4.getName();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -84,7 +84,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		try
 		{
-			Value.intMax4.getName();
+			MyComposite.intMax4.getName();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -106,8 +106,8 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testTemplateName()
 	{
-		assertEquals("string4", getTemplateName(Value.string4));
-		assertEquals("intMax4", getTemplateName(Value.intMax4));
+		assertEquals("string4", getTemplateName(MyComposite.string4));
+		assertEquals("intMax4", getTemplateName(MyComposite.intMax4));
 
 		try
 		{
@@ -135,7 +135,7 @@ public class CompositeMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getID();
+			MyComposite.string4.getID();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -144,7 +144,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 		try
 		{
-			Value.intMax4.getID();
+			MyComposite.intMax4.getID();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -166,8 +166,8 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testToString()
 	{
-		assertEquals(valueName + "string4", Value.string4.toString());
-		assertEquals(valueName + "intMax4", Value.intMax4.toString());
+		assertEquals(valueName + "string4", MyComposite.string4.toString());
+		assertEquals(valueName + "intMax4", MyComposite.intMax4.toString());
 
 		final LongField negative = new LongField();
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
@@ -175,10 +175,10 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testGetAnnotation()
 	{
-		assertEquals("stringAnno", Value.string4.getAnnotation(Anno.class).value());
-		assertEquals("intAnno", Value.intMax4.getAnnotation(Anno.class).value());
-		assertNull(Value.string4.getAnnotation(Anno2.class));
-		assertNull(Value.intMax4.getAnnotation(Anno2.class));
+		assertEquals("stringAnno", MyComposite.string4.getAnnotation(Anno.class).value());
+		assertEquals("intAnno", MyComposite.intMax4.getAnnotation(Anno.class).value());
+		assertNull(MyComposite.string4.getAnnotation(Anno2.class));
+		assertNull(MyComposite.intMax4.getAnnotation(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -194,10 +194,10 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testIsAnnotation()
 	{
-		assertTrue (Value.string4.isAnnotationPresent(Anno.class));
-		assertTrue (Value.intMax4.isAnnotationPresent(Anno.class));
-		assertFalse(Value.string4.isAnnotationPresent(Anno2.class));
-		assertFalse(Value.intMax4.isAnnotationPresent(Anno2.class));
+		assertTrue (MyComposite.string4.isAnnotationPresent(Anno.class));
+		assertTrue (MyComposite.intMax4.isAnnotationPresent(Anno.class));
+		assertFalse(MyComposite.string4.isAnnotationPresent(Anno2.class));
+		assertFalse(MyComposite.intMax4.isAnnotationPresent(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -227,8 +227,8 @@ public class CompositeMountTest extends CopeAssert
 
 	public void testSerialization() throws IOException
 	{
-		assertSerializedSame(Value.string4, 285);
-		assertSerializedSame(Value.intMax4, 285);
+		assertSerializedSame(MyComposite.string4, 291);
+		assertSerializedSame(MyComposite.intMax4, 291);
 
 		final LongField negative = new LongField();
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -249,14 +249,14 @@ public class CompositeMountTest extends CopeAssert
 	}
 
 
-	static final class Value extends Composite
+	static final class MyComposite extends Composite
 	{
 		@Anno("stringAnno")
 		static final StringField string4 = new StringField().lengthMax(4);
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		Value(final SetValue<?>[] setValues)
+		MyComposite(final SetValue<?>[] setValues)
 		{
 			super(setValues);
 		}
@@ -264,10 +264,10 @@ public class CompositeMountTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	private static final String valueName = Value.class.getName() + '#';
+	private static final String valueName = MyComposite.class.getName() + '#';
 
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField<?> field = CompositeField.create(Value.class);
+	static final CompositeField<?> field = CompositeField.create(MyComposite.class);
 }
