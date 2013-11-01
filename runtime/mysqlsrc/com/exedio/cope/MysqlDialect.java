@@ -55,7 +55,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	protected void completeConnectionInfo(final Properties info)
 	{
-		// http://dev.mysql.com/doc/refman/5.1/en/connector-j-reference-configuration-properties.html
+		// http://dev.mysql.com/doc/refman/5.5/en/connector-j-reference-configuration-properties.html
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
