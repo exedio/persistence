@@ -237,5 +237,5 @@ public class BlockMountTest extends CopeAssert
 
 	private static final String valueName = Value.class.getName() + '#';
 
-	static final BlockType<?> field = BlockType.newType(Value.class);
+	static final BlockType<?> TYPE = BlockType.newType(Value.class);
 }
