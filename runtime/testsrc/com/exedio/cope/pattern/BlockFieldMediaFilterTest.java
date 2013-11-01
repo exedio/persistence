@@ -43,7 +43,7 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testModel()
+	public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),
@@ -84,10 +84,8 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 		assertEqualsUnmodifiable(list(eins.of(source), eins.of(filter)), eins.getComponents());
 		assertEqualsUnmodifiable(list(zwei.of(source), zwei.of(filter)), zwei.getComponents());
 		assertEqualsUnmodifiable(list(source, filter), eins.getTemplates());
-	}
 
-	public void testPersistence()
-	{
+		// test persistence
 		final AnItem i1 = new AnItem("item1");
 		assertEquals("item1", i1.getCode());
 
