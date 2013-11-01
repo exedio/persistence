@@ -40,21 +40,21 @@ public class BlockMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getType();
+			MyBlock.string4.getType();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
 		}
 		try
 		{
-			Value.intMax4.getType();
+			MyBlock.intMax4.getType();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -73,21 +73,21 @@ public class BlockMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getName();
+			MyBlock.string4.getName();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
 		}
 		try
 		{
-			Value.intMax4.getName();
+			MyBlock.intMax4.getName();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -106,21 +106,21 @@ public class BlockMountTest extends CopeAssert
 	{
 		try
 		{
-			Value.string4.getID();
+			MyBlock.string4.getID();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
 		}
 		try
 		{
-			Value.intMax4.getID();
+			MyBlock.intMax4.getID();
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
+			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -137,8 +137,8 @@ public class BlockMountTest extends CopeAssert
 
 	public void testToString()
 	{
-		assertEquals(valueName + "string4", Value.string4.toString());
-		assertEquals(valueName + "intMax4", Value.intMax4.toString());
+		assertEquals(blockName + "string4", MyBlock.string4.toString());
+		assertEquals(blockName + "intMax4", MyBlock.intMax4.toString());
 
 		final LongField negative = new LongField();
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
@@ -146,10 +146,10 @@ public class BlockMountTest extends CopeAssert
 
 	public void testGetAnnotation()
 	{
-		assertEquals("stringAnno", Value.string4.getAnnotation(Anno.class).value());
-		assertEquals("intAnno", Value.intMax4.getAnnotation(Anno.class).value());
-		assertNull(Value.string4.getAnnotation(Anno2.class));
-		assertNull(Value.intMax4.getAnnotation(Anno2.class));
+		assertEquals("stringAnno", MyBlock.string4.getAnnotation(Anno.class).value());
+		assertEquals("intAnno", MyBlock.intMax4.getAnnotation(Anno.class).value());
+		assertNull(MyBlock.string4.getAnnotation(Anno2.class));
+		assertNull(MyBlock.intMax4.getAnnotation(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -165,10 +165,10 @@ public class BlockMountTest extends CopeAssert
 
 	public void testIsAnnotation()
 	{
-		assertTrue (Value.string4.isAnnotationPresent(Anno.class));
-		assertTrue (Value.intMax4.isAnnotationPresent(Anno.class));
-		assertFalse(Value.string4.isAnnotationPresent(Anno2.class));
-		assertFalse(Value.intMax4.isAnnotationPresent(Anno2.class));
+		assertTrue (MyBlock.string4.isAnnotationPresent(Anno.class));
+		assertTrue (MyBlock.intMax4.isAnnotationPresent(Anno.class));
+		assertFalse(MyBlock.string4.isAnnotationPresent(Anno2.class));
+		assertFalse(MyBlock.intMax4.isAnnotationPresent(Anno2.class));
 
 		final LongField negative = new LongField();
 		try
@@ -198,8 +198,8 @@ public class BlockMountTest extends CopeAssert
 
 	public void testSerialization() throws IOException
 	{
-		assertSerializedSame(Value.string4, 325);
-		assertSerializedSame(Value.intMax4, 325);
+		assertSerializedSame(MyBlock.string4, 327);
+		assertSerializedSame(MyBlock.intMax4, 327);
 
 		final LongField negative = new LongField();
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -220,7 +220,7 @@ public class BlockMountTest extends CopeAssert
 	}
 
 
-	static final class Value extends Block
+	static final class MyBlock extends Block
 	{
 		@Anno("stringAnno")
 		static final StringField string4 = new StringField().lengthMax(4);
@@ -228,9 +228,9 @@ public class BlockMountTest extends CopeAssert
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
 		private static final long serialVersionUID = 1l;
-		static final BlockType<?> TYPE = BlockType.newType(Value.class);
-		private Value(final BlockActivationParameters ap) { super(ap); }
+		static final BlockType<?> TYPE = BlockType.newType(MyBlock.class);
+		private MyBlock(final BlockActivationParameters ap) { super(ap); }
 	}
 
-	private static final String valueName = Value.class.getName() + '#';
+	private static final String blockName = MyBlock.class.getName() + '#';
 }
