@@ -123,6 +123,11 @@ public final class Schedule extends Pattern
 		return runs.mount().parent;
 	}
 
+	public EnumField<Interval> getRunInterval()
+	{
+		return runs.interval;
+	}
+
 	public PartOf<?> getRunRuns()
 	{
 		return runs.mount().parentPartOf;
@@ -263,7 +268,7 @@ public final class Schedule extends Pattern
 				final long elapsedStart = nanoTime();
 				item.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
-				runs.newItem(item, from, until, now, toMillies(elapsedEnd, elapsedStart));
+				runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
 				model.commit();
 				ctx.incrementProgress();
 			}
@@ -276,6 +281,7 @@ public final class Schedule extends Pattern
 
 	private static final class Runs
 	{
+		final EnumField<Interval> interval = EnumField.create(Interval.class);
 		final DateField from = new DateField().toFinal();
 		final DateField until = new DateField().toFinal();
 		final DateField run = new DateField().toFinal();
@@ -294,6 +300,7 @@ public final class Schedule extends Pattern
 			final PartOf<?> runs = PartOf.create(parent, from);
 			final Features features = new Features();
 			features.put("parent", parent);
+			features.put("interval", interval);
 			features.put("from",  from);
 			features.put("runs",  runs);
 			features.put("until", until);
@@ -335,6 +342,7 @@ public final class Schedule extends Pattern
 
 		Run newItem(
 				final Item item,
+				final Interval interval,
 				final Date from,
 				final Date until,
 				final Date now,
@@ -344,6 +352,7 @@ public final class Schedule extends Pattern
 			return
 				mount.type.newItem(
 					Cope.mapAndCast(mount.parent, item),
+					this.interval.map(interval),
 					this.from.map(from),
 					this.until.map(until),
 					this.run.map(now),
@@ -369,6 +378,11 @@ public final class Schedule extends Pattern
 		public Item getParent()
 		{
 			return getPattern().runs.mount().parent.get(this);
+		}
+
+		public Interval getInterval()
+		{
+			return getPattern().runs.interval.get(this);
 		}
 
 		public Date getFrom()
