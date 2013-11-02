@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
@@ -155,6 +156,10 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
 
 		assertSerializedSame(report, 380);
+
+		assertEquals(10, getColumnValue(DAILY  ));
+		assertEquals(20, getColumnValue(WEEKLY ));
+		assertEquals(30, getColumnValue(MONTHLY));
 
 		// test persistence
 		assertEquals(DAILY, item.getReportInterval());
