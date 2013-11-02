@@ -157,7 +157,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertSerializedSame(report, 380);
 
 		// test persistence
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 		if(oracle) // TODO
 			return;
 
@@ -243,10 +243,10 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 	public void testWeekly()
 	{
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 
-		item.setReportInterval(Interval.WEEKLY);
-		assertEquals(Interval.WEEKLY, item.getReportInterval());
+		item.setReportInterval(WEEKLY);
+		assertEquals(WEEKLY, item.getReportInterval());
 
 		if(oracle) // TODO
 			return;
@@ -277,10 +277,10 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 	public void testMonthly()
 	{
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 
-		item.setReportInterval(Interval.MONTHLY);
-		assertEquals(Interval.MONTHLY, item.getReportInterval());
+		item.setReportInterval(MONTHLY);
+		assertEquals(MONTHLY, item.getReportInterval());
 
 		if(oracle) // TODO
 			return;
@@ -312,7 +312,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	public void testEnabled()
 	{
 		assertEquals(true, item.isReportEnabled());
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 
 		if(oracle) // TODO
 			return;
@@ -324,14 +324,14 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		item.setReportEnabled(false);
 		assertEquals(false, item.isReportEnabled());
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
 		assertLogs(ScheduleTest.<Log>listg());
 		assertRuns(ScheduleTest.<ExpectedRun>listg());
 
 		item.setReportEnabled(true);
 		assertEquals(true, item.isReportEnabled());
-		assertEquals(Interval.DAILY, item.getReportInterval());
+		assertEquals(DAILY, item.getReportInterval());
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
 		assertLogs(listg(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 		assertRuns(listg(
