@@ -103,6 +103,7 @@ final class Generator
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
+	private final boolean directSetValueMap;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -125,6 +126,7 @@ final class Generator
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
+		this.directSetValueMap = params.directSetValueMap;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -288,6 +290,8 @@ final class Generator
 		for(final CopeFeature feature : initialFeatures)
 		{
 			writeIndent(2);
+			if(directSetValueMap)
+				write(SET_VALUE + ".map(");
 			final CopeType parent = feature.parent;
 			if(parent==type)
 				write(type.name);
@@ -295,7 +299,10 @@ final class Generator
 				write(parent.javaClass.getFullName());
 			write('.');
 			write(feature.name);
-			write(".map(");
+			if(directSetValueMap)
+				write(',');
+			else
+				write(".map(");
 			write(feature.name);
 			write("),");
 			write(lineSeparator);

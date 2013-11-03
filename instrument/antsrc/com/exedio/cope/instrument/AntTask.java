@@ -78,6 +78,11 @@ public final class AntTask extends Task
 		params.genericSetValueArray = value;
 	}
 
+	public void setDirectSetValueMap(final boolean value)
+	{
+		params.directSetValueMap = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

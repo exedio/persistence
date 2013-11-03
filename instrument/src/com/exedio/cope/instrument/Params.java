@@ -27,5 +27,6 @@ final class Params
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
 	boolean genericSetValueArray = true;
+	boolean directSetValueMap = false;
 	boolean verbose = true;
 }
