@@ -96,4 +96,17 @@ public class SetValueTest extends TestCase
 		final SetValue<?> nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
 	}
+
+	public void testNullFeature()
+	{
+		try
+		{
+			SetValue.map(null, "nullValue");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("settable", e.getMessage());
+		}
+	}
 }
