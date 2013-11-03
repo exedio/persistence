@@ -78,20 +78,29 @@ public class SetValueTest extends TestCase
 		}
 	}
 
-	public void testIt()
+	public void testNormal()
 	{
 		final MockSettable alpha = new MockSettable("alpha");
 		final SetValue<?> alphaValue = SetValue.map(alpha, "alphaValue");
 		assertEquals("alpha=alphaValue", alphaValue.toString());
+	}
 
+	public void testNormal2()
+	{
 		final MockSettable beta = new MockSettable("beta");
 		final SetValue<?> betaValue = SetValue.map(beta, "betaValue");
 		assertEquals("beta=betaValue", betaValue.toString());
+	}
 
+	public void testNullValue()
+	{
 		final MockSettable gamma = new MockSettable("gamma");
 		final SetValue<?> gammaValue = SetValue.map(gamma, null);
 		assertEquals("gamma=null", gammaValue.toString());
+	}
 
+	public void testNullValueAndNullToString()
+	{
 		final MockSettable nulla = new MockSettable(null);
 		final SetValue<?> nullValue = SetValue.map(nulla, null);
 		assertEquals("null=null", nullValue.toString());
