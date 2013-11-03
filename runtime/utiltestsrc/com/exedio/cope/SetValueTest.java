@@ -110,7 +110,10 @@ public class SetValueTest extends TestCase
 	{
 		try
 		{
-			SetValue.map(null, "nullValue");
+			// NOTE
+			// The <String,StringField> below is needed for
+			// javac of JDK 1.6, but not for JDK 1.7
+			SetValue.<String,StringField>map(null, "nullValue");
 			fail();
 		}
 		catch(final NullPointerException e)
