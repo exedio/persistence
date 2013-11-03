@@ -80,30 +80,30 @@ public class SetValueTest extends TestCase
 
 	public void testNormal()
 	{
-		final MockSettable alpha = new MockSettable("alpha");
-		final SetValue<?> alphaValue = SetValue.map(alpha, "alphaValue");
-		assertEquals("alpha=alphaValue", alphaValue.toString());
+		final MockSettable settable = new MockSettable("alpha");
+		final SetValue<?> value = SetValue.map(settable, "alphaValue");
+		assertEquals("alpha=alphaValue", value.toString());
 	}
 
 	public void testNormal2()
 	{
-		final MockSettable beta = new MockSettable("beta");
-		final SetValue<?> betaValue = SetValue.map(beta, "betaValue");
-		assertEquals("beta=betaValue", betaValue.toString());
+		final MockSettable settable = new MockSettable("beta");
+		final SetValue<?> value = SetValue.map(settable, "betaValue");
+		assertEquals("beta=betaValue", value.toString());
 	}
 
 	public void testNullValue()
 	{
-		final MockSettable gamma = new MockSettable("gamma");
-		final SetValue<?> gammaValue = SetValue.map(gamma, null);
-		assertEquals("gamma=null", gammaValue.toString());
+		final MockSettable settable = new MockSettable("gamma");
+		final SetValue<?> value = SetValue.map(settable, null);
+		assertEquals("gamma=null", value.toString());
 	}
 
 	public void testNullValueAndNullToString()
 	{
-		final MockSettable nulla = new MockSettable(null);
-		final SetValue<?> nullValue = SetValue.map(nulla, null);
-		assertEquals("null=null", nullValue.toString());
+		final MockSettable settable = new MockSettable(null);
+		final SetValue<?> value = SetValue.map(settable, null);
+		assertEquals("null=null", value.toString());
 	}
 
 	public void testNullFeature()
