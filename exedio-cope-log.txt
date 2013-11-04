@@ -10,6 +10,10 @@ The items are sorted inversely, i.e. latest items are on top
 * Schedule archives interval for each run.
 	BEWARE: This affects database schema. A new column is required, and must
 	be initialized with meaningful values.
+
+		alter table `SomeItem_schedule_Run` add column `interval` int not null
+		update `SomeItem_schedule_Run` r join `SomeItem` s on s.`this`=r.`parent` set r.`interval`=s.`schedule_interval`
+
 * dropped support for MySQL 5.0 and 5.1, new minimum requirement is MySQL 5.5
 * Price supports toStringShort()
 * MediaPath supports MediaRequestLog
