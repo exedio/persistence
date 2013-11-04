@@ -281,7 +281,7 @@ public final class Schedule extends Pattern
 
 	private static final class Runs
 	{
-		final EnumField<Interval> interval = EnumField.create(Interval.class);
+		final EnumField<Interval> interval = EnumField.create(Interval.class).toFinal();
 		final DateField from = new DateField().toFinal();
 		final DateField until = new DateField().toFinal();
 		final DateField run = new DateField().toFinal();
