@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 
@@ -60,6 +61,8 @@ public class PasswordLimiterTest extends CopeTest
 
 	public void testIt()
 	{
+		assertNoUpdateCounterColumn(passwordLimited.getRefusalType());
+
 		assertTrue(i.checkPassword(PASSWORD));
 		assertEquals(list(), getRefusals());
 		assertTrue(i2.checkPassword(PASSWORD2));

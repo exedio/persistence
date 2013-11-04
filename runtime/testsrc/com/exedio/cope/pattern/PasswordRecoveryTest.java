@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
@@ -107,6 +108,8 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		assertSerializedSame(passwordRecovery, 406);
 
 		// test persistence
+		assertNoUpdateCounterColumn(passwordRecovery.getTokenType());
+
 		final Config config = new Config(60*1000);
 
 		assertTrue(i.checkPassword("oldpass"));

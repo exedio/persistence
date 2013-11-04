@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnValue;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
@@ -163,17 +163,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(30, getColumnValue(MONTHLY));
 
 		// test persistence
-
-		try
-		{
-			// test that all fields of run are completely final
-			getUpdateCounterColumnName(report.getRunType());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no update counter for " + report.getRunType(), e.getMessage());
-		}
+		assertNoUpdateCounterColumn(report.getRunType());
 
 		assertEquals(DAILY, item.getReportInterval());
 		if(oracle) // TODO

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.HistoryItem.TYPE;
 import static com.exedio.cope.pattern.HistoryItem.amount;
 import static com.exedio.cope.pattern.HistoryItem.audit;
@@ -192,6 +193,8 @@ public class HistoryTest extends AbstractRuntimeTest
 
 		// test persistence
 		assertEquals("id", SchemaInfo.getColumnName(HistoryItem.audit.getFeatureId()));
+		assertNoUpdateCounterColumn(HistoryItem.audit.getEventType());
+		assertNoUpdateCounterColumn(HistoryItem.audit.getFeatureType());
 
 		assertEquals(list(), item.getAuditEvents());
 
