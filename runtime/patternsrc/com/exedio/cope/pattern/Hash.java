@@ -286,6 +286,11 @@ public class Hash extends Pattern implements HashInterface
 			return expectedHash==null;
 	}
 
+	public final boolean isNull(final Item item)
+	{
+		return storage.get(item)==null;
+	}
+
 	private transient volatile String hashForBlind = null;
 
 	/**

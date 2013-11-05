@@ -41,6 +41,14 @@ public final class HashItem extends Item
 
 	static final Hash with3PinValidator = new WrapHash().validate(new DigitPinValidator(3)).optional();
 
+	/**
+	 * Maybe instrumentor should create this.
+	 */
+	final boolean isInternalNull()
+	{
+		return HashItem.internal.isNull(this);
+	}
+
 /**
 
 	 **

@@ -100,6 +100,12 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			return targetHash;
 	}
 
+	public boolean isNull(final Item item)
+	{
+		// needs actual implementation if there is optional()
+		return false;
+	}
+
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})

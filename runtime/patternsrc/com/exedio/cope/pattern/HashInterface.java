@@ -25,6 +25,7 @@ import java.security.SecureRandom;
 public interface HashInterface extends Settable<String>
 {
 	boolean check(Item item, String actualPlainText);
+	boolean isNull(Item item);
 
 	void blind(String actualPlainText);
 

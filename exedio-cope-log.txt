@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* HashInterface#isNull(Item) added
+	This breaks backwards API compatibility, causes compiler error.
 * Schedule archives interval for each run.
 	BEWARE: This affects database schema. A new column is required, and must
 	be initialized with meaningful values.

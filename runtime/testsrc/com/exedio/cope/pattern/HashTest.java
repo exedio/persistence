@@ -152,12 +152,14 @@ public class HashTest extends AbstractRuntimeTest
 		assertTrue(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));
 		assertFalse(item.checkInternal("zack"));
+		assertTrue(item.isInternalNull());
 
 		item.setInternal("03affe07");
 		assertEquals("[03affe07]", item.get(internal.getStorage()));
 		assertFalse(item.checkInternal(null));
 		assertFalse(item.checkInternal("0"));
 		assertTrue(item.checkInternal("03affe07"));
+		assertFalse(item.isInternalNull());
 
 		item.set(internal.map("03affe08"));
 		assertEquals("[03affe08]", item.get(internal.getStorage()));
@@ -165,18 +167,21 @@ public class HashTest extends AbstractRuntimeTest
 		assertFalse(item.checkInternal("0"));
 		assertFalse(item.checkInternal("03affe07"));
 		assertTrue(item.checkInternal("03affe08"));
+		assertFalse(item.isInternalNull());
 
 		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue<?>[]{internal.map("03affe09")}));
 		assertEquals("[03affe09]", item2.get(internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
+		assertFalse(item2.isInternalNull());
 
 		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(internal.map("03affe10")));
 		assertEquals("[03affe10]", item3.get(internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
+		assertFalse(item3.isInternalNull());
 	}
 
 	public void testLimit()
