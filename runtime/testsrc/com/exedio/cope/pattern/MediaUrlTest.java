@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
-import static com.exedio.cope.pattern.MediaUrlItem.catchphrase;
 import static com.exedio.cope.pattern.MediaUrlItem.file;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
@@ -28,23 +26,13 @@ import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.Feature;
-import com.exedio.cope.Model;
-import java.util.Arrays;
 import java.util.Date;
 
 public final class MediaUrlTest extends AbstractRuntimeModelTest
 {
-	static final Model MODEL = new Model(MediaUrlItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(MediaUrlTest.class, "MODEL");
-	}
-
 	public MediaUrlTest()
 	{
-		super(MODEL);
+		super(MediaUrlModelTest.MODEL);
 	}
 
 	private MediaUrlItem named, anond;
@@ -59,43 +47,6 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 
 	public void testIt()
 	{
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
-				TYPE.getThis(),
-				catchphrase,
-				foto,
-				foto.getBody(),
-				foto.getLastModified(),
-				fotoSecure,
-				fotoSecure.getBody(),
-				fotoSecure.getLastModified(),
-				fotoFinger,
-				fotoFinger.getBody(),
-				fotoFinger.getLastModified(),
-				file,
-				file.getBody(),
-				file.getLastModified(),
-				fileSecure,
-				fileSecure.getBody(),
-				fileSecure.getLastModified(),
-				fileFinger,
-				fileFinger.getBody(),
-				fileFinger.getLastModified(),
-			}), TYPE.getFeatures());
-
-		assertFalse(foto.isUrlGuessingPrevented());
-		assertFalse(file.isUrlGuessingPrevented());
-		assertFalse(fotoFinger.isUrlGuessingPrevented());
-		assertFalse(fileFinger.isUrlGuessingPrevented());
-		assertTrue(fotoSecure.isUrlGuessingPrevented());
-		assertTrue(fileSecure.isUrlGuessingPrevented());
-
-		assertFalse(foto.isUrlFingerPrinted());
-		assertFalse(file.isUrlFingerPrinted());
-		assertFalse(fotoSecure.isUrlFingerPrinted());
-		assertFalse(fileSecure.isUrlFingerPrinted());
-		assertTrue(fotoFinger.isUrlFingerPrinted());
-		assertTrue(fileFinger.isUrlFingerPrinted());
-
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 
 		assertEquals(null, named.getFotoSecureURL());
