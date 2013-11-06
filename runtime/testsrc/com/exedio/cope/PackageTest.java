@@ -105,7 +105,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( UniqueDoubleNullTest.class );
 		suite.addTestSuite( CheckConstraintModelTest.class );
 		suite.addTestSuite( CheckConstraintSchemaTest.class );
-		suite.addTestSuite( CheckConstraintConnectedTest.class );
+		suite.addTestSuite( CheckConstraintTest.class );
 		suite.addTestSuite( CheckConstraintHierarchyTest.class );
 		suite.addTestSuite( CheckConstraintHierarchySchemaTest.class );
 		suite.addTestSuite( HierarchyTest.class );
