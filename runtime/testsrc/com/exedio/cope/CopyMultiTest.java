@@ -22,9 +22,9 @@ import static com.exedio.cope.CopyMultiSourceItem.TYPE;
 import static com.exedio.cope.CopyMultiModelTest.constraintA;
 import static com.exedio.cope.CopyMultiModelTest.constraintB;
 
-public class CopyMultiConnectedTest extends AbstractRuntimeTest
+public class CopyMultiTest extends AbstractRuntimeTest
 {
-	public CopyMultiConnectedTest()
+	public CopyMultiTest()
 	{
 		super(CopyMultiModelTest.MODEL);
 	}
