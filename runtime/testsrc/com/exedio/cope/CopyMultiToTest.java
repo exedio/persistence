@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyMultiToSourceItem.TYPE;
 import static com.exedio.cope.CopyMultiToModelTest.constraintA;
 import static com.exedio.cope.CopyMultiToModelTest.constraintB;
+import static com.exedio.cope.CopyMultiToSourceItem.TYPE;
 
 public class CopyMultiToTest extends AbstractRuntimeTest
 {
