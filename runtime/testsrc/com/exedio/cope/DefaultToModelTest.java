@@ -47,7 +47,7 @@ import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 
-public class DefaultToTest extends CopeAssert
+public class DefaultToModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE);
 

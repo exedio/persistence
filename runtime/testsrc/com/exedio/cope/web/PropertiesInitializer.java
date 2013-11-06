@@ -31,7 +31,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopyModelTest;
 import com.exedio.cope.DataTest;
 import com.exedio.cope.DayFieldTest;
-import com.exedio.cope.DefaultToTest;
+import com.exedio.cope.DefaultToModelTest;
 import com.exedio.cope.DeleteTest;
 import com.exedio.cope.HiddenFeatureTest;
 import com.exedio.cope.HierarchyTest;
@@ -74,7 +74,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				HiddenFeatureTest.MODEL,
 				DispatcherModelTest.MODEL,
 				CopyModelTest.MODEL,
-				DefaultToTest.MODEL,
+				DefaultToModelTest.MODEL,
 				Stuff.samplerModel,
 				com.exedio.cope.mxsampler.Stuff.samplerModel,
 				BadQueryTest.MODEL,

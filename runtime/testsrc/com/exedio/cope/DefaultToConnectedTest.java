@@ -55,7 +55,7 @@ public class DefaultToConnectedTest extends AbstractRuntimeTest
 {
 	public DefaultToConnectedTest()
 	{
-		super(DefaultToTest.MODEL);
+		super(DefaultToModelTest.MODEL);
 	}
 
 	private AbsoluteMockClockStrategy clock;
