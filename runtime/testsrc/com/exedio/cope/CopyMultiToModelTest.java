@@ -27,13 +27,13 @@ import static com.exedio.cope.CopyMultiToSourceItem.target;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 
-public class CopyMultiToTest extends CopeAssert
+public class CopyMultiToModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE, CopyMultiToTargetItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(CopyMultiToTest.class, "MODEL");
+		MODEL.enableSerialization(CopyMultiToModelTest.class, "MODEL");
 	}
 
 	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
@@ -88,8 +88,8 @@ public class CopyMultiToTest extends CopeAssert
 		assertSame(copyA, constraintA.getCopy());
 		assertSame(copyB, constraintB.getCopy());
 
-		assertSerializedSame(constraintA, 397);
-		assertSerializedSame(constraintB, 397);
+		assertSerializedSame(constraintA, 402);
+		assertSerializedSame(constraintB, 402);
 	}
 
 	@SuppressWarnings("deprecation")
