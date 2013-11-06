@@ -26,7 +26,7 @@ public class CheckConstraintConnectedTest extends AbstractRuntimeTest
 {
 	public CheckConstraintConnectedTest()
 	{
-		super(CheckConstraintTest.MODEL);
+		super(CheckConstraintModelTest.MODEL);
 	}
 
 	public void testIsSupportedBySchema()

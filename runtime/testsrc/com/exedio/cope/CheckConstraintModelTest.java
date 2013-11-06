@@ -32,13 +32,13 @@ import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 
 import com.exedio.cope.junit.CopeAssert;
 
-public class CheckConstraintTest extends CopeAssert
+public class CheckConstraintModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(CheckConstraintItem.TYPE, CheckConstraintSuperItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(CheckConstraintTest.class, "MODEL");
+		MODEL.enableSerialization(CheckConstraintModelTest.class, "MODEL");
 	}
 
 	public void testMeta()
@@ -118,6 +118,6 @@ public class CheckConstraintTest extends CopeAssert
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}
 
-		assertSerializedSame(alphaLessBeta, 393);
+		assertSerializedSame(alphaLessBeta, 398);
 	}
 }

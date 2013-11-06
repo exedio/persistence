@@ -33,7 +33,7 @@ public class CheckConstraintSchemaTest extends AbstractRuntimeTest
 {
 	public CheckConstraintSchemaTest()
 	{
-		super(CheckConstraintTest.MODEL);
+		super(CheckConstraintModelTest.MODEL);
 		skipTransactionManagement();
 	}
 
