@@ -65,6 +65,6 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
-		assertSerializedSame(activeLanguage, 396);
+		assertSerializedSame(activeLanguage, 401);
 	}
 }
