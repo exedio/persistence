@@ -25,9 +25,9 @@ import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
 
-public class EnumMapFieldConnectedTest extends AbstractRuntimeTest
+public class EnumMapFieldTest extends AbstractRuntimeTest
 {
-	public EnumMapFieldConnectedTest()
+	public EnumMapFieldTest()
 	{
 		super(EnumMapFieldModelTest.MODEL);
 	}
