@@ -28,9 +28,9 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import java.util.EnumSet;
 
-public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
+public class EnumSetFieldTest extends AbstractRuntimeTest
 {
-	public EnumSetFieldConnectedTest()
+	public EnumSetFieldTest()
 	{
 		super(EnumSetFieldModelTest.MODEL);
 	}
