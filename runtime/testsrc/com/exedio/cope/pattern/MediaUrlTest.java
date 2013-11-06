@@ -82,7 +82,6 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 				fileFinger.getLastModified(),
 			}), TYPE.getFeatures());
 
-		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertFalse(foto.isUrlGuessingPrevented());
 		assertFalse(file.isUrlGuessingPrevented());
 		assertFalse(fotoFinger.isUrlGuessingPrevented());
@@ -96,6 +95,8 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		assertFalse(fileSecure.isUrlFingerPrinted());
 		assertTrue(fotoFinger.isUrlFingerPrinted());
 		assertTrue(fileFinger.isUrlFingerPrinted());
+
+		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 
 		assertEquals(null, named.getFotoSecureURL());
 		assertEquals(null, named.getFotoSecureLocator());
