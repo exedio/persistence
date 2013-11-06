@@ -59,8 +59,6 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 
 	public void testIt()
 	{
-		final byte[] bytes  = {-86,122,-8,23};
-
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				catchphrase,
@@ -117,6 +115,7 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		assertEquals(null, anond.getFileFingerURL());
 		assertEquals(null, anond.getFileFingerLocator());
 
+		final byte[] bytes  = {-86,122,-8,23};
 		named.setFoto(bytes, "image/jpeg");
 		named.setFotoSecure(bytes, "image/jpeg");
 		named.setFotoFinger(bytes, "image/jpeg");
