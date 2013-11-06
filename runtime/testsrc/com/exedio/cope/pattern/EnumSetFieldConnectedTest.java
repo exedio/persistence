@@ -32,7 +32,7 @@ public class EnumSetFieldConnectedTest extends AbstractRuntimeTest
 {
 	public EnumSetFieldConnectedTest()
 	{
-		super(EnumSetFieldTest.MODEL);
+		super(EnumSetFieldModelTest.MODEL);
 	}
 
 	EnumSetFieldItem item, itemX;

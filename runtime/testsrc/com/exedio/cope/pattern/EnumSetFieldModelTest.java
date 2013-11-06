@@ -29,13 +29,13 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
-public class EnumSetFieldTest extends CopeAssert
+public class EnumSetFieldModelTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumSetFieldItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(EnumSetFieldTest.class, "MODEL");
+		MODEL.enableSerialization(EnumSetFieldModelTest.class, "MODEL");
 	}
 
 	public void testIt()
