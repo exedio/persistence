@@ -29,7 +29,7 @@ public class EnumMapFieldConnectedTest extends AbstractRuntimeTest
 {
 	public EnumMapFieldConnectedTest()
 	{
-		super(EnumMapFieldTest.MODEL);
+		super(EnumMapFieldModelTest.MODEL);
 	}
 
 	EnumMapFieldItem item, itemX;

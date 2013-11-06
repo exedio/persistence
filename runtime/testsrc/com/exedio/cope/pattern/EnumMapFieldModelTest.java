@@ -30,13 +30,13 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
-public class EnumMapFieldTest extends CopeAssert
+public class EnumMapFieldModelTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(EnumMapFieldTest.class, "MODEL");
+		MODEL.enableSerialization(EnumMapFieldModelTest.class, "MODEL");
 	}
 
 	public void testIt()
@@ -74,8 +74,8 @@ public class EnumMapFieldTest extends CopeAssert
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
-		assertSerializedSame(name      , 386);
-		assertSerializedSame(nameLength, 392);
+		assertSerializedSame(name      , 391);
+		assertSerializedSame(nameLength, 397);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
@@ -88,7 +88,7 @@ public class EnumMapFieldTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
+			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X", e.getMessage());
 		}
 		try
 		{
@@ -97,7 +97,7 @@ public class EnumMapFieldTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldTest$X", e.getMessage());
+			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X", e.getMessage());
 		}
 	}
 
