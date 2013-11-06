@@ -19,14 +19,14 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiTest.constraintA;
-import static com.exedio.cope.CopyMultiTest.constraintB;
+import static com.exedio.cope.CopyMultiModelTest.constraintA;
+import static com.exedio.cope.CopyMultiModelTest.constraintB;
 
 public class CopyMultiConnectedTest extends AbstractRuntimeTest
 {
 	public CopyMultiConnectedTest()
 	{
-		super(CopyMultiTest.MODEL);
+		super(CopyMultiModelTest.MODEL);
 	}
 
 	CopyMultiTargetItemA targetA, targetAx;
