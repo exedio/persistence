@@ -51,9 +51,9 @@ import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 
-public class DefaultToConnectedTest extends AbstractRuntimeTest
+public class DefaultToTest extends AbstractRuntimeTest
 {
-	public DefaultToConnectedTest()
+	public DefaultToTest()
 	{
 		super(DefaultToModelTest.MODEL);
 	}
