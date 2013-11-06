@@ -30,7 +30,7 @@ final class DefaultContentType extends ContentType<String>
 			final boolean isfinal,
 			final boolean optional)
 	{
-		super(makeField(61, new CharSet('-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
+		super(makeField(61, new CharSet('+', '+', '-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
 	}
 
 	@Override

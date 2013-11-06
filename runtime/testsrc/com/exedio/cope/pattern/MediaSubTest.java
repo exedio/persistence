@@ -58,6 +58,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertContains(image.getInitialExceptions());
 		assertEquals(true, image.checkContentType("image/png"));
 		assertEquals(true, image.checkContentType("image/jpg"));
+		assertEquals(true, image.checkContentType("image/svg+xml"));
 		assertEquals(false, image.checkContentType("application/jpg"));
 		assertEquals("image/*", image.getContentTypeDescription());
 		assertEquals(null, image.getContentTypesAllowed());
@@ -101,6 +102,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 
 		assertEquals(contentType.equal("png"),  image.contentTypeEqual("image/png"));
 		assertEquals(contentType.equal("jpeg"), image.contentTypeEqual("image/jpeg"));
+		assertEquals(contentType.equal("svg+xml"),  image.contentTypeEqual("image/svg+xml"));
 		assertEquals(Condition.FALSE,           image.contentTypeEqual("image"));
 		assertEquals(Condition.FALSE,           image.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),     image.contentTypeEqual(null));
@@ -112,6 +114,10 @@ public class MediaSubTest extends AbstractRuntimeTest
 		item.setImage(stream(bytes4), "image/image-minor");
 		assertStreamClosed();
 		assertContent(bytes4, "image/image-minor", "");
+
+		item.setImage(stream(bytes8), "image/svg+xml");
+		assertStreamClosed();
+		assertContent(bytes8, "image/svg+xml", ".svg");
 
 		item.setImage(stream(bytes6), "image/jpeg");
 		assertStreamClosed();

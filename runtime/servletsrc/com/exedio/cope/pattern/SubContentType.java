@@ -35,7 +35,7 @@ final class SubContentType extends ContentType<String>
 			final boolean isfinal,
 			final boolean optional)
 	{
-		super(makeField(30, new CharSet('-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
+		super(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
 		this.major = major;
 		this.prefix = major + '/';
 		this.prefixLength = this.prefix.length();
