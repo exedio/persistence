@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.ServletOutputStream;
 
-public class TextUrlFilterTest extends AbstractRuntimeTest
+public class TextUrlFilterTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
