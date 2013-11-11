@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.misc.ModelByString;
+import com.exedio.cope.misc.ModelMain;
 import com.exedio.cope.util.Cast;
 import java.util.List;
 
@@ -253,29 +254,13 @@ public final class Cope
 		select.check(tc, join);
 	}
 
+	/**
+	 * @deprecated Use {@link ModelMain#main(String[])} instead.
+	 */
+	@Deprecated
 	public static void main(final String[] args)
 	{
-		if(args.length!=2)
-			throw new RuntimeException("must have two arguments, model and action");
-
-		final Model model = ModelByString.get(args[0]);
-		model.connect(new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE));
-		try
-		{
-			final String action = args[1];
-			if("create".equals(action))
-				model.createSchema();
-			else if("drop".equals(action))
-				model.dropSchema();
-			else if("tearDown".equals(action))
-				model.tearDownSchema();
-			else
-				throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
-		}
-		finally
-		{
-			model.disconnect();
-		}
+		ModelMain.main(args);
 	}
 
 	private Cope()
