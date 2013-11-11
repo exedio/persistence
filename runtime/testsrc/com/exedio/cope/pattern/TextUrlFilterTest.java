@@ -49,8 +49,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new TextUrlFilterItem());
-		item2 = deleteOnTearDown(new TextUrlFilterItem());
+		item  = new TextUrlFilterItem();
+		item2 = new TextUrlFilterItem();
 	}
 
 	public void testIt() throws IOException, NotFound

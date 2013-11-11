@@ -45,13 +45,13 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		normal = deleteOnTearDown(new MediaCatchPhraseItem("normal"));
-		single = deleteOnTearDown(new MediaCatchPhraseItem("S"));
-		empty  = deleteOnTearDown(new MediaCatchPhraseItem(""));
-		nulL   = deleteOnTearDown(new MediaCatchPhraseItem(null));
-		none   = deleteOnTearDown(new MediaCatchPhraseSuperItem());
+		normal = new MediaCatchPhraseItem("normal");
+		single = new MediaCatchPhraseItem("S");
+		empty  = new MediaCatchPhraseItem("");
+		nulL   = new MediaCatchPhraseItem(null);
+		none   = new MediaCatchPhraseSuperItem();
 
-		wrong  = deleteOnTearDown(new MediaCatchPhraseItem("wrong/phrase"));
+		wrong  = new MediaCatchPhraseItem("wrong/phrase");
 	}
 
 	public void testIt()
