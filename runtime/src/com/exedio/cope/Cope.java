@@ -260,16 +260,22 @@ public final class Cope
 
 		final Model model = ModelByString.get(args[0]);
 		model.connect(new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE));
-		final String action = args[1];
-		if("create".equals(action))
-			model.createSchema();
-		else if("drop".equals(action))
-			model.dropSchema();
-		else if("tearDown".equals(action))
-			model.tearDownSchema();
-		else
-			throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
-		model.disconnect();
+		try
+		{
+			final String action = args[1];
+			if("create".equals(action))
+				model.createSchema();
+			else if("drop".equals(action))
+				model.dropSchema();
+			else if("tearDown".equals(action))
+				model.tearDownSchema();
+			else
+				throw new RuntimeException("illegal action, must be 'create', 'drop', or 'tearDown'");
+		}
+		finally
+		{
+			model.disconnect();
+		}
 	}
 
 	private Cope()
