@@ -303,6 +303,10 @@ public final class Cope
 	@Deprecated
 	public static void main(final String[] args)
 	{
+		System.out.println(
+				Cope.class.getName() + " is deprecated, use " +
+				ModelMain.class.getName() + " instead.");
+
 		ModelMain.main(args);
 	}
 }
