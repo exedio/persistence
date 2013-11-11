@@ -258,7 +258,7 @@ public abstract class Cope
 		if(args.length!=2)
 			throw new RuntimeException("must have two arguments, model and action");
 
-		final Model model = getModel(args[0]);
+		final Model model = ModelByString.get(args[0]);
 		model.connect(new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE));
 		final String action = args[1];
 		if("create".equals(action))
