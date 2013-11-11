@@ -21,10 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
 import static com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 
-public final class MediaCatchphraseTest extends AbstractRuntimeTest
+public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(MediaCatchPhraseSuperItem.TYPE, TYPE);
 
