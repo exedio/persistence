@@ -272,9 +272,9 @@ public abstract class Cope
 		model.disconnect();
 	}
 
-	Cope()
+	private Cope()
 	{
-		// do not allow class to be subclassed by public
+		// prevent instantiation
 	}
 
 	// ------------------- deprecated stuff -------------------
