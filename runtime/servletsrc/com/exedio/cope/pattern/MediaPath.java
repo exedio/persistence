@@ -125,7 +125,7 @@ public abstract class MediaPath extends Pattern
 		return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
 	}
 
-	private final String getMediaRootUrl()
+	final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
 			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
@@ -202,6 +202,22 @@ public abstract class MediaPath extends Pattern
 			if(withSecret && secret!=null)
 				bf.append("?" + URL_TOKEN + "=").
 					append(secret);
+		}
+
+		public String getURL()
+		{
+			final StringBuilder bf = new StringBuilder();
+			appendURL(bf);
+			return bf.toString();
+		}
+
+		/**
+		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getURL()});</tt>
+		 */
+		public void appendURL(final StringBuilder bf)
+		{
+			bf.append(getMediaRootUrl());
+			appendPath(bf, true);
 		}
 
 		@Override
