@@ -28,39 +28,39 @@ import java.util.List;
  *
  * @author Ralf Wiebicke
  */
-public abstract class Cope
+public final class Cope
 {
-	public static final <E> Condition equal(final Function<E> function, final E value)
+	public static <E> Condition equal(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.Equal, function, value) : new IsNullCondition<E>(function, false);
 	}
 
-	public static final <E> Condition notEqual(final Function<E> function, final E value)
+	public static <E> Condition notEqual(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<E>(Operator.NotEqual, function, value) : new IsNullCondition<E>(function, true);
 	}
 
-	public static final Condition and(final List<? extends Condition> conditions)
+	public static Condition and(final List<? extends Condition> conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
 	}
 
-	public static final Condition and(final Condition... conditions)
+	public static Condition and(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.AND, conditions);
 	}
 
-	public static final Condition or(final List<? extends Condition> conditions)
+	public static Condition or(final List<? extends Condition> conditions)
 	{
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}
 
-	public static final Condition or(final Condition... conditions)
+	public static Condition or(final Condition... conditions)
 	{
 		return composite(CompositeCondition.Operator.OR, conditions);
 	}
 
-	private static final Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
+	private static Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
 	{
 		if(conditions==null)
 			throw new NullPointerException("conditions");
@@ -68,7 +68,7 @@ public abstract class Cope
 		return composite(operator, conditions.toArray(new Condition[conditions.size()]));
 	}
 
-	private static final Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
+	private static Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
 	{
 		if(conditions==null)
 			throw new NullPointerException("conditions");
@@ -121,7 +121,7 @@ public abstract class Cope
 	/**
 	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
+	public static <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return PlusView.plus(addend1, addend2);
 	}
@@ -129,7 +129,7 @@ public abstract class Cope
 	/**
 	 * You may want to use {@link PlusView#plus(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	public static final <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
+	public static <E extends Number> PlusView<E> plus(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
 		return PlusView.plus(addend1, addend2, addend3);
 	}
@@ -137,7 +137,7 @@ public abstract class Cope
 	/**
 	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
+	public static <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2)
 	{
 		return MultiplyView.multiply(multiplier1, multiplier2);
 	}
@@ -145,12 +145,12 @@ public abstract class Cope
 	/**
 	 * You may want to use {@link MultiplyView#multiply(Function, Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	public static final <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
+	public static <E extends Number> MultiplyView<E> multiply(final NumberFunction<E> multiplier1, final NumberFunction<E> multiplier2, final NumberFunction<E> multiplier3)
 	{
 		return MultiplyView.multiply(multiplier1, multiplier2, multiplier3);
 	}
 
-	public static final <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
+	public static <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
 		return SetValue.map(a, Cast.verboseCast(a.getValueClass(), o));
 	}
@@ -161,7 +161,7 @@ public abstract class Cope
 	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> void setAndCast(final Field<X> field, final Item item, final Object value)
+	public static <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
 		field.set(item, Cast.verboseCast(field.getValueClass(), value));
 	}
@@ -172,7 +172,7 @@ public abstract class Cope
 	 * {@link Function#equal(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> Condition equalAndCast(final Function<X> function, final Object value)
+	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
 		return function.equal(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -183,7 +183,7 @@ public abstract class Cope
 	 * {@link Function#notEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> Condition notEqualAndCast(final Function<X> function, final Object value)
+	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
 		return function.notEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -194,7 +194,7 @@ public abstract class Cope
 	 * {@link Function#less(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
+	public static <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
 		return function.less(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -205,7 +205,7 @@ public abstract class Cope
 	 * {@link Function#lessOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
+	public static <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
 		return function.lessOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -216,7 +216,7 @@ public abstract class Cope
 	 * {@link Function#greater(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
+	public static <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
 		return function.greater(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -227,7 +227,7 @@ public abstract class Cope
 	 * {@link Function#greaterOrEqual(Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
-	public static final <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
+	public static <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
 		return function.greaterOrEqual(Cast.verboseCast(function.getValueClass(), value));
 	}
@@ -253,7 +253,7 @@ public abstract class Cope
 		select.check(tc, join);
 	}
 
-	public static final void main(final String[] args)
+	public static void main(final String[] args)
 	{
 		if(args.length!=2)
 			throw new RuntimeException("must have two arguments, model and action");
@@ -283,7 +283,7 @@ public abstract class Cope
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
+	public static <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
 	{
 		return plus(addend1, addend2);
 	}
@@ -292,7 +292,7 @@ public abstract class Cope
 	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
 	 */
 	@Deprecated
-	public static final <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
+	public static <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
 	{
 		return plus(addend1, addend2, addend3);
 	}
@@ -301,7 +301,7 @@ public abstract class Cope
 	 * @deprecated Use {@link Cast#verboseCast(Class, Object)} instead.
 	 */
 	@Deprecated
-	public static final <X> X verboseCast(final Class<X> clazz, final Object o)
+	public static <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
 		return Cast.verboseCast(clazz, o);
 	}
