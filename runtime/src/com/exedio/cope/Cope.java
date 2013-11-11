@@ -254,15 +254,6 @@ public final class Cope
 		select.check(tc, join);
 	}
 
-	/**
-	 * @deprecated Use {@link ModelMain#main(String[])} instead.
-	 */
-	@Deprecated
-	public static void main(final String[] args)
-	{
-		ModelMain.main(args);
-	}
-
 	private Cope()
 	{
 		// prevent instantiation
@@ -304,5 +295,14 @@ public final class Cope
 	public static Model getModel(final String name)
 	{
 		return ModelByString.get(name);
+	}
+
+	/**
+	 * @deprecated Use {@link ModelMain#main(String[])} instead.
+	 */
+	@Deprecated
+	public static void main(final String[] args)
+	{
+		ModelMain.main(args);
 	}
 }
