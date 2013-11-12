@@ -106,15 +106,6 @@ public abstract class MediaPath extends Pattern
 		return mount().urlFingerPrinting;
 	}
 
-	static long fixFingerprint(final Date fingerprint)
-	{
-		if(fingerprint==null)
-			return Long.MIN_VALUE;
-
-		final long fingerprintTime = fingerprint.getTime();
-		return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
-	}
-
 	final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
@@ -153,6 +144,15 @@ public abstract class MediaPath extends Pattern
 			this.catchphrase = catchphrase;
 			this.mediaType = mediaType;
 			this.secret = secret;
+		}
+
+		private long fixFingerprint(final Date fingerprint)
+		{
+			if(fingerprint==null)
+				return Long.MIN_VALUE;
+
+			final long fingerprintTime = fingerprint.getTime();
+			return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
 		}
 
 		public MediaPath getFeature()
