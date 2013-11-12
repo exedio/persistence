@@ -138,20 +138,20 @@ public abstract class MediaPath extends Pattern
 		private final Item item;
 		private final long fingerprint;
 		private final String catchphrase;
-		private final String extension;
+		private final MediaType mediaType;
 		private final String secret;
 
 		Locator(
 				final Item item,
 				final Date fingerprint,
 				final String catchphrase,
-				final String extension,
+				final MediaType mediaType,
 				final String secret)
 		{
 			this.item = item;
 			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint) : Long.MIN_VALUE;
 			this.catchphrase = catchphrase;
-			this.extension = extension;
+			this.mediaType = mediaType;
 			this.secret = secret;
 		}
 
@@ -196,8 +196,12 @@ public abstract class MediaPath extends Pattern
 			if(catchphrase!=null)
 				bf.append('/').append(catchphrase);
 
-			if(extension!=null)
-				bf.append(extension);
+			if(mediaType!=null)
+			{
+				final String extension = mediaType.getExtension();
+				if(extension!=null)
+					bf.append(extension);
+			}
 
 			if(withSecret && secret!=null)
 				bf.append("?" + URL_TOKEN + "=").
@@ -245,7 +249,7 @@ public abstract class MediaPath extends Pattern
 				item,
 				mount().urlFingerPrinting ? getLastModified(item) : null,
 				makeUrlCatchphrase(item),
-				mediaType!=null ? mediaType.getExtension() : null,
+				mediaType,
 				makeUrlToken(item));
 	}
 
