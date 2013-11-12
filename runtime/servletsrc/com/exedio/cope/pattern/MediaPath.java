@@ -140,7 +140,7 @@ public abstract class MediaPath extends Pattern
 				final String secret)
 		{
 			this.item = item;
-			this.fingerprint = fingerprint!=null ? fixFingerprint(fingerprint) : Long.MIN_VALUE;
+			this.fingerprint = fixFingerprint(fingerprint);
 			this.catchphrase = catchphrase;
 			this.mediaType = mediaType;
 			this.secret = secret;
