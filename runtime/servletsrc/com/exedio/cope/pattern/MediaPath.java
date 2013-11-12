@@ -208,6 +208,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
+		 * Returns the same value as {@link MediaPath#getURL()}.
 		 * @see #appendURLByConnect(StringBuilder)
 		 */
 		public String getURLByConnect()
@@ -255,6 +256,7 @@ public abstract class MediaPath extends Pattern
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
+	 * @see Locator#getURLByConnect()
 	 */
 	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
