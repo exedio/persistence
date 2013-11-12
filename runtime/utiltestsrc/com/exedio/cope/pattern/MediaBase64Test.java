@@ -19,9 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class MediaBase64Test extends CopeAssert
 {
@@ -58,46 +55,5 @@ public class MediaBase64Test extends CopeAssert
 		final StringBuilder bf = new StringBuilder();
 		MediaBase64.append(bf, actual);
 		assertEquals(expected, bf.toString());
-	}
-
-	public void xtestShow() throws ParseException
-	{
-		final Date d = new Date();
-		{
-			final StringBuilder bf = new StringBuilder();
-			MediaPath.appendFingerprintSegment(bf, d.getTime());
-			print(bf.toString());
-		}
-		print(".f" + d.getTime() + "/");
-
-		{
-			final long millisOf40years = 1000l * 60 * 60 * 24 * 365 * 40;
-			System.out.println("----- " + millisOf40years);
-			final StringBuilder bf = new StringBuilder();
-			MediaPath.appendFingerprintSegment(bf, d.getTime()-millisOf40years);
-			print(bf.toString());
-			print(".f" + (d.getTime()-millisOf40years) + "/");
-		}
-		{
-			final long millisOf40years = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").parse("2010/01/01 00:00:00.000").getTime();
-			System.out.println("----- " + millisOf40years);
-			final StringBuilder bf = new StringBuilder();
-			MediaPath.appendFingerprintSegment(bf, d.getTime()-millisOf40years);
-			print(bf.toString());
-			print(".f" + (d.getTime()-millisOf40years) + "/");
-		}
-		{
-			final long millisOf43years = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").parse("2013/01/01 00:00:00.000").getTime();
-			System.out.println("----- " + millisOf43years);
-			final StringBuilder bf = new StringBuilder();
-			MediaPath.appendFingerprintSegment(bf, d.getTime()-millisOf43years);
-			print(bf.toString());
-			print(".f" + (d.getTime()-millisOf43years) + "/");
-		}
-	}
-
-	private static void print(final String s)
-	{
-		System.out.println("------- " + s + " / " + s.length() + " / " + (s.length()-3));
 	}
 }
