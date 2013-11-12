@@ -204,17 +204,17 @@ public abstract class MediaPath extends Pattern
 					append(secret);
 		}
 
-		public String getURL()
+		public String getURLByConnect()
 		{
 			final StringBuilder bf = new StringBuilder();
-			appendURL(bf);
+			appendURLByConnect(bf);
 			return bf.toString();
 		}
 
 		/**
-		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getURL()});</tt>
+		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});</tt>
 		 */
-		public void appendURL(final StringBuilder bf)
+		public void appendURLByConnect(final StringBuilder bf)
 		{
 			bf.append(getMediaRootUrl());
 			appendPath(bf, true);

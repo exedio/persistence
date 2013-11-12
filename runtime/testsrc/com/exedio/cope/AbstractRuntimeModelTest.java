@@ -61,7 +61,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		{
 			assertSame(feature, locator.getFeature());
 			assertEquals(path, locator.getPath());
-			assertEquals(mediaRootUrl + path, locator.getURL());
+			assertEquals(mediaRootUrl + path, locator.getURLByConnect());
 			assertEquals(path, locator.toString());
 
 			final StringBuilder bf = new StringBuilder();
@@ -69,7 +69,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 			assertEquals(path, bf.toString());
 
 			bf.setLength(0);
-			locator.appendURL(bf);
+			locator.appendURLByConnect(bf);
 			assertEquals(mediaRootUrl + path, bf.toString());
 		}
 		finally
