@@ -135,13 +135,12 @@ public abstract class MediaPath extends Pattern
 		Locator(
 				final Item item,
 				final Date fingerprint,
-				final String catchphrase,
 				final MediaType mediaType,
 				final String secret)
 		{
 			this.item = item;
 			this.fingerprint = fixFingerprint(fingerprint);
-			this.catchphrase = catchphrase;
+			this.catchphrase = makeUrlCatchphrase(item);
 			this.mediaType = mediaType;
 			this.secret = secret;
 		}
@@ -153,6 +152,30 @@ public abstract class MediaPath extends Pattern
 
 			final long fingerprintTime = fingerprint.getTime();
 			return fingerprintTime!=Long.MIN_VALUE ? fingerprintTime : (Long.MIN_VALUE+1);
+		}
+
+		private String makeUrlCatchphrase(final Item item)
+		{
+			if(!(item instanceof MediaUrlCatchphraseProvider))
+				return null;
+
+			final String result = ((MediaUrlCatchphraseProvider)item).getMediaUrlCatchphrase(MediaPath.this);
+			if(result==null || result.isEmpty())
+				return null;
+
+			final int l = result.length();
+			for(int i = 0; i<l; i++)
+			{
+				final char c = result.charAt(i);
+				if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
+					throw new IllegalArgumentException(
+							"illegal catchphrase" +
+							" on " + item.getCopeID() +
+							" for " + getID() +
+							": >" + result + "< [" + i + ']');
+			}
+
+			return result;
 		}
 
 		public MediaPath getFeature()
@@ -248,33 +271,8 @@ public abstract class MediaPath extends Pattern
 		return new Locator(
 				item,
 				mount().urlFingerPrinting ? getLastModified(item) : null,
-				makeUrlCatchphrase(item),
 				mediaType,
 				makeUrlToken(item));
-	}
-
-	private final String makeUrlCatchphrase(final Item item)
-	{
-		if(!(item instanceof MediaUrlCatchphraseProvider))
-			return null;
-
-		final String result = ((MediaUrlCatchphraseProvider)item).getMediaUrlCatchphrase(this);
-		if(result==null || result.isEmpty())
-			return null;
-
-		final int l = result.length();
-		for(int i = 0; i<l; i++)
-		{
-			final char c = result.charAt(i);
-			if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
-				throw new IllegalArgumentException(
-						"illegal catchphrase" +
-						" on " + item.getCopeID() +
-						" for " + getID() +
-						": >" + result + "< [" + i + ']');
-		}
-
-		return result;
 	}
 
 	/**
