@@ -261,34 +261,8 @@ public abstract class MediaPath extends Pattern
 	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
 	public final String getURL(final Item item)
 	{
-		final String contentType = getContentType(item);
-
-		if(contentType==null)
-			return null;
-
-		final StringBuilder bf = new StringBuilder(getMediaRootUrl());
-
-		bf.append(getUrlPath());
-
-		if(mount().urlFingerPrinting)
-			appendFingerprintSegment(bf, fixFingerprint(getLastModified(item)));
-
-		item.appendCopeID(bf);
-
-		final String catchphrase = makeUrlCatchphrase(item);
-		if(catchphrase!=null)
-			bf.append('/').append(catchphrase);
-
-		final MediaType type = MediaType.forNameAndAliases(contentType);
-		if(type!=null)
-			bf.append(type.getExtension());
-
-		final String secret = makeUrlToken(item);
-		if(secret!=null)
-			bf.append("?" + URL_TOKEN + "=").
-				append(secret);
-
-		return bf.toString();
+		final Locator locator = getLocator(item);
+		return locator!=null ? locator.getURLByConnect() : null;
 	}
 
 	private final String makeUrlCatchphrase(final Item item)
