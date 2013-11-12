@@ -209,7 +209,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
-		 * Returns the same value as {@link MediaPath#getURL()}.
+		 * Returns the same value as {@link MediaPath#getURL(Item)}.
 		 * @see #appendURLByConnect(StringBuilder)
 		 */
 		public String getURLByConnect()
