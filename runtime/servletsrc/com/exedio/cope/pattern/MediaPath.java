@@ -170,6 +170,9 @@ public abstract class MediaPath extends Pattern
 			return MediaPath.this;
 		}
 
+		/**
+		 * @see #appendPath(StringBuilder)
+		 */
 		public String getPath()
 		{
 			final StringBuilder bf = new StringBuilder();
@@ -204,6 +207,9 @@ public abstract class MediaPath extends Pattern
 					append(secret);
 		}
 
+		/**
+		 * @see #appendURLByConnect(StringBuilder)
+		 */
 		public String getURLByConnect()
 		{
 			final StringBuilder bf = new StringBuilder();
