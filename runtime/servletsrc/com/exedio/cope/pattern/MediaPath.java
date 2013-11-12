@@ -253,19 +253,6 @@ public abstract class MediaPath extends Pattern
 				makeUrlToken(item));
 	}
 
-	/**
-	 * Returns a URL the content of this media path is available under,
-	 * if a {@link MediaServlet} is properly installed.
-	 * Returns null, if there is no such content.
-	 * @see Locator#getURLByConnect()
-	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
-	public final String getURL(final Item item)
-	{
-		final Locator locator = getLocator(item);
-		return locator!=null ? locator.getURLByConnect() : null;
-	}
-
 	private final String makeUrlCatchphrase(final Item item)
 	{
 		if(!(item instanceof MediaUrlCatchphraseProvider))
@@ -288,6 +275,19 @@ public abstract class MediaPath extends Pattern
 		}
 
 		return result;
+	}
+
+	/**
+	 * Returns a URL the content of this media path is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if there is no such content.
+	 * @see Locator#getURLByConnect()
+	 */
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
+	public final String getURL(final Item item)
+	{
+		final Locator locator = getLocator(item);
+		return locator!=null ? locator.getURLByConnect() : null;
 	}
 
 	static final String URL_TOKEN = "t";
