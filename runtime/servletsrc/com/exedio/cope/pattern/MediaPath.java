@@ -183,6 +183,11 @@ public abstract class MediaPath extends Pattern
 			return MediaPath.this;
 		}
 
+		public Item getItem()
+		{
+			return item;
+		}
+
 		/**
 		 * @see #appendPath(StringBuilder)
 		 */

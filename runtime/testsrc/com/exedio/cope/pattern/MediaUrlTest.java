@@ -159,5 +159,6 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		}
 
 		assertLocator(path, pathInfo, path.getLocator(item));
+		assertSame(item, path.getLocator(item).getItem());
 	}
 }
