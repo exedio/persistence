@@ -139,6 +139,7 @@ public abstract class CopeTest extends CopeAssert
 	@Override
 	protected void setUp() throws Exception
 	{
+		System.out.println("--- setUp O " + getClass().getName());
 		super.setUp();
 		deleteOnTearDown = new ArrayList<Item>();
 		if(exclusive)

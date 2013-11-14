@@ -64,6 +64,7 @@ public abstract class CopeModelTest extends CopeAssert
 	@Override
 	protected void setUp() throws Exception
 	{
+		System.out.println("--- setUp M " + getClass().getName());
 		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
