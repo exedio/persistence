@@ -157,11 +157,13 @@ public abstract class CopeTest extends CopeAssert
 			model.startTransaction("CopeTest");
 			model.checkEmptySchema();
 		}
+		System.out.println("--- /setUp O " + getClass().getName());
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		System.out.println("--- tearDown O " + getClass().getName());
 		if(manageTransactions)
 		{
 			final boolean hadTransaction = model.hasCurrentTransaction();
@@ -253,6 +255,7 @@ public abstract class CopeTest extends CopeAssert
 			ModelConnector.dropAndDisconnect();
 		}
 		super.tearDown();
+		System.out.println("--- /tearDown O " + getClass().getName());
 	}
 
 	protected boolean testCompletedSuccessfully()

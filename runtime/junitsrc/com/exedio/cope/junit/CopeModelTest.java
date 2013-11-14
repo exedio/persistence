@@ -71,11 +71,13 @@ public abstract class CopeModelTest extends CopeAssert
 
 		if(doesManageTransactions())
 			model.startTransaction("tx:" + getClass().getName());
+		System.out.println("--- /setUp M " + getClass().getName());
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		System.out.println("--- tearDown M " + getClass().getName());
 		// NOTE:
 		// do rollback even if manageTransactions is false
 		// because test could have started a transaction
@@ -88,6 +90,7 @@ public abstract class CopeModelTest extends CopeAssert
 			model.removeModificationListener(ml);
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
+		System.out.println("--- /tearDown M " + getClass().getName());
 	}
 
 	// ------------------- deprecated stuff -------------------
