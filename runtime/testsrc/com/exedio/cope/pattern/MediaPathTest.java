@@ -408,6 +408,12 @@ public final class MediaPathTest extends AbstractRuntimeTest
 			return this;
 		}
 
+		@Override()
+		public boolean isSecure()
+		{
+			return false;
+		}
+
 		@Override
 		public String getMethod()
 		{
