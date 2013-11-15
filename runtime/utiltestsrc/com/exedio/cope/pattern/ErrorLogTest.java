@@ -31,12 +31,24 @@ public class ErrorLogTest extends CopeAssert
 
 		assertEquals(1, l.get());
 		final MediaRequestLog l0 = l.getLogs().get(0);
+		assertEquals(false, l0.isSecure());
 		assertEquals("PathInfo0", l0.getPathInfo());
 		assertNotNull(l0.getDate());
 		assertEquals("QueryString0", l0.getQueryString());
 		assertEquals("HeaderHost0", l0.getHost());
 		assertEquals("HeaderReferer0", l0.getReferer());
 		assertEquals("HeaderUser-Agent0", l0.getUserAgent());
+	}
+
+	public void testSecure()
+	{
+		final ErrorLog l = new ErrorLog(3);
+		l.count(new Request(0, true), null);
+
+		assertEquals(1, l.get());
+		final MediaRequestLog l0 = l.getLogs().get(0);
+		assertEquals(true, l0.isSecure());
+		assertEquals("PathInfo0", l0.getPathInfo());
 	}
 
 	public void testOverflow()
@@ -115,10 +127,24 @@ public class ErrorLogTest extends CopeAssert
 	class Request extends HttpServletRequestUtilDummy
 	{
 		private final int n;
+		private final boolean secure;
 
 		Request(final int n)
 		{
 			this.n = n;
+			this.secure = false;
+		}
+
+		Request(final int n, final boolean secure)
+		{
+			this.n = n;
+			this.secure = secure;
+		}
+
+		@Override()
+		public boolean isSecure()
+		{
+			return secure;
 		}
 
 		@Override

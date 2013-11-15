@@ -26,6 +26,7 @@ public final class MediaRequestLog
 	private final long date;
 	private final Exception exception;
 
+	private final boolean secure;
 	private final String pathInfo;
 	private final String queryString;
 	private final String host;
@@ -40,6 +41,7 @@ public final class MediaRequestLog
 		this.date = date;
 		this.exception = exception;
 
+		secure      = request.isSecure();
 		pathInfo    = request.getPathInfo();
 		queryString = request.getQueryString();
 		host        = request.getHeader("Host");
@@ -55,6 +57,11 @@ public final class MediaRequestLog
 	public Exception getException()
 	{
 		return exception;
+	}
+
+	public boolean isSecure()
+	{
+		return secure;
 	}
 
 	public String getPathInfo()
