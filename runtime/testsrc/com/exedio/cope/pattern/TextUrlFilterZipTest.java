@@ -45,7 +45,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new TextUrlFilterItem());
+		item = new TextUrlFilterItem();
 	}
 
 	public void testNormal() throws IOException
