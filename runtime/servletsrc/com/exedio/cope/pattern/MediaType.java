@@ -48,7 +48,7 @@ public final class MediaType
 
 	private MediaType(final String extension, final byte[] magic, final String name, final String... aliases)
 	{
-		this( new String[] { extension}, magic, name, aliases );
+		this(new String[]{extension}, magic, name, aliases);
 	}
 
 	private MediaType(final String[] extensions, final byte[] magic, final String name, final String... aliases)
