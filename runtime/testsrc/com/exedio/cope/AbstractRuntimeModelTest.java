@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.MediaPath;
+import java.io.File;
 
 public abstract class AbstractRuntimeModelTest extends CopeModelTest
 {
@@ -30,6 +31,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 
 	protected boolean postgresql;
 	protected String mediaRootUrl = null;
+	private final FileFixture files = new FileFixture();
 
 	@Override
 	protected void setUp() throws Exception
@@ -40,11 +42,15 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		postgresql = "com.exedio.cope.PostgresqlDialect".equals(database);
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
+
+		files.setUp();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		files.tearDown();
+
 		mediaRootUrl = null;
 
 		super.tearDown();
@@ -76,5 +82,10 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		{
 			model.joinTransaction(tx);
 		}
+	}
+
+	protected final File deleteOnTearDown(final File file)
+	{
+		return files.deleteOnTearDown(file);
 	}
 }

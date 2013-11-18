@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.cope.pattern.MediaPath;
@@ -34,7 +33,6 @@ import com.exedio.dsmf.UniqueConstraint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -131,7 +129,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean postgresql;
 	protected boolean cache;
 
-	private final ArrayList<File> files = new ArrayList<File>();
+	private final FileFixture files = new FileFixture();
 	private TestByteArrayInputStream testStream = null;
 	protected String mediaRootUrl = null;
 
@@ -158,7 +156,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		oracle = dialect==Dialect.ORACLE;
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
-		files.clear();
+		files.setUp();
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 	}
@@ -168,9 +166,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		mediaRootUrl = null;
 
-		for(final File file : files)
-			delete(file);
-		files.clear();
+		files.tearDown();
 
 		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
 
@@ -259,41 +255,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected final File file(final byte[] data)
 	{
-		final File result;
-		FileOutputStream s = null;
-		try
-		{
-			result = createTempFile(AbstractRuntimeTest.class.getName(), ".tmp");
-			s = new FileOutputStream(result);
-			s.write(data);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		finally
-		{
-			if(s!=null)
-			{
-				try
-				{
-					s.close();
-				}
-				catch(final IOException e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-		}
-		files.add(result);
-		return result;
-	}
-
-	protected final File deleteOnTearDown(final File file)
-	{
-		assertNotNull(file);
-		files.add(file);
-		return file;
+		return files.file(data);
 	}
 
 	protected static void assertData(final byte[] expectedData, final byte[] actualData)
