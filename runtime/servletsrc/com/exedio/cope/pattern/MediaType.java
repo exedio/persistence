@@ -68,7 +68,7 @@ public final class MediaType
 	}
 
 	/**
-	 * Returns a list of file extension for this media type. The most common is used assign to index 0.
+	 * Returns a list of file extensions for this media type. The most common is used assign to index 0.
 	 * The result does include the leading dot, for example ".jpg".
 	 */
 	public List<String> getExtensions()
@@ -86,9 +86,9 @@ public final class MediaType
 	}
 
 	/**
-	 * Their are multiple extensions now. Please use getDefaultExtension() or getExtensions().
-	 *
 	 * @deprecated
+	 * There are multiple extensions now.
+	 * Please use {@link #getDefaultExtension()} or {@link #getExtensions()}.
 	 */
 	@Deprecated
 	public String getExtension()
