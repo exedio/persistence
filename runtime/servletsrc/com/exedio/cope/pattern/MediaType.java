@@ -37,7 +37,7 @@ import java.util.Set;
 public final class MediaType
 {
 	private final byte[] magic;
-	private final String extension;
+	private final String[] extensions;
 	private final String name;
 	private final String[] aliases;
 
@@ -48,12 +48,18 @@ public final class MediaType
 
 	private MediaType(final String extension, final byte[] magic, final String name, final String... aliases)
 	{
+		this( new String[] { extension}, magic, name, aliases );
+	}
+
+	private MediaType(final String[] extensions, final byte[] magic, final String name, final String... aliases)
+	{
 		this.magic = magic;
-		this.extension = extension;
+		this.extensions = extensions;
 		this.name = name;
 		this.aliases = aliases;
 		assert magic==null || magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
-		assert extension!=null;
+		assert extensions!=null;
+		assert extensions.length>0;
 	}
 
 	public boolean hasMagic()
@@ -62,12 +68,32 @@ public final class MediaType
 	}
 
 	/**
+	 * Returns a list of file extension for this media type. The most common is used assign to index 0.
+	 * The result does include the leading dot, for example ".jpg".
+	 */
+	public String[] getExtensions()
+	{
+		return extensions;
+	}
+
+	/**
 	 * Returns the typical file extension for this media type.
 	 * The result does include the leading dot, for example ".jpg".
 	 */
+	public String getDefaultExtension()
+	{
+		return extensions[0];
+	}
+
+	/**
+	 * Their are multiple extensions now. Please use getDefaultExtension() or getExtensions().
+	 *
+	 * @deprecated
+	 */
+	@Deprecated
 	public String getExtension()
 	{
-		return extension;
+		return getDefaultExtension();
 	}
 
 	public String getName()
@@ -121,8 +147,15 @@ public final class MediaType
 	public static final String ICON = "image/vnd.microsoft.icon";
 	public static final String SVG  = "image/svg+xml";
 	public static final String ZIP  = "application/zip";
+	public static final String JAR  = "application/java-archive";
 	public static final String PDF  = "application/pdf";
 	public static final String JAVASCRIPT = "application/javascript";
+	public static final String EOT  = "application/vnd.ms-fontobject";
+	public static final String WOFF = "application/font-woff";
+	public static final String TTF  = "application/x-font-ttf";
+	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+	public static final byte[] ZIP_MAGIC = new byte[]{(byte)'P', (byte)'K', 0x03, 0x04};
 
 	private static final MediaType[] types = new MediaType[]{
 
@@ -144,7 +177,7 @@ public final class MediaType
 					// RFC 4329 section 7. JavaScript Media Types
 					JAVASCRIPT, "text/javascript", "application/x-javascript"),
 			new MediaType(
-					".jpg",
+					new String[]{".jpg",".jpeg"},
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
 					JPEG, "image/pjpeg"),
@@ -166,12 +199,16 @@ public final class MediaType
 			new MediaType(
 					".zip",
 					// http://en.wikipedia.org/wiki/ZIP_(file_format)
-					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04},
+					ZIP_MAGIC,
 					ZIP),
 			new MediaType(
 					".jar",
-					new byte[]{(byte)'P', (byte)'K', 0x03, 0x04}, // same as ZIP
-					"application/java-archive"),
+					ZIP_MAGIC,
+					JAR),
+			new MediaType(
+					".docx",
+					ZIP_MAGIC,
+					DOCX),
 			new MediaType(
 					".svg",
 					// http://www.w3.org/TR/SVG/mimereg.html
@@ -179,18 +216,20 @@ public final class MediaType
 			new MediaType(
 					".eot",
 					// http://www.w3.org/Submission/EOT/
-					"application/vnd.ms-fontobject"),
+					EOT),
 			new MediaType(
 					".woff",
 					// http://www.w3.org/TR/WOFF/
 					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
+					WOFF,
 					"font/x-woff"),
 			new MediaType(
 					".ttf",
 					// http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
 					new byte[]{0x00,0x01,0x00,0x00,0x00},
-					"font/ttf",
-					"application/x-font-ttf"),
+					TTF,
+					"application/x-font-truetype",
+					"font/ttf"),
 			new MediaType(
 					".pdf",
 					// http://en.wikipedia.org/wiki/PDF
@@ -209,7 +248,10 @@ public final class MediaType
 	{
 		for(final MediaType type : types)
 		{
-			put(typesByExtension, type.extension, type);
+			for (final String extension: type.extensions)
+			{
+				put(typesByExtension, extension, type);
+			}
 			put(typesByName, type.name, type);
 			put(typesByNameAndAlias, type.name, type);
 			for(final String alias : type.aliases)
@@ -223,7 +265,7 @@ public final class MediaType
 			final MediaType value)
 	{
 		if(map.put(key, value)!=null)
-			throw new RuntimeException(key);
+			throw new RuntimeException(">"+key+"< already exists");
 	}
 
 

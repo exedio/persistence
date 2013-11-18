@@ -7,6 +7,14 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Extend MediaType 
+	allow multiple extentions; first is default
+		MIGRATION	MediaType.getExtension()->MediaType.getDefaultExtension() or MediaType.getExtensions()
+	add ".jpeg" to JPG extensions
+	new constants for JAR and fonts
+	change default mime for TTF font/ttf->application/x-font-ttf
+	change default mime for WOFF application/font-woff->application/x-font-woff
+	add DOCX mediatype
 * MediaRequestLog#isSecure() added
 * HashInterface#isNull(Item) added
 	This breaks backwards API compatibility, causes compiler error.

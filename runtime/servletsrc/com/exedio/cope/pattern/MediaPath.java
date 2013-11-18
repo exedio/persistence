@@ -226,7 +226,7 @@ public abstract class MediaPath extends Pattern
 
 			if(mediaType!=null)
 			{
-				final String extension = mediaType.getExtension();
+				final String extension = mediaType.getDefaultExtension();
 				if(extension!=null)
 					bf.append(extension);
 			}

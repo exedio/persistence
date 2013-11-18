@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import org.junit.Assert;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -50,11 +51,16 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType png = forName("image/png");
 		final MediaType js  = forName("application/javascript");
 
-		assertEquals(".jpg", jpg.getExtension());
-		assertEquals(".png", png.getExtension());
-		assertEquals(".js" , js .getExtension());
+		Assert.assertArrayEquals(new String[]{".jpg",".jpeg"}, jpg.getExtensions());
+		Assert.assertArrayEquals(new String[] { ".png"}, png.getExtensions());
+		Assert.assertArrayEquals(new String[]{".js"} , js .getExtensions());
+
+		assertEquals(".jpg", jpg.getDefaultExtension());
+		assertEquals(".png", png.getDefaultExtension());
+		assertEquals(".js" , js .getDefaultExtension());
 
 		assertSame(jpg, forFileName("eins.jpg"));
+		assertSame(jpg, forFileName("vier.jpeg"));
 		assertSame(png, forFileName("zwei.png"));
 		assertSame(js,  forFileName("drei.js"));
 
@@ -139,13 +145,14 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType png = forName("image/png");
 		final MediaType zip = forName("application/zip");
 		final MediaType jar = forName("application/java-archive");
+		final MediaType docx = forName("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
 		assertMagic(JPEG,        jpg);
 		assertMagic(JPEG + "aa", jpg);
 		assertMagic(PNG,         png);
 		assertMagic(PNG  + "bb", png);
-		assertMagic(ZIP,         zip, jar);
-		assertMagic(ZIP  + "cc", zip, jar);
+		assertMagic(ZIP,         zip, jar, docx);
+		assertMagic(ZIP  + "cc", zip, jar, docx);
 		assertMagic(stealTail(JPEG));
 		assertMagic(stealTail(PNG));
 		assertMagic(stealTail(ZIP));
