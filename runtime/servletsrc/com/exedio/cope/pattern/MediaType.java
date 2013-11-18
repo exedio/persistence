@@ -71,9 +71,9 @@ public final class MediaType
 	 * Returns a list of file extension for this media type. The most common is used assign to index 0.
 	 * The result does include the leading dot, for example ".jpg".
 	 */
-	public String[] getExtensions()
+	public List<String> getExtensions()
 	{
-		return extensions;
+		return Collections.unmodifiableList( Arrays.asList(extensions) );
 	}
 
 	/**
@@ -155,7 +155,7 @@ public final class MediaType
 	public static final String TTF  = "application/x-font-ttf";
 	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-	public static final byte[] ZIP_MAGIC = new byte[]{(byte)'P', (byte)'K', 0x03, 0x04};
+	private static final byte[] ZIP_MAGIC = new byte[]{(byte)'P', (byte)'K', 0x03, 0x04};
 
 	private static final MediaType[] types = new MediaType[]{
 
