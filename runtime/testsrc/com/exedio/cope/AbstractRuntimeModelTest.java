@@ -29,6 +29,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super(model);
 	}
 
+	protected boolean mysql;
 	protected boolean postgresql;
 	protected String mediaRootUrl = null;
 	private final FileFixture files = new FileFixture();
@@ -39,6 +40,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super.setUp();
 		final String database = model.getConnectProperties().getDialect();
 
+		mysql      = "com.exedio.cope.MysqlDialect"     .equals(database);
 		postgresql = "com.exedio.cope.PostgresqlDialect".equals(database);
 
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();

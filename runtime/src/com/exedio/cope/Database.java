@@ -687,4 +687,16 @@ final class Database
 		for(final SequenceX sequence : sequences)
 			sequence.knownToBeEmptyForTest = true;
 	}
+
+	ArrayList<String> getSequenceSchemaNames()
+	{
+		final ArrayList<String> result = new ArrayList<String>();
+		for(final SequenceX sequence : this.sequences)
+		{
+			final String name = sequence.getSchemaName();
+			if(name!=null)
+				result.add(name);
+		}
+		return result;
+	}
 }

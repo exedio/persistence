@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -201,6 +202,11 @@ final class Connect
 	{
 		itemCache.clear();
 		queryCache.clear();
+	}
+
+	void purgeSchema(final JobContext ctx)
+	{
+		dialect.purgeSchema(ctx, database, connectionPool);
 	}
 
 	Revisions getRevisions()
