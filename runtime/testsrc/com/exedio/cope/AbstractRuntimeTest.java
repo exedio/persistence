@@ -23,7 +23,6 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.util.StrictFile.delete;
 
 import com.exedio.cope.junit.CopeTest;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -643,38 +642,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		catch(final RuntimeException e)
 		{
 			assertEquals("no check for update counter needed for " + type, e.getMessage());
-		}
-	}
-
-	public static void assertLocator(
-			final MediaPath feature,
-			final String path,
-			final MediaPath.Locator locator)
-	{
-		final Model model = feature.getType().getModel();
-
-		// locator methods must work without transaction
-		final Transaction tx = model.leaveTransaction();
-		try
-		{
-			final String mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
-
-			assertSame(feature, locator.getFeature());
-			assertEquals(path, locator.getPath());
-			assertEquals(mediaRootUrl + path, locator.getURLByConnect());
-			assertEquals(path, locator.toString());
-
-			final StringBuilder bf = new StringBuilder();
-			locator.appendPath(bf);
-			assertEquals(path, bf.toString());
-
-			bf.setLength(0);
-			locator.appendURLByConnect(bf);
-			assertEquals(mediaRootUrl + path, bf.toString());
-		}
-		finally
-		{
-			model.joinTransaction(tx);
 		}
 	}
 

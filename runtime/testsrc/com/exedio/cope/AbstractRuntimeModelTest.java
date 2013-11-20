@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeModelTest;
-import com.exedio.cope.pattern.MediaPath;
 import java.io.File;
 
 public abstract class AbstractRuntimeModelTest extends CopeModelTest
@@ -54,38 +53,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		mediaRootUrl = null;
 
 		super.tearDown();
-	}
-
-	public static void assertLocator(
-			final MediaPath feature,
-			final String path,
-			final MediaPath.Locator locator)
-	{
-		final Model model = feature.getType().getModel();
-
-		// locator methods must work without transaction
-		final Transaction tx = model.leaveTransaction();
-		try
-		{
-			final String mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
-
-			assertSame(feature, locator.getFeature());
-			assertEquals(path, locator.getPath());
-			assertEquals(mediaRootUrl + path, locator.getURLByConnect());
-			assertEquals(path, locator.toString());
-
-			final StringBuilder bf = new StringBuilder();
-			locator.appendPath(bf);
-			assertEquals(path, bf.toString());
-
-			bf.setLength(0);
-			locator.appendURLByConnect(bf);
-			assertEquals(mediaRootUrl + path, bf.toString());
-		}
-		finally
-		{
-			model.joinTransaction(tx);
-		}
 	}
 
 	protected final File deleteOnTearDown(final File file)

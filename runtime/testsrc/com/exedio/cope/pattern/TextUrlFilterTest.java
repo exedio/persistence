@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.TextUrlFilterItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;

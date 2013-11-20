@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
 import static com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
