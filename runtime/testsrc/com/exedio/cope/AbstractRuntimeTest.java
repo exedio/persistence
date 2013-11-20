@@ -646,15 +646,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	public void assertLocator(
+	public static void assertLocator(
 			final MediaPath feature,
 			final String path,
 			final MediaPath.Locator locator)
 	{
+		final Model model = feature.getType().getModel();
+
 		// locator methods must work without transaction
 		final Transaction tx = model.leaveTransaction();
 		try
 		{
+			final String mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
+
 			assertSame(feature, locator.getFeature());
 			assertEquals(path, locator.getPath());
 			assertEquals(mediaRootUrl + path, locator.getURLByConnect());
