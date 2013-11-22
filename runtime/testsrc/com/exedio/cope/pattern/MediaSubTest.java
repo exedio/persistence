@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.image;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
@@ -163,7 +164,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(null, item.getImageBody());
 		assertEquals(-1, item.getImageLength());
 		assertEquals(null, item.getImageContentType());
-		assertEquals(null, item.getImageURL());
+		assertLocator(null, item.getImageLocator());
 	}
 
 	private void assertContent(
@@ -174,6 +175,6 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getImageBody());
 		assertEquals(expectedData.length, item.getImageLength());
 		assertEquals(expectedContentType, item.getImageContentType());
-		assertEquals(mediaRootUrl + "MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageURL());
+		assertLocator("MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageLocator());
 	}
 }

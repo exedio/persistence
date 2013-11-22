@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.sheet;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.CheckConstraint;
@@ -156,7 +157,7 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(-1, item.getSheetLength());
 		assertEquals(null, item.getSheetContentType());
 		assertEquals(null, sheet.getContentType().get(item));
-		assertEquals(null, item.getSheetURL());
+		assertLocator(null, item.getSheetLocator());
 	}
 
 	private void assertContent(
@@ -170,6 +171,6 @@ public class MediaEnumTest extends AbstractRuntimeTest
 		assertEquals(expectedData.length, item.getSheetLength());
 		assertEquals(expectedContentType, item.getSheetContentType());
 		assertEquals(expectedContentTypeNumber, sheet.getContentType().get(item));
-		assertEquals(mediaRootUrl + "MediaItem/sheet/" + item.getCopeID() + expectedExtension, item.getSheetURL());
+		assertLocator("MediaItem/sheet/" + item.getCopeID() + expectedExtension, item.getSheetLocator());
 	}
 }
