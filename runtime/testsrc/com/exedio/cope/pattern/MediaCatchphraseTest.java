@@ -65,17 +65,6 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 
 		try
 		{
-			wrong.getFeatureURL();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"illegal catchphrase on " + wrong + " for MediaCatchPhraseSuperItem.feature: >wrong/phrase< [5]",
-					e.getMessage());
-		}
-		try
-		{
 			wrong.getFeatureLocator();
 			fail();
 		}
