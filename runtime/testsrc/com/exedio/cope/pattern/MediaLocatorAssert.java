@@ -37,20 +37,13 @@ public final class MediaLocatorAssert
 		final Transaction tx = model.leaveTransaction();
 		try
 		{
-			final String mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
-
 			assertSame(feature, locator.getFeature());
 			assertEquals(path, locator.getPath());
-			assertEquals(mediaRootUrl + path, locator.getURLByConnect());
 			assertEquals(path, locator.toString());
 
 			final StringBuilder bf = new StringBuilder();
 			locator.appendPath(bf);
 			assertEquals(path, bf.toString());
-
-			bf.setLength(0);
-			locator.appendURLByConnect(bf);
-			assertEquals(mediaRootUrl + path, bf.toString());
 		}
 		finally
 		{
