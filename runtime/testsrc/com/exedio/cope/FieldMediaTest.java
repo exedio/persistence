@@ -22,6 +22,8 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someData;
 
+import com.exedio.cope.testmodel.AttributeItem;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -80,5 +82,27 @@ public class FieldMediaTest extends FieldTest
 		assertEquals(null, item.getSomeDataLocator());
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
+	}
+
+	private static void assertDataMime(final AttributeItem item,
+											final String contentType,
+											final byte[] data,
+											final String url)
+	{
+		try
+		{
+			item.setSomeData(new ByteArrayInputStream(data), contentType);
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		final String prefix = "AttributeItem/someData/";
+		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
+		//System.out.println(expectedURL);
+		//System.out.println(item.getSomeDataURL());
+		assertLocator(expectedURL, item.getSomeDataLocator());
+		assertData(data, item.getSomeDataBody());
+		assertEquals(contentType, item.getSomeDataContentType());
 	}
 }

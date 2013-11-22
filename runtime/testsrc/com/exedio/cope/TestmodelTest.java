@@ -18,40 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
-
-import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 public abstract class TestmodelTest extends AbstractRuntimeTest
 {
 	public TestmodelTest()
 	{
 		super(Main.model);
-	}
-
-	protected void assertDataMime(final AttributeItem item,
-											final String contentType,
-											final byte[] data,
-											final String url)
-	{
-		try
-		{
-			item.setSomeData(new ByteArrayInputStream(data), contentType);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		final String prefix = "AttributeItem/someData/";
-		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
-		//System.out.println(expectedURL);
-		//System.out.println(item.getSomeDataURL());
-		assertLocator(expectedURL, item.getSomeDataLocator());
-		assertData(data, item.getSomeDataBody());
-		assertEquals(contentType, item.getSomeDataContentType());
 	}
 
 	protected void assertNotEquals(final Item item1, final Item item2)
@@ -61,5 +34,4 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 		assertFalse(item1.getCopeID().equals(item2.getCopeID()));
 		assertFalse(item1.hashCode()==item2.hashCode());
 	}
-
 }
