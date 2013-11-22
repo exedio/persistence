@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaFinalItem.TYPE;
 import static com.exedio.cope.pattern.MediaFinalItem.file;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
@@ -154,7 +155,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertContentNull(itemNull);
 	}
 
-	private void assertContent(
+	private static void assertContent(
 			final MediaFinalItem item,
 			final byte[] expectedData,
 			final Date before, final Date after,
@@ -167,7 +168,7 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
-		assertEquals(mediaRootUrl + "MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
+		assertLocator("MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileLocator());
 	}
 
 	private static final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
@@ -187,6 +188,6 @@ public class MediaFinalTest extends AbstractRuntimeTest
 		assertEquals(-1, item.getFileLength());
 		assertEquals(null, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
-		assertEquals(null, item.getFileURL());
+		assertLocator(null, item.getFileLocator());
 	}
 }

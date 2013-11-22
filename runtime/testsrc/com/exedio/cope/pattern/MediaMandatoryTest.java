@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.MediaMandatoryItem.file;
 import static com.exedio.cope.util.StrictFile.delete;
@@ -188,7 +189,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(list(item), TYPE.search());
 	}
 
-	private void assertContent(
+	private static void assertContent(
 			final MediaMandatoryItem item,
 			final byte[] expectedData,
 			final Date before, final Date after,
@@ -201,7 +202,7 @@ public class MediaMandatoryTest extends AbstractRuntimeTest
 		assertEquals(expectedData.length, item.getFileLength());
 		assertWithin(before, after, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
-		assertEquals(mediaRootUrl + "MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileURL());
+		assertLocator("MediaMandatoryItem/file/" + item.getCopeID() + expectedExtension, item.getFileLocator());
 	}
 
 	private static final void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException

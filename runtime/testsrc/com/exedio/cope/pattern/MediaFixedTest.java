@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.photo;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
@@ -138,7 +139,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals(null, item.getPhotoBody());
 		assertEquals(-1, item.getPhotoLength());
 		assertEquals(null, item.getPhotoContentType());
-		assertEquals(null, item.getPhotoURL());
+		assertLocator(null, item.getPhotoLocator());
 	}
 
 	private void assertContent(final byte[] expectedData)
@@ -147,6 +148,6 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getPhotoBody());
 		assertEquals(expectedData.length, item.getPhotoLength());
 		assertEquals("image/jpeg", item.getPhotoContentType());
-		assertEquals(mediaRootUrl + "MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoURL());
+		assertLocator("MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoLocator());
 	}
 }

@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaItem.name;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaItem.sheet;
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
@@ -108,7 +109,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 		item.setPhoto(bytes4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
-		assertEquals(mediaRootUrl + "MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoURL());
+		assertLocator("MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoLocator());
 
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
@@ -119,7 +120,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals("custom", custom.getName());
 		assertSame(name, custom.getSource());
 		assertEquals("text/plain", item.getCustomContentType());
-		assertEquals(mediaRootUrl + "MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomURL());
+		assertLocator("MediaItem/custom/" + item.getCopeID() + ".txt", item.getCustomLocator());
 
 		assertFalse(file.isAnnotationPresent(Computed.class));
 		assertTrue(file.getBody        ().isAnnotationPresent(Computed.class));
