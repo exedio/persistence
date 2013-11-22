@@ -61,6 +61,8 @@ public class MediaRootUrlTest extends CopeAssert
 		assertEquals("zack/AnItem/file/AnItem-0.jpg", i1.getNamedFileURL(null));
 		assertEquals("zack/AnItem/file/AnItem-0.jpg", i1.getNamedFileURL(""));
 		assertEquals("zack/AnItem/file/AnItem-0.jpg", i1.getNamedFileURL("hallo"));
+		assertEquals("zack/AnItem/file/AnItem-1.png", i2.getNamedFileURL(null));
+		assertEquals(null, iN.getNamedFileURL(null));
 	}
 
 	private static ConnectProperties getProperties(final String mediaRootUrl)
