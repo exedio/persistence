@@ -59,18 +59,15 @@ public class MediaRootUrlTest extends CopeAssert
 		assertEquals(null, iN.getFileURL());
 
 		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = AnItem.file.getNamedURL(i1, null);
+			final String url = i1.getNamedFileURL(null);
 			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
 		}
 		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = AnItem.file.getNamedURL(i1, "");
+			final String url = i1.getNamedFileURL("");
 			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
 		}
 		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = AnItem.file.getNamedURL(i1, "hallo");
+			final String url = i1.getNamedFileURL("hallo");
 			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
 		}
 	}
@@ -117,6 +114,12 @@ public class MediaRootUrlTest extends CopeAssert
 		 * @cope.initial
 		 */
 		static final Media file = new Media().optional();
+
+		@SuppressWarnings("deprecation") // OK: testing deprecated api
+		String getNamedFileURL(final String name)
+		{
+			return AnItem.file.getNamedURL(this, name);
+		}
 
 	/**
 
