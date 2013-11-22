@@ -105,7 +105,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		assertEquals(photo.isNotNull(), foto.isNotNull());
 
 		assertEquals(null, item.getFotoContentType());
-		assertEquals(null, item.getFotoURL());
+		assertLocator(null, item.getFotoLocator());
 
 		item.setPhoto(bytes4, "image/jpeg");
 		assertEquals("image/jpeg", item.getFotoContentType());
@@ -113,7 +113,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 		item.setPhoto((InputStream)null, null);
 		assertEquals(null, item.getFotoContentType());
-		assertEquals(null, item.getFotoURL());
+		assertLocator(null, item.getFotoLocator());
 
 		// custom
 		assertEquals(TYPE, custom.getType());
