@@ -50,22 +50,14 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 	{
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 
-		assertEquals(null, named.getFotoSecureURL());
 		assertEquals(null, named.getFotoSecureLocator());
-		assertEquals(null, anond.getFotoSecureURL());
 		assertEquals(null, anond.getFotoSecureLocator());
-		assertEquals(null, named.getFileSecureURL());
 		assertEquals(null, named.getFileSecureLocator());
-		assertEquals(null, anond.getFileSecureURL());
 		assertEquals(null, anond.getFileSecureLocator());
 
-		assertEquals(null, named.getFotoFingerURL());
 		assertEquals(null, named.getFotoFingerLocator());
-		assertEquals(null, anond.getFotoFingerURL());
 		assertEquals(null, anond.getFotoFingerLocator());
-		assertEquals(null, named.getFileFingerURL());
 		assertEquals(null, named.getFileFingerLocator());
-		assertEquals(null, anond.getFileFingerURL());
 		assertEquals(null, anond.getFileFingerLocator());
 
 		final byte[] bytes  = {-86,122,-8,23};
