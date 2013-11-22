@@ -58,6 +58,14 @@ public final class MediaLocatorAssert
 		}
 	}
 
+	public static void assertLocator(
+			final String expectedPath,
+			final MediaPath.Locator actualLocator)
+	{
+		assertEquals(expectedPath, actualLocator!=null ? actualLocator.getPath() : null);
+	}
+
+
 	private MediaLocatorAssert()
 	{
 		// prevent instantiation

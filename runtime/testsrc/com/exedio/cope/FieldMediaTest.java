@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someData;
 
@@ -36,7 +37,7 @@ public class FieldMediaTest extends FieldTest
 
 		// TODO: test with not null data
 		assertEquals(TYPE, someData.getType());
-		assertEquals(null, item.getSomeDataURL());
+		assertEquals(null, item.getSomeDataLocator());
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
 
@@ -45,17 +46,17 @@ public class FieldMediaTest extends FieldTest
 		assertStreamClosed();
 
 		final String prefix =
-			model.getConnectProperties().getMediaRootUrl() + "AttributeItem/someData/";
+			"AttributeItem/someData/";
 		final String expectedURL =
 			prefix + item.getCopeID();
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
-		assertEquals(expectedURL, item.getSomeDataURL());
+		assertLocator(expectedURL, item.getSomeDataLocator());
 		assertData(bytes, item.getSomeDataBody());
 		assertEquals("some-mime-major/some-mime-minor", item.getSomeDataContentType());
 
 		restartTransaction();
-		assertEquals(expectedURL, item.getSomeDataURL());
+		assertLocator(expectedURL, item.getSomeDataLocator());
 		assertData(bytes, item.getSomeDataBody());
 		assertEquals("some-mime-major/some-mime-minor", item.getSomeDataContentType());
 
@@ -76,7 +77,7 @@ public class FieldMediaTest extends FieldTest
 		assertData(manyBytes, item.getSomeDataBody());
 
 		item.setSomeData((InputStream)null, null);
-		assertEquals(null, item.getSomeDataURL());
+		assertEquals(null, item.getSomeDataLocator());
 		assertEquals(null, item.getSomeDataBody());
 		assertEquals(null, item.getSomeDataContentType());
 	}

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.Main;
 import java.io.ByteArrayInputStream;
@@ -43,11 +45,11 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 		{
 			throw new RuntimeException(e);
 		}
-		final String prefix = model.getConnectProperties().getMediaRootUrl() + "AttributeItem/someData/";
+		final String prefix = "AttributeItem/someData/";
 		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
 		//System.out.println(expectedURL);
 		//System.out.println(item.getSomeDataURL());
-		assertEquals(expectedURL, item.getSomeDataURL());
+		assertLocator(expectedURL, item.getSomeDataLocator());
 		assertData(data, item.getSomeDataBody());
 		assertEquals(contentType, item.getSomeDataContentType());
 	}
