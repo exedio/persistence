@@ -188,6 +188,8 @@ public abstract class MediaPath extends Pattern
 			return item;
 		}
 
+		// TODO String getContentType()
+
 		/**
 		 * @see #appendPath(StringBuilder)
 		 */
@@ -255,6 +257,8 @@ public abstract class MediaPath extends Pattern
 			bf.append(getMediaRootUrl());
 			appendPath(bf, true);
 		}
+
+		// TODO equals/hashCode()
 
 		@Override
 		public String toString()
