@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
@@ -194,17 +195,17 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertDoGet404("is null",        thumbSame, emp);
 
 		// url
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
-		assertEquals(null, txt.getThumbURL());
-		assertEquals(null, emp.getThumbURL());
+		assertLocator("ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocator());
+		assertLocator("ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocator());
+		assertLocator("ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocator());
+		assertLocator(null, txt.getThumbLocator());
+		assertLocator(null, emp.getThumbLocator());
 
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURL());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURL());
-		assertEquals(null, txt.getThumbFullURL());
-		assertEquals(null, emp.getThumbFullURL());
+		assertLocator("ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullLocator());
+		assertLocator("ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullLocator());
+		assertLocator("ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullLocator());
+		assertLocator(null, txt.getThumbFullLocator());
+		assertLocator(null, emp.getThumbFullLocator());
 
 		// url fallback
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
