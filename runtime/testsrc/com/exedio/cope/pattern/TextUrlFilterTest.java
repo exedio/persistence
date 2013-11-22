@@ -84,12 +84,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 
 		final String url1 = item.addFertigPaste("uno");
-		assertLocator(
-				(MediaPath)fertig.getSourceTypes().get(0).getFeature("value"),
-				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
-				fertig.getPasteLocator(item, "uno"));
-		assertLocator("TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteLocator(item, "uno"));
-		assertEquals(fertig.getPasteLocator(item, "uno").getURLByConnect(), fertig.getPasteURL(item, "uno"));
+		final MediaPath.Locator l = fertig.getPasteLocator(item, "uno");
+		assertLocator("TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", l);
+		assertEquals(l.getURLByConnect(), fertig.getPasteURL(item, "uno"));
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
 
