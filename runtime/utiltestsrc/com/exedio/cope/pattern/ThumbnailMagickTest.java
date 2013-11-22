@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
@@ -27,6 +26,7 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -342,5 +342,12 @@ public final class ThumbnailMagickTest extends CopeTest
 			assertEquals(expectedResult, e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
+	}
+
+	private static void assertLocator(
+			final String expectedPath,
+			final MediaPath.Locator actualLocator)
+	{
+		assertEquals(expectedPath, actualLocator!=null ? actualLocator.getPath() : null);
 	}
 }
