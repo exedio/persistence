@@ -29,7 +29,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	}
 
 	protected boolean postgresql;
-	protected String mediaRootUrl = null;
 	private final FileFixture files = new FileFixture();
 
 	@Override
@@ -40,8 +39,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 
 		postgresql = "com.exedio.cope.PostgresqlDialect".equals(database);
 
-		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
-
 		files.setUp();
 	}
 
@@ -49,8 +46,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected void tearDown() throws Exception
 	{
 		files.tearDown();
-
-		mediaRootUrl = null;
 
 		super.tearDown();
 	}
