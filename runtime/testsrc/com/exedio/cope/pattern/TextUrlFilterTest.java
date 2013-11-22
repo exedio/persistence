@@ -58,8 +58,6 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 	{
 		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
 
-		final String rootUrl = model.getConnectProperties().getMediaRootUrl();
-
 		assertEquals(null, item.getFertigContentType());
 		try
 		{
@@ -90,7 +88,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 				(MediaPath)fertig.getSourceTypes().get(0).getFeature("value"),
 				"TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png",
 				fertig.getPasteLocator(item, "uno"));
-		assertEquals(rootUrl + "TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteURL(item, "uno"));
+		assertLocator("TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", fertig.getPasteLocator(item, "uno"));
+		assertEquals(fertig.getPasteLocator(item, "uno").getURLByConnect(), fertig.getPasteURL(item, "uno"));
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
 
