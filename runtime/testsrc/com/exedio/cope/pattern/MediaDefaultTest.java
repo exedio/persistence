@@ -311,7 +311,6 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(-1, item.getFileLength());
 		assertEquals(null, item.getFileLastModified());
 		assertEquals(null, item.getFileContentType());
-		assertEquals(null, item.getFileURL());
 		assertEquals(null, item.getFileLocator());
 	}
 
