@@ -58,6 +58,21 @@ public class MediaRootUrlTest extends CopeAssert
 		assertEquals("zack/AnItem/file/AnItem-1.png", i2.getFileURL());
 		assertEquals(null, iN.getFileURL());
 
+		{
+			@SuppressWarnings("deprecation") // OK: testing deprecated api
+			final String url = AnItem.file.getNamedURL(i1, null);
+			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
+		}
+		{
+			@SuppressWarnings("deprecation") // OK: testing deprecated api
+			final String url = AnItem.file.getNamedURL(i1, "");
+			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
+		}
+		{
+			@SuppressWarnings("deprecation") // OK: testing deprecated api
+			final String url = AnItem.file.getNamedURL(i1, "hallo");
+			assertEquals("zack/AnItem/file/AnItem-0.jpg", url);
+		}
 	}
 
 	private static ConnectProperties getProperties(final String mediaRootUrl)

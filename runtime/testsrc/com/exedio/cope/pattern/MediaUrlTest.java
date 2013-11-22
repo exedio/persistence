@@ -142,23 +142,6 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 	{
 		final String pathInfo = prefix + item.getCopeID() + postfix;
 		assertEquals(mediaRootUrl + pathInfo, path.getURL(item));
-
-		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = path.getNamedURL(item, null);
-			assertEquals(mediaRootUrl + pathInfo, url);
-		}
-		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = path.getNamedURL(item, "");
-			assertEquals(mediaRootUrl + pathInfo, url);
-		}
-		{
-			@SuppressWarnings("deprecation") // OK: testing deprecated api
-			final String url = path.getNamedURL(item, "hallo");
-			assertEquals(mediaRootUrl + pathInfo, url);
-		}
-
 		assertLocator(path, pathInfo, path.getLocator(item));
 		assertSame(item, path.getLocator(item).getItem());
 	}
