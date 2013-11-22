@@ -138,10 +138,9 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
 	}
 
-	private void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
+	private static void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
 	{
 		final String pathInfo = prefix + item.getCopeID() + postfix;
-		assertEquals(mediaRootUrl + pathInfo, path.getURL(item));
 		assertLocator(path, pathInfo, path.getLocator(item));
 		assertSame(item, path.getLocator(item).getItem());
 	}
