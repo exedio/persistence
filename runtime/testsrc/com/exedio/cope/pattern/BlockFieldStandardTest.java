@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
@@ -62,10 +64,10 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals(new Color(110, 120, 130), b1b.getAColor());
 		assertEquals(new Color( 10,  20,  30), b2a.getAColor());
 		assertEquals(new Color(110, 120, 130), b2b.getAColor());
-		assertEquals(null, b1a.getAMediaURL());
-		assertEquals(null, b1b.getAMediaURL());
-		assertEquals(null, b2a.getAMediaURL());
-		assertEquals(null, b2b.getAMediaURL());
+		assertLocator(null, b1a.getAMediaLocator());
+		assertLocator(null, b1b.getAMediaLocator());
+		assertLocator(null, b2a.getAMediaLocator());
+		assertLocator(null, b2b.getAMediaLocator());
 		assertEquals(list(), b1a.getAList());
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
@@ -81,10 +83,10 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		assertEquals(null, b2b.getAnItem());
 
 		b1a.setAMedia(new byte[]{1, 2, 3}, "text/plain");
-		assertEquals("AnItem/eins-aMedia/AnItem-0.txt", b1a.getAMediaLocator().getPath());
-		assertEquals(null, b1b.getAMediaURL());
-		assertEquals(null, b2a.getAMediaURL());
-		assertEquals(null, b2b.getAMediaURL());
+		assertLocator("AnItem/eins-aMedia/AnItem-0.txt", b1a.getAMediaLocator());
+		assertLocator(null, b1b.getAMediaLocator());
+		assertLocator(null, b2a.getAMediaLocator());
+		assertLocator(null, b2b.getAMediaLocator());
 
 		b1a.addToAList("aListElement1");
 		assertEquals(list("aListElement1"), b1a.getAList());
