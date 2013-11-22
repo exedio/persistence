@@ -26,7 +26,6 @@ import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
-import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
