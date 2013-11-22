@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
@@ -136,27 +137,28 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
-		// test url
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
-		assertEquals(null, txt.getThumbURL());
-		assertEquals(null, emp.getThumbURL());
+		// url
+		assertLocator("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocator());
+		assertLocator("ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocator());
+		assertLocator("ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocator());
+		assertLocator(null, txt.getThumbLocator());
+		assertLocator(null, emp.getThumbLocator());
 
-		// test url fallback
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
+		// url fallback
+		assertEquals(jpg.getThumbLocator().getURLByConnect(), jpg.getThumbURLWithFallbackToSource());
+		assertEquals(png.getThumbLocator().getURLByConnect(), png.getThumbURLWithFallbackToSource());
+		assertEquals(gif.getThumbLocator().getURLByConnect(), gif.getThumbURLWithFallbackToSource());
+		assertEquals(txt.getFileLocator ().getURLByConnect(), txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
-		// test locator fallback
+		// locator fallback
 		assertEquals("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals(null, emp.getThumbLocatorWithFallbackToSource());
 
+		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
 		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
