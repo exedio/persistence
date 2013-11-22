@@ -87,10 +87,9 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	private void assertIt(final String prefix, final MediaCatchPhraseSuperItem item, final String postfix)
+	private static void assertIt(final String prefix, final MediaCatchPhraseSuperItem item, final String postfix)
 	{
 		final String pathInfo = prefix + item.getCopeID() + postfix;
-		assertEquals(mediaRootUrl + pathInfo, item.getFeatureURL());
 		assertLocator(feature, pathInfo, item.getFeatureLocator());
 	}
 }
