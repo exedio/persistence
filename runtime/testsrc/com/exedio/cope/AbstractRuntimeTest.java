@@ -130,7 +130,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	private final FileFixture files = new FileFixture();
 	private TestByteArrayInputStream testStream = null;
-	protected String mediaRootUrl = null;
 
 	@Override
 	protected void setUp() throws Exception
@@ -156,15 +155,11 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		postgresql = dialect==Dialect.POSTGRESQL;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
 		files.setUp();
-
-		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
-		mediaRootUrl = null;
-
 		files.tearDown();
 
 		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
