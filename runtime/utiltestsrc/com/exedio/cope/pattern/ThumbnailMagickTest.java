@@ -50,7 +50,6 @@ public final class ThumbnailMagickTest extends CopeTest
 		super(MODEL);
 	}
 
-	private String mediaRootUrl = null;
 	private ThumbnailMagickItem jpg, jpgX, png, pngX, gif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
@@ -61,7 +60,6 @@ public final class ThumbnailMagickTest extends CopeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 		jpg = deleteOnTearDown(new ThumbnailMagickItem());
 		jpgX= deleteOnTearDown(new ThumbnailMagickItem());
 		png = deleteOnTearDown(new ThumbnailMagickItem());
@@ -208,16 +206,16 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertLocator(null, emp.getThumbFullLocator());
 
 		// url fallback
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
+		assertEquals(jpg.getThumbLocator().getURLByConnect(), jpg.getThumbURLWithFallbackToSource());
+		assertEquals(png.getThumbLocator().getURLByConnect(), png.getThumbURLWithFallbackToSource());
+		assertEquals(gif.getThumbLocator().getURLByConnect(), gif.getThumbURLWithFallbackToSource());
+		assertEquals(txt.getFileLocator ().getURLByConnect(), txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURLWithFallbackToSource());
-		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
+		assertEquals(jpg.getThumbFullLocator().getURLByConnect(), jpg.getThumbFullURLWithFallbackToSource());
+		assertEquals(png.getThumbFullLocator().getURLByConnect(), png.getThumbFullURLWithFallbackToSource());
+		assertEquals(gif.getThumbFullLocator().getURLByConnect(), gif.getThumbFullURLWithFallbackToSource());
+		assertEquals(txt.getFileLocator     ().getURLByConnect(), txt.getThumbFullURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 
 		// locator fallback
