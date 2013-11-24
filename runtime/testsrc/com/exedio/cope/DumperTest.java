@@ -143,7 +143,7 @@ public class DumperTest extends AbstractRuntimeTest
 		}
 		catch(final StringLengthViolationException e)
 		{
-			assertEquals(string, e.getFeature());
+			assertSame(string, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);

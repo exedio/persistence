@@ -40,25 +40,25 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEquals(null, q.getCondition());
+		assertEqualsAndHash(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
 		q.narrow(DayItem.day.less(d1));
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEquals(DayItem.day.less(d1), q.getCondition());
+		assertEqualsAndHash(DayItem.day.less(d1), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
 		q.narrow(DayItem.day.greater(d1));
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEquals(DayItem.day.less(d1).and(DayItem.day.greater(d1)), q.getCondition());
+		assertEqualsAndHash(DayItem.day.less(d1).and(DayItem.day.greater(d1)), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
 
-		assertEquals(c1, DayItem.day.equal(d1));
+		assertEqualsAndHash(c1, DayItem.day.equal(d1));
 		assertFalse(c1.equals(c2));
-		assertEquals(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
+		assertEqualsAndHash(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 
 		{
@@ -150,7 +150,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertSame(c1, q.getCondition());
 
 			q.narrow(c2);
-			assertEquals(c1.and(c2), q.getCondition());
+			assertEqualsAndHash(c1.and(c2), q.getCondition());
 
 			q.narrow(FALSE);
 			assertSame(FALSE, q.getCondition());

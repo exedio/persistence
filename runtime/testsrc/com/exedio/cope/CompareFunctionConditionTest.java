@@ -83,11 +83,11 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
-		assertEquals(leftString.less(rightString), leftString.less(rightString));
-		assertNotEquals(leftString.less(rightString), leftString.less(leftString));
-		assertNotEquals(leftString.less(rightString), rightString.less(rightString));
-		assertNotEquals(leftString.less(rightString), leftString.lessOrEqual(rightString));
-		assertNotEquals(leftString.less(rightString), leftString.equal(rightString));
+		assertEqualsAndHash(leftString.less(rightString), leftString.less(rightString));
+		assertNotEqualsAndHash(leftString.less(rightString), leftString.less(leftString));
+		assertNotEqualsAndHash(leftString.less(rightString), rightString.less(rightString));
+		assertNotEqualsAndHash(leftString.less(rightString), leftString.lessOrEqual(rightString));
+		assertNotEqualsAndHash(leftString.less(rightString), leftString.equal(rightString));
 
 		// test toString
 		assertEquals("CompareFunctionConditionItem.leftString=CompareFunctionConditionItem.rightString",  leftString.equal(rightString).toString());

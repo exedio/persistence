@@ -73,11 +73,11 @@ public class MinusDoubleTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(numB, numC), viewBC.getSources());
 
 		// test equals/hashCode
-		assertEquals(viewAB, viewAB);
-		assertEquals(viewAB, numA.minus(numB));
-		assertNotEquals(viewAB, numA.plus(numB));
-		assertNotEquals(viewAB, numA.multiply(numB));
-		assertNotEquals(viewAB, numB.minus(numA));
+		assertEqualsAndHash(viewAB, viewAB);
+		assertEqualsAndHash(viewAB, numA.minus(numB));
+		assertNotEqualsAndHash(viewAB, numA.plus(numB));
+		assertNotEqualsAndHash(viewAB, numA.multiply(numB));
+		assertNotEqualsAndHash(viewAB, numB.minus(numA));
 
 		// serialization
 		assertSerializedSame(viewAB, 378);

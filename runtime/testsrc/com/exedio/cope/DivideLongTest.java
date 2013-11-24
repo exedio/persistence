@@ -60,11 +60,11 @@ public class DivideLongTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
 
 		// test equals/hashCode
-		assertEquals(divideAB, divideAB);
-		assertEquals(divideAB, numA.divide(numB));
-		assertNotEquals(divideAB, numA.plus(numB));
-		assertNotEquals(divideAB, numA.multiply(numB));
-		assertNotEquals(divideAB, numB.divide(numA));
+		assertEqualsAndHash(divideAB, divideAB);
+		assertEqualsAndHash(divideAB, numA.divide(numB));
+		assertNotEqualsAndHash(divideAB, numA.plus(numB));
+		assertNotEqualsAndHash(divideAB, numA.multiply(numB));
+		assertNotEqualsAndHash(divideAB, numB.divide(numA));
 
 		// test normal operation
 		assertEquals(l7, item.getNumA());

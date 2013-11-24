@@ -258,30 +258,30 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
-	protected static void assertEquals(final Function<?> f1, final Function<?> f2)
+	protected static void assertEqualsAndHash(final Function<?> f1, final Function<?> f2)
 	{
-		assertEquals((Object)f1, (Object)f2);
-		assertEquals((Object)f2, (Object)f1);
+		assertEquals(f1, f2);
+		assertEquals(f2, f1);
 		if(f1!=null)
 			assertEquals(f1.hashCode(), f2.hashCode());
 	}
 
-	protected static void assertNotEquals(final Function<?> f1, final Function<?> f2)
+	protected static void assertNotEqualsAndHash(final Function<?> f1, final Function<?> f2)
 	{
 		assertTrue(!f1.equals(f2));
 		assertTrue(!f2.equals(f1));
 		assertTrue(f1.hashCode()!=f2.hashCode());
 	}
 
-	protected static void assertEquals(final Condition c1, final Condition c2)
+	protected static void assertEqualsAndHash(final Condition c1, final Condition c2)
 	{
-		assertEquals((Object)c1, (Object)c2);
-		assertEquals((Object)c2, (Object)c1);
+		assertEquals(c1, c2);
+		assertEquals(c2, c1);
 		if(c1!=null)
 			assertEquals(c1.hashCode(), c2.hashCode());
 	}
 
-	protected static void assertNotEquals(final Condition c1, final Condition c2)
+	protected static void assertNotEqualsAndHash(final Condition c1, final Condition c2)
 	{
 		assertTrue(!c1.equals(c2));
 		assertTrue(!c2.equals(c1));
@@ -336,8 +336,8 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 		catch(final IntegrityViolationException e)
 		{
-			assertEquals(attribute, e.getFeature());
-			assertEquals(attribute, e.getFeature());
+			assertSame(attribute, e.getFeature());
+			assertSame(attribute, e.getFeature());
 			assertEquals(itemToBeDeleted, e.getItem());
 			assertEquals("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getFeature(), e.getMessage());
 		}

@@ -80,10 +80,10 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	public void testCompareConditions()
 	{
 		// test equals/hashCode
-		assertEquals(string.less("a"), string.less("a"));
-		assertNotEquals(string.less("a"), string.less("b"));
-		assertNotEquals(string.less("a"), otherString.less("a"));
-		assertNotEquals(string.less("a"), string.lessOrEqual("a"));
+		assertEqualsAndHash(string.less("a"), string.less("a"));
+		assertNotEqualsAndHash(string.less("a"), string.less("b"));
+		assertNotEqualsAndHash(string.less("a"), otherString.less("a"));
+		assertNotEqualsAndHash(string.less("a"), string.lessOrEqual("a"));
 
 		// test toString
 		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());

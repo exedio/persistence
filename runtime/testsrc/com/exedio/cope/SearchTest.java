@@ -32,16 +32,16 @@ public class SearchTest extends TestmodelTest
 	public void testSearch()
 	{
 		// test conditions
-		assertEquals(
+		assertEqualsAndHash(
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEquals(
+		assertNotEqualsAndHash(
 				Cope.and(someString.equal("aX"),someNotNullString.equal("b")),
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEquals(
+		assertNotEqualsAndHash(
 				Cope.and(someString.equal("a"),someNotNullString.like("b")),
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEquals( // not commutative
+		assertNotEqualsAndHash( // not commutative
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
 				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
 

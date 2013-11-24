@@ -116,8 +116,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4, e.getFeature());
-			assertEquals(min4, e.getFeature());
+			assertSame(min4, e.getFeature());
+			assertSame(min4, e.getFeature());
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
@@ -144,8 +144,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
@@ -167,8 +167,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
 					"range violation, " +
@@ -188,8 +188,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals(5, e.getValue());
 			assertEquals(
 					"range violation, " +
@@ -208,8 +208,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4Max8, e.getFeature());
-			assertEquals(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
 			assertEquals(3, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
@@ -239,8 +239,8 @@ public class LongTest extends AbstractRuntimeTest
 		catch(final LongRangeViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4Max8, e.getFeature());
-			assertEquals(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
 			assertEquals(9, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(

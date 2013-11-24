@@ -80,14 +80,14 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
 
 		// test equals/hashCode
-		assertEquals(plusA9, plusA9);
-		assertEquals(plusAB, plusAB);
-		assertEquals(plusAB, numA.plus(numB));
-		assertEquals(multiplyB9, multiplyB9);
-		assertNotEquals(plusAB, numB.plus(numA));
-		assertNotEquals(plusAB, plusBC);
-		assertNotEquals(plusAB, numA);
-		assertNotEquals(plusBC, multiplyBC);
+		assertEqualsAndHash(plusA9, plusA9);
+		assertEqualsAndHash(plusAB, plusAB);
+		assertEqualsAndHash(plusAB, numA.plus(numB));
+		assertEqualsAndHash(multiplyB9, multiplyB9);
+		assertNotEqualsAndHash(plusAB, numB.plus(numA));
+		assertNotEqualsAndHash(plusAB, plusBC);
+		assertNotEqualsAndHash(plusAB, numA);
+		assertNotEqualsAndHash(plusBC, multiplyBC);
 
 		// toString
 		assertEquals("("+numB+"+5)", numB.plus(5).toString());

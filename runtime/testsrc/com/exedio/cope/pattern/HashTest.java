@@ -78,7 +78,7 @@ public class HashTest extends AbstractRuntimeTest
 		assertEquals(TYPE, explicitExternal.getType());
 		assertEquals("explicitExternal", explicitExternal.getName());
 		assertEquals("wrap", explicitExternal.getAlgorithmID());
-		assertEquals(explicitExternalWrap, explicitExternal.getStorage());
+		assertSame(explicitExternalWrap, explicitExternal.getStorage());
 		assertEquals(explicitExternal, explicitExternalWrap.getPattern());
 		assertEqualsUnmodifiable(list(explicitExternalWrap), explicitExternal.getSourceFeatures());
 		assertEquals(false, explicitExternalWrap.isInitial());

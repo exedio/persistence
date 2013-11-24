@@ -94,7 +94,7 @@ public class StringTest extends AbstractRuntimeTest
 		}
 		catch(final StringLengthViolationException e)
 		{
-			assertEquals(min4, e.getFeature());
+			assertSame(min4, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
@@ -228,8 +228,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4, e.getFeature());
-			assertEquals(min4, e.getFeature());
+			assertSame(min4, e.getFeature());
+			assertSame(min4, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
@@ -256,8 +256,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
@@ -279,8 +279,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
 					"length violation, " +
@@ -300,8 +300,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(max4, e.getFeature());
-			assertEquals(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
+			assertSame(max4, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(
 					"length violation, " +
@@ -320,8 +320,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4Max8, e.getFeature());
-			assertEquals(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
 			assertEquals("123", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
@@ -351,8 +351,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(min4Max8, e.getFeature());
-			assertEquals(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
+			assertSame(min4Max8, e.getFeature());
 			assertEquals("123456789", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
@@ -374,8 +374,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(exact6, e.getFeature());
-			assertEquals(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
 			assertEquals("12345", e.getValue());
 			assertEquals(true, e.isTooShort());
 			assertEquals(
@@ -402,8 +402,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(exact6, e.getFeature());
-			assertEquals(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
@@ -425,8 +425,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(exact6, e.getFeature());
-			assertEquals(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
@@ -447,8 +447,8 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringLengthViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(exact6, e.getFeature());
-			assertEquals(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
+			assertSame(exact6, e.getFeature());
 			assertEquals("1234567", e.getValue());
 			assertEquals(false, e.isTooShort());
 			assertEquals(
@@ -468,7 +468,7 @@ public class StringTest extends AbstractRuntimeTest
 		catch(final StringCharSetViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(lowercase, e.getFeature());
+			assertSame(lowercase, e.getFeature());
 			assertEquals("abcABC", e.getValue());
 			assertEquals('A', e.getCharacter());
 			assertEquals(3, e.getPosition());
