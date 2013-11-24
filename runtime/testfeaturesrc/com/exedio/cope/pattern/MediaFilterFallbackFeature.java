@@ -19,8 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Wrap;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,13 +57,6 @@ public final class MediaFilterFallbackFeature extends MediaFilter
 
 	@Override
 	public String getContentType(final Item item)
-	{
-		throw new RuntimeException();
-	}
-
-	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
-	@SuppressWarnings("static-method")
-	public byte[] get(@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
