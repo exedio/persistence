@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.Query.newQuery;
 
 import com.exedio.cope.testmodel.PointerItem;

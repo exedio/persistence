@@ -25,6 +25,8 @@ import static com.exedio.cope.DivideIntegerItem.divideBC;
 import static com.exedio.cope.DivideIntegerItem.numA;
 import static com.exedio.cope.DivideIntegerItem.numB;
 import static com.exedio.cope.DivideIntegerItem.numC;
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
 public class DivideIntegerTest extends AbstractRuntimeTest
 {

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusLongItem.TYPE;
 import static com.exedio.cope.PlusLongItem.multiplyB9;
 import static com.exedio.cope.PlusLongItem.multiplyBC;

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.MinusDoubleItem.TYPE;
 import static com.exedio.cope.MinusDoubleItem.numA;
 import static com.exedio.cope.MinusDoubleItem.numB;

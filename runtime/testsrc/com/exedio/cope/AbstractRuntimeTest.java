@@ -258,36 +258,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
-	protected static void assertEqualsAndHash(final Function<?> f1, final Function<?> f2)
-	{
-		assertEquals(f1, f2);
-		assertEquals(f2, f1);
-		if(f1!=null)
-			assertEquals(f1.hashCode(), f2.hashCode());
-	}
-
-	protected static void assertNotEqualsAndHash(final Function<?> f1, final Function<?> f2)
-	{
-		assertTrue(!f1.equals(f2));
-		assertTrue(!f2.equals(f1));
-		assertTrue(f1.hashCode()!=f2.hashCode());
-	}
-
-	protected static void assertEqualsAndHash(final Condition c1, final Condition c2)
-	{
-		assertEquals(c1, c2);
-		assertEquals(c2, c1);
-		if(c1!=null)
-			assertEquals(c1.hashCode(), c2.hashCode());
-	}
-
-	protected static void assertNotEqualsAndHash(final Condition c1, final Condition c2)
-	{
-		assertTrue(!c1.equals(c2));
-		assertTrue(!c2.equals(c1));
-		assertTrue(c1.hashCode()!=c2.hashCode());
-	}
-
 	protected static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
 		if(expectedData==null)

@@ -25,6 +25,8 @@ import static com.exedio.cope.DivideLongItem.divideBC;
 import static com.exedio.cope.DivideLongItem.numA;
 import static com.exedio.cope.DivideLongItem.numB;
 import static com.exedio.cope.DivideLongItem.numC;
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
 public class DivideLongTest extends AbstractRuntimeTest
 {

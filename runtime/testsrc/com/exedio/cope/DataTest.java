@@ -22,6 +22,8 @@ import static com.exedio.cope.DataField.DEFAULT_LENGTH;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 

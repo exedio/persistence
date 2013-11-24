@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.Query.newQuery;
 
 import com.exedio.cope.util.Day;
