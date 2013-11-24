@@ -41,7 +41,7 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEqualsAndHash(null, q.getCondition());
+		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
 		q.narrow(DayItem.day.less(d1));

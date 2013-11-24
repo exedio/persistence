@@ -27,8 +27,7 @@ public final class EqualsAssert
 	{
 		assertEquals(expected, actual);
 		assertEquals(actual, expected);
-		if(expected!=null)
-			assertEquals(expected.hashCode(), actual.hashCode());
+		assertEquals(expected.hashCode(), actual.hashCode());
 	}
 
 	public static void assertNotEqualsAndHash(final Object expected, final Object actual)
