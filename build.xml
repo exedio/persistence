@@ -373,7 +373,7 @@
 	</target>
 	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile, runtime.utiltest.instrument">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile, runtime.test.feature.compile, runtime.utiltest.instrument">
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -381,6 +381,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
+				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
