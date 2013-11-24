@@ -25,10 +25,10 @@ final class MediaFilterFallbackItem extends Item
 	static final Media any = new Media();
 	static final MediaFilterFallbackFeature anFilter = new MediaFilterFallbackFeature(any);
 
-	static final Media nonSupported = new Media().contentType(MediaType.JPEG, "image/txt");
+	static final Media nonSupported = new Media().contentType("supported/alpha", "nonSupported/beta");
 	static final MediaFilterFallbackFeature nonSupportedFilter = new MediaFilterFallbackFeature(nonSupported);
 
-	static final Media supported = new Media().contentType(MediaType.JPEG);
+	static final Media supported = new Media().contentType("supported/alpha");
 	static final MediaFilterFallbackFeature supportedFilter = new MediaFilterFallbackFeature(supported);
 
 	/**
