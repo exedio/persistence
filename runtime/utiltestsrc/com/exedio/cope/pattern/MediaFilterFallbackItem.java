@@ -23,13 +23,13 @@ import com.exedio.cope.Item;
 final class MediaFilterFallbackItem extends Item
 {
 	static final Media any = new Media();
-	static final MediaThumbnail anFilter = new MediaThumbnail(any, 20, 30);
+	static final MediaFilterFallbackFeature anFilter = new MediaFilterFallbackFeature(any);
 
 	static final Media nonSupported = new Media().contentType(MediaType.JPEG, "image/txt");
-	static final MediaThumbnail nonSupportedFilter = new MediaThumbnail(nonSupported, 20, 30);
+	static final MediaFilterFallbackFeature nonSupportedFilter = new MediaFilterFallbackFeature(nonSupported);
 
 	static final Media supported = new Media().contentType(MediaType.JPEG);
-	static final MediaThumbnail supportedFilter = new MediaThumbnail(supported, 20, 30);
+	static final MediaFilterFallbackFeature supportedFilter = new MediaFilterFallbackFeature(supported);
 
 	/**
 
