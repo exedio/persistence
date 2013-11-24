@@ -25,6 +25,7 @@ public final class EqualsAssert
 {
 	public static void assertEqualsAndHash(final Object expected, final Object actual)
 	{
+		// TODO assertNotSame
 		assertEquals(expected, actual);
 		assertEquals(actual, expected);
 		assertEquals(expected.hashCode(), actual.hashCode());
