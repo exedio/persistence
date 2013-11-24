@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 public final class EqualsAssert
 {
-	public static void assertEqualsAndHash(final Function<?> f1, final Function<?> f2)
+	public static void assertEqualsAndHash(final Object f1, final Object f2)
 	{
 		assertEquals(f1, f2);
 		assertEquals(f2, f1);
@@ -31,26 +31,11 @@ public final class EqualsAssert
 			assertEquals(f1.hashCode(), f2.hashCode());
 	}
 
-	public static void assertNotEqualsAndHash(final Function<?> f1, final Function<?> f2)
+	public static void assertNotEqualsAndHash(final Object f1, final Object f2)
 	{
 		assertTrue(!f1.equals(f2));
 		assertTrue(!f2.equals(f1));
 		assertTrue(f1.hashCode()!=f2.hashCode());
-	}
-
-	public static void assertEqualsAndHash(final Condition c1, final Condition c2)
-	{
-		assertEquals(c1, c2);
-		assertEquals(c2, c1);
-		if(c1!=null)
-			assertEquals(c1.hashCode(), c2.hashCode());
-	}
-
-	public static void assertNotEqualsAndHash(final Condition c1, final Condition c2)
-	{
-		assertTrue(!c1.equals(c2));
-		assertTrue(!c2.equals(c1));
-		assertTrue(c1.hashCode()!=c2.hashCode());
 	}
 
 	private EqualsAssert()
