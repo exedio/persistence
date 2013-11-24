@@ -23,19 +23,19 @@ import static org.junit.Assert.assertTrue;
 
 public final class EqualsAssert
 {
-	public static void assertEqualsAndHash(final Object f1, final Object f2)
+	public static void assertEqualsAndHash(final Object expected, final Object actual)
 	{
-		assertEquals(f1, f2);
-		assertEquals(f2, f1);
-		if(f1!=null)
-			assertEquals(f1.hashCode(), f2.hashCode());
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
+		if(expected!=null)
+			assertEquals(expected.hashCode(), actual.hashCode());
 	}
 
-	public static void assertNotEqualsAndHash(final Object f1, final Object f2)
+	public static void assertNotEqualsAndHash(final Object expected, final Object actual)
 	{
-		assertTrue(!f1.equals(f2));
-		assertTrue(!f2.equals(f1));
-		assertTrue(f1.hashCode()!=f2.hashCode());
+		assertTrue(!expected.equals(actual));
+		assertTrue(!actual.equals(expected));
+		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 
 	private EqualsAssert()
