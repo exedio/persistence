@@ -56,7 +56,7 @@ public final class EqualsAssert
 		}
 	}
 
-	@SuppressFBWarnings("EC_NULL_ARG")
+	@SuppressFBWarnings({"EC_NULL_ARG","SA_LOCAL_SELF_COMPARISON"})
 	private static void assertEqualsSpecial(final Object object)
 	{
 		assertTrue(object.equals(object));
