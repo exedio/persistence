@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class EqualsAssert
 {
 	public static void assertEqualsAndHash(final Object expected, final Object actual)
@@ -41,6 +43,7 @@ public final class EqualsAssert
 		assertEqualsSpecial(actual);
 	}
 
+	@SuppressFBWarnings("EC_NULL_ARG")
 	private static void assertEqualsSpecial(final Object object)
 	{
 		assertTrue(!object.equals(null));
