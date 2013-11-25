@@ -48,9 +48,9 @@ public final class EqualsAssert
 				if(i==j)
 					continue lj;
 
-				assertTrue(""+i+'/'+j, !left.equals(right));
-				assertTrue(""+i+'/'+j, !right.equals(left));
-				assertTrue(""+i+'/'+j, left.hashCode()!=right.hashCode());
+				assertFalse(""+i+'/'+j, left.equals(right));
+				assertFalse(""+i+'/'+j, right.equals(left));
+				assertFalse(""+i+'/'+j, left.hashCode()==right.hashCode());
 			}
 			assertEqualsSpecial(left);
 		}
@@ -59,9 +59,9 @@ public final class EqualsAssert
 	@SuppressFBWarnings({"EC_NULL_ARG","SA_LOCAL_SELF_COMPARISON"})
 	private static void assertEqualsSpecial(final Object object)
 	{
-		assertTrue(object.equals(object));
-		assertTrue(!object.equals(null));
-		assertTrue(!object.equals(SOME_OBJECT));
+		assertTrue (object.equals(object));
+		assertFalse(object.equals(null));
+		assertFalse(object.equals(SOME_OBJECT));
 		assertFalse(object.equals("hello7777"));
 		assertFalse(object.equals(Integer.valueOf(-7777)));
 	}
