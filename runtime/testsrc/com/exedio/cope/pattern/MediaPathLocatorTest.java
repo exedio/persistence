@@ -59,6 +59,11 @@ public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 		assertSame(i2, l2a.getItem());
 		assertSame(i2, l2b.getItem());
 
+		assertSame("one/normal", l1a.getContentType());
+		assertSame("one/finger", l1b.getContentType());
+		assertSame("two/normal", l2a.getContentType());
+		assertSame("two/finger", l2b.getContentType());
+
 		assertNotSame      (l1a, l1aX);
 		assertEqualsAndHash(l1a, l1aX);
 		assertNotEqualsAndHash(l1a, l1b, l2a, l2b);

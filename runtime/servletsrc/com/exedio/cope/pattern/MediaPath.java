@@ -129,19 +129,19 @@ public abstract class MediaPath extends Pattern
 		private final Item item;
 		private final long fingerprint;
 		private final String catchphrase;
-		private final MediaType mediaType;
+		private final String contentType;
 		private final String secret;
 
 		Locator(
 				final Item item,
 				final Date fingerprint,
-				final MediaType mediaType,
+				final String contentType,
 				final String secret)
 		{
 			this.item = item;
 			this.fingerprint = fixFingerprint(fingerprint);
 			this.catchphrase = makeUrlCatchphrase(item);
-			this.mediaType = mediaType;
+			this.contentType = contentType;
 			this.secret = secret;
 		}
 
@@ -188,7 +188,10 @@ public abstract class MediaPath extends Pattern
 			return item;
 		}
 
-		// TODO String getContentType()
+		public String getContentType()
+		{
+			return contentType;
+		}
 
 		/**
 		 * @see #appendPath(StringBuilder)
@@ -226,11 +229,15 @@ public abstract class MediaPath extends Pattern
 			if(catchphrase!=null)
 				bf.append('/').append(catchphrase);
 
-			if(mediaType!=null)
 			{
-				final String extension = mediaType.getDefaultExtension();
-				if(extension!=null)
-					bf.append(extension);
+				final MediaType mediaType =
+					MediaType.forNameAndAliases(contentType);
+				if(mediaType!=null)
+				{
+					final String extension = mediaType.getDefaultExtension();
+					if(extension!=null)
+						bf.append(extension);
+				}
 			}
 
 			if(withSecret && secret!=null)
@@ -291,12 +298,10 @@ public abstract class MediaPath extends Pattern
 		if(contentType==null)
 			return null;
 
-		final MediaType mediaType =
-			MediaType.forNameAndAliases(contentType);
 		return new Locator(
 				item,
 				mount().urlFingerPrinting ? getLastModified(item) : null,
-				mediaType,
+				contentType,
 				makeUrlToken(item));
 	}
 
