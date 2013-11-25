@@ -35,18 +35,31 @@ public final class EqualsAssert
 		assertEqualsSpecial(actual);
 	}
 
-	public static void assertNotEqualsAndHash(final Object expected, final Object actual)
+	public static void assertNotEqualsAndHash(final Object... objects)
 	{
-		assertTrue(!expected.equals(actual));
-		assertTrue(!actual.equals(expected));
-		assertTrue(expected.hashCode()!=actual.hashCode());
-		assertEqualsSpecial(expected);
-		assertEqualsSpecial(actual);
+		for(int i = 0; i<objects.length; i++)
+		{
+			final Object expected = objects[i];
+
+			lj: for(int j = 0; j<objects.length; j++)
+			{
+				final Object actual = objects[j];
+
+				if(i==j)
+					continue lj;
+
+				assertTrue(""+i+'/'+j, !expected.equals(actual));
+				assertTrue(""+i+'/'+j, !actual.equals(expected));
+				assertTrue(""+i+'/'+j, expected.hashCode()!=actual.hashCode());
+			}
+			assertEqualsSpecial(expected);
+		}
 	}
 
 	@SuppressFBWarnings("EC_NULL_ARG")
 	private static void assertEqualsSpecial(final Object object)
 	{
+		assertTrue(object.equals(object));
 		assertTrue(!object.equals(null));
 		assertTrue(!object.equals(SOME_OBJECT));
 		assertFalse(object.equals("hello7777"));
