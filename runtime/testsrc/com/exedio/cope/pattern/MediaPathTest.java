@@ -22,7 +22,7 @@ import static com.exedio.cope.util.CharsetName.UTF8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
@@ -36,7 +36,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
-public final class MediaPathTest extends AbstractRuntimeTest
+public final class MediaPathTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(MediaPathItem.TYPE);
 
@@ -60,7 +60,7 @@ public final class MediaPathTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MediaPathItem());
+		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
 		servlet.initConnected(MODEL);
