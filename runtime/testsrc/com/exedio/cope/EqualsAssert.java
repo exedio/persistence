@@ -25,10 +25,11 @@ public final class EqualsAssert
 {
 	public static void assertEqualsAndHash(final Object expected, final Object actual)
 	{
-		// TODO assertNotSame
 		assertEquals(expected, actual);
 		assertEquals(actual, expected);
 		assertEquals(expected.hashCode(), actual.hashCode());
+		assertEqualsSpecial(expected);
+		assertEqualsSpecial(actual);
 	}
 
 	public static void assertNotEqualsAndHash(final Object expected, final Object actual)
@@ -36,7 +37,17 @@ public final class EqualsAssert
 		assertTrue(!expected.equals(actual));
 		assertTrue(!actual.equals(expected));
 		assertTrue(expected.hashCode()!=actual.hashCode());
+		assertEqualsSpecial(expected);
+		assertEqualsSpecial(actual);
 	}
+
+	private static void assertEqualsSpecial(final Object object)
+	{
+		assertTrue(!object.equals(null));
+		assertTrue(!object.equals(SOME_OBJECT));
+	}
+
+	private static final Object SOME_OBJECT = new Object();
 
 	private EqualsAssert()
 	{
