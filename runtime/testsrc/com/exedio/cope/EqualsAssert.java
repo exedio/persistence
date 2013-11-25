@@ -26,33 +26,33 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EqualsAssert
 {
-	public static void assertEqualsAndHash(final Object expected, final Object actual)
+	public static void assertEqualsAndHash(final Object left, final Object right)
 	{
-		assertEquals(expected, actual);
-		assertEquals(actual, expected);
-		assertEquals(expected.hashCode(), actual.hashCode());
-		assertEqualsSpecial(expected);
-		assertEqualsSpecial(actual);
+		assertEquals(left, right);
+		assertEquals(right, left);
+		assertEquals(left.hashCode(), right.hashCode());
+		assertEqualsSpecial(left);
+		assertEqualsSpecial(right);
 	}
 
 	public static void assertNotEqualsAndHash(final Object... objects)
 	{
 		for(int i = 0; i<objects.length; i++)
 		{
-			final Object expected = objects[i];
+			final Object left = objects[i];
 
 			lj: for(int j = 0; j<objects.length; j++)
 			{
-				final Object actual = objects[j];
+				final Object right = objects[j];
 
 				if(i==j)
 					continue lj;
 
-				assertTrue(""+i+'/'+j, !expected.equals(actual));
-				assertTrue(""+i+'/'+j, !actual.equals(expected));
-				assertTrue(""+i+'/'+j, expected.hashCode()!=actual.hashCode());
+				assertTrue(""+i+'/'+j, !left.equals(right));
+				assertTrue(""+i+'/'+j, !right.equals(left));
+				assertTrue(""+i+'/'+j, left.hashCode()!=right.hashCode());
 			}
-			assertEqualsSpecial(expected);
+			assertEqualsSpecial(left);
 		}
 	}
 
