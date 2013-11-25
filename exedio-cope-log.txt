@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaPath.Locator supports equals/hashCode
 * fix deadlock in copetest on JDK 1.7
 * Extend MediaType 
 	allow multiple extentions; first is default

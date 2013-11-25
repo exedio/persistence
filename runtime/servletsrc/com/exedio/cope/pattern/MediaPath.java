@@ -258,7 +258,23 @@ public abstract class MediaPath extends Pattern
 			appendPath(bf, true);
 		}
 
-		// TODO equals/hashCode()
+		@Override
+		public boolean equals(final Object other)
+		{
+			if(!(other instanceof Locator))
+				return false;
+
+			final Locator o = (Locator)other;
+			return
+				MediaPath.this.equals(o.getFeature()) &&
+				item.equals(o.item);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return MediaPath.this.hashCode() ^ item.hashCode();
+		}
 
 		@Override
 		public String toString()
