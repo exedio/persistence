@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -48,6 +49,8 @@ public final class EqualsAssert
 	{
 		assertTrue(!object.equals(null));
 		assertTrue(!object.equals(SOME_OBJECT));
+		assertFalse(object.equals("hello7777"));
+		assertFalse(object.equals(Integer.valueOf(-7777)));
 	}
 
 	private static final Object SOME_OBJECT = new Object();

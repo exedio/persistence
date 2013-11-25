@@ -123,10 +123,6 @@ public class ItemTest extends TestmodelTest
 		assertNotEqualsAndHash(item1, item3);
 		assertNotEqualsAndHash(item2, item3);
 
-		assertFalse(item1.equals("hello"));
-		assertFalse(item1.equals(Integer.valueOf(1)));
-		assertFalse(item1.equals(Boolean.TRUE));
-
 		assertEquals( 0, item1.compareTo(item1));
 		assertEquals( 1, item2.compareTo(item1));
 		assertEquals( 1, item3.compareTo(item1));
