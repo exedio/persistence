@@ -65,9 +65,11 @@ public class MinusIntegerTest extends AbstractRuntimeTest
 		// test equals/hashCode
 		assertEqualsAndHash(viewAB, viewAB);
 		assertEqualsAndHash(viewAB, numA.minus(numB));
-		assertNotEqualsAndHash(viewAB, numA.plus(numB));
-		assertNotEqualsAndHash(viewAB, numA.multiply(numB));
-		assertNotEqualsAndHash(viewAB, numB.minus(numA));
+		assertNotEqualsAndHash(
+				viewAB,
+				numA.plus(numB),
+				numA.multiply(numB),
+				numB.minus(numA));
 
 		// test normal operation
 		assertEquals(valueOf(7), item.getNumA());

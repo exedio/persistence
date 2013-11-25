@@ -96,10 +96,8 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 		assertEqualsAndHash(plusAB, plusAB);
 		assertEqualsAndHash(plusAB, numA.plus(numB));
 		assertEqualsAndHash(multiplyB9, multiplyB9);
-		assertNotEqualsAndHash(plusAB, numB.plus(numA));
-		assertNotEqualsAndHash(plusAB, plusBC);
-		assertNotEqualsAndHash(plusAB, numA);
-		assertNotEqualsAndHash(plusBC, multiplyBC);
+		assertNotEqualsAndHash(plusAB, numB.plus(numA), plusBC);
+		assertNotEqualsAndHash(plusAB, numA, plusBC, multiplyBC);
 
 		// toString
 		assertEquals("("+numB+"+5.5)", numB.plus(5.5).toString());

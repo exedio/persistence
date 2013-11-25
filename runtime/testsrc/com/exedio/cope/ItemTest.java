@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
@@ -111,17 +110,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(item2, model.getItem("EmptyItem-1"));
 		assertEquals(item3, model.getItem("EmptyItem2-0"));
 
-		assertEqualsAndHash(item1, item1);
-		assertEqualsAndHash(item2, item2);
-		assertEqualsAndHash(item3, item3);
-
-		assertFalse(item1.equals(null));
-		assertFalse(item2.equals(null));
-		assertFalse(item3.equals(null));
-
-		assertNotEqualsAndHash(item1, item2);
-		assertNotEqualsAndHash(item1, item3);
-		assertNotEqualsAndHash(item2, item3);
+		assertNotEqualsAndHash(item1, item2, item3);
 
 		assertEquals( 0, item1.compareTo(item1));
 		assertEquals( 1, item2.compareTo(item1));
@@ -143,12 +132,10 @@ public class ItemTest extends TestmodelTest
 		assertEquals("EmptyItem-2", item4.getCopeID());
 		final EmptyItem item5 = new EmptyItem();
 		assertEquals("EmptyItem-3", item5.getCopeID());
-		assertNotEqualsAndHash(item4, item5);
+		assertNotEqualsAndHash(item1, item2, item3, item4, item5);
 		final EmptyItem item6 = new EmptyItem();
 		assertEquals("EmptyItem-4", item6.getCopeID());
-		assertNotEqualsAndHash(item4, item5);
-		assertNotEqualsAndHash(item4, item6);
-		assertNotEqualsAndHash(item5, item6);
+		assertNotEqualsAndHash(item1, item2, item3, item4, item5, item6);
 
 		assertDelete(item1);
 		assertDelete(item2);

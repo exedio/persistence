@@ -287,9 +287,11 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		// test conditions
 		assertEqualsAndHash(any.equal(1.1), any.equal(1.1));
-		assertNotEqualsAndHash(any.equal(1.1), any.equal(2.2));
-		assertNotEqualsAndHash(any.equal(1.1), any.equal((Double)null));
-		assertNotEqualsAndHash(any.equal(1.1), any.greater(1.1));
+		assertNotEqualsAndHash(
+				any.equal(1.1),
+				any.equal(2.2),
+				any.equal((Double)null),
+				any.greater(1.1));
 		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
 		assertNotEqualsAndHash(any.equal(mandatory), any.equal(any));
 

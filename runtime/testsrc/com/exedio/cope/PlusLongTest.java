@@ -86,10 +86,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 		assertEqualsAndHash(plusAB, plusAB);
 		assertEqualsAndHash(plusAB, numA.plus(numB));
 		assertEqualsAndHash(multiplyB9, multiplyB9);
-		assertNotEqualsAndHash(plusAB, numB.plus(numA));
-		assertNotEqualsAndHash(plusAB, plusBC);
-		assertNotEqualsAndHash(plusAB, numA);
-		assertNotEqualsAndHash(plusBC, multiplyBC);
+		assertNotEqualsAndHash(plusAB, numB.plus(numA), plusBC, numA, multiplyBC);
 
 		// toString
 		assertEquals("("+numB+"+5)", numB.plus(5l).toString());

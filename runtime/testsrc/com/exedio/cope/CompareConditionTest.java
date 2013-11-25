@@ -83,9 +83,11 @@ public class CompareConditionTest extends AbstractRuntimeTest
 	{
 		// test equals/hashCode
 		assertEqualsAndHash(string.less("a"), string.less("a"));
-		assertNotEqualsAndHash(string.less("a"), string.less("b"));
-		assertNotEqualsAndHash(string.less("a"), otherString.less("a"));
-		assertNotEqualsAndHash(string.less("a"), string.lessOrEqual("a"));
+		assertNotEqualsAndHash(
+				string.less("a"),
+				string.less("b"),
+				otherString.less("a"),
+				string.lessOrEqual("a"));
 
 		// test toString
 		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());

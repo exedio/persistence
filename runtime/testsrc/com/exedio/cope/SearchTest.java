@@ -39,12 +39,9 @@ public class SearchTest extends TestmodelTest
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
 		assertNotEqualsAndHash(
 				Cope.and(someString.equal("aX"),someNotNullString.equal("b")),
-				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEqualsAndHash(
-				Cope.and(someString.equal("a"),someNotNullString.like("b")),
-				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEqualsAndHash( // not commutative
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
+				Cope.and(someString.equal("a"),someNotNullString.like("b")),
+				// not commutative
 				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
 
 		// test illegal searches

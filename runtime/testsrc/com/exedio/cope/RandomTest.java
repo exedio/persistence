@@ -65,8 +65,10 @@ public class RandomTest extends AbstractRuntimeTest
 	{
 		// test equals/hashCode
 		assertEqualsAndHash(TYPE.random(5), TYPE.random(5));
-		assertNotEqualsAndHash(TYPE.random(5), new Random(CompareFunctionConditionItem.TYPE, 5));
-		assertNotEqualsAndHash(TYPE.random(5), TYPE.random(6));
+		assertNotEqualsAndHash(
+				TYPE.random(5),
+				new Random(CompareFunctionConditionItem.TYPE, 5),
+				TYPE.random(6));
 
 		// test toString
 		assertEquals("CompareConditionItem.rand(5)", TYPE.random(5).toString());

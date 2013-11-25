@@ -77,9 +77,11 @@ public class DivideDoubleTest extends AbstractRuntimeTest
 		// test equals/hashCode
 		assertEqualsAndHash(divideAB, divideAB);
 		assertEqualsAndHash(divideAB, numA.divide(numB));
-		assertNotEqualsAndHash(divideAB, numA.plus(numB));
-		assertNotEqualsAndHash(divideAB, numA.multiply(numB));
-		assertNotEqualsAndHash(divideAB, numB.divide(numA));
+		assertNotEqualsAndHash(
+				divideAB,
+				numA.plus(numB),
+				numA.multiply(numB),
+				numB.divide(numA));
 
 		// serialization
 		assertSerializedSame(divideAB, 382);

@@ -64,9 +64,11 @@ public class DivideIntegerTest extends AbstractRuntimeTest
 		// test equals/hashCode
 		assertEqualsAndHash(divideAB, divideAB);
 		assertEqualsAndHash(divideAB, numA.divide(numB));
-		assertNotEqualsAndHash(divideAB, numA.plus(numB));
-		assertNotEqualsAndHash(divideAB, numA.multiply(numB));
-		assertNotEqualsAndHash(divideAB, numB.divide(numA));
+		assertNotEqualsAndHash(
+				divideAB,
+				numA.plus(numB),
+				numA.multiply(numB),
+				numB.divide(numA));
 
 		// test normal operation
 		assertEquals(i7, item.getNumA());

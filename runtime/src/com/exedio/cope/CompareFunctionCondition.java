@@ -89,7 +89,11 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	public int hashCode()
 	{
-		return operator.hashCode() ^ left.hashCode() ^ right.hashCode() ^ 286438162;
+		return
+				operator.hashCode() ^
+				left.hashCode() ^
+				(right.hashCode()<<2) ^ // not commutative
+				286438162;
 	}
 
 	@Override

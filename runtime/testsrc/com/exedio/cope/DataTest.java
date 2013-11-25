@@ -208,9 +208,11 @@ public class DataTest extends AbstractRuntimeTest
 		// condition startsWith
 		assertEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes4));
 		assertEquals(data.startsWith(bytes4).hashCode(), data.startsWith(bytes4).hashCode());
-		assertNotEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes6));
-		assertNotEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes6x4));
-		assertNotEqualsAndHash(data.startsWith(bytes4), data10.startsWith(bytes4));
+		assertNotEqualsAndHash(
+				data.startsWith(bytes4),
+				data.startsWith(bytes6),
+				data.startsWith(bytes6x4),
+				data10.startsWith(bytes4));
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
 		try
 		{
