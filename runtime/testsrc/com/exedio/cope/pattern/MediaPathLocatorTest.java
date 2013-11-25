@@ -49,6 +49,16 @@ public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 		// locator methods must work without transaction
 		model.commit();
 
+		assertSame(MediaPathItem.normal, l1a.getFeature());
+		assertSame(MediaPathItem.finger, l1b.getFeature());
+		assertSame(MediaPathItem.normal, l2a.getFeature());
+		assertSame(MediaPathItem.finger, l2b.getFeature());
+
+		assertSame(i1, l1a.getItem());
+		assertSame(i1, l1b.getItem());
+		assertSame(i2, l2a.getItem());
+		assertSame(i2, l2b.getItem());
+
 		assertNotSame      (l1a, l1aX);
 		assertEqualsAndHash(l1a, l1aX);
 		assertNotEqualsAndHash(l1a, l1b, l2a, l2b);
