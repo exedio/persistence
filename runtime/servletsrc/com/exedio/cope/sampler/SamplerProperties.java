@@ -53,7 +53,7 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	private final int purgeDays = value("purgeDays", 7, 0);
+	private final int purgeDays = value("purgeDays", 8, 0); // amply one week
 
 	public void purge(final Sampler sampler, final JobContext ctx)
 	{
