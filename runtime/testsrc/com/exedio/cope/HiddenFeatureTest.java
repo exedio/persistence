@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.HiddenFeatures;
+
 public class HiddenFeatureTest extends AbstractRuntimeTest
 {
 	public static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
@@ -107,7 +109,7 @@ public class HiddenFeatureTest extends AbstractRuntimeTest
 		assertEquals(map(
 				HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther,
 				HiddenFeatureSubItem.hiddenSame, HiddenFeatureSuperItem.hiddenSame),
-				model.getHiddenFeatures());
+				HiddenFeatures.get(model));
 
 		// test persistence
 		final HiddenFeatureSuperItem sp = deleteOnTearDown(new HiddenFeatureSuperItem());

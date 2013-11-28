@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 
+import com.exedio.cope.misc.HiddenFeatures;
 import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -127,7 +128,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
-		assertEquals(map(), model.getHiddenFeatures());
+		assertEquals(map(), HiddenFeatures.get(model));
 
 		// test persistence
 		assertCheckUpdateCounters();
