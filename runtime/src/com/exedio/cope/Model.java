@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
+import com.exedio.cope.misc.HiddenFeatures;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -99,9 +100,13 @@ public final class Model implements Serializable
 		return types.containsTypeSet(typeSet);
 	}
 
+	/**
+	 * @deprecated Use {@link HiddenFeatures#get(Model)} instead.
+	 */
+	@Deprecated
 	public Map<Feature, Feature> getHiddenFeatures()
 	{
-		return types.getHiddenFeatures();
+		return HiddenFeatures.get(this);
 	}
 
 	/**
