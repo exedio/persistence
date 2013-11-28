@@ -32,7 +32,6 @@ import java.util.ListIterator;
 
 final class Types
 {
-	private final Type<?>[] types;
 	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
 	private final Type<?>[] typesByCacheIdTransiently;
@@ -136,7 +135,6 @@ final class Types
 		}
 
 
-		this.types = typesL.toArray(new Type<?>[typesL.size()]);
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = concreteTypes.toArray(new Type<?>[concreteTypeCount]);
