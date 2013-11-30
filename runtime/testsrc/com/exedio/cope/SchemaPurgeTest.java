@@ -169,7 +169,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private void assertSeq(final int max, final int count, final String name) throws SQLException
 	{
 		// TODO
-		if(!sequences || batch)
+		if(!mysql || !sequences || batch)
 			return;
 
 		model.commit();
