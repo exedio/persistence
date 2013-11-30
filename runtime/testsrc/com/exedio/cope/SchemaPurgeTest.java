@@ -32,14 +32,14 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	}
 
 	private boolean relevant;
+	private boolean sequences;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		relevant =
-				(model.getConnectProperties().primaryKeyGenerator!=PrimaryKeyGenerator.memory) &&
-				mysql;
+		sequences = model.getConnectProperties().primaryKeyGenerator!=PrimaryKeyGenerator.memory;
+		relevant = sequences && mysql;
 	}
 
 	// TODO: test, that its really removed
@@ -53,10 +53,11 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 		model.purgeSchema(ctx);
 		assertEquals(
+			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2000" +
 				"PROGRESS 0",
@@ -66,12 +67,13 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		assertEquals(2000, AnItem.nextSequence());
 		model.purgeSchema(ctx);
 		assertEquals(
+			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 1" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
-				"PROGRESS 1" +
+				"PROGRESS 1" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 1",
@@ -79,12 +81,13 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 		model.purgeSchema(ctx);
 		assertEquals(
+			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 1" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 0",
@@ -96,12 +99,13 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		assertEquals(2002, AnItem.nextSequence());
 		model.purgeSchema(ctx);
 		assertEquals(
+			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 3" +
 				"PROGRESS 2" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
-				"PROGRESS 2" +
+				"PROGRESS 2" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 2",
@@ -109,16 +113,22 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 		model.purgeSchema(ctx);
 		assertEquals(
+			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 3" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 0",
 				jc.fetchEvents());
+	}
+
+	private String ifSequences(final String message)
+	{
+		return sequences ? message : "";
 	}
 
 	public void testStop()
