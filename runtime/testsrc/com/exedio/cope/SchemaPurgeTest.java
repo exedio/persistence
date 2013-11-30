@@ -31,7 +31,6 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	private boolean relevant;
 	private boolean sequences;
 	private boolean batch;
 	private String thisSeq;
@@ -43,7 +42,6 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
-		relevant = sequences && mysql;
 		thisSeq = batch ? "AnItem_this_Seq6" : "AnItem_this_Seq";
 	}
 
@@ -143,7 +141,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 	public void testStop()
 	{
-		if(!relevant)
+		if(!(sequences && mysql))
 			return;
 
 		{
