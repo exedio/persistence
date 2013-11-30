@@ -49,10 +49,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	public void testPurge()
 	{
 		final JC jc = new JC();
-		final JobContext ctx =
-				mysql
-				? jc
-				: new AssertionErrorJobContext();
+		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
