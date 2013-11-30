@@ -52,7 +52,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				: new AssertionErrorJobContext();
 
 		model.purgeSchema(ctx);
-		assertEquals(
+		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
@@ -60,13 +60,13 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2000" +
-				"PROGRESS 0",
+				"PROGRESS 0"),
 				jc.fetchEvents());
 
 		new AnItem(0);
 		assertEquals(2000, AnItem.nextSequence());
 		model.purgeSchema(ctx);
-		assertEquals(
+		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 1" +
@@ -76,11 +76,11 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 1" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
-				"PROGRESS 1",
+				"PROGRESS 1"),
 				jc.fetchEvents());
 
 		model.purgeSchema(ctx);
-		assertEquals(
+		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 1" +
@@ -90,7 +90,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
-				"PROGRESS 0",
+				"PROGRESS 0"),
 				jc.fetchEvents());
 
 		new AnItem(0);
@@ -98,7 +98,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		assertEquals(2001, AnItem.nextSequence());
 		assertEquals(2002, AnItem.nextSequence());
 		model.purgeSchema(ctx);
-		assertEquals(
+		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 3" +
@@ -108,11 +108,11 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 2" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
-				"PROGRESS 2",
+				"PROGRESS 2"),
 				jc.fetchEvents());
 
 		model.purgeSchema(ctx);
-		assertEquals(
+		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence AnItem_this_Seq query" +
 				"MESSAGE sequence AnItem_this_Seq purge less 3" +
@@ -122,8 +122,13 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
-				"PROGRESS 0",
+				"PROGRESS 0"),
 				jc.fetchEvents());
+	}
+
+	private String ifMysql(final String message)
+	{
+		return mysql ? message : "";
 	}
 
 	private String ifSequences(final String message)
