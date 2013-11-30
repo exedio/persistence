@@ -18,9 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.SchemaInfo.quoteName;
+
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SchemaPurgeTest extends AbstractRuntimeModelTest
 {
@@ -45,11 +51,14 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		thisSeq = batch ? "AnItem_this_Seq6" : "AnItem_this_Seq";
 	}
 
-	// TODO: test, that its really removed
-	public void testPurge()
+	public void testPurge() throws SQLException
 	{
 		final JC jc = new JC();
 		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
+
+		assertSeq(   0, 0, thisSeq);
+		assertSeq(1000, 1, "AnItem_next_Seq");
+		assertSeq(2000, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -62,9 +71,15 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2000" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
+		assertSeq(   0, 0, thisSeq);
+		assertSeq(1000, 1, "AnItem_next_Seq");
+		assertSeq(2000, 1, "AnItem_sequence");
 
 		new AnItem(0);
 		assertEquals(2000, AnItem.nextSequence());
+		assertSeq(   1, 1, thisSeq);
+		assertSeq(1001, 2, "AnItem_next_Seq");
+		assertSeq(2001, 2, "AnItem_sequence");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
@@ -78,6 +93,9 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 1"),
 				jc.fetchEvents());
+		assertSeq(   1, 1, thisSeq);
+		assertSeq(1001, 1, "AnItem_next_Seq");
+		assertSeq(2001, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -92,11 +110,17 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
+		assertSeq(   1, 1, thisSeq);
+		assertSeq(1001, 1, "AnItem_next_Seq");
+		assertSeq(2001, 1, "AnItem_sequence");
 
 		new AnItem(0);
 		new AnItem(0);
 		assertEquals(2001, AnItem.nextSequence());
 		assertEquals(2002, AnItem.nextSequence());
+		assertSeq(   3, 3, thisSeq);
+		assertSeq(1003, 3, "AnItem_next_Seq");
+		assertSeq(2003, 3, "AnItem_sequence");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
@@ -110,6 +134,9 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 2"),
 				jc.fetchEvents());
+		assertSeq(   3, 1, thisSeq);
+		assertSeq(1003, 1, "AnItem_next_Seq");
+		assertSeq(2003, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -124,6 +151,9 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
+		assertSeq(   3, 1, thisSeq);
+		assertSeq(1003, 1, "AnItem_next_Seq");
+		assertSeq(2003, 1, "AnItem_sequence");
 	}
 
 	private String ifMysql(final String message)
@@ -134,6 +164,30 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private String ifSequences(final String message)
 	{
 		return sequences ? message : "";
+	}
+
+	private void assertSeq(final int max, final int count, final String name) throws SQLException
+	{
+		// TODO
+		if(!sequences || batch)
+			return;
+
+		model.commit();
+		final Connection con = newConnection(model);
+		try
+		{
+			final ResultSet rs = con.createStatement().
+					executeQuery("select max(x),count(*) from " + quoteName(model, name));
+			rs.next();
+			assertEquals("max",   max,   rs.getInt(1));
+			assertEquals("count", count, rs.getInt(2));
+			rs.close();
+		}
+		finally
+		{
+			con.close();
+		}
+		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
 	public void testStop()
