@@ -33,13 +33,18 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 	private boolean relevant;
 	private boolean sequences;
+	private boolean batch;
+	private String thisSeq;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		sequences = model.getConnectProperties().primaryKeyGenerator!=PrimaryKeyGenerator.memory;
+		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
+		sequences = pkg!=PrimaryKeyGenerator.memory;
+		batch = pkg==PrimaryKeyGenerator.batchedSequence;
 		relevant = sequences && mysql;
+		thisSeq = batch ? "AnItem_this_Seq6" : "AnItem_this_Seq";
 	}
 
 	// TODO: test, that its really removed
@@ -54,7 +59,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence AnItem_this_Seq query" +
+				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
 				"PROGRESS 0" ) +
@@ -68,8 +73,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence AnItem_this_Seq query" +
-				"MESSAGE sequence AnItem_this_Seq purge less 1" +
+				"MESSAGE sequence " + thisSeq + " query" +
+				"MESSAGE sequence " + thisSeq + " purge less 1" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
@@ -82,8 +87,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence AnItem_this_Seq query" +
-				"MESSAGE sequence AnItem_this_Seq purge less 1" +
+				"MESSAGE sequence " + thisSeq + " query" +
+				"MESSAGE sequence " + thisSeq + " purge less 1" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
@@ -100,9 +105,9 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence AnItem_this_Seq query" +
-				"MESSAGE sequence AnItem_this_Seq purge less 3" +
-				"PROGRESS 2" +
+				"MESSAGE sequence " + thisSeq + " query" +
+				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
+				"PROGRESS " + (batch?0:2) +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
 				"PROGRESS 2" ) +
@@ -114,8 +119,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence AnItem_this_Seq query" +
-				"MESSAGE sequence AnItem_this_Seq purge less 3" +
+				"MESSAGE sequence " + thisSeq + " query" +
+				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
@@ -145,7 +150,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			final JC ctx = new JC(5);
 			model.purgeSchema(ctx);
 			assertEquals(
-					"MESSAGE sequence AnItem_this_Seq query" +
+					"MESSAGE sequence " + thisSeq + " query" +
 					"MESSAGE sequence AnItem_next_Seq query" +
 					"MESSAGE sequence AnItem_next_Seq purge less 1000" +
 					"PROGRESS 0" +
@@ -155,27 +160,27 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 					ctx.fetchEvents());
 		}
 		assertStop(4,
-				"MESSAGE sequence AnItem_this_Seq query" +
+				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2000");
 		assertStop(3,
-				"MESSAGE sequence AnItem_this_Seq query" +
+				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query");
 		assertStop(2,
-				"MESSAGE sequence AnItem_this_Seq query" +
+				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000");
 		assertStop(1,
-				"MESSAGE sequence AnItem_this_Seq query" +
+				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq query");
 		assertStop(0,
-				"MESSAGE sequence AnItem_this_Seq query");
+				"MESSAGE sequence " + thisSeq + " query");
 	}
 
 	private void assertStop(final int n, final String message)
