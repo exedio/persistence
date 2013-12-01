@@ -25,6 +25,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -176,12 +177,20 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final Connection con = newConnection(model);
 		try
 		{
-			final ResultSet rs = con.createStatement().
-					executeQuery("select max(x),count(*) from " + quoteName(model, name));
-			rs.next();
-			assertEquals("max",   max,   rs.getInt(1));
-			assertEquals("count", count, rs.getInt(2));
-			rs.close();
+			final Statement stmt = con.createStatement();
+			try
+			{
+				final ResultSet rs = stmt.
+						executeQuery("select max(x),count(*) from " + quoteName(model, name));
+				rs.next();
+				assertEquals("max",   max,   rs.getInt(1));
+				assertEquals("count", count, rs.getInt(2));
+				rs.close();
+			}
+			finally
+			{
+				stmt.close();
+			}
 		}
 		finally
 		{
