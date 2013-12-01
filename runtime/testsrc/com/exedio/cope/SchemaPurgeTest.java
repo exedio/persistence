@@ -24,10 +24,11 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SchemaPurgeTest extends AbstractRuntimeModelTest
 {
@@ -167,6 +168,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		return sequences ? message : "";
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void assertSeq(final int max, final int count, final String name) throws SQLException
 	{
 		// TODO
