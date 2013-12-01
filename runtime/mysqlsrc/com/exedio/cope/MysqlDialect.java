@@ -541,7 +541,7 @@ final class MysqlDialect extends Dialect
 					ctx.setMessage("sequence " + name + " query");
 				ctx.stopIfRequested();
 
-				final Integer maxLong = Executor.query(
+				final Integer maxObject = Executor.query(
 						connection,
 						"select max(" + column + ") from " + table,
 				new ResultSetHandler<Integer>()
@@ -556,12 +556,10 @@ final class MysqlDialect extends Dialect
 						return (Integer)o;
 					}
 				});
-				if(maxLong==null)
+				if(maxObject==null)
 					continue;
 
-				if(maxLong>Integer.MAX_VALUE || maxLong<Integer.MIN_VALUE)
-					throw new RuntimeException(name + '/' + maxLong);
-				final int max = (int)maxLong.longValue();
+				final int max = maxObject.intValue();
 
 				if(ctx.supportsMessage())
 					ctx.setMessage("sequence " + name + " purge less " + max);
