@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -43,6 +44,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private boolean sequences;
 	private boolean batch;
 	private String thisSeq;
+	private String nextSeq;
 
 	@Override
 	protected void setUp() throws Exception
@@ -52,6 +54,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
 		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE) : "NOSEQ";
+		nextSeq = sequences ? getDefaultToNextSequenceName(AnItem.next) : "NOSEQ";
 	}
 
 	public void testPurge() throws SQLException
@@ -60,14 +63,14 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
 
 		assertSeq(   0, 0, thisSeq);
-		assertSeq(1000, 1, "AnItem_next_Seq");
+		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
-				"MESSAGE sequence AnItem_next_Seq query" +
+				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
@@ -75,7 +78,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 0"),
 				jc.fetchEvents());
 		assertSeq(   0, 0, thisSeq);
-		assertSeq(1000, 1, "AnItem_next_Seq");
+		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, "AnItem_sequence");
 
 		new AnItem(0);
@@ -89,15 +92,15 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less 1" +
 				"PROGRESS 0" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1001" +
 				"PROGRESS 1" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 1"),
 				jc.fetchEvents());
 		assertSeq(   1, 1, thisSeq);
-		assertSeq(1001, 1, "AnItem_next_Seq");
+		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
@@ -106,15 +109,15 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less 1" +
 				"PROGRESS 0" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1001" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1001" +
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
 		assertSeq(   1, 1, thisSeq);
-		assertSeq(1001, 1, "AnItem_next_Seq");
+		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, "AnItem_sequence");
 
 		new AnItem(0);
@@ -122,7 +125,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		assertEquals(2001, AnItem.nextSequence());
 		assertEquals(2002, AnItem.nextSequence());
 		assertSeq(   3, 3, thisSeq);
-		assertSeq(1003, 3, "AnItem_next_Seq");
+		assertSeq(1003, 3, nextSeq);
 		assertSeq(2003, 3, "AnItem_sequence");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -130,8 +133,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
 				"PROGRESS " + (batch?0:2) +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1003" +
 				"PROGRESS 2" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
@@ -147,15 +150,15 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
 				"PROGRESS 0" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1003" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1003" +
 				"PROGRESS 0" ) +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
 		assertSeq(   3, 1, thisSeq);
-		assertSeq(1003, 1, "AnItem_next_Seq");
+		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 	}
 
@@ -212,8 +215,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			model.purgeSchema(ctx);
 			assertEquals(
 					"MESSAGE sequence " + thisSeq + " query" +
-					"MESSAGE sequence AnItem_next_Seq query" +
-					"MESSAGE sequence AnItem_next_Seq purge less 1000" +
+					"MESSAGE sequence " + nextSeq + " query" +
+					"MESSAGE sequence " + nextSeq + " purge less 1000" +
 					"PROGRESS 0" +
 					"MESSAGE sequence AnItem_sequence query" +
 					"MESSAGE sequence AnItem_sequence purge less 2000" +
@@ -222,24 +225,24 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		}
 		assertStop(4,
 				"MESSAGE sequence " + thisSeq + " query" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1000" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2000");
 		assertStop(3,
 				"MESSAGE sequence " + thisSeq + " query" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1000" +
 				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query");
 		assertStop(2,
 				"MESSAGE sequence " + thisSeq + " query" +
-				"MESSAGE sequence AnItem_next_Seq query" +
-				"MESSAGE sequence AnItem_next_Seq purge less 1000");
+				"MESSAGE sequence " + nextSeq + " query" +
+				"MESSAGE sequence " + nextSeq + " purge less 1000");
 		assertStop(1,
 				"MESSAGE sequence " + thisSeq + " query" +
-				"MESSAGE sequence AnItem_next_Seq query");
+				"MESSAGE sequence " + nextSeq + " query");
 		assertStop(0,
 				"MESSAGE sequence " + thisSeq + " query");
 	}
