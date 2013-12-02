@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.HiddenFeatures;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -479,6 +480,15 @@ public final class Model implements Serializable
 	public Schema getSchema()
 	{
 		return connect().database.makeSchema();
+	}
+
+	/**
+	 * Gives this cope model the chance to purge / cleanup whatever it needs to.
+	 * Should be called once a day.
+	 */
+	public void purgeSchema(final JobContext ctx)
+	{
+		connect().purgeSchema(ctx);
 	}
 
 	/**

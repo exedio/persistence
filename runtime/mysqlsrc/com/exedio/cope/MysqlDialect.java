@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -515,5 +517,63 @@ final class MysqlDialect extends Dialect
 			return null;
 
 		return message.substring(infixEnd, postfixPosition);
+	}
+
+	@Override
+	protected void purgeSchema(
+			final JobContext ctx,
+			final Database database,
+			final ConnectionPool connectionPool)
+	{
+		final ArrayList<String> names = database.getSequenceSchemaNames();
+		if(names.isEmpty())
+			return;
+
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			final String column = dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN);
+			for(final String name : names)
+			{
+				final String table = dsmfDialect.quoteName(name);
+
+				if(ctx.supportsMessage())
+					ctx.setMessage("sequence " + name + " query");
+				ctx.stopIfRequested();
+
+				final Integer maxObject = Executor.query(
+						connection,
+						"select max(" + column + ") from " + table,
+				new ResultSetHandler<Integer>()
+				{
+					public Integer handle(final ResultSet resultSet) throws SQLException
+					{
+						if(!resultSet.next())
+							throw new RuntimeException("empty in sequence " + name);
+						final Object o = resultSet.getObject(1);
+						if(o==null)
+							return null;
+						return (Integer)o;
+					}
+				});
+				if(maxObject==null)
+					continue;
+
+				final int max = maxObject.intValue();
+
+				if(ctx.supportsMessage())
+					ctx.setMessage("sequence " + name + " purge less " + max);
+				ctx.stopIfRequested();
+
+				final int rows = Executor.update(
+						connection,
+						"delete from " + table + " where " + column + " < " + max);
+				ctx.incrementProgress(rows);
+			}
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }

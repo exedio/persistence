@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -290,4 +291,17 @@ abstract class Dialect
 	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
 	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
 	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
+
+	/**
+	 * @param ctx needed by subclasses
+	 * @param database needed by subclasses
+	 * @param connectionPool needed by subclasses
+	 */
+	protected void purgeSchema(
+			final JobContext ctx,
+			final Database database,
+			final ConnectionPool connectionPool)
+	{
+		// empty default implementation
+	}
 }
