@@ -90,6 +90,7 @@ public final class Query<R> implements Serializable
 		this.offset = query.offset;
 		this.limit = query.limit;
 		this.searchSizeLimit = query.searchSizeLimit;
+		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
 
 	/**
@@ -109,6 +110,7 @@ public final class Query<R> implements Serializable
 		this.offset = query.offset;
 		this.limit = query.limit;
 		this.searchSizeLimit = query.searchSizeLimit;
+		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
 
 	public Query(final Selectable<R> select, final Type<?> type, final Condition condition)
