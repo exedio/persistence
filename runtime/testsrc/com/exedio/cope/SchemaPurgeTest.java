@@ -126,7 +126,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		new AnItem(0);
 		assertEquals(2001, AnItem.nextSequence());
 		assertEquals(2002, AnItem.nextSequence());
-		assertSeq(   3, 3, thisSeq);
+		assertSeq(batch?1:3, batch?1:3, thisSeq);
 		assertSeq(1003, 3, nextSeq);
 		assertSeq(2003, 3, "AnItem_sequence");
 		model.purgeSchema(ctx);
@@ -142,7 +142,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 2"),
 				jc.fetchEvents());
-		assertSeq(   3, 1, thisSeq);
+		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 
@@ -159,7 +159,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 0"),
 				jc.fetchEvents());
-		assertSeq(   3, 1, thisSeq);
+		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 	}
@@ -177,8 +177,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void assertSeq(final int max, final int count, final String name) throws SQLException
 	{
-		// TODO
-		if(!mysql || NO_SEQUENCE.equals(name) || batch)
+		if(!mysql || NO_SEQUENCE.equals(name))
 			return;
 
 		model.commit();
