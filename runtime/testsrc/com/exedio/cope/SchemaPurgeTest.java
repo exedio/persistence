@@ -43,6 +43,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 
 	private boolean sequences;
 	private boolean batch;
+
+	private static final String NO_SEQUENCE = "NOSEQ";
 	private String thisSeq;
 	private String nextSeq;
 
@@ -53,8 +55,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
-		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE) : "NOSEQ";
-		nextSeq = sequences ? getDefaultToNextSequenceName(AnItem.next) : "NOSEQ";
+		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE)    : NO_SEQUENCE;
+		nextSeq = sequences ? getDefaultToNextSequenceName(AnItem.next) : NO_SEQUENCE;
 	}
 
 	public void testPurge() throws SQLException
@@ -84,7 +86,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		new AnItem(0);
 		assertEquals(2000, AnItem.nextSequence());
 		assertSeq(   1, 1, thisSeq);
-		assertSeq(1001, 2, "AnItem_next_Seq");
+		assertSeq(1001, 2, nextSeq);
 		assertSeq(2001, 2, "AnItem_sequence");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -141,7 +143,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				"PROGRESS 2"),
 				jc.fetchEvents());
 		assertSeq(   3, 1, thisSeq);
-		assertSeq(1003, 1, "AnItem_next_Seq");
+		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 
 		model.purgeSchema(ctx);
@@ -176,7 +178,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private void assertSeq(final int max, final int count, final String name) throws SQLException
 	{
 		// TODO
-		if(!mysql || !sequences || batch)
+		if(!mysql || NO_SEQUENCE.equals(name) || batch)
 			return;
 
 		model.commit();
