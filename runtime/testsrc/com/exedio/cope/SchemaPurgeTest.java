@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
@@ -50,7 +51,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
-		thisSeq = batch ? "AnItem_this_Seq6" : "AnItem_this_Seq";
+		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE) : "NOSEQ";
 	}
 
 	public void testPurge() throws SQLException
