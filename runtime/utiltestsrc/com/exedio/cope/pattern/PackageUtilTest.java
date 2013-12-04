@@ -45,6 +45,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(JavaViewInPatternTest.class);
 		suite.addTestSuite(MediaPathPostTest.class);
 		suite.addTestSuite(MediaBase64Test.class);
+		suite.addTestSuite(MediaFilterFinalTest.class);
 		suite.addTestSuite(MediaTypeTest.class);
 		suite.addTestSuite(MediaTypeMediaTest.class);
 		suite.addTestSuite(MediaRootUrlTest.class);

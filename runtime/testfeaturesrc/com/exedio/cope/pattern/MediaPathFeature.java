@@ -39,6 +39,7 @@ public final class MediaPathFeature extends MediaPath
 		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException;
 	}
 
+	private boolean isFinal = false;
 	private final StringField contentType = new StringField().optional();
 	private final DateField lastModified = new DateField().optional();
 	private final EnumField<Result> result = EnumField.create(Result.class).optional();
@@ -48,6 +49,11 @@ public final class MediaPathFeature extends MediaPath
 		addSource(result, "result");
 		addSource(contentType, "contentType");
 		addSource(lastModified, "lastModified");
+	}
+
+	public void setFinal(final boolean isFinal)
+	{
+		this.isFinal = isFinal;
 	}
 
 	@Wrap(order=10)
@@ -68,6 +74,12 @@ public final class MediaPathFeature extends MediaPath
 		this.result.set(item, bodyFailure);
 	}
 
+
+	@Override
+	public boolean isFinal()
+	{
+		return isFinal;
+	}
 
 	@Override
 	public String getContentType(final Item item)

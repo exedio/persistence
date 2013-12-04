@@ -328,6 +328,19 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			response.assertExpires(Long.MIN_VALUE).assertOkAndCache(77772000l);
 	}
 
+	public void testExpiresFinal() throws ServletException, IOException
+	{
+		MediaPathItem.normal.setFinal(true);
+		item.setNormalContentType("image/jpeg");
+		item.setNormalLastModified(new Date(333338888));
+		final long ALMOST_ONE_YEAR = 31363200000l;
+		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		clock.add(333348888);
+		service(new Request(ok)).assertExpires(333348888 + ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
+		clock.assertEmpty();
+	}
+
 	private void assertOk(
 			final String pathInfo)
 		throws ServletException, IOException

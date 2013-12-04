@@ -299,6 +299,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return !(contentType instanceof FixedContentType);
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isfinal;

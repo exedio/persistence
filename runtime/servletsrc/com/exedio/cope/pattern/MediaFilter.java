@@ -48,6 +48,12 @@ public abstract class MediaFilter extends MediaPath
 	public abstract Set<String> getSupportedSourceContentTypes();
 
 	@Override
+	public boolean isFinal()
+	{
+		return source.isFinal();
+	}
+
+	@Override
 	public final Date getLastModified(final Item item)
 	{
 		return source.getLastModified(item);

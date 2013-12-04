@@ -742,7 +742,7 @@ public abstract class MediaPath extends Pattern
 		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
 		//System.out.println("ifModifiedSince="+ifModifiedSince);
 
-		if(isUrlFingerPrinted())
+		if( isFinal() || isUrlFingerPrinted() )
 		{
 			// RFC 2616:
 			// To mark a response as "never expires," an origin server sends an
@@ -784,6 +784,15 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = lastModifiedDate.getTime();
 		final long remainder = lastModified%1000;
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
+	}
+
+	/**
+	 * Returns, whether the contents of this media path may change or not.
+	 * The default implementation returns false.
+	 */
+	public boolean isFinal()
+	{
+		return false;
 	}
 
 	/**
