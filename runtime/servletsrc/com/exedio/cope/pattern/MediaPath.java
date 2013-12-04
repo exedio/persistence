@@ -796,7 +796,7 @@ public abstract class MediaPath extends Pattern
 	}
 
 	/**
-	 * The default implementations returns null.
+	 * The default implementation returns null.
 	 * @param item the item which has the LastModified information
 	 */
 	public Date getLastModified(final Item item)
