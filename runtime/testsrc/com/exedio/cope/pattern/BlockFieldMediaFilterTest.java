@@ -277,7 +277,7 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("unused") private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
 }}
 
-	static final class AnItem extends com.exedio.cope.Item
+	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);

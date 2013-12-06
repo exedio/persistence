@@ -448,7 +448,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 	@SuppressWarnings("unused") private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);
 }}
 
-	static final class AnItem extends com.exedio.cope.Item
+	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final StringField code = new StringField().toFinal();
 
