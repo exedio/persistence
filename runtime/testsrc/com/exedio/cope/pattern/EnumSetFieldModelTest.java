@@ -44,6 +44,7 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertEquals("activeLanguage", activeLanguage.getName());
 
 		assertEquals(EnumSetFieldItem.Language.class, activeLanguage.getElementClass());
+		assertEquals(false, activeLanguage.isFinal());
 
 		assertEquals(BooleanField.class, activeLanguage.getField(DE).getClass());
 		assertEquals("activeLanguage-DE", activeLanguage.getField(DE).getName());
