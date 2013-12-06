@@ -365,6 +365,7 @@
 				verbose="false">
 			<fileset dir="runtime/utiltestsrc">
 				<include name="com/exedio/cope/pattern/CompositeTest.java" />
+				<include name="com/exedio/cope/pattern/EnumSetFieldFinalTest.java" />
 				<include name="com/exedio/cope/pattern/MediaRootUrlTest.java" />
 				<include name="com/exedio/cope/pattern/MediaFilterFallbackItem.java" />
 				<include name="com/exedio/cope/pattern/ThumbnailMagickItem.java" />

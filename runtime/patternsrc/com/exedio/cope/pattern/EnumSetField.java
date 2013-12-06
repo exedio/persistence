@@ -28,6 +28,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -40,15 +41,21 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	private final Class<E> elementClass;
 	private final EnumMap<E, BooleanField> fields;
+	private final boolean isFinal;
 
-	private EnumSetField(final Class<E> elementClass)
+	private EnumSetField(
+			final Class<E> elementClass,
+			final boolean isFinal)
 	{
 		this.elementClass = elementClass;
 		this.fields = new EnumMap<E, BooleanField>(elementClass);
+		this.isFinal = isFinal;
 
 		for(final E element : elementClass.getEnumConstants())
 		{
-			final BooleanField value = new BooleanField().defaultTo(false);
+			BooleanField value = new BooleanField().defaultTo(false);
+			if(isFinal)
+				value = value.toFinal();
 			addSource(value, element.name(), EnumAnnotatedElement.get(element));
 			fields.put(element, value);
 		}
@@ -56,7 +63,12 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	public static final <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
 	{
-		return new EnumSetField<E>(elementClass);
+		return new EnumSetField<E>(elementClass, false);
+	}
+
+	public EnumSetField<E> toFinal()
+	{
+		return new EnumSetField<E>(elementClass, true);
 	}
 
 	public Class<E> getElementClass()
@@ -84,14 +96,14 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		return fields.get(element).get(item);
 	}
 
-	@Wrap(order=20)
+	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void add(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
 		fields.get(element).set(item, true);
 	}
 
-	@Wrap(order=30)
+	@Wrap(order=30, hide=FinalSettableGetter.class)
 	public void remove(final Item item, @Parameter("element") final E element)
 	{
 		assertElement(element);
@@ -114,7 +126,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		return result;
 	}
 
-	@Wrap(order=50)
+	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void set(final Item item, final EnumSet<E> value)
 	{
 		final SetValue<?>[] setValues = new SetValue<?>[fields.size()];
@@ -146,7 +158,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Override
 	public boolean isFinal()
 	{
-		return false; // TODO implement final EnumSetField
+		return isFinal;
 	}
 
 	@Override

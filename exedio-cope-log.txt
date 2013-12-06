@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* EnumSetField.toFinal() supported
 * final Media and MediaFilter do get an Expires time of one year
 	instead of the value configured by media.offsetExpires.
 	This breaks backwards API compatibility, but probably will not cause problems.
