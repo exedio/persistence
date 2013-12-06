@@ -25,7 +25,6 @@ import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.field;
 
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
@@ -72,7 +71,7 @@ public class EnumSetFieldFinalTest extends CopeAssert
 		DE, EN, PL;
 	}
 
-	static final class AnItem extends Item
+	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		/**
 		 * @cope.initial
