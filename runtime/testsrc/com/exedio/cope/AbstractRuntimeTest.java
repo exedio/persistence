@@ -29,7 +29,6 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -87,24 +86,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d7 = Double.valueOf(7.7);
 	protected static final Double d8 = Double.valueOf(8.8);
 	protected static final Double d9 = Double.valueOf(9.9);
-
-	protected static final byte[] bytes0  = {};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes4  = {-86,122,-8,23};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes6  = {-97,35,-126,86,19,-8};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes6x4= {-97,35,-126,86};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
-	@SuppressFBWarnings("MS_PKGPROTECT")
-	protected static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 
 	enum Dialect
 	{

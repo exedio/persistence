@@ -520,4 +520,13 @@ public class DataTest extends AbstractRuntimeTest
 	{
 		assertSchema();
 	}
+
+	private static final byte[] bytes0  = {};
+	private static final byte[] bytes4  = {-86,122,-8,23};
+	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
+	private static final byte[] bytes6x4= {-97,35,-126,86};
+	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
+	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
+	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
+	private static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 }

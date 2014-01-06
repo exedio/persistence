@@ -177,4 +177,8 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(expectedContentType, item.getImageContentType());
 		assertLocator("MediaItem/image/" + item.getCopeID() + expectedExtension, item.getImageLocator());
 	}
+
+	private static final byte[] bytes4  = {-86,122,-8,23};
+	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
+	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 }

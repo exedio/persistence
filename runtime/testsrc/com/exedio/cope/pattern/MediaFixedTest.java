@@ -150,4 +150,7 @@ public class MediaFixedTest extends AbstractRuntimeTest
 		assertEquals("image/jpeg", item.getPhotoContentType());
 		assertLocator("MediaItem/photo/" + item.getCopeID() + ".jpg", item.getPhotoLocator());
 	}
+
+	private static final byte[] bytes4  = {-86,122,-8,23};
+	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
 }
