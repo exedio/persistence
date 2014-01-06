@@ -461,9 +461,9 @@ public final class DataField extends Field<DataField.Value>
 		 * Estimates the length of this value.
 		 * Returns -1 if length cannot be estimated in advance.
 		 * This length is used for checking against {@link DataField#getMaximumLength()}.
-		 * If this length is greater than the actual length of this value,
-		 * this may cause a {@link DataLengthViolationException} wrongly thrown.
 		 * If this length is less than the actual length of this value,
+		 * this may cause a {@link DataLengthViolationException} wrongly thrown.
+		 * If this length is greater than the actual length of this value,
 		 * an {@link DataLengthViolationException} is thrown nevertheless,
 		 * but only after fetching at least {@link DataField#getMaximumLength()} bytes from the source.
 		 * A typical source of the estimated length is
