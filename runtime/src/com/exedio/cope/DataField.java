@@ -553,18 +553,14 @@ public final class DataField extends Field<DataField.Value>
 		{
 			assertNotExhausted();
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			InputStream stream = null;
+			final InputStream stream = openStream();
 			try
 			{
-				stream = openStream();
 				field.copy(stream, baos, exceptionItem);
-				stream.close();
-				stream = null;
 			}
 			finally
 			{
-				if(stream!=null)
-					stream.close();
+				stream.close();
 			}
 			return baos.toByteArray();
 		}
