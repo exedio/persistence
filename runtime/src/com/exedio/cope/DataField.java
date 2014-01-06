@@ -473,7 +473,19 @@ public final class DataField extends Field<DataField.Value>
 		 */
 		abstract long estimateLength();
 
-		abstract byte[] asArray(DataField field, Item exceptionItem); // TODO put this directly into statement
+		abstract byte[] asArraySub(DataField field, Item exceptionItem) throws IOException; // TODO put this directly into statement
+
+		final byte[] asArray(final DataField field, final Item exceptionItem)
+		{
+			try
+			{
+				return asArraySub(field, exceptionItem);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(field.toString(), e);
+			}
+		}
 
 		@Override
 		public abstract String toString();
@@ -508,7 +520,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
-		byte[] asArray(final DataField field, final Item exceptionItem)
+		byte[] asArraySub(final DataField field, final Item exceptionItem)
 		{
 			assertNotExhausted();
 			return array;
@@ -537,7 +549,7 @@ public final class DataField extends Field<DataField.Value>
 		abstract InputStream openStream() throws IOException;
 
 		@Override
-		final byte[] asArray(final DataField field, final Item exceptionItem)
+		final byte[] asArraySub(final DataField field, final Item exceptionItem) throws IOException
 		{
 			assertNotExhausted();
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -549,23 +561,10 @@ public final class DataField extends Field<DataField.Value>
 				stream.close();
 				stream = null;
 			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(field.toString(), e);
-			}
 			finally
 			{
 				if(stream!=null)
-				{
-					try
-					{
-						stream.close();
-					}
-					catch(final IOException e)
-					{
-						// IGNORE, because already in exception
-					}
-				}
+					stream.close();
 			}
 			return baos.toByteArray();
 		}
