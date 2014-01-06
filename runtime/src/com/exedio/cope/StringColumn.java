@@ -153,7 +153,7 @@ class StringColumn extends Column
 		return cacheToDatabaseStatic(cache);
 	}
 
-	final static String cacheToDatabaseStatic(final Object cache)
+	static final String cacheToDatabaseStatic(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";

@@ -620,13 +620,13 @@ public class MediaServletTest extends TestCase
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	private final static void assertEqualsDate(final Date expected, final Date actual)
+	private static final void assertEqualsDate(final Date expected, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		assertEquals("expected " + df.format(expected) + ", but got " + df.format(actual), expected, actual);
 	}
 
-	private final static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private static final void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final long resolution = 1000;
 		final long leftTolerance = 995;
@@ -643,7 +643,7 @@ public class MediaServletTest extends TestCase
 		assertTrue(message, !expectedAfterCeil.before(actual));
 	}
 
-	private final static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		final String message =

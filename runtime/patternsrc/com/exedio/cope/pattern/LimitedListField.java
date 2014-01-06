@@ -108,12 +108,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
-	private final static <X> FunctionField<X>[] cast(final FunctionField[] o)
+	private static final <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;
 	}
 
-	private final static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
+	private static final <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);

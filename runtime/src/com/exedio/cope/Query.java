@@ -34,7 +34,7 @@ public final class Query<R> implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	final static int UNLIMITED = -66;
+	static final int UNLIMITED = -66;
 
 	final Model model;
 	private Selectable<? extends R> selectSingle;

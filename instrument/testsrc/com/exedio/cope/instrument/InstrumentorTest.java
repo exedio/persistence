@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 public class InstrumentorTest extends TestCase
 {
 
-	protected final static <T> List<T> list(final T... o)
+	protected static final <T> List<T> list(final T... o)
 	{
 		return Arrays.asList(o);
 	}

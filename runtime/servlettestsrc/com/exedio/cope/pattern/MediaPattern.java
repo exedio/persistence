@@ -86,7 +86,7 @@ public final class MediaPattern extends Pattern
 	}
 
 	@Computed
-	final static class SourceItem extends Item
+	static final class SourceItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

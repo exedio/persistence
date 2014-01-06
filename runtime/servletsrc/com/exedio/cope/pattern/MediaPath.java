@@ -355,7 +355,7 @@ public abstract class MediaPath extends Pattern
 		return makeUrlTokenDigest(getUrlPath() + itemID + '-' + sss);
 	}
 
-	private final static String makeUrlTokenDigest(final String plainText)
+	private static final String makeUrlTokenDigest(final String plainText)
 	{
 		try
 		{

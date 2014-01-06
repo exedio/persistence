@@ -29,7 +29,7 @@ import java.util.List;
 
 public final class QueryAggregator<R>
 {
-	private final static int UNLIMITED = -77;
+	private static final int UNLIMITED = -77;
 
 	private final List<Query<? extends R>> queries;
 	private int offset = 0;

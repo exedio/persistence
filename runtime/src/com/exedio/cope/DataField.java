@@ -490,7 +490,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	final static class ArrayValue extends Value
+	static final class ArrayValue extends Value
 	{
 		final byte[] array;
 
@@ -571,7 +571,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	final static class StreamValue extends AbstractStreamValue
+	static final class StreamValue extends AbstractStreamValue
 	{
 		private final InputStream stream;
 
@@ -601,7 +601,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	final static class FileValue extends AbstractStreamValue
+	static final class FileValue extends AbstractStreamValue
 	{
 		private final File file;
 
@@ -631,7 +631,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	final static class ZipValue extends AbstractStreamValue
+	static final class ZipValue extends AbstractStreamValue
 	{
 		private final ZipFile file;
 		private final ZipEntry entry;

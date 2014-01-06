@@ -605,7 +605,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		}
 	}
 
-	public final static Media get(final DataField field)
+	public static final Media get(final DataField field)
 	{
 		final Pattern pattern = field.getPattern();
 		if(pattern instanceof Media)

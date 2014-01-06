@@ -56,30 +56,30 @@ public class GeneratorTest extends InstrumentorTest
 {
 	public static final int VARARGS = 0x00000080;
 
-	final static Class<?> STRING = String.class;
-	final static Class<?> DOUBLE = Double.class;
-	final static Class<?> BYTE_ARRAY = byte[].class;
-	final static Class<?> INPUT_STREAM = InputStream.class;
-	final static Class<?> OUTPUT_STREAM = OutputStream.class;
-	final static Class<?> IO_EXCEPTION = IOException.class;
+	static final Class<?> STRING = String.class;
+	static final Class<?> DOUBLE = Double.class;
+	static final Class<?> BYTE_ARRAY = byte[].class;
+	static final Class<?> INPUT_STREAM = InputStream.class;
+	static final Class<?> OUTPUT_STREAM = OutputStream.class;
+	static final Class<?> IO_EXCEPTION = IOException.class;
 
-	final static Class<?> SET_VALUE_ARRAY = SetValue[].class;
-	final static Class<?> MANDATORY_VIOLATION = MandatoryViolationException.class;
-	final static Class<?> UNIQUE_VIOLATION = UniqueViolationException.class;
-	final static Class<?> LENGTH_VIOLATION = StringLengthViolationException.class;
-	final static Class<?> DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
-	final static Class<?> ACTIVATION = ActivationParameters.class;
+	static final Class<?> SET_VALUE_ARRAY = SetValue[].class;
+	static final Class<?> MANDATORY_VIOLATION = MandatoryViolationException.class;
+	static final Class<?> UNIQUE_VIOLATION = UniqueViolationException.class;
+	static final Class<?> LENGTH_VIOLATION = StringLengthViolationException.class;
+	static final Class<?> DOUBLE_RANGE_VIOLATION = DoubleRangeViolationException.class;
+	static final Class<?> ACTIVATION = ActivationParameters.class;
 
-	final static Class<?> STANDARD = Standard.class;
-	final static Class<?> TYPE_NONE = TypeNone.class;
-	final static Class<?> TYPE_PRIVATE = TypePrivate.class;
-	final static Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
-	final static Class<?> SUB_TARGET = SubTarget.class;
-	final static Class<?> SUPER = Super.class;
-	final static Class<?> SUB = Sub.class;
-	final static Class<?> INPUT = Input.class;
-	final static Class<?> INPUT_SUB = DefaultTextInput.class;
-	final static Class<?> INPUT_SUB2 = FullQualifyInput.class;
+	static final Class<?> STANDARD = Standard.class;
+	static final Class<?> TYPE_NONE = TypeNone.class;
+	static final Class<?> TYPE_PRIVATE = TypePrivate.class;
+	static final Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
+	static final Class<?> SUB_TARGET = SubTarget.class;
+	static final Class<?> SUPER = Super.class;
+	static final Class<?> SUB = Sub.class;
+	static final Class<?> INPUT = Input.class;
+	static final Class<?> INPUT_SUB = DefaultTextInput.class;
+	static final Class<?> INPUT_SUB2 = FullQualifyInput.class;
 
 	public void testStandard()
 	{

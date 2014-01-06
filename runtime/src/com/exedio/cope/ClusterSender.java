@@ -211,7 +211,7 @@ abstract class ClusterSender
 		}
 	}
 
-	final static int marshal(int pos, final byte[] buf, final int i)
+	static final int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
 		buf[pos++] = (byte)((i>>> 8) & 0xff);
