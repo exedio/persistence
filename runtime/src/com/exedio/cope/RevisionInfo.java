@@ -221,13 +221,13 @@ public abstract class RevisionInfo
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
 		final Statement bf = executor.newStatement();
-		bf.append("insert into ").
+		bf.append("INSERT INTO ").
 			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append('(').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
 			append(',').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_INFO_NAME)).
-			append(")values(").
+			append(")VALUES(").
 			appendParameter(getNumber()).
 			append(',').
 			appendParameterBlob(toBytes()).

@@ -79,9 +79,9 @@ public final class MysqlDialect extends Dialect
 	{
 		final String catalog = schema.getCatalog();
 		schema.querySQL(
-			"select TABLE_NAME " +
-				"from information_schema.TABLES " +
-				"where TABLE_SCHEMA='" + catalog + "' and TABLE_TYPE='BASE TABLE'",
+			"SELECT TABLE_NAME " +
+				"FROM information_schema.TABLES " +
+				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
 			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
 			{
 				//printMeta(resultSet);
@@ -99,9 +99,9 @@ public final class MysqlDialect extends Dialect
 			}
 		});
 		schema.querySQL(
-			"select TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
-			"from information_schema.COLUMNS " +
-			"where TABLE_SCHEMA='" + catalog + '\'',
+			"SELECT TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
+			"FROM information_schema.COLUMNS " +
+			"WHERE TABLE_SCHEMA='" + catalog + '\'',
 			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
 			{
 				//printMeta(resultSet);
@@ -119,9 +119,9 @@ public final class MysqlDialect extends Dialect
 					if("varchar".equals(dataType))
 						type.append('(').append(resultSet.getInt(5)).append(')');
 					if(characterSet!=null)
-						type.append(" character set ").append(characterSet);
+						type.append(" CHARACTER SET ").append(characterSet);
 					if(collation!=null)
-						type.append(" collate ").append(collation);
+						type.append(" COLLATE ").append(collation);
 
 					if("NO".equals(isNullable))
 					{
@@ -145,15 +145,15 @@ public final class MysqlDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(
-			"select tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
-			"from information_schema.TABLE_CONSTRAINTS tc " +
-			"left join information_schema.KEY_COLUMN_USAGE kcu " +
-				"on tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"and tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
-				"and kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-			"where tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"and tc.TABLE_SCHEMA='" + catalog + "' " +
-				"and tc.CONSTRAINT_TYPE in ('FOREIGN KEY')",
+			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
+			"FROM information_schema.TABLE_CONSTRAINTS tc " +
+			"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+				"ON tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"AND tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+				"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
+			"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
+				"AND tc.CONSTRAINT_TYPE IN ('FOREIGN KEY')",
 			schema);
 
 		{
@@ -164,7 +164,7 @@ public final class MysqlDialect extends Dialect
 
 				{
 					final StringBuilder bf = new StringBuilder();
-					bf.append("show columns from ").
+					bf.append("SHOW COLUMNS FROM ").
 						append(quoteName(table.name));
 
 					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
@@ -199,7 +199,7 @@ public final class MysqlDialect extends Dialect
 				}
 				{
 					final StringBuilder bf = new StringBuilder();
-					bf.append("show create table ").
+					bf.append("SHOW CREATE TABLE ").
 						append(quoteName(table.name));
 
 					schema.querySQL(bf.toString(), new ResultSetHandler()
@@ -243,14 +243,14 @@ public final class MysqlDialect extends Dialect
 		}
 	}
 
-	private static final String ENGINE = " engine=innodb";
+	private static final String ENGINE = " ENGINE=innodb";
 
 	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(ENGINE);
 		if(rowFormat!=null)
-			bf.append(" row_format=").
+			bf.append(" ROW_FORMAT=").
 				append(rowFormat);
 	}
 
@@ -264,9 +264,9 @@ public final class MysqlDialect extends Dialect
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" change ").
+			append(" CHANGE ").
 			append(oldColumnName).
 			append(' ').
 			append(newColumnName).
@@ -280,9 +280,9 @@ public final class MysqlDialect extends Dialect
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" add column ").
+			append(" ADD COLUMN ").
 			append(columnName).
 			append(' ').
 			append(columnType);
@@ -293,9 +293,9 @@ public final class MysqlDialect extends Dialect
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" modify ").
+			append(" MODIFY ").
 			append(columnName).
 			append(' ').
 			append(newColumnType);
@@ -305,26 +305,26 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" drop primary key");
+			append(" DROP PRIMARY KEY");
 	}
 
 	@Override
 	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" drop foreign key ").
+			append(" DROP FOREIGN KEY ").
 			append(constraintName);
 	}
 
 	@Override
 	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" drop index ").
+			append(" DROP INDEX ").
 			append(constraintName);
 	}
 
@@ -333,12 +333,12 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		bf.append("create table ").
+		bf.append("CREATE TABLE ").
 			append(sequenceName).
-			append("(" + SEQUENCE_COLUMN + " integer auto_increment primary key)" + ENGINE);
+			append("(" + SEQUENCE_COLUMN + " INTEGER AUTO_INCREMENT PRIMARY KEY)" + ENGINE);
 
 		if(rowFormat!=null)
-			bf.append(" row_format=").
+			bf.append(" ROW_FORMAT=").
 				append(rowFormat);
 
 		initializeSequence(bf, sequenceName, startWith);
@@ -356,9 +356,9 @@ public final class MysqlDialect extends Dialect
 		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
 		if(startWith!=0)
 		{
-			bf.append(";insert into ").
+			bf.append(";INSERT INTO ").
 				append(sequenceName).
-				append(" values(").
+				append(" VALUES(").
 				append(startWith).
 				append(')');
 		}
@@ -367,7 +367,7 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
-		bf.append("drop table ").
+		bf.append("DROP TABLE ").
 			append(sequenceName);
 	}
 }

@@ -60,8 +60,8 @@ final class SamplerPurge extends Item
 		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
 		final String bf =
-				"delete " + removePrefix(
-						"select " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
+				"DELETE " + removePrefix(
+						"SELECT " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
 						search(type.newQuery(field.less(limit)))
 				);
 		final int rows;

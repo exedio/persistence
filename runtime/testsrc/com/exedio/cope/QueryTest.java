@@ -64,9 +64,9 @@ public class QueryTest extends AbstractRuntimeTest
 
 		{
 			final String search = SchemaInfo.search(q);
-			assertTrue(search, search.startsWith("select "));
+			assertTrue(search, search.startsWith("SELECT "));
 			final String total = SchemaInfo.total(q);
-			assertTrue(total, total.startsWith("select count(*) from "));
+			assertTrue(total, total.startsWith("SELECT COUNT(*) FROM "));
 		}
 	}
 

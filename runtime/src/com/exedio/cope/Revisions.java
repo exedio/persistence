@@ -149,11 +149,11 @@ public final class Revisions
 
 		final Statement bf = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
-		bf.append("select max(").
+		bf.append("SELECT MAX(").
 			append(revision).
-			append(") from ").
+			append(") FROM ").
 			append(dsmfDialect.quoteName(properties.revisionTableName)).
-			append(" where ").
+			append(" WHERE ").
 			append(revision).
 			append(">=0");
 
@@ -179,15 +179,15 @@ public final class Revisions
 
 		final Statement bf = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
-		bf.append("select ").
+		bf.append("SELECT ").
 			append(revision).
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
-			append(" from ").
+			append(" FROM ").
 			append(dsmfDialect.quoteName(properties.revisionTableName));
 
 		if(!withMutex)
-			bf.append(" where ").
+			bf.append(" WHERE ").
 				append(revision).
 				append(">=0");
 

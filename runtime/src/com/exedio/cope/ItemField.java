@@ -428,15 +428,15 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 
 		final Statement bf = executor.newStatement(false);
-		bf.append("select count(*) from ").
+		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(' ').append(alias1).
 			append(',').
 			append(valueTable).append(' ').append(alias2).
-			append(" where ").
+			append(" WHERE ").
 			append(alias1).append('.').append(getColumn()).
 			append('=').
 			append(alias2).append('.').append(valueTable.primaryKey).
-			append(" and ").
+			append(" AND ").
 			append(alias1).append('.').append(getTypeColumn()).
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);

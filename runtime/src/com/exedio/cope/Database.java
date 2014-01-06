@@ -158,7 +158,7 @@ final class Database
 			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
 
 			final Statement bf = executor.newStatement(true);
-			bf.append("select count(*) from ");
+			bf.append("SELECT COUNT(*) FROM ");
 			boolean first = true;
 
 			for(final Table table : tableChunk)
@@ -171,14 +171,14 @@ final class Database
 				bf.append(table.quotedID);
 			}
 
-			bf.append(" where ");
+			bf.append(" WHERE ");
 			first = true;
 			for(final Table table : tableChunk)
 			{
 				if(first)
 					first = false;
 				else
-					bf.append(" and ");
+					bf.append(" AND ");
 
 				final Column primaryKey = table.primaryKey;
 				bf.append(primaryKey).
@@ -191,7 +191,7 @@ final class Database
 					if(first)
 						first = false;
 					else
-						bf.append(" and ");
+						bf.append(" AND ");
 
 					bf.append(typeColumn).
 						append('=').
@@ -204,7 +204,7 @@ final class Database
 					if(first)
 						first = false;
 					else
-						bf.append(" and ");
+						bf.append(" AND ");
 
 					bf.append(updateCounter).
 						append('=').
@@ -213,12 +213,12 @@ final class Database
 
 				for(final Column column : table.getColumns())
 				{
-					bf.append(" and ").
+					bf.append(" AND ").
 						append(column);
 
 					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>Dialect.ORACLE_VARCHAR_MAX_CHARS))
 					{
-						bf.append("is not null");
+						bf.append("IS NOT NULL");
 					}
 					else
 					{
@@ -276,22 +276,22 @@ final class Database
 		buildStage = false;
 
 		final StringBuilder bf = new StringBuilder();
-		bf.append("select t,c from(");
+		bf.append("SELECT t,c FROM(");
 		int n = 0;
 		for(final Table table : tables)
 		{
 			if(n>0)
 				bf.append("union");
 
-			bf.append("(select '").
+			bf.append("(SELECT '").
 				append(table.id).
-				append("' t, count(*) c, ").
+				append("' t, COUNT(*) c, ").
 				append(n++).
-				append(" n from ").
+				append(" n FROM ").
 				append(table.quotedID).
 				append(')');
 		}
-		bf.append(") b where c>0 order by n");
+		bf.append(") b WHERE c>0 ORDER BY n");
 
 		final String message = Executor.query(connection, bf.toString(), new ResultSetHandler<String>()
 		{
@@ -333,7 +333,7 @@ final class Database
 		executor.testListener().load(connection, item);
 
 		final Statement bf = executor.newStatement(type.supertype!=null);
-		bf.append("select ");
+		bf.append("SELECT ");
 
 		boolean first = true;
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
@@ -371,7 +371,7 @@ final class Database
 			bf.appendPK(type, (Join)null);
 		}
 
-		bf.append(" from ");
+		bf.append(" FROM ");
 		first = true;
 		for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 		{
@@ -383,14 +383,14 @@ final class Database
 			bf.append(superType.getTable().quotedID);
 		}
 
-		bf.append(" where ");
+		bf.append(" WHERE ");
 		first = true;
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(" and ");
+				bf.append(" AND ");
 
 			bf.appendPK(currentType, (Join)null).
 				append('=').
@@ -482,9 +482,9 @@ final class Database
 		final IntegerColumn updateCounter = incrementUpdateCounter ? table.updateCounter : null;
 		if(present)
 		{
-			bf.append("update ").
+			bf.append("UPDATE ").
 				append(table.quotedID).
-				append(" set ");
+				append(" SET ");
 
 			boolean first = true;
 
@@ -517,7 +517,7 @@ final class Database
 			if(first) // no columns in table
 				return;
 
-			bf.append(" where ").
+			bf.append(" WHERE ").
 				append(table.primaryKey.quotedID).
 				append('=').
 				appendParameter(state.pk).
@@ -525,7 +525,7 @@ final class Database
 
 			if(updateCounter!=null)
 			{
-				bf.append(" and ").
+				bf.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
 					appendParameter(state.updateCount);
@@ -533,7 +533,7 @@ final class Database
 		}
 		else
 		{
-			bf.append("insert into ").
+			bf.append("INSERT INTO ").
 				append(table.quotedID).
 				append("(").
 				append(table.primaryKey.quotedID);
@@ -559,7 +559,7 @@ final class Database
 				}
 			}
 
-			bf.append(")values(").
+			bf.append(")VALUES(").
 				appendParameter(state.pk);
 
 			if(typeColumn!=null)

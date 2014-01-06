@@ -45,7 +45,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
-		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("select "));
+		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("SELECT "));
 		if(!model.getConnectProperties().isSupportDisabledForPreparedStatements())
 		{
 			final Iterator<QueryInfo> statementInfoChilds = statementInfo.getChilds().iterator();

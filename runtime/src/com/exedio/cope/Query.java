@@ -897,26 +897,26 @@ public final class Query<R> implements Serializable
 
 		if (totalOnly && distinct)
 		{
-			bf.append("select count(*) from ( ");
+			bf.append("SELECT COUNT(*) FROM ( ");
 		}
 
 		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
 			dialect.appendLimitClause(bf, offset, limit);
 
-		bf.append("select ");
+		bf.append("SELECT ");
 
 		final Selectable<?>[] selects = this.selects();
 		final Marshaller<?>[] selectMarshallers;
 
 		if(!distinct&&totalOnly)
 		{
-			bf.append("count(*)");
+			bf.append("COUNT(*)");
 			selectMarshallers = null;
 		}
 		else
 		{
 			if(distinct)
-				bf.append("distinct ");
+				bf.append("DISTINCT ");
 
 			selectMarshallers = new Marshaller<?>[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
@@ -933,7 +933,7 @@ public final class Query<R> implements Serializable
 			}
 		}
 
-		bf.append(" from ").
+		bf.append(" FROM ").
 			appendTypeDefinition((Join)null, this.type, joins!=null);
 
 		if(joins!=null)
@@ -944,7 +944,7 @@ public final class Query<R> implements Serializable
 
 		if(this.condition!=null)
 		{
-			bf.append(" where ");
+			bf.append(" WHERE ");
 			this.condition.append(bf);
 		}
 
@@ -953,7 +953,7 @@ public final class Query<R> implements Serializable
 			for ( int i=0; i<groupBy.length; i++ )
 			{
 				if(i==0)
-					bf.append(" group by ");
+					bf.append(" GROUP BY ");
 				else
 					bf.append(',');
 
@@ -971,13 +971,13 @@ public final class Query<R> implements Serializable
 				for(int i = 0; i<orderBy.length; i++)
 				{
 					if(i==0)
-						bf.append(" order by ");
+						bf.append(" ORDER BY ");
 					else
 						bf.append(',');
 
 					bf.append(orderBy[i], (Join)null);
 					if(!orderAscending[i])
-						bf.append(" desc");
+						bf.append(" DESC");
 					dialect.appendOrderByPostfix(bf, orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
@@ -1003,7 +1003,7 @@ public final class Query<R> implements Serializable
 			bf.append(" )");
 			if (dialect.subqueryRequiresAlias())
 			{
-				bf.append(" as cope_total_distinct");
+				bf.append(" AS cope_total_distinct");
 			}
 		}
 

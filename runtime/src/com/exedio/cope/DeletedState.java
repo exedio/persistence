@@ -62,9 +62,9 @@ final class DeletedState extends State
 		{
 			final Table currentTable = currentType.getTable();
 			final Statement bf = executor.newStatement();
-			bf.append("delete from ").
+			bf.append("DELETE FROM ").
 				append(currentTable.quotedID).
-				append(" where ").
+				append(" WHERE ").
 				append(currentTable.primaryKey.quotedID).
 				append('=').
 				appendParameter(pk);
@@ -72,7 +72,7 @@ final class DeletedState extends State
 			final IntegerColumn updateCounter = currentTable.updateCounter;
 			if(updateCounter!=null)
 			{
-				bf.append(" and ").
+				bf.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
 					appendParameter(this.updateCount);

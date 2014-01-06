@@ -50,31 +50,31 @@ final class HsqldbDialect extends Dialect
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "integer" : "bigint";
+		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "INTEGER" : "BIGINT";
 	}
 
 	@Override
 	String getDoubleType()
 	{
-		return "double";
+		return "DOUBLE";
 	}
 
 	@Override
 	String getStringType(final int maxChars)
 	{
-		return "varchar("+maxChars+")";
+		return "VARCHAR("+maxChars+")";
 	}
 
 	@Override
 	String getDayType()
 	{
-		return "date";
+		return "DATE";
 	}
 
 	@Override
 	String getDateTimestampType()
 	{
-		return "timestamp";
+		return "TIMESTAMP";
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
@@ -98,7 +98,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return "blob";
+		return "BLOB";
 	}
 
 	@Override
@@ -113,12 +113,12 @@ final class HsqldbDialect extends Dialect
 		if(ascending)
 		{
 			if(!nullsAreSortedLow)
-				bf.append(" nulls last");
+				bf.append(" NULLS LAST");
 		}
 		else
 		{
 			if(nullsAreSortedLow)
-				bf.append(" nulls last");
+				bf.append(" NULLS LAST");
 		}
 	}
 
@@ -135,10 +135,10 @@ final class HsqldbDialect extends Dialect
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
-		bf.append(" offset ").
+		bf.append(" OFFSET ").
 			appendParameter(offset);
 		if(limit!=Query.UNLIMITED)
-			bf.append(" limit ").
+			bf.append(" LIMIT ").
 				appendParameter(limit);
 	}
 
@@ -165,7 +165,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
-		bf.append("left(RAWTOHEX(").
+		bf.append("LEFT(RAWTOHEX(").
 			append(column, (Join)null).
 			append("),").
 			appendParameter(2*value.length).
@@ -192,7 +192,7 @@ final class HsqldbDialect extends Dialect
 			final Statement bf = executor.newStatement();
 			bf.append("DECLARE LOCAL TEMPORARY TABLE ").
 				append(TEMP_TABLE).
-				append(" (x integer)");
+				append(" (x INTEGER)");
 			executor.update(connection, null, bf);
 		}
 		{
@@ -275,9 +275,9 @@ final class HsqldbDialect extends Dialect
 
 		for(final Table table : tables)
 		{
-			bf.append("truncate table ").
+			bf.append("TRUNCATE TABLE ").
 				append(table.quotedID).
-				append(" restart identity and commit no check;");
+				append(" RESTART IDENTITY AND COMMIT NO CHECK;");
 		}
 
 		for(final SequenceX sequence : sequences)
@@ -303,9 +303,9 @@ final class HsqldbDialect extends Dialect
 	@Override
 	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
-		bf.append("alter sequence ").
+		bf.append("ALTER SEQUENCE ").
 			append(quotedName).
-			append(" restart with ").
+			append(" RESTART WITH ").
 			append(startWith).
 			append(';');
 	}

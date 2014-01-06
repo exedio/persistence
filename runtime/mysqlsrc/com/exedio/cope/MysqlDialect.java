@@ -138,7 +138,7 @@ final class MysqlDialect extends Dialect
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
-		final String charset = " character set utf8 collate utf8_bin";
+		final String charset = " CHARACTER SET utf8 COLLATE utf8_bin";
 		if(maxBytes<TWOPOW8)
 			return "varchar("+maxChars+")" + charset;
 		else if(maxBytes<TWOPOW16)
@@ -212,7 +212,7 @@ final class MysqlDialect extends Dialect
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
-		bf.append(" limit ");
+		bf.append(" LIMIT ");
 
 		if(offset>0)
 			bf.appendParameter(offset).append(',');
@@ -239,9 +239,9 @@ final class MysqlDialect extends Dialect
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
-		bf.append("(match(").
+		bf.append("(MATCH(").
 			append(function, (Join)null).
-			append(")against(").
+			append(")AGAINST(").
 			appendParameterAny(value).
 			append("))");
 	}
@@ -262,7 +262,7 @@ final class MysqlDialect extends Dialect
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append(column).
-			append(" regexp '").
+			append(" REGEXP '").
 			append(set.getRegularExpression()).
 			append('\'');
 		return bf.toString();
@@ -272,13 +272,13 @@ final class MysqlDialect extends Dialect
 	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
-		if(statementText.startsWith("alter table "))
+		if(statementText.startsWith("ALTER TABLE "))
 			return null;
 
 		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
 			final Statement bf = executor.newStatement();
-			bf.append("explain ").
+			bf.append("EXPLAIN ").
 				append(statementText).
 				appendParameters(statement);
 
@@ -319,7 +319,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
-		bf.append("truncate ").
+		bf.append("TRUNCATE ").
 			append(quotedName);
 
 		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, quotedName, startWith);
@@ -391,7 +391,7 @@ final class MysqlDialect extends Dialect
 
 		if(!tables.isEmpty())
 		{
-			bf.append("set FOREIGN_KEY_CHECKS=0;");
+			bf.append("SET FOREIGN_KEY_CHECKS=0;");
 
 			for(final Table table : tables)
 			{
@@ -400,7 +400,7 @@ final class MysqlDialect extends Dialect
 					append(';');
 			}
 
-			bf.append("set FOREIGN_KEY_CHECKS=1;");
+			bf.append("SET FOREIGN_KEY_CHECKS=1;");
 		}
 
 		for(final SequenceX sequence : sequences)
@@ -543,7 +543,7 @@ final class MysqlDialect extends Dialect
 
 				final Integer maxObject = Executor.query(
 						connection,
-						"select max(" + column + ") from " + table,
+						"SELECT MAX(" + column + ") FROM " + table,
 				new ResultSetHandler<Integer>()
 				{
 					public Integer handle(final ResultSet resultSet) throws SQLException
@@ -567,7 +567,7 @@ final class MysqlDialect extends Dialect
 
 				final int rows = Executor.update(
 						connection,
-						"delete from " + table + " where " + column + " < " + max);
+						"DELETE FROM " + table + " WHERE " + column + " < " + max);
 				ctx.incrementProgress(rows);
 			}
 		}

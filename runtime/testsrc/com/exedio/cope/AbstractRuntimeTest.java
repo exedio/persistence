@@ -108,7 +108,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	enum Dialect
 	{
-		HSQLDB("timestamp"),
+		HSQLDB("TIMESTAMP"),
 		MYSQL(null),
 		ORACLE("TIMESTAMP(3)"),
 		POSTGRESQL("timestamp (3) without time zone");

@@ -136,10 +136,10 @@ final class PostgresqlDialect extends Dialect
 		assert offset>0 || limit>0;
 
 		if(limit!=Query.UNLIMITED)
-			bf.append(" limit ").appendParameter(limit);
+			bf.append(" LIMIT ").appendParameter(limit);
 
 		if(offset>0)
-			bf.append(" offset ").appendParameter(offset);
+			bf.append(" OFFSET ").appendParameter(offset);
 	}
 
 	@Override
@@ -166,9 +166,9 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
-		bf.append("encode(substring(").
+		bf.append("ENCODE(SUBSTRING(").
 			append(column, (Join)null).
-			append(" from 1 for ").
+			append(" FROM 1 FOR ").
 			appendParameter(value.length).
 			append("),'hex')=").
 			appendParameter(Hex.encodeLower(value));
@@ -195,7 +195,7 @@ final class PostgresqlDialect extends Dialect
 			final String quotedName)
 	{
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT nextval('").
+		bf.append("SELECT NEXTVAL('").
 			append(quotedName).
 			append("')");
 
@@ -220,7 +220,7 @@ final class PostgresqlDialect extends Dialect
 			final String name)
 	{
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT last_value FROM ").
+		bf.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
@@ -247,7 +247,7 @@ final class PostgresqlDialect extends Dialect
 
 		if(!tables.isEmpty())
 		{
-			bf.append("truncate ");
+			bf.append("TRUNCATE ");
 			boolean first = true;
 			for(final Table table : tables)
 			{
@@ -258,7 +258,7 @@ final class PostgresqlDialect extends Dialect
 
 				bf.append(table.quotedID);
 			}
-			bf.append(" cascade;");
+			bf.append(" CASCADE;");
 		}
 
 		for(final SequenceX sequence : sequences)

@@ -205,7 +205,7 @@ final class Statement
 		final StringColumn column = table.typeColumn;
 		if(column!=null)
 		{
-			append(" and ").
+			append(" AND ").
 			append(column).
 			append('=').
 			appendParameter(type.schemaId);

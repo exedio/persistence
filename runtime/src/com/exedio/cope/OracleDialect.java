@@ -130,9 +130,9 @@ final class OracleDialect extends Dialect
 
 		// TODO: check, whether ROW_NUMBER() OVER is faster,
 		// see http://www.php-faq.de/q/q-oracle-limit.html
-		bf.append("select * from(");
+		bf.append("SELECT * FROM(");
 		if(offset>0)
-			bf.append("select "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" from(");
+			bf.append("SELECT "+com.exedio.cope.Table.SQL_ALIAS_2+".*,ROWNUM "+com.exedio.cope.Table.SQL_ALIAS_1+" FROM(");
 	}
 
 	@Override
@@ -146,9 +146,9 @@ final class OracleDialect extends Dialect
 		if(offset>0)
 			bf.append(com.exedio.cope.Table.SQL_ALIAS_2+' ');
 		if(limit!=Query.UNLIMITED)
-			bf.append("where ROWNUM<=").appendParameter(offset+limit);
+			bf.append("WHERE ROWNUM<=").appendParameter(offset+limit);
 		if(offset>0)
-			bf.append(")where "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(offset);
+			bf.append(")WHERE "+com.exedio.cope.Table.SQL_ALIAS_1+'>').appendParameter(offset);
 	}
 
 	@Override
@@ -162,7 +162,7 @@ final class OracleDialect extends Dialect
 	@Override
 	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
-		bf.append("(contains(").
+		bf.append("(CONTAINS(").
 			append(function, (Join)null).
 			append(',').
 			appendParameterAny(value).
@@ -248,7 +248,7 @@ final class OracleDialect extends Dialect
 			return null;
 
 		Executor.update(connection,
-			"create global temporary table \"" + PLAN_TABLE + "\"(" +
+			"CREATE GLOBAL TEMPORARY TABLE \"" + PLAN_TABLE + "\"(" +
 				"\"" + STATEMENT_ID + "\" VARCHAR2(30 BYTE)," +
 				"\"TIMESTAMP\" DATE," +
 				"\"REMARKS\" VARCHAR2(80 BYTE)," +
@@ -279,9 +279,9 @@ final class OracleDialect extends Dialect
 
 		{
 			final Statement bf = executor.newStatement();
-			bf.append("explain plan set "+STATEMENT_ID+"='").
+			bf.append("EXPLAIN PLAN SET "+STATEMENT_ID+"='").
 				append(statementID). // TODO use placeholders for prepared statements
-				append("' for ").
+				append("' FOR ").
 				append(statementText);
 			java.sql.Statement sqlExplainStatement = null;
 			try
@@ -312,9 +312,9 @@ final class OracleDialect extends Dialect
 		final QueryInfo root;
 		{
 			final Statement bf = executor.newStatement();
-			bf.append("select * from "+PLAN_TABLE+" where "+STATEMENT_ID+'=').
+			bf.append("SELECT * FROM "+PLAN_TABLE+" WHERE "+STATEMENT_ID+'=').
 				appendParameter(statementID).
-				append(" order by "+ID);
+				append(" ORDER BY "+ID);
 
 			root = executor.query(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
 			{
@@ -387,7 +387,7 @@ final class OracleDialect extends Dialect
 				}
 			});
 		}
-		Executor.update(connection, "drop table \"" + PLAN_TABLE + "\"");
+		Executor.update(connection, "DROP TABLE \"" + PLAN_TABLE + "\"");
 		if(root==null)
 			throw new RuntimeException();
 
@@ -405,9 +405,9 @@ final class OracleDialect extends Dialect
 	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append(
-			"execute immediate " +
-				"'drop sequence ").append(quotedName).append("';" +
-			"execute immediate '");
+			"EXECUTE IMMEDIATE " +
+				"'DROP SEQUENCE ").append(quotedName).append("';" +
+			"EXECUTE IMMEDIATE '");
 				com.exedio.dsmf.OracleDialect.createSequenceStatic(bf, quotedName, startWith);
 				bf.append("';");
 	}
@@ -421,7 +421,7 @@ final class OracleDialect extends Dialect
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT ").
 			append(quotedName).
-			append(".nextval FROM DUAL");
+			append(".NEXTVAL FROM DUAL");
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
@@ -448,7 +448,7 @@ final class OracleDialect extends Dialect
 		// ORA-08002: sequence NAME.CURRVAL is not yet defined in this session
 		final Statement bf = executor.newStatement();
 		bf.append(
-				"SELECT last_number " +
+				"SELECT LAST_NUMBER " +
 				"FROM user_sequences " +
 				"WHERE sequence_name=").
 			appendParameter(name);
@@ -480,14 +480,14 @@ final class OracleDialect extends Dialect
 			{
 				Executor.update(connection, "set constraints all deferred");
 
-				final StringBuilder bf = new StringBuilder("begin ");
+				final StringBuilder bf = new StringBuilder("BEGIN ");
 				for(final Table table : tables)
 				{
-					bf.append("delete from ").
+					bf.append("DELETE FROM ").
 						append(table.quotedID).
 						append(';');
 				}
-				bf.append("end;");
+				bf.append("END;");
 
 				boolean committed = false;
 				try
@@ -510,7 +510,7 @@ final class OracleDialect extends Dialect
 					sequence.delete(bf, this);
 
 				if(bf.length()>0)
-					Executor.update(connection, "begin " + bf.toString() + "end;");
+					Executor.update(connection, "BEGIN " + bf.toString() + "END;");
 			}
 		}
 		catch(final SQLException e)

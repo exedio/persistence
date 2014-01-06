@@ -78,8 +78,8 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
 			dialect = new HsqldbDialect();
-			stringType = "varchar(8)";
-			intType = "integer";
+			stringType = "VARCHAR(8)";
+			intType = "INTEGER";
 			intType2 = null;
 			hsqldb = true;
 			postgresql = false;
@@ -88,7 +88,7 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat, "this");
-			stringType = "varchar(8) character set utf8 collate utf8_bin";
+			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
 			intType = "int";
 			intType2 = "bigint";
 			hsqldb = false;

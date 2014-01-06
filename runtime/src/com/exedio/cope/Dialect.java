@@ -263,7 +263,7 @@ abstract class Dialect
 	protected static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
-			append(" like ").
+			append(" LIKE ").
 			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 

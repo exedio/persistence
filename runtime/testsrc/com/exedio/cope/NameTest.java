@@ -144,8 +144,8 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals(null, nameSub.getColumn("uniqueY").getError());
 			if(hsqldb)
 			{
-				assertEquals("integer", nameSub.getColumn("unique") .getType());
-				assertEquals("integer", nameSub.getColumn("uniqueY").getType());
+				assertEquals("INTEGER", nameSub.getColumn("unique") .getType());
+				assertEquals("INTEGER", nameSub.getColumn("uniqueY").getType());
 			}
 		}
 

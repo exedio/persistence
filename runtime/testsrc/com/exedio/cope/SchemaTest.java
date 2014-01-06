@@ -98,14 +98,14 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		final String string8;
 		if(hsqldb)
-			string8 = "varchar(8)";
+			string8 = "VARCHAR(8)";
 		else if(mysql)
-			string8 = "varchar(8) character set utf8 collate utf8_bin";
+			string8 = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
 		else
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		assertEquals(string8, min4Max8Column.getType());
 
-		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" regexp '^[A-Z]*$')" : "";
+		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" REGEXP '^[A-Z]*$')" : "";
 
 		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "(("+q(stringMin4)    +" IS NOT NULL) AND (("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+"))) OR ("+q(stringMin4)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "(("+q(stringMax4)    +" IS NOT NULL) AND (("+l(stringMax4)+">=1) AND (" +l(stringMax4)+"<=4))) OR ("+q(stringMax4)+" IS NULL)");

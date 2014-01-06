@@ -65,14 +65,14 @@ public final class PostgresqlDialect extends Dialect
 		super.verify(schema);
 
 		schema.querySQL(
-				"select " +
+				"SELECT " +
 				"ut.relname," +
 				"uc.conname," +
 				"uc.contype," +
 				"uc.consrc " +
-				"from pg_constraint uc " +
-				"inner join pg_class ut on uc.conrelid=ut.oid " +
-				"where ut.relname not like 'pg_%' and ut.relname not like 'pga_%' and uc.contype in ('c','p','u')",
+				"FROM pg_constraint uc " +
+				"INNER JOIN pg_class ut on uc.conrelid=ut.oid " +
+				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p','u')",
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -109,18 +109,18 @@ public final class PostgresqlDialect extends Dialect
 		final String catalog = schema.getCatalog();
 
 		verifyForeignKeyConstraints(
-				"select rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
-				"from information_schema.referential_constraints rc " +
-				"join information_schema.key_column_usage src on rc.constraint_name=src.constraint_name " +
-				"join information_schema.key_column_usage tgt on rc.unique_constraint_name=tgt.constraint_name " +
-				"where rc.constraint_catalog='" + catalog + '\'',
+				"SELECT rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
+				"FROM information_schema.referential_constraints rc " +
+				"JOIN information_schema.key_column_usage src ON rc.constraint_name=src.constraint_name " +
+				"JOIN information_schema.key_column_usage tgt ON rc.unique_constraint_name=tgt.constraint_name " +
+				"WHERE rc.constraint_catalog='" + catalog + '\'',
 				schema);
 	}
 
 	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
-		bf.append(" without oids");
+		bf.append(" WITHOUT OIDS");
 	}
 
 	// same as oracle
@@ -128,11 +128,11 @@ public final class PostgresqlDialect extends Dialect
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" rename column ").
+			append(" RENAME COLUMN ").
 			append(oldColumnName).
-			append(" to ").
+			append(" TO ").
 			append(newColumnName);
 		return bf.toString();
 	}
@@ -142,9 +142,9 @@ public final class PostgresqlDialect extends Dialect
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" add column ").
+			append(" ADD COLUMN ").
 			append(columnName).
 			append(' ').
 			append(columnType);
@@ -156,9 +156,9 @@ public final class PostgresqlDialect extends Dialect
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" modify ").
+			append(" MODIFY ").
 			append(columnName).
 			append(' ').
 			append(newColumnType);
@@ -168,13 +168,13 @@ public final class PostgresqlDialect extends Dialect
 	@Override
 	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		bf.append("create sequence ").
+		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
-					" increment by 1" +
-					" start with " + startWith +
-					" maxvalue " + Integer.MAX_VALUE +
-					" minvalue " + startWith +
-					" no cycle");
+					" INCREMENT BY 1" +
+					" START WITH " + startWith +
+					" MAXVALUE " + Integer.MAX_VALUE +
+					" MINVALUE " + startWith +
+					" NO CYCLE");
 	}
 }

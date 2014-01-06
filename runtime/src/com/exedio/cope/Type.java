@@ -1169,11 +1169,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table superTable = supertype.getTable();
 
 		final Statement bf = executor.newStatement(true);
-		bf.append("select count(*) from ").
+		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
-			append(" where ").
+			append(" WHERE ").
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
-			append(" and ");
+			append(" AND ");
 
 		if(table.typeColumn!=null)
 			bf.append(table.typeColumn);
@@ -1203,12 +1203,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table subTable = subType.getTable();
 
 		final Statement bf = executor.newStatement(true);
-		bf.append("select count(*) from ").append(table).
-			append(" left join ").append(subTable).
-			append(" on ").append(table.primaryKey).append('=').append(subTable.primaryKey).
-			append(" where ").append(subTable.primaryKey).append(" is null");
+		bf.append("SELECT COUNT(*) FROM ").append(table).
+			append(" LEFT JOIN ").append(subTable).
+			append(" ON ").append(table.primaryKey).append('=').append(subTable.primaryKey).
+			append(" WHERE ").append(subTable.primaryKey).append(" IS NULL");
 		if(table.typeColumn!=null)
-			bf.append(" and ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
+			bf.append(" AND ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
 
 		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
 	}
@@ -1229,11 +1229,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table superTable = supertype.getTable();
 
 		final Statement bf = executor.newStatement(true);
-		bf.append("select count(*) from ").
+		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
-			append(" where ").
+			append(" WHERE ").
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
-			append(" and ").
+			append(" AND ").
 			append(table.updateCounter).append("<>").append(superTable.updateCounter);
 
 		//System.out.println("CHECKM:"+bf.toString());

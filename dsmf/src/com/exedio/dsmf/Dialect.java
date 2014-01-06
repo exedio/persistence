@@ -153,9 +153,9 @@ public abstract class Dialect
 	public String renameTable(final String tableName, final String newTableName)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" rename to ").
+			append(" RENAME TO ").
 			append(newTableName);
 		return bf.toString();
 	}
@@ -166,9 +166,9 @@ public abstract class Dialect
 
 	private static final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" drop constraint ").
+			append(" DROP CONSTRAINT ").
 			append(constraintName);
 	}
 
@@ -191,7 +191,7 @@ public abstract class Dialect
 
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
-		bf.append("drop sequence ").
+		bf.append("DROP SEQUENCE ").
 			append(sequenceName);
 	}
 

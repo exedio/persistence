@@ -60,9 +60,9 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		l.expectSearch(model.currentTransaction(), TYPE);
 		TYPE.search(text.equal("string1"));
 		l.verifyExpectations();
-		dbl1.assertSql("select");
+		dbl1.assertSql("SELECT");
 		item.setText("string1");
-		dbl1.assertSql("update");
+		dbl1.assertSql("UPDATE");
 
 		final DBL dbl2 = new DBL();
 		model.setDatabaseListener(dbl2);
@@ -70,9 +70,9 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		l.expectSearch(model.currentTransaction(), TYPE);
 		TYPE.search(text.equal("string2"));
 		l.verifyExpectations();
-		dbl2.assertSql("select");
+		dbl2.assertSql("SELECT");
 		item.setText("string2");
-		dbl2.assertSql("update");
+		dbl2.assertSql("UPDATE");
 		dbl1.assertSqlEmpty();
 
 		final DBL dbl3 = new DBL();
@@ -81,9 +81,9 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 		l.expectSearch(model.currentTransaction(), TYPE);
 		TYPE.search(text.equal("string2"));
 		l.verifyExpectations();
-		dbl3.assertSql("select");
+		dbl3.assertSql("SELECT");
 		item.setText("string2");
-		dbl3.assertSql("update");
+		dbl3.assertSql("UPDATE");
 		dbl2.assertSqlEmpty();
 		dbl1.assertSqlEmpty();
 

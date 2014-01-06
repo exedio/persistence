@@ -35,20 +35,20 @@ public final class HsqldbDialect extends Dialect
 		switch(dataType)
 		{
 			case Types.INTEGER:
-				return "integer";
+				return "INTEGER";
 			case Types.BIGINT:
-				return "bigint";
+				return "BIGINT";
 			case Types.DOUBLE:
-				return "double";
+				return "DOUBLE";
 			case Types.TIMESTAMP:
-				return "timestamp";
+				return "TIMESTAMP";
 			case Types.DATE:
-				return "date";
+				return "DATE";
 			case Types.BLOB:
-				return "blob";
+				return "BLOB";
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
-				return "varchar("+columnSize+')';
+				return "VARCHAR("+columnSize+')';
 			default:
 				return null;
 		}
@@ -60,10 +60,10 @@ public final class HsqldbDialect extends Dialect
 		super.verify(schema);
 
 		schema.querySQL(
-				"select tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
-				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
-				"left outer join INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc on tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
-				"where tc.CONSTRAINT_TYPE in ('CHECK','PRIMARY KEY','UNIQUE')",
+				"SELECT tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
+				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
+				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -96,9 +96,9 @@ public final class HsqldbDialect extends Dialect
 							//printRow(resultSet);
 							final StringBuilder clause = new StringBuilder();
 							final StringBuilder bf = new StringBuilder();
-							bf.append("select COLUMN_NAME from INFORMATION_SCHEMA.SYSTEM_INDEXINFO where INDEX_NAME like 'SYS_IDX_").
+							bf.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_").
 								append(constraintName).
-								append("_%' and NON_UNIQUE=false order by ORDINAL_POSITION");
+								append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
 
 							schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 								{
@@ -131,17 +131,17 @@ public final class HsqldbDialect extends Dialect
 			});
 
 		verifyForeignKeyConstraints(
-				"select tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
-				"from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
-				"left outer join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu on tc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc on tc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"left outer join INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu on rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME and tc.CONSTRAINT_TYPE='FOREIGN KEY'" +
-				"where tc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				"SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
+				"LEFT OUTER JOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu ON tc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME AND tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"LEFT OUTER JOIN INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc ON tc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME AND tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
+				"LEFT OUTER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME AND tc.CONSTRAINT_TYPE='FOREIGN KEY'" +
+				"WHERE tc.CONSTRAINT_TYPE='FOREIGN KEY'",
 				schema);
 
 		schema.querySQL(
-				"select SEQUENCE_NAME " +
-				"from INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
+				"SELECT SEQUENCE_NAME " +
+				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -163,11 +163,11 @@ public final class HsqldbDialect extends Dialect
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" alter column ").
+			append(" ALTER COLUMN ").
 			append(oldColumnName).
-			append(" rename to ").
+			append(" RENAME TO ").
 			append(newColumnName);
 		return bf.toString();
 	}
@@ -176,9 +176,9 @@ public final class HsqldbDialect extends Dialect
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" add column ").
+			append(" ADD COLUMN ").
 			append(columnName).
 			append(' ').
 			append(columnType);
@@ -194,11 +194,11 @@ public final class HsqldbDialect extends Dialect
 	@Override
 	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		bf.append("create sequence ").
+		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
-					" as integer" +
-					" start with " + startWith +
-					" increment by 1");
+					" AS INTEGER" +
+					" START WITH " + startWith +
+					" INCREMENT BY 1");
 	}
 }

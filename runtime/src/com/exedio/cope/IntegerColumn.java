@@ -217,9 +217,9 @@ class IntegerColumn extends Column
 	Integer max(final Connection connection, final Executor executor)
 	{
 		final Statement bf = executor.newStatement();
-		bf.append("select max(").
+		bf.append("SELECT MAX(").
 			append(quotedID).
-			append(") from ").
+			append(") FROM ").
 			append(table.quotedID);
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()

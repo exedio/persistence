@@ -85,11 +85,11 @@ final class BlobColumn extends Column
 		// TODO reuse code in load blob methods
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("select ").
+		bf.append("SELECT ").
 			append(quotedID).
-			append(" from ").
+			append(" FROM ").
 			append(table.quotedID).
-			append(" where ").
+			append(" WHERE ").
 			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
@@ -111,11 +111,11 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("select ").
+		bf.append("SELECT ").
 			append(quotedID).
-			append(" from ").
+			append(" FROM ").
 			append(table.quotedID).
-			append(" where ").
+			append(" WHERE ").
 			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
@@ -171,9 +171,9 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Statement bf = executor.newStatement();
-		bf.append("update ").
+		bf.append("UPDATE ").
 			append(table.quotedID).
-			append(" set ").
+			append(" SET ").
 			append(quotedID).
 			append('=');
 
@@ -182,7 +182,7 @@ final class BlobColumn extends Column
 		else
 			bf.append("NULL");
 
-		bf.append(" where ").
+		bf.append(" WHERE ").
 			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).

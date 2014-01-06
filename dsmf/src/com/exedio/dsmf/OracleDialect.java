@@ -107,7 +107,7 @@ public final class OracleDialect extends Dialect
 	{
 		super.verify(schema);
 
-		schema.querySQL("select TABLE_NAME from user_tables", new Node.ResultSetHandler()
+		schema.querySQL("SELECT TABLE_NAME FROM user_tables", new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -121,18 +121,18 @@ public final class OracleDialect extends Dialect
 			});
 
 		schema.querySQL(
-				"select " +
+				"SELECT " +
 				"uc.TABLE_NAME," +
 				"uc.CONSTRAINT_NAME," +
 				"uc.CONSTRAINT_TYPE," +
 				"uc.SEARCH_CONDITION," +
 				"ucc.COLUMN_NAME " +
-				"from user_constraints uc " +
-				"left outer join user_cons_columns ucc " +
-					"on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
-					"and uc.TABLE_NAME=ucc.TABLE_NAME " +
-				"where uc.CONSTRAINT_TYPE in ('C','P','U')" +
-				"order by uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
+				"FROM user_constraints uc " +
+				"LEFT OUTER JOIN user_cons_columns ucc " +
+					"ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
+				"WHERE uc.CONSTRAINT_TYPE in ('C','P','U')" +
+				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 			new ResultSetHandler()
 			{
 				String uniqueConstraintName = null;
@@ -199,16 +199,16 @@ public final class OracleDialect extends Dialect
 			});
 
 		verifyForeignKeyConstraints(
-				"select uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
-				"from USER_CONSTRAINTS uc " +
-				"join USER_cons_columns ucc on uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
-				"join USER_IND_COLUMNS uic on uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
-				"where uc.CONSTRAINT_TYPE='R'",
+				"SELECT uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
+				"FROM USER_CONSTRAINTS uc " +
+				"JOIN USER_cons_columns ucc ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+				"JOIN USER_IND_COLUMNS uic ON uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
+				"WHERE uc.CONSTRAINT_TYPE='R'",
 				schema);
 
 		schema.querySQL(
-				"select SEQUENCE_NAME " +
-				"from USER_SEQUENCES",
+				"SELECT SEQUENCE_NAME " +
+				"FROM USER_SEQUENCES",
 			new Node.ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -228,11 +228,11 @@ public final class OracleDialect extends Dialect
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" rename column ").
+			append(" RENAME COLUMN ").
 			append(oldColumnName).
-			append(" to ").
+			append(" TO ").
 			append(newColumnName);
 		return bf.toString();
 	}
@@ -241,9 +241,9 @@ public final class OracleDialect extends Dialect
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" add (").
+			append(" ADD (").
 			append(columnName).
 			append(' ').
 			append(columnType).
@@ -255,9 +255,9 @@ public final class OracleDialect extends Dialect
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" modify ").
+			append(" MODIFY ").
 			append(columnName).
 			append(' ').
 			append(newColumnType);
@@ -267,7 +267,7 @@ public final class OracleDialect extends Dialect
 	@Override
 	void appendForeignKeyCreateStatement(final StringBuilder bf)
 	{
-		bf.append(" deferrable");
+		bf.append(" DEFERRABLE");
 	}
 
 	@Override
@@ -278,14 +278,14 @@ public final class OracleDialect extends Dialect
 
 	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int startWith)
 	{
-		bf.append("create sequence ").
+		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
-					" increment by 1" +
-					" start with ").append(startWith).append(
-					" maxvalue " + Integer.MAX_VALUE +
-					" minvalue ").append(startWith).append(
-					" nocycle" +
-					" noorder");
+					" INCREMENT BY 1" +
+					" START WITH ").append(startWith).append(
+					" MAXVALUE " + Integer.MAX_VALUE +
+					" MINVALUE ").append(startWith).append(
+					" NOCYCLE" +
+					" NOORDER");
 	}
 }

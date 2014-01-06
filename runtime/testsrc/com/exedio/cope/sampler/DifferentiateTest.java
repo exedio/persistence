@@ -208,9 +208,9 @@ public class DifferentiateTest extends ConnectedTest
 	private static void assertQuery(final Query<?> query)
 	{
 		final String search = SchemaInfo.search(query);
-		assertTrue(search, search.startsWith("select "));
+		assertTrue(search, search.startsWith("SELECT "));
 		final String total = SchemaInfo.total(query);
-		assertTrue(total, total.startsWith("select count(*) from "));
+		assertTrue(total, total.startsWith("SELECT COUNT(*) FROM "));
 	}
 
 	/**
