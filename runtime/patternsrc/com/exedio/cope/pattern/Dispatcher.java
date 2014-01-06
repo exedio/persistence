@@ -466,7 +466,7 @@ public final class Dispatcher extends Pattern
 		{
 			try
 			{
-				return new String(getPattern().runFailure.get(this).asArray(), ENCODING);
+				return new String(getPattern().runFailure.getArray(this), ENCODING);
 			}
 			catch(final UnsupportedEncodingException e)
 			{

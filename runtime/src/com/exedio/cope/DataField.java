@@ -452,6 +452,11 @@ public final class DataField extends Field<DataField.Value>
 
 	public abstract static class Value
 	{
+		Value()
+		{
+			// just to make it package private
+		}
+
 		/**
 		 * Estimates the length of this value.
 		 * Returns -1 if length cannot be estimated in advance.
@@ -485,7 +490,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	public final static class ArrayValue extends Value
+	final static class ArrayValue extends Value
 	{
 		final byte[] array;
 
@@ -506,12 +511,6 @@ public final class DataField extends Field<DataField.Value>
 		byte[] asArray(final DataField field, final Item exceptionItem)
 		{
 			assertNotExhausted();
-			return array;
-		}
-
-		@SuppressFBWarnings("EI_EXPOSE_REP") // May expose internal representation by returning reference to mutable object
-		public byte[] asArray()
-		{
 			return array;
 		}
 
