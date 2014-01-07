@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.security.MessageDigest;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -487,6 +488,8 @@ public final class DataField extends Field<DataField.Value>
 			}
 		}
 
+		public abstract void update(MessageDigest digest) throws IOException;
+
 		@Override
 		public abstract String toString();
 
@@ -542,6 +545,13 @@ public final class DataField extends Field<DataField.Value>
 
 			return bf.toString();
 		}
+
+		@Override
+		public void update(final MessageDigest digest)
+		{
+			assertNotExhausted();
+			digest.update(array, 0, array.length);
+		}
 	}
 
 	abstract static class AbstractStreamValue extends Value
@@ -563,6 +573,25 @@ public final class DataField extends Field<DataField.Value>
 				stream.close();
 			}
 			return baos.toByteArray();
+		}
+
+		// TODO manage exhaustion
+		@Override
+		public final void update(final MessageDigest digest) throws IOException
+		{
+			assertNotExhausted();
+			final long estimateLength = estimateLength();
+			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
+			final InputStream in = openStream();
+			try
+			{
+				for(int len = in.read(buf); len>=0; len = in.read(buf))
+					digest.update(buf, 0, len);
+			}
+			finally
+			{
+				in.close();
+			}
 		}
 	}
 
