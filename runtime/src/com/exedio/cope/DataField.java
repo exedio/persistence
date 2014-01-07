@@ -570,7 +570,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		abstract InputStream openStream() throws IOException;
 		abstract boolean exhaustsOpenStream();
-		abstract AbstractStreamValue copy();
+		abstract AbstractStreamValue copyAfterExhaustion();
 
 		@Override
 		final byte[] asArraySub(final DataField field, final Item exceptionItem) throws IOException
@@ -627,7 +627,7 @@ public final class DataField extends Field<DataField.Value>
 				{
 					in.close();
 				}
-				return copy();
+				return copyAfterExhaustion();
 			}
 		}
 	}
@@ -662,7 +662,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
-		AbstractStreamValue copy()
+		AbstractStreamValue copyAfterExhaustion()
 		{
 			throw new RuntimeException();
 		}
@@ -704,7 +704,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
-		AbstractStreamValue copy()
+		AbstractStreamValue copyAfterExhaustion()
 		{
 			return new FileValue(file);
 		}
@@ -752,7 +752,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
-		AbstractStreamValue copy()
+		AbstractStreamValue copyAfterExhaustion()
 		{
 			return new ZipValue(file, entry);
 		}
