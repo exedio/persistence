@@ -182,12 +182,9 @@ public class DataDigestTest extends CopeAssert
 					"Each DataField.Value can be used for at most one setter action.",
 					e.getMessage());
 		}
-
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
 		try
 		{
-			value.asArray(field, null);
+			value.asArray(null, null);
 			fail();
 		}
 		catch(final IllegalStateException e)
