@@ -37,6 +37,11 @@ public class DataDigestTest extends CopeAssert
 	public void testUpdate() throws IOException
 	{
 		assertUpdate("904ac396ac3d50faa666e57146fe7862", bytes4);
+		assertUpdate(
+				"6ce62d0dbd8e8b3f453ba742c102cd0b",
+				"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+				"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
+				"knolloknolloknolloknolloknollo");
 
 		// reference example from http://de.wikipedia.org/wiki/MD5
 		assertUpdate(
