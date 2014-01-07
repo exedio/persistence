@@ -140,6 +140,78 @@ public class DataDigestTest extends CopeAssert
 		inputFile.delete();
 	}
 
+
+	public void testExhaustionArrayUpdate() throws IOException
+	{
+		final Value value = toValue(bytes4);
+		messageDigest.reset();
+		value.update(messageDigest);
+		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
+
+		messageDigest.reset();
+		try
+		{
+			value.update(messageDigest);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:aa7af817. " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+	}
+
+	public void testExhaustionStreamUpdate() throws IOException
+	{
+		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
+		final Value value = toValue(stream);
+
+		messageDigest.reset();
+		value.update(messageDigest);
+		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
+
+		messageDigest.reset();
+		try
+		{
+			value.update(messageDigest);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:" + stream +". " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+	}
+
+	public void testExhaustionFileUpdate() throws IOException
+	{
+		final File inputFile = file(bytes4);
+		final Value value = toValue(inputFile);
+
+		messageDigest.reset();
+		value.update(messageDigest);
+		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
+
+		messageDigest.reset();
+		try
+		{
+			value.update(messageDigest);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:" + inputFile +". " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+		inputFile.delete();
+	}
+
 	private static void assertData(final byte[] expectedData, final byte[] actualData)
 	{
 		if(!Arrays.equals(expectedData, actualData))
