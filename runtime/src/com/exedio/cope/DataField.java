@@ -615,19 +615,19 @@ public final class DataField extends Field<DataField.Value>
 			}
 			else
 			{
-			final long estimateLength = estimateLength();
-			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
-			final InputStream in = openStream();
-			try
-			{
-				for(int len = in.read(buf); len>=0; len = in.read(buf))
-					digest.update(buf, 0, len);
-			}
-			finally
-			{
-				in.close();
-			}
-			return copy();
+				final long estimateLength = estimateLength();
+				final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
+				final InputStream in = openStream();
+				try
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+						digest.update(buf, 0, len);
+				}
+				finally
+				{
+					in.close();
+				}
+				return copy();
 			}
 		}
 	}
