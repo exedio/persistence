@@ -29,7 +29,7 @@ import static com.exedio.cope.misc.ServletUtil.getConnectProperties;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopyModelTest;
-import com.exedio.cope.DataTest;
+import com.exedio.cope.DataModelTest;
 import com.exedio.cope.DayFieldTest;
 import com.exedio.cope.DefaultToModelTest;
 import com.exedio.cope.DeleteTest;
@@ -61,7 +61,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				IntegerModelTest.MODEL,
 				DeleteTest.MODEL,
 				DayFieldTest.MODEL,
-				DataTest.MODEL,
+				DataModelTest.MODEL,
 				HashTest.MODEL,
 				MD5Test.MODEL,
 				ListFieldTest.MODEL,

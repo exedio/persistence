@@ -18,17 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DataField.DEFAULT_LENGTH;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -37,16 +33,9 @@ import java.io.OutputStream;
 
 public class DataTest extends AbstractRuntimeTest
 {
-	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(DataTest.class, "MODEL");
-	}
-
 	public DataTest()
 	{
-		super(MODEL);
+		super(DataModelTest.MODEL);
 	}
 
 	private DataItem item;
@@ -129,127 +118,6 @@ public class DataTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testData() throws MandatoryViolationException, IOException
 	{
-		// test model
-		assertEquals(0, DataField.min(0, 0l));
-		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
-		assertEquals(0, DataField.min(0, Long.MAX_VALUE));
-		assertEquals(4, DataField.min(5, 4l));
-		assertEquals(5, DataField.min(5, 5l));
-		assertEquals(5, DataField.min(5, 6l));
-		assertEquals(5, DataField.min(5, Integer.MAX_VALUE));
-		assertEquals(5, DataField.min(5, Long.MAX_VALUE));
-		assertEquals(Integer.MAX_VALUE, DataField.min(Integer.MAX_VALUE, Long.MAX_VALUE));
-		try
-		{
-			DataField.min(-1, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("i must not be negative, but was -1", e.getMessage());
-		}
-		try
-		{
-			DataField.min(0, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("l must not be negative, but was -1", e.getMessage());
-		}
-
-		assertEquals("DataField.Value:aa7af817", DataField.toValue(bytes4).toString());
-		assertEquals("DataField.Value:9f13f82382aa7a5613f8", DataField.toValue(bytes10).toString());
-		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", DataField.toValue(bytes11).toString());
-		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", DataField.toValue(bytes21).toString());
-		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
-		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
-		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
-
-		assertEquals(TYPE, data.getType());
-		assertEquals("data", data.getName());
-		assertEquals(false, data.isMandatory());
-		assertEquals(null, data.getPattern());
-		assertEquals(DEFAULT_LENGTH, data.getMaximumLength());
-		assertEquals(DataField.Value.class, data.getValueClass());
-
-		assertEquals(TYPE, data10.getType());
-		assertEquals("data10", data10.getName());
-		assertEquals(false, data10.isMandatory());
-		assertEquals(null, data10.getPattern());
-		assertEquals(10, data10.getMaximumLength());
-		assertEquals(DataField.Value.class, data10.getValueClass());
-
-		assertSerializedSame(data  , 362);
-		assertSerializedSame(data10, 364);
-
-		try
-		{
-			new DataField().lengthMax(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximum length must be greater zero, but was 0.", e.getMessage());
-		}
-		try
-		{
-			new DataField().lengthMax(-10);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
-		}
-
-		// condition startsWith
-		assertEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes4));
-		assertEquals(data.startsWith(bytes4).hashCode(), data.startsWith(bytes4).hashCode());
-		assertNotEqualsAndHash(
-				data.startsWith(bytes4),
-				data.startsWith(bytes6),
-				data.startsWith(bytes6x4),
-				data10.startsWith(bytes4));
-		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
-		try
-		{
-			new StartsWithCondition(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("field", e.getMessage());
-		}
-		try
-		{
-			new StartsWithCondition(data, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
-		try
-		{
-			data.startsWith(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
-		// TODO treat as to isNotNull
-		try
-		{
-			data.startsWith(bytes0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must not be empty", e.getMessage());
-		}
-
-		// test data
 		assertIt(null);
 		assertCondition(TYPE, data.startsWith(bytes4));
 		assertCondition(TYPE, data.startsWith(bytes6));
@@ -525,5 +393,4 @@ public class DataTest extends AbstractRuntimeTest
 	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
 	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	private static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 }

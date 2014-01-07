@@ -96,6 +96,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SequenceModelTest.class );
 		suite.addTestSuite( SequenceTest.class );
 		suite.addTestSuite( MatchTest.class );
+		suite.addTestSuite( DataModelTest.class );
 		suite.addTestSuite( DataTest.class );
 		suite.addTestSuite( DataFinalTest.class );
 		suite.addTestSuite( DataMandatoryTest.class );
