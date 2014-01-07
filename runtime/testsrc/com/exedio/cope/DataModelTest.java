@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.DataField.DEFAULT_LENGTH;
+import static com.exedio.cope.DataField.min;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
@@ -42,15 +43,15 @@ public class DataModelTest extends CopeAssert
 
 	public void testMin() throws MandatoryViolationException
 	{
-		assertEquals(0, DataField.min(0, 0l));
-		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
-		assertEquals(0, DataField.min(0, Long.MAX_VALUE));
-		assertEquals(4, DataField.min(5, 4l));
-		assertEquals(5, DataField.min(5, 5l));
-		assertEquals(5, DataField.min(5, 6l));
-		assertEquals(5, DataField.min(5, Integer.MAX_VALUE));
-		assertEquals(5, DataField.min(5, Long.MAX_VALUE));
-		assertEquals(Integer.MAX_VALUE, DataField.min(Integer.MAX_VALUE, Long.MAX_VALUE));
+		assertEquals(0, min(0, 0l));
+		assertEquals(0, min(Integer.MAX_VALUE, 0l));
+		assertEquals(0, min(0, Long.MAX_VALUE));
+		assertEquals(4, min(5, 4l));
+		assertEquals(5, min(5, 5l));
+		assertEquals(5, min(5, 6l));
+		assertEquals(5, min(5, Integer.MAX_VALUE));
+		assertEquals(5, min(5, Long.MAX_VALUE));
+		assertEquals(Integer.MAX_VALUE, min(Integer.MAX_VALUE, Long.MAX_VALUE));
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -58,7 +59,7 @@ public class DataModelTest extends CopeAssert
 	{
 		try
 		{
-			DataField.min(-1, -1);
+			min(-1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -72,7 +73,7 @@ public class DataModelTest extends CopeAssert
 	{
 		try
 		{
-			DataField.min(0, -1);
+			min(0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
