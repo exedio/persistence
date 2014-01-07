@@ -135,7 +135,6 @@ public class DataModelTest extends CopeAssert
 
 		// condition startsWith
 		assertEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes4));
-		assertEquals(data.startsWith(bytes4).hashCode(), data.startsWith(bytes4).hashCode());
 		assertNotEqualsAndHash(
 				data.startsWith(bytes4),
 				data.startsWith(bytes6),
