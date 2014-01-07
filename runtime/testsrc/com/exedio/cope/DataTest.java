@@ -129,9 +129,6 @@ public class DataTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testData() throws MandatoryViolationException, IOException
 	{
-		assertEquals(10, bytes10.length);
-		assertEquals(11, bytes11.length);
-
 		// test model
 		assertEquals(0, DataField.min(0, 0l));
 		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
