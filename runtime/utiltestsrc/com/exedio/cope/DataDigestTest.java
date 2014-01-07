@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
+import com.exedio.cope.DataField.Value;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -29,6 +30,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.util.Arrays;
 
 public class DataDigestTest extends CopeAssert
 {
@@ -65,24 +67,97 @@ public class DataDigestTest extends CopeAssert
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
 
 		messageDigest.reset();
-		final File inputFile = File.createTempFile(DataDigestTest.class.getName(), ".dat");
-		{
-			final FileOutputStream out = new FileOutputStream(inputFile);
-			try
-			{
-				out.write(input);
-			}
-			finally
-			{
-				out.close();
-			}
-		}
+		final File inputFile = file(input);
 		toValue(inputFile).update(messageDigest);
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
+		inputFile.delete();
 	}
 
 	private static final MessageDigest messageDigest = MessageDigestUtil.getInstance("MD5");
 
 	private static final byte[] bytes0  = {};
 	private static final byte[] bytes4  = {-86,122,-8,23};
+
+
+	public void testExhaustionArray()
+	{
+		final Value value = toValue(bytes4);
+		assertData(bytes4, value.asArray(null, null));
+		try
+		{
+			value.asArray(null, null);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:aa7af817. " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+	}
+
+	public void testExhaustionStream()
+	{
+		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
+		final Value value = toValue(stream);
+		final DataField field = new DataField();
+		field.setBufferSize(5000, 10000);
+		assertData(bytes4, value.asArray(field, null));
+		try
+		{
+			value.asArray(null, null);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:" + stream +". " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+	}
+
+	public void testExhaustionFile() throws IOException
+	{
+		final File inputFile = file(bytes4);
+		final Value value = toValue(inputFile);
+		final DataField field = new DataField();
+		field.setBufferSize(5000, 10000);
+		assertData(bytes4, value.asArray(field, null));
+		try
+		{
+			value.asArray(null, null);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Value already exhausted: DataField.Value:" + inputFile +". " +
+					"Each DataField.Value can be used for at most one setter action.",
+					e.getMessage());
+		}
+		inputFile.delete();
+	}
+
+	private static void assertData(final byte[] expectedData, final byte[] actualData)
+	{
+		if(!Arrays.equals(expectedData, actualData))
+			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
+	}
+
+	private static File file(final byte[] content) throws IOException
+	{
+		final File result = File.createTempFile(DataDigestTest.class.getName(), ".dat");
+		final FileOutputStream out = new FileOutputStream(result);
+		try
+		{
+			out.write(content);
+		}
+		finally
+		{
+			out.close();
+		}
+		return result;
+	}
 }

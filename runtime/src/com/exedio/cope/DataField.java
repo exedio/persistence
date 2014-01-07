@@ -103,6 +103,17 @@ public final class DataField extends Field<DataField.Value>
 		return column;
 	}
 
+	/**
+	 * for tests only
+	 */
+	void setBufferSize(final int defaulT, final int limit)
+	{
+		assert defaulT!=-1;
+		assert limit!=-1;
+		this.bufferSizeDefault = defaulT;
+		this.bufferSizeLimit   = limit;
+	}
+
 	private static final int toInt(final long l)
 	{
 		return min(Integer.MAX_VALUE, l);
