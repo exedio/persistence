@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.DataField.DEFAULT_LENGTH;
 import static com.exedio.cope.DataField.min;
+import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
@@ -84,13 +85,13 @@ public class DataModelTest extends CopeAssert
 
 	public void testValueToString() throws MandatoryViolationException
 	{
-		assertEquals("DataField.Value:aa7af817", DataField.toValue(bytes4).toString());
-		assertEquals("DataField.Value:9f13f82382aa7a5613f8", DataField.toValue(bytes10).toString());
-		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", DataField.toValue(bytes11).toString());
-		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", DataField.toValue(bytes21).toString());
+		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
+		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
+		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
+		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
-		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
-		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
+		assertEquals("DataField.Value:"+testBaos.toString(), toValue(testBaos).toString());
+		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
