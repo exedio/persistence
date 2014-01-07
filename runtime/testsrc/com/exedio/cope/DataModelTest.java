@@ -40,8 +40,7 @@ public class DataModelTest extends CopeAssert
 		MODEL.enableSerialization(DataModelTest.class, "MODEL");
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testData() throws MandatoryViolationException
+	public void testMin() throws MandatoryViolationException
 	{
 		assertEquals(0, DataField.min(0, 0l));
 		assertEquals(0, DataField.min(Integer.MAX_VALUE, 0l));
@@ -52,6 +51,11 @@ public class DataModelTest extends CopeAssert
 		assertEquals(5, DataField.min(5, Integer.MAX_VALUE));
 		assertEquals(5, DataField.min(5, Long.MAX_VALUE));
 		assertEquals(Integer.MAX_VALUE, DataField.min(Integer.MAX_VALUE, Long.MAX_VALUE));
+	}
+
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	public void testMinLeftNegative() throws MandatoryViolationException
+	{
 		try
 		{
 			DataField.min(-1, -1);
@@ -61,6 +65,11 @@ public class DataModelTest extends CopeAssert
 		{
 			assertEquals("i must not be negative, but was -1", e.getMessage());
 		}
+	}
+
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	public void testMinRightNegative() throws MandatoryViolationException
+	{
 		try
 		{
 			DataField.min(0, -1);
@@ -70,7 +79,10 @@ public class DataModelTest extends CopeAssert
 		{
 			assertEquals("l must not be negative, but was -1", e.getMessage());
 		}
+	}
 
+	public void testValueToString() throws MandatoryViolationException
+	{
 		assertEquals("DataField.Value:aa7af817", DataField.toValue(bytes4).toString());
 		assertEquals("DataField.Value:9f13f82382aa7a5613f8", DataField.toValue(bytes10).toString());
 		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", DataField.toValue(bytes11).toString());
@@ -78,7 +90,11 @@ public class DataModelTest extends CopeAssert
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
 		assertEquals("DataField.Value:"+testBaos.toString(), DataField.toValue(testBaos).toString());
 		assertEquals("DataField.Value:hallo.txt", DataField.toValue(new File("hallo.txt")).toString());
+	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	public void testData() throws MandatoryViolationException
+	{
 		assertEquals(TYPE, data.getType());
 		assertEquals("data", data.getName());
 		assertEquals(false, data.isMandatory());
