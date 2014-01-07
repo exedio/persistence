@@ -593,10 +593,10 @@ public final class DataField extends Field<DataField.Value>
 		public final Value update(final MessageDigest digest) throws IOException
 		{
 			assertNotExhausted();
+			final long estimateLength = estimateLength();
+			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
 			if(exhaustsOpenStream())
 			{
-				final long estimateLength = estimateLength();
-				final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
 				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
 				final InputStream in = openStream();
 				try
@@ -615,8 +615,6 @@ public final class DataField extends Field<DataField.Value>
 			}
 			else
 			{
-				final long estimateLength = estimateLength();
-				final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
 				final InputStream in = openStream();
 				try
 				{
