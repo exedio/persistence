@@ -82,7 +82,7 @@ public class DataDigestTest extends CopeAssert
 	public void testExhaustionArray() throws IOException
 	{
 		final Value value = toValue(bytes4);
-		assertData(bytes4, value.asArray(null, null));
+		assertAsArray(bytes4, value);
 		assertExhausted(value);
 	}
 
@@ -90,9 +90,7 @@ public class DataDigestTest extends CopeAssert
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
-		assertData(bytes4, value.asArray(field, null));
+		assertAsArray(bytes4, value);
 		assertExhausted(value);
 	}
 
@@ -100,9 +98,7 @@ public class DataDigestTest extends CopeAssert
 	{
 		final File inputFile = file(bytes4);
 		final Value value = toValue(inputFile);
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
-		assertData(bytes4, value.asArray(field, null));
+		assertAsArray(bytes4, value);
 		assertExhausted(value);
 		inputFile.delete();
 	}
@@ -117,10 +113,7 @@ public class DataDigestTest extends CopeAssert
 		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
 
 		assertExhausted(value);
-
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
-		assertData(bytes4, replacementValue.asArray(field, null));
+		assertAsArray(bytes4, replacementValue);
 	}
 
 	public void testExhaustionStreamUpdate() throws IOException
@@ -134,10 +127,7 @@ public class DataDigestTest extends CopeAssert
 		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
 
 		assertExhausted(value);
-
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
-		assertData(bytes4, replacementValue.asArray(field, null));
+		assertAsArray(bytes4, replacementValue);
 	}
 
 	public void testExhaustionFileUpdate() throws IOException
@@ -151,10 +141,7 @@ public class DataDigestTest extends CopeAssert
 		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
 
 		assertExhausted(value);
-
-		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
-		assertData(bytes4, replacementValue.asArray(field, null));
+		assertAsArray(bytes4, replacementValue);
 
 		inputFile.delete();
 	}
@@ -210,5 +197,12 @@ public class DataDigestTest extends CopeAssert
 					"Each DataField.Value can be used for at most one setter action.",
 					e.getMessage());
 		}
+	}
+
+	public void assertAsArray(final byte[] expected, final Value value)
+	{
+		final DataField field = new DataField();
+		field.setBufferSize(5000, 10000);
+		assertData(expected, value.asArray(field, null));
 	}
 }
