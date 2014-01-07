@@ -499,7 +499,7 @@ public final class DataField extends Field<DataField.Value>
 			}
 		}
 
-		public abstract void update(MessageDigest digest) throws IOException;
+		public abstract Value update(MessageDigest digest) throws IOException;
 
 		@Override
 		public abstract String toString();
@@ -558,16 +558,19 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
-		public void update(final MessageDigest digest)
+		public Value update(final MessageDigest digest)
 		{
 			assertNotExhausted();
 			digest.update(array, 0, array.length);
+			return new ArrayValue(array);
 		}
 	}
 
 	abstract static class AbstractStreamValue extends Value
 	{
 		abstract InputStream openStream() throws IOException;
+		abstract boolean exhaustsOpenStream();
+		abstract AbstractStreamValue copy();
 
 		@Override
 		final byte[] asArraySub(final DataField field, final Item exceptionItem) throws IOException
@@ -586,11 +589,32 @@ public final class DataField extends Field<DataField.Value>
 			return baos.toByteArray();
 		}
 
-		// TODO manage exhaustion
 		@Override
-		public final void update(final MessageDigest digest) throws IOException
+		public final Value update(final MessageDigest digest) throws IOException
 		{
 			assertNotExhausted();
+			if(exhaustsOpenStream())
+			{
+				final long estimateLength = estimateLength();
+				final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
+				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
+				final InputStream in = openStream();
+				try
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+					{
+						digest.update(buf, 0, len);
+						bf.write(buf, 0, len);
+					}
+				}
+				finally
+				{
+					in.close();
+				}
+				return new ArrayValue(bf.toByteArray());
+			}
+			else
+			{
 			final long estimateLength = estimateLength();
 			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
 			final InputStream in = openStream();
@@ -602,6 +626,8 @@ public final class DataField extends Field<DataField.Value>
 			finally
 			{
 				in.close();
+			}
+			return copy();
 			}
 		}
 	}
@@ -627,6 +653,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream()
 		{
 			return stream;
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return true;
+		}
+
+		@Override
+		AbstractStreamValue copy()
+		{
+			throw new RuntimeException();
 		}
 
 		@Override
@@ -657,6 +695,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream() throws FileNotFoundException
 		{
 			return new FileInputStream(file);
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return false;
+		}
+
+		@Override
+		AbstractStreamValue copy()
+		{
+			return new FileValue(file);
 		}
 
 		@Override
@@ -693,6 +743,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream() throws IOException
 		{
 			return file.getInputStream(entry);
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return false;
+		}
+
+		@Override
+		AbstractStreamValue copy()
+		{
+			return new ZipValue(file, entry);
 		}
 
 		@Override
