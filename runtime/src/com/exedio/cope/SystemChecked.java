@@ -18,18 +18,15 @@
 
 package com.exedio.cope;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 final class SystemChecked
 {
-	private static volatile long previousResult = Long.MIN_VALUE;
+	private static final AtomicLong x = new AtomicLong(0);
 
 	static long nanoTime()
 	{
-		final long result = System.nanoTime();
-		final boolean complain = (previousResult>=result);
-		previousResult = result;
-		if(complain)
-			System.out.println("SystemNanoSource PROBLEM: " + previousResult + ' ' + result);
-		return result;
+		return x.getAndIncrement(); // TODO rename class and method
 	}
 
 	private SystemChecked()
