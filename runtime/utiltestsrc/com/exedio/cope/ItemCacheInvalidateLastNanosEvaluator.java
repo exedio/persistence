@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Typical result:
  * System.currentTimeMillis()     267 ms
  * System.nanoTime()              195 ms
+ * SystemChecked.nanoTime()       261 ms
  * AtomicLong.   incrementAndGet() 95 ms
  * AtomicInteger.incrementAndGet() 95 ms
  * AtomicLong.   getAndIncrement() 95 ms
@@ -56,6 +57,14 @@ public class ItemCacheInvalidateLastNanosEvaluator extends CopeAssert
 				System.nanoTime();
 			}
 			System.out.println("System.nanoTime()              " + toMillies(System.nanoTime(), start) + " ms ");
+		}
+		{
+			final long start = System.nanoTime();
+			for(int i=0; i<ITERATIONS; i++)
+			{
+				SystemChecked.nanoTime();
+			}
+			System.out.println("SystemChecked.nanoTime()       " + toMillies(System.nanoTime(), start) + " ms ");
 		}
 		{
 			final AtomicLong x = new AtomicLong();
