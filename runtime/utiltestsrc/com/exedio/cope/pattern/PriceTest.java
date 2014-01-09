@@ -99,6 +99,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-301, valueOf(-3.014  ).store());
 		assertEquals(-301, valueOf(-3.01499).store());
 		assertEquals(-302, valueOf(-3.015  ).store());
+		assertEquals(-302, valueOf(-3.01501).store());
 		assertEquals(-302, valueOf(-3.016  ).store());
 		assertEquals(-304, valueOf(-3.044  ).store());
 		assertEquals(-304, valueOf(-3.045  ).store());
