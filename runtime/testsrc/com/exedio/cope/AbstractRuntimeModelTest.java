@@ -42,13 +42,8 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super.setUp();
 		tester.setUp();
 		dialect = tester.dialect;
-
-		// TODO do like AbstractRuntimeTest
-		final String database = model.getConnectProperties().getDialect();
-
-		mysql      = "com.exedio.cope.MysqlDialect"     .equals(database);
-		postgresql = "com.exedio.cope.PostgresqlDialect".equals(database);
-
+		mysql  = tester.mysql;
+		postgresql = tester.postgresql;
 		files.setUp();
 	}
 
