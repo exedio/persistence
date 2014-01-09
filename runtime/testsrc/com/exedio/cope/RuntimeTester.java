@@ -60,12 +60,12 @@ final class RuntimeTester
 		}
 	}
 
-	protected Dialect dialect = null;
-	protected boolean hsqldb;
-	protected boolean mysql;
-	protected boolean oracle;
-	protected boolean postgresql;
-	protected boolean cache;
+	Dialect dialect = null;
+	boolean hsqldb;
+	boolean mysql;
+	boolean oracle;
+	boolean postgresql;
+	boolean cache;
 
 	private TestByteArrayInputStream testStream = null;
 
