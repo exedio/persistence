@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.testmodel.Main;
 
-public abstract class TestmodelTest extends AbstractRuntimeTest
+public abstract class TestmodelTest extends AbstractRuntimeModelTest
 {
 	public TestmodelTest()
 	{
