@@ -43,7 +43,7 @@ public class SelectTest extends TestmodelTest
 	protected EmptyItem someItem, someItem2;
 	protected AttributeItem item1, item2, item3, item4, item5, item;
 
-	private AttributeItem newItem(
+	private static AttributeItem newItem(
 			final String initialSomeString,
 			final String initialSomeNotNullString,
 			final int initialSomeNotNullInteger,
@@ -54,9 +54,9 @@ public class SelectTest extends TestmodelTest
 			final SomeEnum initialSomeNotNullEnumeration) throws Exception
 	{
 		final AttributeItem result =
-			deleteOnTearDown(new AttributeItem(
+			new AttributeItem(
 					initialSomeNotNullString, initialSomeNotNullInteger, initialSomeNotNullLong, initialSomeNotNullDouble,
-					initialSomeNotNullBoolean, initialSomeNotNullItem, initialSomeNotNullEnumeration));
+					initialSomeNotNullBoolean, initialSomeNotNullItem, initialSomeNotNullEnumeration);
 		result.setSomeString(initialSomeString);
 		return result;
 	}
@@ -65,8 +65,8 @@ public class SelectTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = deleteOnTearDown(new EmptyItem());
-		someItem2 = deleteOnTearDown(new EmptyItem());
+		someItem = new EmptyItem();
+		someItem2 = new EmptyItem();
 		item1 = newItem("1z",     "someString9", 1, 4l, 2.1, true,  someItem,  AttributeItem.SomeEnum.enumValue1);
 		item2 = newItem("1zz",    "someString8", 3, 5l, 2.4, true,  someItem,  AttributeItem.SomeEnum.enumValue2);
 		item3 = newItem("1zzz",   "someString7", 5, 7l, 2.2, false, someItem,  AttributeItem.SomeEnum.enumValue3);

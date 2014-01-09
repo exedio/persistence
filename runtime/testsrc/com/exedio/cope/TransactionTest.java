@@ -40,8 +40,8 @@ public class TransactionTest extends TestmodelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		someItem = deleteOnTearDown(new EmptyItem());
-		item = deleteOnTearDown(newItem("someString"));
+		someItem = new EmptyItem();
+		item = newItem("someString");
 	}
 
 	private Transaction createTransaction(final String name)
@@ -130,7 +130,7 @@ public class TransactionTest extends TestmodelTest
 	public void testCommitCreate()
 	{
 		item.setSomeString("someString");
-		final AttributeItem itemx = deleteOnTearDown(newItem("someStringX"));
+		final AttributeItem itemx = newItem("someStringX");
 		assertSomeString(itemx, null);
 		assertTrue(itemx.existsCopeItem());
 		commit();
@@ -138,7 +138,7 @@ public class TransactionTest extends TestmodelTest
 		createTransaction("testCommitCreate1");
 		assertSomeString(itemx, null);
 		assertTrue(itemx.existsCopeItem());
-		final AttributeItem itemy = deleteOnTearDown(newItem("someStringY"));
+		final AttributeItem itemy = newItem("someStringY");
 		assertSomeString(itemx, null);
 		assertSomeString(itemy, null);
 		assertTrue(itemy.existsCopeItem());
@@ -271,7 +271,6 @@ public class TransactionTest extends TestmodelTest
 		rollback();
 
 		createTransaction("testRollbackDelete3");
-		deleteOnTearDown(itemx);
 		assertTrue(item.existsCopeItem());
 		assertEquals("someString", item.getSomeNotNullString());
 	}
