@@ -26,12 +26,4 @@ public abstract class TestmodelTest extends AbstractRuntimeTest
 	{
 		super(Main.model);
 	}
-
-	protected void assertNotEquals(final Item item1, final Item item2)
-	{
-		assertFalse(item1.equals(item2));
-		assertFalse(item2.equals(item1));
-		assertFalse(item1.getCopeID().equals(item2.getCopeID()));
-		assertFalse(item1.hashCode()==item2.hashCode());
-	}
 }

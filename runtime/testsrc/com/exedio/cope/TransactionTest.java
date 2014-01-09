@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
@@ -228,7 +229,7 @@ public class TransactionTest extends TestmodelTest
 		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
 		assertTrue(!itemx.existsCopeItem());
 		final AttributeItem itemy = newItem("someStringY");
-		assertNotEquals(itemx, itemy);
+		assertNotEqualsAndHash(itemx, itemy);
 		assertSomeString(itemy, null);
 		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
 		assertContains(itemy, TYPE.search(someNotNullString.equal("someStringY")));
@@ -242,7 +243,7 @@ public class TransactionTest extends TestmodelTest
 		createTransaction("testRollbackCreate3");
 		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
 		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
-		assertNotEquals(itemx, itemy);
+		assertNotEqualsAndHash(itemx, itemy);
 		assertTrue(!itemx.existsCopeItem());
 		assertTrue(!itemy.existsCopeItem());
 	}
