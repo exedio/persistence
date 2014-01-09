@@ -311,4 +311,9 @@ public class TransactionTest extends TestmodelTest
 		// TODO: test item creation/deletion
 	}
 
+	private void activate(final Transaction transaction)
+	{
+		model.leaveTransaction();
+		model.joinTransaction( transaction );
+	}
 }

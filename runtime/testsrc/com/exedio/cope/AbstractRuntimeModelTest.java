@@ -65,11 +65,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		tester.assertIDFails(id, detail, notAnID);
 	}
 
-	protected void activate(final Transaction transaction)
-	{
-		tester.activate(transaction);
-	}
-
 	protected final TestByteArrayInputStream stream(final byte[] data)
 	{
 		return tester.stream(data);

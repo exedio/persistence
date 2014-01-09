@@ -211,11 +211,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		tester.assertIDFails(id, detail, notAnID);
 	}
 
-	protected void activate(final Transaction transaction)
-	{
-		tester.activate(transaction);
-	}
-
 	void assertSameCache(final Object o1, final Object o2)
 	{
 		tester.assertSameCache(o1, o2);

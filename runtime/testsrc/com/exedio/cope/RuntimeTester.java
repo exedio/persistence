@@ -183,12 +183,6 @@ final class RuntimeTester
 		}
 	}
 
-	protected void activate(final Transaction transaction)
-	{
-		model.leaveTransaction();
-		model.joinTransaction( transaction );
-	}
-
 	void assertSameCache(final Object o1, final Object o2)
 	{
 		if(cache)
