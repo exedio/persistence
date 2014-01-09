@@ -22,6 +22,19 @@ final class SystemChecked
 {
 	private static volatile long previousResult = Long.MIN_VALUE;
 
+	/**
+	 * Observation:
+	 *
+	 * SystemNanoSource PROBLEM: 13339811644305134 13339811644305134
+	 * SystemNanoSource PROBLEM: 13339811673189452 13339811673189452
+	 * ------------- ---------------- ---------------
+	 * Testcase: testOverlappingTwice(com.exedio.cope.ItemCacheInvalidateLastPurgeTest):	FAILED
+	 * invalidateLastSize expected:<0> but was:<2>
+	 * junit.framework.AssertionFailedError: invalidateLastSize expected:<0> but was:<2>
+	 *    at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.assertCache(ItemCacheInvalidateLastPurgeTest.java:225)
+	 *    at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.testOverlappingTwice(ItemCacheInvalidateLastPurgeTest.java:177)
+	 *    at com.exedio.cope.junit.CopeTest.runBare(CopeTest.java:99)
+	 */
 	static long nanoTime()
 	{
 		final long result = System.nanoTime();
