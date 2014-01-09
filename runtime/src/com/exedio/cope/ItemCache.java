@@ -116,7 +116,7 @@ final class ItemCache
 
 	void invalidate(final TIntHashSet[] invalidations)
 	{
-		final long nanoTime = SystemChecked.nanoTime();
+		final long nanoTime = SystemChecked.get();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];

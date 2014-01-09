@@ -37,7 +37,7 @@ final class SystemChecked
 	 *    at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.testOverlappingTwice(ItemCacheInvalidateLastPurgeTest.java:177)
 	 *    at com.exedio.cope.junit.CopeTest.runBare(CopeTest.java:99)
 	 */
-	static long nanoTime()
+	static long get()
 	{
 		return x.getAndIncrement(); // TODO rename class and method
 	}

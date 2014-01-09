@@ -62,7 +62,7 @@ public class ItemCacheInvalidateLastNanosEvaluator extends CopeAssert
 			final long start = System.nanoTime();
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				SystemChecked.nanoTime();
+				SystemChecked.get();
 			}
 			System.out.println("SystemChecked.nanoTime()       " + toMillies(System.nanoTime(), start) + " ms ");
 		}
