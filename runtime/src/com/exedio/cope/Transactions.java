@@ -97,19 +97,19 @@ final class Transactions
 		return tx;
 	}
 
-	long getOldestConnectionNanos()
+	long getOldestCacheStamp()
 	{
-		long oldestNanos = Long.MAX_VALUE;
+		long oldestStamp = Long.MAX_VALUE;
 		synchronized(open)
 		{
 			for(final Transaction tx : open)
 			{
-				final long currentNanos = tx.getConnectionNanosOrMax();
-				if(oldestNanos>currentNanos)
-					oldestNanos = currentNanos;
+				final long currentStamp = tx.getCacheStampOrMax();
+				if(oldestStamp>currentStamp)
+					oldestStamp = currentStamp;
 			}
 		}
-		return oldestNanos;
+		return oldestStamp;
 	}
 
 	Collection<Transaction> getOpen()

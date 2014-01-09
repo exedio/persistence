@@ -39,7 +39,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		quit =
 			props.getItemCacheLimit()==0 ||
-			!props.itemCacheInvalidateLast;
+			!props.itemCacheStamps;
 		if(quit)
 			return;
 
@@ -47,15 +47,15 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new CacheIsolationItem("item2"));
 		itemX = deleteOnTearDown(new CacheIsolationItem("itemX"));
 		model.commit();
-		clearInvalidateLast(model.connect().itemCache);
+		clearStamps(model.connect().itemCache);
 		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
 		initCache();
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void clearInvalidateLast(final ItemCache cache)
+	private static void clearStamps(final ItemCache cache)
 	{
-		cache.clearInvalidateLast();
+		cache.clearStamps();
 	}
 
 	public void testSequential()
@@ -187,7 +187,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 	}
 
 
-	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initInvalidationsLastHits, initInvalidationsLastPurged;
+	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initStampsHits, initStampsPurged;
 
 	private void initCache()
 	{
@@ -199,8 +199,8 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		initMisses = ici.getMisses();
 		initInvalidationsOrdered = ici.getInvalidationsOrdered();
 		initInvalidationsDone = ici.getInvalidationsDone();
-		initInvalidationsLastHits = ici.getInvalidateLastHits();
-		initInvalidationsLastPurged = ici.getInvalidateLastPurged();
+		initStampsHits   = ici.getStampsHits();
+		initStampsPurged = ici.getStampsPurged();
 	}
 
 	private void assertCache(
@@ -209,9 +209,9 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 			final long misses,
 			final long invalidationsOrdered,
 			final long invalidationsDone,
-			final int  invalidateLastSize,
-			final long invalidateLastHits,
-			final long invalidateLastPurged)
+			final int  stampsSize,
+			final long stampsHits,
+			final long stampsPurged)
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheInfo();
 		assertEquals(1, icis.length);
@@ -222,8 +222,8 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
 		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
 		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
-		assertEquals("invalidateLastSize"  , invalidateLastSize  , ici.getInvalidateLastSize());
-		assertEquals("invalidateLastHits"  , invalidateLastHits  , ici.getInvalidateLastHits()  -initInvalidationsLastHits);
-		assertEquals("invalidateLastPurged", invalidateLastPurged, ici.getInvalidateLastPurged()-initInvalidationsLastPurged);
+		assertEquals("stampsSize"          , stampsSize          , ici.getStampsSize());
+		assertEquals("stampsHits"          , stampsHits          , ici.getStampsHits()          -initStampsHits  );
+		assertEquals("stampsPurged"        , stampsPurged        , ici.getStampsPurged()        -initStampsPurged);
 	}
 }
