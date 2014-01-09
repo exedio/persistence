@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someDouble;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;

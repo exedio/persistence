@@ -32,12 +32,7 @@ import com.exedio.dsmf.UniqueConstraint;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public abstract class AbstractRuntimeTest extends CopeTest
 {
@@ -233,12 +228,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return files.file(data);
 	}
 
-	protected static void assertData(final byte[] expectedData, final byte[] actualData)
-	{
-		if(!Arrays.equals(expectedData, actualData))
-			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
-	}
-
 	protected static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
 		if(expectedData==null)
@@ -354,77 +343,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		{
 			assertEquals(null, cause);
 		}
-	}
-
-	protected static final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
-	{
-		assertCondition(Collections.<T>emptyList(), type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		l.add(o6);
-		assertCondition(l, type, actual);
-	}
-
-	private static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
-	{
-		final List<T> actualResult = type.search(actual);
-		assertContainsList(expected, actualResult);
-		assertUnmodifiable(actualResult);
-		for(final T item : type.search())
-			assertEquals(expected.contains(item), actual.get(item));
 	}
 
 	protected final String notNull(final String field, final String condition)
@@ -560,11 +478,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertTrue(ae.isAnnotationPresent(TestAnnotation2.class));
 		assertNotNull(ae.getAnnotation(TestAnnotation2.class));
-	}
-
-	public static final void assertSerializedSame(final Serializable value, final int expectedSize)
-	{
-		assertSame(value, reserialize(value, expectedSize));
 	}
 
 	final void assertCheckUpdateCounters()

@@ -37,6 +37,7 @@ import static com.exedio.cope.CompareFunctionConditionItem.rightLong;
 import static com.exedio.cope.CompareFunctionConditionItem.rightString;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.RuntimeAssert.assertCondition;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;

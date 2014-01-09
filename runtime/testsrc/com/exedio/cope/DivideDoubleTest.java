@@ -27,6 +27,7 @@ import static com.exedio.cope.DivideDoubleItem.numB;
 import static com.exedio.cope.DivideDoubleItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 public class DivideDoubleTest extends AbstractRuntimeTest
 {

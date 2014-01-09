@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.password;

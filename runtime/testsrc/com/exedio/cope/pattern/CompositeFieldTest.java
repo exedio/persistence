@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.CompositeFinalItem.first;
 import static com.exedio.cope.pattern.CompositeFinalItem.second;
 import static com.exedio.cope.pattern.CompositeItem.eins;

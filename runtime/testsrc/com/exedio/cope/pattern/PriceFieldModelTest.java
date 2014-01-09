@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.PriceFieldItem.TYPE;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SingletonItem.TYPE;
 import static com.exedio.cope.pattern.SingletonItem.booleanField;
 import static com.exedio.cope.pattern.SingletonItem.einzigartig;

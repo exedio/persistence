@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.DayItem.day;
 import static com.exedio.cope.DayItem.optionalDay;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.util.Day;
 import java.util.List;

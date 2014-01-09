@@ -18,6 +18,7 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.feature;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
@@ -32,7 +33,6 @@ import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 import static com.exedio.cope.reflect.FeatureFieldItem.string3;
 
-import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
@@ -76,7 +76,7 @@ public class FeatureFieldModelTest extends CopeAssert
 		assertEquals(false, featureOptional.isMandatory());
 		assertEquals(list(featureUnique.getIdField()), featureUnique.getImplicitUniqueConstraint().getFields());
 
-		AbstractRuntimeTest.assertSerializedSame(FeatureFieldItem.feature, 394);
+		assertSerializedSame(FeatureFieldItem.feature, 394);
 
 		assertEqualsUnmodifiable(TYPE.getFeatures(), feature.getValues());
 		assertEqualsUnmodifiable(list(

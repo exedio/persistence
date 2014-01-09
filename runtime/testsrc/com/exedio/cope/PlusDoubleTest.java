@@ -32,6 +32,7 @@ import static com.exedio.cope.PlusDoubleItem.plusABC;
 import static com.exedio.cope.PlusDoubleItem.plusABaC;
 import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 public class PlusDoubleTest extends AbstractRuntimeTest
 {
