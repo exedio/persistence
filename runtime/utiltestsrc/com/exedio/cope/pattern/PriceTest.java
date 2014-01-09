@@ -108,7 +108,7 @@ public final class PriceTest extends CopeAssert
 
 		assertEquals( 10997, valueOf( 109.974  ).store());
 		assertEquals( 10997, valueOf( 109.97499).store());
-		assertEquals( 10997, valueOf( 109.975  ).store()); // TODO 10998
+		assertEquals( 10998, valueOf( 109.975  ).store());
 		assertEquals( 10998, valueOf( 109.97501).store());
 		assertEquals( 10998, valueOf( 109.976  ).store());
 		assertEquals( 10998, valueOf( 109.984  ).store());
@@ -118,7 +118,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 10999, valueOf( 109.986  ).store());
 		assertEquals(-10997, valueOf(-109.974  ).store());
 		assertEquals(-10997, valueOf(-109.97499).store());
-		assertEquals(-10997, valueOf(-109.975  ).store()); // TODO 10998
+		assertEquals(-10998, valueOf(-109.975  ).store());
 		assertEquals(-10998, valueOf(-109.97501).store());
 		assertEquals(-10998, valueOf(-109.976  ).store());
 		assertEquals(-10998, valueOf(-109.984  ).store());
