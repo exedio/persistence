@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* copetest bugfix: "EmptyItem-[0]> but was:<EmptyItem-[1]" in ItemTest line 228/62
+* bugfix: Price#valueOf(double) rarely did wrong rounding in equidistant case
 * ConnectionFactory#isValidOnPut logs failures.
 * DataField parts become none-public:
 	- constructor Value()

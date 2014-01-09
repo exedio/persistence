@@ -18,7 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
@@ -82,7 +83,7 @@ public class PartOfModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
 		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
-		AbstractRuntimeTest.assertSerializedSame(PartOfItem.parts, 380);
+		assertSerializedSame(PartOfItem.parts, 380);
 
 		try
 		{

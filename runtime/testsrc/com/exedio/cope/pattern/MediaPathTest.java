@@ -23,7 +23,9 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
 import com.exedio.cope.util.Clock;
@@ -75,6 +77,10 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		Clock.clearOverride();
 		servlet.destroy();
 		servlet = null;
+		for(final Type<?> type : MODEL.getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaPathFeature)
+					((MediaPathFeature)feature).reset();
 		super.tearDown();
 	}
 

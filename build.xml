@@ -467,6 +467,8 @@
 				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
 				<exclude name="CheckTypeColumnTest.java" /><!-- TODO remove -->
 				<exclude name="CheckTypeColumnAbstractTest.java" /><!-- TODO remove -->
+				<exclude name="RuntimeAssert.java" /><!-- TODO remove -->
+				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->

@@ -37,10 +37,10 @@ public class JoinTest extends TestmodelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item2a = deleteOnTearDown(new PointerTargetItem("item2a"));
-		item2b = deleteOnTearDown(new PointerTargetItem("item1a2b"));
-		item1a = deleteOnTearDown(new PointerItem("item1a2b", item2a));
-		item1b = deleteOnTearDown(new PointerItem("item1b", item2b));
+		item2a = new PointerTargetItem("item2a");
+		item2b = new PointerTargetItem("item1a2b");
+		item1a = new PointerItem("item1a2b", item2a);
+		item1b = new PointerItem("item1b", item2b);
 	}
 
 	public void testJoin()

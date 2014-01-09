@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaFinalItem.TYPE;
 import static com.exedio.cope.pattern.MediaFinalItem.file;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;

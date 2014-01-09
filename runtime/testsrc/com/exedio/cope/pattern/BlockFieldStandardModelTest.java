@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aMedia;

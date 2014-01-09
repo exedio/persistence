@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.DataMandatoryItem.TYPE;
 import static com.exedio.cope.DataMandatoryItem.data;
+import static com.exedio.cope.RuntimeAssert.assertData;
 
 import java.io.File;
 import java.io.IOException;

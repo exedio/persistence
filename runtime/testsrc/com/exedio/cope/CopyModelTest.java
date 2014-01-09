@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
 import static com.exedio.cope.CopySourceItem.TYPE;
 import static com.exedio.cope.CopySourceItem.selfTargetItem;
@@ -26,6 +25,7 @@ import static com.exedio.cope.CopySourceItem.selfTemplateItem;
 import static com.exedio.cope.CopySourceItem.targetItem;
 import static com.exedio.cope.CopySourceItem.templateItem;
 import static com.exedio.cope.CopySourceItem.templateString;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

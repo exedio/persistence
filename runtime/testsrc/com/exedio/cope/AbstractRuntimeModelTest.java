@@ -23,11 +23,15 @@ import java.io.File;
 
 public abstract class AbstractRuntimeModelTest extends CopeModelTest
 {
+	private final RuntimeTester tester;
+
 	public AbstractRuntimeModelTest(final Model model)
 	{
 		super(model);
+		tester = new RuntimeTester(model);
 	}
 
+	protected RuntimeTester.Dialect dialect = null;
 	protected boolean mysql;
 	protected boolean postgresql;
 	private final FileFixture files = new FileFixture();
@@ -36,11 +40,10 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final String database = model.getConnectProperties().getDialect();
-
-		mysql      = "com.exedio.cope.MysqlDialect"     .equals(database);
-		postgresql = "com.exedio.cope.PostgresqlDialect".equals(database);
-
+		tester.setUp();
+		dialect = tester.dialect;
+		mysql  = tester.mysql;
+		postgresql = tester.postgresql;
 		files.setUp();
 	}
 
@@ -55,5 +58,33 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected final File deleteOnTearDown(final File file)
 	{
 		return files.deleteOnTearDown(file);
+	}
+
+	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
+	{
+		tester.assertIDFails(id, detail, notAnID);
+	}
+
+	protected final TestByteArrayInputStream stream(final byte[] data)
+	{
+		return tester.stream(data);
+	}
+
+	protected final void assertStreamClosed()
+	{
+		tester.assertStreamClosed();
+	}
+
+	protected void assertSchema()
+	{
+		tester.assertSchema();
+	}
+
+	// copied from CopeTest
+	protected void restartTransaction()
+	{
+		final String oldName = model.currentTransaction().getName();
+		model.commit();
+		model.startTransaction( oldName+"-restart" );
 	}
 }
