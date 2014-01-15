@@ -107,10 +107,6 @@ public final class HashedMediaTest extends AbstractRuntimeTest
 	static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
 	static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
 
-	static final byte[] bytes4Digest = { -112, 74, -61, -106, -84, 61, 80, -6, -90, 102, -27, 113, 70, -2, 120, 98 };
-	static final byte[] bytes6Digest = { -3, 26, 63, -49, 116, 96, 64, 108, -67, 32, 32, 94, 49, -123, 65, -102 };
-	static final byte[] bytes8Digest = { 52, 33, -9, -26, 28, 102, 87, -33, -8, -34, 81, 62, 84, 77, -81, -57 };
-
 	static final String bytes4DigestHex = "904AC396AC3D50FAA666E57146FE7862";
 	static final String bytes6DigestHex = "FD1A3FCF7460406CBD20205E3185419A";
 	static final String bytes8DigestHex = "3421F7E61C6657DFF8DE513E544DAFC7";
