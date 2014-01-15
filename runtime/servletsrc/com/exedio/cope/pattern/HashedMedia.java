@@ -197,6 +197,13 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 		return hash.searchUnique(typeClass, value);
 	}
 
+	@Wrap(order = 200, doc = "Finds a {2} by it''s {0}.", hide = NonUniqueGetter.class)
+	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value value)
+	{
+		final P existing = searchUnique(typeClass, "dinng");
+		return getType().as(typeClass).newItem(this.map(value));
+	}
+
 	static final class NonUniqueGetter implements BooleanGetter<HashedMedia>
 	{
 		@Override
