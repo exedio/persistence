@@ -84,10 +84,11 @@ public final class HashedMediaTest extends AbstractRuntimeModelTest
 		 assertTrue(HashedMediaItem.uniqueFinalHashedMedia.getHash().isAnnotationPresent(Computed.class));
 	}
 
+	@SuppressWarnings("static-method")
 	public void testData() throws IOException
 	{
 		final Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
-		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(valueWithHash));
+		final HashedMediaItem mediaItem = new HashedMediaItem(valueWithHash);
 
 		assertData(bytes4, mediaItem.getUniqueFinalHashedMediaBody());
 		assertEquals("image/jpeg", mediaItem.getUniqueFinalHashedMediaContentType());
@@ -98,17 +99,17 @@ public final class HashedMediaTest extends AbstractRuntimeModelTest
 		assertNull(mediaItem.getOptionalHashedMediaHash());
 	}
 
+	@SuppressWarnings("static-method")
 	public void testUniqueness() throws IOException
 	{
 		Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
-	   deleteOnTearDown(new HashedMediaItem(valueWithHash));
+	   new HashedMediaItem(valueWithHash);
 
 		// recreate the value as previous one is exhausted
 		valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 		try
 		{
-		   final HashedMediaItem mediaItem2 = new HashedMediaItem(valueWithHash);
-		   deleteOnTearDown(mediaItem2);
+		   new HashedMediaItem(valueWithHash);
 		   fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
 		}
 		catch (final UniqueViolationException e)
@@ -117,18 +118,19 @@ public final class HashedMediaTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	@SuppressWarnings("static-method")
 	public void testConditions()throws IOException
 	{
 		final Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
-		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(valueWithHash));
+		final HashedMediaItem mediaItem = new HashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getUniqueFinalHashedMediaHash());
 		assertEquals(mediaItem, HashedMediaItem.forUniqueFinalHashedMedia(bytes6DigestHex));
 	}
 
+	@SuppressWarnings("static-method")
 	public void testGetOrCreate()throws IOException
 	{
 		final HashedMediaItem mediaItem =  HashedMediaItem.getOrCreateForUniqueFinalHashedMedia(Media.toValue(bytes8, "image/jpeg"));
-		deleteOnTearDown(mediaItem);
 		assertEquals(bytes8DigestHex, mediaItem.getUniqueFinalHashedMediaHash());
 		final HashedMediaItem mediaItem2 = HashedMediaItem.getOrCreateForUniqueFinalHashedMedia(Media.toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
