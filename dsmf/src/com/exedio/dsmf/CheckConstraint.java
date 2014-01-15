@@ -53,9 +53,9 @@ public final class CheckConstraint extends Constraint
 	public int check()
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("select count(*) from ").
+		bf.append("SELECT COUNT(*) FROM ").
 			append(quoteName(table.name)).
-			append(" where not(").
+			append(" WHERE NOT(").
 			append(requiredCondition).
 			append(')');
 
@@ -88,9 +88,9 @@ public final class CheckConstraint extends Constraint
 	void createInTable(final StringBuilder bf)
 	{
 		assert isSupported() : getRequiredCondition();
-		bf.append(",constraint ").
+		bf.append(",CONSTRAINT ").
 			append(quoteName(name)).
-			append(" check(").
+			append(" CHECK(").
 			append(requiredCondition).
 			append(')');
 	}
@@ -98,11 +98,11 @@ public final class CheckConstraint extends Constraint
 	@Override
 	void create(final StringBuilder bf)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" add constraint ").
+			append(" ADD CONSTRAINT ").
 			append(quoteName(name)).
-			append(" check(").
+			append(" CHECK(").
 			append(requiredCondition).
 			append(')');
 	}
@@ -110,9 +110,9 @@ public final class CheckConstraint extends Constraint
 	@Override
 	void drop(final StringBuilder bf)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" drop constraint ").
+			append(" DROP CONSTRAINT ").
 			append(quoteName(name));
 	}
 }

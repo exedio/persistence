@@ -91,13 +91,13 @@ public final class ForeignKeyConstraint extends Constraint
 	@Override
 	void create(final StringBuilder bf)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" add constraint ").
+			append(" ADD CONSTRAINT ").
 			append(quoteName(name)).
-			append(" foreign key (").
+			append(" FOREIGN KEY (").
 			append(quoteName(foreignKeyColumn)).
-			append(") references ").
+			append(") REFERENCES ").
 			append(quoteName(targetTable));
 
 		if(dialect.needsTargetColumnName())
@@ -119,11 +119,11 @@ public final class ForeignKeyConstraint extends Constraint
 	@Override
 	void createInTable(final StringBuilder bf)
 	{
-		bf.append(",constraint ").
+		bf.append(",CONSTRAINT ").
 			append(quoteName(name)).
-			append(" foreign key (").
+			append(" FOREIGN KEY (").
 			append(quoteName(foreignKeyColumn)).
-			append(") references ").
+			append(") REFERENCES ").
 			append(quoteName(targetTable));
 
 		if(dialect.needsTargetColumnName())

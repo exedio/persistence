@@ -53,20 +53,20 @@ public final class UniqueConstraint extends Constraint
 	@Override
 	void createInTable(final StringBuilder bf)
 	{
-		bf.append(",constraint ").
+		bf.append(",CONSTRAINT ").
 			append(quoteName(name)).
-			append(" unique").
+			append(" UNIQUE").
 			append(clause);
 	}
 
 	@Override
 	void create(final StringBuilder bf)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" add constraint ").
+			append(" ADD CONSTRAINT ").
 			append(quoteName(name)).
-			append(" unique").
+			append(" UNIQUE").
 			append(clause);
 	}
 
