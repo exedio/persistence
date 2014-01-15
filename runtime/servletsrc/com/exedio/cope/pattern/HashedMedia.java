@@ -343,7 +343,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 		{
 			if(isMandatory())
 				throw MandatoryViolationException.create(this, exceptionItem);
-			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value, exceptionItem)));
+			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(null, exceptionItem)));
 			setValues.add(this.hash.map(null));
 			return setValues.toArray(new SetValue[setValues.size()]);
 		}
