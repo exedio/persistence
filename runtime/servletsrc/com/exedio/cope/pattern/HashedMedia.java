@@ -31,6 +31,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
@@ -50,8 +51,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Pattern which wraps a {@link Media} and applies a hash string. This allows
@@ -59,7 +58,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author knoefel
  */
-public class HashedMedia extends MediaPath implements Settable<Media.Value>, Copyable
+public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -138,7 +137,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the content type of this media. Returns null, if this media is
 	 * null.
 	 */
-	@Override
+	@Wrap(order = 30, doc = "Returns the last modification date of media {0}.")
 	public String getContentType(final Item item)
 	{
 		return media.getContentType(item);
@@ -148,8 +147,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the date of the last modification of the media. Returns null, if
 	 * the media is null.
 	 */
-	@Wrap(order = 20, doc = "Returns the last modification date of media {0}.")
-	@Override
+	@Wrap(order = 40, doc = "Returns the last modification date of media {0}.")
 	public Date getLastModified(final Item item)
 	{
 		return media.getLastModified(item);
@@ -159,7 +157,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the length of the body of the media. Returns -1, if the media is
 	 * null.
 	 */
-	@Wrap(order = 30, doc = "Returns the body length of the media {0}.")
+	@Wrap(order = 50, doc = "Returns the body length of the media {0}.")
 	public long getLength(final Item item)
 	{
 		return media.getLength(item);
@@ -168,7 +166,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	/**
 	 * Returns the body of the media. Returns null, if the media is null.
 	 */
-	@Wrap(order = 40, doc = "Returns the body of the media {0}.")
+	@Wrap(order = 60, doc = "Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
 	{
 		return media.getBody(item);
@@ -178,7 +176,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the hash of the body of this media. Returns null, if this media is
 	 * null.
 	 */
-	@Wrap(order = 50, doc = "Returns the hash of the media body {0}.")
+	@Wrap(order = 70, doc = "Returns the hash of the media body {0}.")
 	public String getHash(final Item item)
 	{
 		return hash.get(item);
@@ -197,11 +195,21 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 		return hash.searchUnique(typeClass, value);
 	}
 
-	@Wrap(order = 200, doc = "Finds a {2} by it''s {0}.", hide = NonUniqueGetter.class)
-	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value value)
+	/**
+	 * Returns the item containing given media value or creates a new one.
+	 *
+	 * @return null if there is no matching item.
+	 * @throws NullPointerException
+	 *            if value is null.
+	 * @throws IOException
+	 *            if reading mediaValue throws an IOException.
+	 */
+	@Wrap(order = 200, name = "getOrCreateFor{0}", doc = "Finds a {2} by it''s {0}.", hide = NonUniqueGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
+	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value mediaValue) throws IOException
 	{
-		final P existing = searchUnique(typeClass, "dinng");
-		return getType().as(typeClass).newItem(this.map(value));
+		final Value value = createValueWithHash(mediaValue);
+		final P existing = searchUnique(typeClass, value.getHashValue());
+		return existing != null ? existing : getType().as(typeClass).newItem(this.map(value));
 	}
 
 	static final class NonUniqueGetter implements BooleanGetter<HashedMedia>
@@ -228,6 +236,25 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	@Wrap(order = 110, doc = "Sets the content of media {0}.", hide = FinalSettableGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if accessing <tt>body</tt> throws an IOException."))
 	public void set(final Item item, final Media.Value value) throws DataLengthViolationException, IOException
+	{
+		set(item, createValueWithHash(value));
+	}
+
+	/**
+	 * Sets the contents of the media.
+	 *
+	 * @param value
+	 *           give null to make media null.
+	 * @throws MandatoryViolationException
+	 *            if body is null and media is {@link Media#isMandatory()
+	 *            mandatory}.
+	 * @throws DataLengthViolationException
+	 *            if body is longer than {@link Media#getMaximumLength()}
+	 * @throws IOException
+	 *            if reading value throws an IOException.
+	 */
+	@Wrap(order = 120, doc = "Sets the content of media {0}.", hide = FinalSettableGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if accessing <tt>body</tt> throws an IOException."))
+	public void set(final Item item, final HashedMedia.Value value) throws DataLengthViolationException, IOException
 	{
 		if(value == null && media.isMandatory())
 			throw MandatoryViolationException.create(this, item);
@@ -280,31 +307,21 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
-	@Override
-	public void doGetAndCommit(final HttpServletRequest request, final HttpServletResponse response, final Item item) throws IOException, NotFound
-	{
-		media.doGetAndCommit(request, response, item);
-	}
-
-	@Override
 	public Condition isNull()
 	{
 		return media.isNull();
 	}
 
-	@Override
 	public Condition isNull(final Join join)
 	{
 		return media.isNull(join);
 	}
 
-	@Override
 	public Condition isNotNull()
 	{
 		return media.isNotNull();
 	}
 
-	@Override
 	public Condition isNotNull(final Join join)
 	{
 		return media.isNotNull(join);
@@ -333,35 +350,19 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	@Override
-	public SetValue<Media.Value> map(final Media.Value value)
+	public SetValue<Value> map(final Value value)
 	{
 		return SetValue.map(this, value);
 	}
 
 	@Override
-	public SetValue<?>[] execute(Media.Value value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value != null)
 		{
-			DataField.Value dataValue = value.getBody();
-			final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
-			// calculate the hash
-			try
-			{
-				dataValue = dataValue.update(messageDigest);
-				//  original DataField.Value is exhausted so we have to create a new Media.Value
-				value = Media.toValue(dataValue, value.getContentType());
-			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(toString(), e);
-			}
-			final byte[] hash = messageDigest.digest();
+			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value.getMediaValue(), exceptionItem)));
 
-			final String hashAsHex = Hex.encodeUpper(hash);
-			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value, exceptionItem)));
-
-			setValues.add(this.hash.map(hashAsHex));
+			setValues.add(this.hash.map(value.getHashValue()));
 			return setValues.toArray(new SetValue[setValues.size()]);
 		}
 		else
@@ -373,6 +374,7 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 			return setValues.toArray(new SetValue[setValues.size()]);
 		}
 	}
+
 
 	@Override
 	public boolean isFinal()
@@ -407,5 +409,55 @@ public class HashedMedia extends MediaPath implements Settable<Media.Value>, Cop
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return media.getInitialExceptions();
+	}
+
+	/**
+	 * Creates an internal value object for the given media value.
+	 */
+	public Value createValueWithHash(Media.Value mediaValue) throws IOException
+	{
+		if (mediaValue == null)
+			return null;
+		else
+		{
+			DataField.Value dataValue = mediaValue.getBody();
+			final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
+			// calculate the hash
+
+			dataValue = dataValue.update(messageDigest);
+			//  original DataField.Value is exhausted so we have to create a new Media.Value
+			mediaValue = Media.toValue(dataValue, mediaValue.getContentType());
+
+			final byte[] hash = messageDigest.digest();
+
+			final String hashAsHex = Hex.encodeUpper(hash);
+
+			return new Value(mediaValue, hashAsHex);
+		}
+	}
+
+	/**
+	 * Container for media value + hash
+	 */
+	public static final class Value
+	{
+		private final Media.Value mediaValue;
+		private final String hashValue;
+
+		Value(final com.exedio.cope.pattern.Media.Value mediaValue, final String hashValue)
+		{
+			super();
+			this.mediaValue = mediaValue;
+			this.hashValue = hashValue;
+		}
+
+		public Media.Value getMediaValue()
+		{
+			return mediaValue;
+		}
+		public String getHashValue()
+		{
+			return hashValue;
+		}
 	}
 }

@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
-
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.HashedMedia.Value;
+import java.io.IOException;
 import java.util.Arrays;
 
 public final class HashedMediaTest extends AbstractRuntimeTest
@@ -81,26 +82,54 @@ public final class HashedMediaTest extends AbstractRuntimeTest
 		 assertTrue(HashedMediaItem.uniqueFinalHashedMedia.getHash().isAnnotationPresent(Computed.class));
 	}
 
-	public void testData()
+	public void testData() throws IOException
 	{
-		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(Media.toValue(bytes4, "image/jpeg")));
+		final Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(valueWithHash));
 
 		assertData(bytes4, mediaItem.getUniqueFinalHashedMediaBody());
 		assertEquals("image/jpeg", mediaItem.getUniqueFinalHashedMediaContentType());
-		assertLocator("HashedMediaItem/uniqueFinalHashedMedia/" + mediaItem.getCopeID() + ".jpg", mediaItem.getUniqueFinalHashedMediaLocator());
 		assertEquals(bytes4DigestHex, mediaItem.getUniqueFinalHashedMediaHash());
 
 		assertNull(mediaItem.getOptionalHashedMediaBody());
 		assertNull(mediaItem.getOptionalHashedMediaContentType());
-		assertNull(mediaItem.getOptionalHashedMediaLocator());
 		assertNull(mediaItem.getOptionalHashedMediaHash());
 	}
 
-	public void testConditions()
+	public void testUniqueness() throws IOException
 	{
-		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(Media.toValue(bytes6, "image/jpeg")));
+		Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+	   deleteOnTearDown(new HashedMediaItem(valueWithHash));
+
+		// recreate the value as previous one is exhausted
+		valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		try
+		{
+		   final HashedMediaItem mediaItem2 = new HashedMediaItem(valueWithHash);
+		   deleteOnTearDown(mediaItem2);
+		   fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
+		}
+		catch (final UniqueViolationException e)
+		{
+			// expected
+		}
+	}
+
+	public void testConditions()throws IOException
+	{
+		final Value valueWithHash = HashedMediaItem.uniqueFinalHashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
+		final HashedMediaItem mediaItem = deleteOnTearDown(new HashedMediaItem(valueWithHash));
 		assertEquals(bytes6DigestHex, mediaItem.getUniqueFinalHashedMediaHash());
 		assertEquals(mediaItem, HashedMediaItem.forUniqueFinalHashedMedia(bytes6DigestHex));
+	}
+
+	public void testGetOrCreate()throws IOException
+	{
+		final HashedMediaItem mediaItem =  HashedMediaItem.getOrCreateForUniqueFinalHashedMedia(Media.toValue(bytes8, "image/jpeg"));
+		deleteOnTearDown(mediaItem);
+		assertEquals(bytes8DigestHex, mediaItem.getUniqueFinalHashedMediaHash());
+		final HashedMediaItem mediaItem2 = HashedMediaItem.getOrCreateForUniqueFinalHashedMedia(Media.toValue(bytes8, "image/jpeg"));
+		assertEquals(mediaItem, mediaItem2);
 	}
 
 	private static final byte[] bytes4 = { -86, 122, -8, 23 };
