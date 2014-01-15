@@ -233,7 +233,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return files.file(data);
 	}
 
-	protected static void assertData(final byte[] expectedData, final byte[] actualData)
+	public static void assertData(final byte[] expectedData, final byte[] actualData)
 	{
 		if(!Arrays.equals(expectedData, actualData))
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));

@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import static com.exedio.cope.AbstractRuntimeTest.assertData;
+
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.UniqueViolationException;
@@ -27,7 +29,7 @@ import com.exedio.cope.pattern.HashedMedia.Value;
 import java.io.IOException;
 import java.util.Arrays;
 
-public final class HashedMediaTest extends AbstractRuntimeTest
+public final class HashedMediaTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(HashedMediaItem.TYPE);
 
