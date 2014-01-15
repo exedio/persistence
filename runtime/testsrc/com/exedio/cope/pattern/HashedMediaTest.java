@@ -103,11 +103,11 @@ public final class HashedMediaTest extends AbstractRuntimeTest
 		assertEquals(mediaItem, HashedMediaItem.forUniqueFinalHashedMedia(bytes6DigestHex));
 	}
 
-	static final byte[] bytes4 = { -86, 122, -8, 23 };
-	static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
-	static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
+	private static final byte[] bytes4 = { -86, 122, -8, 23 };
+	private static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
+	private static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
 
-	static final String bytes4DigestHex = "904AC396AC3D50FAA666E57146FE7862";
-	static final String bytes6DigestHex = "FD1A3FCF7460406CBD20205E3185419A";
-	static final String bytes8DigestHex = "3421F7E61C6657DFF8DE513E544DAFC7";
+	private static final String bytes4DigestHex = "904AC396AC3D50FAA666E57146FE7862";
+	private static final String bytes6DigestHex = "FD1A3FCF7460406CBD20205E3185419A";
+	private static final String bytes8DigestHex = "3421F7E61C6657DFF8DE513E544DAFC7";
 }
