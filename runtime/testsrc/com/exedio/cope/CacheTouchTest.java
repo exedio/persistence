@@ -124,7 +124,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
-		// repeatable-read isolation and does no itemCacheInvalidateLast.
+		// repeatable-read isolation and does no itemCacheStamp.
 		item.setName("itemName3");
 		assertUpdateCount(2, 1);
 		assertCache(1, il?0:1, il?3:2, 2, 1);

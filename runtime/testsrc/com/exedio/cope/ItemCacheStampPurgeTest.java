@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 
-public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
+public class ItemCacheStampPurgeTest extends AbstractRuntimeTest
 {
-	public ItemCacheInvalidateLastPurgeTest()
+	public ItemCacheStampPurgeTest()
 	{
 		super(CacheIsolationTest.MODEL);
 	}
@@ -48,7 +48,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		itemX = deleteOnTearDown(new CacheIsolationItem("itemX"));
 		model.commit();
 		clearStamps(model.connect().itemCache);
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
+		model.startTransaction("ItemCacheStampPurgeTest");
 		initCache();
 	}
 
@@ -73,14 +73,14 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit();
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
+		model.startTransaction("ItemCacheStampPurgeTest");
 		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.commit();
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -97,7 +97,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		model.startTransaction("ItemCacheStampPurgeTest overlap");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingOnce"))); // make transaction acquire a connection
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
@@ -111,7 +111,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -128,7 +128,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		model.startTransaction("ItemCacheStampPurgeTest overlap");
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 
@@ -141,7 +141,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -158,7 +158,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap1");
+		model.startTransaction("ItemCacheStampPurgeTest overlap1");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice1"))); // make transaction acquire a connection
 		final Transaction overlapTx1 = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
@@ -166,7 +166,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // modifyTx
 		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap2");
+		model.startTransaction("ItemCacheStampPurgeTest overlap2");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
@@ -182,7 +182,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx2
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
