@@ -147,41 +147,14 @@ public final class ItemCacheInfo
 		return invalidationsDone;
 	}
 
-	/**
-	 * @deprecated Use {@link #getStampsSize()} instead
-	 */
-	@Deprecated
-	public int getInvalidateLastSize()
-	{
-		return getStampsSize();
-	}
-
 	public int getStampsSize()
 	{
 		return stampsSize;
 	}
 
-	/**
-	 * @deprecated Use {@link #getStampsHits()} instead
-	 */
-	@Deprecated
-	public long getInvalidateLastHits()
-	{
-		return getStampsHits();
-	}
-
 	public long getStampsHits()
 	{
 		return stampsHits;
-	}
-
-	/**
-	 * @deprecated Use {@link #getStampsPurged()} instead
-	 */
-	@Deprecated
-	public long getInvalidateLastPurged()
-	{
-		return getStampsPurged();
 	}
 
 	public long getStampsPurged()
@@ -218,5 +191,32 @@ public final class ItemCacheInfo
 	public long getInvalidationBucketHits()
 	{
 		return 0l;
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsSize()} instead
+	 */
+	@Deprecated
+	public int getInvalidateLastSize()
+	{
+		return getStampsSize();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsHits()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastHits()
+	{
+		return getStampsHits();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsPurged()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastPurged()
+	{
+		return getStampsPurged();
 	}
 }
