@@ -229,7 +229,7 @@ public final class Table extends Node
 
 	void create(final StringBuilder bf, final Set<ForeignKeyConstraint> constraintsBroken)
 	{
-		bf.append("create table ").
+		bf.append("CREATE TABLE ").
 			append(quoteName(name)).
 			append('(');
 
@@ -277,7 +277,7 @@ public final class Table extends Node
 
 	void drop(final StringBuilder bf)
 	{
-		bf.append("drop table ").
+		bf.append("DROP TABLE ").
 			append(quoteName(name));
 	}
 
