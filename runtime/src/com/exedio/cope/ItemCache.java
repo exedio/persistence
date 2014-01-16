@@ -116,7 +116,7 @@ final class ItemCache
 
 	void invalidate(final TIntHashSet[] invalidations)
 	{
-		final long stamp = SystemChecked.get();
+		final long stamp = ItemCacheStamp.get();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];

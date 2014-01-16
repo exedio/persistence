@@ -276,7 +276,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		this.cacheStamp = SystemChecked.get();
+		this.cacheStamp = ItemCacheStamp.get();
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 

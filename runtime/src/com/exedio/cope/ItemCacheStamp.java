@@ -20,16 +20,16 @@ package com.exedio.cope;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-final class SystemChecked
+final class ItemCacheStamp
 {
-	private static final AtomicLong x = new AtomicLong(0);
+	private static final AtomicLong value = new AtomicLong(0);
 
 	static long get()
 	{
-		return x.getAndIncrement(); // TODO rename class and method
+		return value.getAndIncrement();
 	}
 
-	private SystemChecked()
+	private ItemCacheStamp()
 	{
 		// prevent instantiation
 	}
