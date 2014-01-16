@@ -174,7 +174,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeTest
 		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
 		model.commit(); // overlapTx1
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2); // fails sporadically: invalidateLastSize expected:<0> but was:<2>
+		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.joinTransaction(overlapTx2);
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);

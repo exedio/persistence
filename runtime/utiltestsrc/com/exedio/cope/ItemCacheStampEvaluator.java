@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * AtomicLong.   getAndIncrement() 95 ms
  * AtomicInteger.getAndIncrement() 94 ms
  */
-public class ItemCacheInvalidateLastNanosEvaluator extends CopeAssert
+public class ItemCacheStampEvaluator extends CopeAssert
 {
 	private static final int ITERATIONS = 10000000;
 
