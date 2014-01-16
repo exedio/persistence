@@ -189,17 +189,6 @@ public final class ItemCacheInfo
 		return stampsPurged;
 	}
 
-	/**
-	 * @deprecated Not supported anymore.
-	 * @return Always returns 0.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public long getInvalidationBucketHits()
-	{
-		return 0l;
-	}
-
 	// ------------------- deprecated stuff -------------------
 
 	/**
@@ -218,5 +207,16 @@ public final class ItemCacheInfo
 	public long getAgeMaxMillis()
 	{
 		return getAgeMaximumMillis();
+	}
+
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public long getInvalidationBucketHits()
+	{
+		return 0l;
 	}
 }
