@@ -29,9 +29,12 @@ import java.sql.SQLException;
  * the database without cope.
  * In this case you should really know, what you are doing.
  * Any INSERT/UPDATE/DELETE on the database bypassing cope
- * may lead to inconsistent caches.
+ * may lead to <b>inconsistent caches</b>.
  * Please note, that the results of all methods may vary,
  * if a cope model is configured for different databases.
+ * BEWARE:
+ * This class is <b>not</b> part of the <b>stable API</b> of cope.
+ * It may change its syntax and/or semantics in the future.
  */
 public final class SchemaInfo
 {

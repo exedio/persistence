@@ -53,9 +53,9 @@ public final class PrimaryKeyConstraint extends Constraint
 	@Override
 	void createInTable(final StringBuilder bf)
 	{
-		bf.append(",constraint ").
+		bf.append(",CONSTRAINT ").
 			append(quoteName(name)).
-			append(" primary key(").
+			append(" PRIMARY KEY(").
 			append(quoteName(primaryKeyColumn)).
 			append(')');
 	}
@@ -63,11 +63,11 @@ public final class PrimaryKeyConstraint extends Constraint
 	@Override
 	void create(final StringBuilder bf)
 	{
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" add constraint ").
+			append(" ADD CONSTRAINT ").
 			append(quoteName(name)).
-			append(" primary key(").
+			append(" PRIMARY KEY(").
 			append(quoteName(primaryKeyColumn)).
 			append(')');
 	}
