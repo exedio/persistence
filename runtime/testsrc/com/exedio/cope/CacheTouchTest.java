@@ -76,7 +76,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertCache(0, 0, 1, 2, 1);
 
 	final ConnectProperties props = model.getConnectProperties();
-	if(!props.itemCacheInvalidateLast)
+	if(!props.itemCacheStamps)
 	{
 		assertEquals("itemName", item.getName());
 		assertUpdateCount(0, 0);
@@ -110,7 +110,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	else
 	{
 		final boolean rr = !hsqldb;
-		final boolean il = props.itemCacheInvalidateLast;
+		final boolean il = props.itemCacheStamps;
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());
 		assertUpdateCount(rr?0:1, il?MIN_VALUE:1);

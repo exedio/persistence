@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 final class SystemChecked
 {
-	private static volatile long previousResult = Long.MIN_VALUE;
+	private static final AtomicLong x = new AtomicLong(0);
 
 	/**
 	 * Observation:
@@ -35,14 +37,9 @@ final class SystemChecked
 	 *    at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.testOverlappingTwice(ItemCacheInvalidateLastPurgeTest.java:177)
 	 *    at com.exedio.cope.junit.CopeTest.runBare(CopeTest.java:99)
 	 */
-	static long nanoTime()
+	static long get()
 	{
-		final long result = System.nanoTime();
-		final boolean complain = (previousResult>=result);
-		previousResult = result;
-		if(complain)
-			System.out.println("SystemNanoSource PROBLEM: " + previousResult + ' ' + result);
-		return result;
+		return x.getAndIncrement(); // TODO rename class and method
 	}
 
 	private SystemChecked()
