@@ -26,6 +26,32 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class UniqueHashedMediaErrorTest extends CopeAssert
 {
+	public void testNotFinal()
+	{
+		try
+		{
+			new UniqueHashedMedia(new Media());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Media template must be final", e.getMessage());
+		}
+	}
+
+	public void testOptional()
+	{
+		try
+		{
+			new UniqueHashedMedia(new Media().toFinal().optional());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Media template must be mandatory", e.getMessage());
+		}
+	}
+
 	public void testAbstract()
 	{
 		try
