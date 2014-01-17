@@ -76,6 +76,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		 assertTrue(hashedMedia.isFinal());
 		 assertTrue(hashedMedia.isMandatory());
 		 assertFalse(hashedMedia.isAnnotationPresent(Computed.class));
+		 assertTrue(hashedMedia.getMedia().isAnnotationPresent(Computed.class));
 		 assertTrue(hashedMedia.getHash().isAnnotationPresent(Computed.class));
 	}
 
