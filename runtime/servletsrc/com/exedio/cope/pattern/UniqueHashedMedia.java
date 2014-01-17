@@ -246,8 +246,8 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	{
 		if(value != null)
 		{
-			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorith()))
-				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorith());
+			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorithmValue()))
+				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorithmValue());
 			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value.getMediaValue(), exceptionItem)));
 			setValues.add(this.hash.map(value.getHashValue()));
 			return setValues.toArray(new SetValue[setValues.size()]);
@@ -341,7 +341,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	public static final class Value
 	{
 		private final Media.Value mediaValue;
-		private final String messageDigestAlgorith;
+		private final String messageDigestAlgorithmValue;
 		private final String hashValue;
 
 		Value(
@@ -352,7 +352,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 			super();
 			this.mediaValue = mediaValue;
 			this.hashValue = hashValue;
-			this.messageDigestAlgorith = messageDigestAlgorith;
+			this.messageDigestAlgorithmValue = messageDigestAlgorith;
 		}
 
 		public Media.Value getMediaValue()
@@ -365,9 +365,9 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 			return hashValue;
 		}
 
-		public String getMessageDigestAlgorith()
+		public String getMessageDigestAlgorithmValue()
 		{
-			return messageDigestAlgorith;
+			return messageDigestAlgorithmValue;
 		}
 	}
 }
