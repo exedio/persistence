@@ -145,7 +145,10 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		}
 		catch (final IllegalArgumentException e)
 		{
-			// expected
+			assertEquals(
+					"Given content type 'image/gif' does not match " +
+					"content type of already stored value 'image/jpeg' for UniqueHashedMediaItem-1",
+					e.getMessage());
 		}
 	}
 
