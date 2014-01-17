@@ -144,6 +144,11 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 					"content type of already stored value 'image/jpeg' for UniqueHashedMediaItem-1",
 					e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("static-method")
+	public void testGetOrCreateNull()throws IOException
+	{
 		try
 		{
 			getOrCreate(null);
