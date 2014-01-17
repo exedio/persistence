@@ -164,10 +164,10 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	 * @throws NullPointerException
 	 *            if value is null.
 	 */
-	@Wrap(order = 100, name = "for{0}", doc = "Finds a {2} by it''s {0}.", docReturn = "null if there is no matching item.")
-	public final <P extends Item> P searchUnique(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final String value)
+	@Wrap(order = 100, name = "forHash", doc = "Finds a {2} by it''s hash.", docReturn = "null if there is no matching item.")
+	public final <P extends Item> P forHash(final Class<P> typeClass, @Parameter("hash") final String hash)
 	{
-		return hash.searchUnique(typeClass, value);
+		return this.hash.searchUnique(typeClass, hash);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 		if (mediaValue == null)
 			throw new NullPointerException();
 		final Value value = createValueWithHash(mediaValue);
-		final P existingItem = searchUnique(typeClass, value.getHashValue());
+		final P existingItem = forHash(typeClass, value.getHashValue());
 		if (existingItem != null)
 		{
 			final String existingContentType = getContentType(existingItem);

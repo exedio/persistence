@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertData;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
-import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHashedMedia;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHash;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.hashedMedia;
 
@@ -117,9 +117,9 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
-		assertEquals(mediaItem, forHashedMedia(bytes6DigestHex));
+		assertEquals(mediaItem, forHash(bytes6DigestHex));
 		// no item created with this digest, test if result is null but no exception thrown
-		final UniqueHashedMediaItem notExistingMediaItem = forHashedMedia(bytes4DigestHex);
+		final UniqueHashedMediaItem notExistingMediaItem = forHash(bytes4DigestHex);
 		assertNull(notExistingMediaItem);
 	}
 
