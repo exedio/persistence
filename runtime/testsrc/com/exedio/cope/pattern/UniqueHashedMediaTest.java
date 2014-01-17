@@ -23,6 +23,8 @@ import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHash;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.value;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.w200;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.w300;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -61,7 +63,8 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 						value.getMedia().getContentType(),
 						value.getMedia().getLastModified(),
 						value.getHash(),
-						value.getImplicitUniqueConstraint()
+						value.getImplicitUniqueConstraint(),
+						w200, w300,
 				}),
 				TYPE.getFeatures());
 
@@ -90,6 +93,9 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		assertEquals(bytes4DigestHex, mediaItem.getHash());
 		assertEquals(4, mediaItem.getLength());
 		assertWithin(before, after, mediaItem.getLastModified());
+
+		assertEquals("UniqueHashedMediaItem/w200/UniqueHashedMediaItem-0.jpg", mediaItem.getW200Locator().getPath());
+		assertEquals("UniqueHashedMediaItem/w300/UniqueHashedMediaItem-0.jpg", mediaItem.getW300Locator().getPath());
 	}
 
 	@SuppressWarnings("static-method")
