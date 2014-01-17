@@ -84,6 +84,8 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		final Value valueWithHash = UniqueHashedMediaItem.hashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		final Date after = new Date();
+		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getHashedMediaURL());
+		assertEquals("UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getHashedMediaLocator().getPath());
 		assertData(bytes4, mediaItem.getHashedMediaBody());
 		assertEquals("image/jpeg", mediaItem.getHashedMediaContentType());
 		assertEquals(bytes4DigestHex, mediaItem.getHashedMediaHash());

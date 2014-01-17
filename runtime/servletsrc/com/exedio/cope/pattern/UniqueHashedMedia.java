@@ -96,6 +96,18 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 		addSource(hash, "hash", ComputedElement.get());
 	}
 
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
+	public String getURL(final Item item)
+	{
+		return media.getURL(item);
+	}
+
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
+	public MediaPath.Locator getLocator(final Item item)
+	{
+		return media.getLocator(item);
+	}
+
 	/**
 	 * Returns the content type of this media. Returns null, if this media is
 	 * null.
