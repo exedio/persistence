@@ -136,8 +136,8 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		assertEquals(bytes8DigestHex, mediaItem.getHashedMediaHash());
 		final UniqueHashedMediaItem mediaItem2 = getOrCreate(Media.toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
-		final UniqueHashedMediaItem onotherItem = getOrCreate(Media.toValue(bytes4, "image/jpeg"));
-		assertNotEqualsStrict(mediaItem, onotherItem);
+		final UniqueHashedMediaItem anotherItem = getOrCreate(Media.toValue(bytes4, "image/jpeg"));
+		assertNotEqualsStrict(mediaItem, anotherItem);
 		try
 		{
 			getOrCreate(Media.toValue(bytes4, "image/gif"));
