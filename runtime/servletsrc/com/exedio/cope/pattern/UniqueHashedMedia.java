@@ -100,7 +100,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	 * Returns the content type of this media. Returns null, if this media is
 	 * null.
 	 */
-	@Wrap(order = 30, doc = "Returns the last modification date of media {0}.")
+	@Wrap(order = 30, doc = "Returns the content type of the media {0}.")
 	public String getContentType(final Item item)
 	{
 		return media.getContentType(item);
