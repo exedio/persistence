@@ -22,7 +22,7 @@ import static com.exedio.cope.AbstractRuntimeTest.assertData;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHash;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
-import static com.exedio.cope.pattern.UniqueHashedMediaItem.hashedMedia;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.value;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -55,36 +55,36 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 				Arrays.asList(new Feature[]
 				{
 						TYPE.getThis(),
-						hashedMedia,
-						hashedMedia.getMedia(),
-						hashedMedia.getMedia().getBody(),
-						hashedMedia.getMedia().getContentType(),
-						hashedMedia.getMedia().getLastModified(),
-						hashedMedia.getHash(),
-						hashedMedia.getImplicitUniqueConstraint()
+						value,
+						value.getMedia(),
+						value.getMedia().getBody(),
+						value.getMedia().getContentType(),
+						value.getMedia().getLastModified(),
+						value.getHash(),
+						value.getImplicitUniqueConstraint()
 				}),
 				TYPE.getFeatures());
 
-		 assertEquals(32, hashedMedia.getHash().getMinimumLength());
-		 assertEquals(32, hashedMedia.getHash().getMaximumLength());
-		 assertEquals("MD5", hashedMedia.getMessageDigestAlgorithm());
-		 assertTrue(hashedMedia.isUnique());
-		 assertTrue(hashedMedia.isFinal());
-		 assertTrue(hashedMedia.isMandatory());
-		 assertFalse(hashedMedia.isAnnotationPresent(Computed.class));
-		 assertTrue(hashedMedia.getMedia().isAnnotationPresent(Computed.class));
-		 assertTrue(hashedMedia.getHash().isAnnotationPresent(Computed.class));
+		 assertEquals(32, value.getHash().getMinimumLength());
+		 assertEquals(32, value.getHash().getMaximumLength());
+		 assertEquals("MD5", value.getMessageDigestAlgorithm());
+		 assertTrue(value.isUnique());
+		 assertTrue(value.isFinal());
+		 assertTrue(value.isMandatory());
+		 assertFalse(value.isAnnotationPresent(Computed.class));
+		 assertTrue(value.getMedia().isAnnotationPresent(Computed.class));
+		 assertTrue(value.getHash().isAnnotationPresent(Computed.class));
 	}
 
 	@SuppressWarnings("static-method")
 	public void testData() throws IOException
 	{
 		final Date before = new Date();
-		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		final Value valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		final Date after = new Date();
-		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
-		assertEquals("UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getLocator().getPath());
+		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
+		assertEquals("UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getLocator().getPath());
 		assertData(bytes4, mediaItem.getBody());
 		assertEquals("image/jpeg", mediaItem.getContentType());
 		assertEquals(bytes4DigestHex, mediaItem.getHash());
@@ -95,11 +95,11 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testUniqueness() throws IOException
 	{
-		Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		Value valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 	   new UniqueHashedMediaItem(valueWithHash);
 
 		// recreate the value as previous one is exhausted
-		valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 		try
 		{
 		   new UniqueHashedMediaItem(valueWithHash);
@@ -114,7 +114,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testConditions()throws IOException
 	{
-		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
+		final Value valueWithHash = value.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
 		assertEquals(mediaItem, forHash(bytes6DigestHex));
