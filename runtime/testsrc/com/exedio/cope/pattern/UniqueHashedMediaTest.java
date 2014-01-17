@@ -89,13 +89,13 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		final Date after = new Date();
-		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getHashedMediaURL());
-		assertEquals("UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getHashedMediaLocator().getPath());
-		assertData(bytes4, mediaItem.getHashedMediaBody());
-		assertEquals("image/jpeg", mediaItem.getHashedMediaContentType());
-		assertEquals(bytes4DigestHex, mediaItem.getHashedMediaHash());
-		assertEquals(4, mediaItem.getHashedMediaLength());
-		assertWithin(before, after, mediaItem.getHashedMediaLastModified());
+		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
+		assertEquals("UniqueHashedMediaItem/hashedMedia-media/UniqueHashedMediaItem-0.jpg", mediaItem.getLocator().getPath());
+		assertData(bytes4, mediaItem.getBody());
+		assertEquals("image/jpeg", mediaItem.getContentType());
+		assertEquals(bytes4DigestHex, mediaItem.getHash());
+		assertEquals(4, mediaItem.getLength());
+		assertWithin(before, after, mediaItem.getLastModified());
 	}
 
 	@SuppressWarnings("static-method")
@@ -122,7 +122,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	{
 		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
-		assertEquals(bytes6DigestHex, mediaItem.getHashedMediaHash());
+		assertEquals(bytes6DigestHex, mediaItem.getHash());
 		assertEquals(mediaItem, forHashedMedia(bytes6DigestHex));
 		// no item created with this digest, test if result is null but no exception thrown
 		final UniqueHashedMediaItem notExistingMediaItem = forHashedMedia(bytes4DigestHex);
@@ -133,7 +133,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	public void testGetOrCreate()throws IOException
 	{
 		final UniqueHashedMediaItem mediaItem =  getOrCreate(Media.toValue(bytes8, "image/jpeg"));
-		assertEquals(bytes8DigestHex, mediaItem.getHashedMediaHash());
+		assertEquals(bytes8DigestHex, mediaItem.getHash());
 		final UniqueHashedMediaItem mediaItem2 = getOrCreate(Media.toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
 		final UniqueHashedMediaItem anotherItem = getOrCreate(Media.toValue(bytes4, "image/jpeg"));
