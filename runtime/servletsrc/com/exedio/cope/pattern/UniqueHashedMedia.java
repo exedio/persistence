@@ -28,6 +28,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -35,7 +36,6 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,6 +94,17 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 		final StringField hashField = new StringField().lengthExact(digestStringLength).toFinal().unique();
 		hash = hashField;
 		addSource(hash, "hash", ComputedElement.get());
+	}
+
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		final Type<?> type = getType();
+		if(type.isAbstract())
+			throw new IllegalArgumentException(
+					"UniqueHashedMedia " + getID() +
+					" does not allow abstract type " + type.getID());
 	}
 
 	@Wrap(order=10, name = "getURL", doc="Returns a URL the content of {0} is available under.")
@@ -290,7 +301,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	}
 
 	@Deprecated
-	public Type getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
 		return Value.class;
 	}
