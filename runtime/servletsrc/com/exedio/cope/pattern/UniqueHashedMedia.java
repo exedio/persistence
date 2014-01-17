@@ -238,7 +238,6 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	@Override
 	public SetValue<Value> map(final Value value)
 	{
-
 		return SetValue.map(this, value);
 	}
 
