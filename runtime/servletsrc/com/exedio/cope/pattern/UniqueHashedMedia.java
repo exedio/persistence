@@ -244,22 +244,25 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
+		final Media.Value mediaValue;
+		final String hashValue;
 		if(value != null)
 		{
 			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorithmValue()))
 				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorithmValue());
-			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value.getMediaValue(), exceptionItem)));
-			setValues.add(this.hash.map(value.getHashValue()));
-			return setValues.toArray(new SetValue[setValues.size()]);
+			mediaValue = value.getMediaValue();
+			hashValue  = value.getHashValue();
 		}
 		else
 		{
 			if(isMandatory())
 				throw MandatoryViolationException.create(this, exceptionItem);
-			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(null, exceptionItem)));
-			setValues.add(this.hash.map(null));
-			return setValues.toArray(new SetValue[setValues.size()]);
+			mediaValue = null;
+			hashValue  = null;
 		}
+		final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(mediaValue, exceptionItem)));
+		setValues.add(this.hash.map(hashValue));
+		return setValues.toArray(new SetValue[setValues.size()]);
 	}
 
 
