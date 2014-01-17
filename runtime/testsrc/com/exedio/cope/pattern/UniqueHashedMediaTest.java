@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertData;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHashedMedia;
+import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.hashedMedia;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
@@ -121,24 +123,24 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		final Value valueWithHash = hashedMedia.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getHashedMediaHash());
-		assertEquals(mediaItem, UniqueHashedMediaItem.forHashedMedia(bytes6DigestHex));
+		assertEquals(mediaItem, forHashedMedia(bytes6DigestHex));
 		// no item created with this digest, test if result is null but no exception thrown
-		final UniqueHashedMediaItem notExistingMediaItem = UniqueHashedMediaItem.forHashedMedia(bytes4DigestHex);
+		final UniqueHashedMediaItem notExistingMediaItem = forHashedMedia(bytes4DigestHex);
 		assertNull(notExistingMediaItem);
 	}
 
 	@SuppressWarnings("static-method")
 	public void testGetOrCreate()throws IOException
 	{
-		final UniqueHashedMediaItem mediaItem =  UniqueHashedMediaItem.getOrCreate(Media.toValue(bytes8, "image/jpeg"));
+		final UniqueHashedMediaItem mediaItem =  getOrCreate(Media.toValue(bytes8, "image/jpeg"));
 		assertEquals(bytes8DigestHex, mediaItem.getHashedMediaHash());
-		final UniqueHashedMediaItem mediaItem2 = UniqueHashedMediaItem.getOrCreate(Media.toValue(bytes8, "image/jpeg"));
+		final UniqueHashedMediaItem mediaItem2 = getOrCreate(Media.toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
-		final UniqueHashedMediaItem onotherItem = UniqueHashedMediaItem.getOrCreate(Media.toValue(bytes4, "image/jpeg"));
+		final UniqueHashedMediaItem onotherItem = getOrCreate(Media.toValue(bytes4, "image/jpeg"));
 		assertNotEqualsStrict(mediaItem, onotherItem);
 		try
 		{
-			UniqueHashedMediaItem.getOrCreate(Media.toValue(bytes4, "image/gif"));
+			getOrCreate(Media.toValue(bytes4, "image/gif"));
 		   fail("No IllegalArgumentException for content type missmatch.");
 		}
 		catch (final IllegalArgumentException e)
