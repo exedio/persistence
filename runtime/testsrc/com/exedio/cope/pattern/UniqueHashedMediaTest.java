@@ -150,6 +150,15 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 					"content type of already stored value 'image/jpeg' for UniqueHashedMediaItem-1",
 					e.getMessage());
 		}
+		try
+		{
+			getOrCreate(null);
+			fail();
+		}
+		catch (final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	private static final byte[] bytes4 = { -86, 122, -8, 23 };
