@@ -18,29 +18,20 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.DataField;
-import com.exedio.cope.DataLengthViolationException;
-import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
-import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -56,9 +47,11 @@ import java.util.Set;
  * Pattern which wraps a {@link Media} and applies a hash string. This allows
  * uniqueness.
  *
+ * TODO implement a check if source type has no other initial (non-default & mandatory) features beside this pattern and its source features, this can be done when a something like a postMount() method is possible
+ *
  * @author knoefel
  */
-public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>, Copyable
+public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedMedia.Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -66,71 +59,41 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	private final StringField hash;
 	private final String messageDigestAlgorithm;
 
-	private final boolean unique;
-
-	private final CheckConstraint unison;
 
 	/**
 	 * Creates a new HashedMedia on the given media template using default values
 	 * for other properties.
 	 */
-	public HashedMedia(final Media mediaTemplate)
+	public UniqueHashedMedia(final Media mediaTemplate)
 	{
-		this(mediaTemplate, "MD5", false);
+		this(mediaTemplate, "MD5");
 	}
 
 	/**
 	 * Creates a new HashedMedia on the given media template.
 	 *
-	 * Note: the aspects 'mandatory', 'final' are taken from the given media.
+	 * Note: given media template must be final and mandatory
 	 */
-	private HashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm, final boolean unique)
+	private UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
 	{
 		// will never be null as MessageDigestUtil return non-null or throws IllegalArgumentException
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
 		final int digestLength = messageDigest.getDigestLength(); // digest length in bytes
 		if (digestLength == 0)
 			throw new IllegalArgumentException("MessageDigest "+messageDigestAlgorithm+" does no specify digest length, can't create field for hash.");
+
+		if (!mediaTemplate.isFinal())
+			throw new IllegalArgumentException("Media template must be final");
+		if (!mediaTemplate.isMandatory())
+			throw new IllegalArgumentException("Media template must be mandatory");
+
 		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
-		this.unique = unique;
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.copy(new CopyMapper());
 		addSource(this.media, "media", ComputedElement.get());
-		StringField hashField = new StringField().lengthExact(digestStringLength);
-		if(mediaTemplate.isFinal())
-			hashField = hashField.toFinal();
-		if(!mediaTemplate.isMandatory())
-			hashField = hashField.optional();
-		if(unique)
-			hashField = hashField.unique();
+		final StringField hashField = new StringField().lengthExact(digestStringLength).toFinal().unique();
 		hash = hashField;
 		addSource(hash, "hash", ComputedElement.get());
-		if(!media.isMandatory())
-		{
-			final Condition mediaIsNull = media.isNull();
-			final Condition mediaIsNotNull = media.isNotNull();
-			final Condition check = Cope.and(mediaIsNull, hashField.isNull()).or(Cope.and(mediaIsNotNull, hashField.isNotNull()));
-			addSource(this.unison = new CheckConstraint(check), "unison");
-		}
-		else
-		{
-			this.unison = null;
-		}
-	}
-
-	@Wrap(order = 10, doc = "Returns whether media {0} is null.", hide = MandatoryGetter.class)
-	public boolean isNull(final Item item)
-	{
-		return media.isNull(item);
-	}
-
-	private static final class MandatoryGetter implements BooleanGetter<HashedMedia>
-	{
-		@Override
-		public boolean get(final HashedMedia feature)
-		{
-			return feature.isMandatory();
-		}
 	}
 
 	/**
@@ -189,7 +152,7 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	 * @throws NullPointerException
 	 *            if value is null.
 	 */
-	@Wrap(order = 100, name = "for{0}", doc = "Finds a {2} by it''s {0}.", docReturn = "null if there is no matching item.", hide = NonUniqueGetter.class)
+	@Wrap(order = 100, name = "for{0}", doc = "Finds a {2} by it''s {0}.", docReturn = "null if there is no matching item.")
 	public final <P extends Item> P searchUnique(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final String value)
 	{
 		return hash.searchUnique(typeClass, value);
@@ -203,63 +166,30 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	 *            if value is null.
 	 * @throws IOException
 	 *            if reading mediaValue throws an IOException.
+	 * @throws IllegalArgumentException
+	 *            if given mediaValue has a content type which is not equal to the content type of an already stored value
+	 * @throws IllegalContentTypeException
+	 *            if given mediaValue has a content type which is not valid for the implicit Media
 	 */
-	@Wrap(order = 200, name = "getOrCreateFor{0}", doc = "Finds a {2} by it''s {0}.", hide = NonUniqueGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
-	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value mediaValue) throws IOException
+	@Wrap(order = 200, name = "getOrCreate", doc = "Finds a {2} by it''s {0}.", thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
+	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value mediaValue) throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
+		if (mediaValue == null)
+			throw new NullPointerException();
 		final Value value = createValueWithHash(mediaValue);
-		final P existing = searchUnique(typeClass, value.getHashValue());
-		return existing != null ? existing : getType().as(typeClass).newItem(this.map(value));
-	}
-
-	static final class NonUniqueGetter implements BooleanGetter<HashedMedia>
-	{
-		@Override
-		public boolean get(final HashedMedia feature)
+		final P existingItem = searchUnique(typeClass, value.getHashValue());
+		if (existingItem != null)
 		{
-			return feature.getImplicitUniqueConstraint() == null;
+			final String existingContentType = getContentType(existingItem);
+			if (!existingContentType.equals(mediaValue.getContentType()))
+					throw new IllegalArgumentException("Given content type '"+mediaValue.getContentType()+"' does not match content type of already stored value '"+existingContentType+"' for "+existingItem);
+			return existingItem;
 		}
-	}
-
-	/**
-	 * Sets the contents of the media.
-	 *
-	 * @param value
-	 *           give null to make media null.
-	 * @throws MandatoryViolationException
-	 *            if body is null and media is {@link Media#isMandatory()
-	 *            mandatory}.
-	 * @throws DataLengthViolationException
-	 *            if body is longer than {@link Media#getMaximumLength()}
-	 * @throws IOException
-	 *            if reading value throws an IOException.
-	 */
-	@Wrap(order = 110, doc = "Sets the content of media {0}.", hide = FinalSettableGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if accessing <tt>body</tt> throws an IOException."))
-	public void set(final Item item, final Media.Value value) throws DataLengthViolationException, IOException
-	{
-		set(item, createValueWithHash(value));
-	}
-
-	/**
-	 * Sets the contents of the media.
-	 *
-	 * @param value
-	 *           give null to make media null.
-	 * @throws MandatoryViolationException
-	 *            if body is null and media is {@link Media#isMandatory()
-	 *            mandatory}.
-	 * @throws DataLengthViolationException
-	 *            if body is longer than {@link Media#getMaximumLength()}
-	 * @throws IOException
-	 *            if reading value throws an IOException.
-	 */
-	@Wrap(order = 120, doc = "Sets the content of media {0}.", hide = FinalSettableGetter.class, thrown = @Wrap.Thrown(value = IOException.class, doc = "if accessing <tt>body</tt> throws an IOException."))
-	public void set(final Item item, final HashedMedia.Value value) throws DataLengthViolationException, IOException
-	{
-		if(value == null && media.isMandatory())
-			throw MandatoryViolationException.create(this, item);
-
-		item.set(execute(value, item));
+		else
+		{
+			// throws an IllegalContentTypeException
+			return getType().as(typeClass).newItem(this.map(value));
+		}
 	}
 
 	/**
@@ -287,71 +217,16 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 		return media;
 	}
 
-	public DataField getBody()
-	{
-		return media.getBody();
-	}
-
-	public FunctionField<?> getContentType()
-	{
-		return media.getContentType();
-	}
-
-	public DateField getLastModified()
-	{
-		return media.getLastModified();
-	}
-
-	public CheckConstraint getUnison()
-	{
-		return unison;
-	}
-
-	public Condition isNull()
-	{
-		return media.isNull();
-	}
-
-	public Condition isNull(final Join join)
-	{
-		return media.isNull(join);
-	}
-
-	public Condition isNotNull()
-	{
-		return media.isNotNull();
-	}
-
-	public Condition isNotNull(final Join join)
-	{
-		return media.isNotNull(join);
-	}
-
 	@Override
 	public Feature copy(final CopyMapper mapper)
 	{
-		return new HashedMedia(media.copy(mapper), messageDigestAlgorithm, unique);
-	}
-
-	/**
-	 * Creates a new HashedMedia that is unique.
-	 */
-	public HashedMedia unique()
-	{
-		return new HashedMedia(media, messageDigestAlgorithm, true);
-	}
-
-	/**
-	 * Creates a new HashedMedia with the given message digest algorithm
-	 */
-	public HashedMedia algorithm(final String messageDigestAlgorithm)
-	{
-		return new HashedMedia(media, messageDigestAlgorithm, unique);
+		return new UniqueHashedMedia(media.copy(mapper), messageDigestAlgorithm);
 	}
 
 	@Override
 	public SetValue<Value> map(final Value value)
 	{
+
 		return SetValue.map(this, value);
 	}
 
@@ -360,8 +235,9 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	{
 		if(value != null)
 		{
+			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorith()))
+				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorith());
 			final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(value.getMediaValue(), exceptionItem)));
-
 			setValues.add(this.hash.map(value.getHashValue()));
 			return setValues.toArray(new SetValue[setValues.size()]);
 		}
@@ -396,13 +272,13 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 
 	public boolean isUnique()
 	{
-		return unique;
+		return true;
 	}
 
 	@Deprecated
 	public Type getInitialType()
 	{
-		return Media.Value.class;
+		return Value.class;
 	}
 
 	@Override
@@ -412,9 +288,20 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	}
 
 	/**
-	 * Creates an internal value object for the given media value.
+	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	public Value createValueWithHash(Media.Value mediaValue) throws IOException
+	public Value createValueWithHash(final Media.Value mediaValue) throws IOException
+	{
+		return createValueWithHash(mediaValue, getMessageDigestAlgorithm());
+	}
+
+	/**
+	 * Creates an Value object for the given media value using the given messageDigestAlgorithm.
+	 *
+	 * @throws IOException if the given media value couldn't be read.
+	 * @throws IllegalArgumentException if the given messageDigestAlgorithm is no valid message digest algorithm.
+	 */
+	public static Value createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm) throws IOException, IllegalArgumentException
 	{
 		if (mediaValue == null)
 			return null;
@@ -432,9 +319,10 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 
 			final String hashAsHex = Hex.encodeUpper(hash);
 
-			return new Value(mediaValue, hashAsHex);
+			return new Value(mediaValue, messageDigestAlgorithm, hashAsHex);
 		}
 	}
+
 
 	/**
 	 * Container for media value + hash
@@ -442,22 +330,30 @@ public class HashedMedia extends Pattern implements Settable<HashedMedia.Value>,
 	public static final class Value
 	{
 		private final Media.Value mediaValue;
+		private final String messageDigestAlgorith;
 		private final String hashValue;
 
-		Value(final com.exedio.cope.pattern.Media.Value mediaValue, final String hashValue)
+		Value(final com.exedio.cope.pattern.Media.Value mediaValue, final String messageDigestAlgorith, final String hashValue)
 		{
 			super();
 			this.mediaValue = mediaValue;
 			this.hashValue = hashValue;
+			this.messageDigestAlgorith = messageDigestAlgorith;
 		}
 
 		public Media.Value getMediaValue()
 		{
 			return mediaValue;
 		}
+
 		public String getHashValue()
 		{
 			return hashValue;
+		}
+
+		public String getMessageDigestAlgorith()
+		{
+			return messageDigestAlgorith;
 		}
 	}
 }
