@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 
 public final class UniqueHashedMediaItem extends Item
 {
-	/** @cope.getURL none */
 	static final UniqueHashedMedia hashedMedia = new UniqueHashedMedia(new Media().toFinal());
 
 	/**
