@@ -346,13 +346,13 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 
 		Value(
 				final com.exedio.cope.pattern.Media.Value mediaValue,
-				final String messageDigestAlgorith,
+				final String messageDigestAlgorithmValue,
 				final String hashValue)
 		{
 			super();
 			this.mediaValue = mediaValue;
 			this.hashValue = hashValue;
-			this.messageDigestAlgorithmValue = messageDigestAlgorith;
+			this.messageDigestAlgorithmValue = messageDigestAlgorithmValue;
 		}
 
 		public Media.Value getMediaValue()
