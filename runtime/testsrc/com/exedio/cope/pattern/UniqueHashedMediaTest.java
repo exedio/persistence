@@ -48,12 +48,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-	}
-
 	@SuppressWarnings("static-method")
 	public void testModel()
 	{
