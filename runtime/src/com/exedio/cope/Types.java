@@ -423,6 +423,13 @@ final class Types
 		}
 	}
 
+	void afterModelCreated()
+	{
+		for(final Type<?> type : typesSorted)
+			for(final Feature feature : type.getDeclaredFeatures())
+				feature.afterModelCreated();
+	}
+
 	void connect(final Database db)
 	{
 		for(final Type<?> type : typesSorted)

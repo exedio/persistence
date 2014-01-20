@@ -90,9 +90,7 @@ public final class Model implements Serializable
 		this.changeListeners = new ChangeListeners();
 		this.modificationListeners = new ModificationListeners(this.types);
 
-		for(final Type<?> type : getTypesSortedByHierarchy())
-			for(final Feature feature : type.getDeclaredFeatures())
-				feature.afterModelCreated();
+		this.types.afterModelCreated();
 	}
 
 	public boolean contains(final TypeSet typeSet)
