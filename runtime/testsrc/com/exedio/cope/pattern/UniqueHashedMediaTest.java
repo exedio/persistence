@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertData;
+import static com.exedio.cope.pattern.Media.toValue;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHash;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
@@ -83,7 +84,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	public void testData()
 	{
 		final Date before = new Date();
-		final Value valueWithHash = Media.toValue(bytes4, "image/jpeg");
+		final Value valueWithHash = toValue(bytes4, "image/jpeg");
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		final Date after = new Date();
 		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
@@ -101,12 +102,12 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testUniqueness()
 	{
-		new UniqueHashedMediaItem(Media.toValue(bytes4, "image/jpeg"));
+		new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 
 		// recreate the value as previous one is exhausted
 		try
 		{
-		   new UniqueHashedMediaItem(Media.toValue(bytes4, "image/jpeg"));
+		   new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 		   fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
 		}
 		catch (final UniqueViolationException e)
@@ -118,7 +119,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testConditions()
 	{
-		final Value valueWithHash = Media.toValue(bytes6, "image/jpeg");
+		final Value valueWithHash = toValue(bytes6, "image/jpeg");
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
 		assertEquals(mediaItem, forHash(bytes6DigestHex));
@@ -130,15 +131,15 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testGetOrCreate()throws IOException
 	{
-		final UniqueHashedMediaItem mediaItem =  getOrCreate(Media.toValue(bytes8, "image/jpeg"));
+		final UniqueHashedMediaItem mediaItem =  getOrCreate(toValue(bytes8, "image/jpeg"));
 		assertEquals(bytes8DigestHex, mediaItem.getHash());
-		final UniqueHashedMediaItem mediaItem2 = getOrCreate(Media.toValue(bytes8, "image/jpeg"));
+		final UniqueHashedMediaItem mediaItem2 = getOrCreate(toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
-		final UniqueHashedMediaItem anotherItem = getOrCreate(Media.toValue(bytes4, "image/jpeg"));
+		final UniqueHashedMediaItem anotherItem = getOrCreate(toValue(bytes4, "image/jpeg"));
 		assertNotEqualsStrict(mediaItem, anotherItem);
 		try
 		{
-			getOrCreate(Media.toValue(bytes4, "image/gif"));
+			getOrCreate(toValue(bytes4, "image/gif"));
 		   fail("No IllegalArgumentException for content type missmatch.");
 		}
 		catch (final IllegalArgumentException e)
