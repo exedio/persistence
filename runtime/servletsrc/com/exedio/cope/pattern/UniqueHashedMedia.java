@@ -36,6 +36,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.pattern.Media.Value;
+import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -95,7 +96,10 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.copy(new CopyMapper());
 		addSource(this.media, "media", ComputedElement.get());
-		final StringField hashField = new StringField().toFinal().unique().lengthExact(digestStringLength);
+		final StringField hashField = new StringField().
+				toFinal().unique().
+				lengthExact(digestStringLength).
+				charSet(CharSet.HEX_UPPER);
 		hash = hashField;
 		addSource(hash, "hash", ComputedElement.get());
 	}
