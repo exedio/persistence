@@ -22,6 +22,8 @@ import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Field;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
@@ -40,6 +42,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -105,6 +108,41 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 			throw new IllegalArgumentException(
 					"UniqueHashedMedia " + getID() +
 					" does not allow abstract type " + type.getID());
+	}
+
+	@Override
+	public void afterModelCreated()
+	{
+		super.afterModelCreated();
+
+		final HashSet<Field<?>> ownFields = new HashSet<Field<?>>();
+		collectFields(ownFields, this, 20);
+		//System.out.println(ownFields);
+
+		for(final Field<?> field : getType().getFields())
+		{
+			if(field.isMandatory() &&
+				(!(field instanceof FunctionField<?>) || !((FunctionField<?>)field).hasDefault()) &&
+				!ownFields.contains(field))
+				throw new IllegalArgumentException(
+						UniqueHashedMedia.class.getSimpleName() + ' ' + getID() +
+						" cannot create instances of type " + getType() +
+						", because " + field + " is mandatory and has no default.");
+		}
+	}
+
+	private static void collectFields(final HashSet<Field<?>> result, final Pattern pattern, final int recursionBreaker)
+	{
+		if(recursionBreaker<0)
+			throw new AssertionError();
+
+		for(final Feature feature : pattern.getSourceFeatures())
+		{
+			if(feature instanceof Field<?>)
+				result.add((Field<?>)feature);
+			else if(feature instanceof Pattern)
+				collectFields(result, (Pattern)feature, recursionBreaker-1);
+		}
 	}
 
 	@Wrap(order=10, name = "getURL", doc="Returns a URL the content of {0} is available under.")

@@ -346,6 +346,18 @@ public abstract class Feature implements Serializable
 		return pattern;
 	}
 
+
+	/**
+	 * This method is called before the terminatation of any constructor of class
+	 * {@link Model}.
+	 * It allows any initialization of the feature, that cannot be done earlier.
+	 * The default implementation is empty.
+	 */
+	protected void afterModelCreated()
+	{
+		// empty default implementation
+	}
+
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;
