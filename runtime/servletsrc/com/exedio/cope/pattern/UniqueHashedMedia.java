@@ -360,31 +360,26 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 */
 	private ValueWithHash createValueWithHash(Media.Value mediaValue)
 	{
-		if (mediaValue == null)
-			return null;
-		else
+		DataField.Value dataValue = mediaValue.getBody();
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
+		// calculate the hash
+
+		try
 		{
-			DataField.Value dataValue = mediaValue.getBody();
-			final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
-			// calculate the hash
-
-			try
-			{
-				dataValue = dataValue.update(messageDigest);
-			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-			//  original DataField.Value is exhausted so we have to create a new Media.Value
-			mediaValue = Media.toValue(dataValue, mediaValue.getContentType());
-
-			final byte[] hash = messageDigest.digest();
-
-			final String hashAsHex = Hex.encodeUpper(hash);
-
-			return new ValueWithHash(mediaValue, messageDigestAlgorithm, hashAsHex);
+			dataValue = dataValue.update(messageDigest);
 		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		//  original DataField.Value is exhausted so we have to create a new Media.Value
+		mediaValue = Media.toValue(dataValue, mediaValue.getContentType());
+
+		final byte[] hash = messageDigest.digest();
+
+		final String hashAsHex = Hex.encodeUpper(hash);
+
+		return new ValueWithHash(mediaValue, messageDigestAlgorithm, hashAsHex);
 	}
 
 
