@@ -101,14 +101,12 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testUniqueness()
 	{
-		Value valueWithHash = Media.toValue(bytes4, "image/jpeg");
-	   new UniqueHashedMediaItem(valueWithHash);
+		new UniqueHashedMediaItem(Media.toValue(bytes4, "image/jpeg"));
 
 		// recreate the value as previous one is exhausted
-		valueWithHash = Media.toValue(bytes4, "image/jpeg");
 		try
 		{
-		   new UniqueHashedMediaItem(valueWithHash);
+		   new UniqueHashedMediaItem(Media.toValue(bytes4, "image/jpeg"));
 		   fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
 		}
 		catch (final UniqueViolationException e)
