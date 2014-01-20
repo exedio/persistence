@@ -302,8 +302,6 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		if(value!=null)
 		{
 			final ValueWithHash valueWithHash = createValueWithHash(value);
-			if(!this.messageDigestAlgorithm.equals(valueWithHash.getMessageDigestAlgorithmValue()))
-				throw new IllegalAlgorithmException(this, exceptionItem, valueWithHash.getMessageDigestAlgorithmValue());
 			mediaValue = valueWithHash.getMediaValue();
 			hashValue  = valueWithHash.getHashValue();
 		}
@@ -379,7 +377,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 
 		final String hashAsHex = Hex.encodeUpper(hash);
 
-		return new ValueWithHash(mediaValue, messageDigestAlgorithm, hashAsHex);
+		return new ValueWithHash(mediaValue, hashAsHex);
 	}
 
 
@@ -389,18 +387,15 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	private static final class ValueWithHash
 	{
 		private final Media.Value mediaValue;
-		private final String messageDigestAlgorithmValue;
 		private final String hashValue;
 
 		ValueWithHash(
 				final Media.Value mediaValue,
-				final String messageDigestAlgorithmValue,
 				final String hashValue)
 		{
 			super();
 			this.mediaValue = mediaValue;
 			this.hashValue = hashValue;
-			this.messageDigestAlgorithmValue = messageDigestAlgorithmValue;
 		}
 
 		Media.Value getMediaValue()
@@ -411,11 +406,6 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		String getHashValue()
 		{
 			return hashValue;
-		}
-
-		String getMessageDigestAlgorithmValue()
-		{
-			return messageDigestAlgorithmValue;
 		}
 	}
 }
