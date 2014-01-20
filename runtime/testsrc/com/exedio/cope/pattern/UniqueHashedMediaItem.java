@@ -37,7 +37,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	UniqueHashedMediaItem(
-				final com.exedio.cope.pattern.UniqueHashedMedia.Value value)
+				final com.exedio.cope.pattern.Media.Value value)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

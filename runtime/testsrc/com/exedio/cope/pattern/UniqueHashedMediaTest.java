@@ -31,7 +31,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.pattern.UniqueHashedMedia.Value;
+import com.exedio.cope.pattern.Media.Value;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
@@ -80,10 +80,10 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testData() throws IOException
+	public void testData()
 	{
 		final Date before = new Date();
-		final Value valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		final Value valueWithHash = Media.toValue(bytes4, "image/jpeg");
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		final Date after = new Date();
 		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
@@ -99,13 +99,13 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testUniqueness() throws IOException
+	public void testUniqueness()
 	{
-		Value valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		Value valueWithHash = Media.toValue(bytes4, "image/jpeg");
 	   new UniqueHashedMediaItem(valueWithHash);
 
 		// recreate the value as previous one is exhausted
-		valueWithHash = value.createValueWithHash(Media.toValue(bytes4, "image/jpeg"));
+		valueWithHash = Media.toValue(bytes4, "image/jpeg");
 		try
 		{
 		   new UniqueHashedMediaItem(valueWithHash);
@@ -118,9 +118,9 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testConditions()throws IOException
+	public void testConditions()
 	{
-		final Value valueWithHash = value.createValueWithHash(Media.toValue(bytes6, "image/jpeg"));
+		final Value valueWithHash = Media.toValue(bytes6, "image/jpeg");
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
 		assertEquals(mediaItem, forHash(bytes6DigestHex));

@@ -35,6 +35,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.pattern.Media.Value;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -54,7 +55,7 @@ import java.util.Set;
  *
  * @author knoefel
  */
-public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedMedia.Value>, Copyable
+public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -238,7 +239,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	{
 		if (mediaValue == null)
 			throw new NullPointerException();
-		final Value value = createValueWithHash(mediaValue);
+		final ValueX value = createValueWithHash(mediaValue);
 		final P existingItem = forHash(typeClass, value.getHashValue());
 		if (existingItem != null)
 		{
@@ -250,7 +251,9 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 		else
 		{
 			// throws an IllegalContentTypeException
-			return getType().as(typeClass).newItem(this.map(value));
+			return getType().as(typeClass).newItem(
+					this.media.map(value.getMediaValue()),
+					this.hash .map(value.getHashValue()));
 		}
 	}
 
@@ -292,12 +295,13 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	}
 
 	@Override
-	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Value valueXXXX, final Item exceptionItem)
 	{
 		final Media.Value mediaValue;
 		final String hashValue;
-		if(value != null)
+		if(valueXXXX!=null)
 		{
+			final ValueX value = createValueWithHash(valueXXXX);
 			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorithmValue()))
 				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorithmValue());
 			mediaValue = value.getMediaValue();
@@ -354,7 +358,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	/**
 	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	public Value createValueWithHash(final Media.Value mediaValue) throws IOException
+	private ValueX createValueWithHash(final Media.Value mediaValue)
 	{
 		return createValueWithHash(mediaValue, getMessageDigestAlgorithm());
 	}
@@ -365,7 +369,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	 * @throws IOException if the given media value couldn't be read.
 	 * @throws IllegalArgumentException if the given messageDigestAlgorithm is no valid message digest algorithm.
 	 */
-	public static Value createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm) throws IOException, IllegalArgumentException
+	private static ValueX createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm)
 	{
 		if (mediaValue == null)
 			return null;
@@ -375,7 +379,14 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 			final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
 			// calculate the hash
 
-			dataValue = dataValue.update(messageDigest);
+			try
+			{
+				dataValue = dataValue.update(messageDigest);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 			//  original DataField.Value is exhausted so we have to create a new Media.Value
 			mediaValue = Media.toValue(dataValue, mediaValue.getContentType());
 
@@ -383,7 +394,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 
 			final String hashAsHex = Hex.encodeUpper(hash);
 
-			return new Value(mediaValue, messageDigestAlgorithm, hashAsHex);
+			return new ValueX(mediaValue, messageDigestAlgorithm, hashAsHex);
 		}
 	}
 
@@ -391,13 +402,13 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 	/**
 	 * Container for media value + hash
 	 */
-	public static final class Value
+	private static final class ValueX
 	{
 		private final Media.Value mediaValue;
 		private final String messageDigestAlgorithmValue;
 		private final String hashValue;
 
-		Value(
+		ValueX(
 				final Media.Value mediaValue,
 				final String messageDigestAlgorithmValue,
 				final String hashValue)
@@ -408,17 +419,17 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 			this.messageDigestAlgorithmValue = messageDigestAlgorithmValue;
 		}
 
-		public Media.Value getMediaValue()
+		Media.Value getMediaValue()
 		{
 			return mediaValue;
 		}
 
-		public String getHashValue()
+		String getHashValue()
 		{
 			return hashValue;
 		}
 
-		public String getMessageDigestAlgorithmValue()
+		String getMessageDigestAlgorithmValue()
 		{
 			return messageDigestAlgorithmValue;
 		}
