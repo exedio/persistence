@@ -240,7 +240,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		if(value==null)
 			throw new NullPointerException();
 		final ValueWithHash valueWithHash = createValueWithHash(value);
-		final P existingItem = forHash(typeClass, valueWithHash.getHashValue());
+		final P existingItem = forHash(typeClass, valueWithHash.hashValue);
 		if (existingItem != null)
 		{
 			final String existingContentType = getContentType(existingItem);
@@ -252,8 +252,8 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		{
 			// throws an IllegalContentTypeException
 			return getType().as(typeClass).newItem(
-					this.media.map(valueWithHash.getMediaValue()),
-					this.hash .map(valueWithHash.getHashValue()));
+					this.media.map(valueWithHash.mediaValue),
+					this.hash .map(valueWithHash.hashValue));
 		}
 	}
 
@@ -302,8 +302,8 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		if(value!=null)
 		{
 			final ValueWithHash valueWithHash = createValueWithHash(value);
-			mediaValue = valueWithHash.getMediaValue();
-			hashValue  = valueWithHash.getHashValue();
+			mediaValue = valueWithHash.mediaValue;
+			hashValue  = valueWithHash.hashValue;
 		}
 		else
 		{
@@ -386,26 +386,15 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 */
 	private static final class ValueWithHash
 	{
-		private final Media.Value mediaValue;
-		private final String hashValue;
+		final Media.Value mediaValue;
+		final String hashValue;
 
 		ValueWithHash(
 				final Media.Value mediaValue,
 				final String hashValue)
 		{
-			super();
 			this.mediaValue = mediaValue;
 			this.hashValue = hashValue;
-		}
-
-		Media.Value getMediaValue()
-		{
-			return mediaValue;
-		}
-
-		String getHashValue()
-		{
-			return hashValue;
 		}
 	}
 }
