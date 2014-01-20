@@ -58,7 +58,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testAbstract()
+	public void testNonCreateableAbstract()
 	{
 		try
 		{
