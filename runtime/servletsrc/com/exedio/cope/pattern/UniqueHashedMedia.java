@@ -219,7 +219,11 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 * @throws NullPointerException
 	 *            if value is null.
 	 */
-	@Wrap(order = 100, name = "forHash", doc = "Finds a {2} by it''s hash.", docReturn = "null if there is no matching item.")
+	@Wrap(
+			order = 100,
+			name = "forHash",
+			doc = "Finds a {2} by it''s hash.",
+			docReturn = "null if there is no matching item.")
 	public <P extends Item> P forHash(final Class<P> typeClass, @Parameter("hash") final String hash)
 	{
 		return this.hash.searchUnique(typeClass, hash);
@@ -238,7 +242,12 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 * @throws IllegalContentTypeException
 	 *            if given mediaValue has a content type which is not valid for the implicit Media
 	 */
-	@Wrap(order = 200, name = "getOrCreate", doc = "Finds a {2} by it''s {0}.", thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
+	@Wrap(
+			order = 200,
+			name = "getOrCreate",
+			doc = "Finds a {2} by it''s {0}.",
+			thrown = @Wrap.Thrown(value = IOException.class,
+			doc = "if reading <tt>mediaValue</tt> throws an IOException."))
 	public <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Value value) throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
 		if(value==null)
