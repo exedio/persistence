@@ -301,7 +301,15 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		final String hashValue;
 		if(value!=null)
 		{
-			final ValueWithHash valueWithHash = createValueWithHash(value);
+			final ValueWithHash valueWithHash;
+			try
+			{
+				valueWithHash = createValueWithHash(value);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
 			mediaValue = valueWithHash.mediaValue;
 			hashValue  = valueWithHash.hashValue;
 		}
@@ -356,20 +364,13 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	/**
 	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	private ValueWithHash createValueWithHash(Media.Value mediaValue)
+	private ValueWithHash createValueWithHash(Media.Value mediaValue) throws IOException
 	{
 		DataField.Value dataValue = mediaValue.getBody();
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
 		// calculate the hash
 
-		try
-		{
-			dataValue = dataValue.update(messageDigest);
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
+		dataValue = dataValue.update(messageDigest);
 		//  original DataField.Value is exhausted so we have to create a new Media.Value
 		mediaValue = Media.toValue(dataValue, mediaValue.getContentType());
 
