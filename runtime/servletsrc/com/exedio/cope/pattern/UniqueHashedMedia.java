@@ -348,11 +348,6 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		return media.isInitial();
 	}
 
-	public boolean isUnique()
-	{
-		return true;
-	}
-
 	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{

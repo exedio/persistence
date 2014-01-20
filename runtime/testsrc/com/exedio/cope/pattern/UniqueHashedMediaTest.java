@@ -71,7 +71,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		 assertEquals(32, value.getHash().getMinimumLength());
 		 assertEquals(32, value.getHash().getMaximumLength());
 		 assertEquals("MD5", value.getMessageDigestAlgorithm());
-		 assertTrue(value.isUnique());
 		 assertTrue(value.isFinal());
 		 assertTrue(value.isMandatory());
 		 assertFalse(value.isAnnotationPresent(Computed.class));
