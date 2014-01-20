@@ -32,7 +32,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.pattern.Media.Value;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
@@ -84,8 +83,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	public void testData()
 	{
 		final Date before = new Date();
-		final Value valueWithHash = toValue(bytes4, "image/jpeg");
-		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
+		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 		final Date after = new Date();
 		assertEquals(model.getConnectProperties().getMediaRootUrl() + "UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getURL());
 		assertEquals("UniqueHashedMediaItem/value-media/UniqueHashedMediaItem-0.jpg", mediaItem.getLocator().getPath());
@@ -119,8 +117,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testConditions()
 	{
-		final Value valueWithHash = toValue(bytes6, "image/jpeg");
-		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(valueWithHash);
+		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
 		assertEquals(mediaItem, forHash(bytes6DigestHex));
 		// no item created with this digest, test if result is null but no exception thrown
