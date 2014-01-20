@@ -358,18 +358,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	/**
 	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	private ValueWithHash createValueWithHash(final Media.Value mediaValue)
-	{
-		return createValueWithHash(mediaValue, getMessageDigestAlgorithm());
-	}
-
-	/**
-	 * Creates an Value object for the given media value using the given messageDigestAlgorithm.
-	 *
-	 * @throws IOException if the given media value couldn't be read.
-	 * @throws IllegalArgumentException if the given messageDigestAlgorithm is no valid message digest algorithm.
-	 */
-	private static ValueWithHash createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm)
+	private ValueWithHash createValueWithHash(Media.Value mediaValue)
 	{
 		if (mediaValue == null)
 			return null;
