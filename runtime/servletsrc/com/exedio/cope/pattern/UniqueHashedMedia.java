@@ -239,7 +239,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 *            if given mediaValue has a content type which is not valid for the implicit Media
 	 */
 	@Wrap(order = 200, name = "getOrCreate", doc = "Finds a {2} by it''s {0}.", thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
-	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value value) throws IOException, IllegalArgumentException, IllegalContentTypeException
+	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Value value) throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
 		if(value==null)
 			throw new NullPointerException();
@@ -301,7 +301,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
-		final Media.Value mediaValue;
+		final Value mediaValue;
 		final String hashValue;
 		if(value!=null)
 		{
@@ -363,7 +363,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	/**
 	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	private ValueWithHash createValueWithHash(Media.Value mediaValue) throws IOException
+	private ValueWithHash createValueWithHash(Value mediaValue) throws IOException
 	{
 		DataField.Value dataValue = mediaValue.getBody();
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
@@ -386,11 +386,11 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 */
 	private static final class ValueWithHash
 	{
-		final Media.Value mediaValue;
+		final Value mediaValue;
 		final String hashValue;
 
 		ValueWithHash(
-				final Media.Value mediaValue,
+				final Value mediaValue,
 				final String hashValue)
 		{
 			this.mediaValue = mediaValue;
