@@ -245,9 +245,9 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Wrap(
 			order = 200,
 			name = "getOrCreate",
-			doc = "Finds a {2} by it''s {0}.",
+			doc = "Returns a {2} containing given media value or creates a new one.",
 			thrown = @Wrap.Thrown(value = IOException.class,
-			doc = "if reading <tt>mediaValue</tt> throws an IOException."))
+			doc = "if reading <tt>value</tt> throws an IOException."))
 	public <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Value value) throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
 		if(value==null)
