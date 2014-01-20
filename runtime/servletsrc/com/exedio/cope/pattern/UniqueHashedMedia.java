@@ -235,25 +235,25 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 *            if given mediaValue has a content type which is not valid for the implicit Media
 	 */
 	@Wrap(order = 200, name = "getOrCreate", doc = "Finds a {2} by it''s {0}.", thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>mediaValue</tt> throws an IOException."))
-	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value mediaValue) throws IOException, IllegalArgumentException, IllegalContentTypeException
+	public final <P extends Item> P getOrCreate(final Class<P> typeClass, @Parameter(doc = "shall be equal to field {0}.") final Media.Value value) throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
-		if (mediaValue == null)
+		if(value==null)
 			throw new NullPointerException();
-		final ValueX value = createValueWithHash(mediaValue);
-		final P existingItem = forHash(typeClass, value.getHashValue());
+		final ValueWithHash valueWithHash = createValueWithHash(value);
+		final P existingItem = forHash(typeClass, valueWithHash.getHashValue());
 		if (existingItem != null)
 		{
 			final String existingContentType = getContentType(existingItem);
-			if (!existingContentType.equals(mediaValue.getContentType()))
-					throw new IllegalArgumentException("Given content type '"+mediaValue.getContentType()+"' does not match content type of already stored value '"+existingContentType+"' for "+existingItem);
+			if (!existingContentType.equals(value.getContentType()))
+					throw new IllegalArgumentException("Given content type '"+value.getContentType()+"' does not match content type of already stored value '"+existingContentType+"' for "+existingItem);
 			return existingItem;
 		}
 		else
 		{
 			// throws an IllegalContentTypeException
 			return getType().as(typeClass).newItem(
-					this.media.map(value.getMediaValue()),
-					this.hash .map(value.getHashValue()));
+					this.media.map(valueWithHash.getMediaValue()),
+					this.hash .map(valueWithHash.getHashValue()));
 		}
 	}
 
@@ -295,17 +295,17 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	}
 
 	@Override
-	public SetValue<?>[] execute(final Value valueXXXX, final Item exceptionItem)
+	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		final Media.Value mediaValue;
 		final String hashValue;
-		if(valueXXXX!=null)
+		if(value!=null)
 		{
-			final ValueX value = createValueWithHash(valueXXXX);
-			if(!this.messageDigestAlgorithm.equals(value.getMessageDigestAlgorithmValue()))
-				throw new IllegalAlgorithmException(this, exceptionItem, value.getMessageDigestAlgorithmValue());
-			mediaValue = value.getMediaValue();
-			hashValue  = value.getHashValue();
+			final ValueWithHash valueWithHash = createValueWithHash(value);
+			if(!this.messageDigestAlgorithm.equals(valueWithHash.getMessageDigestAlgorithmValue()))
+				throw new IllegalAlgorithmException(this, exceptionItem, valueWithHash.getMessageDigestAlgorithmValue());
+			mediaValue = valueWithHash.getMediaValue();
+			hashValue  = valueWithHash.getHashValue();
 		}
 		else
 		{
@@ -358,7 +358,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	/**
 	 * Creates an Value object for the given media value which can be used as value for this HashedMedia.
 	 */
-	private ValueX createValueWithHash(final Media.Value mediaValue)
+	private ValueWithHash createValueWithHash(final Media.Value mediaValue)
 	{
 		return createValueWithHash(mediaValue, getMessageDigestAlgorithm());
 	}
@@ -369,7 +369,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	 * @throws IOException if the given media value couldn't be read.
 	 * @throws IllegalArgumentException if the given messageDigestAlgorithm is no valid message digest algorithm.
 	 */
-	private static ValueX createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm)
+	private static ValueWithHash createValueWithHash(Media.Value mediaValue, final String messageDigestAlgorithm)
 	{
 		if (mediaValue == null)
 			return null;
@@ -394,7 +394,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 
 			final String hashAsHex = Hex.encodeUpper(hash);
 
-			return new ValueX(mediaValue, messageDigestAlgorithm, hashAsHex);
+			return new ValueWithHash(mediaValue, messageDigestAlgorithm, hashAsHex);
 		}
 	}
 
@@ -402,13 +402,13 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 	/**
 	 * Container for media value + hash
 	 */
-	private static final class ValueX
+	private static final class ValueWithHash
 	{
 		private final Media.Value mediaValue;
 		private final String messageDigestAlgorithmValue;
 		private final String hashValue;
 
-		ValueX(
+		ValueWithHash(
 				final Media.Value mediaValue,
 				final String messageDigestAlgorithmValue,
 				final String hashValue)
