@@ -95,7 +95,7 @@ public class UniqueHashedMedia extends Pattern implements Settable<Value>, Copya
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.copy(new CopyMapper());
 		addSource(this.media, "media", ComputedElement.get());
-		final StringField hashField = new StringField().lengthExact(digestStringLength).toFinal().unique();
+		final StringField hashField = new StringField().toFinal().unique().lengthExact(digestStringLength);
 		hash = hashField;
 		addSource(hash, "hash", ComputedElement.get());
 	}
