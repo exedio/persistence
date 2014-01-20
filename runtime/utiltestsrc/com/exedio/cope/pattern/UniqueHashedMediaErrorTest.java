@@ -68,7 +68,8 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"UniqueHashedMedia AbstractItem.value does not allow abstract type AbstractItem",
+					"UniqueHashedMedia AbstractItem.value cannot create instances of type AbstractItem, " +
+					"because it is abstract.",
 					e.getMessage());
 		}
 	}

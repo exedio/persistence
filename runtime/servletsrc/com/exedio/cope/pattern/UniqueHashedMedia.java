@@ -106,8 +106,9 @@ public class UniqueHashedMedia extends Pattern implements Settable<UniqueHashedM
 		final Type<?> type = getType();
 		if(type.isAbstract())
 			throw new IllegalArgumentException(
-					"UniqueHashedMedia " + getID() +
-					" does not allow abstract type " + type.getID());
+					UniqueHashedMedia.class.getSimpleName() + ' ' + getID() +
+					" cannot create instances of type " + getType() +
+					", because it is abstract.");
 	}
 
 	@Override
