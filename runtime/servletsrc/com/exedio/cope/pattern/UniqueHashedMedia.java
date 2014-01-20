@@ -249,7 +249,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		{
 			final String existingContentType = getContentType(existingItem);
 			if (!existingContentType.equals(value.getContentType()))
-					throw new IllegalArgumentException("Given content type '"+value.getContentType()+"' does not match content type of already stored value '"+existingContentType+"' for "+existingItem);
+				throw new IllegalArgumentException("Given content type '"+value.getContentType()+"' does not match content type of already stored value '"+existingContentType+"' for "+existingItem);
 			return existingItem;
 		}
 		else
