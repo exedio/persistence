@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.security.MessageDigest;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -100,6 +101,17 @@ public final class DataField extends Field<DataField.Value>
 		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit, maximumLength);
 
 		return column;
+	}
+
+	/**
+	 * for tests only
+	 */
+	void setBufferSize(final int defaulT, final int limit)
+	{
+		assert defaulT!=-1;
+		assert limit!=-1;
+		this.bufferSizeDefault = defaulT;
+		this.bufferSizeLimit   = limit;
 	}
 
 	private static final int toInt(final long l)
@@ -487,6 +499,15 @@ public final class DataField extends Field<DataField.Value>
 			}
 		}
 
+		/**
+		 * Puts the contents of this value into <tt>digest</tt> via
+		 * {@link MessageDigest#update(byte[])}.
+		 * After the invocation of this method, this value is exhausted.
+		 * Therefore this method returns a new value equivalent to this value,
+		 * which can be used instead.
+		 */
+		public abstract Value update(MessageDigest digest) throws IOException;
+
 		@Override
 		public abstract String toString();
 
@@ -542,11 +563,21 @@ public final class DataField extends Field<DataField.Value>
 
 			return bf.toString();
 		}
+
+		@Override
+		public Value update(final MessageDigest digest)
+		{
+			assertNotExhausted();
+			digest.update(array, 0, array.length);
+			return new ArrayValue(array);
+		}
 	}
 
 	abstract static class AbstractStreamValue extends Value
 	{
 		abstract InputStream openStream() throws IOException;
+		abstract boolean exhaustsOpenStream();
+		abstract AbstractStreamValue copyAfterExhaustion();
 
 		@Override
 		final byte[] asArraySub(final DataField field, final Item exceptionItem) throws IOException
@@ -563,6 +594,46 @@ public final class DataField extends Field<DataField.Value>
 				stream.close();
 			}
 			return baos.toByteArray();
+		}
+
+		@Override
+		public final Value update(final MessageDigest digest) throws IOException
+		{
+			assertNotExhausted();
+			final long estimateLength = estimateLength();
+			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
+			if(exhaustsOpenStream())
+			{
+				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
+				final InputStream in = openStream();
+				try
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+					{
+						digest.update(buf, 0, len);
+						bf.write(buf, 0, len);
+					}
+				}
+				finally
+				{
+					in.close();
+				}
+				return new ArrayValue(bf.toByteArray());
+			}
+			else
+			{
+				final InputStream in = openStream();
+				try
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+						digest.update(buf, 0, len);
+				}
+				finally
+				{
+					in.close();
+				}
+				return copyAfterExhaustion();
+			}
 		}
 	}
 
@@ -587,6 +658,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream()
 		{
 			return stream;
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return true;
+		}
+
+		@Override
+		AbstractStreamValue copyAfterExhaustion()
+		{
+			throw new RuntimeException();
 		}
 
 		@Override
@@ -617,6 +700,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream() throws FileNotFoundException
 		{
 			return new FileInputStream(file);
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return false;
+		}
+
+		@Override
+		AbstractStreamValue copyAfterExhaustion()
+		{
+			return new FileValue(file);
 		}
 
 		@Override
@@ -653,6 +748,18 @@ public final class DataField extends Field<DataField.Value>
 		InputStream openStream() throws IOException
 		{
 			return file.getInputStream(entry);
+		}
+
+		@Override
+		boolean exhaustsOpenStream()
+		{
+			return false;
+		}
+
+		@Override
+		AbstractStreamValue copyAfterExhaustion()
+		{
+			return new ZipValue(file, entry);
 		}
 
 		@Override

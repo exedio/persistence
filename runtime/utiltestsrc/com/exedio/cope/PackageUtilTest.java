@@ -89,6 +89,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CopyConstraintNotAFunctionFieldTest.class);
 		suite.addTestSuite(CopyConstraintNotFinalTest.class);
 		suite.addTestSuite(TimerTest.class);
+		suite.addTestSuite(DataDigestTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
