@@ -77,7 +77,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	/**
 	 * Creates a new HashedMedia on the given media template.
 	 *
-	 * Note: given media template must be final and mandatory
+	 * Note: given media template must be mandatory
 	 */
 	private UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
 	{
@@ -87,14 +87,12 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		if (digestLength == 0)
 			throw new IllegalArgumentException("MessageDigest "+messageDigestAlgorithm+" does no specify digest length, can't create field for hash.");
 
-		if (!mediaTemplate.isFinal())
-			throw new IllegalArgumentException("Media template must be final");
 		if (!mediaTemplate.isMandatory())
 			throw new IllegalArgumentException("Media template must be mandatory");
 
 		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
-		this.media = mediaTemplate.copy(new CopyMapper());
+		this.media = mediaTemplate.toFinal();
 		addSource(this.media, "media", ComputedElement.get());
 		final StringField hashField = new StringField().
 				toFinal().unique().

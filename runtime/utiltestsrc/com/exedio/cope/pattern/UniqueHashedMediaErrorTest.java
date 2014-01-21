@@ -31,24 +31,11 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class UniqueHashedMediaErrorTest extends CopeAssert
 {
-	public void testNotFinal()
-	{
-		try
-		{
-			new UniqueHashedMedia(new Media());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Media template must be final", e.getMessage());
-		}
-	}
-
 	public void testOptional()
 	{
 		try
 		{
-			new UniqueHashedMedia(new Media().toFinal().optional());
+			new UniqueHashedMedia(new Media().optional());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -76,7 +63,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 
 	static abstract class AbstractItem extends Item
 	{
-		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media().toFinal());
+		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
 		private static final long serialVersionUID = 1l;
 		private AbstractItem(final ActivationParameters ap) { super(ap); }
@@ -100,7 +87,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 	static class NonCreateableFunctionFieldItem extends Item
 	{
-		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media().toFinal());
+		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField field = new IntegerField();
 		static final Type<NonCreateableFunctionFieldItem> TYPE =
 				TypesBound.newType(NonCreateableFunctionFieldItem.class);
@@ -127,7 +114,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 	static class NonCreateableDataFieldItem extends Item
 	{
-		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media().toFinal());
+		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField field = new IntegerField();
 		static final Type<NonCreateableDataFieldItem> TYPE =
 				TypesBound.newType(NonCreateableDataFieldItem.class);
@@ -144,7 +131,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 	static class CreateableItem extends Item
 	{
-		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media().toFinal());
+		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField optionalField = new IntegerField().optional();
 		static final IntegerField defaultField = new IntegerField().defaultTo(77);
 		static final DataField dataField = new DataField().optional();

@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 public final class UniqueHashedMediaItem extends Item
 {
-	static final UniqueHashedMedia value = new UniqueHashedMedia(new Media().toFinal());
+	static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
 	static final MediaThumbnail w200 = new MediaThumbnail(value.getMedia(), 200, 200);
 	static final MediaThumbnail w300 = new MediaThumbnail(value.getMedia(), 300, 300);
