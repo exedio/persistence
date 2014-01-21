@@ -150,15 +150,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	@SuppressWarnings("static-method")
 	public void testGetOrCreateNull()throws IOException
 	{
-		try
-		{
-			getOrCreate(null);
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertEquals(null, getOrCreate(null));
 	}
 
 	private static final byte[] bytes4 = { -86, 122, -8, 23 };

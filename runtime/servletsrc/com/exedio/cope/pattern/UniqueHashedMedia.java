@@ -230,9 +230,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	/**
 	 * Returns the item containing given media value or creates a new one.
 	 *
-	 * @return null if there is no matching item.
-	 * @throws NullPointerException
-	 *            if value is null.
+	 * @return null if any only if value is null.
 	 * @throws IOException
 	 *            if reading mediaValue throws an IOException.
 	 * @throws IllegalArgumentException
@@ -251,7 +249,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
 		if(value==null)
-			throw new NullPointerException();
+			return null;
 		final ValueWithHash valueWithHash = createValueWithHash(value);
 		final P existingItem = forHash(typeClass, valueWithHash.hashValue);
 		if (existingItem != null)
