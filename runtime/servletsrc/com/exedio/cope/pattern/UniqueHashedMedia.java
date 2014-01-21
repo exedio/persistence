@@ -268,11 +268,6 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 	}
 
-	/**
-	 * Returns the unique constraint when the HashedMedia is unique.
-	 *
-	 * Does return null, if there is no such unique constraint.
-	 */
 	public UniqueConstraint getImplicitUniqueConstraint()
 	{
 		return hash.getImplicitUniqueConstraint();
