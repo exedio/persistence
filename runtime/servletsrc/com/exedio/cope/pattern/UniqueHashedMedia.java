@@ -97,7 +97,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		final StringField hashField = new StringField().
 				toFinal().unique().
 				lengthExact(digestStringLength).
-				charSet(CharSet.HEX_UPPER);
+				charSet(CharSet.HEX_LOWER);
 		hash = hashField;
 		addSource(hash, "hash", ComputedElement.get());
 	}
@@ -377,7 +377,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 		final byte[] hash = messageDigest.digest();
 
-		final String hashAsHex = Hex.encodeUpper(hash);
+		final String hashAsHex = Hex.encodeLower(hash);
 
 		return new ValueWithHash(mediaValue, hashAsHex);
 	}

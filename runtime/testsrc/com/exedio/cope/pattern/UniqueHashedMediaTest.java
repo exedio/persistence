@@ -157,7 +157,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	private static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
 	private static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
 
-	private static final String bytes4DigestHex = "904AC396AC3D50FAA666E57146FE7862";
-	private static final String bytes6DigestHex = "FD1A3FCF7460406CBD20205E3185419A";
-	private static final String bytes8DigestHex = "3421F7E61C6657DFF8DE513E544DAFC7";
+	private static final String bytes4DigestHex = "904ac396ac3d50faa666e57146fe7862";
+	private static final String bytes6DigestHex = "fd1a3fcf7460406cbd20205e3185419a";
+	private static final String bytes8DigestHex = "3421f7e61c6657dff8de513e544dafc7";
 }
