@@ -222,7 +222,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			name = "forHash",
 			doc = "Finds a {2} by it''s hash.",
 			docReturn = "null if there is no matching item.")
-	public <P extends Item> P forHash(final Class<P> typeClass, @Parameter("hash") final String hash)
+	public <P extends Item> P forHash(final Class<P> typeClass, @Parameter("{1}Hash") final String hash)
 	{
 		return this.hash.searchUnique(typeClass, hash);
 	}
