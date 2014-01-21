@@ -499,6 +499,13 @@ public final class DataField extends Field<DataField.Value>
 			}
 		}
 
+		/**
+		 * Puts the contents of this value into <tt>digest</tt> via
+		 * {@link MessageDigest#update(byte[])}.
+		 * After the invocation of this method, this value is exhausted.
+		 * Therefore this method returns a new value equivalent to this value,
+		 * which can be used instead.
+		 */
 		public abstract Value update(MessageDigest digest) throws IOException;
 
 		@Override
