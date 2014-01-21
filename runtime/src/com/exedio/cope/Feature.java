@@ -348,7 +348,7 @@ public abstract class Feature implements Serializable
 
 
 	/**
-	 * This method is called before the terminatation of any constructor of class
+	 * This method is called before the termination of any constructor of class
 	 * {@link Model}.
 	 * It allows any initialization of the feature, that cannot be done earlier.
 	 * The default implementation is empty.
