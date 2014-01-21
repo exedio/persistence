@@ -149,13 +149,13 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 	}
 
-	@Wrap(order=10, name = "getURL", doc="Returns a URL the content of {0} is available under.")
+	@Wrap(order = 10, name = "getURL", doc="Returns a URL the content of {0} is available under.")
 	public String getURL(final Item item)
 	{
 		return media.getURL(item);
 	}
 
-	@Wrap(order=20, name = "getLocator", doc="Returns a Locator the content of {0} is available under.")
+	@Wrap(order = 20, name = "getLocator", doc="Returns a Locator the content of {0} is available under.")
 	public MediaPath.Locator getLocator(final Item item)
 	{
 		return media.getLocator(item);
