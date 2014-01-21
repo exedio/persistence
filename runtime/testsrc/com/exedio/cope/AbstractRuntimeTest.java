@@ -18,37 +18,29 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.util.StrictFile.delete;
 
 import com.exedio.cope.junit.CopeTest;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.ForeignKeyConstraint;
-import com.exedio.dsmf.PrimaryKeyConstraint;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.UniqueConstraint;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public abstract class AbstractRuntimeTest extends CopeTest
 {
+	private final RuntimeTester tester;
+
 	public AbstractRuntimeTest(final Model model)
 	{
 		super(model);
+		tester = new RuntimeTester(model);
 	}
 
 	public AbstractRuntimeTest(final Model model, final boolean exclusive)
 	{
 		super(model, exclusive);
+		tester = new RuntimeTester(model);
 	}
 
 	protected static final Integer i0 = Integer.valueOf(0);
@@ -87,22 +79,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d8 = Double.valueOf(8.8);
 	protected static final Double d9 = Double.valueOf(9.9);
 
-	enum Dialect
-	{
-		HSQLDB("TIMESTAMP"),
-		MYSQL(null),
-		ORACLE("TIMESTAMP(3)"),
-		POSTGRESQL("timestamp (3) without time zone");
-
-		final String dateTimestampType;
-
-		Dialect(final String dateTimestampType)
-		{
-			this.dateTimestampType = dateTimestampType;
-		}
-	}
-
-	protected Dialect dialect = null;
+	protected RuntimeTester.Dialect dialect = null;
 	protected boolean hsqldb;
 	protected boolean mysql;
 	protected boolean oracle;
@@ -110,31 +87,18 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected boolean cache;
 
 	private final FileFixture files = new FileFixture();
-	private TestByteArrayInputStream testStream = null;
 
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final String database = model.getConnectProperties().getDialect();
-
-		if("com.exedio.cope.HsqldbDialect".equals(database))
-			dialect = Dialect.HSQLDB;
-		else if("com.exedio.cope.MysqlDialect".equals(database))
-			dialect = Dialect.MYSQL;
-		else if("com.exedio.cope.OracleDialect".equals(database))
-			dialect = Dialect.ORACLE;
-		else if("com.exedio.cope.PostgresqlDialect".equals(database))
-			dialect = Dialect.POSTGRESQL;
-		else
-			fail(database);
-
-
-		hsqldb = dialect==Dialect.HSQLDB;
-		mysql  = dialect==Dialect.MYSQL;
-		oracle = dialect==Dialect.ORACLE;
-		postgresql = dialect==Dialect.POSTGRESQL;
-		cache = model.getConnectProperties().getItemCacheLimit()>0;
+		tester.setUp();
+		dialect = tester.dialect;
+		hsqldb = tester.hsqldb;
+		mysql  = tester.mysql;
+		oracle = tester.oracle;
+		postgresql = tester.postgresql;
+		cache = tester.cache;
 		files.setUp();
 	}
 
@@ -153,90 +117,37 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected final String synthetic(final String name, final String global)
 	{
-		return
-			model.getConnectProperties().longSyntheticNames
-			? (name + global)
-			: name;
+		return tester.synthetic(name, global);
 	}
 
 	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
 	{
-		assertPrimaryKeySequenceName( sequenceNameBase, sequenceNameBase+"6", type );
+		tester.assertPrimaryKeySequenceName(sequenceNameBase, type);
 	}
 
 	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
 	{
-		if(model.getConnectProperties().primaryKeyGenerator.persistent)
-		{
-			final String name;
-			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
-			{
-				name = batchedSequenceNameBase;
-			}
-			else
-			{
-				name = sequenceNameBase;
-			}
-			assertEquals(filterTableName(name), getPrimaryKeySequenceName(type));
-		}
-		else
-		{
-			try
-			{
-				getPrimaryKeySequenceName(type);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no sequence for " + type, e.getMessage());
-			}
-		}
+		tester.assertPrimaryKeySequenceName(sequenceNameBase, batchedSequenceNameBase, type);
 	}
 
 	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
-		if(model.getConnectProperties().primaryKeyGenerator.persistent)
-		{
-			assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
-		}
-		else
-		{
-			try
-			{
-				getDefaultToNextSequenceName(field);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no sequence for " + field, e.getMessage());
-			}
-		}
+		tester.assertDefaultToNextSequenceName(name, field);
 	}
 
 	protected final TestByteArrayInputStream stream(final byte[] data)
 	{
-		assertNull(testStream);
-		final TestByteArrayInputStream result = new TestByteArrayInputStream(data);
-		testStream = result;
-		return result;
+		return tester.stream(data);
 	}
 
 	protected final void assertStreamClosed()
 	{
-		assertNotNull(testStream);
-		testStream.assertClosed();
-		testStream = null;
+		tester.assertStreamClosed();
 	}
 
 	protected final File file(final byte[] data)
 	{
 		return files.file(data);
-	}
-
-	public static void assertData(final byte[] expectedData, final byte[] actualData)
-	{
-		if(!Arrays.equals(expectedData, actualData))
-			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
 	protected static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
@@ -266,19 +177,19 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		}
 	}
 
-	protected void assertDelete(final Item item) throws IntegrityViolationException
+	protected static void assertDelete(final Item item) throws IntegrityViolationException
 	{
 		assertTrue(item.existsCopeItem());
 		item.deleteCopeItem();
 		assertTrue(!item.existsCopeItem());
 	}
 
-	void assertDeleteFails(final Item item, final ItemField<?> attribute)
+	static void assertDeleteFails(final Item item, final ItemField<?> attribute)
 	{
 		assertDeleteFails(item, attribute, item);
 	}
 
-	void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted)
+	static void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted)
 	{
 		try
 		{
@@ -297,144 +208,32 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
 	{
-		try
-		{
-			model.getItem(id);
-			fail();
-		}
-		catch(final NoSuchIDException e)
-		{
-			assertEquals("no such id <" + id + ">, " + detail, e.getMessage());
-			assertEquals(notAnID, e.notAnID());
-		}
-	}
-
-	protected void activate(final Transaction transaction)
-	{
-		model.leaveTransaction();
-		model.joinTransaction( transaction );
+		tester.assertIDFails(id, detail, notAnID);
 	}
 
 	void assertSameCache(final Object o1, final Object o2)
 	{
-		if(cache)
-			assertSame(o1, o2);
-		else
-			assertNotSame(o1, o2);
+		tester.assertSameCache(o1, o2);
 	}
 
 	final String primaryKeySequenceName(final String nameBase)
 	{
-		final String name;
-		if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
-		{
-			name = nameBase+"6";
-		}
-		else
-		{
-			name = nameBase;
-		}
-		return filterTableName( name );
+		return tester.primaryKeySequenceName(nameBase);
 	}
 
 	final String filterTableName(final String name)
 	{
-		return model.getConnectProperties().filterTableName(name);
+		return tester.filterTableName(name);
 	}
 
 	protected final void assertCause(final UniqueViolationException e)
 	{
-		final Throwable cause = e.getCause();
-		if(model.connect().executor.supportsUniqueViolation)
-		{
-			assertNotNull(e.getCause());
-			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
-		}
-		else
-		{
-			assertEquals(null, cause);
-		}
-	}
-
-	protected static final <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
-	{
-		assertCondition(Collections.<T>emptyList(), type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		assertCondition(l, type, actual);
-	}
-
-	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
-	{
-		final ArrayList<T> l = new ArrayList<T>();
-		l.add(o1);
-		l.add(o2);
-		l.add(o3);
-		l.add(o4);
-		l.add(o5);
-		l.add(o6);
-		assertCondition(l, type, actual);
-	}
-
-	private static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
-	{
-		final List<T> actualResult = type.search(actual);
-		assertContainsList(expected, actualResult);
-		assertUnmodifiable(actualResult);
-		for(final T item : type.search())
-			assertEquals(expected.contains(item), actual.get(item));
+		tester.assertCause(e);
 	}
 
 	protected final String notNull(final String field, final String condition)
 	{
-		if(SchemaInfo.supportsNotNull(model))
-			return condition;
-
-		return
-			"(" + field + " IS NOT NULL) AND " +
-			"(" + condition + ")";
+		return tester.notNull(field, condition);
 	}
 
 	protected final CheckConstraint assertCheckConstraint(
@@ -442,7 +241,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String name,
 			final String condition)
 	{
-		return assertConstraint(table, CheckConstraint.class, name, condition);
+		return tester.assertCheckConstraint(table, name, condition);
 	}
 
 	protected final void assertPkConstraint(
@@ -451,9 +250,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String condition,
 			final String column)
 	{
-		final PrimaryKeyConstraint constraint = assertConstraint(table, PrimaryKeyConstraint.class, name, condition);
-
-		assertEquals(column, constraint.getPrimaryKeyColumn());
+		tester.assertPkConstraint(table, name, condition, column);
 	}
 
 	protected final void assertFkConstraint(
@@ -463,11 +260,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String targetTable,
 			final String targetColumn)
 	{
-		final ForeignKeyConstraint constraint = assertConstraint(table, ForeignKeyConstraint.class, name, column + "->" + targetTable + '.' + targetColumn);
-
-		assertEquals(column, constraint.getForeignKeyColumn());
-		assertEquals(targetTable, constraint.getTargetTable());
-		assertEquals(targetColumn, constraint.getTargetColumn());
+		tester.assertFkConstraint(table, name, column, targetTable, targetColumn);
 	}
 
 	protected final void assertUniqueConstraint(
@@ -475,9 +268,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String name,
 			final String clause)
 	{
-		final UniqueConstraint constraint = assertConstraint(table, UniqueConstraint.class, name, clause);
-
-		assertEquals(clause, constraint.getClause());
+		tester.assertUniqueConstraint(table, name, clause);
 	}
 
 	protected final <C extends Constraint> C assertConstraint(
@@ -486,38 +277,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			final String name,
 			final String condition)
 	{
-		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = SchemaInfo.supportsCheckConstraints(model) || type!=CheckConstraint.class;
-		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
-		assertEquals(name, type, constraint.getClass());
-		assertEquals(name, condition, constraint.getRequiredCondition());
-		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
-		return type.cast(constraint);
+		return tester.assertConstraint(table, type, name, condition);
 	}
 
 	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
-		assertEquals(types.length, limitWeigths.length);
-
-		int limitWeigthsSum = 0;
-		for(final int limitWeigth : limitWeigths)
-			limitWeigthsSum += limitWeigth;
-
-		final int limit = model.getConnectProperties().getItemCacheLimit();
-		final ItemCacheInfo[] ci = model.getItemCacheInfo();
-		if(limit>0)
-		{
-			assertEquals(types.length, ci.length);
-			for(int i = 0; i<ci.length; i++)
-			{
-				assertEquals(types [i], ci[i].getType());
-				assertEquals(limitWeigths[i]*limit/limitWeigthsSum, ci[i].getLimit());
-			}
-		}
-		else
-			assertEquals(0, ci.length);
+		tester.assertCacheInfo(types, limitWeigths);
 	}
 
 	public static void assertTestAnnotationNull(final Type<?> ae)
@@ -562,80 +327,14 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertNotNull(ae.getAnnotation(TestAnnotation2.class));
 	}
 
-	public static final void assertSerializedSame(final Serializable value, final int expectedSize)
-	{
-		assertSame(value, reserialize(value, expectedSize));
-	}
-
 	final void assertCheckUpdateCounters()
 	{
-		for(final Type<?> type : model.getTypes())
-		{
-			if(type.needsCheckUpdateCounter())
-				assertEquals(0, type.checkUpdateCounter());
-			else
-				assertCheckUpdateCounterFails(type);
-		}
-	}
-
-	private static final void assertCheckUpdateCounterFails(final Type<?> type)
-	{
-		try
-		{
-			type.checkUpdateCounter();
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("no check for update counter needed for " + type, e.getMessage());
-		}
+		tester.assertCheckUpdateCounters();
 	}
 
 	protected void assertSchema()
 	{
-		model.commit();
-
-		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
-
-		model.startTransaction();
-
-		if(hsqldb||postgresql)
-			return;
-
-		for(final com.exedio.dsmf.Table table : schema.getTables())
-		{
-			for(final com.exedio.dsmf.Column column : table.getColumns())
-				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
-			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
-			{
-				final String message = table.getName() + '#' + constraint.getName();
-				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
-					!SchemaInfo.supportsCheckConstraints(model))
-				{
-					assertEquals(message, "not supported", constraint.getError());
-					assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
-					assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
-				}
-				else
-				{
-					assertOk(message, constraint);
-				}
-			}
-
-			assertOk(table.getName(), table);
-		}
-
-		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
-			assertOk(sequence.getName(), sequence);
-
-		assertOk("schema", schema);
-	}
-
-	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)
-	{
-		assertEquals(message, null, node.getError());
-		assertEquals(message, Schema.Color.OK, node.getParticularColor());
-		assertEquals(message, Schema.Color.OK, node.getCumulativeColor());
+		tester.assertSchema();
 	}
 
 	@SuppressWarnings("deprecation")

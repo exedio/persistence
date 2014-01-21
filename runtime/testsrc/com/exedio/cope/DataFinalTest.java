@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.RuntimeAssert.assertData;
 
 import java.io.IOException;
 

@@ -96,14 +96,18 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	public boolean isValidOnPut(final Connection e)
 	{
+		final boolean closed;
 		try
 		{
-			return !e.isClosed();
+			closed = e.isClosed();
 		}
 		catch(final SQLException ex)
 		{
 			throw new SQLRuntimeException(ex, "isClosed");
 		}
+		if(closed && logger.isWarnEnabled())
+			logger.warn( "invalid on put" );
+		return !closed;
 	}
 
 	public void dispose(final Connection e)

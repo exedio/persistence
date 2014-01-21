@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SerializerItem.TYPE;
 import static com.exedio.cope.pattern.SerializerItem.integer;
 import static com.exedio.cope.pattern.SerializerItem.map;

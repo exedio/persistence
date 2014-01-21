@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.HierarchySuper.TYPE;
 
-import com.exedio.cope.misc.Compare;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,19 +53,6 @@ public class HierarchyCompareTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		assertEquals(orderby, TYPE.search(null, TYPE.getThis(), true));
-		int ni = 0;
-		for(final Item i : items)
-		{
-			int nj = 0;
-			for(final Item j : items)
-			{
-				assertEquals(
-						"" + i + '/' + j + '(' + ni + '/' + nj + ')',
-						Compare.compare(ni, nj), i.compareTo(j));
-
-				nj++;
-			}
-			ni++;
-		}
+		assertCompare(items);
 	}
 }

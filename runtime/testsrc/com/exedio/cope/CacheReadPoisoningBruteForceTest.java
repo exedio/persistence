@@ -121,12 +121,12 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
+				assertTrue("itemCacheStamp "+i, model.getConnectProperties().itemCacheStamps);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheInvalidateLast "+i, model.getConnectProperties().itemCacheInvalidateLast);
+				assertFalse("itemCacheStamp "+i, model.getConnectProperties().itemCacheStamps);
 			}
 			finally
 			{

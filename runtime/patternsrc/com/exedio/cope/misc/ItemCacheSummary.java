@@ -36,9 +36,9 @@ public final class ItemCacheSummary
 	private final long ageMaxMillis;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
-	private final int  invalidateLastSize;
-	private final long invalidateLastHits;
-	private final long invalidateLastPurged;
+	private final int  stampsSize;
+	private final long stampsHits;
+	private final long stampsPurged;
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
@@ -56,9 +56,9 @@ public final class ItemCacheSummary
 		long ageMaxMillis = 0l;
 		long invalidationsOrdered = 0l;
 		long invalidationsDone = 0l;
-		int  invalidateLastSize = 0;
-		long invalidateLastHits = 0l;
-		long invalidateLastPurged = 0l;
+		int  stampsSize = 0;
+		long stampsHits = 0l;
+		long stampsPurged = 0l;
 
 		for(final ItemCacheInfo info : infos)
 		{
@@ -96,9 +96,9 @@ public final class ItemCacheSummary
 
 			invalidationsOrdered += info.getInvalidationsOrdered();
 			invalidationsDone += info.getInvalidationsDone();
-			invalidateLastSize += info.getInvalidateLastSize();
-			invalidateLastHits += info.getInvalidateLastHits();
-			invalidateLastPurged += info.getInvalidateLastPurged();
+			stampsSize   += info.getStampsSize();
+			stampsHits   += info.getStampsHits();
+			stampsPurged += info.getStampsPurged();
 		}
 		this.limit = limit;
 		this.level = level;
@@ -113,9 +113,9 @@ public final class ItemCacheSummary
 		this.ageMaxMillis = ageMaxMillis;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
-		this.invalidateLastSize = invalidateLastSize;
-		this.invalidateLastHits = invalidateLastHits;
-		this.invalidateLastPurged = invalidateLastPurged;
+		this.stampsSize = stampsSize;
+		this.stampsHits = stampsHits;
+		this.stampsPurged = stampsPurged;
 	}
 
 	public int getLimit()
@@ -183,30 +183,19 @@ public final class ItemCacheSummary
 		return invalidationsDone;
 	}
 
-	public int getInvalidateLastSize()
+	public int getStampsSize()
 	{
-		return invalidateLastSize;
+		return stampsSize;
 	}
 
-	public long getInvalidateLastHits()
+	public long getStampsHits()
 	{
-		return invalidateLastHits;
+		return stampsHits;
 	}
 
-	public long getInvalidateLastPurged()
+	public long getStampsPurged()
 	{
-		return invalidateLastPurged;
-	}
-
-	/**
-	 * @deprecated Not supported anymore.
-	 * @return Always returns 0.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public long getInvalidationBucketHits()
-	{
-		return 0l;
+		return stampsPurged;
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -227,5 +216,43 @@ public final class ItemCacheSummary
 	public long getAgeMaxMillis()
 	{
 		return getAgeMaximumMillis();
+	}
+
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public long getInvalidationBucketHits()
+	{
+		return 0l;
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsSize()} instead
+	 */
+	@Deprecated
+	public int getInvalidateLastSize()
+	{
+		return getStampsSize();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsHits()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastHits()
+	{
+		return getStampsHits();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsPurged()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastPurged()
+	{
+		return getStampsPurged();
 	}
 }

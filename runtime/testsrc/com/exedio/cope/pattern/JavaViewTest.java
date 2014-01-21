@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
 import static com.exedio.cope.pattern.JavaViewItem.n;
 import static com.exedio.cope.pattern.JavaViewItem.number;

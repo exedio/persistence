@@ -198,9 +198,9 @@ public final class Column extends Node
 	public void drop(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("alter table ").
+		bf.append("ALTER TABLE ").
 			append(quoteName(table.name)).
-			append(" drop column ").
+			append(" DROP COLUMN ").
 			append(quoteName(name));
 
 		//System.out.println("dropColumn:"+bf);
@@ -210,9 +210,9 @@ public final class Column extends Node
 	public void update(final String value, final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("update ").
+		bf.append("UPDATE ").
 			append(quoteName(table.name)).
-			append(" set ").
+			append(" SET ").
 			append(quoteName(name)).
 			append('=').
 			append(value);

@@ -36,9 +36,9 @@ public final class ItemCacheInfo
 	private final long ageMax;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
-	private final int  invalidateLastSize;
-	private final long invalidateLastHits;
-	private final long invalidateLastPurged;
+	private final int  stampsSize;
+	private final long stampsHits;
+	private final long stampsPurged;
 
 	ItemCacheInfo(
 			final Type<?> type,
@@ -49,7 +49,7 @@ public final class ItemCacheInfo
 			final int replacementRuns, final int replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone,
-			final int invalidateLastSize, final long invalidateLastHits, final long invalidateLastPurged
+			final int stampsSize, final long stampsHits, final long stampsPurged
 			)
 	{
 		this.type = type;
@@ -66,9 +66,9 @@ public final class ItemCacheInfo
 		this.ageMax = ageMax;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
-		this.invalidateLastSize = invalidateLastSize;
-		this.invalidateLastHits = invalidateLastHits;
-		this.invalidateLastPurged = invalidateLastPurged;
+		this.stampsSize   = stampsSize;
+		this.stampsHits   = stampsHits;
+		this.stampsPurged = stampsPurged;
 	}
 
 	public Type<?> getType()
@@ -147,30 +147,19 @@ public final class ItemCacheInfo
 		return invalidationsDone;
 	}
 
-	public int getInvalidateLastSize()
+	public int getStampsSize()
 	{
-		return invalidateLastSize;
+		return stampsSize;
 	}
 
-	public long getInvalidateLastHits()
+	public long getStampsHits()
 	{
-		return invalidateLastHits;
+		return stampsHits;
 	}
 
-	public long getInvalidateLastPurged()
+	public long getStampsPurged()
 	{
-		return invalidateLastPurged;
-	}
-
-	/**
-	 * @deprecated Not supported anymore.
-	 * @return Always returns 0.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public long getInvalidationBucketHits()
-	{
-		return 0l;
+		return stampsPurged;
 	}
 
 	// ------------------- deprecated stuff -------------------
@@ -191,5 +180,43 @@ public final class ItemCacheInfo
 	public long getAgeMaxMillis()
 	{
 		return getAgeMaximumMillis();
+	}
+
+	/**
+	 * @deprecated Not supported anymore.
+	 * @return Always returns 0.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public long getInvalidationBucketHits()
+	{
+		return 0l;
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsSize()} instead
+	 */
+	@Deprecated
+	public int getInvalidateLastSize()
+	{
+		return getStampsSize();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsHits()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastHits()
+	{
+		return getStampsHits();
+	}
+
+	/**
+	 * @deprecated Use {@link #getStampsPurged()} instead
+	 */
+	@Deprecated
+	public long getInvalidateLastPurged()
+	{
+		return getStampsPurged();
 	}
 }

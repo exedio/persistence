@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 
-public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
+public class ItemCacheStampPurgeTest extends AbstractRuntimeTest
 {
-	public ItemCacheInvalidateLastPurgeTest()
+	public ItemCacheStampPurgeTest()
 	{
 		super(CacheIsolationTest.MODEL);
 	}
@@ -39,7 +39,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		quit =
 			props.getItemCacheLimit()==0 ||
-			!props.itemCacheInvalidateLast;
+			!props.itemCacheStamps;
 		if(quit)
 			return;
 
@@ -47,15 +47,15 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		item2 = deleteOnTearDown(new CacheIsolationItem("item2"));
 		itemX = deleteOnTearDown(new CacheIsolationItem("itemX"));
 		model.commit();
-		clearInvalidateLast(model.connect().itemCache);
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
+		clearStamps(model.connect().itemCache);
+		model.startTransaction("ItemCacheStampPurgeTest");
 		initCache();
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void clearInvalidateLast(final ItemCache cache)
+	private static void clearStamps(final ItemCache cache)
 	{
-		cache.clearInvalidateLast();
+		cache.clearStamps();
 	}
 
 	public void testSequential()
@@ -73,14 +73,14 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit();
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest");
+		model.startTransaction("ItemCacheStampPurgeTest");
 		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
 		model.commit();
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -97,7 +97,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		model.startTransaction("ItemCacheStampPurgeTest overlap");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingOnce"))); // make transaction acquire a connection
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
@@ -111,7 +111,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -128,7 +128,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap");
+		model.startTransaction("ItemCacheStampPurgeTest overlap");
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 
@@ -141,7 +141,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
@@ -158,7 +158,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap1");
+		model.startTransaction("ItemCacheStampPurgeTest overlap1");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice1"))); // make transaction acquire a connection
 		final Transaction overlapTx1 = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
@@ -166,7 +166,7 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // modifyTx
 		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest overlap2");
+		model.startTransaction("ItemCacheStampPurgeTest overlap2");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
@@ -182,12 +182,12 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		model.commit(); // overlapTx2
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 
-		model.startTransaction("ItemCacheInvalidateLastPurgeTest2");
+		model.startTransaction("ItemCacheStampPurgeTest2");
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
 
-	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initInvalidationsLastHits, initInvalidationsLastPurged;
+	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initStampsHits, initStampsPurged;
 
 	private void initCache()
 	{
@@ -199,8 +199,8 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		initMisses = ici.getMisses();
 		initInvalidationsOrdered = ici.getInvalidationsOrdered();
 		initInvalidationsDone = ici.getInvalidationsDone();
-		initInvalidationsLastHits = ici.getInvalidateLastHits();
-		initInvalidationsLastPurged = ici.getInvalidateLastPurged();
+		initStampsHits   = ici.getStampsHits();
+		initStampsPurged = ici.getStampsPurged();
 	}
 
 	private void assertCache(
@@ -209,9 +209,9 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 			final long misses,
 			final long invalidationsOrdered,
 			final long invalidationsDone,
-			final int  invalidateLastSize,
-			final long invalidateLastHits,
-			final long invalidateLastPurged)
+			final int  stampsSize,
+			final long stampsHits,
+			final long stampsPurged)
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheInfo();
 		assertEquals(1, icis.length);
@@ -222,8 +222,8 @@ public class ItemCacheInvalidateLastPurgeTest extends AbstractRuntimeTest
 		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
 		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
 		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
-		assertEquals("invalidateLastSize"  , invalidateLastSize  , ici.getInvalidateLastSize());
-		assertEquals("invalidateLastHits"  , invalidateLastHits  , ici.getInvalidateLastHits()  -initInvalidationsLastHits);
-		assertEquals("invalidateLastPurged", invalidateLastPurged, ici.getInvalidateLastPurged()-initInvalidationsLastPurged);
+		assertEquals("stampsSize"          , stampsSize          , ici.getStampsSize());
+		assertEquals("stampsHits"          , stampsHits          , ici.getStampsHits()          -initStampsHits  );
+		assertEquals("stampsPurged"        , stampsPurged        , ici.getStampsPurged()        -initStampsPurged);
 	}
 }

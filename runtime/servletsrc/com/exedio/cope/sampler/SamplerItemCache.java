@@ -68,9 +68,12 @@ final class SamplerItemCache extends Item
 	private static final LongField ageMaximumMillis = new LongField().toFinal();
 	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
 	private static final IntegerField invalidationsDone = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidateLastSize = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidateLastHits = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidateLastPurged = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("invalidateLastSize")
+	private static final IntegerField stampsSize = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("invalidateLastHits")
+	private static final IntegerField stampsHits = new IntegerField().toFinal().min(0);
+	@CopeSchemaName("invalidateLastPurged")
+	private static final IntegerField stampsPurged = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final ItemCacheInfo from,
@@ -96,9 +99,9 @@ final class SamplerItemCache extends Item
 			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			diff(invalidationsDone,    from.getInvalidationsDone(),    to.getInvalidationsDone()),
 
-			invalidateLastSize.map(to.getInvalidateLastSize()),
-			diff(invalidateLastHits,   from.getInvalidateLastHits(),   to.getInvalidateLastHits()),
-			diff(invalidateLastPurged, from.getInvalidateLastPurged(), to.getInvalidateLastPurged()));
+			stampsSize.map(to.getStampsSize()),
+			diff(stampsHits,   from.getStampsHits(),   to.getStampsHits()),
+			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 	}
 
 

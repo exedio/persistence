@@ -82,7 +82,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value>MAX_VALUE_D)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf(new BigDecimal(value).movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue()); // TODO manage without BigDecimal
+		return storeOf((int)Math.rint(100d * value));
 	}
 
 	public static Price valueOf(final BigDecimal value)

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.serialize;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CacheIsolationTest;

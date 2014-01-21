@@ -8,6 +8,19 @@ The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
 * UniqueHashedMedia added
+* ConnectProperties: option cache.item.invalidateLast renamed to cache.stamps
+
+* bugfix: reworked invalidateLast mechanism to use AtomicLong instead of System.nanoTime
+	- removed connect property cache.item.invalidateLast.margin
+	- fixes rare failure of copetest:
+		Testcase: testOverlappingTwice(com.exedio.cope.ItemCacheInvalidateLastPurgeTest): FAILED
+		junit.framework.AssertionFailedError: invalidateLastSize expected:<0> but was:<2>
+			at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.assertCache(ItemCacheInvalidateLastPurgeTest.java:225)
+			at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.testOverlappingTwice(ItemCacheInvalidateLastPurgeTest.java:177)
+
+* copetest bugfix: "EmptyItem-[0]> but was:<EmptyItem-[1]" in ItemTest line 228/62
+* bugfix: Price#valueOf(double) sometimes did wrong rounding in equidistant case
+* ConnectionFactory#isValidOnPut logs failures.
 * DataField parts become none-public:
 	- constructor Value()
 	- class ArrayValue

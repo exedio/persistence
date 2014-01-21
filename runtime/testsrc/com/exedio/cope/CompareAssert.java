@@ -18,12 +18,33 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.Main;
+import static org.junit.Assert.assertEquals;
 
-public abstract class TestmodelTest extends AbstractRuntimeModelTest
+import com.exedio.cope.misc.Compare;
+import java.util.List;
+
+public final class CompareAssert
 {
-	public TestmodelTest()
+	public static void assertCompare(final List<Item> items)
 	{
-		super(Main.model);
+		int ni = 0;
+		for(final Item i : items)
+		{
+			int nj = 0;
+			for(final Item j : items)
+			{
+				assertEquals(
+						"" + i + '/' + j + '(' + ni + '/' + nj + ')',
+						Compare.compare(ni, nj), i.compareTo(j));
+
+				nj++;
+			}
+			ni++;
+		}
+	}
+
+	private CompareAssert()
+	{
+		// prevent instantiation
 	}
 }

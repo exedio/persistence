@@ -51,7 +51,7 @@ public final class Transaction
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
-	private long connectionNanos = Long.MAX_VALUE;
+	private long cacheStamp = Long.MAX_VALUE;
 	private boolean closed = false;
 
 	Transaction(
@@ -276,25 +276,25 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		this.connectionNanos = System.nanoTime() - connect.properties.itemCacheInvalidateLastMargin;
+		this.cacheStamp = ItemCacheStamp.get();
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 
 		return connection;
 	}
 
-	long getConnectionNanos()
+	long getCacheStamp()
 	{
 		assert !closed : name;
 		if(connection==null)
 			throw new RuntimeException(name);
 
-		return connectionNanos;
+		return cacheStamp;
 	}
 
-	long getConnectionNanosOrMax()
+	long getCacheStampOrMax()
 	{
-		return this.connectionNanos;
+		return this.cacheStamp;
 	}
 
 	/**

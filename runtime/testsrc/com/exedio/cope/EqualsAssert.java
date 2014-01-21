@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -41,16 +42,21 @@ public final class EqualsAssert
 		{
 			final Object left = objects[i];
 
-			lj: for(int j = 0; j<objects.length; j++)
+			for(int j = 0; j<objects.length; j++)
 			{
 				final Object right = objects[j];
 
 				if(i==j)
-					continue lj;
-
-				assertFalse(""+i+'/'+j, left.equals(right));
-				assertFalse(""+i+'/'+j, right.equals(left));
-				assertFalse(""+i+'/'+j, left.hashCode()==right.hashCode());
+				{
+					assertSame(left, right);
+					assertEqualsSpecial(left);
+				}
+				else
+				{
+					assertFalse(""+i+'/'+j, left.equals(right));
+					assertFalse(""+i+'/'+j, right.equals(left));
+					assertFalse(""+i+'/'+j, left.hashCode()==right.hashCode());
+				}
 			}
 			assertEqualsSpecial(left);
 		}

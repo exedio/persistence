@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alpha;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
@@ -29,6 +28,7 @@ import static com.exedio.cope.CheckConstraintSuperItem.drei;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 

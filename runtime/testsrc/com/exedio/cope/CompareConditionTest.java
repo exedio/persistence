@@ -30,6 +30,7 @@ import static com.exedio.cope.CompareConditionItem.otherString;
 import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;

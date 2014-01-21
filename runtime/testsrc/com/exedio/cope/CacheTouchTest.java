@@ -76,7 +76,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertCache(0, 0, 1, 2, 1);
 
 	final ConnectProperties props = model.getConnectProperties();
-	if(!props.itemCacheInvalidateLast)
+	if(!props.itemCacheStamps)
 	{
 		assertEquals("itemName", item.getName());
 		assertUpdateCount(0, 0);
@@ -110,7 +110,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 	else
 	{
 		final boolean rr = !hsqldb;
-		final boolean il = props.itemCacheInvalidateLast;
+		final boolean il = props.itemCacheStamps;
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());
 		assertUpdateCount(rr?0:1, il?MIN_VALUE:1);
@@ -124,7 +124,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
-		// repeatable-read isolation and does no itemCacheInvalidateLast.
+		// repeatable-read isolation and does no itemCacheStamp.
 		item.setName("itemName3");
 		assertUpdateCount(2, 1);
 		assertCache(1, il?0:1, il?3:2, 2, 1);

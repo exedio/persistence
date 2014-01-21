@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertSerializedSame;
 import static com.exedio.cope.CopyMultiToSourceItem.TYPE;
 import static com.exedio.cope.CopyMultiToSourceItem.copyA;
 import static com.exedio.cope.CopyMultiToSourceItem.copyB;
 import static com.exedio.cope.CopyMultiToSourceItem.target;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;

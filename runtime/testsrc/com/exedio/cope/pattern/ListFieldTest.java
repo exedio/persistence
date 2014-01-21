@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.ListFieldItem.TYPE;
 import static com.exedio.cope.pattern.ListFieldItem.dates;
 import static com.exedio.cope.pattern.ListFieldItem.datesParent;

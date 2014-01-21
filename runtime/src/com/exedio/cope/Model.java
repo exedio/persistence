@@ -715,10 +715,10 @@ public final class Model implements Serializable
 		final Transaction tx = transactions.remove();
 		tx.commitOrRollback(rollback, this, transactionCounter);
 
-		if(tx.connect.properties.itemCacheInvalidateLast)
+		if(tx.connect.properties.itemCacheStamps)
 		{
-			final long oldestNanos = transactions.getOldestConnectionNanos();
-			connect().itemCache.purgeInvalidateLast(oldestNanos);
+			final long oldestStamp = transactions.getOldestCacheStamp();
+			connect().itemCache.purgeStamps(oldestStamp);
 		}
 	}
 

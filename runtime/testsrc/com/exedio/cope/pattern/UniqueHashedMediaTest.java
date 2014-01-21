@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertData;
+import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.Media.toValue;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.forHash;

@@ -18,12 +18,19 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.testmodel.Main;
+import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class TestmodelTest extends AbstractRuntimeModelTest
+final class ItemCacheStamp
 {
-	public TestmodelTest()
+	private static final AtomicLong value = new AtomicLong(0);
+
+	static long get()
 	{
-		super(Main.model);
+		return value.getAndIncrement();
+	}
+
+	private ItemCacheStamp()
+	{
+		// prevent instantiation
 	}
 }

@@ -27,6 +27,7 @@ import static com.exedio.cope.MinusDoubleItem.numC;
 import static com.exedio.cope.MinusDoubleItem.viewAB;
 import static com.exedio.cope.MinusDoubleItem.viewAC;
 import static com.exedio.cope.MinusDoubleItem.viewBC;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 public class MinusDoubleTest extends AbstractRuntimeTest
 {

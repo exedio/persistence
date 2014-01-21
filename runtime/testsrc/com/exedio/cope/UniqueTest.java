@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+
 public class UniqueTest extends AbstractRuntimeTest
 {
 	static final Model MODEL = new Model(

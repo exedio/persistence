@@ -40,6 +40,12 @@ public final class MediaPathFeature extends MediaPath
 	}
 
 	private boolean isFinal = false;
+
+	void reset()
+	{
+		isFinal = false;
+	}
+
 	private final StringField contentType = new StringField().optional();
 	private final DateField lastModified = new DateField().optional();
 	private final EnumField<Result> result = EnumField.create(Result.class).optional();

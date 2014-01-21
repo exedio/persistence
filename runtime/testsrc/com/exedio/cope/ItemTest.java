@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
+import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
@@ -111,16 +113,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(item3, model.getItem("EmptyItem2-0"));
 
 		assertNotEqualsAndHash(item1, item2, item3);
-
-		assertEquals( 0, item1.compareTo(item1));
-		assertEquals( 1, item2.compareTo(item1));
-		assertEquals( 1, item3.compareTo(item1));
-		assertEquals(-1, item1.compareTo(item2));
-		assertEquals( 0, item2.compareTo(item2));
-		assertEquals( 1, item3.compareTo(item2));
-		assertEquals(-1, item1.compareTo(item3));
-		assertEquals(-1, item2.compareTo(item3));
-		assertEquals( 0, item3.compareTo(item3));
+		assertCompare(Arrays.asList(item1, item2, item3));
 
 		assertSame(item1, item1.get(TYPE.getThis()));
 		assertSame(item1, TYPE.getThis().get(item1));

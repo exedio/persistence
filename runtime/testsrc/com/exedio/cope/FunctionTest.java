@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.max4Upper;

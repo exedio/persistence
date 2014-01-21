@@ -59,7 +59,7 @@ final class ItemCache
 			weightSum += weight;
 		}
 
-		final boolean invalidateLast = properties.itemCacheInvalidateLast;
+		final boolean enableStamps = properties.itemCacheStamps;
 		cachlets = new Cachlet[l];
 		final int limit = properties.getItemCacheLimit();
 		for(int i=0; i<l; i++)
@@ -71,7 +71,7 @@ final class ItemCache
 			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
 
 			final int iLimit = ratio(weights[i], limit, weightSum);
-			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, invalidateLast) : null;
+			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, enableStamps) : null;
 		}
 	}
 
@@ -88,7 +88,7 @@ final class ItemCache
 			state = tx.connect.database.load(tx.getConnection(), item);
 
 			if(cachlet!=null)
-				cachlet.put(state, tx.getConnectionNanos());
+				cachlet.put(state, tx.getCacheStamp());
 		}
 
 		return state;
@@ -116,7 +116,7 @@ final class ItemCache
 
 	void invalidate(final TIntHashSet[] invalidations)
 	{
-		final long nanoTime = System.nanoTime();
+		final long stamp = ItemCacheStamp.get();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
@@ -124,7 +124,7 @@ final class ItemCache
 			{
 				final Cachlet cachlet = cachlets[typeTransiently];
 				if(cachlet!=null)
-					cachlet.invalidate(invalidatedPKs, nanoTime);
+					cachlet.invalidate(invalidatedPKs, stamp);
 			}
 		}
 	}
@@ -138,12 +138,12 @@ final class ItemCache
 		}
 	}
 
-	void purgeInvalidateLast(final long untilNanos)
+	void purgeStamps(final long untilStamp)
 	{
 		for(final Cachlet cachlet : cachlets)
 		{
 			if(cachlet!=null)
-				cachlet.purgeInvalidateLast(untilNanos);
+				cachlet.purgeStamps(untilStamp);
 		}
 	}
 
@@ -151,12 +151,12 @@ final class ItemCache
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	void clearInvalidateLast()
+	void clearStamps()
 	{
 		for(final Cachlet cachlet : cachlets)
 		{
 			if(cachlet!=null)
-				cachlet.clearInvalidateLast();
+				cachlet.clearStamps();
 		}
 	}
 
@@ -179,7 +179,7 @@ final class ItemCache
 		private final Type<?> type;
 		private final int limit;
 		private final TIntObjectHashMap<WrittenState> map;
-		private final TIntLongHashMap invalidateLastNanos;
+		private final TIntLongHashMap stamps;
 
 		private final VolatileLong hits = new VolatileLong();
 		private final VolatileLong misses = new VolatileLong();
@@ -189,10 +189,10 @@ final class ItemCache
 		private long lastReplacementRun = 0;
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
-		private long invalidateLastHits = 0;
-		private long invalidateLastPurged = 0;
+		private long stampsHits = 0;
+		private long stampsPurged = 0;
 
-		Cachlet(final Type<?> type, final int limit, final boolean invalidateLast)
+		Cachlet(final Type<?> type, final int limit, final boolean enableStamps)
 		{
 			assert !type.isAbstract;
 			assert limit>0;
@@ -200,7 +200,7 @@ final class ItemCache
 			this.type = type;
 			this.limit = limit;
 			this.map = new TIntObjectHashMap<WrittenState>();
-			this.invalidateLastNanos = invalidateLast ? new TIntLongHashMap() : null;
+			this.stamps = enableStamps ? new TIntLongHashMap() : null;
 		}
 
 		WrittenState get(final int pk)
@@ -234,16 +234,16 @@ final class ItemCache
 			}
 		}
 
-		void put(final WrittenState state, final long connectionNanos)
+		void put(final WrittenState state, final long connectionStamp)
 		{
 			synchronized(map)
 			{
-				if(invalidateLastNanos!=null)
+				if(stamps!=null)
 				{
-					final long invalidateLastNanos = this.invalidateLastNanos.get(state.pk);
-					if(invalidateLastNanos!=0 && invalidateLastNanos>=connectionNanos)
+					final long stamp = this.stamps.get(state.pk);
+					if(stamp!=0 && stamp>=connectionStamp)
 					{
-						invalidateLastHits++;
+						stampsHits++;
 						return;
 					}
 				}
@@ -291,7 +291,7 @@ final class ItemCache
 			}
 		}
 
-		void invalidate(final TIntHashSet invalidatedPKs, final long nanoTime)
+		void invalidate(final TIntHashSet invalidatedPKs, final long stamp)
 		{
 			synchronized(map)
 			{
@@ -303,8 +303,8 @@ final class ItemCache
 					final int pk = i.next();
 					map.remove(pk);
 
-					if(invalidateLastNanos!=null)
-						invalidateLastNanos.put(pk, nanoTime);
+					if(stamps!=null)
+						stamps.put(pk, stamp);
 				}
 
 				invalidationsOrdered += invalidatedPKs.size();
@@ -320,35 +320,35 @@ final class ItemCache
 			}
 		}
 
-		void purgeInvalidateLast(final long untilNanos)
+		void purgeStamps(final long untilStamp)
 		{
-			if(invalidateLastNanos!=null)
+			if(stamps!=null)
 			{
 				synchronized(map)
 				{
-					final int size = invalidateLastNanos.size();
+					final int size = stamps.size();
 					if(size==0)
 						return;
 
-					if(untilNanos==Long.MAX_VALUE)
+					if(untilStamp==Long.MAX_VALUE)
 					{
-						invalidateLastNanos.clear();
-						invalidateLastPurged += size;
+						stamps.clear();
+						stampsPurged += size;
 					}
 					else
 					{
 						int purged = 0;
-						for(final TIntLongIterator i = invalidateLastNanos.iterator(); i.hasNext(); )
+						for(final TIntLongIterator i = stamps.iterator(); i.hasNext(); )
 						{
 							i.advance();
-							if(i.value()<untilNanos)
+							if(i.value()<untilStamp)
 							{
 								purged++;
 								i.remove();
 							}
 						}
 						if(purged>0)
-							invalidateLastPurged += purged;
+							stampsPurged += purged;
 					}
 				}
 			}
@@ -358,13 +358,13 @@ final class ItemCache
 		 * @deprecated for unit tests only
 		 */
 		@Deprecated
-		void clearInvalidateLast()
+		void clearStamps()
 		{
-			if(invalidateLastNanos!=null)
+			if(stamps!=null)
 			{
 				synchronized(map)
 				{
-					invalidateLastNanos.clear();
+					stamps.clear();
 				}
 			}
 		}
@@ -377,7 +377,7 @@ final class ItemCache
 			long ageSum = 0;
 			long ageMin = Long.MAX_VALUE;
 			long ageMax = 0;
-			final int invalidateLastSize;
+			final int stampsSize;
 
 			synchronized(map)
 			{
@@ -395,7 +395,7 @@ final class ItemCache
 					if(ageMax<age)
 						ageMax = age;
 				}
-				invalidateLastSize = invalidateLastNanos!=null ? invalidateLastNanos.size() : 0;
+				stampsSize = stamps!=null ? stamps.size() : 0;
 			}
 
 			return new ItemCacheInfo(
@@ -406,7 +406,7 @@ final class ItemCache
 				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
 				ageSum, ageMin, ageMax,
 				invalidationsOrdered, invalidationsDone,
-				invalidateLastSize, invalidateLastHits, invalidateLastPurged
+				stampsSize, stampsHits, stampsPurged
 				);
 		}
 	}
