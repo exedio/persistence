@@ -38,6 +38,7 @@ import com.exedio.cope.util.Properties;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -307,7 +308,7 @@ public class Sampler
 
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(GregorianCalendar.DATE, -days);
+		cal.add(Calendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
 

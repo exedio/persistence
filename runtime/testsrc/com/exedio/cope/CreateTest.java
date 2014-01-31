@@ -48,7 +48,7 @@ public class CreateTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		try
@@ -58,7 +58,7 @@ public class CreateTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		try
@@ -68,7 +68,7 @@ public class CreateTest extends AbstractRuntimeTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(CreateItem.text, e.getFeature());
+			assertEquals(CreateSuperItem.text, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
 		// super

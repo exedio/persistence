@@ -98,7 +98,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint()
 			), HierarchyFirstSub.TYPE.getDeclaredUniqueConstraints());
 		assertEqualsUnmodifiable(list(
-				HierarchyFirstSub.superInt.getImplicitUniqueConstraint(),
+				HierarchySuper.superInt.getImplicitUniqueConstraint(),
 				HierarchyFirstSub.firstSubString.getImplicitUniqueConstraint()
 			), HierarchyFirstSub.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(
@@ -121,8 +121,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("superString"));
 		assertEquals(HierarchyFirstSub.firstSubString, HierarchyFirstSub.TYPE.getDeclaredFeature("firstSubString"));
 		assertEquals(null, HierarchyFirstSub.TYPE.getDeclaredFeature("zack"));
-		assertEquals(HierarchyFirstSub.superInt, HierarchyFirstSub.TYPE.getFeature("superInt"));
-		assertEquals(HierarchyFirstSub.superString, HierarchyFirstSub.TYPE.getFeature("superString"));
+		assertEquals(HierarchySuper.superInt, HierarchyFirstSub.TYPE.getFeature("superInt"));
+		assertEquals(HierarchySuper.superString, HierarchyFirstSub.TYPE.getFeature("superString"));
 		assertEquals(HierarchyFirstSub.firstSubString, HierarchyFirstSub.TYPE.getFeature("firstSubString"));
 		assertEquals(null, HierarchyFirstSub.TYPE.getFeature("zack"));
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
@@ -202,36 +202,36 @@ public class HierarchyTest extends AbstractRuntimeTest
 
 		// test polymorphic pointers
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
 		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list(firstItem), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(firstItem)));
 		restartTransaction();
 		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list(firstItem), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(firstItem)));
 
 		singleSub1a.setHierarchySuper(secondItem2);
 		assertCheckUpdateCounters();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list(secondItem2), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(secondItem2)));
 		restartTransaction();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list(secondItem2), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(secondItem2)));
 
 		singleSub1a.setHierarchySuper(null);
 		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 		restartTransaction();
 		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSub.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<HierarchySuper>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
 
 		// test wrong attributes
 		try
@@ -295,8 +295,8 @@ public class HierarchyTest extends AbstractRuntimeTest
 	{
 		final HierarchyFirstSub item = deleteOnTearDown(new HierarchyFirstSub(10));
 
-		final Query<?> q1 = HierarchySuper.TYPE.newQuery(HierarchyFirstSub.superInt.equal(10));
-		final Query<?> q2 = HierarchySuper.TYPE.newQuery(HierarchyFirstSub.superInt.equal(20));
+		final Query<?> q1 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(10));
+		final Query<?> q2 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(20));
 		assertEquals(list(item), q1.search());
 		assertEquals(list(), q2.search());
 

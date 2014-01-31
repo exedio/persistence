@@ -28,7 +28,7 @@ public class QueryKeyTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
-		q.join(InstanceOfB1Item.TYPE, InstanceOfB1Item.code.isNull());
+		q.join(InstanceOfB1Item.TYPE, InstanceOfAItem.code.isNull());
 		// test Query.Key#hashCode
 		assertContains(q.search());
 		// test Query.Key#equals

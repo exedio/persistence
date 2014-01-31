@@ -32,6 +32,7 @@ import java.util.Locale;
 import java.util.Set;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.spi.IIORegistry;
@@ -230,7 +231,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	public JPEGImageWriteParam getImageWriteParam()
 	{
 		final JPEGImageWriteParam result = new JPEGImageWriteParam(Locale.getDefault());
-		result.setCompressionMode(JPEGImageWriteParam.MODE_EXPLICIT);
+		result.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 		result.setCompressionQuality(0.85f);
 		return result;
 	}

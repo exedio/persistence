@@ -77,7 +77,7 @@ public class ConnectTokenTest extends CopeAssert
 
 		final Date before2 = new Date();
 		final ConnectToken token2 = ConnectToken.issue(model,
-				new com.exedio.cope.ConnectProperties(com.exedio.cope.ConnectProperties.getSystemPropertySource())/* not the same but equal */,
+				new com.exedio.cope.ConnectProperties(Properties.getSystemPropertySource())/* not the same but equal */,
 				"token2Name");
 		final Date after2 = new Date();
 		assertSame(props, model.getConnectProperties());

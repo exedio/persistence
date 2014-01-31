@@ -40,7 +40,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 			null
 		);
 		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, null);
-		j.setCondition(PolymorphicBoundSelectSubItem.parent.equalTarget(j));
+		j.setCondition(PolymorphicBoundSelectSuperItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent.bind(j));
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent.bind(j));
 		assertEquals(list(list(subItem, null)), q.search());
@@ -52,13 +52,13 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		deleteOnTearDown(new PolymorphicBoundSelectSubItem(superItem));
 
 		final Query<List<Object>> q = Query.newQuery(
-			new Selectable<?>[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSubItem.parent},
+			new Selectable<?>[]{PolymorphicBoundSelectSuperItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent},
 			PolymorphicBoundSelectSuperItem.TYPE,
 			null
 		);
 		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, null);
-		j.setCondition(PolymorphicBoundSelectSubItem.parent.equalTarget(j));
-		q.setSelects(PolymorphicBoundSelectSuperItem.TYPE.getThis().bind(j), PolymorphicBoundSelectSubItem.parent);
+		j.setCondition(PolymorphicBoundSelectSuperItem.parent.equalTarget(j));
+		q.setSelects(PolymorphicBoundSelectSuperItem.TYPE.getThis().bind(j), PolymorphicBoundSelectSuperItem.parent);
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent);
 		if(!model.nullsAreSortedLow())
 			assertEquals(list(list(superItem, superItem), list(null, null)), q.search());

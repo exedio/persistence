@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Properties;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -33,7 +34,7 @@ abstract class RawDatabaseTest extends CopeAssert
 		super.setUp();
 
 		final ConnectProperties props =
-				new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+				new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
 
 		final String url = props.getConnectionUrl();
 		final Driver driver = DriverManager.getDriver(url);

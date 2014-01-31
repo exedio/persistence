@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.Properties;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ListIterator;
@@ -133,7 +134,7 @@ public abstract class CopeTest extends CopeAssert
 	 */
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.SYSTEM_PROPERTY_SOURCE);
+		return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
 	}
 
 	@Override

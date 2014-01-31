@@ -77,7 +77,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredFields());
 		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt), HierarchyEmptySub.TYPE.getFields());
 		assertEqualsUnmodifiable(list(), HierarchyEmptySub.TYPE.getDeclaredUniqueConstraints());
-		assertEqualsUnmodifiable(list(HierarchyEmptySub.superInt.getImplicitUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());
+		assertEqualsUnmodifiable(list(HierarchyEmptySuper.superInt.getImplicitUniqueConstraint()), HierarchyEmptySub.TYPE.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(HierarchyEmptySub.TYPE.getThis()), HierarchyEmptySub.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(
 				HierarchyEmptySub.TYPE.getThis(),
@@ -87,7 +87,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertEquals(null, HierarchyEmptySub.TYPE.getDeclaredFeature("superInt"));
 		assertEquals(null, HierarchyEmptySub.TYPE.getDeclaredFeature("superString"));
 		assertEquals(null, HierarchyEmptySub.TYPE.getDeclaredFeature("zack"));
-		assertEquals(HierarchyEmptySub.superInt, HierarchyEmptySub.TYPE.getFeature("superInt"));
+		assertEquals(HierarchyEmptySuper.superInt, HierarchyEmptySub.TYPE.getFeature("superInt"));
 		assertEquals(null, HierarchyEmptySub.TYPE.getFeature("zack"));
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
@@ -102,9 +102,9 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertCheckUpdateCounters();
 		assertEquals(2, subItem.getSuperInt());
 
-		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(2)));
+		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(HierarchyEmptySuper.superInt.equal(2)));
 		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(null));
-		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySub.superInt.equal(1)));
+		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 
 		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
 		assertCheckUpdateCounters();

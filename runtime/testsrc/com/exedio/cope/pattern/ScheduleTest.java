@@ -32,6 +32,7 @@ import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
@@ -176,12 +177,12 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(DAILY, date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(0, run(date("2008/03/14-23:59:59.999")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
 		assertLogs(listg(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
@@ -189,12 +190,12 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(DAILY, date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(0, run(date("2008/03/15-23:59:59.999")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(1, run(date("2008/03/17-00:00:00.000"))); // TODO should be 2
 		assertLogs(listg(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
@@ -203,8 +204,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		item.setFail(true);
 		assertEquals(0, run(date("2008/03/17-00:00:00.000")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		try
 		{
@@ -216,7 +217,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 			assertEquals("schedule test failure", e.getMessage());
 		}
 		assertLogs(listg(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		item.setFail(false);
 		assertEquals(1, run(date("2008/03/18-00:00:00.000")));
@@ -246,8 +247,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	public void testInterrupter0()
 	{
 		assertEquals(0, run(date("2008/03/11-00:00:00.000"), 0));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 	}
 
 	public void testWeekly()
@@ -266,12 +267,12 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(WEEKLY, date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(0, run(date("2008/03/16-23:59:59.999")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(1, run(date("2008/03/17-00:00:00.000")));
 		assertLogs(listg(log(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
@@ -300,12 +301,12 @@ public final class ScheduleTest extends AbstractRuntimeTest
 				ern(MONTHLY, date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(0, run(date("2008/03/31-23:59:59.999")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		assertEquals(1, run(date("2008/04/01-00:00:00.000")));
 		assertLogs(listg(log(date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000"))));
@@ -335,8 +336,8 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals(false, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(ScheduleTest.<Log>listg());
-		assertRuns(ScheduleTest.<ExpectedRun>listg());
+		assertLogs(CopeAssert.<Log>listg());
+		assertRuns(CopeAssert.<ExpectedRun>listg());
 
 		item.setReportEnabled(true);
 		assertEquals(true, item.isReportEnabled());

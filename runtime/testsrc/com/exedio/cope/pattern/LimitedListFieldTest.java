@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
@@ -87,13 +88,13 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(LimitedListFieldTest.<Integer>listg());
+		item.setNums(CopeAssert.<Integer>listg());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, TYPE.search(nums.equal(LimitedListFieldTest.<Integer>listg())));
+		assertContains(item, TYPE.search(nums.equal(CopeAssert.<Integer>listg())));
 		assertContains(TYPE.search(nums.equal(listg(i1))));
-		assertContains(TYPE.search(nums.notEqual(LimitedListFieldTest.<Integer>listg())));
+		assertContains(TYPE.search(nums.notEqual(CopeAssert.<Integer>listg())));
 		assertContains(item, TYPE.search(nums.notEqual(listg(i1))));
 		assertContains(TYPE.search(nums.contains(i1)));
 		assertContains(TYPE.search(nums.contains(i2)));
@@ -131,12 +132,12 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals("bello", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
-		assertContains(TYPE.search(strings.equal(LimitedListFieldTest.<String>listg())));
+		assertContains(TYPE.search(strings.equal(CopeAssert.<String>listg())));
 		assertContains(TYPE.search(strings.equal(listg("hallo"))));
 		assertContains(item, TYPE.search(strings.equal(listg("hallo", "bello"))));
 		assertContains(TYPE.search(strings.equal(listg("bello", "hallo", "zollo"))));
 		assertContains(TYPE.search(strings.equal(listg("bello", "hallo"))));
-		assertContains(item, TYPE.search(strings.notEqual(LimitedListFieldTest.<String>listg())));
+		assertContains(item, TYPE.search(strings.notEqual(CopeAssert.<String>listg())));
 		assertContains(item, TYPE.search(strings.notEqual(listg("hallo"))));
 		assertContains(TYPE.search(strings.notEqual(listg("hallo", "bello"))));
 		assertContains(item, TYPE.search(strings.notEqual(listg("bello", "hallo", "zollo"))));

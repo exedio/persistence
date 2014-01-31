@@ -32,6 +32,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.ThreadMXBean;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -232,7 +233,7 @@ public class MxSampler
 
 		final GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(System.currentTimeMillis());
-		cal.add(GregorianCalendar.DATE, -days);
+		cal.add(Calendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
 
