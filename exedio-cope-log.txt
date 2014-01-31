@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* <instrument hidingWarningSuppressor="hiding" ... supported
 * UniqueHashedMedia added
 * ConnectProperties: option cache.item.invalidateLast renamed to cache.stamps
 

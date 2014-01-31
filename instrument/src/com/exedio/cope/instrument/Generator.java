@@ -104,6 +104,7 @@ final class Generator
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
+	private final String hidingWarningSuppressor;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -127,6 +128,7 @@ final class Generator
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
+		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -784,6 +786,13 @@ final class Generator
 			write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
 			write(lineSeparator);
 			writeCommentFooter(TYPE_CUSTOMIZE);
+
+			if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
+			{
+				writeIndent();
+				write("@SuppressWarnings(\"hiding\")");
+				write(lineSeparator);
+			}
 
 			writeIndent();
 			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));

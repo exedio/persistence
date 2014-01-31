@@ -28,5 +28,6 @@ final class Params
 	boolean serialVersionUID = true;
 	boolean genericSetValueArray = true;
 	boolean directSetValueMap = false;
+	String hidingWarningSuppressor = null;
 	boolean verbose = true;
 }
