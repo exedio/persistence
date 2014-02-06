@@ -35,6 +35,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<?> feature;
+	private final int referrers;
 
 	/**
 	 * Creates a new IntegrityViolationException with the necessary information about the violation.
@@ -44,7 +45,8 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	 */
 	IntegrityViolationException(
 			final ItemField<?> feature,
-			final Item item)
+			final Item item,
+			final int referrers)
 	{
 		super(item, null);
 
@@ -52,6 +54,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 			throw new NullPointerException();
 
 		this.feature = feature;
+		this.referrers = referrers;
 	}
 
 	/**
@@ -67,7 +70,11 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		return "integrity violation on deletion of " + getItem().getCopeID() + (withFeature ? (" because of " + feature) : "");
+		return
+			"integrity violation" +
+			" on deletion of " + getItem().getCopeID() +
+			(withFeature ? (" because of " + feature) : "") +
+			" referring to " + referrers + " item(s)";
 	}
 
 	// ------------------- deprecated stuff -------------------

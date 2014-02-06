@@ -119,7 +119,7 @@ public class FieldItemTest extends FieldTest
 			assertEquals("mandatory violation on " + item + " for " + someNotNullItem, e.getMessage());
 		}
 		assertEquals(emptyItem2, item.getSomeNotNullItem());
-		assertDeleteFails(emptyItem2, someNotNullItem);
+		assertDeleteFails(emptyItem2, someNotNullItem, 2);
 
 		try
 		{

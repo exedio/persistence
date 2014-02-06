@@ -189,7 +189,17 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertDeleteFails(item, attribute, item);
 	}
 
+	static void assertDeleteFails(final Item item, final ItemField<?> attribute, final int referrers)
+	{
+		assertDeleteFails(item, attribute, item, referrers);
+	}
+
 	static void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted)
+	{
+		assertDeleteFails(item, attribute, itemToBeDeleted, 1);
+	}
+
+	static void assertDeleteFails(final Item item, final ItemField<?> attribute, final Item itemToBeDeleted, final int referrers)
 	{
 		try
 		{
@@ -201,7 +211,12 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertSame(attribute, e.getFeature());
 			assertSame(attribute, e.getFeature());
 			assertEquals(itemToBeDeleted, e.getItem());
-			assertEquals("integrity violation on deletion of " + itemToBeDeleted.getCopeID() + " because of " + e.getFeature(), e.getMessage());
+			assertEquals(
+					"integrity violation " +
+					"on deletion of " + itemToBeDeleted.getCopeID() +
+					" because of " + e.getFeature() +
+					" referring to " + referrers + " item(s)",
+					e.getMessage());
 		}
 		assertTrue(item.existsCopeItem());
 	}

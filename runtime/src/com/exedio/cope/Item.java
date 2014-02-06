@@ -24,7 +24,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -357,9 +356,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 			{
 				case FORBID:
 				{
-					final Collection<?> s = field.getType().search(Cope.equalAndCast(field, this));
-					if(!s.isEmpty())
-						throw new IntegrityViolationException(field, this);
+					final int referrers = field.getType().newQuery(Cope.equalAndCast(field, this)).total();
+					if(referrers!=0)
+						throw new IntegrityViolationException(field, this, referrers);
 					break;
 				}
 				case CASCADE:
