@@ -69,11 +69,9 @@ public class DeleteTest extends AbstractRuntimeTest
 
 		// same item
 		item.setSelfForbid(item);
-		if(true) // TODO allow self references
-		{
-			assertDeleteFails(item, selfForbid);
-			item.setSelfForbid(null);
-		}
+		// TODO allow self references
+		assertDeleteFails(item, selfForbid);
+		item.setSelfForbid(null);
 		assertDelete(item);
 
 		// indirect forbid
