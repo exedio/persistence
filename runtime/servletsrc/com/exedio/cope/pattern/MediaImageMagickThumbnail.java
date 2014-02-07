@@ -33,6 +33,10 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 
 	private static final int MIN_BOUND = 5;
 
+	/**
+	 * Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar instead.
+	 */
+	@Deprecated
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
 		this(source, boundX, boundY, 0, null, "image/jpeg");
@@ -62,6 +66,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 		return result.toArray(new String[result.size()]);
 	}
 
+	@Deprecated
 	private MediaImageMagickThumbnail(
 			final Media source,
 			final int boundX, final int boundY,

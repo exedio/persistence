@@ -87,11 +87,19 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private final MediaType constantOutputContentType;
 	private final String[] options;
 
+	/**
+	 * Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar instead.
+	 */
+	@Deprecated
 	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
 	{
 		this(source, fallback, "image/jpeg", options);
 	}
 
+	/**
+	 * Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar instead.
+	 */
+	@Deprecated
 	public MediaImageMagickFilter(
 			final Media source,
 			final MediaImageioFilter fallback,
