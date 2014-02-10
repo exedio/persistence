@@ -84,7 +84,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 
 		try
 		{
-			new MediaImageMagickThumbnail(null, 80, 80);
+			newMediaImageMagickThumbnail(null, 80, 80);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -93,7 +93,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			new MediaImageMagickThumbnail(file, 4, 80);
+			newMediaImageMagickThumbnail(file, 4, 80);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -102,14 +102,14 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			new MediaImageMagickThumbnail(file, 80, 4);
+			newMediaImageMagickThumbnail(file, 80, 4);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
 		}
-		final MediaImageMagickThumbnail template = new MediaImageMagickThumbnail(file, 80, 80);
+		final MediaImageMagickThumbnail template = newMediaImageMagickThumbnail(file, 80, 80);
 		try
 		{
 			template.outputContentType(null);
@@ -146,6 +146,13 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		{
 			assertEquals("density must be 0 or greater, but was -1", e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private static MediaImageMagickThumbnail newMediaImageMagickThumbnail(
+			final Media source, final int boundX, final int boundY)
+	{
+		return new MediaImageMagickThumbnail(source, boundX, boundY);
 	}
 
 	private static final void assertSerializedSame(final Serializable value, final int expectedSize)

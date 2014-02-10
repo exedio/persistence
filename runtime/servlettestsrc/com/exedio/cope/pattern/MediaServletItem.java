@@ -83,15 +83,19 @@ final class MediaServletItem extends Item
 	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
 
 	/** @cope.getURL none */
+	@SuppressWarnings("deprecation")
 	static final MediaImageMagickThumbnail thumbnailMagick = new MediaImageMagickThumbnail(content, 150, 150);
 
 	/** @cope.getURL none */
+	@SuppressWarnings("deprecation")
 	static final MediaImageMagickThumbnail thumbnailMagickPng = new MediaImageMagickThumbnail(content, 150, 150).outputContentType("image/png");
 
 	/** @cope.getURL none */
+	@SuppressWarnings("deprecation")
 	static final MediaImageMagickThumbnail thumbnailMagickPngBlue = new MediaImageMagickThumbnail(content, 150, 150).outputContentType("image/png").flatten("blue");
 
 	/** @cope.getURL none */
+	@SuppressWarnings("deprecation")
 	static final MediaImageMagickThumbnail thumbnailMagickSame = new MediaImageMagickThumbnail(content, 150, 150).outputContentTypeSame();
 
 	/** @cope.getURL none */

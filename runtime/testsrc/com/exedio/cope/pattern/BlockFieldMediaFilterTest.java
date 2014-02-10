@@ -103,7 +103,7 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 		/** @cope.getURL none */
 		static final Media source = new Media().optional().contentType(MediaType.JPEG);
 		/** @cope.getURL none */
-		static final MediaImageMagickThumbnail filter = new MediaImageMagickThumbnail(source, 10, 20);
+		static final MediaThumbnail filter = new MediaThumbnail(source, 10, 20);
 
 
 	/**
