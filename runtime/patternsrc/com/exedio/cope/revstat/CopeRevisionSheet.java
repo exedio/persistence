@@ -51,7 +51,7 @@ final class CopeRevisionSheet extends Item
 		try
 		{
 			ctx.stopIfRequested();
-			model.startTransaction(RevisionSheet.class.getName() + '#' + number);
+			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
 
 			final CopeRevisionSheet result;
 			try

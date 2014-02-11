@@ -26,7 +26,7 @@ import com.exedio.cope.util.JobContext;
 import java.util.Map;
 import java.util.TreeMap;
 
-public final class RevisionSheet
+public final class RevisionStatistics
 {
 	public static void write(final Model model, final JobContext ctx)
 	{
@@ -49,7 +49,7 @@ public final class RevisionSheet
 
 	public static final TypeSet types = new TypeSet(CopeRevisionSheet.TYPE, CopeRevisionSheetBody.TYPE);
 
-	private RevisionSheet()
+	private RevisionStatistics()
 	{
 		// prevent instantiation
 	}

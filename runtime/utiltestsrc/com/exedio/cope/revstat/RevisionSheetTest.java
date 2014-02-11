@@ -34,7 +34,7 @@ public class RevisionSheetTest extends CopeAssert
 
 	private static final Model MODEL = new Model(
 			revisions,
-			new TypeSet[]{RevisionSheet.types});
+			new TypeSet[]{RevisionStatistics.types});
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 
@@ -63,12 +63,12 @@ public class RevisionSheetTest extends CopeAssert
 
 		{
 			final Context ctx = new Context();
-			RevisionSheet.write(MODEL, ctx);
+			RevisionStatistics.write(MODEL, ctx);
 			ctx.assertProgress(2);
 		}
 		{
 			final Context ctx = new Context();
-			RevisionSheet.write(MODEL, ctx);
+			RevisionStatistics.write(MODEL, ctx);
 			ctx.assertProgress(0);
 		}
 
