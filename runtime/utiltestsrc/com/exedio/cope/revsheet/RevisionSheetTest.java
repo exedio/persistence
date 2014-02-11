@@ -24,7 +24,7 @@ import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 import com.exedio.cope.TypeSet;
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.JobContexts;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
 
@@ -61,7 +61,11 @@ public class RevisionSheetTest extends CopeAssert
 		MODEL.revise();
 		revisions.assertEmpty();
 
-		RevisionSheet.write(MODEL, JobContexts.EMPTY);
+		{
+			final Context ctx = new Context();
+			RevisionSheet.write(MODEL, ctx);
+			ctx.assertProgress(2);
+		}
 
 		MODEL.startTransaction("RevisionSheetTest");
 		final Iterator<CopeRevisionSheet> sheetIterator =
@@ -142,6 +146,32 @@ public class RevisionSheetTest extends CopeAssert
 			final Revisions revisions = this.revisions;
 			this.revisions = null;
 			return revisions;
+		}
+	}
+
+	private static final class Context extends AssertionErrorJobContext
+	{
+		private int progress = 0;
+
+		Context()
+		{
+		}
+
+		@Override
+		public void stopIfRequested()
+		{
+			// do nothing
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			progress++;
+		}
+
+		void assertProgress(final int expected)
+		{
+			assertEquals(expected, progress);
 		}
 	}
 }
