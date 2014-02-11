@@ -19,6 +19,7 @@
 package com.exedio.cope.revstat;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopeName;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -31,6 +32,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.PartOf;
 import java.util.List;
 
+@CopeName("CopeRevisionStatisticsBody")
 final class CopeRevisionSheetBody extends Item
 {
 	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();

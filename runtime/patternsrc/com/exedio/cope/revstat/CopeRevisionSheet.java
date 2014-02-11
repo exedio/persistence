@@ -19,6 +19,7 @@
 package com.exedio.cope.revstat;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopeName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -33,6 +34,7 @@ import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
 
+@CopeName("CopeRevisionStatistics")
 final class CopeRevisionSheet extends Item
 {
 	private static final IntegerField number = new IntegerField().toFinal().unique().min(0);
