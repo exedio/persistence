@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.revsheet;
+package com.exedio.cope.revstat;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
