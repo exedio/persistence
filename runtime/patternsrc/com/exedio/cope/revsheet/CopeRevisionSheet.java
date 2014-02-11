@@ -38,7 +38,7 @@ final class CopeRevisionSheet extends Item
 	private static final DateField date = new DateField().toFinal();
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
-	static void write(
+	static boolean write(
 			final Model model,
 			final int number,
 			final RevisionInfoRevise revision)
@@ -60,7 +60,7 @@ final class CopeRevisionSheet extends Item
 			}
 			catch(final UniqueViolationException e)
 			{
-				return;
+				return false;
 			}
 
 			int bodyNumber = 0;
@@ -73,6 +73,7 @@ final class CopeRevisionSheet extends Item
 		{
 			model.rollbackIfNotCommitted();
 		}
+		return true;
 	}
 
 	int getNumber()

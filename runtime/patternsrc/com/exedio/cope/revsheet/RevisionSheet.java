@@ -47,8 +47,8 @@ public final class RevisionSheet
 		for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
 		{
 			ctx.stopIfRequested();
-			CopeRevisionSheet.write(model, entry.getKey(), entry.getValue());
-			ctx.incrementProgress();
+			if(CopeRevisionSheet.write(model, entry.getKey(), entry.getValue()))
+				ctx.incrementProgress();
 		}
 	}
 

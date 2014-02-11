@@ -69,7 +69,7 @@ public class RevisionSheetTest extends CopeAssert
 		{
 			final Context ctx = new Context();
 			RevisionSheet.write(MODEL, ctx);
-			ctx.assertProgress(2);
+			ctx.assertProgress(0);
 		}
 
 		MODEL.startTransaction("RevisionSheetTest");
