@@ -29,6 +29,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +39,11 @@ final class CopeRevisionSheet extends Item
 	private static final DateField date = new DateField().toFinal();
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
-	static boolean write(
+	static void write(
 			final Model model,
 			final int number,
-			final RevisionInfoRevise revision)
+			final RevisionInfoRevise revision,
+			final JobContext ctx)
 	{
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
@@ -60,7 +62,7 @@ final class CopeRevisionSheet extends Item
 			}
 			catch(final UniqueViolationException e)
 			{
-				return false;
+				return;
 			}
 
 			int bodyNumber = 0;
@@ -68,12 +70,12 @@ final class CopeRevisionSheet extends Item
 				CopeRevisionSheetBody.get(result, bodyNumber++, body);
 
 			model.commit();
+			ctx.incrementProgress();
 		}
 		finally
 		{
 			model.rollbackIfNotCommitted();
 		}
-		return true;
 	}
 
 	int getNumber()
