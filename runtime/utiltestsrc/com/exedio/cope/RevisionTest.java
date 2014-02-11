@@ -53,6 +53,15 @@ public class RevisionTest extends CopeAssert
 		}
 		try
 		{
+			new Revision(1, "", (String[])null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("comment must not be empty", e.getMessage());
+		}
+		try
+		{
 			new Revision(1, "some comment", (String[])null);
 			fail();
 		}
@@ -77,6 +86,15 @@ public class RevisionTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals("body[1]", e.getMessage());
+		}
+		try
+		{
+			new Revision(1, "some comment", "hallo", "");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("body[1] must not be empty", e.getMessage());
 		}
 
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");

@@ -52,6 +52,8 @@ public final class Revision
 			throw new IllegalArgumentException("number must be greater zero");
 		if(comment==null)
 			throw new NullPointerException("comment");
+		if(comment.isEmpty())
+			throw new IllegalArgumentException("comment must not be empty");
 		if(body==null)
 			throw new NullPointerException("body");
 		if(body.length==0)
@@ -64,6 +66,8 @@ public final class Revision
 			final String b = body[i];
 			if(b==null)
 				throw new NullPointerException("body" + '[' + i + ']');
+			if(b.isEmpty())
+				throw new IllegalArgumentException("body" + '[' + i + "] must not be empty");
 			bodyCopy[i] = b;
 		}
 
