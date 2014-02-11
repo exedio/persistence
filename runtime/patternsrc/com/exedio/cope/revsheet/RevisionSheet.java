@@ -44,10 +44,7 @@ public final class RevisionSheet
 		ctx.stopIfRequested();
 
 		for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
-		{
-			ctx.stopIfRequested();
 			CopeRevisionSheet.write(model, entry.getKey(), entry.getValue(), ctx);
-		}
 	}
 
 	public static final TypeSet types = new TypeSet(CopeRevisionSheet.TYPE, CopeRevisionSheetBody.TYPE);
