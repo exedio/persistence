@@ -44,23 +44,12 @@ public final class RevisionSheet
 
 		ctx.stopIfRequested();
 
-		try
-		{
-			model.startTransaction(RevisionSheet.class.getName());
-
 			for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
 			{
 				ctx.stopIfRequested();
-				CopeRevisionSheet.write(entry.getKey(), entry.getValue());
+				CopeRevisionSheet.write(model, entry.getKey(), entry.getValue());
 				ctx.incrementProgress();
 			}
-
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
-		}
 	}
 
 	public static final TypeSet types = new TypeSet(CopeRevisionSheet.TYPE, CopeRevisionSheetBody.TYPE);

@@ -22,6 +22,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Model;
 import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.StringField;
@@ -37,27 +38,41 @@ final class CopeRevisionSheet extends Item
 	private static final DateField date = new DateField().toFinal();
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
-	static void write(final int number, final RevisionInfoRevise revision)
+	static void write(
+			final Model model,
+			final int number,
+			final RevisionInfoRevise revision)
 	{
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-		final CopeRevisionSheet result;
 		try
 		{
-			result = TYPE.newItem(
-				CopeRevisionSheet.number.map(number),
-				CopeRevisionSheet.date.map(revision.getDate()),
-				CopeRevisionSheet.comment.map(revision.getComment()));
-		}
-		catch(final UniqueViolationException e)
-		{
-			return;
-		}
+			model.startTransaction(RevisionSheet.class.getName());
 
-		int bodyNumber = 0;
-		for(final Body body : revision.getBody())
-			CopeRevisionSheetBody.get(result, bodyNumber++, body);
+			final CopeRevisionSheet result;
+			try
+			{
+				result = TYPE.newItem(
+					CopeRevisionSheet.number.map(number),
+					CopeRevisionSheet.date.map(revision.getDate()),
+					CopeRevisionSheet.comment.map(revision.getComment()));
+			}
+			catch(final UniqueViolationException e)
+			{
+				return;
+			}
+
+			int bodyNumber = 0;
+			for(final Body body : revision.getBody())
+				CopeRevisionSheetBody.get(result, bodyNumber++, body);
+
+			model.commit();
+		}
+		finally
+		{
+			model.rollbackIfNotCommitted();
+		}
 	}
 
 	int getNumber()
