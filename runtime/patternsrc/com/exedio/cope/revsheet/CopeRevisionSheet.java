@@ -80,7 +80,7 @@ final class CopeRevisionSheet extends Item
 
 	List<CopeRevisionSheetBody> getBody()
 	{
-		return CopeRevisionSheetBody.body.getParts(CopeRevisionSheetBody.class, this);
+		return CopeRevisionSheetBody.getBodyParts(this);
 	}
 
 	private static final long serialVersionUID = 1l;

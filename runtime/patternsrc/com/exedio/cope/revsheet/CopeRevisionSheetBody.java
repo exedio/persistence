@@ -29,6 +29,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.PartOf;
+import java.util.List;
 
 final class CopeRevisionSheetBody extends Item
 {
@@ -36,7 +37,7 @@ final class CopeRevisionSheetBody extends Item
 	private static final IntegerField number = new IntegerField().toFinal();
 	@SuppressWarnings("unused")
 	private static final UniqueConstraint revisionAndNumber = new UniqueConstraint(revision, number);
-	static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, number);
+	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, number);
 	private static final StringField sql = new StringField().toFinal();
 	private static final IntegerField rows = new IntegerField().toFinal();
 	private static final LongField elapsed = new LongField().toFinal();
@@ -63,6 +64,11 @@ final class CopeRevisionSheetBody extends Item
 	static CopeRevisionSheetBody forNumber(final int number)
 	{
 		return CopeRevisionSheetBody.number.searchUnique(CopeRevisionSheetBody.class, number);
+	}
+
+	static List<CopeRevisionSheetBody> getBodyParts(final CopeRevisionSheet container)
+	{
+		return CopeRevisionSheetBody.body.getParts(CopeRevisionSheetBody.class, container);
 	}
 
 	String getSql()
