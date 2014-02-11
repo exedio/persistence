@@ -38,7 +38,7 @@ public final class RevisionSheet
 
 			final RevisionInfo info = RevisionInfo.read(e.getValue());
 			if(info!=null && info instanceof RevisionInfoRevise)
-				revisions.put(info.getNumber(), (RevisionInfoRevise)info);
+				revisions.put(e.getKey(), (RevisionInfoRevise)info);
 		}
 
 		ctx.stopIfRequested();
