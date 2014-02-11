@@ -28,6 +28,8 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
+import java.util.Date;
+import java.util.List;
 
 final class CopeRevisionSheet extends Item
 {
@@ -56,9 +58,29 @@ final class CopeRevisionSheet extends Item
 			CopeRevisionSheetBody.get(result, bodyNumber++, body);
 	}
 
+	int getNumber()
+	{
+		return number.getMandatory(this);
+	}
+
 	static CopeRevisionSheet forNumber(final int number)
 	{
 		return CopeRevisionSheet.number.searchUnique(CopeRevisionSheet.class, number);
+	}
+
+	Date getDate()
+	{
+		return date.get(this);
+	}
+
+	String getComment()
+	{
+		return comment.get(this);
+	}
+
+	List<CopeRevisionSheetBody> getBody()
+	{
+		return CopeRevisionSheetBody.body.getParts(CopeRevisionSheetBody.class, this);
 	}
 
 	private static final long serialVersionUID = 1l;
