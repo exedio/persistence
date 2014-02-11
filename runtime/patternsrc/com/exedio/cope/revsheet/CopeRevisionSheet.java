@@ -48,7 +48,7 @@ final class CopeRevisionSheet extends Item
 
 		try
 		{
-			model.startTransaction(RevisionSheet.class.getName());
+			model.startTransaction(RevisionSheet.class.getName() + '#' + number);
 
 			final CopeRevisionSheet result;
 			try
