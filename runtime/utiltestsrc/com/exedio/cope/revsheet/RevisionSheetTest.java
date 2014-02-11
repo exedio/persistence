@@ -66,6 +66,11 @@ public class RevisionSheetTest extends CopeAssert
 			RevisionSheet.write(MODEL, ctx);
 			ctx.assertProgress(2);
 		}
+		{
+			final Context ctx = new Context();
+			RevisionSheet.write(MODEL, ctx);
+			ctx.assertProgress(2);
+		}
 
 		MODEL.startTransaction("RevisionSheetTest");
 		final Iterator<CopeRevisionSheet> sheetIterator =
