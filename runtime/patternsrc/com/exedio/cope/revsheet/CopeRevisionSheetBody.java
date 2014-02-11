@@ -34,13 +34,13 @@ import java.util.List;
 final class CopeRevisionSheetBody extends Item
 {
 	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();
-	private static final IntegerField number = new IntegerField().toFinal();
+	private static final IntegerField number = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")
 	private static final UniqueConstraint revisionAndNumber = new UniqueConstraint(revision, number);
 	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, number);
-	private static final StringField sql = new StringField().toFinal();
-	private static final IntegerField rows = new IntegerField().toFinal();
-	private static final LongField elapsed = new LongField().toFinal();
+	private static final StringField sql = new StringField().toFinal().lengthMax(50000);
+	private static final IntegerField rows = new IntegerField().toFinal().min(0);
+	private static final LongField elapsed = new LongField().toFinal().min(0);
 
 	static void get(final CopeRevisionSheet revision, final int number, final Body body)
 	{
