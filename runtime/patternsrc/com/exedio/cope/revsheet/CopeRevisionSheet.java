@@ -43,7 +43,8 @@ final class CopeRevisionSheet extends Item
 		{
 			result = TYPE.newItem(
 				CopeRevisionSheet.number.map(number),
-				CopeRevisionSheet.date.map(revision.getDate()));
+				CopeRevisionSheet.date.map(revision.getDate()),
+				CopeRevisionSheet.comment.map(revision.getComment()));
 		}
 		catch(final UniqueViolationException e)
 		{
