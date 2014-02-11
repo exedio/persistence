@@ -30,9 +30,6 @@ public final class RevisionSheet
 {
 	public static void write(final Model model, final JobContext ctx)
 	{
-		if(model.getRevisions()==null)
-			return;
-
 		final TreeMap<Integer, RevisionInfoRevise> revisions = new TreeMap<Integer, RevisionInfoRevise>();
 
 		for(final Map.Entry<Integer, byte[]> e : model.getRevisionLogs().entrySet())
