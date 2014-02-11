@@ -18,8 +18,6 @@
 
 package com.exedio.cope.revsheet;
 
-import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
-
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
@@ -27,15 +25,8 @@ import com.exedio.cope.Revisions;
 import com.exedio.cope.TypeSet;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.JobContexts;
-import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.util.Sources;
 import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 public class RevisionSheetTest extends CopeAssert
 {
@@ -49,9 +40,6 @@ public class RevisionSheetTest extends CopeAssert
 
 	public void testIt()
 	{
-		final TestSource testSource = new TestSource();
-		testSource.putOverride("revise.auto.enabled", "true");
-		final ConnectProperties propsx = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
 		revisions.assertEmpty();
 
 		MODEL.connect(props);
@@ -154,44 +142,6 @@ public class RevisionSheetTest extends CopeAssert
 			final Revisions revisions = this.revisions;
 			this.revisions = null;
 			return revisions;
-		}
-	}
-
-	static final class TestSource implements Source
-	{
-		Source fallback;
-		Map<String,String> overrides = new HashMap<String, String>();
-
-		TestSource()
-		{
-			fallback = Sources.load(ConnectProperties.getDefaultPropertyFile());
-		}
-
-		@Override()
-		public String get( final String key )
-		{
-			final String override = overrides.get( key );
-			return override==null ? fallback.get( key ) : override;
-		}
-
-		@Override()
-		public Collection<String> keySet()
-		{
-			final Set<String> keys = new HashSet<String>();
-			keys.addAll( overrides.keySet() );
-			keys.addAll( fallback.keySet() );
-			return keys;
-		}
-
-		@Override()
-		public String getDescription()
-		{
-			return "TestSource";
-		}
-
-		void putOverride( final String key, final String value )
-		{
-			overrides.put( key, value );
 		}
 	}
 }
