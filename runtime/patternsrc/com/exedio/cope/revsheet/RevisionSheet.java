@@ -37,6 +37,8 @@ public final class RevisionSheet
 
 		for(final Map.Entry<Integer, byte[]> e : model.getRevisionLogs().entrySet())
 		{
+			ctx.stopIfRequested();
+
 			final RevisionInfo info = RevisionInfo.read(e.getValue());
 			if(info!=null && info instanceof RevisionInfoRevise)
 				revisions.put(info.getNumber(), (RevisionInfoRevise)info);
