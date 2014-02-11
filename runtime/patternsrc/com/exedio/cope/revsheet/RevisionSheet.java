@@ -32,13 +32,13 @@ public final class RevisionSheet
 	{
 		final TreeMap<Integer, RevisionInfoRevise> revisions = new TreeMap<Integer, RevisionInfoRevise>();
 
-		for(final Map.Entry<Integer, byte[]> e : model.getRevisionLogs().entrySet())
+		for(final Map.Entry<Integer, byte[]> entry : model.getRevisionLogs().entrySet())
 		{
 			ctx.stopIfRequested();
 
-			final RevisionInfo info = RevisionInfo.read(e.getValue());
+			final RevisionInfo info = RevisionInfo.read(entry.getValue());
 			if(info!=null && info instanceof RevisionInfoRevise)
-				revisions.put(e.getKey(), (RevisionInfoRevise)info);
+				revisions.put(entry.getKey(), (RevisionInfoRevise)info);
 		}
 
 		ctx.stopIfRequested();
