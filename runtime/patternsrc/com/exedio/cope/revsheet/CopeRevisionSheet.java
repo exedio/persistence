@@ -37,9 +37,11 @@ final class CopeRevisionSheet extends Item
 	private static final DateField date = new DateField().toFinal();
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
-	static void write(final RevisionInfoRevise revision)
+	static void write(final int number, final RevisionInfoRevise revision)
 	{
-		final int number = revision.getNumber();
+		if(number!=revision.getNumber())
+			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
+
 		final CopeRevisionSheet result;
 		try
 		{

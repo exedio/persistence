@@ -48,10 +48,10 @@ public final class RevisionSheet
 		{
 			model.startTransaction(RevisionSheet.class.getName());
 
-			for(final RevisionInfoRevise revision : revisions.values())
+			for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
 			{
 				ctx.stopIfRequested();
-				CopeRevisionSheet.write(revision);
+				CopeRevisionSheet.write(entry.getKey(), entry.getValue());
 				ctx.incrementProgress();
 			}
 
