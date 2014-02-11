@@ -75,7 +75,7 @@ public class RevisionSheetTest extends CopeAssert
 			{
 				final CopeRevisionSheetBody body = bodyIterator.next();
 				assertEquals(0, body.getNumber());
-				assertEquals(bodyPrefix + "'sql 2/0'", body.getSql());
+				assertEquals(bodyPrefix + "'sql 2/0'", body.getSQL());
 			}
 			assertFalse(bodyIterator.hasNext());
 		}
@@ -88,17 +88,17 @@ public class RevisionSheetTest extends CopeAssert
 			{
 				final CopeRevisionSheetBody body = bodyIterator.next();
 				assertEquals(0, body.getNumber());
-				assertEquals(bodyPrefix + "'sql 3/0'", body.getSql());
+				assertEquals(bodyPrefix + "'sql 3/0'", body.getSQL());
 			}
 			{
 				final CopeRevisionSheetBody body = bodyIterator.next();
 				assertEquals(1, body.getNumber());
-				assertEquals(bodyPrefix + "'sql 3/1'", body.getSql());
+				assertEquals(bodyPrefix + "'sql 3/1'", body.getSQL());
 			}
 			{
 				final CopeRevisionSheetBody body = bodyIterator.next();
 				assertEquals(2, body.getNumber());
-				assertEquals(bodyPrefix + "'sql 3/2'", body.getSql());
+				assertEquals(bodyPrefix + "'sql 3/2'", body.getSQL());
 			}
 			assertFalse(bodyIterator.hasNext());
 		}

@@ -71,7 +71,7 @@ final class CopeRevisionSheetBody extends Item
 		return CopeRevisionSheetBody.body.getParts(CopeRevisionSheetBody.class, container);
 	}
 
-	String getSql()
+	String getSQL()
 	{
 		return sql.get(this);
 	}
