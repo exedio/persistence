@@ -81,14 +81,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionTableName = value("schema.revision.table", "while");
 
 	/**
-	 * The name of the unique constraint
+	 * The name of the primary key constraint
 	 * on the table for the revision information.
 	 * The value "protected" prevents name collisions
 	 * with other tables,
 	 * since "protected" is a reserved java keyword,
 	 * which cannot be used for java classes.
 	 */
-	final String revisionUniqueName = value("schema.revision.unique", "protected");
+	final String revisionPrimaryKeyName = value("schema.revision.unique", "protected"); // TODO rename key
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
 	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.NONE);

@@ -7,6 +7,14 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Revision table gets primary key instead of unique constraint.
+	BEWARE: This affects database schema.
+	The following revision is needed:
+
+		new Revision(nnn, "Revision table gets primary key instead of unique constraint",
+			"ALTER TABLE `while` DROP INDEX `protected`",
+			"ALTER TABLE `while` MODIFY `v` int PRIMARY KEY")
+
 * Revision constructor forbids empty comment and body strings.
 	This breaks backwards API compatibility, but probably will not cause problems.
 * bugfix: exception when deleting items with DeletePolicy.FORBID
