@@ -384,7 +384,6 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf( 333).multiply(-3d).store());
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
 
-		// TODO overflow
 		assertEquals( 1073741823, storeOf(1073741823).multiply(1d).store());
 		assertEquals( 1073741824, storeOf(1073741824).multiply(1d).store());
 		assertEquals( 1073741825, storeOf(1073741825).multiply(1d).store());
@@ -401,6 +400,37 @@ public final class PriceTest extends CopeAssert
 		try
 		{
 			storeOf(1073741825).multiply(2d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.14748365E7", e.getMessage());
+		}
+	}
+
+	public static void testDivideDouble()
+	{
+		assertEquals( 333, storeOf( 999).divide( 3d).store());
+		assertEquals(-333, storeOf(-999).divide( 3d).store());
+		assertEquals(-333, storeOf( 999).divide(-3d).store());
+		assertEquals( 333, storeOf(-999).divide(-3d).store());
+
+		assertEquals( 1073741823, storeOf(1073741823).divide(1d ).store());
+		assertEquals( 1073741824, storeOf(1073741824).divide(1d ).store());
+		assertEquals( 1073741825, storeOf(1073741825).divide(1d ).store());
+		assertEquals( 2147483646, storeOf(1073741823).divide(0.5).store());
+		try
+		{
+			storeOf(1073741824).divide(0.5);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 2.147483648E7", e.getMessage());
+		}
+		try
+		{
+			storeOf(1073741825).divide(0.5);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
