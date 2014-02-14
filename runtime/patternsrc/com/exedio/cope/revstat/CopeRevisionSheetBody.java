@@ -33,7 +33,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.PartOf;
 import java.util.List;
 
-@CopeName("CopeRevisionStatisticsBody")
+@CopeName("CopeRevstatBody")
 final class CopeRevisionSheetBody extends Item
 {
 	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();

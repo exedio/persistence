@@ -34,7 +34,7 @@ import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
 
-@CopeName("CopeRevisionStatistics")
+@CopeName("CopeRevstat")
 final class CopeRevisionSheet extends Item
 {
 	private static final IntegerField number = new IntegerField().toFinal().unique().min(0);
