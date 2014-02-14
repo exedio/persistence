@@ -36,15 +36,15 @@ import java.util.List;
 final class CopeRevisionSheetBody extends Item
 {
 	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();
-	private static final IntegerField number = new IntegerField().toFinal().min(0);
+	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")
-	private static final UniqueConstraint revisionAndNumber = new UniqueConstraint(revision, number);
-	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, number);
+	private static final UniqueConstraint revisionAndBodyNumber = new UniqueConstraint(revision, bodyNumber);
+	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, bodyNumber);
 	private static final StringField sql = new StringField().toFinal().lengthMax(50000);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);
 
-	static void get(final CopeRevisionSheet revision, final int number, final Body body)
+	static void get(final CopeRevisionSheet revision, final int bodyNumber, final Body body)
 	{
 		String sql = body.getSQL();
 		if(sql.length()>1000)
@@ -52,20 +52,15 @@ final class CopeRevisionSheetBody extends Item
 
 		TYPE.newItem(
 				CopeRevisionSheetBody.revision.map(revision),
-				CopeRevisionSheetBody.number.map(number),
+				CopeRevisionSheetBody.bodyNumber.map(bodyNumber),
 				CopeRevisionSheetBody.sql.map(sql),
 				CopeRevisionSheetBody.rows.map(body.getRows()),
 				CopeRevisionSheetBody.elapsed.map(body.getElapsed()));
 	}
 
-	int getNumber()
+	int getBodyNumber()
 	{
-		return number.getMandatory(this);
-	}
-
-	static CopeRevisionSheetBody forNumber(final int number)
-	{
-		return CopeRevisionSheetBody.number.searchUnique(CopeRevisionSheetBody.class, number);
+		return bodyNumber.getMandatory(this);
 	}
 
 	static List<CopeRevisionSheetBody> getBodyParts(final CopeRevisionSheet container)
