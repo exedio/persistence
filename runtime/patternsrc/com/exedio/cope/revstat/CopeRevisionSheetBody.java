@@ -20,6 +20,7 @@ package com.exedio.cope.revstat;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
+import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -36,6 +37,10 @@ import java.util.List;
 final class CopeRevisionSheetBody extends Item
 {
 	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();
+
+	private static final IntegerField number = new IntegerField().toFinal().min(0).copyFrom(revision);
+	private static final DateField date = new DateField().toFinal().copyFrom(revision);
+
 	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")
 	private static final UniqueConstraint revisionAndBodyNumber = new UniqueConstraint(revision, bodyNumber);
@@ -52,6 +57,8 @@ final class CopeRevisionSheetBody extends Item
 
 		TYPE.newItem(
 				CopeRevisionSheetBody.revision.map(revision),
+				CopeRevisionSheetBody.number.map(revision.getNumber()),
+				CopeRevisionSheetBody.date.map(revision.getDate()),
 				CopeRevisionSheetBody.bodyNumber.map(bodyNumber),
 				CopeRevisionSheetBody.sql.map(sql),
 				CopeRevisionSheetBody.rows.map(body.getRows()),
