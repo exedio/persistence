@@ -30,6 +30,7 @@ public final class RevisionStatistics
 {
 	public static void write(final Model model, final JobContext ctx)
 	{
+		// TODO summarize rows and elapsed by revision
 		final TreeMap<Integer, RevisionInfoRevise> revisions = new TreeMap<Integer, RevisionInfoRevise>();
 
 		for(final Map.Entry<Integer, byte[]> entry : model.getRevisionLogs().entrySet())
