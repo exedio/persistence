@@ -26,13 +26,11 @@ import java.util.StringTokenizer;
 public final class MysqlDialect extends Dialect
 {
 	private final String rowFormat;
-	final String primaryKeyColumnName;
 
-	public MysqlDialect(final String rowFormat, final String primaryKeyColumnName)
+	public MysqlDialect(final String rowFormat)
 	{
 		super(null);
 		this.rowFormat = rowFormat;
-		this.primaryKeyColumnName = primaryKeyColumnName;
 	}
 
 	private static final char QUOTE_CHARACTER = '`';
@@ -179,19 +177,22 @@ public final class MysqlDialect extends Dialect
 									if("PRI".equals(key))
 									{
 										final String field = resultSet.getString("Field");
-										if(primaryKeyColumnName.equals(field) && table.required())
+										if(table.required())
 										{
+											boolean found = false;
 											for(final Constraint c : table.getConstraints())
 											{
-												if(c instanceof PrimaryKeyConstraint)
+												if(c instanceof PrimaryKeyConstraint &&
+													((PrimaryKeyConstraint)c).primaryKeyColumn.equals(field))
 												{
 													table.notifyExistentPrimaryKeyConstraint(c.name);
+													found = true;
 													break;
 												}
 											}
+											if(!found)
+												table.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 										}
-										else
-											table.notifyExistentPrimaryKeyConstraint(field+"_Pk");
 									}
 								}
 							}

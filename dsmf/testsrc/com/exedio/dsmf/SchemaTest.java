@@ -87,7 +87,7 @@ public abstract class SchemaTest extends TestCase
 		else if(url.startsWith("jdbc:mysql:"))
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat, "this");
+			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
 			intType = "int";
 			intType2 = "bigint";

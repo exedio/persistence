@@ -22,10 +22,10 @@ import static com.exedio.cope.Executor.integerResultSetHandler;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import com.exedio.dsmf.UniqueConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -137,7 +137,7 @@ public final class Revisions
 		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName);
 		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new UniqueConstraint(table, properties.revisionUniqueName, '(' + dialect.dsmfDialect.quoteName(COLUMN_NUMBER_NAME) + ')');
+		new PrimaryKeyConstraint(table, properties.revisionPrimaryKeyName, COLUMN_NUMBER_NAME);
 	}
 
 	private static int getActualNumber(
