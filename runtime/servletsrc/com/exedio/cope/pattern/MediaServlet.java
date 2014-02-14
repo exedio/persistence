@@ -84,6 +84,7 @@ public class MediaServlet extends HttpServlet
 		boolean mustReturn = true;
 		try
 		{
+			initPathes(connectToken.getModel()); // TODO do this before connect
 			initConnected(connectToken.getModel());
 			mustReturn = false;
 		}
@@ -99,9 +100,13 @@ public class MediaServlet extends HttpServlet
 		// OTHERWISE ConnectTokens MAY BE LOST
 	}
 
-	void initConnected(final Model model)
+	public void initConnected(final Model model)
 	{
 		model.reviseIfSupportedAndAutoEnabled();
+	}
+
+	void initPathes(final Model model)
+	{
 		for(final Type<?> type : model.getTypes())
 		{
 			for(final Feature feature : type.getDeclaredFeatures())

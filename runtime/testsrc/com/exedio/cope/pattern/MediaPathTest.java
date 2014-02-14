@@ -65,6 +65,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
+		servlet.initPathes(MODEL);
 		servlet.initConnected(MODEL);
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
