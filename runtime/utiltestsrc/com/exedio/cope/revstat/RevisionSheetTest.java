@@ -79,6 +79,7 @@ public class RevisionSheetTest extends CopeAssert
 			final CopeRevisionSheet sheet = sheetIterator.next();
 			assertEquals(2, sheet.getNumber());
 			assertNotNull(sheet.getDate());
+			assertEquals(1, sheet.getSize());
 			assertEquals("comment2", sheet.getComment());
 			final Iterator<CopeRevisionSheetBody> bodyIterator = sheet.getBody().iterator();
 			{
@@ -92,6 +93,7 @@ public class RevisionSheetTest extends CopeAssert
 			final CopeRevisionSheet sheet = sheetIterator.next();
 			assertEquals(3, sheet.getNumber());
 			assertNotNull(sheet.getDate());
+			assertEquals(3, sheet.getSize());
 			assertEquals("comment3", sheet.getComment());
 			final Iterator<CopeRevisionSheetBody> bodyIterator = sheet.getBody().iterator();
 			{

@@ -23,6 +23,7 @@ import com.exedio.cope.CopeName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.cope.RevisionInfoRevise.Body;
@@ -39,6 +40,9 @@ final class CopeRevisionSheet extends Item
 {
 	private static final IntegerField number = new IntegerField().toFinal().unique().min(0);
 	private static final DateField date = new DateField().toFinal();
+	private static final IntegerField size = new IntegerField().toFinal().min(0);
+	private static final IntegerField rows = new IntegerField().toFinal().min(0);
+	private static final LongField elapsed = new LongField().toFinal().min(0);
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
 	static void write(
@@ -53,6 +57,16 @@ final class CopeRevisionSheet extends Item
 		try
 		{
 			ctx.stopIfRequested();
+
+			final List<Body> bodies = revision.getBody();
+			int rows = 0;
+			long elapsed = 0;
+			for(final Body body : bodies)
+			{
+				rows += body.getRows();
+				elapsed += body.getElapsed();
+			}
+
 			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
 
 			final CopeRevisionSheet result;
@@ -61,6 +75,9 @@ final class CopeRevisionSheet extends Item
 				result = TYPE.newItem(
 					CopeRevisionSheet.number.map(number),
 					CopeRevisionSheet.date.map(revision.getDate()),
+					CopeRevisionSheet.size.map(bodies.size()),
+					CopeRevisionSheet.rows.map(rows),
+					CopeRevisionSheet.elapsed.map(elapsed),
 					CopeRevisionSheet.comment.map(revision.getComment()));
 			}
 			catch(final UniqueViolationException e)
@@ -69,7 +86,7 @@ final class CopeRevisionSheet extends Item
 			}
 
 			int bodyNumber = 0;
-			for(final Body body : revision.getBody())
+			for(final Body body : bodies)
 				CopeRevisionSheetBody.get(result, bodyNumber++, body);
 
 			model.commit();
@@ -94,6 +111,11 @@ final class CopeRevisionSheet extends Item
 	Date getDate()
 	{
 		return date.get(this);
+	}
+
+	int getSize()
+	{
+		return size.getMandatory(this);
 	}
 
 	String getComment()
