@@ -47,14 +47,10 @@ final class CopeRevisionSheetBody extends Item
 	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, bodyNumber);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);
-	private static final StringField sql = new StringField().toFinal().lengthMax(50000);
+	private static final StringField sql = new StringField().toFinal().lengthMax(100000);
 
 	static void get(final CopeRevisionSheet revision, final int bodyNumber, final Body body)
 	{
-		String sql = body.getSQL();
-		if(sql.length()>1000)
-			sql = sql.substring(0, 1000) + " SHORTENED";
-
 		TYPE.newItem(
 				CopeRevisionSheetBody.revision.map(revision),
 				CopeRevisionSheetBody.number.map(revision.getNumber()),
@@ -62,7 +58,7 @@ final class CopeRevisionSheetBody extends Item
 				CopeRevisionSheetBody.bodyNumber.map(bodyNumber),
 				CopeRevisionSheetBody.rows.map(body.getRows()),
 				CopeRevisionSheetBody.elapsed.map(body.getElapsed()),
-				CopeRevisionSheetBody.sql.map(sql));
+				Util.cutAndMap(CopeRevisionSheetBody.sql, body.getSQL()));
 	}
 
 	int getBodyNumber()
