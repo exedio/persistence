@@ -67,6 +67,12 @@ final class CopeRevisionSheet extends Item
 				elapsed += body.getElapsed();
 			}
 
+			String comment = revision.getComment();
+			if(comment==null)
+				comment = "FOUND NULL BY CopeRevstat";
+			else if(comment.isEmpty())
+				comment = "FOUND EMPTY BY CopeRevstat";
+
 			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
 
 			final CopeRevisionSheet result;
@@ -78,7 +84,7 @@ final class CopeRevisionSheet extends Item
 					CopeRevisionSheet.size.map(bodies.size()),
 					CopeRevisionSheet.rows.map(rows),
 					CopeRevisionSheet.elapsed.map(elapsed),
-					CopeRevisionSheet.comment.map(revision.getComment()));
+					CopeRevisionSheet.comment.map(comment));
 			}
 			catch(final UniqueViolationException e)
 			{
