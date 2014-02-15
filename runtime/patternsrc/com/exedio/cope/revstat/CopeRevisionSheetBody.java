@@ -45,9 +45,9 @@ final class CopeRevisionSheetBody extends Item
 	@SuppressWarnings("unused")
 	private static final UniqueConstraint revisionAndBodyNumber = new UniqueConstraint(revision, bodyNumber);
 	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, bodyNumber);
-	private static final StringField sql = new StringField().toFinal().lengthMax(50000);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);
+	private static final StringField sql = new StringField().toFinal().lengthMax(50000);
 
 	static void get(final CopeRevisionSheet revision, final int bodyNumber, final Body body)
 	{
@@ -60,9 +60,9 @@ final class CopeRevisionSheetBody extends Item
 				CopeRevisionSheetBody.number.map(revision.getNumber()),
 				CopeRevisionSheetBody.date.map(revision.getDate()),
 				CopeRevisionSheetBody.bodyNumber.map(bodyNumber),
-				CopeRevisionSheetBody.sql.map(sql),
 				CopeRevisionSheetBody.rows.map(body.getRows()),
-				CopeRevisionSheetBody.elapsed.map(body.getElapsed()));
+				CopeRevisionSheetBody.elapsed.map(body.getElapsed()),
+				CopeRevisionSheetBody.sql.map(sql));
 	}
 
 	int getBodyNumber()
