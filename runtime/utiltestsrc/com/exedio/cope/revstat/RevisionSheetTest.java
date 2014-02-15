@@ -52,7 +52,7 @@ public class RevisionSheetTest extends CopeAssert
 
 		MODEL.disconnect();
 		MODEL.connect(props);
-		final String bodyPrefix = "delete from \"CopeRevisionStatistics\" where \"comment\"=";
+		final String bodyPrefix = "delete from \"CopeRevstat\" where \"comment\"=";
 		revisions.put(new Revisions(
 			new Revision(3, "comment3", bodyPrefix + "'sql 3/0'", bodyPrefix + "'sql 3/1'", bodyPrefix + "'sql 3/2'"),
 			new Revision(2, "comment2", bodyPrefix + "'sql 2/0'"),
