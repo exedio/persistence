@@ -93,6 +93,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
+		suite.addTest(com.exedio.cope.revstat.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.util.PackageUtilTest.suite());
 		return suite;
 	}
