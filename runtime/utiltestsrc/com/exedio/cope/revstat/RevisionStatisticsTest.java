@@ -28,7 +28,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
 
-public class RevisionSheetTest extends CopeAssert
+public class RevisionStatisticsTest extends CopeAssert
 {
 	private static final TestRevisionsFactory revisions = new TestRevisionsFactory();
 

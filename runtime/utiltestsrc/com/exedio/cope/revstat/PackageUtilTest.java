@@ -27,7 +27,7 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(RevisionSheetTest.class);
+		suite.addTestSuite(RevisionStatisticsTest.class);
 		return suite;
 	}
 }
