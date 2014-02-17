@@ -71,6 +71,11 @@ final class RevstatBody extends Item
 		return RevstatBody.body.getParts(RevstatBody.class, container);
 	}
 
+	int getRows()
+	{
+		return rows.getMandatory(this);
+	}
+
 	String getSQL()
 	{
 		return sql.get(this);

@@ -124,6 +124,11 @@ final class Revstat extends Item
 		return size.getMandatory(this);
 	}
 
+	int getRows()
+	{
+		return rows.getMandatory(this);
+	}
+
 	String getComment()
 	{
 		return comment.get(this);

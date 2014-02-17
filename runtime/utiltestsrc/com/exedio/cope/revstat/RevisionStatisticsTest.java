@@ -81,11 +81,13 @@ public class RevisionStatisticsTest extends CopeAssert
 			assertEquals(2, sheet.getNumber());
 			assertNotNull(sheet.getDate());
 			assertEquals(1, sheet.getSize());
+			assertEquals(0, sheet.getRows());
 			assertEquals("comment2", sheet.getComment());
 			final Iterator<RevstatBody> bodyIterator = sheet.getBody().iterator();
 			{
 				final RevstatBody body = bodyIterator.next();
 				assertEquals(0, body.getBodyNumber());
+				assertEquals(0, body.getRows());
 				assertEquals(bodyPrefix + "'sql 2/0'", body.getSQL());
 			}
 			assertFalse(bodyIterator.hasNext());
@@ -95,21 +97,25 @@ public class RevisionStatisticsTest extends CopeAssert
 			assertEquals(3, sheet.getNumber());
 			assertNotNull(sheet.getDate());
 			assertEquals(3, sheet.getSize());
+			assertEquals(0, sheet.getRows());
 			assertEquals("comment3", sheet.getComment());
 			final Iterator<RevstatBody> bodyIterator = sheet.getBody().iterator();
 			{
 				final RevstatBody body = bodyIterator.next();
 				assertEquals(0, body.getBodyNumber());
+				assertEquals(0, body.getRows());
 				assertEquals(bodyPrefix + "'sql 3/0'", body.getSQL());
 			}
 			{
 				final RevstatBody body = bodyIterator.next();
 				assertEquals(1, body.getBodyNumber());
+				assertEquals(0, body.getRows());
 				assertEquals(bodyPrefix + "'sql 3/1'", body.getSQL());
 			}
 			{
 				final RevstatBody body = bodyIterator.next();
 				assertEquals(2, body.getBodyNumber());
+				assertEquals(0, body.getRows());
 				assertEquals(bodyPrefix + "'sql 3/2'", body.getSQL());
 			}
 			assertFalse(bodyIterator.hasNext());
