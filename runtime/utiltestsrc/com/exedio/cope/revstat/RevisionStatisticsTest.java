@@ -34,7 +34,8 @@ public class RevisionStatisticsTest extends CopeAssert
 
 	private static final Model MODEL = new Model(
 			revisions,
-			new TypeSet[]{RevisionStatistics.types});
+			new TypeSet[]{RevisionStatistics.types},
+			RevisionStatisticsItem.TYPE);
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 
@@ -52,7 +53,7 @@ public class RevisionStatisticsTest extends CopeAssert
 
 		MODEL.disconnect();
 		MODEL.connect(props);
-		final String bodyPrefix = "delete from \"CopeRevstat\" where \"comment\"=";
+		final String bodyPrefix = "delete from \"RevisionStatisticsItem\" where \"field\"=";
 		revisions.put(new Revisions(
 			new Revision(3, "comment3", bodyPrefix + "'sql 3/0'", bodyPrefix + "'sql 3/1'", bodyPrefix + "'sql 3/2'"),
 			new Revision(2, "comment2", bodyPrefix + "'sql 2/0'"),
