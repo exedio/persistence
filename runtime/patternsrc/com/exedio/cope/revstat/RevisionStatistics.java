@@ -44,10 +44,10 @@ public final class RevisionStatistics
 		ctx.stopIfRequested();
 
 		for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
-			CopeRevisionSheet.write(model, entry.getKey(), entry.getValue(), ctx);
+			Revstat.write(model, entry.getKey(), entry.getValue(), ctx);
 	}
 
-	public static final TypeSet types = new TypeSet(CopeRevisionSheet.TYPE, CopeRevisionSheetBody.TYPE);
+	public static final TypeSet types = new TypeSet(Revstat.TYPE, RevstatBody.TYPE);
 
 	private RevisionStatistics()
 	{

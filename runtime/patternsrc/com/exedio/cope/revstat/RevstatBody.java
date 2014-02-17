@@ -34,9 +34,9 @@ import com.exedio.cope.pattern.PartOf;
 import java.util.List;
 
 @CopeName("CopeRevstatBody")
-final class CopeRevisionSheetBody extends Item
+final class RevstatBody extends Item
 {
-	private static final ItemField<CopeRevisionSheet> revision = ItemField.create(CopeRevisionSheet.class).toFinal();
+	private static final ItemField<Revstat> revision = ItemField.create(Revstat.class).toFinal();
 
 	private static final IntegerField number = new IntegerField().toFinal().min(0).copyFrom(revision);
 	private static final DateField date = new DateField().toFinal().copyFrom(revision);
@@ -44,21 +44,21 @@ final class CopeRevisionSheetBody extends Item
 	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")
 	private static final UniqueConstraint revisionAndBodyNumber = new UniqueConstraint(revision, bodyNumber);
-	private static final PartOf<CopeRevisionSheet> body = PartOf.create(revision, bodyNumber);
+	private static final PartOf<Revstat> body = PartOf.create(revision, bodyNumber);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);
 	private static final StringField sql = new StringField().toFinal().lengthMax(100000);
 
-	static void get(final CopeRevisionSheet revision, final int bodyNumber, final Body body)
+	static void get(final Revstat revision, final int bodyNumber, final Body body)
 	{
 		TYPE.newItem(
-				CopeRevisionSheetBody.revision.map(revision),
-				CopeRevisionSheetBody.number.map(revision.getNumber()),
-				CopeRevisionSheetBody.date.map(revision.getDate()),
-				CopeRevisionSheetBody.bodyNumber.map(bodyNumber),
-				CopeRevisionSheetBody.rows.map(body.getRows()),
-				CopeRevisionSheetBody.elapsed.map(body.getElapsed()),
-				Util.cutAndMap(CopeRevisionSheetBody.sql, body.getSQL()));
+				RevstatBody.revision.map(revision),
+				RevstatBody.number.map(revision.getNumber()),
+				RevstatBody.date.map(revision.getDate()),
+				RevstatBody.bodyNumber.map(bodyNumber),
+				RevstatBody.rows.map(body.getRows()),
+				RevstatBody.elapsed.map(body.getElapsed()),
+				Util.cutAndMap(RevstatBody.sql, body.getSQL()));
 	}
 
 	int getBodyNumber()
@@ -66,9 +66,9 @@ final class CopeRevisionSheetBody extends Item
 		return bodyNumber.getMandatory(this);
 	}
 
-	static List<CopeRevisionSheetBody> getBodyParts(final CopeRevisionSheet container)
+	static List<RevstatBody> getBodyParts(final Revstat container)
 	{
-		return CopeRevisionSheetBody.body.getParts(CopeRevisionSheetBody.class, container);
+		return RevstatBody.body.getParts(RevstatBody.class, container);
 	}
 
 	String getSQL()
@@ -78,7 +78,7 @@ final class CopeRevisionSheetBody extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<CopeRevisionSheetBody> TYPE = TypesBound.newType(CopeRevisionSheetBody.class);
+	static final Type<RevstatBody> TYPE = TypesBound.newType(RevstatBody.class);
 
-	private CopeRevisionSheetBody(final ActivationParameters ap) { super(ap); }
+	private RevstatBody(final ActivationParameters ap) { super(ap); }
 }

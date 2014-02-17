@@ -73,41 +73,41 @@ public class RevisionSheetTest extends CopeAssert
 		}
 
 		MODEL.startTransaction("RevisionSheetTest");
-		final Iterator<CopeRevisionSheet> sheetIterator =
-				CopeRevisionSheet.TYPE.search(null, CopeRevisionSheet.TYPE.getThis(), true).iterator();
+		final Iterator<Revstat> sheetIterator =
+				Revstat.TYPE.search(null, Revstat.TYPE.getThis(), true).iterator();
 		{
-			final CopeRevisionSheet sheet = sheetIterator.next();
+			final Revstat sheet = sheetIterator.next();
 			assertEquals(2, sheet.getNumber());
 			assertNotNull(sheet.getDate());
 			assertEquals(1, sheet.getSize());
 			assertEquals("comment2", sheet.getComment());
-			final Iterator<CopeRevisionSheetBody> bodyIterator = sheet.getBody().iterator();
+			final Iterator<RevstatBody> bodyIterator = sheet.getBody().iterator();
 			{
-				final CopeRevisionSheetBody body = bodyIterator.next();
+				final RevstatBody body = bodyIterator.next();
 				assertEquals(0, body.getBodyNumber());
 				assertEquals(bodyPrefix + "'sql 2/0'", body.getSQL());
 			}
 			assertFalse(bodyIterator.hasNext());
 		}
 		{
-			final CopeRevisionSheet sheet = sheetIterator.next();
+			final Revstat sheet = sheetIterator.next();
 			assertEquals(3, sheet.getNumber());
 			assertNotNull(sheet.getDate());
 			assertEquals(3, sheet.getSize());
 			assertEquals("comment3", sheet.getComment());
-			final Iterator<CopeRevisionSheetBody> bodyIterator = sheet.getBody().iterator();
+			final Iterator<RevstatBody> bodyIterator = sheet.getBody().iterator();
 			{
-				final CopeRevisionSheetBody body = bodyIterator.next();
+				final RevstatBody body = bodyIterator.next();
 				assertEquals(0, body.getBodyNumber());
 				assertEquals(bodyPrefix + "'sql 3/0'", body.getSQL());
 			}
 			{
-				final CopeRevisionSheetBody body = bodyIterator.next();
+				final RevstatBody body = bodyIterator.next();
 				assertEquals(1, body.getBodyNumber());
 				assertEquals(bodyPrefix + "'sql 3/1'", body.getSQL());
 			}
 			{
-				final CopeRevisionSheetBody body = bodyIterator.next();
+				final RevstatBody body = bodyIterator.next();
 				assertEquals(2, body.getBodyNumber());
 				assertEquals(bodyPrefix + "'sql 3/2'", body.getSQL());
 			}

@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 @CopeName("CopeRevstat")
-final class CopeRevisionSheet extends Item
+final class Revstat extends Item
 {
 	private static final IntegerField number = new IntegerField().toFinal().unique().min(0);
 	private static final DateField date = new DateField().toFinal();
@@ -75,16 +75,16 @@ final class CopeRevisionSheet extends Item
 
 			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
 
-			final CopeRevisionSheet result;
+			final Revstat result;
 			try
 			{
 				result = TYPE.newItem(
-					CopeRevisionSheet.number.map(number),
-					CopeRevisionSheet.date.map(revision.getDate()),
-					CopeRevisionSheet.size.map(bodies.size()),
-					CopeRevisionSheet.rows.map(rows),
-					CopeRevisionSheet.elapsed.map(elapsed),
-					CopeRevisionSheet.comment.map(comment));
+					Revstat.number.map(number),
+					Revstat.date.map(revision.getDate()),
+					Revstat.size.map(bodies.size()),
+					Revstat.rows.map(rows),
+					Revstat.elapsed.map(elapsed),
+					Revstat.comment.map(comment));
 			}
 			catch(final UniqueViolationException e)
 			{
@@ -93,7 +93,7 @@ final class CopeRevisionSheet extends Item
 
 			int bodyNumber = 0;
 			for(final Body body : bodies)
-				CopeRevisionSheetBody.get(result, bodyNumber++, body);
+				RevstatBody.get(result, bodyNumber++, body);
 
 			model.commit();
 			ctx.incrementProgress();
@@ -109,9 +109,9 @@ final class CopeRevisionSheet extends Item
 		return number.getMandatory(this);
 	}
 
-	static CopeRevisionSheet forNumber(final int number)
+	static Revstat forNumber(final int number)
 	{
-		return CopeRevisionSheet.number.searchUnique(CopeRevisionSheet.class, number);
+		return Revstat.number.searchUnique(Revstat.class, number);
 	}
 
 	Date getDate()
@@ -129,14 +129,14 @@ final class CopeRevisionSheet extends Item
 		return comment.get(this);
 	}
 
-	List<CopeRevisionSheetBody> getBody()
+	List<RevstatBody> getBody()
 	{
-		return CopeRevisionSheetBody.getBodyParts(this);
+		return RevstatBody.getBodyParts(this);
 	}
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<CopeRevisionSheet> TYPE = TypesBound.newType(CopeRevisionSheet.class);
+	static final Type<Revstat> TYPE = TypesBound.newType(Revstat.class);
 
-	private CopeRevisionSheet(final ActivationParameters ap) { super(ap); }
+	private Revstat(final ActivationParameters ap) { super(ap); }
 }
