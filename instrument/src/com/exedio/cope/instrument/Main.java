@@ -134,7 +134,7 @@ public final class Main
 				if(!parser.lexer.inputEqual(baos))
 				{
 					if(params.verify)
-						throw new IllegalArgumentException("Not yet instrumented " + file.getAbsolutePath());
+						throw new IllegalParameterException("Not yet instrumented " + file.getAbsolutePath());
 					logInstrumented(file);
 					delete(file);
 					final CharsetEncoder decoder = charset.newEncoder();

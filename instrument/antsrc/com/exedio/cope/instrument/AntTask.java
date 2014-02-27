@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import org.apache.tools.ant.BuildException;
@@ -129,16 +130,13 @@ public final class AntTask extends Task
 
 			(new Main()).run(sourcefiles, params);
 		}
-		catch(final Exception e)
+		catch(final IllegalParameterException e)
 		{
-			e.printStackTrace();
-			throw new BuildException(e);
+			throw new BuildException(e.getMessage());
 		}
-		catch(final AssertionError e)
+		catch(final IOException e)
 		{
-			e.printStackTrace();
 			throw new BuildException(e);
 		}
 	}
-
 }
