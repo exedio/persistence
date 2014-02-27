@@ -130,7 +130,7 @@ public final class AntTask extends Task
 
 			(new Main()).run(sourcefiles, params);
 		}
-		catch(final IllegalParameterException e)
+		catch(final HumanReadableException e)
 		{
 			throw new BuildException(e.getMessage());
 		}

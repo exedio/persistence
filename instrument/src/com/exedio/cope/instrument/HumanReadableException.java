@@ -18,15 +18,11 @@
 
 package com.exedio.cope.instrument;
 
-/**
- * Is thrown for invalid command line parameters
- * @author Ralf Wiebicke
- */
-final class IllegalParameterException extends Exception
+final class HumanReadableException extends Exception
 {
 	private static final long serialVersionUID = 1l;
 
-	IllegalParameterException(final String msg)
+	HumanReadableException(final String msg)
 	{
 		super(msg);
 	}

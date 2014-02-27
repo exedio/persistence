@@ -46,7 +46,7 @@ public final class Main
 			e.printStackTrace();
 			throw e;
 		}
-		catch(final IllegalParameterException e)
+		catch(final HumanReadableException e)
 		{
 			e.printStackTrace();
 			throw new RuntimeException(Arrays.toString(args), e);
@@ -61,7 +61,7 @@ public final class Main
 	Main()
 	{/* do not allow instantiation by public */}
 
-	final void run(final File dir, final String[] args, final Params params) throws IllegalParameterException, ParserException, IOException
+	final void run(final File dir, final String[] args, final Params params) throws HumanReadableException, ParserException, IOException
 	{
 		final ArrayList<File> files = new ArrayList<File>();
 
@@ -71,10 +71,10 @@ public final class Main
 		run(files, params);
 	}
 
-	final void run(final ArrayList<File> files, final Params params) throws IllegalParameterException, ParserException, IOException
+	final void run(final ArrayList<File> files, final Params params) throws HumanReadableException, ParserException, IOException
 	{
 		if(files.isEmpty())
-			throw new IllegalParameterException("nothing to do.");
+			throw new HumanReadableException("nothing to do.");
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
@@ -134,7 +134,7 @@ public final class Main
 				if(!parser.lexer.inputEqual(baos))
 				{
 					if(params.verify)
-						throw new IllegalParameterException("Not yet instrumented " + file.getAbsolutePath());
+						throw new HumanReadableException("Not yet instrumented " + file.getAbsolutePath());
 					logInstrumented(file);
 					delete(file);
 					final CharsetEncoder decoder = charset.newEncoder();
