@@ -29,48 +29,10 @@ import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
-public final class Main
+final class Main
 {
-
-	public static void main(final String[] args)
-	{
-		try
-		{
-			(new Main()).run(new File("."), args, new Params());
-		}
-		catch(final RuntimeException e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-		catch(final HumanReadableException e)
-		{
-			e.printStackTrace();
-			throw new RuntimeException(Arrays.toString(args), e);
-		}
-		catch(final IOException e)
-		{
-			e.printStackTrace();
-			throw new RuntimeException(Arrays.toString(args), e);
-		}
-	}
-
-	Main()
-	{/* do not allow instantiation by public */}
-
-	final void run(final File dir, final String[] args, final Params params) throws HumanReadableException, ParserException, IOException
-	{
-		final ArrayList<File> files = new ArrayList<File>();
-
-		for(final String arg : args)
-			files.add(new File(dir, arg));
-
-		run(files, params);
-	}
-
 	final void run(final ArrayList<File> files, final Params params) throws HumanReadableException, ParserException, IOException
 	{
 		if(files.isEmpty())
