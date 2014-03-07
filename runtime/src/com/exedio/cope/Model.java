@@ -95,7 +95,7 @@ public final class Model implements Serializable
 
 	public boolean contains(final TypeSet typeSet)
 	{
-		return containsTypeSet(typeSet.getTypes());
+		return containsTypeSet(typeSet.getTypesArray());
 	}
 
 	public boolean containsTypeSet(final Type<?>... typeSet)

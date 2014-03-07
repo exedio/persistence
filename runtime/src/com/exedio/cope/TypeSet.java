@@ -51,7 +51,7 @@ public final class TypeSet
 	// TODO implement public get and contains
 	// TODO do not forget source types of features of types recursively
 
-	Type<?>[] getTypes()
+	Type<?>[] getTypesArray()
 	{
 		return com.exedio.cope.misc.Arrays.copyOf(types);
 	}
