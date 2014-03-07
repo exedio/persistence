@@ -27,11 +27,13 @@ import java.util.List;
 public final class TypeSet
 {
 	private final Type<?>[] explicitTypes;
+	private final List<Type<?>> explicitTypesList;
 
 	public TypeSet(final Type<?>... explicitTypes)
 	{
 		check(explicitTypes);
 		this.explicitTypes = explicitTypes;
+		this.explicitTypesList = Collections.unmodifiableList(Arrays.asList(explicitTypes));
 	}
 
 	static void check(final Type<?>... explicitTypes)
@@ -70,6 +72,6 @@ public final class TypeSet
 	 */
 	public List<Type<?>> getExplicitTypes()
 	{
-		return Collections.unmodifiableList(Arrays.asList(explicitTypes));
+		return explicitTypesList;
 	}
 }
