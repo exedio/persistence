@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 public final class TypeSet
 {
@@ -59,5 +61,10 @@ public final class TypeSet
 	void addTo(final ArrayList<Type<?>> target)
 	{
 		target.addAll(Arrays.asList(types));
+	}
+
+	public List<Type<?>> getExplicitTypes()
+	{
+		return Collections.unmodifiableList(Arrays.asList(types));
 	}
 }
