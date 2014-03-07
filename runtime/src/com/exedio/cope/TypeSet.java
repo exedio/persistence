@@ -26,25 +26,25 @@ import java.util.List;
 
 public final class TypeSet
 {
-	private final Type<?>[] types;
+	private final Type<?>[] explicitTypes;
 
-	public TypeSet(final Type<?>... types)
+	public TypeSet(final Type<?>... explicitTypes)
 	{
-		check(types);
-		this.types = types;
+		check(explicitTypes);
+		this.explicitTypes = explicitTypes;
 	}
 
-	static void check(final Type<?>... types)
+	static void check(final Type<?>... explicitTypes)
 	{
-		if(types==null)
-			throw new NullPointerException("types");
-		if(types.length==0)
-			throw new IllegalArgumentException("types must not be empty");
+		if(explicitTypes==null)
+			throw new NullPointerException("explicitTypes");
+		if(explicitTypes.length==0)
+			throw new IllegalArgumentException("explicitTypes must not be empty");
 		final HashSet<Type<?>> set = new HashSet<Type<?>>();
-		for(final Type<?> type : types)
+		for(final Type<?> type : explicitTypes)
 		{
 			if(type==null)
-				throw new NullPointerException("types");
+				throw new NullPointerException("explicitTypes");
 			if(!set.add(type))
 				throw new IllegalArgumentException("duplicate type " + type);
 		}
@@ -55,16 +55,16 @@ public final class TypeSet
 
 	Type<?>[] getTypesArray()
 	{
-		return com.exedio.cope.misc.Arrays.copyOf(types);
+		return com.exedio.cope.misc.Arrays.copyOf(explicitTypes);
 	}
 
 	void addTo(final ArrayList<Type<?>> target)
 	{
-		target.addAll(Arrays.asList(types));
+		target.addAll(Arrays.asList(explicitTypes));
 	}
 
 	public List<Type<?>> getExplicitTypes()
 	{
-		return Collections.unmodifiableList(Arrays.asList(types));
+		return Collections.unmodifiableList(Arrays.asList(explicitTypes));
 	}
 }

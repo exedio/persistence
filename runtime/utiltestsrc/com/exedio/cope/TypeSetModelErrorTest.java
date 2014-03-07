@@ -31,7 +31,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("types", e.getMessage());
+			assertEquals("explicitTypes", e.getMessage());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("types must not be empty", e.getMessage());
+			assertEquals("explicitTypes must not be empty", e.getMessage());
 		}
 	}
 
@@ -57,7 +57,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("types", e.getMessage());
+			assertEquals("explicitTypes", e.getMessage());
 		}
 	}
 
