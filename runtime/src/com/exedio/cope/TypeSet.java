@@ -63,6 +63,11 @@ public final class TypeSet
 		target.addAll(Arrays.asList(explicitTypes));
 	}
 
+	/**
+	 * Returns the explicit types of this <tt>TypeSet</tt>.
+	 * This is the list of types fed into {@link TypeSet#TypeSet(Type[]) the constructor}.
+	 * It does not include types created by patterns of explicit types.
+	 */
 	public List<Type<?>> getExplicitTypes()
 	{
 		return Collections.unmodifiableList(Arrays.asList(explicitTypes));
