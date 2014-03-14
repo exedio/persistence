@@ -124,14 +124,14 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public void set(final Item item, final String plaintext)
+	public void set(final Item item, final String plainText)
 	{
-		if(plaintext==null)
+		if(plainText==null)
 			throw MandatoryViolationException.create(this, item);
 
 		item.set(
 				legacyHash.map(null),
-				targetHash.map(plaintext));
+				targetHash.map(plainText));
 	}
 
 	@Wrap(order=60,
