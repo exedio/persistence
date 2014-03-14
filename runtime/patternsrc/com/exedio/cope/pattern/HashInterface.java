@@ -26,6 +26,7 @@ public interface HashInterface extends Settable<String>
 {
 	boolean check(Item item, String actualPlainText);
 	boolean isNull(Item item);
+	void set(Item item, String plainText);
 
 	void blind(String actualPlainText);
 
