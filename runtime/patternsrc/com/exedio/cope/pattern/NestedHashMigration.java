@@ -106,6 +106,15 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return false;
 	}
 
+	public String getHash(final Item item)
+	{
+		final String targetHash = this.targetHash.getHash(item);
+		if(targetHash!=null)
+			return targetHash;
+
+		return legacyHash.getHash(item);
+	}
+
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
