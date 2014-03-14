@@ -103,6 +103,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 	{
 		private String sql = null;
 
+		@Override
 		public void onStatement(
 				final String sql,
 				final List<Object> parameters,

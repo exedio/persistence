@@ -197,6 +197,7 @@ public final class LongField extends NumberField<Long>
 		return optional ? Long.class : long.class;
 	}
 
+	@Override
 	public SelectType<Long> getValueType()
 	{
 		return SimpleSelectType.LONG;

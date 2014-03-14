@@ -30,11 +30,13 @@ final class CopeSchemaNameEmpty
 
 	private static final CopeSchemaName instance = new CopeSchemaName()
 		{
+			@Override
 			public Class<? extends Annotation> annotationType()
 			{
 				return CopeSchemaName.class;
 			}
 
+			@Override
 			public String value()
 			{
 				return "";

@@ -318,6 +318,7 @@ final class OracleDialect extends Dialect
 
 			root = executor.query(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
 			{
+				@Override
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
 					QueryInfo root = null;
@@ -425,6 +426,7 @@ final class OracleDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
+			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -455,6 +457,7 @@ final class OracleDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
+			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())

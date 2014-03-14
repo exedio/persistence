@@ -156,6 +156,7 @@ public class DispatcherProbeTest extends CopeModelTest
 			this.limit = limit;
 		}
 
+		@Override
 		public void run()
 		{
 			if(limit<=0)

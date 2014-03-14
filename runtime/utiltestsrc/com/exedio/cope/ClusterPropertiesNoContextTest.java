@@ -31,6 +31,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 	{
 		final Source s = new Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster.secret"))
@@ -55,11 +56,13 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Cluster Properties";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;
@@ -77,6 +80,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 	{
 		final Source s = new Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster.secret"))
@@ -99,11 +103,13 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Cluster Properties";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;
@@ -130,6 +136,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
 		final Properties.Source source = new Properties.Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster"))
@@ -140,11 +147,13 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 					return defaultSource.get(key);
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return defaultSource.getDescription();
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return defaultSource.keySet();

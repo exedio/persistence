@@ -27,6 +27,7 @@ public class ConnectSource
 	{
 		return new Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("connection.url"))
@@ -41,11 +42,13 @@ public class ConnectSource
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Minimal Connect Properties Source";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;

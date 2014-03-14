@@ -25,6 +25,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 {
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	BindNumberFunction<E> bind(Join join);
 
 	AsStringView asString();

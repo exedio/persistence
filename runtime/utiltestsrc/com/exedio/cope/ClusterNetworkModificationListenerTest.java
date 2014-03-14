@@ -68,6 +68,7 @@ public class ClusterNetworkModificationListenerTest extends ClusterNetworkTest
 			this.model = model;
 		}
 
+		@Override
 		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{

@@ -99,16 +99,19 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return integer;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return integer.isInitial();
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return mandatory;
@@ -129,12 +132,14 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return Price.storeOf(integer.getMaximum());
 	}
 
+	@Override
 	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return Price.class;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return integer.getInitialExceptions();
@@ -163,11 +168,13 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		integer.set(item, value!=null ? value.store : null);
 	}
 
+	@Override
 	public SetValue<Price> map(final Price value)
 	{
 		return SetValue.map(this, value);
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)

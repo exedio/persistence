@@ -40,6 +40,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	static final MediaPathFeature finger = new MediaPathFeature();
 
 
+	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
 		Assert.assertNotNull(path);

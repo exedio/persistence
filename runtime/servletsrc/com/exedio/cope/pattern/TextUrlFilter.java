@@ -372,6 +372,7 @@ public class TextUrlFilter extends MediaFilter
 			// just to make non-private
 		}
 
+		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return
@@ -380,6 +381,7 @@ public class TextUrlFilter extends MediaFilter
 				: false;
 		}
 
+		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			return
@@ -388,11 +390,13 @@ public class TextUrlFilter extends MediaFilter
 				: null;
 		}
 
+		@Override
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException(TextUrlFilter.this.toString());
 		}
 
+		@Override
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException(TextUrlFilter.this.toString());

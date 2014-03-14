@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 public interface ItemFunction<E extends Item> extends Function<E>
 {
+	@Override
 	Type<E> getValueType();
 
 	/**
@@ -40,6 +41,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	BindItemFunction<E> bind(Join join);
 
 	CompareFunctionCondition<?> equalTarget();

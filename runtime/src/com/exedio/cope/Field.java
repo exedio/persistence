@@ -74,11 +74,13 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	/**
 	 * @see #toFinal()
 	 */
+	@Override
 	public final boolean isFinal()
 	{
 		return isfinal;
 	}
 
+	@Override
 	public final boolean isMandatory()
 	{
 		return !optional;
@@ -90,17 +92,20 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * This default implementation returns
 	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
 	 */
+	@Override
 	public boolean isInitial()
 	{
 		return isfinal || !optional;
 	}
 
+	@Override
 	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
@@ -125,6 +130,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return Cast.castElements(valueClass, c);
 	}
 
+	@Override
 	public final SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);
@@ -135,6 +141,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return SetValue.map(this, null);
 	}
 
+	@Override
 	public final SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{ map(value) };

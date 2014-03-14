@@ -100,6 +100,7 @@ public final class BooleanField extends FunctionField<Boolean>
 		return optional ? Boolean.class : boolean.class;
 	}
 
+	@Override
 	public SelectType<Boolean> getValueType()
 	{
 		return SimpleSelectType.BOOLEAN;

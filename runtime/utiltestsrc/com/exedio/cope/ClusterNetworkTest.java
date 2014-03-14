@@ -32,6 +32,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 		return new ConnectProperties(
 				new Properties.Source()
 				{
+					@Override
 					public String get(final String key)
 					{
 						if(key.equals("schema.primaryKeyGenerator"))
@@ -40,11 +41,13 @@ public abstract class ClusterNetworkTest extends CopeAssert
 							return source.get(key);
 					}
 
+					@Override
 					public String getDescription()
 					{
 						return source.getDescription();
 					}
 
+					@Override
 					public Collection<String> keySet()
 					{
 						return source.keySet();
@@ -52,6 +55,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 				},
 				new Properties.Source()
 				{
+					@Override
 					public String get(final String key)
 					{
 						if(key.equals("cluster.secret"))
@@ -72,6 +76,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 							return null;
 					}
 
+					@Override
 					public String getDescription()
 					{
 						return
@@ -80,6 +85,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 							: ("Connect Properties Context (" + sendPort + '>' + listenPort + ")");
 					}
 
+					@Override
 					public Collection<String> keySet()
 					{
 						return null;

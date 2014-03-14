@@ -156,6 +156,7 @@ public final class DoubleField extends NumberField<Double>
 		return optional ? Double.class : double.class;
 	}
 
+	@Override
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;

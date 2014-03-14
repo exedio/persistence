@@ -43,6 +43,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 		this.divisor = divisor;
 	}
 
+	@Override
 	public SelectType<E> getValueType()
 	{
 		return dividend.getValueType();
@@ -76,6 +77,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

@@ -212,6 +212,7 @@ final class HsqldbDialect extends Dialect
 
 			result = executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 			{
+				@Override
 				public Integer handle(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
@@ -253,6 +254,7 @@ final class HsqldbDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
+			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())

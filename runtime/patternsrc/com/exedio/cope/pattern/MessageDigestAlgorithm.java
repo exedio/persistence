@@ -90,6 +90,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		return saltSource;
 	}
 
+	@Override
 	public String name()
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -103,11 +104,13 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		return bf.toString();
 	}
 
+	@Override
 	public int length()
 	{
 		return saltLength + digestLength;
 	}
 
+	@Override
 	public byte[] hash(final byte[] plainText)
 	{
 		if(plainText==null)
@@ -146,6 +149,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		return result;
 	}
 
+	@Override
 	public boolean check(final byte[] plainText, final byte[] hash)
 	{
 		if(plainText==null)
@@ -183,6 +187,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		return true;
 	}
 
+	@Override
 	public boolean compatibleTo(final Hash.Algorithm other)
 	{
 		if(this==other)

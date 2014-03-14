@@ -123,6 +123,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * {@link Query#setOrderBy(Selectable, boolean) Query.setOrderBy}
 	 * methods with any {@link ItemFunction}.
 	 */
+	@Override
 	public int compareTo(final Item o)
 	{
 		if(this==o)

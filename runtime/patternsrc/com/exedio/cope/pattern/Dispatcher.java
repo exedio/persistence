@@ -195,6 +195,7 @@ public final class Dispatcher extends Pattern
 	{
 		EmptyProbe() { // make constructor non-private
 		}
+		@Override
 		public void run() { // do nothing
 		}
 	}
@@ -492,7 +493,7 @@ public final class Dispatcher extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){@Override public void run(final JobContext ctx)
 			{
 				dispatch(parentClass, config, ctx);
 			}}

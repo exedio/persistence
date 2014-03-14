@@ -58,6 +58,7 @@ public final class DatabaseLogListener implements DatabaseListener
 		return sql;
 	}
 
+	@Override
 	public void onStatement(
 			final String statement,
 			final List<Object> parameters,

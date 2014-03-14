@@ -249,6 +249,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		return result;
 	}
 
+	@Override
 	public void test() throws IOException
 	{
 		if(!isEnabled())

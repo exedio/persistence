@@ -231,6 +231,7 @@ final class Database
 			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
 			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
+				@Override
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
@@ -295,6 +296,7 @@ final class Database
 
 		final String message = Executor.query(connection, bf.toString(), new ResultSetHandler<String>()
 		{
+			@Override
 			public String handle(final ResultSet resultSet) throws SQLException
 			{
 				StringBuilder message = null;
@@ -402,6 +404,7 @@ final class Database
 
 		final WrittenState result = executor.query(connection, bf, null, false, new ResultSetHandler<WrittenState>()
 		{
+			@Override
 			public WrittenState handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -608,6 +611,7 @@ final class Database
 		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
+			@Override
 			public Connection getConnection()
 			{
 				transactions.assertNoCurrentTransaction();
@@ -615,11 +619,13 @@ final class Database
 				return connectionPool.get(true);
 			}
 
+			@Override
 			public void putConnection(final Connection connection)
 			{
 				connectionPool.put(connection);
 			}
 
+			@Override
 			public boolean isSemicolonEnabled()
 			{
 				return semicolonEnabled;

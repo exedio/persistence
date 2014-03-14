@@ -229,6 +229,7 @@ public final class IntegerField extends NumberField<Integer>
 		return optional ? Integer.class : int.class;
 	}
 
+	@Override
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;

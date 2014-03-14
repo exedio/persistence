@@ -95,6 +95,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		return EnumAnnotatedElement.get(e).getAnnotation(CopeSchemaValue.class);
 	}
 
+	@Override
 	public Class<E> getJavaClass()
 	{
 		return valueClass;

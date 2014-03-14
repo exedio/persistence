@@ -1023,6 +1023,7 @@ public final class Query<R> implements Serializable
 		final int sizeLimit = this.getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
 		{
+			@Override
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(totalOnly)

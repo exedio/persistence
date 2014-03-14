@@ -206,6 +206,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
@@ -277,6 +278,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();

@@ -196,6 +196,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
@@ -249,6 +250,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
+		@Override
 		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{

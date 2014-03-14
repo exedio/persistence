@@ -367,43 +367,51 @@ public abstract class ParserTest extends InstrumentorTest
 			// make constructor non-private
 		}
 
+		@Override
 		public void onPackage(final JavaFile javaFile) throws ParserException
 		{
 			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());
 			addParseEvent(new PackageEvent(javaFile));
 		}
 
+		@Override
 		public void onImport(final String importname)
 		{
 			addParseEvent(new ImportEvent(importname));
 		}
 
+		@Override
 		public void onClass(final JavaClass cc)
 		{
 			addParseEvent(new ClassEvent(cc));
 		}
 
+		@Override
 		public void onClassEnd(final JavaClass cc)
 		{
 			addParseEvent(new ClassEndEvent(cc));
 		}
 
+		@Override
 		public void onBehaviourHeader(final JavaBehaviour jb)
 		{
 			addParseEvent(new BehaviourHeaderEvent(jb));
 		}
 
+		@Override
 		public void onFieldHeader(final JavaField ja)
 		{
 			addParseEvent(new FieldHeaderEvent(ja));
 		}
 
+		@Override
 		public void onClassFeature(final JavaFeature cf, final CommentToken doccomment)
 		{
 			//System.out.println("onClassFeature("+cf.name+" "+doccomment+")");
 			addParseEvent(new ClassFeatureEvent(cf, doccomment!=null ? doccomment.comment : null));
 		}
 
+		@Override
 		public boolean onDocComment(final CommentToken doccommentToken)
 		{
 			final String doccomment = doccommentToken.comment;
@@ -411,6 +419,7 @@ public abstract class ParserTest extends InstrumentorTest
 			return doccomment.indexOf("DO_DISCARD")<0;
 		}
 
+		@Override
 		public void onFileDocComment(final String doccomment)
 		{
 			addParseEvent(new FileDocCommentEvent(doccomment));

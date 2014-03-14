@@ -55,16 +55,19 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name;
 	}
 
+	@Override
 	public final Class<E> getValueClass()
 	{
 		return source.getValueClass();
 	}
 
+	@Override
 	public final SelectType<E> getValueType()
 	{
 		return source.getValueType();
 	}
 
+	@Override
 	public final Type<? extends Item> getType()
 	{
 		return source.getType();
@@ -73,6 +76,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
@@ -82,6 +86,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
@@ -93,6 +98,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void appendSelect(final Statement bf, final Join join)
 	{
@@ -124,6 +130,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return name + '(' + source + ')';
 	}
 
+	@Override
 	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		bf.append(name).

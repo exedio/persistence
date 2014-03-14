@@ -30,6 +30,7 @@ public final class AbsoluteMockClockStrategy implements Clock.Strategy
 {
 	private final LinkedList<Date> events = new LinkedList<Date>();
 
+	@Override
 	public long currentTimeMillis()
 	{
 		assertFalse("no pending clock events", events.isEmpty());

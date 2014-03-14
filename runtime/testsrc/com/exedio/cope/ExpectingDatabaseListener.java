@@ -32,6 +32,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 {
 	private List<Call> expectedCalls = null;
 
+	@Override
 	public void load(final Connection connection, final Item item)
 	{
 		if ( expectedCalls!=null )
@@ -40,6 +41,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 	}
 
+	@Override
 	public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );

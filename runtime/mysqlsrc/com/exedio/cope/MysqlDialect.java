@@ -283,6 +283,7 @@ final class MysqlDialect extends Dialect
 
 			executor.query(connection, bf, null, true, new ResultSetHandler<Void>()
 			{
+				@Override
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -339,6 +340,7 @@ final class MysqlDialect extends Dialect
 
 		final long result = executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
 		{
+			@Override
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -369,6 +371,7 @@ final class MysqlDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
+			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -545,6 +548,7 @@ final class MysqlDialect extends Dialect
 						"SELECT MAX(" + column + ") FROM " + table,
 				new ResultSetHandler<Integer>()
 				{
+					@Override
 					public Integer handle(final ResultSet resultSet) throws SQLException
 					{
 						if(!resultSet.next())

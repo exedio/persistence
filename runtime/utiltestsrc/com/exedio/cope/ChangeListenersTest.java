@@ -113,6 +113,7 @@ public class ChangeListenersTest extends CopeAssert
 			// make constructor non-private
 		}
 
+		@Override
 		public void onChange(final ChangeEvent event)
 		{
 			System.out.println("ERROR: MockListener.onChange");

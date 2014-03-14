@@ -85,6 +85,7 @@ public abstract class MediaFilter extends MediaPath
 
 	private static final class URLWithFallbackToSourceGetter implements BooleanGetter<MediaFilter>
 	{
+		@Override
 		@SuppressWarnings("synthetic-access")
 		public boolean get(final MediaFilter feature)
 		{

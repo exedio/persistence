@@ -75,6 +75,7 @@ public final class PostgresqlDialect extends Dialect
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p','u')",
 			new ResultSetHandler()
 			{
+				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);

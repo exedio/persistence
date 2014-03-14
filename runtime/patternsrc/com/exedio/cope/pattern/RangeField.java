@@ -135,11 +135,13 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
 	}
 
+	@Override
 	public SetValue<Range<E>> map(final Range<E> value)
 	{
 		return SetValue.map(this, value);
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{
@@ -147,27 +149,32 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 				to  .map(value.getTo  ())};
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return from.isFinal();
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return from.isMandatory();
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return from.isInitial();
 	}
 
+	@Override
 	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
 		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return from.getInitialExceptions();

@@ -97,6 +97,7 @@ final class BlobColumn extends Column
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<byte[]>()
 		{
+			@Override
 			public byte[] handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -123,6 +124,7 @@ final class BlobColumn extends Column
 
 		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 		{
+			@Override
 			public Void handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -151,6 +153,7 @@ final class BlobColumn extends Column
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
+			@Override
 			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
