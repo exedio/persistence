@@ -138,9 +138,9 @@ public final class AttributeItem extends Item
 	 */
 	public static enum SomeEnum
 	{
-		enumValue1{@Override() void zack(){/*empty*/}},
-		enumValue2{@Override() void zack(){/*empty*/}},
-		enumValue3{@Override() void zack(){/*empty*/}};
+		enumValue1{@Override void zack(){/*empty*/}},
+		enumValue2{@Override void zack(){/*empty*/}},
+		enumValue3{@Override void zack(){/*empty*/}};
 
 		abstract void zack();
 	}

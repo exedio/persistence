@@ -25,7 +25,6 @@ public class DefaultStatementListener implements StatementListener
 	/**
 	 * This default implementation does nothing and always returns true.
 	 */
-	@Override
 	public boolean beforeExecute(final String statement)
 	{
 		return true;
@@ -34,7 +33,6 @@ public class DefaultStatementListener implements StatementListener
 	/**
 	 * This default implementation does nothing.
 	 */
-	@Override
 	public void afterExecute(final String statement, final int rows)
 	{
 		// do nothing

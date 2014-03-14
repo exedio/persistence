@@ -48,7 +48,6 @@ public abstract class ClusterTest extends CopeAssert
 				ConnectSource.get(),
 				new Properties.Source()
 				{
-					@Override
 					public String get(final String key)
 					{
 						if(key.equals("cluster.packetSize"))
@@ -65,13 +64,11 @@ public abstract class ClusterTest extends CopeAssert
 							return null;
 					}
 
-					@Override
 					public String getDescription()
 					{
 						return "Cluster Properties";
 					}
 
-					@Override
 					public Collection<String> keySet()
 					{
 						return null;

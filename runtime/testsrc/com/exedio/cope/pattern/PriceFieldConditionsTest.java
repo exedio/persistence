@@ -41,7 +41,7 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 				p3 = storeOf(333);
 	private PriceFieldItem iN, i1, i2, i3;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

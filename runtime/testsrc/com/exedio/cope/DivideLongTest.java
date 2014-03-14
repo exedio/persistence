@@ -40,7 +40,7 @@ public class DivideLongTest extends AbstractRuntimeTest
 	DivideLongItem item;
 	DivideLongItem item2;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

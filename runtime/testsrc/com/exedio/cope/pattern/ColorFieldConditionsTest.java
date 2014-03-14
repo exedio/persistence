@@ -44,7 +44,7 @@ public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
 	// named by the colors for fields optional and alpha
 	private ColorFieldItem iNN, iWW, iBB, iNT, iNL;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

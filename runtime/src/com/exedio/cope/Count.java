@@ -27,7 +27,6 @@ public class Count implements Selectable<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	@Override
 	public Class<Integer> getValueClass()
 	{
 		return Integer.class;

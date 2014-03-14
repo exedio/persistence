@@ -38,13 +38,11 @@ final class SequenceImplMax implements SequenceImpl
 		this.connectionPool = connectionPool;
 	}
 
-	@Override
 	public void makeSchema(final Schema schema)
 	{
 		// empty
 	}
 
-	@Override
 	public int next()
 	{
 		synchronized(lock)
@@ -66,7 +64,6 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
-	@Override
 	public int getNext()
 	{
 		synchronized(lock)
@@ -99,13 +96,11 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
-	@Override
 	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
 		flush();
 	}
 
-	@Override
 	public void flush()
 	{
 		synchronized(lock)
@@ -114,7 +109,6 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
-	@Override
 	public String getSchemaName()
 	{
 		return null;

@@ -27,7 +27,7 @@ final class InstanceOfRefItem extends Item
 	static final StringField code = new StringField().toFinal().unique();
 	static final ItemField<InstanceOfB2Item> refb2 = ItemField.create(InstanceOfB2Item.class).optional();
 
-	@Override()
+	@Override
 	public final String toString()
 	{
 		return getCode();

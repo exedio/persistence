@@ -28,7 +28,7 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeTest
 	HierarchyEmptySub subItem;
 	HierarchyEmptySuper superItem;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

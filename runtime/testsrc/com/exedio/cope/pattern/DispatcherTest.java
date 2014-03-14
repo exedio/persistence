@@ -47,7 +47,7 @@ public class DispatcherTest extends CopeModelTest
 	DispatcherItem item4;
 	RelativeMockClockStrategy clock;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -59,7 +59,7 @@ public class DispatcherTest extends CopeModelTest
 		Clock.override(clock);
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		Clock.clearOverride();
@@ -238,12 +238,12 @@ public class DispatcherTest extends CopeModelTest
 			this.requestsBeforeStop = requestsBeforeStop;
 		}
 
-		@Override() public void stopIfRequested()
+		@Override public void stopIfRequested()
 		{
 			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
 		}
 
-		@Override()
+		@Override
 		public void incrementProgress()
 		{
 			progress++;

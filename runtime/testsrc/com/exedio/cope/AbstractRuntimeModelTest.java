@@ -36,7 +36,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected boolean postgresql;
 	private final FileFixture files = new FileFixture();
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -47,7 +47,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		files.setUp();
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		files.tearDown();

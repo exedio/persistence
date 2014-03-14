@@ -31,7 +31,7 @@ public class TransactionCountersTest extends AbstractRuntimeTest
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

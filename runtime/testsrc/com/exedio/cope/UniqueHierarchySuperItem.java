@@ -22,7 +22,7 @@ class UniqueHierarchySuperItem extends Item
 {
 	static final StringField superField = new StringField();
 
-	@Override()
+	@Override
 	public String toString()
 	{
 		return getSuperField();

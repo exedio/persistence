@@ -29,7 +29,7 @@ public class PartOfTest extends AbstractRuntimeTest
 
 	PartOfContainerItem container;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

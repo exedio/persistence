@@ -29,155 +29,130 @@ import junit.framework.AssertionFailedError;
 
 public class AssertionFailedServletContext implements ServletContext
 {
-	@Override
 	public String getInitParameter(final String name)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public String getServletContextName()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public Object getAttribute(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public Enumeration<?> getAttributeNames()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public ServletContext getContext(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public String getContextPath()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public Enumeration<?> getInitParameterNames()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public int getMajorVersion()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public String getMimeType(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public int getMinorVersion()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public RequestDispatcher getNamedDispatcher(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public String getRealPath(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public RequestDispatcher getRequestDispatcher(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public URL getResource(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public InputStream getResourceAsStream(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public Set<?> getResourcePaths(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public String getServerInfo()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	@Deprecated
 	public Servlet getServlet(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	@Deprecated
 	public Enumeration<?> getServletNames()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	@Deprecated
 	public Enumeration<?> getServlets()
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public void log(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	@Deprecated
 	public void log(final Exception arg0, final String arg1)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public void log(final String arg0, final Throwable arg1)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public void removeAttribute(final String arg0)
 	{
 		throw new AssertionFailedError();
 	}
 
-	@Override
 	public void setAttribute(final String arg0, final Object arg1)
 	{
 		throw new AssertionFailedError();

@@ -216,7 +216,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		item.set(setValues);
 	}
 
-	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public SetValue[] execute(final E value, final Item exceptionItem)
 	{
@@ -227,7 +226,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
@@ -240,26 +238,22 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	@Override
 	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
 
-	@Override
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
-	@Override
 	public boolean isInitial()
 	{
 		return isfinal || !optional;
 	}
 
-	@Override
 	public boolean isMandatory()
 	{
 		return !optional;
@@ -270,7 +264,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
-	@Override
 	public SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);

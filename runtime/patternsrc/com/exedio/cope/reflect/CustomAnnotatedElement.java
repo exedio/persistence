@@ -55,25 +55,21 @@ final class CustomAnnotatedElement
 			this.annotationMap = annotationMap;
 		}
 
-		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return annotationMap.containsKey(annotationClass);
 		}
 
-		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			return annotationClass.cast(annotationMap.get(annotationClass));
 		}
 
-		@Override
 		public Annotation[] getAnnotations()
 		{
 			return Arrays.copyOf(annotations);
 		}
 
-		@Override
 		public Annotation[] getDeclaredAnnotations()
 		{
 			return Arrays.copyOf(annotations);

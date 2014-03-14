@@ -38,7 +38,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 
 	private static final ArrayList<Log> logs = new ArrayList<Log>();
 
-	@Override()
 	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 	{
 		assertSame(report, schedule);

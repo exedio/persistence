@@ -198,7 +198,6 @@ public final class Revisions
 		{
 			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
 			{
-				@Override
 				public Void handle(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())

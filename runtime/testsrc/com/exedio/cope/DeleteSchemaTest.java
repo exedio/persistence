@@ -48,7 +48,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 	Level logLevel = null;
 	private Date create;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -71,7 +71,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		create = null;

@@ -20,7 +20,7 @@ package com.exedio.cope.junit;
 
 public class CopeModelTestTestNoTx extends CopeModelTestTest
 {
-	@Override()
+	@Override
 	protected boolean doesManageTransactions()
 	{
 		return false;

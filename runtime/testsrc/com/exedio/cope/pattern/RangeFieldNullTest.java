@@ -35,7 +35,7 @@ public class RangeFieldNullTest extends AbstractRuntimeTest
 
 	RangeFieldItem ab, nb, an, nn;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

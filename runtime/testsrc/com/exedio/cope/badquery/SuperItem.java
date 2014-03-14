@@ -25,7 +25,7 @@ class SuperItem extends Item
 {
 	static final StringField code = new StringField().toFinal();
 
-	@Override()
+	@Override
 	public String toString()
 	{
 		return getCode();

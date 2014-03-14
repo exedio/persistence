@@ -41,7 +41,7 @@ public class NameTest extends AbstractRuntimeTest
 	NameLongItem item;
 	NameCollisionlongaItem itemca, itemcb;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

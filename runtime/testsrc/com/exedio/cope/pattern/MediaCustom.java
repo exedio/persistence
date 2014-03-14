@@ -45,13 +45,13 @@ final class MediaCustom extends MediaPath
 		return source;
 	}
 
-	@Override()
+	@Override
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;
 	}
 
-	@Override()
+	@Override
 	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
@@ -59,25 +59,25 @@ final class MediaCustom extends MediaPath
 		throw new RuntimeException();
 	}
 
-	@Override()
+	@Override
 	public Condition isNull()
 	{
 		throw new RuntimeException();
 	}
 
-	@Override()
+	@Override
 	public Condition isNull(final Join join)
 	{
 		throw new RuntimeException();
 	}
 
-	@Override()
+	@Override
 	public Condition isNotNull()
 	{
 		throw new RuntimeException();
 	}
 
-	@Override()
+	@Override
 	public Condition isNotNull(final Join join)
 	{
 		throw new RuntimeException();

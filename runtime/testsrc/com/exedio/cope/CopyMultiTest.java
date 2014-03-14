@@ -32,7 +32,7 @@ public class CopyMultiTest extends AbstractRuntimeTest
 	CopyMultiTargetItemA targetA, targetAx;
 	CopyMultiTargetItemB targetB, targetBx;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

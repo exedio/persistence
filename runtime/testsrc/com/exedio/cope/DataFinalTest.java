@@ -35,7 +35,7 @@ public class DataFinalTest extends AbstractRuntimeTest
 
 	private DataFinalItem item;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

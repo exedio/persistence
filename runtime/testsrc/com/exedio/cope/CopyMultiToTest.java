@@ -31,7 +31,7 @@ public class CopyMultiToTest extends AbstractRuntimeTest
 
 	CopyMultiToTargetItem target;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

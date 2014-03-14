@@ -40,25 +40,21 @@ public class Random implements NumberFunction<Double>
 		this.seed = seed;
 	}
 
-	@Override
 	public Double get(final Item item)
 	{
 		throw new RuntimeException();
 	}
 
-	@Override
 	public Class<Double> getValueClass()
 	{
 		return Double.class;
 	}
 
-	@Override
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;
 	}
 
-	@Override
 	public Type<? extends Item> getType()
 	{
 		return type;
@@ -80,7 +76,6 @@ public class Random implements NumberFunction<Double>
 		return type.hashCode() ^ seed;
 	}
 
-	@Override
 	public void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
 		if(defaultType!=type)
@@ -100,7 +95,6 @@ public class Random implements NumberFunction<Double>
 		return bf.toString();
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
@@ -112,14 +106,12 @@ public class Random implements NumberFunction<Double>
 			append(')');
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
 		append(bf, join);
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void check(final TC tc, final Join join)
 	{
@@ -128,133 +120,111 @@ public class Random implements NumberFunction<Double>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	@Override
 	public final BindNumberFunction<Double> bind(final Join join)
 	{
 		return new BindNumberFunction<Double>(this, join);
 	}
 
-	@Override
 	public final IsNullCondition<Double> isNull()
 	{
 		return new IsNullCondition<Double>(this, false);
 	}
 
-	@Override
 	public final IsNullCondition<Double> isNotNull()
 	{
 		return new IsNullCondition<Double>(this, true);
 	}
 
-	@Override
 	public final Condition equal(final Double value)
 	{
 		return Cope.equal(this, value);
 	}
 
-	@Override
 	public final Condition equal(final Join join, final Double value)
 	{
 		return this.bind(join).equal(value);
 	}
 
-	@Override
 	public final Condition in(final Double... values)
 	{
 		return CompositeCondition.in(this, values);
 	}
 
-	@Override
 	public final Condition in(final Collection<? extends Double> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
 
-	@Override
 	public final Condition notEqual(final Double value)
 	{
 		return Cope.notEqual(this, value);
 	}
 
-	@Override
 	public final CompareCondition<Double> less(final Double value)
 	{
 		return new CompareCondition<Double>(Operator.Less, this, value);
 	}
 
-	@Override
 	public final CompareCondition<Double> lessOrEqual(final Double value)
 	{
 		return new CompareCondition<Double>(Operator.LessEqual, this, value);
 	}
 
-	@Override
 	public final CompareCondition<Double> greater(final Double value)
 	{
 		return new CompareCondition<Double>(Operator.Greater, this, value);
 	}
 
-	@Override
 	public final CompareCondition<Double> greaterOrEqual(final Double value)
 	{
 		return new CompareCondition<Double>(Operator.GreaterEqual, this, value);
 	}
 
-	@Override
 	public Condition between(final Double lowerBound, final Double upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> equal(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.Equal, this, right);
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> notEqual(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.NotEqual, this, right);
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> less(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.Less, this, right);
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> lessOrEqual(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.LessEqual, this, right);
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> greater(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.Greater, this, right);
 	}
 
-	@Override
 	public final CompareFunctionCondition<Double> greaterOrEqual(final Function<? extends Double> right)
 	{
 		return new CompareFunctionCondition<Double>(Operator.GreaterEqual, this, right);
 	}
 
-	@Override
 	public final ExtremumAggregate<Double> min()
 	{
 		return new ExtremumAggregate<Double>(this, true);
 	}
 
-	@Override
 	public final ExtremumAggregate<Double> max()
 	{
 		return new ExtremumAggregate<Double>(this, false);
 	}
 
-	@Override
 	public final AsStringView asString()
 	{
 		return new AsStringView(this);
@@ -263,7 +233,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final PlusLiteralView<Double> plus(final Double value)
 	{
 		return PlusLiteralView.plus(this, value);
@@ -272,7 +241,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final MultiplyLiteralView<Double> multiply(final Double value)
 	{
 		return MultiplyLiteralView.multiply(this, value);
@@ -281,7 +249,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final PlusView<Double> plus(final NumberFunction<Double> other)
 	{
 		return PlusView.plus(this, other);
@@ -290,7 +257,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final MinusView<Double> minus(final NumberFunction<Double> other)
 	{
 		return MinusView.minus(this, other);
@@ -299,7 +265,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)
 	{
 		return MultiplyView.multiply(this, other);
@@ -308,19 +273,16 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
 	 */
-	@Override
 	public final DivideView<Double> divide(final NumberFunction<Double> other)
 	{
 		return DivideView.divide(this, other);
 	}
 
-	@Override
 	public final SumAggregate<Double> sum()
 	{
 		return new SumAggregate<Double>(this);
 	}
 
-	@Override
 	public final AverageAggregate<Double> average()
 	{
 		return new AverageAggregate<Double>(this);
@@ -331,7 +293,6 @@ public class Random implements NumberFunction<Double>
 	/**
 	 * @deprecated renamed to {@link #plus(NumberFunction)}.
 	 */
-	@Override
 	@Deprecated
 	public final PlusView<Double> sum(final NumberFunction<Double> other)
 	{

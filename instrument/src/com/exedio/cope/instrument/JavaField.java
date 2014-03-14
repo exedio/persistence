@@ -96,7 +96,6 @@ final class JavaField
 	private StringBuilder initializerBuf = new StringBuilder();
 	private String initializer = null;
 
-	@Override
 	public void addToInitializer(final char c)
 	{
 		initializerBuf.append(c);

@@ -30,7 +30,7 @@ public abstract class FieldTest extends TestmodelTest
 	protected AttributeItem item;
 	protected AttributeItem item2;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

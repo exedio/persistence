@@ -201,7 +201,6 @@ final class PostgresqlDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
-			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
@@ -226,7 +225,6 @@ final class PostgresqlDialect extends Dialect
 
 		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
 		{
-			@Override
 			public Integer handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())

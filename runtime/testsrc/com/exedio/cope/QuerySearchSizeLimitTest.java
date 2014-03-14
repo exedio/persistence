@@ -35,7 +35,7 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
 
 	DayItem i1, i2, i3, i4, i5;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

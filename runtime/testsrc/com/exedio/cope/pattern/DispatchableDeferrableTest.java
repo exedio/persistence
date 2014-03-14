@@ -94,7 +94,6 @@ public class DispatchableDeferrableTest extends AbstractRuntimeTest
 		static final IntegerField deferredCount = new IntegerField().defaultTo(0);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
 
-		@Override()
 		public boolean isDeferred(final Dispatcher dispatcher)
 		{
 			assertIt(dispatcher);
@@ -102,14 +101,12 @@ public class DispatchableDeferrableTest extends AbstractRuntimeTest
 			return getDeferred();
 		}
 
-		@Override()
 		public void dispatch(final Dispatcher dispatcher)
 		{
 			assertIt(dispatcher);
 			setDispatchCount(getDispatchCount()+1);
 		}
 
-		@Override()
 		public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 		{
 			throw new RuntimeException(cause);

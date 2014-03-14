@@ -172,19 +172,16 @@ final class GenericResolver<T>
 			this.type = type;
 		}
 
-		@Override
 		public Type getRawType()
 		{
 			return type.getRawType();
 		}
 
-		@Override
 		public Type getOwnerType()
 		{
 			return type.getOwnerType();
 		}
 
-		@Override
 		public Type[] getActualTypeArguments()
 		{
 			final Type[] arguments = type.getActualTypeArguments();

@@ -42,7 +42,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 
 	Connection connection;
 
-	@Override()
+	@Override
 	public void tearDown() throws Exception
 	{
 		if(connection!=null)

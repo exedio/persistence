@@ -47,7 +47,7 @@ public class ItemSerializationTest extends AbstractRuntimeTest
 
 	private ItemSerializationItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

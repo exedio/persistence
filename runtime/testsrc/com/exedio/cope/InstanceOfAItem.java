@@ -23,7 +23,7 @@ class InstanceOfAItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();
 
-	@Override()
+	@Override
 	public final String toString()
 	{
 		return getCode();

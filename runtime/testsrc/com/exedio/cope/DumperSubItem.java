@@ -24,7 +24,7 @@ public final class DumperSubItem extends DumperItem
 {
 	static final StringField subString = new StringField().lengthMax(10);
 
-	@Override()
+	@Override
 	protected void afterNewCopeItem()
 	{
 		Assert.fail("must not be called");

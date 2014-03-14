@@ -43,7 +43,7 @@ public class DumperTest extends AbstractRuntimeTest
 	private String dataL = null;
 
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

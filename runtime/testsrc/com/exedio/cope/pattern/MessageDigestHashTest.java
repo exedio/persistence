@@ -54,7 +54,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 
 	MessageDigestHashItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

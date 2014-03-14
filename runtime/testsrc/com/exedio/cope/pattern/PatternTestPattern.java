@@ -62,7 +62,7 @@ class PatternTestPattern extends Pattern
 		addSource(ownInt, "ownInt", af("ownInt"));
 	}
 
-	@Override()
+	@Override
 	protected void onMount()
 	{
 		super.onMount();

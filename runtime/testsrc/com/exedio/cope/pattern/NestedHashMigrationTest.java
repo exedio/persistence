@@ -151,13 +151,13 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 			// make package private
 		}
 
-		@Override()
+		@Override
 		public void stopIfRequested()
 		{
 			stopIfRequested++;
 		}
 
-		@Override()
+		@Override
 		public void incrementProgress()
 		{
 			progress++;

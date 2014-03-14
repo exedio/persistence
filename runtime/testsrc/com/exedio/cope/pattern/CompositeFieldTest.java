@@ -63,7 +63,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

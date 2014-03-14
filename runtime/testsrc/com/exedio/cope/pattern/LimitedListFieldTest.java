@@ -36,7 +36,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 
 	LimitedListFieldItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

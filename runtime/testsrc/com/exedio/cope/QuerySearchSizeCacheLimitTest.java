@@ -39,7 +39,7 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeTest
 	private Query<?> q;
 	private DayItem i1, i2, i3, i4, i5;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

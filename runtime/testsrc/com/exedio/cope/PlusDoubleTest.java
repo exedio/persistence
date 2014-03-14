@@ -51,7 +51,7 @@ public class PlusDoubleTest extends AbstractRuntimeTest
 	PlusDoubleItem item;
 	PlusDoubleItem item2;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

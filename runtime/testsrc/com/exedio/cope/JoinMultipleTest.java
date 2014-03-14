@@ -33,7 +33,7 @@ public class JoinMultipleTest extends TestmodelTest
 	PointerTargetItem target1;
 	PointerTargetItem target2;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

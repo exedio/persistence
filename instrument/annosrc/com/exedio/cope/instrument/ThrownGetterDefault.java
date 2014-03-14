@@ -22,7 +22,6 @@ import java.util.Set;
 
 final class ThrownGetterDefault implements ThrownGetter<Object>
 {
-	@Override
 	public Set<Class<? extends Throwable>> get(final Object feature)
 	{
 		throw new RuntimeException();

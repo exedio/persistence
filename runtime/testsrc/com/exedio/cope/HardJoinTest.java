@@ -46,7 +46,7 @@ public class HardJoinTest extends AbstractRuntimeTest
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

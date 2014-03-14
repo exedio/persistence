@@ -1211,7 +1211,6 @@ public final class Model implements Serializable
 
 		return new Revisions.Factory()
 		{
-			@Override
 			public Revisions create(final Revisions.Factory.Context ctx)
 			{
 				return revisions.get(ctx.getEnvironment());

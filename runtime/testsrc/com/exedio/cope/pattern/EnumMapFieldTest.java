@@ -34,7 +34,7 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 
 	EnumMapFieldItem item, itemX;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

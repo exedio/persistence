@@ -50,7 +50,7 @@ public class HashTest extends AbstractRuntimeTest
 
 	HashItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -440,7 +440,7 @@ public class HashTest extends AbstractRuntimeTest
 			int seq=0;  // negative tested too!
 
 			// overridden to get pre defined numbers instead of the random ones
-			@Override() public int nextInt(final int n) {
+			@Override public int nextInt(final int n) {
 				assert n==10;
 				return (seq++)%n;
 			}

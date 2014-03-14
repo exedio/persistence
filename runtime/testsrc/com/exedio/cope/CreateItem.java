@@ -40,7 +40,7 @@ final class CreateItem extends CreateSuperItem
 		return setValues;
 	}
 
-	@Override()
+	@Override
 	protected void afterNewCopeItem()
 	{
 		// do not call super.afterNewCopeItem here for testing

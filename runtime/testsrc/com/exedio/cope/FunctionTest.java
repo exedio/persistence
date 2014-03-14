@@ -49,7 +49,7 @@ public class FunctionTest extends AbstractRuntimeTest
 		return result;
 	}
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

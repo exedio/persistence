@@ -268,7 +268,6 @@ public final class SetField<E> extends Pattern
 
 	private static final class Thrown implements ThrownGetter<SetField<?>>
 	{
-		@Override
 		public Set<Class<? extends Throwable>> get(final SetField<?> feature)
 		{
 			final Set<Class<? extends Throwable>> result = feature.getElement().getInitialExceptions();

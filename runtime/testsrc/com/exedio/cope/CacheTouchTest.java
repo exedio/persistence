@@ -32,7 +32,7 @@ public class CacheTouchTest extends AbstractRuntimeTest
 
 	CacheIsolationItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

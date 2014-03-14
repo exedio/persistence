@@ -94,7 +94,6 @@ final class Executor
 
 	static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
 	{
-		@Override
 		public Integer handle(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())
@@ -464,11 +463,9 @@ final class Executor
 
 	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
 	{
-		@Override
 		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
-		@Override
 		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};

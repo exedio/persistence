@@ -126,7 +126,6 @@ public final class DateField extends FunctionField<Date>
 		return defaultSource==DEFAULT_TO_NOW;
 	}
 
-	@Override
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;

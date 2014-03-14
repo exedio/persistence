@@ -40,7 +40,7 @@ public class LongTest extends AbstractRuntimeTest
 	private LongItem item2;
 	private int numberOfItems;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

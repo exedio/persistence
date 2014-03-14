@@ -227,7 +227,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional));
 	}
 
-	@Override
 	public final boolean isMandatory()
 	{
 		return !optional;
@@ -278,14 +277,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
-	@Override
 	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return Value.class;
 	}
 
-	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
@@ -308,13 +305,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return isfinal;
 	}
 
-	@Override
 	public boolean isInitial()
 	{
 		return isfinal || !optional;
 	}
 
-	@Override
 	public SetValue<Media.Value> map(final Value value)
 	{
 		return SetValue.map(this, value);
@@ -328,7 +323,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private static final class MandatoryGetter implements BooleanGetter<Media>
 	{
-		@Override
 		public boolean get(final Media feature)
 		{
 			return feature.isMandatory();
@@ -577,7 +571,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return toValue(DataField.toValue(body), contentType);
 	}
 
-	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value!=null)

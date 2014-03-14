@@ -38,7 +38,7 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 
 	private MediaUrlItem named, anond;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

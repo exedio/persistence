@@ -39,7 +39,6 @@ public final class LengthView extends NumberView<Integer>
 		this.source = source;
 	}
 
-	@Override
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;
@@ -53,7 +52,6 @@ public final class LengthView extends NumberView<Integer>
 		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

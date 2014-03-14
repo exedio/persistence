@@ -35,25 +35,21 @@ final class FeatureAnnotatedElementAdapter implements AnnotatedElement
 		this.feature = feature;
 	}
 
-	@Override
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
 		return feature.isAnnotationPresent(annotationClass);
 	}
 
-	@Override
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		return feature.getAnnotation(annotationClass);
 	}
 
-	@Override
 	public Annotation[] getAnnotations()
 	{
 		throw new RuntimeException(feature.toString());
 	}
 
-	@Override
 	public Annotation[] getDeclaredAnnotations()
 	{
 		throw new RuntimeException(feature.toString());

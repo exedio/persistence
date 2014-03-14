@@ -31,7 +31,7 @@ public class ConnectedTest extends CopeTest
 		skipTransactionManagement();
 	}
 
-	@Override()
+	@Override
 	public ConnectProperties getConnectProperties()
 	{
 		final ConnectProperties props = super.getConnectProperties();

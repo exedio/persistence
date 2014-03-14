@@ -61,7 +61,6 @@ public abstract class Dialect
 	{
 		schema.querySQL(Node.GET_TABLES, new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);
@@ -80,7 +79,6 @@ public abstract class Dialect
 
 		schema.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
@@ -110,7 +108,6 @@ public abstract class Dialect
 			sql,
 			new ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);

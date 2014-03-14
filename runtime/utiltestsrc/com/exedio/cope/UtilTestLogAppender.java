@@ -38,7 +38,6 @@ public final class UtilTestLogAppender extends AppenderSkeleton
 		events.add( event );
 	}
 
-	@Override
 	public boolean requiresLayout()
 	{
 		return false;
@@ -70,7 +69,6 @@ public final class UtilTestLogAppender extends AppenderSkeleton
 		assertEquals(Collections.EMPTY_LIST, events);
 	}
 
-	@Override
 	public void close() throws SecurityException
 	{
 		throw new RuntimeException();

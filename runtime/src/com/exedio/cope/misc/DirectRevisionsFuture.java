@@ -43,7 +43,6 @@ public final class DirectRevisionsFuture implements com.exedio.cope.RevisionsFut
 		this.revisions = revisions;
 	}
 
-	@Override
 	public Revisions get(final EnvironmentInfo environment)
 	{
 		if(environment==null)

@@ -81,7 +81,7 @@ public final class PropertiesInitializer implements ServletContextListener
 		};
 	}
 
-	@Override()
+	@Override
 	public void contextInitialized(final ServletContextEvent sce)
 	{
 		final ConnectProperties properties = getConnectProperties(sce.getServletContext());
@@ -89,7 +89,7 @@ public final class PropertiesInitializer implements ServletContextListener
 			setProperties(model, properties);
 	}
 
-	@Override()
+	@Override
 	public void contextDestroyed(final ServletContextEvent sce)
 	{
 		for(final Model model : models())

@@ -95,7 +95,6 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 
 		final Thread t2 = new Thread(new Runnable(){
-			@Override()
 			public void run()
 			{
 				try

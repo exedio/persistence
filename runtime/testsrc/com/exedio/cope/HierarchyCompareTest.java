@@ -35,7 +35,7 @@ public class HierarchyCompareTest extends AbstractRuntimeTest
 	List<Item> items;
 	List<Item> orderby;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

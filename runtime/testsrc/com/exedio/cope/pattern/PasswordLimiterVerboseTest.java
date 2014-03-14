@@ -39,7 +39,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 	PasswordLimiterItem i2;
 	RelativeMockClockStrategy clock;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -49,7 +49,7 @@ public class PasswordLimiterVerboseTest extends CopeTest
 		Clock.override(clock);
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		Clock.clearOverride();

@@ -73,7 +73,6 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			this.remoteModel = remoteModel;
 		}
 
-		@Override
 		public void onChange(final ChangeEvent event)
 		{
 			assertNotNull(event);

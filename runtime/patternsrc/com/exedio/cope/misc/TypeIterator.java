@@ -90,13 +90,11 @@ public final class TypeIterator
 			this.iterator = search();
 		}
 
-		@Override
 		public boolean hasNext()
 		{
 			return iterator.hasNext();
 		}
 
-		@Override
 		public E next()
 		{
 			final E result = iterator.next();
@@ -148,7 +146,6 @@ public final class TypeIterator
 			return result.iterator();
 		}
 
-		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -162,19 +159,16 @@ public final class TypeIterator
 
 		private static final Iterator<Object> EMPTY = new Iterator<Object>(){
 
-			@Override
 			public boolean hasNext()
 			{
 				return false;
 			}
 
-			@Override
 			public Object next()
 			{
 				throw new NoSuchElementException();
 			}
 
-			@Override
 			public void remove()
 			{
 				throw new RuntimeException();

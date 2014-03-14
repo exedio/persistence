@@ -36,7 +36,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 
 	private HierarchySingleSub item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -44,7 +44,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 		item = new HierarchySingleSub();
 	}
 
-	@Override()
+	@Override
 	public void tearDown() throws Exception
 	{
 		model.commit();

@@ -47,7 +47,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 
 	protected MediaItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

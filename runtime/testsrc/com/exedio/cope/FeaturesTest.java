@@ -26,7 +26,7 @@ public class FeaturesTest extends TestCase
 	private Features features;
 	private AnnotatedElement annotationSource;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -34,7 +34,7 @@ public class FeaturesTest extends TestCase
 		annotationSource = getClass().getDeclaredField("annotationSource");
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		features = null;

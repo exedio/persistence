@@ -73,7 +73,6 @@ final class ModelConnector implements Runnable
 		}
 	}
 
-	@Override
 	public void run()
 	{
 		dropAndDisconnectIfNeeded();

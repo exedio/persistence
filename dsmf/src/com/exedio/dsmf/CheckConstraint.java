@@ -75,7 +75,6 @@ public final class CheckConstraint extends Constraint
 			// make constructor non-private
 		}
 
-		@Override
 		public void run(final ResultSet resultSet) throws SQLException
 		{
 			if(!resultSet.next())

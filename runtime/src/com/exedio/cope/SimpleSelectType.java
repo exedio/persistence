@@ -31,7 +31,6 @@ final class SimpleSelectType<E> implements SelectType<E>
 		assert javaClass!=null;
 	}
 
-	@Override
 	public final Class<E> getJavaClass()
 	{
 		return javaClass;

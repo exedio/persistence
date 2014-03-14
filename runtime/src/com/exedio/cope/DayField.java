@@ -127,7 +127,6 @@ public final class DayField extends FunctionField<Day>
 		return defaultSource==DEFAULT_TO_NOW;
 	}
 
-	@Override
 	public SelectType<Day> getValueType()
 	{
 		return SimpleSelectType.DAY;

@@ -43,7 +43,7 @@ public class DataTest extends AbstractRuntimeTest
 	private DataItem item;
 	private byte[] dataBig;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -59,7 +59,7 @@ public class DataTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new DataItem());
 	}
 
-	@Override()
+	@Override
 	public void tearDown() throws Exception
 	{
 		// release memory

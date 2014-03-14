@@ -55,7 +55,7 @@ public class DoubleTest extends AbstractRuntimeTest
 	private DoubleItem item2;
 	private int numberOfItems;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

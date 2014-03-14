@@ -32,7 +32,7 @@ public class MatchTest extends AbstractRuntimeTest
 
 	MatchItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

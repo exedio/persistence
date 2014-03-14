@@ -90,7 +90,7 @@ public final class Delete
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){@Override public void run(final JobContext ctx)
+			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
 			{
 				delete(query, transactionName, ctx);
 			}}

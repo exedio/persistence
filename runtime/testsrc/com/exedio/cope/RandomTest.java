@@ -37,7 +37,7 @@ public class RandomTest extends AbstractRuntimeTest
 	List<Long> expected5, expected6;
 	List<?> expected6Sort;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

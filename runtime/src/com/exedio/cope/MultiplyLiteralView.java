@@ -45,7 +45,6 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		this.right = right;
 	}
 
-	@Override
 	public SelectType<E> getValueType()
 	{
 		return left.getValueType();
@@ -86,7 +85,6 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		bf.append(')');
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

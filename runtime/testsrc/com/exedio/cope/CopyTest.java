@@ -34,7 +34,7 @@ public class CopyTest extends AbstractRuntimeTest
 	CopyTargetItem target1, target2, targetN;
 	CopySourceItem self1, self2, selfN;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

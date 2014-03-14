@@ -52,7 +52,6 @@ final class ResultSetPrinter
 
 	static final ResultSetHandler<Void> logHandler = new ResultSetHandler<Void>()
 	{
-		@Override
 		public Void handle(final ResultSet resultSet) throws SQLException
 		{
 			final int columnCount = resultSet.getMetaData().getColumnCount();

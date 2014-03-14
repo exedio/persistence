@@ -66,7 +66,6 @@ public final class HsqldbDialect extends Dialect
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
 			new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
@@ -103,7 +102,6 @@ public final class HsqldbDialect extends Dialect
 
 							schema.querySQL(bf.toString(), new Node.ResultSetHandler()
 								{
-									@Override
 									public void run(final ResultSet resultSet) throws SQLException
 									{
 										//printMeta(resultSet);
@@ -146,7 +144,6 @@ public final class HsqldbDialect extends Dialect
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
 			new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);

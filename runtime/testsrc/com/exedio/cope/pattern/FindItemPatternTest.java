@@ -35,7 +35,7 @@ public class FindItemPatternTest extends AbstractRuntimeTest
 
 	ListFieldItem item;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

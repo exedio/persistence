@@ -28,7 +28,6 @@ final class RelativeMockClockStrategy implements Clock.Strategy
 	private final LinkedList<Long> events = new LinkedList<Long>();
 	private long date = 1000l*60*60*24*1000;
 
-	@Override()
 	public long currentTimeMillis()
 	{
 		Assert.assertFalse("no pending clock events", events.isEmpty());

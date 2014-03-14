@@ -51,7 +51,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		this.transactionIsolation = dialect.getTransationIsolation();
 	}
 
-	@Override
 	public Connection create()
 	{
 		try
@@ -73,7 +72,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		return result;
 	}
 
-	@Override
 	public boolean isValidOnGet(final Connection e)
 	{
 		try
@@ -96,7 +94,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 	}
 
-	@Override
 	public boolean isValidOnPut(final Connection e)
 	{
 		final boolean closed;
@@ -113,7 +110,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		return !closed;
 	}
 
-	@Override
 	public void dispose(final Connection e)
 	{
 		try

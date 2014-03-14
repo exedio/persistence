@@ -72,7 +72,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		threads.start(properties.getListenThreads());
 	}
 
-	@Override
 	public void run()
 	{
 		final byte[] buf = new byte[packetSize];

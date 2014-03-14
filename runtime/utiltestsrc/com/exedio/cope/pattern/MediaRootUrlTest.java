@@ -78,7 +78,6 @@ public class MediaRootUrlTest extends CopeAssert
 		return ConnectProperties.factory().create(
 				new Properties.Source()
 				{
-					@Override
 					public String get(final String key)
 					{
 						if(key.equals("media.rooturl"))
@@ -87,13 +86,11 @@ public class MediaRootUrlTest extends CopeAssert
 							return source.get(key);
 					}
 
-					@Override
 					public String getDescription()
 					{
 						return source.getDescription();
 					}
 
-					@Override
 					public Collection<String> keySet()
 					{
 						return source.keySet();

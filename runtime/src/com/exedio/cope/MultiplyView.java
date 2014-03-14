@@ -46,7 +46,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 		this.multipliers = com.exedio.cope.misc.Arrays.copyOf(multipliers);
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public SelectType<E> getValueType()
 	{
@@ -95,7 +94,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
-	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

@@ -97,25 +97,21 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField;
 	}
 
-	@Override
 	public boolean isInitial()
 	{
 		return idField.isInitial();
 	}
 
-	@Override
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
-	@Override
 	public boolean isMandatory()
 	{
 		return mandatory;
 	}
 
-	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return idField.getInitialExceptions();
@@ -162,13 +158,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	@Override
 	public SetValue<E> map(final E value)
 	{
 		return SetValue.map(this, value);
 	}
 
-	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)
@@ -219,7 +213,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	private static final class NonUniqueGetter implements BooleanGetter<FeatureField<?>>
 	{
-		@Override
 		public boolean get(final FeatureField<?> feature)
 		{
 			return feature.getIdField().getImplicitUniqueConstraint()==null;
@@ -228,7 +221,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	// ------------------- deprecated stuff -------------------
 
-	@Override
 	@Deprecated
 	public Class<?> getInitialType()
 	{

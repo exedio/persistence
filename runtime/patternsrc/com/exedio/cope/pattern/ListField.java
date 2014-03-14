@@ -255,7 +255,6 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	private static final class Thrown implements ThrownGetter<ListField<?>>
 	{
-		@Override
 		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
 		{
 			final Set<Class<? extends Throwable>> exceptions =

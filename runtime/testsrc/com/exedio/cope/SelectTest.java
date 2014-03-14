@@ -61,7 +61,7 @@ public class SelectTest extends TestmodelTest
 		return result;
 	}
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

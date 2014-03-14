@@ -45,7 +45,7 @@ public class PlusLongTest extends AbstractRuntimeTest
 	PlusLongItem item;
 	PlusLongItem item2;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -33,7 +33,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 
 	boolean c;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -44,7 +44,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 				props.getContext()));
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		samplerModel.dropSchema();

@@ -53,7 +53,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 	PasswordRecoveryItem i;
 	RelativeMockClockStrategy clock;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -62,7 +62,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeTest
 		Clock.override(clock);
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		Clock.clearOverride();

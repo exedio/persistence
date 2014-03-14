@@ -23,7 +23,6 @@ import com.exedio.cope.instrument.BooleanGetter;
 
 public final class FinalSettableGetter implements BooleanGetter<Settable<?>>
 {
-	@Override
 	public boolean get(final Settable<?> feature)
 	{
 		return feature.isFinal();

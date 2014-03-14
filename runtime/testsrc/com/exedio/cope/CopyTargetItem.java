@@ -34,7 +34,7 @@ final class CopyTargetItem extends Item
 	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
 	static final ItemField<CopyValueItem> otherItem = ItemField.create(CopyValueItem.class);
 
-	@Override()
+	@Override
 	public String toString()
 	{
 		// for testing, that CopyViolation#getMessage does not call toString(), but getCopeID()

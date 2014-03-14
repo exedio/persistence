@@ -48,22 +48,18 @@ public final class ServletUtil
 	{
 		return new Config()
 		{
-			@Override
 			public String getInitParameter(final String name)
 			{
 				return config.getInitParameter(name);
 			}
-			@Override
 			public String getName()
 			{
 				return config.getServletName();
 			}
-			@Override
 			public ServletContext getServletContext()
 			{
 				return config.getServletContext();
 			}
-			@Override
 			public String getKind()
 			{
 				return "servlet";
@@ -75,22 +71,18 @@ public final class ServletUtil
 	{
 		return new Config()
 		{
-			@Override
 			public String getInitParameter(final String name)
 			{
 				return config.getInitParameter(name);
 			}
-			@Override
 			public String getName()
 			{
 				return config.getFilterName();
 			}
-			@Override
 			public ServletContext getServletContext()
 			{
 				return config.getServletContext();
 			}
-			@Override
 			public String getKind()
 			{
 				return "filter";

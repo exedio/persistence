@@ -95,7 +95,6 @@ public class Sampler
 	{
 		return new Properties.Source(){
 
-			@Override
 			public String get(final String key)
 			{
 				// TODO
@@ -116,13 +115,11 @@ public class Sampler
 				return null;
 			}
 
-			@Override
 			public String getDescription()
 			{
 				return original.getDescription();
 			}
 
-			@Override
 			public Collection<String> keySet()
 			{
 				return original.keySet();

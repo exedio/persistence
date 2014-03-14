@@ -22,7 +22,6 @@ package com.exedio.cope;
 public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
-	@Override
 	BindStringFunction bind(Join join);
 
 	/**

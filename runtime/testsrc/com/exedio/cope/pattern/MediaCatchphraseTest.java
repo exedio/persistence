@@ -42,7 +42,7 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 	private MediaCatchPhraseItem wrong, normal, single, empty, nulL;
 	private MediaCatchPhraseSuperItem none;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

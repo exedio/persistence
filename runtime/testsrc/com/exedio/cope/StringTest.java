@@ -50,7 +50,7 @@ public class StringTest extends AbstractRuntimeTest
 	StringItem item, item2;
 	int numberOfItems;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

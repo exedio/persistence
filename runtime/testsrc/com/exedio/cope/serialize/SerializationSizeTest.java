@@ -40,7 +40,7 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 	ArrayList<Serializable> accu = null;
 	int previousSize;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();

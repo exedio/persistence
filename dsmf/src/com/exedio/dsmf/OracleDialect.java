@@ -109,7 +109,6 @@ public final class OracleDialect extends Dialect
 
 		schema.querySQL("SELECT TABLE_NAME FROM user_tables", new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					while(resultSet.next())
@@ -139,7 +138,6 @@ public final class OracleDialect extends Dialect
 				String uniqueConstraintName = null;
 				Table uniqueConstraintTable = null;
 				final ArrayList<String> uniqueColumns = new ArrayList<String>();
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					final HashMap<String, String> duplicateCheckConstraints = new HashMap<String, String>();
@@ -213,7 +211,6 @@ public final class OracleDialect extends Dialect
 				"FROM USER_SEQUENCES",
 			new Node.ResultSetHandler()
 			{
-				@Override
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);

@@ -57,7 +57,7 @@ public final class MediaTest extends AbstractRuntimeTest
 
 	private MediaItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

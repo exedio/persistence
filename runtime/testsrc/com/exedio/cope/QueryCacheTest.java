@@ -36,7 +36,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 
 	MatchItem item;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -125,7 +125,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 		}
 
 		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
-		@Override()
+		@Override
 		public boolean equals(final Object other)
 		{
 			final SC o = (SC)other;
@@ -134,7 +134,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 				totalOnly == o.totalOnly;
 		}
 
-		@Override()
+		@Override
 		public int hashCode()
 		{
 			// avoid warning:
@@ -143,7 +143,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public String toString()
 		{
 			return (totalOnly ? "TOTAL " : "SEARCH ") + query.toString();
@@ -159,13 +159,11 @@ public class QueryCacheTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override()
 		public void load(final Connection connection, final Item item)
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
 		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{
 			scs.add(new SC(query, totalOnly));

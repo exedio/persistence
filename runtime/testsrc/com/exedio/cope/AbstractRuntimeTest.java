@@ -88,7 +88,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 
 	private final FileFixture files = new FileFixture();
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -102,7 +102,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		files.setUp();
 	}
 
-	@Override()
+	@Override
 	protected void tearDown() throws Exception
 	{
 		files.tearDown();

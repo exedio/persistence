@@ -177,13 +177,11 @@ public class ServletUtilTest extends CopeAssert
 
 			this.config = new ServletConfig()
 			{
-				@Override
 				public ServletContext getServletContext()
 				{
 					return new MockServletContext(null);
 				}
 
-				@Override
 				public String getInitParameter(final String name)
 				{
 					if("model".equals(name))
@@ -194,13 +192,11 @@ public class ServletUtilTest extends CopeAssert
 						throw new RuntimeException(name);
 				}
 
-				@Override
 				public String getServletName()
 				{
 					return name;
 				}
 
-				@Override
 				public Enumeration<?> getInitParameterNames()
 				{
 					throw new RuntimeException();
@@ -208,31 +204,26 @@ public class ServletUtilTest extends CopeAssert
 			};
 		}
 
-		@Override
 		public ServletConfig getServletConfig()
 		{
 			return config;
 		}
 
-		@Override
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
 		public String getServletInfo()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
 		public void init(final ServletConfig arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
 		public void service(final ServletRequest arg0, final ServletResponse arg1)
 		{
 			throw new RuntimeException();
@@ -246,19 +237,16 @@ public class ServletUtilTest extends CopeAssert
 			// just make it package private
 		}
 
-		@Override
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
 		public void doFilter(final ServletRequest arg0, final ServletResponse arg1, final FilterChain arg2)
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
 		public void init(final FilterConfig arg0)
 		{
 			throw new RuntimeException();
@@ -285,13 +273,11 @@ public class ServletUtilTest extends CopeAssert
 			assert context!=null;
 		}
 
-		@Override
 		public ServletContext getServletContext()
 		{
 			return context;
 		}
 
-		@Override
 		public String getInitParameter(final String name)
 		{
 			if("model".equals(name))
@@ -302,13 +288,11 @@ public class ServletUtilTest extends CopeAssert
 				throw new RuntimeException(name);
 		}
 
-		@Override
 		public String getFilterName()
 		{
 			return name;
 		}
 
-		@Override
 		public Enumeration<?> getInitParameterNames()
 		{
 			throw new RuntimeException();

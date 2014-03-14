@@ -28,7 +28,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
 
 	InstanceOfAItem itema;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

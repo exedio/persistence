@@ -46,7 +46,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 
 	TextUrlFilterItem item, item2;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -151,13 +151,13 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 
 	static class Request extends HttpServletRequestDummy
 	{
-		@Override()
+		@Override
 		public String getContextPath()
 		{
 			return "/contextPath";
 		}
 
-		@Override()
+		@Override
 		public String getServletPath()
 		{
 			return "/servletPath";
@@ -174,37 +174,37 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			this.body = body;
 		}
 
-		@Override()
+		@Override
 		public void setContentType(final String type)
 		{
 			assertEquals("text/plain", type);
 		}
 
-		@Override()
+		@Override
 		public void setCharacterEncoding(final String charset)
 		{
 			assertEquals(CharsetName.UTF8, charset);
 		}
 
-		@Override()
+		@Override
 		public void setContentLength(final int len)
 		{
 			contentLength = len;
 		}
 
-		@Override()
+		@Override
 		public ServletOutputStream getOutputStream()
 		{
 			return new ServletOutputStream()
 			{
-				@Override()
+				@Override
 			   public void write(final byte b[], final int off, final int len) throws IOException
 			   {
 			   	assertEquals(body, new String(b, off, len, UTF8));
 			   	assertEquals(contentLength, len);
 			   }
 
-				@Override()
+				@Override
 				public void write(final int b)
 				{
 					throw new RuntimeException();

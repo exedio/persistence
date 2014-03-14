@@ -51,7 +51,7 @@ public class JavaViewTest extends AbstractRuntimeTest
 	JavaViewItem item;
 	JavaViewItem2 item2;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -59,13 +59,11 @@ final class SequenceImplSequence implements SequenceImpl
 		this.quotedName = dsmfDialect.quoteName(this.name);
 	}
 
-	@Override
 	public void makeSchema(final Schema schema)
 	{
 		new Sequence(schema, name, start);
 	}
 
-	@Override
 	public int next()
 	{
 		final Connection connection = connectionPool.get(true);
@@ -79,7 +77,6 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
-	@Override
 	public int getNext()
 	{
 		final Connection connection = connectionPool.get(true);
@@ -93,19 +90,16 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
-	@Override
 	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
 		dialect.deleteSequence(bf, quotedName, start);
 	}
 
-	@Override
 	public void flush()
 	{
 		// empty
 	}
 
-	@Override
 	public String getSchemaName()
 	{
 		return name;

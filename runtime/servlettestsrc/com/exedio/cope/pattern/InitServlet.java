@@ -38,7 +38,7 @@ public class InitServlet extends HttpServlet
 
 	private ConnectToken connectToken = null;
 
-	@Override()
+	@Override
 	public void init() throws ServletException
 	{
 		super.init();
@@ -142,7 +142,7 @@ public class InitServlet extends HttpServlet
 		}
 	}
 
-	@Override()
+	@Override
 	public void destroy()
 	{
 		connectToken.returnIt();
@@ -163,7 +163,7 @@ public class InitServlet extends HttpServlet
 			throw new RuntimeException(path);
 	}
 
-	@Override()
+	@Override
 	protected final void doGet(
 			final HttpServletRequest request,
 			final HttpServletResponse response)

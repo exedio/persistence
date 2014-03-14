@@ -37,7 +37,7 @@ public class AsStringTest extends AbstractRuntimeTest
 
 	AsStringItem item1, item10, item2, itemN, item0, itemX;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();

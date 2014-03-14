@@ -48,7 +48,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private String thisSeq;
 	private String nextSeq;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -279,7 +279,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			this.stopRequests = stopRequests;
 		}
 
-		@Override()
+		@Override
 		public void stopIfRequested()
 		{
 			stopRequestsEncountered++;
@@ -287,19 +287,19 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 				throw new JobStop("JobStopMessage");
 		}
 
-		@Override()
+		@Override
 		public boolean supportsMessage()
 		{
 			return true;
 		}
 
-		@Override()
+		@Override
 		public void setMessage(final String message)
 		{
 			events.append("MESSAGE " +  message);
 		}
 
-		@Override()
+		@Override
 		public void incrementProgress(final int delta)
 		{
 			events.append("PROGRESS " + delta);

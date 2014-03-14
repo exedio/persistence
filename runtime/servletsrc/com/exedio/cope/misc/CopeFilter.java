@@ -56,7 +56,6 @@ public final class CopeFilter implements Filter
 	private ConnectToken connectToken = null;
 	private Model model;
 
-	@Override
 	public void init(final FilterConfig config)
 	{
 		connectToken = ServletUtil.getConnectedModel(this, config);
@@ -65,7 +64,6 @@ public final class CopeFilter implements Filter
 
 	private volatile boolean revised = false;
 
-	@Override
 	public void doFilter(
 			final ServletRequest request,
 			final ServletResponse response,
@@ -94,7 +92,6 @@ public final class CopeFilter implements Filter
 		}
 	}
 
-	@Override
 	public void destroy()
 	{
 		if(connectToken!=null)

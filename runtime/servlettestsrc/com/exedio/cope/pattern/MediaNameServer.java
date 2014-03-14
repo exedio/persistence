@@ -50,7 +50,7 @@ final class MediaNameServer extends MediaPath
 		return source;
 	}
 
-	@Override()
+	@Override
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;
@@ -60,7 +60,7 @@ final class MediaNameServer extends MediaPath
 
 	private static final String RESPONSE_EXPIRES = "Expires";
 
-	@Override()
+	@Override
 	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
 			final Item item)
@@ -83,25 +83,25 @@ final class MediaNameServer extends MediaPath
 		MediaUtil.send("text/plain", UTF8, content, response);
 	}
 
-	@Override()
+	@Override
 	public Condition isNull()
 	{
 		return source.isNull();
 	}
 
-	@Override()
+	@Override
 	public Condition isNull(final Join join)
 	{
 		return source.bind( join ).isNull();
 	}
 
-	@Override()
+	@Override
 	public Condition isNotNull()
 	{
 		return source.isNotNull();
 	}
 
-	@Override()
+	@Override
 	public Condition isNotNull(final Join join)
 	{
 		return source.bind(join).isNotNull();

@@ -43,20 +43,17 @@ final class Instrumentor implements ParseConsumer
 	 */
 	private String lastFileDocComment = null;
 
-	@Override
 	public void onPackage(final JavaFile javafile)
 	throws ParserException
 	{
 		// nothing to do here
 	}
 
-	@Override
 	public void onImport(final String importname)
 	{
 		// nothing to do here
 	}
 
-	@Override
 	public void onClass(final JavaClass jc)
 			throws ParserException
 	{
@@ -72,7 +69,6 @@ final class Instrumentor implements ParseConsumer
 		}
 	}
 
-	@Override
 	public void onClassEnd(final JavaClass javaClass)
 	throws ParserException
 	{
@@ -81,19 +77,16 @@ final class Instrumentor implements ParseConsumer
 		class_state = class_state_stack.remove(class_state_stack.size()-1);
 	}
 
-	@Override
 	public void onBehaviourHeader(final JavaBehaviour jb)
 	{
 		// nothing to do here
 	}
 
-	@Override
 	public void onFieldHeader(final JavaField ja)
 	{
 		// nothing to do here
 	}
 
-	@Override
 	public void onClassFeature(final JavaFeature jf, final CommentToken docComment)
 	throws ParserException
 	{
@@ -102,7 +95,6 @@ final class Instrumentor implements ParseConsumer
 			((JavaField)jf).setDocComment(docComment.comment);
 	}
 
-	@Override
 	public boolean onDocComment(final CommentToken docComment)
 	{
 		//System.out.println("onDocComment("+docComment+")");
@@ -110,7 +102,6 @@ final class Instrumentor implements ParseConsumer
 		return !docComment.isSkipped();
 	}
 
-	@Override
 	public void onFileDocComment(final String docComment)
 	throws ParserException
 	{

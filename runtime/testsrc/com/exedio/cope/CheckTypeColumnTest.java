@@ -47,7 +47,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@Override()
+	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -64,7 +64,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeTest
 		reffN = new InstanceOfRefItem(null);
 	}
 
-	@Override()
+	@Override
 	public void tearDown() throws Exception
 	{
 		model.commit();

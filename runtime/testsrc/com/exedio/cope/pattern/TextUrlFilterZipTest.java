@@ -41,7 +41,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
 
 	TextUrlFilterItem item;
 
-	@Override()
+	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
