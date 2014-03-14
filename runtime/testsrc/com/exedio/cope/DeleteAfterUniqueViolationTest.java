@@ -32,7 +32,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
 
 	private boolean unq;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

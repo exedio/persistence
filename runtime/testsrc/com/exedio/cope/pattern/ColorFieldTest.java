@@ -37,7 +37,7 @@ public class ColorFieldTest extends CopeTest
 
 	private ColorFieldItem i;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

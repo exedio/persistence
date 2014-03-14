@@ -31,7 +31,7 @@ public class FindItemHierarchyTest extends AbstractRuntimeTest
 	HierarchySecondSub secondItem2;
 	HierarchyFirstSub firstItem2;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

@@ -32,14 +32,14 @@ public class ConnectTokenTest extends CopeAssert
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 	private static final ConnectProperties props = new ConnectProperties(SYSTEM_PROPERTY_SOURCE);
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
 		setProperties(model, props);
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		removeProperties(model);

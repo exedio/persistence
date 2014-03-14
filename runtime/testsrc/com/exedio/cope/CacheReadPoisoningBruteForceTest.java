@@ -30,7 +30,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	CacheIsolationItem item;
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -47,7 +47,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Override
+	@Override()
 	public void tearDown() throws Exception
 	{
 		for(final ThreadStoppable thread : threads)
@@ -80,7 +80,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 		for(int i = 0; i<threads.length; i++)
 		{
 			threads[i] = new ThreadStoppable(){
-				@Override
+				@Override()
 				public void run()
 				{
 					try

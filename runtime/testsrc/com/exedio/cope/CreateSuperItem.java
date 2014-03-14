@@ -39,7 +39,7 @@ class CreateSuperItem extends Item
 		return setValues;
 	}
 
-	@Override
+	@Override()
 	protected void afterNewCopeItem()
 	{
 		setText(getText() + ".postCreateSuper");

@@ -68,7 +68,7 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(null, model.getDatabaseListener());
 		model.setDatabaseListener(new DatabaseListener(){
 
-			@Override
+			@Override()
 			public void onStatement(
 					final String sql, final List<Object> parameters,
 					final long durationPrepare, final long durationExecute, final long durationRead,
@@ -81,7 +81,7 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(list(), model.getChangeListeners());
 		model.addChangeListener(new ChangeListener()
 		{
-			@Override
+			@Override()
 			public void onChange(final ChangeEvent event)
 			{
 				throw new RuntimeException();
@@ -91,7 +91,7 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		assertEquals(list(), model.getModificationListeners());
 		model.addModificationListener(new ModificationListener()
 		{
-			@Override
+			@Override()
 			@Deprecated
 			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 			{

@@ -65,7 +65,7 @@ public class CoalesceFunctionTest extends AbstractRuntimeTest
 		return aDay.add(offset);
 	}
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -44,7 +44,7 @@ public class DynamicModelCastTest extends AbstractRuntimeTest
 
 	ModelItem item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

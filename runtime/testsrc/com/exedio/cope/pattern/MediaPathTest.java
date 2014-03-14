@@ -58,7 +58,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 	private AbsoluteMockClockStrategy clock;
 	private int mediaOffsetExpires;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -72,7 +72,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		this.mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
 	}
 
-	@Override
+	@Override()
 	public void tearDown() throws Exception
 	{
 		Clock.clearOverride();
@@ -434,7 +434,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			return false;
 		}
 
-		@Override
+		@Override()
 		public String getMethod()
 		{
 			return "GET";
@@ -480,13 +480,13 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			return "/testServletPath";
 		}
 
-		@Override
+		@Override()
 		public String getPathInfo()
 		{
 			return pathInfo;
 		}
 
-		@Override
+		@Override()
 		public String getQueryString()
 		{
 			return null;
@@ -545,7 +545,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		private int status = Integer.MIN_VALUE;
 
-		@Override
+		@Override()
 		public void setStatus(final int sc)
 		{
 			assertFalse(sc==Integer.MIN_VALUE);
@@ -557,7 +557,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		private String charset = null;
 
-		@Override
+		@Override()
 		public void setCharacterEncoding(final String charset)
 		{
 			assertNotNull(charset);
@@ -569,7 +569,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		String contentType = null;
 
-		@Override
+		@Override()
 		public void setContentType(final String contentType)
 		{
 			assertNotNull(contentType);
@@ -581,7 +581,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		int contentLength = Integer.MIN_VALUE;
 
-		@Override
+		@Override()
 		public void setContentLength(final int contentLength)
 		{
 			assertFalse(contentLength==Integer.MIN_VALUE);
@@ -593,7 +593,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		ByteArrayOutputStream out = null;
 
-		@Override
+		@Override()
 		public ServletOutputStream getOutputStream()
 		{
 			assertNull(out);
@@ -603,13 +603,13 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 			return new ServletOutputStream()
 			{
-				@Override
+				@Override()
 			   public void write(final byte b[], final int off, final int len)
 			   {
 					myOut.write(b, off, len);
 			   }
 
-				@Override
+				@Override()
 				public void write(final int b)
 				{
 					throw new RuntimeException();
@@ -694,7 +694,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			// make package private
 		}
 
-		@Override
+		@Override()
 		protected void onException(
 				final HttpServletRequest request,
 				final Exception exception)

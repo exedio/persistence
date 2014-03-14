@@ -41,53 +41,53 @@ class TestByteArrayInputStream extends InputStream
 		this.in = new ByteArrayInputStream(buf);
 	}
 
-	@Override
+	@Override()
 	public int read() throws IOException
 	{
 		assertOpen();
 		return in.read();
 	}
 
-	@Override
+	@Override()
 	public int read(final byte b[], final int off, final int len) throws IOException
 	{
 		assertOpen();
 		return in.read(b, off, len);
 	}
 
-	@Override
+	@Override()
 	public long skip(final long n) throws IOException
 	{
 		assertOpen();
 		return in.skip(n);
 	}
 
-	@Override
+	@Override()
 	public int available() throws IOException
 	{
 		assertOpen();
 		return in.available();
 	}
 
-	@Override
+	@Override()
 	public boolean markSupported()
 	{
 		return false;
 	}
 
-	@Override
+	@Override()
 	public synchronized void mark(final int readAheadLimit)
 	{
 		throw new RuntimeException();
 	}
 
-	@Override
+	@Override()
 	public synchronized void reset() throws IOException
 	{
 		throw new IOException("mark/reset not supported");
 	}
 
-	@Override
+	@Override()
 	public void close() throws IOException
 	{
 		super.close();

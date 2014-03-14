@@ -39,7 +39,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 
 	TestLogAppender log = null;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -47,7 +47,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		logger.addAppender(log);
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		logger.removeAppender(log);
@@ -206,7 +206,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
+		@Override()
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
@@ -278,7 +278,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
+		@Override()
 		public void onChange(final ChangeEvent event)
 		{
 			throw new RuntimeException();

@@ -32,7 +32,7 @@ public class PatternTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

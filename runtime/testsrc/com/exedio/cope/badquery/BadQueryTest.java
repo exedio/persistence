@@ -36,7 +36,7 @@ public class BadQueryTest extends AbstractRuntimeTest
 	SuperContainer middle1, middle2, middleX;
 	SubContainer right1, right2;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

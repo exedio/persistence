@@ -32,7 +32,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 {
 	private List<Call> expectedCalls = null;
 
-	@Override
+	@Override()
 	public void load(final Connection connection, final Item item)
 	{
 		if ( expectedCalls!=null )
@@ -41,7 +41,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 	}
 
-	@Override
+	@Override()
 	public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 	{
 		nextExpectedCall().checkSearch( connection, query );
@@ -147,7 +147,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			this.item = item;
 		}
 
-		@Override
+		@Override()
 		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final Item item)
 		{
 			checkConnection( connection );
@@ -157,7 +157,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			}
 		}
 
-		@Override
+		@Override()
 		public String toString()
 		{
 			return "Load("+tx.getName()+"/"+item.getCopeID()+")";
@@ -174,7 +174,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			this.type = type;
 		}
 
-		@Override
+		@Override()
 		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( final Connection connection, final Query<?> query )
 		{
 			checkConnection( connection );
@@ -184,7 +184,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			}
 		}
 
-		@Override
+		@Override()
 		public String toString()
 		{
 			return "Search("+tx.getName()+"/"+type+")";

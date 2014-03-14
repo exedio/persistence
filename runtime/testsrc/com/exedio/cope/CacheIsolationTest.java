@@ -33,7 +33,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

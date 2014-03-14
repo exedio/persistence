@@ -50,7 +50,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 	DynamicModelItem item, item2;
 	DynamicModelLocalizationItem de, en;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

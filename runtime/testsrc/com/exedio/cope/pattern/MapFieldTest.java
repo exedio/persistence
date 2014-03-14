@@ -40,7 +40,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	MapFieldItem item, itemX;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

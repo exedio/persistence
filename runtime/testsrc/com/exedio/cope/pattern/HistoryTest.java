@@ -53,7 +53,7 @@ public class HistoryTest extends AbstractRuntimeTest
 
 	HistoryItem item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

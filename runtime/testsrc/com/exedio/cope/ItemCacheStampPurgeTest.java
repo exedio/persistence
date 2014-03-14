@@ -31,7 +31,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeTest
 	boolean quit;
 	CacheIsolationItem item1, item2, itemX;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

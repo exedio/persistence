@@ -38,7 +38,7 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 
 	PriceFieldItem item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

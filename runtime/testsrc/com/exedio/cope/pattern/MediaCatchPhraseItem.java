@@ -30,7 +30,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	@CopeSchemaName("phrase")
 	static final StringField catchphrase = new StringField().optional().lengthRange(0, 20);
 
-	@Override
+	@Override()
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
 		Assert.assertSame(feature, path);

@@ -40,7 +40,7 @@ public class IntegerTest extends AbstractRuntimeTest
 	private IntegerItem item2;
 	private int numberOfItems;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

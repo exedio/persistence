@@ -41,7 +41,7 @@ public class PlusIntegerOrderTest extends CopeModelTest
 	PlusIntegerItem item2;
 	PlusIntegerItem item3;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

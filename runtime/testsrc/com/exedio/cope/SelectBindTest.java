@@ -36,7 +36,7 @@ public class SelectBindTest extends AbstractRuntimeTest
 
 	protected CompareConditionItem item1, item2;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

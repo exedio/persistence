@@ -50,7 +50,7 @@ public class SerializerTest extends AbstractRuntimeTest
 
 	SerializerItem item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

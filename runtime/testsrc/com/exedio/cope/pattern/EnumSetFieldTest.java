@@ -37,7 +37,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 
 	EnumSetFieldItem item, itemX;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -60,7 +60,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 
 	private AbsoluteMockClockStrategy clock;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -68,7 +68,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 		Clock.override(clock);
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		Clock.clearOverride();

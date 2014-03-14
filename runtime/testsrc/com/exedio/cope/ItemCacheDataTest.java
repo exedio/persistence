@@ -35,7 +35,7 @@ public class ItemCacheDataTest extends AbstractRuntimeTest
 
 	ItemCacheDataItem item;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

@@ -38,7 +38,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 
 	TestLogAppender log = null;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -46,7 +46,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		logger.addAppender(log);
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		logger.removeAppender(log);
@@ -196,7 +196,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
+		@Override()
 		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{
@@ -250,7 +250,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 			// make constructor non-private
 		}
 
-		@Override
+		@Override()
 		@Deprecated
 		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
 		{

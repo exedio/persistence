@@ -65,7 +65,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	AbsoluteMockClockStrategy clock;
 	ArrayList<ExpectedRun> expectedRuns;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -75,7 +75,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		expectedRuns = new ArrayList<ExpectedRun>();
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		Clock.clearOverride();
@@ -359,7 +359,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		final CountJobContext ctx = new CountJobContext(){
 			int i = interruptRequests;
-			@Override public void stopIfRequested()
+			@Override() public void stopIfRequested()
 			{
 				if((i--)<=0) throw new JobStop("requestLimit");
 			}
@@ -427,20 +427,20 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 
 		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
-		@Override
+		@Override()
 		public boolean equals(final Object other)
 		{
 			final Log o = (Log)other;
 			return item.equals(o.item) && from.equals(o.from) && until.equals(o.until);
 		}
 
-		@Override
+		@Override()
 		public int hashCode()
 		{
 			return item.hashCode() ^ from.hashCode() ^ until.hashCode();
 		}
 
-		@Override
+		@Override()
 		public String toString()
 		{
 			return item.toString() + "---" + df().format(from) + "---" + df().format(until);
@@ -489,20 +489,20 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		}
 
 		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
-		@Override
+		@Override()
 		public boolean equals(final Object other)
 		{
 			final ExpectedRun o = (ExpectedRun)other;
 			return interval.equals(o.interval) && from.equals(o.from) && until.equals(o.until) && run.equals(o.run);
 		}
 
-		@Override
+		@Override()
 		public int hashCode()
 		{
 			return interval.hashCode() ^ from.hashCode() ^ until.hashCode() ^ run.hashCode();
 		}
 
-		@Override
+		@Override()
 		public String toString()
 		{
 			return "" + interval + ' ' + df().format(from) + "---" + df().format(until) + "---" + df().format(run);

@@ -69,7 +69,7 @@ public class ReviseTest extends CopeAssert
 	private ConnectProperties props;
 	private TestLogAppender log = null;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -81,7 +81,7 @@ public class ReviseTest extends CopeAssert
 		logger.addAppender(log);
 	}
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		logger.removeAppender(log);
@@ -596,7 +596,7 @@ public class ReviseTest extends CopeAssert
 			assertNull(revisions);
 		}
 
-		@Override
+		@Override()
 		public Revisions create(final Context ctx)
 		{
 			assertNotNull(ctx);

@@ -32,13 +32,13 @@ public final class TestLogAppender extends AppenderSkeleton
 {
 	private final List<LoggingEvent> events = new ArrayList<LoggingEvent>();
 
-	@Override
+	@Override()
 	protected void append(final LoggingEvent event)
 	{
 		events.add( event );
 	}
 
-	@Override
+	@Override()
 	public boolean requiresLayout()
 	{
 		return false;
@@ -62,7 +62,7 @@ public final class TestLogAppender extends AppenderSkeleton
 		assertEquals(Collections.EMPTY_LIST, events);
 	}
 
-	@Override
+	@Override()
 	public void close() throws SecurityException
 	{
 		throw new RuntimeException();

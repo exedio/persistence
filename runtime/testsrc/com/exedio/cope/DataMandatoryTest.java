@@ -38,7 +38,7 @@ public class DataMandatoryTest extends AbstractRuntimeTest
 
 	private DataMandatoryItem item;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

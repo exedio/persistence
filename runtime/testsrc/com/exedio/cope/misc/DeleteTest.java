@@ -156,13 +156,13 @@ public class DeleteTest extends AbstractRuntimeTest
 			this.maximumProgress = maximumProgress;
 		}
 
-		@Override
+		@Override()
 		public void stopIfRequested()
 		{
 			if(progress>=maximumProgress) throw new JobStop("progress " + maximumProgress + " excessed with " + progress);
 		}
 
-		@Override
+		@Override()
 		public void incrementProgress()
 		{
 			progress++;

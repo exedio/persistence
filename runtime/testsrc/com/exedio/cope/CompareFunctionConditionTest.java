@@ -66,7 +66,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeTest
 		return day.add(offset);
 	}
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

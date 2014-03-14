@@ -44,7 +44,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

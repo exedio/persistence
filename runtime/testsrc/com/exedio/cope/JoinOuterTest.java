@@ -28,7 +28,7 @@ public class JoinOuterTest extends TestmodelTest
 	PointerTargetItem rightJoined;
 	PointerTargetItem rightLonely;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

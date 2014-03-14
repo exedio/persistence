@@ -35,7 +35,7 @@ public class EnumTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

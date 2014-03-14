@@ -40,7 +40,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 
 	private Connection c;
 
-	@Override
+	@Override()
 	protected void tearDown() throws Exception
 	{
 		if(c!=null)

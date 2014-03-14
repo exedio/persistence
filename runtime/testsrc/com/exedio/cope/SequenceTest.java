@@ -37,7 +37,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Override
+	@Override()
 	protected boolean doesManageTransactions()
 	{
 		return false;

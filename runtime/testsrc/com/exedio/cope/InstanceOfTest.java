@@ -48,7 +48,7 @@ public class InstanceOfTest extends AbstractRuntimeTest
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

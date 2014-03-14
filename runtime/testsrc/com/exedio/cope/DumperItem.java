@@ -37,7 +37,7 @@ public class DumperItem extends Item
 		return setValues;
 	}
 
-	@Override
+	@Override()
 	protected void afterNewCopeItem()
 	{
 		Assert.fail("must not be called");

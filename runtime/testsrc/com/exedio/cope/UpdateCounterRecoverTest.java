@@ -36,7 +36,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 
 	CacheIsolationItem item = null;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();

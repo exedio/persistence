@@ -45,7 +45,7 @@ public class MD5Test extends AbstractRuntimeTest
 
 	MD5Item item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

@@ -33,14 +33,14 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 
 	MatchItem item;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = deleteOnTearDown(new MatchItem());
 	}
 
-	@Override
+	@Override()
 	public void tearDown() throws Exception
 	{
 		model.setDatabaseListener(null);
@@ -103,7 +103,7 @@ public class DatabaseLogTest extends AbstractRuntimeTest
 	{
 		private String sql = null;
 
-		@Override
+		@Override()
 		public void onStatement(
 				final String sql,
 				final List<Object> parameters,

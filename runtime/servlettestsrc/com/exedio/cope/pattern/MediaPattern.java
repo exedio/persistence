@@ -72,7 +72,7 @@ public final class MediaPattern extends Pattern
 			parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:55.555");
 	}
 
-	@Override
+	@Override()
 	protected void onMount()
 	{
 		super.onMount();

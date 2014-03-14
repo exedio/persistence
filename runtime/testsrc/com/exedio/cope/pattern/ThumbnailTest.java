@@ -52,7 +52,7 @@ public final class ThumbnailTest extends AbstractRuntimeTest
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

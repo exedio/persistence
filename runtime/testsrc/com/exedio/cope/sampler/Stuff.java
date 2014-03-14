@@ -39,7 +39,7 @@ public final class Stuff
 			super(sampledModel);
 		}
 
-		@Override
+		@Override()
 		public long getTransactionDuration()
 		{
 			return 0;

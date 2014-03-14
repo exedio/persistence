@@ -48,7 +48,7 @@ class RenamedSchemaPattern extends Pattern
 			this.name = name;
 		}
 
-		@Override
+		@Override()
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(TestAnnotation.class==annotationClass)
@@ -57,20 +57,20 @@ class RenamedSchemaPattern extends Pattern
 			return false;
 		}
 
-		@Override
+		@Override()
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(TestAnnotation.class==annotationClass)
 			{
 				return annotationClass.cast(new TestAnnotation()
 				{
-					@Override
+					@Override()
 					public Class<? extends Annotation> annotationType()
 					{
 						return TestAnnotation.class;
 					}
 
-					@Override
+					@Override()
 					public String value()
 					{
 						return name + "-TestAnnotation";
@@ -81,20 +81,20 @@ class RenamedSchemaPattern extends Pattern
 			return null;
 		}
 
-		@Override
+		@Override()
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override
+		@Override()
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException();
 		}
 	}
 
-	@Override
+	@Override()
 	protected void onMount()
 	{
 		super.onMount();

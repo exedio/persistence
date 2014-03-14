@@ -34,7 +34,7 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 
 	CacheIsolationItem item = null;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -50,7 +50,7 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		final TransactionRunnable tr1 =
 			new TransactionRunnable(model, new Runnable(){
 				// no thread is spawned, thus asserts still can cause the test to fail.
-				@Override
+				@Override()
 				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{
@@ -62,7 +62,7 @@ public class TransactionRunnableTest extends AbstractRuntimeTest
 		final TransactionRunnable tr2 =
 			new TransactionRunnable(model, new Runnable(){
 				// no thread is spawned, thus asserts still can cause the test to fail.
-				@Override
+				@Override()
 				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
 				public void run()
 				{

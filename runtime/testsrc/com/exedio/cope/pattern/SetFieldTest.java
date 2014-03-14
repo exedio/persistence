@@ -57,7 +57,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 	SetFieldItem item;
 	SetFieldItem otherItem;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

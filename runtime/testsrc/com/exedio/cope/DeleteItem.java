@@ -43,7 +43,7 @@ final class DeleteItem extends Item
 		this.name = name;
 	}
 
-	@Override
+	@Override()
 	public String toString()
 	{
 		return name!=null ? name : getCopeID();

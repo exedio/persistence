@@ -54,7 +54,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	static final Media fileFinger = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 
-	@Override
+	@Override()
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
 		return getCatchphrase();

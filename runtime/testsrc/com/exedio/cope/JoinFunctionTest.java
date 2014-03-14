@@ -41,7 +41,7 @@ public class JoinFunctionTest extends AbstractRuntimeTest
 	@SuppressWarnings("unused") // OK: is an item not to be found by searches
 	private JoinFunctionItem b3;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

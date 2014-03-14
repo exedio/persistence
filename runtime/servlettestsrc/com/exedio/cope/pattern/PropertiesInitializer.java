@@ -25,13 +25,13 @@ import javax.servlet.ServletContextListener;
 
 public class PropertiesInitializer implements ServletContextListener
 {
-	@Override
+	@Override()
 	public void contextInitialized(final ServletContextEvent sce)
 	{
 		ConnectToken.setProperties(InitServlet.model, ServletUtil.getConnectProperties(sce.getServletContext()));
 	}
 
-	@Override
+	@Override()
 	public void contextDestroyed(final ServletContextEvent sce)
 	{
 		ConnectToken.removeProperties(InitServlet.model);

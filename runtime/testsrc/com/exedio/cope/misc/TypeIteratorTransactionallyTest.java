@@ -39,7 +39,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();
@@ -59,7 +59,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 		}
 	}
 
-	@Override
+	@Override()
 	public void tearDown() throws Exception
 	{
 		try

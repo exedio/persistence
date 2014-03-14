@@ -28,7 +28,7 @@ final class MockJobContext extends AssertionErrorJobContext
 	private int requestedToStopCount;
 	private final ArrayList<Integer> progress = new ArrayList<Integer>();
 
-	@Override
+	@Override()
 	public void stopIfRequested()
 	{
 		requestedToStopCount++;
@@ -39,7 +39,7 @@ final class MockJobContext extends AssertionErrorJobContext
 		return requestedToStopCount;
 	}
 
-	@Override
+	@Override()
 	public void incrementProgress(final int delta)
 	{
 		progress.add(delta);

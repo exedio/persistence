@@ -22,7 +22,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 
 class CountJobContext extends AssertionErrorJobContext
 {
-	@Override
+	@Override()
 	public void stopIfRequested()
 	{
 		// do nothing
@@ -30,7 +30,7 @@ class CountJobContext extends AssertionErrorJobContext
 
 	int progress = 0;
 
-	@Override
+	@Override()
 	public void incrementProgress()
 	{
 		progress++;

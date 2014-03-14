@@ -39,7 +39,7 @@ public class QueryAggregatorTest extends AbstractRuntimeTest
 	Query<QueryAggregatorItem> q1, q2, q3;
 	QueryAggregator<QueryAggregatorItem> ag;
 
-	@Override
+	@Override()
 	public void setUp() throws Exception
 	{
 		super.setUp();

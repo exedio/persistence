@@ -120,7 +120,7 @@ final class MediaServletItem extends Item
 
 	static final StringField catchPhrase = new StringField().optional();
 
-	@Override
+	@Override()
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
 		return getCatchPhrase();

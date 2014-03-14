@@ -34,7 +34,7 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	PlusIntegerItem item1, item2, item3, item4;
 
-	@Override
+	@Override()
 	protected void setUp() throws Exception
 	{
 		super.setUp();
