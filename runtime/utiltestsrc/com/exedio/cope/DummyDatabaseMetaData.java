@@ -1084,7 +1084,6 @@ public class DummyDatabaseMetaData implements DatabaseMetaData
 	/**
 	 * @since needed since JDK 1.7
 	 */
-	@Override
 	@SuppressWarnings("unused")
 	public ResultSet getPseudoColumns(
 			final String catalog,
@@ -1099,7 +1098,6 @@ public class DummyDatabaseMetaData implements DatabaseMetaData
 	/**
 	 * @since needed since JDK 1.7
 	 */
-	@Override
 	public boolean generatedKeyAlwaysReturned() throws SQLException
 	{
 		throw new SQLException();
