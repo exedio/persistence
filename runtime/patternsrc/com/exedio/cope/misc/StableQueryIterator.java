@@ -47,11 +47,11 @@ public final class StableQueryIterator<E>
 
 		//System.out.println("-- " + query.getOffset() + " " + query.getLimit() + " " + slice);
 
-		final Query<E> queryCopy = new Query<E>(query);
+		final Query<E> queryCopy = new Query<>(query);
 		final int queryLimit = queryCopy.getLimit();
 		return (queryLimit==-1)
-			? new Unlimited<E>(queryCopy, slice)
-			: new Limited<E>  (queryCopy, slice, queryLimit);
+			? new Unlimited<>(queryCopy, slice)
+			: new Limited  <>(queryCopy, slice, queryLimit);
 	}
 
 	private static final class Unlimited<E> implements Iterator<E>

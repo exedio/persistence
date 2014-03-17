@@ -35,7 +35,7 @@ public final class SetValue<E>
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
 	{
-		return new SetValue<E>(settable, value);
+		return new SetValue<>(settable, value);
 	}
 
 	/**

@@ -61,7 +61,7 @@ public final class TypeIterator
 		if(slice<1)
 			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
 
-		return new Iter<E>(type, condition, transactionally, slice);
+		return new Iter<>(type, condition, transactionally, slice);
 	}
 
 	private static final class Iter<E extends Item> implements Iterator<E>

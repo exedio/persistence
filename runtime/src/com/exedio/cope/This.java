@@ -120,7 +120,7 @@ public final class This<E extends Item> extends Feature
 		*/
 	public IsNullCondition<E> isNull()
 	{
-		return new IsNullCondition<E>(this, false);
+		return new IsNullCondition<>(this, false);
 	}
 
 	/**
@@ -128,7 +128,7 @@ public final class This<E extends Item> extends Feature
 		*/
 	public IsNullCondition<E> isNotNull()
 	{
-		return new IsNullCondition<E>(this, true);
+		return new IsNullCondition<>(this, true);
 	}
 
 	public Condition equal(final E value)
@@ -160,22 +160,22 @@ public final class This<E extends Item> extends Feature
 
 	public CompareCondition<E> less(final E value)
 	{
-		return new CompareCondition<E>(Operator.Less, this, value);
+		return new CompareCondition<>(Operator.Less, this, value);
 	}
 
 	public CompareCondition<E> lessOrEqual(final E value)
 	{
-		return new CompareCondition<E>(Operator.LessEqual, this, value);
+		return new CompareCondition<>(Operator.LessEqual, this, value);
 	}
 
 	public CompareCondition<E> greater(final E value)
 	{
-		return new CompareCondition<E>(Operator.Greater, this, value);
+		return new CompareCondition<>(Operator.Greater, this, value);
 	}
 
 	public CompareCondition<E> greaterOrEqual(final E value)
 	{
-		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
 	public Condition between(final E lowerBound, final E upperBound)
@@ -185,47 +185,47 @@ public final class This<E extends Item> extends Feature
 
 	public CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
+		return new CompareFunctionCondition<>(Operator.Equal, this, right);
 	}
 
 	public CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Less, this, right);
+		return new CompareFunctionCondition<>(Operator.Less, this, right);
 	}
 
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
+		return new CompareFunctionCondition<>(Operator.Greater, this, right);
 	}
 
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
 	}
 
 	public ExtremumAggregate<E> min()
 	{
-		return new ExtremumAggregate<E>(this, true);
+		return new ExtremumAggregate<>(this, true);
 	}
 
 	public ExtremumAggregate<E> max()
 	{
-		return new ExtremumAggregate<E>(this, false);
+		return new ExtremumAggregate<>(this, false);
 	}
 
 	public final BindItemFunction<E> bind(final Join join)
 	{
-		return new BindItemFunction<E>(this, join);
+		return new BindItemFunction<>(this, join);
 	}
 
 	public CompareFunctionCondition<?> equalTarget()
@@ -240,54 +240,54 @@ public final class This<E extends Item> extends Feature
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, false, type1);
+		return new InstanceOfCondition<>(this, false, type1);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2);
+		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, false, types);
+		return new InstanceOfCondition<>(this, false, types);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, true, type1);
+		return new InstanceOfCondition<>(this, true, type1);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2);
+		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, true, types);
+		return new InstanceOfCondition<>(this, true, types);
 	}
 
 	// ------------------- deprecated stuff -------------------
