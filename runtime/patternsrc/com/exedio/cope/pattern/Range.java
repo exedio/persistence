@@ -31,7 +31,7 @@ public final class Range<E extends Comparable<E>>
 		if(from==null && to==null)
 			return all();
 
-		return new Range<E>(from, to, true);
+		return new Range<>(from, to, true);
 	}
 
 	@SuppressWarnings("unchecked") // OK

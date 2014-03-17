@@ -55,7 +55,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		if(borderTemplate.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
 
-		return new RangeField<E>(borderTemplate);
+		return new RangeField<>(borderTemplate);
 	}
 
 	public FunctionField<E> getFrom()

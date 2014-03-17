@@ -24,7 +24,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
 	{
-		return new PlusLiteralView<E>(addend1, addend2);
+		return new PlusLiteralView<>(addend1, addend2);
 	}
 
 

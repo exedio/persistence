@@ -65,7 +65,7 @@ public final class SetField<E> extends Pattern
 
 	public static final <E> SetField<E> create(final FunctionField<E> element)
 	{
-		return new SetField<E>(element);
+		return new SetField<>(element);
 	}
 
 	@Override
@@ -144,13 +144,13 @@ public final class SetField<E> extends Pattern
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	public Set<E> get(final Item item)
 	{
-		return Collections.unmodifiableSet(new HashSet<E>(getQuery(item).search()));
+		return Collections.unmodifiableSet(new HashSet<>(getQuery(item).search()));
 	}
 
 	@Wrap(order=20, doc="Returns a query for the value of {0}.")
 	public Query<E> getQuery(final Item item)
 	{
-		return new Query<E>(element, Cope.equalAndCast(mount().parent, item));
+		return new Query<>(element, Cope.equalAndCast(mount().parent, item));
 	}
 
 	/**
@@ -164,7 +164,7 @@ public final class SetField<E> extends Pattern
 			final Class<P> parentClass,
 			@Parameter("element") final E element)
 	{
-		return new Query<P>(
+		return new Query<>(
 				mount().parent.as(parentClass),
 				this.element.equal(element)).
 			search();
@@ -220,8 +220,8 @@ public final class SetField<E> extends Pattern
 	public void set(final Item item, final Collection<? extends E> value)
 	{
 		final Mount mount = mount();
-		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<E>(value);
-		final ArrayList<Item> toDeleteList = new ArrayList<Item>();
+		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
+		final ArrayList<Item> toDeleteList = new ArrayList<>();
 
 		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{

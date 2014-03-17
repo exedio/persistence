@@ -75,17 +75,17 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 
 	public static final <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
 	{
-		return new Serializer<E>(valueClass, source);
+		return new Serializer<>(valueClass, source);
 	}
 
 	public static final <E> Serializer<E> create(final Class<E> valueClass)
 	{
-		return new Serializer<E>(valueClass, new DataField());
+		return new Serializer<>(valueClass, new DataField());
 	}
 
 	public Serializer<E> optional()
 	{
-		return new Serializer<E>(valueClass, source.optional());
+		return new Serializer<>(valueClass, source.optional());
 	}
 
 	// TODO allow setting of length of DataField

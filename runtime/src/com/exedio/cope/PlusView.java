@@ -25,13 +25,13 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2)
 	{
-		return new PlusView<E>(new Function[]{addend1, addend2});
+		return new PlusView<>(new Function[]{addend1, addend2});
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2, final Function<E> addend3)
 	{
-		return new PlusView<E>(new Function[]{addend1, addend2, addend3});
+		return new PlusView<>(new Function[]{addend1, addend2, addend3});
 	}
 
 
