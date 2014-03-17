@@ -95,7 +95,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 		if(optional)
 		{
-			final ArrayList<Function<?>> functions  = new ArrayList<Function<?>>();
+			final ArrayList<Function<?>> functions  = new ArrayList<>();
 			// TODO include body as well, needs DataField#isNull
 			if(contentTypeField!=null)
 				functions.add(contentTypeField);
@@ -285,7 +285,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(!optional)
@@ -580,7 +580,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			if(!this.contentType.check(contentType))
 				throw new IllegalContentTypeException(this, exceptionItem, contentType);
 
-			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
+			final ArrayList<SetValue<?>> values = new ArrayList<>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
@@ -594,7 +594,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			if(!optional)
 				throw MandatoryViolationException.create(this, exceptionItem);
 
-			final ArrayList<SetValue<?>> values = new ArrayList<SetValue<?>>(4);
+			final ArrayList<SetValue<?>> values = new ArrayList<>(4);
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(contentTypeField.map(null));

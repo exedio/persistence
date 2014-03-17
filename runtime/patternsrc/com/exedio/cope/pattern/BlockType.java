@@ -39,7 +39,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 {
 	final Class<E> javaClass;
 	private final Constructor<E> constructor;
-	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<String, Feature>();
+	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
 	final List<Feature> templateList;
 	final int componentSize;
 
@@ -74,7 +74,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 				feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
 			}
 		}
-		this.templateList = Collections.unmodifiableList(new ArrayList<Feature>(templates.values()));
+		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
 	}
 
@@ -130,7 +130,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 
 	// static registry
 
-	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<Class<?>, BlockType<?>>();
+	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<>();
 
 	static <T extends Block> BlockType<T> forClass(final Class<T> javaClass)
 	{
@@ -156,7 +156,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 			throw new IllegalArgumentException("is not final: " + javaClass.getName());
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
-		final BlockType<T> result = new BlockType<T>(javaClass);
+		final BlockType<T> result = new BlockType<>(javaClass);
 		types.put(javaClass, result);
 
 		if(result.componentSize==0 && !InstrumentContext.isRunning())

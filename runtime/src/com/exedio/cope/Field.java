@@ -103,7 +103,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		if(isfinal)
 			result.add(FinalViolationException.class);
 		if(!optional)

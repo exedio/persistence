@@ -128,7 +128,7 @@ class CopeFeature
 		}
 
 		final Set<Class<? extends Throwable>> resultList = instance.getInitialExceptions();
-		final SortedSet<Class<? extends Throwable>> initialExceptions = new TreeSet<Class<? extends Throwable>>(CopeType.CLASS_COMPARATOR);
+		final SortedSet<Class<? extends Throwable>> initialExceptions = new TreeSet<>(CopeType.CLASS_COMPARATOR);
 		initialExceptions.addAll(resultList);
 		if(primitive)
 			initialExceptions.remove(MandatoryViolationException.class);

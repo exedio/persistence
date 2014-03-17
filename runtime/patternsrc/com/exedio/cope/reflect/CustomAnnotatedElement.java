@@ -31,7 +31,7 @@ final class CustomAnnotatedElement
 			throw new NullPointerException("annotations");
 		if(annotations.length==0)
 			throw new IllegalArgumentException("annotations must not be empty");
-		final HashMap<Class<?>, Annotation> annotationMap = new HashMap<Class<?>, Annotation>();
+		final HashMap<Class<?>, Annotation> annotationMap = new HashMap<>();
 		for(int i = 0; i<annotations.length; i++)
 		{
 			final Annotation a = annotations[i];

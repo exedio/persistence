@@ -41,7 +41,7 @@ final class CopeType
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
-	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
+	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
 
 	static final CopeType getCopeType(final JavaClass javaClass)
 	{
@@ -62,8 +62,8 @@ final class CopeType
 	final Option activationConstructorOption;
 	final int indent;
 
-	private final ArrayList<CopeFeature> features = new ArrayList<CopeFeature>();
-	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<String, CopeFeature>();
+	private final ArrayList<CopeFeature> features = new ArrayList<>();
+	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
 
 	public CopeType(final JavaClass javaClass, final boolean isBlock, final boolean isComposite)
 		throws ParserException
@@ -187,8 +187,8 @@ final class CopeType
 
 	private final void makeInitialFeaturesAndConstructorExceptions()
 	{
-		initialFeatures = new ArrayList<CopeFeature>();
-		constructorExceptions = new TreeSet<Class<? extends Throwable>>(CLASS_COMPARATOR);
+		initialFeatures = new ArrayList<>();
+		constructorExceptions = new TreeSet<>(CLASS_COMPARATOR);
 
 		final CopeType superclass = getSuperclass();
 		if(superclass!=null)

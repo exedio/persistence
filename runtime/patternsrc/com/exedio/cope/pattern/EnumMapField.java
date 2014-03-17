@@ -48,7 +48,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	{
 		this.keyClass = keyClass;
 		this.valueTemplate = valueTemplate;
-		this.fields = new EnumMap<K, FunctionField<V>>(keyClass);
+		this.fields = new EnumMap<>(keyClass);
 		this.defaultConstant = defaultConstant;
 
 		for(final K key : keyClass.getEnumConstants())
@@ -63,14 +63,14 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{
-		return new EnumMapField<K,V>(keyClass, value, new EnumMap<K, V>(keyClass));
+		return new EnumMapField<>(keyClass, value, new EnumMap<K, V>(keyClass));
 	}
 
 	public EnumMapField<K,V> defaultTo(final K key, final V value)
 	{
-		final EnumMap<K, V> defaultConstant = new EnumMap<K, V>(this.defaultConstant);
+		final EnumMap<K, V> defaultConstant = new EnumMap<>(this.defaultConstant);
 		defaultConstant.put(key, value);
-		return new EnumMapField<K,V>(keyClass, valueTemplate, defaultConstant);
+		return new EnumMapField<>(keyClass, valueTemplate, defaultConstant);
 	}
 
 	public Class<K> getKeyClass()
@@ -155,7 +155,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final HashSet<Class<? extends Throwable>> result = new HashSet<Class<? extends Throwable>>();
+		final HashSet<Class<? extends Throwable>> result = new HashSet<>();
 		for(final FunctionField<V> field : fields.values())
 			result.addAll(field.getInitialExceptions());
 		return result;
