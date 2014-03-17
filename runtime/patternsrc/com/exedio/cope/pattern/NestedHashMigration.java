@@ -94,7 +94,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	private Hash select(final Item item)
 	{
-		if(legacyHash.getHash(item)!=null)
+		if(!legacyHash.isNull(item))
 			return legacyHash;
 		else
 			return targetHash;
