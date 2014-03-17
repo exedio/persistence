@@ -42,7 +42,7 @@ public final class TypeSet
 			throw new NullPointerException("explicitTypes");
 		if(explicitTypes.length==0)
 			throw new IllegalArgumentException("explicitTypes must not be empty");
-		final HashSet<Type<?>> set = new HashSet<Type<?>>();
+		final HashSet<Type<?>> set = new HashSet<>();
 		for(final Type<?> type : explicitTypes)
 		{
 			if(type==null)

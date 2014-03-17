@@ -29,8 +29,7 @@ final class WrapItem extends Item
 {
 	static final WrapFeature feature = new WrapFeature();
 
-	static final WrapGeneric<ZipEntry, InputStream, OutputStream> generic =
-		new WrapGeneric<ZipEntry, InputStream, OutputStream>();
+	static final WrapGeneric<ZipEntry, InputStream, OutputStream> generic = new WrapGeneric<>();
 
 
    /**

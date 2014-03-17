@@ -25,8 +25,8 @@ import java.util.HashSet;
 
 final class Transactions
 {
-	private final HashSet<Transaction> open = new HashSet<Transaction>();
-	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<Transaction>();
+	private final HashSet<Transaction> open = new HashSet<>();
+	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<>();
 
 	void add(final Transaction tx)
 	{

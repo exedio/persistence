@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Dumper
 {
-	private final HashMap<Type<?>, AtomicInteger> pks = new HashMap<Type<?>, AtomicInteger>();
+	private final HashMap<Type<?>, AtomicInteger> pks = new HashMap<>();
 
 	@SuppressWarnings("static-method")
 	public void prepare(

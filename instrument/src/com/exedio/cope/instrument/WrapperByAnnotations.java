@@ -45,7 +45,7 @@ final class WrapperByAnnotations
 			final List<WrapperX> superResult)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
-		final ArrayList<WrapperX> result = new ArrayList<WrapperX>();
+		final ArrayList<WrapperX> result = new ArrayList<>();
 		result.addAll(superResult);
 		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
@@ -63,7 +63,7 @@ final class WrapperByAnnotations
 
 	private void makeAll(final List<WrapperX> list)
 	{
-		final TreeMap<Wrap, Method> methods = new TreeMap<Wrap, Method>(ORDER_COMPARATOR);
+		final TreeMap<Wrap, Method> methods = new TreeMap<>(ORDER_COMPARATOR);
 
 		for(final Method method : clazz.getDeclaredMethods())
 		{
