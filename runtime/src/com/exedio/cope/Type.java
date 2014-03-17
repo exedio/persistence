@@ -63,7 +63,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final Type<? super T> toptype;
 	private final HashSet<Type<?>> supertypes;
 
-	final This<T> thisFunction = new This<T>(this);
+	final This<T> thisFunction = new This<>(this);
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> featuresDeclared;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -190,15 +190,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 			final HashSet<Type<?>> superSupertypes = supertype.supertypes;
 			if(superSupertypes==null)
-				this.supertypes = new HashSet<Type<?>>();
+				this.supertypes = new HashSet<>();
 			else
-				this.supertypes = new HashSet<Type<?>>(superSupertypes);
+				this.supertypes = new HashSet<>(superSupertypes);
 
 			this.supertypes.add(supertype);
 		}
 
 		// declared features
-		this.featuresWhileConstruction = new ArrayList<Feature>(featuresParameter.size() + 1);
+		this.featuresWhileConstruction = new ArrayList<>(featuresParameter.size() + 1);
 		thisFunction.mount(this, This.NAME, null);
 		featuresParameter.mount(this);
 		featuresWhileConstruction.trimToSize();
@@ -209,7 +209,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		// declared fields / unique constraints
 		{
-			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<String, Feature>();
+			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<>();
 			for(final Feature feature : featuresDeclared)
 			{
 				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
@@ -227,7 +227,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		else
 		{
 			{
-				final ArrayList<Feature> features = new ArrayList<Feature>();
+				final ArrayList<Feature> features = new ArrayList<>();
 				features.add(thisFunction);
 				final List<Feature> superFeatures = supertype.getFeatures();
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
@@ -268,7 +268,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
 	{
-		final HashMap<String, Feature> result = new HashMap<String, Feature>(inherited);
+		final HashMap<String, Feature> result = new HashMap<>(inherited);
 		result.putAll(declared);
 		return result;
 	}
@@ -357,7 +357,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(this.cacheIdTransiently>=0)
 			throw new RuntimeException();
 
-		this.mountIfMounted = new Mount<T>(model, id, parameters);
+		this.mountIfMounted = new Mount<>(model, id, parameters);
 		this.cacheIdTransiently = parameters.cacheIdTransiently;
 	}
 
@@ -420,11 +420,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				case 1:
 					this.typesOfInstancesMap = null;
 					this.onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
-					this.marshaller = new SimpleItemMarshaller<C>(onlyPossibleTypeOfInstances);
+					this.marshaller = new SimpleItemMarshaller<>(onlyPossibleTypeOfInstances);
 					this.typesOfInstancesColumnValues = null;
 					break;
 				default:
-					final HashMap<String, Type<?>> typesOfInstancesMap = new HashMap<String, Type<?>>();
+					final HashMap<String, Type<?>> typesOfInstancesMap = new HashMap<>();
 					this.typesOfInstancesColumnValues = new String[typesOfInstances.size()];
 					int i = 0;
 					for(final Type<?> t : typesOfInstances)
@@ -434,7 +434,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 						typesOfInstancesColumnValues[i++] = t.schemaId;
 					}
 					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
-					this.marshaller = new PolymorphicItemMarshaller<C>(this.typesOfInstancesMap);
+					this.marshaller = new PolymorphicItemMarshaller<>(this.typesOfInstancesMap);
 					this.onlyPossibleTypeOfInstances = null;
 					break;
 			}
@@ -451,7 +451,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					this.references = castReferences(declared);
 				else
 				{
-					final ArrayList<ItemField<?>> result = new ArrayList<ItemField<?>>(inherited);
+					final ArrayList<ItemField<?>> result = new ArrayList<>(inherited);
 					result.addAll(declared);
 					result.trimToSize();
 					this.references = Collections.unmodifiableList(result);
@@ -867,7 +867,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<T>(new Future<T>(javaClass, this), policy);
+		return new ItemField<>(new Future<>(javaClass, this), policy);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>
@@ -1076,12 +1076,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public Query<T> newQuery(final Condition condition)
 	{
-		return new Query<T>(thisFunction, this, condition);
+		return new Query<>(thisFunction, this, condition);
 	}
 
 	public Query<T> emptyQuery()
 	{
-		return new Query<T>(thisFunction, this, Condition.FALSE);
+		return new Query<>(thisFunction, this, Condition.FALSE);
 	}
 
 	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()

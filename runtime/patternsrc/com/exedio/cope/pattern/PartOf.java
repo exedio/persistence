@@ -52,7 +52,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public static final <C extends Item> PartOf<C> create(final ItemField<C> container)
 	{
-		return new PartOf<C>(container, null);
+		return new PartOf<>(container, null);
 	}
 
 	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
@@ -60,7 +60,7 @@ public final class PartOf<C extends Item> extends Pattern
 		if(order==null)
 			throw new NullPointerException("order");
 
-		return new PartOf<C>(container, order);
+		return new PartOf<>(container, order);
 	}
 
 	public ItemField<C> getContainer()
@@ -137,7 +137,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 */
 	public static final List<PartOf<?>> getPartOfs(final Pattern pattern)
 	{
-		final ArrayList<PartOf<?>> result = new ArrayList<PartOf<?>>();
+		final ArrayList<PartOf<?>> result = new ArrayList<>();
 		for(final PartOf<?> partOf : PartOf.getPartOfs(pattern.getType()))
 		{
 			if (pattern.getSourceTypes().contains(partOf.getType()) ||
