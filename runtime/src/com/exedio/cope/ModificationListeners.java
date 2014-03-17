@@ -36,7 +36,7 @@ final class ModificationListeners
 	private static final Logger logger = LoggerFactory.getLogger(ModificationListeners.class);
 
 	private final Types types;
-	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<WeakReference<ModificationListener>>();
+	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<>();
 	private int cleared = 0;
 
 	ModificationListeners(final Types types)
@@ -53,7 +53,7 @@ final class ModificationListeners
 				return Collections.<ModificationListener>emptyList();
 
 			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ModificationListener> result = new ArrayList<ModificationListener>(size);
+			final ArrayList<ModificationListener> result = new ArrayList<>(size);
 			int cleared = 0;
 			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
 			{
@@ -87,7 +87,7 @@ final class ModificationListeners
 		if(listener==null)
 			throw new NullPointerException("listener");
 
-		final WeakReference<ModificationListener> ref = new WeakReference<ModificationListener>(listener);
+		final WeakReference<ModificationListener> ref = new WeakReference<>(listener);
 		synchronized(list)
 		{
 			list.add(ref);

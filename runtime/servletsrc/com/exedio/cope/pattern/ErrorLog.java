@@ -38,7 +38,7 @@ final class ErrorLog
 	ErrorLog(final int capacity)
 	{
 		this.capacity = capacity;
-		this.logs = new ArrayDeque<MediaRequestLog>(capacity);
+		this.logs = new ArrayDeque<>(capacity);
 	}
 
 	void count(final HttpServletRequest request, final Exception exception)
@@ -64,7 +64,7 @@ final class ErrorLog
 
 	List<MediaRequestLog> getLogs()
 	{
-		final ArrayList<MediaRequestLog> result = new ArrayList<MediaRequestLog>(capacity);
+		final ArrayList<MediaRequestLog> result = new ArrayList<>(capacity);
 		synchronized(logs)
 		{
 			result.addAll(logs);

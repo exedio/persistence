@@ -120,7 +120,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testMapSet()
 	{
-		final HashMap<MapFieldItem.Language, String> map = new HashMap<MapFieldItem.Language, String>();
+		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
 		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
 		assertEquals(map(), item.getNameMap());
 

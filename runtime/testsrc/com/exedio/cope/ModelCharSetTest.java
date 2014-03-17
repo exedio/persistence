@@ -24,10 +24,10 @@ public class ModelCharSetTest extends CopeAssert
 {
 	public void testType()
 	{
-		new Type<AnItem>(AnItem.class, AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
+		new Type<>(AnItem.class, AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
 		try
 		{
-			new Type<AnItem>(AnItem.class, AnItem.class, false, "Zack.Zick123", null, false, null, new Features());
+			new Type<>(AnItem.class, AnItem.class, false, "Zack.Zick123", null, false, null, new Features());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -53,7 +53,7 @@ public class ModelCharSetTest extends CopeAssert
 
 	public void testFeatureNaked()
 	{
-		final Type<AnItem> t = new Type<AnItem>(AnItem.class, AnItem.class, false, "Type123", null, false, null, new Features());
+		final Type<AnItem> t = new Type<>(AnItem.class, AnItem.class, false, "Type123", null, false, null, new Features());
 		final StringField f = new StringField();
 		try
 		{

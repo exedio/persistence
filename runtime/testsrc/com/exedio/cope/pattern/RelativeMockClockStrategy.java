@@ -25,7 +25,7 @@ import org.junit.Assert;
 
 final class RelativeMockClockStrategy implements Clock.Strategy
 {
-	private final LinkedList<Long> events = new LinkedList<Long>();
+	private final LinkedList<Long> events = new LinkedList<>();
 	private long date = 1000l*60*60*24*1000;
 
 	public long currentTimeMillis()

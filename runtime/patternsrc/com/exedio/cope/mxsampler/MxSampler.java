@@ -146,8 +146,8 @@ public class MxSampler
 	MxSamplerGlobal sampleInternal()
 	{
 		// prepare
-		final HashMap<MemoryPoolMXBean, MemoryUsage> memoryUsage = new HashMap<MemoryPoolMXBean, MemoryUsage>();
-		final HashMap<MemoryPoolMXBean, MemoryUsage> memoryCollectionUsage = new HashMap<MemoryPoolMXBean, MemoryUsage>();
+		final HashMap<MemoryPoolMXBean, MemoryUsage> memoryUsage = new HashMap<>();
+		final HashMap<MemoryPoolMXBean, MemoryUsage> memoryCollectionUsage = new HashMap<>();
 
 		// gather data
 		final long start = System.nanoTime();
@@ -178,7 +178,7 @@ public class MxSampler
 		final long duration = System.nanoTime() - start;
 
 		// process data
-		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
+		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		final int running = runningSource.getAndIncrement();
 
 		// save data

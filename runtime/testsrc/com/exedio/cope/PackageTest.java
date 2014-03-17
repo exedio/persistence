@@ -216,7 +216,7 @@ public class PackageTest extends TestCase
 
 	static HashMap<Model, ConnectProperties> getModels(final Test test)
 	{
-		final HashMap<Model, ConnectProperties> models = new HashMap<Model, ConnectProperties>();
+		final HashMap<Model, ConnectProperties> models = new HashMap<>();
 		collectModels(test, models);
 		return models;
 	}

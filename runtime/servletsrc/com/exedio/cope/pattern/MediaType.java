@@ -240,9 +240,9 @@ public final class MediaType
 			),
 	};
 
-	private static final HashMap<String, MediaType> typesByExtension    = new HashMap<String, MediaType>();
-	private static final HashMap<String, MediaType> typesByName         = new HashMap<String, MediaType>();
-	private static final HashMap<String, MediaType> typesByNameAndAlias = new HashMap<String, MediaType>();
+	private static final HashMap<String, MediaType> typesByExtension    = new HashMap<>();
+	private static final HashMap<String, MediaType> typesByName         = new HashMap<>();
+	private static final HashMap<String, MediaType> typesByNameAndAlias = new HashMap<>();
 
 	static
 	{
@@ -320,7 +320,7 @@ public final class MediaType
 		if(magic.length==0)
 			throw new IllegalArgumentException("empty");
 
-		final LinkedHashSet<MediaType> result = new LinkedHashSet<MediaType>();
+		final LinkedHashSet<MediaType> result = new LinkedHashSet<>();
 		for(final Magic type : typesWithMagic)
 			if(type.matches(magic))
 				type.addAllTypes(result);
@@ -369,7 +369,7 @@ public final class MediaType
 
 		private static final String[] names(final MediaType[] types)
 		{
-			final ArrayList<String> result = new ArrayList<String>();
+			final ArrayList<String> result = new ArrayList<>();
 			for(final MediaType type : types)
 				type.addNameAndAliases(result);
 			return result.toArray(new String[result.size()]);
@@ -406,8 +406,7 @@ public final class MediaType
 
 	private static Magic[] retainMagic(final MediaType[] source)
 	{
-		final LinkedHashMap<String, ArrayList<MediaType>> map =
-			new LinkedHashMap<String, ArrayList<MediaType>>();
+		final LinkedHashMap<String, ArrayList<MediaType>> map = new LinkedHashMap<>();
 		for(final MediaType t : source)
 			if(t.magic!=null)
 			{
@@ -415,7 +414,7 @@ public final class MediaType
 				ArrayList<MediaType> list = map.get(magicString);
 				if(list==null)
 				{
-					list = new ArrayList<MediaType>();
+					list = new ArrayList<>();
 					map.put(magicString, list);
 				}
 				list.add(t);

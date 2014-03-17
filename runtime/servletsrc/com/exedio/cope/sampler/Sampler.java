@@ -78,7 +78,7 @@ public class Sampler
 
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
-		final ArrayList<MediaPath> medias = new ArrayList<MediaPath>();
+		final ArrayList<MediaPath> medias = new ArrayList<>();
 		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
@@ -186,7 +186,7 @@ public class Sampler
 		if(!to.isCompatibleTo(from))
 			return null;
 
-		final ArrayList<SetValue<?>> sv = new ArrayList<SetValue<?>>();
+		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
 		try
 		{
@@ -314,8 +314,8 @@ public class Sampler
 
 	public final void purge(final Date limit, final JobContext ctx)
 	{
-		final ArrayList<Type<?>> types = new ArrayList<Type<?>>();
-		final ArrayList<Type<?>> lastTypes = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> types = new ArrayList<>();
+		final ArrayList<Type<?>> lastTypes = new ArrayList<>();
 		for(final Type<?> type : samplerModel.getTypes())
 		{
 			final Purgeable purgeable = type.getAnnotation(Purgeable.class);
