@@ -89,7 +89,7 @@ public class RandomTest extends AbstractRuntimeTest
 		restartTransaction();
 
 		{
-			final Query<Double> q = new Query<Double>(TYPE.random(5));
+			final Query<Double> q = new Query<>(TYPE.random(5));
 			q.setOrderBy(TYPE.getThis(), true);
 			assertEquals("select rand(5) from CompareConditionItem order by this", q.toString());
 			if(model.supportsRandom())
@@ -159,7 +159,7 @@ public class RandomTest extends AbstractRuntimeTest
 
 	private static final List<Long> toLong(final List<Double> l)
 	{
-		final ArrayList<Long> result = new ArrayList<Long>(l.size());
+		final ArrayList<Long> result = new ArrayList<>(l.size());
 		for(final Double d : l)
 			result.add(Math.round(Math.floor(d.doubleValue()*1000000000000d)));
 		return result;
@@ -167,7 +167,7 @@ public class RandomTest extends AbstractRuntimeTest
 
 	private void assertSeed(final int seed)
 	{
-		final Query<Double> q = new Query<Double>(TYPE.random(seed));
+		final Query<Double> q = new Query<>(TYPE.random(seed));
 		q.setOrderBy(TYPE.getThis(), true);
 		assertEquals("select rand(" + seed + ") from CompareConditionItem order by this", q.toString());
 		if(!model.supportsRandom())
@@ -184,7 +184,7 @@ public class RandomTest extends AbstractRuntimeTest
 			assertTrue(String.valueOf(d), 0.0<=d);
 			assertTrue(String.valueOf(d), d<=1.0);
 		}
-		final HashSet<Double> set = new HashSet<Double>(result);
+		final HashSet<Double> set = new HashSet<>(result);
 		assertEquals(result.toString(), result.size(), set.size());
 
 		assertEquals(result, q.search());

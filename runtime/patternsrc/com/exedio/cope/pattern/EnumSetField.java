@@ -48,7 +48,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 			final boolean isFinal)
 	{
 		this.elementClass = elementClass;
-		this.fields = new EnumMap<E, BooleanField>(elementClass);
+		this.fields = new EnumMap<>(elementClass);
 		this.isFinal = isFinal;
 
 		for(final E element : elementClass.getEnumConstants())
@@ -63,12 +63,12 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	public static final <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
 	{
-		return new EnumSetField<E>(elementClass, false);
+		return new EnumSetField<>(elementClass, false);
 	}
 
 	public EnumSetField<E> toFinal()
 	{
-		return new EnumSetField<E>(elementClass, true);
+		return new EnumSetField<>(elementClass, true);
 	}
 
 	public Class<E> getElementClass()

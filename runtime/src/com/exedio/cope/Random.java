@@ -122,17 +122,17 @@ public class Random implements NumberFunction<Double>
 
 	public final BindNumberFunction<Double> bind(final Join join)
 	{
-		return new BindNumberFunction<Double>(this, join);
+		return new BindNumberFunction<>(this, join);
 	}
 
 	public final IsNullCondition<Double> isNull()
 	{
-		return new IsNullCondition<Double>(this, false);
+		return new IsNullCondition<>(this, false);
 	}
 
 	public final IsNullCondition<Double> isNotNull()
 	{
-		return new IsNullCondition<Double>(this, true);
+		return new IsNullCondition<>(this, true);
 	}
 
 	public final Condition equal(final Double value)
@@ -162,22 +162,22 @@ public class Random implements NumberFunction<Double>
 
 	public final CompareCondition<Double> less(final Double value)
 	{
-		return new CompareCondition<Double>(Operator.Less, this, value);
+		return new CompareCondition<>(Operator.Less, this, value);
 	}
 
 	public final CompareCondition<Double> lessOrEqual(final Double value)
 	{
-		return new CompareCondition<Double>(Operator.LessEqual, this, value);
+		return new CompareCondition<>(Operator.LessEqual, this, value);
 	}
 
 	public final CompareCondition<Double> greater(final Double value)
 	{
-		return new CompareCondition<Double>(Operator.Greater, this, value);
+		return new CompareCondition<>(Operator.Greater, this, value);
 	}
 
 	public final CompareCondition<Double> greaterOrEqual(final Double value)
 	{
-		return new CompareCondition<Double>(Operator.GreaterEqual, this, value);
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
 	public Condition between(final Double lowerBound, final Double upperBound)
@@ -187,42 +187,42 @@ public class Random implements NumberFunction<Double>
 
 	public final CompareFunctionCondition<Double> equal(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.Equal, this, right);
+		return new CompareFunctionCondition<>(Operator.Equal, this, right);
 	}
 
 	public final CompareFunctionCondition<Double> notEqual(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.NotEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<Double> less(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.Less, this, right);
+		return new CompareFunctionCondition<>(Operator.Less, this, right);
 	}
 
 	public final CompareFunctionCondition<Double> lessOrEqual(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.LessEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<Double> greater(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.Greater, this, right);
+		return new CompareFunctionCondition<>(Operator.Greater, this, right);
 	}
 
 	public final CompareFunctionCondition<Double> greaterOrEqual(final Function<? extends Double> right)
 	{
-		return new CompareFunctionCondition<Double>(Operator.GreaterEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
 	}
 
 	public final ExtremumAggregate<Double> min()
 	{
-		return new ExtremumAggregate<Double>(this, true);
+		return new ExtremumAggregate<>(this, true);
 	}
 
 	public final ExtremumAggregate<Double> max()
 	{
-		return new ExtremumAggregate<Double>(this, false);
+		return new ExtremumAggregate<>(this, false);
 	}
 
 	public final AsStringView asString()
@@ -280,12 +280,12 @@ public class Random implements NumberFunction<Double>
 
 	public final SumAggregate<Double> sum()
 	{
-		return new SumAggregate<Double>(this);
+		return new SumAggregate<>(this);
 	}
 
 	public final AverageAggregate<Double> average()
 	{
-		return new AverageAggregate<Double>(this);
+		return new AverageAggregate<>(this);
 	}
 
 	// ------------------- deprecated stuff -------------------

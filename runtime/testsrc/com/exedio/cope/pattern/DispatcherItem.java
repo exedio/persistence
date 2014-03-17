@@ -35,13 +35,13 @@ public final class DispatcherItem extends Item implements Dispatchable
 	static final StringField body = new StringField();
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
 
-	static final HashMap<DispatcherItem, Log> logs = new HashMap<DispatcherItem, Log>();
+	static final HashMap<DispatcherItem, Log> logs = new HashMap<>();
 	static class Log
 	{
 		boolean fail;
 		int dispatchCount = 0;
 		long dispatchLastSuccessElapsed = 0;
-		final ArrayList<Long> dispatchFailureElapsed = new ArrayList<Long>();
+		final ArrayList<Long> dispatchFailureElapsed = new ArrayList<>();
 		int notifyFinalFailureCount = 0;
 
 		Log(final boolean fail)

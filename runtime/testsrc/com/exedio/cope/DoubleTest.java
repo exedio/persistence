@@ -601,13 +601,13 @@ public class DoubleTest extends AbstractRuntimeTest
 	private static final IsNullCondition<Double> in(
 			final DoubleField field)
 	{
-		return new IsNullCondition<Double>(field, false);
+		return new IsNullCondition<>(field, false);
 	}
 
 	private static final IsNullCondition<Double> nn(
 			final DoubleField field)
 	{
-		return new IsNullCondition<Double>(field, true);
+		return new IsNullCondition<>(field, true);
 	}
 
 	private static final CompareCondition<Double> cc(
@@ -615,7 +615,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			final DoubleField field,
 			final Double value)
 	{
-		return new CompareCondition<Double>(operator, field, value);
+		return new CompareCondition<>(operator, field, value);
 	}
 
 	public void testSchema()
