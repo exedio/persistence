@@ -49,7 +49,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	{
 		if ( expectedCalls==null )
 		{
-			expectedCalls = new LinkedList<Call>();
+			expectedCalls = new LinkedList<>();
 		}
 		return expectedCalls;
 	}

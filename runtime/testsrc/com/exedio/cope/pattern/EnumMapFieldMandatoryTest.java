@@ -39,8 +39,8 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private static final EnumMap<Language, String> FULL = new EnumMap<Language, String>(Language.class);
-	private static final EnumMap<Language, String> EMPTY = new EnumMap<Language, String>(Language.class);
+	private static final EnumMap<Language, String> FULL  = new EnumMap<>(Language.class);
+	private static final EnumMap<Language, String> EMPTY = new EnumMap<>(Language.class);
 
 	static
 	{
@@ -94,7 +94,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeTest
 
 	public void testCreateEmpty()
 	{
-		final EnumMap<Language, String> value = new EnumMap<Language, String>(Language.class);
+		final EnumMap<Language, String> value = new EnumMap<>(Language.class);
 		value.put(PL, "initial-pl");
 		try
 		{

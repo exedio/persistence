@@ -30,7 +30,7 @@ final class FeatureSubSet<F extends Feature>
 			final List<Feature> declaredFeatures,
 			final Class<F> featureClass)
 	{
-		return new FeatureSubSet<F>(inherited, declaredFeatures, featureClass);
+		return new FeatureSubSet<>(inherited, declaredFeatures, featureClass);
 	}
 
 	final List<F> declared;
@@ -42,7 +42,7 @@ final class FeatureSubSet<F extends Feature>
 			final Class<F> featureClass)
 	{
 		{
-			final ArrayList<F> declared = new ArrayList<F>(declaredFeatures.size());
+			final ArrayList<F> declared = new ArrayList<>(declaredFeatures.size());
 			for(final Feature feature : declaredFeatures)
 			{
 				if(featureClass.isInstance(feature))
@@ -64,7 +64,7 @@ final class FeatureSubSet<F extends Feature>
 			return declared;
 		else
 		{
-			final ArrayList<F> result = new ArrayList<F>(inherited);
+			final ArrayList<F> result = new ArrayList<>(inherited);
 			result.addAll(declared);
 			result.trimToSize();
 			return Collections.<F>unmodifiableList(result);

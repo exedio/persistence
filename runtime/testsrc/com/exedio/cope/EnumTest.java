@@ -77,7 +77,7 @@ public class EnumTest extends AbstractRuntimeTest
 			features.put("wrong", wrong);
 			try
 			{
-				new Type<EnumItem>(EnumItem.class, EnumItem.class, false, "Wrong", null, false, null, features);
+				new Type<>(EnumItem.class, EnumItem.class, false, "Wrong", null, false, null, features);
 				fail();
 			}
 			catch(final IllegalArgumentException e)

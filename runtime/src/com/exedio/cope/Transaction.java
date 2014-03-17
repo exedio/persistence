@@ -125,7 +125,7 @@ public final class Transaction
 		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
 		if(entityMap==null)
 		{
-			entityMap = new TIntObjectHashMap<Entity>();
+			entityMap = new TIntObjectHashMap<>();
 			entityMaps[type.cacheIdTransiently] = entityMap;
 		}
 

@@ -40,8 +40,8 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeTest
 		super(MODEL);
 	}
 
-	private static final EnumMap<Language, String> FULL = new EnumMap<Language, String>(Language.class);
-	private static final EnumMap<Language, String> EMPTY = new EnumMap<Language, String>(Language.class);
+	private static final EnumMap<Language, String> FULL  = new EnumMap<>(Language.class);
+	private static final EnumMap<Language, String> EMPTY = new EnumMap<>(Language.class);
 
 	static
 	{

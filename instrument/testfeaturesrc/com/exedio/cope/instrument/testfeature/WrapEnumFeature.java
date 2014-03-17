@@ -25,12 +25,12 @@ public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
 {
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz)
 	{
-		return new WrapEnumFeature<E>(clazz, "com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass");
+		return new WrapEnumFeature<>(clazz, "com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass");
 	}
 
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz, final String className)
 	{
-		return new WrapEnumFeature<E>(clazz, className);
+		return new WrapEnumFeature<>(clazz, className);
 	}
 
 	private WrapEnumFeature(final Class<E> clazz, final String className)
