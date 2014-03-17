@@ -24,10 +24,9 @@ import junit.framework.TestCase;
 
 public class InstrumentorTest extends TestCase
 {
-
+   @SafeVarargs
 	protected static final <T> List<T> list(final T... o)
 	{
 		return Arrays.asList(o);
 	}
-
 }
