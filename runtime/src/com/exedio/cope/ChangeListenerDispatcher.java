@@ -41,7 +41,7 @@ final class ChangeListenerDispatcher implements Runnable
 	{
 		this.types = types;
 		this.manager = manager;
-		this.queue = new LimitedQueue<ChangeEvent>(properties.changeListenersQueueCapacity);
+		this.queue = new LimitedQueue<>(properties.changeListenersQueueCapacity);
 
 		this.threads = new ThreadSwarm(
 				this,

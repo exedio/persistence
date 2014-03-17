@@ -36,8 +36,7 @@ public final class TypesBound
 		// prevent instantiation
 	}
 
-	private static final HashMap<Class<? extends Item>, Type<? extends Item>> types =
-		new HashMap<Class<? extends Item>, Type<? extends Item>>();
+	private static final HashMap<Class<? extends Item>, Type<? extends Item>> types = new HashMap<>();
 
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
@@ -92,7 +91,7 @@ public final class TypesBound
 			features.put(featureName, feature, (AnnotatedElement)field);
 		}
 
-		final Type<T> result = new Type<T>(
+		final Type<T> result = new Type<>(
 				javaClass,
 				javaClass, // annotationSource
 				true,
@@ -119,8 +118,7 @@ public final class TypesBound
 	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields
-		final TreeMap<Feature, Field> result =
-			new TreeMap<Feature, Field>(INSTANTIATION_COMPARATOR);
+		final TreeMap<Feature, Field> result = new TreeMap<>(INSTANTIATION_COMPARATOR);
 		try
 		{
 			for(final Field field : clazz.getDeclaredFields())
@@ -182,7 +180,7 @@ public final class TypesBound
 	// TODO use some direct future if javaclass is already in types
 	static final <E extends Item> Future<E> future(final Class<E> javaClass)
 	{
-		return new Future<E>(javaClass);
+		return new Future<>(javaClass);
 	}
 
 	private static final class Future<T extends Item> extends TypeFuture<T>

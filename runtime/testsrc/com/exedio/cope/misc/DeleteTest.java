@@ -130,7 +130,7 @@ public class DeleteTest extends AbstractRuntimeTest
 
 	private void assertPurge(final int itemNumber, final int transactionNumber)
 	{
-		final ArrayList<CacheIsolationItem> items = new ArrayList<CacheIsolationItem>();
+		final ArrayList<CacheIsolationItem> items = new ArrayList<>();
 		model.startTransaction("DeleteTest");
 		for(int n = 0; n<itemNumber; n++)
 			items.add(new CacheIsolationItem("item"+n));

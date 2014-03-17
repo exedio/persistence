@@ -33,7 +33,7 @@ final class ChangeListeners
 	static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
-	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<WeakReference<ChangeListener>>();
+	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<>();
 	private final VolatileInt cleared = new VolatileInt();
 	private final VolatileInt removed = new VolatileInt();
 	private final VolatileInt failed = new VolatileInt();
@@ -52,7 +52,7 @@ final class ChangeListeners
 				return Collections.<ChangeListener>emptyList();
 
 			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ChangeListener> result = new ArrayList<ChangeListener>(size);
+			final ArrayList<ChangeListener> result = new ArrayList<>(size);
 			int cleared = 0;
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
@@ -92,7 +92,7 @@ final class ChangeListeners
 		if(listener==null)
 			throw new NullPointerException("listener");
 
-		final WeakReference<ChangeListener> ref = new WeakReference<ChangeListener>(listener);
+		final WeakReference<ChangeListener> ref = new WeakReference<>(listener);
 		synchronized(list)
 		{
 			list.add(ref);
