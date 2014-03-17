@@ -70,7 +70,7 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		query.setOrderBy(orderBy, ascending);
 		assertEquals(expectedOrder, query.search());
 
-		final List<? extends Object> expectedReverseOrder = new ArrayList<Object>(expectedOrder);
+		final List<? extends Object> expectedReverseOrder = new ArrayList<>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		final boolean[] descending = new boolean[orderBy.length];
 		Arrays.fill(descending, false);

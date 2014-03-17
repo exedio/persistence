@@ -140,7 +140,7 @@ public abstract class CopeAssert extends TestCase
 
 	public static final Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
-		final HashMap<Object, Object> result = new HashMap<Object, Object>();
+		final HashMap<Object, Object> result = new HashMap<>();
 		result.put(key1, value1);
 		result.put(key2, value2);
 		return Collections.unmodifiableMap(result);
@@ -329,7 +329,7 @@ public abstract class CopeAssert extends TestCase
 			{
 				final String string = (String)obj;
 				if(strings==null)
-					strings = new HashMap<String, String>();
+					strings = new HashMap<>();
 
 				final String replacement = strings.get(string);
 				if(replacement==null)
