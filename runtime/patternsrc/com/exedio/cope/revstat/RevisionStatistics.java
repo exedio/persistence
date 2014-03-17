@@ -30,7 +30,7 @@ public final class RevisionStatistics
 {
 	public static void write(final Model model, final JobContext ctx)
 	{
-		final TreeMap<Integer, RevisionInfoRevise> revisions = new TreeMap<Integer, RevisionInfoRevise>();
+		final TreeMap<Integer, RevisionInfoRevise> revisions = new TreeMap<>();
 
 		for(final Map.Entry<Integer, byte[]> entry : model.getRevisionLogs().entrySet())
 		{

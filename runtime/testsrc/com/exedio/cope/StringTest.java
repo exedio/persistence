@@ -706,7 +706,7 @@ public class StringTest extends AbstractRuntimeTest
 			throw new RuntimeException(e);
 		}
 		assertEquals(message, valueChars, sa.length().get(item));
-		assertEquals(message, valueChars, new Query<Integer>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
+		assertEquals(message, valueChars, new Query<>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
 	}
 
 	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute)
@@ -716,7 +716,7 @@ public class StringTest extends AbstractRuntimeTest
 
 	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute, final Condition condition)
 	{
-		return new Query<Object>(selectAttribute, condition).search();
+		return new Query<>(selectAttribute, condition).search();
 	}
 
 	// TODO should work without

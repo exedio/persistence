@@ -93,10 +93,10 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		assertEquals("plus("+numB+","+numA+")", numB.plus(numA).toString());
 		assertEquals("("+numB+"*5)", numB.multiply(5).toString());
 		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
-		assertEquals("select ("+numB.getName()+"+5) from "+TYPE, new Query<Integer>(numB.plus(5)).toString());
-		assertEquals("select plus("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<Integer>(numB.plus(numA)).toString());
-		assertEquals("select ("+numB.getName()+"*5) from "+TYPE, new Query<Integer>(numB.multiply(5)).toString());
-		assertEquals("select multiply("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<Integer>(numB.multiply(numA)).toString());
+		assertEquals("select ("+numB.getName()+"+5) from "+TYPE, new Query<>(numB.plus(5)).toString());
+		assertEquals("select plus("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<>(numB.plus(numA)).toString());
+		assertEquals("select ("+numB.getName()+"*5) from "+TYPE, new Query<>(numB.multiply(5)).toString());
+		assertEquals("select multiply("+numB.getName()+","+numA.getName()+") from "+TYPE, new Query<>(numB.multiply(numA)).toString());
 
 		// exceptions
 		try

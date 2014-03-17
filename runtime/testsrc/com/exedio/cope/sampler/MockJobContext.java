@@ -26,7 +26,7 @@ import java.util.List;
 final class MockJobContext extends AssertionErrorJobContext
 {
 	private int requestedToStopCount;
-	private final ArrayList<Integer> progress = new ArrayList<Integer>();
+	private final ArrayList<Integer> progress = new ArrayList<>();
 
 	@Override
 	public void stopIfRequested()

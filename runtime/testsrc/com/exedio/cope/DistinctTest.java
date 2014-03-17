@@ -47,7 +47,7 @@ public class DistinctTest extends AbstractRuntimeTest
 
 	public void testDistinctSingle()
 	{
-		final Query<Integer> q = new Query<Integer>(numB, TYPE, null);
+		final Query<Integer> q = new Query<>(numB, TYPE, null);
 		assertContains(2, 3, 4, 4, 4, q.search());
 		assertEquals(5, q.total());
 

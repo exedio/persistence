@@ -114,7 +114,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 	{
 		final Thread[] threads = new Thread[ 10 ];
 		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );
-		final Set<Integer> expected = new HashSet<Integer>();
+		final Set<Integer> expected = new HashSet<>();
 		for ( int i=0; i<threads.length; i++ )
 		{
 			expected.add( i );

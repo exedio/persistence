@@ -245,13 +245,13 @@ public class IntegerFieldTest extends CopeAssert
 	private static final IsNullCondition<Integer> in(
 			final IntegerField field)
 	{
-		return new IsNullCondition<Integer>(field, false);
+		return new IsNullCondition<>(field, false);
 	}
 
 	private static final IsNullCondition<Integer> nn(
 			final IntegerField field)
 	{
-		return new IsNullCondition<Integer>(field, true);
+		return new IsNullCondition<>(field, true);
 	}
 
 	private static final CompareCondition<Integer> cc(
@@ -259,6 +259,6 @@ public class IntegerFieldTest extends CopeAssert
 			final IntegerField field,
 			final Integer value)
 	{
-		return new CompareCondition<Integer>(operator, field, value);
+		return new CompareCondition<>(operator, field, value);
 	}
 }
