@@ -44,8 +44,7 @@ final class Executor
 	final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
-	private final HashMap<String, UniqueConstraint> uniqueConstraints =
-		new HashMap<String, UniqueConstraint>();
+	private final HashMap<String, UniqueConstraint> uniqueConstraints = new HashMap<>();
 	volatile DatabaseListener listener = null;
 
 	Executor(

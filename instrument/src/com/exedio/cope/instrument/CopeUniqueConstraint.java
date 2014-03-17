@@ -35,7 +35,7 @@ final class CopeUniqueConstraint extends CopeFeature
 
 	CopeAttribute[] getAttributes() throws ParserException
 	{
-		final ArrayList<String> attributeList = new ArrayList<String>();
+		final ArrayList<String> attributeList = new ArrayList<>();
 
 		final UniqueConstraint instance = (UniqueConstraint)getInstance();
 		for(final FunctionField<?> attributeInstance : instance.getFields())

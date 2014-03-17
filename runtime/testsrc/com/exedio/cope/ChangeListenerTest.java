@@ -337,8 +337,8 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		final String prefix = "COPE Change Listener Dispatcher ";
 		final String prefix2 = prefix + model.toString() + ' ';
 
-		final ArrayList<String> expectedAlive = new ArrayList<String>();
-		final ArrayList<String> expectedIdle  = new ArrayList<String>();
+		final ArrayList<String> expectedAlive = new ArrayList<>();
+		final ArrayList<String> expectedIdle  = new ArrayList<>();
 		{
 			final int num = model.getConnectProperties().changeListenersThreads;
 			final int max = model.getConnectProperties().changeListenersThreadsMax;
@@ -347,8 +347,8 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 				((n<num) ? expectedAlive : expectedIdle).add(prefix2 + String.valueOf(n+1) + '/' + max);
 		}
 
-		final ArrayList<String> actualAlive = new ArrayList<String>();
-		final ArrayList<String> actualIdle  = new ArrayList<String>();
+		final ArrayList<String> actualAlive = new ArrayList<>();
+		final ArrayList<String> actualIdle  = new ArrayList<>();
 		for(final ThreadController c : model.getThreadControllers())
 		{
 			final String name = c.getName();

@@ -109,10 +109,10 @@ public class SerializerTest extends AbstractRuntimeTest
 		// test persistence
 		assertEquals("integer_data", SchemaInfo.getColumnName(integer.getSource()));
 
-		final HashMap<String, String> map1 = new HashMap<String, String>();
+		final HashMap<String, String> map1 = new HashMap<>();
 		map1.put("key1a", "value1a");
 		map1.put("key1b", "value1b");
-		final HashMap<String, String> map2 = new HashMap<String, String>();
+		final HashMap<String, String> map2 = new HashMap<>();
 		map1.put("key2a", "value2a");
 		map1.put("key2b", "value2b");
 

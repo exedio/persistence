@@ -142,7 +142,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			assertNotNull(event);
 
-			final ArrayList<String> itemIds = new ArrayList<String>();
+			final ArrayList<String> itemIds = new ArrayList<>();
 			for(final Item item : event.getItems())
 				itemIds.add(item.getCopeID());
 			assertContainsList(expectedItems, itemIds);
