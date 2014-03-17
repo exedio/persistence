@@ -128,12 +128,6 @@ public abstract class CopeAssert extends TestCase
 		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
-   @SafeVarargs
-	public static final <T> List<T> listg(final T... o)
-	{
-		return Collections.unmodifiableList(Arrays.asList(o));
-	}
-
 	public static final Map<Object, Object> map()
 	{
 		return Collections.unmodifiableMap(Collections.<Object, Object>emptyMap());

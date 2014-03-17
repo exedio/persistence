@@ -34,6 +34,7 @@ import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -199,15 +200,15 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item2, item3, item4, TYPE, TYPE.getThis().between(item2, item4));
 
 		// in
-		assertCondition(item1, item3, TYPE, string.in(listg("string1", "string3", "stringNone")));
-		assertCondition(item1, item3, TYPE, intx.in(listg(1, 3, 25)));
-		assertCondition(item1, item3, TYPE, longx.in(listg(11l, 13l, 255l)));
-		assertCondition(item1, item3, TYPE, doublex.in(listg(2.1, 2.3, 25.2)));
-		assertCondition(item1, item3, TYPE, date.in(listg(date(-2), aDate, date(+25))));
-		assertCondition(item1, item3, TYPE, day.in(listg(day(-2), aDay, day(+25))));
-		assertCondition(item1, item3, TYPE, enumx.in(listg(YEnum.V1, YEnum.V3, YEnum.VX)));
-		assertCondition(item1, item3, TYPE, item.in(listg(item1, item3)));
-		assertCondition(item1, item3, TYPE, TYPE.getThis().in(listg(item1, item3)));
+		assertCondition(item1, item3, TYPE, string.in(asList("string1", "string3", "stringNone")));
+		assertCondition(item1, item3, TYPE, intx.in(asList(1, 3, 25)));
+		assertCondition(item1, item3, TYPE, longx.in(asList(11l, 13l, 255l)));
+		assertCondition(item1, item3, TYPE, doublex.in(asList(2.1, 2.3, 25.2)));
+		assertCondition(item1, item3, TYPE, date.in(asList(date(-2), aDate, date(+25))));
+		assertCondition(item1, item3, TYPE, day.in(asList(day(-2), aDay, day(+25))));
+		assertCondition(item1, item3, TYPE, enumx.in(asList(YEnum.V1, YEnum.V3, YEnum.VX)));
+		assertCondition(item1, item3, TYPE, item.in(asList(item1, item3)));
+		assertCondition(item1, item3, TYPE, TYPE.getThis().in(asList(item1, item3)));
 
 		// min
 		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<String>(string.min()).toString());

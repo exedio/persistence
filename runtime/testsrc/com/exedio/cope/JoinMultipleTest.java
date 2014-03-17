@@ -23,6 +23,7 @@ import static com.exedio.cope.testmodel.PointerItem.pointer2;
 import static com.exedio.cope.testmodel.PointerTargetItem.code;
 import static com.exedio.cope.testmodel.PointerTargetItem.num1;
 import static com.exedio.cope.testmodel.PointerTargetItem.num2;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
@@ -52,7 +53,7 @@ public class JoinMultipleTest extends TestmodelTest
 			final Join join1 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1), query.getJoins());
 			join1.setCondition(pointer.equalTarget(join1));
-			assertEqualsUnmodifiable(listg(source), query.search());
+			assertEqualsUnmodifiable(asList(source), query.search());
 
 			final Join join2 = query.join(PointerTargetItem.TYPE);
 			assertEqualsUnmodifiable(list(join1, join2), query.getJoins());

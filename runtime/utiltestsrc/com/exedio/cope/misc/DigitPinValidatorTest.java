@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Arrays.asList;
+
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
@@ -98,10 +100,10 @@ public class DigitPinValidatorTest extends CopeAssert
 
 	public void testNewRandomPlainText() throws Exception
 	{
-		assertIt(1, listg("0", "1", "2", "3", "4"));
-		assertIt(2, listg("01", "23", "45", "67", "89"));
-		assertIt(3, listg("012", "345", "678", "901", "234"));
-		assertIt(4, listg("0123", "4567", "8901", "2345", "6789"));
+		assertIt(1, asList("0", "1", "2", "3", "4"));
+		assertIt(2, asList("01", "23", "45", "67", "89"));
+		assertIt(3, asList("012", "345", "678", "901", "234"));
+		assertIt(4, asList("0123", "4567", "8901", "2345", "6789"));
 	}
 
 	private static void assertIt(final int pinLen, final List<String> expected)

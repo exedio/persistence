@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Arrays.asList;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,8 +56,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerB.assertEmpty();
 		modelA.commit();
 		sleepLongerThan(50);
-		listenerA.assertLocal(listg(itemA), transactionA);
-		listenerB.assertRemote(listg("TypeB-0"));
+		listenerA.assertLocal(asList(itemA), transactionA);
+		listenerB.assertRemote(asList("TypeB-0"));
 
 		assertInfo(modelA);
 		assertInfo(modelB);

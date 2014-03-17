@@ -28,6 +28,7 @@ import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.item;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -87,14 +88,14 @@ public class CoalesceTest extends AbstractRuntimeTest
 			assertEquals("literal", e.getMessage());
 		}
 
-		assertIt(listg("string1", "string2", "stringX"), string, "stringX");
-		assertIt(listg(1, 2, 55), intx, 55);
-		assertIt(listg(11l, 12l, 55l), longx, 55l);
-		assertIt(listg(2.1, 2.2, 55.5), doublex, 55.5);
-		assertIt(listg(date(-2), date(-1), date(+1)), date, date(+1));
-		assertIt(listg(day(-2), day(-1), day(+1)), day, day(+1));
-		assertIt(listg(YEnum.V1, YEnum.V2, YEnum.V5), enumx, YEnum.V5);
-		assertIt(listg(item1, item2, itemX), item, itemX);
+		assertIt(asList("string1", "string2", "stringX"), string, "stringX");
+		assertIt(asList(1, 2, 55), intx, 55);
+		assertIt(asList(11l, 12l, 55l), longx, 55l);
+		assertIt(asList(2.1, 2.2, 55.5), doublex, 55.5);
+		assertIt(asList(date(-2), date(-1), date(+1)), date, date(+1));
+		assertIt(asList(day(-2), day(-1), day(+1)), day, day(+1));
+		assertIt(asList(YEnum.V1, YEnum.V2, YEnum.V5), enumx, YEnum.V5);
+		assertIt(asList(item1, item2, itemX), item, itemX);
 	}
 
 	public <E> void assertIt(final List<E> expected, final FunctionField<E> function, final E literal)

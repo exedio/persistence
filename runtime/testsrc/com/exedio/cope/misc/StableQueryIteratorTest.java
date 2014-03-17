@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.StableQueryIterator.iterate;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Query;
@@ -78,22 +79,22 @@ public class StableQueryIteratorTest extends AbstractRuntimeTest
 			assertEquals("slice must be greater 0, but was 0", e.getMessage());
 		}
 
-		assertIt(listg(item0, item1, item2, item3, item4, item5, item6, item7, item8, item9), q);
+		assertIt(asList(item0, item1, item2, item3, item4, item5, item6, item7, item8, item9), q);
 
 		q.setLimit(4);
-		assertIt(listg(item4, item5, item6, item7, item8, item9), q);
+		assertIt(asList(item4, item5, item6, item7, item8, item9), q);
 
 		q.setLimit(0, 6);
-		assertIt(listg(item0, item1, item2, item3, item4, item5), q);
+		assertIt(asList(item0, item1, item2, item3, item4, item5), q);
 
 		q.setLimit(0, 5);
-		assertIt(listg(item0, item1, item2, item3, item4), q);
+		assertIt(asList(item0, item1, item2, item3, item4), q);
 
 		q.setLimit(2, 6);
-		assertIt(listg(item2, item3, item4, item5, item6, item7), q);
+		assertIt(asList(item2, item3, item4, item5, item6, item7), q);
 
 		q.setLimit(2, 5);
-		assertIt(listg(item2, item3, item4, item5, item6), q);
+		assertIt(asList(item2, item3, item4, item5, item6), q);
 	}
 
 	private static void assertIt(final List<QueryAggregatorItem> expected, final Query<QueryAggregatorItem> q)

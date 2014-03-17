@@ -22,8 +22,10 @@ import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class CompositeConditionTest extends CopeAssert
@@ -92,7 +94,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, listg((Condition)null));
+			new CompositeCondition(AND, asList((Condition)null));
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -110,7 +112,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, listg((Condition)null));
+			new CompositeCondition(OR, asList((Condition)null));
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -128,7 +130,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, listg(Condition.TRUE));
+			new CompositeCondition(AND, asList(Condition.TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -146,7 +148,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, listg(Condition.TRUE));
+			new CompositeCondition(OR, asList(Condition.TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -218,13 +220,13 @@ public class CompositeConditionTest extends CopeAssert
 
 		// Function.in
 		assertEquals(new CompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
-		assertEquals(new CompositeCondition(OR, c1, c2), field.in(listg(1.0, 2.0)));
+		assertEquals(new CompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
 		assertEquals(c1, field.in(1.0));
-		assertEquals(c1, field.in(listg(1.0)));
+		assertEquals(c1, field.in(asList(1.0)));
 		assertEquals(c2, field.in(2.0));
-		assertEquals(c2, field.in(listg(2.0)));
+		assertEquals(c2, field.in(asList(2.0)));
 		assertSame(FALSE, field.in());
-		assertSame(FALSE, field.in(CopeAssert.<Double>listg()));
+		assertSame(FALSE, field.in(Arrays.<Double>asList()));
 
 		// Condition.valueOf
 		assertSame(Condition.TRUE,  Condition.valueOf(true));

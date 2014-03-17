@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.TypeIterator.iterate;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
@@ -72,10 +73,10 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			assertEquals("slice must be greater 0, but was 0", e.getMessage());
 		}
 
-		assertIt(listg(item0, item1, item2, item3, item4), null);
-		assertIt(listg(item0, item1, item2, item3, item4), intx.greater(-1));
-		assertIt(listg(item2, item3, item4), intx.greater(1));
-		assertIt(listg(item0, item1), intx.less(2));
+		assertIt(asList(item0, item1, item2, item3, item4), null);
+		assertIt(asList(item0, item1, item2, item3, item4), intx.greater(-1));
+		assertIt(asList(item2, item3, item4), intx.greater(1));
+		assertIt(asList(item0, item1), intx.less(2));
 
 		{
 			final Transaction tx = model.currentTransaction();
@@ -90,21 +91,21 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
-			assertEquals(listg(item0), l(iterate(TYPE, intx.less(1), 3)));
+			assertEquals(asList(item0), l(iterate(TYPE, intx.less(1), 3)));
 			assertEquals(list(
 					pre + "where intx<'1'" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
-			assertEquals(listg(item0, item1), l(iterate(TYPE, intx.less(2), 3)));
+			assertEquals(asList(item0, item1), l(iterate(TYPE, intx.less(2), 3)));
 			assertEquals(list(
 					pre + "where intx<'2'" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
-			assertEquals(listg(item0, item1, item2), l(iterate(TYPE, intx.less(3), 3)));
+			assertEquals(asList(item0, item1, item2), l(iterate(TYPE, intx.less(3), 3)));
 			assertEquals(list(
 					pre + "where intx<'3'" + post,
 					pre + "where (intx<'3' AND this>'" + item2 + "')" + post),
@@ -112,7 +113,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
-			assertEquals(listg(item0, item1, item2, item3), l(iterate(TYPE, intx.less(4), 3)));
+			assertEquals(asList(item0, item1, item2, item3), l(iterate(TYPE, intx.less(4), 3)));
 			assertEquals(list(
 					pre + "where intx<'4'" + post,
 					pre + "where (intx<'4' AND this>'" + item2 + "')" + post),

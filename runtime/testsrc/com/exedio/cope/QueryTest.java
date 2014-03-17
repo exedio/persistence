@@ -23,6 +23,7 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
 import java.util.List;
@@ -224,28 +225,28 @@ public class QueryTest extends AbstractRuntimeTest
 		assertNotEqualsResult(r(0, 3), r(3, 3));
 
 		{
-			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 0, 0);
+			final Query.Result<Day> r = new Query.Result<Day>(asList(d1), 0, 0);
 			assertEquals(list(d1), r.getData());
 			assertEquals(0, r.getTotal());
 			assertEquals(0, r.getOffset());
 			assertEquals(-1, r.getLimit());
 		}
 		{
-			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 0, 0, 0);
+			final Query.Result<Day> r = new Query.Result<Day>(asList(d1), 0, 0, 0);
 			assertEquals(list(d1), r.getData());
 			assertEquals(0, r.getTotal());
 			assertEquals(0, r.getOffset());
 			assertEquals(0, r.getLimit());
 		}
 		{
-			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 11, 22);
+			final Query.Result<Day> r = new Query.Result<Day>(asList(d1), 11, 22);
 			assertEquals(list(d1), r.getData());
 			assertEquals(11, r.getTotal());
 			assertEquals(22, r.getOffset());
 			assertEquals(-1, r.getLimit());
 		}
 		{
-			final Query.Result<Day> r = new Query.Result<Day>(listg(d1), 11, 22, 33);
+			final Query.Result<Day> r = new Query.Result<Day>(asList(d1), 11, 22, 33);
 			assertEquals(list(d1), r.getData());
 			assertEquals(11, r.getTotal());
 			assertEquals(22, r.getOffset());
@@ -271,7 +272,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Query.Result<Day>(listg(d1), -1, -1);
+			new Query.Result<Day>(asList(d1), -1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -280,7 +281,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Query.Result<Day>(listg(d1), -1, -1, -1);
+			new Query.Result<Day>(asList(d1), -1, -1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -289,7 +290,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Query.Result<Day>(listg(d1), 0, -1);
+			new Query.Result<Day>(asList(d1), 0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -298,7 +299,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Query.Result<Day>(listg(d1), 0, -1, -1);
+			new Query.Result<Day>(asList(d1), 0, -1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -307,7 +308,7 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			new Query.Result<Day>(listg(d1), 0, 0, -1);
+			new Query.Result<Day>(asList(d1), 0, 0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

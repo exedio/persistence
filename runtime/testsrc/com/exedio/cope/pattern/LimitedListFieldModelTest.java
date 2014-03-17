@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.num2;
 import static com.exedio.cope.pattern.LimitedListFieldItem.num3;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.DateField;
@@ -183,7 +184,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		// TODO return Condition.FALSE instead
 		try
 		{
-			nums.equal(listg(i1, i2, i3, i4));
+			nums.equal(asList(i1, i2, i3, i4));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -192,7 +193,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			dates.equal(listg(ts1, ts2, ts1));
+			dates.equal(asList(ts1, ts2, ts1));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -201,7 +202,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			strings.equal(listg("one", "two", "three", "four", "five"));
+			strings.equal(asList("one", "two", "three", "four", "five"));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -211,7 +212,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		// TODO return Condition.TRUE instead
 		try
 		{
-			nums.notEqual(listg(i1, i2, i3, i4));
+			nums.notEqual(asList(i1, i2, i3, i4));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -220,7 +221,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			dates.notEqual(listg(ts1, ts2, ts1));
+			dates.notEqual(asList(ts1, ts2, ts1));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)
@@ -229,7 +230,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		}
 		try
 		{
-			strings.notEqual(listg("one", "two", "three", "four", "five"));
+			strings.notEqual(asList("one", "two", "three", "four", "five"));
 			fail();
 		}
 		catch(final ArrayIndexOutOfBoundsException e)

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,13 +47,13 @@ public class RandomTest extends AbstractRuntimeTest
 		item3 = deleteOnTearDown(new CompareConditionItem("string3", 3, 13l, 2.3, null, null, null));
 		item4 = deleteOnTearDown(new CompareConditionItem("string4", 4, 14l, 2.4, null, null, null));
 		item5 = deleteOnTearDown(new CompareConditionItem("string5", 5, 15l, 2.5, null, null, null));
-		expected5 = listg(
+		expected5 = asList(
 				406135974830l,
 				874543935874l,
 				154311785618l,
 				147927151199l,
 				276700429876l);
-		expected6 = listg(
+		expected6 = asList(
 				656319084257l,
 				125276374747l,
 				657424651698l,

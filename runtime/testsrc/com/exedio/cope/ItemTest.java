@@ -23,6 +23,7 @@ import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.CollisionItem1;
@@ -119,7 +120,7 @@ public class ItemTest extends TestmodelTest
 		assertSame(item1, TYPE.getThis().get(item1));
 		assertContains(item1, TYPE.search(TYPE.getThis().equal(item1)));
 		assertContains(item2, TYPE.search(TYPE.getThis().notEqual(item1)));
-		assertContains(item1, item2, TYPE.search(TYPE.getThis().in(listg(item1, item2))));
+		assertContains(item1, item2, TYPE.search(TYPE.getThis().in(asList(item1, item2))));
 
 		final EmptyItem item4 = new EmptyItem();
 		assertEquals("EmptyItem-2", item4.getCopeID());

@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.SetFieldItem.datesParent;
 import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FunctionField;
@@ -35,8 +36,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -210,7 +211,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertContainsUnmodifiable(item.getStrings());
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(listg("hallo", "bello"));
+		item.setStrings(asList("hallo", "bello"));
 		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
 		assertContains(item, getParentsOfStrings("hallo"));
 		assertContains(item, getParentsOfStrings("bello"));
@@ -227,7 +228,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("hallo", r0.get(stringsElement));
 		assertEquals("bello", r1.get(stringsElement));
 
-		item.setStrings(listg("bello", "knollo"));
+		item.setStrings(asList("bello", "knollo"));
 		assertContainsUnmodifiable("bello", "knollo", item.getStrings());
 		assertContains(getParentsOfStrings("hallo"));
 		assertContains(item, getParentsOfStrings("bello"));
@@ -242,7 +243,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("knollo", r0.get(stringsElement));
 		assertEquals("bello", r1.get(stringsElement));
 
-		item.setStrings(listg("knollo"));
+		item.setStrings(asList("knollo"));
 		assertContainsUnmodifiable("knollo", item.getStrings());
 		assertContains(getParentsOfStrings("hallo"));
 		assertContains(getParentsOfStrings("bello"));
@@ -256,7 +257,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("knollo", r0.get(stringsElement));
 		assertFalse(r1.existsCopeItem());
 
-		item.setStrings(listg("zack1", "zack2", "zack3"));
+		item.setStrings(asList("zack1", "zack2", "zack3"));
 		assertContainsUnmodifiable("zack1", "zack2", "zack3", item.getStrings());
 		final Item r1x;
 		final Item r2;
@@ -272,7 +273,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("zack2", r1x.get(stringsElement));
 		assertEquals("zack3", r2.get(stringsElement));
 
-		item.setStrings(listg("null1", "null2", "null3", "null4"));
+		item.setStrings(asList("null1", "null2", "null3", "null4"));
 		assertContainsUnmodifiable("null1", "null2", "null3", "null4", item.getStrings());
 		assertContains(item, getParentsOfStrings("null1"));
 		assertContains(getParentsOfStrings(null));
@@ -292,7 +293,7 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
-		item.setStrings(CopeAssert.<String>listg());
+		item.setStrings(Arrays.<String>asList());
 		assertContainsUnmodifiable(item.getStrings());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
@@ -368,13 +369,13 @@ public class SetFieldTest extends AbstractRuntimeTest
 
 		final Date date1 = new Date(918756915152l);
 		final Date date2 = new Date(918756915153l);
-		item.setDates(listg(date1, date2));
+		item.setDates(asList(date1, date2));
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
 
 		try
 		{
-			item.setDates(listg(date1, null, date2));
+			item.setDates(asList(date1, null, date2));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -428,9 +429,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 		final String blau = "blau";
 		final String gelb = "gelb";
 
-		item.setStrings(listg(rot, blau));
+		item.setStrings(asList(rot, blau));
 		assertContainsUnmodifiable(rot, blau, item.getStrings());
-		otherItem.setStrings(listg(rot));
+		otherItem.setStrings(asList(rot));
 		assertContainsUnmodifiable(rot, otherItem.getStrings());
 
 		assertContains(item, otherItem, getParentsOfStrings(rot));
@@ -438,9 +439,9 @@ public class SetFieldTest extends AbstractRuntimeTest
 		assertContains(getParentsOfStrings(gelb));
 		assertContains(getParentsOfStrings(null));
 
-		item.setStrings(listg(rot, gelb, blau));
+		item.setStrings(asList(rot, gelb, blau));
 		assertContainsUnmodifiable(rot, blau, gelb, item.getStrings());
-		otherItem.setStrings(listg(gelb));
+		otherItem.setStrings(asList(gelb));
 		assertContainsUnmodifiable(gelb, otherItem.getStrings());
 
 		assertContains(item, getParentsOfStrings(rot));

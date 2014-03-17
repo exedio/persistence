@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
@@ -100,10 +101,10 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 			assertEquals("slice must be greater 0, but was 0", e.getMessage());
 		}
 
-		assertIt(listg(item0, item1, item2, item3, item4), null);
-		assertIt(listg(item0, item1, item2, item3, item4), intx.greater(-1));
-		assertIt(listg(item2, item3, item4), intx.greater(1));
-		assertIt(listg(item0, item1), intx.less(2));
+		assertIt(asList(item0, item1, item2, item3, item4), null);
+		assertIt(asList(item0, item1, item2, item3, item4), intx.greater(-1));
+		assertIt(asList(item2, item3, item4), intx.greater(1));
+		assertIt(asList(item0, item1), intx.less(2));
 	}
 
 	private static void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
