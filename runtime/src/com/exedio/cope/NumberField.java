@@ -42,7 +42,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	@Override
 	public final BindNumberFunction<E> bind(final Join join)
 	{
-		return new BindNumberFunction<E>(this, join);
+		return new BindNumberFunction<>(this, join);
 	}
 
 	public final AsStringView asString()
@@ -100,12 +100,12 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 
 	public final SumAggregate<E> sum()
 	{
-		return new SumAggregate<E>(this);
+		return new SumAggregate<>(this);
 	}
 
 	public final AverageAggregate<E> average()
 	{
-		return new AverageAggregate<E>(this);
+		return new AverageAggregate<>(this);
 	}
 
 	// ------------------- deprecated stuff -------------------

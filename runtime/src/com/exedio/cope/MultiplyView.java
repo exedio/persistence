@@ -25,13 +25,13 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2)
 	{
-		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2});
+		return new MultiplyView<>(new Function[]{multiplier1, multiplier2});
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E extends Number> MultiplyView<E> multiply(final Function<E> multiplier1, final Function<E> multiplier2, final Function<E> multiplier3)
 	{
-		return new MultiplyView<E>(new Function[]{multiplier1, multiplier2, multiplier3});
+		return new MultiplyView<>(new Function[]{multiplier1, multiplier2, multiplier3});
 	}
 
 
