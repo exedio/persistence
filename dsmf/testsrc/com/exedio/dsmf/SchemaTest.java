@@ -140,7 +140,7 @@ public abstract class SchemaTest extends TestCase
 
 		SimpleConnectionProvider(final List<Connection> connections) throws SQLException
 		{
-			this.connections = new ArrayList<Connection>(connections);
+			this.connections = new ArrayList<>(connections);
 			for(final Connection c : connections)
 				c.setAutoCommit(true);
 		}

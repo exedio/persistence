@@ -152,7 +152,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 	protected static List<? extends Day> search(final DayField selectField, final Condition condition)
 	{
-		return new Query<Day>(selectField, condition).search();
+		return new Query<>(selectField, condition).search();
 	}
 
 	public void testSchema()

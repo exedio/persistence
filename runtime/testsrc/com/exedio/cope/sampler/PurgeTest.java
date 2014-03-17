@@ -75,7 +75,7 @@ public class PurgeTest extends ConnectedTest
 		try
 		{
 			samplerModel.startTransaction(PurgeTest.class.getName());
-			date = new Query<Date>(SamplerModel.date.min(), SamplerModel.TYPE, null).searchSingletonStrict();
+			date = new Query<>(SamplerModel.date.min(), SamplerModel.TYPE, null).searchSingletonStrict();
 			samplerModel.commit();
 		}
 		finally
@@ -100,7 +100,7 @@ public class PurgeTest extends ConnectedTest
 		try
 		{
 			samplerModel.startTransaction(PurgeTest.class.getName());
-			dateMax = new Query<Date>(SamplerModel.date.max(), SamplerModel.TYPE, null).searchSingletonStrict();
+			dateMax = new Query<>(SamplerModel.date.max(), SamplerModel.TYPE, null).searchSingletonStrict();
 			samplerModel.commit();
 		}
 		finally
@@ -138,7 +138,7 @@ public class PurgeTest extends ConnectedTest
 		final MockJobContext ctx = new MockJobContext();
 		sampler.purge(date, ctx);
 		assertEquals(10, ctx.getRequestedToStopCount());
-		final ArrayList<Integer> progressList = new ArrayList<Integer>();
+		final ArrayList<Integer> progressList = new ArrayList<>();
 		for(final int p : progress)
 			progressList.add(p);
 		assertEquals(progressList, ctx.getProgress());

@@ -31,7 +31,7 @@ import org.apache.tools.ant.types.FileSet;
 
 public final class AntTask extends Task
 {
-	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<DataType>();
+	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<>();
 	private final Params params = new Params();
 
 	public void addFileset(final FileSet value)
@@ -100,8 +100,8 @@ public final class AntTask extends Task
 		try
 		{
 			final Project project = getProject();
-			final ArrayList<File> sourcefiles = new ArrayList<File>();
-			final HashSet<File> sourcefileSet = new HashSet<File>();
+			final ArrayList<File> sourcefiles = new ArrayList<>();
+			final HashSet<File> sourcefileSet = new HashSet<>();
 
 			for(final Object fileSetOrList : fileSetsOrLists)
 			{

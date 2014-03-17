@@ -156,7 +156,7 @@ public final class ConnectToken
 	private static final class Manciple
 	{
 		final ConnectProperties properties;
-		private final ArrayList<ConnectToken> tokens = new ArrayList<ConnectToken>();
+		private final ArrayList<ConnectToken> tokens = new ArrayList<>();
 		private int nextId = 0;
 		private final Object lock = new Object();
 
@@ -222,7 +222,7 @@ public final class ConnectToken
 		}
 	}
 
-	private static final HashMap<Model, Manciple> manciples = new HashMap<Model, Manciple>();
+	private static final HashMap<Model, Manciple> manciples = new HashMap<>();
 
 	/**
 	 * Sets the connect properties for the given model.

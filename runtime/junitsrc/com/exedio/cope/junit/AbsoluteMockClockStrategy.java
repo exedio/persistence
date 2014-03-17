@@ -28,7 +28,7 @@ import java.util.LinkedList;
 
 public final class AbsoluteMockClockStrategy implements Clock.Strategy
 {
-	private final LinkedList<Date> events = new LinkedList<Date>();
+	private final LinkedList<Date> events = new LinkedList<>();
 
 	public long currentTimeMillis()
 	{

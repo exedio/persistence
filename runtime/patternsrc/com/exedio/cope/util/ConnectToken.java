@@ -84,7 +84,7 @@ public final class ConnectToken
 
 	public static final List<ConnectToken> getTokens(final Model model)
 	{
-		final ArrayList<ConnectToken> result = new ArrayList<ConnectToken>();
+		final ArrayList<ConnectToken> result = new ArrayList<>();
 		for(final com.exedio.cope.misc.ConnectToken ct : com.exedio.cope.misc.ConnectToken.getTokens(model))
 			result.add(new ConnectToken(ct));
 		return Collections.unmodifiableList(result);
