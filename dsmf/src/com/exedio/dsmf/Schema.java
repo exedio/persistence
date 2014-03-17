@@ -28,11 +28,11 @@ import java.util.Set;
 
 public final class Schema extends Node
 {
-	private final HashMap<String, Table> tableMap = new HashMap<String, Table>();
-	private final ArrayList<Table> tableList = new ArrayList<Table>();
-	private final HashMap<String, Sequence> sequenceMap = new HashMap<String, Sequence>();
-	private final ArrayList<Sequence> sequenceList = new ArrayList<Sequence>();
-	private final HashMap<String, Constraint> requiredConstraintMap = new HashMap<String, Constraint>();
+	private final HashMap<String, Table> tableMap = new HashMap<>();
+	private final ArrayList<Table> tableList = new ArrayList<>();
+	private final HashMap<String, Sequence> sequenceMap = new HashMap<>();
+	private final ArrayList<Sequence> sequenceList = new ArrayList<>();
+	private final HashMap<String, Constraint> requiredConstraintMap = new HashMap<>();
 	private boolean verified = false;
 
 	public Schema(final Dialect dialect, final ConnectionProvider connectionProvider)
@@ -282,7 +282,7 @@ public final class Schema extends Node
 
 	private void tearDownTables(final StatementListener listener)
 	{
-		final ArrayList<Table> tablesToDelete = new ArrayList<Table>(tableList);
+		final ArrayList<Table> tablesToDelete = new ArrayList<>(tableList);
 
 		boolean deleted;
 		do

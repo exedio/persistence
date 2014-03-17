@@ -59,7 +59,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		this.source = source;
 
 		final IIORegistry registry = IIORegistry.getDefaultInstance();
-		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<String, ImageReaderSpi>();
+		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<>();
 		for(final Iterator<ImageReaderSpi> spiIt = registry.getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
 		{
       	final ImageReaderSpi spi = spiIt.next();

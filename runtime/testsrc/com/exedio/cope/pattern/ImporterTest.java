@@ -77,7 +77,7 @@ public class ImporterTest extends AbstractRuntimeTest
 		assertEquals("descB",  itemB.getDescription());
 		assertEquals("desc2B", itemB.getDescription2());
 
-		final ArrayList<SetValue<?>> list = new ArrayList<SetValue<?>>();
+		final ArrayList<SetValue<?>> list = new ArrayList<>();
 		list.add(description.map("descBl"));
 		list.add(description2.map("desc2Bl"));
 		assertEquals(itemB, importByCode("codeB", list));

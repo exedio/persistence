@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 final class Database
 {
 	private final Trimmer nameTrimmer = new Trimmer(25);
-	private final ArrayList<Table> tables = new ArrayList<Table>();
-	private final ArrayList<SequenceX> sequences = new ArrayList<SequenceX>();
+	private final ArrayList<Table> tables = new ArrayList<>();
+	private final ArrayList<SequenceX> sequences = new ArrayList<>();
 	private boolean buildStage = true;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
@@ -109,7 +109,7 @@ final class Database
 
 	List<SequenceInfo> getSequenceInfo()
 	{
-		final ArrayList<SequenceInfo> result = new ArrayList<SequenceInfo>(sequences.size());
+		final ArrayList<SequenceInfo> result = new ArrayList<>(sequences.size());
 		for(final SequenceX sequence : sequences)
 			result.add(sequence.getInfo());
 		return Collections.unmodifiableList(result);
@@ -657,11 +657,11 @@ final class Database
 		final ArrayList<SequenceX> sequences;
 		if(forTest)
 		{
-			tables = new ArrayList<Table>();
+			tables = new ArrayList<>();
 			for(final Table table : this.tables)
 				if(!table.knownToBeEmptyForTest)
 					tables.add(table);
-			sequences = new ArrayList<SequenceX>();
+			sequences = new ArrayList<>();
 			for(final SequenceX sequence : this.sequences)
 				if(!sequence.knownToBeEmptyForTest)
 					sequences.add(sequence);
@@ -690,7 +690,7 @@ final class Database
 
 	ArrayList<String> getSequenceSchemaNames()
 	{
-		final ArrayList<String> result = new ArrayList<String>();
+		final ArrayList<String> result = new ArrayList<>();
 		for(final SequenceX sequence : this.sequences)
 		{
 			final String name = sequence.getSchemaName();

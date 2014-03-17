@@ -36,7 +36,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	static final Schedule report = new Schedule(Locale.GERMAN);
 	static final BooleanField fail = new BooleanField().defaultTo(false);
 
-	private static final ArrayList<Log> logs = new ArrayList<Log>();
+	private static final ArrayList<Log> logs = new ArrayList<>();
 
 	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 	{
