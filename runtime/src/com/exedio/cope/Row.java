@@ -32,12 +32,12 @@ final class Row
 
 	Row()
 	{
-		impl = new HashMap<Column, Object>();
+		impl = new HashMap<>();
 	}
 
 	Row(final Row row)
 	{
-		impl = new HashMap<Column, Object>(row.impl);
+		impl = new HashMap<>(row.impl);
 	}
 
 	Object get(final Column column)

@@ -63,7 +63,7 @@ final class Table
 	}
 
 	private List<Column> columns = null;
-	private List<Column> allColumnsModifiable = new ArrayList<Column>();
+	private List<Column> allColumnsModifiable = new ArrayList<>();
 	private List<Column> allColumns = null;
 
 	private List<UniqueConstraint> uniqueConstraints = null;
@@ -192,7 +192,7 @@ final class Table
 	{
 		assert assertSynthetic();
 
-		final ArrayList<Column> columns = new ArrayList<Column>();
+		final ArrayList<Column> columns = new ArrayList<>();
 		for(final Column column : allColumnsModifiable)
 			if(!column.synthetic)
 				columns.add(column);

@@ -211,14 +211,14 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		assertCondition(item1, item3, TYPE, TYPE.getThis().in(asList(item1, item3)));
 
 		// min
-		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<String>(string.min()).toString());
-		assertEquals("string1", new Query<String>(string.min()).searchSingleton());
-		assertEquals(valueOf(1), new Query<Integer>(intx.min()).searchSingleton());
-		assertEquals(valueOf(11l), new Query<Long>(longx.min()).searchSingleton());
-		assertEquals(valueOf(2.1), new Query<Double>(doublex.min()).searchSingleton());
-		assertEquals(date(-2), new Query<Date>(date.min()).searchSingleton());
-		assertEquals(day(-2), new Query<Day>(day.min()).searchSingleton());
-		assertEquals(YEnum.V1, new Query<YEnum>(enumx.min()).searchSingleton());
+		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<>(string.min()).toString());
+		assertEquals("string1", new Query<>(string.min()).searchSingleton());
+		assertEquals(valueOf(1), new Query<>(intx.min()).searchSingleton());
+		assertEquals(valueOf(11l), new Query<>(longx.min()).searchSingleton());
+		assertEquals(valueOf(2.1), new Query<>(doublex.min()).searchSingleton());
+		assertEquals(date(-2), new Query<>(date.min()).searchSingleton());
+		assertEquals(day(-2), new Query<>(day.min()).searchSingleton());
+		assertEquals(YEnum.V1, new Query<>(enumx.min()).searchSingleton());
 		// The following line causes MySQL 4 to write a warning to the syslog,
 		// that looks like this:
 		//
@@ -238,20 +238,20 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		// This bug occurs for columns with an index only (that is created by
 		// the foreign key constraint here) and only when using the min()
 		// aggregate.
-		assertEquals(item1, new Query<CompareConditionItem>(item.min()).searchSingleton());
-		assertEquals(item1, new Query<CompareConditionItem>(TYPE.getThis().min()).searchSingleton());
+		assertEquals(item1, new Query<>(item.min()).searchSingleton());
+		assertEquals(item1, new Query<>(TYPE.getThis().min()).searchSingleton());
 
 		// max
-		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<String>(string.max()).toString());
-		assertEquals("string5", new Query<String>(string.max()).searchSingleton());
-		assertEquals(valueOf(5),   new Query<Integer>(intx.max()   ).searchSingleton());
-		assertEquals(valueOf(15l), new Query<Long>   (longx.max()  ).searchSingleton());
-		assertEquals(valueOf(2.5), new Query<Double> (doublex.max()).searchSingleton());
-		assertEquals(date(+2), new Query<Date>(date.max()).searchSingleton());
-		assertEquals(day(+2), new Query<Day>(day.max()).searchSingleton());
-		assertEquals(YEnum.V5, new Query<YEnum>(enumx.max()).searchSingleton());
-		assertEquals(item5, new Query<CompareConditionItem>(item.max()).searchSingleton());
-		assertEquals(itemX, new Query<CompareConditionItem>(TYPE.getThis().max()).searchSingleton());
+		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<>(string.max()).toString());
+		assertEquals("string5", new Query<>(string.max()).searchSingleton());
+		assertEquals(valueOf(5),   new Query<>(intx.max()   ).searchSingleton());
+		assertEquals(valueOf(15l), new Query<>(longx.max()  ).searchSingleton());
+		assertEquals(valueOf(2.5), new Query<>(doublex.max()).searchSingleton());
+		assertEquals(date(+2), new Query<>(date.max()).searchSingleton());
+		assertEquals(day(+2), new Query<>(day.max()).searchSingleton());
+		assertEquals(YEnum.V5, new Query<>(enumx.max()).searchSingleton());
+		assertEquals(item5, new Query<>(item.max()).searchSingleton());
+		assertEquals(itemX, new Query<>(TYPE.getThis().max()).searchSingleton());
 
 		// test extremum aggregate
 		assertEquals(true,  string.min().isMinimum());
@@ -263,7 +263,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 
 		// sum
 		{
-			final Query<Integer> q = new Query<Integer>(intx.sum());
+			final Query<Integer> q = new Query<>(intx.sum());
 			assertEquals("select sum(" + intx.getName() + ") from " + TYPE, q.toString());
 			assertEquals(valueOf(1+2+3+4+5), q.searchSingleton());
 			q.setCondition(intx.less(4));
@@ -271,7 +271,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(valueOf(1+2+3), q.searchSingleton());
 		}
 		{
-			final Query<Long> q = new Query<Long>(longx.sum());
+			final Query<Long> q = new Query<>(longx.sum());
 			assertEquals("select sum(" + longx.getName() + ") from " + TYPE, q.toString());
 			assertEquals(valueOf(11l+12l+13l+14l+15l), q.searchSingleton());
 			q.setCondition(longx.less(14l));
@@ -279,7 +279,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(valueOf(11l+12l+13l), q.searchSingleton());
 		}
 		{
-			final Query<Double> q = new Query<Double>(doublex.sum());
+			final Query<Double> q = new Query<>(doublex.sum());
 			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE, q.toString());
 			assertEquals(2.1+2.2+2.3+2.4+2.5, q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));
@@ -288,7 +288,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 		}
 		// average
 		{
-			final Query<Integer> q = new Query<Integer>(intx.average());
+			final Query<Integer> q = new Query<>(intx.average());
 			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
 			assertEquals(valueOf((1+2+3+4+5)/5), q.searchSingleton());
 			q.setCondition(intx.less(4));
@@ -296,7 +296,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(valueOf((1+2+3)/3), q.searchSingleton());
 		}
 		{
-			final Query<Long> q = new Query<Long>(longx.average());
+			final Query<Long> q = new Query<>(longx.average());
 			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
 			assertEquals(valueOf((11l+12l+13l+14l+15l)/5l), q.searchSingleton());
 			q.setCondition(longx.less(14l));
@@ -304,7 +304,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals(valueOf((11+12+13)/3l), q.searchSingleton());
 		}
 		{
-			final Query<Double> q = new Query<Double>(doublex.average());
+			final Query<Double> q = new Query<>(doublex.average());
 			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE, q.toString());
 			assertEquals((2.1+2.2+2.3+2.4+2.5)/5.0, q.searchSingleton().doubleValue(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));

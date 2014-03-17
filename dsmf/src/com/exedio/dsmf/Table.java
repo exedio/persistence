@@ -32,11 +32,11 @@ public final class Table extends Node
 	private final boolean required;
 	private boolean exists;
 
-	private final HashMap<String, Column> columnMap = new HashMap<String, Column>();
-	private final ArrayList<Column> columnList = new ArrayList<Column>();
+	private final HashMap<String, Column> columnMap = new HashMap<>();
+	private final ArrayList<Column> columnList = new ArrayList<>();
 
-	private final HashMap<String, Constraint> constraintMap = new HashMap<String, Constraint>();
-	private final ArrayList<Constraint> constraintList = new ArrayList<Constraint>();
+	private final HashMap<String, Constraint> constraintMap = new HashMap<>();
+	private final ArrayList<Constraint> constraintList = new ArrayList<>();
 
 	public Table(final Schema schema, final String name)
 	{

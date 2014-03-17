@@ -231,7 +231,7 @@ abstract class ClusterListener
 	private final VolatileLong missingMagic = new VolatileLong();
 	private final VolatileLong wrongSecret = new VolatileLong();
 	private final VolatileLong fromMyself = new VolatileLong();
-	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<Node>();
+	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<>();
 
 	private static final class Node
 	{
@@ -318,7 +318,7 @@ abstract class ClusterListener
 		{
 			ns = nodes.getValues(new Node[nodes.size()]);
 		}
-		final ArrayList<ClusterListenerInfo.Node> infoNodes = new ArrayList<ClusterListenerInfo.Node>(ns.length);
+		final ArrayList<ClusterListenerInfo.Node> infoNodes = new ArrayList<>(ns.length);
 		for(final Node n : ns)
 			infoNodes.add(n.getInfo());
 
