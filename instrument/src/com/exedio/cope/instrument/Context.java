@@ -110,7 +110,7 @@ final class Context
 			final Class<?> declarationClass,
 			final int declarationTypeParameterPosition)
 	{
-		final LinkedList<Class<?>> classes = new LinkedList<Class<?>>();
+		final LinkedList<Class<?>> classes = new LinkedList<>();
 		for(Class<?> clazz = instanceClass; clazz!=declarationClass; clazz = clazz.getSuperclass())
 			classes.add(0, clazz);
 

@@ -38,12 +38,12 @@ import java.util.Map;
 final class CompositeType<E>
 {
 	private final Constructor<E> constructor;
-	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<String, FunctionField<?>>();
-	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<FunctionField<?>, Integer>();
+	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<>();
+	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<>();
 	final List<FunctionField<?>> templateList;
 	final int componentSize;
 
-	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<FunctionField<?>, String>();
+	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<>();
 
 	private CompositeType(final Class<E> valueClass)
 	{
@@ -80,7 +80,7 @@ final class CompositeType<E>
 				templateNames.put(template, fieldName);
 			}
 		}
-		this.templateList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templates.values()));
+		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
 	}
 
@@ -165,7 +165,7 @@ final class CompositeType<E>
 
 	// static registry
 
-	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<Class<?>, CompositeType<?>>();
+	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
@@ -184,7 +184,7 @@ final class CompositeType<E>
 			CompositeType<E> result = (CompositeType)types.get(valueClass);
 			if(result==null)
 			{
-				result = new CompositeType<E>(valueClass);
+				result = new CompositeType<>(valueClass);
 				types.put(valueClass, result);
 			}
 

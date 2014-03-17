@@ -32,7 +32,7 @@ import java.util.Locale;
 
 final class Marshallers
 {
-	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<Class<?>, Marshaller<?>>();
+	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<>();
 
 	Marshallers(final boolean supportsNativeDate)
 	{

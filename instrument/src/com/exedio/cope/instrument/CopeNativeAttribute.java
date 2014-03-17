@@ -69,8 +69,8 @@ final class CopeNativeAttribute extends CopeAttribute
 		return result;
 	}
 
-	private static final HashMap<Class<?>, String> toPersistentTypeMapping = new HashMap<Class<?>, String>(3);
-	private static final HashMap<Class<?>, String> toNativeTypeMapping = new HashMap<Class<?>, String>(3);
+	private static final HashMap<Class<?>, String> toPersistentTypeMapping = new HashMap<>(3);
+	private static final HashMap<Class<?>, String> toNativeTypeMapping = new HashMap<>(3);
 
 	private static final void fillNativeTypeMap(final Class<?> typeClass, final Class<?> persistentType, final Class<?> nativeType)
 	{

@@ -38,7 +38,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.valueClass = valueClass;
 		assert valueClass.isEnum() : valueClass;
 
-		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<E>();
+		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<>();
 
 		final E[] enumConstants = valueClass.getEnumConstants();
 		if(enumConstants==null)
@@ -87,7 +87,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
-		this.marshaller = new EnumMarshaller<E>(this);
+		this.marshaller = new EnumMarshaller<>(this);
 	}
 
 	private static final CopeSchemaValue schemaValue(final Enum<?> e)
@@ -144,7 +144,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	// static registry
 
-	private static final HashMap<Class<?>, EnumFieldType<?>> types = new HashMap<Class<?>, EnumFieldType<?>>();
+	private static final HashMap<Class<?>, EnumFieldType<?>> types = new HashMap<>();
 
 	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
@@ -157,7 +157,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 			EnumFieldType<E> result = (EnumFieldType)types.get(valueClass);
 			if(result==null)
 			{
-				result = new EnumFieldType<E>(valueClass);
+				result = new EnumFieldType<>(valueClass);
 				types.put(valueClass, result);
 			}
 			return result;
