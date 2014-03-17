@@ -24,7 +24,7 @@ public class LimitedQueueTest extends TestCase
 {
 	public void testIt() throws InterruptedException
 	{
-		final LimitedQueue<String> q = new LimitedQueue<String>(2);
+		final LimitedQueue<String> q = new LimitedQueue<>(2);
 
 		assertEquals(true, q.offer("alpha"));
 		assertEquals("alpha", q.take());

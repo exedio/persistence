@@ -37,7 +37,7 @@ public final class MediaFilterFallbackFeature extends MediaFilter
 	@Override
 	public Set<String> getSupportedSourceContentTypes()
 	{
-		return new HashSet<String>(Arrays.asList("supported/alpha", "supported/beta"));
+		return new HashSet<>(Arrays.asList("supported/alpha", "supported/beta"));
 	}
 
 	@Override

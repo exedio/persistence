@@ -44,6 +44,6 @@ public class ListUtilTest extends CopeAssert
 
 	private static final ArrayList<String> l(final String... strings)
 	{
-		return new ArrayList<String>(java.util.Arrays.asList(strings));
+		return new ArrayList<>(java.util.Arrays.asList(strings));
 	}
 }

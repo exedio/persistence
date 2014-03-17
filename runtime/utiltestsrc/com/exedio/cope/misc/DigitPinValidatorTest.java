@@ -119,7 +119,7 @@ public class DigitPinValidatorTest extends CopeAssert
 			}
 		};
 
-		final ArrayList<String> actual = new ArrayList<String>();
+		final ArrayList<String> actual = new ArrayList<>();
 		final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
 		for (int i=0; i<5; i++)
 		{

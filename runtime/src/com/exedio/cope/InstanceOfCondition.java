@@ -101,7 +101,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 			bf.append(" not");
 		bf.append(" in(");
 
-		final TreeSet<String> typeIds = new TreeSet<String>(); // order ids to produce canonical queries for query cache
+		final TreeSet<String> typeIds = new TreeSet<>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : types)
 		{
 			if(!type.isAssignableFrom(t))

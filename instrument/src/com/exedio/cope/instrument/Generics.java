@@ -51,7 +51,7 @@ final class Generics
 		final int lt = s.indexOf('<');
 		if(lt>=0)
 		{
-			final ArrayList<String> result = new ArrayList<String>();
+			final ArrayList<String> result = new ArrayList<>();
 
 			final int gt = s.indexOf('>', lt);
 			if(gt<0)

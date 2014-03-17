@@ -27,7 +27,7 @@ final class GenericResolver<T>
 {
 	static <T> GenericResolver<T> neW(final Class<T> interfaze)
 	{
-		return new GenericResolver<T>(interfaze);
+		return new GenericResolver<>(interfaze);
 	}
 
 
