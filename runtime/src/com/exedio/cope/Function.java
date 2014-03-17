@@ -49,6 +49,7 @@ public interface Function<E> extends Selectable<E>
 	Condition equal(E value);
 
 	Condition equal(Join join, E value);
+	@SuppressWarnings("unchecked") // Possible heap pollution from parameterized vararg type E
 	Condition in(E... values);
 	Condition in(Collection<? extends E> value);
 	Condition notEqual(E value);

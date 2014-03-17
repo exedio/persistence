@@ -143,6 +143,7 @@ public class BindFunction<E> implements Function<E>
 	}
 
 	@SafeVarargs
+	@SuppressWarnings("varargs") // Varargs method could cause heap pollution from non-reifiable varargs parameter values
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);

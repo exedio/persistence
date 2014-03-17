@@ -142,6 +142,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@SafeVarargs
+	@SuppressWarnings("varargs") // Varargs method could cause heap pollution from non-reifiable varargs parameter values
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
