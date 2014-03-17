@@ -71,8 +71,8 @@ public class MediaServlet extends HttpServlet
 
 	@SuppressFBWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
 	private ConnectToken connectToken = null;
-	private final HashMap<String, MediaPath> pathes = new HashMap<String, MediaPath>();
-	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<String, MediaPath>();
+	private final HashMap<String, MediaPath> pathes = new HashMap<>();
+	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<>();
 
 	@Override
 	public final void init() throws ServletException

@@ -39,7 +39,7 @@ final class EnumContentType extends ContentType<Integer>
 	{
 		super(new IntegerField().range(0, types.length-1), isfinal, optional, "contentType");
 		this.types = types;
-		final HashMap<String, Integer> typeSet = new HashMap<String, Integer>();
+		final HashMap<String, Integer> typeSet = new HashMap<>();
 		for(int i = 0; i<types.length; i++)
 		{
 			final String type = types[i];

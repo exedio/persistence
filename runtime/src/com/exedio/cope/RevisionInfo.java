@@ -125,7 +125,7 @@ public abstract class RevisionInfo
 		{
 			throw new RuntimeException(e);
 		}
-		final HashMap<String, String> environment = new HashMap<String, String>();
+		final HashMap<String, String> environment = new HashMap<>();
 		for(final String key : DEPRECATED_ENVIRONMENT_KEYS)
 		{
 			final String value = p.getProperty(key);

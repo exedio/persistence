@@ -137,10 +137,10 @@ public final class OracleDialect extends Dialect
 			{
 				String uniqueConstraintName = null;
 				Table uniqueConstraintTable = null;
-				final ArrayList<String> uniqueColumns = new ArrayList<String>();
+				final ArrayList<String> uniqueColumns = new ArrayList<>();
 				public void run(final ResultSet resultSet) throws SQLException
 				{
-					final HashMap<String, String> duplicateCheckConstraints = new HashMap<String, String>();
+					final HashMap<String, String> duplicateCheckConstraints = new HashMap<>();
 					while(resultSet.next())
 					{
 						//printRow(resultSet);

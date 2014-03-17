@@ -51,7 +51,7 @@ public class EnviromentInfoTest extends TestCase
 			assertEquals(expected, i.asProperties());
 		}
 		{
-			final HashMap<String, String> expected = new HashMap<String, String>();
+			final HashMap<String, String> expected = new HashMap<>();
 			expected.put("database.name", "getDatabaseProductName");
 			expected.put("database.version", "getDatabaseProductVersion");
 			expected.put("database.version.major", "5");
@@ -60,7 +60,7 @@ public class EnviromentInfoTest extends TestCase
 			expected.put("driver.version", "getDriverVersion");
 			expected.put("driver.version.major", "14");
 			expected.put("driver.version.minor", "18");
-			final HashMap<String, String> actual = new HashMap<String, String>();
+			final HashMap<String, String> actual = new HashMap<>();
 			i.putRevisionEnvironment(actual);
 			assertEquals(expected, actual);
 		}

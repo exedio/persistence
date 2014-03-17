@@ -53,7 +53,7 @@ final class DialectParameters
 
 	Map<String, String> getRevisionEnvironment()
 	{
-		final HashMap<String, String> env = new HashMap<String, String>();
+		final HashMap<String, String> env = new HashMap<>();
 
 		try
 		{

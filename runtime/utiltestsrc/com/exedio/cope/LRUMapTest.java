@@ -78,7 +78,7 @@ public class LRUMapTest extends TestCase
 
 	public void testIt()
 	{
-		final LRUMap<String, String> map = new LRUMap<String, String>(3);
+		final LRUMap<String, String> map = new LRUMap<>(3);
 		assertIt(map, new String[]{}, new String[]{});
 
 		map.put("key1", "val1");

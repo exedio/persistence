@@ -40,7 +40,7 @@ public class RevisionInfoTest extends CopeAssert
 	{
 		super.setUp();
 		eol = System.getProperty("line.separator");
-		env = new HashMap<String, String>();
+		env = new HashMap<>();
 		env.put("env1Key", "env1Value");
 		env.put("env2Key", "env2Value");
 		env.put("env3Key", "env3Value");
@@ -370,7 +370,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + eol));
 		final Properties p = RevisionInfo.parse(bytes);
-		final TreeMap<String, String> result = new TreeMap<String, String>();
+		final TreeMap<String, String> result = new TreeMap<>();
 		for(final Object key : p.keySet())
 			result.put((String)key, p.getProperty((String)key));
 		return result;
@@ -395,7 +395,7 @@ public class RevisionInfoTest extends CopeAssert
 
 	public static final TreeMap<String, String> map(final String... s)
 	{
-		final TreeMap<String, String> result = new TreeMap<String, String>();
+		final TreeMap<String, String> result = new TreeMap<>();
 		int i = 0;
 		while(i<s.length)
 			result.put(s[i++], s[i++]);
