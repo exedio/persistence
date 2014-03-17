@@ -505,7 +505,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	public void testPing()
 	{
-		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.ping(1);
 		cs.testSink = null;
@@ -617,7 +617,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	public void testPingCount()
 	{
-		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.ping(3);
 		cs.testSink = null;
@@ -656,7 +656,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	public void testPong()
 	{
-		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.pong();
 		cs.testSink = null;
@@ -802,7 +802,7 @@ public abstract class ClusterTest extends CopeAssert
 	private byte[] m(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
-		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.invalidate(invalidations);
 		cs.testSink = null;
@@ -813,7 +813,7 @@ public abstract class ClusterTest extends CopeAssert
 	private byte[][] mm(final int[][] invalidationNumbers)
 	{
 		final TIntHashSet[] invalidations = convert(invalidationNumbers);
-		final ArrayList<byte[]> sink = new ArrayList<byte[]>();
+		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.invalidate(invalidations);
 		cs.testSink = null;
@@ -836,7 +836,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	private Object umx(final byte[] buf)
 	{
-		final ArrayList<Object> sink = new ArrayList<Object>();
+		final ArrayList<Object> sink = new ArrayList<>();
 		cl.testSink = sink;
 		cl.handle(toPacket(buf));
 		cl.testSink = null;
@@ -846,7 +846,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	private void ume(final byte[] buf)
 	{
-		final ArrayList<Object> sink = new ArrayList<Object>();
+		final ArrayList<Object> sink = new ArrayList<>();
 		cl.testSink = sink;
 		cl.handle(toPacket(buf));
 		cl.testSink = null;

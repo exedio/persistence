@@ -35,10 +35,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 final class SettableItem extends Item
 {
-	static final SettableOpen<AtomicInteger> open = new SettableOpen<AtomicInteger>();
-	static final SettableOpen<AtomicReference<AtomicLong>> openParam = new SettableOpen<AtomicReference<AtomicLong>>(); // TODO is not instrumented
-	static final SettableOpen<AtomicReference<?>> openParamWildcard = new SettableOpen<AtomicReference<?>>(); // TODO is not instrumented
-	static final SettableOpen<AtomicReference<? extends AtomicLong>> openParamBound = new SettableOpen<AtomicReference<? extends AtomicLong>>(); // TODO is not instrumented
+	static final SettableOpen<AtomicInteger> open = new SettableOpen<>();
+	static final SettableOpen<AtomicReference<AtomicLong>> openParam = new SettableOpen<>(); // TODO is not instrumented
+	static final SettableOpen<AtomicReference<?>> openParamWildcard = new SettableOpen<>(); // TODO is not instrumented
+	static final SettableOpen<AtomicReference<? extends AtomicLong>> openParamBound = new SettableOpen<>(); // TODO is not instrumented
 
 	static final SettableFixed fixed = new SettableFixed();
 	static final SettableFixedSub fixedSub = new SettableFixedSub();

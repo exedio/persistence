@@ -515,7 +515,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
 	{
-		final HashMap<BlobColumn, byte[]> result = new HashMap<BlobColumn, byte[]>();
+		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
 
 		for(final Field<?> field : fieldValues.keySet())
 		{

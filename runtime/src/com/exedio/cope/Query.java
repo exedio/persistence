@@ -276,7 +276,7 @@ public final class Query<R> implements Serializable
 		if(orderAscending==null)
 			return Collections.<Boolean>emptyList();
 
-		final ArrayList<Boolean> result = new ArrayList<Boolean>(orderAscending.length);
+		final ArrayList<Boolean> result = new ArrayList<>(orderAscending.length);
 		for(final boolean b : orderAscending)
 			result.add(b);
 		return Collections.unmodifiableList(result);

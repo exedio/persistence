@@ -43,11 +43,11 @@ final class SimpleSelectType<E> implements SelectType<E>
 	}
 
 
-	static final SimpleSelectType<String > STRING  = new SimpleSelectType<String >(String .class);
-	static final SimpleSelectType<Boolean> BOOLEAN = new SimpleSelectType<Boolean>(Boolean.class);
-	static final SimpleSelectType<Integer> INTEGER = new SimpleSelectType<Integer>(Integer.class);
-	static final SimpleSelectType<Long   > LONG    = new SimpleSelectType<Long   >(Long   .class);
-	static final SimpleSelectType<Double > DOUBLE  = new SimpleSelectType<Double >(Double .class);
-	static final SimpleSelectType<Date   > DATE    = new SimpleSelectType<Date   >(Date   .class);
-	static final SimpleSelectType<Day    > DAY     = new SimpleSelectType<Day    >(Day    .class);
+	static final SimpleSelectType<String > STRING  = new SimpleSelectType<>(String .class);
+	static final SimpleSelectType<Boolean> BOOLEAN = new SimpleSelectType<>(Boolean.class);
+	static final SimpleSelectType<Integer> INTEGER = new SimpleSelectType<>(Integer.class);
+	static final SimpleSelectType<Long   > LONG    = new SimpleSelectType<>(Long   .class);
+	static final SimpleSelectType<Double > DOUBLE  = new SimpleSelectType<>(Double .class);
+	static final SimpleSelectType<Date   > DATE    = new SimpleSelectType<>(Date   .class);
+	static final SimpleSelectType<Day    > DAY     = new SimpleSelectType<>(Day    .class);
 }

@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 public final class InstrumentContext
 {
-	private static final ThreadLocal<Boolean> tl = new ThreadLocal<Boolean>();
+	private static final ThreadLocal<Boolean> tl = new ThreadLocal<>();
 
 	public static boolean isRunning()
 	{
