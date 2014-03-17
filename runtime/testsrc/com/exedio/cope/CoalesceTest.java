@@ -100,7 +100,7 @@ public class CoalesceTest extends AbstractRuntimeTest
 
 	public <E> void assertIt(final List<E> expected, final FunctionField<E> function, final E literal)
 	{
-		final Query<E> q = new Query<E>(coalesce(function, literal));
+		final Query<E> q = new Query<>(coalesce(function, literal));
 		assertEquals("select coalesce(" + function.getName() + "," + literal + ") from " + TYPE, q.toString());
 		q.setOrderBy(TYPE.getThis(), true);
 		assertEquals(expected, q.search());

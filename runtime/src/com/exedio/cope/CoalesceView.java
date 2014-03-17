@@ -28,7 +28,7 @@ public final class CoalesceView<E> extends View<E>
 		if(literal==null)
 			throw new NullPointerException("literal");
 
-		return new CoalesceView<E>(new Function[]{parameter1}, literal);
+		return new CoalesceView<>(new Function[]{parameter1}, literal);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
@@ -37,13 +37,13 @@ public final class CoalesceView<E> extends View<E>
 		if(literal==null)
 			throw new NullPointerException("literal");
 
-		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, literal);
+		return new CoalesceView<>(new Function[]{parameter1, parameter2}, literal);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2)
 	{
-		return new CoalesceView<E>(new Function[]{parameter1, parameter2}, null);
+		return new CoalesceView<>(new Function[]{parameter1, parameter2}, null);
 	}
 
 

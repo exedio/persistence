@@ -97,12 +97,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	final DefaultConstant<E> defaultConstant(final E value)
 	{
-		return value!=null ? new DefaultConstant<E>(value, DefaultConstant.NO_CREATED_TIME_MILLIS) : null;
+		return value!=null ? new DefaultConstant<>(value, DefaultConstant.NO_CREATED_TIME_MILLIS) : null;
 	}
 
 	final DefaultConstant<E> defaultConstantWithCreatedTime(final E value)
 	{
-		return value!=null ? new DefaultConstant<E>(value, System.currentTimeMillis()) : null;
+		return value!=null ? new DefaultConstant<>(value, System.currentTimeMillis()) : null;
 	}
 
 	private static final class DefaultConstant<E> extends DefaultSource<E>
@@ -391,7 +391,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 		if(uniqueConstraints==null)
 		{
-			uniqueConstraints = new ArrayList<UniqueConstraint>();
+			uniqueConstraints = new ArrayList<>();
 		}
 		else
 		{
@@ -468,12 +468,12 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public final IsNullCondition<E> isNull()
 	{
-		return new IsNullCondition<E>(this, false);
+		return new IsNullCondition<>(this, false);
 	}
 
 	public final IsNullCondition<E> isNotNull()
 	{
-		return new IsNullCondition<E>(this, true);
+		return new IsNullCondition<>(this, true);
 	}
 
 	public Condition equal(final E value)
@@ -505,22 +505,22 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public final CompareCondition<E> less(final E value)
 	{
-		return new CompareCondition<E>(Operator.Less, this, value);
+		return new CompareCondition<>(Operator.Less, this, value);
 	}
 
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
-		return new CompareCondition<E>(Operator.LessEqual, this, value);
+		return new CompareCondition<>(Operator.LessEqual, this, value);
 	}
 
 	public final CompareCondition<E> greater(final E value)
 	{
-		return new CompareCondition<E>(Operator.Greater, this, value);
+		return new CompareCondition<>(Operator.Greater, this, value);
 	}
 
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
-		return new CompareCondition<E>(Operator.GreaterEqual, this, value);
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
 	public Condition between(final E lowerBound, final E upperBound)
@@ -530,47 +530,47 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	public final CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Equal, this, right);
+		return new CompareFunctionCondition<>(Operator.Equal, this, right);
 	}
 
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.NotEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Less, this, right);
+		return new CompareFunctionCondition<>(Operator.Less, this, right);
 	}
 
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.LessEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
 	}
 
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.Greater, this, right);
+		return new CompareFunctionCondition<>(Operator.Greater, this, right);
 	}
 
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<E>(Operator.GreaterEqual, this, right);
+		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
 	}
 
 	public final ExtremumAggregate<E> min()
 	{
-		return new ExtremumAggregate<E>(this, true);
+		return new ExtremumAggregate<>(this, true);
 	}
 
 	public final ExtremumAggregate<E> max()
 	{
-		return new ExtremumAggregate<E>(this, false);
+		return new ExtremumAggregate<>(this, false);
 	}
 
 	public BindFunction<E> bind(final Join join)
 	{
-		return new BindFunction<E>(this, join);
+		return new BindFunction<>(this, join);
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -24,7 +24,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
 	{
-		return new DivideView<E>(dividend, divisor);
+		return new DivideView<>(dividend, divisor);
 	}
 
 
