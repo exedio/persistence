@@ -24,7 +24,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
 	{
-		return new MinusView<E>(minuend, subtrahend);
+		return new MinusView<>(minuend, subtrahend);
 	}
 
 

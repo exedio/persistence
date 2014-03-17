@@ -24,7 +24,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> MultiplyLiteralView<E> multiply(final Function<E> multiplier1, final E multiplier2)
 	{
-		return new MultiplyLiteralView<E>(multiplier1, multiplier2);
+		return new MultiplyLiteralView<>(multiplier1, multiplier2);
 	}
 
 

@@ -27,7 +27,7 @@ public final class Iterables
 		if(iterator==null)
 			throw new NullPointerException("iterator");
 
-		return new Once<E>(iterator);
+		return new Once<>(iterator);
 	}
 
 	private static final class Once<E> implements Iterable<E>

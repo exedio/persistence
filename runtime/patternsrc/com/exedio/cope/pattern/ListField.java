@@ -61,13 +61,13 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	public static final <E> ListField<E> create(final FunctionField<E> element)
 	{
-		return new ListField<E>(element);
+		return new ListField<>(element);
 	}
 
 	@Override
 	public ListField<E> copy(final CopyMapper mapper)
 	{
-		return new ListField<E>(mapper.copy(element));
+		return new ListField<>(mapper.copy(element));
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
-			new Query<E>(element, Cope.equalAndCast(mount().parent, item));
+			new Query<>(element, Cope.equalAndCast(mount().parent, item));
 		q.setOrderBy(order, true);
 		return q;
 	}
@@ -183,7 +183,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			final Class<P> parentClass,
 			@Parameter("element") final E element)
 	{
-		final Query<P> q = new Query<P>(
+		final Query<P> q = new Query<>(
 				mount().parent.as(parentClass),
 				Cope.equalAndCast(this.element, element));
 		q.setDistinct(true);
@@ -196,7 +196,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public void add(final Item item, final E value)
 	{
 		final Mount mount = mount();
-		final Query<Integer> q = new Query<Integer>(
+		final Query<Integer> q = new Query<>(
 				this.order.max(),
 				Cope.equalAndCast(mount.parent, item));
 		final Integer max = q.searchSingleton();

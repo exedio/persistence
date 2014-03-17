@@ -113,7 +113,7 @@ public class GraphTest extends TestCase
 
 	private static <E> List<E> setAsList(final Set<E> set)
 	{
-		return new ArrayList<E>(set);
+		return new ArrayList<>(set);
 	}
 
 	private static final List<Object> list(final Object... o)

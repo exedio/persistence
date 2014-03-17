@@ -94,17 +94,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		return new LimitedListField<E>(source1, source2);
+		return new LimitedListField<>(source1, source2);
 	}
 
 	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		return new LimitedListField<E>(source1, source2, source3);
+		return new LimitedListField<>(source1, source2, source3);
 	}
 
 	public static final <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
 	{
-		return new LimitedListField<E>(template, maximumSize);
+		return new LimitedListField<>(template, maximumSize);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
@@ -188,7 +188,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	public List<E> get(final Item item)
 	{
 		final int length = this.length.getMandatory(item);
-		final ArrayList<E> result = new ArrayList<E>(length);
+		final ArrayList<E> result = new ArrayList<>(length);
 
 		for(int i = 0; i<length; i++)
 		{

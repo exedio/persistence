@@ -29,7 +29,7 @@ final class LimitedQueue<E>
 		if(capacity<=0)
 			throw new IllegalArgumentException(String.valueOf(capacity));
 
-		back = new ArrayBlockingQueue<E>(capacity);
+		back = new ArrayBlockingQueue<>(capacity);
 	}
 
 	/**

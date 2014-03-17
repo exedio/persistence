@@ -93,48 +93,48 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<E>(future(valueClass), policy);
+		return new ItemField<>(future(valueClass), policy);
 	}
 
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<E>(true, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(true, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<E>(isfinal, optional, true, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, true, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<E>(isfinal, optional, false, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, false, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new ItemField<E>(isfinal, optional, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
 	}
 
 	public ItemField<E> copyTo(final FunctionField<?> copyTo)
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
 	}
 
 	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
@@ -162,12 +162,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<E>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<E>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -468,59 +468,59 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public BindItemFunction<E> bind(final Join join)
 	{
-		return new BindItemFunction<E>(this, join);
+		return new BindItemFunction<>(this, join);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, false, type1);
+		return new InstanceOfCondition<>(this, false, type1);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2);
+		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, false, types);
+		return new InstanceOfCondition<>(this, false, types);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, true, type1);
+		return new InstanceOfCondition<>(this, true, type1);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2);
+		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, true, types);
+		return new InstanceOfCondition<>(this, true, types);
 	}
 
 	// ------------------- deprecated stuff -------------------
