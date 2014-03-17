@@ -141,7 +141,7 @@ public abstract class CopeTest extends CopeAssert
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		deleteOnTearDown = new ArrayList<Item>();
+		deleteOnTearDown = new ArrayList<>();
 		if(exclusive)
 		{
 			model.connect(getConnectProperties());
@@ -171,12 +171,12 @@ public abstract class CopeTest extends CopeAssert
 			}
 			final Transaction current = model.currentTransaction();
 			ArrayList<Transaction> openTransactions = null;
-			for(final Transaction nextTransaction : new HashSet<Transaction>(model.getOpenTransactions()))
+			for(final Transaction nextTransaction : new HashSet<>(model.getOpenTransactions()))
 			{
 				if ( ! nextTransaction.equals(current) )
 				{
 					if(openTransactions==null)
-						openTransactions = new ArrayList<Transaction>();
+						openTransactions = new ArrayList<>();
 					openTransactions.add( nextTransaction );
 					model.leaveTransaction();
 					model.joinTransaction( nextTransaction );

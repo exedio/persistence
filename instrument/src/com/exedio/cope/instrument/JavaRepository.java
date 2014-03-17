@@ -69,11 +69,11 @@ final class JavaRepository
 
 	Stage stage = Stage.BUILD;
 
-	private final ArrayList<JavaFile> files = new ArrayList<JavaFile>();
-	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<String, JavaClass>();
-	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<String, JavaClass>();
+	private final ArrayList<JavaFile> files = new ArrayList<>();
+	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<>();
+	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<>();
 
-	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<JavaClass, CopeType>();
+	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
 
 	void endBuildStage()
 	{

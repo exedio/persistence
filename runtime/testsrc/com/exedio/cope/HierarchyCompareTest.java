@@ -39,7 +39,7 @@ public class HierarchyCompareTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		items = new ArrayList<Item>();
+		items = new ArrayList<>();
 		final HierarchySingleSub c1 = deleteOnTearDown(new HierarchySingleSub(2, "x"));
 		final HierarchyFirstSub a1 = deleteOnTearDown(new HierarchyFirstSub(0));
 		final HierarchySecondSub b1 = deleteOnTearDown(new HierarchySecondSub(1));

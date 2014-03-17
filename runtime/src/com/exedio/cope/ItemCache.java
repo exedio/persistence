@@ -39,7 +39,7 @@ final class ItemCache
 
 	ItemCache(final List<Type<?>> typesSorted, final ConnectProperties properties)
 	{
-		final ArrayList<Type<?>> types = new ArrayList<Type<?>>(typesSorted.size());
+		final ArrayList<Type<?>> types = new ArrayList<>(typesSorted.size());
 		for(final Type<?> type : typesSorted)
 			if(!type.isAbstract)
 				types.add(type);
@@ -162,7 +162,7 @@ final class ItemCache
 
 	ItemCacheInfo[] getInfo(final List<Type<?>> typesInOriginalOrder)
 	{
-		final ArrayList<ItemCacheInfo> result = new ArrayList<ItemCacheInfo>(cachlets.length);
+		final ArrayList<ItemCacheInfo> result = new ArrayList<>(cachlets.length);
 
 		for(final Type<?> type : typesInOriginalOrder)
 		{
@@ -199,7 +199,7 @@ final class ItemCache
 
 			this.type = type;
 			this.limit = limit;
-			this.map = new TIntObjectHashMap<WrittenState>();
+			this.map = new TIntObjectHashMap<>();
 			this.stamps = enableStamps ? new TIntLongHashMap() : null;
 		}
 

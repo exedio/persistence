@@ -44,7 +44,7 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		accu = new ArrayList<Serializable>();
+		accu = new ArrayList<>();
 		previousSize = accuSize();
 	}
 
@@ -147,7 +147,7 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 
 	private static List<? extends Item> getItems(final ListField<?> f, final Item parent)
 	{
-		final Query<? extends Item> q = new Query<Item>(f.getRelationType().getThis(), Cope.equalAndCast(f.getParent(), parent));
+		final Query<? extends Item> q = new Query<>(f.getRelationType().getThis(), Cope.equalAndCast(f.getParent(), parent));
 		q.setOrderBy(f.getOrder(), true);
 		return q.search();
 	}

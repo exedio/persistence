@@ -39,8 +39,8 @@ final class Types
 	final List<Type<?>> typeList;
 	final List<Type<?>> typeListSorted;
 	final List<Type<?>> concreteTypeList;
-	private final HashMap<String, Type<?>> typesByID = new HashMap<String, Type<?>>();
-	private final HashMap<String, Feature> featuresByID = new HashMap<String, Feature>();
+	private final HashMap<String, Type<?>> typesByID = new HashMap<>();
+	private final HashMap<String, Feature> featuresByID = new HashMap<>();
 
 	Types(final Model model, final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
 	{
@@ -53,14 +53,14 @@ final class Types
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
 		assert types.length==explicitTypesSorted.length;
 
-		final ArrayList<Type<?>> typesL = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> typesL = new ArrayList<>();
 		for(final Type<?> type : explicitTypes)
 			addTypeIncludingSourceTypes(type, typesL, 10);
 
 		for(final Type<?> type : typesL)
 			type.assertNotMounted();
 
-		final ArrayList<Type<?>> concreteTypes = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> concreteTypes = new ArrayList<>();
 		for(final Type<?> type : typesL)
 		{
 			final Type<?> collisionType = typesByID.put(type.id, type);
@@ -74,14 +74,14 @@ final class Types
 					throw new IllegalArgumentException("duplicate feature id \"" + feature.getID() + '"');
 		}
 
-		final ArrayList<Type<?>> typesSorted = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> typesSorted = new ArrayList<>();
 		for(final Type<?> type : explicitTypesSorted)
 			addTypeIncludingSourceTypes(type, typesSorted, 10);
 
 		for(final Type<?> type : typesSorted)
 			type.testActivation();
 
-		final HashMap<Type<?>, MountParameters> parametersMap = new HashMap<Type<?>, MountParameters>();
+		final HashMap<Type<?>, MountParameters> parametersMap = new HashMap<>();
 		int typeCount = 0;
 		int concreteTypeCount = 0;
 		int abstractTypeCount = -1;
@@ -155,7 +155,7 @@ final class Types
 		if(typeSets==null)
 			return typesWithoutSets;
 
-		final ArrayList<Type<?>> result = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> result = new ArrayList<>();
 		for(final TypeSet typeSet : typeSets)
 			typeSet.addTo(result);
 		if(typesWithoutSets!=null)
@@ -166,14 +166,14 @@ final class Types
 
 	private static final Type<?>[] sort(final Type<?>[] types)
 	{
-		final HashSet<Type<?>> typeSet = new HashSet<Type<?>>(Arrays.asList(types));
-		final HashSet<Type<?>> done = new HashSet<Type<?>>();
+		final HashSet<Type<?>> typeSet = new HashSet<>(Arrays.asList(types));
+		final HashSet<Type<?>> done = new HashSet<>();
 		//System.out.println(">--------------------"+Arrays.asList(types));
 
-		final ArrayList<Type<?>> result = new ArrayList<Type<?>>();
+		final ArrayList<Type<?>> result = new ArrayList<>();
 		for(final Type<?> type2 : types)
 		{
-			final ArrayList<Type<?>> stack = new ArrayList<Type<?>>();
+			final ArrayList<Type<?>> stack = new ArrayList<>();
 
 			//System.out.println("------------------------------ "+types[i].getID());
 
@@ -242,7 +242,7 @@ final class Types
 		void addSubtype(final Type<?> type)
 		{
 			if(subtypes==null)
-				subtypes = new ArrayList<Type<?>>();
+				subtypes = new ArrayList<>();
 			subtypes.add(type);
 		}
 
@@ -250,8 +250,8 @@ final class Types
 		{
 			if(subtypesTransitively==null)
 			{
-				subtypesTransitively = new ArrayList<Type<?>>();
-				typesOfInstances = new ArrayList<Type<?>>();
+				subtypesTransitively = new ArrayList<>();
+				typesOfInstances = new ArrayList<>();
 			}
 			subtypesTransitively.add(type);
 			if(!type.isAbstract)
@@ -273,7 +273,7 @@ final class Types
 		void addReference(final ItemField<?> reference)
 		{
 			if(references==null)
-				references = new ArrayList<ItemField<?>>();
+				references = new ArrayList<>();
 			references.add(reference);
 		}
 
@@ -316,7 +316,7 @@ final class Types
 			if(typeSet[i]==null)
 				throw new NullPointerException("typeSet[" + i + ']');
 
-		final HashSet<Type<?>> typesAsSet = new HashSet<Type<?>>(Arrays.asList(typesSorted));
+		final HashSet<Type<?>> typesAsSet = new HashSet<>(Arrays.asList(typesSorted));
 		if(typesAsSet.containsAll(Arrays.asList(typeSet)))
 			return true;
 

@@ -36,7 +36,7 @@ final class Instrumentor implements ParseConsumer
 	 * when operating on a inner class.
 	 * @see #class_state
 	 */
-	private final ArrayList<JavaClass> class_state_stack = new ArrayList<JavaClass>();
+	private final ArrayList<JavaClass> class_state_stack = new ArrayList<>();
 
 	/**
 	 * The last file level doccomment that was read.
