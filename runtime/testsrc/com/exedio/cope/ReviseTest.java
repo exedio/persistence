@@ -560,7 +560,7 @@ public class ReviseTest extends CopeAssert
 
 	private static Map<Integer, String> convert(final Map<Integer, byte[]> map)
 	{
-		final Map<Integer, String> result = new LinkedHashMap<Integer, String>();
+		final Map<Integer, String> result = new LinkedHashMap<>();
 		for(final Map.Entry<Integer, byte[]> e : map.entrySet())
 			result.put(e.getKey(), Hex.encodeLower(e.getValue()));
 		return result;
@@ -568,7 +568,7 @@ public class ReviseTest extends CopeAssert
 
 	private static Map<Integer, byte[]> remove(final int key, final Map<Integer, byte[]> map)
 	{
-		final Map<Integer, byte[]> result = new LinkedHashMap<Integer, byte[]>();
+		final Map<Integer, byte[]> result = new LinkedHashMap<>();
 		for(final Map.Entry<Integer, byte[]> e : map.entrySet())
 			if(key!=e.getKey().intValue())
 				result.put(e.getKey(), e.getValue());
@@ -610,7 +610,7 @@ public class ReviseTest extends CopeAssert
 	static final class TestSource implements Source
 	{
 		Source fallback;
-		Map<String,String> overrides = new HashMap<String, String>();
+		Map<String,String> overrides = new HashMap<>();
 
 		TestSource()
 		{
@@ -627,7 +627,7 @@ public class ReviseTest extends CopeAssert
 		@Override()
 		public Collection<String> keySet()
 		{
-			final Set<String> keys = new HashSet<String>();
+			final Set<String> keys = new HashSet<>();
 			keys.addAll( overrides.keySet() );
 			keys.addAll( fallback.keySet() );
 			return keys;

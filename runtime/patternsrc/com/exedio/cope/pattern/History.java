@@ -367,7 +367,7 @@ public final class History extends Pattern
 			if(f instanceof History)
 			{
 				if(result==null)
-					result = new ArrayList<History>();
+					result = new ArrayList<>();
 				result.add((History)f);
 			}
 		}

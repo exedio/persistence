@@ -29,7 +29,7 @@ import org.junit.Assert;
 
 public final class FileFixture
 {
-	private final ArrayList<File> files = new ArrayList<File>();
+	private final ArrayList<File> files = new ArrayList<>();
 
 	public void setUp()
 	{

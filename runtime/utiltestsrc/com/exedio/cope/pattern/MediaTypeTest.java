@@ -277,7 +277,7 @@ public class MediaTypeTest extends CopeAssert
 	}
 
 
-	private final ArrayList<File> files = new ArrayList<File>();
+	private final ArrayList<File> files = new ArrayList<>();
 
 	@Override
 	protected void tearDown() throws Exception

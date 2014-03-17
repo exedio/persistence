@@ -94,7 +94,7 @@ final class SamplerStep
 		// process data
 		this.itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		this.mediaSummary = new MediaSummary(mediaInfos);
-		this.transactions = new ArrayList<Transaction>(openTransactions.size());
+		this.transactions = new ArrayList<>(openTransactions.size());
 		{
 			final long threshold = date.getTime() - transactionDuration;
 			for(final Transaction transaction : openTransactions)
@@ -105,7 +105,7 @@ final class SamplerStep
 		}
 		if(clusterListenerInfo!=null)
 		{
-			this.clusterListenerInfoNodes = new HashMap<Integer, ClusterListenerInfo.Node>();
+			this.clusterListenerInfoNodes = new HashMap<>();
 			for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
 				if(this.clusterListenerInfoNodes.put(node.getID(), node)!=null)
 					throw new RuntimeException("" + node.getID());

@@ -191,7 +191,7 @@ public final class Revisions
 				append(revision).
 				append(">=0");
 
-		final HashMap<Integer, byte[]> result = new HashMap<Integer, byte[]>();
+		final HashMap<Integer, byte[]> result = new HashMap<>();
 
 		final Connection connection = connectionPool.get(true);
 		try

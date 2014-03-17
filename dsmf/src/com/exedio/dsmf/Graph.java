@@ -44,12 +44,12 @@ final class Graph
 		final List<Edge> allEdges;
 		final List<Node> allNodes;
 		{
-			final HashMap<String, Node> nodeByTableName = new HashMap<String, Node>();
-			final ArrayList<Edge> allEdgesM = new ArrayList<Edge>();
-			final ArrayList<Node> allNodesM = new ArrayList<Node>();
+			final HashMap<String, Node> nodeByTableName = new HashMap<>();
+			final ArrayList<Edge> allEdgesM = new ArrayList<>();
+			final ArrayList<Node> allNodesM = new ArrayList<>();
 			for(final Table table : schema.getTables())
 			{
-				final ArrayList<Edge> edges = new ArrayList<Edge>();
+				final ArrayList<Edge> edges = new ArrayList<>();
 				for(final Constraint constraint : table.getConstraints())
 					if(constraint instanceof ForeignKeyConstraint)
 					{
@@ -76,12 +76,12 @@ final class Graph
 			allNodes = Collections.unmodifiableList(allNodesM);
 		}
 
-		nodesOrdered = new ArrayList<Node>();
-		edgesBroken = new LinkedHashSet<Edge>();
+		nodesOrdered = new ArrayList<>();
+		edgesBroken = new LinkedHashSet<>();
 
 		{
-			final LinkedList<Node> allNodesRest = new LinkedList<Node>(allNodes);
-			final LinkedHashSet<Edge> allEdgesRest = new LinkedHashSet<Edge>(allEdges);
+			final LinkedList<Node> allNodesRest = new LinkedList<>(allNodes);
+			final LinkedHashSet<Edge> allEdgesRest = new LinkedHashSet<>(allEdges);
 			do
 			{
 				boolean wasPossible;
@@ -126,7 +126,7 @@ final class Graph
 
 	List<Table> getTablesOrdered()
 	{
-		final ArrayList<Table> result = new ArrayList<Table>(nodesOrdered.size());
+		final ArrayList<Table> result = new ArrayList<>(nodesOrdered.size());
 		for(final Node node : nodesOrdered)
 			result.add(node.table);
 		return Collections.unmodifiableList(result);
@@ -134,7 +134,7 @@ final class Graph
 
 	Set<ForeignKeyConstraint> getConstraintsBroken()
 	{
-		final LinkedHashSet<ForeignKeyConstraint> result = new LinkedHashSet<ForeignKeyConstraint>();
+		final LinkedHashSet<ForeignKeyConstraint> result = new LinkedHashSet<>();
 		for(final Edge edge : edgesBroken)
 			result.add(edge.constraint);
 		return Collections.unmodifiableSet(result);
