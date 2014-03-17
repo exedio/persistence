@@ -45,7 +45,7 @@ final class Trimmer
 
 		int longStringLength = longString.length();
 		final int[] trimPotential = new int[maxLength];
-		final ArrayList<String> words = new ArrayList<String>();
+		final ArrayList<String> words = new ArrayList<>();
 		{
 			final StringBuilder buf = new StringBuilder();
 			for(int i=0; i<longString.length(); i++)

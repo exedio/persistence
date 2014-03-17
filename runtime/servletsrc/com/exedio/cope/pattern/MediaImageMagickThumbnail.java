@@ -47,7 +47,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 			final int density,
 			final String flattenColor)
 	{
-		final ArrayList<String> result = new ArrayList<String>(5);
+		final ArrayList<String> result = new ArrayList<>(5);
 		result.add("-resize");
 		result.add(String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>');
 		if(density>0)

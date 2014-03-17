@@ -52,14 +52,14 @@ public final class RuntimeAssert
 
 	protected static final <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		assertCondition(l, type, actual);
 	}
 
 	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		l.add(o2);
 		assertCondition(l, type, actual);
@@ -67,7 +67,7 @@ public final class RuntimeAssert
 
 	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -76,7 +76,7 @@ public final class RuntimeAssert
 
 	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -86,7 +86,7 @@ public final class RuntimeAssert
 
 	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
@@ -97,7 +97,7 @@ public final class RuntimeAssert
 
 	protected static final <T extends Item> void assertCondition(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Type<T> type, final Condition actual)
 	{
-		final ArrayList<T> l = new ArrayList<T>();
+		final ArrayList<T> l = new ArrayList<>();
 		l.add(o1);
 		l.add(o2);
 		l.add(o3);
