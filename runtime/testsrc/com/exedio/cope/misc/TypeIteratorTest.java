@@ -134,7 +134,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 
 	private static ArrayList<QueryAggregatorItem> l(final Iterator<QueryAggregatorItem> iterator)
 	{
-		final ArrayList<QueryAggregatorItem> result = new ArrayList<QueryAggregatorItem>();
+		final ArrayList<QueryAggregatorItem> result = new ArrayList<>();
 		while(iterator.hasNext())
 			result.add(iterator.next());
 		try
@@ -151,7 +151,7 @@ public class TypeIteratorTest extends AbstractRuntimeTest
 
 	private static List<String> toString(final List<QueryInfo> l)
 	{
-		final ArrayList<String> result = new ArrayList<String>(l.size());
+		final ArrayList<String> result = new ArrayList<>(l.size());
 		for(final QueryInfo q : l)
 			result.add(q.getText());
 		return result;

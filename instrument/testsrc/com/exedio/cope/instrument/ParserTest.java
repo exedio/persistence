@@ -49,7 +49,7 @@ public abstract class ParserTest extends TestCase
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
 
-		parseEvents = new LinkedList<ParseEvent>();
+		parseEvents = new LinkedList<>();
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);

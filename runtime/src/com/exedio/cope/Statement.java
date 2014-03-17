@@ -51,7 +51,7 @@ final class Statement
 		this.dialect = executor.dialect;
 		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
-		this.parameters = executor.prepare ? new ArrayList<Object>() : null;
+		this.parameters = executor.prepare ? new ArrayList<>() : null;
 		this.tc = null;
 		this.joinTables = null;
 		this.ambiguousTables = null;
@@ -78,21 +78,21 @@ final class Statement
 		this.dialect = executor.dialect;
 		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
-		this.parameters = (!sqlOnly && executor.prepare) ? new ArrayList<Object>() : null;
+		this.parameters = (!sqlOnly && executor.prepare) ? new ArrayList<>() : null;
 
 		this.tc = query.check();
 
 		// TODO: implementation is far from optimal
 		// TODO: do all the rest in this constructor with TC
 
-		final ArrayList<JoinType> joinTypes = new ArrayList<JoinType>();
+		final ArrayList<JoinType> joinTypes = new ArrayList<>();
 
 		joinTypes.add(new JoinType(null, query.type));
 		for(final Join join : query.getJoins())
 			joinTypes.add(new JoinType(join, join.type));
 
-		final HashMap<Table, Object> tableToJoinTables = new HashMap<Table, Object>();
-		this.joinTables = new HashMap<JoinTable, JoinTable>();
+		final HashMap<Table, Object> tableToJoinTables = new HashMap<>();
+		this.joinTables = new HashMap<>();
 		for(final JoinType joinType : joinTypes)
 		{
 			for(Type<?> type = joinType.type; type!=null; type=type.supertype)
@@ -108,7 +108,7 @@ final class Statement
 				{
 					assert table==((JoinTable)previous).table;
 
-					final ArrayList<JoinTable> list = new ArrayList<JoinTable>(2);
+					final ArrayList<JoinTable> list = new ArrayList<>(2);
 					list.add((JoinTable)previous);
 					list.add(current);
 					tableToJoinTables.put(table, list);
@@ -136,7 +136,7 @@ final class Statement
 					joinType.alias = table.id + (aliasNumber++);
 				}
 				if(ambiguousTables==null)
-					ambiguousTables = new HashSet<Table>();
+					ambiguousTables = new HashSet<>();
 				ambiguousTables.add(table);
 			}
 		}
@@ -460,7 +460,7 @@ final class Statement
 				if(tc.containsTable(join, iTable))
 				{
 					if(superTables==null)
-						superTables = new ArrayList<Table>();
+						superTables = new ArrayList<>();
 
 					superTables.add(iTable);
 				}

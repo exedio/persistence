@@ -64,7 +64,7 @@ public class JoinTest extends TestmodelTest
 			assertContains(item2b, item2a, query.search());
 		}
 		{
-			final Query<PointerItem> query = new Query<PointerItem>(PointerItem.TYPE.getThis(), PointerTargetItem.TYPE, null);
+			final Query<PointerItem> query = new Query<>(PointerItem.TYPE.getThis(), PointerTargetItem.TYPE, null);
 			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1b, item1a, query.search());
 		}

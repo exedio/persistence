@@ -28,8 +28,8 @@ import java.util.List;
 
 final class PartOfReverse
 {
-	private static final HashMap<Type<?>, List<PartOf<?>>> cache = new HashMap<Type<?>, List<PartOf<?>>>();
-	private static final HashMap<Type<?>, List<PartOf<?>>> cacheDeclared = new HashMap<Type<?>, List<PartOf<?>>>();
+	private static final HashMap<Type<?>, List<PartOf<?>>> cache = new HashMap<>();
+	private static final HashMap<Type<?>, List<PartOf<?>>> cacheDeclared = new HashMap<>();
 
 	static final List<PartOf<?>> get(final Type<?> type)
 	{
@@ -51,7 +51,7 @@ final class PartOfReverse
 					return cachedResult;
 			}
 
-			final ArrayList<PartOf<?>> resultModifiable = new ArrayList<PartOf<?>>();
+			final ArrayList<PartOf<?>> resultModifiable = new ArrayList<>();
 
 			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{

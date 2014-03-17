@@ -46,7 +46,7 @@ final class Main
 
 			final Charset charset = Charset.forName(params.encoding);
 			final JavaRepository repository = new JavaRepository();
-			final ArrayList<Parser> parsers = new ArrayList<Parser>(files.size());
+			final ArrayList<Parser> parsers = new ArrayList<>(files.size());
 
 			this.verbose = params.verbose;
 			instrumented = 0;
