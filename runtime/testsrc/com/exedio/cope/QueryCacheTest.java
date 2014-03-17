@@ -152,7 +152,7 @@ public class QueryCacheTest extends AbstractRuntimeTest
 
 	private static final class DBL implements TestDatabaseListener
 	{
-		final ArrayList<SC> scs = new ArrayList<SC>();
+		final ArrayList<SC> scs = new ArrayList<>();
 
 		DBL()
 		{

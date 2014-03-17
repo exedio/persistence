@@ -45,7 +45,7 @@ public final class QueryAggregator<R>
 			final Query<? extends R> query1,
 			final Query<? extends R> query2)
 	{
-		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2));
+		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,7 +54,7 @@ public final class QueryAggregator<R>
 			final Query<? extends R> query2,
 			final Query<? extends R> query3)
 	{
-		return new QueryAggregator<R>(java.util.Arrays.asList(query1, query2, query3));
+		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2, query3));
 	}
 
 	public List<Query<? extends R>> getQueries()
@@ -134,7 +134,7 @@ public final class QueryAggregator<R>
 			if(first==null)
 				return result(Collections.<R>emptyList(), total);
 
-			data = new ArrayList<R>(search(first, offset-totalBeforeFirst));
+			data = new ArrayList<>(search(first, offset-totalBeforeFirst));
 		}
 		{
 			final int totalBreak = (limit!=UNLIMITED) ? (offset+limit) : Integer.MAX_VALUE;
@@ -188,7 +188,7 @@ public final class QueryAggregator<R>
 	{
 		return
 			(limit!=UNLIMITED)
-			? new Query.Result<R>(data, total, offset, getLimit())
-			: new Query.Result<R>(data, total, offset);
+			? new Query.Result<>(data, total, offset, getLimit())
+			: new Query.Result<>(data, total, offset);
 	}
 }

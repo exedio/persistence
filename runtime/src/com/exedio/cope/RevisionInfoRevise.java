@@ -159,7 +159,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		if(comment==null)
 			return null;
 
-		final ArrayList<Body> body = new ArrayList<Body>();
+		final ArrayList<Body> body = new ArrayList<>();
 		for(int i = 0; ; i++)
 		{
 			final Body b = Body.read(i, p);

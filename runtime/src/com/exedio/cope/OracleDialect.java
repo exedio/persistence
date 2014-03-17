@@ -225,7 +225,7 @@ final class OracleDialect extends Dialect
 
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
-	static final HashSet<String> skippedColumnNames = new HashSet<String>(Arrays.asList(new String[]{
+	static final HashSet<String> skippedColumnNames = new HashSet<>(Arrays.asList(new String[]{
 			STATEMENT_ID,
 			OPERATION,
 			OPTIONS,
@@ -321,7 +321,7 @@ final class OracleDialect extends Dialect
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
 					QueryInfo root = null;
-					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<QueryInfo>();
+					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<>();
 
 					final ResultSetMetaData metaData = resultSet.getMetaData();
 					final int columnCount = metaData.getColumnCount();

@@ -47,7 +47,7 @@ public abstract class FieldTest extends TestmodelTest
 
 	protected static <R> List<? extends R> search(final FunctionField<? extends R> selectAttribute, final Condition condition)
 	{
-		return new Query<R>(selectAttribute, condition).search();
+		return new Query<>(selectAttribute, condition).search();
 	}
 
 }

@@ -73,7 +73,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		item = deleteOnTearDown(new ScheduleItem());
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
-		expectedRuns = new ArrayList<ExpectedRun>();
+		expectedRuns = new ArrayList<>();
 	}
 
 	@Override
@@ -457,7 +457,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	{
 		expectedRuns.addAll(expectedMore);
 		final List<Run> actualList = report.getRunType().search(null, report.getRunType().getThis(), true);
-		final ArrayList<ExpectedRun> actual = new ArrayList<ExpectedRun>();
+		final ArrayList<ExpectedRun> actual = new ArrayList<>();
 		for(final Run run : actualList)
 			actual.add(new ExpectedRun(run));
 		assertEquals(expectedRuns, actual);

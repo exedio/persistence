@@ -49,7 +49,7 @@ public final class QueryInfo
 	void addChild(final QueryInfo newChild)
 	{
 		if(childsLazilyInitialized==null)
-			childsLazilyInitialized = new ArrayList<QueryInfo>();
+			childsLazilyInitialized = new ArrayList<>();
 
 		childsLazilyInitialized.add(newChild);
 	}
