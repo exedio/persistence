@@ -32,7 +32,7 @@ public final class SerializationCheck
 {
 	public static List<Field> check(final Model model)
 	{
-		final LinkedHashSet<Class<? extends Item>> classes = new LinkedHashSet<Class<? extends Item>>();
+		final LinkedHashSet<Class<? extends Item>> classes = new LinkedHashSet<>();
 		for(final Type<?> type : model.getTypesSortedByHierarchy())
 			classes.add(type.getJavaClass());
 
@@ -46,7 +46,7 @@ public final class SerializationCheck
 					!Modifier.isTransient(modifiers))
 				{
 					if(result==null)
-						result = new ArrayList<Field>();
+						result = new ArrayList<>();
 					result.add(field);
 				}
 			}

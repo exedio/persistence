@@ -75,10 +75,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 		if(!InstrumentContext.isRunning())
 		{
-			final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent =
-				new LinkedHashMap<FunctionField<?>, FunctionField<?>>();
-			final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate =
-				new HashMap<FunctionField<?>, FunctionField<?>>();
+			final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent = new LinkedHashMap<>();
+			final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate = new HashMap<>();
 			FunctionField<?> mandatoryComponent = null;
 			final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
 			final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
@@ -104,7 +102,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 			this.templateToComponent = templateToComponent;
 			this.componentToTemplate = componentToTemplate;
-			this.componentList = Collections.unmodifiableList(new ArrayList<FunctionField<?>>(templateToComponent.values()));
+			this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
 			this.mandatoryComponent = mandatoryComponent;
 			this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
 			if(optional)
@@ -125,17 +123,17 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public static <E extends Composite> CompositeField<E> create(final Class<E> valueClass)
 	{
-		return new CompositeField<E>(false, false, valueClass);
+		return new CompositeField<>(false, false, valueClass);
 	}
 
 	public CompositeField<E> toFinal()
 	{
-		return new CompositeField<E>(true, optional, valueClass);
+		return new CompositeField<>(true, optional, valueClass);
 	}
 
 	public CompositeField<E> optional()
 	{
-		return new CompositeField<E>(isfinal, true, valueClass);
+		return new CompositeField<>(isfinal, true, valueClass);
 	}
 
 	private FunctionField<?> copy(FunctionField<?> f)
@@ -228,7 +226,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<Class<? extends Throwable>>();
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		for(final FunctionField<?> member : valueType.templateList)
 			result.addAll(member.getInitialExceptions());
 		if(isfinal)

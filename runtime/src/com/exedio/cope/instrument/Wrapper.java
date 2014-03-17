@@ -202,7 +202,7 @@ public final class Wrapper
 	{
 		final Parameter p = new Parameter(type, name, comment, vararg);
 		if(parameters==null)
-			parameters = new ArrayList<Parameter>();
+			parameters = new ArrayList<>();
 		parameters.add(p);
 
 		return this;
@@ -245,7 +245,7 @@ public final class Wrapper
 			assertComment(c);
 
 		if(throwsClause==null)
-			throwsClause = new LinkedHashMap<Class<? extends Throwable>, String[]>();
+			throwsClause = new LinkedHashMap<>();
 
 		throwsClause.put(throwable, comment);
 
@@ -283,7 +283,7 @@ public final class Wrapper
 		assertComment(comment);
 
 		if(comments==null)
-			comments = new ArrayList<String>();
+			comments = new ArrayList<>();
 		comments.add(comment);
 
 		return this;
