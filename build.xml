@@ -945,7 +945,7 @@
 		<javadoc
 				destdir="build/api"
 				maxmemory="60m"
-				source="1.5"
+				source="1.7"
 				private="on"
 				author="off"
 				use="off"
