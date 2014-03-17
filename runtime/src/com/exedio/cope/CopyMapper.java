@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public final class CopyMapper
 {
-	private final HashMap<Feature, Feature> map = new HashMap<Feature, Feature>();
+	private final HashMap<Feature, Feature> map = new HashMap<>();
 
 	public <F extends Feature> F get(final F template)
 	{

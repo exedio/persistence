@@ -485,7 +485,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	static final LinkedHashMap<Field<?>, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
 	{
-		final LinkedHashMap<Field<?>, Object> result = new LinkedHashMap<Field<?>, Object>();
+		final LinkedHashMap<Field<?>, Object> result = new LinkedHashMap<>();
 		for(final SetValue<?> source : sources)
 		{
 			if(source.settable instanceof Field<?>)

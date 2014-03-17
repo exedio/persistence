@@ -35,8 +35,8 @@ public final class Features
 
 	public Features()
 	{
-		map = new LinkedHashMap<String, Feature>();
-		set = new HashSet<Feature>();
+		map = new LinkedHashMap<>();
+		set = new HashSet<>();
 	}
 
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
@@ -61,7 +61,7 @@ public final class Features
 		if(annotationSource!=null)
 		{
 			if(annotationSources==null)
-				annotationSources = new HashMap<Feature, AnnotatedElement>();
+				annotationSources = new HashMap<>();
 			if(annotationSources.put(feature, annotationSource)!=null)
 				throw new RuntimeException();
 		}
@@ -104,7 +104,7 @@ public final class Features
 
 	List<Feature> mountPattern(final Type<?> type, final String name)
 	{
-		final ArrayList<Feature> result = new ArrayList<Feature>();
+		final ArrayList<Feature> result = new ArrayList<>();
 
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
@@ -128,7 +128,7 @@ public final class Features
 	Features(final LinkedHashMap<String, Feature> map)
 	{
 		this.map = map;
-		this.set = new HashSet<Feature>(map.values());
+		this.set = new HashSet<>(map.values());
 		if(map.size()!=set.size())
 			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
 	}

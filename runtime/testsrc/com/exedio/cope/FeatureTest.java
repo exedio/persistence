@@ -60,7 +60,7 @@ public class FeatureTest extends CopeAssert
 
 		final Features features = new Features();
 		features.put("featureName", f);
-		final Type<AnItem> t = new Type<AnItem>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
+		final Type<AnItem> t = new Type<>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
 
 		assertSame(t, f.getType());
 		assertEquals("featureName", f.getName());
@@ -73,7 +73,7 @@ public class FeatureTest extends CopeAssert
 
 		try
 		{
-			new Type<AnItem>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
+			new Type<>(AnItem.class, AnItem.class, false, "typeId", (Pattern)null, false, (Type<Item>)null, features);
 			fail();
 		}
 		catch(final IllegalStateException e)

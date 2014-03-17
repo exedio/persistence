@@ -61,7 +61,7 @@ public abstract class Pattern extends Feature
 	private Features sourceFeaturesGather = new Features();
 	private List<Feature> sourceFeatureList = null;
 
-	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<Type<? extends Item>>();
+	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<>();
 	private List<Type<? extends Item>> sourceTypes = null;
 
 	protected final void addSource(final Feature feature, final String postfix)
@@ -212,7 +212,7 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = newSourceTypeId(getType().getID(), getName(), postfix);
-		final Type<T> result = new Type<T>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, isAbstract, supertype, features);
+		final Type<T> result = new Type<>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, isAbstract, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}
@@ -377,7 +377,7 @@ public abstract class Pattern extends Feature
 	@Deprecated
 	public List<? extends Field<?>> getSourceFields()
 	{
-		final ArrayList<Field<?>> result = new ArrayList<Field<?>>();
+		final ArrayList<Field<?>> result = new ArrayList<>();
 		for(final Feature f : getSourceFeatures())
 			if(f instanceof Field<?>)
 				result.add((Field<?>)f);

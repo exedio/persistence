@@ -104,7 +104,7 @@ public final class SequenceInfoAssert
 	public static void assertInfo(final List<SequenceInfo> actual, final Feature... expected)
 	{
 		assertUnmodifiable(actual);
-		final ArrayList<Feature> actualTypes = new ArrayList<Feature>();
+		final ArrayList<Feature> actualTypes = new ArrayList<>();
 		for(final SequenceInfo i : actual)
 			actualTypes.add(i.getFeature());
 		assertEquals(Arrays.asList(expected), actualTypes);

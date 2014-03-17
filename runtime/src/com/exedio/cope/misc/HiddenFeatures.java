@@ -29,7 +29,7 @@ public final class HiddenFeatures
 {
 	public static Map<Feature, Feature> get(final Model model)
 	{
-		final HashMap<Feature, Feature> result = new HashMap<Feature, Feature>();
+		final HashMap<Feature, Feature> result = new HashMap<>();
 		for(final Type<?> t : model.getTypes())
 		{
 			final Type<?> st = t.getSupertype();

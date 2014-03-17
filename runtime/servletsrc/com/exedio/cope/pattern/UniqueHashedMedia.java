@@ -119,7 +119,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	{
 		super.afterModelCreated();
 
-		final HashSet<Field<?>> ownFields = new HashSet<Field<?>>();
+		final HashSet<Field<?>> ownFields = new HashSet<>();
 		collectFields(ownFields, this, 20);
 		//System.out.println(ownFields);
 
@@ -326,7 +326,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			mediaValue = null;
 			hashValue  = null;
 		}
-		final List<SetValue<?>> setValues = new ArrayList<SetValue<?>>(Arrays.asList(this.media.execute(mediaValue, exceptionItem)));
+		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(mediaValue, exceptionItem)));
 		setValues.add(this.hash.map(hashValue));
 		return setValues.toArray(new SetValue<?>[setValues.size()]);
 	}
