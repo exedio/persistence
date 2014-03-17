@@ -486,6 +486,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return this.bind(join).equal(value);
 	}
 
+	@SafeVarargs
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);

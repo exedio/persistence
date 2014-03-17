@@ -143,6 +143,7 @@ public final class CompositeCondition extends Condition
 		bf.append(')');
 	}
 
+	@SafeVarargs
 	public static final <E> Condition in(final Function<E> function, final E... values)
 	{
 		switch(values.length)

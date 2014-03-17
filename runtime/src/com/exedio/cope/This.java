@@ -141,6 +141,7 @@ public final class This<E extends Item> extends Feature
 		return this.bind(join).equal(value);
 	}
 
+	@SafeVarargs
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);

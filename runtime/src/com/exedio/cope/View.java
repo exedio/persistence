@@ -208,6 +208,7 @@ public abstract class View<E> extends Feature
 		return this.bind(join).equal(value);
 	}
 
+	@SafeVarargs
 	public final Condition in(final E... values)
 	{
 		return CompositeCondition.in(this, values);
