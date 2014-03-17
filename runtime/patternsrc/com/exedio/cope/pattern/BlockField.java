@@ -53,10 +53,8 @@ public final class BlockField<E extends Block> extends Pattern
 
 		if(!InstrumentContext.isRunning())
 		{
-			final LinkedHashMap<Feature, Feature> templateToComponent =
-				new LinkedHashMap<Feature, Feature>();
-			final HashMap<Feature, Feature> componentToTemplate =
-				new HashMap<Feature, Feature>();
+			final LinkedHashMap<Feature, Feature> templateToComponent = new LinkedHashMap<>();
+			final HashMap<Feature, Feature> componentToTemplate = new HashMap<>();
 
 			final CopyMapper mapper = new CopyMapper();
 			for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
@@ -69,7 +67,7 @@ public final class BlockField<E extends Block> extends Pattern
 			}
 			this.templateToComponent = templateToComponent;
 			this.componentToTemplate = componentToTemplate;
-			this.componentList = Collections.unmodifiableList(new ArrayList<Feature>(templateToComponent.values()));
+			this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
 		}
 		else
 		{
@@ -81,7 +79,7 @@ public final class BlockField<E extends Block> extends Pattern
 
 	public static <E extends Block> BlockField<E> create(final BlockType<E> valueType)
 	{
-		return new BlockField<E>(valueType);
+		return new BlockField<>(valueType);
 	}
 
 	public <X extends Feature> X of(final X template)

@@ -113,11 +113,11 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 
 	public final SumAggregate<E> sum()
 	{
-		return new SumAggregate<E>(this);
+		return new SumAggregate<>(this);
 	}
 
 	public final AverageAggregate<E> average()
 	{
-		return new AverageAggregate<E>(this);
+		return new AverageAggregate<>(this);
 	}
 }

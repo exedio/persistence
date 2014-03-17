@@ -86,54 +86,54 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, false, type1);
+		return new InstanceOfCondition<>(this, false, type1);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2);
+		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, false, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, false, types);
+		return new InstanceOfCondition<>(this, false, types);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
-		return new InstanceOfCondition<E>(this, true, type1);
+		return new InstanceOfCondition<>(this, true, type1);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2);
+		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
-		return new InstanceOfCondition<E>(this, true, type1, type2, type3, type4);
+		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
-		return new InstanceOfCondition<E>(this, true, types);
+		return new InstanceOfCondition<>(this, true, types);
 	}
 
 	@Deprecated
