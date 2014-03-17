@@ -18,14 +18,17 @@
 
 package com.exedio.cope.instrument;
 
+import static java.util.Arrays.asList;
+
 import com.exedio.cope.instrument.findtype.BothFindType;
 import com.exedio.cope.instrument.findtype.FindType;
 import com.exedio.cope.instrument.findtype.subfindtype.BothFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype.SubFindType;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
+import junit.framework.TestCase;
 
-public class ResolveImportTest extends InstrumentorTest
+public class ResolveImportTest extends TestCase
 {
 
 	public void testImports() throws ParserException
@@ -41,7 +44,7 @@ public class ResolveImportTest extends InstrumentorTest
 
 		repository.endBuildStage();
 
-		assertEquals(list(file), repository.getFiles());
+		assertEquals(asList(file), repository.getFiles());
 
 		assertEquals(FindType.class, file.findTypeExternally("FindType"));
 		assertEquals(FindType.class, file.findTypeExternally(FindType.class.getName()));

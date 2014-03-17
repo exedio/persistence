@@ -51,8 +51,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
+import junit.framework.TestCase;
 
-public class GeneratorTest extends InstrumentorTest
+public class GeneratorTest extends TestCase
 {
 	public static final int VARARGS = 0x00000080;
 

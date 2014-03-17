@@ -24,8 +24,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
 import junit.framework.AssertionFailedError;
+import junit.framework.TestCase;
 
-public abstract class ParserTest extends InstrumentorTest
+public abstract class ParserTest extends TestCase
 {
 	private final String resourceName;
 	final boolean assertText;
