@@ -57,7 +57,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public static <E extends Feature> FeatureField<E> create(final Class<E> valueClass)
 	{
-		return new FeatureField<E>(valueClass, new StringField());
+		return new FeatureField<>(valueClass, new StringField());
 	}
 
 	private FeatureField(final Class<E> valueClass, final StringField integer)
@@ -74,17 +74,17 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public FeatureField<E> toFinal()
 	{
-		return new FeatureField<E>(valueClass, idField.toFinal());
+		return new FeatureField<>(valueClass, idField.toFinal());
 	}
 
 	public FeatureField<E> optional()
 	{
-		return new FeatureField<E>(valueClass, idField.optional());
+		return new FeatureField<>(valueClass, idField.optional());
 	}
 
 	public FeatureField<E> unique()
 	{
-		return new FeatureField<E>(valueClass, idField.unique());
+		return new FeatureField<>(valueClass, idField.unique());
 	}
 
 	public Class<E> getValueClass()
@@ -173,7 +173,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public List<E> getValues()
 	{
-		final ArrayList<E> result = new ArrayList<E>();
+		final ArrayList<E> result = new ArrayList<>();
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -185,7 +185,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public Condition isInvalid()
 	{
-		final ArrayList<Condition> conditions = new ArrayList<Condition>();
+		final ArrayList<Condition> conditions = new ArrayList<>();
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())

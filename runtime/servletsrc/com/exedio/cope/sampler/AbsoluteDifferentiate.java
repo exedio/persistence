@@ -44,7 +44,7 @@ final class AbsoluteDifferentiate
 {
 	static List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
-		final ArrayList<Query<List<Object>>> result = new ArrayList<Query<List<Object>>>(4);
+		final ArrayList<Query<List<Object>>> result = new ArrayList<>(4);
 		result.add(makeQuery(AbsoluteModel      .TYPE, from, until));
 		result.add(makeQuery(AbsoluteItemCache  .TYPE, from, until));
 		result.add(makeQuery(AbsoluteClusterNode.TYPE, from, until));
@@ -59,11 +59,11 @@ final class AbsoluteDifferentiate
 		final Join join = query.join(type);
 
 		final DateField dateField = replaceByCopy(AbsoluteModel.date, type);
-		final ArrayList<FunctionField<?>> byDateUnique = new ArrayList<FunctionField<?>>();
+		final ArrayList<FunctionField<?>> byDateUnique = new ArrayList<>();
 		final IntegerField sampler = replaceByCopy(AbsoluteModel.sampler, type);
 		final IntegerField running = replaceByCopy(AbsoluteModel.running, type);
 		{
-			final ArrayList<Function<?>> selects = new ArrayList<Function<?>>();
+			final ArrayList<Function<?>> selects = new ArrayList<>();
 			{
 				final List<UniqueConstraint> constraints = type.getUniqueConstraints();
 				switch(constraints.size())
@@ -101,7 +101,7 @@ final class AbsoluteDifferentiate
 			query.setSelects(selects.toArray(new Function<?>[selects.size()]));
 		}
 		{
-			final ArrayList<Condition> conditions = new ArrayList<Condition>();
+			final ArrayList<Condition> conditions = new ArrayList<>();
 
 			if(from!=null)
 				conditions.add(dateField.greaterOrEqual(from));

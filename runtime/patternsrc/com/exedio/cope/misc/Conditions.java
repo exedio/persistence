@@ -32,8 +32,8 @@ public final class Conditions
 			return Condition.TRUE;
 
 		final int size = functions.size();
-		final ArrayList<Condition> isNull    = new ArrayList<Condition>(size);
-		final ArrayList<Condition> isNotNull = new ArrayList<Condition>(size);
+		final ArrayList<Condition> isNull    = new ArrayList<>(size);
+		final ArrayList<Condition> isNotNull = new ArrayList<>(size);
 		for(final Function<?> function : functions)
 		{
 			isNull   .add(function.isNull   ());

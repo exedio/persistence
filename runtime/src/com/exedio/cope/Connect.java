@@ -104,7 +104,7 @@ final class Connect
 		this.dialect = properties.createDialect(dialectParameters);
 		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
 		@SuppressWarnings("deprecation") // TODO when property context is not supported anymore
-		final Pool<Connection> pool = new Pool<Connection>(
+		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,
 				properties.getConnectionPoolIdleLimit(),
 				properties.getConnectionPoolIdleInitial(),
@@ -231,7 +231,7 @@ final class Connect
 
 	List<ThreadController> getThreadControllers()
 	{
-		final ArrayList<ThreadController> result = new ArrayList<ThreadController>(2);
+		final ArrayList<ThreadController> result = new ArrayList<>(2);
 		changeListenerDispatcher.addThreadControllers(result);
 		if(cluster!=null)
 			cluster.addThreadControllers(result);
