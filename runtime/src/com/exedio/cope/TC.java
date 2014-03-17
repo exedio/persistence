@@ -25,13 +25,13 @@ import java.util.HashSet;
 final class TC
 {
 	private final Query<?> query;
-	private final HashSet<Type<?>> queryTypes = new HashSet<Type<?>>();
-	private final HashMap<Type<?>, Join> distinctThisTypes = new HashMap<Type<?>, Join>();
+	private final HashSet<Type<?>> queryTypes = new HashSet<>();
+	private final HashMap<Type<?>, Join> distinctThisTypes = new HashMap<>();
 	private HashSet<Type<?>> ambiguousThisTypes = null;
-	private final HashMap<Type<?>, Join> distinctAllTypes = new HashMap<Type<?>, Join>();
+	private final HashMap<Type<?>, Join> distinctAllTypes = new HashMap<>();
 	private HashSet<Type<?>> ambiguousAllTypes = null;
 	private boolean frozen = false;
-	private final HashMap<Join, HashSet<Table>> tables = new HashMap<Join, HashSet<Table>>();
+	private final HashMap<Join, HashSet<Table>> tables = new HashMap<>();
 
 	TC(final Query<?> query)
 	{
@@ -78,7 +78,7 @@ final class TC
 		{
 			distinctTypes.remove(type);
 			if(ambiguousTypes==null)
-				ambiguousTypes = new HashSet<Type<?>>();
+				ambiguousTypes = new HashSet<>();
 			ambiguousTypes.add(type);
 		}
 		else
@@ -161,7 +161,7 @@ final class TC
 
 	HashSet<Table> getTables()
 	{
-		final HashSet<Table> result = new HashSet<Table>();
+		final HashSet<Table> result = new HashSet<>();
 		for(final HashSet<Table> tableSets : tables.values())
 			result.addAll(tableSets);
 		return result;

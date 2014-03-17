@@ -293,7 +293,7 @@ final class Parser
 	{
 		consumer.onFieldHeader(field);
 
-		final ArrayList<JavaField> commaSeparatedFields = new ArrayList<JavaField>();
+		final ArrayList<JavaField> commaSeparatedFields = new ArrayList<>();
 		commaSeparatedFields.add(field);
 		//if(!do_block) ja.print(System.out);
 

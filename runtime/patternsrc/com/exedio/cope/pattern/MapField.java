@@ -65,7 +65,7 @@ public final class MapField<K,V> extends Pattern
 
 	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		return new MapField<K,V>(key, value);
+		return new MapField<>(key, value);
 	}
 
 	@Override
@@ -197,7 +197,7 @@ public final class MapField<K,V> extends Pattern
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
-		final HashMap<K,V> result = new HashMap<K,V>();
+		final HashMap<K,V> result = new HashMap<>();
 		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 			result.put(key.get(relationItem), value.get(relationItem));
 		return Collections.unmodifiableMap(result);
@@ -207,7 +207,7 @@ public final class MapField<K,V> extends Pattern
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
 		final Mount mount = mount();
-		final HashMap<K,V> done = new HashMap<K,V>();
+		final HashMap<K,V> done = new HashMap<>();
 
 		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{

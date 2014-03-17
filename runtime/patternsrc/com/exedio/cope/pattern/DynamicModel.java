@@ -123,13 +123,13 @@ public final class DynamicModel<L> extends Pattern
 			final int doubleCapacity,
 			final int enumCapacity)
 	{
-		return new DynamicModel<L>(locale,
+		return new DynamicModel<>(locale,
 				stringCapacity, booleanCapacity, integerCapacity, doubleCapacity, enumCapacity);
 	}
 
 	public static final <L> DynamicModel<L> create(final FunctionField<L> locale)
 	{
-		return new DynamicModel<L>(locale, 5, 5, 5, 5, 5);
+		return new DynamicModel<>(locale, 5, 5, 5, 5, 5);
 	}
 
 	private FunctionField<?>[] array(final ValueType valueType)
@@ -209,7 +209,7 @@ public final class DynamicModel<L> extends Pattern
 		ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
 
-		this.mountIfMounted = new Mount<L>(typeType, fieldParent, fieldType, enumParent, enumType, type);
+		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}
 
 	private static final class Mount<L>

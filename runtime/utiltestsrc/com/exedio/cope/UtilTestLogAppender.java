@@ -30,7 +30,7 @@ import org.apache.log4j.spi.LoggingEvent;
 
 public final class UtilTestLogAppender extends AppenderSkeleton
 {
-	private final List<LoggingEvent> events = new ArrayList<LoggingEvent>();
+	private final List<LoggingEvent> events = new ArrayList<>();
 
 	@Override
 	protected void append(final LoggingEvent event)

@@ -83,7 +83,7 @@ public final class Query<R> implements Serializable
 		this.distinct = query.distinct;
 		this.type = query.type;
 		this.joinIndex = query.joinIndex;
-		this.joins = query.joins!=null ? new ArrayList<Join>(query.joins) : null;
+		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
@@ -103,7 +103,7 @@ public final class Query<R> implements Serializable
 		this.distinct = query.distinct;
 		this.type = query.type;
 		this.joinIndex = query.joinIndex;
-		this.joins = query.joins!=null ? new ArrayList<Join>(query.joins) : null;
+		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
@@ -138,7 +138,7 @@ public final class Query<R> implements Serializable
 	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
 	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
-		return new Query<List<Object>>(selects, type, condition);
+		return new Query<>(selects, type, condition);
 	}
 
 	Selectable<?>[] selects()
@@ -225,7 +225,7 @@ public final class Query<R> implements Serializable
 	private Join join(final Join join)
 	{
 		if(joins==null)
-			joins = new ArrayList<Join>();
+			joins = new ArrayList<>();
 
 		joins.add(join);
 
@@ -577,7 +577,7 @@ public final class Query<R> implements Serializable
 	 */
 	public Result<R> searchAndTotal()
 	{
-		return new Result<R>(this);
+		return new Result<>(this);
 	}
 
 	public static final class Result<R>
@@ -996,7 +996,7 @@ public final class Query<R> implements Serializable
 			}
 		}
 
-		final ArrayList<Object> result = new ArrayList<Object>();
+		final ArrayList<Object> result = new ArrayList<>();
 
 		if(totalOnly && distinct)
 		{

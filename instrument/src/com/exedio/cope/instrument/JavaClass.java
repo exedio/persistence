@@ -40,8 +40,8 @@ final class JavaClass extends JavaFeature
 {
 	final CopeNameSpace nameSpace;
 
-	private final HashMap<String, JavaField> fields = new HashMap<String, JavaField>();
-	private final ArrayList<JavaField> fieldList = new ArrayList<JavaField>();
+	private final HashMap<String, JavaField> fields = new HashMap<>();
+	private final ArrayList<JavaField> fieldList = new ArrayList<>();
 	final boolean isEnum;
 	final String classExtends;
 	private String docComment;
@@ -228,7 +228,7 @@ final class JavaClass extends JavaFeature
 
 	}
 
-	final HashMap<Object, JavaField> javaFieldsByInstance = new HashMap<Object, JavaField>();
+	final HashMap<Object, JavaField> javaFieldsByInstance = new HashMap<>();
 
 	void registerInstance(final JavaField field, final Object instance)
 	{

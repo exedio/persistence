@@ -54,7 +54,7 @@ final class JavaFile
 	private boolean buildStageForImports = true;
 
 	final JavaRepository repository;
-	final ArrayList<JavaClass> classes = new ArrayList<JavaClass>();
+	final ArrayList<JavaClass> classes = new ArrayList<>();
 
 	final StringBuilder buffer = new StringBuilder();
 

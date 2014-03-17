@@ -53,7 +53,7 @@ public final class Importer<K extends Object> extends Pattern
 
 	public static final <K> Importer<K> create(final FunctionField<K> key)
 	{
-		return new Importer<K>(key);
+		return new Importer<>(key);
 	}
 
 	public FunctionField<K> getKey()
