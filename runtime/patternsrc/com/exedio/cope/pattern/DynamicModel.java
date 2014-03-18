@@ -605,7 +605,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addField(String,com.exedio.cope.pattern.DynamicModel.ValueType)} instead
+		 * @deprecated Use {@link #addField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup, com.exedio.cope.pattern.DynamicModel.ValueType)} instead
 		 */
 		@Deprecated
 		public Field<L> addAttribute(final String code, final ValueType valueType)
@@ -614,7 +614,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addStringField(String)} instead
+		 * @deprecated Use {@link #addStringField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
 		 */
 		@Deprecated
 		public Field<L> addStringAttribute(final String code)
@@ -623,7 +623,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addBooleanField(String)} instead
+		 * @deprecated Use {@link #addBooleanField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
 		 */
 		@Deprecated
 		public Field<L> addBooleanAttribute(final String code)
@@ -632,7 +632,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addIntegerField(String)} instead
+		 * @deprecated Use {@link #addIntegerField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
 		 */
 		@Deprecated
 		public Field<L> addIntegerAttribute(final String code)
@@ -641,7 +641,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addDoubleField(String)} instead
+		 * @deprecated Use {@link #addDoubleField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
 		 */
 		@Deprecated
 		public Field<L> addDoubleAttribute(final String code)
@@ -650,7 +650,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addEnumField(String)} instead
+		 * @deprecated Use {@link #addEnumField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
 		 */
 		@Deprecated
 		public Field<L> addEnumAttribute(final String code)
