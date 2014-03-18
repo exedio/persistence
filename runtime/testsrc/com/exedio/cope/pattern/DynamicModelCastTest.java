@@ -57,12 +57,12 @@ public class DynamicModelCastTest extends AbstractRuntimeTest
 		final Type<Locale> alpha2 = deleteOnTearDown(ModelItem.alpha.createType("alpha2"));
 		final Type<Locale> alfax  = deleteOnTearDown(ModelItem.alfa .createType("alfax"));
 		final Type<String> betax  = deleteOnTearDown(ModelItem.beta .createType("betax"));
-		final Field<Locale> alphaS  = alpha1.addStringField("alphaS", null);
-		final Field<Locale> alpha1a = alpha1.addEnumField("alpha1a", null);
-		final Field<Locale> alpha1b = alpha1.addEnumField("alpha1b", null);
-		final Field<Locale> alpha2x = alpha2.addEnumField("alpha2x", null);
-		final Field<Locale> alfaxx  = alfax .addEnumField("alfaxx", null);
-		final Field<String> betaxx  = betax .addEnumField("betaxx", null);
+		final Field<Locale> alphaS  = alpha1.addStringField("alphaS");
+		final Field<Locale> alpha1a = alpha1.addEnumField("alpha1a");
+		final Field<Locale> alpha1b = alpha1.addEnumField("alpha1b");
+		final Field<Locale> alpha2x = alpha2.addEnumField("alpha2x");
+		final Field<Locale> alfaxx  = alfax .addEnumField("alfaxx");
+		final Field<String> betaxx  = betax .addEnumField("betaxx");
 		final Enum<Locale> alpha1aEnum = alpha1a.addEnumValue("alpha1a1");
 
 		assertSame(alpha1aEnum, alpha1a.as(alpha1aEnum));

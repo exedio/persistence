@@ -248,7 +248,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(true, item2.getFeatures(bluetooth));
 		assertEquals(2.2, item2.getFeatures(length));
 
-		final DynamicModel.Field<DynamicModelLocalizationItem> color = organizer.addEnumField("color", null);
+		final DynamicModel.Field<DynamicModelLocalizationItem> color = organizer.addEnumField("color");
 		assertEquals(ValueType.ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
@@ -278,7 +278,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		item2.setFeatures(color, colorBlue);
 		assertEquals(colorBlue, item2.getFeatures(color));
 
-		final DynamicModel.Field<DynamicModelLocalizationItem> manufacturer = organizer.addEnumField("manufacturer", null);
+		final DynamicModel.Field<DynamicModelLocalizationItem> manufacturer = organizer.addEnumField("manufacturer");
 		assertEquals(ValueType.ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());

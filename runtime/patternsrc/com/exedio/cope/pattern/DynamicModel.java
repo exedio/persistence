@@ -508,6 +508,11 @@ public final class DynamicModel<L> extends Pattern
 			return (DynamicModel<L>)getCopeType().getPattern();
 		}
 
+		public Field<L> addField(final String code, final ValueType valueType)
+		{
+			return addField(code, null, valueType);
+		}
+
 		public Field<L> addField(final String code, final FieldGroup<L> group, final ValueType valueType)
 		{
 			final DynamicModel<L> p = getPattern();
@@ -532,9 +537,19 @@ public final class DynamicModel<L> extends Pattern
 			return m.fieldType.search(m.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 
+		public Field<L> addStringField(final String code)
+		{
+			return addStringField(code, null);
+		}
+
 		public Field<L> addStringField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.STRING);
+		}
+
+		public Field<L> addBooleanField(final String code)
+		{
+			return addBooleanField(code, null);
 		}
 
 		public Field<L> addBooleanField(final String code, final FieldGroup<L> group)
@@ -542,14 +557,29 @@ public final class DynamicModel<L> extends Pattern
 			return addField(code, group, ValueType.BOOLEAN);
 		}
 
+		public Field<L> addIntegerField(final String code)
+		{
+			return addIntegerField(code, null);
+		}
+
 		public Field<L> addIntegerField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.INTEGER);
 		}
 
+		public Field<L> addDoubleField(final String code)
+		{
+			return addDoubleField(code, null);
+		}
+
 		public Field<L> addDoubleField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.DOUBLE);
+		}
+
+		public Field<L> addEnumField(final String code)
+		{
+			return addEnumField(code, null);
 		}
 
 		public Field<L> addEnumField(final String code, final FieldGroup<L> group)
@@ -605,57 +635,57 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup, com.exedio.cope.pattern.DynamicModel.ValueType)} instead
+		 * @deprecated Use {@link #addField(java.lang.String, com.exedio.cope.pattern.DynamicModel.ValueType)} instead
 		 */
 		@Deprecated
 		public Field<L> addAttribute(final String code, final ValueType valueType)
 		{
-			return addField(code, null, valueType);
+			return addField(code, valueType);
 		}
 
 		/**
-		 * @deprecated Use {@link #addStringField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
+		 * @deprecated Use {@link #addStringField(java.lang.String)} instead
 		 */
 		@Deprecated
 		public Field<L> addStringAttribute(final String code)
 		{
-			return addStringField(code, null);
+			return addStringField(code);
 		}
 
 		/**
-		 * @deprecated Use {@link #addBooleanField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
+		 * @deprecated Use {@link #addBooleanField(java.lang.String)} instead
 		 */
 		@Deprecated
 		public Field<L> addBooleanAttribute(final String code)
 		{
-			return addBooleanField(code, null);
+			return addBooleanField(code);
 		}
 
 		/**
-		 * @deprecated Use {@link #addIntegerField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
+		 * @deprecated Use {@link #addIntegerField(java.lang.String)} instead
 		 */
 		@Deprecated
 		public Field<L> addIntegerAttribute(final String code)
 		{
-			return addIntegerField(code, null);
+			return addIntegerField(code);
 		}
 
 		/**
-		 * @deprecated Use {@link #addDoubleField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
+		 * @deprecated Use {@link #addDoubleField(java.lang.String)} instead
 		 */
 		@Deprecated
 		public Field<L> addDoubleAttribute(final String code)
 		{
-			return addDoubleField(code, null);
+			return addDoubleField(code);
 		}
 
 		/**
-		 * @deprecated Use {@link #addEnumField(java.lang.String, com.exedio.cope.pattern.DynamicModel.FieldGroup)} instead
+		 * @deprecated Use {@link #addEnumField(java.lang.String)} instead
 		 */
 		@Deprecated
 		public Field<L> addEnumAttribute(final String code)
 		{
-			return addEnumField(code, null);
+			return addEnumField(code);
 		}
 
 		/**
