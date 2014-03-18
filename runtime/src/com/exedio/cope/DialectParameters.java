@@ -1,0 +1,72 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import com.exedio.dsmf.SQLRuntimeException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+final class DialectParameters
+{
+	final ConnectProperties properties;
+
+	// probed on the initial connection
+	final EnvironmentInfo environmentInfo;
+	final NullsAreSorted nullsAreSorted;
+
+	DialectParameters(final ConnectProperties properties, final Connection connection)
+	{
+		this.properties = properties;
+
+		try
+		{
+			final DatabaseMetaData dmd = connection.getMetaData();
+			this.environmentInfo = new EnvironmentInfo(dmd);
+			this.nullsAreSorted = NullsAreSorted.valueOf(dmd);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getMetaData");
+		}
+	}
+
+	Map<String, String> getRevisionEnvironment()
+	{
+		final HashMap<String, String> env = new HashMap<>();
+
+		try
+		{
+			env.put("hostname", InetAddress.getLocalHost().getHostName());
+		}
+		catch(final UnknownHostException e)
+		{
+			// do not put in hostname
+		}
+
+		properties.putRevisionEnvironment(env);
+		environmentInfo.putRevisionEnvironment(env);
+
+		return env;
+	}
+}

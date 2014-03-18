@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project
+		xmlns:ivy="antlib:org.apache.ivy.ant"
+		name="ivy-common">
+
+	<taskdef
+			resource="net/sf/antcontrib/antcontrib.properties"
+			classpath="../../lib/ant-contrib.jar" />
+
+	<target name="resolve">
+		<delete dir="artifacts" />
+		<mkdir dir="artifacts" />
+		<get src="http://download.exedio.com/artifacts/ivy.jar" dest="artifacts/ivy.jar" />
+		<get src="http://download.exedio.com/artifacts/ivysettings.xml" dest="artifacts/ivysettings.xml" />
+		<taskdef
+			resource="org/apache/ivy/ant/antlib.xml"
+			classpath="artifacts/ivy.jar"
+			uri="antlib:org.apache.ivy.ant" />
+		<ivy:settings file="artifacts/ivysettings.xml" />
+		<fetch conf="runtime" />
+		<fetch conf="mysql" />
+		<fetch conf="hsqldb" />
+		<fetch conf="oracle" />
+		<fetch conf="postgresql" />
+		<fetch conf="junit" />
+		<fetch conf="test" />
+		<fetch conf="sources" />
+	</target>
+		
+	<macrodef name="fetch">
+		<attribute name="conf" />
+		<sequential>
+			<mkdir dir="artifacts/@{conf}" />
+			<copy file="template.xml" tofile="artifacts/@{conf}.xml" overwrite="true">
+				<filterset>
+					<filter token="CONF" value="@{conf}" />
+				</filterset>
+			</copy>
+			<ivy:resolve file="artifacts/@{conf}.xml" />
+			<ivy:retrieve file="artifacts/@{conf}.xml" pattern="artifacts/@{conf}/[artifact]-[type].[ext]" />
+			<delete file="@{conf}.txt" />
+			<for param="file">
+				<path>
+					<fileset dir="artifacts/@{conf}" includes="*" />
+				</path>
+				<sequential>
+					<basename file="@{file}" property="@{file}-base" />
+					<echo message="${@{file}-base}${line.separator}" file="@{conf}.txt" append="true" />
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+
+</project>

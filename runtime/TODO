@@ -1,0 +1,99 @@
+
+TODO for cope runtime
+
+- search API
+	- oracle statistics
+	- group by
+	- allow accessing features of subtypes of bound types
+	- condition DataField.is[Not]Null
+		use this on Media for CheckConstraint
+	- order by with customizable null low/high
+- application triggered Save Points for partial transaction rollback
+- EnumField:
+	* optionally put strings in DB
+- Media:
+	* maintain charset in Content-Type for texts
+	* optionally maintain filename param in Content-Disposition header
+	* implement MediaAlias
+	* redundantly maintain width/height for images
+	* implement Accept-Ranges - needed for streaming video
+- CheckConstraints: make them work with conditions on fields of super type.
+- Hash: allow migration between algorithms
+	- nested algorithms for increasing security instantly
+	- migration whenever plain text is known
+	- increase iterations
+- interface Deletable, to allow explicitly deleting items
+	otherwise its forbidden.
+- Global History / Undo facility for backoffice, that can undo deletes as well.
+- MySQL: warning, if row could exceed 8000 bytes limit
+- feature reuse with copy() for Order.articleName
+	* copy() for all features
+- Connection Pool: throw exception, if transaction is not closed when putting back to pool
+- enable clustering
+	* make revisions cluster aware
+	* test configuration of tomcat
+- Price
+	* handle overflows strictly
+	* use LongField for larger numbers
+	* support currencies
+		- with different factors to smaller unit
+- move DateField#touch into separate pattern Timestamp
+- SetFieldOrdered: SetField with explicit order
+- patterns such as PriceField as function for select and orderBy
+- Copy Constraint
+	* allow non-final fields
+	* support DefaultAddress scenario
+- allow declaring indexes / other schema modification in SQL.
+- use getForeignKeyInfo() etc. from JDBC for verifying dsmf schema
+- allow (fulltext) indexes to be declared in java source code,
+	and generate useful finders for index.
+- test model:
+	* put classes for patterns into separate package
+	* make small test models for each lib test
+- support JMX for information displayed by ConsoleServlet
+- separate into own sub-projects:
+	* instrumentor
+
+performance / memory consumption
+--------------------------------
+
+- Media:
+	* store text/* gzipped and deliver as such to the browser
+	* https://developers.google.com/speed/docs/best-practices/rules_intro
+		- increase Expires header, is currently 5 seconds, maximum allowed by standard is 1 year.
+		- Cache-Control: public on non-@PreventUrlGuessing
+			* for Firefox workaround ?
+			* for proxies near client
+		- cookieless domain or CDN
+		- minify .css and .js
+		- put dimensions of images into html or css
+	* @PreventUrlGuessing
+		- propagate from Media to its MediaFilters
+		- do not compute secret in url, but store in database
+		- do not put url secret into query parameter, but integrate into url path
+- ConnectionPool:
+	* replace expensive connection testing on retrieval from pool
+		by periodic expiry of connections that have not been used for some time.
+	* show information about expired connection / last expiry run in console
+- Use auto-increment instead of sequences
+- less updating:
+	- omit updates, when a setter sets a field to an unchanged value
+	- update only columns, that have changed
+	- update only tables (in type hierarchy) with changed columns
+	This will decrease the size of MySQL binary logs (and similar functions of other RDBMS) as well.
+- ItemCache: store values in three arrays int[], double[], String[] instead of a Map,
+	saves lots of objects going through full GC.
+	* implement pooling for various classes, especcially when trove LinkedHashMap is done
+	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
+- QueryCache:
+	* implement similar compact representation as for Cache
+	* special handling for empty/singleton results saving memory
+	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
+- ActivationCache
+	cache instance of subclasses of Item independently of ItemCache,
+	even if the model is not yet connected
+- trove:
+	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
+	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
+- rethink internal structure of Entity, State, Row
+- special handling of searches by unique constraints, bypassing QueryCache

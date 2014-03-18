@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="dsmf/src"/>
+	<classpathentry excluding="log4j.properties" kind="src" path="dsmf/testsrc"/>
+	<classpathentry kind="src" path="runtime/src"/>
+	<classpathentry kind="src" path="runtime/junitsrc"/>
+	<classpathentry kind="src" path="runtime/patternsrc"/>
+	<classpathentry kind="src" path="runtime/servletsrc"/>
+	<classpathentry kind="src" path="runtime/servlettestsrc"/>
+	<classpathentry kind="src" path="runtime/servlettestwebsrc"/>
+	<classpathentry kind="src" path="runtime/utiltestsrc"/>
+	<classpathentry kind="src" path="runtime/testfeaturesrc"/>
+	<classpathentry excluding="log4j.properties" kind="src" path="runtime/testsrc"/>
+	<classpathentry kind="src" path="runtime/mysqlsrc"/>
+	<classpathentry kind="src" path="runtime/postgresqlsrc"/>
+	<classpathentry kind="src" path="instrument/annosrc"/>
+	<classpathentry kind="src" path="instrument/src"/>
+	<classpathentry kind="src" path="instrument/antsrc"/>
+	<classpathentry kind="src" path="instrument/testfeaturesrc"/>
+	<classpathentry kind="src" path="instrument/testsrc"/>
+	<classpathentry kind="var" path="ANT_JAR"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
+	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-sources.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar" sourcepath="lib/junit-source.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api.jar-src.zip"/>
+	<classpathentry kind="lib" path="lib/trove.jar" sourcepath="lib/trove-src.jar"/>
+	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
+	<classpathentry kind="lib" path="lib/jdbc/mysql-connector-java.jar"/>
+	<classpathentry kind="lib" path="lib/jdbc/postgresql.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/jdbc/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar" sourcepath="lib/log4j-source.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12.jar"/>
+	<classpathentry kind="lib" path="lib/exedio-cope-servletutil.jar" sourcepath="lib/exedio-cope-servletutil-src.zip"/>
+	<classpathentry kind="output" path=".eclipse-output"/>
+</classpath>

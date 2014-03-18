@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<listener>
+		<listener-class>com.exedio.cope.web.PropertiesInitializer</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>integerConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.IntegerModelTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>integerConsole</servlet-name>
+		<url-pattern>/integer/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>deleteConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.DeleteTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteConsole</servlet-name>
+		<url-pattern>/delete/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dayConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.DayFieldTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dayConsole</servlet-name>
+		<url-pattern>/day/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dataConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.DataTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dataConsole</servlet-name>
+		<url-pattern>/data/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>hashConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.HashTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hashConsole</servlet-name>
+		<url-pattern>/hash/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>md5Console</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.MD5Test#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>md5Console</servlet-name>
+		<url-pattern>/md5/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>fieldListConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.ListFieldTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>fieldListConsole</servlet-name>
+		<url-pattern>/fieldList/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>fieldListLimitedConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.LimitedListFieldTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>fieldListLimitedConsole</servlet-name>
+		<url-pattern>/fieldListLimited/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>cacheIsolationConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.CacheIsolationTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cacheIsolationConsole</servlet-name>
+		<url-pattern>/cacheIsolation/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>nameConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.NameTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>nameConsole</servlet-name>
+		<url-pattern>/name/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>matchConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.MatchTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>matchConsole</servlet-name>
+		<url-pattern>/match/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>hierarchyConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.HierarchyTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hierarchyConsole</servlet-name>
+		<url-pattern>/hierarchy/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>instanceOfConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.InstanceOfTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>instanceOfConsole</servlet-name>
+		<url-pattern>/instanceOf/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>hiddenFeatureConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.HiddenFeatureTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hiddenFeatureConsole</servlet-name>
+		<url-pattern>/hiddenFeature/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>dispatcherConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.pattern.DispatcherTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherConsole</servlet-name>
+		<url-pattern>/dispatcher/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>copyConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.CopyTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>copyConsole</servlet-name>
+		<url-pattern>/copy/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>defaultToConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.DefaultToTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>defaultToConsole</servlet-name>
+		<url-pattern>/defaultTo/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>samplerConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.sampler.Stuff#samplerModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>samplerConsole</servlet-name>
+		<url-pattern>/sampler/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>mxSamplerConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.mxsampler.Stuff#samplerModel</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mxSamplerConsole</servlet-name>
+		<url-pattern>/mxsampler/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>badQueryConsole</servlet-name>
+		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
+		<init-param>
+			<param-name>model</param-name>
+			<param-value>com.exedio.cope.badquery.BadQueryTest#MODEL</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>badQueryConsole</servlet-name>
+		<url-pattern>/badQuery/console/*</url-pattern>
+	</servlet-mapping>
+	
+	<description>Cope Test Application</description>
+	<display-name>Cope Test Application</display-name>
+	
+	<session-config>
+		<session-timeout>1<!--minute--></session-timeout>
+	</session-config>
+	
+</web-app>

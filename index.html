@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>COPE - Cope with Object Persistence</title>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<a target="_blank" href="http://cope.sourceforge.net/">homepage</a>,
+			</li>
+			<li>
+				<a target="_blank" href="http://cope.sourceforge.net/api/">API documentation</a>,
+				<a target="_blank" href="build/api/index.html">local</a> (run <code>ant api</code> to build)
+			</li>
+			<li>
+				<a target="_blank" href="build/testprotocol.html">Test Protocol</a> (run <code>ant testprotocol</code> to build)
+			</li>
+			<li>
+				FindBugs:
+				<a target="_blank" href="build/findbugs-prod.html">prod</a>,
+				<a target="_blank" href="build/findbugs-test.html">test</a>,
+				(run <code>ant findbugs</code> to build)
+			</li>
+			<li><a target="_blank" href="TODO">todo</a>
+			<li>
+				tomcat:
+				<a target="_blank" href="http://localhost:8080/manager/html">manager</a>,
+				<a target="_blank" href="http://localhost:8080/host-manager/html">host-manager</a>
+			</li>
+			<li><a target="_blank" href="build/environments/">environments</a> (run <code>ant index</code> to build)</li>
+			<li>
+				servlet test environments:
+				<ul>
+					<li>
+						<form action="http://localhost:8080/copetest/console/schema.html" method="POST">
+							<a href="http://localhost:8080/copetest/console">console</a>
+							<input type="submit" name="schema.create" value="create" />
+							<input type="submit" name="schema.drop" value="drop" />
+						</form>
+					</li>
+					<li>
+						<form action="http://localhost:8080/copetest/init.jsp" method="POST">
+							<a href="http://localhost:8080/copetest/init.jsp">init</a>
+							<input type="submit" name="INIT" value="init" />
+						</form>
+					</li>
+					<li>
+						media:
+						<a target="_blank" href="http://localhost:8080/cope-runtime-servlet/init/">init</a>,
+						<a target="_blank" href="http://localhost:8080/cope-runtime-servlet/mediaConsole">console</a>
+						(admin/nimda)
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
+</html>

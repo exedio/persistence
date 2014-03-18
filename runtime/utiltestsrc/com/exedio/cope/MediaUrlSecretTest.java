@@ -1,0 +1,147 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.Sources;
+import java.util.Properties;
+import junit.framework.TestCase;
+
+public class MediaUrlSecretTest extends TestCase
+{
+	public void testOff()
+	{
+		final ConnectProperties props = props(null);
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	public void testOn()
+	{
+		final ConnectProperties props = props("1234567890");
+		model.connect(props);
+
+		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
+	}
+
+	public void testTooShort()
+	{
+		final ConnectProperties props = props("123456789");
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	public void testEmpty()
+	{
+		final ConnectProperties props = props("");
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	private static ConnectProperties props(final String secret)
+	{
+		final Properties source = new Properties();
+		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
+		source.setProperty("connection.username", "sa");
+		source.setProperty("connection.password", "");
+		final Properties context = new Properties();
+		if(secret!=null)
+			context.setProperty("media.url.secret", secret);
+		return new ConnectProperties(
+				Sources.view(source , "MediaUrlSecretTestSource" ),
+				Sources.view(context, "MediaUrlSecretTestContext"));
+	}
+
+	public void testOffNoContext()
+	{
+		final ConnectProperties props = propsNoContext(null);
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	public void testOnNoContext()
+	{
+		final ConnectProperties props = propsNoContext("1234567890");
+		model.connect(props);
+
+		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals("1234567890", props.getMediaUrlSecret());
+	}
+
+	public void testTooShortNoContext()
+	{
+		try
+		{
+			propsNoContext("123456789");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("media.url.secret must be at least 10 characters, but just has 9", e.getMessage());
+		}
+	}
+
+	public void testEmptyNoContext()
+	{
+		final ConnectProperties props = propsNoContext("");
+		model.connect(props);
+
+		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
+		assertEquals(null, props.getMediaUrlSecret());
+	}
+
+	private static ConnectProperties propsNoContext(final String secret)
+	{
+		final Properties source = new Properties();
+		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
+		source.setProperty("connection.username", "sa");
+		source.setProperty("connection.password", "");
+		if(secret!=null)
+			source.setProperty("media.url.secret", secret);
+		return new ConnectProperties(
+				Sources.view(source , "MediaUrlSecretTestSource"),
+				null);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		if(model.isConnected())
+			model.disconnect();
+		super.tearDown();
+	}
+
+	static class AnItem extends Item
+	{
+		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		private static final long serialVersionUID = 1l;
+		private AnItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	private static final Model model = new Model(AnItem.TYPE);
+}

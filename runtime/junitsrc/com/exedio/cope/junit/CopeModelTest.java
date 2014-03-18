@@ -1,0 +1,116 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.junit;
+
+import com.exedio.cope.ChangeListener;
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.util.ModificationListener;
+import com.exedio.cope.util.Properties;
+
+/**
+ * An abstract test case class for tests creating/using some persistent data.
+ * @author Ralf Wiebicke
+ */
+public abstract class CopeModelTest extends CopeAssert
+{
+	protected final Model model;
+
+	protected CopeModelTest(final Model model)
+	{
+		this.model = model;
+	}
+
+	public final Model getModel()
+	{
+		return model;
+	}
+
+	/**
+	 * Override this method to provide your own connect properties
+	 * to method {@link #setUp()} for connecting.
+	 */
+	public ConnectProperties getConnectProperties()
+	{
+		return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
+	}
+
+	/**
+	 * Override this method returning false if you do not want
+	 * method {@link #setUp()} to create a transaction for you.
+	 * The default implementation returns true.
+	 */
+	protected boolean doesManageTransactions()
+	{
+		return true;
+	}
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		ModelConnector.connectAndCreate(model, getConnectProperties());
+		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
+
+		if(doesManageTransactions())
+			model.startTransaction("tx:" + getClass().getName());
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		// NOTE:
+		// do rollback even if manageTransactions is false
+		// because test could have started a transaction
+		model.rollbackIfNotCommitted();
+
+		model.setDatabaseListener(null);
+		for(final ChangeListener cl : model.getChangeListeners())
+			model.removeChangeListener(cl);
+		for(final ModificationListener ml : model.getModificationListeners())
+			model.removeModificationListener(ml);
+		ModelConnector.dropAndDisconnect();
+		super.tearDown();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated
+	 * Not needed anymore, since {@link #tearDown()}
+	 * deletes the contents of the database.
+	 * Does not do anything.
+	 */
+	@SuppressWarnings("static-method")
+	@Deprecated
+	protected final <I extends Item> I deleteOnTearDown(final I item)
+	{
+		return item;
+	}
+
+	/**
+	 * @deprecated Is not used anymore, has been replaced by log4j
+	 */
+	@Deprecated
+	protected boolean doesWriteTiming()
+	{
+		return false;
+	}
+}

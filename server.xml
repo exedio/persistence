@@ -1,0 +1,35 @@
+<!--
+	This is a tomcat server.xml for suitable for testing the
+	web applications of the COPE project.
+-->
+<Server port="@PORT_SHUTDOWN@" shutdown="SHUTDOWN">
+	<GlobalNamingResources>
+		<Resource
+				name="UserDatabase"
+				auth="Container"
+				type="org.apache.catalina.UserDatabase"
+				description="Read-only user database in tomcat-users.xml"
+				factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+				readonly="true" />
+	</GlobalNamingResources>
+	<Service name="Catalina">
+		<!-- For COPE: needs useBodyEncodingForURI, otherwise special character are
+				corrupted when using GET-after-POST forms -->
+		<Connector
+				port="@PORT_HTTP@" maxHttpHeaderSize="8192"
+				maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+				enableLookups="false" redirectPort="8443" acceptCount="100"
+				useBodyEncodingForURI="true"
+				connectionTimeout="20000" disableUploadTimeout="true" />
+		<Engine name="Catalina" defaultHost="localhost">
+			<!-- This Realm uses the UserDatabase configured in the global JNDI
+					resources under the key "UserDatabase". -->
+			<Realm
+					className="org.apache.catalina.realm.UserDatabaseRealm"
+					resourceName="UserDatabase" />
+			<Host name="localhost" appBase="webapps"
+					unpackWARs="true" autoDeploy="true"
+					xmlValidation="false" xmlNamespaceAware="false" />
+		</Engine>
+	</Service>
+</Server>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+	BEWARE:
+	This file is overwritten (and canonized) by the tomcat server,
+	unless writing of this file is disabled in conf/server.xml as below:
+	
+	<Resource ...
+		factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+		readonly="true" />
+-->
+<tomcat-users>
+	<role rolename="manager" description="Tomcat Web Application Manager" />
+	<role rolename="admin" description="Tomcat Virtual Host Manager" />
+	<user username="admin" password="nimda" roles="manager,admin" />
+</tomcat-users>

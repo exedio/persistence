@@ -1,0 +1,63 @@
+
+CHANGELOG for cope util
+
+This file lists all changes relevant for the user - especially all
+API changes and new features recommended for most users. The log may
+omit bug fixes.
+The items are sorted inversely, i.e. latest items are on top
+
+--------------------------------------------------------------------------
+* Clock added and used by Day
+* bugfix: Pool get counter is incremented even if create fails
+* bugfix: Pool fails with idleLimit==idleInitial on first put
+* Sources#load(URL) added
+* Sources#cascade added
+* constructor Properties(Source source) added,
+	is equivalent to Properties(source, null) which has been deprecated
+* StringField#hide() replaced by Properties#valueHidden
+	This breaks backwards API compatibility since svn24386 jenkins245copeutil 2012-09-21_21-44-57
+* Properties supports value-methods and optional nesting
+* Sources#checkKey added
+* Properties supports nesting
+* SequenceChecker is and always was not suitable for concurrent access.
+	Certain internal states are not volatile anymore.
+* JobContext#requestedToStop deprecated
+* CharsetName added.
+* add Day#after(Day) method
+* add Day#before(Day) method
+* add JobContext#stopIfRequested()
+* deprecate Interrupter in favour of JobContext
+* add JobContexts
+* add ProxyJobContext
+* add Properties.EMPTY_SOURCE
+* rename SafeFile to StrictFile
+* add AssertionErrorJobContext
+* add JobContext&Co
+* add Interrupters#iterator
+* add Hex#encode[Lower|Upper](bytes, offset, length)
+* add Day#valueOf methods
+* add Day constructors with long
+* add Day constructors with GregorianCalendar and XMLGregorianCalendar
+* add Day#getGregorianCalendar
+* add Day#getXMLGregorianCalendar
+* add PrefixSource
+* add Day#getTimeFrom/To
+* add Day#getTimeInMillisTo()
+* add Hex#decodeLower
+* add SafeFile
+* add Properties#getTests()
+* add Hex#append
+* add MessageDigestUtil
+* add Hex
+* add Interrupters
+* add CharSet.indexOfNotContains(String)
+* Day implements Comparable
+* add XMLEncoder.append(StringBuilder, char)
+* add XMLEncoder.append(StringBuilder, String)
+* add XMLEncoder
+* add class Cast
+* rename Pool.Info.getIdleCounter to getIdleLevel
+	 deprecated method with old name is provided
+* add Pool.Info.getIdle[Limit|Initial]
+* added getPending to SequenceChecker.Info
+* renamed SequenceChecker.Counter to Info

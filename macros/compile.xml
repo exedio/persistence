@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<project name="compile" default="fail" basedir=".">
+
+	<macrodef name="compile">
+		<attribute name="srcdir" />
+		<attribute name="includeAntRuntime" default="false" />
+		<element name="classpath" optional="true" implicit="true" />
+		<sequential>
+			<!--echo message="local compile @{srcdir}" /-->
+			<mkdir dir="build/classes/@{srcdir}" />
+			<javac srcdir="@{srcdir}"
+					 destdir="build/classes/@{srcdir}"
+					 includeAntRuntime="@{includeAntRuntime}"
+					 source="1.7"
+					 deprecation="on"
+					 debug="on"
+					 optimize="off">
+				<classpath />
+				<compilerarg value="-Xlint" />
+				<compilerarg value="-encoding" />
+				<compilerarg value="ascii" />
+				<compilerarg value="-Xmaxwarns" />
+				<compilerarg value="10000" />
+			</javac>
+			<copy todir="build/classes/@{srcdir}">
+				<fileset dir="@{srcdir}">
+					<include name="**/*.zip" />
+					<include name="**/*.gif" />
+					<include name="**/*.png" />
+					<include name="**/*.jpg" />
+					<include name="**/*.css" />
+					<include name="**/*.html" />
+					<include name="**/*.js" />
+					<include name="**/*.properties" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+	
+</project>

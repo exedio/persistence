@@ -1,0 +1,960 @@
+
+CHANGELOG for cope
+
+This file lists all changes relevant for the user - especially all
+API changes and new features recommended for most users. The log may
+omit bug fixes.
+The items are sorted inversely, i.e. latest items are on top
+
+--------------------------------------------------------------------------
+* CopeAssert#listg removed
+	This breaks backwards API compatibility, causes compiler error.
+* requires JDK 1.7u6
+* HashInterface#getHash(Item) added
+	This breaks backwards API compatibility, causes compiler error.
+* HashInterface#set added
+	This breaks backwards API compatibility, causes compiler error.
+* TypeSet#getExplicitTypes() added
+* RevisionStatistics added
+* Price#divide(double) added.
+* Revision table gets primary key instead of unique constraint.
+	BEWARE: This affects database schema.
+	The following revision is needed:
+
+		new Revision(nnn, "Revision table gets primary key instead of unique constraint",
+			"ALTER TABLE `while` DROP INDEX `protected`",
+			"ALTER TABLE `while` MODIFY `v` int PRIMARY KEY")
+
+* Revision constructor forbids empty comment and body strings.
+	This breaks backwards API compatibility, but probably will not cause problems.
+* bugfix: exception when deleting items with DeletePolicy.FORBID
+* <instrument hidingWarningSuppressor="hiding" ... supported
+* UniqueHashedMedia added
+* ConnectProperties: option cache.item.invalidateLast renamed to cache.stamps
+
+* bugfix: reworked invalidateLast mechanism to use AtomicLong instead of System.nanoTime
+	- removed connect property cache.item.invalidateLast.margin
+	- fixes rare failure of copetest:
+		Testcase: testOverlappingTwice(com.exedio.cope.ItemCacheInvalidateLastPurgeTest): FAILED
+		junit.framework.AssertionFailedError: invalidateLastSize expected:<0> but was:<2>
+			at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.assertCache(ItemCacheInvalidateLastPurgeTest.java:225)
+			at com.exedio.cope.ItemCacheInvalidateLastPurgeTest.testOverlappingTwice(ItemCacheInvalidateLastPurgeTest.java:177)
+
+* copetest bugfix: "EmptyItem-[0]> but was:<EmptyItem-[1]" in ItemTest line 228/62
+* bugfix: Price#valueOf(double) sometimes did wrong rounding in equidistant case
+* ConnectionFactory#isValidOnPut logs failures.
+* DataField parts become none-public:
+	- constructor Value()
+	- class ArrayValue
+	- method ArrayValue#asArray
+	This breaks backwards API compatibility, causes compiler error.
+* EnumSetField.toFinal() supported
+* final Media and MediaFilter do get an Expires time of one year
+	instead of the value configured by media.offsetExpires.
+	This breaks backwards API compatibility, but probably will not cause problems.
+* Model.purgeSchema added.
+	It is recommended to call this method once a day to give cope the chance
+	to purge sequence tables on MySQL.
+* MediaPath.Locator supports getContentType
+* MediaPath.Locator supports equals/hashCode
+* fix deadlock in copetest on JDK 1.7
+* Extend MediaType 
+	allow multiple extentions; first is default
+		MIGRATION	MediaType.getExtension()->MediaType.getDefaultExtension() or MediaType.getExtensions()
+	add ".jpeg" to JPG extensions
+	new constants for JAR and fonts
+	change default mime for TTF font/ttf->application/x-font-ttf
+	change default mime for WOFF application/font-woff->application/x-font-woff
+	add DOCX mediatype
+* MediaRequestLog#isSecure() added
+* HashInterface#isNull(Item) added
+	This breaks backwards API compatibility, causes compiler error.
+* Schedule archives interval for each run.
+	BEWARE: This affects database schema. A new column is required, and must
+	be initialized with meaningful values.
+
+		alter table `SomeItem_schedule_Run` add column `interval` int not null
+		update `SomeItem_schedule_Run` r join `SomeItem` s on s.`this`=r.`parent` set r.`interval`=s.`schedule_interval`
+
+* dropped support for MySQL 5.0 and 5.1, new minimum requirement is MySQL 5.5
+* Price supports toStringShort()
+* MediaPath supports MediaRequestLog
+* @CopeID renamed to @CopeName
+	This breaks backwards API compatibility, causes compiler error.
+* PriceField supports convenience methods for conditions:
+	is[Not]Null, [not]Equal, less[OrEqual], greater[OrEqual], between
+* ColorField added
+* instrumentor omits MediaFilter#getURLWithFallbackToSource, if it makes
+	no sense to call this method, because it behaves equally to #getURL.
+* "batchedSequence" primary key generation mode added
+  activate with schema.primaryKeyGenerator=batchedSequence
+* Hash applies a default limit of 150 characters for plain texts.
+	This is a precaution against DOS attacks with very long plain texts.
+
+	BEWARE:
+	This renders all passwords in your database longer than 150 characters useless.
+	If you don't want this, set a higher limit via Hash#limit(int).
+
+* @UrlFingerPrinting added
+* Conditions helper class added
+* MediaType.SVG added
+* instrumentor removes support for old code layout of Activation Constructors.
+	In build.xml, the following parameter:
+		<instrument activationConstructorOnBottom="false" ...
+	is no longer supported.
+	The instrumentor now behaves as specified by the default (true) of the option.
+* bugfix: This#checkTypeColumn did report false positives in certain
+	cases of type inheritance.
+* NestedHashMigration and NestedHashAlgorithm added
+* ConnectProperties: option for updateCounter removed:
+
+	schema.updateCounter (defaulted to true)
+
+	The framework now behaves as specified by the default of the option.
+
+* ConnectProperties: options for transactionIsolation removed:
+
+	connection.transactionIsolation.readCommitted  (defaulted to false)
+	connection.transactionIsolation.repeatableRead (defaulted to true)
+
+	The framework now behaves as specified by the defaults of both options.
+
+* PasswordRecovery.getPassword() and PasswordLimiter.getPassword() return
+	HashInterface instead of Hash.
+	This breaks backwards API compatibility, causes compiler error.
+* Hash#validate and #newRandomPassword do become final.
+	This breaks backwards API compatibility, causes compiler error.
+* Model#deleteSchemaForTest added
+* innodb_strict_mode on MySQL enabled
+* DynamicModel.Field#as(Enum<?>) added
+* DoubleField throws DoubleNaNException for NaN
+	instead of RuntimeException
+* DoubleField throws DoubleRangeViolationException for Infinity
+	instead of RuntimeException
+* class TransactionCounters becomes final.
+	This breaks backwards API compatibility, causes compiler error.
+* @PreventUrlGuessing causes response to carry Cache-Control: private
+* MediaUtil added
+* Media API Refactoring
+	
+	This massivly breaks backwards API compatibility. You MUST update
+	exedio-cope-im4java.jar and exedio-cope-console.jar, if used.
+	Affects instrumented code.
+	
+	BEWARE !!!
+	Implementors of MediaPath#doGetAndCommit MUST commit the transaction
+	on normal termination. Using MediaPath#commit() is recommended.
+
+	Do the following replacements in your code:
+
+		extends CachedMedia       -->  extends MediaPath
+		Log doGet(..)             -->  void doGetAndCommit(..)
+		Log doGetIfModified(..)   -->  void doGetAndCommit(..)
+		return isNull;            -->  throw notFoundIsNull();
+		return notComputable;     -->  throw notFoundNotComputable();
+		return delivered;         -->  <nothing>
+		long getLastModified      -->  Date getLastModified
+
+* DispatchDeferrable added
+* @RedirectFrom does not support ElementType.TYPE anymore, did not work properly anyway.
+	This breaks backwards API compatibility, causes compiler error.
+* JavaView supports private getter method
+* Sampler collects differences instead of absolute values
+* Type#asExtends added
+* ItemField#asExtends added
+* Model#deleteSchema() accelerated on hsqldb
+* hsqldb 2.2.9 required, instead of 2.1.0
+* bugfix: CheckConstraints referring to super class supported
+* instrumentor supports referring to features of super class
+* cluster network can be enabled via source of ConnectProperties as well,
+	if context is null, up to now this was possible via context only.
+	You need the folowing two properties:
+
+			cluster=true
+			cluster.secret=nnn
+
+* nested properties supported by adding:
+	- ConnectProperties#factory()
+	- DispatcherProperties
+	- SamplerProperties
+* LongField#defaultToRandom added
+	- supports simple value ranges only: [MIN_VALUE,MAX_VALUE] and [0,MAX_VALUE]
+* PasswordRecovery constructor accepts SecureRandom
+* LongField#range checks for illegal range, where maximum is less or equal to minimum
+* ItemField supports copyTo as a supplement to FunctionField#copyFrom
+* FunctionField#copyFrom supports multiple constraints.
+	This breaks backwards API compatibility:
+	- Use field.copyFrom(targetA).copyFrom(targetB) for multiple constraints,
+		instead of overriding targetA with targetB.
+	- field.copyFrom(null) is no longer allowed, and throws a NullPointerException
+
+* Composite supports serialization of template features
+	This breaks backwards API compatibility for Feature#mount(String, AnnotatedElement)
+* Enum[Set|Map]Field supports @CopeSchemaName for enum facets
+* EnumAnnotatedElement added
+* Price#nullToZero added
+* allow overriding between defaultTo/defaultToNow/defaultToNext
+* FunctionField#hasDefault added
+* EnumSetField implements Settable
+* EnumMapField implements Settable
+* MapField does not allow optional value fields anymore.
+	This breaks backwards API compatibility.
+* CopeAssert#list, #listg and #map do return unmodifiable collections.
+	This breaks backwards API compatibility.
+* LimitedListField#get returns unmodifiable list.
+	This breaks backwards API compatibility.
+* MapField#getMap returns unmodifiable map.
+	This breaks backwards API compatibility.
+* ConnectProperties field cluster replaced by schema.primaryKeyGenerator:
+
+	cluster=false   ->   schema.primaryKeyGenerator=memory   (was and is the default)
+	cluster=true    ->   schema.primaryKeyGenerator=sequence
+
+* ConnectProperties changed behaviour for cluster fields:
+	Up to now, with cluster=false (the default), a configuration of
+	the cluster network (cluster.secret=nnn) has been silently ignored.
+	From now on such a configuration will fail to connect, throwing
+	an IllegalArgumentException.
+* exedio-cope-test.jar calls ConnectProperties#ensureValidity, because
+	ConnectProperties do not call Properties#ensureValidity anymore.
+* MediaType supports image/x-png
+* MediaImageMagickThumbnail#outputContentTypeSame() added
+* MediaTestable added and implemented by MediaImageMagickFilter
+* Price#add(Price) checks for overflow and throws ArithmeticException
+* classes in package com.exedio.cope.junit moved from exedio-cope.jar to exedio-cope-junit.jar
+	add ivy configuration "junit" to fetch exedio-cope-junit.jar:
+	
+		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,junit" />
+	
+* Set ivy configuration "sources" for exedio-cope-src.zip
+	Within your ivy.xml you need to add that configuration to keep sources up-to-date:
+	
+		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,sources" />
+	
+* bugfix for @CopeCacheWeight with large numbers,
+	bug could partially disable item cache.
+* ConstraintViolation subclasses make constructor non-public.
+	This breaks backwards API compatibility.
+* bugfix for type inheritance across 3 or more levels.
+* switch from log4j to slf4j
+* ConnectProperties do not call Properties#ensureValidity anymore
+* Visibility of generic and activation constructors created by instrumentor
+	changed. In general, both constructors of any type are private. However,
+	they are protected in the following condition:
+	- Up to now,   if there where subtypes of that type.
+	- From now on, if that type is not final.
+	Affects instrumented code.
+* rename key in cope.properties:
+		connection.user -> connection.username
+* media.url.secret can be set via source of ConnectProperties as well,
+	if context is null, up to now this was possible via context only.
+	Value must be at least 10 characters long, otherwise instantiation
+	of ConnectProperties will fail.
+* Iterables#once added
+* @Computed becomes @Inherited
+	This means, that for any type which is @Computed all subtypes of this are
+	@Computed as well. This does not affect @Computed features.
+* stricter MySQL sql_mode: STRICT_ALL_TABLES, NO_ZERO_DATE, NO_ZERO_IN_DATE
+* FunctionField#copyFrom added for implicit CopyConstraints
+* remove support for deprecated Wrapper#generic(Class, Class...)
+	which has been replaced by @Wrap annotation for a while.
+	Methods throws a NoSuchMethodError, this breaks backwards API compatibility.
+	Avoids use of internal proprietary API.
+* No current transaction allowed anymore during sequence checks:
+	- Type#checkPrimaryKey
+	- IntegerField#checkDefaultToNext
+	Helps avoiding deadlocks.
+* MediaType#getExtension added
+* @Computed is forwarded by Pattern correctly,
+	CompositeField does not make all components @Computed,
+	but only as inherited from Pattern.
+* SetValue array literals created by instrumentor use generics.
+	Avoids compiler warnings about rawtypes on JDK 1.7.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument genericSetValueArray="false" ...
+	to enable previous behaviour.
+* CompositeField supports @CopeSchemaName on template fields.
+	Requires modification of persistent schema in such cases.
+* Price supports grossToNetPercent and grossToTaxPercent
+* ServletUtil uses ServletProperties.
+	Introduces dependency on exedio-cope-servletutil.jar.
+* Sequence obeys @CopeSchemaName both on feature and type.
+	bugfix, requires modification of persistent schema in such cases.
+* ConnectToken#getID() does not start from zero on Model#disconnect anymore,
+		but only on ConnectToken#removeProperties(Model).
+	This breaks backwards API compatibility, but should cause no practical problems.
+* CompositeField#create requires valueClass to be final, throws IllegalArgumentException otherwise.
+	This breaks backwards API compatibility,
+	however inheritance for Composites was never supported anyway.
+* Price#splitProportionately throws IllegalArgumentException if weights is empty
+	instead of returning an empty result.
+	This breaks backwards API compatibility.
+* Price#negative added
+* Price#splitProportionately added
+* Model.NotConnectedException thrown instead of the IllegalStateException used before
+* MySQL5.5 support added: No current transaction allowed anymore during schema modifications:
+	- Not allowed anymore when calling
+		Model#createSchema
+		Model#createSchemaConstraints
+		Model#deleteSchema
+		Model#dropSchema
+		Model#dropSchemaConstraints
+		Model#tearDownSchema
+		Model#tearDownSchemaConstraints
+		Model#getVerifiedSchema
+		Model#checkUnsupportedConstraints
+		Model#revise
+		Model#reviseIfSupportedAndAutoEnabled
+		Model#getRevisionLogs
+		Model#getRevisionLogsAndMutex
+		SchemaInfo#newConnection
+* Hash supports validator.
+	- DigitPinValidator added.
+* LimitedListField gets explicit length field.
+	This breaks backwards API compatibility without changing compiler signatures -
+		getter will not forget null elements anymore.
+	This affects database schema:
+		- a new column is added
+		- a new check constraint is added (where supported)
+* Function#in takes Collection<? extends E>
+* Composite#getTemplateName added.
+* instrumentor supports /** @cope.xxx override */
+* prevent selection of ungrouped fields in MySQL
+* rename CountSelectable to Count
+	This breaks backwards API compatibility of beta API.
+* added support for "group by" in queries
+* DatabaseLogListener becomes final.
+	This breaks backwards API compatibility.
+* moved DatabaseLogListener from cope-console to cope
+* SetField#create forbids optional element fields.
+	This breaks backwards API compatibility.
+* MapField#create forbids optional key fields.
+	This causes DynamicModel#create to forbid optional locale fields as well.
+	This breaks backwards API compatibility.
+* automatic revision execution can be disabled
+	Model#reviseIfSupported() is replaced by Model#reviseIfSupportedAndAutoEnabled()
+* MxSampler added
+* ServletUtil methods do not throw ServletException any longer
+* TextUrlFilter#putPaste and #putPastesFromZip and
+	DataField#toValue(ZipFile,ZipEntry) added.
+	Affects instrumented code.
+* MediaType#forFilename added
+* remove support for deprecated Wrapper API,
+	which has been replaced by @Wrap annotation for a while.
+	- Feature#getWrappers and Wrapper#getByAnnotations do throw a NoSuchMethodError
+		this breaks backwards API compatibility.
+* bugfix: SamplerTransaction#date must not be unique
+* TextUrlFilter#appendKey added
+* added convenience methods to Price
+* FeatureField#isInvalid added
+* Split exedio-cope-instrument-annotations.jar off exedio-cope.jar
+	- exedio-cope-instrument-annotations.jar is needed at compile-time, but not at runtime.
+	- methods "get" of StringGetter, BooleanGetter, and ThrownGetter
+		change their signature from get(Feature) to get(Object).
+		This breaks backwards API compatibility.
+* FeatureField#unique() added.
+* Activation Constructors created by instrumentor are written on bottom of the file.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument activationConstructorOnBottom="false" ...
+	to enable previous behaviour.
+* Schedule#run additionally requires class token (Class<P> parentClass).
+	Enforces parentClass to implement Scheduleable.
+	This breaks backwards API compatibility,
+		but wrappers generated by the instrumentor will not change its signature.
+* Dispatcher#dispatch enforces parentClass to implement Dispatchable.
+	This was previously a runtime constraint.
+* SchemaInfo gets methods search(Query) and total(Query).
+* Sampler#differentiate added.
+* CopeAssert.reserialize deduplicates strings
+* Allow customization of null-handling in order-by clauses on hsqldb.
+	Put hsqldb.nullsAreSortedLow=true into cope.properties,
+	if you want hsqldb behave like MySQL, otherwise do nothing.
+* SerializationCheck added
+* MediaType#hasMagic() added
+* TextUrlFilter#addPaste returns created Paste,
+	affects instrumented code.
+* TextUrlFilter allows pasteStop longer than one character
+* TextUrlFilter#appendURL may be overridden for customizing pasted urls.
+* Type#asSubtype added.
+* Type#checkCompleteness added.
+* SchemaInfo#getPrimaryKeyColumnValue added
+* SetValue constructor is replaced (deprecated) by SetValue#map,
+	which is more type-safe
+* Settable.map returns SetValue<E> instead of just SetValue.
+	This breaks backwards API compatibility for implementators
+	(but not users) of Settable.
+* SetValue constructor will throw NullPointerException if settable==null.
+	This breaks backwards API compatibility.
+* Dispatcher supports probing, use new dispatch method.
+* use separate ivy configuration for exedio-cope-test.jar.
+	If you use this file, you need to add the test configuration to your cope dependency
+	in the ivy.xml:
+
+	<dependency org="com.exedio" name="cope" rev="nnn" conf="default->hsqldb,mysql,test" />
+
+	Otherwise exedio-cope-test.jar will not be updated with new versions of cope anymore.
+
+* replace PasswordRecovery#issue(int) by #issue(Config),
+	deprecated version is provided,
+	affects instrumented code.
+* rename static factory methods of many features,
+	deprecated version is provided.
+* add PriceField#defaultTo
+* @CopeSchemaName is obeyed by type columns as well.
+	Affects persistent schema when @CopeSchemaName is used on types with subtypes.
+	In that case the *contents* of type columns must be adjusted.
+* add com.exedio.dsmf.Column#mismatchesType and #getRequiredType
+* support "not null"-clause on MySQL columns.
+
+	This heavily affects persistent schema on MySQL, all not-null columns
+	do change their column types as "not null" is appended.
+	Use "disableSupport.notNull=true" in cope.properties to revert to
+	previous behaviour.
+	
+	IMPORTANT NOTE:
+		If you want to revise an existing MySQL database,
+		using statements like
+			alter table `SomeTable` modify `someColumn` someType not null
+		those statements will NOT fail on null values in the column.
+		Make sure, that not-null columns do actually not contain null values.
+		You may want to use the "Unsupported Constraints" tab in COPE Console
+		for this, but you have to do this BEFORE enabling "not null"-clauses.
+
+* remove support for @CopeSchemaType, deprecate annotation itself
+* MediaType may have multiple types for one magic number,
+	replace MediaType#forMagic by #forMagics
+* add LongField#rangeDigits
+* use range constraint of LongField in 
+	* Dispatcher#runElapsed, 
+	* Schedule#runElapsed and 
+	* Sampler.
+	This may affect column types in database schema, but does not on MySQL.
+* add range constraint to LongField
+* add DefaultStatementListener in dsmf
+* add IntegerField#rangeDigits
+* Model#getVerifiedSchema checks strictly for foreign key constraints
+* switched from java.util.logging to Log4j
+	log4j.jar needs to be on class path for instrumenting or running any code depending on cope
+	- log4j is part of ivy dependencies
+* add Range#contains
+* Range and RangeField do support optional borders
+* require mysql connector 5.1.15
+* require mysql connector 5.0.8
+* improve speed of Model#deleteSchema() on MySQL, typically needed for tests
+* add RangeField<E>#doesContain(E)
+	affects instrumented code
+* add Sequence
+* add MediaType#JAVASCRIPT
+* add MediaType#forMagic(File)
+* Make constructor of SequenceInfo non-public, was a mistake.
+	This breaks backwards API compatibility.
+* Introduce RevisionsFuture,
+	allows late computation of Revisions, when model is already connected.
+	- Model#getRevisions() works only, if model is connected, throws exception otherwise.
+* add Model#getRevisionLogsAndMutex()
+* deprecate Schedule#run(Interrupter),
+	affects instrumented code
+* deprecate Dispatcher#dispatch with Interrupter,
+	affects instrumented code
+* deprecate PasswordRecovery#purge(Interrupter),
+	affects instrumented code
+* deprecate PasswordLimiter#purge(Interrupter),
+	affects instrumented code
+* Scheduleable#run changes signature from Interrupter to JobContext.
+	This breaks backwards API compatibility.
+* instrumentor uses type erasure for constructors,
+	breaks backwards API compatibility.
+	- Settable adds isMandatory() and deprecates getInitialType
+	- DataField requires DataField.Value instead of byte[]
+	- affects instrumented code, use simple names for item/enum classes
+* Range and RangeField do enforce that lower bound is not greater than upper bound.
+	This breaks backwards API compatibility,
+	and affects database schema where check constraints are supported.
+* introduce instrumentation by @Wrap annotation:
+	- Wrapper constructor is now deprecated
+	- Wrapper#getReturnComment(), Wrapper.Parameter#getComment() and Wrapper#getThrowsClause()
+		do return String array instead of just String,
+		this breaks backwards API compatibility.
+* instrumentor writes customizer hint for unique constraints across multiple fields,
+	affects instrumented code
+* do not support Wrapper#deprecate and related method anymore
+* instrumentor supports verify mode:
+		<instrument verify="true" ...
+	for Continuous Integration systems.
+* add TypeIterator#iterateTransactionally
+* add TypeSet
+* add MediaType#magicMaxLength
+* add constants for media type names in MediaType
+* add MediaType
+* adds PartOf#getParts(Item, Condition),
+	affects instrumented code.
+* instrumentor wraps PartOf#getParts
+* The default constructor of StringField sets a minimumLength of 1 instead of 0.
+	Use "new StringField(StringField.EMPTY)" to enforce previous behaviour.
+	This breaks backwards API compatibility !!!
+* changed semantics: StringField#length[Min|Max] does not forget the other limit anymore
+	This breaks backwards API compatibility.
+* instrumentor defaults to ascii encoding, use
+		<instrument encoding="utf8" ...
+	to specify other encodings.
+* all jdbc connections are treated with
+	setTransactionIsolation(Connection.TRANSACTION_REAPEATABLE_READ)
+	Use cope property connection.transactionIsolation.repeatableRead=false
+	to disable.
+* Enable disableSupport.uniqueViolation
+	in cope.properties by default.
+* Disable connection.transactionIsolation.readCommitted
+	in cope.properties by default.
+* Enable cache.item.invalidateLast by default, use
+		cache.item.invalidateLast=false
+	in cope.properties to revert to old behaviour.
+* Remove invalidation buckets in item cache:
+	- Was disabled by default anyway.
+	- Therefore removed cache.item.invalidationBucket.millis from cope.properties
+	- Has been obsoleted by cache.item.invalidateLast.
+* Revisions: a new java.sql.Connection is created for executing each Revisions
+	(but not each body within a Revision).
+	This breaks backwards compatibility, when using connection states in Revisions
+* Delete#delete is not limited to 3000 items anymore.
+	If you want a limit, you need to implement it via the JobContext.
+* Many methods of CompositeField will work now immediatly after construction:
+	 - of(FunctionField)
+	 - getTemplate(FunctionField)
+	 - getTemplates(), getComponents(), getUnison(),
+	 - is[Not]Null()
+	This allows additional constraints on the components.
+* add Dumper#[un]prepare
+* fix instrumentation of Composite with [Date|Day]Field
+	method touch does work now
+* instrumentor does not wrap getContentType anymore,
+	if there is just one possible result (apart from null),
+	affects instrumented code.
+* switch from jdk 1.5.0_17 to jdk 1.6.0_18
+	do not forget to update your hudson job !!!
+* add SchemaInfo#supportsUniqueViolation
+* rename key in cope.properties:
+		
+		database.url      -> connection.url
+		database.user     -> connection.user
+		database.password -> connection.password
+		
+		mysql.lower_case_table_names -> schema.mysql.lower_case_table_names
+		cache.item.concurrentModificationDetection -> schema.updateCounter
+
+		database.dontSupport.preparedStatements -> disableSupport.preparedStatements
+		database.dontSupport.emptyStrings       -> disableSupport.emptyStrings
+		database.dontSupport.nativeDate         -> disableSupport.nativeDate
+		
+		database.tableOption.xxx -> schema.tableOption.xxx
+		database.longSyntheticNames -> schema.tableInNames
+
+* add MapField.[get|set]Map
+	affects instrumented code
+* '-' is dropped from JavaView getter names (allows JavaViews in patterns)
+* add ItemCache[Info|Summary].getInvalidateLastPurged()
+* Change ConnectToken semantics
+
+	This breaks backwards API compatibility in almost all cases !!!
+	You MUST call ConnectToken.setProperties, otherwise ConnectTokens
+	will not work anymore. ConnectTokens are used by depending
+	frameworks as well, such as generic backoffice and COPE Console.
+	
+	Typically you may want to have a class like this:
+
+		public class PropertiesInitializer implements ServletContextListener
+		{
+			public void contextInitialized(ServletContextEvent sce)
+			{
+				ConnectToken.setProperties(Main.model, ServletUtil.getConnectProperties(sce.getServletContext()));
+			}
+			public void contextDestroyed(ServletContextEvent sce)
+			{
+				ConnectToken.removeProperties(Main.model);
+			}
+		}
+		
+	and a corresponding snippet within your web.xml:
+	
+		<listener>
+			<listener-class>com.exedio.copedemo.PropertiesInitializer</listener-class>
+		</listener>
+		
+	Note, that the <init-param> named "cope.properties" at the servlet
+	is not supported anymore.
+	
+	You MUST update cope console as well to at least svn.19004 hudson.6368 2011-02-10_13-41-05,
+	otherwise history will not work.
+
+* remove connect property "log", has been replaced by java.util.logging
+* MediaServlet can be subclassed for overriding onException
+* add class ItemCacheSummary
+* added invalidation buckets:
+	cope property "cache.item.invalidationBucket.millis" can be set to define for how long
+	after an invalidation an item will not be added to the item cache (deactivated by default)
+* add class MediaSummary
+* all jdbc connections are treated with
+	setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED)
+	Use cope property connection.transactionIsolation.readCommitted=false
+	to disable.
+* add MediaImageMagickFilter#test()
+* changed semantics: [Integer|Double]Field#[min|max] does not forget the other limit anymore
+	This breaks backwards API compatibility.
+* add UniqueConstraint constructor for 6 FunctionFields
+* add UniqueConstraint constructor for 5 FunctionFields
+* add Item#appendCopeID
+* add MediaPath.Locator#getFeature()
+* abstract method CachedMedia#doGetIfModified extends signature from
+	doGetIfModified(HttpServletResponse response, Item item) to
+	doGetIfModified(HttpServletRequest request, HttpServletResponse response, Item item)
+	This breaks backwards API compatibility.
+* Make consistent visualization of cluster node id available.
+	Adds the following methods
+		ClusterSenderInfo#toStringNodeID
+		ClusterSenderInfo#getNodeIDString
+		ClusterListenerInfo#getIDString
+		ChangeEvent#getRemoteNodeIDString
+* add MediaUrlCatchphraseProvider
+	This breaks backwards API compatibility,
+	because MediaPath.getNamedURL(Item, String) changes sematics to be equals to getURL(Item)
+* add Model#getClusterProperties()
+* add Model#getChangeListenerDispatcherInfo()
+* add ChangeListenerInfo#getFailed()
+* add Model#getThreadControllers
+* BUGFIX: grave bug notifying ChangeListeners
+* remove connect property database.dontSupport.limit
+* add Query#searchSizeLimit
+	BEWARE:
+		This may break your application if it
+		issues queries with a result size of more than 100000.
+		In this is intended, increase the default value
+		using connect property query.searchSizeLimit.
+* switch to hsqldb 2.0.0 for jdk 1.5 from support page (revision 3814)
+	fixes noJoinParentheses
+* use JobContext for Dispatcher and Schedule
+	affects instrumented code
+* BUGFIX: grave bug corrupting data in item cache
+* bugfix: Model#deleteSchema does not delete revision table anymore
+* bugfix: omit setters for final RangeField
+	avoids warnings in eclipse,
+	affects instrumented code
+* add Range#newRange
+* add NumberFunction#asString()
+* add TypeIterator
+* add QueryIterator
+* bugfix: ClusterListener deals with offset in packets
+* bugfix: recover from failing modification counter by removing the item from global cache
+* cache result of Model#revise[IfSupported], so its cheap to call
+* add SchemaInfo#newConnection
+* fix exedio-cope-test.jar on applications in ROOT contextPath
+	also contextPath.jdbc.[url|user|password] is no longer needed
+* add ${contextPath} to servlet property context
+	and use a value derived from that instead of com.exedio.cope.contextPrefix
+	This breaks backwards configuration compatibility
+	BEWARE: You must adjust your production systems!
+* add SchemaInfo#isConcurrentModificationDetectionEnabled/getModificationCounterColumnName
+* use less parenthesis when joining
+	makes hsqldb work more often
+* remove @SuppressWarnings("unused") on private activation constructors
+	heavily affects instrumented code !
+	use <instrument suppressUnusedWarningOnPrivateActivationConstructor="true" ...
+	to enforce previous behaviour
+* add ConnectToken.returnItConditionally
+* replace ModificationListener mechanism by ChangeListener
+	- listener receives ChangeEvent instead Collection<Item> and Transaction
+	- works with remote transactions within clusters as well
+	- ModificationListener deprecated, but still works as before
+* add ConnectToken#wasConditional
+* add ConnectToken#issueIfConnected
+* add TransactionRunnable
+* add ClusterListenerInfo#getReceiveBufferSize
+* add ClusterSenderInfo#getSendBufferSize and #getTrafficClass
+* add ClusterSenderInfo#getLocalPort()
+* add ClusterSenderInfo#getNodeID()
+* add SetValueUtil#getFirst
+* add class Delete
+* add Hash.toFinal()
+* add Hash.Algorithm.compatibleTo
+* add EnumMapField.defaultTo
+* instrumented constructors qualify features by declaring class,
+	avoids warnings in eclipse,
+	affects instrumented code
+* omit class token for Schedule.run
+	affects instrumented code
+* omit class token for a few static wrappers
+	affects instrumented code
+* adjust javadoc for instrumented wrapper of Hash.blind
+	caused problems when check method wrapper was omitted by @cope.blind none
+	affects instrumented code
+* add Hash.blind
+	affects instrumented code
+* add salted hashes and refactoring of Hash framework
+	This breaks backwards API compatibility
+		- Hash#hash does not have to deterministic anymore
+		- Hash#[not]Equal has been replaced by is[Not]Null
+		- Hash takes Algorithm interface
+	- deprecated SHAHash and MD5Hash
+* add PasswordLimiter
+* add Media.toFinal()
+* implement fallback from MediaImageMagickFilter#get(Item) to MediaImageioFilter,
+	requires MediaImageMagickFilter#fallback to be restricted to MediaImageioFilter.
+	This breaks backwards API compatibility.
+* method PartOf#getParts gets a class token
+	This breaks backwards API compatibility.
+* changed the default for option cache.item.concurrentModificationDetection
+	in cope.properties from false to true.	Changing this option requires
+	modification of persistent schema. Override the default if needed.
+* add CheckConstraint
+	- Media and CompositeField use CheckConstraints
+		this requires modification of persistent schema where check constraints
+		are supported (not MySQL), if not, check unsupported constraints in Console
+* add byte[] MediaImageMagickFilter.get(Item)
+	affects instrumented code
+* bugfix: fixed file descriptor leak in MediaImageMagickFilter
+* cope console is now its own independent project
+	make sure, that you add cope console to your getlib configuration
+* added FeatureField
+* make FunctionField#defaultTo work for Composite
+* added SetValueUtil
+* added Dispatcher#defaultPendingTo
+* added @NonGuessableUrl
+* added ordered PartOf
+* added Type#emptyQuery
+* added SetField#getQuery
+	affects instrumented code
+* added ListField#getQuery
+	affects instrumented code
+* added Model#supportsRandom(), is true for MySQL only
+* added QueryAggregator
+* added Type.random(seed), works on MySQL only
+* TextUrlFilter
+* refactoring of Dispatcher
+	This breaks backwards API compatibility
+	and requires modification of persistent schema.
+	- rename Dispatcher.Failure to Run
+	- rename Run.cause to failure
+	- move successDate/successElapsed into Run, add BooleanField Run.success
+	- rename getSuccess[Date|Elapsed] to getLastSuccess[Date|Elapsed]
+	- remove @Computed from pending
+* added method DynamicModel.Field#getFieldEnum()
+* Dispatcher accepts configuration at time of dispatching,
+	not at time of feature construction.
+	This breaks backwards API compatibility.
+* console history allows auto purging
+* bugfix: polymorphic and bound this-functions selected in queries
+* bugfix: polymorphic and bound item fields selected in queries
+* do not use raw type SetValue in instrumented code, avoids typical ide warnings
+	heavily affects instrumented code !
+* Query.setSelects does not accept one Selectable only,
+	a new method setSelect is provided instead.
+	This breaks backwards API compatibility.
+* rename Model.getCurrentTransaction() to currentTransaction
+	deprecated version is provided
+* patterns must call super.onMount() in onMount()
+	otherwise type initialization fails
+	this breaks backwards API compatibility
+* add Importer.doImport(Class<P>, E, List<? extends SetValue>) in addition to
+	doImport(Class<P>, E, SetValue...)
+* deprecate constructor Query(Selectable[], Type, Condition)
+	in favour of type-safe factory method
+* add @RedirectFrom for media
+	deprecate MediaRedirect
+* implement Concurrent Modification Detection, still disabled by default
+* refactoring of id of types, features and items
+	BEWARE !!!
+	heavily affects
+	- persistent schema
+	- localization files of a generic backoffice
+	- media urls
+* MediaPath.onMount is not final anymore
+* add pattern Importer
+	helps implementing typical update-or-insert scenarios
+* do not allow item ids with leading zeros
+	protects against Denial of Service against MediaServlet caching mechanism
+* allow arbitrary Feature as source of Pattern, not Field only
+* make Pattern.getSource[Fields|Types] final
+* allow serialization/deserialization of:
+		* Model
+		* Type
+		* Feature and its subclasses
+		* Items of unbound Types (see Type.isBound)
+	To make serialization work, you need to enable it at the model. Otherwise
+	a NotSerializableException is thrown when trying to deserialize.
+	For any model defined like this:
+	
+		static final Model model = new Model(Aaa.TYPE, Bbb.TYPE, ...);
+	
+	add the following code immediately below:
+	
+		static
+		{
+			model.enableSerialization(Main.class, "model");
+		}
+	
+	where "model" is the name of the static final field, the model is assigned to,
+	and Main is the class of that field.
+	
+* CopeAssert.reserialize checks for exact expected size, not for maximum
+	this breaks backwards API compatibility, but affects junit tests only
+* instrumentor generates minimal method names for feature "defaultFeature"
+* Resizing with ImageMagick works on Windows. 
+	On Windows, install ImageMagick, and set the system properties com.exedio.cope.media.imagemagick (to "true") and 
+	com.exedio.cope.media.convertcommand (to the absolute path of the convert binary).
+* bugfix: Model failed on second connect, if there was a IntegerField.defaultToNext
+* add MediaPath.Locator
+	affects instrumented code
+* allow optional EnumField on Enum with one value only
+* Item implements Comparable
+* Type implements Comparable
+* Price implements Comparable
+* add Model#isConnected()
+* rename Model.getProperties() to getConnectProperties()
+	deprecated version is provided
+* flush sequences in checkEmptySchema, fixes CopeTest
+* remove Model.flushSequences()
+	deprecated version is provided
+* added conditions CompositeField.is[Not]Null()
+* removed key in cope.properties: database.oracle.varchar
+* deprecated Pattern.annotationField
+* rename keys in cope.properties:
+	cache.limit      -> cache.item.limit
+	cache.queryLimit -> cache.query.limit
+* rename CopeTest.getProperties() to getConnectProperties()
+	deprecated version is provided
+* added CompositeField.getValueClass()
+* move com.exedio.cope.util.CopeFilter to package com.exedio.cope.misc
+	deprecated version is provided
+* added generic creator method "newValue(SetValue...)" for Composite on CompositeField
+* made generic getters and setter on Composite public
+* added CompositeField.getTemplate(FunctionField)
+* added CompositeField.getTemplates()
+* move ConnectToken and ServletUtil to package com.exedio.cope.misc
+	deprecated version is provided
+* move TransactionSlicer to package com.exedio.cope.misc
+	deprecated version is provided
+* rename Pattern.initialize to onMount
+	deprecated version is provided
+* add @Computed
+* add [Type|Feature].isAnnotationPresent
+* allow annotations for types added by patterns
+	this breaks backwards API compatibility of Type#getAnnotation(), but is likely to affect a generic backoffice only
+* allow annotations for fields of types added by patterns
+* allow annotations for fields added by patterns
+* replace Model.isDatabaseLogEnabled/getDatabaseLogThreshold/getDatabaseLogSQL by getDatabaseListener
+	replace setDatabaseLog by setDatabaseListener
+	this breaks backwards API compatibility, but is likely to affect cope console only
+* big overhauling of composites
+	this breaks backwards API compatibility in a subtle way, BEWARE!
+	- changed behaviour of optional composites,
+		setter accepts null now for optional Composites and
+		getter returns null.
+	- renamed Composite to CompositeField and Composite.Value to Composite,
+		making it a top-level class
+	- Composite checks its values for violation of field constraints,
+		such as mandatory, string length, integer range etc.
+	- final fields in Composite are not supported
+		and cause an exception to be thrown
+	- Composites do get instrumentation
+* replace AbstractListField.getElementValueClass() by getElement()
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
+* LimitedListField throws ListSizeViolationException instead of IllegalArgumentException
+* add AbstractListField.getMaximumSize()
+* replace SchemaInfo.getColumnValue(EnumField, Enum) by getColumnValue(Enum)
+	deprecated version is provided
+* add @CopeSchemaValue for enum values
+* add ItemCacheInfo.getConcurrentLoads()
+	replaces message on System.out: warning: duplicate computation of state ...
+* add SchemaInfo.quoteName
+* remove automatic detection of convert in MediaImageMagickFilter
+	now you need a java system property to enable:
+		com.exedio.cope.media.imagemagick=true
+* console history adds a column for ClusterSenderInfo.getInvalidationSplit()
+	requires modification of persistent schema
+* MandatoryViolation and FinalViolation for PriceField has PriceField itself as feature, not the source-Field of the PriceField
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
+* MandatoryViolation for Media has Media itself as feature, not the body of the Media
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
+* added Model.containsTypeSet
+* move Item.newType to class TypesBound
+	deprecated version is provided
+* move Type.forClass[Unchecked] to a new class TypesBound
+	deprecated version is provided
+* renamed Type#isJavaClassExclusive to isBound
+	deprecated version is provided
+* fix instrumented javadoc after "Type.newItem does not invoke creation constructor anymore"
+	(see below), heavily affects instrumented code !
+* DynamicModel uses MapField for names
+	this affects names of columns and tables in database schema,
+	requires a revision
+* reorganized creation and activation of items,
+	breaks backwards API compatibility
+	heavily affects instrumented code !
+	- Type.newItem does not invoke creation constructor anymore,
+		this breaks preCreate constructs
+		use a static method "SetValue[] beforeNewCopeItem(SetValue[])" instead
+		search for @cope.generic.constructor none
+	- renamed Item.postCreate() to afterNewCopeItem()
+		the compiler will help you, if you have your @Override annotations in place
+	- renamed instrumentor tag @cope.reactivation.constructor to @cope.activation.constructor
+		this is very rarly used
+	- reactivation constructor changed
+		+ new signature instead of 
+			Item(com.exedio.cope.util.ReactivationDummy, int[, Type]) is now
+			Item(com.exedio.cope.ActivationParameters)
+		+ in Item is now protected instead of public
+	- removed creation constructor Item(SetValue[], Type)
+		use Type.newItem instead
+* make Type.This a top-level class
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
+* do not use BackingItem for DynamicModel anymore
+	this breaks backwards API compatibility, but is likely to affect a generic backoffice only
+	affects instrumented code
+* renamed Type.hasUniqueJavaClass() to isJavaClassExclusive()
+* deprecated constructors of Model not using Revisions
+* replaced Model.isRevisionEnabled() and getRevisionNumber() by getRevisions()
+	this breaks backwards API compatibility, but is unlikely to affect normal projects
+* renamed dsmf driver to dialect
+	this breaks backwards API compatibility, but is unlikely to affect normal projects
+* moved info classes into separate package
+	this breaks backwards API compatibility, but is unlikely to affect normal projects
+* removed cope live editor from exedio-cope.jar, it is now it's own project
+* deprecated empty constructor of Schedule, provide a Locale instead
+* subclasses of MediaPath do not get the url extension anymore
+* MediaPath got new method getNamedURL, with additional parameter for setting the "name" of the media
+* Console History puts date first in unique constraints
+	- makes purging faster
+	- affect persistent schema of the history
+		you have to drop the old constraints and create the new constraints
+* renamed UniqueConstraint.searchUnique to search
+	affects instrumented code
+* Console allows checking Media ContentType against body using magic numbers
+* rename Media.contentTypeMajor to contentTypeSub
+* Media with default Content-Type or major Content-Type do restrict the
+	CharSet of the StringField storing the Content-Type. You may need to adjust
+	the persistent schema (adding new check constraints) and/or adjust your data.
+* add pattern Range
+* Editor provides LOGIN_PATH_INFO
+* Editor provides isBordersEnabled()
+	use  this instead of isLoggedIn() for triggering css import
+* Interrupter from exedio-cope-util.jar is used
+	- affects Dispatcher, Schedule, PasswordRecovery
+* cope now depends on new project copeutil
+	- add exedio-cope-util.jar where trove.jar is used as well
+* add Schedule.enabled, adds new columns to schema, should be initialized with "true"
+* changed url of content editor from contentEditorLogin.html or copeContentEditor.html to copeLiveEdit.html
+* in contentEditor.css remove any styles related to contentEditorBar
+* for content editor, Editor.writeHead must be called in html head
+* renamed EditorPreview to Draft
+* added SHAHash as a replacement for MD5Hash, which is no longer secure
+* field for storing hashes uses algorithm for name,
+	i.e. passwordHash becomes passwordMD5
+	affects instrumented methods and persistent schema
+* support for
+	<taskdef resource="com/exedio/cope/instrument/ant.properties" classpath="lib/exedio-cope-instrument.jar" />
+* Editor
+	- put classes into separate package com.exedio.cope.editor
+	- make Login a top-level interface and rename it to Session
+* updated cops library to build.54, do get it from cops project now
+* updated jspm library to build.14, added check.version target to getlib.xml
+* added Query.emptyResult()

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info
+			organisation="com.exedio"
+			module="cope"
+			revision="@BUILD_REVISION@">
+		<license
+				name="GNU Lesser General Public License, Version 2.1"
+				url="http://opensource.org/licenses/lgpl-license.html" />
+	</info>
+	<configurations>
+		<conf name="runtime" />
+		<conf name="sources" />
+		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
+		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
+		<conf name="build" extends="runtime" visibility="private" />
+		
+		<!-- dialects -->
+		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
+		<conf extends="runtime" name="mysql"      description="dialect for MySQL" />
+		<conf extends="runtime" name="oracle"     description="dialect for Oracle Database" />
+		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
+	</configurations>
+	<publications defaultconf="runtime">
+		<artifact name="exedio-cope" />
+		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
+		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope-instrument-annotations" />
+		<artifact name="exedio-cope-instrument" />
+		<artifact name="exedio-cope-junit" conf="junit" />
+		<artifact name="exedio-cope-test" conf="test" />
+	</publications>
+	<dependencies defaultconf="runtime->*">
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
+		<dependency org="net.sf.trove4j-x" name="trove4j" rev="2.0.2" />
+		<dependency org="org.cojen" name="cojen" rev="2.0">
+			<conf name="runtime" mapped="default" />
+			<conf name="build" mapped="sources" />
+		</dependency>
+		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
+		<dependency org="junit" name="junit" rev="4.4">
+			<conf name="junit" mapped="default" />
+			<conf name="test" mapped="default" />
+			<conf name="build" mapped="*" />
+			<exclude org="org.hamcrest" module="hamcrest-core" />
+		</dependency>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
+			<conf name="runtime" mapped="default" />
+			<conf name="build" mapped="sources" />
+		</dependency>
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="test->default" />
+		<dependency org="com.exedio" name="copeutil" rev="337" />
+		<dependency org="com.exedio" name="copeservletutil" rev="11" />
+		
+		<!-- dialects -->
+		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.2.9" />
+		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="5.1.15" />
+		<dependency conf="oracle->default" org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" />
+		<dependency conf="postgresql->default" org="postgresql" name="postgresql" rev="9.0-801.jdbc4" />
+		
+		<!-- build dependencies -->
+		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
+		<dependency org="findbugs-x" name="findbugs" rev="2.0.1" conf="build->default" />
+		<dependency org="com.exedio" name="copeconsole" rev="6541" conf="build->runtime" />
+	</dependencies>
+</ivy-module>
