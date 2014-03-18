@@ -686,6 +686,11 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
+	public FieldGroup<L> createFieldGroup(final String code)
+	{
+		return getFieldGroupType().newItem(fieldGroupCode.map(code));
+	}
+
 	public static final class FieldGroup<L> extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -919,10 +924,5 @@ public final class DynamicModel<L> extends Pattern
 	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
 	{
 		return create(locale);
-	}
-
-	public FieldGroup<L> createFieldGroup(String code)
-	{
-		return getFieldGroupType().newItem(fieldGroupCode.map(code));
 	}
 }
