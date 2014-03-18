@@ -260,6 +260,8 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, item2.getFeatures(color));
 		assertSame(color.getFieldEnum(), color.getField());
 		assertNull(color.getFieldGroup());
+		color.setFieldGroup(productFeatures);
+		assertEquals(productFeatures, color.getFieldGroup());
 
 		final Enum<DynamicModelLocalizationItem> colorRed = color.addEnumValue("red");
 		assertEquals(color, colorRed.getParent());
