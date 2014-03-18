@@ -85,12 +85,12 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(Arrays.asList(new Type<?>[]{
 				DynamicModelItem.TYPE,
 				DynamicModelItem.features.getTypeType(), DynamicModelItem.features.getTypeLocalizationType(),
-				DynamicModelItem.features.getFieldGroupType(),
+				DynamicModelItem.features.getFieldGroupType(), DynamicModelItem.features.getFieldGroupLocalizationType(),
 				DynamicModelItem.features.getFieldType(), DynamicModelItem.features.getFieldLocalizationType(),
 				DynamicModelItem.features.getEnumType(), DynamicModelItem.features.getEnumLocalizationType(),
 				DynamicModelItem.small.getTypeType(), DynamicModelItem.small.getTypeLocalizationType(),
+				DynamicModelItem.small.getFieldGroupType(), DynamicModelItem.small.getFieldGroupLocalizationType(),
 				DynamicModelItem.small.getFieldType(), DynamicModelItem.small.getFieldLocalizationType(),
-				DynamicModelItem.small.getFieldGroupType(),
 				// no getEnumType()
 				DynamicModelLocalizationItem.TYPE,
 			}), model.getTypes());
@@ -142,8 +142,14 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, features.getType("cellPhoneX"));
 		assertContains(cellPhone.getFields());
 
-		final DynamicModel.FieldGroup<DynamicModelLocalizationItem> dimensions = cellPhone.getModel().getFieldGroupType().newItem();
-		final DynamicModel.FieldGroup<DynamicModelLocalizationItem> productFeatures = cellPhone.getModel().getFieldGroupType().newItem();
+		final DynamicModel.FieldGroup<DynamicModelLocalizationItem> dimensions = deleteOnTearDown(cellPhone.getModel().createFieldGroup("dimensions"));
+		assertEquals("dimensions", dimensions.getCode());
+		dimensions.setName(de, "Dimensionen");
+		dimensions.setName(en, "Dimensions");
+		assertEquals("Dimensionen", dimensions.getName(de));
+		assertEquals("Dimensions", dimensions.getName(en));
+		final DynamicModel.FieldGroup<DynamicModelLocalizationItem> productFeatures = deleteOnTearDown(cellPhone.getModel().createFieldGroup("productFeatures"));
+		assertEquals("productFeatures", productFeatures.getCode());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> akkuTime = cellPhone.addIntegerField("akkuTime", productFeatures);
 		assertEquals(ValueType.INTEGER, akkuTime.getValueType());

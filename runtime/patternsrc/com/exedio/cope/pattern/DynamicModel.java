@@ -508,7 +508,7 @@ public final class DynamicModel<L> extends Pattern
 			return (DynamicModel<L>)getCopeType().getPattern();
 		}
 
-		public Field<L> addField(final String code, final FieldGroup group, final ValueType valueType)
+		public Field<L> addField(final String code, final FieldGroup<L> group, final ValueType valueType)
 		{
 			final DynamicModel<L> p = getPattern();
 			final Mount<L> m = p.mount();
@@ -532,27 +532,27 @@ public final class DynamicModel<L> extends Pattern
 			return m.fieldType.search(m.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
 		}
 
-		public Field<L> addStringField(final String code, final FieldGroup group)
+		public Field<L> addStringField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.STRING);
 		}
 
-		public Field<L> addBooleanField(final String code, final FieldGroup group)
+		public Field<L> addBooleanField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.BOOLEAN);
 		}
 
-		public Field<L> addIntegerField(final String code, final FieldGroup group)
+		public Field<L> addIntegerField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.INTEGER);
 		}
 
-		public Field<L> addDoubleField(final String code, final FieldGroup group)
+		public Field<L> addDoubleField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.DOUBLE);
 		}
 
-		public Field<L> addEnumField(final String code, final FieldGroup group)
+		public Field<L> addEnumField(final String code, final FieldGroup<L> group)
 		{
 			return addField(code, group, ValueType.ENUM);
 		}
@@ -703,17 +703,17 @@ public final class DynamicModel<L> extends Pattern
 
 		public String getCode()
 		{
-			return getPattern().fieldCode.get(this);
+			return getPattern().fieldGroupCode.get(this);
 		}
 
 		public String getName(final L locale)
 		{
-			return getPattern().fieldLocalization.get(this, locale);
+			return getPattern().fieldGroupLocalization.get(this, locale);
 		}
 
 		public void setName(final L locale, final String value)
 		{
-			getPattern().fieldLocalization.set(this, locale, value);
+			getPattern().fieldGroupLocalization.set(this, locale, value);
 		}
 	}
 
@@ -842,12 +842,12 @@ public final class DynamicModel<L> extends Pattern
 			getPattern().fieldLocalization.set(this, locale, value);
 		}
 
-		public FieldGroup getFieldGroup()
+		public FieldGroup<L> getFieldGroup()
 		{
 			return getPattern().getFieldGroup().get(this);
 		}
 
-		public void setFieldGroup(final FieldGroup fieldGroup)
+		public void setFieldGroup(final FieldGroup<L> fieldGroup)
 		{
 			getPattern().getFieldGroup().set(this, fieldGroup);
 		}
@@ -919,5 +919,10 @@ public final class DynamicModel<L> extends Pattern
 	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
 	{
 		return create(locale);
+	}
+
+	public FieldGroup<L> createFieldGroup(String code)
+	{
+		return getFieldGroupType().newItem(fieldGroupCode.map(code));
 	}
 }
