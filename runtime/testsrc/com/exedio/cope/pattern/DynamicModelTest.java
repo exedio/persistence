@@ -383,7 +383,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertContains(akkuTime, memory, cellPhone.getFields());
 		try
 		{
-			cellPhone.addStringField("tooMuch", null);
+			cellPhone.addStringField("tooMuch");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -457,7 +457,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		final DynamicModel.Type<DynamicModelLocalizationItem> smallType1 = deleteOnTearDown(small.createType("small1"));
 		final DynamicModelItem item3 = deleteOnTearDown(new DynamicModelItem("item3"));
 		item3.setSmallType(smallType1);
-		final DynamicModel.Field<DynamicModelLocalizationItem> smallField1 = smallType1.addStringField("smallStringField1", null);
+		final DynamicModel.Field<DynamicModelLocalizationItem> smallField1 = smallType1.addStringField("smallStringField1");
 		item3.setSmall(smallField1, "hallo");
 		assertEquals("hallo", item3.getSmall(smallField1));
 
