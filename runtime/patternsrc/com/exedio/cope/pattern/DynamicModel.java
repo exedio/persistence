@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
-import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 import static java.lang.Math.max;
 
 import com.exedio.cope.ActivationParameters;
@@ -56,9 +55,6 @@ public final class DynamicModel<L> extends Pattern
 	final StringField fieldCode = new StringField().toFinal();
 	final MapField<L, String> fieldLocalization;
 
-	final StringField fieldGroupCode = new StringField().toFinal();
-	final MapField<L, String> fieldGroupLocalization;
-
 	final IntegerField enumPosition = new IntegerField().toFinal();
 	final StringField enumCode = new StringField().toFinal();
 	final MapField<L, String> enumLocalization;
@@ -86,7 +82,6 @@ public final class DynamicModel<L> extends Pattern
 
 		this.typeLocalization  = newLocalization();
 		this.fieldLocalization = newLocalization();
-		this.fieldGroupLocalization = newLocalization();
 		this.enumLocalization  = newLocalization();
 
 		fieldPositionPerValueType = new IntegerField().toFinal().range(0,
@@ -180,11 +175,6 @@ public final class DynamicModel<L> extends Pattern
 		final com.exedio.cope.Type<Type<L>> typeType = castType(newSourceType(Type.class, features, "Type"));
 
 		features.clear();
-		features.put("code", fieldGroupCode);
-		features.put("name", fieldGroupLocalization);
-		final com.exedio.cope.Type<FieldGroup<L>> fieldGroupType = castFieldGroup(newSourceType(FieldGroup.class, features, "FieldGroup"));
-
-		features.clear();
 		final ItemField<Type<L>> fieldParent = typeType.newItemField(CASCADE).toFinal();
 		features.put("parent", fieldParent);
 		features.put("position", fieldPosition);
@@ -195,10 +185,6 @@ public final class DynamicModel<L> extends Pattern
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
 		features.put("name", fieldLocalization);
-
-		final ItemField<FieldGroup<L>> fieldGroup = fieldGroupType.newItemField(NULLIFY);
-		features.put("fieldGroup", fieldGroup);
-
 		final com.exedio.cope.Type<Field<L>> fieldType = castField(newSourceType(Field.class, features, "Field"));
 
 		ItemField<Field<L>> enumParent = null;
@@ -223,7 +209,7 @@ public final class DynamicModel<L> extends Pattern
 		ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
 
-		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type, fieldGroupType, fieldGroup);
+		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}
 
 	private static final class Mount<L>
@@ -234,17 +220,13 @@ public final class DynamicModel<L> extends Pattern
 		final ItemField<Field<L>> enumParent;
 		final com.exedio.cope.Type<Enum<L>> enumType;
 		final ItemField<Type<L>> type;
-		final com.exedio.cope.Type<FieldGroup<L>> fieldGroupType;
-		final ItemField<FieldGroup<L>> fieldGroup;
 
 		Mount(final com.exedio.cope.Type<Type<L>> typeType,
 				final ItemField<Type<L>> fieldParent,
 				final com.exedio.cope.Type<Field<L>> fieldType,
 				final ItemField<Field<L>> enumParent,
 				final com.exedio.cope.Type<Enum<L>> enumType,
-				final ItemField<Type<L>> type,
-				final com.exedio.cope.Type<FieldGroup<L>> fieldGroupType,
-				final ItemField<FieldGroup<L>> fieldGroup)
+				final ItemField<Type<L>> type)
 		{
 			this.typeType =typeType;
 			this.fieldParent = fieldParent;
@@ -252,8 +234,6 @@ public final class DynamicModel<L> extends Pattern
 			this.enumParent = enumParent;
 			this.enumType = enumType;
 			this.type = type;
-			this.fieldGroupType = fieldGroupType;
-			this.fieldGroup = fieldGroup;
 		}
 	}
 
@@ -279,12 +259,6 @@ public final class DynamicModel<L> extends Pattern
 
 	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
-	{
-		return t;
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
-	private com.exedio.cope.Type<FieldGroup<L>> castFieldGroup(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
@@ -335,11 +309,6 @@ public final class DynamicModel<L> extends Pattern
 		return fieldLocalization.getRelationType();
 	}
 
-	public com.exedio.cope.Type<?> getFieldGroupLocalizationType()
-	{
-		return fieldGroupLocalization.getRelationType();
-	}
-
 	public com.exedio.cope.Type<?> getEnumLocalizationType()
 	{
 		return enumLocalization.getRelationType();
@@ -349,17 +318,6 @@ public final class DynamicModel<L> extends Pattern
 	{
 		return mount().type;
 	}
-
-	public com.exedio.cope.Type<FieldGroup<L>> getFieldGroupType()
-	{
-		return mount().fieldGroupType;
-	}
-
-	public ItemField<FieldGroup<L>> getFieldGroup()
-	{
-		return mount().fieldGroup;
-	}
-
 
 	@Wrap(order=20, doc="Sets the dynamic type of this item in the model {0}.")
 	public void setType(
@@ -510,11 +468,6 @@ public final class DynamicModel<L> extends Pattern
 
 		public Field<L> addField(final String code, final ValueType valueType)
 		{
-			return addField(code, null, valueType);
-		}
-
-		public Field<L> addField(final String code, final FieldGroup<L> group, final ValueType valueType)
-		{
 			final DynamicModel<L> p = getPattern();
 			final Mount<L> m = p.mount();
 			final List<Field<L>> fields = getFields(); // TODO make more efficient
@@ -528,8 +481,7 @@ public final class DynamicModel<L> extends Pattern
 							p.fieldPosition.map(position),
 							p.fieldCode.map(code),
 							p.fieldValueType.map(valueType),
-							p.fieldPositionPerValueType.map(positionPerValuetype),
-							m.fieldGroup.map(group));
+							p.fieldPositionPerValueType.map(positionPerValuetype));
 		}
 
 		private List<Field<L>> getFields(final DynamicModel<L> p, final Mount<L> m, final ValueType valueType)
@@ -539,52 +491,27 @@ public final class DynamicModel<L> extends Pattern
 
 		public Field<L> addStringField(final String code)
 		{
-			return addStringField(code, null);
-		}
-
-		public Field<L> addStringField(final String code, final FieldGroup<L> group)
-		{
-			return addField(code, group, ValueType.STRING);
+			return addField(code, ValueType.STRING);
 		}
 
 		public Field<L> addBooleanField(final String code)
 		{
-			return addBooleanField(code, null);
-		}
-
-		public Field<L> addBooleanField(final String code, final FieldGroup<L> group)
-		{
-			return addField(code, group, ValueType.BOOLEAN);
+			return addField(code, ValueType.BOOLEAN);
 		}
 
 		public Field<L> addIntegerField(final String code)
 		{
-			return addIntegerField(code, null);
-		}
-
-		public Field<L> addIntegerField(final String code, final FieldGroup<L> group)
-		{
-			return addField(code, group, ValueType.INTEGER);
+			return addField(code, ValueType.INTEGER);
 		}
 
 		public Field<L> addDoubleField(final String code)
 		{
-			return addDoubleField(code, null);
-		}
-
-		public Field<L> addDoubleField(final String code, final FieldGroup<L> group)
-		{
-			return addField(code, group, ValueType.DOUBLE);
+			return addField(code, ValueType.DOUBLE);
 		}
 
 		public Field<L> addEnumField(final String code)
 		{
-			return addEnumField(code, null);
-		}
-
-		public Field<L> addEnumField(final String code, final FieldGroup<L> group)
-		{
-			return addField(code, group, ValueType.ENUM);
+			return addField(code, ValueType.ENUM);
 		}
 
 		public List<Field<L>> getFields()
@@ -716,42 +643,6 @@ public final class DynamicModel<L> extends Pattern
 		}
 	}
 
-	public FieldGroup<L> createFieldGroup(final String code)
-	{
-		return getFieldGroupType().newItem(fieldGroupCode.map(code));
-	}
-
-	public static final class FieldGroup<L> extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		FieldGroup(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
-		@SuppressWarnings({"unchecked", "rawtypes"})
-		public DynamicModel<L> getPattern()
-		{
-			return (DynamicModel)getCopeType().getPattern();
-		}
-
-		public String getCode()
-		{
-			return getPattern().fieldGroupCode.get(this);
-		}
-
-		public String getName(final L locale)
-		{
-			return getPattern().fieldGroupLocalization.get(this, locale);
-		}
-
-		public void setName(final L locale, final String value)
-		{
-			getPattern().fieldGroupLocalization.set(this, locale, value);
-		}
-	}
-
 	public static final class Field<L> extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -875,16 +766,6 @@ public final class DynamicModel<L> extends Pattern
 		public void setName(final L locale, final String value)
 		{
 			getPattern().fieldLocalization.set(this, locale, value);
-		}
-
-		public FieldGroup<L> getFieldGroup()
-		{
-			return getPattern().getFieldGroup().get(this);
-		}
-
-		public void setFieldGroup(final FieldGroup<L> fieldGroup)
-		{
-			getPattern().getFieldGroup().set(this, fieldGroup);
 		}
 	}
 
