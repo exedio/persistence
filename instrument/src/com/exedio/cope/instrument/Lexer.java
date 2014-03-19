@@ -74,16 +74,11 @@ final class Lexer
 		throws IOException
 	{
 		final byte[] inputBytes = new byte[(int)inputFile.length()];
-		final FileInputStream fis = new FileInputStream(inputFile);
-		try
+		try(final FileInputStream fis = new FileInputStream(inputFile))
 		{
 			final int readBytes = fis.read(inputBytes);
 			if(readBytes!=inputBytes.length)
 				throw new RuntimeException(inputFile.getAbsolutePath() + '(' + readBytes + ')');
-		}
-		finally
-		{
-			fis.close();
 		}
 		final CharsetDecoder decoder = charset.newDecoder();
 
