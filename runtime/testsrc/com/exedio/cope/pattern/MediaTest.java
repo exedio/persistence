@@ -142,7 +142,7 @@ public final class MediaTest extends AbstractRuntimeTest
 		deleteOnTearDown(new MediaItemHolder(item));
 		final MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
 
-		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull()));
+		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull(), MediaItem.TYPE.getThis(), true));
 		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));
 
 		{
