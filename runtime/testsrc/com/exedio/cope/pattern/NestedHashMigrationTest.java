@@ -82,17 +82,16 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 	public void testMigratePasswordOnChange()
 	{
 		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
-		assertNotNull(password.getLegacyHash().getHash(item));
-		assertNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getLegacyHash().getHash(item));
+		assertLegacy(item);
 
 		assertTrue(item.checkPassword("111111"));
+		assertLegacy(item);
+
 		assertFalse(item.checkPassword("222222"));
+		assertLegacy(item);
 
 		item.setPassword("222222");
-		assertNull(password.getLegacyHash().getHash(item));
-		assertNotNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
+		assertTarget(item);
 		assertTrue(item.checkPassword("222222"));
 		assertFalse(item.checkPassword("333333"));
 		assertFalse(item.checkPassword("111111"));
@@ -103,15 +102,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		final NestedHashMigrationItem itemA = deleteOnTearDown(new NestedHashMigrationItem("111111A", 1.1));
 		final NestedHashMigrationItem itemB = deleteOnTearDown(new NestedHashMigrationItem("111111B", 1.1));
 		final NestedHashMigrationItem itemX = deleteOnTearDown(new NestedHashMigrationItem("111111X"));
-		assertNotNull(password.getLegacyHash().getHash(itemA));
-		assertNotNull(password.getLegacyHash().getHash(itemB));
-		assertNull(password.getLegacyHash().getHash(itemX));
-		assertNull(password.getTargetHash().getHash(itemA));
-		assertNull(password.getTargetHash().getHash(itemB));
-		assertNotNull(password.getTargetHash().getHash(itemX));
-		assertEquals(password.getHash(itemA), password.getLegacyHash().getHash(itemA));
-		assertEquals(password.getHash(itemB), password.getLegacyHash().getHash(itemB));
-		assertEquals(password.getHash(itemX), password.getTargetHash().getHash(itemX));
+		assertLegacy(itemA);
+		assertLegacy(itemB);
+		assertTarget(itemX);
 		model.commit();
 
 		{
@@ -122,15 +115,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		}
 
 		model.startTransaction("test result");
-		assertNull(password.getLegacyHash().getHash(itemA));
-		assertNull(password.getLegacyHash().getHash(itemB));
-		assertNull(password.getLegacyHash().getHash(itemX));
-		assertNotNull(password.getTargetHash().getHash(itemA));
-		assertNotNull(password.getTargetHash().getHash(itemB));
-		assertNotNull(password.getTargetHash().getHash(itemX));
-		assertEquals(password.getHash(itemA), password.getTargetHash().getHash(itemA));
-		assertEquals(password.getHash(itemB), password.getTargetHash().getHash(itemB));
-		assertEquals(password.getHash(itemX), password.getTargetHash().getHash(itemX));
+		assertTarget(itemA);
+		assertTarget(itemB);
+		assertTarget(itemX);
 		assertTrue(itemA.checkPassword("111111A"));
 		assertTrue(itemB.checkPassword("111111B"));
 		assertTrue(itemX.checkPassword("111111X"));
@@ -144,9 +131,26 @@ public class NestedHashMigrationTest extends AbstractRuntimeTest
 		}
 
 		model.startTransaction("test result");
+		assertTarget(itemA);
+		assertTarget(itemB);
+		assertTarget(itemX);
 		assertTrue(itemA.checkPassword("111111A"));
 		assertTrue(itemB.checkPassword("111111B"));
 		assertTrue(itemX.checkPassword("111111X"));
+	}
+
+	private static void assertLegacy(final NestedHashMigrationItem item)
+	{
+		assertNotNull(password.getLegacyHash().getHash(item));
+		assertNull(password.getTargetHash().getHash(item));
+		assertEquals(password.getHash(item), password.getLegacyHash().getHash(item));
+	}
+
+	private static void assertTarget(final NestedHashMigrationItem item)
+	{
+		assertNull(password.getLegacyHash().getHash(item));
+		assertNotNull(password.getTargetHash().getHash(item));
+		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
 	}
 
 	private static class MyJobContext extends AssertionErrorJobContext
