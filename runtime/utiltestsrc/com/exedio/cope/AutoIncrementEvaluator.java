@@ -68,22 +68,25 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			long getGeneratedKeysAccu = 0;
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				final PreparedStatement stmt =
+				final int pk;
+				try(final PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
-								RETURN_GENERATED_KEYS);
-				stmt.setObject(1, "payLoad + i");
-				final long executeUpdateStart = System.nanoTime();
-				stmt.executeUpdate();
-				executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
-				final long getGeneratedKeysStart = System.nanoTime();
-				final ResultSet resultSet = stmt.getGeneratedKeys();
-				getGeneratedKeysAccu += (System.nanoTime() - getGeneratedKeysStart);
-				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence ");
-				final int pk = resultSet.getInt(1);
-				resultSet.close();
-				stmt.close();
+								RETURN_GENERATED_KEYS))
+				{
+					stmt.setObject(1, "payLoad + i");
+					final long executeUpdateStart = System.nanoTime();
+					stmt.executeUpdate();
+					executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
+					final long getGeneratedKeysStart = System.nanoTime();
+					try(final ResultSet resultSet = stmt.getGeneratedKeys())
+					{
+						getGeneratedKeysAccu += (System.nanoTime() - getGeneratedKeysStart);
+						if(!resultSet.next())
+							throw new RuntimeException("empty in sequence ");
+						pk = resultSet.getInt(1);
+					}
+				}
 				assertEquals(i+1, pk);
 			}
 			System.out.println(
@@ -96,15 +99,16 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			long executeUpdateAccu = 0;
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				final PreparedStatement stmt =
+				try(final PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
-								NO_GENERATED_KEYS);
-				stmt.setObject(1, "payLoad + i");
-				final long executeUpdateStart = System.nanoTime();
-				stmt.executeUpdate();
-				executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
-				stmt.close();
+								NO_GENERATED_KEYS))
+				{
+					stmt.setObject(1, "payLoad + i");
+					final long executeUpdateStart = System.nanoTime();
+					stmt.executeUpdate();
+					executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
+				}
 			}
 			System.out.println(
 					"auto_increment empty " + toMillies(System.nanoTime(), start) + "ms " +
@@ -120,16 +124,17 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			long executeUpdateAccu = 0;
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				final PreparedStatement stmt =
+				try(final PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (pk,payLoad) VALUES (?,?)",
-								NO_GENERATED_KEYS);
-				stmt.setObject(1, i);
-				stmt.setObject(2, "payLoad + i");
-				final long executeUpdateStart = System.nanoTime();
-				stmt.executeUpdate();
-				executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
-				stmt.close();
+								NO_GENERATED_KEYS))
+				{
+					stmt.setObject(1, i);
+					stmt.setObject(2, "payLoad + i");
+					final long executeUpdateStart = System.nanoTime();
+					stmt.executeUpdate();
+					executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
+				}
 			}
 			System.out.println(
 					"normal " + toMillies(System.nanoTime(), start) + "ms " +
