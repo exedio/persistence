@@ -70,14 +70,10 @@ public class DrivebyHashMigrationTest extends AbstractRuntimeTest
 	public void testMigratePasswordOnChange()
 	{
 		final DrivebyHashMigrationItem item = deleteOnTearDown(new DrivebyHashMigrationItem("111111", 1.1));
-		assertNotNull(password.getLegacyHash().getHash(item));
-		assertNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getLegacyHash().getHash(item));
+		assertLegacy(item);
 
 		item.setPassword("222222");
-		assertNull(password.getLegacyHash().getHash(item));
-		assertNotNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
+		assertTarget(item);
 		assertTrue(item.checkPassword("222222"));
 		assertFalse(item.checkPassword("333333"));
 		assertFalse(item.checkPassword("111111"));
@@ -86,26 +82,30 @@ public class DrivebyHashMigrationTest extends AbstractRuntimeTest
 	public void testMigratePasswordOnCheck()
 	{
 		final DrivebyHashMigrationItem item = deleteOnTearDown(new DrivebyHashMigrationItem("111111A", 1.1));
+		assertLegacy(item);
+
+		assertFalse(item.checkPassword("111111Ax"));
+		assertLegacy(item);
+
+		assertTrue(item.checkPassword("111111A"));
+		assertTarget(item);
+
+		assertTrue(item.checkPassword("111111A"));
+		assertTarget(item);
+
+		assertFalse(item.checkPassword("111111Ax"));
+		assertTarget(item);
+	}
+
+	private static void assertLegacy(final DrivebyHashMigrationItem item)
+	{
 		assertNotNull(password.getLegacyHash().getHash(item));
 		assertNull(password.getTargetHash().getHash(item));
 		assertEquals(password.getHash(item), password.getLegacyHash().getHash(item));
+	}
 
-		assertFalse(item.checkPassword("111111Ax"));
-		assertNotNull(password.getLegacyHash().getHash(item));
-		assertNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getLegacyHash().getHash(item));
-
-		assertTrue(item.checkPassword("111111A"));
-		assertNull(password.getLegacyHash().getHash(item));
-		assertNotNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
-
-		assertTrue(item.checkPassword("111111A"));
-		assertNull(password.getLegacyHash().getHash(item));
-		assertNotNull(password.getTargetHash().getHash(item));
-		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
-
-		assertFalse(item.checkPassword("111111Ax"));
+	private static void assertTarget(final DrivebyHashMigrationItem item)
+	{
 		assertNull(password.getLegacyHash().getHash(item));
 		assertNotNull(password.getTargetHash().getHash(item));
 		assertEquals(password.getHash(item), password.getTargetHash().getHash(item));
