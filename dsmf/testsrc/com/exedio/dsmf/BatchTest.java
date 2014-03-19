@@ -42,21 +42,23 @@ public class BatchTest extends SchemaTest
 			for(String line = ps.readLine(); line!=null; line = ps.readLine())
 			{
 				//System.out.println(line);
-				final java.sql.Statement sqlStatement = connection1.createStatement();
-				sqlStatement.executeUpdate(line);
-				sqlStatement.close();
+				try(final java.sql.Statement sqlStatement = connection1.createStatement())
+				{
+					sqlStatement.executeUpdate(line);
+				}
 			}
 		}
 		else
 		{
-			final java.sql.Statement sqlStatement = connection1.createStatement();
-			for(String line = ps.readLine(); line!=null; line = ps.readLine())
+			try(final java.sql.Statement sqlStatement = connection1.createStatement())
 			{
-				//System.out.println(line);
-				sqlStatement.addBatch(line);
+				for(String line = ps.readLine(); line!=null; line = ps.readLine())
+				{
+					//System.out.println(line);
+					sqlStatement.addBatch(line);
+				}
+				sqlStatement.executeBatch();
 			}
-			sqlStatement.executeBatch();
-			sqlStatement.close();
 		}
 		final long end1 = System.currentTimeMillis();
 		ps.close();

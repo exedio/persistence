@@ -75,30 +75,14 @@ final class Connect
 			throw new RuntimeException(url);
 
 		final DialectParameters dialectParameters;
-		Connection probeConnection = null;
-		try
+		try(final Connection probeConnection =
+				driver.connect(url, properties.newConnectionInfo()))
 		{
-			probeConnection = driver.connect(url, properties.newConnectionInfo());
 			dialectParameters = new DialectParameters(properties, probeConnection);
 		}
 		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, url);
-		}
-		finally
-		{
-			if(probeConnection!=null)
-			{
-				try
-				{
-					probeConnection.close();
-					probeConnection = null;
-				}
-				catch(final SQLException e)
-				{
-					throw new SQLRuntimeException(e, "close");
-				}
-			}
 		}
 		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(dialectParameters);

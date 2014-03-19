@@ -334,7 +334,6 @@ final class Executor
 		throws UniqueViolationException
 	{
 		java.sql.Statement sqlStatement = null;
-		ResultSet generatedKeysResultSet = null;
 		try
 		{
 			final String sqlText = statement.getText();
@@ -370,8 +369,10 @@ final class Executor
 						0,
 						0);
 
-			generatedKeysResultSet = sqlStatement.getGeneratedKeys();
-			return generatedKeysHandler.handle(generatedKeysResultSet);
+			try(final ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
+			{
+				return generatedKeysHandler.handle(generatedKeysResultSet);
+			}
 		}
 		catch(final SQLException e)
 		{
@@ -379,17 +380,6 @@ final class Executor
 		}
 		finally
 		{
-			if(generatedKeysResultSet!=null)
-			{
-				try
-				{
-					generatedKeysResultSet.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 			if(sqlStatement!=null)
 			{
 				try

@@ -119,8 +119,7 @@ public final class Revision
 		// Do not use connection pool,
 		// because connection state may have
 		// been changed by the revision
-		final Connection connection = connectionFactory.create();
-		try
+		try(final Connection connection = connectionFactory.create())
 		{
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 			{
@@ -133,16 +132,9 @@ public final class Revision
 				bodyInfo[bodyIndex] = new RevisionInfoRevise.Body(sql, rows, elapsed);
 			}
 		}
-		finally
+		catch(final SQLException e)
 		{
-			try
-			{
-				connection.close();
-			}
-			catch(final SQLException e)
-			{
-				logger.error( "close", e);
-			}
+			throw new SQLRuntimeException(e, "close");
 		}
 		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
 	}
@@ -152,29 +144,13 @@ public final class Revision
 			final Connection connection,
 			final String sql)
 	{
-		java.sql.Statement statement = null;
-		try
+		try(final java.sql.Statement statement = connection.createStatement())
 		{
-			statement = connection.createStatement();
 			return statement.executeUpdate(sql);
 		}
 		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, sql);
-		}
-		finally
-		{
-			if(statement!=null)
-			{
-				try
-				{
-					statement.close();
-				}
-				catch(final SQLException e)
-				{
-					logger.error( "close", e);
-				}
-			}
 		}
 	}
 

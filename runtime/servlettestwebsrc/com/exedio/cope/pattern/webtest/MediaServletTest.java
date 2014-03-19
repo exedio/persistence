@@ -376,14 +376,15 @@ public class MediaServletTest extends TestCase
 
 	private static String getContentAsString( final InputStream is ) throws IOException
 	{
-		final BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		final StringBuilder builder = new StringBuilder();
-		String s;
-		while ( (s=br.readLine())!=null )
+		try(final BufferedReader br = new BufferedReader(new InputStreamReader(is)))
 		{
-			builder.append(s).append('\n');
+			String s;
+			while ( (s=br.readLine())!=null )
+			{
+				builder.append(s).append('\n');
+			}
 		}
-		br.close();
 		return builder.toString();
 	}
 
@@ -399,9 +400,10 @@ public class MediaServletTest extends TestCase
 		assertEquals(null, conn.getContentType());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(0, conn.getContentLength());
-		final InputStream is = conn.getInputStream();
-		assertEquals(-1, is.read());
-		is.close();
+		try(final InputStream is = conn.getInputStream())
+		{
+			assertEquals(-1, is.read());
+		}
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
@@ -422,20 +424,21 @@ public class MediaServletTest extends TestCase
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
-		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		assertEquals("<html>", is.readLine());
-		assertEquals("<head>", is.readLine());
-		assertEquals("<title>Not Found</title>", is.readLine());
-		assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
-		assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
-		assertEquals("</head>", is.readLine());
-		assertEquals("<body>", is.readLine());
-		assertEquals("<h1>Not Found</h1>", is.readLine());
-		assertEquals("The requested URL was not found on this server (" + reason + ").", is.readLine());
-		assertEquals("</body>", is.readLine());
-		assertEquals("</html>", is.readLine());
-		assertEquals(null, is.readLine());
-		is.close();
+		try(final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
+		{
+			assertEquals("<html>", is.readLine());
+			assertEquals("<head>", is.readLine());
+			assertEquals("<title>Not Found</title>", is.readLine());
+			assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
+			assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
+			assertEquals("</head>", is.readLine());
+			assertEquals("<body>", is.readLine());
+			assertEquals("<h1>Not Found</h1>", is.readLine());
+			assertEquals("The requested URL was not found on this server (" + reason + ").", is.readLine());
+			assertEquals("</body>", is.readLine());
+			assertEquals("</html>", is.readLine());
+			assertEquals(null, is.readLine());
+		}
 
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -516,20 +519,21 @@ public class MediaServletTest extends TestCase
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
-		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		assertEquals("<html>", is.readLine());
-		assertEquals("<head>", is.readLine());
-		assertEquals("<title>Internal Server Error</title>", is.readLine());
-		assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
-		assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
-		assertEquals("</head>", is.readLine());
-		assertEquals("<body>", is.readLine());
-		assertEquals("<h1>Internal Server Error</h1>", is.readLine());
-		assertEquals("An internal error occured on the server.", is.readLine());
-		assertEquals("</body>", is.readLine());
-		assertEquals("</html>", is.readLine());
-		assertEquals(null, is.readLine());
-		is.close();
+		try(final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
+		{
+			assertEquals("<html>", is.readLine());
+			assertEquals("<head>", is.readLine());
+			assertEquals("<title>Internal Server Error</title>", is.readLine());
+			assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
+			assertEquals("<meta name=\"generator\" content=\"cope media servlet\">", is.readLine());
+			assertEquals("</head>", is.readLine());
+			assertEquals("<body>", is.readLine());
+			assertEquals("<h1>Internal Server Error</h1>", is.readLine());
+			assertEquals("An internal error occured on the server.", is.readLine());
+			assertEquals("</body>", is.readLine());
+			assertEquals("</html>", is.readLine());
+			assertEquals(null, is.readLine());
+		}
 
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -555,10 +559,11 @@ public class MediaServletTest extends TestCase
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(12, conn.getContentLength());
 
-		final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		assertEquals("media item 1", is.readLine());
-		assertEquals(null, is.readLine());
-		is.close();
+		try(final BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream())))
+		{
+			assertEquals("media item 1", is.readLine());
+			assertEquals(null, is.readLine());
+		}
 	}
 
 	private static void print(final HttpURLConnection conn, final String url) throws IOException

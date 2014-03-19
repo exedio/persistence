@@ -220,14 +220,9 @@ public final class DataField extends Field<DataField.Value>
 
 		if(!isNull(item))
 		{
-			final FileOutputStream target = new FileOutputStream(data);
-			try
+			try(final FileOutputStream target = new FileOutputStream(data))
 			{
 				get(item, target);
-			}
-			finally
-			{
-				target.close();
 			}
 		}
 		// TODO maybe file should be deleted when field is null?
@@ -584,14 +579,9 @@ public final class DataField extends Field<DataField.Value>
 		{
 			assertNotExhausted();
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			final InputStream stream = openStream();
-			try
+			try(final InputStream stream = openStream())
 			{
 				field.copy(stream, baos, exceptionItem);
-			}
-			finally
-			{
-				stream.close();
 			}
 			return baos.toByteArray();
 		}
@@ -605,8 +595,7 @@ public final class DataField extends Field<DataField.Value>
 			if(exhaustsOpenStream())
 			{
 				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
-				final InputStream in = openStream();
-				try
+				try(final InputStream in = openStream())
 				{
 					for(int len = in.read(buf); len>=0; len = in.read(buf))
 					{
@@ -614,23 +603,14 @@ public final class DataField extends Field<DataField.Value>
 						bf.write(buf, 0, len);
 					}
 				}
-				finally
-				{
-					in.close();
-				}
 				return new ArrayValue(bf.toByteArray());
 			}
 			else
 			{
-				final InputStream in = openStream();
-				try
+				try(final InputStream in = openStream())
 				{
 					for(int len = in.read(buf); len>=0; len = in.read(buf))
 						digest.update(buf, 0, len);
-				}
-				finally
-				{
-					in.close();
 				}
 				return copyAfterExhaustion();
 			}

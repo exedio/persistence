@@ -185,8 +185,7 @@ public class ModelSerializationTest extends CopeAssert
 	private static final void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		final ObjectOutputStream oos = new ObjectOutputStream(bos);
-		try
+		try(final ObjectOutputStream oos = new ObjectOutputStream(bos))
 		{
 			oos.writeObject(value);
 			fail();
@@ -199,7 +198,6 @@ public class ModelSerializationTest extends CopeAssert
 					: exceptionMessage.getName(),
 				e.getMessage());
 		}
-		oos.close();
 	}
 
 	static class AnItem extends Item

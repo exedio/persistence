@@ -181,27 +181,15 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			return;
 
 		model.commit();
-		final Connection con = newConnection(model);
-		try
-		{
+		try(
+			final Connection con = newConnection(model);
 			final Statement stmt = con.createStatement();
-			try
-			{
-				final ResultSet rs = stmt.
-						executeQuery("select max(x),count(*) from " + quoteName(model, name));
-				rs.next();
-				assertEquals("max",   max,   rs.getInt(1));
-				assertEquals("count", count, rs.getInt(2));
-				rs.close();
-			}
-			finally
-			{
-				stmt.close();
-			}
-		}
-		finally
+			final ResultSet rs = stmt.
+					executeQuery("select max(x),count(*) from " + quoteName(model, name)))
 		{
-			con.close();
+			rs.next();
+			assertEquals("max",   max,   rs.getInt(1));
+			assertEquals("count", count, rs.getInt(2));
 		}
 		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
