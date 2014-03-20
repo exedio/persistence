@@ -202,25 +202,11 @@ final class Executor
 			final String sql,
 			final ResultSetHandler<R> resultSetHandler)
 	{
-		try
+		try(
+			java.sql.Statement sqlStatement = connection.createStatement();
+			ResultSet resultSet = sqlStatement.executeQuery(sql))
 		{
-			final java.sql.Statement sqlStatement = connection.createStatement();
-			try
-			{
-				final ResultSet resultSet = sqlStatement.executeQuery(sql);
-				try
-				{
-					return resultSetHandler.handle(resultSet);
-				}
-				finally
-				{
-					resultSet.close();
-				}
-			}
-			finally
-			{
-				sqlStatement.close();
-			}
+			return resultSetHandler.handle(resultSet);
 		}
 		catch(final SQLException e)
 		{
@@ -309,17 +295,9 @@ final class Executor
 			final Connection connection,
 			final String sql)
 	{
-		try
+		try(java.sql.Statement sqlStatement = connection.createStatement())
 		{
-			final java.sql.Statement sqlStatement = connection.createStatement();
-			try
-			{
-				return sqlStatement.executeUpdate(sql);
-			}
-			finally
-			{
-				sqlStatement.close();
-			}
+			return sqlStatement.executeUpdate(sql);
 		}
 		catch(final SQLException e)
 		{
