@@ -314,7 +314,6 @@
 		<compile srcdir="runtime/junitsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
