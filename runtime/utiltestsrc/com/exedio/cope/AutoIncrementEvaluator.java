@@ -69,7 +69,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			for(int i=0; i<ITERATIONS; i++)
 			{
 				final int pk;
-				try(final PreparedStatement stmt =
+				try(PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
 								RETURN_GENERATED_KEYS))
@@ -79,7 +79,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 					stmt.executeUpdate();
 					executeUpdateAccu += (System.nanoTime() - executeUpdateStart);
 					final long getGeneratedKeysStart = System.nanoTime();
-					try(final ResultSet resultSet = stmt.getGeneratedKeys())
+					try(ResultSet resultSet = stmt.getGeneratedKeys())
 					{
 						getGeneratedKeysAccu += (System.nanoTime() - getGeneratedKeysStart);
 						if(!resultSet.next())
@@ -99,7 +99,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			long executeUpdateAccu = 0;
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				try(final PreparedStatement stmt =
+				try(PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
 								NO_GENERATED_KEYS))
@@ -124,7 +124,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			long executeUpdateAccu = 0;
 			for(int i=0; i<ITERATIONS; i++)
 			{
-				try(final PreparedStatement stmt =
+				try(PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (pk,payLoad) VALUES (?,?)",
 								NO_GENERATED_KEYS))

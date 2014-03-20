@@ -42,7 +42,7 @@ public class BatchTest extends SchemaTest
 			for(String line = ps.readLine(); line!=null; line = ps.readLine())
 			{
 				//System.out.println(line);
-				try(final java.sql.Statement sqlStatement = connection1.createStatement())
+				try(java.sql.Statement sqlStatement = connection1.createStatement())
 				{
 					sqlStatement.executeUpdate(line);
 				}
@@ -50,7 +50,7 @@ public class BatchTest extends SchemaTest
 		}
 		else
 		{
-			try(final java.sql.Statement sqlStatement = connection1.createStatement())
+			try(java.sql.Statement sqlStatement = connection1.createStatement())
 			{
 				for(String line = ps.readLine(); line!=null; line = ps.readLine())
 				{

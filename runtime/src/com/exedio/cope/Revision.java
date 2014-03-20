@@ -119,7 +119,7 @@ public final class Revision
 		// Do not use connection pool,
 		// because connection state may have
 		// been changed by the revision
-		try(final Connection connection = connectionFactory.create())
+		try(Connection connection = connectionFactory.create())
 		{
 			for(int bodyIndex = 0; bodyIndex<body.length; bodyIndex++)
 			{
@@ -144,7 +144,7 @@ public final class Revision
 			final Connection connection,
 			final String sql)
 	{
-		try(final java.sql.Statement statement = connection.createStatement())
+		try(java.sql.Statement statement = connection.createStatement())
 		{
 			return statement.executeUpdate(sql);
 		}

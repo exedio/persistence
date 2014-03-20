@@ -101,7 +101,7 @@ final class Main
 					delete(file);
 					final CharsetEncoder decoder = charset.newEncoder();
 					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
-					try(final FileOutputStream o = new FileOutputStream(file))
+					try(FileOutputStream o = new FileOutputStream(file))
 					{
 						o.getChannel().write(out);
 					}

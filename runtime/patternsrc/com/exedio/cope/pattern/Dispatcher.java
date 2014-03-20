@@ -274,7 +274,7 @@ public final class Dispatcher extends Pattern
 
 					model.startTransaction(id + " register failure " + itemID);
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					try(final PrintStream out = new PrintStream(baos, false, ENCODING))
+					try(PrintStream out = new PrintStream(baos, false, ENCODING))
 					{
 						cause.printStackTrace(out);
 					}

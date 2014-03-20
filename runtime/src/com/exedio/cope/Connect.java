@@ -75,7 +75,7 @@ final class Connect
 			throw new RuntimeException(url);
 
 		final DialectParameters dialectParameters;
-		try(final Connection probeConnection =
+		try(Connection probeConnection =
 				driver.connect(url, properties.newConnectionInfo()))
 		{
 			dialectParameters = new DialectParameters(properties, probeConnection);

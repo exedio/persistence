@@ -77,10 +77,10 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeTest
 	{
 		final String transactionName = model.currentTransaction().getName();
 		model.commit();
-		try(final Connection connection = SchemaInfo.newConnection(model))
+		try(Connection connection = SchemaInfo.newConnection(model))
 		{
 			connection.setAutoCommit(true);
-			try(final Statement statement = connection.createStatement())
+			try(Statement statement = connection.createStatement())
 			{
 				assertEquals(1, statement.executeUpdate(sql));
 			}

@@ -160,7 +160,7 @@ public class DataDigestTest extends CopeAssert
 	private static File file(final byte[] content) throws IOException
 	{
 		final File result = File.createTempFile(DataDigestTest.class.getName(), ".dat");
-		try(final FileOutputStream out = new FileOutputStream(result))
+		try(FileOutputStream out = new FileOutputStream(result))
 		{
 			out.write(content);
 		}

@@ -66,9 +66,9 @@ final class MxSamplerPurge extends Item
 			" where "      + quoteName(model, getColumnName(field)) + "<?";
 		final int rows;
 		final long start = System.nanoTime();
-		try(final Connection con = newConnection(model))
+		try(Connection con = newConnection(model))
 		{
-			try(final PreparedStatement stat = con.prepareStatement(bf))
+			try(PreparedStatement stat = con.prepareStatement(bf))
 			{
 				if(supportsNativeDate(model))
 					stat.setTimestamp(1, new Timestamp(limit.getTime())); else

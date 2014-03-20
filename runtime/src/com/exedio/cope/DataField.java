@@ -220,7 +220,7 @@ public final class DataField extends Field<DataField.Value>
 
 		if(!isNull(item))
 		{
-			try(final FileOutputStream target = new FileOutputStream(data))
+			try(FileOutputStream target = new FileOutputStream(data))
 			{
 				get(item, target);
 			}
@@ -579,7 +579,7 @@ public final class DataField extends Field<DataField.Value>
 		{
 			assertNotExhausted();
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			try(final InputStream stream = openStream())
+			try(InputStream stream = openStream())
 			{
 				field.copy(stream, baos, exceptionItem);
 			}
@@ -595,7 +595,7 @@ public final class DataField extends Field<DataField.Value>
 			if(exhaustsOpenStream())
 			{
 				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
-				try(final InputStream in = openStream())
+				try(InputStream in = openStream())
 				{
 					for(int len = in.read(buf); len>=0; len = in.read(buf))
 					{
@@ -607,7 +607,7 @@ public final class DataField extends Field<DataField.Value>
 			}
 			else
 			{
-				try(final InputStream in = openStream())
+				try(InputStream in = openStream())
 				{
 					for(int len = in.read(buf); len>=0; len = in.read(buf))
 						digest.update(buf, 0, len);

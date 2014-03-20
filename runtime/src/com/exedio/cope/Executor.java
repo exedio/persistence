@@ -369,7 +369,7 @@ final class Executor
 						0,
 						0);
 
-			try(final ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
+			try(ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
 			{
 				return generatedKeysHandler.handle(generatedKeysResultSet);
 			}

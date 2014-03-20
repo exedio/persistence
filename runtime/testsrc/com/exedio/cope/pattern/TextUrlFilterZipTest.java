@@ -157,7 +157,7 @@ public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
 		assertTrue(read>0);
 
 		final File result = deleteOnTearDown(createTempFile(TextUrlFilterZipTest.class.getName(), ""));
-		try(final FileOutputStream out = new FileOutputStream(result))
+		try(FileOutputStream out = new FileOutputStream(result))
 		{
 			out.write(b, 0, read);
 		}

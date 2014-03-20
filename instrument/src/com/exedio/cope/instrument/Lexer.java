@@ -74,7 +74,7 @@ final class Lexer
 		throws IOException
 	{
 		final byte[] inputBytes = new byte[(int)inputFile.length()];
-		try(final FileInputStream fis = new FileInputStream(inputFile))
+		try(FileInputStream fis = new FileInputStream(inputFile))
 		{
 			final int readBytes = fis.read(inputBytes);
 			if(readBytes!=inputBytes.length)
