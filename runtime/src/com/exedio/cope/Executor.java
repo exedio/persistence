@@ -109,92 +109,72 @@ final class Executor
 		final boolean explain,
 		final ResultSetHandler<R> resultSetHandler)
 	{
-		java.sql.Statement sqlStatement = null;
-		ResultSet resultSet = null;
-		try
+		final DatabaseListener listener = this.listener;
+		final boolean takeTimes = !explain && (listener!=null || (queryInfo!=null));
+		final String sqlText = statement.getText();
+		final long nanoStart = takeTimes ? nanoTime() : 0;
+		final long nanoPrepared;
+		final long nanoExecuted;
+
+		final R result;
+		final long nanoResultRead;
+		if(!prepare)
 		{
-			final DatabaseListener listener = this.listener;
-			final boolean takeTimes = !explain && (listener!=null || (queryInfo!=null));
-			final String sqlText = statement.getText();
-			final long nanoStart = takeTimes ? nanoTime() : 0;
-			final long nanoPrepared;
-			final long nanoExecuted;
-
-			if(!prepare)
+			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				sqlStatement = connection.createStatement();
-
 				nanoPrepared = takeTimes ? nanoTime() : 0;
-				resultSet = sqlStatement.executeQuery(sqlText);
+				try(ResultSet resultSet = sqlStatement.executeQuery(sqlText))
+				{
+					nanoExecuted = takeTimes ? nanoTime() : 0;
+					result = resultSetHandler.handle(resultSet);
+					nanoResultRead = takeTimes ? nanoTime() : 0;
+				}
 			}
-			else
+			catch(final SQLException e)
 			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText);
-				sqlStatement = prepared;
+				throw new SQLRuntimeException(e, statement.toString());
+			}
+		}
+		else
+		{
+			try(PreparedStatement prepared = connection.prepareStatement(sqlText))
+			{
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
 
 				nanoPrepared = takeTimes ? nanoTime() : 0;
-				resultSet = prepared.executeQuery();
+				try(ResultSet resultSet = prepared.executeQuery())
+				{
+					nanoExecuted = takeTimes ? nanoTime() : 0;
+					result = resultSetHandler.handle(resultSet);
+					nanoResultRead = takeTimes ? nanoTime() : 0;
+				}
 			}
-			nanoExecuted = takeTimes ? nanoTime() : 0;
-			final R result = resultSetHandler.handle(resultSet);
-			final long nanoResultRead = takeTimes ? nanoTime() : 0;
+			catch(final SQLException e)
+			{
+				throw new SQLRuntimeException(e, statement.toString());
+			}
+		}
 
-			resultSet.close();
-			resultSet = null;
-			sqlStatement.close();
-			sqlStatement = null;
-
-			if(explain)
-				return result;
-
-			final long nanoEnd = takeTimes ? nanoTime() : 0;
-
-			if(listener!=null)
-				listener.onStatement(
-						statement.text.toString(),
-						statement.getParameters(),
-						toMillies(nanoPrepared, nanoStart),
-						toMillies(nanoExecuted, nanoPrepared),
-						toMillies(nanoResultRead, nanoExecuted),
-						toMillies(nanoEnd, nanoResultRead));
-
-			if(queryInfo!=null)
-				makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
-
+		if(explain)
 			return result;
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(resultSet!=null)
-			{
-				try
-				{
-					resultSet.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-		}
+
+		final long nanoEnd = takeTimes ? nanoTime() : 0;
+
+		if(listener!=null)
+			listener.onStatement(
+					statement.text.toString(),
+					statement.getParameters(),
+					toMillies(nanoPrepared, nanoStart),
+					toMillies(nanoExecuted, nanoPrepared),
+					toMillies(nanoResultRead, nanoExecuted),
+					toMillies(nanoEnd, nanoResultRead));
+
+		if(queryInfo!=null)
+			makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
+
+		return result;
 	}
 
 	static <R> R query(
