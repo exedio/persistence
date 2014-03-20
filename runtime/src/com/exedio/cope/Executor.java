@@ -305,6 +305,13 @@ final class Executor
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				prepared.executeUpdate();
 			}
+			final long nanoExecuted = listener!=null ? nanoTime() : 0;
+
+			final R result;
+			try(ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
+			{
+				result = generatedKeysHandler.handle(generatedKeysResultSet);
+			}
 
 			final long nanoEnd = listener!=null ? nanoTime() : 0;
 
@@ -313,14 +320,11 @@ final class Executor
 						sqlText,
 						statement.getParameters(),
 						toMillies(nanoPrepared, nanoStart),
-						toMillies(nanoEnd, nanoPrepared),
-						0,
+						toMillies(nanoExecuted, nanoPrepared),
+						toMillies(nanoEnd, nanoExecuted),
 						0);
 
-			try(ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
-			{
-				return generatedKeysHandler.handle(generatedKeysResultSet);
-			}
+			return result;
 		}
 		catch(final SQLException e)
 		{
