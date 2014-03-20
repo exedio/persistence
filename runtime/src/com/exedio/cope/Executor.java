@@ -281,69 +281,66 @@ final class Executor
 			final ResultSetHandler<R> generatedKeysHandler)
 		throws UniqueViolationException
 	{
-		java.sql.Statement sqlStatement = null;
-		try
-		{
-			final String sqlText = statement.getText();
-			final DatabaseListener listener = this.listener;
-			final long nanoStart = listener!=null ? nanoTime() : 0;
+		final String sqlText = statement.getText();
+		final DatabaseListener listener = this.listener;
+		final long nanoStart = listener!=null ? nanoTime() : 0;
 
-			final long nanoPrepared;
-			if(!prepare)
+		final long nanoPrepared;
+		final long nanoExecuted;
+		final R result;
+		if(!prepare)
+		{
+			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				sqlStatement = connection.createStatement();
 				nanoPrepared = listener!=null ? nanoTime() : 0;
+
 				sqlStatement.executeUpdate(sqlText, RETURN_GENERATED_KEYS);
+				nanoExecuted = listener!=null ? nanoTime() : 0;
+
+				try(ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
+				{
+					result = generatedKeysHandler.handle(generatedKeysResultSet);
+				}
 			}
-			else
+			catch(final SQLException e)
 			{
-				final PreparedStatement prepared = connection.prepareStatement(sqlText, RETURN_GENERATED_KEYS);
-				sqlStatement = prepared;
+				throw new SQLRuntimeException(e, statement.toString());
+			}
+		}
+		else
+		{
+			try(PreparedStatement prepared = connection.prepareStatement(sqlText, RETURN_GENERATED_KEYS))
+			{
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
 				nanoPrepared = listener!=null ? nanoTime() : 0;
+
 				prepared.executeUpdate();
-			}
-			final long nanoExecuted = listener!=null ? nanoTime() : 0;
+				nanoExecuted = listener!=null ? nanoTime() : 0;
 
-			final R result;
-			try(ResultSet generatedKeysResultSet = sqlStatement.getGeneratedKeys())
-			{
-				result = generatedKeysHandler.handle(generatedKeysResultSet);
-			}
-
-			final long nanoEnd = listener!=null ? nanoTime() : 0;
-
-			if(listener!=null)
-				listener.onStatement(
-						sqlText,
-						statement.getParameters(),
-						toMillies(nanoPrepared, nanoStart),
-						toMillies(nanoExecuted, nanoPrepared),
-						toMillies(nanoEnd, nanoExecuted),
-						0);
-
-			return result;
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(sqlStatement!=null)
-			{
-				try
+				try(ResultSet generatedKeysResultSet = prepared.getGeneratedKeys())
 				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
+					result = generatedKeysHandler.handle(generatedKeysResultSet);
 				}
 			}
+			catch(final SQLException e)
+			{
+				throw new SQLRuntimeException(e, statement.toString());
+			}
 		}
+		final long nanoEnd = listener!=null ? nanoTime() : 0;
+
+		if(listener!=null)
+			listener.onStatement(
+					sqlText,
+					statement.getParameters(),
+					toMillies(nanoPrepared, nanoStart),
+					toMillies(nanoExecuted, nanoPrepared),
+					toMillies(nanoEnd, nanoExecuted),
+					0);
+
+		return result;
 	}
 
 	private void throwViolation(final SQLException sqlException, final Item item)
