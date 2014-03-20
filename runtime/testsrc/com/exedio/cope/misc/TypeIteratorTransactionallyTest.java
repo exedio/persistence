@@ -44,38 +44,28 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		try
+		try(ModelTransaction tx = modelTx.startTransaction(getClass().getName()))
 		{
-			model.startTransaction(getClass().getName());
 			item0 = new QueryAggregatorItem(0);
 			item1 = new QueryAggregatorItem(1);
 			item2 = new QueryAggregatorItem(2);
 			item3 = new QueryAggregatorItem(3);
 			item4 = new QueryAggregatorItem(4);
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 	}
 
 	@Override
 	public void tearDown() throws Exception
 	{
-		try
+		try(ModelTransaction tx = modelTx.startTransaction(getClass().getName()))
 		{
-			model.startTransaction(getClass().getName());
 			item0.deleteCopeItem();
 			item1.deleteCopeItem();
 			item2.deleteCopeItem();
 			item3.deleteCopeItem();
 			item4.deleteCopeItem();
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		super.tearDown();
 	}

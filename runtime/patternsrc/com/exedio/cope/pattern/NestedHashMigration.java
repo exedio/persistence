@@ -25,7 +25,6 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -33,6 +32,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Iterables;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -151,7 +151,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			throw new NullPointerException("ctx");
 
 		final Type<?> type = getType();
-		final Model model = type.getModel();
+		final ModelTransaction.Holder model = new ModelTransaction.Holder(type.getModel());
 		final String id = getID();
 
 		for(final Item item : Iterables.once(
@@ -159,10 +159,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try
+			try(ModelTransaction tx = model.startTransaction(id + " migrate " + itemID))
 			{
-				model.startTransaction(id + " migrate " + itemID);
-
 				final String legacyHashValue = legacyHash.getHash(item);
 				if(legacyHashValue==null)
 				{
@@ -177,11 +175,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 						legacyHash.map(null),
 						targetHash.getStorage().map(targetAlgorithm.hash(legacyHashValue)));
 
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
+				tx.commit();
 			}
 			ctx.incrementProgress();
 		}

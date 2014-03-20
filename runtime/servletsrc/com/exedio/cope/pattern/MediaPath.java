@@ -27,11 +27,11 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
-import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -621,11 +621,10 @@ public abstract class MediaPath extends Pattern
 		}
 
 		//System.out.println("ID="+id);
-		final Model model = getType().getModel();
-		try
+		final ModelTransaction.Holder model = new ModelTransaction.Holder(getType().getModel());
+		try(ModelTransaction tx = model.startTransaction("MediaPath#doGet " + pathInfo))
 		{
-			model.startTransaction("MediaPath#doGet " + pathInfo);
-			final Item item = model.getItem(id);
+			final Item item = tx.getItem(id);
 			//System.out.println("item="+item);
 			{
 				final Locator locator = getLocator(item);
@@ -656,7 +655,7 @@ public abstract class MediaPath extends Pattern
 
 			doGetAndCommitWithCache(request, response, item);
 
-			if(model.hasCurrentTransaction())
+			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
 
 			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
@@ -664,10 +663,6 @@ public abstract class MediaPath extends Pattern
 		catch(final NoSuchIDException e)
 		{
 			throw e.notAnID() ? notFoundNotAnItem() : notFoundNoSuchItem();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
 		}
 	}
 

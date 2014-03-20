@@ -22,6 +22,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.Properties;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.ListIterator;
 public abstract class CopeTest extends CopeAssert
 {
 	public final Model model;
+	public final ModelTransaction.Holder modelTx;
 	public final boolean exclusive;
 
 	private boolean manageTransactions = true;
@@ -56,6 +58,7 @@ public abstract class CopeTest extends CopeAssert
 	protected CopeTest(final Model model, final boolean exclusive)
 	{
 		this.model = model;
+		this.modelTx = new ModelTransaction.Holder(model);
 		this.exclusive = exclusive;
 	}
 

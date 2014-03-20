@@ -39,7 +39,6 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
@@ -47,6 +46,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -197,7 +197,7 @@ public final class Schedule extends Pattern
 		final Type<P> type = getType().as(parentClass);
 		final Runs.Mount mount = runs.mount();
 		final This<P> typeThis = type.getThis();
-		final Model model = type.getModel();
+		final ModelTransaction.Holder model = new ModelTransaction.Holder(type.getModel());
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
 		final Date now = new Date(Clock.currentTimeMillis());
@@ -215,9 +215,8 @@ public final class Schedule extends Pattern
 
 
 		final List<P> toRun;
-		try
+		try(ModelTransaction tx = model.startTransaction(featureID + " search"))
 		{
-			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
 					mount.type.getThis().isNull()));
@@ -233,20 +232,15 @@ public final class Schedule extends Pattern
 			);
 			q.setOrderBy(typeThis, true);
 			toRun = q.search();
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 
 		for(final P item : toRun)
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try
+			try(ModelTransaction tx = model.startTransaction(featureID + " schedule " + itemID))
 			{
-				model.startTransaction(featureID + " schedule " + itemID);
 				final Interval interval = this.interval.get(item);
 				final Date until;
 				switch(interval)
@@ -269,12 +263,8 @@ public final class Schedule extends Pattern
 				item.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
 				runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
-				model.commit();
+				tx.commit();
 				ctx.incrementProgress();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
 			}
 		}
 	}

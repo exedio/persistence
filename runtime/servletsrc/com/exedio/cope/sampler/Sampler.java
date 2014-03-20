@@ -32,6 +32,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
@@ -47,6 +48,7 @@ import java.util.List;
 public class Sampler
 {
 	private final Model samplerModel;
+	private final ModelTransaction.Holder samplerModelTx;
 
 	private final Model sampledModel;
 	private final MediaPath[] medias;
@@ -78,6 +80,7 @@ public class Sampler
 
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
+		samplerModelTx = new ModelTransaction.Holder(samplerModel);
 		final ArrayList<MediaPath> medias = new ArrayList<>();
 		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -159,15 +162,10 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try
+		try(ModelTransaction tx = samplerModelTx.startTransaction("check"))
 		{
-			samplerModel.startTransaction("check");
 			samplerModel.checkSchema();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 	}
 
@@ -188,10 +186,8 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try
+		try(ModelTransaction tx = samplerModelTx.startTransaction(toString() + " sample"))
 		{
-			samplerModel.startTransaction(toString() + " sample");
-
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
 			sv.add(SamplerModel.date.map(to.date));
@@ -246,12 +242,8 @@ public class Sampler
 					}
 				}
 			}
-			samplerModel.commit();
+			tx.commit();
 			return model;
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
 		}
 	}
 
@@ -268,15 +260,10 @@ public class Sampler
 	int analyzeCount(final Type<?> type)
 	{
 		final int result;
-		try
+		try(ModelTransaction tx = samplerModelTx.startTransaction("sampler analyzeCount"))
 		{
-			samplerModel.startTransaction("sampler analyzeCount");
 			result = type.newQuery().total();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		return result;
 	}
@@ -285,15 +272,10 @@ public class Sampler
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List<?> dates;
-		try
+		try(ModelTransaction tx = samplerModelTx.startTransaction("sampler analyzeDate"))
 		{
-			samplerModel.startTransaction("sampler analyzeDate");
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		return new Date[] {
 				(Date)dates.get(0),

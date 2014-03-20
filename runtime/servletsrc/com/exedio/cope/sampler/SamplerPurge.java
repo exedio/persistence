@@ -28,10 +28,10 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
@@ -58,10 +58,10 @@ final class SamplerPurge extends Item
 	{
 		ctx.stopIfRequested();
 		final DateField field = (DateField)type.getDeclaredFeature("date");
-		final Model model = type.getModel();
+		final ModelTransaction.Holder model = new ModelTransaction.Holder(type.getModel());
 		final String bf =
 				"DELETE " + removePrefix(
-						"SELECT " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
+						"SELECT " + quoteName(model.getModel(), getPrimaryKeyColumnName(type)) + ' ',
 						search(type.newQuery(field.less(limit)))
 				);
 		final int rows;
@@ -72,15 +72,10 @@ final class SamplerPurge extends Item
 		}
 		final long end = System.nanoTime();
 
-		try
+		try(ModelTransaction tx = model.startTransaction(samplerString + " purge register"))
 		{
-			model.startTransaction(samplerString + " purge register");
 			new SamplerPurge(type, limit, rows, toMillies(end, start));
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 
 		ctx.incrementProgress(rows);

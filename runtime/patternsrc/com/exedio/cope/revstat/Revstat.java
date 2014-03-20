@@ -31,6 +31,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
@@ -54,27 +55,25 @@ final class Revstat extends Item
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-		try
+		ctx.stopIfRequested();
+
+		final List<Body> bodies = revision.getBody();
+		int rows = 0;
+		long elapsed = 0;
+		for(final Body body : bodies)
 		{
-			ctx.stopIfRequested();
+			rows += body.getRows();
+			elapsed += body.getElapsed();
+		}
 
-			final List<Body> bodies = revision.getBody();
-			int rows = 0;
-			long elapsed = 0;
-			for(final Body body : bodies)
-			{
-				rows += body.getRows();
-				elapsed += body.getElapsed();
-			}
+		String comment = revision.getComment();
+		if(comment==null)
+			comment = "FOUND NULL BY CopeRevstat";
+		else if(comment.isEmpty())
+			comment = "FOUND EMPTY BY CopeRevstat";
 
-			String comment = revision.getComment();
-			if(comment==null)
-				comment = "FOUND NULL BY CopeRevstat";
-			else if(comment.isEmpty())
-				comment = "FOUND EMPTY BY CopeRevstat";
-
-			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
-
+		try(ModelTransaction tx = new ModelTransaction.Holder(model).startTransaction(RevisionStatistics.class.getName() + '#' + number))
+		{
 			final Revstat result;
 			try
 			{
@@ -95,12 +94,8 @@ final class Revstat extends Item
 			for(final Body body : bodies)
 				RevstatBody.get(result, bodyNumber++, body);
 
-			model.commit();
+			tx.commit();
 			ctx.incrementProgress();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
 		}
 	}
 
