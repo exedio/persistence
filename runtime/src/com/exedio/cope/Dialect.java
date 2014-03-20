@@ -109,26 +109,13 @@ abstract class Dialect
 		final Blob blob = resultSet.getBlob(columnIndex);
 		if(blob!=null)
 		{
-			final InputStream source = blob.getBinaryStream();
-			try
+			try(InputStream source = blob.getBinaryStream())
 			{
 				field.copy(source, data, blob.length(), item);
 			}
 			catch(final IOException e)
 			{
 				throw new RuntimeException(field.toString(), e);
-			}
-			finally
-			{
-				if(source!=null)
-				{
-					try
-					{
-						source.close();
-					}
-					catch(final IOException e)
-					{/*IGNORE*/}
-				}
 			}
 		}
 	}

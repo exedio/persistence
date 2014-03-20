@@ -46,30 +46,17 @@ public final class FileFixture
 	protected final File file(final byte[] data)
 	{
 		final File result;
-		FileOutputStream s = null;
 		try
 		{
 			result = createTempFile(AbstractRuntimeTest.class.getName(), ".tmp");
-			s = new FileOutputStream(result);
-			s.write(data);
+			try(FileOutputStream s = new FileOutputStream(result))
+			{
+				s.write(data);
+			}
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
-		}
-		finally
-		{
-			if(s!=null)
-			{
-				try
-				{
-					s.close();
-				}
-				catch(final IOException e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
 		}
 		files.add(result);
 		return result;

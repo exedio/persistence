@@ -65,14 +65,9 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getTableName(InstanceOfAItem.TYPE)));
 
 		c = newConnection(model);
-		final java.sql.Statement statement = c.createStatement();
-		try
+		try(java.sql.Statement statement = c.createStatement())
 		{
 			statement.execute(bf.toString());
-		}
-		finally
-		{
-			statement.close();
 		}
 	}
 
@@ -92,14 +87,9 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeTest
 			append(q(getTableName(InstanceOfRefItem.TYPE)));
 
 		c = newConnection(model);
-		final java.sql.Statement statement = c.createStatement();
-		try
+		try(java.sql.Statement statement = c.createStatement())
 		{
 			statement.execute(bf.toString());
-		}
-		finally
-		{
-			statement.close();
 		}
 	}
 

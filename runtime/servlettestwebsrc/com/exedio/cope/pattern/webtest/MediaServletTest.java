@@ -592,11 +592,11 @@ public class MediaServletTest extends TestCase
 			final byte[] b = new byte[20000];
 			final File f = createTempFile(MediaServletTest.class.getName(), ".tmp");
 			System.out.println("----------- " + f.getAbsolutePath() + " ---------------");
-			final OutputStream out = new FileOutputStream(f);
-			for(int len = in.read(b); len>=0; len = in.read(b))
-				out.write(b, 0, len);
-
-			out.close();
+			try(OutputStream out = new FileOutputStream(f))
+			{
+				for(int len = in.read(b); len>=0; len = in.read(b))
+					out.write(b, 0, len);
+			}
 			in.close();
 			StrictFile.delete(f);
 		}

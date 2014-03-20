@@ -35,21 +35,14 @@ public final class MediaTestServlet extends MediaServlet
 	{
 		super.onException(request, exception);
 		final File file = new File("MediaTestServlet.log");
-		PrintStream out = null;
-		try
+		try(PrintStream out = new PrintStream(new FileOutputStream(file, true)))
 		{
-			out = new PrintStream(new FileOutputStream(file, true));
 			out.println(exception.getClass().getName());
 			out.println(exception.getMessage());
 		}
 		catch(final FileNotFoundException e)
 		{
 			throw new RuntimeException(e);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
 		}
 	}
 }

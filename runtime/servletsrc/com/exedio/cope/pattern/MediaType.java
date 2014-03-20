@@ -339,16 +339,11 @@ public final class MediaType
 			throw new NullPointerException("file");
 
 		final byte[] bytes = new byte[(int)Math.min(file.length(), MAGIC_MAX_LENGTH)];
-		final FileInputStream stream = new FileInputStream(file);
-		try
+		try(FileInputStream stream = new FileInputStream(file))
 		{
 			final int bytesRead = stream.read(bytes);
 			if(bytesRead!=bytes.length)
 				throw new IOException("expected " + bytes.length + " bytes, but read " + bytesRead);
-		}
-		finally
-		{
-			stream.close();
 		}
 		return bytes;
 	}

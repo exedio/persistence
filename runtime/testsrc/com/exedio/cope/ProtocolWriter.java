@@ -53,14 +53,9 @@ public class ProtocolWriter extends AbstractRuntimeTest
 					&& field.getValue()!=null)
 					prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
 			}
-			final FileOutputStream out = new FileOutputStream(file, true);
-			try
+			try(FileOutputStream out = new FileOutputStream(file, true))
 			{
 				prefixed.store(out, null);
-			}
-			finally
-			{
-				out.close();
 			}
 		}
 	}

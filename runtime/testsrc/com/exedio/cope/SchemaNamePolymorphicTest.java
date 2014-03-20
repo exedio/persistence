@@ -144,25 +144,14 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
 	private String fetch(final String sql) throws SQLException
 	{
-		final Statement stmt = connection.createStatement();
-		try
+		try(
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sql))
 		{
-			final ResultSet rs = stmt.executeQuery(sql);
-			try
-			{
-				assertTrue(rs.next());
-				final String result = rs.getString(1);
-				assertFalse(rs.next());
-				return result;
-			}
-			finally
-			{
-				rs.close();
-			}
-		}
-		finally
-		{
-			stmt.close();
+			assertTrue(rs.next());
+			final String result = rs.getString(1);
+			assertFalse(rs.next());
+			return result;
 		}
 	}
 

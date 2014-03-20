@@ -411,8 +411,7 @@ public class TextUrlFilter extends MediaFilter
 			@Parameter("file") final File file)
 		throws IOException
 	{
-		final ZipFile zipFile = new ZipFile(file);
-		try
+		try(ZipFile zipFile = new ZipFile(file))
 		{
 			for(final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 					entries.hasMoreElements(); )
@@ -432,10 +431,6 @@ public class TextUrlFilter extends MediaFilter
 					throw new IllegalArgumentException(name, e);
 				}
 			}
-		}
-		finally
-		{
-			zipFile.close();
 		}
 	}
 

@@ -264,14 +264,9 @@ public class MediaTypeTest extends CopeAssert
 	private File file(final byte[] bytes) throws IOException
 	{
 		final File result = deleteOnTearDown(createTempFile(MediaTypeTest.class.getName(), ".dat"));
-		final FileOutputStream stream = new FileOutputStream(result);
-		try
+		try(FileOutputStream stream = new FileOutputStream(result))
 		{
 			stream.write(bytes);
-		}
-		finally
-		{
-			stream.close();
 		}
 		return result;
 	}

@@ -34,35 +34,35 @@ public class BatchTest extends SchemaTest
 
 	public void make(final boolean single, final String filename) throws Exception
 	{
-		final BufferedReader ps = new BufferedReader(new FileReader("dsmf/batchtest-"+filename));
-		Thread.sleep(2000);
-		final long start1 = System.currentTimeMillis();
-		if(single)
+		try(BufferedReader ps = new BufferedReader(new FileReader("dsmf/batchtest-"+filename)))
 		{
-			for(String line = ps.readLine(); line!=null; line = ps.readLine())
-			{
-				//System.out.println(line);
-				try(java.sql.Statement sqlStatement = connection1.createStatement())
-				{
-					sqlStatement.executeUpdate(line);
-				}
-			}
-		}
-		else
-		{
-			try(java.sql.Statement sqlStatement = connection1.createStatement())
+			Thread.sleep(2000);
+			final long start1 = System.currentTimeMillis();
+			if(single)
 			{
 				for(String line = ps.readLine(); line!=null; line = ps.readLine())
 				{
 					//System.out.println(line);
-					sqlStatement.addBatch(line);
+					try(java.sql.Statement sqlStatement = connection1.createStatement())
+					{
+						sqlStatement.executeUpdate(line);
+					}
 				}
-				sqlStatement.executeBatch();
 			}
+			else
+			{
+				try(java.sql.Statement sqlStatement = connection1.createStatement())
+				{
+					for(String line = ps.readLine(); line!=null; line = ps.readLine())
+					{
+						//System.out.println(line);
+						sqlStatement.addBatch(line);
+					}
+					sqlStatement.executeBatch();
+				}
+			}
+			final long end1 = System.currentTimeMillis();
+			System.out.println(filename+" "+(single?"single":"batch")+" : "+(end1-start1));
 		}
-		final long end1 = System.currentTimeMillis();
-		ps.close();
-		System.out.println(filename+" "+(single?"single":"batch")+" : "+(end1-start1));
 	}
-
 }

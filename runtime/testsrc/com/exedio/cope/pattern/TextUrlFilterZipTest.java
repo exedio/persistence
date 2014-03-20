@@ -143,16 +143,11 @@ public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
 	private File file(final String name) throws IOException
 	{
 		final byte[] b = new byte[2000];
-		final InputStream stream = TextUrlFilterZipTest.class.getResourceAsStream(name);
-		assertNotNull(name, stream);
 		final int read;
-		try
+		try(InputStream stream = TextUrlFilterZipTest.class.getResourceAsStream(name))
 		{
+			assertNotNull(name, stream);
 			read = stream.read(b);
-		}
-		finally
-		{
-			stream.close();
 		}
 		assertTrue(read>0);
 

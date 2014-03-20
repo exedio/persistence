@@ -74,13 +74,11 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	public boolean isValidOnGet(final Connection e)
 	{
-		try
+		// probably not the best idea
+		try(final ResultSet rs = e.getMetaData().getTables(null, null, "zack", null))
 		{
 			//final long start = System.currentTimeMillis();
-			// probably not the best idea
-			final ResultSet rs = e.getMetaData().getTables(null, null, "zack", null);
 			rs.next();
-			rs.close();
 			//timeInChecks += (System.currentTimeMillis()-start);
 			//numberOfChecks++;
 			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));

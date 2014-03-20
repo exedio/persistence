@@ -283,30 +283,14 @@ final class OracleDialect extends Dialect
 				append(statementID). // TODO use placeholders for prepared statements
 				append("' FOR ").
 				append(statementText);
-			java.sql.Statement sqlExplainStatement = null;
-			try
+			try(java.sql.Statement sqlExplainStatement = connection.createStatement())
 			{
 				// TODO: use executeSQLUpdate
-				sqlExplainStatement = connection.createStatement();
 				sqlExplainStatement.executeUpdate(bf.getText());
 			}
 			catch(final SQLException e)
 			{
 				throw new SQLRuntimeException(e, bf.toString());
-			}
-			finally
-			{
-				if(sqlExplainStatement!=null)
-				{
-					try
-					{
-						sqlExplainStatement.close();
-					}
-					catch(final SQLException e)
-					{
-						// exception is already thrown
-					}
-				}
 			}
 		}
 		final QueryInfo root;
