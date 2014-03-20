@@ -291,15 +291,18 @@ public abstract class CopeAssert extends TestCase
 		try
 		{
 			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos);
-			oos.writeObject(value);
-			oos.close();
+			try(ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos))
+			{
+				oos.writeObject(value);
+			}
 
 			assertEquals(expectedSize, bos.size());
 
-			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
-			final Object result = ois.readObject();
-			ois.close();
+			final Object result;
+			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())))
+			{
+				result = ois.readObject();
+			}
 			return (S)result;
 		}
 		catch(final IOException e)

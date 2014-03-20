@@ -166,18 +166,15 @@ public class SerializationSizeTest extends AbstractRuntimeTest
 
 	private int accuSize()
 	{
-		try
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try(ObjectOutputStream oos = new ObjectOutputStream(bos))
 		{
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			final ObjectOutputStream oos = new ObjectOutputStream(bos);
 			oos.writeObject(accu);
-			oos.close();
-
-			return bos.size();
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
+		return bos.size();
 	}
 }

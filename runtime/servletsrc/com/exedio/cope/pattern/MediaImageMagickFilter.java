@@ -234,8 +234,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 		final byte[] result = new byte[(int)contentLength];
 
-		final FileInputStream body = new FileInputStream(outFile);
-		try
+		try(FileInputStream body = new FileInputStream(outFile))
 		{
 			final int readResult = body.read(result);
 			if(readResult!=contentLength)
@@ -243,7 +242,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		}
 		finally
 		{
-			body.close();
 			delete(outFile);
 		}
 		return result;
@@ -268,28 +266,14 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 		final byte[] b = new byte[1580];
 		int transferredLength = 0;
+		try(
+			InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
+			FileOutputStream outStream = new FileOutputStream(in))
 		{
-			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
-			try
+			for(int len = inStream.read(b); len>=0; len = inStream.read(b))
 			{
-				final FileOutputStream outStream = new FileOutputStream(in);
-				try
-				{
-					for(int len = inStream.read(b); len>=0; len = inStream.read(b))
-					{
-						transferredLength += len;
-						outStream.write(b, 0, len);
-					}
-				}
-				finally
-				{
-					outStream.close();
-				}
-
-			}
-			finally
-			{
-				inStream.close();
+				transferredLength += len;
+				outStream.write(b, 0, len);
 			}
 		}
 		if(transferredLength!=1578) // size of the file

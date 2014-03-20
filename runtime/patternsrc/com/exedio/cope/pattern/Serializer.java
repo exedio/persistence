@@ -130,14 +130,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			return null;
 
 		final E result;
-		ObjectInputStream ois = null;
-		try
+		final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
+		try(ObjectInputStream ois = new ObjectInputStream(bis))
 		{
-			final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
-			ois = new ObjectInputStream(bis);
 			result = Cast.verboseCast(valueClass, ois.readObject());
-			ois.close();
-			ois = null;
 		}
 		catch(final IOException e)
 		{
@@ -146,20 +142,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		catch(final ClassNotFoundException e)
 		{
 			throw new RuntimeException(toString(), e);
-		}
-		finally
-		{
-			if(ois!=null)
-			{
-				try
-				{
-					ois.close();
-				}
-				catch(final IOException e)
-				{
-					throw new RuntimeException(toString(), e);
-				}
-			}
 		}
 
 		return result;
@@ -196,33 +178,14 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		if(value==null)
 			return null;
 
-		ByteArrayOutputStream bos = null;
-		ObjectOutputStream oos = null;
-		try
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try(ObjectOutputStream oos = new ObjectOutputStream(bos))
 		{
-			bos = new ByteArrayOutputStream();
-			oos = new ObjectOutputStream(bos);
 			oos.writeObject(value);
-			oos.close();
-			oos = null;
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException(toString(), e);
-		}
-		finally
-		{
-			if(oos!=null)
-			{
-				try
-				{
-					oos.close();
-				}
-				catch(final IOException e)
-				{
-					throw new RuntimeException(toString(), e);
-				}
-			}
 		}
 		return bos.toByteArray();
 	}

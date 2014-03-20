@@ -327,18 +327,10 @@ public class Sampler
 		types.addAll(lastTypes);
 
 		final String samplerString = toString();
-		try
+		try(Connection connection = newConnection(samplerModel))
 		{
-			final Connection connection = newConnection(samplerModel);
-			try
-			{
-				for(final Type<?> type : types)
-					SamplerPurge.purge(connection, type, limit, ctx, samplerString);
-			}
-			finally
-			{
-				connection.close();
-			}
+			for(final Type<?> type : types)
+				SamplerPurge.purge(connection, type, limit, ctx, samplerString);
 		}
 		catch (final SQLException e)
 		{

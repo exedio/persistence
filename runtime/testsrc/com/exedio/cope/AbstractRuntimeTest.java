@@ -160,14 +160,9 @@ public abstract class AbstractRuntimeTest extends CopeTest
 			assertEquals(expectedData.length, actualFile.length());
 
 			final byte[] actualData = new byte[expectedData.length];
-			final FileInputStream in = new FileInputStream(actualFile);
-			try
+			try(FileInputStream in = new FileInputStream(actualFile))
 			{
 				assertEquals(expectedData.length, in.read(actualData));
-			}
-			finally
-			{
-				in.close();
 			}
 
 			for(int i = 0; i<expectedData.length; i++)

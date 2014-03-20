@@ -48,15 +48,9 @@ public final class MediaUtil
 		response.setContentType(contentType);
 		response.setContentLength(body.length);
 
-		final ServletOutputStream out = response.getOutputStream();
-		try
+		try(ServletOutputStream out = response.getOutputStream())
 		{
 			out.write(body);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
 		}
 	}
 
@@ -69,15 +63,9 @@ public final class MediaUtil
 		response.setContentType(contentType);
 		response.setContentLength(body.size());
 
-		final ServletOutputStream out = response.getOutputStream();
-		try
+		try(ServletOutputStream out = response.getOutputStream())
 		{
 			body.writeTo(out);
-		}
-		finally
-		{
-			if(out!=null)
-				out.close();
 		}
 	}
 
@@ -96,24 +84,12 @@ public final class MediaUtil
 			response.setContentLength((int)contentLength);
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
-		final FileInputStream bodyStream = new FileInputStream(body);
-		try
+		try(
+			FileInputStream bodyStream = new FileInputStream(body);
+			ServletOutputStream out = response.getOutputStream())
 		{
-			final ServletOutputStream out = response.getOutputStream();
-			try
-			{
-				for(int len = bodyStream.read(b); len>=0; len = bodyStream.read(b))
-					out.write(b, 0, len);
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
-		}
-		finally
-		{
-			bodyStream.close();
+			for(int len = bodyStream.read(b); len>=0; len = bodyStream.read(b))
+				out.write(b, 0, len);
 		}
 	}
 

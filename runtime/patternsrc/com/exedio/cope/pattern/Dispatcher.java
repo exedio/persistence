@@ -274,17 +274,14 @@ public final class Dispatcher extends Pattern
 
 					model.startTransaction(id + " register failure " + itemID);
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					final PrintStream out;
-					try
+					try(final PrintStream out = new PrintStream(baos, false, ENCODING))
 					{
-						out = new PrintStream(baos, false, ENCODING);
+						cause.printStackTrace(out);
 					}
 					catch(final UnsupportedEncodingException e)
 					{
 						throw new RuntimeException(ENCODING, e);
 					}
-					cause.printStackTrace(out);
-					out.close();
 
 					mount.runType.newItem(
 						runParent.map(item),

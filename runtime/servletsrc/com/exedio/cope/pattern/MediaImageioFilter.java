@@ -176,8 +176,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		}
 		else
 		{
-			final MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes));
-			try
+			try(MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)))
 			{
 				final ImageReader imageReader = spi.createReaderInstance();
 				try
@@ -189,10 +188,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 				{
 					imageReader.dispose();
 				}
-			}
-			finally
-			{
-				input.close();
 			}
 		}
 		//System.out.println("----------"+item+'/'+srcBuf.getWidth()+'/'+srcBuf.getHeight()+"-----"+srcBuf.getColorModel());
@@ -206,8 +201,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		// causes spurious hanging requests.
 		final ByteArrayOutputStream body = new ByteArrayOutputStream();
 		{
-			final MemoryCacheImageOutputStream output = new MemoryCacheImageOutputStream(body);
-			try
+			try(MemoryCacheImageOutputStream output = new MemoryCacheImageOutputStream(body))
 			{
 				final ImageWriter imageWriter = imageWriterSpi.createWriterInstance();
 				try
@@ -219,10 +213,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 				{
 					imageWriter.dispose();
 				}
-			}
-			finally
-			{
-				output.close();
 			}
 		}
 		return body;

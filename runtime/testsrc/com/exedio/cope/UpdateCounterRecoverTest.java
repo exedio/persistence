@@ -280,25 +280,13 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
-		Connection connection = null;
-		try
+		try(Connection connection = SchemaInfo.newConnection(model))
 		{
-			connection = SchemaInfo.newConnection(model);
 			connection.setAutoCommit(true);
-			final Statement statement = connection.createStatement();
-			try
+			try(Statement statement = connection.createStatement())
 			{
 				assertEquals(1, statement.executeUpdate(sql));
 			}
-			finally
-			{
-				statement.close();
-			}
-		}
-		finally
-		{
-			if(connection!=null)
-				connection.close();
 		}
 	}
 

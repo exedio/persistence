@@ -411,6 +411,7 @@ final class MysqlDialect extends Dialect
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
+		@SuppressWarnings("resource") // OK: must not put into connection pool on failure
 		Connection connection = null;
 		try
 		{
@@ -449,15 +450,9 @@ final class MysqlDialect extends Dialect
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final Connection connection, final String sql) throws SQLException
 	{
-		final java.sql.Statement sqlStatement =
-			connection.createStatement();
-		try
+		try(java.sql.Statement sqlStatement = connection.createStatement())
 		{
 			sqlStatement.executeUpdate(sql);
-		}
-		finally
-		{
-			sqlStatement.close();
 		}
 	}
 
