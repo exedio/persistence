@@ -157,6 +157,12 @@ public abstract class Node
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
+		// NOTE:
+		// Should be done without holding resources such as connection, statement etc.
+		if(listener!=null && !listener.beforeExecute(statement))
+			return;
+
+		final int rows;
 		Connection connection = null;
 		try
 		{
@@ -164,13 +170,8 @@ public abstract class Node
 			//System.out.println(statement);
 			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				if(listener==null || listener.beforeExecute(statement))
-				{
-					final int rows = sqlStatement.executeUpdate(statement);
-					if(listener!=null)
-						listener.afterExecute(statement, rows);
-					//System.out.println("  ("+rows+")");
-				}
+				rows = sqlStatement.executeUpdate(statement);
+				//System.out.println("  ("+rows+")");
 			}
 		}
 		catch(final SQLException e)
@@ -192,6 +193,10 @@ public abstract class Node
 				}
 			}
 		}
+		// NOTE:
+		// Should be done without holding resources such as connection, statement etc.
+		if(listener!=null)
+			listener.afterExecute(statement, rows);
 	}
 
 	final String getCatalog()
