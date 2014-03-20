@@ -158,18 +158,19 @@ public abstract class Node
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
 		Connection connection = null;
-		java.sql.Statement sqlStatement = null;
 		try
 		{
 			connection = connectionProvider.getConnection();
 			//System.out.println(statement);
-			sqlStatement = connection.createStatement();
-			if(listener==null || listener.beforeExecute(statement))
+			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				final int rows = sqlStatement.executeUpdate(statement);
-				if(listener!=null)
-					listener.afterExecute(statement, rows);
-				//System.out.println("  ("+rows+")");
+				if(listener==null || listener.beforeExecute(statement))
+				{
+					final int rows = sqlStatement.executeUpdate(statement);
+					if(listener!=null)
+						listener.afterExecute(statement, rows);
+					//System.out.println("  ("+rows+")");
+				}
 			}
 		}
 		catch(final SQLException e)
@@ -179,17 +180,6 @@ public abstract class Node
 		}
 		finally
 		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 			if(connection!=null)
 			{
 				try
