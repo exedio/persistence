@@ -90,8 +90,6 @@ public abstract class Node
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;
-		ResultSet resultSet = null;
-		java.sql.Statement sqlStatement = null;
 		try
 		{
 			connection = connectionProvider.getConnection();
@@ -99,18 +97,29 @@ public abstract class Node
 
 			if(GET_TABLES==statement)
 			{
-				resultSet = connection.getMetaData().getTables(null, dialect.schema, null, new String[]{"TABLE"});
+				try(ResultSet resultSet = connection.getMetaData().
+						getTables(null, dialect.schema, null, new String[]{"TABLE"}))
+				{
+					resultSetHandler.run(resultSet);
+				}
 			}
 			else if(GET_COLUMNS==statement)
 			{
-				resultSet = connection.getMetaData().getColumns(null, dialect.schema, null, null);
+				try(ResultSet resultSet = connection.getMetaData().
+						getColumns(null, dialect.schema, null, null))
+				{
+					resultSetHandler.run(resultSet);
+				}
 			}
 			else
 			{
-				sqlStatement = connection.createStatement();
-				resultSet = sqlStatement.executeQuery(statement);
+				try(
+					java.sql.Statement sqlStatement = connection.createStatement();
+					ResultSet resultSet = sqlStatement.executeQuery(statement))
+				{
+					resultSetHandler.run(resultSet);
+				}
 			}
-			resultSetHandler.run(resultSet);
 		}
 		catch(final SQLException e)
 		{
@@ -118,28 +127,6 @@ public abstract class Node
 		}
 		finally
 		{
-			if(sqlStatement!=null)
-			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
-			if(resultSet!=null)
-			{
-				try
-				{
-					resultSet.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
-			}
 			if(connection!=null)
 			{
 				try
