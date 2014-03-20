@@ -211,64 +211,54 @@ final class Executor
 			final Statement statement)
 		throws UniqueViolationException
 	{
-		java.sql.Statement sqlStatement = null;
-		try
-		{
-			final DatabaseListener listener = this.listener;
-			final long nanoStart = listener!=null ? nanoTime() : 0;
-			final int rows;
+		final DatabaseListener listener = this.listener;
+		final long nanoStart = listener!=null ? nanoTime() : 0;
+		final int rows;
 
-			final long nanoPrepared;
-			if(!prepare)
+		final long nanoPrepared;
+		if(!prepare)
+		{
+			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				sqlStatement = connection.createStatement();
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = sqlStatement.executeUpdate(statement.getText());
 			}
-			else
+			catch(final SQLException e)
 			{
-				final PreparedStatement prepared = connection.prepareStatement(statement.getText());
-				sqlStatement = prepared;
+				throwViolation(e, exceptionItem);
+				throw new SQLRuntimeException(e, statement.toString());
+			}
+		}
+		else
+		{
+			try(PreparedStatement prepared = connection.prepareStatement(statement.getText()))
+			{
 				int parameterIndex = 1;
 				for(final Object p : statement.parameters)
 					prepared.setObject(parameterIndex++, p);
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = prepared.executeUpdate();
 			}
-
-			final long nanoEnd = listener!=null ? nanoTime() : 0;
-
-			if(listener!=null)
-				listener.onStatement(
-						statement.text.toString(),
-						statement.getParameters(),
-						toMillies(nanoPrepared, nanoStart),
-						toMillies(nanoEnd, nanoPrepared),
-						0,
-						0);
-
-			//System.out.println("("+rows+"): "+statement.getText());
-			return rows;
-		}
-		catch(final SQLException e)
-		{
-			throwViolation(e, exceptionItem);
-			throw new SQLRuntimeException(e, statement.toString());
-		}
-		finally
-		{
-			if(sqlStatement!=null)
+			catch(final SQLException e)
 			{
-				try
-				{
-					sqlStatement.close();
-				}
-				catch(final SQLException e)
-				{
-					// exception is already thrown
-				}
+				throwViolation(e, exceptionItem);
+				throw new SQLRuntimeException(e, statement.toString());
 			}
 		}
+
+		final long nanoEnd = listener!=null ? nanoTime() : 0;
+
+		if(listener!=null)
+			listener.onStatement(
+					statement.text.toString(),
+					statement.getParameters(),
+					toMillies(nanoPrepared, nanoStart),
+					toMillies(nanoEnd, nanoPrepared),
+					0,
+					0);
+
+		//System.out.println("("+rows+"): "+statement.getText());
+		return rows;
 	}
 
 	static int update(
