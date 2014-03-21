@@ -22,7 +22,8 @@ import com.exedio.cope.CopeName;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
 
-@SuppressWarnings({"unused","deprecation"})
+@Deprecated
+@SuppressWarnings("unused")
 public class CopeNameUtilFieldTest extends CopeAssert
 {
 	public void testIt() throws NoSuchFieldException
@@ -53,7 +54,6 @@ public class CopeNameUtilFieldTest extends CopeAssert
 			final String expected,
 			final String expectedWithFallback,
 			final Class<?> clazz)
-		throws NoSuchFieldException
 	{
 		assertEquals(expected, CopeNameUtil.get(clazz));
 		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToSimpleName(clazz));
@@ -65,9 +65,9 @@ public class CopeNameUtilFieldTest extends CopeAssert
 	@CopeName("nameAnno") private static int fieldName = 0;
 	@CopeName("nameAnno") private static class ClassName { /* empty */ }
 
-	@com.exedio.cope.CopeID("idAnno") private static int fieldId = 0;
-	@com.exedio.cope.CopeID("idAnno") private static class ClassId { /* empty */ }
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static int fieldId = 0;
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static class ClassId { /* empty */ }
 
-	@CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static int fieldBoth = 0;
-	@CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static class ClassBoth { /* empty */ }
+	/** @deprecated */ @Deprecated @CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static int fieldBoth = 0;
+	/** @deprecated */ @Deprecated @CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static class ClassBoth { /* empty */ }
 }
