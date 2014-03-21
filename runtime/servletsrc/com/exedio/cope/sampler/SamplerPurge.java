@@ -30,6 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
@@ -72,7 +73,7 @@ final class SamplerPurge extends Item
 		}
 		final long end = System.nanoTime();
 
-		try(Model.Tx tx = model.startTransactionTry(samplerString + " purge register"))
+		try(TransactionTry tx = model.startTransactionTry(samplerString + " purge register"))
 		{
 			new SamplerPurge(type, limit, rows, toMillies(end, start));
 			tx.commit();

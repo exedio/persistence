@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,7 +57,7 @@ public class InitServlet extends HttpServlet
 		final Class<?> thisClass = InitServlet.class;
 		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();
-		try(Model.Tx tx = model.startTransactionTry(thisClass.getName()))
+		try(TransactionTry tx = model.startTransactionTry(thisClass.getName()))
 		{
 			final MediaServletItem text = new MediaServletItem();
 			assertID("MediaServletItem-0", text);

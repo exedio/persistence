@@ -30,6 +30,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaPath;
@@ -160,7 +161,7 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try(Model.Tx tx = samplerModel.startTransactionTry("check"))
+		try(TransactionTry tx = samplerModel.startTransactionTry("check"))
 		{
 			samplerModel.checkSchema();
 			tx.commit();
@@ -185,7 +186,7 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try(Model.Tx tx = samplerModel.startTransactionTry(toString() + " sample"))
+		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample"))
 		{
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
@@ -259,7 +260,7 @@ public class Sampler
 	int analyzeCount(final Type<?> type)
 	{
 		final int result;
-		try(Model.Tx tx = samplerModel.startTransactionTry("sampler analyzeCount"))
+		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeCount"))
 		{
 			result = type.newQuery().total();
 			tx.commit();
@@ -271,7 +272,7 @@ public class Sampler
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List<?> dates;
-		try(Model.Tx tx = samplerModel.startTransactionTry("sampler analyzeDate"))
+		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeDate"))
 		{
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			tx.commit();

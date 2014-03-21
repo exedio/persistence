@@ -736,50 +736,17 @@ public final class Model implements Serializable
 		return transactions.getOpen();
 	}
 
-
 	/**
 	 * @see #startTransaction(String)
 	 */
-	public Tx startTransactionTry(final String name)
+	public TransactionTry startTransactionTry(final String name)
 	{
 		startTransaction(name);
 		return tx;
 	}
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Tx tx = new Tx(this);
-
-	public static final class Tx implements AutoCloseable
-	{
-		private final Model model;
-
-		Tx(final Model model)
-		{
-			this.model = model;
-		}
-
-		public void commit()
-		{
-			model.commit();
-		}
-
-		public Item getItem(final String id) throws NoSuchIDException
-		{
-			return model.getItem(id);
-		}
-
-		public boolean hasCurrentTransaction()
-		{
-			return model.hasCurrentTransaction();
-		}
-
-		@Override
-		public void close()
-		{
-			model.rollbackIfNotCommitted();
-		}
-	}
-
+	private final TransactionTry tx = new TransactionTry(this);
 
 	public TransactionCounters getTransactionCounters()
 	{

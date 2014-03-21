@@ -30,6 +30,7 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Clock;
@@ -622,7 +623,7 @@ public abstract class MediaPath extends Pattern
 
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
-		try(Model.Tx tx = model.startTransactionTry("MediaPath#doGet " + pathInfo))
+		try(TransactionTry tx = model.startTransactionTry("MediaPath#doGet " + pathInfo))
 		{
 			final Item item = tx.getItem(id);
 			//System.out.println("item="+item);

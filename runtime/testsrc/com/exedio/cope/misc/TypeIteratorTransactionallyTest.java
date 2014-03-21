@@ -25,7 +25,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Condition;
-import com.exedio.cope.Model;
+import com.exedio.cope.TransactionTry;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +45,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		try(Model.Tx tx = model.startTransactionTry(getClass().getName()))
+		try(TransactionTry tx = model.startTransactionTry(getClass().getName()))
 		{
 			item0 = new QueryAggregatorItem(0);
 			item1 = new QueryAggregatorItem(1);
@@ -59,7 +59,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	@Override
 	public void tearDown() throws Exception
 	{
-		try(Model.Tx tx = model.startTransactionTry(getClass().getName()))
+		try(TransactionTry tx = model.startTransactionTry(getClass().getName()))
 		{
 			item0.deleteCopeItem();
 			item1.deleteCopeItem();

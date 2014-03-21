@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.TransactionTry;
 
 public class TransactionRunnable implements Runnable
 {
@@ -50,7 +51,7 @@ public class TransactionRunnable implements Runnable
 
 	public void run()
 	{
-		try(Model.Tx tx = model.startTransactionTry(name))
+		try(TransactionTry tx = model.startTransactionTry(name))
 		{
 			runnable.run();
 			tx.commit();
