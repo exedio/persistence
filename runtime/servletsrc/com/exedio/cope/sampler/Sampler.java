@@ -32,7 +32,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
@@ -48,7 +47,6 @@ import java.util.List;
 public class Sampler
 {
 	private final Model samplerModel;
-	private final ModelTransaction.Holder samplerModelTx;
 
 	private final Model sampledModel;
 	private final MediaPath[] medias;
@@ -80,7 +78,6 @@ public class Sampler
 
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
-		samplerModelTx = new ModelTransaction.Holder(samplerModel);
 		final ArrayList<MediaPath> medias = new ArrayList<>();
 		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
@@ -162,7 +159,7 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try(ModelTransaction tx = samplerModelTx.startTransaction("check"))
+		try(Model.Tx tx = samplerModel.startTransactionClosable("check"))
 		{
 			samplerModel.checkSchema();
 			tx.commit();
@@ -186,7 +183,7 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try(ModelTransaction tx = samplerModelTx.startTransaction(toString() + " sample"))
+		try(Model.Tx tx = samplerModel.startTransactionClosable(toString() + " sample"))
 		{
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
@@ -260,7 +257,7 @@ public class Sampler
 	int analyzeCount(final Type<?> type)
 	{
 		final int result;
-		try(ModelTransaction tx = samplerModelTx.startTransaction("sampler analyzeCount"))
+		try(Model.Tx tx = samplerModel.startTransactionClosable("sampler analyzeCount"))
 		{
 			result = type.newQuery().total();
 			tx.commit();
@@ -272,7 +269,7 @@ public class Sampler
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List<?> dates;
-		try(ModelTransaction tx = samplerModelTx.startTransaction("sampler analyzeDate"))
+		try(Model.Tx tx = samplerModel.startTransactionClosable("sampler analyzeDate"))
 		{
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			tx.commit();

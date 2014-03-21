@@ -39,6 +39,7 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
@@ -46,7 +47,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -197,7 +197,7 @@ public final class Schedule extends Pattern
 		final Type<P> type = getType().as(parentClass);
 		final Runs.Mount mount = runs.mount();
 		final This<P> typeThis = type.getThis();
-		final ModelTransaction.Holder model = new ModelTransaction.Holder(type.getModel());
+		final Model model = type.getModel();
 		final String featureID = getID();
 		final GregorianCalendar cal = new GregorianCalendar(locale);
 		final Date now = new Date(Clock.currentTimeMillis());
@@ -215,7 +215,7 @@ public final class Schedule extends Pattern
 
 
 		final List<P> toRun;
-		try(ModelTransaction tx = model.startTransaction(featureID + " search"))
+		try(Model.Tx tx = model.startTransactionClosable(featureID + " search"))
 		{
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
@@ -239,7 +239,7 @@ public final class Schedule extends Pattern
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try(ModelTransaction tx = model.startTransaction(featureID + " schedule " + itemID))
+			try(Model.Tx tx = model.startTransactionClosable(featureID + " schedule " + itemID))
 			{
 				final Interval interval = this.interval.get(item);
 				final Date until;

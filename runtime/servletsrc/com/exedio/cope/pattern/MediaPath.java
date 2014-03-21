@@ -27,11 +27,11 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -621,7 +621,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		//System.out.println("ID="+id);
-		try(ModelTransaction tx = ModelTransaction.startTransaction(getType().getModel(), "MediaPath#doGet " + pathInfo))
+		try(Model.Tx tx = getType().getModel().startTransactionClosable("MediaPath#doGet " + pathInfo))
 		{
 			final Item item = tx.getItem(id);
 			//System.out.println("item="+item);
