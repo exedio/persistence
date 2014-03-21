@@ -86,9 +86,11 @@ public final class TypesBound
 		final Features features = new Features();
 		for(final Map.Entry<Feature, Field> entry : getFeatures(javaClass).entrySet())
 		{
-			final Feature feature = entry.getKey();
 			final Field field = entry.getValue();
-			features.put(CopeNameUtil.getAndFallbackToName(field), feature, (AnnotatedElement)field);
+			features.put(
+					CopeNameUtil.getAndFallbackToName(field),
+					entry.getKey(),
+					(AnnotatedElement)field);
 		}
 
 		final Type<T> result = new Type<>(
