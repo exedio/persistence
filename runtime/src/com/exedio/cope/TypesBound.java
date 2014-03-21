@@ -88,8 +88,7 @@ public final class TypesBound
 		{
 			final Feature feature = entry.getKey();
 			final Field field = entry.getValue();
-			final String featureName = CopeNameUtil.getAndFallbackToName(field);
-			features.put(featureName, feature, (AnnotatedElement)field);
+			features.put(CopeNameUtil.getAndFallbackToName(field), feature, (AnnotatedElement)field);
 		}
 
 		final Type<T> result = new Type<>(

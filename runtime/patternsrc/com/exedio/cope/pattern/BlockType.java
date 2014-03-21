@@ -68,9 +68,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 				// TODO test
 				if(!(feature instanceof Copyable))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + Copyable.class);
-				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
-
-				templates.put(fieldName, feature);
+				templates.put(CopeNameUtil.getAndFallbackToName(field), feature);
 				feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
 			}
 		}
