@@ -35,6 +35,7 @@ import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -173,6 +174,7 @@ public class Sampler
 
 	private SamplerStep lastStep = null;
 
+	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
 	SamplerModel sampleInternal()
 	{
 		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
