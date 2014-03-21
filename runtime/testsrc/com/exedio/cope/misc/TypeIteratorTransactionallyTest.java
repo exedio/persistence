@@ -45,7 +45,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		try(Model.Tx tx = model.startTransactionClosable(getClass().getName()))
+		try(Model.Tx tx = model.startTransactionTry(getClass().getName()))
 		{
 			item0 = new QueryAggregatorItem(0);
 			item1 = new QueryAggregatorItem(1);
@@ -59,7 +59,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	@Override
 	public void tearDown() throws Exception
 	{
-		try(Model.Tx tx = model.startTransactionClosable(getClass().getName()))
+		try(Model.Tx tx = model.startTransactionTry(getClass().getName()))
 		{
 			item0.deleteCopeItem();
 			item1.deleteCopeItem();

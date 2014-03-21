@@ -160,7 +160,7 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try(Model.Tx tx = samplerModel.startTransactionClosable("check"))
+		try(Model.Tx tx = samplerModel.startTransactionTry("check"))
 		{
 			samplerModel.checkSchema();
 			tx.commit();
@@ -185,7 +185,7 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try(Model.Tx tx = samplerModel.startTransactionClosable(toString() + " sample"))
+		try(Model.Tx tx = samplerModel.startTransactionTry(toString() + " sample"))
 		{
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
@@ -259,7 +259,7 @@ public class Sampler
 	int analyzeCount(final Type<?> type)
 	{
 		final int result;
-		try(Model.Tx tx = samplerModel.startTransactionClosable("sampler analyzeCount"))
+		try(Model.Tx tx = samplerModel.startTransactionTry("sampler analyzeCount"))
 		{
 			result = type.newQuery().total();
 			tx.commit();
@@ -271,7 +271,7 @@ public class Sampler
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List<?> dates;
-		try(Model.Tx tx = samplerModel.startTransactionClosable("sampler analyzeDate"))
+		try(Model.Tx tx = samplerModel.startTransactionTry("sampler analyzeDate"))
 		{
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			tx.commit();

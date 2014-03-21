@@ -215,7 +215,7 @@ public final class Schedule extends Pattern
 
 
 		final List<P> toRun;
-		try(Model.Tx tx = model.startTransactionClosable(featureID + " search"))
+		try(Model.Tx tx = model.startTransactionTry(featureID + " search"))
 		{
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
@@ -239,7 +239,7 @@ public final class Schedule extends Pattern
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try(Model.Tx tx = model.startTransactionClosable(featureID + " schedule " + itemID))
+			try(Model.Tx tx = model.startTransactionTry(featureID + " schedule " + itemID))
 			{
 				final Interval interval = this.interval.get(item);
 				final Date until;

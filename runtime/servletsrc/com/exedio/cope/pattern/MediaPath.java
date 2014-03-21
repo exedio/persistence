@@ -622,7 +622,7 @@ public abstract class MediaPath extends Pattern
 
 		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
-		try(Model.Tx tx = model.startTransactionClosable("MediaPath#doGet " + pathInfo))
+		try(Model.Tx tx = model.startTransactionTry("MediaPath#doGet " + pathInfo))
 		{
 			final Item item = tx.getItem(id);
 			//System.out.println("item="+item);

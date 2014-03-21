@@ -56,7 +56,7 @@ public class InitServlet extends HttpServlet
 		final Class<?> thisClass = InitServlet.class;
 		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();
-		try(Model.Tx tx = model.startTransactionClosable(thisClass.getName()))
+		try(Model.Tx tx = model.startTransactionTry(thisClass.getName()))
 		{
 			final MediaServletItem text = new MediaServletItem();
 			assertID("MediaServletItem-0", text);

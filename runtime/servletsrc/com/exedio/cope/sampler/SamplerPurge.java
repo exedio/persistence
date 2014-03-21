@@ -72,7 +72,7 @@ final class SamplerPurge extends Item
 		}
 		final long end = System.nanoTime();
 
-		try(Model.Tx tx = model.startTransactionClosable(samplerString + " purge register"))
+		try(Model.Tx tx = model.startTransactionTry(samplerString + " purge register"))
 		{
 			new SamplerPurge(type, limit, rows, toMillies(end, start));
 			tx.commit();

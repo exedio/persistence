@@ -159,7 +159,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try(Model.Tx tx = model.startTransactionClosable(id + " migrate " + itemID))
+			try(Model.Tx tx = model.startTransactionTry(id + " migrate " + itemID))
 			{
 				final String legacyHashValue = legacyHash.getHash(item);
 				if(legacyHashValue==null)

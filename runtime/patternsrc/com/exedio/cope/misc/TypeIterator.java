@@ -124,7 +124,7 @@ public final class TypeIterator
 
 			if(transactionally)
 			{
-				try(Model.Tx tx = typeThis.getType().getModel().startTransactionClosable(query.toString()))
+				try(Model.Tx tx = typeThis.getType().getModel().startTransactionTry(query.toString()))
 				{
 					result = query.search();
 					tx.commit();
