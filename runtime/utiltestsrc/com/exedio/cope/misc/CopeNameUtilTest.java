@@ -30,10 +30,10 @@ public class CopeNameUtilTest extends CopeAssert
 {
 	public void testIt()
 	{
-		assertEquals("naked",    AnItem.naked.getName());
-		assertEquals("nameAnno", AnItem.name .getName());
-		assertEquals("idAnno",   AnItem.id   .getName());
-		assertEquals("bothAnnoName", AnItem.both.getName());
+		assertEquals("naked",        AnItem.naked.getName());
+		assertEquals("nameAnno",     AnItem.name .getName());
+		assertEquals("idAnno",       AnItem.id   .getName());
+		assertEquals("bothAnnoName", AnItem.both .getName());
 	}
 
 	@SuppressWarnings("deprecation")
