@@ -1,0 +1,77 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.misc;
+
+import com.exedio.cope.CopeName;
+import com.exedio.cope.junit.CopeAssert;
+
+@SuppressWarnings("unused")
+public class CopeNameUtilFieldTest extends CopeAssert
+{
+	public void testIt() throws NoSuchFieldException
+	{
+		assertField(null,           "Naked");
+		assertField("nameAnno",     "Name");
+		assertField("idAnno",       "Id");
+		assertField("bothAnnoName", "Both");
+
+		assertClass(null,           ClassNaked.class);
+		assertClass("nameAnno",     ClassName .class);
+		assertClass("idAnno",       ClassId   .class);
+		assertClass("bothAnnoName", ClassBoth .class);
+
+	}
+
+	private static void assertField(final String expected, final String name)
+			throws NoSuchFieldException
+	{
+		assertEquals(expected, CopeNameUtil.get(
+				CopeNameUtilFieldTest.class.getDeclaredField("field" + name)));
+	}
+
+	private static void assertClass(final String expected, final Class<?> clazz)
+			throws NoSuchFieldException
+	{
+		assertEquals(expected, CopeNameUtil.get(clazz));
+	}
+
+	private static int fieldNaked = 0;
+	private static class ClassNaked { /* empty */ }
+
+	@CopeName("nameAnno")
+	private static int fieldName = 0;
+	@CopeName("nameAnno")
+	private static class ClassName { /* empty */ }
+
+	@com.exedio.cope.CopeID("idAnno")
+	@SuppressWarnings("deprecation")
+	private static int fieldId = 0;
+	@com.exedio.cope.CopeID("idAnno")
+	@SuppressWarnings("deprecation")
+	private static class ClassId { /* empty */ }
+
+	@CopeName("bothAnnoName")
+	@com.exedio.cope.CopeID("bothAnnoID")
+	@SuppressWarnings("deprecation")
+	private static int fieldBoth = 0;
+	@CopeName("bothAnnoName")
+	@com.exedio.cope.CopeID("bothAnnoID")
+	@SuppressWarnings("deprecation")
+	private static class ClassBoth { /* empty */ }
+}
