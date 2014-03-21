@@ -31,6 +31,12 @@ public final class ModelTransaction implements AutoCloseable
 		this.model = model;
 	}
 
+	public static ModelTransaction startTransaction(final Model model, final String name)
+	{
+		model.startTransaction(name);
+		return new ModelTransaction(model);
+	}
+
 	public void commit()
 	{
 		model.commit();

@@ -72,7 +72,7 @@ final class Revstat extends Item
 		else if(comment.isEmpty())
 			comment = "FOUND EMPTY BY CopeRevstat";
 
-		try(ModelTransaction tx = new ModelTransaction.Holder(model).startTransaction(RevisionStatistics.class.getName() + '#' + number))
+		try(ModelTransaction tx = ModelTransaction.startTransaction(model, RevisionStatistics.class.getName() + '#' + number))
 		{
 			final Revstat result;
 			try

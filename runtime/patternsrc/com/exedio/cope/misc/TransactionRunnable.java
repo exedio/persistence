@@ -23,7 +23,6 @@ import com.exedio.cope.Model;
 public class TransactionRunnable implements Runnable
 {
 	private final Model model;
-	private final ModelTransaction.Holder modelTx;
 	private final Runnable runnable;
 	private final String name;
 
@@ -45,14 +44,13 @@ public class TransactionRunnable implements Runnable
 			throw new NullPointerException("runnable");
 
 		this.model = model;
-		this.modelTx = new ModelTransaction.Holder(model);
 		this.runnable = runnable;
 		this.name = name;
 	}
 
 	public void run()
 	{
-		try(ModelTransaction tx = modelTx.startTransaction(name))
+		try(ModelTransaction tx = ModelTransaction.startTransaction(model, name))
 		{
 			runnable.run();
 			tx.commit();
