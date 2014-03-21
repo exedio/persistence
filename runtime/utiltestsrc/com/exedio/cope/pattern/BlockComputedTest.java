@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyComposite.compuTemp;
-import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyComposite.virgnTemp;
-import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.TYPE;
-import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.compuComp;
-import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.virgnComp;
+import static com.exedio.cope.pattern.BlockComputedTest.MyBlock.compuTemp;
+import static com.exedio.cope.pattern.BlockComputedTest.MyBlock.virgnTemp;
+import static com.exedio.cope.pattern.BlockComputedTest.MyItem.TYPE;
+import static com.exedio.cope.pattern.BlockComputedTest.MyItem.compuComp;
+import static com.exedio.cope.pattern.BlockComputedTest.MyItem.virgnComp;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
