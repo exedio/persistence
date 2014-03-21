@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.CopeName;
 import com.exedio.cope.junit.CopeAssert;
+import java.lang.reflect.Field;
 
 @SuppressWarnings({"unused","deprecation"})
 public class CopeNameUtilFieldTest extends CopeAssert
@@ -43,10 +44,9 @@ public class CopeNameUtilFieldTest extends CopeAssert
 			final String name)
 		throws NoSuchFieldException
 	{
-		assertEquals(expected, CopeNameUtil.get(
-				CopeNameUtilFieldTest.class.getDeclaredField("field" + name)));
-		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToName(
-				CopeNameUtilFieldTest.class.getDeclaredField("field" + name)));
+		final Field field = CopeNameUtilFieldTest.class.getDeclaredField("field" + name);
+		assertEquals(expected, CopeNameUtil.get(field));
+		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToName(field));
 	}
 
 	private static void assertClass(
