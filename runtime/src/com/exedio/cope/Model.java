@@ -746,6 +746,7 @@ public final class Model implements Serializable
 		return tx;
 	}
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Tx tx = new Tx(this);
 
 	public static final class Tx implements AutoCloseable
