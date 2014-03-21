@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
@@ -68,7 +69,7 @@ public final class TypeIterator
 		private final This<E> typeThis;
 		private final Condition condition;
 		private final boolean transactionally;
-		private final ModelTransaction.Holder model;
+		private final Model model;
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
@@ -83,7 +84,7 @@ public final class TypeIterator
 			this.typeThis = type.getThis();
 			this.condition = condition;
 			this.transactionally = transactionally;
-			this.model = new ModelTransaction.Holder(typeThis.getType().getModel());
+			this.model = typeThis.getType().getModel();
 
 			this.query  = type.newQuery(condition);
 			query.setOrderBy(typeThis, true);
@@ -125,7 +126,7 @@ public final class TypeIterator
 
 			if(transactionally)
 			{
-				try(ModelTransaction tx = model.startTransaction(query.toString()))
+				try(Model.Tx tx = model.startTransactionClosable(query.toString()))
 				{
 					result = query.search();
 					tx.commit();
