@@ -35,7 +35,6 @@ public class CopeNameUtilFieldTest extends CopeAssert
 		assertClass("nameAnno",     ClassName .class);
 		assertClass("idAnno",       ClassId   .class);
 		assertClass("bothAnnoName", ClassBoth .class);
-
 	}
 
 	private static void assertField(final String expected, final String name)
