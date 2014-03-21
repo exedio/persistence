@@ -54,7 +54,7 @@ final class Revstat extends Item
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-		ctx.stopIfRequested();
+			ctx.stopIfRequested();
 
 			final List<Body> bodies = revision.getBody();
 			int rows = 0;
