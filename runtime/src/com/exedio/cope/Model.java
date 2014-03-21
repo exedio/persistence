@@ -624,6 +624,7 @@ public final class Model implements Serializable
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
 	 * @see #startTransaction()
+	 * @see #startTransactionClosable(String)
 	 */
 	public Transaction startTransaction(final String name)
 	{
@@ -734,6 +735,50 @@ public final class Model implements Serializable
 	{
 		return transactions.getOpen();
 	}
+
+
+	/**
+	 * @see #startTransaction(String)
+	 */
+	public Tx startTransactionClosable(final String name)
+	{
+		startTransaction(name);
+		return tx;
+	}
+
+	private final Tx tx = new Tx(this);
+
+	public static final class Tx implements AutoCloseable
+	{
+		private final Model model;
+
+		Tx(final Model model)
+		{
+			this.model = model;
+		}
+
+		public void commit()
+		{
+			model.commit();
+		}
+
+		public Item getItem(final String id) throws NoSuchIDException
+		{
+			return model.getItem(id);
+		}
+
+		public boolean hasCurrentTransaction()
+		{
+			return model.hasCurrentTransaction();
+		}
+
+		@Override
+		public void close()
+		{
+			model.rollbackIfNotCommitted();
+		}
+	}
+
 
 	public TransactionCounters getTransactionCounters()
 	{

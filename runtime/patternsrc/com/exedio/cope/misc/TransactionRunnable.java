@@ -50,7 +50,7 @@ public class TransactionRunnable implements Runnable
 
 	public void run()
 	{
-		try(ModelTransaction tx = ModelTransaction.startTransaction(model, name))
+		try(Model.Tx tx = model.startTransactionClosable(name))
 		{
 			runnable.run();
 			tx.commit();

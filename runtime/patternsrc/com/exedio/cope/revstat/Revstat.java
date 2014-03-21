@@ -31,7 +31,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.misc.ModelTransaction;
 import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +71,7 @@ final class Revstat extends Item
 		else if(comment.isEmpty())
 			comment = "FOUND EMPTY BY CopeRevstat";
 
-		try(ModelTransaction tx = ModelTransaction.startTransaction(model, RevisionStatistics.class.getName() + '#' + number))
+		try(Model.Tx tx = model.startTransactionClosable(RevisionStatistics.class.getName() + '#' + number))
 		{
 			final Revstat result;
 			try
