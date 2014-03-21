@@ -56,20 +56,20 @@ final class Revstat extends Item
 
 		ctx.stopIfRequested();
 
-		final List<Body> bodies = revision.getBody();
-		int rows = 0;
-		long elapsed = 0;
-		for(final Body body : bodies)
-		{
-			rows += body.getRows();
-			elapsed += body.getElapsed();
-		}
+			final List<Body> bodies = revision.getBody();
+			int rows = 0;
+			long elapsed = 0;
+			for(final Body body : bodies)
+			{
+				rows += body.getRows();
+				elapsed += body.getElapsed();
+			}
 
-		String comment = revision.getComment();
-		if(comment==null)
-			comment = "FOUND NULL BY CopeRevstat";
-		else if(comment.isEmpty())
-			comment = "FOUND EMPTY BY CopeRevstat";
+			String comment = revision.getComment();
+			if(comment==null)
+				comment = "FOUND NULL BY CopeRevstat";
+			else if(comment.isEmpty())
+				comment = "FOUND EMPTY BY CopeRevstat";
 
 		try(Model.Tx tx = model.startTransactionClosable(RevisionStatistics.class.getName() + '#' + number))
 		{
