@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.junit.CopeAssert;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","deprecation"})
 public class CopeNameUtilFieldTest extends CopeAssert
 {
 	public void testIt() throws NoSuchFieldException
@@ -60,18 +60,14 @@ public class CopeNameUtilFieldTest extends CopeAssert
 	private static class ClassName { /* empty */ }
 
 	@com.exedio.cope.CopeID("idAnno")
-	@SuppressWarnings("deprecation")
 	private static int fieldId = 0;
 	@com.exedio.cope.CopeID("idAnno")
-	@SuppressWarnings("deprecation")
 	private static class ClassId { /* empty */ }
 
 	@CopeName("bothAnnoName")
 	@com.exedio.cope.CopeID("bothAnnoID")
-	@SuppressWarnings("deprecation")
 	private static int fieldBoth = 0;
 	@CopeName("bothAnnoName")
 	@com.exedio.cope.CopeID("bothAnnoID")
-	@SuppressWarnings("deprecation")
 	private static class ClassBoth { /* empty */ }
 }
