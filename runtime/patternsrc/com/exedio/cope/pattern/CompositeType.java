@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.InstrumentContext;
+import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -86,10 +86,10 @@ final class CompositeType<E>
 
 	private static String name(final java.lang.reflect.Field field)
 	{
-		final CopeName annotation = field.getAnnotation(CopeName.class);
+		final String annotation = CopeNameUtil.get(field);
 		return
 			annotation!=null
-			? annotation.value()
+			? annotation
 			: field.getName();
 	}
 

@@ -32,14 +32,24 @@ public class CopeNameUtilTest extends CopeAssert
 	{
 		assertEquals("naked",    AnItem.naked.getName());
 		assertEquals("nameAnno", AnItem.name .getName());
+		assertEquals("idAnno",   AnItem.id   .getName());
+		assertEquals("bothAnnoName", AnItem.both.getName());
 	}
 
+	@SuppressWarnings("deprecation")
 	static final class AnItem extends Item
 	{
 		static final StringField naked = new StringField();
 
 		@CopeName("nameAnno")
 		static final StringField name = new StringField();
+
+		@com.exedio.cope.CopeID("idAnno")
+		static final StringField id = new StringField();
+
+		@CopeName("bothAnnoName")
+		@com.exedio.cope.CopeID("bothAnnoID")
+		static final StringField both = new StringField();
 
 		private static final long serialVersionUID = 1l;
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);

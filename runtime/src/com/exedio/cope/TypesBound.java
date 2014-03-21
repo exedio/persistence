@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.CopeNameUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
@@ -167,11 +168,10 @@ public final class TypesBound
 
 	private static final String name(final AnnotatedElement annotatedElement, final String fallback)
 	{
-		final CopeName annotation =
-			annotatedElement.getAnnotation(CopeName.class);
+		final String annotation = CopeNameUtil.get(annotatedElement);
 		return
 			annotation!=null
-			? annotation.value()
+			? annotation
 			: fallback;
 	}
 

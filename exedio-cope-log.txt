@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @CopeID added again as deprecated equivalent of @CopeName.
+	This restores backwards API compatibility lost when @CopeID was renamed
+	to @CopeName.
+	BEWARE:
+		This may affect database schema, media urls etc. especially for types
+		within libraries.
+
 * DynamicModel.FieldGroup removed again
 	This affects database schema, drop a column and a table.
 * DrivebyHashMigration added
