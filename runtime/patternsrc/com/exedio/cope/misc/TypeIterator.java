@@ -69,7 +69,6 @@ public final class TypeIterator
 		private final This<E> typeThis;
 		private final Condition condition;
 		private final boolean transactionally;
-		private final Model model;
 		private final Query<E> query;
 
 		private Iterator<E> iterator;
@@ -84,7 +83,6 @@ public final class TypeIterator
 			this.typeThis = type.getThis();
 			this.condition = condition;
 			this.transactionally = transactionally;
-			this.model = typeThis.getType().getModel();
 
 			this.query  = type.newQuery(condition);
 			query.setOrderBy(typeThis, true);
@@ -126,7 +124,7 @@ public final class TypeIterator
 
 			if(transactionally)
 			{
-				try(Model.Tx tx = model.startTransactionClosable(query.toString()))
+				try(Model.Tx tx = typeThis.getType().getModel().startTransactionClosable(query.toString()))
 				{
 					result = query.search();
 					tx.commit();
