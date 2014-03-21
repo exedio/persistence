@@ -68,7 +68,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 				// TODO test
 				if(!(feature instanceof Copyable))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + Copyable.class);
-				final String fieldName = name(field);
+				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 
 				templates.put(fieldName, feature);
 				feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
@@ -76,15 +76,6 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
-	}
-
-	private static String name(final java.lang.reflect.Field field)
-	{
-		final String annotation = CopeNameUtil.get(field);
-		return
-			annotation!=null
-			? annotation
-			: field.getName();
 	}
 
 	Map<String,Feature> getTemplateMap()

@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.CopeName;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 
 public final class CopeNameUtil
 {
@@ -38,6 +39,18 @@ public final class CopeNameUtil
 		final com.exedio.cope.CopeID id =
 				annotatedElement.getAnnotation(com.exedio.cope.CopeID.class);
 		return (id!=null) ? id.value() : null;
+	}
+
+	public static String getAndFallbackToSimpleName(final Class<?> clazz)
+	{
+		final String result = CopeNameUtil.get(clazz);
+		return (result!=null) ? result : clazz.getSimpleName();
+	}
+
+	public static String getAndFallbackToName(final Field field)
+	{
+		final String result = get(field);
+		return (result!=null) ? result : field.getName();
 	}
 
 	private CopeNameUtil()

@@ -26,28 +26,37 @@ public class CopeNameUtilFieldTest extends CopeAssert
 {
 	public void testIt() throws NoSuchFieldException
 	{
-		assertField(null,           "Naked");
-		assertField("nameAnno",     "Name");
-		assertField("idAnno",       "Id");
-		assertField("bothAnnoName", "Both");
+		assertField(null,           "fieldNaked",   "Naked");
+		assertField("nameAnno",     "nameAnno",     "Name");
+		assertField("idAnno",       "idAnno",       "Id");
+		assertField("bothAnnoName", "bothAnnoName", "Both");
 
-		assertClass(null,           ClassNaked.class);
-		assertClass("nameAnno",     ClassName .class);
-		assertClass("idAnno",       ClassId   .class);
-		assertClass("bothAnnoName", ClassBoth .class);
+		assertClass(null,           "ClassNaked",   ClassNaked.class);
+		assertClass("nameAnno",     "nameAnno",     ClassName .class);
+		assertClass("idAnno",       "idAnno",       ClassId   .class);
+		assertClass("bothAnnoName", "bothAnnoName", ClassBoth .class);
 	}
 
-	private static void assertField(final String expected, final String name)
-			throws NoSuchFieldException
+	private static void assertField(
+			final String expected,
+			final String expectedWithFallback,
+			final String name)
+		throws NoSuchFieldException
 	{
 		assertEquals(expected, CopeNameUtil.get(
 				CopeNameUtilFieldTest.class.getDeclaredField("field" + name)));
+		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToName(
+				CopeNameUtilFieldTest.class.getDeclaredField("field" + name)));
 	}
 
-	private static void assertClass(final String expected, final Class<?> clazz)
-			throws NoSuchFieldException
+	private static void assertClass(
+			final String expected,
+			final String expectedWithFallback,
+			final Class<?> clazz)
+		throws NoSuchFieldException
 	{
 		assertEquals(expected, CopeNameUtil.get(clazz));
+		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToSimpleName(clazz));
 	}
 
 	private static int fieldNaked = 0;

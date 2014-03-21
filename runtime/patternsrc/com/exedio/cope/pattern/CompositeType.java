@@ -73,7 +73,7 @@ final class CompositeType<E>
 				final FunctionField<?> template = (FunctionField<?>)feature;
 				if(template.isFinal())
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
-				final String fieldName = name(field);
+				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 				templates.put(fieldName, template);
 				templatePositions.put(template, position++);
 				template.mount(fieldID, SerializedReflectionField.make(feature, field), field);
@@ -82,15 +82,6 @@ final class CompositeType<E>
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
-	}
-
-	private static String name(final java.lang.reflect.Field field)
-	{
-		final String annotation = CopeNameUtil.get(field);
-		return
-			annotation!=null
-			? annotation
-			: field.getName();
 	}
 
 	Object[] values(final SetValue<?>... setValues)

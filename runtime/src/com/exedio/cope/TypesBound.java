@@ -68,7 +68,7 @@ public final class TypesBound
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
 		// id
-		final String id = name(javaClass, javaClass.getSimpleName());
+		final String id = CopeNameUtil.getAndFallbackToSimpleName(javaClass);
 
 		// abstract
 		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
@@ -88,7 +88,7 @@ public final class TypesBound
 		{
 			final Feature feature = entry.getKey();
 			final Field field = entry.getValue();
-			final String featureName = name(field, field.getName());
+			final String featureName = CopeNameUtil.getAndFallbackToName(field);
 			features.put(featureName, feature, (AnnotatedElement)field);
 		}
 
@@ -165,15 +165,6 @@ public final class TypesBound
 			}
 		}
 	};
-
-	private static final String name(final AnnotatedElement annotatedElement, final String fallback)
-	{
-		final String annotation = CopeNameUtil.get(annotatedElement);
-		return
-			annotation!=null
-			? annotation
-			: fallback;
-	}
 
 
 	// TODO reuse futures
