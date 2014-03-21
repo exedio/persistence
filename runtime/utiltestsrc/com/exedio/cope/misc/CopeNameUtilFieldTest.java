@@ -68,6 +68,6 @@ public class CopeNameUtilFieldTest extends CopeAssert
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static int fieldId = 0;
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static class ClassId { /* empty */ }
 
-	/** @deprecated */ @Deprecated @CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static int fieldBoth = 0;
-	/** @deprecated */ @Deprecated @CopeName("bothAnnoName") @com.exedio.cope.CopeID("bothAnnoID") private static class ClassBoth { /* empty */ }
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static int fieldBoth = 0;
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static class ClassBoth { /* empty */ }
 }
