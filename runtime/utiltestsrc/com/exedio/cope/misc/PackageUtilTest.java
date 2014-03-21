@@ -24,6 +24,7 @@ import junit.framework.TestSuite;
 
 public class PackageUtilTest extends TestCase
 {
+	@SuppressWarnings("deprecation")
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
@@ -33,6 +34,8 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ConditionsTest.class);
 		suite.addTestSuite(ConnectTokenTest.class);
 		suite.addTestSuite(ConnectTokenNullModelTest.class);
+		suite.addTestSuite(CopeNameUtilTest.class);
+		suite.addTestSuite(CopeNameUtilFieldTest.class);
 		suite.addTestSuite(EnumAnnotatedElementTest.class);
 		suite.addTestSuite(IterablesTest.class);
 		suite.addTestSuite(ListUtilTest.class);
