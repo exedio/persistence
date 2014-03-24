@@ -52,6 +52,22 @@ public final class TransactionTry implements AutoCloseable
 	}
 
 	/**
+	 * @see Model#startTransaction(String)
+	 */
+	public void startTransaction(final String name)
+	{
+		model.startTransaction(name);
+	}
+
+	/**
+	 * @see Model#rollbackIfNotCommitted()
+	 */
+	public void rollbackIfNotCommitted()
+	{
+		model.rollbackIfNotCommitted();
+	}
+
+	/**
 	 * @see Model#rollbackIfNotCommitted()
 	 */
 	@Override

@@ -20,6 +20,7 @@ package com.exedio.cope.mxsampler;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.JobContext;
@@ -126,15 +127,10 @@ public class MxSampler
 	void check()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry("check"))
 		{
-			samplerModel.startTransaction("check");
 			samplerModel.checkSchema();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 	}
 
