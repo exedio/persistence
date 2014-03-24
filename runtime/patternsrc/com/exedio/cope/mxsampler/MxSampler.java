@@ -25,6 +25,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.management.ClassLoadingMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
@@ -139,6 +140,7 @@ public class MxSampler
 		sampleInternal();
 	}
 
+	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
 	MxSamplerGlobal sampleInternal()
 	{
 		// prepare
