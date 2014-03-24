@@ -58,32 +58,22 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 			final String field,
 			final int next)
 	{
-		try
+		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			MODEL.startTransaction();
 			final PrimaryKeyItem result = new PrimaryKeyItem(field, next);
-			MODEL.commit();
+			tx.commit();
 			return result;
-		}
-		finally
-		{
-			MODEL.rollbackIfNotCommitted();
 		}
 	}
 
 	private static final PrimaryKeyItem newPrimaryKeyItem(
 			final String field)
 	{
-		try
+		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			MODEL.startTransaction();
 			final PrimaryKeyItem result = new PrimaryKeyItem(field);
-			MODEL.commit();
+			tx.commit();
 			return result;
-		}
-		finally
-		{
-			MODEL.rollbackIfNotCommitted();
 		}
 	}
 

@@ -178,9 +178,8 @@ public class MxSampler
 		final int running = runningSource.getAndIncrement();
 
 		// save data
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample"))
 		{
-			samplerModel.startTransaction(toString() + " sample");
 			final MxSamplerGlobal model;
 			{
 				sv.clear();
@@ -213,12 +212,8 @@ public class MxSampler
 				sv.add(MxSamplerMemoryPool.collectionUsage.map(MxSamplerMemoryUsage.create(memoryCollectionUsage.get(pool))));
 				MxSamplerMemoryPool.TYPE.newItem(sv);
 			}
-			samplerModel.commit();
+			tx.commit();
 			return model;
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
 		}
 	}
 
