@@ -68,6 +68,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 			try(TransactionTry tx = model.startTransactionTry("txName"))
 			{
 				assertTrue(model.hasCurrentTransaction());
+				assertTrue(tx.hasCurrentTransaction());
 				assertContains(TYPE.search());
 
 				item = new SimpleItem("itemName");
@@ -97,6 +98,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		try(TransactionTry tx = model.startTransactionTry("txName"))
 		{
 			assertTrue(model.hasCurrentTransaction());
+			assertTrue(tx.hasCurrentTransaction());
 			assertContains(TYPE.search());
 
 			item = new SimpleItem("itemName");
