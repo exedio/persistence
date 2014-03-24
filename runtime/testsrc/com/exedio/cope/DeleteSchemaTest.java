@@ -301,10 +301,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	private static void assertEmptyAndCreate(final boolean commit)
 	{
-		try
+		try(TransactionTry tx = MODEL.startTransactionTry(DeleteSchemaTest.class.getName()))
 		{
-			MODEL.startTransaction(DeleteSchemaTest.class.getName());
-
 			assertContains(DeleteSchemaItem.TYPE.search());
 			assertContains(DeleteSchemaItemUnused.TYPE.search());
 			assertContains(DeleteSchemaPointerA.TYPE.search());
@@ -336,11 +334,7 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			b.setOther(a1);
 
 			if(commit)
-				MODEL.commit();
-		}
-		finally
-		{
-			MODEL.rollbackIfNotCommitted();
+				tx.commit();
 		}
 	}
 
