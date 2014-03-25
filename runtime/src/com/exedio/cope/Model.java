@@ -70,6 +70,8 @@ public final class Model implements Serializable
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Transactions transactions = new Transactions();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final TransactionTry tx = new TransactionTry(this);
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public Model(final Type<?>... types)
@@ -744,9 +746,6 @@ public final class Model implements Serializable
 		startTransaction(name);
 		return tx;
 	}
-
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final TransactionTry tx = new TransactionTry(this);
 
 	public TransactionCounters getTransactionCounters()
 	{
