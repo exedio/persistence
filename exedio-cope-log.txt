@@ -7,7 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* ModelTransaction added
+* Model#startTransactionTry added
 * DynamicModel.FieldGroup removed again
 	This affects database schema, drop a column and a table.
 * DrivebyHashMigration added
