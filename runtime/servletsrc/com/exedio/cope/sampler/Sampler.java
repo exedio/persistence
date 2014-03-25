@@ -30,11 +30,13 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -159,15 +161,10 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry("check"))
 		{
-			samplerModel.startTransaction("check");
 			samplerModel.checkSchema();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 	}
 
@@ -178,6 +175,7 @@ public class Sampler
 
 	private SamplerStep lastStep = null;
 
+	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
 	SamplerModel sampleInternal()
 	{
 		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
@@ -188,10 +186,8 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample"))
 		{
-			samplerModel.startTransaction(toString() + " sample");
-
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
 			sv.add(SamplerModel.date.map(to.date));
@@ -246,12 +242,8 @@ public class Sampler
 					}
 				}
 			}
-			samplerModel.commit();
+			tx.commit();
 			return model;
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
 		}
 	}
 
@@ -268,15 +260,10 @@ public class Sampler
 	int analyzeCount(final Type<?> type)
 	{
 		final int result;
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeCount"))
 		{
-			samplerModel.startTransaction("sampler analyzeCount");
 			result = type.newQuery().total();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		return result;
 	}
@@ -285,15 +272,10 @@ public class Sampler
 	{
 		final DateField date = (DateField)type.getFeature("date");
 		final List<?> dates;
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeDate"))
 		{
-			samplerModel.startTransaction("sampler analyzeDate");
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		return new Date[] {
 				(Date)dates.get(0),

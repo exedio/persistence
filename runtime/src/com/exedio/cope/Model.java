@@ -624,6 +624,7 @@ public final class Model implements Serializable
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
 	 * @see #startTransaction()
+	 * @see #startTransactionTry(String)
 	 */
 	public Transaction startTransaction(final String name)
 	{
@@ -734,6 +735,18 @@ public final class Model implements Serializable
 	{
 		return transactions.getOpen();
 	}
+
+	/**
+	 * @see #startTransaction(String)
+	 */
+	public TransactionTry startTransactionTry(final String name)
+	{
+		startTransaction(name);
+		return tx;
+	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final TransactionTry tx = new TransactionTry(this);
 
 	public TransactionCounters getTransactionCounters()
 	{

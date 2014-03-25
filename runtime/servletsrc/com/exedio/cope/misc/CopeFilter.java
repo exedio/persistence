@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.TransactionTry;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -80,15 +81,10 @@ public final class CopeFilter implements Filter
 			revised = true;
 		}
 
-		try
+		try(TransactionTry tx = model.startTransactionTry("CopeFilter"))
 		{
-			model.startTransaction("CopeFilter");
 			chain.doFilter(request, response);
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 	}
 

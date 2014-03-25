@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class PrimaryKeyTest extends AbstractRuntimeTest
 {
 	/**
@@ -54,36 +56,28 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
+	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE") // triggered by try-with-resource
 	private static final PrimaryKeyItem newPrimaryKeyItem(
 			final String field,
 			final int next)
 	{
-		try
+		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			MODEL.startTransaction();
 			final PrimaryKeyItem result = new PrimaryKeyItem(field, next);
-			MODEL.commit();
+			tx.commit();
 			return result;
-		}
-		finally
-		{
-			MODEL.rollbackIfNotCommitted();
 		}
 	}
 
+	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE") // triggered by try-with-resource
 	private static final PrimaryKeyItem newPrimaryKeyItem(
 			final String field)
 	{
-		try
+		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			MODEL.startTransaction();
 			final PrimaryKeyItem result = new PrimaryKeyItem(field);
-			MODEL.commit();
+			tx.commit();
 			return result;
-		}
-		finally
-		{
-			MODEL.rollbackIfNotCommitted();
 		}
 	}
 

@@ -43,6 +43,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -215,9 +216,8 @@ public final class Schedule extends Pattern
 
 
 		final List<P> toRun;
-		try
+		try(TransactionTry tx = model.startTransactionTry(featureID + " search"))
 		{
-			model.startTransaction(featureID + " search");
 			final Query<P> q = type.newQuery(Cope.and(
 					enabled.equal(true),
 					mount.type.getThis().isNull()));
@@ -233,20 +233,15 @@ public final class Schedule extends Pattern
 			);
 			q.setOrderBy(typeThis, true);
 			toRun = q.search();
-			model.commit();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
+			tx.commit();
 		}
 
 		for(final P item : toRun)
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try
+			try(TransactionTry tx = model.startTransactionTry(featureID + " schedule " + itemID))
 			{
-				model.startTransaction(featureID + " schedule " + itemID);
 				final Interval interval = this.interval.get(item);
 				final Date until;
 				switch(interval)
@@ -269,12 +264,8 @@ public final class Schedule extends Pattern
 				item.run(this, from, until, ctx);
 				final long elapsedEnd = nanoTime();
 				runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
-				model.commit();
+				tx.commit();
 				ctx.incrementProgress();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
 			}
 		}
 	}

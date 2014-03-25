@@ -22,6 +22,7 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.Query;
+import com.exedio.cope.TransactionTry;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -72,17 +73,11 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
 		final Date date;
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
 		{
-			samplerModel.startTransaction(PurgeTest.class.getName());
 			date = new Query<>(SamplerModel.date.min(), SamplerModel.TYPE, null).searchSingletonStrict();
-			samplerModel.commit();
+			tx.commit();
 		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
-		}
-
 		assertPurge(date, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
@@ -97,15 +92,10 @@ public class PurgeTest extends ConnectedTest
 
 
 		final Date dateMax;
-		try
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
 		{
-			samplerModel.startTransaction(PurgeTest.class.getName());
 			dateMax = new Query<>(SamplerModel.date.max(), SamplerModel.TYPE, null).searchSingletonStrict();
-			samplerModel.commit();
-		}
-		finally
-		{
-			samplerModel.rollbackIfNotCommitted();
+			tx.commit();
 		}
 		final Date purgeDate = new Date(dateMax.getTime()+1);
 		assertPurge(purgeDate, 2, c?4:0, 0, 4, 0, 0, 0, 0, 2, 0);

@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,10 +57,8 @@ public class InitServlet extends HttpServlet
 		final Class<?> thisClass = InitServlet.class;
 		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();
-		try
+		try(TransactionTry tx = model.startTransactionTry(thisClass.getName()))
 		{
-			model.startTransaction(thisClass.getName());
-
 			final MediaServletItem text = new MediaServletItem();
 			assertID("MediaServletItem-0", text);
 			text.setContent(textValue, "text/plain", 0);
@@ -126,7 +125,7 @@ public class InitServlet extends HttpServlet
 			catchPhrase.setCatchPhrase("zick");
 			catchPhrase.setContent(textValue, "text/plain", 14);
 
-			model.commit();
+			tx.commit();
 		}
 		catch(final IOException e)
 		{
@@ -135,10 +134,6 @@ public class InitServlet extends HttpServlet
 		catch(final ParseException e)
 		{
 			throw new RuntimeException(e);
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
 		}
 	}
 

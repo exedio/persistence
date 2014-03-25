@@ -28,6 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.RevisionInfoRevise;
 import com.exedio.cope.RevisionInfoRevise.Body;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
@@ -54,8 +55,6 @@ final class Revstat extends Item
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-		try
-		{
 			ctx.stopIfRequested();
 
 			final List<Body> bodies = revision.getBody();
@@ -73,8 +72,8 @@ final class Revstat extends Item
 			else if(comment.isEmpty())
 				comment = "FOUND EMPTY BY CopeRevstat";
 
-			model.startTransaction(RevisionStatistics.class.getName() + '#' + number);
-
+		try(TransactionTry tx = model.startTransactionTry(RevisionStatistics.class.getName() + '#' + number))
+		{
 			final Revstat result;
 			try
 			{
@@ -95,12 +94,8 @@ final class Revstat extends Item
 			for(final Body body : bodies)
 				RevstatBody.get(result, bodyNumber++, body);
 
-			model.commit();
+			tx.commit();
 			ctx.incrementProgress();
-		}
-		finally
-		{
-			model.rollbackIfNotCommitted();
 		}
 	}
 

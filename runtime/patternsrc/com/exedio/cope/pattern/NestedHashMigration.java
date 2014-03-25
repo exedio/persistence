@@ -28,6 +28,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -159,10 +160,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();
-			try
+			try(TransactionTry tx = model.startTransactionTry(id + " migrate " + itemID))
 			{
-				model.startTransaction(id + " migrate " + itemID);
-
 				final String legacyHashValue = legacyHash.getHash(item);
 				if(legacyHashValue==null)
 				{
@@ -177,11 +176,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 						legacyHash.map(null),
 						targetHash.getStorage().map(targetAlgorithm.hash(legacyHashValue)));
 
-				model.commit();
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
+				tx.commit();
 			}
 			ctx.incrementProgress();
 		}

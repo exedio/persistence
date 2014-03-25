@@ -31,9 +31,9 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
+import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -216,7 +216,6 @@ public final class Dispatcher extends Pattern
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);
-		final Model model = type.getModel();
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
@@ -231,10 +230,8 @@ public final class Dispatcher extends Pattern
 			}
 
 			final String itemID = item.getCopeID();
-			try
+			try(TransactionTry tx = type.getModel().startTransactionTry(id + " dispatch " + itemID))
 			{
-				model.startTransaction(id + " dispatch " + itemID);
-
 				if(!isPending(item))
 				{
 					if(logger.isInfoEnabled())
@@ -246,7 +243,7 @@ public final class Dispatcher extends Pattern
 
 				if(isDeferred(item))
 				{
-					model.commit();
+					tx.commit();
 					continue;
 				}
 
@@ -264,15 +261,15 @@ public final class Dispatcher extends Pattern
 							runElapsed.map(elapsed),
 							runSuccess.map(true));
 
-					model.commit();
+					tx.commit();
 				}
 				catch(final Exception cause)
 				{
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					probeRequired = true;
-					model.rollbackIfNotCommitted();
+					tx.rollbackIfNotCommitted();
 
-					model.startTransaction(id + " register failure " + itemID);
+					tx.startTransaction(id + " register failure " + itemID);
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					try(PrintStream out = new PrintStream(baos, false, ENCODING))
 					{
@@ -295,15 +292,11 @@ public final class Dispatcher extends Pattern
 					if(finalFailure)
 						pending.set(item, false);
 
-					model.commit();
+					tx.commit();
 
 					if(finalFailure)
 						item.notifyFinalFailure(this, cause);
 				}
-			}
-			finally
-			{
-				model.rollbackIfNotCommitted();
 			}
 			ctx.incrementProgress();
 		}
