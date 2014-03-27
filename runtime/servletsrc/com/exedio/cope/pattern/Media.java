@@ -18,6 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
@@ -42,18 +55,8 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public final class Media extends MediaPath implements Settable<Media.Value>, Copyable
 {
@@ -211,6 +214,30 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7)
 	{
 		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7);
+	}
+
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8)
+	{
+		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8);
+	}
+
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8, final String contentType9)
+	{
+		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9);
+	}
+
+	/**
+	 * Creates a new media, that must contain one of the given content types only.
+	 */
+	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8, final String contentType9, final String contentType10)
+	{
+		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9, contentType10);
 	}
 
 	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
