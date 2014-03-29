@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public final class IsNullCondition<E> extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -36,10 +38,7 @@ public final class IsNullCondition<E> extends Condition
 			final Function<E> function,
 			final boolean not)
 	{
-		if(function==null)
-			throw new NullPointerException("function");
-
-		this.function = function;
+		this.function = requireNonNull(function, "function");
 		this.not = not;
 	}
 

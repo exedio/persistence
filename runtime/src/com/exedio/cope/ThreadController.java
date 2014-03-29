@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
+import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.Thread.State;
@@ -41,13 +42,8 @@ public final class ThreadController
 			final String name,
 			final boolean daemon)
 	{
-		if(target==null)
-			throw new NullPointerException("target");
-		if(name==null)
-			throw new NullPointerException("name");
-
-		this.target = target;
-		this.name = name;
+		this.target = requireNonNull(target, "target");
+		this.name = requireNonNull(name, "name");
 		this.daemon = daemon;
 	}
 

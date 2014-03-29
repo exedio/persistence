@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -36,12 +38,9 @@ final class SubContentType extends ContentType<String>
 			final boolean optional)
 	{
 		super(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
-		this.major = major;
+		this.major = requireNonNull(major, "fixedMimeMajor");
 		this.prefix = major + '/';
 		this.prefixLength = this.prefix.length();
-
-		if(major==null)
-			throw new NullPointerException("fixedMimeMajor");
 	}
 
 	@Override

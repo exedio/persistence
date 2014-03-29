@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
+import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
@@ -51,9 +52,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
 		this.valueTypeFuture = valueTypeFuture;
-		this.policy = policy;
-		if(policy==null)
-			throw new NullPointerException("policy");
+		this.policy = requireNonNull(policy, "policy");
 		if(policy==DeletePolicy.NULLIFY)
 		{
 			if(!optional)

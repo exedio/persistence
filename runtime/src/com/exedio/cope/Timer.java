@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static java.util.Objects.requireNonNull;
 
 import org.slf4j.Logger;
 
@@ -31,10 +32,7 @@ final class Timer
 
 	Timer(final Logger logger, final String msg)
 	{
-		if(logger==null)
-			throw new NullPointerException("logger");
-
-		this.logger = logger;
+		this.logger = requireNonNull(logger, "logger");
 		this.msg = (msg!=null) ? (" " + msg) : "";
 	}
 

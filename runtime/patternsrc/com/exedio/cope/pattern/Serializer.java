@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
@@ -64,10 +66,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 
 	private Serializer(final Class<E> valueClass, final DataField source)
 	{
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
-
-		this.valueClass = valueClass;
+		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.source = source;
 
 		addSource(source, "data", ComputedElement.get());

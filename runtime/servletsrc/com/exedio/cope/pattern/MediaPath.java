@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.util.Objects.requireNonNull;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
@@ -422,13 +423,8 @@ public abstract class MediaPath extends Pattern
 
 		NotFound(final String reason, final ErrorLog counter)
 		{
-			this.reason = reason;
-			this.counter = counter;
-
-			if(reason==null)
-				throw new NullPointerException();
-			if(counter==null)
-				throw new NullPointerException();
+			this.reason = requireNonNull(reason);
+			this.counter = requireNonNull(counter);
 		}
 
 		@Override

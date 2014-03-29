@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
 
 public final class QueryCacheHistogram
 {
@@ -30,10 +31,7 @@ public final class QueryCacheHistogram
 			final int resultSize,
 			final long hits)
 	{
-		if(query==null)
-			throw new NullPointerException();
-
-		this.query = query;
+		this.query = requireNonNull(query);
 		this.resultSize = resultSize;
 		this.hits = hits;
 	}

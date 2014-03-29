@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -60,9 +61,7 @@ public final class LongField extends NumberField<Long>
 
 		DefaultRandom(final Random source)
 		{
-			this.source = source;
-			if(source==null)
-				throw new NullPointerException("source");
+			this.source = requireNonNull(source, "source");
 		}
 
 		@Override

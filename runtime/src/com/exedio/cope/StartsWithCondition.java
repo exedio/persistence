@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
@@ -40,13 +42,9 @@ public final class StartsWithCondition extends Condition
 			final DataField field,
 			final byte[] value)
 	{
-		this.field = field;
-		this.value = value;
+		this.field = requireNonNull(field, "field");
+		this.value = requireNonNull(value, "value");
 
-		if(field==null)
-			throw new NullPointerException("field");
-		if(value==null)
-			throw new NullPointerException("value");
 		if(value.length==0)
 			throw new IllegalArgumentException("value must not be empty");
 	}

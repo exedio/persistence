@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash.Algorithm;
 import com.exedio.cope.util.CharSet;
@@ -40,14 +42,8 @@ final class AlgorithmAdapter implements HashAlgorithm
 			final Hash.Algorithm algorithm,
 			final String encoding)
 	{
-		if(algorithm==null)
-			throw new NullPointerException("algorithm");
-		if(encoding==null)
-			throw new NullPointerException("encoding");
-
-		this.algorithm = algorithm;
-
-		this.encoding = encoding;
+		this.algorithm = requireNonNull(algorithm, "algorithm");
+		this.encoding = requireNonNull(encoding, "encoding");
 		encode("test");
 	}
 

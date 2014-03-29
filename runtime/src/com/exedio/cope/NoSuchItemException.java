@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public class NoSuchItemException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;
@@ -26,10 +28,7 @@ public class NoSuchItemException extends RuntimeException
 
 	NoSuchItemException(final Item item)
 	{
-		this.item = item;
-
-		if(item==null)
-			throw new NullPointerException();
+		this.item = requireNonNull(item);
 	}
 
 	public Item getItem()

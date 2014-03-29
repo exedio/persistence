@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.TransactionTry;
 
@@ -39,13 +41,8 @@ public class TransactionRunnable implements Runnable
 			final Runnable runnable,
 			final String name)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
-		if(runnable==null)
-			throw new NullPointerException("runnable");
-
-		this.model = model;
-		this.runnable = runnable;
+		this.model = requireNonNull(model, "model");
+		this.runnable = requireNonNull(runnable, "runnable");
 		this.name = name;
 	}
 

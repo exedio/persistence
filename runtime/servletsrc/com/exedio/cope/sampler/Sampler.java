@@ -21,6 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.sampler.Util.diff;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.DateField;
@@ -55,10 +56,7 @@ public class Sampler
 
 	public Sampler(final Model sampledModel)
 	{
-		if(sampledModel==null)
-			throw new NullPointerException("sampledModel");
-
-		this.sampledModel = sampledModel;
+		this.sampledModel = requireNonNull(sampledModel, "sampledModel");
 
 		this.samplerModel =
 			new Model(

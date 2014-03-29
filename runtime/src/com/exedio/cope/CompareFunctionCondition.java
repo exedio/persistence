@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public final class CompareFunctionCondition<E> extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -42,16 +44,9 @@ public final class CompareFunctionCondition<E> extends Condition
 			final Function<E> left,
 			final Function<? extends E> right)
 	{
-		if(operator==null)
-			throw new NullPointerException("operator");
-		if(left==null)
-			throw new NullPointerException("left");
-		if(right==null)
-			throw new NullPointerException("right");
-
-		this.operator = operator;
-		this.left = left;
-		this.right = right;
+		this.operator = requireNonNull(operator, "operator");
+		this.left = requireNonNull(left, "left");
+		this.right = requireNonNull(right, "right");
 	}
 
 	@Override

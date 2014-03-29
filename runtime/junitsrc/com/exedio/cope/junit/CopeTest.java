@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -66,17 +68,13 @@ public abstract class CopeTest extends CopeAssert
 
 	protected final <I extends Item> I deleteOnTearDown(final I item)
 	{
-		if(item==null)
-			throw new NullPointerException();
-		deleteOnTearDown.add(item);
+		deleteOnTearDown.add(requireNonNull(item));
 		return item;
 	}
 
 	protected final boolean dontDeleteOnTearDown(final Item item)
 	{
-		if(item==null)
-			throw new NullPointerException();
-		return deleteOnTearDown.remove(item);
+		return deleteOnTearDown.remove(requireNonNull(item));
 	}
 
 	protected final void printConnectionPoolCounter()

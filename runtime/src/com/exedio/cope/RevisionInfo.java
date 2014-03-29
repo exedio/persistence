@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,14 +45,9 @@ public abstract class RevisionInfo
 			final Date date,
 			final Map<String, String> environment)
 	{
-		if(date==null)
-			throw new NullPointerException("date");
-		if(environment==null)
-			throw new NullPointerException("environment");
-
 		this.number = number;
-		this.date = date.getTime();
-		this.environment = environment;
+		this.date = requireNonNull(date, "date").getTime();
+		this.environment = requireNonNull(environment, "environment");
 	}
 
 	public final int getNumber()

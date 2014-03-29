@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 
 /**
  * Signals, that an attempt to delete an item has been failed,
@@ -48,10 +50,7 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 			final Item item,
 			final int referrers)
 	{
-		super(item, null);
-
-		if(item==null)
-			throw new NullPointerException();
+		super(requireNonNull(item), null);
 
 		this.feature = feature;
 		this.referrers = referrers;

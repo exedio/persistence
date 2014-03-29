@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.AverageAggregate;
 import com.exedio.cope.search.ExtremumAggregate;
@@ -33,10 +35,7 @@ public class Random implements NumberFunction<Double>
 
 	Random(final Type<?> type, final int seed)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
-
-		this.type = type;
+		this.type = requireNonNull(type, "type");
 		this.seed = seed;
 	}
 

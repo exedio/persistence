@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!
  *
@@ -44,13 +46,8 @@ public final class MatchCondition extends Condition
 			final StringFunction function,
 			final String value)
 	{
-		this.function = function;
-		this.value = value;
-
-		if(function==null)
-			throw new NullPointerException("function");
-		if(value==null)
-			throw new NullPointerException("value");
+		this.function = requireNonNull(function, "function");
+		this.value = requireNonNull(value, "value");
 	}
 
 	@Override

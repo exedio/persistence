@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.SequenceChecker;
 import java.net.InetAddress;
 import java.util.Collections;
@@ -102,16 +104,9 @@ public final class ClusterListenerInfo
 			this.firstEncounter = firstEncounter.getTime();
 			this.address = address;
 			this.port = port;
-			this.invalidateInfo = invalidateInfo;
-			this.pingInfo = pingInfo;
-			this.pongInfo = pongInfo;
-
-			if(invalidateInfo==null)
-				throw new NullPointerException();
-			if(pingInfo==null)
-				throw new NullPointerException();
-			if(pongInfo==null)
-				throw new NullPointerException();
+			this.invalidateInfo = requireNonNull(invalidateInfo);
+			this.pingInfo = requireNonNull(pingInfo);
+			this.pongInfo = requireNonNull(pongInfo);
 		}
 
 		/**

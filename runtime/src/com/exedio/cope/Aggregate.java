@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public abstract class Aggregate<E> implements Selectable<E>
 {
 	private static final long serialVersionUID = 1l;
@@ -33,16 +35,9 @@ public abstract class Aggregate<E> implements Selectable<E>
 
 	public Aggregate(final Function<E> source, final String name, final String sqlName)
 	{
-		if(source==null)
-			throw new NullPointerException("source");
-		if(name==null)
-			throw new NullPointerException("name");
-		if(sqlName==null)
-			throw new NullPointerException("sqlName");
-
-		this.source = source;
-		this.name = name;
-		this.sqlPrefix = sqlName + '(';
+		this.source = requireNonNull(source, "source");
+		this.name = requireNonNull(name, "name");
+		this.sqlPrefix = requireNonNull(sqlName, "sqlName") + '(';
 	}
 
 	public final Function<E> getSource()

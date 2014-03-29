@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
@@ -52,9 +54,7 @@ public final class SetField<E> extends Pattern
 
 	private SetField(final FunctionField<E> element)
 	{
-		this.element = element;
-		if(element==null)
-			throw new NullPointerException("element");
+		this.element = requireNonNull(element, "element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
 		if(!element.isMandatory())

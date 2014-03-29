@@ -29,6 +29,7 @@ import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.WEEK_OF_MONTH;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -83,10 +84,7 @@ public final class Schedule extends Pattern
 	 */
 	public Schedule(final Locale locale)
 	{
-		if(locale==null)
-			throw new NullPointerException("locale");
-
-		this.locale = locale;
+		this.locale = requireNonNull(locale, "locale");
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
 	}

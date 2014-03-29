@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Objects.requireNonNull;
+
 public final class ForeignKeyConstraint extends Constraint
 {
 	final String foreignKeyColumn;
@@ -44,16 +46,9 @@ public final class ForeignKeyConstraint extends Constraint
 	{
 		super(table, name, Type.ForeignKey, required, makeClause(foreignKeyColumn, targetTable, targetColumn));
 
-		if(foreignKeyColumn==null)
-			throw new NullPointerException(name);
-		if(targetTable==null)
-			throw new NullPointerException(name);
-		if(targetColumn==null)
-			throw new NullPointerException(name);
-
-		this.foreignKeyColumn = foreignKeyColumn;
-		this.targetTable = targetTable;
-		this.targetColumn = targetColumn;
+		this.foreignKeyColumn = requireNonNull(foreignKeyColumn, name);
+		this.targetTable = requireNonNull(targetTable, name);
+		this.targetColumn = requireNonNull(targetColumn, name);
 		//System.out.println("-------------"+name+"-"+foreignKeyColumn+"-"+targetTable+"-"+targetColumn);
 	}
 

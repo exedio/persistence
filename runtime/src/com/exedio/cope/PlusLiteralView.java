@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class PlusLiteralView<E extends Number> extends NumberView<E>
@@ -38,11 +40,8 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	{
 		super(new Function<?>[]{left}, "plus", PlusView.checkClass(Number.class, left.getValueClass()));
 
-		if(right==null)
-			throw new NullPointerException("right");
-
 		this.left = left;
-		this.right = right;
+		this.right = requireNonNull(right, "right");
 	}
 
 	public SelectType<E> getValueType()

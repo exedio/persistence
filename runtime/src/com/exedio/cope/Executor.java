@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -58,11 +59,8 @@ final class Executor
 		this.supportsUniqueViolation =
 			!properties.isSupportDisabledForUniqueViolation() &&
 			dialect.supportsUniqueViolation();
-		this.limitSupport = dialect.getLimitSupport();
+		this.limitSupport = requireNonNull(dialect.getLimitSupport(), dialect.toString());
 		this.fulltextIndex = properties.getFulltextIndex();
-
-		if(limitSupport==null)
-			throw new NullPointerException(dialect.toString());
 	}
 
 	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)

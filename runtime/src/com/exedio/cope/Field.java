@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.Cast;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,10 +47,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
-		this.valueClass = valueClass;
-
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
+		this.valueClass = requireNonNull(valueClass, "valueClass");
 	}
 
 	/**

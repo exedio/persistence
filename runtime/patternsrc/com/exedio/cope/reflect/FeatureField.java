@@ -18,6 +18,8 @@
 
 package com.exedio.cope.reflect;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
@@ -62,10 +64,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	private FeatureField(final Class<E> valueClass, final StringField integer)
 	{
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
-
-		this.valueClass = valueClass;
+		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.idField = integer;
 		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameEmpty.get()));
 		this.isfinal = integer.isFinal();

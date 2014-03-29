@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -50,8 +51,7 @@ public final class Revision
 	{
 		if(number<=0)
 			throw new IllegalArgumentException("number must be greater zero");
-		if(comment==null)
-			throw new NullPointerException("comment");
+		this.comment = requireNonNull(comment, "comment");
 		if(comment.isEmpty())
 			throw new IllegalArgumentException("comment must not be empty");
 		if(body==null)
@@ -72,7 +72,6 @@ public final class Revision
 		}
 
 		this.number = number;
-		this.comment = comment;
 		this.body = bodyCopy;
 	}
 

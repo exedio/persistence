@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.exedio.cope.Condition;
@@ -62,10 +63,7 @@ public final class MediaRedirect extends MediaPath
 	@Deprecated
 	public MediaRedirect(final MediaPath target)
 	{
-		if(target==null)
-			throw new NullPointerException("target");
-
-		this.target = target;
+		this.target = requireNonNull(target, "target");
 	}
 
 	public MediaPath getTarget()

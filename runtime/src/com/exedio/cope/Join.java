@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public final class Join implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1l;
@@ -44,14 +46,9 @@ public final class Join implements java.io.Serializable
 	Join(final int index, final Kind kind, final Type<?> type, final Condition condition)
 	{
 		this.index = index;
-		this.kind = kind;
-		this.type = type;
+		this.kind = requireNonNull(kind, "kind");
+		this.type = requireNonNull(type, "type");
 		this.condition = condition;
-
-		if(kind==null)
-			throw new NullPointerException("kind");
-		if(type==null)
-			throw new NullPointerException("type");
 	}
 
 	public Kind getKind()

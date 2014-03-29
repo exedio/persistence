@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -64,13 +66,8 @@ public abstract class Node
 
 	Node(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
-		if(dialect==null)
-			throw new NullPointerException("dialect");
-		if(connectionProvider==null)
-			throw new NullPointerException("connectionProvider");
-
-		this.dialect = dialect;
-		this.connectionProvider = connectionProvider;
+		this.dialect = requireNonNull(dialect, "dialect");
+		this.connectionProvider = requireNonNull(connectionProvider, "connectionProvider");
 	}
 
 	final String quoteName(final String name)

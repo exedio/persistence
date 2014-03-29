@@ -18,16 +18,15 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 
 public final class Iterables
 {
 	public static <E> Iterable<E> once(final Iterator<E> iterator)
 	{
-		if(iterator==null)
-			throw new NullPointerException("iterator");
-
-		return new Once<>(iterator);
+		return new Once<>(requireNonNull(iterator, "iterator"));
 	}
 
 	private static final class Once<E> implements Iterable<E>

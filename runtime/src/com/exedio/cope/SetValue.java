@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class SetValue<E>
@@ -44,10 +46,7 @@ public final class SetValue<E>
 	@Deprecated
 	public SetValue(final Settable<E> settable, final E value)
 	{
-		if(settable==null)
-			throw new NullPointerException("settable");
-
-		this.settable = settable;
+		this.settable = requireNonNull(settable, "settable");
 		this.value = value;
 	}
 

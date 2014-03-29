@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
@@ -35,9 +37,7 @@ public abstract class MediaFilter extends MediaPath
 
 	public MediaFilter(final Media source)
 	{
-		this.source = source;
-		if(source==null)
-			throw new NullPointerException("source");
+		this.source = requireNonNull(source, "source");
 	}
 
 	public final Media getSource()
