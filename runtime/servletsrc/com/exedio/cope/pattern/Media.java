@@ -18,19 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
@@ -55,8 +42,18 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public final class Media extends MediaPath implements Settable<Media.Value>, Copyable
 {
