@@ -430,6 +430,11 @@ public final class DynamicModel<L> extends Pattern
 					", but was a " + pattern.localeTemplate.getValueClass().getName());
 	}
 
+	public FunctionField<?>[] getFunctionFields()
+	{
+		return fields;
+	}
+
 	public static enum ValueType
 	{
 		STRING (String.class),
