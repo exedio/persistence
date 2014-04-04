@@ -47,6 +47,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
@@ -136,10 +137,20 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals("run",    report.getRunRun()   .getName());
 		assertEquals("elapsed",report.getRunElapsed().getName());
 
+		assertSame("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
 		try
 		{
-			new Schedule(null);
+			new Schedule(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("timeZone", e.getMessage());
+		}
+		try
+		{
+			new Schedule(TimeZone.getDefault(), null);
 			fail();
 		}
 		catch(final NullPointerException e)

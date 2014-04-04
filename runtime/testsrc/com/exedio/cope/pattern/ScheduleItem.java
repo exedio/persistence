@@ -30,10 +30,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public final class ScheduleItem extends Item implements Scheduleable
 {
-	static final Schedule report = new Schedule(Locale.GERMAN);
+	static final Schedule report = new Schedule(TimeZone.getTimeZone("Europe/Berlin"), Locale.GERMAN);
 	static final BooleanField fail = new BooleanField().defaultTo(false);
 
 	private static final ArrayList<Log> logs = new ArrayList<>();

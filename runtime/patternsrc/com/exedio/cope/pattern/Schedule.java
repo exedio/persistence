@@ -56,6 +56,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public final class Schedule extends Pattern
 {
@@ -68,6 +69,7 @@ public final class Schedule extends Pattern
 		MONTHLY;
 	}
 
+	private final TimeZone timeZone;
 	private final Locale locale;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
@@ -82,11 +84,17 @@ public final class Schedule extends Pattern
 	 *        that does all the date computations.
 	 *        Is important for specifying the first day of week (Monday vs. Sunday)
 	 */
-	public Schedule(final Locale locale)
+	public Schedule(final TimeZone timeZone, final Locale locale)
 	{
+		this.timeZone = requireNonNull(timeZone, "timeZone");
 		this.locale = requireNonNull(locale, "locale");
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
+	}
+
+	public TimeZone getTimeZone()
+	{
+		return timeZone;
 	}
 
 	public Locale getLocale()
@@ -198,7 +206,7 @@ public final class Schedule extends Pattern
 		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
 		final String featureID = getID();
-		final GregorianCalendar cal = new GregorianCalendar(locale);
+		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
 		final Date now = new Date(Clock.currentTimeMillis());
 		cal.setTime(now);
 		cal.set(MILLISECOND, 0);
@@ -398,12 +406,21 @@ public final class Schedule extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #Schedule(Locale)} instead.
+	 * @deprecated Use {@link #Schedule(TimeZone,Locale)} instead.
 	 */
 	@Deprecated
 	public Schedule()
 	{
 		this(Locale.getDefault());
+	}
+
+	/**
+	 * @deprecated Use {@link #Schedule(TimeZone,Locale)} instead.
+	 */
+	@Deprecated
+	public Schedule(final Locale locale)
+	{
+		this(TimeZone.getDefault(), locale);
 	}
 
 	/**
