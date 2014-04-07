@@ -137,7 +137,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 		assertEquals("run",    report.getRunRun()   .getName());
 		assertEquals("elapsed",report.getRunElapsed().getName());
 
-		assertSame("Europe/Berlin", report.getTimeZone().getID());
+		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
 		try
 		{
