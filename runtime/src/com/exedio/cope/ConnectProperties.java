@@ -127,7 +127,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final StringField mediaRooturl =  field("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final String mediaUrlSecret = noContext()
-			? checkMediaUrlSecret(value("media.url.secret", ""))
+			? checkMediaUrlSecret(valueHidden("media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
 
 	private static final String checkMediaUrlSecret(final String s)
