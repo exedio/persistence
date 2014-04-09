@@ -197,18 +197,8 @@ public final class DayField extends FunctionField<Day>
 			doc="Sets today for the date field {0}.", // TODO better text
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
-		throws
-			UniqueViolationException,
-			FinalViolationException
 	{
-		try
-		{
-			set(item, new Day()); // TODO: make a more efficient implementation
-		}
-		catch(final MandatoryViolationException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
+		set(item, new Day()); // TODO: make a more efficient implementation
 	}
 
 	static Day unmarshal(final java.sql.Date cell)
