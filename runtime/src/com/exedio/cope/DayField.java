@@ -211,6 +211,15 @@ public final class DayField extends FunctionField<Day>
 		}
 	}
 
+	static Day unmarshal(final java.sql.Date cell)
+	{
+		// OK: need information about the day without taking time into account
+		@SuppressWarnings("deprecation") final int year = cell.getYear();
+		@SuppressWarnings("deprecation") final int month = cell.getMonth();
+		@SuppressWarnings("deprecation") final int date = cell.getDate();
+		return new Day(year+1900, month+1, date);
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

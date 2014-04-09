@@ -216,7 +216,7 @@ final class Marshallers
 					if(!Objects.equals(s, d))
 						System.out.println("MISMATCHING DATE string= >" + s + "<, date= >" + d + "<");
 				}
-				return (cell!=null) ? new Day(cell) : null;
+				return (cell!=null) ? DayField.unmarshal(cell) : null;
 			}
 			@Override
 			String marshal(final Day value)
