@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DayField#touch requires TimeZone.
+	Deprecated old API.
+	Affects instrumented code.
 * StringField#charSet does fail with non-ASCII CharSets.
 	Did not work anyway, but now an exception is thrown.
 * Media.contentType() methods added

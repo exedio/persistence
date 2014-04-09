@@ -34,6 +34,7 @@ import com.exedio.cope.util.Day;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.TimeZone;
 
 public abstract class Composite implements Serializable
 {
@@ -95,9 +96,9 @@ public abstract class Composite implements Serializable
 		set(member, new Date());
 	}
 
-	public final void touch(final DayField member)
+	public final void touch(final DayField member, final TimeZone zone)
 	{
-		set(member, new Day());
+		set(member, new Day(zone));
 	}
 
 
@@ -142,6 +143,12 @@ public abstract class Composite implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	public final void touch(final DayField member)
+	{
+		touch(member, TimeZone.getDefault());
+	}
 
 	/**
 	 * @deprecated Use {@link EnumField#create(Class)} instead

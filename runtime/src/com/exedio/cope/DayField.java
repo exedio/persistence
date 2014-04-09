@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
@@ -196,9 +197,9 @@ public final class DayField extends FunctionField<Day>
 	@Wrap(order=10,
 			doc="Sets today for the date field {0}.", // TODO better text
 			hide=FinalSettableGetter.class)
-	public void touch(final Item item)
+	public void touch(final Item item, @Parameter("zone") final TimeZone zone)
 	{
-		set(item, new Day()); // TODO: make a more efficient implementation
+		set(item, new Day(zone)); // TODO: make a more efficient implementation
 	}
 
 	static Day unmarshal(final java.sql.Date cell)
@@ -222,6 +223,12 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	public void touch(final Item item)
+	{
+		touch(item, TimeZone.getDefault());
+	}
 
 	/**
 	 * @deprecated Use {@link #defaultToNow(TimeZone)} instead.
