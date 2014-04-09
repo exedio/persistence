@@ -48,15 +48,7 @@ final class DayColumn extends Column
 
 	static int getTransientNumber(final Day day)
 	{
-		return getTransientNumber(day.getYear(), day.getMonth(), day.getDay());
-	}
-
-	private static int getTransientNumber(final int year, final int month, final int day)
-	{
-		if(year<1000 || year>9999 || month<1 || month>12 || day<1 || day>31)
-			throw new RuntimeException("wrong day: " + year + '/' + month +  '/' + day );
-
-		return (((year*12) + (month-1))*31) + (day-1);
+		return (((day.getYear()*12) + (day.getMonth()-1))*31) + (day.getDay()-1);
 	}
 
 	static Day getDay(final int transientNumber)
