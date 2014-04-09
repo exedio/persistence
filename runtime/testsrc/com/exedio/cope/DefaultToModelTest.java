@@ -41,11 +41,13 @@ import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static java.lang.Boolean.TRUE;
+import static java.util.TimeZone.getTimeZone;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DefaultToModelTest extends CopeAssert
 {
@@ -110,6 +112,11 @@ public class DefaultToModelTest extends CopeAssert
 		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
 
+		assertEquals(null, dayEight.getDefaultNowZimeZone());
+		assertEquals(tz("Europe/Berlin"),  dayNow.getDefaultNowZimeZone());
+		assertEquals(tz("Europe/Berlin"),  dayNowOpt.getDefaultNowZimeZone());
+		assertEquals(null, dayNone.getDefaultNowZimeZone());
+
 		assertEquals(null, longRandom.getDefaultConstant());
 
 		assertEquals(ONE, enumOne.getDefaultConstant());
@@ -157,10 +164,11 @@ public class DefaultToModelTest extends CopeAssert
 			assertEquals(false, feature.isDefaultNow());
 		}
 		{
-			final DayField feature = dayEight.defaultToNow();
+			final DayField feature = dayEight.defaultToNow(tz("Canada/Eastern"));
 			assertEquals(true, feature.hasDefault());
 			assertEquals(null, feature.getDefaultConstant());
 			assertEquals(true, feature.isDefaultNow());
+			assertEquals(tz("Canada/Eastern"), feature.getDefaultNowZimeZone());
 		}
 		{
 			final DayField feature = dayNow.defaultTo(new Day(2010, 1, 13));
@@ -186,6 +194,15 @@ public class DefaultToModelTest extends CopeAssert
 		}
 		try
 		{
+			dayEight.defaultToNow(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("zone", e.getMessage());
+		}
+		try
+		{
 			longRandom.defaultToRandom(null);
 			fail();
 		}
@@ -208,5 +225,12 @@ public class DefaultToModelTest extends CopeAssert
 	private static final Day day(final int year, final int month, final int day)
 	{
 		return new Day(year, month, day);
+	}
+
+	private static final TimeZone tz(final String ID)
+	{
+		final TimeZone result = getTimeZone(ID);
+		assertEquals(ID, result.getID());
+		return result;
 	}
 }

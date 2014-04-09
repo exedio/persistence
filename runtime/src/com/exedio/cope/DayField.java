@@ -23,6 +23,8 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
+import java.util.Objects;
+import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,12 +98,19 @@ public final class DayField extends FunctionField<Day>
 		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
 	}
 
-	private static final DefaultSource<Day> DEFAULT_TO_NOW = new DefaultSource<Day>()
+	private static final class DefaultNow extends DefaultSource<Day>
 	{
+		final TimeZone zone;
+
+		DefaultNow(final TimeZone zone)
+		{
+			this.zone = Objects.requireNonNull(zone, "zone");
+		}
+
 		@Override
 		Day generate(final long now)
 		{
-			return new Day(new Date(now));
+			return new Day(new Date(now), zone);
 		}
 
 		@Override
@@ -115,16 +124,24 @@ public final class DayField extends FunctionField<Day>
 		{
 			// nothing to be checked
 		}
-	};
+	}
 
-	public DayField defaultToNow()
+	public DayField defaultToNow(final TimeZone zone)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
+		return new DayField(isfinal, optional, unique, copyFrom, new DefaultNow(zone));
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultSource==DEFAULT_TO_NOW;
+		return defaultSource instanceof DefaultNow;
+	}
+
+	public TimeZone getDefaultNowZimeZone()
+	{
+		return
+			defaultSource instanceof DefaultNow
+			? ((DefaultNow)defaultSource).zone
+			: null;
 	}
 
 	public SelectType<Day> getValueType()
@@ -192,5 +209,16 @@ public final class DayField extends FunctionField<Day>
 		{
 			throw new RuntimeException(toString(), e);
 		}
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #defaultToNow(TimeZone)} instead.
+	 */
+	@Deprecated
+	public DayField defaultToNow()
+	{
+		return defaultToNow(TimeZone.getDefault());
 	}
 }

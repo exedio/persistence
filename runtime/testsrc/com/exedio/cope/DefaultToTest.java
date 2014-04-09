@@ -50,6 +50,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DefaultToTest extends AbstractRuntimeTest
 {
@@ -101,8 +102,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1008, 8, 8), item.getDayEight());
-			assertEquals(new Day(now), item.getDayNow());
-			assertEquals(new Day(now), item.getDayNowOpt());
+			assertEquals(new Day(now, tz("Europe/Berlin")), item.getDayNow());
+			assertEquals(new Day(now, tz("Europe/Berlin")), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -131,8 +132,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(now, item.getDateNow());
 			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(new Day(now), item.getDayNow());
-			assertEquals(new Day(now), item.getDayNowOpt());
+			assertEquals(new Day(now, tz("Europe/Berlin")), item.getDayNow());
+			assertEquals(new Day(now, tz("Europe/Berlin")), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -223,7 +224,7 @@ public class DefaultToTest extends AbstractRuntimeTest
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1008, 8, 8), item.getDayEight());
-			assertEquals(new Day(now), item.getDayNow());
+			assertEquals(new Day(now, tz("Europe/Berlin")), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertEquals(null, item.getLongRandom());
@@ -250,5 +251,12 @@ public class DefaultToTest extends AbstractRuntimeTest
 	private static final Day day(final int year, final int month, final int day)
 	{
 		return new Day(year, month, day);
+	}
+
+	private static final TimeZone tz(final String ID)
+	{
+		final TimeZone result = TimeZone.getTimeZone(ID);
+		assertEquals(ID, result.getID());
+		return result;
 	}
 }

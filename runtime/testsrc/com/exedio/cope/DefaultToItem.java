@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.Random;
+import java.util.TimeZone;
 
 /**
  * @cope.generic.constructor package
@@ -44,8 +45,8 @@ final class DefaultToItem extends Item
 	static final DateField dateNone = new DateField().optional();
 
 	static final DayField dayEight = new DayField().defaultTo(new Day(1008, 8, 8));
-	static final DayField dayNow = new DayField().defaultToNow();
-	static final DayField dayNowOpt = new DayField().optional().defaultToNow();
+	static final DayField dayNow = new DayField().defaultToNow(TimeZone.getTimeZone("Europe/Berlin"));
+	static final DayField dayNowOpt = new DayField().optional().defaultToNow(TimeZone.getTimeZone("Europe/Berlin"));
 	static final DayField dayNone = new DayField().optional();
 
 	static final LongField longRandom = new LongField().optional().min(0l).defaultToRandom(new Random());
