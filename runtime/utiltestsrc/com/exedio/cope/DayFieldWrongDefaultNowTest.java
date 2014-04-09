@@ -22,6 +22,7 @@ import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
+import java.util.TimeZone;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -65,7 +66,7 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 			super(ap);
 		}
 
-		static final DayField wrong = new DayField().defaultTo(new Day());
+		static final DayField wrong = new DayField().defaultTo(new Day(TimeZone.getDefault()));
 		static final DayField ok = new DayField().defaultTo(new Day(2005, 10, 10));
 	}
 }

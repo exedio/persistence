@@ -167,7 +167,7 @@ public final class DayField extends FunctionField<Day>
 		if(defaultConstant==null)
 			return false;
 
-		return defaultConstant.equals(new Day(new Date(getDefaultConstantCreatedTimeMillis())));
+		return defaultConstant.equals(new Day(new Date(getDefaultConstantCreatedTimeMillis()), TimeZone.getDefault()));
 	}
 
 	@Override
