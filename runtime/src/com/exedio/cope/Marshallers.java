@@ -230,7 +230,7 @@ final class Marshallers
 			@Override
 			Object marshalPrepared(final Day value)
 			{
-				return new Timestamp(value.getTimeInMillisFrom());
+				return DayField.marshal(value);
 			}
 		});
 	}
