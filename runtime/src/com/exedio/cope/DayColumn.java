@@ -22,8 +22,6 @@ import com.exedio.cope.util.Day;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 final class DayColumn extends Column
@@ -53,13 +51,6 @@ final class DayColumn extends Column
 		return getTransientNumber(day.getYear(), day.getMonth(), day.getDay());
 	}
 
-	private static int getTransientNumber(final java.sql.Date day)
-	{
-		final GregorianCalendar c = new GregorianCalendar();
-		c.setTime(day);
-		return getTransientNumber(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
-	}
-
 	private static int getTransientNumber(final int year, final int month, final int day)
 	{
 		if(year<1000 || year>9999 || month<1 || month>12 || day<1 || day>31)
@@ -80,7 +71,7 @@ final class DayColumn extends Column
 	{
 		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(loadedDate)) : null);
+		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(DayField.unmarshal(loadedDate))) : null);
 	}
 
 	@Override
