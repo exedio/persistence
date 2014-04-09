@@ -32,8 +32,7 @@ public final class CharSetCondition extends Condition
 	/**
 	 * Creates a new CharSetCondition.
 	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper method
-	 * {@link StringFunction#matches(String)}.
+	 * you may want to use the more convenient wrapper method.
 	 */
 	public CharSetCondition(
 			final StringFunction function,
