@@ -51,7 +51,7 @@
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="test->default" />
-		<dependency org="com.exedio" name="copeutil" rev="373" />
+		<dependency org="com.exedio" name="copeutil" rev="374" />
 		<dependency org="com.exedio" name="copeservletutil" rev="11" />
 		
 		<!-- dialects -->
