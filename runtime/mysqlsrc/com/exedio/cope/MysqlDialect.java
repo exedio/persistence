@@ -259,12 +259,32 @@ final class MysqlDialect extends Dialect
 	@Override
 	protected String getClause(final String column, final CharSet set)
 	{
+		if(!set.isSubsetOfAscii())
+			return super.getClause(column, set);
+
 		final StringBuilder bf = new StringBuilder();
 		bf.append(column).
 			append(" REGEXP '").
 			append(set.getRegularExpression()).
 			append('\'');
 		return bf.toString();
+	}
+
+	@Override
+	protected void append(
+			final Statement statement,
+			final StringFunction function,
+			final Join join,
+			final CharSet set)
+	{
+		if(!set.isSubsetOfAscii())
+			throw new IllegalStateException("not supported: CharSetCondition on MySQL with non-ASCII CharSet: " + set);
+
+		statement.
+			append(function, (Join)null).
+			append(" REGEXP '").
+			append(set.getRegularExpression()).
+			append('\'');
 	}
 
 	@Override

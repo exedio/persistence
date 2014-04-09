@@ -274,6 +274,16 @@ abstract class Dialect
 		return null;
 	}
 
+	@SuppressWarnings("unused")
+	protected void append(
+			final Statement statement,
+			final StringFunction function,
+			final Join join,
+			final CharSet set)
+	{
+		throw new RuntimeException("CharSetCondition not yet implemented");
+	}
+
 	protected abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
 	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
 	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
