@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -101,7 +100,7 @@ final class DayColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (cache==null) ? null : new Date(getDay(((Integer)cache).intValue()).getTimeInMillisFrom());
+		return (cache==null) ? null : DayField.marshal(getDay(((Integer)cache).intValue()));
 	}
 
 	@Override
