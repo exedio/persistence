@@ -36,6 +36,27 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(10, "add SamplerEnvironment",
+				"CREATE TABLE `SamplerEnvironment`(" +
+					"`this` int," +
+					"`connectDate` bigint not null," +
+					"`initializeDate` bigint not null," +
+					"`sampleDate` bigint not null," +
+					"`hostname` text CHARACTER SET utf8 COLLATE utf8_bin," +
+					"`connectionUrl` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`connectionUsername` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`databaseProductName` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`databaseProductVersion` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`databaseVersionMajor` int not null," +
+					"`databaseVersionMinor` int not null," +
+					"`driverName` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`driverVersion` text CHARACTER SET utf8 COLLATE utf8_bin not null," +
+					"`driverVersionMajor` int not null," +
+					"`driverVersionMinor` int not null," +
+					"CONSTRAINT `SamplerEnvironment_Pk` PRIMARY KEY(`this`)," +
+					"CONSTRAINT `SampleEnviro_connDate_Unq` UNIQUE(`connectDate`)" +
+				") ENGINE=innodb"
+			),
 			new Revision(9, "Revision table gets primary key instead of unique constraint",
 				"ALTER TABLE `SamplerRevision` DROP INDEX `SamplerRevisionUnique`",
 				"ALTER TABLE `SamplerRevision` MODIFY `v` int PRIMARY KEY"),

@@ -76,6 +76,7 @@ public class Sampler
 				AbsoluteClusterNode.TYPE,
 				AbsoluteMedia.TYPE,
 
+				SamplerEnvironment.TYPE,
 				SamplerPurge.TYPE);
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<>();
@@ -176,6 +177,12 @@ public class Sampler
 	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
 	SamplerModel sampleInternal()
 	{
+		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample environment"))
+		{
+			SamplerEnvironment.sample(sampledModel);
+			tx.commit();
+		}
+
 		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
 		final SamplerStep from = lastStep;
 		lastStep = to;
