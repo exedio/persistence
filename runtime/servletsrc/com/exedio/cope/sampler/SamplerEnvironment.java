@@ -36,10 +36,10 @@ import java.util.Date;
 
 final class SamplerEnvironment extends Item
 {
-	private static final DateField connectDate = new DateField().toFinal().unique();
+	private static final DateField connectDate    = new DateField().toFinal().unique();
 	private static final DateField initializeDate = new DateField().toFinal();
 	@SuppressWarnings("unused")
-	private static final DateField sampleDate = new DateField().toFinal().defaultToNow();
+	private static final DateField sampleDate     = new DateField().toFinal().defaultToNow();
 
 	static void sample(final Model model)
 	{
@@ -88,26 +88,26 @@ final class SamplerEnvironment extends Item
 	}
 
 
-	private static final  StringField databaseProductName       = new StringField() .toFinal().lengthMax(1000);
-	private static final  StringField databaseProductVersion    = new StringField() .toFinal().lengthMax(1000);
-	private static final IntegerField databaseVersionMajor      = new IntegerField().toFinal();
-	private static final IntegerField databaseVersionMinor      = new IntegerField().toFinal();
-	private static final  StringField driverName                = new StringField() .toFinal().lengthMax(1000);
-	private static final  StringField driverVersion             = new StringField() .toFinal().lengthMax(1000);
-	private static final IntegerField driverVersionMajor        = new IntegerField().toFinal();
-	private static final IntegerField driverVersionMinor        = new IntegerField().toFinal();
+	private static final  StringField databaseProductName    = new StringField() .toFinal().lengthMax(1000);
+	private static final  StringField databaseProductVersion = new StringField() .toFinal().lengthMax(1000);
+	private static final IntegerField databaseVersionMajor   = new IntegerField().toFinal();
+	private static final IntegerField databaseVersionMinor   = new IntegerField().toFinal();
+	private static final  StringField driverName             = new StringField() .toFinal().lengthMax(1000);
+	private static final  StringField driverVersion          = new StringField() .toFinal().lengthMax(1000);
+	private static final IntegerField driverVersionMajor     = new IntegerField().toFinal();
+	private static final IntegerField driverVersionMinor     = new IntegerField().toFinal();
 
 	private static final void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Model model)
 	{
 		final EnvironmentInfo i = model.getEnvironmentInfo();
-		sv.add(databaseProductName       .map(i.getDatabaseProductName()));
-		sv.add(databaseProductVersion    .map(i.getDatabaseProductVersion()));
-		sv.add(databaseVersionMajor      .map(i.getDatabaseMajorVersion()));
-		sv.add(databaseVersionMinor      .map(i.getDatabaseMinorVersion()));
-		sv.add(driverName                .map(i.getDriverName()));
-		sv.add(driverVersion             .map(i.getDriverVersion()));
-		sv.add(driverVersionMajor        .map(i.getDriverMajorVersion()));
-		sv.add(driverVersionMinor        .map(i.getDriverMinorVersion()));
+		sv.add(databaseProductName   .map(i.getDatabaseProductName   ()));
+		sv.add(databaseProductVersion.map(i.getDatabaseProductVersion()));
+		sv.add(databaseVersionMajor  .map(i.getDatabaseMajorVersion  ()));
+		sv.add(databaseVersionMinor  .map(i.getDatabaseMinorVersion  ()));
+		sv.add(driverName            .map(i.getDriverName            ()));
+		sv.add(driverVersion         .map(i.getDriverVersion         ()));
+		sv.add(driverVersionMajor    .map(i.getDriverMajorVersion    ()));
+		sv.add(driverVersionMinor    .map(i.getDriverMinorVersion    ()));
 	}
 
 
