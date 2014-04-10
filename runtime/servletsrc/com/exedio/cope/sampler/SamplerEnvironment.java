@@ -41,17 +41,11 @@ final class SamplerEnvironment extends Item
 	@SuppressWarnings("unused")
 	private static final DateField sampleDate = new DateField().toFinal().defaultToNow();
 
-	static SamplerEnvironment sample(final Model model)
+	static void sample(final Model model)
 	{
 		final Date connectDate = model.getConnectDate();
-		if(connectDate==null)
-			return null;
-
-		{
-			final SamplerEnvironment existing = forConnectDate(connectDate);
-			if(existing!=null)
-				return existing;
-		}
+		if(connectDate==null || forConnectDate(connectDate)!=null)
+			return;
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		sv.add(SamplerEnvironment.connectDate.map(connectDate));
@@ -59,7 +53,7 @@ final class SamplerEnvironment extends Item
 		addHostname(sv);
 		addConnection(sv, model);
 		addEnvironmentInfo(sv, model);
-		return TYPE.newItem(sv);
+		TYPE.newItem(sv);
 	}
 
 	private static SamplerEnvironment forConnectDate(final Date connectDate)
