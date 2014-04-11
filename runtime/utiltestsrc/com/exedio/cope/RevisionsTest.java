@@ -60,9 +60,10 @@ public class RevisionsTest extends CopeAssert
 	}
 	public void testRevisionsElementNull()
 	{
+		final Revision r = new Revision(1, "revision1", "nonsensesql1");
 		try
 		{
-			new Revisions(new Revision(1, "revision1", "nonsensesql1"), null);
+			new Revisions(r, null);
 			fail();
 		}
 		catch(final NullPointerException e)
