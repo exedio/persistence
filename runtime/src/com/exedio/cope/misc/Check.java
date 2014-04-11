@@ -36,6 +36,13 @@ public final class Check
 		return value;
 	}
 
+	public static long requireNonNegative(final long value, final String name)
+	{
+		if(value<0)
+			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
+		return value;
+	}
+
 	public static String requireNonEmpty(final String value, final String name)
 	{
       if(value==null)

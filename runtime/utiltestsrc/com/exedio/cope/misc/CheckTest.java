@@ -78,6 +78,27 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
+	public void testRequireNonNegativeLong()
+	{
+		assertEquals(1l, requireNonNegative(1l, "name"));
+	}
+	public void testRequireNonNegativeLongZero()
+	{
+		assertEquals(0l, requireNonNegative(0l, "name"));
+	}
+	public void testRequireNonNegativeLongNegative()
+	{
+		try
+		{
+			requireNonNegative(-1l, "name");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must not be negative, but was -1", e.getMessage());
+		}
+	}
+
 	public void testRequireNonEmptyString()
 	{
 		assertSame("x", requireNonEmpty("x", "name"));

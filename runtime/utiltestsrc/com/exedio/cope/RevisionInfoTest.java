@@ -202,7 +202,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("rows must be greater or equal zero, but was -1", e.getMessage());
+			assertEquals("rows must not be negative, but was -1", e.getMessage());
 		}
 		try
 		{
@@ -211,7 +211,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("elapsed must be greater or equal zero, but was -1", e.getMessage());
+			assertEquals("elapsed must not be negative, but was -1", e.getMessage());
 		}
 		new Body("x", 0, 0);
 	}

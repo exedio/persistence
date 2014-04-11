@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -43,18 +45,9 @@ public final class RevisionInfoRevise extends RevisionInfo
 
 		public Body(final String sql, final int rows, final long elapsed)
 		{
-			if(sql==null)
-				throw new NullPointerException("sql");
-			if(sql.isEmpty())
-				throw new IllegalArgumentException("sql must not be empty");
-			if(rows<0)
-				throw new IllegalArgumentException("rows must be greater or equal zero, but was " + rows);
-			if(elapsed<0)
-				throw new IllegalArgumentException("elapsed must be greater or equal zero, but was " + elapsed);
-
-			this.sql = sql;
-			this.rows = rows;
-			this.elapsed = elapsed;
+			this.sql = requireNonEmpty(sql, "sql");
+			this.rows = requireNonNegative(rows, "rows");
+			this.elapsed = requireNonNegative(elapsed, "elapsed");
 		}
 
 		public String getSQL()
