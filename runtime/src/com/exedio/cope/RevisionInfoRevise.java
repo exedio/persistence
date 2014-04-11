@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -102,29 +106,10 @@ public final class RevisionInfoRevise extends RevisionInfo
 			final String comment,
 			final Body... body)
 	{
-		super(number, date, environment);
+		super(requireGreaterZero(number, "number"), date, environment);
 
-		if(number<=0)
-			throw new IllegalArgumentException("number must be greater zero, but was " + number);
-		if(comment==null)
-			throw new NullPointerException("comment");
-		if(body==null)
-			throw new NullPointerException("body");
-		if(body.length==0)
-			throw new IllegalArgumentException("body must not be empty");
-
-		// make a copy to avoid modifications afterwards
-		final Body[] bodyCopy = new Body[body.length];
-		for(int i = 0; i<body.length; i++)
-		{
-			final Body b = body[i];
-			if(b==null)
-				throw new NullPointerException("body" + '[' + i + ']');
-			bodyCopy[i] = b;
-		}
-
-		this.comment = comment;
-		this.body = bodyCopy;
+		this.comment = requireNonNull(comment, "comment");
+		this.body = requireNonEmptyAndCopy(body, "body");
 	}
 
 	public String getComment()

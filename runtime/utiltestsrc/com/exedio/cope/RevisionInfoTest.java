@@ -114,7 +114,7 @@ public class RevisionInfoTest extends CopeAssert
 
 		try
 		{
-			new RevisionInfoRevise(0, null, null, null, (Body[])null);
+			new RevisionInfoRevise(1, null, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -123,7 +123,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(0, DATE, null, null, (Body[])null);
+			new RevisionInfoRevise(1, DATE, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
