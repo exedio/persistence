@@ -60,10 +60,10 @@ public final class Revisions
 		final int base = number;
 		for(int i = 1; i<revisions.length; i++)
 		{
-			final Revision revision = revisions[i];
+			final int actualNumber = revisions[i].number;
 			final int expectedNumber = base-i;
-			if(revision.number!=expectedNumber)
-				throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
+			if(actualNumber!=expectedNumber)
+				throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + actualNumber);
 		}
 	}
 
