@@ -26,12 +26,12 @@ public class QueryRangeTest extends CopeAssert
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public void testLimitFullOffsetNegative()
+	public void testLimitSimpleOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
 		{
-			q.setLimit(-1, 10);
+			q.setLimit(-1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -41,12 +41,12 @@ public class QueryRangeTest extends CopeAssert
 			assertEquals(33, q.getLimit());
 		}
 	}
-	public void testLimitSimpleOffsetNegative()
+	public void testLimitFullOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
 		{
-			q.setLimit(-1);
+			q.setLimit(-1, 10);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
