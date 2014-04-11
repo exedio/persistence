@@ -32,6 +32,7 @@ public class QueryRangeTest extends CopeAssert
 		q.setLimit(5);
 		assertEquals(5, q.getOffset());
 		assertEquals(-1, q.getLimit());
+		assertEquals("select this from AnItem offset '5'", q.toString());
 	}
 	public void testLimitSimpleZero()
 	{
@@ -39,6 +40,7 @@ public class QueryRangeTest extends CopeAssert
 		q.setLimit(0);
 		assertEquals(0, q.getOffset());
 		assertEquals(-1, q.getLimit());
+		assertEquals("select this from AnItem", q.toString());
 	}
 	public void testLimitSimpleOffsetNegative()
 	{
@@ -62,6 +64,7 @@ public class QueryRangeTest extends CopeAssert
 		q.setLimit(5, 3);
 		assertEquals(5, q.getOffset());
 		assertEquals(3, q.getLimit());
+		assertEquals("select this from AnItem offset '5' limit '3'", q.toString());
 	}
 	public void testLimitFullZero()
 	{
@@ -69,6 +72,7 @@ public class QueryRangeTest extends CopeAssert
 		q.setLimit(0, 0);
 		assertEquals(0, q.getOffset());
 		assertEquals(0, q.getLimit());
+		assertEquals("select this from AnItem limit '0'", q.toString());
 	}
 	public void testLimitFullOffsetNegative()
 	{
