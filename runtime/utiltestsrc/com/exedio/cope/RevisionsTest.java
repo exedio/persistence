@@ -72,12 +72,11 @@ public class RevisionsTest extends CopeAssert
 	}
 	public void testRevisionsInconsistent()
 	{
+		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
+		final Revision r6 = new Revision(6, "revision6", "nonsensesql6");
 		try
 		{
-			new Revisions(
-					new Revision(8, "revision8", "nonsensesql8"),
-					new Revision(6, "revision6", "nonsensesql6")
-					);
+			new Revisions(r8, r6);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
