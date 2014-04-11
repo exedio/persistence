@@ -31,7 +31,7 @@ public class RevisionsTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("revision number must not be negative, but was -1", e.getMessage());
+			assertEquals("number must not be negative, but was -1", e.getMessage());
 		}
 	}
 	public void testRevisionsNull()

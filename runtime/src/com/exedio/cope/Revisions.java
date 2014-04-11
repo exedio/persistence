@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
@@ -43,10 +44,7 @@ public final class Revisions
 
 	public Revisions(final int number)
 	{
-		if(number<0)
-			throw new IllegalArgumentException("revision number must not be negative, but was " + number);
-
-		this.number = number;
+		this.number = requireNonNegative(number, "number");
 		this.revisions = new Revision[0];
 	}
 
