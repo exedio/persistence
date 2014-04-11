@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionsTest extends CopeAssert
 {
-	public void testRevisions()
+	public void testNumberNegative()
 	{
 		try
 		{
@@ -33,6 +33,9 @@ public class RevisionsTest extends CopeAssert
 		{
 			assertEquals("revision number must not be negative, but was -1", e.getMessage());
 		}
+	}
+	public void testRevisionsNull()
+	{
 		try
 		{
 			new Revisions((Revision[])null);
@@ -42,6 +45,9 @@ public class RevisionsTest extends CopeAssert
 		{
 			assertEquals("revisions", e.getMessage());
 		}
+	}
+	public void testRevisionsEmpty()
+	{
 		try
 		{
 			new Revisions(new Revision[]{});
@@ -51,6 +57,9 @@ public class RevisionsTest extends CopeAssert
 		{
 			assertEquals("revisions must not be empty", e.getMessage());
 		}
+	}
+	public void testRevisionsElementNull()
+	{
 		try
 		{
 			new Revisions(new Revision(1, "revision1", "nonsensesql1"), null);
@@ -60,6 +69,9 @@ public class RevisionsTest extends CopeAssert
 		{
 			assertEquals("revisions[1]", e.getMessage());
 		}
+	}
+	public void testRevisionsInconsistent()
+	{
 		try
 		{
 			new Revisions(
@@ -298,7 +310,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testCopy()
+	public void testRevisionsCopy()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
