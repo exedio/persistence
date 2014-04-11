@@ -173,44 +173,6 @@ public class OrderByTest extends TestmodelTest
 				assertEquals("orderBy", e.getMessage());
 			}
 		}
-
-		// limit
-		{
-			final Query<AttributeItem> q = TYPE.newQuery(null);
-			try
-			{
-				q.setLimit(-1, 10);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("offset must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.getOffset());
-				assertEquals(-1, q.getLimit());
-			}
-			try
-			{
-				q.setLimit(-1);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("offset must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.getOffset());
-				assertEquals(-1, q.getLimit());
-			}
-			try
-			{
-				q.setLimit(0, -1);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("limit must not be negative, but was -1", e.getMessage());
-				assertEquals(0, q.getOffset());
-				assertEquals(-1, q.getLimit());
-			}
-		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), someNotNullInteger, 0, -1);
 		assertOrder(list(item1, item5), list(item3, item4), someNotNullInteger, 0, 2);
 		assertOrder(list(), list(), someNotNullInteger, 0, 0);
