@@ -63,7 +63,9 @@ public final class Revisions
 			final int actualNumber = revisions[i].number;
 			final int expectedNumber = base-i;
 			if(actualNumber!=expectedNumber)
-				throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + actualNumber);
+				throw new IllegalArgumentException(
+						"inconsistent revision number at index " + i + ", " +
+						"expected " + expectedNumber + ", but was " + actualNumber);
 		}
 	}
 
