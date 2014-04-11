@@ -26,7 +26,7 @@ public class QueryRangeTest extends CopeAssert
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public void testIt()
+	public void testLimitFullOffsetNegative()
 	{
 		final Query<AttributeItem> q = TYPE.newQuery(null);
 		try
@@ -40,6 +40,10 @@ public class QueryRangeTest extends CopeAssert
 			assertEquals(0, q.getOffset());
 			assertEquals(-1, q.getLimit());
 		}
+	}
+	public void testLimitSimpleOffsetNegative()
+	{
+		final Query<AttributeItem> q = TYPE.newQuery(null);
 		try
 		{
 			q.setLimit(-1);
@@ -51,6 +55,10 @@ public class QueryRangeTest extends CopeAssert
 			assertEquals(0, q.getOffset());
 			assertEquals(-1, q.getLimit());
 		}
+	}
+	public void testLimitFullLimitNegative()
+	{
+		final Query<AttributeItem> q = TYPE.newQuery(null);
 		try
 		{
 			q.setLimit(0, -1);
