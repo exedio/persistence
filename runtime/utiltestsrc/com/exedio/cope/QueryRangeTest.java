@@ -28,10 +28,7 @@ public class QueryRangeTest extends CopeAssert
 
 	public void testLimitFullOffsetNegative()
 	{
-		final Query<AnItem> q = TYPE.newQuery(null);
-		q.setLimit(55, 33);
-		assertEquals(55, q.getOffset());
-		assertEquals(33, q.getLimit());
+		final Query<?> q = q5533();
 		try
 		{
 			q.setLimit(-1, 10);
@@ -46,10 +43,7 @@ public class QueryRangeTest extends CopeAssert
 	}
 	public void testLimitSimpleOffsetNegative()
 	{
-		final Query<AnItem> q = TYPE.newQuery(null);
-		q.setLimit(55, 33);
-		assertEquals(55, q.getOffset());
-		assertEquals(33, q.getLimit());
+		final Query<?> q = q5533();
 		try
 		{
 			q.setLimit(-1);
@@ -64,10 +58,7 @@ public class QueryRangeTest extends CopeAssert
 	}
 	public void testLimitFullLimitNegative()
 	{
-		final Query<AnItem> q = TYPE.newQuery(null);
-		q.setLimit(55, 33);
-		assertEquals(55, q.getOffset());
-		assertEquals(33, q.getLimit());
+		final Query<?> q = q5533();
 		try
 		{
 			q.setLimit(0, -1);
@@ -79,6 +70,15 @@ public class QueryRangeTest extends CopeAssert
 			assertEquals(55, q.getOffset());
 			assertEquals(33, q.getLimit());
 		}
+	}
+
+	private static Query<AnItem> q5533()
+	{
+		final Query<AnItem> result = TYPE.newQuery(null);
+		result.setLimit(55, 33);
+		assertEquals(55, result.getOffset());
+		assertEquals(33, result.getLimit());
+		return result;
 	}
 
 	static final class AnItem extends Item
