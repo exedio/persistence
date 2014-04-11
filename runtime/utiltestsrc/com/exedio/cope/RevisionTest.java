@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionTest extends CopeAssert
 {
-	public void testRevision()
+	public void testNumberNegative()
 	{
 		try
 		{
@@ -33,6 +33,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("number must be greater zero", e.getMessage());
 		}
+	}
+	public void testNumberZero()
+	{
 		try
 		{
 			new Revision(0, null, (String[])null);
@@ -42,6 +45,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("number must be greater zero", e.getMessage());
 		}
+	}
+	public void testCommentNull()
+	{
 		try
 		{
 			new Revision(1, null, (String[])null);
@@ -51,6 +57,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("comment", e.getMessage());
 		}
+	}
+	public void testCommentEmpty()
+	{
 		try
 		{
 			new Revision(1, "", (String[])null);
@@ -60,6 +69,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("comment must not be empty", e.getMessage());
 		}
+	}
+	public void testBodyNull()
+	{
 		try
 		{
 			new Revision(1, "some comment", (String[])null);
@@ -69,6 +81,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("body", e.getMessage());
 		}
+	}
+	public void testBodyEmpty()
+	{
 		try
 		{
 			new Revision(1, "some comment", new String[0]);
@@ -78,6 +93,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("body must not be empty", e.getMessage());
 		}
+	}
+	public void testBodyElementNull()
+	{
 		try
 		{
 			new Revision(1, "some comment", "hallo", null);
@@ -87,6 +105,9 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("body[1]", e.getMessage());
 		}
+	}
+	public void testBodyElementEmpty()
+	{
 		try
 		{
 			new Revision(1, "some comment", "hallo", "");
@@ -96,14 +117,15 @@ public class RevisionTest extends CopeAssert
 		{
 			assertEquals("body[1] must not be empty", e.getMessage());
 		}
-
+	}
+	public void testSuccess()
+	{
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
 		assertEquals(123, m.getNumber());
 		assertEquals("test-comment", m.getComment());
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("R123:test-comment", m.toString());
 	}
-
 	public void testCopy()
 	{
 		final String[] body = new String[]{"a", "b", "c"};
