@@ -57,18 +57,13 @@ public final class Revisions
 		this.revisions = requireNonEmptyAndCopy(revisions, "revisions");
 		this.number = revisions[0].number;
 
-		int base = -1;
-		for(int i = 0; i<revisions.length; i++)
+		final int base = number;
+		for(int i = 1; i<revisions.length; i++)
 		{
 			final Revision revision = revisions[i];
-			if(i==0)
-				base = revision.number;
-			else
-			{
-				final int expectedNumber = base-i;
-				if(revision.number!=expectedNumber)
-					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
-			}
+			final int expectedNumber = base-i;
+			if(revision.number!=expectedNumber)
+				throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
 		}
 	}
 
