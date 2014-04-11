@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.cope.Executor.ResultSetHandler;
@@ -53,21 +54,13 @@ public final class Revisions
 	 */
 	public Revisions(final Revision... revisions)
 	{
-		if(revisions==null)
-			throw new NullPointerException("revisions");
-		if(revisions.length==0)
-			throw new IllegalArgumentException("revisions must not be empty");
-
-		// make a copy to avoid modifications afterwards
-		final Revision[] revisionsCopy = new Revision[revisions.length];
+		this.revisions = requireNonEmptyAndCopy(revisions, "revisions");
+		this.number = revisions[0].number;
 
 		int base = -1;
 		for(int i = 0; i<revisions.length; i++)
 		{
 			final Revision revision = revisions[i];
-			if(revision==null)
-				throw new NullPointerException("revisions" + '[' + i + ']');
-
 			if(i==0)
 				base = revision.number;
 			else
@@ -76,12 +69,7 @@ public final class Revisions
 				if(revision.number!=expectedNumber)
 					throw new IllegalArgumentException("inconsistent revision number at index " + i + ", expected " + expectedNumber + ", but was " + revision.number);
 			}
-
-			revisionsCopy[i] = revision;
 		}
-
-		this.number = revisions[0].number;
-		this.revisions = revisionsCopy;
 	}
 
 	public int getNumber()

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import java.lang.reflect.Array;
+
 public final class Check
 {
 	public static int requireGreaterZero(final int value, final String name)
@@ -41,6 +43,30 @@ public final class Check
 		if(value.isEmpty())
 			throw new IllegalArgumentException(name + " must not be empty");
 		return value;
+	}
+
+	/**
+	 * Besides checking the value, this method returns a copy of the given value
+	 * to avoid later modifications of the value by the caller.
+	 */
+	public static <T> T[] requireNonEmptyAndCopy(final T[] value, final String name)
+	{
+		if(value==null)
+			throw new NullPointerException(name);
+		if(value.length==0)
+			throw new IllegalArgumentException(name + " must not be empty");
+
+		@SuppressWarnings("unchecked")
+		final T[] result = (T[])Array.newInstance(value.getClass().getComponentType(), value.length);
+		for(int i = 0; i<value.length; i++)
+		{
+			final T s = value[i];
+			if(s==null)
+				throw new NullPointerException(name + '[' + i + ']');
+			result[i] = s;
+		}
+
+		return result;
 	}
 
 	/**

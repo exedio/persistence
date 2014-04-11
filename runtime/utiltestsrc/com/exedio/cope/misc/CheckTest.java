@@ -107,6 +107,50 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
+	public void testRequireNonEmptyAndCopyObjectsCopy()
+	{
+		final Object[] original = new Object[]{"a", "b", "c"};
+		final Object[] copy = requireNonEmptyAndCopy(original, "name");
+		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
+		assertNotSame(original, copy);
+	}
+	public void testRequireNonEmptyAndCopyObjectsNull()
+	{
+		try
+		{
+			requireNonEmptyAndCopy((Object[])null, "name");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("name", e.getMessage());
+		}
+	}
+	public void testRequireNonEmptyAndCopyObjectsEmpty()
+	{
+		try
+		{
+			requireNonEmptyAndCopy(new Object[0], "name");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must not be empty", e.getMessage());
+		}
+	}
+	public void testRequireNonEmptyAndCopyObjectsElementNull()
+	{
+		try
+		{
+			requireNonEmptyAndCopy(new Object[]{"hallo", null}, "name");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("name[1]", e.getMessage());
+		}
+	}
+
 	public void testRequireNonEmptyAndCopyStringsCopy()
 	{
 		final String[] original = new String[]{"a", "b", "c"};
