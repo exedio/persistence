@@ -29,6 +29,9 @@ public class QueryRangeTest extends CopeAssert
 	public void testLimitFullOffsetNegative()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
+		q.setLimit(55, 33);
+		assertEquals(55, q.getOffset());
+		assertEquals(33, q.getLimit());
 		try
 		{
 			q.setLimit(-1, 10);
@@ -37,13 +40,16 @@ public class QueryRangeTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
-			assertEquals(0, q.getOffset());
-			assertEquals(-1, q.getLimit());
+			assertEquals(55, q.getOffset());
+			assertEquals(33, q.getLimit());
 		}
 	}
 	public void testLimitSimpleOffsetNegative()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
+		q.setLimit(55, 33);
+		assertEquals(55, q.getOffset());
+		assertEquals(33, q.getLimit());
 		try
 		{
 			q.setLimit(-1);
@@ -52,13 +58,16 @@ public class QueryRangeTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
-			assertEquals(0, q.getOffset());
-			assertEquals(-1, q.getLimit());
+			assertEquals(55, q.getOffset());
+			assertEquals(33, q.getLimit());
 		}
 	}
 	public void testLimitFullLimitNegative()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
+		q.setLimit(55, 33);
+		assertEquals(55, q.getOffset());
+		assertEquals(33, q.getLimit());
 		try
 		{
 			q.setLimit(0, -1);
@@ -67,8 +76,8 @@ public class QueryRangeTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must not be negative, but was -1", e.getMessage());
-			assertEquals(0, q.getOffset());
-			assertEquals(-1, q.getLimit());
+			assertEquals(55, q.getOffset());
+			assertEquals(33, q.getLimit());
 		}
 	}
 
