@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
-import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -49,30 +51,9 @@ public final class Revision
 	 */
 	public Revision(final int number, final String comment, final String... body)
 	{
-		if(number<=0)
-			throw new IllegalArgumentException("number must be greater zero");
-		this.comment = requireNonNull(comment, "comment");
-		if(comment.isEmpty())
-			throw new IllegalArgumentException("comment must not be empty");
-		if(body==null)
-			throw new NullPointerException("body");
-		if(body.length==0)
-			throw new IllegalArgumentException("body must not be empty");
-
-		// make a copy to avoid modifications afterwards
-		final String[] bodyCopy = new String[body.length];
-		for(int i = 0; i<body.length; i++)
-		{
-			final String b = body[i];
-			if(b==null)
-				throw new NullPointerException("body" + '[' + i + ']');
-			if(b.isEmpty())
-				throw new IllegalArgumentException("body" + '[' + i + "] must not be empty");
-			bodyCopy[i] = b;
-		}
-
-		this.number = number;
-		this.body = bodyCopy;
+		this.number = requireGreaterZero(number, "number");
+		this.comment = requireNonEmpty(comment, "comment");
+		this.body = requireNonEmptyAndCopy(body, "body");
 	}
 
 	public int getNumber()
