@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonNegative;
+
 import com.exedio.cope.Executor.ResultSetHandler;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -384,10 +386,8 @@ public final class Query<R> implements Serializable
 	 */
 	public void setLimit(final int offset, final int limit)
 	{
-		if(offset<0)
-			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
-		if(limit<0)
-			throw new IllegalArgumentException("limit must not be negative, but was " + limit);
+		requireNonNegative(offset, "offset");
+		requireNonNegative(limit, "limit");
 
 		this.offset = offset;
 		this.limit = limit;
@@ -399,8 +399,7 @@ public final class Query<R> implements Serializable
 	 */
 	public void setLimit(final int offset)
 	{
-		if(offset<0)
-			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
+		requireNonNegative(offset, "offset");
 
 		this.offset = offset;
 		this.limit = UNLIMITED;

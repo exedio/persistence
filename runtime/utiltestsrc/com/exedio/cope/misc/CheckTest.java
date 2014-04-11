@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
@@ -53,6 +54,27 @@ public class CheckTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("name must be greater zero", e.getMessage());
+		}
+	}
+
+	public void testRequireNonNegativeInt()
+	{
+		assertEquals(1, requireNonNegative(1, "name"));
+	}
+	public void testRequireNonNegativeIntZero()
+	{
+		assertEquals(0, requireNonNegative(0, "name"));
+	}
+	public void testRequireNonNegativeIntNegative()
+	{
+		try
+		{
+			requireNonNegative(-1, "name");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must not be negative, but was -1", e.getMessage());
 		}
 	}
 
