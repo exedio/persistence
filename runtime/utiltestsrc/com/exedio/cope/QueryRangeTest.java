@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.QueryRangeTest.AttributeItem.TYPE;
+import static com.exedio.cope.QueryRangeTest.AnItem.TYPE;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -28,7 +28,7 @@ public class QueryRangeTest extends CopeAssert
 
 	public void testLimitFullOffsetNegative()
 	{
-		final Query<AttributeItem> q = TYPE.newQuery(null);
+		final Query<AnItem> q = TYPE.newQuery(null);
 		try
 		{
 			q.setLimit(-1, 10);
@@ -43,7 +43,7 @@ public class QueryRangeTest extends CopeAssert
 	}
 	public void testLimitSimpleOffsetNegative()
 	{
-		final Query<AttributeItem> q = TYPE.newQuery(null);
+		final Query<AnItem> q = TYPE.newQuery(null);
 		try
 		{
 			q.setLimit(-1);
@@ -58,7 +58,7 @@ public class QueryRangeTest extends CopeAssert
 	}
 	public void testLimitFullLimitNegative()
 	{
-		final Query<AttributeItem> q = TYPE.newQuery(null);
+		final Query<AnItem> q = TYPE.newQuery(null);
 		try
 		{
 			q.setLimit(0, -1);
@@ -72,10 +72,10 @@ public class QueryRangeTest extends CopeAssert
 		}
 	}
 
-	static final class AttributeItem extends Item
+	static final class AnItem extends Item
 	{
-		static final Type<AttributeItem> TYPE = TypesBound.newType(AttributeItem.class);
+		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
-		private AttributeItem(final com.exedio.cope.ActivationParameters ap){ super(ap); }
+		private AnItem(final com.exedio.cope.ActivationParameters ap){ super(ap); }
 	}
 }
