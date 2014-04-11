@@ -85,6 +85,18 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
+	public void testRevisionsCopy()
+	{
+		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
+		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
+		final Revision[] ra = new Revision[]{r2, r1};
+		final Revisions rs = new Revisions(ra);
+		assertEquals(list(r2, r1), rs.getList());
+
+		ra[0] = r1;
+		assertEquals(list(r2, r1), rs.getList());
+	}
+
 	public void testToRun()
 	{
 		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
@@ -307,17 +319,5 @@ public class RevisionsTest extends CopeAssert
 		{
 			assertEquals("cannot revise backwards, expected 0, but was 2", e.getMessage());
 		}
-	}
-
-	public void testRevisionsCopy()
-	{
-		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
-		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
-		final Revision[] ra = new Revision[]{r2, r1};
-		final Revisions rs = new Revisions(ra);
-		assertEquals(list(r2, r1), rs.getList());
-
-		ra[0] = r1;
-		assertEquals(list(r2, r1), rs.getList());
 	}
 }
