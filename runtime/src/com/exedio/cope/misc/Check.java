@@ -23,7 +23,7 @@ public final class Check
 	public static int requireGreaterZero(final int value, final String name)
 	{
 		if(value<=0)
-			throw new IllegalArgumentException(name + " must be greater zero");
+			throw new IllegalArgumentException(name + " must be greater zero, but was " + value);
 		return value;
 	}
 

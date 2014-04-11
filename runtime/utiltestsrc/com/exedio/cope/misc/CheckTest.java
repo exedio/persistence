@@ -41,7 +41,7 @@ public class CheckTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("name must be greater zero", e.getMessage());
+			assertEquals("name must be greater zero, but was 0", e.getMessage());
 		}
 	}
 	public void testRequireGreaterZeroIntNegative()
@@ -53,7 +53,7 @@ public class CheckTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("name must be greater zero", e.getMessage());
+			assertEquals("name must be greater zero, but was -1", e.getMessage());
 		}
 	}
 

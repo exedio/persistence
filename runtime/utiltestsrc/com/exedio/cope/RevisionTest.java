@@ -31,7 +31,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("number must be greater zero", e.getMessage());
+			assertEquals("number must be greater zero, but was -1", e.getMessage());
 		}
 	}
 	public void testNumberZero()
@@ -43,7 +43,7 @@ public class RevisionTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("number must be greater zero", e.getMessage());
+			assertEquals("number must be greater zero, but was 0", e.getMessage());
 		}
 	}
 	public void testCommentNull()
