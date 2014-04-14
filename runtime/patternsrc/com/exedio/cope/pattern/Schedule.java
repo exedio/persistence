@@ -125,6 +125,12 @@ public final class Schedule extends Pattern
 		return interval;
 	}
 
+	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
+	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
+	{
+		return runs.mount().parent.as(parentClass);
+	}
+
 	public ItemField<?> getRunParent()
 	{
 		return runs.mount().parent;

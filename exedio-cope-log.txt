@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Schedule supports typed getter for parent.
+	Affects instrumented code.
 * DayField#touch requires TimeZone.
 	Deprecated old API.
 	Affects instrumented code.

@@ -160,6 +160,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
 		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
+		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
 
 		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
