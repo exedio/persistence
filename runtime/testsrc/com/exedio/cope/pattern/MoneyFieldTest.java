@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
-import static com.exedio.cope.pattern.MoneyFieldItem.price;
+import static com.exedio.cope.pattern.MoneyFieldItem.exclusive;
 import static com.exedio.cope.pattern.MoneyFieldItem.shared;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
@@ -49,13 +49,13 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testNamesExclusive()
 	{
-		assertEquals("price",            price                     .getName());
-		assertEquals("price-amount",     price.getAmount()         .getName());
-		assertEquals("price-amount-int", price.getAmount().getInt().getName());
-		assertEquals("price-currency",   price.getCurrency()       .getName());
+		assertEquals("exclusive",            exclusive                     .getName());
+		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
+		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
+		assertEquals("exclusive-currency",   exclusive.getCurrency()       .getName());
 
-		assertEquals("price_int",       getColumnName(price.getAmount().getInt()));
-		assertEquals("price_currency" , getColumnName(price.getCurrency()));
+		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
+		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrency()));
 	}
 	public void testSharedConsistencyOk()
 	{
