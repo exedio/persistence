@@ -23,10 +23,12 @@ import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclusive;
 import static com.exedio.cope.pattern.MoneyFieldItem.shared;
+import static com.exedio.cope.pattern.MoneyFieldItem.sharedMandatory;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.eur;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 
 public class MoneyFieldTest extends AbstractRuntimeModelTest
@@ -58,17 +60,44 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedConsistencyOk()
 	{
-		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), valueOf(88.88, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 
 		i.setShared(valueOf(6.66, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getShared());
+
+		i.setShared(null);
+		assertEquals(eur , i.getCurrency());
+		assertEquals(null, i.getShared());
+	}
+	public void testSharedMandatory()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(88.88, eur), valueOf(5.55, eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getSharedMandatory());
+
+		i.setSharedMandatory(valueOf(6.66, eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+
+		try
+		{
+			i.setSharedMandatory(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(i, e.getItem());
+			assertEquals(sharedMandatory, e.getFeature());
+		}
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
 	}
 	public void testSharedConsistencyBroken()
 	{
-		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, gbp));
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, gbp), valueOf(88.88, eur));
 		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
