@@ -38,7 +38,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testNamesShared()
+	public void testNames()
 	{
 		assertEquals("shared",            shared                     .getName());
 		assertEquals("shared-amount",     shared.getAmount()         .getName());
@@ -47,9 +47,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 
 		assertEquals("shared_int", getColumnName(shared.getAmount().getInt()));
 		assertEquals("currency" , getColumnName(shared.getCurrency()));
-	}
-	public void testNamesExclusive()
-	{
+
 		assertEquals("exclusive",            exclusive                     .getName());
 		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
 		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
