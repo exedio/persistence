@@ -63,7 +63,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
 		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrency()));
 	}
-	public void testSharedConsistencyOk()
+	public void testSharedConsistencyOkSingle()
 	{
 		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
 		assertEquals(eur , i.getCurrency());
@@ -77,7 +77,21 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedMandatory()
+	public void testSharedConsistencyOkMulti()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
+
+		i.set(shared.map(valueOf(6.66, eur)));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getShared());
+
+		i.set(shared.map(null));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(null, i.getShared());
+	}
+	public void testSharedMandatorySingle()
 	{
 		final MoneyFieldItem i = new MoneyFieldItem(eur, eurX, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -90,6 +104,29 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		try
 		{
 			i.setSharedMandatory(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(i, e.getItem());
+			assertEquals(sharedMandatory, e.getFeature());
+		}
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+	}
+	public void testSharedMandatoryMulti()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, eurX, valueOf(5.55, eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getSharedMandatory());
+
+		i.set(sharedMandatory.map(valueOf(6.66, eur)));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+
+		try
+		{
+			i.set(sharedMandatory.map(null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
