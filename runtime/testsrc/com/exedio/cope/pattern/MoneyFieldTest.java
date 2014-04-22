@@ -28,7 +28,6 @@ import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
-import com.exedio.cope.pattern.MoneyFieldItem.Currency;
 
 public class MoneyFieldTest extends AbstractRuntimeModelTest
 {
@@ -61,18 +60,15 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedConsistencyOk()
 	{
-		final Currency c = eur;
-		final MoneyFieldItem o = new MoneyFieldItem(c, valueOf(5.55, c));
-		assertEquals(c , o.getCurrency());
-		assertEquals(valueOf(5.55, c), o.getShared());
+		final MoneyFieldItem o = new MoneyFieldItem(eur, valueOf(5.55, eur));
+		assertEquals(eur , o.getCurrency());
+		assertEquals(valueOf(5.55, eur), o.getShared());
 	}
 	public void testSharedConsistencyBroken()
 	{
-		final Currency c1 = eur;
-		final Currency c2 = gbp;
-		final MoneyFieldItem o = new MoneyFieldItem(c1, valueOf(5.55, c2));
+		final MoneyFieldItem o = new MoneyFieldItem(eur, valueOf(5.55, gbp));
 		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
-		assertEquals(c1 , o.getCurrency());
-		assertEquals(valueOf(5.55, c1), o.getShared());
+		assertEquals(eur, o.getCurrency());
+		assertEquals(valueOf(5.55, eur), o.getShared());
 	}
 }
