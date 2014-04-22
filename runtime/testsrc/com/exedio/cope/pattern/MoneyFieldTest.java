@@ -58,15 +58,15 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedConsistencyOk()
 	{
-		final MoneyFieldItem o = new MoneyFieldItem(eur, valueOf(5.55, eur));
-		assertEquals(eur , o.getCurrency());
-		assertEquals(valueOf(5.55, eur), o.getShared());
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
 	public void testSharedConsistencyBroken()
 	{
-		final MoneyFieldItem o = new MoneyFieldItem(eur, valueOf(5.55, gbp));
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, gbp));
 		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
-		assertEquals(eur, o.getCurrency());
-		assertEquals(valueOf(5.55, eur), o.getShared());
+		assertEquals(eur, i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
 }
