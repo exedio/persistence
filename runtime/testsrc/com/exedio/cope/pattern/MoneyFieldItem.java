@@ -79,6 +79,11 @@ public final class MoneyFieldItem extends Item
 		);
 	}
 
+	Currency getExclusiveCurrency()
+	{
+		return exclusive.getCurrency().get(this);
+	}
+
 
 	private static final Money<Currency> eurX = valueOf(8888.88, eur);
 

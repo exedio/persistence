@@ -233,33 +233,42 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	{
 		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclusive());
+		assertEquals(eur, i.getExclusiveCurrency());
 
 		i.setExclusive(valueOf(6.66, eur));
 		assertEquals(valueOf(6.66, eur), i.getExclusive());
+		assertEquals(eur, i.getExclusiveCurrency());
 
 		i.setExclusive(valueOf(7.77, gbp));
 		assertEquals(valueOf(7.77, gbp), i.getExclusive());
+		assertEquals(gbp, i.getExclusiveCurrency());
 
 		i.setExclusive(null);
 		assertEquals(null, i.getExclusive());
+		assertEquals(null, i.getExclusiveCurrency());
 	}
 	public void testExclusiveCreateNull()
 	{
 		final MoneyFieldItem i = exclusive(null);
 		assertEquals(null, i.getExclusive());
+		assertEquals(null, i.getExclusiveCurrency());
 	}
 	public void testExclusiveMulti()
 	{
 		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclusive());
+		assertEquals(eur, i.getExclusiveCurrency());
 
 		i.set(exclusive.map(valueOf(6.66, eur)));
 		assertEquals(valueOf(6.66, eur), i.getExclusive());
+		assertEquals(eur, i.getExclusiveCurrency());
 
 		i.set(exclusive.map(valueOf(7.77, gbp)));
 		assertEquals(valueOf(7.77, gbp), i.getExclusive());
+		assertEquals(gbp, i.getExclusiveCurrency());
 
 		i.set(exclusive.map(null));
 		assertEquals(null, i.getExclusive());
+		assertEquals(null, i.getExclusiveCurrency());
 	}
 }
