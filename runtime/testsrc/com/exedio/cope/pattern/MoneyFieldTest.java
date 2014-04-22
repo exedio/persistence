@@ -30,6 +30,7 @@ import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.MoneyFieldItem.Currency;
 
 public class MoneyFieldTest extends AbstractRuntimeModelTest
 {
@@ -39,6 +40,8 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	{
 		super(MODEL);
 	}
+
+	private static final Money<Currency> eurX = valueOf(8888.88, eur);
 
 	public void testNames()
 	{
@@ -60,7 +63,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedConsistencyOk()
 	{
-		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), valueOf(88.88, eur));
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 
@@ -74,7 +77,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedMandatory()
 	{
-		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(88.88, eur), valueOf(5.55, eur));
+		final MoneyFieldItem i = new MoneyFieldItem(eur, eurX, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharedMandatory());
 
