@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.price;
-import static com.exedio.cope.pattern.MoneyFieldItem.total;
+import static com.exedio.cope.pattern.MoneyFieldItem.shared;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
@@ -39,13 +39,13 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 
 	public void testNamesShared()
 	{
-		assertEquals("total",            total                     .getName());
-		assertEquals("total-amount",     total.getAmount()         .getName());
-		assertEquals("total-amount-int", total.getAmount().getInt().getName());
-		assertEquals("currency",         total.getCurrency()       .getName());
+		assertEquals("shared",            shared                     .getName());
+		assertEquals("shared-amount",     shared.getAmount()         .getName());
+		assertEquals("shared-amount-int", shared.getAmount().getInt().getName());
+		assertEquals("currency",         shared.getCurrency()       .getName());
 
-		assertEquals("total_int", getColumnName(total.getAmount().getInt()));
-		assertEquals("currency" , getColumnName(total.getCurrency()));
+		assertEquals("shared_int", getColumnName(shared.getAmount().getInt()));
+		assertEquals("currency" , getColumnName(shared.getCurrency()));
 	}
 	public void testNamesExclusive()
 	{
@@ -62,7 +62,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		final Currency c = Currency.eur;
 		final MoneyFieldItem o = new MoneyFieldItem(c, valueOf(5.55, c));
 		assertEquals(c , o.getCurrency());
-		assertEquals(valueOf(5.55, c), o.getTotal());
+		assertEquals(valueOf(5.55, c), o.getShared());
 	}
 	public void testSharedConsistencyBroken()
 	{
@@ -71,6 +71,6 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		final MoneyFieldItem o = new MoneyFieldItem(c1, valueOf(5.55, c2));
 		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
 		assertEquals(c1 , o.getCurrency());
-		assertEquals(valueOf(5.55, c1), o.getTotal());
+		assertEquals(valueOf(5.55, c1), o.getShared());
 	}
 }
