@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
+import static com.exedio.cope.pattern.MoneyFieldItem.currency;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclusive;
 import static com.exedio.cope.pattern.MoneyFieldItem.shared;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharedMandatory;
@@ -94,6 +95,20 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(valueOf(6.66, eur), i.getShared());
 
 		i.set(shared.map(null));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(null, i.getShared());
+	}
+	public void testSharedConsistencyOkMultiWithCurrency()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
+
+		i.set(shared.map(valueOf(6.66, eur)), currency.map(eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getShared());
+
+		i.set(shared.map(null), currency.map(eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
