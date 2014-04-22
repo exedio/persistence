@@ -31,7 +31,7 @@ public final class Money<C extends Money.Currency>
 	 * Empty interface.
 	 * Make sure, that {@link equals(Object)} and {@link #hashCode()} are
 	 * implemented correctly.
-	 * For good exception messages, {@link #toString()} should be implemented as well.
+	 * For good exception messages, {@link Object#toString()} should be implemented as well.
 	 */
 	public static interface Currency
 	{
