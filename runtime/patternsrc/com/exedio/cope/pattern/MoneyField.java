@@ -183,7 +183,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	@Override
 	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem)
 	{
-		return execute(value, exceptionItem, new SetValue[]{});
+		return execute(value, exceptionItem, new SetValue<?>[]{});
 	}
 
 	@Override
