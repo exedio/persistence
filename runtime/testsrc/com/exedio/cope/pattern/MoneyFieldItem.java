@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Money.valueOf;
+import static com.exedio.cope.pattern.MoneyFieldItem.Currency.eur;
+
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 
@@ -34,8 +37,20 @@ public final class MoneyFieldItem extends Item
 
 	static final MoneyField<Currency> sharedMandatory = MoneyField.shared(currency);
 
+
 	static final MoneyField<Currency> exclusive = MoneyField.exclusive(EnumField.create(Currency.class)).optional();
 
+	static MoneyFieldItem exclusive(final Money<Currency> exclusive)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(eur),
+			MoneyFieldItem.sharedMandatory.map(eurX),
+			MoneyFieldItem.exclusive.map(exclusive)
+		);
+	}
+
+
+	private static final Money<Currency> eurX = valueOf(8888.88, eur);
 
 	/**
 

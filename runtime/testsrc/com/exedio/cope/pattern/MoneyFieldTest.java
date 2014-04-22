@@ -232,4 +232,37 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getShared());
 	}
+	public void testExclusiveSingle()
+	{
+		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclusive());
+
+		i.setExclusive(valueOf(6.66, eur));
+		assertEquals(valueOf(6.66, eur), i.getExclusive());
+
+		i.setExclusive(valueOf(7.77, gbp));
+		assertEquals(valueOf(7.77, gbp), i.getExclusive());
+
+		i.setExclusive(null);
+		assertEquals(null, i.getExclusive());
+	}
+	public void testExclusiveCreateNull()
+	{
+		final MoneyFieldItem i = exclusive(null);
+		assertEquals(null, i.getExclusive());
+	}
+	public void testExclusiveMulti()
+	{
+		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclusive());
+
+		i.set(exclusive.map(valueOf(6.66, eur)));
+		assertEquals(valueOf(6.66, eur), i.getExclusive());
+
+		i.set(exclusive.map(valueOf(7.77, gbp)));
+		assertEquals(valueOf(7.77, gbp), i.getExclusive());
+
+		i.set(exclusive.map(null));
+		assertEquals(null, i.getExclusive());
+	}
 }
