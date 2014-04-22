@@ -189,21 +189,22 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		if(currency instanceof SharedCurrencySource<?>)
 		{
 			// TODO currency check for correct currency !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			return new SetValue<?>[]{singleton(
-				amount.execute( value!=null ? value.getAmount() : null, exceptionItem )
-			)};
+			return new SetValue<?>[]{
+				amountExecute( value!=null ? value.getAmount() : null, exceptionItem )
+			};
 		}
 		else
 		{
 			return new SetValue<?>[]{
-				singleton(amount.execute( value!=null ? value.getAmount() : null, exceptionItem )),
+				amountExecute( value!=null ? value.getAmount() : null, exceptionItem ),
 				currency.getField().map( value!=null ? value.getCurrency() : null )
 			};
 		}
 	}
 
-	private static SetValue<?> singleton(final SetValue<?>[] array)
+	private SetValue<?> amountExecute(final Price amount, final Item exceptionItem)
 	{
+		final SetValue<?>[] array = this.amount.execute(amount, exceptionItem);
 		if(array.length!=1)
 			throw new IllegalArgumentException(Arrays.toString(array));
 		return array[0];
