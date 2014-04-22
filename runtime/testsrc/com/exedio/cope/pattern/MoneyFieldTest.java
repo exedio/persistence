@@ -61,6 +61,10 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
+
+		i.setShared(valueOf(6.66, eur));
+		assertEquals(eur , i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getShared());
 	}
 	public void testSharedConsistencyBroken()
 	{
