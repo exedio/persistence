@@ -35,6 +35,16 @@ public final class MoneyFieldItem extends Item
 	 */
 	static final MoneyField<Currency> shared = MoneyField.shared(currency).optional();
 
+	static MoneyFieldItem shared(final Currency currency, final Money<Currency> shared)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(currency),
+			MoneyFieldItem.shared.map(shared),
+			MoneyFieldItem.sharedMandatory.map(eurX)
+		);
+	}
+
+
 	static final MoneyField<Currency> sharedMandatory = MoneyField.shared(currency);
 
 
