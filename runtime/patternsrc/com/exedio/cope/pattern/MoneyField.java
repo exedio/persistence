@@ -37,12 +37,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 {
 	private static final long serialVersionUID = 1l;
 
-	private final PriceField amount;
-	@SuppressFBWarnings("SE_BAD_FIELD")
-	private final CurrencySource<C> currency;
-	private final boolean isfinal;
-	private final boolean mandatory;
-
 	public static <C extends Money.Currency> MoneyField<C> shared(final FunctionField<C> currency)
 	{
 		return new MoneyField<>(new PriceField(), new SharedCurrencySource<>(currency));
@@ -52,6 +46,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	{
 		return new MoneyField<>(new PriceField(), new ExclusiveCurrencySource<>(currency));
 	}
+
+	private final PriceField amount;
+	@SuppressFBWarnings("SE_BAD_FIELD")
+	private final CurrencySource<C> currency;
+	private final boolean isfinal;
+	private final boolean mandatory;
 
 	private MoneyField(final PriceField amount, final CurrencySource<C> currency)
 	{
