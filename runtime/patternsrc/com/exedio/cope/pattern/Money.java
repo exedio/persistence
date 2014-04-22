@@ -25,8 +25,6 @@ import java.io.Serializable;
 public final class Money<C extends Money.Currency>
 	implements Serializable // TODO currency Comparable
 {
-	private static final long serialVersionUID = 1l;
-
 	/**
 	 * Empty interface.
 	 * Make sure, that {@link equals(Object)} and {@link #hashCode()} are
@@ -59,6 +57,8 @@ public final class Money<C extends Money.Currency>
 		return new Money<>(Price.ZERO, currency);
 	}
 
+
+	private static final long serialVersionUID = 1l;
 
 	private final Price amount;
 	private final C currency;
