@@ -137,11 +137,40 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
 	}
-	public void testSharedConsistencyBroken()
+	public void testSharedConsistencyBrokenCreate()
 	{
 		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, gbp), eurX);
 		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
+	}
+	public void testSharedConsistencyBrokenSingle()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
+		assertEquals(eur, i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
+
+		try
+		{
+			i.setShared(valueOf(6.66, gbp));
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("currency mismatch 6.66gbp/eur", e.getMessage()); // TODO currency
+		}
+		assertEquals(eur, i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
+	}
+	public void testSharedConsistencyBrokenMulti()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
+		assertEquals(eur, i.getCurrency());
+		assertEquals(valueOf(5.55, eur), i.getShared());
+
+		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
+		i.set(shared.map(valueOf(6.66, gbp)));
+		assertEquals(eur, i.getCurrency());
+		assertEquals(valueOf(6.66, eur), i.getShared());
 	}
 }
