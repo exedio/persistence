@@ -77,6 +77,12 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
+	public void testSharedConsistencyCreateNull()
+	{
+		final MoneyFieldItem i = new MoneyFieldItem(eur, null, eurX);
+		assertEquals(eur , i.getCurrency());
+		assertEquals(null, i.getShared());
+	}
 	public void testSharedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = new MoneyFieldItem(eur, valueOf(5.55, eur), eurX);
