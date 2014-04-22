@@ -45,19 +45,21 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 
 	public void testNames()
 	{
-		assertEquals("shared",            shared                     .getName());
-		assertEquals("shared-amount",     shared.getAmount()         .getName());
-		assertEquals("shared-amount-int", shared.getAmount().getInt().getName());
-		assertEquals("currency",         shared.getCurrency()       .getName());
-
-		assertEquals("shared_int", getColumnName(shared.getAmount().getInt()));
-		assertEquals("currency" , getColumnName(shared.getCurrency()));
-
+		assertEquals("shared",               shared                     .getName());
+		assertEquals("shared-amount",        shared.getAmount()         .getName());
+		assertEquals("shared-amount-int",    shared.getAmount().getInt().getName());
+		assertEquals("sharedMandatory",            sharedMandatory                     .getName());
+		assertEquals("sharedMandatory-amount",     sharedMandatory.getAmount()         .getName());
+		assertEquals("sharedMandatory-amount-int", sharedMandatory.getAmount().getInt().getName());
+		assertEquals("currency",             shared.getCurrency()          .getName());
 		assertEquals("exclusive",            exclusive                     .getName());
 		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
 		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
 		assertEquals("exclusive-currency",   exclusive.getCurrency()       .getName());
+		assertSame(shared.getCurrency(), sharedMandatory.getCurrency());
 
+		assertEquals("shared_int",          getColumnName(shared.getAmount().getInt()));
+		assertEquals("currency" ,           getColumnName(shared.getCurrency()));
 		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
 		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrency()));
 	}
