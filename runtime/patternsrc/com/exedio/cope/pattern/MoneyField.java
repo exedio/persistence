@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CheckingSettable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -33,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
 
-public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>
+public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
 	private static final long serialVersionUID = 1l;
 
@@ -182,16 +183,35 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	@Override
 	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem)
 	{
+		return execute(value, exceptionItem, new SetValue[]{});
+	}
+
+	@Override
+	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem, final SetValue<?>[] sources)
+	{
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 
 		if(currency instanceof SharedCurrencySource<?>)
 		{
-			// TODO currency check for correct currency !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			return new SetValue<?>[]{
-				amountExecute( value!=null ? value.getAmount() : null, exceptionItem )
-			};
+			if(value!=null)
+			{
+				final SetValue<C> c = getFirst(sources, currency.getField());
+				final C expectedCurrency = c==null ? currency.get(exceptionItem) : c.value;
+				if(!value.getCurrency().equals(expectedCurrency))
+					throw new IllegalCurrencyException(this, exceptionItem, value, expectedCurrency);
+
+				return new SetValue<?>[]{
+					amountExecute( value.getAmount(), exceptionItem )
+				};
+			}
+			else
+			{
+				return new SetValue<?>[]{
+					amountExecute( null, exceptionItem )
+				};
+			}
 		}
 		else
 		{
@@ -200,6 +220,15 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				currency.getField().map( value!=null ? value.getCurrency() : null )
 			};
 		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	private static <E> SetValue<E> getFirst(final SetValue<?>[] setValues, final Settable<E> settable)
+	{
+		for(final SetValue setValue : setValues)
+			if(settable==setValue.settable)
+				return setValue;
+		return null;
 	}
 
 	private SetValue<?> amountExecute(final Price amount, final Item exceptionItem)

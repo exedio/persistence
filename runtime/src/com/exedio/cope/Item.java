@@ -494,7 +494,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 			else
 			{
-				for(final SetValue<?> part : execute(source, exceptionItem))
+				for(final SetValue<?> part : execute(source, exceptionItem, sources))
 					putField(result, part);
 			}
 		}
@@ -507,9 +507,17 @@ public abstract class Item implements Serializable, Comparable<Item>
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
-	private static final <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
+	private static final <X> SetValue<?>[] execute(
+			final SetValue<X> sv,
+			final Item exceptionItem,
+			final SetValue<?>[] sources)
 	{
-		return sv.settable.execute(sv.value, exceptionItem);
+		final Settable<X> settable = sv.settable;
+
+		if(settable instanceof CheckingSettable)
+			return ((CheckingSettable<X>)settable).execute(sv.value, exceptionItem, sources);
+		else
+			return settable.execute(sv.value, exceptionItem);
 	}
 
 	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator

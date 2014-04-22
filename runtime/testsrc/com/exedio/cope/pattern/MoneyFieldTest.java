@@ -176,10 +176,23 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 	}
 	public void testSharedConsistencyBrokenCreate()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, gbp));
-		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
-		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		try
+		{
+			shared(eur, valueOf(5.55, gbp));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(shared, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(valueOf(5.55, gbp), e.getValue());
+			assertEquals(eur, e.getAllowed());
+			assertEquals(
+					"illegal currency at '5.55gbp' " +
+					"for MoneyFieldItem.shared, " +
+					"allowed is 'eur'.",
+					e.getMessage());
+		}
 	}
 	public void testSharedConsistencyBrokenSingle()
 	{
@@ -213,10 +226,25 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 
-		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
-		i.set(shared.map(valueOf(6.66, gbp)));
+		try
+		{
+			i.set(shared.map(valueOf(6.66, gbp)));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(shared, e.getFeature());
+			assertEquals(i, e.getItem());
+			assertEquals(valueOf(6.66, gbp), e.getValue());
+			assertEquals(eur, e.getAllowed());
+			assertEquals(
+					"illegal currency at '6.66gbp' " +
+					"on " + i + " for MoneyFieldItem.shared, " +
+					"allowed is 'eur'.",
+					e.getMessage());
+		}
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
 	public void testSharedConsistencyBrokenMultiWithCurrency()
 	{
@@ -224,10 +252,25 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 
-		// TODO currency ---------------------- !!!!!!!!!!!!!!!!!!!!
-		i.set(shared.map(valueOf(6.66, gbp)), currency.map(eur));
+		try
+		{
+			i.set(shared.map(valueOf(6.66, gbp)), currency.map(eur));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(shared, e.getFeature());
+			assertEquals(i, e.getItem());
+			assertEquals(valueOf(6.66, gbp), e.getValue());
+			assertEquals(eur, e.getAllowed());
+			assertEquals(
+					"illegal currency at '6.66gbp' " +
+					"on " + i + " for MoneyFieldItem.shared, " +
+					"allowed is 'eur'.",
+					e.getMessage());
+		}
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
 	public void testExclusiveSingle()
 	{
