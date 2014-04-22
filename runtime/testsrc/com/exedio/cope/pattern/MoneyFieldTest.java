@@ -155,9 +155,17 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 			i.setShared(valueOf(6.66, gbp));
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalCurrencyException e)
 		{
-			assertEquals("currency mismatch 6.66gbp/eur", e.getMessage()); // TODO currency
+			assertEquals(shared, e.getFeature());
+			assertEquals(i, e.getItem());
+			assertEquals(valueOf(6.66, gbp), e.getValue());
+			assertEquals(eur, e.getAllowed());
+			assertEquals(
+					"illegal currency at '6.66gbp' " +
+					"on " + i + " for MoneyFieldItem.shared, " +
+					"allowed is 'eur'.",
+					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());

@@ -157,7 +157,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(currency instanceof SharedCurrencySource<?>)
 			{
-				amount.set(item, value.getAmount(currency.get(item)));
+				{
+					final C expectedCurrency = currency.get(item);
+					if(!value.getCurrency().equals(expectedCurrency))
+						throw new IllegalCurrencyException(this, item, value, expectedCurrency);
+				}
+				amount.set(item, value.getAmount());
 			}
 			else
 			{
