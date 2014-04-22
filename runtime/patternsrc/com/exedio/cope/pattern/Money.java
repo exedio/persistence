@@ -23,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serializable;
 
 public final class Money<C extends Money.Currency>
-	implements Serializable // TODO Comparable
+	implements Serializable // TODO currency Comparable
 {
 	private static final long serialVersionUID = 1l;
 
