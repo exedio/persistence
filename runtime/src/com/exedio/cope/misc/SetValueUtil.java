@@ -34,12 +34,17 @@ public final class SetValueUtil
 			: null;
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
-		for(final SetValue setValue : setValues)
+		for(final SetValue<?> setValue : setValues)
+		{
 			if(settable==setValue.settable)
-				return (E)setValue.value;
+			{
+				@SuppressWarnings("unchecked")
+				final E result = (E)setValue.value;
+				return result;
+			}
+		}
 		return null;
 	}
 
