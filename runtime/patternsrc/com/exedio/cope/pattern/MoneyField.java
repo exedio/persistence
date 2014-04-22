@@ -166,7 +166,9 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			}
 			else
 			{
-				item.set(amount.map(value.getAmount()), currency.getField().map(value.getCurrency()));
+				item.set(
+						amount.map(value.getAmount()),
+						currency.getField().map(value.getCurrency()));
 			}
 		}
 	}
