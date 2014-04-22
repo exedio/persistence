@@ -47,6 +47,29 @@ public final class MoneyFieldItem extends Item
 
 	static final MoneyField<Currency> sharedMandatory = MoneyField.shared(currency);
 
+	static MoneyFieldItem sharedMandatory(
+			final Currency currency,
+			final Money<Currency> sharedMandatory)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(currency),
+			MoneyFieldItem.shared.map(eurX),
+			MoneyFieldItem.sharedMandatory.map(sharedMandatory)
+		);
+	}
+
+	static MoneyFieldItem sharedMandatory(
+			final Currency currency,
+			final Money<Currency> shared,
+			final Money<Currency> sharedMandatory)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(currency),
+			MoneyFieldItem.shared.map(shared),
+			MoneyFieldItem.sharedMandatory.map(sharedMandatory)
+		);
+	}
+
 
 	static final MoneyField<Currency> exclusive = MoneyField.exclusive(EnumField.create(Currency.class)).optional();
 
