@@ -145,7 +145,7 @@ public class PriceProportionatelyTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("-0.01", e.getMessage());
+			assertEquals("negative weight -0.01", e.getMessage());
 		}
 	}
 
