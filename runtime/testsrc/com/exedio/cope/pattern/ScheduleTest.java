@@ -64,6 +64,7 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 	@Override
 	protected void tearDown() throws Exception
 	{
+		expectedRuns = null;
 		Clock.clearOverride();
 		super.tearDown();
 	}
