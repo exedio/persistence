@@ -129,16 +129,6 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 		assertLogs(log("2008/03/17-00:00:00.000", "2008/03/18-00:00:00.000"));
 		assertRuns(
 				ern(DAILY, "2008/03/17-00:00:00.000", "2008/03/18-00:00:00.000", "2008/03/18-00:00:00.000"));
-
-		try
-		{
-			ScheduleItem.runReport((JobContext)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
 	}
 
 	public void testInterrupter1()

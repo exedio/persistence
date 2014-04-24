@@ -30,6 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.JobContext;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -132,5 +133,18 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals(10, getColumnValue(DAILY  ));
 		assertEquals(20, getColumnValue(WEEKLY ));
 		assertEquals(30, getColumnValue(MONTHLY));
+	}
+
+	public void testJobContextNull()
+	{
+		try
+		{
+			ScheduleItem.runReport((JobContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 }
