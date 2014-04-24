@@ -142,12 +142,27 @@ public final class Money<C extends Money.Currency>
 
 	public boolean equalsZero()
 	{
-		return amount.equals(Price.ZERO);
+		return amount.equalsZero();
 	}
 
 	public boolean lessThanZero()
 	{
-		return amount.lessThan(Price.ZERO);
+		return amount.lessThanZero();
+	}
+
+	public boolean greaterThanZero()
+	{
+		return amount.greaterThanZero();
+	}
+
+	public boolean lessThanOrEqualZero()
+	{
+		return amount.lessThanOrEqualZero();
+	}
+
+	public boolean greaterThanOrEqualZero()
+	{
+		return amount.greaterThanOrEqualZero();
 	}
 
 	public boolean lessThanOrEqual(final Money<C> other)

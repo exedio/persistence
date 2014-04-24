@@ -188,6 +188,31 @@ public final class Price implements Serializable, Comparable<Price>
 		return Compare.compare(store, o.store);
 	}
 
+	public boolean equalsZero()
+	{
+		return store==0;
+	}
+
+	public boolean lessThanZero()
+	{
+		return store<0;
+	}
+
+	public boolean greaterThanZero()
+	{
+		return store>0;
+	}
+
+	public boolean lessThanOrEqualZero()
+	{
+		return store<=0;
+	}
+
+	public boolean greaterThanOrEqualZero()
+	{
+		return store>=0;
+	}
+
 	public boolean lessThan(final Price o)
 	{
 		return store<o.store;

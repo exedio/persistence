@@ -510,6 +510,41 @@ public final class PriceTest extends CopeAssert
 		return BigDecimal.valueOf(unscaledVal, scale);
 	}
 
+	public static void testEqualsZero()
+	{
+		assertEquals(false, storeOf( -1).equalsZero());
+		assertEquals(true,  storeOf(  0).equalsZero());
+		assertEquals(false, storeOf(  1).equalsZero());
+	}
+
+	public static void testLessThanZero()
+	{
+		assertEquals(true,  storeOf( -1).lessThanZero());
+		assertEquals(false, storeOf(  0).lessThanZero());
+		assertEquals(false, storeOf(  1).lessThanZero());
+	}
+
+	public static void testGreaterThanZero()
+	{
+		assertEquals(false, storeOf( -1).greaterThanZero());
+		assertEquals(false, storeOf(  0).greaterThanZero());
+		assertEquals(true,  storeOf(  1).greaterThanZero());
+	}
+
+	public static void testLessThanOrEqualZero()
+	{
+		assertEquals(true,  storeOf( -1).lessThanOrEqualZero());
+		assertEquals(true,  storeOf(  0).lessThanOrEqualZero());
+		assertEquals(false, storeOf(  1).lessThanOrEqualZero());
+	}
+
+	public static void testGreaterThanOrEqualZero()
+	{
+		assertEquals(false, storeOf( -1).greaterThanOrEqualZero());
+		assertEquals(true,  storeOf(  0).greaterThanOrEqualZero());
+		assertEquals(true,  storeOf(  1).greaterThanOrEqualZero());
+	}
+
 	public static void testLessThan()
 	{
 		assertEquals(true,  storeOf( 122).lessThan(storeOf( 123)));
