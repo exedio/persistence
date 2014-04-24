@@ -74,7 +74,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertNoUpdateCounterColumn(report.getRunType());
 	}
 
-	public void testIt()
+	public void testDaily()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 		if(oracle) // TODO
@@ -109,6 +109,15 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 
 		run(1, "2008/03/17-00:00:00.000"); // TODO should be 2
+		assertLogs(
+				log("2008/03/16-00:00:00.000", "2008/03/17-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2008/03/16-00:00:00.000", "2008/03/17-00:00:00.000", "2008/03/17-00:00:00.000"));
+	}
+
+	public void testFail()
+	{
+		run(1, "2008/03/17-00:00:00.000");
 		assertLogs(
 				log("2008/03/16-00:00:00.000", "2008/03/17-00:00:00.000"));
 		assertRuns(
