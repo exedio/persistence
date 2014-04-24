@@ -512,49 +512,49 @@ public final class PriceTest extends CopeAssert
 
 	public static void testLessThan()
 	{
-		assertEquals(true, storeOf(122).lessThan(storeOf(123)));
-		assertEquals(false, storeOf(123).lessThan(storeOf(123)));
-		assertEquals(false, storeOf(124).lessThan(storeOf(123)));
+		assertEquals(true,  storeOf( 122).lessThan(storeOf( 123)));
+		assertEquals(false, storeOf( 123).lessThan(storeOf( 123)));
+		assertEquals(false, storeOf( 124).lessThan(storeOf( 123)));
 		assertEquals(false, storeOf(-122).lessThan(storeOf(-123)));
 		assertEquals(false, storeOf(-123).lessThan(storeOf(-123)));
-		assertEquals(true, storeOf(-124).lessThan(storeOf(-123)));
+		assertEquals(true,  storeOf(-124).lessThan(storeOf(-123)));
 	}
 
 	public static void testGreaterThan()
 	{
-		assertEquals(false, storeOf(122).greaterThan(storeOf(123)));
-		assertEquals(false, storeOf(123).greaterThan(storeOf(123)));
-		assertEquals(true, storeOf(124).greaterThan(storeOf(123)));
-		assertEquals(true, storeOf(-122).greaterThan(storeOf(-123)));
+		assertEquals(false, storeOf( 122).greaterThan(storeOf( 123)));
+		assertEquals(false, storeOf( 123).greaterThan(storeOf( 123)));
+		assertEquals(true,  storeOf( 124).greaterThan(storeOf( 123)));
+		assertEquals(true,  storeOf(-122).greaterThan(storeOf(-123)));
 		assertEquals(false, storeOf(-123).greaterThan(storeOf(-123)));
 		assertEquals(false, storeOf(-124).greaterThan(storeOf(-123)));
 	}
 
 	public static void testLessThanOrEqual()
 	{
-		assertEquals(true, storeOf(122).lessThanOrEqual(storeOf(123)));
-		assertEquals(true, storeOf(123).lessThanOrEqual(storeOf(123)));
-		assertEquals(false, storeOf(124).lessThanOrEqual(storeOf(123)));
+		assertEquals(true,  storeOf( 122).lessThanOrEqual(storeOf( 123)));
+		assertEquals(true,  storeOf( 123).lessThanOrEqual(storeOf( 123)));
+		assertEquals(false, storeOf( 124).lessThanOrEqual(storeOf( 123)));
 		assertEquals(false, storeOf(-122).lessThanOrEqual(storeOf(-123)));
-		assertEquals(true, storeOf(-123).lessThanOrEqual(storeOf(-123)));
-		assertEquals(true, storeOf(-124).lessThanOrEqual(storeOf(-123)));
+		assertEquals(true,  storeOf(-123).lessThanOrEqual(storeOf(-123)));
+		assertEquals(true,  storeOf(-124).lessThanOrEqual(storeOf(-123)));
 	}
 
 	public static void testGreaterThanOrEqual()
 	{
-		assertEquals(false, storeOf(122).greaterThanOrEqual(storeOf(123)));
-		assertEquals(true, storeOf(123).greaterThanOrEqual(storeOf(123)));
-		assertEquals(true, storeOf(124).greaterThanOrEqual(storeOf(123)));
-		assertEquals(true, storeOf(-122).greaterThanOrEqual(storeOf(-123)));
-		assertEquals(true, storeOf(-123).greaterThanOrEqual(storeOf(-123)));
+		assertEquals(false, storeOf( 122).greaterThanOrEqual(storeOf( 123)));
+		assertEquals(true,  storeOf( 123).greaterThanOrEqual(storeOf( 123)));
+		assertEquals(true,  storeOf( 124).greaterThanOrEqual(storeOf( 123)));
+		assertEquals(true,  storeOf(-122).greaterThanOrEqual(storeOf(-123)));
+		assertEquals(true,  storeOf(-123).greaterThanOrEqual(storeOf(-123)));
 		assertEquals(false, storeOf(-124).greaterThanOrEqual(storeOf(-123)));
 	}
 
 	public static void testGetLower()
 	{
-		assertEquals(storeOf(122), storeOf(122).getLower(storeOf(123)));
-		assertEquals(storeOf(123), storeOf(123).getLower(storeOf(123)));
-		assertEquals(storeOf(123), storeOf(124).getLower(storeOf(123)));
+		assertEquals(storeOf( 122), storeOf( 122).getLower(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 123).getLower(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 124).getLower(storeOf( 123)));
 		assertEquals(storeOf(-123), storeOf(-122).getLower(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-123).getLower(storeOf(-123)));
 		assertEquals(storeOf(-124), storeOf(-124).getLower(storeOf(-123)));
@@ -562,9 +562,9 @@ public final class PriceTest extends CopeAssert
 
 	public static void testGetGreater()
 	{
-		assertEquals(storeOf(123), storeOf(122).getGreater(storeOf(123)));
-		assertEquals(storeOf(123), storeOf(123).getGreater(storeOf(123)));
-		assertEquals(storeOf(124), storeOf(124).getGreater(storeOf(123)));
+		assertEquals(storeOf( 123), storeOf( 122).getGreater(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 123).getGreater(storeOf( 123)));
+		assertEquals(storeOf( 124), storeOf( 124).getGreater(storeOf( 123)));
 		assertEquals(storeOf(-122), storeOf(-122).getGreater(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-123).getGreater(storeOf(-123)));
 		assertEquals(storeOf(-123), storeOf(-124).getGreater(storeOf(-123)));
