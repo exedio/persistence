@@ -207,8 +207,7 @@ public final class Schedule extends Pattern
 			final Class<P> parentClass,
 			@Parameter("ctx") final JobContext ctx)
 	{
-		if(ctx==null)
-			throw new NullPointerException("ctx");
+		requireNonNull(ctx, "ctx");
 
 		final Type<P> type = getType().as(parentClass);
 		final Runs.Mount mount = runs.mount();
