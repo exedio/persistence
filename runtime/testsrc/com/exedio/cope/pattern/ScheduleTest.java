@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public final class ScheduleTest extends AbstractRuntimeModelTest
+public class ScheduleTest extends AbstractRuntimeModelTest
 {
 	public ScheduleTest()
 	{
@@ -69,10 +69,13 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt()
+	public void testNoUpdateCounterColumn()
 	{
 		assertNoUpdateCounterColumn(report.getRunType());
+	}
 
+	public void testIt()
+	{
 		assertEquals(DAILY, item.getReportInterval());
 		if(oracle) // TODO
 			return;
