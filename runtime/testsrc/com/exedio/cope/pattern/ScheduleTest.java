@@ -18,22 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
-import static com.exedio.cope.pattern.ScheduleItem.TYPE;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Item;
-import com.exedio.cope.Model;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
-import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.util.Clock;
@@ -46,21 +40,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public final class ScheduleTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(ScheduleTest.class, "MODEL");
-	}
-
 	public ScheduleTest()
 	{
-		super(MODEL);
+		super(ScheduleModelTest.MODEL);
 	}
 
 	ScheduleItem item;
@@ -86,98 +71,6 @@ public final class ScheduleTest extends AbstractRuntimeTest
 
 	public void testIt()
 	{
-		// test model
-
-		assertEqualsUnmodifiable(list(TYPE, report.getRunType()), model.getTypes());
-		assertEquals(ScheduleItem.class, TYPE.getJavaClass());
-		assertEquals(true, TYPE.isBound());
-		assertEquals(null, TYPE.getPattern());
-
-		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getEnabled(), report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
-		assertEquals(TYPE, report.getInterval().getType());
-		assertEquals("report-interval", report.getInterval().getName());
-		assertEquals(TYPE, report.getEnabled().getType());
-		assertEquals("report-enabled", report.getEnabled().getName());
-
-		assertEqualsUnmodifiable(list(
-				report.getRunType().getThis(),
-				report.getRunParent(),
-				report.getRunInterval(),
-				report.getRunFrom(),
-				report.getRunRuns(),
-				report.getRunUntil(),
-				report.getRunRun(),
-				report.getRunElapsed()
-			), report.getRunType().getFeatures());
-
-		assertEquals("ScheduleItem-report-Run", report.getRunType().getID());
-		assertEquals(Schedule.Run.class, report.getRunType().getJavaClass());
-		assertEquals(false, report.getRunType().isBound());
-		assertSame(report, report.getRunType().getPattern());
-		assertEquals(null, report.getRunType().getSupertype());
-		assertEqualsUnmodifiable(list(), report.getRunType().getSubtypes());
-		assertEquals(false, report.getRunType().isAbstract());
-		assertEquals(Item.class, report.getRunType().getThis().getValueClass().getSuperclass());
-		assertEquals(report.getRunType(), report.getRunType().getThis().getValueType());
-		assertEquals(model, report.getRunType().getModel());
-
-		assertEquals(report.getRunType(), report.getRunParent().getType());
-		assertEquals(report.getRunType(), report.getRunRuns()  .getType());
-		assertEquals(report.getRunType(), report.getRunInterval().getType());
-		assertEquals(report.getRunType(), report.getRunFrom()  .getType());
-		assertEquals(report.getRunType(), report.getRunUntil() .getType());
-		assertEquals(report.getRunType(), report.getRunRun()   .getType());
-		assertEquals(report.getRunType(), report.getRunElapsed().getType());
-
-		assertEquals("parent", report.getRunParent().getName());
-		assertEquals("runs",   report.getRunRuns()  .getName());
-		assertEquals("interval",report.getRunInterval().getName());
-		assertEquals("from",   report.getRunFrom()  .getName());
-		assertEquals("until",  report.getRunUntil() .getName());
-		assertEquals("run",    report.getRunRun()   .getName());
-		assertEquals("elapsed",report.getRunElapsed().getName());
-
-		assertEquals("Europe/Berlin", report.getTimeZone().getID());
-		assertSame(Locale.GERMAN, report.getLocale());
-		try
-		{
-			new Schedule(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("timeZone", e.getMessage());
-		}
-		try
-		{
-			new Schedule(TimeZone.getDefault(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("locale", e.getMessage());
-		}
-
-		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
-		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
-		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
-
-		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getRunParent ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getRunFrom   ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getRunUntil  ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getRunRun    ().isAnnotationPresent(Computed.class));
-		assertFalse(report.getRunElapsed().isAnnotationPresent(Computed.class));
-		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(report, 380);
-
-		assertEquals(10, getColumnValue(DAILY  ));
-		assertEquals(20, getColumnValue(WEEKLY ));
-		assertEquals(30, getColumnValue(MONTHLY));
-
-		// test persistence
 		assertNoUpdateCounterColumn(report.getRunType());
 
 		assertEquals(DAILY, item.getReportInterval());
