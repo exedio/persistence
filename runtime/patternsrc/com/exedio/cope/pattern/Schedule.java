@@ -19,6 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
+import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
+import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -73,7 +76,7 @@ public final class Schedule extends Pattern
 	private final Locale locale;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
-	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(Interval.DAILY);
+	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
@@ -237,9 +240,9 @@ public final class Schedule extends Pattern
 					Cope.and(
 						mount.parent.as(type.getJavaClass()).equal(typeThis),
 						Cope.or(
-							interval.equal(Interval.DAILY  ).and(runs.until.greaterOrEqual(untilDaily  )),
-							interval.equal(Interval.WEEKLY ).and(runs.until.greaterOrEqual(untilWeekly )),
-							interval.equal(Interval.MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
+							interval.equal(DAILY  ).and(runs.until.greaterOrEqual(untilDaily  )),
+							interval.equal(WEEKLY ).and(runs.until.greaterOrEqual(untilWeekly )),
+							interval.equal(MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
 						)
 					)
 			);
