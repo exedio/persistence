@@ -26,7 +26,7 @@ import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
@@ -41,7 +41,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public final class ScheduleTest extends AbstractRuntimeTest
+public final class ScheduleTest extends AbstractRuntimeModelTest
 {
 	public ScheduleTest()
 	{
@@ -56,7 +56,7 @@ public final class ScheduleTest extends AbstractRuntimeTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new ScheduleItem());
+		item = new ScheduleItem();
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		expectedRuns = new ArrayList<>();

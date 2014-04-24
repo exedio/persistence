@@ -33,6 +33,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 
 	protected RuntimeTester.Dialect dialect = null;
 	protected boolean mysql;
+	protected boolean oracle;
 	protected boolean postgresql;
 	private final FileFixture files = new FileFixture();
 
@@ -43,6 +44,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		tester.setUp();
 		dialect = tester.dialect;
 		mysql  = tester.mysql;
+		oracle = tester.oracle;
 		postgresql = tester.postgresql;
 		files.setUp();
 	}
