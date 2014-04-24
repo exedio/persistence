@@ -27,8 +27,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.pattern.ScheduleTest.Log;
 import com.exedio.cope.util.JobContext;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -48,9 +48,9 @@ public final class ScheduleItem extends Item implements Scheduleable
 			throw new RuntimeException("schedule test failure");
 	}
 
-	static void assertLogs(final List<Log> expected)
+	static void assertLogs(final Log... expected)
 	{
-		assertEquals(expected, logs);
+		assertEquals(Arrays.asList(expected), logs);
 		logs.clear();
 	}
 

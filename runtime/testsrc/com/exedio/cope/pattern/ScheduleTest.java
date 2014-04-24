@@ -78,39 +78,39 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 			return;
 
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(asList(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+		assertLogs(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(0, run(date("2008/03/14-23:59:59.999")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(asList(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+		assertLogs(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(0, run(date("2008/03/15-23:59:59.999")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(1, run(date("2008/03/17-00:00:00.000"))); // TODO should be 2
-		assertLogs(asList(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+		assertLogs(log(date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/16-00:00:00.000"), date("2008/03/17-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 
 		item.setFail(true);
 		assertEquals(0, run(date("2008/03/17-00:00:00.000")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		try
@@ -122,12 +122,12 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("schedule test failure", e.getMessage());
 		}
-		assertLogs(asList(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+		assertLogs(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000")));
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		item.setFail(false);
 		assertEquals(1, run(date("2008/03/18-00:00:00.000")));
-		assertLogs(asList(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
+		assertLogs(log(date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/17-00:00:00.000"), date("2008/03/18-00:00:00.000"), date("2008/03/18-00:00:00.000"))));
 
@@ -145,7 +145,7 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 	public void testInterrupter1()
 	{
 		assertEquals(1, run(date("2008/03/11-00:00:00.000"), 1));
-		assertLogs(asList(log(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
+		assertLogs(log(date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/10-00:00:00.000"), date("2008/03/11-00:00:00.000"), date("2008/03/11-00:00:00.000"))));
 	}
@@ -153,7 +153,7 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 	public void testInterrupter0()
 	{
 		assertEquals(0, run(date("2008/03/11-00:00:00.000"), 0));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 	}
 
@@ -168,25 +168,25 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 			return;
 
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(asList(log(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"))));
+		assertLogs(log(date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000")));
 		assertRuns(asList(
 				ern(WEEKLY, date("2008/03/03-00:00:00.000"), date("2008/03/10-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(0, run(date("2008/03/16-23:59:59.999")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(1, run(date("2008/03/17-00:00:00.000")));
-		assertLogs(asList(log(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
+		assertLogs(log(date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000")));
 		assertRuns(asList(
 				ern(WEEKLY, date("2008/03/10-00:00:00.000"), date("2008/03/17-00:00:00.000"), date("2008/03/17-00:00:00.000"))));
 
 		assertEquals(1, run(date("2008/03/31-00:00:00.000"))); // TODO should be 2
-		assertLogs(asList(log(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
+		assertLogs(log(date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000")));
 		assertRuns(asList(
 				ern(WEEKLY, date("2008/03/24-00:00:00.000"), date("2008/03/31-00:00:00.000"), date("2008/03/31-00:00:00.000"))));
 	}
@@ -202,25 +202,25 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 			return;
 
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(asList(log(date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000"))));
+		assertLogs(log(date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000")));
 		assertRuns(asList(
 				ern(MONTHLY, date("2008/02/01-00:00:00.000"), date("2008/03/01-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
 		assertEquals(0, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(0, run(date("2008/03/31-23:59:59.999")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		assertEquals(1, run(date("2008/04/01-00:00:00.000")));
-		assertLogs(asList(log(date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000"))));
+		assertLogs(log(date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000")));
 		assertRuns(asList(
 				ern(MONTHLY, date("2008/03/01-00:00:00.000"), date("2008/04/01-00:00:00.000"), date("2008/04/01-00:00:00.000"))));
 
 		assertEquals(1, run(date("2008/06/01-00:00:00.000"))); // TODO should be 2
-		assertLogs(asList(log(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
+		assertLogs(log(date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000")));
 		assertRuns(asList(
 				ern(MONTHLY, date("2008/05/01-00:00:00.000"), date("2008/06/01-00:00:00.000"), date("2008/06/01-00:00:00.000"))));
 	}
@@ -234,7 +234,7 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 			return;
 
 		assertEquals(1, run(date("2008/03/14-01:49:49.888")));
-		assertLogs(asList(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"))));
+		assertLogs(log(date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/13-00:00:00.000"), date("2008/03/14-00:00:00.000"), date("2008/03/14-01:49:49.888"))));
 
@@ -242,14 +242,14 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(false, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
 		assertEquals(0, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(Arrays.<Log>asList());
+		assertLogs();
 		assertRuns(Arrays.<ExpectedRun>asList());
 
 		item.setReportEnabled(true);
 		assertEquals(true, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
 		assertEquals(1, run(date("2008/03/15-00:00:00.000")));
-		assertLogs(asList(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
+		assertLogs(log(date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000")));
 		assertRuns(asList(
 				ern(DAILY, date("2008/03/14-00:00:00.000"), date("2008/03/15-00:00:00.000"), date("2008/03/15-00:00:00.000"))));
 	}
