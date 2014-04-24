@@ -288,6 +288,90 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/14-00:00:00.000", "2008/03/15-00:00:00.000", "2008/03/15-00:00:00.000"));
 	}
 
+	public void testDaylightSavingShorter()
+	{
+		assertEquals(24*3600000, date("2014/03/29-00:00:00.000").getTime()-date("2014/03/28-00:00:00.000").getTime());
+		assertEquals(24*3600000, date("2014/03/30-00:00:00.000").getTime()-date("2014/03/29-00:00:00.000").getTime());
+		assertEquals(23*3600000, date("2014/03/31-00:00:00.000").getTime()-date("2014/03/30-00:00:00.000").getTime());
+		assertEquals(24*3600000, date("2014/04/01-00:00:00.000").getTime()-date("2014/03/31-00:00:00.000").getTime());
+
+		assertEquals(DAILY, item.getReportInterval());
+		if(oracle) // TODO
+			return;
+
+		run(1, "2014/03/30-00:00:00.000");
+		assertLogs(
+				log("2014/03/29-00:00:00.000", "2014/03/30-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/03/29-00:00:00.000", "2014/03/30-00:00:00.000", "2014/03/30-00:00:00.000"));
+
+		run(0, "2014/03/30-23:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/31-00:00:00.000");
+		assertLogs(
+				log("2014/03/30-00:00:00.000", "2014/03/31-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/03/30-00:00:00.000", "2014/03/31-00:00:00.000", "2014/03/31-00:00:00.000"));
+
+		run(0, "2014/03/31-23:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/04/01-00:00:00.000");
+		assertLogs(
+				log("2014/03/31-00:00:00.000", "2014/04/01-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/03/31-00:00:00.000", "2014/04/01-00:00:00.000", "2014/04/01-00:00:00.000"));
+
+		run(0, "2014/04/01-23:59:59.999");
+		assertLogs();
+		assertRuns();
+	}
+
+	public void testDaylightSavingLonger()
+	{
+		assertEquals(24*3600000, date("2014/10/25-00:00:00.000").getTime()-date("2014/10/24-00:00:00.000").getTime());
+		assertEquals(24*3600000, date("2014/10/26-00:00:00.000").getTime()-date("2014/10/25-00:00:00.000").getTime());
+		assertEquals(25*3600000, date("2014/10/27-00:00:00.000").getTime()-date("2014/10/26-00:00:00.000").getTime());
+		assertEquals(24*3600000, date("2014/10/28-00:00:00.000").getTime()-date("2014/10/27-00:00:00.000").getTime());
+
+		assertEquals(DAILY, item.getReportInterval());
+		if(oracle) // TODO
+			return;
+
+		run(1, "2014/10/26-00:00:00.000");
+		assertLogs(
+				log("2014/10/25-00:00:00.000", "2014/10/26-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/10/25-00:00:00.000", "2014/10/26-00:00:00.000", "2014/10/26-00:00:00.000"));
+
+		run(0, "2014/10/26-23:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/10/27-00:00:00.000");
+		assertLogs(
+				log("2014/10/26-00:00:00.000", "2014/10/27-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/10/26-00:00:00.000", "2014/10/27-00:00:00.000", "2014/10/27-00:00:00.000"));
+
+		run(0, "2014/10/27-23:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/10/28-00:00:00.000");
+		assertLogs(
+				log("2014/10/27-00:00:00.000", "2014/10/28-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2014/10/27-00:00:00.000", "2014/10/28-00:00:00.000", "2014/10/28-00:00:00.000"));
+
+		run(0, "2014/10/28-23:59:59.999");
+		assertLogs();
+		assertRuns();
+	}
+
 	private final void run(final int progress, final String now)
 	{
 		final CountJobContext ctx = new CountJobContext();
