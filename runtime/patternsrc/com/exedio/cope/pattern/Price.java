@@ -348,7 +348,7 @@ public final class Price implements Serializable, Comparable<Price>
 		Price weightSum = ZERO;
 		for(final Price weight : weights)
 		{
-			if(ZERO.greaterThan(weight))
+			if(weight.lessThanZero())
 				throw new IllegalArgumentException("negative weight " + weight);
 
 			weightSum = weightSum.add(weight);
