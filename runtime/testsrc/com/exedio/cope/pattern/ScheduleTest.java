@@ -294,7 +294,9 @@ public final class ScheduleTest extends AbstractRuntimeModelTest
 
 	static SimpleDateFormat df()
 	{
-		return new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+		result.setLenient(false);
+		return result;
 	}
 
 	private static final Date date(final String s)
