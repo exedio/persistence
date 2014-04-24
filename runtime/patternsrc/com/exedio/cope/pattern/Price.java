@@ -345,10 +345,10 @@ public final class Price implements Serializable, Comparable<Price>
 		if(weights.length==0)
 			throw new IllegalArgumentException("weights must not be empty");
 
-		Price weightSum = Price.ZERO;
+		Price weightSum = ZERO;
 		for(final Price weight : weights)
 		{
-			if(Price.ZERO.greaterThan(weight))
+			if(ZERO.greaterThan(weight))
 				throw new IllegalArgumentException("" + weight);
 
 			weightSum = weightSum.add(weight);
@@ -357,7 +357,7 @@ public final class Price implements Serializable, Comparable<Price>
 		// if weightSum=ZERO, the algorithm is very ineffective, as everything is done
 		// via remainingPence-distribution
 
-		Price assigned = Price.ZERO;
+		Price assigned = ZERO;
 		final Price[] result = new Price[weights.length];
 		for(int i = 0; i < weights.length; i++)
 		{
