@@ -310,6 +310,11 @@ public final class Schedule extends Pattern
 			}
 
 			final int total = dates.size() - 1;
+			if(total>30) // TODO allow customization
+				throw new RuntimeException(
+						"schedule aborting because suspicious amount of work to do: " +
+						getID() + ',' + item.getCopeID() + ',' + total);
+
 			final Iterator<Date> i = dates.iterator();
 			Date from = i.next();
 			int count = 1;
