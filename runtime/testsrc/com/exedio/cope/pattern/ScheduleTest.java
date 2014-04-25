@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
+import static com.exedio.cope.pattern.ScheduleItem.reportRunParent;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
@@ -59,9 +60,18 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		item = new ScheduleItem();
 		final ScheduleItem disabledItem = new ScheduleItem();
 		disabledItem.setReportEnabled(false);
+		final ScheduleItem recentItem = new ScheduleItem();
+		final Run recentRun = report.getRunType().newItem(
+				reportRunParent().map(recentItem),
+				report.getRunInterval().map(DAILY),
+				report.getRunFrom ().map(date("2014/11/29-00:00:00.000")),
+				report.getRunUntil().map(date("2014/11/30-00:00:00.000")),
+				report.getRunRun  ().map(date("2014/11/30-00:00:00.000")),
+				report.getRunElapsed().map(5000l));
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		expectedRuns = new ArrayList<>();
+		expectedRuns.add(new ExpectedRun(recentRun));
 		ScheduleItem.clearLogs();
 	}
 
