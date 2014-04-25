@@ -297,7 +297,7 @@ public final class Schedule extends Pattern
 			final Date until = cal.getTime();
 			interval.add(cal, -1);
 			final Date from = cal.getTime();
-			runNow(item, interval, from, until, 1, now, ctx);
+			runNow(item, interval, from, until, 1, 1, now, ctx);
 		}
 		else
 		{
@@ -309,13 +309,14 @@ public final class Schedule extends Pattern
 				dates.add(0, cal.getTime());
 			}
 
+			final int total = dates.size() - 1;
 			final Iterator<Date> i = dates.iterator();
 			Date from = i.next();
 			int count = 1;
 			while(i.hasNext())
 			{
 				final Date until = i.next();
-				runNow(item, interval, from, until, count++, now, ctx);
+				runNow(item, interval, from, until, count++, total, now, ctx);
 				from = until;
 			}
 		}
@@ -325,12 +326,12 @@ public final class Schedule extends Pattern
 			final P item,
 			final Interval interval,
 			final Date from, final Date until,
-			final int count,
+			final int count, final int total,
 			final Date now,
 			final JobContext ctx)
 	{
 		ctx.stopIfRequested();
-		try(TransactionTry tx = startTransaction(item, "run " + count))
+		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 		{
 			final long elapsedStart = nanoTime();
 			item.run(this, from, until, ctx);
