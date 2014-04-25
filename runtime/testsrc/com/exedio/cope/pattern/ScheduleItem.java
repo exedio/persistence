@@ -54,6 +54,11 @@ public final class ScheduleItem extends Item implements Scheduleable
 		logs.clear();
 	}
 
+	static void clearLogs()
+	{
+		logs.clear();
+	}
+
 
 	/**
 

@@ -61,11 +61,13 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		expectedRuns = new ArrayList<>();
+		ScheduleItem.clearLogs();
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		ScheduleItem.clearLogs();
 		expectedRuns = null;
 		Clock.clearOverride();
 		super.tearDown();
