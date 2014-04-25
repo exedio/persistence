@@ -297,7 +297,7 @@ public final class Schedule extends Pattern
 			final Date until = cal.getTime();
 			interval.add(cal, -1);
 			final Date from = cal.getTime();
-			runNow(item, interval, from, until, 0, now, ctx);
+			runNow(item, interval, from, until, 1, now, ctx);
 		}
 		else
 		{
@@ -311,7 +311,7 @@ public final class Schedule extends Pattern
 
 			final Iterator<Date> i = dates.iterator();
 			Date from = i.next();
-			int count = 0;
+			int count = 1;
 			while(i.hasNext())
 			{
 				final Date until = i.next();
