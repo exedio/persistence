@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
@@ -43,6 +44,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	{
 		assertSame(report, schedule);
 		assertNotNull(ctx);
+		assertTrue(TYPE.getModel().hasCurrentTransaction());
 		logs.add(new Log(this, from, until));
 		if(getFail())
 			throw new RuntimeException("schedule test failure");
