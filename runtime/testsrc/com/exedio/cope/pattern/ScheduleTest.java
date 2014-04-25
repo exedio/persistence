@@ -477,9 +477,9 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	private static final ExpectedRun ern(final Interval interval, final String from, final String until, final String run)
+	private final ExpectedRun ern(final Interval interval, final String from, final String until, final String run)
 	{
-		return new ExpectedRun(interval, date(from), date(until), date(run));
+		return new ExpectedRun(item, interval, date(from), date(until), date(run));
 	}
 
 	void assertRuns(final ExpectedRun... expectedMore)
@@ -494,6 +494,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 
 	static class ExpectedRun
 	{
+		final ScheduleItem parent;
 		final Interval interval;
 		final Date from;
 		final Date until;
@@ -501,16 +502,24 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 
 		ExpectedRun(final Run run)
 		{
-			this(run.getInterval(), run.getFrom(), run.getUntil(), run.getRun());
+			this((ScheduleItem)run.getParent(), run.getInterval(), run.getFrom(), run.getUntil(), run.getRun());
 			assertTrue(String.valueOf(run.getElapsed()), run.getElapsed()>=0);
 		}
 
-		ExpectedRun(final Interval interval, final Date from, final Date until, final Date run)
+		ExpectedRun(
+				final ScheduleItem parent,
+				final Interval interval,
+				final Date from,
+				final Date until,
+				final Date run)
 		{
+			this.parent = parent;
 			this.interval = interval;
 			this.from = from;
 			this.until = until;
 			this.run = run;
+			assertNotNull(parent);
+			assertNotNull(interval);
 			assertNotNull(from);
 			assertNotNull(until);
 			assertNotNull(run);
@@ -523,19 +532,24 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		public boolean equals(final Object other)
 		{
 			final ExpectedRun o = (ExpectedRun)other;
-			return interval.equals(o.interval) && from.equals(o.from) && until.equals(o.until) && run.equals(o.run);
+			return
+					parent.equals(o.parent) &&
+					interval.equals(o.interval) &&
+					from.equals(o.from) &&
+					until.equals(o.until) &&
+					run.equals(o.run);
 		}
 
 		@Override
 		public int hashCode()
 		{
-			return interval.hashCode() ^ from.hashCode() ^ until.hashCode() ^ run.hashCode();
+			return parent.hashCode() ^ interval.hashCode() ^ from.hashCode() ^ until.hashCode() ^ run.hashCode();
 		}
 
 		@Override
 		public String toString()
 		{
-			return "" + interval + ' ' + df().format(from) + "---" + df().format(until) + "---" + df().format(run);
+			return "" + parent + ' ' + interval + ' ' + df().format(from) + "---" + df().format(until) + "---" + df().format(run);
 		}
 	}
 }
