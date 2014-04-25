@@ -56,6 +56,8 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		item = new ScheduleItem();
+		final ScheduleItem disabledItem = new ScheduleItem();
+		disabledItem.setReportEnabled(false);
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		expectedRuns = new ArrayList<>();
