@@ -286,15 +286,13 @@ public final class Schedule extends Pattern
 		interval.setToFrom(cal);
 		final Date until = cal.getTime();
 
-		{
-			final Date lastUntil = new Query<>(
-					runs.until.max(),
-					runs.mount().parent.as(parentClass).equal(item)).
-					searchSingleton();
+		final Date lastUntil = new Query<>(
+				runs.until.max(),
+				runs.mount().parent.as(parentClass).equal(item)).
+				searchSingleton();
 
-			if(lastUntil!=null && !lastUntil.before(until))
-				return;
-		}
+		if(lastUntil!=null && !lastUntil.before(until))
+			return;
 
 		interval.add(cal, -1);
 		final Date from = cal.getTime();
