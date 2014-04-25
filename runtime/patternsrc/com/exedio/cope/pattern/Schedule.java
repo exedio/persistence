@@ -250,10 +250,10 @@ public final class Schedule extends Pattern
 	{
 		requireNonNull(ctx, "ctx");
 
-		final Type<P> type = getType().as(parentClass);
 		final Date now = new Date(Clock.currentTimeMillis()); // TODO per item
 
-		for(final P item : once(iterateTransactionally(type, enabled.equal(true), 1000)))
+		for(final P item : once(iterateTransactionally(
+				getType().as(parentClass), enabled.equal(true), 1000)))
 		{
 			ctx.stopIfRequested();
 			runInternal(parentClass, now, item, ctx);
