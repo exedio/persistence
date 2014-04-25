@@ -56,6 +56,8 @@ import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.TimeZone;
 import org.slf4j.Logger;
@@ -284,19 +286,39 @@ public final class Schedule extends Pattern
 		cal.setTime(now);
 		final Interval interval = this.interval.get(item);
 		interval.setToFrom(cal);
-		final Date until = cal.getTime();
 
 		final Date lastUntil = new Query<>(
 				runs.until.max(),
 				runs.mount().parent.as(parentClass).equal(item)).
 				searchSingleton();
 
-		if(lastUntil!=null && !lastUntil.before(until))
-			return;
+		if(lastUntil==null)
+		{
+			final Date until = cal.getTime();
+			interval.add(cal, -1);
+			final Date from = cal.getTime();
+			runNow(item, interval, from, until, now, ctx);
+		}
+		else
+		{
+			final LinkedList<Date> dates = new LinkedList<>();
+			dates.add(0, cal.getTime());
+			while(lastUntil.before(cal.getTime()))
+			{
+				interval.add(cal, -1);
+				dates.add(0, cal.getTime());
+			}
 
-		interval.add(cal, -1);
-		final Date from = cal.getTime();
-		runNow(item, interval, from, until, now, ctx);
+			final Iterator<Date> i = dates.iterator();
+			Date from = i.next();
+			while(i.hasNext())
+			{
+				final Date until = i.next();
+				// TODO separate transactions for different runs
+				runNow(item, interval, from, until, now, ctx);
+				from = until;
+			}
+		}
 	}
 
 	private <P extends Item & Scheduleable> void runNow(
