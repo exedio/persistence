@@ -258,7 +258,7 @@ public final class Schedule extends Pattern
 
 		for(final P item : once(iterateTransactionally(type, enabled.equal(true), 1000)))
 		{
-			ctx.stopIfRequested();
+			ctx.stopIfRequested(); // TODO stop between different runs
 			try(TransactionTry tx = model.startTransactionTry(id + " run " + item.getCopeID()))
 			{
 				runInternal(parentClass, now, item, ctx);
