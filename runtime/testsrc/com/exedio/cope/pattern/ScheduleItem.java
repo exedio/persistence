@@ -45,8 +45,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 		assertSame(report, schedule);
 		assertNotNull(ctx);
 		assertTrue(TYPE.getModel().hasCurrentTransaction());
-		assertEquals("ScheduleItem.report run " + getCopeID(), TYPE.getModel().currentTransaction().getName());
-		logs.add(new Log(this, from, until));
+		logs.add(new Log(this, from, until, TYPE.getModel().currentTransaction().getName()));
 		if(getFail())
 			throw new RuntimeException("schedule test failure");
 	}

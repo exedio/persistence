@@ -432,7 +432,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 
 	private final Log log(final String from, final String until)
 	{
-		return new Log(item, date(from), date(until));
+		return new Log(item, date(from), date(until), "ScheduleItem.report run " + item.getCopeID());
 	}
 
 	static class Log
@@ -440,15 +440,18 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		final ScheduleItem item;
 		final Date from;
 		final Date until;
+		final String transactionName;
 
-		Log(final ScheduleItem item, final Date from, final Date until)
+		Log(final ScheduleItem item, final Date from, final Date until, final String transactionName)
 		{
 			this.item = item;
 			this.from = from;
 			this.until = until;
+			this.transactionName = transactionName;
 			assertNotNull(item);
 			assertNotNull(from);
 			assertNotNull(until);
+			assertNotNull(transactionName);
 			assertTrue(from.before(until));
 		}
 
@@ -457,19 +460,25 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		public boolean equals(final Object other)
 		{
 			final Log o = (Log)other;
-			return item.equals(o.item) && from.equals(o.from) && until.equals(o.until);
+			return
+					item.equals(o.item) &&
+					from.equals(o.from) && until.equals(o.until) &&
+					transactionName.equals(o.transactionName);
 		}
 
 		@Override
 		public int hashCode()
 		{
-			return item.hashCode() ^ from.hashCode() ^ until.hashCode();
+			return item.hashCode() ^ from.hashCode() ^ until.hashCode() ^ transactionName.hashCode();
 		}
 
 		@Override
 		public String toString()
 		{
-			return item.toString() + "---" + df().format(from) + "---" + df().format(until);
+			return
+					item.toString() + "---" +
+					df().format(from) + "---" + df().format(until) + "---" +
+					transactionName;
 		}
 	}
 
