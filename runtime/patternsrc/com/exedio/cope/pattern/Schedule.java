@@ -287,9 +287,10 @@ public final class Schedule extends Pattern
 		final Date until = cal.getTime();
 
 		{
-			final Query<Date> query = new Query<>(
-					runs.until.max(), runs.mount().parent.as(parentClass).equal(item));
-			final Date lastUntil = query.searchSingleton();
+			final Date lastUntil = new Query<>(
+					runs.until.max(),
+					runs.mount().parent.as(parentClass).equal(item)).
+					searchSingleton();
 
 			if(lastUntil!=null && !lastUntil.before(until))
 				return;
