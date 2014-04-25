@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Iterables.once;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
-import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
-import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
@@ -46,7 +46,6 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
-import com.exedio.cope.This;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
@@ -57,12 +56,15 @@ import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Schedule extends Pattern
 {
+	private static final Logger logger = LoggerFactory.getLogger(Schedule.class);
+
 	private static final long serialVersionUID = 1l;
 
 	public enum Interval
@@ -210,78 +212,77 @@ public final class Schedule extends Pattern
 		requireNonNull(ctx, "ctx");
 
 		final Type<P> type = getType().as(parentClass);
-		final Runs.Mount mount = runs.mount();
-		final This<P> typeThis = type.getThis();
 		final Model model = type.getModel();
-		final String featureID = getID();
+		final String id = getID();
+		final Date now = new Date(Clock.currentTimeMillis()); // TODO per item
+
+		for(final P item : once(iterateTransactionally(type, enabled.equal(true), 1000)))
+		{
+			ctx.stopIfRequested();
+			try(TransactionTry tx = model.startTransactionTry(id + " run " + item.getCopeID()))
+			{
+				runInternal(parentClass, now, item, ctx);
+				tx.commit();
+			}
+		}
+	}
+
+	private <P extends Item & Scheduleable> void runInternal(
+			final Class<P> parentClass,
+			final Date now,
+			final P item,
+			final JobContext ctx)
+	{
+		if(!isEnabled(item))
+		{
+			if(logger.isInfoEnabled())
+				logger.info(
+						"{} is not enabled anymore for {}, probably due to concurrent modification.",
+						item.getCopeID(), getID());
+			return;
+		}
+
 		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
-		final Date now = new Date(Clock.currentTimeMillis());
 		cal.setTime(now);
 		cal.set(MILLISECOND, 0);
 		cal.set(SECOND, 0);
 		cal.set(MINUTE, 0);
 		cal.set(HOUR_OF_DAY, 0);
-		final Date untilDaily = cal.getTime();
-		cal.set(DAY_OF_WEEK, MONDAY);
-		final Date untilWeekly = cal.getTime();
-		cal.setTime(untilDaily);
-		cal.set(DAY_OF_MONTH, 1);
-		final Date untilMonthly = cal.getTime();
 
-
-		final List<P> toRun;
-		try(TransactionTry tx = model.startTransactionTry(featureID + " search"))
+		final Interval interval = this.interval.get(item);
+		switch(interval)
 		{
-			final Query<P> q = type.newQuery(Cope.and(
-					enabled.equal(true),
-					mount.type.getThis().isNull()));
-			q.joinOuterLeft(mount.type,
-					Cope.and(
-						mount.parent.as(type.getJavaClass()).equal(typeThis),
-						Cope.or(
-							interval.equal(DAILY  ).and(runs.until.greaterOrEqual(untilDaily  )),
-							interval.equal(WEEKLY ).and(runs.until.greaterOrEqual(untilWeekly )),
-							interval.equal(MONTHLY).and(runs.until.greaterOrEqual(untilMonthly))
-						)
-					)
-			);
-			q.setOrderBy(typeThis, true);
-			toRun = q.search();
-			tx.commit();
+			case DAILY:   break;
+			case WEEKLY:  cal.set(DAY_OF_WEEK, MONDAY); break;
+			case MONTHLY: cal.set(DAY_OF_MONTH, 1); break;
+			default: throw new RuntimeException(interval.name()); // TODO move into enum
+		}
+		final Date until = cal.getTime();
+
+		{
+			final Query<Date> query = new Query<>(
+					runs.until.max(), runs.mount().parent.as(parentClass).equal(item));
+			final Date lastUntil = query.searchSingleton();
+
+			if(lastUntil!=null && !lastUntil.before(until))
+				return;
 		}
 
-		for(final P item : toRun)
+		switch(interval)
 		{
-			ctx.stopIfRequested();
-			final String itemID = item.getCopeID();
-			try(TransactionTry tx = model.startTransactionTry(featureID + " schedule " + itemID))
-			{
-				final Interval interval = this.interval.get(item);
-				final Date until;
-				switch(interval)
-				{
-					case DAILY:  until = untilDaily ; break;
-					case WEEKLY: until = untilWeekly; break;
-					case MONTHLY:until = untilMonthly;break;
-					default: throw new RuntimeException(interval.name());
-				}
-				cal.setTime(until);
-				switch(interval)
-				{
-					case DAILY:  cal.add(DAY_OF_WEEK  , -1); break;
-					case WEEKLY: cal.add(WEEK_OF_MONTH, -1); break;
-					case MONTHLY:cal.add(MONTH,         -1); break;
-					default: throw new RuntimeException(interval.name());
-				}
-				final Date from = cal.getTime();
-				final long elapsedStart = nanoTime();
-				item.run(this, from, until, ctx);
-				final long elapsedEnd = nanoTime();
-				runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
-				tx.commit();
-				ctx.incrementProgress();
-			}
+			case DAILY:  cal.add(DAY_OF_WEEK  , -1); break;
+			case WEEKLY: cal.add(WEEK_OF_MONTH, -1); break;
+			case MONTHLY:cal.add(MONTH,         -1); break;
+			default: throw new RuntimeException(interval.name()); // TODO move into enum
 		}
+		final Date from = cal.getTime();
+		{
+			final long elapsedStart = nanoTime();
+			item.run(this, from, until, ctx);
+			final long elapsedEnd = nanoTime();
+			runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
+		}
+		ctx.incrementProgress();
 	}
 
 	private static final class Runs

@@ -92,8 +92,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 	public void testDaily()
 	{
 		assertEquals(DAILY, item.getReportInterval());
-		if(oracle) // TODO
-			return;
 
 		run(1, "2008/03/14-01:49:49.888");
 		assertLogs(
@@ -193,9 +191,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		item.setReportInterval(WEEKLY);
 		assertEquals(WEEKLY, item.getReportInterval());
 
-		if(oracle) // TODO
-			return;
-
 		run(1, "2008/03/14-01:49:49.888");
 		assertLogs(
 				log("2008/03/03-00:00:00.000", "2008/03/10-00:00:00.000"));
@@ -236,9 +231,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		item.setReportInterval(MONTHLY);
 		assertEquals(MONTHLY, item.getReportInterval());
 
-		if(oracle) // TODO
-			return;
-
 		run(1, "2008/03/14-01:49:49.888");
 		assertLogs(
 				log("2008/02/01-00:00:00.000", "2008/03/01-00:00:00.000"));
@@ -277,9 +269,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(true, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
 
-		if(oracle) // TODO
-			return;
-
 		run(1, "2008/03/14-01:49:49.888");
 		assertLogs(
 				log("2008/03/13-00:00:00.000", "2008/03/14-00:00:00.000"));
@@ -311,8 +300,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(24*3600000, date("2014/04/01-00:00:00.000").getTime()-date("2014/03/31-00:00:00.000").getTime());
 
 		assertEquals(DAILY, item.getReportInterval());
-		if(oracle) // TODO
-			return;
 
 		run(1, "2014/03/30-00:00:00.000");
 		assertLogs(
@@ -353,8 +340,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(24*3600000, date("2014/10/28-00:00:00.000").getTime()-date("2014/10/27-00:00:00.000").getTime());
 
 		assertEquals(DAILY, item.getReportInterval());
-		if(oracle) // TODO
-			return;
 
 		run(1, "2014/10/26-00:00:00.000");
 		assertLogs(
