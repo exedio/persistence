@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
@@ -42,7 +42,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 	{
 		assertSame(report, schedule);
-		assertTrue(ctx!=null);
+		assertNotNull(ctx);
 		logs.add(new Log(this, from, until));
 		if(getFail())
 			throw new RuntimeException("schedule test failure");
