@@ -93,9 +93,16 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals("until",  report.getRunUntil() .getName());
 		assertEquals("run",    report.getRunRun()   .getName());
 		assertEquals("elapsed",report.getRunElapsed().getName());
+	}
 
+	public void testConstructionParameters()
+	{
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
+	}
+
+	public void testTimeZoneNull()
+	{
 		try
 		{
 			new Schedule(null, null);
@@ -105,6 +112,10 @@ public class ScheduleModelTest extends CopeAssert
 		{
 			assertEquals("timeZone", e.getMessage());
 		}
+	}
+
+	public void testLocaleNull()
+	{
 		try
 		{
 			new Schedule(TimeZone.getDefault(), null);
@@ -114,11 +125,17 @@ public class ScheduleModelTest extends CopeAssert
 		{
 			assertEquals("locale", e.getMessage());
 		}
+	}
 
+	public void testMoreGetters()
+	{
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
 		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
 		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
+	}
 
+	public void testAnnotations()
+	{
 		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getRunParent ().isAnnotationPresent(Computed.class));
@@ -127,9 +144,15 @@ public class ScheduleModelTest extends CopeAssert
 		assertFalse(report.getRunRun    ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getRunElapsed().isAnnotationPresent(Computed.class));
 		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
+	}
 
+	public void testSerialize()
+	{
 		assertSerializedSame(report, 385);
+	}
 
+	public void testEnumSchema()
+	{
 		assertEquals(10, getColumnValue(DAILY  ));
 		assertEquals(20, getColumnValue(WEEKLY ));
 		assertEquals(30, getColumnValue(MONTHLY));
