@@ -296,12 +296,20 @@ public final class Schedule extends Pattern
 
 		interval.add(cal, -1);
 		final Date from = cal.getTime();
-		{
-			final long elapsedStart = nanoTime();
-			item.run(this, from, until, ctx);
-			final long elapsedEnd = nanoTime();
-			runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
-		}
+		runNow(item, interval, from, until, now, ctx);
+	}
+
+	private <P extends Item & Scheduleable> void runNow(
+			final P item,
+			final Interval interval,
+			final Date from, final Date until,
+			final Date now,
+			final JobContext ctx)
+	{
+		final long elapsedStart = nanoTime();
+		item.run(this, from, until, ctx);
+		final long elapsedEnd = nanoTime();
+		runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
 		ctx.incrementProgress();
 	}
 
