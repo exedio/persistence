@@ -266,18 +266,16 @@ public final class Schedule extends Pattern
 			final P item,
 			final JobContext ctx)
 	{
-		final String id = getID();
-		final String itemID = item.getCopeID();
 		final Date lastUntil;
 		final Interval interval;
-		try(TransactionTry tx = getType().getModel().startTransactionTry(id + ' ' + itemID + " check"))
+		try(TransactionTry tx = startTransaction(item, "check"))
 		{
 			if(!isEnabled(item))
 			{
 				if(logger.isInfoEnabled())
 					logger.info(
 							"{} is not enabled anymore for {}, probably due to concurrent modification.",
-							itemID, id);
+							item.getCopeID(), getID());
 				tx.commit();
 				return;
 			}
@@ -332,8 +330,7 @@ public final class Schedule extends Pattern
 			final Date now,
 			final JobContext ctx)
 	{
-		try(TransactionTry tx = getType().getModel().startTransactionTry(
-				getID() + ' ' + item.getCopeID() + " run " + count))
+		try(TransactionTry tx = startTransaction(item, "run " + count))
 		{
 			final long elapsedStart = nanoTime();
 			item.run(this, from, until, ctx);
@@ -342,6 +339,12 @@ public final class Schedule extends Pattern
 			tx.commit();
 		}
 		ctx.incrementProgress();
+	}
+
+	private TransactionTry startTransaction(final Item item, final String name)
+	{
+		return getType().getModel().startTransactionTry(
+				getID() + ' ' + item.getCopeID() + ' ' + name);
 	}
 
 	private static final class Runs
