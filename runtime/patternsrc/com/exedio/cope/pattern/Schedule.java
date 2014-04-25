@@ -69,9 +69,34 @@ public final class Schedule extends Pattern
 
 	public enum Interval
 	{
-		DAILY,
-		WEEKLY,
-		MONTHLY;
+		DAILY
+		{
+			@Override void setToFrom(final GregorianCalendar cal)
+			{
+				cal.set(MILLISECOND, 0);
+				cal.set(SECOND, 0);
+				cal.set(MINUTE, 0);
+				cal.set(HOUR_OF_DAY, 0);
+			}
+		},
+		WEEKLY
+		{
+			@Override void setToFrom(final GregorianCalendar cal)
+			{
+				DAILY.setToFrom(cal);
+				cal.set(DAY_OF_WEEK, MONDAY);
+			}
+		},
+		MONTHLY
+		{
+			@Override void setToFrom(final GregorianCalendar cal)
+			{
+				DAILY.setToFrom(cal);
+				cal.set(DAY_OF_MONTH, 1);
+			}
+		};
+
+		abstract void setToFrom(GregorianCalendar cal);
 	}
 
 	private final TimeZone timeZone;
@@ -244,19 +269,8 @@ public final class Schedule extends Pattern
 
 		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
 		cal.setTime(now);
-		cal.set(MILLISECOND, 0);
-		cal.set(SECOND, 0);
-		cal.set(MINUTE, 0);
-		cal.set(HOUR_OF_DAY, 0);
-
 		final Interval interval = this.interval.get(item);
-		switch(interval)
-		{
-			case DAILY:   break;
-			case WEEKLY:  cal.set(DAY_OF_WEEK, MONDAY); break;
-			case MONTHLY: cal.set(DAY_OF_MONTH, 1); break;
-			default: throw new RuntimeException(interval.name()); // TODO move into enum
-		}
+		interval.setToFrom(cal);
 		final Date until = cal.getTime();
 
 		{
