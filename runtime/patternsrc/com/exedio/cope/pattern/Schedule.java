@@ -43,7 +43,6 @@ import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.TransactionTry;
@@ -252,18 +251,12 @@ public final class Schedule extends Pattern
 		requireNonNull(ctx, "ctx");
 
 		final Type<P> type = getType().as(parentClass);
-		final Model model = type.getModel();
-		final String id = getID();
 		final Date now = new Date(Clock.currentTimeMillis()); // TODO per item
 
 		for(final P item : once(iterateTransactionally(type, enabled.equal(true), 1000)))
 		{
 			ctx.stopIfRequested(); // TODO stop between different runs
-			try(TransactionTry tx = model.startTransactionTry(id + " run " + item.getCopeID()))
-			{
-				runInternal(parentClass, now, item, ctx);
-				tx.commit();
-			}
+			runInternal(parentClass, now, item, ctx);
 		}
 	}
 
@@ -273,23 +266,33 @@ public final class Schedule extends Pattern
 			final P item,
 			final JobContext ctx)
 	{
-		if(!isEnabled(item))
+		final String id = getID();
+		final String itemID = item.getCopeID();
+		final Date lastUntil;
+		final Interval interval;
+		try(TransactionTry tx = getType().getModel().startTransactionTry(id + ' ' + itemID + " check"))
 		{
-			if(logger.isInfoEnabled())
-				logger.info(
-						"{} is not enabled anymore for {}, probably due to concurrent modification.",
-						item.getCopeID(), getID());
-			return;
+			if(!isEnabled(item))
+			{
+				if(logger.isInfoEnabled())
+					logger.info(
+							"{} is not enabled anymore for {}, probably due to concurrent modification.",
+							itemID, id);
+				tx.commit();
+				return;
+			}
+
+			lastUntil = new Query<>(
+					runs.until.max(),
+					runs.mount().parent.as(parentClass).equal(item)).
+					searchSingleton();
+			interval = this.interval.get(item);
+			tx.commit();
 		}
 
-		final Date lastUntil = new Query<>(
-				runs.until.max(),
-				runs.mount().parent.as(parentClass).equal(item)).
-				searchSingleton();
 
 		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
 		cal.setTime(now);
-		final Interval interval = this.interval.get(item);
 		interval.setToFrom(cal);
 
 		if(lastUntil==null)
@@ -297,7 +300,7 @@ public final class Schedule extends Pattern
 			final Date until = cal.getTime();
 			interval.add(cal, -1);
 			final Date from = cal.getTime();
-			runNow(item, interval, from, until, now, ctx);
+			runNow(item, interval, from, until, 0, now, ctx);
 		}
 		else
 		{
@@ -311,11 +314,11 @@ public final class Schedule extends Pattern
 
 			final Iterator<Date> i = dates.iterator();
 			Date from = i.next();
+			int count = 0;
 			while(i.hasNext())
 			{
 				final Date until = i.next();
-				// TODO separate transactions for different runs
-				runNow(item, interval, from, until, now, ctx);
+				runNow(item, interval, from, until, count++, now, ctx);
 				from = until;
 			}
 		}
@@ -325,13 +328,19 @@ public final class Schedule extends Pattern
 			final P item,
 			final Interval interval,
 			final Date from, final Date until,
+			final int count,
 			final Date now,
 			final JobContext ctx)
 	{
-		final long elapsedStart = nanoTime();
-		item.run(this, from, until, ctx);
-		final long elapsedEnd = nanoTime();
-		runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
+		try(TransactionTry tx = getType().getModel().startTransactionTry(
+				getID() + ' ' + item.getCopeID() + " run " + count))
+		{
+			final long elapsedStart = nanoTime();
+			item.run(this, from, until, ctx);
+			final long elapsedEnd = nanoTime();
+			runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
+			tx.commit();
+		}
 		ctx.incrementProgress();
 	}
 
