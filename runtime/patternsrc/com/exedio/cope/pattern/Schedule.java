@@ -78,6 +78,10 @@ public final class Schedule extends Pattern
 				cal.set(MINUTE, 0);
 				cal.set(HOUR_OF_DAY, 0);
 			}
+			@Override void add(final GregorianCalendar cal, final int amount)
+			{
+				cal.add(DAY_OF_WEEK, amount);
+			}
 		},
 		WEEKLY
 		{
@@ -85,6 +89,10 @@ public final class Schedule extends Pattern
 			{
 				DAILY.setToFrom(cal);
 				cal.set(DAY_OF_WEEK, MONDAY);
+			}
+			@Override void add(final GregorianCalendar cal, final int amount)
+			{
+				cal.add(WEEK_OF_MONTH, amount);
 			}
 		},
 		MONTHLY
@@ -94,9 +102,14 @@ public final class Schedule extends Pattern
 				DAILY.setToFrom(cal);
 				cal.set(DAY_OF_MONTH, 1);
 			}
+			@Override void add(final GregorianCalendar cal, final int amount)
+			{
+				cal.add(MONTH, amount);
+			}
 		};
 
 		abstract void setToFrom(GregorianCalendar cal);
+		abstract void add(GregorianCalendar cal, int amount);
 	}
 
 	private final TimeZone timeZone;
@@ -282,13 +295,7 @@ public final class Schedule extends Pattern
 				return;
 		}
 
-		switch(interval)
-		{
-			case DAILY:  cal.add(DAY_OF_WEEK  , -1); break;
-			case WEEKLY: cal.add(WEEK_OF_MONTH, -1); break;
-			case MONTHLY:cal.add(MONTH,         -1); break;
-			default: throw new RuntimeException(interval.name()); // TODO move into enum
-		}
+		interval.add(cal, -1);
 		final Date from = cal.getTime();
 		{
 			final long elapsedStart = nanoTime();
