@@ -282,15 +282,15 @@ public final class Schedule extends Pattern
 			return;
 		}
 
-		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
-		cal.setTime(now);
-		final Interval interval = this.interval.get(item);
-		interval.setToFrom(cal);
-
 		final Date lastUntil = new Query<>(
 				runs.until.max(),
 				runs.mount().parent.as(parentClass).equal(item)).
 				searchSingleton();
+
+		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
+		cal.setTime(now);
+		final Interval interval = this.interval.get(item);
+		interval.setToFrom(cal);
 
 		if(lastUntil==null)
 		{
