@@ -174,13 +174,20 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/17-00:00:00.000", "2008/03/18-00:00:00.000", "2008/03/18-00:00:00.000"));
 	}
 
-	public void testInterrupter1()
+	public void testInterrupter2()
 	{
-		run(1, "2008/03/11-00:00:00.000", 1);
+		run(1, "2008/03/11-00:00:00.000", 2);
 		assertLogs(
 				log("2008/03/10-00:00:00.000", "2008/03/11-00:00:00.000"));
 		assertRuns(
 				ern(DAILY, "2008/03/10-00:00:00.000", "2008/03/11-00:00:00.000", "2008/03/11-00:00:00.000"));
+	}
+
+	public void testInterrupter1()
+	{
+		run(0, "2008/03/11-00:00:00.000", 1);
+		assertLogs();
+		assertRuns();
 	}
 
 	public void testInterrupter0()
