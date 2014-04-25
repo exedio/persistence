@@ -288,7 +288,6 @@ public final class Schedule extends Pattern
 			tx.commit();
 		}
 
-
 		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
 		cal.setTime(now);
 		interval.setToFrom(cal);
