@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -513,16 +514,11 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				final Date until,
 				final Date run)
 		{
-			this.parent = parent;
-			this.interval = interval;
-			this.from = from;
-			this.until = until;
-			this.run = run;
-			assertNotNull(parent);
-			assertNotNull(interval);
-			assertNotNull(from);
-			assertNotNull(until);
-			assertNotNull(run);
+			this.parent = requireNonNull(parent);
+			this.interval = requireNonNull(interval);
+			this.from = requireNonNull(from);
+			this.until = requireNonNull(until);
+			this.run = requireNonNull(run);
 			assertTrue(from.before(until));
 			assertTrue(!run.before(until));
 		}
