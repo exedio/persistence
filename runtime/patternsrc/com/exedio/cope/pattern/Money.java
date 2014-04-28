@@ -138,7 +138,34 @@ public final class Money<C extends Money.Currency>
 	}
 
 
-	// computation
+	// identity
+
+	@Override
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof Money<?>))
+			return false;
+
+		final Money<?> o = (Money<?>)other;
+		return
+				amount  .equals(o.amount  ) &&
+				currency.equals(o.currency);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return amount.hashCode() ^ currency.hashCode() ^ 2764712;
+	}
+
+	@Override
+	public String toString()
+	{
+		return amount.toString() + currency.toString();
+	}
+
+
+	// comparison
 
 	public boolean equalsZero()
 	{
@@ -174,6 +201,9 @@ public final class Money<C extends Money.Currency>
 	{
 		return amount.greaterThan(unwrap(other));
 	}
+
+
+	// computation
 
 	public Money<C> negative()
 	{
@@ -214,32 +244,5 @@ public final class Money<C extends Money.Currency>
 	{
 		final C currency = total.currency;
 		return wrap(currency, Price.splitProportionately(total.getAmount(currency), unwrap(currency, weights)));
-	}
-
-
-	// identity
-
-	@Override
-	public boolean equals(final Object other)
-	{
-		if(!(other instanceof Money<?>))
-			return false;
-
-		final Money<?> o = (Money<?>)other;
-		return
-				amount  .equals(o.amount  ) &&
-				currency.equals(o.currency);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return amount.hashCode() ^ currency.hashCode() ^ 2764712;
-	}
-
-	@Override
-	public String toString()
-	{
-		return amount.toString() + currency.toString();
 	}
 }
