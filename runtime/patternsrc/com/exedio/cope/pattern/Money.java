@@ -163,6 +163,11 @@ public final class Money<C extends Money.Currency>
 		return new Money<>(Price.ZERO, currency);
 	}
 
+	public static <C extends Currency> Money<C> nullToZero(final Money<C> price, final C currency)
+	{
+		return price!=null ? price : zero(currency);
+	}
+
 
 	// comparison
 
