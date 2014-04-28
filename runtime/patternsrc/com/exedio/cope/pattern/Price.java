@@ -131,9 +131,9 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static final Price ZERO = new Price(0);
 
-	public static Price nullToZero(final Price price)
+	public static Price nullToZero(final Price value)
 	{
-		return price!=null ? price : ZERO;
+		return value!=null ? value : ZERO;
 	}
 
 
