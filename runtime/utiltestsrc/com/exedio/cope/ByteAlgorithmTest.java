@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
-import java.io.UnsupportedEncodingException;
 
 public class ByteAlgorithmTest extends CopeAssert
 {
@@ -70,8 +69,8 @@ public class ByteAlgorithmTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(UnsupportedEncodingException.class.getName()+": nixus", e.getMessage());
-			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
+			assertEquals("nixus", e.getMessage());
+			assertEquals(null, e.getCause());
 		}
 	}
 }

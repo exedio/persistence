@@ -21,42 +21,36 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.StringField;
+import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.pattern.Hash.Algorithm;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 final class AlgorithmAdapter implements HashAlgorithm
 {
 	static HashAlgorithm wrap(
 			final Hash.Algorithm algorithm,
-			final String encoding)
+			final Charset charset)
 	{
-		return (algorithm!=null) ? new AlgorithmAdapter(algorithm, encoding) : null;
+		return (algorithm!=null) ? new AlgorithmAdapter(algorithm, charset) : null;
 	}
 
 	private final Hash.Algorithm algorithm;
-	private final String encoding;
+	private final Charset charset;
 
 	private AlgorithmAdapter(
 			final Hash.Algorithm algorithm,
-			final String encoding)
+			final Charset charset)
 	{
 		this.algorithm = requireNonNull(algorithm, "algorithm");
-		this.encoding = requireNonNull(encoding, "encoding");
-		encode("test");
+		this.charset = requireNonNull(charset, "charset");
 	}
 
+	// TODO remove
 	private byte[] encode(final String s)
 	{
-		try
-		{
-			return s.getBytes(encoding);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
+		return s.getBytes(charset);
 	}
 
 	public String getID()
@@ -132,7 +126,16 @@ final class AlgorithmAdapter implements HashAlgorithm
 	{
 		return
 				(algorithm instanceof AlgorithmAdapter)
-				? ((AlgorithmAdapter)algorithm).encoding
+				? ((AlgorithmAdapter)algorithm).charset.name()
 				: "UNKNOWN";
+	}
+
+	// TODO remove
+	@Deprecated
+	static HashAlgorithm wrap(
+			final Hash.Algorithm algorithm,
+			final String encoding)
+	{
+		return (algorithm!=null) ? wrap(algorithm, EncodingToCharset.convert(encoding)) : null;
 	}
 }
