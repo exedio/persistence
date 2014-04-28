@@ -31,7 +31,6 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final int FACTOR_I = 100;
 
-	public static final Price ZERO = new Price(0);
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
 	public static final Price MAX_VALUE = new Price(Integer.MAX_VALUE);
 
@@ -53,11 +52,6 @@ public final class Price implements Serializable, Comparable<Price>
 		}
 
 		return new Price(store);
-	}
-
-	public static Price nullToZero(final Price price)
-	{
-		return price!=null ? price : ZERO;
 	}
 
 	public static Price storeOf(final Integer store)
@@ -130,6 +124,16 @@ public final class Price implements Serializable, Comparable<Price>
 		}
 
 		return bf.toString();
+	}
+
+
+	// zero
+
+	public static final Price ZERO = new Price(0);
+
+	public static Price nullToZero(final Price price)
+	{
+		return price!=null ? price : ZERO;
 	}
 
 
