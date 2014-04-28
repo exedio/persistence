@@ -34,13 +34,6 @@ public final class Price implements Serializable, Comparable<Price>
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
 	public static final Price MAX_VALUE = new Price(Integer.MAX_VALUE);
 
-	private final int store;
-
-	private Price(final int store)
-	{
-		this.store = store;
-	}
-
 	public static Price storeOf(final int store)
 	{
 		// TODO reuse common small values
@@ -57,6 +50,13 @@ public final class Price implements Serializable, Comparable<Price>
 	public static Price storeOf(final Integer store)
 	{
 		return store!=null ? storeOf(store.intValue()) : null;
+	}
+
+	private final int store;
+
+	private Price(final int store)
+	{
+		this.store = store;
 	}
 
 	public int store()
