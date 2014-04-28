@@ -23,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serializable;
 
 public final class Money<C extends Money.Currency>
-	implements Serializable // TODO currency Comparable
+	implements Serializable, Comparable<Money<C>>
 {
 	/**
 	 * Empty interface.
@@ -166,6 +166,11 @@ public final class Money<C extends Money.Currency>
 
 
 	// comparison
+
+	public int compareTo(final Money<C> other)
+	{
+		return amount.compareTo(unwrap(other));
+	}
 
 	public boolean equalsZero()
 	{
