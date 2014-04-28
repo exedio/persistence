@@ -27,8 +27,6 @@ import java.util.Arrays;
 // TODO cache of common small values
 public final class Price implements Serializable, Comparable<Price>
 {
-	private static final long serialVersionUID = 1l;
-
 	private static final int FACTOR_I = 100;
 
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
@@ -52,6 +50,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
 
+	private static final long serialVersionUID = 1l;
 	private final int store;
 
 	private Price(final int store)
