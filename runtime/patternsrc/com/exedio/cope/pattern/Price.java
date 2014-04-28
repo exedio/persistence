@@ -120,53 +120,8 @@ public final class Price implements Serializable, Comparable<Price>
 			return BigDecimal.valueOf(store, 2);
 	}
 
-	public Price add(final Price other)
-	{
-		// TODO shortcut for neutral element
 
-		if(
-			(store>0)
-			? (Integer.MAX_VALUE-store<other.store)
-			: (Integer.MIN_VALUE-store>other.store)
-			)
-		{
-			throw new ArithmeticException("overflow " + this + " plus " + other);
-		}
-
-		return storeOf(store + other.store);
-	}
-
-	public Price subtract(final Price other)
-	{
-		// TODO shortcut for neutral element
-		return storeOf(store - other.store);
-	}
-
-	public Price negative()
-	{
-		if(store==Integer.MIN_VALUE)
-			throw new ArithmeticException("no negative for " + this);
-
-		return storeOf(-store);
-	}
-
-	public Price multiply(final int other)
-	{
-		// TODO shortcut for neutral element
-		return storeOf(store * other);
-	}
-
-	public Price multiply(final double other)
-	{
-		// TODO shortcut for neutral element
-		return valueOf(doubleValue() * other);
-	}
-
-	public Price divide(final double other)
-	{
-		// TODO shortcut for neutral element
-		return valueOf(doubleValue() / other);
-	}
+	// identity
 
 	@Override
 	public boolean equals(final Object other)
@@ -182,6 +137,53 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return store ^ 827345123;
 	}
+
+	/**
+	 * Returns a string representation of this price.
+	 *	The result has trailing zeros, such as "1.20" or "1.00".
+	 * If you don't want trailing zeros, use {@link #toStringShort()} instead.
+	 */
+	@Override
+	public String toString()
+	{
+		final int minor = Math.abs(store%FACTOR_I);
+		return
+			((store<0 && store>(-FACTOR_I)) ? "-" : "") +
+			String.valueOf(store/FACTOR_I) + '.' +
+			(minor<10?"0":"") +
+			minor;
+	}
+
+	/**
+	 * Returns a string representation of this price without trailing zeros.
+	 * If you want trailing zeros, use {@link #toString()} instead.
+	 */
+	public String toStringShort()
+	{
+		final StringBuilder bf = new StringBuilder();
+		if((store<0 && store>(-FACTOR_I)))
+			bf.append('-');
+		bf.append(store/FACTOR_I);
+		final int minor = Math.abs(store%FACTOR_I);
+		if(minor!=0)
+		{
+			bf.append('.');
+			final int x = minor % 10;
+			if(x==0)
+				bf.append(minor/10);
+			else
+			{
+				if(minor<=10)
+					bf.append('0');
+				bf.append(minor);
+			}
+		}
+
+		return bf.toString();
+	}
+
+
+	// comparison
 
 	public int compareTo(final Price o)
 	{
@@ -259,6 +261,57 @@ public final class Price implements Serializable, Comparable<Price>
 		}
 	}
 
+
+	// computation
+
+	public Price negative()
+	{
+		if(store==Integer.MIN_VALUE)
+			throw new ArithmeticException("no negative for " + this);
+
+		return storeOf(-store);
+	}
+
+	public Price add(final Price other)
+	{
+		// TODO shortcut for neutral element
+
+		if(
+			(store>0)
+			? (Integer.MAX_VALUE-store<other.store)
+			: (Integer.MIN_VALUE-store>other.store)
+			)
+		{
+			throw new ArithmeticException("overflow " + this + " plus " + other);
+		}
+
+		return storeOf(store + other.store);
+	}
+
+	public Price subtract(final Price other)
+	{
+		// TODO shortcut for neutral element
+		return storeOf(store - other.store);
+	}
+
+	public Price multiply(final int other)
+	{
+		// TODO shortcut for neutral element
+		return storeOf(store * other);
+	}
+
+	public Price multiply(final double other)
+	{
+		// TODO shortcut for neutral element
+		return valueOf(doubleValue() * other);
+	}
+
+	public Price divide(final double other)
+	{
+		// TODO shortcut for neutral element
+		return valueOf(doubleValue() / other);
+	}
+
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
@@ -291,50 +344,6 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		if(rate<0)
 			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
-	}
-
-	/**
-	 * Returns a string representation of this price.
-	 *	The result has trailing zeros, such as "1.20" or "1.00".
-	 * If you don't want trailing zeros, use {@link #toStringShort()} instead.
-	 */
-	@Override
-	public String toString()
-	{
-		final int minor = Math.abs(store%FACTOR_I);
-		return
-			((store<0 && store>(-FACTOR_I)) ? "-" : "") +
-			String.valueOf(store/FACTOR_I) + '.' +
-			(minor<10?"0":"") +
-			minor;
-	}
-
-	/**
-	 * Returns a string representation of this price without trailing zeros.
-	 * If you want trailing zeros, use {@link #toString()} instead.
-	 */
-	public String toStringShort()
-	{
-		final StringBuilder bf = new StringBuilder();
-		if((store<0 && store>(-FACTOR_I)))
-			bf.append('-');
-		bf.append(store/FACTOR_I);
-		final int minor = Math.abs(store%FACTOR_I);
-		if(minor!=0)
-		{
-			bf.append('.');
-			final int x = minor % 10;
-			if(x==0)
-				bf.append(minor/10);
-			else
-			{
-				if(minor<=10)
-					bf.append('0');
-				bf.append(minor);
-			}
-		}
-
-		return bf.toString();
 	}
 
 	/**
