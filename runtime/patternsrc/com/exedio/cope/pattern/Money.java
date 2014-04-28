@@ -250,6 +250,11 @@ public final class Money<C extends Money.Currency>
 		return wrap( amount.multiply(other) );
 	}
 
+	public Money<C> divide(final double other)
+	{
+		return wrap( amount.divide(other) );
+	}
+
 	public Money<C> grossToNetPercent(final int rate)
 	{
 		return wrap( amount.grossToNetPercent(rate) );
