@@ -44,7 +44,7 @@ final class Main
 		{
 			InstrumentContext.enter();
 
-			final Charset charset = Charset.forName(params.encoding);
+			final Charset charset = params.charset;
 			final JavaRepository repository = new JavaRepository();
 			final ArrayList<Parser> parsers = new ArrayList<>(files.size());
 

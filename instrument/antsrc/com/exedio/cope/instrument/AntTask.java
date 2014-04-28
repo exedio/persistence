@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
 import org.apache.tools.ant.BuildException;
@@ -49,9 +50,18 @@ public final class AntTask extends Task
 		params.verify = value;
 	}
 
+	public void setCharset(final String value)
+	{
+		params.charset = Charset.forName(value);
+	}
+
+	@Deprecated
 	public void setEncoding(final String value)
 	{
-		params.encoding = value;
+		System.out.println(
+				"<instrument ... uses deprecated attribute encoding=\"" + value + "\", " +
+				"use charset=\"" + value + "\" instead.");
+		setCharset(value);
 	}
 
 	public void setLongJavadoc(final boolean value)

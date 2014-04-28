@@ -18,10 +18,12 @@
 
 package com.exedio.cope.instrument;
 
+import java.nio.charset.Charset;
+
 final class Params
 {
 	boolean verify = false;
-	String encoding = "ascii";
+	Charset charset = Charset.forName("US-ASCII");
 	boolean longJavadoc = true;
 	boolean finalArgs = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
