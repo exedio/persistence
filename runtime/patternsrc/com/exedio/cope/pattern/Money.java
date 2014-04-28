@@ -280,9 +280,18 @@ public final class Money<C extends Money.Currency>
 		return valueOf(Price.valueOf(amount), currency);
 	}
 
-	public double doubleValue(final Currency currency)
+	public double doubleAmount(final Currency currency)
 	{
 		return getAmount(currency).doubleValue();
+	}
+
+	/**
+	 * @deprecated Use {@link #doubleAmount(Currency)} instead
+	 */
+	@Deprecated
+	public double doubleValue(final Currency currency)
+	{
+		return doubleAmount(currency);
 	}
 
 
@@ -299,7 +308,7 @@ public final class Money<C extends Money.Currency>
 	}
 
 	/**
-	 * @deprecated Use {@link #bigAmount(Currency)} instead.
+	 * @deprecated Use {@link #bigAmount(Currency)} instead
 	 */
 	@Deprecated
 	public BigDecimal bigValue(final C currency)
