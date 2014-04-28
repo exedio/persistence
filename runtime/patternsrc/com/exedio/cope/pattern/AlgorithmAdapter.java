@@ -47,12 +47,6 @@ final class AlgorithmAdapter implements HashAlgorithm
 		this.charset = requireNonNull(charset, "charset");
 	}
 
-	// TODO remove
-	private byte[] encode(final String s)
-	{
-		return s.getBytes(charset);
-	}
-
 	public String getID()
 	{
 		return algorithm.name();
@@ -72,12 +66,12 @@ final class AlgorithmAdapter implements HashAlgorithm
 
 	public String hash(final String plainText)
 	{
-		return Hex.encodeLower(algorithm.hash(encode(plainText)));
+		return Hex.encodeLower(algorithm.hash(plainText.getBytes(charset)));
 	}
 
 	public boolean check(final String plainText, final String hash)
 	{
-		return algorithm.check(encode(plainText), Hex.decodeLower(hash));
+		return algorithm.check(plainText.getBytes(charset), Hex.decodeLower(hash));
 	}
 
 
