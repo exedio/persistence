@@ -164,6 +164,11 @@ public final class Money<C extends Money.Currency>
 		return amount.toString() + currency.toString();
 	}
 
+	public String toStringShort()
+	{
+		return amount.toStringShort() + currency.toString();
+	}
+
 
 	// comparison
 
