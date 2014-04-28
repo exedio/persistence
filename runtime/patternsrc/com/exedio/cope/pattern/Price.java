@@ -37,7 +37,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	final int store;
 
-	Price(final int store)
+	private Price(final int store)
 	{
 		this.store = store;
 	}

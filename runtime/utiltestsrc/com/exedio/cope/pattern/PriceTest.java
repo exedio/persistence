@@ -35,8 +35,8 @@ public final class PriceTest extends CopeAssert
 
 	public static void testIt()
 	{
-		assertEquals(5, new Price(5).store());
-		assertEquals(0, new Price(0).store());
+		assertEquals(5, storeOf(5).store());
+		assertEquals(0, storeOf(0).store());
 	}
 
 	public static void testZero()
