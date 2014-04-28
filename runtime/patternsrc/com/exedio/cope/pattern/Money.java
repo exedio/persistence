@@ -165,6 +165,9 @@ public final class Money<C extends Money.Currency>
 
 	public static <C extends Currency> Money<C> nullToZero(final Money<C> value, final C currency)
 	{
+		if(value!=null)
+			value.check(currency);
+
 		return value!=null ? value : zero(currency);
 	}
 
