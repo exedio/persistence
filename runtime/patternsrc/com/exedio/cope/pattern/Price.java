@@ -29,7 +29,7 @@ public final class Price implements Serializable, Comparable<Price>
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final int    FACTOR_I = 100;
+	private static final int FACTOR_I = 100;
 
 	public static final Price ZERO = new Price(0);
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
