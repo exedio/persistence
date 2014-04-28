@@ -48,11 +48,6 @@ public final class Money<C extends Money.Currency>
 		return valueOf(Price.storeOf(amountStore), currency);
 	}
 
-	public static <C extends Currency> Money<C> zero(final C currency)
-	{
-		return new Money<>(Price.ZERO, currency);
-	}
-
 
 	private static final long serialVersionUID = 1l;
 
@@ -158,6 +153,14 @@ public final class Money<C extends Money.Currency>
 	public String toStringShort()
 	{
 		return amount.toStringShort() + currency.toString();
+	}
+
+
+	// zero
+
+	public static <C extends Currency> Money<C> zero(final C currency)
+	{
+		return new Money<>(Price.ZERO, currency);
 	}
 
 
