@@ -33,6 +33,15 @@ public final class MoneyTest extends CopeAssert
 		eur, usd;
 	}
 
+
+	public static void testStoreOfInteger()
+	{
+		assertEquals( 5, storeOf(Integer.valueOf( 5), eur).amountStore(eur));
+		assertEquals(-5, storeOf(Integer.valueOf(-5), eur).amountStore(eur));
+		assertEquals( 0, storeOf(Integer.valueOf( 0), eur).amountStore(eur));
+		assertEquals(null, storeOf((Integer)null, eur));
+	}
+
 	public static void testNullToZero()
 	{
 		final Money<Cy> x = storeOf(1, eur);

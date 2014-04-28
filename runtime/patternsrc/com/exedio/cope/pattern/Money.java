@@ -43,6 +43,11 @@ public final class Money<C extends Money.Currency>
 		return valueOf(Price.storeOf(amountStore), currency);
 	}
 
+	public static <C extends Currency> Money<C> storeOf(final Integer amountStore, final C currency)
+	{
+		return amountStore!=null ? storeOf(amountStore.intValue(), currency) : null;
+	}
+
 
 	private static final long serialVersionUID = 1l;
 	private final Price amount;
