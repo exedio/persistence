@@ -345,9 +345,9 @@ public final class Price implements Serializable, Comparable<Price>
 			throw new IllegalArgumentException("NaN not allowed");
 		if(Double.isInfinite(value))
 			throw new IllegalArgumentException("Infinity not allowed");
-		if(value<MIN_VALUE_D)
+		if(value<DOUBLE_MIN_VALUE)
 			throw new IllegalArgumentException("too small: " + value);
-		if(value>MAX_VALUE_D)
+		if(value>DOUBLE_MAX_VALUE)
 			throw new IllegalArgumentException("too big: " + value);
 
 		return storeOf((int)Math.rint(100d * value));
@@ -355,12 +355,12 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public double doubleValue()
 	{
-		return store / FACTOR_D;
+		return store / DOUBLE_FACTOR;
 	}
 
-	private static final double FACTOR_D = 100d;
-	private static final double MIN_VALUE_D = Integer.MIN_VALUE/FACTOR_D;
-	private static final double MAX_VALUE_D = Integer.MAX_VALUE/FACTOR_D;
+	private static final double DOUBLE_FACTOR = 100d;
+	private static final double DOUBLE_MIN_VALUE = Integer.MIN_VALUE/DOUBLE_FACTOR;
+	private static final double DOUBLE_MAX_VALUE = Integer.MAX_VALUE/DOUBLE_FACTOR;
 
 
 	// conversion BigDecimal
@@ -368,9 +368,9 @@ public final class Price implements Serializable, Comparable<Price>
 	public static Price valueOf(final BigDecimal value)
 	{
 		// TODO reuse common small values
-		if(value.compareTo(MIN_VALUE_B)<0)
+		if(value.compareTo(BIG_MIN_VALUE)<0)
 			throw new IllegalArgumentException("too small: " + value);
-		if(value.compareTo(MAX_VALUE_B)>0)
+		if(value.compareTo(BIG_MAX_VALUE)>0)
 			throw new IllegalArgumentException("too big: " + value);
 
 		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
@@ -390,6 +390,6 @@ public final class Price implements Serializable, Comparable<Price>
 			return BigDecimal.valueOf(store, 2);
 	}
 
-	private static final BigDecimal MIN_VALUE_B = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
-	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
+	private static final BigDecimal BIG_MIN_VALUE = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
+	private static final BigDecimal BIG_MAX_VALUE = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
 }
