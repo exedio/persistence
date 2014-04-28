@@ -56,6 +56,15 @@ public class ByteAlgorithmTest extends CopeAssert
 
 		try
 		{
+			new Hash(a, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("encoding", e.getMessage());
+		}
+		try
+		{
 			new Hash(a, "nixus");
 			fail();
 		}
