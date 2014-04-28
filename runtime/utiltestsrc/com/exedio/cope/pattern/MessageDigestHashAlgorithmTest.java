@@ -19,16 +19,19 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
-import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.CharsetName;
 import com.exedio.cope.util.Hex;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class MessageDigestHashAlgorithmTest extends CopeAssert
 {
+	private static final Charset UTF8 = Charset.forName(CharsetName.UTF8);
+
 	public void testIt()
 	{
 		try

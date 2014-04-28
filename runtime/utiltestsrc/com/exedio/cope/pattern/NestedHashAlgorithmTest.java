@@ -18,16 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.util.CharsetName;
+import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import junit.framework.TestCase;
 
 public class NestedHashAlgorithmTest extends TestCase
 {
+	private static final Charset utf8 = Charset.forName(CharsetName.UTF8);
+
 	public void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
-				MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100),
-				MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200));
+				MessageDigestHashAlgorithm.create(utf8, "MD5",     0, (SecureRandom)null, 100),
+				MessageDigestHashAlgorithm.create(utf8, "SHA-512", 8, new SecureRandom(), 200));
 
 		assertEquals("MD5i100-SHA512s8i200", a.getID());
 		assertEquals("MD5i100-SHA512s8i200", a.getDescription());
@@ -39,13 +43,13 @@ public class NestedHashAlgorithmTest extends TestCase
 
 	public void testMigration()
 	{
-		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100);
+		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(utf8, "MD5",     0, (SecureRandom)null, 100);
 
 		final String legacyHash = legacy.hash("1234");
 		assertEquals(true,  legacy.check("1234", legacyHash));
 		assertEquals(false, legacy.check("12345", legacyHash));
 
-		final HashAlgorithm neu = MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200);
+		final HashAlgorithm neu = MessageDigestHashAlgorithm.create(utf8, "SHA-512", 8, new SecureRandom(), 200);
 		final String newHash = neu.hash(legacyHash);
 		final HashAlgorithm a = NestedHashAlgorithm.create(legacy, neu);
 		assertEquals(true,  a.check("1234", newHash));
@@ -57,8 +61,8 @@ public class NestedHashAlgorithmTest extends TestCase
 		try
 		{
 			NestedHashAlgorithm.create(
-					MessageDigestHashAlgorithm.create("utf8", "SHA-512", 8, new SecureRandom(), 200),
-					MessageDigestHashAlgorithm.create("utf8", "MD5",     0, (SecureRandom)null, 100));
+					MessageDigestHashAlgorithm.create(utf8, "SHA-512", 8, new SecureRandom(), 200),
+					MessageDigestHashAlgorithm.create(utf8, "MD5",     0, (SecureRandom)null, 100));
 		}
 		catch(final IllegalArgumentException e)
 		{
