@@ -36,10 +36,12 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Set;
 
@@ -56,24 +58,24 @@ public class Hash extends Pattern implements HashInterface
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PlainTextValidator validator;
 
-	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	public Hash(final StringField storage, final Algorithm algorithm, final Charset charset)
 	{
-		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, charset), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, UTF8), DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, Charset.forName(UTF8)), DEFAULT_VALIDATOR);
 	}
 
-	public Hash(final Algorithm algorithm, final String encoding)
+	public Hash(final Algorithm algorithm, final Charset charset)
 	{
-		this(newStorage(wrap(algorithm, encoding)), DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, encoding), DEFAULT_VALIDATOR);
+		this(newStorage(wrap(algorithm, charset)), DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, charset), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm)
 	{
-		this(newStorage(wrap(algorithm, UTF8)), algorithm);
+		this(newStorage(wrap(algorithm, Charset.forName(UTF8))), algorithm);
 	}
 
 	public Hash(final HashAlgorithm algorithm)
@@ -486,6 +488,24 @@ public class Hash extends Pattern implements HashInterface
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link Hash#Hash(StringField, Algorithm, Charset)} instead
+	 */
+	@Deprecated
+	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
+	{
+		this(storage, algorithm, EncodingToCharset.convert(encoding));
+	}
+
+	/**
+	 * @deprecated Use {@link Hash#Hash(Algorithm, Charset)} instead
+	 */
+	@Deprecated
+	public Hash(final Algorithm algorithm, final String encoding)
+	{
+		this(algorithm, EncodingToCharset.convert(encoding));
+	}
 
 	/**
 	 * @deprecated Use {@link #getAlgorithmID()} instead

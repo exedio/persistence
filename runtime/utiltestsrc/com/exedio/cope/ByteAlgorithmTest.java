@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
+import java.nio.charset.Charset;
 
 public class ByteAlgorithmTest extends CopeAssert
 {
@@ -55,7 +56,16 @@ public class ByteAlgorithmTest extends CopeAssert
 
 		try
 		{
-			new Hash(a, null);
+			new Hash(a, (Charset)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("charset", e.getMessage());
+		}
+		try
+		{
+			new Hash(a, (String)null);
 			fail();
 		}
 		catch(final NullPointerException e)

@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.pattern.Hash.Algorithm;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -122,14 +121,5 @@ final class AlgorithmAdapter implements HashAlgorithm
 				(algorithm instanceof AlgorithmAdapter)
 				? ((AlgorithmAdapter)algorithm).charset.name()
 				: "UNKNOWN";
-	}
-
-	// TODO remove
-	@Deprecated
-	static HashAlgorithm wrap(
-			final Hash.Algorithm algorithm,
-			final String encoding)
-	{
-		return (algorithm!=null) ? wrap(algorithm, EncodingToCharset.convert(encoding)) : null;
 	}
 }
