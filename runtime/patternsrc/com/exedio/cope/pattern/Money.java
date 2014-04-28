@@ -43,11 +43,6 @@ public final class Money<C extends Money.Currency>
 		return new Money<>(amount, currency);
 	}
 
-	public static <C extends Currency> Money<C> valueOf(final double amount, final C currency)
-	{
-		return valueOf(Price.valueOf(amount), currency);
-	}
-
 	public static <C extends Currency> Money<C> storeOf(final int amountStore, final C currency)
 	{
 		return valueOf(Price.storeOf(amountStore), currency);
@@ -75,11 +70,6 @@ public final class Money<C extends Money.Currency>
 	{
 		check(currency);
 		return amount;
-	}
-
-	public double doubleValue(final Currency currency)
-	{
-		return getAmount(currency).doubleValue();
 	}
 
 	/**
@@ -280,6 +270,19 @@ public final class Money<C extends Money.Currency>
 	{
 		final C currency = total.currency;
 		return wrap(currency, Price.splitProportionately(total.getAmount(currency), unwrap(currency, weights)));
+	}
+
+
+	// conversion double
+
+	public static <C extends Currency> Money<C> valueOf(final double amount, final C currency)
+	{
+		return valueOf(Price.valueOf(amount), currency);
+	}
+
+	public double doubleValue(final Currency currency)
+	{
+		return getAmount(currency).doubleValue();
 	}
 
 
