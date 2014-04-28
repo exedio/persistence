@@ -76,17 +76,17 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	public PriceField defaultTo(final Price defaultConstant)
 	{
-		return new PriceField(integer.defaultTo(defaultConstant.store));
+		return new PriceField(integer.defaultTo(defaultConstant.store()));
 	}
 
 	public PriceField range(final Price minimum, final Price maximum)
 	{
-		return new PriceField(integer.range(minimum.store, maximum.store));
+		return new PriceField(integer.range(minimum.store(), maximum.store()));
 	}
 
 	public PriceField min(final Price minimum)
 	{
-		return new PriceField(integer.min(minimum.store));
+		return new PriceField(integer.min(minimum.store()));
 	}
 
 	public PriceField minZero()
@@ -96,7 +96,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	public PriceField max(final Price maximum)
 	{
-		return new PriceField(integer.max(maximum.store));
+		return new PriceField(integer.max(maximum.store()));
 	}
 
 	public IntegerField getInt()
@@ -165,7 +165,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 
-		integer.set(item, value!=null ? value.store : null);
+		integer.set(item, value!=null ? value.store() : null);
 	}
 
 	public SetValue<Price> map(final Price value)
@@ -178,7 +178,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue<?>[]{ integer.map(value!=null ? value.store : null) };
+		return new SetValue<?>[]{ integer.map(value!=null ? value.store() : null) };
 	}
 
 	// convenience methods for conditions and views ---------------------------------

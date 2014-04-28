@@ -35,7 +35,7 @@ public final class Price implements Serializable, Comparable<Price>
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
 	public static final Price MAX_VALUE = new Price(Integer.MAX_VALUE);
 
-	final int store;
+	private final int store;
 
 	private Price(final int store)
 	{
