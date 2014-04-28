@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public final class Money<C extends Money.Currency>
 	implements Serializable, Comparable<Money<C>>
@@ -279,5 +280,27 @@ public final class Money<C extends Money.Currency>
 	{
 		final C currency = total.currency;
 		return wrap(currency, Price.splitProportionately(total.getAmount(currency), unwrap(currency, weights)));
+	}
+
+
+	// conversion BigDecimal
+
+	public static <C extends Currency> Money<C> valueOf(final BigDecimal value, final C currency)
+	{
+		return valueOf(Price.valueOf(value), currency);
+	}
+
+	public BigDecimal bigAmount(final C currency)
+	{
+		return getAmount(currency).bigValue();
+	}
+
+	/**
+	 * @deprecated Use {@link #bigAmount(Currency)} instead.
+	 */
+	@Deprecated
+	public BigDecimal bigValue(final C currency)
+	{
+		return bigAmount(currency);
 	}
 }
