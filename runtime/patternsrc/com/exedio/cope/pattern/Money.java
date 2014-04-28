@@ -321,13 +321,13 @@ public final class Money<C extends Money.Currency>
 
 	// conversion Price
 
-	// TODO currency deprecate
+	// TODO deprecate
 	public static <C extends Currency> Money<C> valueOf(final Price amount, final C currency)
 	{
 		return new Money<>(amount, currency);
 	}
 
-	// TODO currency deprecate
+	// TODO deprecate
 	public Price getAmount(final Currency currency)
 	{
 		check(currency);
@@ -336,10 +336,16 @@ public final class Money<C extends Money.Currency>
 
 	/**
 	 * <b>BEWARE</b>:
-	 * You might rather want to use {@link #getAmount(Currency)}.
+	 * Use {@link #getAmount(Currency)} instead
 	 */
-	// TODO currency deprecate
+	@Deprecated
 	public Price getAmount()
+	{
+		return amount;
+	}
+
+	// TODO remove
+	Price amountWithoutCurrency()
 	{
 		return amount;
 	}

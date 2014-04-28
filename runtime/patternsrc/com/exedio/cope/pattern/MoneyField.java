@@ -163,12 +163,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 					if(!value.getCurrency().equals(expectedCurrency))
 						throw new IllegalCurrencyException(this, item, value, expectedCurrency);
 				}
-				amount.set(item, value.getAmount());
+				amount.set(item, value.amountWithoutCurrency());
 			}
 			else
 			{
 				item.set(
-						amount.map(value.getAmount()),
+						amount.map(value.amountWithoutCurrency()),
 						currency.getField().map(value.getCurrency()));
 			}
 		}
@@ -203,7 +203,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 					throw new IllegalCurrencyException(this, exceptionItem, value, expectedCurrency);
 
 				return new SetValue<?>[]{
-					amountExecute( value.getAmount(), exceptionItem )
+					amountExecute( value.amountWithoutCurrency(), exceptionItem )
 				};
 			}
 			else
@@ -216,7 +216,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		else
 		{
 			return new SetValue<?>[]{
-				amountExecute( value!=null ? value.getAmount() : null, exceptionItem ),
+				amountExecute( value!=null ? value.amountWithoutCurrency() : null, exceptionItem ),
 				currency.getField().map( value!=null ? value.getCurrency() : null )
 			};
 		}
