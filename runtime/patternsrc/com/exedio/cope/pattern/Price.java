@@ -185,9 +185,9 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// comparison
 
-	public int compareTo(final Price o)
+	public int compareTo(final Price other)
 	{
-		return Compare.compare(store, o.store);
+		return Compare.compare(store, other.store);
 	}
 
 	public boolean equalsZero()
@@ -215,36 +215,36 @@ public final class Price implements Serializable, Comparable<Price>
 		return store>=0;
 	}
 
-	public boolean lessThan(final Price o)
+	public boolean lessThan(final Price other)
 	{
-		return store<o.store;
+		return store<other.store;
 	}
 
-	public boolean greaterThan(final Price o)
+	public boolean greaterThan(final Price other)
 	{
-		return store>o.store;
+		return store>other.store;
 	}
 
-	public boolean lessThanOrEqual(final Price o)
+	public boolean lessThanOrEqual(final Price other)
 	{
-		return store<=o.store;
+		return store<=other.store;
 	}
 
-	public boolean greaterThanOrEqual(final Price o)
+	public boolean greaterThanOrEqual(final Price other)
 	{
-		return store>=o.store;
+		return store>=other.store;
 	}
 
 	/** @return this if this price is lower than the other one; otherwise the other one */
-	public Price getLower(final Price o)
+	public Price getLower(final Price other)
 	{
-		return lessThan(o) ? this : o;
+		return lessThan(other) ? this : other;
 	}
 
 	/** @return this if this price is greater than the other one; otherwise the other one */
-	public Price getGreater(final Price o)
+	public Price getGreater(final Price other)
 	{
-		return greaterThan(o) ? this : o;
+		return greaterThan(other) ? this : other;
 	}
 
 

@@ -192,34 +192,34 @@ public final class Money<C extends Money.Currency>
 		return amount.greaterThanOrEqualZero();
 	}
 
-	public boolean lessThan(final Money<C> o)
+	public boolean lessThan(final Money<C> other)
 	{
-		return amount.lessThan(unwrap(o));
+		return amount.lessThan(unwrap(other));
 	}
 
-	public boolean greaterThan(final Money<C> o)
+	public boolean greaterThan(final Money<C> other)
 	{
-		return amount.greaterThan(unwrap(o));
+		return amount.greaterThan(unwrap(other));
 	}
 
-	public boolean lessThanOrEqual(final Money<C> o)
+	public boolean lessThanOrEqual(final Money<C> other)
 	{
-		return amount.lessThanOrEqual(unwrap(o));
+		return amount.lessThanOrEqual(unwrap(other));
 	}
 
-	public boolean greaterThanOrEqual(final Money<C> o)
+	public boolean greaterThanOrEqual(final Money<C> other)
 	{
-		return amount.greaterThanOrEqual(unwrap(o));
+		return amount.greaterThanOrEqual(unwrap(other));
 	}
 
-	public Money<C> getLower(final Money<C> o)
+	public Money<C> getLower(final Money<C> other)
 	{
-		return wrap( amount.getLower(unwrap(o)) );
+		return wrap( amount.getLower(unwrap(other)) );
 	}
 
-	public Money<C> getGreater(final Money<C> o)
+	public Money<C> getGreater(final Money<C> other)
 	{
-		return wrap( amount.getGreater(unwrap(o)) );
+		return wrap( amount.getGreater(unwrap(other)) );
 	}
 
 
