@@ -90,30 +90,6 @@ public final class Money<C extends Money.Currency>
 			throw new IllegalArgumentException("currency mismatch " + this + '/' + currency);
 	}
 
-	private static <C extends Money.Currency> Price[] unwrap(final C currency, final Money<C>[] value)
-	{
-		final Price[] result = new Price[value.length];
-		for(int i = 0; i<value.length; i++)
-			result[i] = value[i].getAmount(currency);
-		return result;
-	}
-
-	private static <C extends Money.Currency> Money<C>[] wrap(final C currency, final Price[] value)
-	{
-		@SuppressWarnings({"unchecked","rawtypes"})
-		final Money<C>[] result = new Money[value.length];
-		for(int i = 0; i<result.length; i++)
-			result[i] = valueOf(value[i], currency);
-		return result;
-	}
-
-	public static final <CURRENCY extends Money.Currency> Money<CURRENCY>[] array(final int size)
-	{
-		@SuppressWarnings({"unchecked","rawtypes"})
-		final Money<CURRENCY>[] result = new Money[size];
-		return result;
-	}
-
 
 	// identity
 
@@ -272,6 +248,30 @@ public final class Money<C extends Money.Currency>
 	{
 		final C currency = total.currency;
 		return wrap(currency, Price.splitProportionately(total.getAmount(currency), unwrap(currency, weights)));
+	}
+
+	private static <C extends Money.Currency> Price[] unwrap(final C currency, final Money<C>[] value)
+	{
+		final Price[] result = new Price[value.length];
+		for(int i = 0; i<value.length; i++)
+			result[i] = value[i].getAmount(currency);
+		return result;
+	}
+
+	private static <C extends Money.Currency> Money<C>[] wrap(final C currency, final Price[] value)
+	{
+		@SuppressWarnings({"unchecked","rawtypes"})
+		final Money<C>[] result = new Money[value.length];
+		for(int i = 0; i<result.length; i++)
+			result[i] = valueOf(value[i], currency);
+		return result;
+	}
+
+	public static final <CURRENCY extends Money.Currency> Money<CURRENCY>[] array(final int size)
+	{
+		@SuppressWarnings({"unchecked","rawtypes"})
+		final Money<CURRENCY>[] result = new Money[size];
+		return result;
 	}
 
 
