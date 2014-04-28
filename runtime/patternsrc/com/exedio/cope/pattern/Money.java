@@ -37,12 +37,6 @@ public final class Money<C extends Money.Currency>
 		// empty
 	}
 
-	// TODO currency deprecate
-	public static <C extends Currency> Money<C> valueOf(final Price amount, final C currency)
-	{
-		return new Money<>(amount, currency);
-	}
-
 	public static <C extends Currency> Money<C> storeOf(final int amountStore, final C currency)
 	{
 		return valueOf(Price.storeOf(amountStore), currency);
@@ -58,23 +52,6 @@ public final class Money<C extends Money.Currency>
 	{
 		this.amount = requireNonNull(amount, "amount");
 		this.currency = requireNonNull(currency, "currency");
-	}
-
-	// TODO currency deprecate
-	public Price getAmount(final Currency currency)
-	{
-		check(currency);
-		return amount;
-	}
-
-	/**
-	 * <b>BEWARE</b>:
-	 * You might rather want to use {@link #getAmount(Currency)}.
-	 */
-	// TODO currency deprecate
-	public Price getAmount()
-	{
-		return amount;
 	}
 
 	public C getCurrency()
@@ -325,5 +302,31 @@ public final class Money<C extends Money.Currency>
 	public BigDecimal bigValue(final C currency)
 	{
 		return bigAmount(currency);
+	}
+
+
+	// conversion Price
+
+	// TODO currency deprecate
+	public static <C extends Currency> Money<C> valueOf(final Price amount, final C currency)
+	{
+		return new Money<>(amount, currency);
+	}
+
+	// TODO currency deprecate
+	public Price getAmount(final Currency currency)
+	{
+		check(currency);
+		return amount;
+	}
+
+	/**
+	 * <b>BEWARE</b>:
+	 * You might rather want to use {@link #getAmount(Currency)}.
+	 */
+	// TODO currency deprecate
+	public Price getAmount()
+	{
+		return amount;
 	}
 }
