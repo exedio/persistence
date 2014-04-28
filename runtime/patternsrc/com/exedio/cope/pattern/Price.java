@@ -238,27 +238,13 @@ public final class Price implements Serializable, Comparable<Price>
 	/** @return this if this price is lower than the other one; otherwise the other one */
 	public Price getLower(final Price o)
 	{
-		if ( lessThan(o) )
-		{
-			return this;
-		}
-		else
-		{
-			return o;
-		}
+		return lessThan(o) ? this : o;
 	}
 
 	/** @return this if this price is greater than the other one; otherwise the other one */
 	public Price getGreater(final Price o)
 	{
-		if ( greaterThan(o) )
-		{
-			return this;
-		}
-		else
-		{
-			return o;
-		}
+		return greaterThan(o) ? this : o;
 	}
 
 
