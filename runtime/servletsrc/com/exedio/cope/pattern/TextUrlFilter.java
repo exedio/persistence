@@ -31,12 +31,13 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.EncodingToCharset;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -52,7 +53,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private final Media raw;
 	private final String supportedContentType;
-	private final String encoding;
+	private final Charset charset;
 	private final String pasteStart;
 	private final String pasteStop;
 
@@ -66,7 +67,7 @@ public class TextUrlFilter extends MediaFilter
 	public TextUrlFilter(
 			final Media raw,
 			final String supportedContentType,
-			final String encoding,
+			final Charset charset,
 			final String pasteStart,
 			final String pasteStop,
 			final StringField pasteKey,
@@ -77,16 +78,8 @@ public class TextUrlFilter extends MediaFilter
 		if(supportedContentType==null)
 			throw new NullPointerException("supportedContentType");
 
-		if(encoding==null)
-			throw new NullPointerException("encoding");
-		try
-		{
-			"zack".getBytes(encoding);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new IllegalArgumentException(e);
-		}
+		if(charset==null)
+			throw new NullPointerException("charset");
 
 		if(pasteStart==null)
 			throw new NullPointerException("pasteStart");
@@ -104,7 +97,7 @@ public class TextUrlFilter extends MediaFilter
 
 		this.raw = raw;
 		this.supportedContentType = supportedContentType;
-		this.encoding = encoding;
+		this.charset = charset;
 		this.pasteStart = pasteStart;
 		this.pasteStop = pasteStop;
 		this.pasteKey = pasteKey;
@@ -252,7 +245,7 @@ public class TextUrlFilter extends MediaFilter
 			throw notFoundIsNull();
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
-		final String srcString = new String(sourceByte, encoding);
+		final String srcString = new String(sourceByte, charset);
 
 		final int pasteStartLen = pasteStart.length();
 		final int pasteStopLen  = pasteStop .length();
@@ -275,7 +268,7 @@ public class TextUrlFilter extends MediaFilter
 		if(nextStart>0)
 		{
 			bf.append(srcString.substring(nextStart));
-			MediaUtil.send(supportedContentType, encoding, bf.toString(), response);
+			MediaUtil.send(supportedContentType, charset.name(), bf.toString(), response);
 		}
 		else
 		{
@@ -435,6 +428,24 @@ public class TextUrlFilter extends MediaFilter
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #TextUrlFilter(Media, String, Charset, String, String, StringField, Media)} instead
+	 */
+	@Deprecated
+	public TextUrlFilter(
+			final Media raw,
+			final String supportedContentType,
+			final String encoding,
+			final String pasteStart,
+			final String pasteStop,
+			final StringField pasteKey,
+			final Media pasteValue)
+	{
+		this(
+				raw, supportedContentType, EncodingToCharset.convert(encoding),
+				pasteStart, pasteStop, pasteKey, pasteValue);
+	}
 
 	/**
 	 * @deprecated Use {@link #getPasteContentTypesAllowed()} instead

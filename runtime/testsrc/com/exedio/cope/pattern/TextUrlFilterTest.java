@@ -32,7 +32,7 @@ import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import javax.servlet.ServletOutputStream;
 
 public class TextUrlFilterTest extends AbstractRuntimeModelTest
@@ -218,7 +218,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new TextUrlFilter(null, null, null, null, null, null, null);
+			new TextUrlFilter(null, null, (Charset)null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -227,7 +227,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, null, null, null, null, null, null);
+			new TextUrlFilter(roh, null, (Charset)null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -236,7 +236,16 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", null, null, null, null, null);
+			new TextUrlFilter(roh, "text/plain", (Charset)null, null, null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("charset", e.getMessage());
+		}
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", (String)null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -250,7 +259,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(UnsupportedEncodingException.class, e.getCause().getClass());
+			assertEquals("zack", e.getMessage());
 		}
 		try
 		{
