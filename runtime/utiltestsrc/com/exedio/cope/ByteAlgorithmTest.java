@@ -24,9 +24,7 @@ import java.nio.charset.Charset;
 
 public class ByteAlgorithmTest extends CopeAssert
 {
-	public void testIt()
-	{
-		final Hash.Algorithm a = new Hash.Algorithm(){
+	private static final Hash.Algorithm a = new Hash.Algorithm(){
 
 			public boolean check(final byte[] plainText, final byte[] hash)
 			{
@@ -54,6 +52,8 @@ public class ByteAlgorithmTest extends CopeAssert
 			}
 		};
 
+	public void testCharsetNull()
+	{
 		try
 		{
 			new Hash(a, (Charset)null);
@@ -63,6 +63,9 @@ public class ByteAlgorithmTest extends CopeAssert
 		{
 			assertEquals("charset", e.getMessage());
 		}
+	}
+	public void testEncodingNull()
+	{
 		try
 		{
 			new Hash(a, (String)null);
@@ -72,6 +75,9 @@ public class ByteAlgorithmTest extends CopeAssert
 		{
 			assertEquals("encoding", e.getMessage());
 		}
+	}
+	public void testEncodingWrong()
+	{
 		try
 		{
 			new Hash(a, "nixus");
