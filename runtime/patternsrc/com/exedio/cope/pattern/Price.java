@@ -30,8 +30,6 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final long serialVersionUID = 1l;
 
 	private static final int    FACTOR_I = 100;
-	private static final BigDecimal MIN_VALUE_B = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
-	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
 
 	public static final Price ZERO = new Price(0);
 	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
@@ -391,4 +389,7 @@ public final class Price implements Serializable, Comparable<Price>
 		else
 			return BigDecimal.valueOf(store, 2);
 	}
+
+	private static final BigDecimal MIN_VALUE_B = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
+	private static final BigDecimal MAX_VALUE_B = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
 }
