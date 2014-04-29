@@ -53,6 +53,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private final Media raw;
 	private final String supportedContentType;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;
 	private final String pasteStart;
 	private final String pasteStop;
