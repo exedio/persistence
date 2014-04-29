@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
@@ -56,8 +58,7 @@ public final class TypeIterator
 			final boolean transactionally,
 			final int slice)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
+		requireNonNull(type, "type");
 		if(slice<1)
 			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
 

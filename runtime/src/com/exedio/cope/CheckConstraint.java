@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
+import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashSet;
@@ -32,12 +33,10 @@ public final class CheckConstraint extends Feature
 
 	public CheckConstraint(final Condition condition)
 	{
-		if(condition==null)
-			throw new NullPointerException("condition");
+		this.condition = requireNonNull(condition, "condition");
+
 		if(condition instanceof Condition.Literal)
 			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition.toString());
-
-		this.condition = condition;
 	}
 
 	public Condition getCondition()

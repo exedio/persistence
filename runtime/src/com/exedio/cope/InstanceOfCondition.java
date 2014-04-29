@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Arrays;
 import java.util.TreeSet;
 
@@ -48,16 +51,9 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 			final boolean not,
 			final Type<?>[] types)
 	{
-		if(function==null)
-			throw new NullPointerException("function");
-		if(types==null)
-			throw new NullPointerException("types");
-		if(types.length==0)
-			throw new IllegalArgumentException("types must not be empty");
-
-		this.function = function;
+		this.function = requireNonNull(function, "function");
 		this.not = not;
-		this.types = InstanceOfCondition.<E>cast(types);
+		this.types = InstanceOfCondition.<E>cast(requireNonEmptyAndCopy(types, "types"));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation

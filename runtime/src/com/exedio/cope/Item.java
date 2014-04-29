@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -315,8 +317,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			FinalViolationException,
 			ClassCastException
 	{
-		if(setValues==null)
-			throw new NullPointerException("setValues");
+		requireNonNull(setValues, "setValues");
 		if(setValues.length==0)
 			return;
 

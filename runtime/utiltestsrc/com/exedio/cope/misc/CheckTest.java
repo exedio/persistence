@@ -57,6 +57,35 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
+	public void testRequireGreaterZeroLong()
+	{
+		assertEquals(1, requireGreaterZero(1l, "name"));
+	}
+	public void testRequireGreaterZeroLongZero()
+	{
+		try
+		{
+			requireGreaterZero(0l, "name");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must be greater zero, but was 0", e.getMessage());
+		}
+	}
+	public void testRequireGreaterZeroLongNegative()
+	{
+		try
+		{
+			requireGreaterZero(-1l, "name");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must be greater zero, but was -1", e.getMessage());
+		}
+	}
+
 	public void testRequireNonNegativeInt()
 	{
 		assertEquals(1, requireNonNegative(1, "name"));

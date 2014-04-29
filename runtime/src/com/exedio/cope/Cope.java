@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.misc.ModelByString;
 import com.exedio.cope.misc.ModelMain;
@@ -63,16 +65,13 @@ public final class Cope
 
 	private static Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
 	{
-		if(conditions==null)
-			throw new NullPointerException("conditions");
-
-		return composite(operator, conditions.toArray(new Condition[conditions.size()]));
+		return composite(operator,
+				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
 	}
 
 	private static Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
 	{
-		if(conditions==null)
-			throw new NullPointerException("conditions");
+		requireNonNull(conditions, "conditions");
 
 		int filtered = 0;
 

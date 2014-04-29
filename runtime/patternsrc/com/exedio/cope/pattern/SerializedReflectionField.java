@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Feature;
 import java.io.InvalidObjectException;
 import java.io.Serializable;
@@ -27,8 +29,7 @@ final class SerializedReflectionField implements Serializable
 {
 	static SerializedReflectionField make(final Feature feature, final Field field)
 	{
-		if(field==null)
-			throw new NullPointerException("field");
+		requireNonNull(field, "field");
 
 		final Class<?> clazz = field.getDeclaringClass();
 		final String fieldName = field.getName();

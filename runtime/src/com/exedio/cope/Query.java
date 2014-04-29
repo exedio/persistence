@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.Check.requireNonNegative;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import java.io.Serializable;
@@ -117,8 +118,7 @@ public final class Query<R> implements Serializable
 
 	public Query(final Selectable<R> select, final Type<?> type, final Condition condition)
 	{
-		if(select==null)
-			throw new NullPointerException("select");
+		requireNonNull(select, "select");
 		this.model = type.getModel();
 		this.selectSingle = select;
 		this.type = type;
@@ -292,8 +292,7 @@ public final class Query<R> implements Serializable
 
 	public void setOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
-		if(orderBy==null)
-			throw new NullPointerException("orderBy");
+		requireNonNull(orderBy, "orderBy");
 
 		this.orderBy = new Selectable<?>[]{orderBy};
 		this.orderAscending = new boolean[]{ascending};
@@ -301,8 +300,7 @@ public final class Query<R> implements Serializable
 
 	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
 	{
-		if(orderBy==null)
-			throw new NullPointerException("orderBy");
+		requireNonNull(orderBy, "orderBy");
 
 		this.orderBy = new Selectable<?>[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
@@ -605,8 +603,7 @@ public final class Query<R> implements Serializable
 				final int offset,
 				final int limit)
 		{
-			if(data==null)
-				throw new NullPointerException("data");
+			requireNonNull(data, "data");
 			if(total<0)
 				throw new IllegalArgumentException("total must not be negative, but was " + total);
 			if(offset<0)
@@ -625,8 +622,7 @@ public final class Query<R> implements Serializable
 				final int total,
 				final int offset)
 		{
-			if(data==null)
-				throw new NullPointerException("data");
+			requireNonNull(data, "data");
 			if(total<0)
 				throw new IllegalArgumentException("total must not be negative, but was " + total);
 			if(offset<0)

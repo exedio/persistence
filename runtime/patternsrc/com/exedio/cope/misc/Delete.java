@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -32,8 +34,7 @@ public final class Delete
 			final String transactionName,
 			final JobContext ctx)
 	{
-		if(ctx==null)
-			throw new NullPointerException("ctx");
+		requireNonNull(ctx, "ctx");
 
 		final int LIMIT = 100;
 		query.setLimit(0, LIMIT);

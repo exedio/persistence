@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 public final class NotCondition extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -33,8 +35,7 @@ public final class NotCondition extends Condition
 	 */
 	public NotCondition(final Condition argument)
 	{
-		if(argument==null)
-			throw new NullPointerException("argument");
+		requireNonNull(argument, "argument");
 		if(argument instanceof Literal)
 			throw new IllegalArgumentException("argument must not be a literal");
 

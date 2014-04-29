@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static java.lang.System.nanoTime;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -207,12 +208,9 @@ public final class Dispatcher extends Pattern
 			@Parameter("probe") final Runnable probe,
 			@Parameter("ctx") final JobContext ctx)
 	{
-		if(config==null)
-			throw new NullPointerException("config");
-		if(probe==null)
-			throw new NullPointerException("probe");
-		if(ctx==null)
-			throw new NullPointerException("ctx");
+		requireNonNull(config, "config");
+		requireNonNull(probe, "probe");
+		requireNonNull(ctx, "ctx");
 
 		final Mount mount = mount();
 		final Type<P> type = getType().as(parentClass);

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.HiddenFeatures;
@@ -123,8 +125,7 @@ public final class Model implements Serializable
 	{
 		final Timer.Interval timer = connectTimer.start();
 
-		if(properties==null)
-			throw new NullPointerException("properties");
+		requireNonNull(properties, "properties");
 
 		synchronized(connectLock)
 		{
@@ -798,10 +799,8 @@ public final class Model implements Serializable
 
 	public void enableSerialization(final Class<?> type, final String name)
 	{
-		if(type==null)
-			throw new NullPointerException("type");
-		if(name==null)
-			throw new NullPointerException("name");
+		requireNonNull(type, "type");
+		requireNonNull(name, "name");
 		if(serialized!=null)
 			throw new IllegalStateException("enableSerialization already been called for " + serialized.toString());
 		final Serialized serialized = new Serialized(type, name);

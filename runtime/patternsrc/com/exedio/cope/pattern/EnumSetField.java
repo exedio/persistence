@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -83,8 +85,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	private void assertElement(final E element)
 	{
-		if(element==null)
-			throw new NullPointerException("element");
+		requireNonNull(element, "element");
 		if(elementClass!=element.getClass())
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}

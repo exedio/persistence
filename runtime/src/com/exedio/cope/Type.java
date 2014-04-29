@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.Compare;
@@ -148,12 +149,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final Type<? super T> supertype,
 			final Features featuresParameter)
 	{
-		if(javaClass==null)
-			throw new NullPointerException("javaClass"); // TODO test
+		requireNonNull(javaClass, "javaClass"); // TODO test
 		if(!Item.class.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
+
 		if(annotationSource==null)
 			throw new NullPointerException(javaClass.getName());
 		if(!isAbstract && Modifier.isAbstract(javaClass.getModifiers()))
@@ -1192,8 +1193,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	public int checkCompleteness(final Type<? extends T> subType)
 	{
-		if(subType==null)
-			throw new NullPointerException("subType");
+		requireNonNull(subType, "subType");
 		if(equals(subType) || !getTypesOfInstances().contains(subType))
 			throw new IllegalArgumentException("expected instantiable subtype of " + this + ", but was " + subType);
 

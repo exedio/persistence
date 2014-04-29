@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -160,8 +162,7 @@ final class CompositeType<E>
 
 	static final <E> CompositeType<E> get(final Class<E> valueClass)
 	{
-		if(valueClass==null)
-			throw new NullPointerException("valueClass");
+		requireNonNull(valueClass, "valueClass");
 		if(!Composite.class.isAssignableFrom(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
 		if(Composite.class.equals(valueClass))
@@ -188,8 +189,7 @@ final class CompositeType<E>
 
 	static String getTemplateName(final FunctionField<?> template)
 	{
-		if(template==null)
-			throw new NullPointerException("template");
+		requireNonNull(template, "template");
 
 		final String result = templateNames.get(template);
 		if(result==null)

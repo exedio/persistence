@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Cast.verboseCast;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
@@ -54,8 +55,7 @@ public final class MapField<K,V> extends Pattern
 
 	private static <K> FunctionField<K> check(final FunctionField<K> field, final String name)
 	{
-		if(field==null)
-			throw new NullPointerException(name);
+		requireNonNull(field, name);
 		if(!field.isMandatory())
 			throw new IllegalArgumentException(name + " must be mandatory");
 		if(field.getImplicitUniqueConstraint()!=null)

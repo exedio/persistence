@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import java.text.MessageFormat;
@@ -236,10 +238,8 @@ public final class ConnectToken
 			final Model model,
 			final ConnectProperties properties)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
-		if(properties==null)
-			throw new NullPointerException("properties");
+		requireNonNull(model, "model");
+		requireNonNull(properties, "properties");
 
 		synchronized(manciples)
 		{
@@ -252,8 +252,7 @@ public final class ConnectToken
 
 	public static final ConnectProperties getProperties(final Model model)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
+		requireNonNull(model, "model");
 
 		final Manciple manciple;
 
@@ -270,8 +269,7 @@ public final class ConnectToken
 	 */
 	public static final ConnectProperties removeProperties(final Model model)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
+		requireNonNull(model, "model");
 
 		final Manciple manciple;
 
@@ -285,8 +283,7 @@ public final class ConnectToken
 
 	private static final Manciple manciple(final Model model)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
+		requireNonNull(model, "model");
 
 		final Manciple result;
 		synchronized(manciples)

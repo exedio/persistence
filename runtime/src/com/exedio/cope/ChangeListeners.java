@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -89,8 +91,7 @@ final class ChangeListeners
 
 	void add(final ChangeListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
+		requireNonNull(listener, "listener");
 
 		final WeakReference<ChangeListener> ref = new WeakReference<>(listener);
 		synchronized(list)
@@ -102,8 +103,7 @@ final class ChangeListeners
 
 	void remove(final ChangeListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
+		requireNonNull(listener, "listener");
 
 		synchronized(list)
 		{

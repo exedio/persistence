@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.ModificationListener;
 import gnu.trove.TIntHashSet;
 import java.lang.ref.WeakReference;
@@ -84,8 +86,7 @@ final class ModificationListeners
 
 	void add(final ModificationListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
+		requireNonNull(listener, "listener");
 
 		final WeakReference<ModificationListener> ref = new WeakReference<>(listener);
 		synchronized(list)
@@ -96,8 +97,7 @@ final class ModificationListeners
 
 	void remove(final ModificationListener listener)
 	{
-		if(listener==null)
-			throw new NullPointerException("listener");
+		requireNonNull(listener, "listener");
 
 		synchronized(list)
 		{

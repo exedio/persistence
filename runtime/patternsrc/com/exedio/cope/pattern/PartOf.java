@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
@@ -57,10 +59,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
 	{
-		if(order==null)
-			throw new NullPointerException("order");
-
-		return new PartOf<>(container, order);
+		return new PartOf<>(container, requireNonNull(order, "order"));
 	}
 
 	public ItemField<C> getContainer()

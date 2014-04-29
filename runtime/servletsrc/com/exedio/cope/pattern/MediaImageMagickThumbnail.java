@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import java.util.ArrayList;
@@ -94,8 +96,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 
 	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
-		if(contentType==null)
-			throw new NullPointerException("outputContentType");
+		requireNonNull(contentType, "outputContentType");
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
 	}
 

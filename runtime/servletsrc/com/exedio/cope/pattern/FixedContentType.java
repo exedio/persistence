@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -99,11 +101,8 @@ final class FixedContentType extends ContentType<Void>
 	@Deprecated
 	FixedContentType(final String major, final String minor)
 	{
-		this(major + '/' + minor);
-
-		if(major==null)
-			throw new NullPointerException("fixedMimeMajor");
-		if(minor==null)
-			throw new NullPointerException("fixedMimeMinor");
+		this(
+				requireNonNull(major, "fixedMimeMajor") + '/' +
+				requireNonNull(minor, "fixedMimeMinor") );
 	}
 }

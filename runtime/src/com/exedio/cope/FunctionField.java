@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
@@ -180,8 +182,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	protected final ItemField<?>[] addCopyFrom(final ItemField<?> copyFrom)
 	{
-		if(copyFrom==null)
-			throw new NullPointerException("copyFrom");
+		requireNonNull(copyFrom, "copyFrom");
 		if(this.copyFrom==null)
 			return new ItemField<?>[]{copyFrom};
 

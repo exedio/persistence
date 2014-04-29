@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -114,8 +116,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Wrap(order=70)
 	public boolean doesContain(final Item item, final E value)
 	{
-		if(value==null)
-			throw new NullPointerException("value");
+		requireNonNull(value, "value");
 
 		final E from = getFrom(item);
 		if(from!=null && from.compareTo(value)>0)

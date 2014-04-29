@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static com.exedio.cope.pattern.NestedHashAlgorithm.create;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
@@ -148,8 +149,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			doc="Re-hashes all legacy passwords to target ones.")
 	public void migrate(@Parameter("ctx") final JobContext ctx)
 	{
-		if(ctx==null)
-			throw new NullPointerException("ctx");
+		requireNonNull(ctx, "ctx");
 
 		final Type<?> type = getType();
 		final Model model = type.getModel();

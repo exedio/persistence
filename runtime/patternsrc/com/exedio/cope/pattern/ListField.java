@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Cope;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
@@ -50,9 +52,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	private ListField(final FunctionField<E> element)
 	{
 		this.order = new IntegerField().toFinal().min(0);
-		this.element = element;
-		if(element==null)
-			throw new NullPointerException("element");
+		this.element = requireNonNull(element, "element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
 		if(element.getImplicitUniqueConstraint()!=null)

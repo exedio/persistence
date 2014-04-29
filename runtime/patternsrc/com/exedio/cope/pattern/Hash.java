@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
 import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
@@ -94,14 +95,11 @@ public class Hash extends Pattern implements HashInterface
 			final HashAlgorithm algorithm,
 			final PlainTextValidator validator)
 	{
-		if(storage==null)
-			throw new NullPointerException("storage");
+		requireNonNull(storage, "storage");
 		if(plainTextLimit<10)
 			throw new IllegalArgumentException("plainTextLimit must be at least 10, but was " + plainTextLimit);
-		if(algorithm==null)
-			throw new NullPointerException("algorithm");
-		if (validator==null)
-			throw new NullPointerException("validator");
+		requireNonNull(algorithm, "algorithm");
+		requireNonNull(validator, "validator");
 
 		this.algorithm = algorithm;
 		final String algorithmID = algorithm.getID();

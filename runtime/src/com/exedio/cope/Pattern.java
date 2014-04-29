@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
@@ -71,12 +74,8 @@ public abstract class Pattern extends Feature
 
 	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
 	{
-		if(postfix==null)
-			throw new NullPointerException("postfix");
-		if(postfix.isEmpty())
-			throw new IllegalArgumentException("postfix must not be empty");
-		if(feature==null)
-			throw new NullPointerException("feature");
+		requireNonEmpty(postfix, "postfix");
+		requireNonNull(feature, "feature");
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;

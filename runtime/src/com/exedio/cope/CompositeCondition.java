@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
+import com.exedio.cope.misc.Check;
 import java.util.Collection;
 import java.util.List;
 
@@ -47,24 +50,15 @@ public final class CompositeCondition extends Condition
 			final Operator operator,
 			final Condition... conditions)
 	{
-		if(operator==null)
-			throw new NullPointerException("operator");
-		if(conditions==null)
-			throw new NullPointerException("conditions");
-		if(conditions.length==0)
-			throw new IllegalArgumentException("conditions must not be empty");
+		this.operator = requireNonNull(operator, "operator");
+		this.conditions = Check.requireNonEmptyAndCopy(conditions, "conditions");
+
 		for(int i = 0; i<conditions.length; i++)
 		{
 			final Condition c = conditions[i];
-			if(c==null)
-				throw new NullPointerException("conditions" + '[' + i + ']');
 			if(c instanceof Literal)
 				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal, but was " + c);
 		}
-
-
-		this.operator = operator;
-		this.conditions = conditions;
 	}
 
 	@Override

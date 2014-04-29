@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.search.ExtremumAggregate;
@@ -48,15 +50,7 @@ public abstract class View<E> extends Feature
 
 	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
-		if(sources==null)
-			throw new NullPointerException("sources");
-		if(sources.length==0)
-			throw new IllegalArgumentException("sources must not be empty");
-		for(int i = 0; i<sources.length; i++)
-			if(sources[i]==null)
-				throw new NullPointerException("sources" + '[' + i + ']');
-
-		this.sources = com.exedio.cope.misc.Arrays.copyOf(sources);
+		this.sources = requireNonEmptyAndCopy(sources, "sources");
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(this.sources));
 		this.name = name;
 		this.valueClass = valueClass;

@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -62,16 +65,9 @@ public final class PasswordLimiter extends Pattern
 			final long period,
 			final int limit)
 	{
-		this.password = password;
-		this.period = period;
-		this.limit = limit;
-
-		if(password==null)
-			throw new NullPointerException("password");
-		if(period<=0)
-			throw new IllegalArgumentException("period must be greater zero, but was " + period);
-		if(limit<=0)
-			throw new IllegalArgumentException("limit must be greater zero, but was " + limit);
+		this.password = requireNonNull(password, "password");
+		this.period = requireGreaterZero(period, "period");
+		this.limit = requireGreaterZero(limit, "limit");
 	}
 
 	public HashInterface getPassword()

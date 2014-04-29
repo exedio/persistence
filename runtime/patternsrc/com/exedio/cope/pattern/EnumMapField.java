@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -87,8 +89,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	private void assertKey(final K key)
 	{
-		if(key==null)
-			throw new NullPointerException("key");
+		requireNonNull(key, "key");
 		if(keyClass!=key.getClass())
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}

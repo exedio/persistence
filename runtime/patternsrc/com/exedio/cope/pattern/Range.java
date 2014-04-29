@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * If the value for {@link #getFrom() from} is null this means, that the range contains all values less    or equal to <code>to</code>.
  * If the value for {@link #getTo  () to  } is null this means, that the range contains all values greater or equal to <code>from</code>.
@@ -77,8 +79,7 @@ public final class Range<E extends Comparable<E>>
 
 	public boolean contains(final E value)
 	{
-		if(value==null)
-			throw new NullPointerException("value");
+		requireNonNull(value, "value");
 
 		return
 			(from==null || from.compareTo(value)<=0) &&

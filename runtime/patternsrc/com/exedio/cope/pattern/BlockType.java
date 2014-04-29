@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
@@ -133,8 +135,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
-		if(javaClass==null)
-			throw new NullPointerException("valueClass");
+		requireNonNull(javaClass, "valueClass");
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 		if(!Block.class.isAssignableFrom(javaClass))

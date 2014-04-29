@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.misc.ListUtil;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -41,16 +43,14 @@ public final class Features
 
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
 	{
-		if(name==null)
-			throw new NullPointerException("name");
+		requireNonNull(name, "name");
 		if(!"BEANSHELL_HACK_ATTRIBUTE".equals(name)) // TODO
 		{
 			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
 			if(i>=0)
 				throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
-		if(feature==null)
-			throw new NullPointerException("feature");
+		requireNonNull(feature, "feature");
 		if(map.containsKey(name))
 			throw new IllegalArgumentException("already contains the name >" + name + '<');
 		if(set.contains(feature))

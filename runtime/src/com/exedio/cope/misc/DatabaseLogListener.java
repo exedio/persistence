@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,13 +36,11 @@ public final class DatabaseLogListener implements DatabaseListener
 	{
 		if(threshold<0)
 			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
-		if(out==null)
-			throw new NullPointerException("out");
 
 		this.date = System.currentTimeMillis();
 		this.threshold = threshold;
 		this.sql = sql;
-		this.out = out;
+		this.out = requireNonNull(out, "out");
 	}
 
 	public Date getDate()

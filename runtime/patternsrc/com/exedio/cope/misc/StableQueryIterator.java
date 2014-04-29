@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Query;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -40,8 +42,7 @@ public final class StableQueryIterator<E>
 			final Query<E> query,
 			final int slice)
 	{
-		if(query==null)
-			throw new NullPointerException("query");
+		requireNonNull(query, "query");
 		if(slice<1)
 			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
 

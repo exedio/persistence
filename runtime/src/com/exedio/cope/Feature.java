@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
@@ -188,10 +189,8 @@ public abstract class Feature implements Serializable
 
 	public final void mount(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
 	{
-		if(string==null)
-			throw new NullPointerException("string");
-		if(serializable==null)
-			throw new NullPointerException("serializable");
+		requireNonNull(string, "string");
+		requireNonNull(serializable, "serializable");
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
 		this.mountIfMounted = new MountString(string, serializable, annotationSource);

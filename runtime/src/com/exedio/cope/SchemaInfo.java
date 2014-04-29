@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static java.util.Objects.requireNonNull;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -55,12 +58,8 @@ public final class SchemaInfo
 	 */
 	public static String quoteName(final Model model, final String name)
 	{
-		if(model==null)
-			throw new NullPointerException("model");
-		if(name==null)
-			throw new NullPointerException("name");
-		if(name.isEmpty())
-			throw new IllegalArgumentException("name must not be empty");
+		requireNonNull(model, "model");
+		requireNonEmpty(name, "name");
 
 		return model.connect().dialect.dsmfDialect.quoteName(name);
 	}

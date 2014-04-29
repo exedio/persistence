@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -39,16 +41,13 @@ public final class Importer<K extends Object> extends Pattern
 
 	private Importer(final FunctionField<K> key)
 	{
-		if(key==null)
-			throw new NullPointerException("key");
+		this.key = requireNonNull(key, "key");
 		if(!key.isFinal())
 			throw new IllegalArgumentException("key must be final");
 		if(!key.isMandatory())
 			throw new IllegalArgumentException("key must be mandatory");
 		if(key.getImplicitUniqueConstraint()==null)
 			throw new IllegalArgumentException("key must be unique");
-
-		this.key = key;
 	}
 
 	public static final <K> Importer<K> create(final FunctionField<K> key)
@@ -76,10 +75,8 @@ public final class Importer<K extends Object> extends Pattern
 			@Parameter("keyValue") final K keyValue,
 			@Parameter("setValues") final SetValue<?>... setValues)
 	{
-		if(keyValue==null)
-			throw new NullPointerException("keyValue");
-		if(setValues==null)
-			throw new NullPointerException("setValues");
+		requireNonNull(keyValue, "keyValue");
+		requireNonNull(setValues, "setValues");
 
 		if(hintInitial)
 			return doImportInitial(parentClass, keyValue, setValues);

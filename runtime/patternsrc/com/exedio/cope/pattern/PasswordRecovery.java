@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
@@ -73,12 +75,8 @@ public final class PasswordRecovery extends Pattern
 
 	public PasswordRecovery(final HashInterface password, final SecureRandom random)
 	{
-		this.password = password;
-		this.random = random;
-		if(password==null)
-			throw new NullPointerException("password");
-		if(random==null)
-			throw new NullPointerException("random");
+		this.password = requireNonNull(password, "password");
+		this.random = requireNonNull(random, "random");
 	}
 
 	@Override

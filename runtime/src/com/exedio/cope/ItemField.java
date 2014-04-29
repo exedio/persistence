@@ -138,8 +138,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
 	{
-		if(copyTo==null)
-			throw new NullPointerException("copyTo");
+		requireNonNull(copyTo, "copyTo");
 		if(this.copyTo==null)
 			return new FunctionField<?>[]{copyTo};
 

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CoalesceView<E> extends View<E>
@@ -25,19 +27,17 @@ public final class CoalesceView<E> extends View<E>
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final E literal)
 	{
-		if(literal==null)
-			throw new NullPointerException("literal");
-
-		return new CoalesceView<>(new Function[]{parameter1}, literal);
+		return new CoalesceView<>(
+				new Function[]{parameter1},
+				requireNonNull(literal, "literal"));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	public static <E> CoalesceView<E> coalesce(final Function<E> parameter1, final Function<E> parameter2, final E literal)
 	{
-		if(literal==null)
-			throw new NullPointerException("literal");
-
-		return new CoalesceView<>(new Function[]{parameter1, parameter2}, literal);
+		return new CoalesceView<>(
+				new Function[]{parameter1, parameter2},
+				requireNonNull(literal, "literal"));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays

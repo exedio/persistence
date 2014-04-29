@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.util.Hex;
@@ -291,16 +293,14 @@ public final class MediaType
 
 	public static MediaType forName(final String name)
 	{
-		if(name==null)
-			throw new NullPointerException("name");
+		requireNonNull(name, "name");
 
 		return typesByName.get(name);
 	}
 
 	public static MediaType forNameAndAliases(final String name)
 	{
-		if(name==null)
-			throw new NullPointerException("name");
+		requireNonNull(name, "name");
 
 		return typesByNameAndAlias.get(name);
 	}
@@ -335,8 +335,7 @@ public final class MediaType
 
 	private static byte[] readMagic(final File file) throws IOException
 	{
-		if(file==null)
-			throw new NullPointerException("file");
+		requireNonNull(file, "file");
 
 		final byte[] bytes = new byte[(int)Math.min(file.length(), MAGIC_MAX_LENGTH)];
 		try(FileInputStream stream = new FileInputStream(file))

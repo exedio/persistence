@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.CopeNameUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -62,8 +64,7 @@ public final class TypesBound
 
 	public static <T extends Item> Type<T> newType(final Class<T> javaClass)
 	{
-		if(javaClass==null)
-			throw new NullPointerException("javaClass");
+		requireNonNull(javaClass, "javaClass");
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
