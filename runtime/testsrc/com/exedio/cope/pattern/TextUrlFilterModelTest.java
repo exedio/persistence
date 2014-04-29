@@ -54,6 +54,18 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("supportedContentType", e.getMessage());
 		}
 	}
+	public void testSupportedContentTypeEmpty()
+	{
+		try
+		{
+			new TextUrlFilter(roh, "", (Charset)null, null, null, null, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("supportedContentType must not be empty", e.getMessage());
+		}
+	}
 	public void testCharsetNull()
 	{
 		try

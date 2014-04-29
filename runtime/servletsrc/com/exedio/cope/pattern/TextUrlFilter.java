@@ -80,7 +80,7 @@ public class TextUrlFilter extends MediaFilter
 		super(raw);
 
 		this.raw = raw;
-		this.supportedContentType = requireNonNull(supportedContentType, "supportedContentType");
+		this.supportedContentType = requireNonEmpty(supportedContentType, "supportedContentType");
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");

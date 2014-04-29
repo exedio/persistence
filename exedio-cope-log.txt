@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* TextUrlFilter fails on empty supportedContentType.
+	This breaks backwards API compatibility, causes model initialization to fail.
 * bugfix: Schedule executes all remaining runs, not just the last one.
 * [Price|Money]#[less@greater]Than[OrEqual]Zero added
 * Money / MoneyField added
