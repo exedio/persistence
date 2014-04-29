@@ -263,8 +263,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			assertEquals("encoding", e.getMessage());
 		}
 	}
-	@Deprecated // OK: testing deprecated API
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
+	@Deprecated // OK: testing deprecated API
 	public void testEncondingWrong()
 	{
 		try
