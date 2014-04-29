@@ -64,7 +64,7 @@ public class ByteAlgorithmTest extends CopeAssert
 			assertEquals("charset", e.getMessage());
 		}
 	}
-	@Deprecated // OK testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	public void testEncodingNull()
 	{
 		try
@@ -77,7 +77,7 @@ public class ByteAlgorithmTest extends CopeAssert
 			assertEquals("encoding", e.getMessage());
 		}
 	}
-	@Deprecated // OK testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	public void testEncodingWrong()
 	{
 		try
