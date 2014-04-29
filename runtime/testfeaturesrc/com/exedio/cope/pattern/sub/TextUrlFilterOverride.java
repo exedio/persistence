@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.TextUrlFilter;
+import java.nio.charset.Charset;
 import javax.servlet.http.HttpServletRequest;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
@@ -33,11 +34,11 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 	public TextUrlFilterOverride(
 			final Media raw,
 			final String supportedContentType,
-			final String encoding,
+			final Charset charset,
 			final StringField pasteKey,
 			final Media pasteValue)
 	{
-		super(raw, supportedContentType, encoding, "<paste>", "</paste>", pasteKey, pasteValue);
+		super(raw, supportedContentType, charset, "<paste>", "</paste>", pasteKey, pasteValue);
 	}
 
 	@Override

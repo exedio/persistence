@@ -22,7 +22,6 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.TextUrlFilterItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
-import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
@@ -53,6 +52,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		item  = new TextUrlFilterItem();
 		item2 = new TextUrlFilterItem();
 	}
+
+	static final Charset UTF8 = Charset.forName(CharsetName.UTF8);
 
 	public void testIt() throws IOException, NotFound
 	{
@@ -198,7 +199,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			return new ServletOutputStream()
 			{
 				@Override
-			   public void write(final byte b[], final int off, final int len) throws IOException
+			   public void write(final byte b[], final int off, final int len)
 			   {
 			   	assertEquals(body, new String(b, off, len, UTF8));
 			   	assertEquals(contentLength, len);

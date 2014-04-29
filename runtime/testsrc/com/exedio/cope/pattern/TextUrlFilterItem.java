@@ -25,6 +25,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 import com.exedio.cope.util.CharsetName;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public final class TextUrlFilterItem extends Item
 {
@@ -36,7 +37,7 @@ public final class TextUrlFilterItem extends Item
 	/** @cope.getURL none */
 	static final TextUrlFilter fertig = new TextUrlFilterOverride(
 			roh,
-			"text/plain", CharsetName.UTF8,
+			"text/plain", Charset.forName(CharsetName.UTF8),
 			new StringField(),
 			new Media().lengthMax(3).contentType(MediaType.PNG));
 
