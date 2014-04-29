@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
@@ -76,33 +79,13 @@ public class TextUrlFilter extends MediaFilter
 	{
 		super(raw);
 
-		if(supportedContentType==null)
-			throw new NullPointerException("supportedContentType");
-
-		if(charset==null)
-			throw new NullPointerException("charset");
-
-		if(pasteStart==null)
-			throw new NullPointerException("pasteStart");
-		if(pasteStart.isEmpty())
-			throw new IllegalArgumentException("pasteStart");
-		if(pasteStop==null)
-			throw new NullPointerException("pasteStop");
-		if(pasteStop.isEmpty())
-			throw new IllegalArgumentException("pasteStop");
-
-		if(pasteKey==null)
-			throw new NullPointerException("pasteKey");
-		if(pasteValue==null)
-			throw new NullPointerException("pasteValue");
-
 		this.raw = raw;
-		this.supportedContentType = supportedContentType;
-		this.charset = charset;
-		this.pasteStart = pasteStart;
-		this.pasteStop = pasteStop;
-		this.pasteKey = pasteKey;
-		this.pasteValue = pasteValue;
+		this.supportedContentType = requireNonNull(supportedContentType, "supportedContentType");
+		this.charset    = requireNonNull (charset,    "charset");
+		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
+		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
+		this.pasteKey   = requireNonNull (pasteKey,   "pasteKey");
+		this.pasteValue = requireNonNull (pasteValue, "pasteValue");
 		addSource(raw, "Raw", annotationProxy);
 	}
 

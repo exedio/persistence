@@ -114,7 +114,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("pasteStart", e.getMessage());
+			assertEquals("pasteStart must not be empty", e.getMessage());
 		}
 	}
 	public void testPasteStopNull()
@@ -138,7 +138,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("pasteStop", e.getMessage());
+			assertEquals("pasteStop must not be empty", e.getMessage());
 		}
 	}
 	public void testPasteKeyNull()
