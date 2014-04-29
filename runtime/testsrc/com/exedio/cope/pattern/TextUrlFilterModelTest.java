@@ -105,6 +105,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("zack", e.getMessage());
 		}
 	}
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testPasteStartNull()
 	{
 		try
@@ -129,6 +130,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStart must not be empty", e.getMessage());
 		}
 	}
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testPasteStopNull()
 	{
 		try
