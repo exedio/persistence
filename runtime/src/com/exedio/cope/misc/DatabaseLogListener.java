@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import java.io.PrintStream;
@@ -34,11 +35,8 @@ public final class DatabaseLogListener implements DatabaseListener
 
 	public DatabaseLogListener(final int threshold, final String sql, final PrintStream out)
 	{
-		if(threshold<0)
-			throw new IllegalArgumentException("threshold must not be negative, but was " + threshold);
-
 		this.date = System.currentTimeMillis();
-		this.threshold = threshold;
+		this.threshold = requireNonNegative(threshold, "threshold");
 		this.sql = sql;
 		this.out = requireNonNull(out, "out");
 	}

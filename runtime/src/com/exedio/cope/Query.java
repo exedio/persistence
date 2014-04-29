@@ -603,18 +603,10 @@ public final class Query<R> implements Serializable
 				final int offset,
 				final int limit)
 		{
-			requireNonNull(data, "data");
-			if(total<0)
-				throw new IllegalArgumentException("total must not be negative, but was " + total);
-			if(offset<0)
-				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
-			if(limit<0)
-				throw new IllegalArgumentException("limit must not be negative, but was " + limit);
-
-			this.data = data;
-			this.total = total;
-			this.offset = offset;
-			this.limit = limit;
+			this.data   = requireNonNull(data, "data");
+			this.total  = requireNonNegative(total,  "total");
+			this.offset = requireNonNegative(offset, "offset");
+			this.limit  = requireNonNegative(limit,  "limit");
 		}
 
 		public Result(
@@ -622,16 +614,10 @@ public final class Query<R> implements Serializable
 				final int total,
 				final int offset)
 		{
-			requireNonNull(data, "data");
-			if(total<0)
-				throw new IllegalArgumentException("total must not be negative, but was " + total);
-			if(offset<0)
-				throw new IllegalArgumentException("offset must not be negative, but was " + offset);
-
-			this.data = data;
-			this.total = total;
-			this.offset = offset;
-			this.limit = -1;
+			this.data   = requireNonNull(data, "data");
+			this.total  = requireNonNegative(total,  "total");
+			this.offset = requireNonNegative(offset, "offset");
+			this.limit  = -1;
 		}
 
 		public List<R> getData()
