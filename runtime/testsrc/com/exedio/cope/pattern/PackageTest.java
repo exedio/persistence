@@ -65,6 +65,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaMandatoryTest.class);
 		suite.addTestSuite(MoneyFieldTest.class);
 		suite.addTestSuite(ThumbnailTest.class);
+		suite.addTestSuite(TextUrlFilterModelTest.class);
 		suite.addTestSuite(TextUrlFilterTest.class);
 		suite.addTestSuite(TextUrlFilterZipTest.class);
 		suite.addTestSuite(CompositeFieldTest.class);
