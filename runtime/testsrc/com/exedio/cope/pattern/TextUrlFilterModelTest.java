@@ -26,6 +26,7 @@ import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest extends CopeAssert
 {
 	private static final Charset charset = Charset.forName(CharsetName.UTF8);
@@ -91,7 +92,6 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("encoding", e.getMessage());
 		}
 	}
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Deprecated // OK: testing deprecated API
 	public void testEncondingWrong()
 	{
@@ -105,7 +105,6 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("zack", e.getMessage());
 		}
 	}
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testPasteStartNull()
 	{
 		try
@@ -130,7 +129,6 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStart must not be empty", e.getMessage());
 		}
 	}
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testPasteStopNull()
 	{
 		try
