@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Map;
 
 public final class CopyConstraint extends Feature
@@ -36,17 +38,13 @@ public final class CopyConstraint extends Feature
 	@Deprecated
 	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
-		if(target==null)
-			throw new NullPointerException("target");
-		if(copy==null)
-			throw new NullPointerException("copy");
+		this.target = requireNonNull(target, "target");
+		this.copy   = requireNonNull(copy,   "copy"  );
+
 		if(!target.isfinal)
 			throw new IllegalArgumentException("target must be final");
 		if(!copy.isfinal)
 			throw new IllegalArgumentException("copy must be final");
-
-		this.target = target;
-		this.copy = copy;
 	}
 
 	public ItemField<?> getTarget()
