@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 
 public class TextUrlFilterModelTest extends CopeAssert
 {
-	private static final Charset UTF8 = Charset.forName(CharsetName.UTF8);
+	private static final Charset charset = Charset.forName(CharsetName.UTF8);
 
 	public void testRawNull()
 	{
@@ -97,7 +97,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, null, null, null, null);
+			new TextUrlFilter(roh, "text/plain", charset, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -109,7 +109,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, "", null, null, null);
+			new TextUrlFilter(roh, "text/plain", charset, "", null, null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -121,7 +121,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, "(", null, null, null);
+			new TextUrlFilter(roh, "text/plain", charset, "(", null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -133,7 +133,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, "(", "", null, null);
+			new TextUrlFilter(roh, "text/plain", charset, "(", "", null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -145,7 +145,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", null, null);
+			new TextUrlFilter(roh, "text/plain", charset, "(", ")", null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -157,7 +157,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", new StringField(), null);
+			new TextUrlFilter(roh, "text/plain", charset, "(", ")", new StringField(), null);
 			fail();
 		}
 		catch(final NullPointerException e)
