@@ -29,6 +29,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.CharsetName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import javax.servlet.ServletOutputStream;
@@ -263,6 +264,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 	}
 	@Deprecated // OK: testing deprecated API
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	public void testEncondingWrong()
 	{
 		try
