@@ -29,7 +29,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.CharsetName;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import javax.servlet.ServletOutputStream;
@@ -214,8 +213,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	public void testFail()
+	public void testRawNull()
 	{
 		try
 		{
@@ -226,6 +224,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("source", e.getMessage());
 		}
+	}
+	public void testSupportedContentTypeNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, null, (Charset)null, null, null, null, null);
@@ -235,6 +236,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("supportedContentType", e.getMessage());
 		}
+	}
+	public void testCharsetNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", (Charset)null, null, null, null, null);
@@ -244,6 +248,10 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("charset", e.getMessage());
 		}
+	}
+	@Deprecated // OK: testing deprecated API
+	public void testEncodingNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", (String)null, null, null, null, null);
@@ -253,6 +261,10 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("encoding", e.getMessage());
 		}
+	}
+	@Deprecated // OK: testing deprecated API
+	public void testEncondingWrong()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", "zack", null, null, null, null);
@@ -262,6 +274,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("zack", e.getMessage());
 		}
+	}
+	public void testPasteStartNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, null, null, null, null);
@@ -271,6 +286,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("pasteStart", e.getMessage());
 		}
+	}
+	public void testPasteStartEmpty()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, "", null, null, null);
@@ -280,6 +298,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("pasteStart", e.getMessage());
 		}
+	}
+	public void testPasteStopNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, "(", null, null, null);
@@ -289,6 +310,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("pasteStop", e.getMessage());
 		}
+	}
+	public void testPasteStopEmpty()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, "(", "", null, null);
@@ -298,6 +322,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("pasteStop", e.getMessage());
 		}
+	}
+	public void testPasteKeyNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", null, null);
@@ -307,6 +334,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("pasteKey", e.getMessage());
 		}
+	}
+	public void testPasteValueNull()
+	{
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF8, "(", ")", new StringField(), null);
