@@ -43,7 +43,6 @@ public class RangeFieldModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		// test model
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
 				valid,
@@ -90,7 +89,10 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(true, text.getTo().isFinal());
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
 		assertSerializedSame(text, 387);
+	}
 
+	public void testUnison()
+	{
 		assertEquals(
 				"(" +
 					"RangeFieldItem.valid-from is null OR " +
@@ -101,8 +103,10 @@ public class RangeFieldModelTest extends CopeAssert
 		assertEquals(
 				"RangeFieldItem.text-from<=RangeFieldItem.text-to",
 				text.getUnison().getCondition().toString());
+	}
 
-
+	public void testBorderTemplateUnique()
+	{
 		try
 		{
 			RangeField.create(new IntegerField().unique());
@@ -112,7 +116,10 @@ public class RangeFieldModelTest extends CopeAssert
 		{
 			assertEquals("unique borderTemplate is not supported", e.getMessage());
 		}
+	}
 
+	public void testContainsNull()
+	{
 		try
 		{
 			valid.contains(null);
