@@ -33,6 +33,7 @@ import java.lang.reflect.Type;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
 {
@@ -165,10 +166,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	// ------------------- deprecated stuff -------------------
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
-		throw new RuntimeException("not implemented");
+		return ParameterizedTypeImpl.make(EnumMap.class, new java.lang.reflect.Type[]{keyClass, valueTemplate.getInitialType()}, null);
 	}
 
 	/**

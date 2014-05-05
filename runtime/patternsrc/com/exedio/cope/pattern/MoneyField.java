@@ -33,6 +33,7 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
@@ -109,10 +110,9 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	@Deprecated
-	public Class<?> getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
-		return Money.class;
+		return ParameterizedTypeImpl.make(Money.class, new java.lang.reflect.Type[]{currency.getField().getInitialType()}, null);
 	}
 
 	@Override

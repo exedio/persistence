@@ -223,7 +223,6 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return isMandatory() || isFinal();
 	}
 
-	@Deprecated
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{

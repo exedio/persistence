@@ -160,7 +160,6 @@ public class Hash extends Pattern implements HashInterface
 		return storage.isMandatory();
 	}
 
-	@Deprecated
 	public final Class<?> getInitialType()
 	{
 		return String.class;

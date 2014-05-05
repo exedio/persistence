@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Set;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
@@ -189,10 +190,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	// ------------------- deprecated stuff -------------------
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
-		throw new RuntimeException("not implemented");
+		return ParameterizedTypeImpl.make(EnumSet.class, new java.lang.reflect.Type[]{elementClass}, null);
 	}
 
 	/**

@@ -222,13 +222,6 @@ public final class IntegerField extends NumberField<Integer>
 		return result;
 	}
 
-	@Deprecated
-	@Override
-	public Class<?> getInitialType()
-	{
-		return optional ? Integer.class : int.class;
-	}
-
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;

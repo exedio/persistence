@@ -171,7 +171,6 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 		return isMandatory() || isFinal();
 	}
 
-	@Deprecated
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{

@@ -237,13 +237,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
-	@Deprecated
-	@Override
-	public Class<?> getInitialType()
-	{
-		return valueClass;
-	}
-
 	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class)
 	@Override
 	public final E get(final Item item)

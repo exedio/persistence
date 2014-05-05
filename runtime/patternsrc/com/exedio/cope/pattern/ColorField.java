@@ -110,7 +110,6 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return alphaAllowed;
 	}
 
-	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return Color.class;

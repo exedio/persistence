@@ -40,6 +40,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
@@ -169,10 +170,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return true; // list can be empty but not null;
 	}
 
-	@Deprecated
-	public Class<?> getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
-		return List.class;
+		return ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{sources[0].getInitialType()}, null);
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

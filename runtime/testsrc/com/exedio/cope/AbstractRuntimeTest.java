@@ -347,7 +347,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		tester.assertSchema();
 	}
 
-	@SuppressWarnings("deprecation")
 	public static java.lang.reflect.Type getInitialType(final Settable<?> settable)
 	{
 		return settable.getInitialType();

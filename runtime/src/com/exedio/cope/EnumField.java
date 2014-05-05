@@ -104,13 +104,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return valueType.values;
 	}
 
-	@Deprecated
-	@Override
-	public Class<?> getInitialType()
-	{
-		return com.exedio.cope.instrument.Wrapper.TypeVariable0.class; // TODO return valueClass
-	}
-
 	public SelectType<E> getValueType()
 	{
 		return valueType;

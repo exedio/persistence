@@ -132,13 +132,6 @@ public final class DataField extends Field<DataField.Value>
 		return i<=l ? i : (int)l;
 	}
 
-	@Override
-	@Deprecated
-	public Class<?> getInitialType()
-	{
-		return byte[].class; // TODO remove (use DataField.Value.class)
-	}
-
 	/**
 	 * Returns, whether there is no data for this field.
 	 */

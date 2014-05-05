@@ -31,6 +31,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
+import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -163,10 +164,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return from.isInitial();
 	}
 
-	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
-		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
+		return ParameterizedTypeImpl.make(Range.class, new java.lang.reflect.Type[]{from.getInitialType()}, null);
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

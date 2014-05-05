@@ -149,13 +149,6 @@ public final class DoubleField extends NumberField<Double>
 		return result;
 	}
 
-	@Deprecated
-	@Override
-	public Class<?> getInitialType()
-	{
-		return optional ? Double.class : double.class;
-	}
-
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;
