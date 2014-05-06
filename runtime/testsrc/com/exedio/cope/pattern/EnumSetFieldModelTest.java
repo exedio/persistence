@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 
 public class EnumSetFieldModelTest extends CopeAssert
 {
@@ -43,7 +44,7 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertEquals(TYPE, activeLanguage.getType());
 		assertEquals("activeLanguage", activeLanguage.getName());
 
-		assertEquals(EnumSetFieldItem.Language.class, activeLanguage.getElementClass());
+		assertEquals(Language.class, activeLanguage.getElementClass());
 		assertEquals(false, activeLanguage.isFinal());
 		assertEquals(false, activeLanguage.getField(DE).isFinal());
 		assertEquals(false, activeLanguage.getField(EN).isFinal());
@@ -70,5 +71,10 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
 		assertSerializedSame(activeLanguage, 401);
+	}
+
+	public void testInitialType()
+	{
+		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
 	}
 }

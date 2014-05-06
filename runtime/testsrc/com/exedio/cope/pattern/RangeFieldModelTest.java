@@ -130,4 +130,10 @@ public class RangeFieldModelTest extends CopeAssert
 			assertEquals("right", e.getMessage());
 		}
 	}
+
+	public void testInitialType()
+	{
+		assertEquals("com.exedio.cope.pattern.Range<java.lang.Integer>", valid.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Range<java.lang.String>" , text .getInitialType().toString());
+	}
 }

@@ -30,6 +30,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -189,10 +190,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	// ------------------- deprecated stuff -------------------
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
-		throw new RuntimeException("not implemented");
+		return ReflectionTypes.parameterized(EnumSet.class, elementClass);
 	}
 
 	/**

@@ -134,7 +134,6 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return Price.storeOf(integer.getMaximum());
 	}
 
-	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return Price.class;

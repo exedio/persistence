@@ -301,7 +301,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
-	@Deprecated
 	public Class<?> getInitialType()
 	{
 		return Value.class;

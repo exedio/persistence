@@ -29,6 +29,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 
 public class EnumMapFieldModelTest extends CopeAssert
 {
@@ -44,7 +45,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
 
-		assertEquals(EnumMapFieldItem.Language.class, name.getKeyClass());
+		assertEquals(Language.class, name.getKeyClass());
 
 		assertEquals(String.class, name.getField(DE).getValueClass());
 		assertEquals("name-DE", name.getField(DE).getName());
@@ -80,6 +81,12 @@ public class EnumMapFieldModelTest extends CopeAssert
 
 		assertSerializedSame(name      , 391);
 		assertSerializedSame(nameLength, 397);
+	}
+
+	public void testInitialType()
+	{
+		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());
+		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

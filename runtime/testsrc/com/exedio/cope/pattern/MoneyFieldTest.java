@@ -31,6 +31,7 @@ import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.MoneyFieldItem.Currency;
 
 public class MoneyFieldTest extends AbstractRuntimeModelTest
 {
@@ -55,6 +56,10 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
 		assertEquals("exclusive-currency",   exclusive.getCurrency()       .getName());
 		assertSame(shared.getCurrency(), sharedMandatory.getCurrency());
+
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", shared         .getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharedMandatory.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclusive      .getInitialType().toString());
 
 		assertEquals("shared_int",          getColumnName(shared.getAmount().getInt()));
 		assertEquals("currency" ,           getColumnName(shared.getCurrency()));

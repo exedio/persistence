@@ -29,6 +29,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
 
@@ -163,10 +164,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return from.isInitial();
 	}
 
-	@Deprecated
 	public java.lang.reflect.Type getInitialType()
 	{
-		return com.exedio.cope.instrument.Wrapper.generic(Range.class, from.getValueClass());
+		return ReflectionTypes.parameterized(Range.class, from.getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

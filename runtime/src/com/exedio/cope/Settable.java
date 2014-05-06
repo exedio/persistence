@@ -46,10 +46,6 @@ public interface Settable<E>
 	 */
 	boolean isInitial();
 
-	/**
-	 * @deprecated Is not needed anymore by the instrumentor nor any other part of the framework.
-	 */
-	@Deprecated
 	java.lang.reflect.Type getInitialType();
 
 	/**

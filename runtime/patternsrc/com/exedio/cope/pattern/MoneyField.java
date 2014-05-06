@@ -28,6 +28,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -109,10 +110,9 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	@Deprecated
-	public Class<?> getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
-		return Money.class;
+		return ReflectionTypes.parameterized(Money.class, currency.getField().getValueClass());
 	}
 
 	@Override

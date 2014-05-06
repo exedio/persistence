@@ -93,13 +93,6 @@ public final class BooleanField extends FunctionField<Boolean>
 		return new BooleanField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant));
 	}
 
-	@Override
-	@Deprecated
-	public Class<?> getInitialType()
-	{
-		return optional ? Boolean.class : boolean.class;
-	}
-
 	public SelectType<Boolean> getValueType()
 	{
 		return SimpleSelectType.BOOLEAN;

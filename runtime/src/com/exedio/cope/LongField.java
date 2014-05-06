@@ -189,13 +189,6 @@ public final class LongField extends NumberField<Long>
 		return result;
 	}
 
-	@Deprecated
-	@Override
-	public Class<?> getInitialType()
-	{
-		return optional ? Long.class : long.class;
-	}
-
 	public SelectType<Long> getValueType()
 	{
 		return SimpleSelectType.LONG;
