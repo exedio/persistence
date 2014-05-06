@@ -30,7 +30,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
-import java.lang.reflect.Type;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -171,7 +170,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	// ------------------- deprecated stuff -------------------
 
 	@Override
-	public Type getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
 		return ReflectionTypes.parameterized(EnumMap.class, keyClass, valueTemplate.getValueClass());
 	}
