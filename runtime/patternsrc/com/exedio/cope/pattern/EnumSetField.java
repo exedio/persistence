@@ -30,13 +30,13 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
@@ -192,7 +192,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Override
 	public Type getInitialType()
 	{
-		return ParameterizedTypeImpl.make(EnumSet.class, new java.lang.reflect.Type[]{elementClass}, null);
+		return ReflectionTypes.parameterized(EnumSet.class, elementClass);
 	}
 
 	/**

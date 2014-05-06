@@ -29,11 +29,11 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
 {
@@ -168,7 +168,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public Type getInitialType()
 	{
-		return ParameterizedTypeImpl.make(EnumMap.class, new java.lang.reflect.Type[]{keyClass, valueTemplate.getInitialType()}, null);
+		return ReflectionTypes.parameterized(EnumMap.class, keyClass, valueTemplate.getValueClass());
 	}
 
 	/**

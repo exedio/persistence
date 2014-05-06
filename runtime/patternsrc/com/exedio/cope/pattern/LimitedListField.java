@@ -33,6 +33,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,7 +41,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
@@ -172,7 +172,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ParameterizedTypeImpl.make(List.class, new java.lang.reflect.Type[]{sources[0].getInitialType()}, null);
+		return ReflectionTypes.parameterized(List.class, sources[0].getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

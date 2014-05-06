@@ -29,9 +29,9 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -166,7 +166,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ParameterizedTypeImpl.make(Range.class, new java.lang.reflect.Type[]{from.getInitialType()}, null);
+		return ReflectionTypes.parameterized(Range.class, from.getValueClass());
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

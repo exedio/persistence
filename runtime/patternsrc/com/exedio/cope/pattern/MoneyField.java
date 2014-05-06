@@ -28,12 +28,12 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
@@ -112,7 +112,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ParameterizedTypeImpl.make(Money.class, new java.lang.reflect.Type[]{currency.getField().getInitialType()}, null);
+		return ReflectionTypes.parameterized(Money.class, currency.getField().getValueClass());
 	}
 
 	@Override
