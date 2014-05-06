@@ -71,7 +71,6 @@ public class SettableFixed extends Pattern implements Settable<AtomicBoolean>
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();

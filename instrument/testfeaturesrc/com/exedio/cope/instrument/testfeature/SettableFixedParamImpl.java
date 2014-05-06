@@ -71,7 +71,6 @@ public class SettableFixedParamImpl extends Pattern implements SettableFixedPara
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();

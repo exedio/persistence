@@ -78,7 +78,6 @@ public class SettableOpen<Z> extends Pattern implements Settable<Z>
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();

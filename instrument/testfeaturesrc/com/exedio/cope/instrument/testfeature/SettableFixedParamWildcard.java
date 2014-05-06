@@ -71,7 +71,6 @@ public class SettableFixedParamWildcard extends Pattern implements Settable<Atom
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();

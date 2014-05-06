@@ -72,7 +72,6 @@ public class SettableFixedParam extends Pattern implements Settable<AtomicRefere
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();

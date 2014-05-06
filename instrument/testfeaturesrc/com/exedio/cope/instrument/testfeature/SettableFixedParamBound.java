@@ -72,7 +72,6 @@ public class SettableFixedParamBound extends Pattern implements Settable<AtomicR
 	}
 
 	@Override
-	@Deprecated
 	public Type getInitialType()
 	{
 		throw new AssertionError();
