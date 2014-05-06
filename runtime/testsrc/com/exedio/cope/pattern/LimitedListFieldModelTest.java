@@ -269,4 +269,11 @@ public class LimitedListFieldModelTest extends CopeAssert
 		assertEquals(11, string.getMaximumLength());
 		return string;
 	}
+
+	public void testInitialType()
+	{
+		assertEquals("java.util.List<java.lang.Integer>", nums   .getInitialType().toString());
+		assertEquals("java.util.List<java.util.Date>"   , dates  .getInitialType().toString());
+		assertEquals("java.util.List<java.lang.String>" , strings.getInitialType().toString());
+	}
 }
