@@ -95,7 +95,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(false, password.isInitial());
 		assertEquals(false, password.isFinal());
 		assertEquals(false, password.isMandatory());
-		assertEquals(String.class, getInitialType(password));
+		assertEquals(String.class, password.getInitialType());
 		assertContains(password.getInitialExceptions());
 		assertEquals(UTF8, encoding(password));
 		assertEquals(5, algo(password).getIterations());
@@ -106,7 +106,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(false, passwordLatin.isInitial());
 		assertEquals(false, passwordLatin.isFinal());
 		assertEquals(false, passwordLatin.isMandatory());
-		assertEquals(String.class, getInitialType(passwordLatin));
+		assertEquals(String.class, passwordLatin.getInitialType());
 		assertContains(passwordLatin.getInitialExceptions());
 		assertEquals("ISO-8859-1", encoding(passwordLatin));
 		assertEquals(5, algo(passwordLatin).getIterations());
@@ -118,7 +118,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, passwordFinal.isInitial());
 		assertEquals(true, passwordFinal.isFinal());
 		assertEquals(true, passwordFinal.isMandatory());
-		assertEquals(String.class, getInitialType(passwordFinal));
+		assertEquals(String.class, passwordFinal.getInitialType());
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, passwordFinal.getInitialExceptions());
 		assertEquals(UTF8, encoding(passwordFinal));
 		assertEquals(5, algo(passwordFinal).getIterations());
@@ -130,7 +130,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, passwordMandatory.isInitial());
 		assertEquals(false, passwordMandatory.isFinal());
 		assertEquals(true, passwordMandatory.isMandatory());
-		assertEquals(String.class, getInitialType(passwordMandatory));
+		assertEquals(String.class, passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, passwordMandatory.getInitialExceptions());
 		assertEquals(UTF8, encoding(passwordMandatory));
 		assertEquals(5, algo(passwordMandatory).getIterations());

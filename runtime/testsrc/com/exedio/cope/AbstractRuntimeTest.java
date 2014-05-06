@@ -346,9 +346,4 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		tester.assertSchema();
 	}
-
-	public static java.lang.reflect.Type getInitialType(final Settable<?> settable)
-	{
-		return settable.getInitialType();
-	}
 }

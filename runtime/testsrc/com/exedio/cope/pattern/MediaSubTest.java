@@ -56,7 +56,7 @@ public class MediaSubTest extends AbstractRuntimeTest
 		assertEquals(false, image.isInitial());
 		assertEquals(false, image.isFinal());
 		assertEquals(false, image.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(image));
+		assertEquals(Media.Value.class, image.getInitialType());
 		assertContains(image.getInitialExceptions());
 		assertEquals(true, image.checkContentType("image/png"));
 		assertEquals(true, image.checkContentType("image/jpg"));

@@ -81,7 +81,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(true, password.isInitial());
 		assertEquals(false, password.isFinal());
 		assertEquals(true, password.isMandatory());
-		assertEquals(String.class, getInitialType(password));
+		assertEquals(String.class, password.getInitialType());
 		assertContains(MandatoryViolationException.class, password.getInitialExceptions());
 		assertEquals(UTF8, encoding(password));
 		assertEquals(1, algo(password).getIterations());

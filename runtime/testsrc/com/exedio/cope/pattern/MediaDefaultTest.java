@@ -67,7 +67,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertEquals(false, file.isInitial());
 		assertEquals(false, file.isFinal());
 		assertEquals(false, file.isMandatory());
-		assertEquals(Media.Value.class, getInitialType(file));
+		assertEquals(Media.Value.class, file.getInitialType());
 		assertContains(file.getInitialExceptions());
 		assertEquals(true, file.checkContentType("some/thing"));
 		assertEquals(false, file.checkContentType("something"));

@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
 import static com.exedio.cope.CopySourceItem.TYPE;
 import static com.exedio.cope.CopySourceItem.selfTargetItem;
 import static com.exedio.cope.CopySourceItem.selfTemplateItem;
@@ -97,13 +96,13 @@ public class CopyModelTest extends CopeAssert
 
 		assertEquals(true, templateString.isInitial());
 		assertEquals(true, templateString.isFinal());
-		assertEquals(String.class, getInitialType(templateString));
+		assertEquals(String.class, templateString.getInitialType());
 		assertContains(
 				StringLengthViolationException.class, FinalViolationException.class,
 				templateString.getInitialExceptions());
 		assertEquals(true, templateItem.isInitial());
 		assertEquals(true, templateItem.isFinal());
-		assertEquals(CopyValueItem.class, getInitialType(templateItem));
+		assertEquals(CopyValueItem.class, templateItem.getInitialType());
 		assertContains(
 				FinalViolationException.class,
 				templateItem.getInitialExceptions());

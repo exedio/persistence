@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AbstractRuntimeTest.getInitialType;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.PriceFieldItem.TYPE;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
@@ -85,18 +84,18 @@ public class PriceFieldModelTest extends CopeAssert
 		assertEquals(true, finalPrice.isInitial());
 		assertEquals(true, finalPrice.isMandatory());
 		assertEquals(true, finalPrice.isFinal());
-		assertEquals(Price.class, getInitialType(finalPrice));
+		assertEquals(Price.class, finalPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, finalPrice.getInitialExceptions());
 
 		assertEquals(false, optionalPrice.isInitial());
 		assertEquals(false, optionalPrice.isMandatory());
 		assertEquals(false, optionalPrice.isFinal());
-		assertEquals(Price.class, getInitialType(optionalPrice));
+		assertEquals(Price.class, optionalPrice.getInitialType());
 		assertContains(optionalPrice.getInitialExceptions());
 
 		assertEquals(true, bigPrice.isInitial());
 		assertEquals(false, bigPrice.isFinal());
-		assertEquals(Price.class, getInitialType(bigPrice));
+		assertEquals(Price.class, bigPrice.getInitialType());
 		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, bigPrice.getInitialExceptions());
 
 		assertTrue(   finalPrice.getInt().isAnnotationPresent(Computed.class));
