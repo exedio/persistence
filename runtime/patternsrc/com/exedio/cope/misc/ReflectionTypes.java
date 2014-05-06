@@ -19,7 +19,6 @@
 package com.exedio.cope.misc;
 
 import java.lang.reflect.ParameterizedType;
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 public final class ReflectionTypes
 {
@@ -27,7 +26,8 @@ public final class ReflectionTypes
 			final Class<?> rawType,
 			final Class<?>... actualTypeArguments)
 	{
-		return ParameterizedTypeImpl.make(rawType, actualTypeArguments, null);
+		return sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl.
+				make(rawType, actualTypeArguments, null);
 	}
 
 	private ReflectionTypes()
