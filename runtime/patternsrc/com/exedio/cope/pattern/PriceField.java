@@ -119,6 +119,11 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return mandatory;
 	}
 
+	public Class<?> getInitialType()
+	{
+		return Price.class;
+	}
+
 	public Price getDefaultConstant()
 	{
 		return Price.storeOf(integer.getDefaultConstant());
@@ -132,11 +137,6 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	public Price getMaximum()
 	{
 		return Price.storeOf(integer.getMaximum());
-	}
-
-	public Class<?> getInitialType()
-	{
-		return Price.class;
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

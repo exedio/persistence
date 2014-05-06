@@ -83,6 +83,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return !optional;
 	}
 
+	public final Class<?> getInitialType()
+	{
+		return valueClass;
+	}
+
 	/**
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
@@ -92,11 +97,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public boolean isInitial()
 	{
 		return isfinal || !optional;
-	}
-
-	public final Class<?> getInitialType()
-	{
-		return valueClass;
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

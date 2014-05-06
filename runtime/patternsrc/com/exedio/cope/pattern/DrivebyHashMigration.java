@@ -166,15 +166,15 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	}
 
 	@Override
-	public boolean isInitial()
-	{
-		return isMandatory() || isFinal();
-	}
-
-	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
 		return String.class;
+	}
+
+	@Override
+	public boolean isInitial()
+	{
+		return isMandatory() || isFinal();
 	}
 
 	@Override

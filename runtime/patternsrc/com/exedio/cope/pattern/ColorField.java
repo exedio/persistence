@@ -97,6 +97,11 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return mandatory;
 	}
 
+	public Class<?> getInitialType()
+	{
+		return Color.class;
+	}
+
 	/**
 	 * If this method returns false, this ColorField
 	 * allows opaque colors only.
@@ -108,11 +113,6 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	public boolean isAlphaAllowed()
 	{
 		return alphaAllowed;
-	}
-
-	public Class<?> getInitialType()
-	{
-		return Color.class;
 	}
 
 	public Color getDefaultConstant()

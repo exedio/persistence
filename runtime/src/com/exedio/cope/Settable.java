@@ -38,6 +38,9 @@ public interface Settable<E>
 
 	boolean isMandatory();
 
+	java.lang.reflect.Type getInitialType();
+
+
 	// used by instrumentor for creation constructors
 
 	/**
@@ -45,8 +48,6 @@ public interface Settable<E>
 	 * on the creation of an item.
 	 */
 	boolean isInitial();
-
-	java.lang.reflect.Type getInitialType();
 
 	/**
 	 * Returns the exceptions possibly thrown,

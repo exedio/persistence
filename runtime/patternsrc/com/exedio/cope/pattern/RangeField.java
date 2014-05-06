@@ -159,14 +159,14 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return from.isMandatory();
 	}
 
-	public boolean isInitial()
-	{
-		return from.isInitial();
-	}
-
 	public java.lang.reflect.Type getInitialType()
 	{
 		return ReflectionTypes.parameterized(Range.class, from.getValueClass());
+	}
+
+	public boolean isInitial()
+	{
+		return from.isInitial();
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()

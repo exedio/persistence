@@ -150,6 +150,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
+	public java.lang.reflect.Type getInitialType()
+	{
+		return ReflectionTypes.parameterized(EnumMap.class, keyClass, valueTemplate.getValueClass());
+	}
+
+	@Override
 	public boolean isInitial()
 	{
 		for(final FunctionField<V> field : fields.values())
@@ -168,12 +174,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	// ------------------- deprecated stuff -------------------
-
-	@Override
-	public java.lang.reflect.Type getInitialType()
-	{
-		return ReflectionTypes.parameterized(EnumMap.class, keyClass, valueTemplate.getValueClass());
-	}
 
 	/**
 	 * @deprecated Use {@link #create(Class,FunctionField)} instead

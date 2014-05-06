@@ -236,11 +236,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	public Class<?> getInitialType()
-	{
-		return valueClass;
-	}
-
 	public boolean isFinal()
 	{
 		return isfinal;
@@ -254,6 +249,11 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	public boolean isMandatory()
 	{
 		return !optional;
+	}
+
+	public Class<?> getInitialType()
+	{
+		return valueClass;
 	}
 
 	public Class<E> getValueClass()

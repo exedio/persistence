@@ -169,6 +169,12 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Override
+	public java.lang.reflect.Type getInitialType()
+	{
+		return ReflectionTypes.parameterized(EnumSet.class, elementClass);
+	}
+
+	@Override
 	public boolean isInitial()
 	{
 		return false;
@@ -187,12 +193,6 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	// ------------------- deprecated stuff -------------------
-
-	@Override
-	public java.lang.reflect.Type getInitialType()
-	{
-		return ReflectionTypes.parameterized(EnumSet.class, elementClass);
-	}
 
 	/**
 	 * @deprecated Use {@link #create(Class)} instead

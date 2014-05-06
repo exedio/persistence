@@ -251,9 +251,20 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional));
 	}
 
+	@Override
+	public boolean isFinal()
+	{
+		return isfinal;
+	}
+
 	public final boolean isMandatory()
 	{
 		return !optional;
+	}
+
+	public Class<?> getInitialType()
+	{
+		return Value.class;
 	}
 
 	public boolean checkContentType(final String contentType)
@@ -301,11 +312,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
-	public Class<?> getInitialType()
-	{
-		return Value.class;
-	}
-
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
@@ -320,12 +326,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public boolean isContentTypeWrapped()
 	{
 		return !(contentType instanceof FixedContentType);
-	}
-
-	@Override
-	public boolean isFinal()
-	{
-		return isfinal;
 	}
 
 	public boolean isInitial()
