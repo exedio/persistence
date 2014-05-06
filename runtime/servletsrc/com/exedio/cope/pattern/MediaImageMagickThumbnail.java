@@ -37,6 +37,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter impl
 
 	/**
 	 * Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar instead.
+	 * See {@code migration-guide.txt} for instructions.
 	 */
 	@Deprecated
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)

@@ -89,6 +89,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	/**
 	 * Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar instead.
+	 * See {@code migration-guide.txt} for instructions.
 	 */
 	@Deprecated
 	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
