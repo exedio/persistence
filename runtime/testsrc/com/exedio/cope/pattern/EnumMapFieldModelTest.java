@@ -71,6 +71,10 @@ public class EnumMapFieldModelTest extends CopeAssert
 						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL)),
 				TYPE.getFields());
 
+		assertEquals(String.class, name.getValueClass());
+		assertEquals(Integer.class, nameLength.getValueClass());
+		assertEquals(String.class, defaults.getValueClass());
+
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 

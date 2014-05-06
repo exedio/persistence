@@ -85,6 +85,11 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return fields.get(key);
 	}
 
+	public Class<V> getValueClass()
+	{
+		return valueTemplate.getValueClass();
+	}
+
 	private static final String KEY = "k";
 
 	private void assertKey(final K key)
