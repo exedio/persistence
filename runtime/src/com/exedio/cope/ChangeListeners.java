@@ -141,24 +141,12 @@ final class ChangeListeners
 			{
 				listener.onChange(event);
 			}
-			catch(final Exception e)
+			catch(final Exception | AssertionError e)
 			{
-				onDispatchFailure(event, listener, e);
-			}
-			catch(final AssertionError e)
-			{
-				onDispatchFailure(event, listener, e);
+				failed.inc();
+				if(logger.isErrorEnabled())
+					logger.error(MessageFormat.format("change listener {0} {1}", event, listener), e);
 			}
 		}
-	}
-
-	private void onDispatchFailure(
-			final ChangeEvent event,
-			final ChangeListener listener,
-			final Throwable throwable)
-	{
-		failed.inc();
-		if(logger.isErrorEnabled())
-			logger.error(MessageFormat.format("change listener {0} {1}", event, listener), throwable);
 	}
 }
