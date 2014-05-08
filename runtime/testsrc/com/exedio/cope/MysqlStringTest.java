@@ -89,7 +89,7 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 
 	private static String makeString(final StringField field)
 	{
-		final int length = Math.min(field.getMaximumLength(), 8*1000*1000);
+		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
 		final char[] buf = new char[length];
 
 		char val = 'A';
