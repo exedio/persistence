@@ -31,6 +31,8 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 
+import java.util.ArrayList;
+
 public class MysqlStringTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -60,6 +62,46 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 		assertEquals(
 				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? " not null" : ""),
 				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
+	}
+
+	public void testMax()
+	{
+		if(oracle)
+			return;
+
+		final ArrayList<SetValue<?>> sv = new ArrayList<>();
+		for(final Field<?> f : TYPE.getFields())
+		{
+			final StringField sf = (StringField)f;
+			sv.add(sf.map(makeString(sf)));
+		}
+
+		final MysqlStringItem item = TYPE.newItem(sv);
+
+		restartTransaction();
+
+		for(final Field<?> f : TYPE.getFields())
+		{
+			final StringField sf = (StringField)f;
+			assertEquals(makeString(sf), sf.get(item));
+		}
+	}
+
+	private static String makeString(final StringField field)
+	{
+		final int length = Math.min(field.getMaximumLength(), 8*1000*1000);
+		final char[] buf = new char[length];
+
+		char val = 'A';
+		for(int i = 0; i<length; i++)
+		{
+			buf[i] = val;
+			val++;
+			if(val>'Z')
+				val = 'A';
+		}
+
+		return new String(buf);
 	}
 
 	public void testSchema()
