@@ -397,6 +397,64 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
+	public void testReconfigure()
+	{
+		assertEquals(DAILY, item.getReportInterval());
+
+		run(1, "2008/01/17-01:49:49.888"); // Thursday
+		assertLogs(
+				log("2008/01/16-00:00:00.000", "2008/01/17-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2008/01/16-00:00:00.000", "2008/01/17-00:00:00.000", "2008/01/17-01:49:49.888"));
+
+		item.setReportInterval(WEEKLY);
+		assertEquals(WEEKLY, item.getReportInterval());
+
+		run(0, "2008/01/20-23:59:59.999"); // Sunday
+		assertLogs();
+		assertRuns();
+
+		run(1, "2008/01/21-00:00:00.000"); // Monday
+		// TODO
+		// covered Monday to Wednesday twice
+		// should be from Thursday until Sunday
+		// "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000"
+		assertLogs(
+				log("2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000"));
+		assertRuns(
+				ern(WEEKLY, "2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/21-00:00:00.000"));
+	}
+
+	public void testReconfigureWithExtraLag()
+	{
+		assertEquals(DAILY, item.getReportInterval());
+
+		run(1, "2008/01/17-01:49:49.888"); // Thursday
+		assertLogs(
+				log("2008/01/16-00:00:00.000", "2008/01/17-00:00:00.000"));
+		assertRuns(
+				ern(DAILY, "2008/01/16-00:00:00.000", "2008/01/17-00:00:00.000", "2008/01/17-01:49:49.888"));
+
+		item.setReportInterval(WEEKLY);
+		assertEquals(WEEKLY, item.getReportInterval());
+
+		run(0, "2008/01/20-23:59:59.999"); // Sunday
+		assertLogs();
+		assertRuns();
+
+		run(2, "2008/01/28-00:00:00.000"); // Monday a week later
+		// TODO
+		// covered Monday to Wednesday twice
+		// should be from Thursday until Sunday
+		// "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000"
+		assertLogs(
+				log("2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "1/2"),
+				log("2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000", "2/2"));
+		assertRuns(
+				ern(WEEKLY, "2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000"),
+				ern(WEEKLY, "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000", "2008/01/28-00:00:00.000"));
+	}
+
 	private final void run(final int progress, final String now)
 	{
 		final CountJobContext ctx = new CountJobContext();
