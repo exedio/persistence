@@ -308,6 +308,8 @@ public final class Schedule extends Pattern
 				interval.add(cal, -1);
 				dates.add(0, cal.getTime());
 			}
+			dates.remove(0);
+			dates.add(0, lastUntil);
 
 			final int total = dates.size() - 1;
 			if(total>30) // TODO allow customization

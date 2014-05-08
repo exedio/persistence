@@ -415,14 +415,10 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 
 		run(1, "2008/01/21-00:00:00.000"); // Monday
-		// TODO
-		// covered Monday to Wednesday twice
-		// should be from Thursday until Sunday
-		// "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000"
 		assertLogs(
-				log("2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000"));
+				log("2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000"));
 		assertRuns(
-				ern(WEEKLY, "2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/21-00:00:00.000"));
+				ern(WEEKLY, "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/21-00:00:00.000"));
 	}
 
 	public void testReconfigureWithExtraLag()
@@ -443,15 +439,11 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 
 		run(2, "2008/01/28-00:00:00.000"); // Monday a week later
-		// TODO
-		// covered Monday to Wednesday twice
-		// should be from Thursday until Sunday
-		// "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000"
 		assertLogs(
-				log("2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "1/2"),
+				log("2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000", "1/2"),
 				log("2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000", "2/2"));
 		assertRuns(
-				ern(WEEKLY, "2008/01/14-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000"),
+				ern(WEEKLY, "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000"),
 				ern(WEEKLY, "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000", "2008/01/28-00:00:00.000"));
 	}
 
