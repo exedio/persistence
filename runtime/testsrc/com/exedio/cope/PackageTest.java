@@ -178,6 +178,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CheckTypeColumnAbstractLinearTest.class );
 		suite.addTestSuite( SchemaPurgeTest.class );
 		suite.addTestSuite( TransactionTryTest.class );
+		suite.addTestSuite( MysqlStringTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTestSuite( DefaultInheritanceTest.class );
