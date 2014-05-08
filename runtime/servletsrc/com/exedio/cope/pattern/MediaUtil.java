@@ -85,10 +85,10 @@ public final class MediaUtil
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		try(
-			FileInputStream bodyStream = new FileInputStream(body);
+			FileInputStream in = new FileInputStream(body);
 			ServletOutputStream out = response.getOutputStream())
 		{
-			for(int len = bodyStream.read(b); len>=0; len = bodyStream.read(b))
+			for(int len = in.read(b); len>=0; len = in.read(b))
 				out.write(b, 0, len);
 		}
 	}
