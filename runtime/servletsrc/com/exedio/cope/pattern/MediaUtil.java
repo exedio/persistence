@@ -83,7 +83,7 @@ public final class MediaUtil
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
 
-		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
+		final byte[] b = new byte[DataField.min(8*1024, contentLength)];
 		try(
 			FileInputStream in = new FileInputStream(body);
 			ServletOutputStream out = response.getOutputStream())
