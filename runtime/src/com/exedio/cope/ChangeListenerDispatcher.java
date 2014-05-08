@@ -108,23 +108,14 @@ final class ChangeListenerDispatcher implements Runnable
 				// do nothing, thread will be
 				// terminated by threadRun flag
 			}
-			catch(final Exception e)
+			catch(final Exception | AssertionError e)
 			{
-				handleException(e);
-			}
-			catch(final AssertionError e)
-			{
-				handleException(e);
+				exception.inc();
+				if(ChangeListeners.logger.isErrorEnabled())
+					ChangeListeners.logger.error("ChangeListenerDispatcher", e);
 			}
 		}
 		logTerminate();
-	}
-
-	private void handleException(final Throwable e)
-	{
-		exception.inc();
-		if(ChangeListeners.logger.isErrorEnabled())
-			ChangeListeners.logger.error( "ChangeListenerDispatcher", e );
 	}
 
 	private static void logTerminate()
