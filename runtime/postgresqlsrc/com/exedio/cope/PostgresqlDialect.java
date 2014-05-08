@@ -63,7 +63,9 @@ final class PostgresqlDialect extends Dialect
 	 * in postgresql datatype "char" has no performance advantage compared to "varchar".
 	 */
 	@Override
-	String getStringType(final int maxBytes /* TODO should be maxChars*/)
+	String getStringType(
+			final int maxBytes /* TODO should be maxChars*/,
+			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
 	}

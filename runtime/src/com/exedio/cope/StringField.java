@@ -197,7 +197,7 @@ public final class StringField extends FunctionField<String>
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
-		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet);
+		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet, getAnnotation(MysqlExtendedVarchar.class));
 	}
 
 	@Override

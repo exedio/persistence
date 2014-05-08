@@ -23,9 +23,13 @@ import static com.exedio.cope.MysqlStringItem.longMax;
 import static com.exedio.cope.MysqlStringItem.longMin;
 import static com.exedio.cope.MysqlStringItem.mediumMax;
 import static com.exedio.cope.MysqlStringItem.mediumMin;
+import static com.exedio.cope.MysqlStringItem.mediumMinExt;
 import static com.exedio.cope.MysqlStringItem.textMax;
+import static com.exedio.cope.MysqlStringItem.textMaxExt;
 import static com.exedio.cope.MysqlStringItem.textMin;
+import static com.exedio.cope.MysqlStringItem.textMinExt;
 import static com.exedio.cope.MysqlStringItem.varcharMax;
+import static com.exedio.cope.MysqlStringItem.varcharMaxExt;
 import static com.exedio.cope.MysqlStringItem.varcharMin;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -49,9 +53,13 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 
 		assertType("varchar(1)" , varcharMin);
 		assertType("varchar(85)", varcharMax);
+		assertType("varchar(85)", varcharMaxExt);
+		assertType("varchar(86)", textMinExt);
 		assertType("text", textMin);
 		assertType("text", textMax);
+		assertType("varchar(20845)", textMaxExt);
 		assertType("mediumtext", mediumMin);
+		assertType("mediumtext", mediumMinExt);
 		assertType("mediumtext", mediumMax);
 		assertType("longtext", longMin);
 		assertType("longtext", longMax);

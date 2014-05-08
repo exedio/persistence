@@ -69,7 +69,9 @@ final class OracleDialect extends Dialect
 	 * The maximum for both varchar and nvarchar is 4000 bytes.
 	 */
 	@Override
-	String getStringType(final int maxChars)
+	String getStringType(
+			final int maxChars,
+			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		if(maxChars<=ORACLE_VARCHAR_MAX_CHARS)
 			return "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)";

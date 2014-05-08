@@ -187,7 +187,7 @@ abstract class Dialect
 
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
-	abstract String getStringType(int maxChars);
+	abstract String getStringType(int maxChars, MysqlExtendedVarchar mysqlExtendedVarchar);
 
 	String getStringLength()
 	{

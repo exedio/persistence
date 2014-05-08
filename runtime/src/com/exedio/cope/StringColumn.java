@@ -30,6 +30,7 @@ class StringColumn extends Column
 	final int maximumLength;
 	final CharSet charSet;
 	final String[] allowedValues;
+	private final MysqlExtendedVarchar mysqlExtendedVarchar;
 
 	StringColumn(
 			final Table table,
@@ -37,13 +38,15 @@ class StringColumn extends Column
 			final boolean optional,
 			final int minimumLength,
 			final int maximumLength,
-			final CharSet charSet)
+			final CharSet charSet,
+			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		super(table, id, false, false, optional);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
 		this.allowedValues = null;
+		this.mysqlExtendedVarchar = mysqlExtendedVarchar;
 
 		assert minimumLength<=maximumLength;
 	}
@@ -60,6 +63,7 @@ class StringColumn extends Column
 		this.maximumLength = maxLength(allowedValues);
 		this.charSet  = null;
 		this.allowedValues = allowedValues;
+		this.mysqlExtendedVarchar = null;
 
 		if(allowedValues.length<2)
 			throw new RuntimeException(id);
@@ -86,7 +90,7 @@ class StringColumn extends Column
 	@Override
 	final String getDatabaseType()
 	{
-		return table.database.dialect.getStringType(maximumLength);
+		return table.database.dialect.getStringType(maximumLength, mysqlExtendedVarchar);
 	}
 
 	@Override

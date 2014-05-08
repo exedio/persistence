@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @MysqlExtendedVarchar added
 * Settable#getInitialType() un-deprecated, with slightly different semantics:
 	* Mandatory fields will return wrapper instead of primitive
 		(Double.class instead of double.class).

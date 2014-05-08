@@ -200,9 +200,9 @@ public class ReviseTest extends CopeAssert
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field7"), dialect.getStringType(100));
-		final String body60 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6"), dialect.getStringType(100));
-		final String body61 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6b"), dialect.getStringType(100));
+		final String body70 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field7" ), dialect.getStringType(100, null));
+		final String body60 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6" ), dialect.getStringType(100, null));
+		final String body61 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6b"), dialect.getStringType(100, null));
 		final Revisions revisions7 = new Revisions(
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),

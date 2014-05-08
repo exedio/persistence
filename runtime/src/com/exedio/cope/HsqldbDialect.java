@@ -60,7 +60,9 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getStringType(final int maxChars)
+	String getStringType(
+			final int maxChars,
+			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		return "VARCHAR("+maxChars+")";
 	}

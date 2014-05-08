@@ -29,6 +29,11 @@ public final class MysqlStringItem extends Item
 	static final StringField longMin    = new StringField().lengthMax(5592406);
 	static final StringField longMax    = new StringField().lengthMax(Integer.MAX_VALUE);
 
+	@MysqlExtendedVarchar static final StringField varcharMaxExt = new StringField().lengthMax(85);
+	@MysqlExtendedVarchar static final StringField textMinExt    = new StringField().lengthMax(86);
+	@MysqlExtendedVarchar static final StringField textMaxExt    = new StringField().lengthMax(20845);
+	@MysqlExtendedVarchar static final StringField mediumMinExt  = new StringField().lengthMax(21846);
+
 
 	/**
 

@@ -125,7 +125,9 @@ final class MysqlDialect extends Dialect
 	 * unique constraints case sensitive.
 	 */
 	@Override
-	String getStringType(final int maxChars)
+	String getStringType(
+			final int maxChars,
+			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
 		final int maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
@@ -138,7 +140,8 @@ final class MysqlDialect extends Dialect
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
 		final String charset = " CHARACTER SET utf8 COLLATE utf8_bin";
-		if(maxBytes<TWOPOW8)
+		if(maxBytes<TWOPOW8 ||
+			(maxBytes<TWOPOW16 && mysqlExtendedVarchar!=null))
 			return "varchar("+maxChars+")" + charset;
 		else if(maxBytes<TWOPOW16)
 			return "text" + charset;
