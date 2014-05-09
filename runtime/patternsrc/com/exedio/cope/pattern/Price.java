@@ -230,12 +230,14 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price subtract(final Price other)
 	{
 		// TODO shortcut for neutral element
+		// TODO check overflow
 		return storeOf(store - other.store);
 	}
 
 	public Price multiply(final int other)
 	{
 		// TODO shortcut for neutral element
+		// TODO check overflow
 		return storeOf(store * other);
 	}
 
