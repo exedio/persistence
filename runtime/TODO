@@ -3,7 +3,6 @@ TODO for cope runtime
 
 - search API
 	- oracle statistics
-	- group by
 	- allow accessing features of subtypes of bound types
 	- condition DataField.is[Not]Null
 		use this on Media for CheckConstraint
@@ -18,10 +17,6 @@ TODO for cope runtime
 	* redundantly maintain width/height for images
 	* implement Accept-Ranges - needed for streaming video
 - CheckConstraints: make them work with conditions on fields of super type.
-- Hash: allow migration between algorithms
-	- nested algorithms for increasing security instantly
-	- migration whenever plain text is known
-	- increase iterations
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
 - Global History / Undo facility for backoffice, that can undo deletes as well.
@@ -35,8 +30,8 @@ TODO for cope runtime
 - Price
 	* handle overflows strictly
 	* use LongField for larger numbers
-	* support currencies
-		- with different factors to smaller unit
+- Money
+	* support currencies with different factors to smaller unit
 - move DateField#touch into separate pattern Timestamp
 - SetFieldOrdered: SetField with explicit order
 - patterns such as PriceField as function for select and orderBy
