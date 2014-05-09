@@ -247,7 +247,15 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price multiply(final int other)
 	{
 		// TODO shortcut for neutral element
-		// TODO check overflow
+
+		// TODO check overflow without using long
+		{
+			final long a = store;
+			final long r = a * other;
+			if(r>Integer.MAX_VALUE || r<Integer.MIN_VALUE)
+				throw new ArithmeticException("overflow " + this + " multiply " + other);
+		}
+
 		return storeOf(store * other);
 	}
 

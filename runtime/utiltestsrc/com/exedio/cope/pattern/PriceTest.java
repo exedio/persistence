@@ -381,13 +381,25 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
 
-		// TODO overflow
 		assertEquals( 1073741823, storeOf(1073741823).multiply(1).store());
 		assertEquals( 1073741824, storeOf(1073741824).multiply(1).store());
 		assertEquals( 1073741825, storeOf(1073741825).multiply(1).store());
 		assertEquals( 2147483646, storeOf(1073741823).multiply(2).store());
-		assertEquals(-2147483648, storeOf(1073741824).multiply(2).store()); // wrong
-		assertEquals(-2147483646, storeOf(1073741825).multiply(2).store()); // wrong
+		assertMultiplyOverflows(  storeOf(1073741824), 2);
+		assertMultiplyOverflows(  storeOf(1073741825), 2);
+	}
+
+	private static void assertMultiplyOverflows(final Price left, final int right)
+	{
+		try
+		{
+			left.multiply(right);
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("overflow " + left  + " multiply " + right, e.getMessage());
+		}
 	}
 
 	public static void testMultiplyDouble()
