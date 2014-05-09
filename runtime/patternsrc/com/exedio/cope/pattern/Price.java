@@ -230,7 +230,16 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price subtract(final Price other)
 	{
 		// TODO shortcut for neutral element
-		// TODO check overflow
+
+		// TODO check overflow without using long
+		{
+			final long a = store;
+			final long b = other.store;
+			final long r = a - b;
+			if(r>Integer.MAX_VALUE || r<Integer.MIN_VALUE)
+				throw new ArithmeticException("overflow " + this + " minus " + other);
+		}
+
 		return storeOf(store - other.store);
 	}
 

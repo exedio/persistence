@@ -335,12 +335,25 @@ public final class PriceTest extends CopeAssert
 	{
 		assertEquals( 2147483646, MAX_VALUE.subtract(storeOf( 1)).store());
 		assertEquals( 2147483647, MAX_VALUE.subtract(storeOf( 0)).store());
-		assertEquals(-2147483648, MAX_VALUE.subtract(storeOf(-1)).store()); // TODO fail
-		assertEquals(-2147483647, MAX_VALUE.subtract(storeOf(-2)).store()); // TODO fail
+		assertSubtractOverflows(  MAX_VALUE, storeOf(-1));
+		assertSubtractOverflows(  MAX_VALUE, storeOf(-2));
 		assertEquals(-2147483647, MIN_VALUE.subtract(storeOf(-1)).store());
 		assertEquals(-2147483648, MIN_VALUE.subtract(storeOf( 0)).store());
-		assertEquals( 2147483647, MIN_VALUE.subtract(storeOf( 1)).store()); // TODO fail
-		assertEquals( 2147483646, MIN_VALUE.subtract(storeOf( 2)).store()); // TODO fail
+		assertSubtractOverflows(  MIN_VALUE, storeOf( 1));
+		assertSubtractOverflows(  MIN_VALUE, storeOf( 2));
+	}
+
+	private static void assertSubtractOverflows(final Price left, final Price right)
+	{
+		try
+		{
+			left.subtract(right);
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("overflow " + left  + " minus " + right, e.getMessage());
+		}
 	}
 
 	public static void testNegative()
