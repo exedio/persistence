@@ -302,13 +302,11 @@ public final class Schedule extends Pattern
 		else
 		{
 			final LinkedList<Date> dates = new LinkedList<>();
-			dates.add(0, cal.getTime());
 			while(lastUntil.before(cal.getTime()))
 			{
-				interval.add(cal, -1);
 				dates.add(0, cal.getTime());
+				interval.add(cal, -1);
 			}
-			dates.remove(0);
 			dates.add(0, lastUntil);
 
 			final int total = dates.size() - 1;
