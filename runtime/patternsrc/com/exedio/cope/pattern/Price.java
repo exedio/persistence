@@ -205,6 +205,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price negative()
 	{
+		// TODO avoid the whole problem by disallowing Integer.MIN_VALUE for Price at all
 		if(store==Integer.MIN_VALUE)
 			throw new ArithmeticException("no negative for " + this);
 
