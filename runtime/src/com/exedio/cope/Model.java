@@ -900,6 +900,7 @@ public final class Model implements Serializable
 	 * Always returns an empty list.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public List<ModificationListener> getModificationListeners()
 	{
 		return ModificationListeners.get();
@@ -911,6 +912,7 @@ public final class Model implements Serializable
 	 * Always returns zero.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public int getModificationListenersCleared()
 	{
 		return ModificationListeners.getCleared();
@@ -922,6 +924,7 @@ public final class Model implements Serializable
 	 * Always throws a {@link NoSuchMethodError}.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public void addModificationListener(final ModificationListener listener)
 	{
 		ModificationListeners.add(listener);
@@ -932,6 +935,7 @@ public final class Model implements Serializable
 	 * ModificationListener is no longer supported.
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public void removeModificationListener(final ModificationListener listener)
 	{
 		ModificationListeners.remove(listener);
