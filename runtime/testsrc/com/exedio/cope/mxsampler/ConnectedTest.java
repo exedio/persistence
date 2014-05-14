@@ -18,25 +18,8 @@
 
 package com.exedio.cope.mxsampler;
 
-import static com.exedio.cope.mxsampler.Stuff.samplerModel;
+import com.exedio.cope.junit.CopeAssert;
 
-import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.junit.CopeTest;
-
-public class ConnectedTest extends CopeTest
+public class ConnectedTest extends CopeAssert
 {
-	ConnectedTest()
-	{
-		super(samplerModel, true);
-		skipTransactionManagement();
-	}
-
-	@Override
-	public ConnectProperties getConnectProperties()
-	{
-		final ConnectProperties props = super.getConnectProperties();
-		return new ConnectProperties(
-				MxSampler.maskConnectSource(props.getSourceObject()),
-				props.getContext());
-	}
 }

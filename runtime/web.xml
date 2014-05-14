@@ -244,19 +244,6 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>mxSamplerConsole</servlet-name>
-		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
-		<init-param>
-			<param-name>model</param-name>
-			<param-value>com.exedio.cope.mxsampler.Stuff#samplerModel</param-value>
-		</init-param>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>mxSamplerConsole</servlet-name>
-		<url-pattern>/mxsampler/console/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>badQueryConsole</servlet-name>
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>

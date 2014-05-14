@@ -76,7 +76,6 @@ public final class PropertiesInitializer implements ServletContextListener
 				CopyModelTest.MODEL,
 				DefaultToModelTest.MODEL,
 				Stuff.samplerModel,
-				com.exedio.cope.mxsampler.Stuff.samplerModel,
 				BadQueryTest.MODEL,
 		};
 	}
