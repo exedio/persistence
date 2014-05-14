@@ -105,7 +105,7 @@ public class ModificationListenerTest extends AbstractRuntimeTest
 		log.assertEmpty();
 	}
 
-	private final class MockListener implements ModificationListener
+	private static final class MockListener implements ModificationListener
 	{
 		MockListener()
 		{
