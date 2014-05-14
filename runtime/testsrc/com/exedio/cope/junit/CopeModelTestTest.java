@@ -81,7 +81,5 @@ public abstract class CopeModelTestTest extends CopeModelTest
 				throw new RuntimeException();
 			}
 		});
-
-		assertEquals(list(), model.getModificationListeners());
 	}
 }

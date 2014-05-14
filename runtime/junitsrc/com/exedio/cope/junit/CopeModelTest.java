@@ -22,7 +22,6 @@ import com.exedio.cope.ChangeListener;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Properties;
 
 /**
@@ -84,8 +83,6 @@ public abstract class CopeModelTest extends CopeAssert
 		model.setDatabaseListener(null);
 		for(final ChangeListener cl : model.getChangeListeners())
 			model.removeChangeListener(cl);
-		for(final ModificationListener ml : model.getModificationListeners())
-			model.removeModificationListener(ml);
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
 	}
