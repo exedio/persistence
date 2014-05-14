@@ -364,7 +364,6 @@ public final class Transaction
 				// notify global cache
 				connect.invalidate(invalidations, true);
 				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
-				model.modificationListeners.invalidate(invalidations, this);
 			}
 		}
 

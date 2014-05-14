@@ -21,133 +21,29 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.ModificationListener;
-import gnu.trove.TIntHashSet;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 final class ModificationListeners
 {
-	private static final Logger logger = LoggerFactory.getLogger(ModificationListeners.class);
-
-	private final Types types;
-	private final LinkedList<WeakReference<ModificationListener>> list = new LinkedList<>();
-	private int cleared = 0;
-
-	ModificationListeners(final Types types)
-	{
-		this.types = types;
-	}
-
 	List<ModificationListener> get()
 	{
-		synchronized(list)
-		{
-			final int size = list.size();
-			if(size==0)
-				return Collections.<ModificationListener>emptyList();
-
-			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ModificationListener> result = new ArrayList<>(size);
-			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
-			{
-				final ModificationListener listener = i.next().get();
-				if(listener==null)
-				{
-					i.remove();
-					cleared++;
-				}
-				else
-					result.add(listener);
-			}
-
-			if(cleared>0)
-				this.cleared += cleared;
-
-			return Collections.unmodifiableList(result);
-		}
+		return Collections.<ModificationListener>emptyList();
 	}
 
 	int getCleared()
 	{
-		synchronized(list)
-		{
-			return cleared;
-		}
+		return 0;
 	}
 
 	void add(final ModificationListener listener)
 	{
 		requireNonNull(listener, "listener");
-
-		final WeakReference<ModificationListener> ref = new WeakReference<>(listener);
-		synchronized(list)
-		{
-			list.add(ref);
-		}
+		throw new NoSuchMethodError("ModificationListener is no longer supported");
 	}
 
 	void remove(final ModificationListener listener)
 	{
 		requireNonNull(listener, "listener");
-
-		synchronized(list)
-		{
-			int cleared = 0;
-			for(final Iterator<WeakReference<ModificationListener>> i = list.iterator(); i.hasNext(); )
-			{
-				final ModificationListener l = i.next().get();
-				if(l==null)
-				{
-					i.remove();
-					cleared++;
-				}
-				else if(l==listener)
-					i.remove();
-			}
-			if(cleared>0)
-				this.cleared += cleared;
-		}
-	}
-
-	void invalidate(final TIntHashSet[] invalidations, final Transaction transaction)
-	{
-		final List<ModificationListener> listeners = get();
-		if(listeners.isEmpty())
-			return;
-
-		final Collection<Item> items = Collections.unmodifiableCollection(Arrays.asList(types.activate(invalidations)));
-		assert !items.isEmpty();
-		for(final ModificationListener listener : listeners)
-		{
-			try
-			{
-				onModifyingCommit(listener, items, transaction);
-			}
-			catch(final RuntimeException e)
-			{
-				if(logger.isErrorEnabled())
-					logger.error("Suppressing exception from modification listener " + listener.getClass().getName(), e);
-			}
-			catch(final AssertionError e)
-			{
-				if(logger.isErrorEnabled())
-					logger.error( "Suppressing exception from modification listener " + listener.getClass().getName(), e);
-			}
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private static void onModifyingCommit(final ModificationListener listener, final Collection<Item> modifiedItems, final Transaction transaction)
-	{
-		listener.onModifyingCommit(modifiedItems, transaction);
 	}
 }

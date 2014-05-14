@@ -92,7 +92,7 @@ public final class Model implements Serializable
 		this.types = new Types(this, typeSets, types);
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners();
-		this.modificationListeners = new ModificationListeners(this.types);
+		this.modificationListeners = new ModificationListeners();
 
 		this.types.afterModelCreated();
 	}
@@ -518,6 +518,12 @@ public final class Model implements Serializable
 		return changeListeners.get();
 	}
 
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always returns an empty list.
+	 */
+	@Deprecated
 	public List<ModificationListener> getModificationListeners()
 	{
 		return modificationListeners.get();
@@ -533,6 +539,12 @@ public final class Model implements Serializable
 		return connect().changeListenerDispatcher.getInfo();
 	}
 
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always returns zero.
+	 */
+	@Deprecated
 	public int getModificationListenersCleared()
 	{
 		return modificationListeners.getCleared();
@@ -543,6 +555,12 @@ public final class Model implements Serializable
 		changeListeners.add(listener);
 	}
 
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always throws a {@link NoSuchMethodError}.
+	 */
+	@Deprecated
 	public void addModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.add(listener);
@@ -553,6 +571,11 @@ public final class Model implements Serializable
 		changeListeners.remove(listener);
 	}
 
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 */
+	@Deprecated
 	public void removeModificationListener(final ModificationListener listener)
 	{
 		modificationListeners.remove(listener);

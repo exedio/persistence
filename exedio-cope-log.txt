@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ModificationListener is no longer supported.
+	Model#addModificationListener will fail with a NoSuchMethodError.
+	This breaks backwards API compatibility for API that was deprecated for
+	a long time.
 * bugfix: Schedule does not cover date ranges twice when changing interval,
 	timezone, or locale.
 * @MysqlExtendedVarchar added

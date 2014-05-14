@@ -22,12 +22,8 @@ import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
 import com.exedio.cope.ChangeEvent;
 import com.exedio.cope.ChangeListener;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Transaction;
 import com.exedio.cope.misc.DatabaseListener;
-import com.exedio.cope.util.ModificationListener;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class CopeModelTestTest extends CopeModelTest
@@ -87,13 +83,5 @@ public abstract class CopeModelTestTest extends CopeModelTest
 		});
 
 		assertEquals(list(), model.getModificationListeners());
-		model.addModificationListener(new ModificationListener()
-		{
-			@Deprecated
-			public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
-			{
-				throw new RuntimeException();
-			}
-		});
 	}
 }
