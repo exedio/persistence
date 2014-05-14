@@ -515,17 +515,6 @@ public final class Model implements Serializable
 		return changeListeners.get();
 	}
 
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always returns an empty list.
-	 */
-	@Deprecated
-	public List<ModificationListener> getModificationListeners()
-	{
-		return ModificationListeners.get();
-	}
-
 	public ChangeListenerInfo getChangeListenersInfo()
 	{
 		return changeListeners.getInfo();
@@ -536,46 +525,14 @@ public final class Model implements Serializable
 		return connect().changeListenerDispatcher.getInfo();
 	}
 
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always returns zero.
-	 */
-	@Deprecated
-	public int getModificationListenersCleared()
-	{
-		return ModificationListeners.getCleared();
-	}
-
 	public void addChangeListener(final ChangeListener listener)
 	{
 		changeListeners.add(listener);
 	}
 
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always throws a {@link NoSuchMethodError}.
-	 */
-	@Deprecated
-	public void addModificationListener(final ModificationListener listener)
-	{
-		ModificationListeners.add(listener);
-	}
-
 	public void removeChangeListener(final ChangeListener listener)
 	{
 		changeListeners.remove(listener);
-	}
-
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 */
-	@Deprecated
-	public void removeModificationListener(final ModificationListener listener)
-	{
-		ModificationListeners.remove(listener);
 	}
 
 	public List<SequenceInfo> getSequenceInfo()
@@ -936,6 +893,49 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always returns an empty list.
+	 */
+	@Deprecated
+	public List<ModificationListener> getModificationListeners()
+	{
+		return ModificationListeners.get();
+	}
+
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always returns zero.
+	 */
+	@Deprecated
+	public int getModificationListenersCleared()
+	{
+		return ModificationListeners.getCleared();
+	}
+
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 * Always throws a {@link NoSuchMethodError}.
+	 */
+	@Deprecated
+	public void addModificationListener(final ModificationListener listener)
+	{
+		ModificationListeners.add(listener);
+	}
+
+	/**
+	 * @deprecated
+	 * ModificationListener is no longer supported.
+	 */
+	@Deprecated
+	public void removeModificationListener(final ModificationListener listener)
+	{
+		ModificationListeners.remove(listener);
+	}
 
 	/**
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
