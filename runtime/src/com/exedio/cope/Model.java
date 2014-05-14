@@ -59,8 +59,6 @@ public final class Model implements Serializable
 	private final long initializeDate;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	final ModificationListeners modificationListeners;
 
 	private final Object connectLock = new Object();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -92,7 +90,6 @@ public final class Model implements Serializable
 		this.types = new Types(this, typeSets, types);
 		this.initializeDate = System.currentTimeMillis();
 		this.changeListeners = new ChangeListeners();
-		this.modificationListeners = new ModificationListeners();
 
 		this.types.afterModelCreated();
 	}
@@ -526,7 +523,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public List<ModificationListener> getModificationListeners()
 	{
-		return modificationListeners.get();
+		return ModificationListeners.get();
 	}
 
 	public ChangeListenerInfo getChangeListenersInfo()
@@ -547,7 +544,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public int getModificationListenersCleared()
 	{
-		return modificationListeners.getCleared();
+		return ModificationListeners.getCleared();
 	}
 
 	public void addChangeListener(final ChangeListener listener)
@@ -563,7 +560,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public void addModificationListener(final ModificationListener listener)
 	{
-		modificationListeners.add(listener);
+		ModificationListeners.add(listener);
 	}
 
 	public void removeChangeListener(final ChangeListener listener)
@@ -578,7 +575,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public void removeModificationListener(final ModificationListener listener)
 	{
-		modificationListeners.remove(listener);
+		ModificationListeners.remove(listener);
 	}
 
 	public List<SequenceInfo> getSequenceInfo()

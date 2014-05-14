@@ -26,23 +26,23 @@ import java.util.List;
 
 final class ModificationListeners
 {
-	List<ModificationListener> get()
+	static List<ModificationListener> get()
 	{
 		return Collections.<ModificationListener>emptyList();
 	}
 
-	int getCleared()
+	static int getCleared()
 	{
 		return 0;
 	}
 
-	void add(final ModificationListener listener)
+	static void add(final ModificationListener listener)
 	{
 		requireNonNull(listener, "listener");
 		throw new NoSuchMethodError("ModificationListener is no longer supported");
 	}
 
-	void remove(final ModificationListener listener)
+	static void remove(final ModificationListener listener)
 	{
 		requireNonNull(listener, "listener");
 	}
