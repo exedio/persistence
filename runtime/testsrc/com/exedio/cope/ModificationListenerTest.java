@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 
 public class ModificationListenerTest extends AbstractRuntimeTest
 {
+	@Deprecated
 	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
 
 	public ModificationListenerTest()

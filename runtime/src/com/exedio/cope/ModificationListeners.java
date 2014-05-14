@@ -24,6 +24,7 @@ import com.exedio.cope.util.ModificationListener;
 import java.util.Collections;
 import java.util.List;
 
+@Deprecated
 final class ModificationListeners
 {
 	static List<ModificationListener> get()
