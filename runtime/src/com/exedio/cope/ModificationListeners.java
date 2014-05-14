@@ -46,4 +46,9 @@ final class ModificationListeners
 	{
 		requireNonNull(listener, "listener");
 	}
+
+	private ModificationListeners()
+	{
+		// prevent instantiation
+	}
 }
