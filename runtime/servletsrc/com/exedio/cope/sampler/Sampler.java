@@ -43,6 +43,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -69,12 +70,6 @@ public class Sampler
 				SamplerItemCache.TYPE,
 				SamplerClusterNode.TYPE,
 				SamplerMedia.TYPE,
-
-				AbsoluteModel.TYPE,
-				AbsoluteTransaction.TYPE,
-				AbsoluteItemCache.TYPE,
-				AbsoluteClusterNode.TYPE,
-				AbsoluteMedia.TYPE,
 
 				SamplerEnvironment.TYPE,
 				SamplerPurge.TYPE);
@@ -325,15 +320,27 @@ public class Sampler
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * This method is no longer needed.
+	 * Always returns an empty list.
+	 */
+	@Deprecated
 	public final List<Query<List<Object>>> differentiate()
 	{
 		return differentiate(null, null);
 	}
 
-	@SuppressWarnings("static-method")
+	/**
+	 * @deprecated
+	 * This method is no longer needed.
+	 * Always returns an empty list.
+	 */
+	@Deprecated
+	@SuppressWarnings({"static-method", "unused"})
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
-		return AbsoluteDifferentiate.differentiate(from, until);
+		return Collections.emptyList();
 	}
 
 	@Override

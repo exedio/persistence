@@ -36,6 +36,13 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(11, "remove tables for absolute values, not used anymore since revision 6",
+				"DROP TABLE `SamplerClusterNode`",
+				"DROP TABLE `SamplerItemCache`",
+				"DROP TABLE `SamplerMedia`",
+				"DROP TABLE `SamplerTransaction`",
+				"DROP TABLE `SamplerModel`"
+			),
 			new Revision(10, "add SamplerEnvironment",
 				"CREATE TABLE `SamplerEnvironment`(" +
 					"`this` int," +

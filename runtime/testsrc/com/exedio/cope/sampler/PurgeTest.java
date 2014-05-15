@@ -40,12 +40,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
-		assertPurge(new Date(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		assertPurge(new Date(), 0, 0, 0, 0, 0);
 
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
@@ -53,11 +48,6 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(c?2:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
 		sleepLongerThan( 1 );
 		sampler.sample();
@@ -66,11 +56,6 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
 		final Date date;
 		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
@@ -78,17 +63,12 @@ public class PurgeTest extends ConnectedTest
 			date = new Query<>(SamplerModel.date.min(), SamplerModel.TYPE, null).searchSingletonStrict();
 			tx.commit();
 		}
-		assertPurge(date, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		assertPurge(date, 0, 0, 0, 0, 0);
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
 
 		final Date dateMax;
@@ -98,36 +78,26 @@ public class PurgeTest extends ConnectedTest
 			tx.commit();
 		}
 		final Date purgeDate = new Date(dateMax.getTime()+1);
-		assertPurge(purgeDate, 2, c?4:0, 0, 4, 0, 0, 0, 0, 2, 0);
+		assertPurge(purgeDate, 2, c?4:0, 0, 4, 2);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 
-		assertPurge(purgeDate, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		assertPurge(purgeDate, 0, 0, 0, 0, 0);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteModel.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteTransaction.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteItemCache.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteClusterNode.TYPE));
-		assertEquals(0, sampler.analyzeCount(AbsoluteMedia.TYPE));
 	}
 
 	private static final void assertPurge(final Date date, final int... progress)
 	{
 		final MockJobContext ctx = new MockJobContext();
 		sampler.purge(date, ctx);
-		assertEquals(10, ctx.getRequestedToStopCount());
+		assertEquals(5, ctx.getRequestedToStopCount());
 		final ArrayList<Integer> progressList = new ArrayList<>();
 		for(final int p : progress)
 			progressList.add(p);
