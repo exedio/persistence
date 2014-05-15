@@ -389,7 +389,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -413,7 +413,7 @@
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/slf4j-log4j12.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/hsqldb.jar" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
@@ -496,7 +496,7 @@
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/log4j.jar" />
+				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -538,7 +538,7 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${runtime.test}" todir="build/testresults" outfile="runtime-@{env}" />
@@ -571,7 +571,7 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="com.exedio.cope.ProtocolWriter" />
@@ -606,7 +606,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/log4j-bundle.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/teardownContextPath" />
@@ -1038,7 +1038,7 @@
 				<pathelement location="${basedir}/lib/junit.jar" />
 				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
-				<pathelement location="${basedir}/lib/log4j.jar" />
+				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
 				<pathelement location="${ant.core.lib}" />
 			</auxclasspath>
 		</findbugs>
@@ -1091,7 +1091,7 @@
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/log4j.jar" />
+						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />

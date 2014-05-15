@@ -25,7 +25,7 @@
 		<copy overwrite="true" file="artifacts/bsh-src.jar" todir="../lib" />
 		<copy overwrite="true" file="artifacts/hsqldb-jar.jar" tofile="../lib/hsqldb.jar" />
 		<copy overwrite="true" file="artifacts/mysql-connector-java-jar.jar" tofile="../lib/mysql-connector-java.jar" />
-		<copy overwrite="true" file="artifacts/ojdbc5-jar.jar" tofile="../lib/ojdbc5-11.1.0.7.0.jar" />
+		<copy overwrite="true" file="artifacts/ojdbc5-jar.jar" tofile="../lib/ojdbc5.jar" />
 		<copy overwrite="true" file="artifacts/postgresql-jar.jar" tofile="../lib/postgresql.jar" />
 		<copy overwrite="true" file="artifacts/apache-tomcat-dist.tar.gz" tofile="../lib/apache-tomcat.tar.gz" />
 		<copy overwrite="true" file="artifacts/findbugs-dist.tar.gz" tofile="../lib/findbugs.tar.gz" />
@@ -33,6 +33,6 @@
 		<copy overwrite="true" file="artifacts/slf4j-api-jar.jar" tofile="../lib/slf4j-api.jar" />
 		<copy overwrite="true" file="artifacts/slf4j-api-source.jar" todir="../lib" />
 		<copy overwrite="true" file="artifacts/slf4j-log4j12-jar.jar" tofile="../lib/slf4j-log4j12.jar" />
-		<copy overwrite="true" file="artifacts/log4j-bundle.jar" tofile="../lib/log4j.jar" />
+		<copy overwrite="true" file="artifacts/log4j-bundle.jar" todir="../lib" />
 	</target>
 </project>
