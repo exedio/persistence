@@ -20,6 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.instrument.FieldsGetter;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Cast;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
@@ -177,9 +180,20 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	public <P extends Item> P search(final Class<P> typeClass, final Object... values)
+	@Wrap(order=10, name="for{0}", optionTagname="finder",
+			doc="Finds a {2} by it''s unique fields.",
+			docReturn="null if there is no matching item.")
+	public <P extends Item> P search(final Class<P> typeClass, @Parameter(blah=UniqueFieldsGetter.class) final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
+	}
+
+	private static final class UniqueFieldsGetter implements FieldsGetter<UniqueConstraint>
+	{
+		public List<? extends Object> get(final UniqueConstraint feature)
+		{
+			return feature.getFields();
+		}
 	}
 
 	void check(final Item item, final Map<? extends Field<?>, ?> fieldValues)

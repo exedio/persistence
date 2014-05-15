@@ -211,6 +211,12 @@ final class WrapperByAnnotations
 			}
 		}
 		{
+			final String optionTagName = annotation.optionTagname();
+			if(!optionTagName.isEmpty())
+				result.setOptionTagName(optionTagName);
+
+		}
+		{
 			final Annotation[][] annotations = method.getParameterAnnotations();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
@@ -223,7 +229,7 @@ final class WrapperByAnnotations
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment);
+					result.addParameter(genericParameterType, paramAnnValueFixed, comment, getFields(paramAnn.blah()));
 				}
 			}
 		}
@@ -266,6 +272,18 @@ final class WrapperByAnnotations
 		final ThrownGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final Set<Class<? extends Throwable>> result = getter.get(feature);
+		return result;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private List<Object> getFields(final Class<? extends FieldsGetter> clazz)
+	{
+		if(clazz==FieldsGetterDefault.class)
+			return null;
+
+		final FieldsGetter getter = instantiate(clazz);
+		@SuppressWarnings("unchecked")
+		final List<Object> result = getter.get(feature);
 		return result;
 	}
 

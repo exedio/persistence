@@ -120,11 +120,13 @@ final class WrapperX
 		private final java.lang.reflect.Type type;
 		private final String name;
 		private final String[] comment;
+		final List<? extends Object> blah;
 
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
-				final String[] comment)
+				final String[] comment,
+				final List<? extends Object> blah)
 		{
 			if(type==null)
 				throw new NullPointerException("type");
@@ -136,6 +138,7 @@ final class WrapperX
 			this.type = type;
 			this.name = name;
 			this.comment = comment;
+			this.blah = blah;
 		}
 
 		java.lang.reflect.Type getType()
@@ -164,12 +167,12 @@ final class WrapperX
 
 	void addParameter(final java.lang.reflect.Type type)
 	{
-		addParameter(type, "{1}", EMPTY_STRING_ARRAY);
+		addParameter(type, "{1}", EMPTY_STRING_ARRAY, null);
 	}
 
-	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
+	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final List<? extends Object> blah)
 	{
-		final Parameter p = new Parameter(type, name, comment);
+		final Parameter p = new Parameter(type, name, comment, blah);
 		if(parameters==null)
 			parameters = new ArrayList<>();
 		parameters.add(p);
@@ -223,6 +226,19 @@ final class WrapperX
 	String getMethodWrapperPattern()
 	{
 		return methodWrapperPattern;
+	}
+
+
+	private String optionTagName;
+
+	void setOptionTagName(final String optionTagName)
+	{
+		this.optionTagName = optionTagName;
+	}
+
+	String getOptionTagName()
+	{
+		return optionTagName;
 	}
 
 

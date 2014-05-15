@@ -73,9 +73,6 @@ final class Generator
 																					"</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_ACTIVATION = "Activation constructor. Used for internal purposes only.";
-	private static final String FINDER_UNIQUE = "Finds a {0} by it''s unique fields.";
-	private static final String FINDER_UNIQUE_PARAMETER = "shall be equal to field {0}.";
-	private static final String FINDER_UNIQUE_RETURN = "null if there is no matching item.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_BLOCK = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
@@ -398,7 +395,7 @@ final class Generator
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
-			final String modifierTag = pattern!=null ? format(pattern, "", "") : wrapper.getName();
+			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
 
 			if(!option.exists)
@@ -512,11 +509,29 @@ final class Generator
 				final CharSeparator comma = new CharSeparator(',');
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					comma.appendTo(output);
-					write(finalArgPrefix);
-					write(ctx.write(parameter.getType()));
-					write(' ');
-					write(format(parameter.getName(), arguments));
+					if(parameter.blah!=null)
+					{
+						for(final Object featureObject : parameter.blah)
+						{
+							final Feature parameterFeature = (Feature)featureObject;
+							comma.appendTo(output);
+							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
+
+							write(finalArgPrefix);
+							write(new Context(feature, false).write(fau.getInitialType()));
+							write(' ');
+							write(format(fei.name, arguments));
+						}
+					}
+					else
+					{
+						comma.appendTo(output);
+						write(finalArgPrefix);
+						write(ctx.write(parameter.getType()));
+						write(' ');
+						write(format(parameter.getName(), arguments));
+					}
 				}
 			}
 			write(')');
@@ -575,8 +590,23 @@ final class Generator
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					comma.appendTo(output);
-					write(format(parameter.getName(), arguments));
+					if(parameter.blah!=null)
+					{
+						for(final Object featureObject : parameter.blah)
+						{
+							final Feature parameterFeature = (Feature)featureObject;
+							comma.appendTo(output);
+							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
+
+							write(format(fei.name, arguments));
+						}
+					}
+					else
+					{
+						comma.appendTo(output);
+						write(format(parameter.getName(), arguments));
+					}
 				}
 			}
 			write(')');
@@ -652,101 +682,6 @@ final class Generator
 			}
 			write(lineSeparator);
 		}
-	}
-
-	private void writeUniqueFinder(final CopeUniqueConstraint constraint)
-	throws ParserException
-	{
-		if(constraint.parent.isBlock)
-			return;
-
-		final String optionTagname = CopeFeature.TAG_PREFIX + "finder";
-		final Option option = new Option(
-				Tags.getLine(constraint.docComment, optionTagname), true);
-		if(!option.exists)
-			return;
-
-		final CopeAttribute[] attributes = constraint.getAttributes();
-		final String className = attributes[0].getParent().name;
-
-		writeCommentHeader();
-		writeIndent();
-		write(" * ");
-		write(format(FINDER_UNIQUE, lowerCamelCase(className)));
-		write(lineSeparator);
-		for(final CopeAttribute attribute : attributes)
-		{
-			writeIndent();
-			write(" * @param ");
-			write(attribute.name);
-			write(' ');
-			write(format(FINDER_UNIQUE_PARAMETER, link(attribute.name)));
-			write(lineSeparator);
-		}
-		writeIndent();
-		write(" * @return ");
-		write(FINDER_UNIQUE_RETURN);
-		write(lineSeparator);
-
-		writeCommentFooter(
-				"It can be customized with the tag " +
-				"<tt>@" + optionTagname + ' ' +
-				Option.TEXT_VISIBILITY_PUBLIC + '|' +
-				Option.TEXT_VISIBILITY_PACKAGE + '|' +
-				Option.TEXT_VISIBILITY_PROTECTED + '|' +
-				Option.TEXT_VISIBILITY_PRIVATE + '|' +
-				Option.TEXT_NONE + '|' +
-				Option.TEXT_NON_FINAL + "</tt> " +
-				"in the comment of the field."
-		);
-
-		writeIndent();
-		writeModifier(option.getModifier(constraint.modifier) | (STATIC|FINAL) );
-		write(className);
-		write(" for");
-		write(toCamelCase(constraint.name));
-
-		write('(');
-		for(int i=0; i<attributes.length; i++)
-		{
-			if(i>0)
-				write(',');
-			final CopeAttribute attribute = attributes[i];
-			write(finalArgPrefix);
-			write(getBoxedType(attribute));
-			write(' ');
-			write(attribute.name);
-		}
-		write(')');
-		write(lineSeparator);
-		writeIndent();
-		write('{');
-		write(lineSeparator);
-		writeIndent(1);
-		write("return ");
-
-		write(attributes[0].parent.name);
-		write('.');
-		write(constraint.name);
-		write(".search(");
-		write(className);
-		write(".class,");
-		write(attributes[0].name);
-		for(int i = 1; i<attributes.length; i++)
-		{
-			write(',');
-			write(attributes[i].name);
-		}
-		write(");");
-		write(lineSeparator);
-		writeIndent();
-		write('}');
-	}
-
-	@SuppressWarnings("deprecation")
-	private static String getBoxedType(final CopeAttribute a)
-	{
-		return a.getBoxedType();
 	}
 
 	private void writeSerialVersionUID()
@@ -838,11 +773,7 @@ final class Generator
 			writeGenericConstructor(type);
 
 			for(final CopeFeature feature : type.getFeatures())
-			{
 				writeFeature(feature);
-				if(feature instanceof CopeUniqueConstraint)
-					writeUniqueFinder((CopeUniqueConstraint)feature);
-			}
 
 			writeSerialVersionUID();
 			writeType(type);
