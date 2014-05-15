@@ -12,6 +12,6 @@
 			classpath="artifacts/ivy.jar"
 			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings.xml" />
-		<ivy:retrieve file="../ivy.xml" pattern="artifacts/[artifact]-[type].[ext]" />
+		<ivy:retrieve file="../ivy.xml" pattern="artifacts/lib/[artifact]-[type].[ext]" />
 	</target>
 </project>
