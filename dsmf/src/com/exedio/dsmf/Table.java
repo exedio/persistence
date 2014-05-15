@@ -233,11 +233,11 @@ public final class Table extends Node
 			append(quoteName(name)).
 			append('(');
 
-		boolean firstColumn = true;
+		boolean first = true;
 		for(final Column column : columnList)
 		{
-			if(firstColumn)
-				firstColumn = false;
+			if(first)
+				first = false;
 			else
 				bf.append(',');
 
