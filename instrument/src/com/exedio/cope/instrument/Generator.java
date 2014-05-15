@@ -514,15 +514,7 @@ final class Generator
 				{
 					comma.appendTo(output);
 					write(finalArgPrefix);
-					if(parameter.isVararg())
-					{
-						write(((Class<?>)parameter.getType()).getComponentType().getCanonicalName());
-						write("...");
-					}
-					else
-					{
-						write(ctx.write(parameter.getType()));
-					}
+					write(ctx.write(parameter.getType()));
 					write(' ');
 					write(format(parameter.getName(), arguments));
 				}

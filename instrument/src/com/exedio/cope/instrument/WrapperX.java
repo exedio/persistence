@@ -120,13 +120,11 @@ final class WrapperX
 		private final java.lang.reflect.Type type;
 		private final String name;
 		private final String[] comment;
-		private final boolean vararg;
 
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
-				final String[] comment,
-				final boolean vararg)
+				final String[] comment)
 		{
 			if(type==null)
 				throw new NullPointerException("type");
@@ -134,13 +132,10 @@ final class WrapperX
 				throw new NullPointerException("name");
 			for(final String c : comment)
 				assertComment(c);
-			if(vararg && !((Class<?>)type).isArray())
-				throw new IllegalArgumentException("vararg requires array type, but was " + ((Class<?>)type).getName());
 
 			this.type = type;
 			this.name = name;
 			this.comment = comment;
-			this.vararg = vararg;
 		}
 
 		java.lang.reflect.Type getType()
@@ -156,11 +151,6 @@ final class WrapperX
 		String[] getComment()
 		{
 			return com.exedio.cope.misc.Arrays.copyOf(comment);
-		}
-
-		boolean isVararg()
-		{
-			return vararg;
 		}
 
 		@Override
@@ -179,12 +169,7 @@ final class WrapperX
 
 	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment)
 	{
-		addParameter(type, name, comment, false);
-	}
-
-	private void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final boolean vararg)
-	{
-		final Parameter p = new Parameter(type, name, comment, vararg);
+		final Parameter p = new Parameter(type, name, comment);
 		if(parameters==null)
 			parameters = new ArrayList<>();
 		parameters.add(p);
