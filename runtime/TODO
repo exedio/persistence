@@ -28,7 +28,6 @@ TODO for cope runtime
 	* make revisions cluster aware
 	* test configuration of tomcat
 - Price
-	* handle overflows strictly
 	* use LongField for larger numbers
 - Money
 	* support currencies with different factors to smaller unit
