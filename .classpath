@@ -21,11 +21,11 @@
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
-	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-sources.jar"/>
+	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-source.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar" sourcepath="lib/junit-source.jar"/>
-	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api.jar-src.zip"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/trove.jar" sourcepath="lib/trove-src.jar"/>
-	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util.jar-src.zip"/>
+	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util-src.zip"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
