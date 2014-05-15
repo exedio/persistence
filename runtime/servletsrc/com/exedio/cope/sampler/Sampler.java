@@ -320,6 +320,18 @@ public class Sampler
 		}
 	}
 
+	@Override
+	public final String toString()
+	{
+		// NOTE:
+		// The result of sampledModel.toString() may not be
+		// constant over time, therefore we need to compute
+		// the result live.
+		return "Sampler#" + sampledModel.toString();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
 	/**
 	 * @deprecated
 	 * This method is no longer needed.
@@ -341,15 +353,5 @@ public class Sampler
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		return Collections.emptyList();
-	}
-
-	@Override
-	public final String toString()
-	{
-		// NOTE:
-		// The result of sampledModel.toString() may not be
-		// constant over time, therefore we need to compute
-		// the result live.
-		return "Sampler#" + sampledModel.toString();
 	}
 }
