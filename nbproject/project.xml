@@ -290,7 +290,7 @@
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
                 <package-root>instrument/annosrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/jdbc/hsqldb.jar:lib/jdbc/mysql-connector-java-5.0.3-bin.jar:lib/jdbc/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
+                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

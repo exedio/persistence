@@ -224,7 +224,7 @@
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/dsmf/testsrc" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
@@ -272,7 +272,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
-						<pathelement location="lib/jdbc/${@{dialect.file}.jar}" />
+						<pathelement location="lib/${@{dialect.file}.jar}" />
 					</classpath>
 				</compile>
 				<copy todir="build/classes/runtime/dialects">
@@ -414,7 +414,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/slf4j-log4j12.jar" />
 				<pathelement location="lib/log4j.jar" />
-				<pathelement location="lib/jdbc/hsqldb.jar" />
+				<pathelement location="lib/hsqldb.jar" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
 			<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
@@ -534,7 +534,7 @@
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
@@ -567,7 +567,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
@@ -602,7 +602,7 @@
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
@@ -638,7 +638,7 @@
 					<fileset file="lib/exedio-cope-servletutil.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
 					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/jdbc/@{env.driver}" />
+					<fileset file="lib/@{env.driver}" />
 					<fileset file="lib/junit.jar" />
 				</copy>
 				<copy tofile="build/runtime/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
@@ -702,7 +702,7 @@
 			<fileset file="lib/exedio-cope-servletutil.jar" />
 			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/jdbc/hsqldb.jar" />
+			<fileset file="lib/hsqldb.jar" />
 			<fileset file="lib/slf4j-api.jar" />
 		</copy>
 	</target>
@@ -1089,7 +1089,7 @@
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove.jar" />
 						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/jdbc/@{env.driver}" />
+						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/log4j.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
