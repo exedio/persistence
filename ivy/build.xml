@@ -3,13 +3,13 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
 		<copy overwrite="true" file="artifacts/exedio-cope-util-jar.jar" tofile="../lib/exedio-cope-util.jar" />
-		<copy overwrite="true" file="artifacts/exedio-cope-util-log.txt" tofile="../lib/exedio-cope-util.jar-CHANGELOG" />
+		<copy overwrite="true" file="artifacts/exedio-cope-util-log.txt" todir="../lib" />
 		<copy overwrite="true" file="artifacts/exedio-cope-util-src.zip" tofile="../lib/exedio-cope-util.jar-src.zip" />
 		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-jar.jar" tofile="../lib/exedio-cope-servletutil.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-log.txt" todir="../lib" />
 		<copy overwrite="true" file="artifacts/exedio-cope-servletutil-src.zip" todir="../lib" />
 		<copy overwrite="true" file="artifacts/exedio-cops-jar.jar" tofile="../lib/exedio-cops.jar" />
-		<copy overwrite="true" file="artifacts/exedio-cops-log.txt" tofile="../lib/exedio-cops.jar-CHANGELOG" />
+		<copy overwrite="true" file="artifacts/exedio-cops-log.txt" todir="../lib" />
 		<copy overwrite="true" file="artifacts/exedio-cops-src.zip" tofile="../lib/exedio-cops.jar-src.zip" />
 		<copy overwrite="true" file="artifacts/exedio-cope-console-jar.jar" tofile="../lib/exedio-cope-console.jar" />
 		<copy overwrite="true" file="artifacts/exedio-cope-console-log.txt" todir="../lib" />
