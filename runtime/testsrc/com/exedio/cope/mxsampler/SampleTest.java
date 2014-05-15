@@ -20,10 +20,11 @@ package com.exedio.cope.mxsampler;
 
 import static com.exedio.cope.mxsampler.Stuff.sampler;
 
+import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.JobContexts;
 import java.util.Date;
 
-public class SampleTest extends ConnectedTest
+public class SampleTest extends CopeAssert
 {
 	@Deprecated
 	public void testIt()
