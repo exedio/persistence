@@ -217,19 +217,21 @@ final class WrapperByAnnotations
 
 		}
 		{
+			final List<Object> methodVarargs = getFields(annotation.varargs());
 			final Annotation[][] annotations = method.getParameterAnnotations();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
 				final Parameter paramAnn = get(Parameter.class, annotations[i]);
+				final List<Object> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(genericParameterType);
+					result.addParameter(genericParameterType, varargs);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment, getFields(paramAnn.varargs()));
+					result.addParameter(genericParameterType, paramAnnValueFixed, comment, varargs);
 				}
 			}
 		}

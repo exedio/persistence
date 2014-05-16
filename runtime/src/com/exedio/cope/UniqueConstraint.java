@@ -181,11 +181,12 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 * @return null if there is no matching item.
 	 */
 	@Wrap(order=10, name="for{0}", optionTagname="finder",
+			varargs=SearchVarargs.class,
 			doc="Finds a {2} by it''s unique fields.",
 			docReturn="null if there is no matching item.")
 	public <P extends Item> P search(
 			final Class<P> typeClass,
-			@Parameter(varargs=SearchVarargs.class, doc="shall be equal to field {0}.") final Object... values)
+			@Parameter(doc="shall be equal to field {0}.") final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
 	}

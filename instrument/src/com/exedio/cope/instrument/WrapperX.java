@@ -165,9 +165,9 @@ final class WrapperX
 
 	private ArrayList<Parameter> parameters;
 
-	void addParameter(final java.lang.reflect.Type type)
+	void addParameter(final java.lang.reflect.Type type, final List<? extends Object> varargs)
 	{
-		addParameter(type, "{1}", EMPTY_STRING_ARRAY, null);
+		addParameter(type, "{1}", EMPTY_STRING_ARRAY, varargs);
 	}
 
 	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final List<? extends Object> varargs)

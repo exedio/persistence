@@ -34,6 +34,8 @@ public @interface Wrap
 	String optionTagname() default "";
 	Class<? extends StringGetter<?>> nameGetter() default StringGetterDefault.class;
 
+	Class<? extends FieldsGetter<?>> varargs() default FieldsGetterDefault.class;
+
 	public @interface Thrown
 	{
 		Class<? extends Throwable> value();
