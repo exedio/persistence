@@ -19,12 +19,12 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
-public class WrapFeature extends Pattern
+@com.exedio.cope.instrument.WrapFeature
+public class WrapFeature
 {
 	@Wrap(order=10)
 	public int simple(
@@ -173,7 +173,4 @@ public class WrapFeature extends Pattern
 	{
 		throw new RuntimeException();
 	}
-
-
-	private static final long serialVersionUID = 1l;
 }

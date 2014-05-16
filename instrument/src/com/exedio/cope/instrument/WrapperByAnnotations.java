@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Compare;
 import java.lang.annotation.Annotation;
@@ -40,8 +39,8 @@ import java.util.TreeMap;
 final class WrapperByAnnotations
 {
 	static List<WrapperX> make(
-			final Class<? extends Feature> clazz,
-			final Feature feature,
+			final Class<?> clazz,
+			final Object feature,
 			final List<WrapperX> superResult)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
@@ -52,10 +51,10 @@ final class WrapperByAnnotations
 	}
 
 
-	private final Class<? extends Feature> clazz;
-	private final Feature feature;
+	private final Class<?> clazz;
+	private final Object feature;
 
-	private WrapperByAnnotations(final Class<? extends Feature> clazz, final Feature instance)
+	private WrapperByAnnotations(final Class<?> clazz, final Object instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;

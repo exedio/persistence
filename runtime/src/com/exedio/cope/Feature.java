@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -34,6 +35,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@WrapFeature
 public abstract class Feature implements Serializable
 {
 	private static final AtomicInteger instantiationOrderSource = new AtomicInteger(Integer.MIN_VALUE);
