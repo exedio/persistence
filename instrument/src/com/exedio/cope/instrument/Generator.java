@@ -519,7 +519,7 @@ final class Generator
 							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
 
 							write(finalArgPrefix);
-							write(new Context(feature, false).write(fau.getInitialType()));
+							write(new Context(fau, false).write(fau.getInitialType()));
 							write(' ');
 							write(format(fei.name, arguments));
 						}
