@@ -424,10 +424,36 @@ final class Generator
 
 				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
-					writeCommentParagraph(
-							"@param " + format(parameter.getName(), arguments),
-							"        ",
-							parameter.getComment(), arguments);
+					if("WrapPrimitiveItem".equals(feature.parent.toString()))
+						System.out.println("" + feature + "  " + parameter.getName() + "  " + parameter.blah);
+					if(parameter.blah!=null)
+					{
+						for(final Object featureObject : parameter.blah)
+						{
+							final Feature parameterFeature = (Feature)featureObject;
+							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
+
+							if("WrapPrimitiveItem".equals(feature.parent.toString()))
+								System.out.println("" + feature + "  " + parameter.getName() + "      " + fei.name);
+
+							final Object[] parameterArguments = new String[]{
+									link(fau.name),
+									fau.name,
+									lowerCamelCase(fau.parent.name)};
+							writeCommentParagraph(
+									"@param " + format(fei.name, parameterArguments),
+									"        ",
+									parameter.getComment(), parameterArguments);
+						}
+					}
+					else
+					{
+						writeCommentParagraph(
+								"@param " + format(parameter.getName(), arguments),
+								"        ",
+								parameter.getComment(), arguments);
+					}
 				}
 				writeCommentParagraph(
 						"@return",

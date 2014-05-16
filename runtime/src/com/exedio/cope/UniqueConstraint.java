@@ -183,7 +183,9 @@ public final class UniqueConstraint extends Feature implements Copyable
 	@Wrap(order=10, name="for{0}", optionTagname="finder",
 			doc="Finds a {2} by it''s unique fields.",
 			docReturn="null if there is no matching item.")
-	public <P extends Item> P search(final Class<P> typeClass, @Parameter(blah=UniqueFieldsGetter.class) final Object... values)
+	public <P extends Item> P search(
+			final Class<P> typeClass,
+			@Parameter(blah=UniqueFieldsGetter.class, doc="shall be equal to field {0}.") final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
 	}
