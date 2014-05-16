@@ -537,13 +537,13 @@ final class Generator
 						{
 							final Feature parameterInstance = (Feature)parameterInstanceO;
 							comma.appendTo(output);
-							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
-							final CopeFeature fau = feature.parent.getFeature(fei.name);
+							final JavaField parameterField = javaClass.getFieldByInstance(parameterInstance);
+							final CopeFeature fau = feature.parent.getFeature(parameterField.name);
 
 							write(finalArgPrefix);
 							write(new Context(fau, false).write(fau.getInitialType()));
 							write(' ');
-							write(format(fei.name, arguments));
+							write(format(parameterField.name, arguments));
 						}
 					}
 					else
