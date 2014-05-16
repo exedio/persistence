@@ -25,7 +25,6 @@ import static java.text.MessageFormat.format;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -426,9 +425,8 @@ final class Generator
 				{
 					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.varargs)
+						for(final Object parameterFeature : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
 							final CopeFeature fau = CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
 
@@ -532,9 +530,8 @@ final class Generator
 				{
 					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.varargs)
+						for(final Object parameterFeature : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
 							final CopeFeature fau = CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
@@ -613,9 +610,8 @@ final class Generator
 				{
 					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.varargs)
+						for(final Object parameterFeature : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
 
