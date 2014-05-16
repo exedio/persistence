@@ -218,6 +218,9 @@ final class WrapperByAnnotations
 		}
 		{
 			final List<Object> methodVarargs = getFields(annotation.varargs());
+			if(methodVarargs!=null && !method.isVarArgs())
+				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
+
 			final Annotation[][] annotations = method.getParameterAnnotations();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
