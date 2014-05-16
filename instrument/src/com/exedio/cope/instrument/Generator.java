@@ -392,6 +392,7 @@ final class Generator
 	throws ParserException
 	{
 		final Feature instance = feature.getInstance();
+		final JavaClass javaClass = feature.getParent();
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
@@ -429,7 +430,7 @@ final class Generator
 						for(final Object featureObject : parameter.varargs)
 						{
 							final Feature parameterFeature = (Feature)featureObject;
-							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
 							final CopeFeature fau = feature.parent.getFeature(fei.name);
 
 							final Object[] parameterArguments = new String[]{
@@ -536,7 +537,7 @@ final class Generator
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
-							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
 							final CopeFeature fau = feature.parent.getFeature(fei.name);
 
 							write(finalArgPrefix);
@@ -617,7 +618,7 @@ final class Generator
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
-							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
+							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
 
 							write(format(fei.name, arguments));
 						}
