@@ -217,7 +217,7 @@ final class WrapperByAnnotations
 
 		}
 		{
-			final List<Object> methodVarargs = getFeatures(annotation.varargsFeatures());
+			final List<?> methodVarargs = getFeatures(annotation.varargsFeatures());
 			if(methodVarargs!=null && !method.isVarArgs())
 				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
 
@@ -226,7 +226,7 @@ final class WrapperByAnnotations
 			{
 				final Type genericParameterType = genericParameterTypes[i];
 				final Parameter paramAnn = get(Parameter.class, annotations[i]);
-				final List<Object> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
+				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
 					result.addParameter(genericParameterType, varargs);
 				else
@@ -281,14 +281,14 @@ final class WrapperByAnnotations
 	}
 
 	@SuppressWarnings("rawtypes")
-	private List<Object> getFeatures(final Class<? extends FeaturesGetter> clazz)
+	private List<?> getFeatures(final Class<? extends FeaturesGetter> clazz)
 	{
 		if(clazz==FeaturesGetterDefault.class)
 			return null;
 
 		final FeaturesGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
-		final List<Object> result = getter.get(feature);
+		final List<?> result = getter.get(feature);
 		return result;
 	}
 

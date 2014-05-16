@@ -22,5 +22,5 @@ import java.util.List;
 
 public interface FeaturesGetter<F>
 {
-	List<? extends Object> get(F feature);
+	List<?> get(F feature);
 }

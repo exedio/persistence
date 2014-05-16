@@ -22,7 +22,7 @@ import java.util.List;
 
 final class FeaturesGetterDefault implements FeaturesGetter<Object>
 {
-	public List<? extends Object> get(final Object feature)
+	public List<?> get(final Object feature)
 	{
 		throw new RuntimeException();
 	}
