@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.search.ExtremumAggregate;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
@@ -37,6 +38,7 @@ import java.util.List;
  *
  * @author Ralf Wiebicke
  */
+@WrapFeature
 public abstract class View<E> extends Feature
 	implements Function<E>
 {

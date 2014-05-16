@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,6 +36,7 @@ import java.util.Set;
  *
  * @author Ralf Wiebicke
  */
+@WrapFeature
 public abstract class Field<E> extends Feature implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;

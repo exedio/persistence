@@ -19,8 +19,10 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@WrapFeature
 public final class Sequence extends Feature
 {
 	private static final long serialVersionUID = 1l;
