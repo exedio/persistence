@@ -433,6 +433,7 @@ final class Generator
 							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature fau = feature.parent.getFeature(fei.name);
 
+							// TODO separate test -------------------------------------------------------------
 							final Object[] parameterArguments = new String[]{
 									link(fau.name),
 									fau.name,
