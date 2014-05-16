@@ -649,7 +649,7 @@ final class Generator
 				clazz,
 				feature,
 				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
-				? getWrappers(clazz.getSuperclass().asSubclass(Feature.class), feature)
+				? getWrappers(clazz.getSuperclass(), feature)
 				: Collections.<WrapperX>emptyList());
 	}
 
