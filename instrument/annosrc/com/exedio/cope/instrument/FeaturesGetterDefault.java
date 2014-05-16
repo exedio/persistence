@@ -20,14 +20,14 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
-final class FieldsGetterDefault implements FeaturesGetter<Object> // TODO instrumentUnique rename to FeatureGetterDefault
+final class FeaturesGetterDefault implements FeaturesGetter<Object>
 {
 	public List<? extends Object> get(final Object feature)
 	{
 		throw new RuntimeException();
 	}
 
-	private FieldsGetterDefault()
+	private FeaturesGetterDefault()
 	{
 		throw new RuntimeException();
 	}

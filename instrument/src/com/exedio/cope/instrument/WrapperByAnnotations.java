@@ -283,7 +283,7 @@ final class WrapperByAnnotations
 	@SuppressWarnings("rawtypes")
 	private List<Object> getFeatures(final Class<? extends FeaturesGetter> clazz)
 	{
-		if(clazz==FieldsGetterDefault.class)
+		if(clazz==FeaturesGetterDefault.class)
 			return null;
 
 		final FeaturesGetter getter = instantiate(clazz);
