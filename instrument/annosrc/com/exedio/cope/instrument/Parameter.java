@@ -30,5 +30,5 @@ public @interface Parameter
 {
 	String value() default "";
 	String[] doc() default {};
-	Class<? extends FieldsGetter<?>> blah() default FieldsGetterDefault.class;
+	Class<? extends FieldsGetter<?>> varargs() default FieldsGetterDefault.class;
 }

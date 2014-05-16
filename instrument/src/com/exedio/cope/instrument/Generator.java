@@ -425,10 +425,10 @@ final class Generator
 				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
 					if("WrapPrimitiveItem".equals(feature.parent.toString()))
-						System.out.println("" + feature + "  " + parameter.getName() + "  " + parameter.blah);
-					if(parameter.blah!=null)
+						System.out.println("" + feature + "  " + parameter.getName() + "  " + parameter.varargs);
+					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.blah)
+						for(final Object featureObject : parameter.varargs)
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
@@ -535,9 +535,9 @@ final class Generator
 				final CharSeparator comma = new CharSeparator(',');
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(parameter.blah!=null)
+					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.blah)
+						for(final Object featureObject : parameter.varargs)
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
@@ -616,9 +616,9 @@ final class Generator
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(parameter.blah!=null)
+					if(parameter.varargs!=null)
 					{
-						for(final Object featureObject : parameter.blah)
+						for(final Object featureObject : parameter.varargs)
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);

@@ -229,7 +229,7 @@ final class WrapperByAnnotations
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment, getFields(paramAnn.blah()));
+					result.addParameter(genericParameterType, paramAnnValueFixed, comment, getFields(paramAnn.varargs()));
 				}
 			}
 		}

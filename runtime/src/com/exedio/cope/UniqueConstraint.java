@@ -185,7 +185,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 			docReturn="null if there is no matching item.")
 	public <P extends Item> P search(
 			final Class<P> typeClass,
-			@Parameter(blah=UniqueFieldsGetter.class, doc="shall be equal to field {0}.") final Object... values)
+			@Parameter(varargs=UniqueFieldsGetter.class, doc="shall be equal to field {0}.") final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
 	}
