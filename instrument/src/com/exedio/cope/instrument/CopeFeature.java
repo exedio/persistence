@@ -141,4 +141,10 @@ class CopeFeature
 	{
 		return "defaultFeature".equals(name);
 	}
+
+	@Override
+	public String toString()
+	{
+		return parent.toString() + '#' + name;
+	}
 }
