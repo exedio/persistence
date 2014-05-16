@@ -217,7 +217,7 @@ final class WrapperByAnnotations
 
 		}
 		{
-			final List<Object> methodVarargs = getFields(annotation.varargs());
+			final List<Object> methodVarargs = getFeatures(annotation.varargs());
 			if(methodVarargs!=null && !method.isVarArgs())
 				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
 
@@ -281,7 +281,7 @@ final class WrapperByAnnotations
 	}
 
 	@SuppressWarnings("rawtypes")
-	private List<Object> getFields(final Class<? extends FeaturesGetter> clazz)
+	private List<Object> getFeatures(final Class<? extends FeaturesGetter> clazz)
 	{
 		if(clazz==FieldsGetterDefault.class)
 			return null;
