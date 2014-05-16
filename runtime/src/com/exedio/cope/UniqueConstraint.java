@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
-import com.exedio.cope.instrument.FieldsGetter;
+import com.exedio.cope.instrument.FeaturesGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Cast;
@@ -191,7 +191,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return Cast.verboseCast(typeClass, search(values));
 	}
 
-	private static final class SearchVarargs implements FieldsGetter<UniqueConstraint>
+	private static final class SearchVarargs implements FeaturesGetter<UniqueConstraint>
 	{
 		public List<? extends Object> get(final UniqueConstraint feature)
 		{
