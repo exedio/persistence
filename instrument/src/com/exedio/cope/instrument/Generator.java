@@ -618,9 +618,7 @@ final class Generator
 						{
 							final Feature parameterInstance = (Feature)parameterInstanceO;
 							comma.appendTo(output);
-							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
-
-							write(format(fei.name, arguments));
+							write(format(javaClass.getFieldByInstance(parameterInstance).name, arguments));
 						}
 					}
 					else
