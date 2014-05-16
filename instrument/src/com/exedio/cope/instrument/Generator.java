@@ -430,7 +430,7 @@ final class Generator
 						{
 							final Feature parameterFeature = (Feature)featureObject;
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
-							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
+							final CopeFeature fau = CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
 
 							final Object[] parameterArguments = new String[]{
 									link(fau.name),
@@ -537,7 +537,7 @@ final class Generator
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
-							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
+							final CopeFeature fau = CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
 
 							write(finalArgPrefix);
 							write(new Context(fau, false).write(fau.getInitialType()));
@@ -618,7 +618,6 @@ final class Generator
 							final Feature parameterFeature = (Feature)featureObject;
 							comma.appendTo(output);
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
-							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
 
 							write(format(fei.name, arguments));
 						}
