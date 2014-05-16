@@ -33,7 +33,4 @@ public class WrapGeneric<Z, M, N> extends WrapGenericSuper<M, N, Z, Double>
 	{
 		// empty
 	}
-
-
-	private static final long serialVersionUID = 1l;
 }

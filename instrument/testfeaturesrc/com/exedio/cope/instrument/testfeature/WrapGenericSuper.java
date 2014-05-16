@@ -18,12 +18,13 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import java.io.Reader;
 
-public class WrapGenericSuper<A, B, Z, F> extends Pattern
+@WrapFeature
+public class WrapGenericSuper<A, B, Z, F>
 {
 	@Wrap(order=10)
 	public void method(
@@ -35,7 +36,4 @@ public class WrapGenericSuper<A, B, Z, F> extends Pattern
 	{
 		// empty
 	}
-
-
-	private static final long serialVersionUID = 1l;
 }

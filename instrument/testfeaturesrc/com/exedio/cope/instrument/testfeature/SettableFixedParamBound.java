@@ -19,19 +19,18 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class SettableFixedParamBound extends Pattern implements Settable<AtomicReference<? extends AtomicLong>>
+@WrapFeature
+public class SettableFixedParamBound implements Settable<AtomicReference<? extends AtomicLong>>
 {
-	private static final long serialVersionUID = 1l;
-
 	@Override
 	public boolean isInitial()
 	{

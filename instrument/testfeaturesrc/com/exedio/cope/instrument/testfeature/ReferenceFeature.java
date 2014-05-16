@@ -18,10 +18,11 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 
-public final class ReferenceFeature extends Pattern
+@WrapFeature
+public final class ReferenceFeature
 {
 	public static ReferenceFeature create()
 	{
@@ -45,6 +46,4 @@ public final class ReferenceFeature extends Pattern
 	{
 		// empty
 	}
-
-	private static final long serialVersionUID = 1l;
 }
