@@ -424,8 +424,6 @@ final class Generator
 
 				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
-					if("WrapPrimitiveItem".equals(feature.parent.toString()))
-						System.out.println("" + feature + "  " + parameter.getName() + "  " + parameter.varargs);
 					if(parameter.varargs!=null)
 					{
 						for(final Object featureObject : parameter.varargs)
@@ -433,9 +431,6 @@ final class Generator
 							final Feature parameterFeature = (Feature)featureObject;
 							final JavaField fei = feature.getParent().getFieldByInstance(parameterFeature);
 							final CopeAttribute fau = (CopeAttribute)CopeType.getCopeType(feature.getParent()).getFeature(fei.name);
-
-							if("WrapPrimitiveItem".equals(feature.parent.toString()))
-								System.out.println("" + feature + "  " + parameter.getName() + "      " + fei.name);
 
 							final Object[] parameterArguments = new String[]{
 									link(fau.name),
