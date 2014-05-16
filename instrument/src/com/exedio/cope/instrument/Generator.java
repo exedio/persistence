@@ -429,8 +429,8 @@ final class Generator
 					{
 						for(final Object featureObject : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
-							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
+							final Feature parameterInstance = (Feature)featureObject;
+							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature fau = feature.parent.getFeature(fei.name);
 
 							final Object[] parameterArguments = new String[]{
@@ -535,9 +535,9 @@ final class Generator
 					{
 						for(final Object featureObject : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
+							final Feature parameterInstance = (Feature)featureObject;
 							comma.appendTo(output);
-							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
+							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature fau = feature.parent.getFeature(fei.name);
 
 							write(finalArgPrefix);
@@ -616,9 +616,9 @@ final class Generator
 					{
 						for(final Object featureObject : parameter.varargs)
 						{
-							final Feature parameterFeature = (Feature)featureObject;
+							final Feature parameterInstance = (Feature)featureObject;
 							comma.appendTo(output);
-							final JavaField fei = javaClass.getFieldByInstance(parameterFeature);
+							final JavaField fei = javaClass.getFieldByInstance(parameterInstance);
 
 							write(format(fei.name, arguments));
 						}
