@@ -241,4 +241,10 @@ final class CopeType
 	{
 		return name.hashCode();
 	}
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }
