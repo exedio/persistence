@@ -27,7 +27,6 @@ import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
@@ -122,8 +121,6 @@ final class JavaRepository
 								new CopeNativeAttribute(type, javaField, typeClass);
 							}
 						}
-						else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-							new CopeUniqueConstraint(type, javaField);
 						else
 							new CopeFeature(type, javaField);
 					}
