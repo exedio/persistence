@@ -648,7 +648,7 @@ final class Generator
 		return WrapperByAnnotations.make(
 				clazz,
 				feature,
-				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
+				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
 				? getWrappers(clazz.getSuperclass(), feature)
 				: Collections.<WrapperX>emptyList());
 	}
