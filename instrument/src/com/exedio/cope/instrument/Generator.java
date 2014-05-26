@@ -718,35 +718,35 @@ final class Generator
 			return;
 
 		final Option option = type.typeOption;
-		if(option.exists)
+		if(!option.exists)
+			return;
+
+		final boolean block = type.isBlock;
+
+		writeCommentHeader();
+		writeIndent();
+		write(" * ");
+		write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
+		write(lineSeparator);
+		writeCommentFooter(TYPE_CUSTOMIZE);
+
+		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{
-			final boolean block = type.isBlock;
-
-			writeCommentHeader();
 			writeIndent();
-			write(" * ");
-			write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
+			write("@SuppressWarnings(\"hiding\")");
 			write(lineSeparator);
-			writeCommentFooter(TYPE_CUSTOMIZE);
-
-			if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
-			{
-				writeIndent();
-				write("@SuppressWarnings(\"hiding\")");
-				write(lineSeparator);
-			}
-
-			writeIndent();
-			writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-			write(block ? BLOCK_TYPE_NAME : TYPE_NAME);
-			write('<');
-			write(type.name);
-			write("> TYPE = ");
-			write(block ? BLOCK_TYPE_NAME : TYPES_BOUND_NAME);
-			write(".newType(");
-			write(type.name);
-			write(".class);");
 		}
+
+		writeIndent();
+		writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
+		write(block ? BLOCK_TYPE_NAME : TYPE_NAME);
+		write('<');
+		write(type.name);
+		write("> TYPE = ");
+		write(block ? BLOCK_TYPE_NAME : TYPES_BOUND_NAME);
+		write(".newType(");
+		write(type.name);
+		write(".class);");
 	}
 
 	void write() throws ParserException
