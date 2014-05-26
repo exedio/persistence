@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import bsh.Interpreter;
 import bsh.UtilEvalError;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Block;
