@@ -429,12 +429,12 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							final String parameterName = javaClass.getFieldByInstance(parameterInstance).name;
-							final CopeFeature fau = feature.parent.getFeature(parameterName);
+							final CopeFeature parameterFeature = feature.parent.getFeature(parameterName);
 
 							final Object[] parameterArguments = new String[]{
-									link(fau.name),
-									fau.name,
-									lowerCamelCase(fau.parent.name)};
+									link(parameterFeature.name),
+									parameterFeature.name,
+									lowerCamelCase(parameterFeature.parent.name)};
 							writeCommentParagraph(
 									"@param " + format(parameterName, parameterArguments),
 									"        ",
