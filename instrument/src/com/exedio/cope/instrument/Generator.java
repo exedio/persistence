@@ -42,8 +42,6 @@ import java.util.SortedSet;
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
-	private static final String ACTIVATION = ActivationParameters.class.getName();
-	private static final String ACTIVATION_BLOCK = BlockActivationParameters.class.getCanonicalName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -352,7 +350,7 @@ final class Generator
 
 		final boolean block = type.isBlock;
 		final Class<?> constructor = block ? Block.class : Item.class;
-		final String activation = block ? ACTIVATION_BLOCK : ACTIVATION;
+		final String activation = block ? BlockActivationParameters.class.getCanonicalName() : ActivationParameters.class.getName();
 
 		writeCommentHeader();
 		writeIndent();
@@ -377,7 +375,7 @@ final class Generator
 		write(type.name);
 		write('(');
 		write(finalArgPrefix);
-		write(block ? ACTIVATION_BLOCK : ACTIVATION);
+		write(activation);
 		write(" ap){super(ap);");
 		write(lineSeparator);
 		write('}');
