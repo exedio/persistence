@@ -701,15 +701,15 @@ final class Generator
 
 	private void writeSerialVersionUID()
 	{
-		if(serialVersionUID)
-		{
-			writeCommentHeader();
-			writeCommentFooter();
+		if(!serialVersionUID)
+			return;
 
-			writeIndent();
-			writeModifier(PRIVATE|STATIC|FINAL);
-			write("long serialVersionUID = 1l;");
-		}
+		writeCommentHeader();
+		writeCommentFooter();
+
+		writeIndent();
+		writeModifier(PRIVATE|STATIC|FINAL);
+		write("long serialVersionUID = 1l;");
 	}
 
 	private void writeType(final CopeType type)
