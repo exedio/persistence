@@ -337,7 +337,7 @@ final class Generator
 
 		final boolean block = type.isBlock;
 		final Class<?> constructor = block ? Block.class : Item.class;
-		final String activation = block ? BlockActivationParameters.class.getCanonicalName() : ActivationParameters.class.getName();
+		final String activation = (block ? BlockActivationParameters.class : ActivationParameters.class).getName();
 
 		writeCommentHeader();
 		writeIndent();
