@@ -42,6 +42,4 @@ public final class OrderFeatureSub extends OrderFeatureSuper
 	{
 		throw new RuntimeException();
 	}
-
-	private static final long serialVersionUID = 1l;
 }

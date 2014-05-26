@@ -18,10 +18,11 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 
-public abstract class OrderFeatureSuper extends Pattern
+@WrapFeature
+public abstract class OrderFeatureSuper
 {
 	@SuppressWarnings("static-method")
 	@Wrap(order=10)
@@ -43,6 +44,4 @@ public abstract class OrderFeatureSuper extends Pattern
 	{
 		throw new RuntimeException();
 	}
-
-	private static final long serialVersionUID = 1l;
 }

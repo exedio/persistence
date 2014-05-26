@@ -19,15 +19,16 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
 
-public class SettableOpen<Z> extends Pattern implements Settable<Z>
+@WrapFeature
+public class SettableOpen<Z> implements Settable<Z>
 {
 	@Wrap(order=10)
 	public Z method(@SuppressWarnings("unused") final Z z)
@@ -35,8 +36,6 @@ public class SettableOpen<Z> extends Pattern implements Settable<Z>
 		return null;
 	}
 
-
-	private static final long serialVersionUID = 1l;
 
 	@Override
 	public boolean isInitial()
