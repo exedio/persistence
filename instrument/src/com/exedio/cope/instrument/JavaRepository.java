@@ -20,14 +20,8 @@ package com.exedio.cope.instrument;
 
 import bsh.Interpreter;
 import bsh.UtilEvalError;
-import com.exedio.cope.EnumField;
-import com.exedio.cope.Feature;
-import com.exedio.cope.Field;
-import com.exedio.cope.Function;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
@@ -108,25 +102,7 @@ final class JavaRepository
 						continue feature;
 
 					if(typeClass.isAnnotationPresent(WrapFeature.class))
-					{
-						if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
-						{
-							if(
-								EnumField.class.equals(typeClass)||
-								ItemField.class.equals(typeClass))
-							{
-								new CopeObjectAttribute(type, javaField);
-							}
-							else
-							{
-								new CopeNativeAttribute(type, javaField, typeClass);
-							}
-						}
-						else if(UniqueConstraint.class.isAssignableFrom(typeClass))
-							new CopeUniqueConstraint(type, javaField);
-						else
-							new CopeFeature(type, javaField);
-					}
+						new CopeFeature(type, javaField);
 				}
 			}
 		}

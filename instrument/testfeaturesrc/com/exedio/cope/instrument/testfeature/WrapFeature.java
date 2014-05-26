@@ -52,6 +52,12 @@ public class WrapFeature
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=45, optionTagname="myOptionTagname")
+	public int optionTagname()
+	{
+		throw new RuntimeException();
+	}
+
 	// documentation
 
 	@Wrap(order=50,

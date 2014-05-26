@@ -18,34 +18,17 @@
 
 package com.exedio.cope.instrument;
 
-import static java.lang.annotation.ElementType.METHOD;
+import java.util.List;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Target(METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Wrap
+final class FeaturesGetterDefault implements FeaturesGetter<Object>
 {
-	int order();
-
-	String name() default "";
-	String optionTagname() default "";
-	Class<? extends StringGetter<?>> nameGetter() default StringGetterDefault.class;
-
-	Class<? extends FeaturesGetter<?>> varargsFeatures() default FeaturesGetterDefault.class;
-
-	public @interface Thrown
+	public List<?> get(final Object feature)
 	{
-		Class<? extends Throwable> value();
-		String[] doc() default {};
+		throw new RuntimeException();
 	}
-	Thrown[] thrown() default {};
-	Class<? extends ThrownGetter<?>> thrownGetter() default ThrownGetterDefault.class;
 
-	String[] doc() default {};
-	String[] docReturn() default {};
-
-	Class<? extends BooleanGetter<?>>[] hide() default {};
+	private FeaturesGetterDefault()
+	{
+		throw new RuntimeException();
+	}
 }

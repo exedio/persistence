@@ -16,30 +16,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument;
+package com.exedio.cope.instrument.testfeature;
 
-final class CopeObjectAttribute extends CopeAttribute
+public final class SettableVarargsInteger extends SettableVarargs<Integer>
 {
+	private final boolean mandatory;
 
-	public CopeObjectAttribute(
-			final CopeType parent,
-			final JavaField javaField)
-		throws ParserException
+	public SettableVarargsInteger(final boolean mandatory)
 	{
-		super(parent, javaField, getPersistentType(javaField));
+		this.mandatory = mandatory;
 	}
 
-	private static final String getPersistentType(final JavaField javaField)
+	@Override
+	public boolean isMandatory()
 	{
-		final String type = javaField.type;
-		final int lt = type.indexOf('<');
-		if(lt<0)
-			throw new RuntimeException("type " + type + " does not contain '<'");
-		final int gt = type.indexOf('>', lt);
-		if(gt<0)
-			throw new RuntimeException("type " + type + " does not contain '<'");
-
-		return type.substring(lt+1, gt);
+		return mandatory;
 	}
-
 }
