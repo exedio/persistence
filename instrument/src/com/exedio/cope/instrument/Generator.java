@@ -424,7 +424,14 @@ final class Generator
 
 				for(final WrapperX.Parameter parameter : wrapper.getParameters())
 				{
-					if(parameter.varargs!=null)
+					if(parameter.varargs==null)
+					{
+						writeCommentParagraph(
+								"@param " + format(parameter.getName(), arguments),
+								"        ",
+								parameter.getComment(), arguments);
+					}
+					else
 					{
 						for(final Object parameterInstance : parameter.varargs)
 						{
@@ -440,13 +447,6 @@ final class Generator
 									"        ",
 									parameter.getComment(), parameterArguments);
 						}
-					}
-					else
-					{
-						writeCommentParagraph(
-								"@param " + format(parameter.getName(), arguments),
-								"        ",
-								parameter.getComment(), arguments);
 					}
 				}
 				writeCommentParagraph(
@@ -529,7 +529,15 @@ final class Generator
 				final CharSeparator comma = new CharSeparator(',');
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(parameter.varargs!=null)
+					if(parameter.varargs==null)
+					{
+						comma.appendTo(output);
+						write(finalArgPrefix);
+						write(ctx.write(parameter.getType()));
+						write(' ');
+						write(format(parameter.getName(), arguments));
+					}
+					else
 					{
 						for(final Object parameterInstance : parameter.varargs)
 						{
@@ -542,14 +550,6 @@ final class Generator
 							write(' ');
 							write(format(parameterField.name, arguments));
 						}
-					}
-					else
-					{
-						comma.appendTo(output);
-						write(finalArgPrefix);
-						write(ctx.write(parameter.getType()));
-						write(' ');
-						write(format(parameter.getName(), arguments));
 					}
 				}
 			}
@@ -609,18 +609,18 @@ final class Generator
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
-					if(parameter.varargs!=null)
+					if(parameter.varargs==null)
+					{
+						comma.appendTo(output);
+						write(format(parameter.getName(), arguments));
+					}
+					else
 					{
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							comma.appendTo(output);
 							write(format(javaClass.getFieldByInstance(parameterInstance).name, arguments));
 						}
-					}
-					else
-					{
-						comma.appendTo(output);
-						write(format(parameter.getName(), arguments));
 					}
 				}
 			}
