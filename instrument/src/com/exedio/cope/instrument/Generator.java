@@ -42,9 +42,6 @@ import java.util.SortedSet;
 final class Generator
 {
 	private static final String SET_VALUE = SetValue.class.getName();
-	private static final String TYPE_NAME = Type.class.getName();
-	private static final String TYPES_BOUND_NAME = TypesBound.class.getName();
-	private static final String BLOCK_TYPE_NAME = BlockType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
 	private static final String ACTIVATION_BLOCK = BlockActivationParameters.class.getCanonicalName();
 
@@ -738,11 +735,11 @@ final class Generator
 
 		writeIndent();
 		writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
-		write(block ? BLOCK_TYPE_NAME : TYPE_NAME);
+		write((block ? BlockType.class : Type.class).getName());
 		write('<');
 		write(type.name);
 		write("> TYPE = ");
-		write(block ? BLOCK_TYPE_NAME : TYPES_BOUND_NAME);
+		write((block ? BlockType.class : TypesBound.class).getName());
 		write(".newType(");
 		write(type.name);
 		write(".class);");
