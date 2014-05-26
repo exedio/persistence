@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @WrapFeature added
+	You may remove @cope.ignore from CheckContraint.
+	Add @WrapFeature to your own patterns, as @WrapFeature will be removed
+	from Pattern somewhere in the future.
 * MxSampler is no longer supported.
 	Use project mxsampler instead.
 	MxSampler#getModel and #connect will fail with a NoSuchMethodError.
