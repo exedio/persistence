@@ -65,8 +65,6 @@ final class Generator
 																					Option.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment.";
-	private static final String TYPE = "The persistent type information for {0}.";
-	private static final String TYPE_BLOCK = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
 																"<tt>@" + CopeType.TAG_TYPE + ' ' +
 																Option.TEXT_VISIBILITY_PUBLIC + '|' +
@@ -718,7 +716,9 @@ final class Generator
 		writeCommentHeader();
 		writeIndent();
 		write(" * ");
-		write(format(block ? TYPE_BLOCK : TYPE, lowerCamelCase(type.name)));
+		write(format(
+				block ? "The type information for {0}." : "The persistent type information for {0}.",
+				lowerCamelCase(type.name)));
 		write(lineSeparator);
 		writeCommentFooter(TYPE_CUSTOMIZE);
 
