@@ -25,7 +25,6 @@ import static java.text.MessageFormat.format;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -394,7 +393,7 @@ final class Generator
 	private void writeFeature(final CopeFeature feature)
 	throws ParserException
 	{
-		final Feature instance = feature.getInstance();
+		final Object instance = feature.getInstance();
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
@@ -588,18 +587,18 @@ final class Generator
 		}
 	}
 
-	private List<WrapperX> getWrappers(final Feature feature)
+	private List<WrapperX> getWrappers(final Object feature)
 	{
 		return getWrappers(feature.getClass(), feature);
 	}
 
-	private List<WrapperX> getWrappers(final Class<? extends Feature> clazz, final Feature feature)
+	private List<WrapperX> getWrappers(final Class<?> clazz, final Object feature)
 	{
 		return WrapperByAnnotations.make(
 				clazz,
 				feature,
-				((Feature.class.isAssignableFrom(clazz)) && (Feature.class!=clazz))
-				? getWrappers(clazz.getSuperclass().asSubclass(Feature.class), feature)
+				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
+				? getWrappers(clazz.getSuperclass(), feature)
 				: Collections.<WrapperX>emptyList());
 	}
 

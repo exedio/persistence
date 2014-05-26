@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@WrapFeature
 public final class UniqueConstraint extends Feature implements Copyable
 {
 	private static final long serialVersionUID = 1l;

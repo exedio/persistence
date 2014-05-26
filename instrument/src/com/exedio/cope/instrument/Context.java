@@ -19,7 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -58,7 +57,7 @@ final class Context
 		return Generics.get(feature.javaField.type).get(number);
 	}
 
-	private Class<? extends Feature> getFeatureClass()
+	private Class<?> getFeatureClass()
 	{
 		return feature.getInstance().getClass();
 	}
@@ -87,7 +86,7 @@ final class Context
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
 
-		final Class<? extends Feature> featureClass = getFeatureClass();
+		final Class<?> featureClass = getFeatureClass();
 		final Class<?> methodClass = wrapper.getMethod().getDeclaringClass();
 		int typeParameterPosition = 0;
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())

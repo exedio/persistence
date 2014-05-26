@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
@@ -40,7 +39,7 @@ class CopeFeature
 	final String docComment;
 	final boolean initial;
 
-	private Feature value;
+	private Object value;
 	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 
@@ -63,10 +62,10 @@ class CopeFeature
 		return javaField.parent;
 	}
 
-	final Feature getInstance()
+	final Object getInstance()
 	{
 		if(value==null)
-			value = (Feature)javaField.evaluate();
+			value = javaField.evaluate();
 
 		return value;
 	}
@@ -76,7 +75,7 @@ class CopeFeature
 		if(initial)
 			return true;
 
-		final Feature instance = getInstance();
+		final Object instance = getInstance();
 		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
 	}
 

@@ -107,7 +107,7 @@ final class JavaRepository
 					if(typeClass==null)
 						continue feature;
 
-					if(Feature.class.isAssignableFrom(typeClass))
+					if(typeClass.isAnnotationPresent(WrapFeature.class))
 					{
 						if(Function.class.isAssignableFrom(typeClass)||Field.class.isAssignableFrom(typeClass))
 						{

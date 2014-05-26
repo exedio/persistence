@@ -23,7 +23,6 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.LongField;
 import com.exedio.cope.NumberFunction;
@@ -116,7 +115,7 @@ final class CopeNativeAttribute extends CopeAttribute
 	@Deprecated
 	public final boolean isBoxed()
 	{
-		final Feature instance = getInstance();
+		final Object instance = getInstance();
 		final boolean mandatory = instance instanceof Field<?> && ((Field<?>)instance).isMandatory();
 
 		return mandatory && nativeType!=null;

@@ -19,10 +19,11 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 
-public final class OptionFeatureGet extends Pattern
+@WrapFeature
+public final class OptionFeatureGet
 {
 	@SuppressWarnings("static-method")
 	@Wrap(order=10)
@@ -30,6 +31,4 @@ public final class OptionFeatureGet extends Pattern
 	{
 		throw new RuntimeException();
 	}
-
-	private static final long serialVersionUID = 1l;
 }

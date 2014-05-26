@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Feature;
 import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
@@ -273,7 +272,7 @@ final class WrapperX
 
 	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
 
-	static <F extends Feature> List<WrapperX> getByAnnotations(
+	static <F> List<WrapperX> getByAnnotations(
 			final Class<F> clazz,
 			final F feature,
 			final List<WrapperX> superResult)

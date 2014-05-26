@@ -20,5 +20,5 @@ package com.exedio.cope.instrument.testfeature;
 
 public class SettableFixedSub extends SettableFixed
 {
-	private static final long serialVersionUID = 1l;
+	// empty
 }

@@ -18,10 +18,11 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 
-public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
+@WrapFeature
+public final class WrapEnumFeature<E extends Enum<E>>
 {
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz)
 	{
@@ -51,6 +52,4 @@ public final class WrapEnumFeature<E extends Enum<E>> extends Pattern
 	{
 		return null;
 	}
-
-	private static final long serialVersionUID = 1l;
 }

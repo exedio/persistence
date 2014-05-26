@@ -16,34 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.testfeature;
+package com.exedio.cope.instrument;
 
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapFeature;
+import static java.lang.annotation.ElementType.TYPE;
 
-@WrapFeature
-public final class ReferenceFeature
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface WrapFeature
 {
-	public static ReferenceFeature create()
-	{
-		return new ReferenceFeature();
-	}
-
-	public static ReferenceFeature create(final ReferenceFeature reference)
-	{
-		if(reference==null)
-			throw new IllegalArgumentException();
-
-		return new ReferenceFeature();
-	}
-
-	private ReferenceFeature()
-	{
-	}
-
-	@Wrap(order=10)
-	public void method(@SuppressWarnings("unused") final int p)
-	{
-		// empty
-	}
+	// empty
 }
