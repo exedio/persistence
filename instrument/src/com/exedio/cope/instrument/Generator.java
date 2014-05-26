@@ -47,7 +47,6 @@ final class Generator
 	private static final String BLOCK_TYPE_NAME = BlockType.class.getName();
 	private static final String ACTIVATION = ActivationParameters.class.getName();
 	private static final String ACTIVATION_BLOCK = BlockActivationParameters.class.getCanonicalName();
-	private static final String OVERRIDE = Override.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -488,7 +487,7 @@ final class Generator
 			if(option.override)
 			{
 				write('@');
-				write(OVERRIDE);
+				write(Override.class.getName());
 				write(' ');
 			}
 
