@@ -782,18 +782,18 @@ final class Generator
 	private void writeClassFeatures(final CopeType type)
 			throws ParserException
 	{
-		if(!type.isInterface())
-		{
-			writeInitialConstructor(type);
-			writeGenericConstructor(type);
+		if(type.isInterface())
+			return;
 
-			for(final CopeFeature feature : type.getFeatures())
-				writeFeature(feature);
+		writeInitialConstructor(type);
+		writeGenericConstructor(type);
 
-			writeSerialVersionUID();
-			writeType(type);
-			writeActivationConstructor(type);
-		}
+		for(final CopeFeature feature : type.getFeatures())
+			writeFeature(feature);
+
+		writeSerialVersionUID();
+		writeType(type);
+		writeActivationConstructor(type);
 	}
 
 	private void writeModifier(final int modifier)
