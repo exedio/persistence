@@ -65,15 +65,6 @@ final class Generator
 																					Option.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment.";
-	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
-																"<tt>@" + CopeType.TAG_TYPE + ' ' +
-																Option.TEXT_VISIBILITY_PUBLIC + '|' +
-																Option.TEXT_VISIBILITY_PACKAGE + '|' +
-																Option.TEXT_VISIBILITY_PROTECTED + '|' +
-																Option.TEXT_VISIBILITY_PRIVATE + '|' +
-																Option.TEXT_NONE +
-																"</tt> " +
-																"in the class comment.";
 
 	/**
 	 * All generated class features get this doccomment tag.
@@ -720,7 +711,16 @@ final class Generator
 				block ? "The type information for {0}." : "The persistent type information for {0}.",
 				lowerCamelCase(type.name)));
 		write(lineSeparator);
-		writeCommentFooter(TYPE_CUSTOMIZE);
+		writeCommentFooter(
+				"It can be customized with the tag " +
+				"<tt>@" + CopeType.TAG_TYPE + ' ' +
+				Option.TEXT_VISIBILITY_PUBLIC + '|' +
+				Option.TEXT_VISIBILITY_PACKAGE + '|' +
+				Option.TEXT_VISIBILITY_PROTECTED + '|' +
+				Option.TEXT_VISIBILITY_PRIVATE + '|' +
+				Option.TEXT_NONE +
+				"</tt> " +
+				"in the class comment.");
 
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{
