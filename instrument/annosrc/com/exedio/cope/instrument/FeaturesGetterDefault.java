@@ -18,28 +18,17 @@
 
 package com.exedio.cope.instrument;
 
-final class CopeObjectAttribute extends CopeAttribute
+import java.util.List;
+
+final class FeaturesGetterDefault implements FeaturesGetter<Object>
 {
-
-	public CopeObjectAttribute(
-			final CopeType parent,
-			final JavaField javaField)
-		throws ParserException
+	public List<?> get(final Object feature)
 	{
-		super(parent, javaField, getPersistentType(javaField));
+		throw new RuntimeException();
 	}
 
-	private static final String getPersistentType(final JavaField javaField)
+	private FeaturesGetterDefault()
 	{
-		final String type = javaField.type;
-		final int lt = type.indexOf('<');
-		if(lt<0)
-			throw new RuntimeException("type " + type + " does not contain '<'");
-		final int gt = type.indexOf('>', lt);
-		if(gt<0)
-			throw new RuntimeException("type " + type + " does not contain '<'");
-
-		return type.substring(lt+1, gt);
+		throw new RuntimeException();
 	}
-
 }

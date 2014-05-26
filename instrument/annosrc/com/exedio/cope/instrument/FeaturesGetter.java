@@ -18,34 +18,9 @@
 
 package com.exedio.cope.instrument;
 
-import static java.lang.annotation.ElementType.METHOD;
+import java.util.List;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Target(METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Wrap
+public interface FeaturesGetter<F>
 {
-	int order();
-
-	String name() default "";
-	String optionTagname() default "";
-	Class<? extends StringGetter<?>> nameGetter() default StringGetterDefault.class;
-
-	Class<? extends FeaturesGetter<?>> varargsFeatures() default FeaturesGetterDefault.class;
-
-	public @interface Thrown
-	{
-		Class<? extends Throwable> value();
-		String[] doc() default {};
-	}
-	Thrown[] thrown() default {};
-	Class<? extends ThrownGetter<?>> thrownGetter() default ThrownGetterDefault.class;
-
-	String[] doc() default {};
-	String[] docReturn() default {};
-
-	Class<? extends BooleanGetter<?>>[] hide() default {};
+	List<?> get(F feature);
 }

@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-class CopeFeature
+final class CopeFeature
 {
 	static final String TAG_PREFIX = "cope.";
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";

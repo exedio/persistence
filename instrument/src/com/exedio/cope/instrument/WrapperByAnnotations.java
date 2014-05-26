@@ -210,19 +210,30 @@ final class WrapperByAnnotations
 			}
 		}
 		{
+			final String optionTagName = annotation.optionTagname();
+			if(!optionTagName.isEmpty())
+				result.setOptionTagName(optionTagName);
+
+		}
+		{
+			final List<?> methodVarargs = getFeatures(annotation.varargsFeatures());
+			if(methodVarargs!=null && !method.isVarArgs())
+				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
+
 			final Annotation[][] annotations = method.getParameterAnnotations();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
 				final Parameter paramAnn = get(Parameter.class, annotations[i]);
+				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(genericParameterType);
+					result.addParameter(genericParameterType, varargs);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment);
+					result.addParameter(genericParameterType, paramAnnValueFixed, comment, varargs);
 				}
 			}
 		}
@@ -265,6 +276,18 @@ final class WrapperByAnnotations
 		final ThrownGetter getter = instantiate(clazz);
 		@SuppressWarnings("unchecked")
 		final Set<Class<? extends Throwable>> result = getter.get(feature);
+		return result;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private List<?> getFeatures(final Class<? extends FeaturesGetter> clazz)
+	{
+		if(clazz==FeaturesGetterDefault.class)
+			return null;
+
+		final FeaturesGetter getter = instantiate(clazz);
+		@SuppressWarnings("unchecked")
+		final List<?> result = getter.get(feature);
 		return result;
 	}
 
