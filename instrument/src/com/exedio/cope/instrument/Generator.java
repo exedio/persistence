@@ -65,7 +65,6 @@ final class Generator
 																					Option.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment.";
-	private static final String CONSTRUCTOR_ACTIVATION = "Activation constructor. Used for internal purposes only.";
 	private static final String TYPE = "The persistent type information for {0}.";
 	private static final String TYPE_BLOCK = "The type information for {0}.";
 	private static final String TYPE_CUSTOMIZE = "It can be customized with the tag " +
@@ -355,7 +354,7 @@ final class Generator
 		writeCommentHeader();
 		writeIndent();
 		write(" * ");
-		write(CONSTRUCTOR_ACTIVATION);
+		write("Activation constructor. Used for internal purposes only.");
 		write(lineSeparator);
 		writeIndent();
 		write(" * @see ");
