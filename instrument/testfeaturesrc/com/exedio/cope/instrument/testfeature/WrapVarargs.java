@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.FeaturesGetter;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +61,7 @@ public final class WrapVarargs
 	@Wrap(order=30, varargsFeatures=VarargsGetter.class)
 	public <P extends Item> P staticToken(
 			@SuppressWarnings("unused") final Class<P> typeClass,
-			@SuppressWarnings("unused") final Object... values)
+			@SuppressWarnings("unused") @Parameter(value="myName", doc="myDoc/{0}/{1}/{2}/") final Object... values)
 	{
 		throw new RuntimeException();
 	}
