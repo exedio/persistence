@@ -59,7 +59,7 @@ public class DefaultToModelTest extends CopeAssert
 		assertEquals(list(
 				TYPE.getThis(),
 				booleanTrue, booleanNone,
-				integerFive, integerFifty, integerNext, integerNone,
+				integerFive, integerFifty, integerNext, integerNext.getDefaultNext(), integerNone,
 				dateEight, dateEighty, dateNow, dateNowOpt, dateNone,
 				dayEight, dayNow, dayNowOpt, dayNone,
 				longRandom,
@@ -99,6 +99,20 @@ public class DefaultToModelTest extends CopeAssert
 		assertEquals(null, integerFifty.getDefaultNextStart());
 		assertEquals(integer(10001), integerNext.getDefaultNextStart());
 		assertEquals(null, integerNone.getDefaultNextStart());
+
+		assertEquals(null, integerFive.getDefaultNext());
+		assertEquals(null, integerFifty.getDefaultNext());
+		{
+			final Sequence s = integerNext.getDefaultNext();
+			assertNotNull(s);
+			assertEquals("integerNextzack",s.getName());
+			assertEquals("DefaultToItem.integerNextzack", s.getID());
+			assertEquals(TYPE, s.getType());
+			assertEquals(null, s.getPattern());
+			assertEquals(10001, s.getStart());
+			assertEquals(Integer.MAX_VALUE, s.getEnd());
+		}
+		assertEquals(null, integerNone.getDefaultNext());
 
 		assertEquals(date(8), dateEight.getDefaultConstant());
 		assertEquals(date(80), dateEighty.getDefaultConstant());

@@ -39,6 +39,11 @@ public final class Sequence extends Feature
 
 	public Sequence(final int start, final int end)
 	{
+		this(null, start, start, end);
+	}
+
+	Sequence(final Feature feature, final int start, final int min, final int end)
+	{
 		if(start<0)
 			throw new IllegalArgumentException("start must be positive, but was " + start + '.');
 		if(start>=end)
@@ -46,7 +51,7 @@ public final class Sequence extends Feature
 
 		this.start = start;
 		this.end = end;
-		this.sequenceX = new SequenceX(this, start, start, end);
+		this.sequenceX = new SequenceX(feature!=null ? feature : this, start, min, end);
 	}
 
 	public int getStart()

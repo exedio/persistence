@@ -22,6 +22,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
 
 /**
@@ -35,7 +36,7 @@ public final class IntegerField extends NumberField<Integer>
 	private static final long serialVersionUID = 1l;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	final SequenceX defaultToNextSequence;
+	final Sequence defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -65,14 +66,14 @@ public final class IntegerField extends NumberField<Integer>
 	private static final class DefaultNext extends DefaultSource<Integer>
 	{
 		final int start;
-		private SequenceX sequence;
+		private Sequence sequence;
 
 		DefaultNext(final int start)
 		{
 			this.start = start;
 		}
 
-		SequenceX getSequence()
+		Sequence getSequence()
 		{
 			assert sequence!=null;
 			return sequence;
@@ -113,7 +114,13 @@ public final class IntegerField extends NumberField<Integer>
 						" Start value was '" + start + "'.");
 			}
 			assert sequence==null;
-			sequence = new SequenceX(f, start, f.getMinimum(), f.getMaximum());
+			sequence = new Sequence(f, start, f.getMinimum(), f.getMaximum());
+		}
+
+		@Override
+		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		{
+			getSequence().mount(type, name + "zack", annotationSource);
 		}
 	}
 
@@ -203,6 +210,11 @@ public final class IntegerField extends NumberField<Integer>
 		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).start : null;
 	}
 
+	public Sequence getDefaultNext()
+	{
+		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).getSequence() : null;
+	}
+
 	public int getMinimum()
 	{
 		return minimum;
@@ -230,22 +242,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final IntegerColumn result = new IntegerColumn(table, name, false, optional, minimum, maximum, false);
-		if(defaultToNextSequence!=null)
-		{
-			final Database database = table.database;
-			defaultToNextSequence.connect(database, result);
-			database.addSequence(defaultToNextSequence);
-		}
-		return result;
-	}
-
-	@Override
-	void disconnect()
-	{
-		if(defaultToNextSequence!=null)
-			defaultToNextSequence.disconnect();
-		super.disconnect();
+		return new IntegerColumn(table, name, false, optional, minimum, maximum, false);
 	}
 
 	@Override
@@ -318,7 +315,7 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.sequenceX.check(getType().getModel()) : 0;
 	}
 
 	String getDefaultToNextSequenceName()
