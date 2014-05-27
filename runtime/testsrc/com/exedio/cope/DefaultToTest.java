@@ -79,6 +79,8 @@ public class DefaultToTest extends AbstractRuntimeTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
+		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
+
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
