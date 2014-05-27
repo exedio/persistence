@@ -21,12 +21,14 @@ package com.exedio.cope;
 import static com.exedio.cope.RenamedSchemaItem.TYPE;
 import static com.exedio.cope.RenamedSchemaItem.integer;
 import static com.exedio.cope.RenamedSchemaItem.item;
+import static com.exedio.cope.RenamedSchemaItem.sequence;
 import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
 import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
 import com.exedio.dsmf.Schema;
@@ -57,6 +59,7 @@ public class RenamedSchemaTest extends AbstractRuntimeTest
 		assertEquals("zackString", getColumnName(string));
 		assertEquals("zackInteger", getColumnName(integer));
 		assertDefaultToNextSequenceName("ZackItem_zackInteger_Seq", integer);
+		assertEquals(filterTableName("ZackItem_zackSequence"), getSequenceName(sequence));
 
 		final Schema schema = model.getVerifiedSchema();
 

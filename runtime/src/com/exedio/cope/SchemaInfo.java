@@ -246,6 +246,15 @@ public final class SchemaInfo
 		return result;
 	}
 
+	/**
+	 * Returns the name of the sequence for generating values via
+	 * {@link Sequence#next()}.
+	 */
+	public static String getSequenceName(final Sequence sequence)
+	{
+		return sequence.sequenceX.getSchemaName();
+	}
+
 	public static String search(final Query<?> query)
 	{
 		return search(query, false);

@@ -82,6 +82,11 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		tester.assertSchema();
 	}
 
+	protected final String filterTableName(final String name)
+	{
+		return tester.filterTableName(name);
+	}
+
 	// copied from CopeTest
 	protected void restartTransaction()
 	{

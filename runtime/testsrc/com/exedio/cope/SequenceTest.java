@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
@@ -47,6 +48,9 @@ public class SequenceTest extends AbstractRuntimeModelTest
 	{
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
+
+		assertEquals(filterTableName("SequenceItem_full"   ), getSequenceName(full));
+		assertEquals(filterTableName("SequenceItem_limited"), getSequenceName(limited));
 
 
 		// full

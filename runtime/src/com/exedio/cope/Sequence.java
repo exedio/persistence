@@ -30,7 +30,7 @@ public final class Sequence extends Feature
 	private final int start;
 	private final int end;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final SequenceX sequenceX;
+	final SequenceX sequenceX;
 
 	public Sequence(final int start)
 	{
