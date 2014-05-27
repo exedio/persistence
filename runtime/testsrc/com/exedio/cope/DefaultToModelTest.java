@@ -40,6 +40,7 @@ import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static java.lang.Boolean.TRUE;
 import static java.util.TimeZone.getTimeZone;
 
@@ -174,6 +175,15 @@ public class DefaultToModelTest extends CopeAssert
 					"range violation, " +
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
+		}
+		try
+		{
+			getDefaultToNextSequenceName(integerFive);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("is not defaultToNext: " + integerFive, e.getMessage());
 		}
 		{
 			final DateField feature = dateEight.defaultToNow();
