@@ -120,7 +120,7 @@ public final class IntegerField extends NumberField<Integer>
 		@Override
 		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
-			getSequence().mount(type, name + "zack", annotationSource);
+			getSequence().mount(type, name + "-Seq", annotationSource);
 		}
 	}
 
@@ -323,7 +323,7 @@ public final class IntegerField extends NumberField<Integer>
 		if(defaultToNextSequence==null)
 			throw new IllegalArgumentException("is not defaultToNext: " + this);
 
-		return defaultToNextSequence.getSchemaName();
+		return defaultToNextSequence.sequenceX.getSchemaName();
 	}
 
 	public IntegerField rangeDigits(final int digits)
