@@ -56,6 +56,16 @@ public class DefaultToModelTest extends CopeAssert
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testIt()
 	{
+		assertEquals(list(
+				TYPE.getThis(),
+				booleanTrue, booleanNone,
+				integerFive, integerFifty, integerNext, integerNone,
+				dateEight, dateEighty, dateNow, dateNowOpt, dateNone,
+				dayEight, dayNow, dayNowOpt, dayNone,
+				longRandom,
+				enumOne, enumTwo, enumNone
+				), TYPE.getDeclaredFeatures());
+
 		assertEquals(true,  booleanTrue.hasDefault());
 		assertEquals(false, booleanNone.hasDefault());
 		assertEquals(true,  integerFive.hasDefault());

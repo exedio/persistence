@@ -31,6 +31,10 @@ public class SequenceModelTest extends CopeAssert
 
 	public void testIt()
 	{
+		assertEquals(
+				list(TYPE.getThis(), full, limited),
+				TYPE.getDeclaredFeatures());
+
 		assertEquals("SequenceItem.full", full.getID());
 		assertEquals("full", full.getName());
 		assertSame(TYPE, full.getType());
