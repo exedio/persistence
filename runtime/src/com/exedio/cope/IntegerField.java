@@ -121,7 +121,12 @@ public final class IntegerField extends NumberField<Integer>
 		@Override
 		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
-			getSequence().mount(type, name + "-Seq", new AnnotationProxy(annotationSource));
+			getSequence().mount(type, sequenceName(name), new AnnotationProxy(annotationSource));
+		}
+
+		static final String sequenceName(final String name)
+		{
+			return name + "-Seq";
 		}
 
 		private final class AnnotationProxy implements AnnotatedElement
@@ -155,7 +160,7 @@ public final class IntegerField extends NumberField<Integer>
 					if(sourceName==null)
 						return null;
 
-					return annotationClass.cast(schemaName(sourceName.value() + "-Seq"));
+					return annotationClass.cast(schemaName(sequenceName(sourceName.value())));
 				}
 
 				if(source==null)
