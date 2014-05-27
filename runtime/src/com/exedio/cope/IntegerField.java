@@ -22,6 +22,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
 
@@ -120,7 +121,80 @@ public final class IntegerField extends NumberField<Integer>
 		@Override
 		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
-			getSequence().mount(type, name + "-Seq", annotationSource);
+			getSequence().mount(type, name + "-Seq", new SourceFeatureAnnotationProxy(annotationSource));
+		}
+
+		private final class SourceFeatureAnnotationProxy implements AnnotatedElement
+		{
+			private final AnnotatedElement source;
+
+			SourceFeatureAnnotationProxy(final AnnotatedElement source)
+			{
+				this.source = source;
+			}
+
+			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+			{
+				if(CopeSchemaName.class==annotationClass)
+				{
+					return getAnnotation(annotationClass)!=null;
+				}
+
+				if(source==null)
+					return false;
+
+				return source.isAnnotationPresent(annotationClass);
+			}
+
+			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+			{
+				if(CopeSchemaName.class==annotationClass)
+				{
+					final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
+
+					if(sourceName==null)
+						return null;
+
+					return annotationClass.cast(schemaName(sourceName.value() + "-Seq"));
+				}
+
+				if(source==null)
+					return null;
+
+				return source.getAnnotation(annotationClass);
+			}
+
+			private final CopeSchemaName schemaName(final String value)
+			{
+				return new CopeSchemaName()
+				{
+					public Class<? extends Annotation> annotationType()
+					{
+						return CopeSchemaName.class;
+					}
+
+					public String value()
+					{
+						return value;
+					}
+				};
+			}
+
+			public Annotation[] getAnnotations()
+			{
+				throw new RuntimeException(DefaultNext.this.toString());
+			}
+
+			public Annotation[] getDeclaredAnnotations()
+			{
+				throw new RuntimeException(DefaultNext.this.toString());
+			}
+
+			@Override
+			public String toString()
+			{
+				return DefaultNext.this.toString() + "-sourceFeatureAnnotations";
+			}
 		}
 	}
 
