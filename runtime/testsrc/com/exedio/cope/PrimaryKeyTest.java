@@ -63,9 +63,9 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			final PrimaryKeyItem result = new PrimaryKeyItem(field, next);
-			tx.commit();
-			return result;
+			return tx.commit(
+					new PrimaryKeyItem(field, next)
+			);
 		}
 	}
 
@@ -75,9 +75,9 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
 		{
-			final PrimaryKeyItem result = new PrimaryKeyItem(field);
-			tx.commit();
-			return result;
+			return tx.commit(
+					new PrimaryKeyItem(field)
+			);
 		}
 	}
 

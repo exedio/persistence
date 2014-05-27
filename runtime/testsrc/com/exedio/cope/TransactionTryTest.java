@@ -57,6 +57,51 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		assertEquals("itemName", item.getName());
 	}
 
+	public void testSuccessReturnObject()
+	{
+		assertFalse(model.hasCurrentTransaction());
+
+		final SimpleItem item;
+		final Object result = new Object();
+
+		try(TransactionTry tx = model.startTransactionTry("txName"))
+		{
+			assertTrue(model.hasCurrentTransaction());
+			assertContains(TYPE.search());
+
+			item = new SimpleItem("itemName");
+			assertSame(result, tx.commit(result));
+			assertFalse(model.hasCurrentTransaction());
+		}
+		assertFalse(model.hasCurrentTransaction());
+
+		model.startTransaction(TransactionTryTest.class.getName());
+		assertTrue(item.existsCopeItem());
+		assertEquals("itemName", item.getName());
+	}
+
+	public void testSuccessReturnInt()
+	{
+		assertFalse(model.hasCurrentTransaction());
+
+		final SimpleItem item;
+
+		try(TransactionTry tx = model.startTransactionTry("txName"))
+		{
+			assertTrue(model.hasCurrentTransaction());
+			assertContains(TYPE.search());
+
+			item = new SimpleItem("itemName");
+			assertEquals(567, tx.commit(567));
+			assertFalse(model.hasCurrentTransaction());
+		}
+		assertFalse(model.hasCurrentTransaction());
+
+		model.startTransaction(TransactionTryTest.class.getName());
+		assertTrue(item.existsCopeItem());
+		assertEquals("itemName", item.getName());
+	}
+
 	public void testFail()
 	{
 		assertFalse(model.hasCurrentTransaction());

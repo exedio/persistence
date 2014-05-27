@@ -259,13 +259,12 @@ public class Sampler
 
 	int analyzeCount(final Type<?> type)
 	{
-		final int result;
 		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeCount"))
 		{
-			result = type.newQuery().total();
-			tx.commit();
+			return tx.commit(
+					type.newQuery().total()
+			);
 		}
-		return result;
 	}
 
 	Date[] analyzeDate(final Type<?> type)

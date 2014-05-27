@@ -36,6 +36,24 @@ public final class TransactionTry implements AutoCloseable
 	}
 
 	/**
+	 * @see #commit()
+	 */
+	public <R> R commit(final R result)
+	{
+		model.commit();
+		return result;
+	}
+
+	/**
+	 * @see #commit()
+	 */
+	public int commit(final int result)
+	{
+		model.commit();
+		return result;
+	}
+
+	/**
 	 * @see Model#getItem(String)
 	 */
 	public Item getItem(final String id) throws NoSuchIDException
