@@ -27,6 +27,7 @@ public final class Sequence extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
+	private final Feature feature;
 	private final int start;
 	private final int end;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -49,6 +50,7 @@ public final class Sequence extends Feature
 		if(start>=end)
 			throw new IllegalArgumentException("start must be less than end, but was " + start + " and " + end + '.');
 
+		this.feature = feature;
 		this.start = start;
 		this.end = end;
 		this.sequenceX = new SequenceX(feature!=null ? feature : this, start, min, end);
@@ -84,7 +86,8 @@ public final class Sequence extends Feature
 
 	void connect(final Database database)
 	{
-		sequenceX.connectCluster(database, database.makeName(getType().schemaId + '_' + getSchemaName()));
+		final Column column = (feature instanceof IntegerField) ? ((IntegerField)feature).getColumn() : null;
+		sequenceX.connectCluster(database, (IntegerColumn)column, database.makeName(getType().schemaId + '_' + getSchemaName()));
 		database.addSequence(sequenceX);
 	}
 
