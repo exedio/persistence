@@ -121,14 +121,14 @@ public final class IntegerField extends NumberField<Integer>
 		@Override
 		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
 		{
-			getSequence().mount(type, name + "-Seq", new SourceFeatureAnnotationProxy(annotationSource));
+			getSequence().mount(type, name + "-Seq", new AnnotationProxy(annotationSource));
 		}
 
-		private final class SourceFeatureAnnotationProxy implements AnnotatedElement
+		private final class AnnotationProxy implements AnnotatedElement
 		{
 			private final AnnotatedElement source;
 
-			SourceFeatureAnnotationProxy(final AnnotatedElement source)
+			AnnotationProxy(final AnnotatedElement source)
 			{
 				this.source = source;
 			}
