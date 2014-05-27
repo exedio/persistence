@@ -106,8 +106,8 @@ public class DefaultToModelTest extends CopeAssert
 		{
 			final Sequence s = integerNext.getDefaultNext();
 			assertNotNull(s);
-			assertEquals("integerNextzack",s.getName());
-			assertEquals("DefaultToItem.integerNextzack", s.getID());
+			assertEquals("integerNext-Seq",s.getName());
+			assertEquals("DefaultToItem.integerNext-Seq", s.getID());
 			assertEquals(TYPE, s.getType());
 			assertEquals(null, s.getPattern());
 			assertEquals(10001, s.getStart());
