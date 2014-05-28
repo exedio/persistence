@@ -27,7 +27,7 @@ public final class Sequence extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
-	private final Feature feature;
+	private final IntegerField feature;
 	private final int start;
 	private final int end;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -86,7 +86,7 @@ public final class Sequence extends Feature
 
 	void connect(final Database database)
 	{
-		final Column column = (feature instanceof IntegerField) ? ((IntegerField)feature).getColumn() : null;
+		final Column column = (feature!=null) ? feature.getColumn() : null;
 		sequenceX.connectCluster(database, (IntegerColumn)column, database.makeName(getType().schemaId + '_' + getSchemaName()));
 		database.addSequence(sequenceX);
 	}
