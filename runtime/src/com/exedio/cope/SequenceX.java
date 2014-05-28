@@ -58,13 +58,14 @@ final class SequenceX
 		this.column = column;
 	}
 
-	void connectCluster(final Database database, final String name)
+	void connectCluster(final Database database, final IntegerColumn column, final String name)
 	{
 		this.knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
 		impl = database.newSequenceImplCluster(start, name);
+		this.column = column;
 	}
 
 	void disconnect()

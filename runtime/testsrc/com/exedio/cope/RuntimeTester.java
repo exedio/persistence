@@ -136,22 +136,7 @@ final class RuntimeTester
 
 	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
-		if(model.getConnectProperties().primaryKeyGenerator.persistent)
-		{
-			assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
-		}
-		else
-		{
-			try
-			{
-				getDefaultToNextSequenceName(field);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("no sequence for " + field, e.getMessage());
-			}
-		}
+		assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
 	}
 
 	protected final TestByteArrayInputStream stream(final byte[] data)

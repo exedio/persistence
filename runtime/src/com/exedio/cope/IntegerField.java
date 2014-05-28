@@ -22,6 +22,8 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
 
 /**
@@ -35,7 +37,7 @@ public final class IntegerField extends NumberField<Integer>
 	private static final long serialVersionUID = 1l;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	final SequenceX defaultToNextSequence;
+	final Sequence defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
@@ -65,14 +67,14 @@ public final class IntegerField extends NumberField<Integer>
 	private static final class DefaultNext extends DefaultSource<Integer>
 	{
 		final int start;
-		private SequenceX sequence;
+		private Sequence sequence;
 
 		DefaultNext(final int start)
 		{
 			this.start = start;
 		}
 
-		SequenceX getSequence()
+		Sequence getSequence()
 		{
 			assert sequence!=null;
 			return sequence;
@@ -113,7 +115,91 @@ public final class IntegerField extends NumberField<Integer>
 						" Start value was '" + start + "'.");
 			}
 			assert sequence==null;
-			sequence = new SequenceX(f, start, f.getMinimum(), f.getMaximum());
+			sequence = new Sequence(f, start, f.getMinimum(), f.getMaximum());
+		}
+
+		@Override
+		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		{
+			getSequence().mount(type, sequenceName(name), new AnnotationProxy(annotationSource));
+		}
+
+		static final String sequenceName(final String name)
+		{
+			return name + "-Seq";
+		}
+
+		private final class AnnotationProxy implements AnnotatedElement
+		{
+			private final AnnotatedElement source;
+
+			AnnotationProxy(final AnnotatedElement source)
+			{
+				this.source = source;
+			}
+
+			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+			{
+				if(CopeSchemaName.class==annotationClass)
+				{
+					return getAnnotation(annotationClass)!=null;
+				}
+
+				if(source==null)
+					return false;
+
+				return source.isAnnotationPresent(annotationClass);
+			}
+
+			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+			{
+				if(CopeSchemaName.class==annotationClass)
+				{
+					final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
+
+					if(sourceName==null)
+						return null;
+
+					return annotationClass.cast(schemaName(sequenceName(sourceName.value())));
+				}
+
+				if(source==null)
+					return null;
+
+				return source.getAnnotation(annotationClass);
+			}
+
+			private final CopeSchemaName schemaName(final String value)
+			{
+				return new CopeSchemaName()
+				{
+					public Class<? extends Annotation> annotationType()
+					{
+						return CopeSchemaName.class;
+					}
+
+					public String value()
+					{
+						return value;
+					}
+				};
+			}
+
+			public Annotation[] getAnnotations()
+			{
+				throw new RuntimeException(DefaultNext.this.toString());
+			}
+
+			public Annotation[] getDeclaredAnnotations()
+			{
+				throw new RuntimeException(DefaultNext.this.toString());
+			}
+
+			@Override
+			public String toString()
+			{
+				return DefaultNext.this.toString() + "-sourceFeatureAnnotations";
+			}
 		}
 	}
 
@@ -203,6 +289,11 @@ public final class IntegerField extends NumberField<Integer>
 		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).start : null;
 	}
 
+	public Sequence getDefaultNext()
+	{
+		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).getSequence() : null;
+	}
+
 	public int getMinimum()
 	{
 		return minimum;
@@ -230,22 +321,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final IntegerColumn result = new IntegerColumn(table, name, false, optional, minimum, maximum, false);
-		if(defaultToNextSequence!=null)
-		{
-			final Database database = table.database;
-			defaultToNextSequence.connect(database, result);
-			database.addSequence(defaultToNextSequence);
-		}
-		return result;
-	}
-
-	@Override
-	void disconnect()
-	{
-		if(defaultToNextSequence!=null)
-			defaultToNextSequence.disconnect();
-		super.disconnect();
+		return new IntegerColumn(table, name, false, optional, minimum, maximum, false);
 	}
 
 	@Override
@@ -318,7 +394,7 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.check(getType().getModel()) : 0;
+		return defaultToNextSequence!=null ? defaultToNextSequence.sequenceX.check(getType().getModel()) : 0;
 	}
 
 	String getDefaultToNextSequenceName()
@@ -326,7 +402,7 @@ public final class IntegerField extends NumberField<Integer>
 		if(defaultToNextSequence==null)
 			throw new IllegalArgumentException("is not defaultToNext: " + this);
 
-		return defaultToNextSequence.getSchemaName();
+		return defaultToNextSequence.sequenceX.getSchemaName();
 	}
 
 	public IntegerField rangeDigits(final int digits)

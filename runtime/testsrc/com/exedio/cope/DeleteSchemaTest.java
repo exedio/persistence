@@ -97,8 +97,8 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 			"sequences 8 [" +
 				"DeleteSchemaItemSuper.this, " +
 				"DeleteSchemaItem.next, " +
-				"DeleteSchemaItem.nextUnused, " +
 				"DeleteSchemaItem.sequence, " +
+				"DeleteSchemaItem.nextUnused, " +
 				"DeleteSchemaItem.sequenceUnused, " +
 				"DeleteSchemaItemUnused.this, " +
 				"DeleteSchemaPointerA.this, " +

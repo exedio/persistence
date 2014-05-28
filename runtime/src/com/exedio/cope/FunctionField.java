@@ -203,6 +203,8 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		if(implicitCopyConstraintsFrom!=null)
 			for(final CopyConstraint constraint : implicitCopyConstraintsFrom)
 				constraint.mount(type, name + "CopyFrom" + constraint.getTarget().getName(), null);
+		if(defaultSource!=null)
+			defaultSource.mount(type, name, annotationSource);
 	}
 
 	final void checkValueClass(final Class<? extends Object> superClass)

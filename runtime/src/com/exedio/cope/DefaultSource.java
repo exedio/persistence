@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.lang.reflect.AnnotatedElement;
+
 abstract class DefaultSource<E>
 {
 	/**
@@ -43,4 +45,14 @@ abstract class DefaultSource<E>
 	abstract DefaultSource<E> forNewField();
 
 	abstract void mount(FunctionField<E> field);
+
+	/**
+	 * @param type used in subclasses
+	 * @param name used in subclasses
+	 * @param annotationSource used in subclasses
+	 */
+	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	{
+		// empty
+	}
 }
