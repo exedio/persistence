@@ -87,7 +87,7 @@ public final class Sequence extends Feature
 	void connect(final Database database)
 	{
 		final Column column = (defaultToNextField!=null) ? defaultToNextField.getColumn() : null;
-		sequenceX.connectCluster(database, (IntegerColumn)column, database.makeName(getType().schemaId + '_' + getSchemaName()));
+		sequenceX.connectCluster(database, (IntegerColumn)column, database.makeName(getType().schemaId + '_' + getDeclaredSchemaName()));
 		database.addSequence(sequenceX);
 	}
 

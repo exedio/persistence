@@ -201,7 +201,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		if(this.column!=null)
 			throw new RuntimeException();
 
-		this.column = createColumn(table, getSchemaName(), optional);
+		this.column = createColumn(table, getDeclaredSchemaName(), optional);
 	}
 
 	void disconnect()
