@@ -55,8 +55,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
-		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE)    : NO_SEQUENCE;
-		nextSeq = sequences ? getDefaultToNextSequenceName(AnItem.next) : NO_SEQUENCE;
+		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE) : NO_SEQUENCE;
+		nextSeq = getDefaultToNextSequenceName(AnItem.next);
 	}
 
 	public void testPurge() throws SQLException
@@ -71,10 +71,10 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
-				"MESSAGE sequence " + thisSeq + " query" +
+				"MESSAGE sequence " + thisSeq + " query" ) +
 				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence AnItem_next_Seq purge less 1000" +
-				"PROGRESS 0" ) +
+				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2000" +
 				"PROGRESS 0"),
@@ -93,10 +93,10 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less 1" +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence " + nextSeq + " purge less 1001" +
-				"PROGRESS 1" ) +
+				"PROGRESS 1" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 1"),
@@ -110,10 +110,10 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less 1" +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence " + nextSeq + " purge less 1001" +
-				"PROGRESS 0" ) +
+				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2001" +
 				"PROGRESS 0"),
@@ -134,10 +134,10 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
-				"PROGRESS " + (batch?0:2) +
+				"PROGRESS " + (batch?0:2) ) +
 				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence " + nextSeq + " purge less 1003" +
-				"PROGRESS 2" ) +
+				"PROGRESS 2" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 2"),
@@ -151,10 +151,10 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
 				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) +
-				"PROGRESS 0" +
+				"PROGRESS 0" ) +
 				"MESSAGE sequence " + nextSeq + " query" +
 				"MESSAGE sequence " + nextSeq + " purge less 1003" +
-				"PROGRESS 0" ) +
+				"PROGRESS 0" +
 				"MESSAGE sequence AnItem_sequence query" +
 				"MESSAGE sequence AnItem_sequence purge less 2003" +
 				"PROGRESS 0"),
