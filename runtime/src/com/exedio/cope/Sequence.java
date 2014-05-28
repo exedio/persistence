@@ -43,7 +43,7 @@ public final class Sequence extends Feature
 		this(null, start, start, end);
 	}
 
-	Sequence(final Feature feature, final int start, final int min, final int end)
+	Sequence(final IntegerField feature, final int start, final int min, final int end)
 	{
 		if(start<0)
 			throw new IllegalArgumentException("start must be positive, but was " + start + '.');
