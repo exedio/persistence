@@ -28,7 +28,7 @@ final class SequenceX
 
 	private SequenceImpl impl;
 	private IntegerColumn column = null;
-	SequenceCounter counter;
+	private final SequenceCounter counter;
 	volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
