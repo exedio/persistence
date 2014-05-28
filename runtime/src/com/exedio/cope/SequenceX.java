@@ -40,7 +40,7 @@ final class SequenceX
 
 	void connect(final Database database, final IntegerColumn column)
 	{
-		this.knownToBeEmptyForTest = false;
+		knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
@@ -50,7 +50,7 @@ final class SequenceX
 
 	void connectCluster(final Database database, final IntegerColumn column, final String name)
 	{
-		this.knownToBeEmptyForTest = false;
+		knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
@@ -60,7 +60,7 @@ final class SequenceX
 
 	void disconnect()
 	{
-		this.knownToBeEmptyForTest = false;
+		knownToBeEmptyForTest = false;
 
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + feature);
@@ -83,7 +83,7 @@ final class SequenceX
 
 	int next()
 	{
-		this.knownToBeEmptyForTest = false;
+		knownToBeEmptyForTest = false;
 
 		final int result = impl().next();
 		counter.next(result);
