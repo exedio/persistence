@@ -33,11 +33,6 @@ final class SequenceX
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
 	{
-		if(feature==null)
-			throw new NullPointerException();
-		if(start<minimum || start>maximum)
-			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
-
 		this.feature = feature;
 		this.start = start;
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
