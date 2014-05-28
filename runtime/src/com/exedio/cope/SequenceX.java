@@ -25,14 +25,10 @@ final class SequenceX
 {
 	private final Feature feature;
 	private final int start;
-	private final int minimum;
-	private final int maximum;
 
 	private SequenceImpl impl;
 	private IntegerColumn column = null;
-	private volatile int count = 0;
-	private volatile int first = Integer.MAX_VALUE;
-	private volatile int last = Integer.MIN_VALUE;
+	SequenceCounter counter;
 	volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
@@ -44,8 +40,7 @@ final class SequenceX
 
 		this.feature = feature;
 		this.start = start;
-		this.minimum = minimum;
-		this.maximum = maximum;
+		this.counter = new SequenceCounter(feature, start, minimum, maximum);
 	}
 
 	void connect(final Database database, final IntegerColumn column)
@@ -96,13 +91,7 @@ final class SequenceX
 		this.knownToBeEmptyForTest = false;
 
 		final int result = impl().next();
-
-		if(result<minimum || result>maximum)
-			throw new IllegalStateException("sequence overflow to " + result + " in " + feature + " limited to " + minimum + ',' + maximum);
-		if((count++)==0)
-			first = result;
-		last = result;
-
+		counter.next(result);
 		return result;
 	}
 
@@ -117,20 +106,12 @@ final class SequenceX
 	void flush()
 	{
 		impl().flush();
-		count = 0;
-		first = Integer.MAX_VALUE;
-		last = Integer.MIN_VALUE;
+		counter.flush();
 	}
 
 	SequenceInfo getInfo()
 	{
-		final int count = this.count;
-		final int first = this.first;
-		final int last  = this.last;
-		return
-			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
-			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
-			: new SequenceInfo(feature, start, minimum, maximum);
+		return counter.getInfo();
 	}
 
 	int check(final Model model)
