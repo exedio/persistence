@@ -46,7 +46,7 @@ final class SequenceX
 		impl = database.newSequenceImpl(start, column);
 	}
 
-	void connectCluster(final Database database, final String name)
+	void connectSequence(final Database database, final String name)
 	{
 		knownToBeEmptyForTest = false;
 
