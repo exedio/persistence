@@ -71,6 +71,40 @@ public class SequenceCounterTest extends CopeAssert
 		assertIt(c, 15, 10, 20, 2, 17, 19);
 	}
 
+	public void testMin()
+	{
+		final SequenceCounter c =
+				new SequenceCounter(feature, 15, 10, 20);
+		assertIt(c, 15, 10, 20);
+		try
+		{
+			c.next(9);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("sequence overflow to 9 in " + feature + " limited to 10,20", e.getMessage());
+		}
+		assertIt(c, 15, 10, 20);
+	}
+
+	public void testMax()
+	{
+		final SequenceCounter c =
+				new SequenceCounter(feature, 15, 10, 20);
+		assertIt(c, 15, 10, 20);
+		try
+		{
+			c.next(21);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("sequence overflow to 21 in " + feature + " limited to 10,20", e.getMessage());
+		}
+		assertIt(c, 15, 10, 20);
+	}
+
 	private static void assertIt(
 			final SequenceCounter counter,
 			final int start, final int minimum, final int maximum,
