@@ -25,10 +25,6 @@ final class SequenceCounter
 	private final int minimum;
 	private final int maximum;
 
-	private volatile int count = 0;
-	private volatile int first = Integer.MAX_VALUE;
-	private volatile int last = Integer.MIN_VALUE;
-
 	SequenceCounter(final Feature feature, final int start, final int minimum, final int maximum)
 	{
 		if(feature==null)
@@ -41,6 +37,10 @@ final class SequenceCounter
 		this.minimum = minimum;
 		this.maximum = maximum;
 	}
+
+	private volatile int count = 0;
+	private volatile int first = Integer.MAX_VALUE;
+	private volatile int last  = Integer.MIN_VALUE;
 
 	void next(final int result)
 	{
