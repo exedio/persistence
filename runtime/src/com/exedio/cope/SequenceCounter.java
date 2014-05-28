@@ -48,7 +48,9 @@ final class SequenceCounter
 	void next(final int result)
 	{
 		if(result<minimum || result>maximum)
-			throw new IllegalStateException("sequence overflow to " + result + " in " + feature + " limited to " + minimum + ',' + maximum);
+			throw new IllegalStateException(
+					"sequence overflow to " + result + " in " + feature +
+					" limited to " + minimum + ',' + maximum);
 		if((count++)==0)
 			first = result;
 		last = result;
