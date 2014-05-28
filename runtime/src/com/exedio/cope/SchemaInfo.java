@@ -239,11 +239,7 @@ public final class SchemaInfo
 	 */
 	public static String getDefaultToNextSequenceName(final IntegerField field)
 	{
-		final String result = field.getDefaultToNextSequenceName();
-		if(result==null)
-			throw new IllegalArgumentException("no sequence for " + field);
-
-		return result;
+		return field.getDefaultToNextSequenceName();
 	}
 
 	/**
