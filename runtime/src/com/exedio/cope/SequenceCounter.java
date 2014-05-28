@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
+
 final class SequenceCounter
 {
 	private final Feature feature;
@@ -39,8 +42,8 @@ final class SequenceCounter
 	}
 
 	private volatile int count = 0;
-	private volatile int first = Integer.MAX_VALUE;
-	private volatile int last  = Integer.MIN_VALUE;
+	private volatile int first = MAX_VALUE;
+	private volatile int last  = MIN_VALUE;
 
 	void next(final int result)
 	{
@@ -54,8 +57,8 @@ final class SequenceCounter
 	void flush()
 	{
 		count = 0;
-		first = Integer.MAX_VALUE;
-		last = Integer.MIN_VALUE;
+		first = MAX_VALUE;
+		last  = MIN_VALUE;
 	}
 
 	SequenceInfo getInfo()
@@ -64,7 +67,7 @@ final class SequenceCounter
 		final int first = this.first;
 		final int last  = this.last;
 		return
-			count!=0 && first!=Integer.MAX_VALUE && last!=Integer.MIN_VALUE
+			count!=0 && first!=MAX_VALUE && last!=MIN_VALUE
 			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
