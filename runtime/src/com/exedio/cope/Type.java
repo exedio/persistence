@@ -536,7 +536,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				!hasFinalTable());
 		if(supertype==null)
 		{
-			primaryKeySequence.connect(database, table.primaryKey);
+			primaryKeySequence.connectPrimaryKey(database, table.primaryKey);
 			database.addSequence(primaryKeySequence);
 		}
 

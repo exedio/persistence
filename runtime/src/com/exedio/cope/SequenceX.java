@@ -37,7 +37,7 @@ final class SequenceX
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
 	}
 
-	void connect(final Database database, final IntegerColumn column)
+	void connectPrimaryKey(final Database database, final IntegerColumn column)
 	{
 		knownToBeEmptyForTest = false;
 
