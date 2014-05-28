@@ -53,7 +53,7 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 	}
 
 	@Override
-	String marshal(final E value)
+	String marshalLiteral(final E value)
 	{
 		return String.valueOf(value.pk);
 	}

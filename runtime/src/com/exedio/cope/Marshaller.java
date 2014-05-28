@@ -38,6 +38,6 @@ abstract class Marshaller<E>
 	 */
 	abstract E unmarshal(ResultSet resultSet, int columnIndex) throws SQLException;
 
-	abstract String marshal(final E value);
+	abstract String marshalLiteral (final E value);
 	abstract Object marshalPrepared(final E value);
 }

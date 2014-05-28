@@ -44,7 +44,7 @@ final class Marshallers
 				return row.getString(columnIndex);
 			}
 			@Override
-			String marshal(final String value)
+			String marshalLiteral(final String value)
 			{
 				return StringColumn.cacheToDatabaseStatic(value);
 			}
@@ -74,7 +74,7 @@ final class Marshallers
 				}
 			}
 			@Override
-			String marshal(final Boolean value)
+			String marshalLiteral(final Boolean value)
 			{
 				return value.booleanValue() ? "1" : "0";
 			}
@@ -97,7 +97,7 @@ final class Marshallers
 						: Integer.valueOf(((Number)cell).intValue());
 			}
 			@Override
-			String marshal(final Integer value)
+			String marshalLiteral(final Integer value)
 			{
 				return value.toString();
 			}
@@ -124,7 +124,7 @@ final class Marshallers
 			}
 
 			@Override
-			String marshal(final Long value)
+			String marshalLiteral(final Long value)
 			{
 				return value.toString();
 			}
@@ -152,7 +152,7 @@ final class Marshallers
 			}
 
 			@Override
-			String marshal(final Double value)
+			String marshalLiteral(final Double value)
 			{
 				return value.toString();
 			}
@@ -173,7 +173,7 @@ final class Marshallers
 				}
 
 				@Override
-				String marshal(final Date value)
+				String marshalLiteral(final Date value)
 				{
 					// Don't use a static instance,
 					// since then access must be synchronized
@@ -194,7 +194,7 @@ final class Marshallers
 					return (cell!=null) ? new Date(((Number)cell).longValue()) : null;
 				}
 				@Override
-				String marshal(final Date value)
+				String marshalLiteral(final Date value)
 				{
 					return String.valueOf(value.getTime());
 				}
@@ -219,7 +219,7 @@ final class Marshallers
 				return (cell!=null) ? DayField.unmarshal(cell) : null;
 			}
 			@Override
-			String marshal(final Day value)
+			String marshalLiteral(final Day value)
 			{
 				// Don't use a static instance,
 				// since then access must be synchronized

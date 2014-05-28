@@ -42,7 +42,7 @@ final class EnumMarshaller<E extends Enum<E>> extends Marshaller<E>
 	}
 
 	@Override
-	String marshal(final E value)
+	String marshalLiteral(final E value)
 	{
 		return String.valueOf(type.getNumber(value)); // TODO precompute strings
 	}

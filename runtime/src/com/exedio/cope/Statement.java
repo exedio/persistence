@@ -239,7 +239,7 @@ final class Statement
 		final Marshaller<E> marshaller = (Marshaller)marshallers.getByValue(value);
 
 		if(parameters==null)
-			text.append(marshaller.marshal(value));
+			text.append(marshaller.marshalLiteral(value));
 		else
 		{
 			this.text.append(QUESTION_MARK);
