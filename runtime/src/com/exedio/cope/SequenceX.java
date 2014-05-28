@@ -25,10 +25,10 @@ final class SequenceX
 {
 	private final Feature feature;
 	private final int start;
+	private final SequenceCounter counter;
 
 	private SequenceImpl impl;
 	private IntegerColumn column = null;
-	private final SequenceCounter counter;
 	volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
