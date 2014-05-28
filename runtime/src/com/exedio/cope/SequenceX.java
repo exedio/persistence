@@ -72,7 +72,7 @@ final class SequenceX
 	{
 		final SequenceImpl impl = this.impl;
 		if(impl==null)
-			throw new IllegalStateException("not yet connected " + feature);
+			throw new Model.NotConnectedException(feature.getType().getModel());
 		return impl;
 	}
 
@@ -92,10 +92,7 @@ final class SequenceX
 
 	void delete(final StringBuilder bf, final Dialect dialect)
 	{
-		if(impl==null)
-			throw new Model.NotConnectedException(feature.getType().getModel());
-
-		impl.delete(bf, dialect);
+		impl().delete(bf, dialect);
 	}
 
 	void flush()
@@ -134,10 +131,7 @@ final class SequenceX
 
 	String getSchemaName()
 	{
-		if(impl==null)
-			throw new Model.NotConnectedException(feature.getType().getModel());
-
-		return impl.getSchemaName();
+		return impl().getSchemaName();
 	}
 
 	boolean isKnownToBeEmptyForTest()
