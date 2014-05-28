@@ -257,6 +257,7 @@ public class Sampler
 		return (10*1000);
 	}
 
+	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
 	int analyzeCount(final Type<?> type)
 	{
 		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeCount"))
