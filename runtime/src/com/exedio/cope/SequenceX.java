@@ -29,7 +29,7 @@ final class SequenceX
 
 	private SequenceImpl impl;
 	private IntegerColumn column = null;
-	volatile boolean knownToBeEmptyForTest = false;
+	private volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
 	{
@@ -138,6 +138,16 @@ final class SequenceX
 			throw new Model.NotConnectedException(feature.getType().getModel());
 
 		return impl.getSchemaName();
+	}
+
+	boolean isKnownToBeEmptyForTest()
+	{
+		return knownToBeEmptyForTest;
+	}
+
+	void setKnownToBeEmptyForTest()
+	{
+		knownToBeEmptyForTest = true;
 	}
 
 	@Override

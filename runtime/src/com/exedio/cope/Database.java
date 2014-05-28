@@ -127,7 +127,7 @@ final class Database
 		for(final Table table : tables)
 			table.knownToBeEmptyForTest = true;
 		for(final SequenceX sequence : sequences)
-			sequence.knownToBeEmptyForTest = true;
+			sequence.setKnownToBeEmptyForTest();
 	}
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
@@ -663,7 +663,7 @@ final class Database
 					tables.add(table);
 			sequences = new ArrayList<>();
 			for(final SequenceX sequence : this.sequences)
-				if(!sequence.knownToBeEmptyForTest)
+				if(!sequence.isKnownToBeEmptyForTest())
 					sequences.add(sequence);
 		}
 		else
@@ -685,7 +685,7 @@ final class Database
 		for(final Table table : tables)
 			table.knownToBeEmptyForTest = true;
 		for(final SequenceX sequence : sequences)
-			sequence.knownToBeEmptyForTest = true;
+			sequence.setKnownToBeEmptyForTest();
 	}
 
 	ArrayList<String> getSequenceSchemaNames()
