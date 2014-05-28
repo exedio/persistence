@@ -48,7 +48,7 @@ final class Cluster
 		sender.ping(count);
 	}
 
-	void close()
+	void startClose()
 	{
 		sender.close();
 		listener.startClose();

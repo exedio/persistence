@@ -126,9 +126,8 @@ final class Connect
 	void close()
 	{
 		changeListenerDispatcher.startClose();
-
 		if(cluster!=null)
-			cluster.close();
+			cluster.startClose();
 
 		connectionPool.flush();
 
