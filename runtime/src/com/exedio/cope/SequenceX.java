@@ -28,7 +28,6 @@ final class SequenceX
 	private final SequenceCounter counter;
 
 	private SequenceImpl impl;
-	private IntegerColumn column = null;
 	private volatile boolean knownToBeEmptyForTest = false;
 
 	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
@@ -45,17 +44,15 @@ final class SequenceX
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
 		impl = database.newSequenceImpl(start, column);
-		this.column = column;
 	}
 
-	void connectCluster(final Database database, final IntegerColumn column, final String name)
+	void connectCluster(final Database database, final String name)
 	{
 		knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
 		impl = database.newSequenceImplCluster(start, name);
-		this.column = column;
 	}
 
 	void disconnect()
@@ -65,7 +62,6 @@ final class SequenceX
 		if(impl==null)
 			throw new IllegalStateException("not yet connected " + feature);
 		impl = null;
-		column = null;
 	}
 
 	private SequenceImpl impl()
@@ -106,7 +102,7 @@ final class SequenceX
 		return counter.getInfo();
 	}
 
-	int check(final Model model)
+	int check(final Model model, final IntegerColumn column)
 	{
 		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
