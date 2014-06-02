@@ -31,6 +31,7 @@ public class ErrorLogTest extends CopeAssert
 
 		assertEquals(1, l.get());
 		final MediaRequestLog l0 = l.getLogs().get(0);
+		assertEquals("RemoteAddr0", l0.getRemoteAddr());
 		assertEquals(false, l0.isSecure());
 		assertEquals("PathInfo0", l0.getPathInfo());
 		assertNotNull(l0.getDate());
@@ -139,6 +140,12 @@ public class ErrorLogTest extends CopeAssert
 		{
 			this.n = n;
 			this.secure = secure;
+		}
+
+		@Override()
+		public String getRemoteAddr()
+		{
+			return "RemoteAddr" + n;
 		}
 
 		@Override()

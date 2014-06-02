@@ -26,6 +26,7 @@ public final class MediaRequestLog
 	private final long date;
 	private final Exception exception;
 
+	private final String remoteAddr;
 	private final boolean secure;
 	private final String pathInfo;
 	private final String queryString;
@@ -41,6 +42,7 @@ public final class MediaRequestLog
 		this.date = date;
 		this.exception = exception;
 
+		remoteAddr  = request.getRemoteAddr();
 		secure      = request.isSecure();
 		pathInfo    = request.getPathInfo();
 		queryString = request.getQueryString();
@@ -57,6 +59,14 @@ public final class MediaRequestLog
 	public Exception getException()
 	{
 		return exception;
+	}
+
+	/**
+	 * @see HttpServletRequest#getRemoteAddr()
+	 */
+	public String getRemoteAddr()
+	{
+		return remoteAddr;
 	}
 
 	public boolean isSecure()
