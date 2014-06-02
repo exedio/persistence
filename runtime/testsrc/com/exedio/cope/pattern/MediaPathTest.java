@@ -429,6 +429,12 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		}
 
 		@Override()
+		public String getRemoteAddr()
+		{
+			return "testRemoteAddr";
+		}
+
+		@Override()
 		public boolean isSecure()
 		{
 			return false;
