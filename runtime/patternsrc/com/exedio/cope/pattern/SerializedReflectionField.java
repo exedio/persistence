@@ -38,15 +38,7 @@ final class SerializedReflectionField implements Serializable
 			if(resolve(clazz, fieldName)!=feature)
 				throw new RuntimeException("inconsistent feature " + fieldName + '/' + feature);
 		}
-		catch(final SecurityException e)
-		{
-			throw new RuntimeException(clazz.getName() + '#' + fieldName, e);
-		}
-		catch(final NoSuchFieldException e)
-		{
-			throw new RuntimeException(clazz.getName() + '#' + fieldName, e);
-		}
-		catch(final IllegalAccessException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(clazz.getName() + '#' + fieldName, e);
 		}
@@ -74,22 +66,14 @@ final class SerializedReflectionField implements Serializable
 		{
 			return resolve(clazz, fieldName);
 		}
-		catch(final SecurityException e)
-		{
-			throw new InvalidObjectException(clazz.getName() + '#' + fieldName);
-		}
-		catch(final NoSuchFieldException e)
-		{
-			throw new InvalidObjectException(clazz.getName() + '#' + fieldName);
-		}
-		catch(final IllegalAccessException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new InvalidObjectException(clazz.getName() + '#' + fieldName);
 		}
 	}
 
 	private static Feature resolve(final Class<?> clazz, final String fieldName)
-		throws SecurityException, NoSuchFieldException, IllegalAccessException
+		throws ReflectiveOperationException
 	{
 		final Field field = clazz.getDeclaredField(fieldName);
 		field.setAccessible(true);

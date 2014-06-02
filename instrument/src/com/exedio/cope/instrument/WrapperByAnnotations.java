@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.misc.Compare;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -292,37 +291,16 @@ final class WrapperByAnnotations
 
 	private static <E> E instantiate(final Class<E> clazz)
 	{
-		final Constructor<E> constructor;
 		try
 		{
-			constructor = clazz.getDeclaredConstructor();
+			final Constructor<E> constructor = clazz.getDeclaredConstructor();
+			constructor.setAccessible(true);
+			return constructor.newInstance();
 		}
-		catch(final NoSuchMethodException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(e);
 		}
-
-		constructor.setAccessible(true);
-
-		final E result;
-		try
-		{
-			result = constructor.newInstance();
-		}
-		catch(final InstantiationException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InvocationTargetException e)
-		{
-			throw new RuntimeException(e);
-		}
-
-		return result;
 	}
 
 	private static <A extends Annotation> A get(final Class<A> annotationClass, final Annotation[] annotations)

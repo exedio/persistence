@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 final class JPEGCodecAccess
@@ -37,11 +36,7 @@ final class JPEGCodecAccess
 		{
 			return (BufferedImage)decode.invoke(create.invoke(null, new ByteArrayInputStream(srcBytes)));
 		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InvocationTargetException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(e);
 		}

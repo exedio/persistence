@@ -25,7 +25,6 @@ import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -269,15 +268,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			return this.dialect.newInstance(parameters);
 		}
-		catch(final InstantiationException e)
-		{
-			throw new RuntimeException(dialect.toGenericString(), e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(dialect.toGenericString(), e);
-		}
-		catch(final InvocationTargetException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(dialect.toGenericString(), e);
 		}

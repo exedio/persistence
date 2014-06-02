@@ -89,18 +89,6 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		{
 			return constructor.newInstance(new BlockActivationParameters(field, item));
 		}
-		catch(final IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InstantiationException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
 		catch(final InvocationTargetException e)
 		{
 			final Throwable cause = e.getCause();
@@ -110,6 +98,10 @@ public final class BlockType<E> // TODO make Serializable as singleton
 				throw (IllegalArgumentException)cause;
 			else
 				throw new RuntimeException(e);
+		}
+		catch(final ReflectiveOperationException e)
+		{
+			throw new RuntimeException(e);
 		}
 	}
 

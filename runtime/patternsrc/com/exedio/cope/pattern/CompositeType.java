@@ -132,18 +132,6 @@ final class CompositeType<E>
 		{
 			return constructor.newInstance(new Object[]{setValues});
 		}
-		catch(final IllegalArgumentException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final InstantiationException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
 		catch(final InvocationTargetException e)
 		{
 			final Throwable cause = e.getCause();
@@ -153,6 +141,10 @@ final class CompositeType<E>
 				throw (IllegalArgumentException)cause;
 			else
 				throw new RuntimeException(e);
+		}
+		catch(final ReflectiveOperationException e)
+		{
+			throw new RuntimeException(e);
 		}
 	}
 

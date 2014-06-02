@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public final class JavaView extends Pattern
@@ -93,11 +92,7 @@ public final class JavaView extends Pattern
 		{
 			return mount().getter.invoke(item, (Object[])null);
 		}
-		catch(final IllegalAccessException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
-		catch(final InvocationTargetException e)
+		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}
