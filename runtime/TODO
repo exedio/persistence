@@ -83,6 +83,7 @@ performance / memory consumption
 	* implement similar compact representation as for Cache
 	* special handling for empty/singleton results saving memory
 	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
+- compress strings in cache, using special algorithm such as Snappy.
 - ActivationCache
 	cache instance of subclasses of Item independently of ItemCache,
 	even if the model is not yet connected
