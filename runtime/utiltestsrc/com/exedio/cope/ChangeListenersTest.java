@@ -38,11 +38,11 @@ public class ChangeListenersTest extends CopeAssert
 	public void testAddRemove()
 	{
 		assertInfo(0, 0, 0);
-		final FailListener l = new FailListener();
 
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
 
+		final FailListener l = new FailListener();
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
 		assertInfo(1, 0, 0);
