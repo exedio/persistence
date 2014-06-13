@@ -35,7 +35,7 @@ public class ChangeListenersTest extends CopeAssert
 		baselineInfo = model.getChangeListenersInfo();
 	}
 
-	public void testIt()
+	public void testAddRemove()
 	{
 		assertInfo(0, 0, 0);
 		final FailListener l = new FailListener();
@@ -47,6 +47,16 @@ public class ChangeListenersTest extends CopeAssert
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
 		assertInfo(1, 0, 0);
 
+		model.removeChangeListener(l);
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 1);
+	}
+
+	public void testAddNull()
+	{
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 0);
+
 		try
 		{
 			model.addChangeListener(null);
@@ -56,8 +66,14 @@ public class ChangeListenersTest extends CopeAssert
 		{
 			assertEquals("listener", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(1, 0, 0);
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 0);
+	}
+
+	public void testRemoveNull()
+	{
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 0);
 
 		try
 		{
@@ -68,13 +84,8 @@ public class ChangeListenersTest extends CopeAssert
 		{
 			assertEquals("listener", e.getMessage());
 		}
-		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(1, 0, 0);
-
-		assertInfo(1, 0, 0);
-		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0, 1);
+		assertInfo(0, 0, 0);
 	}
 
 	public void testRemoveAll()
