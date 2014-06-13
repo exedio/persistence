@@ -35,6 +35,13 @@ public class ChangeListenersTest extends CopeAssert
 		baselineInfo = model.getChangeListenersInfo();
 	}
 
+	@Override
+	protected void tearDown() throws Exception
+	{
+		model.removeAllChangeListeners();
+		super.tearDown();
+	}
+
 	public void testAddRemove()
 	{
 		assertInfo(0, 0, 0);
@@ -86,6 +93,25 @@ public class ChangeListenersTest extends CopeAssert
 		}
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
+	}
+
+	public void testRemoveMismatch()
+	{
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 0);
+
+		model.removeChangeListener(new L());
+		assertEqualsUnmodifiable(list(), model.getChangeListeners());
+		assertInfo(0, 0, 0);
+
+		final L l = new L();
+		model.addChangeListener(l);
+		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
+		assertInfo(1, 0, 0);
+
+		model.removeChangeListener(new L());
+		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
+		assertInfo(1, 0, 0);
 	}
 
 	public void testRemoveAll()
