@@ -48,6 +48,8 @@ final class ChangeListeners
 
 	List<ChangeListener> get()
 	{
+		final ArrayList<ChangeListener> result;
+
 		synchronized(list)
 		{
 			final int size = list.size();
@@ -55,7 +57,7 @@ final class ChangeListeners
 				return Collections.<ChangeListener>emptyList();
 
 			// make a copy to avoid ConcurrentModificationViolations
-			final ArrayList<ChangeListener> result = new ArrayList<>(size);
+			result = new ArrayList<>(size);
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ChangeListener listener = i.next().get();
@@ -67,9 +69,9 @@ final class ChangeListeners
 				else
 					result.add(listener);
 			}
-
-			return Collections.unmodifiableList(result);
 		}
+
+		return Collections.unmodifiableList(result);
 	}
 
 	boolean isUsed()
