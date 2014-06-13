@@ -42,7 +42,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
 
-		final FailListener l = new FailListener();
+		final L l = new L();
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
 		assertInfo(1, 0, 0);
@@ -93,12 +93,12 @@ public class ChangeListenersTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
 
-		final FailListener l1 = new FailListener();
+		final L l1 = new L();
 		model.addChangeListener(l1);
 		assertEqualsUnmodifiable(list(l1), model.getChangeListeners());
 		assertInfo(1, 0, 0);
 
-		final FailListener l2 = new FailListener();
+		final L l2 = new L();
 		model.addChangeListener(l2);
 		assertEqualsUnmodifiable(list(l1, l2), model.getChangeListeners());
 		assertInfo(2, 0, 0);
@@ -122,7 +122,7 @@ public class ChangeListenersTest extends CopeAssert
 	{
 		assertInfo(0, 0, 0);
 
-		FailListener l1 = new FailListener();
+		L l1 = new L();
 		model.addChangeListener(l1);
 		assertEquals(list(l1), model.getChangeListeners());
 		assertInfo(1, 0, 0);
@@ -137,9 +137,9 @@ public class ChangeListenersTest extends CopeAssert
 		assertEquals(list(), model.getChangeListeners());
 		assertInfo(0, 1, 0);
 
-		final FailListener l2 = new FailListener();
+		final L l2 = new L();
 		model.addChangeListener(l2);
-		model.addChangeListener(new FailListener());
+		model.addChangeListener(new L());
 		System.gc();
 		model.removeChangeListener(l2);
 		assertInfo(0, 2, 1);
@@ -147,9 +147,9 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 2, 1);
 	}
 
-	private final class FailListener implements ChangeListener
+	private final class L implements ChangeListener
 	{
-		FailListener()
+		L()
 		{
 			// make constructor non-private
 		}
