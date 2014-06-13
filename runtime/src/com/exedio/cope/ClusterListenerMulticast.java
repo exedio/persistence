@@ -34,7 +34,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 {
 	private static final Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class);
 
-	private final boolean log;
 	private final int packetSize;
 	private final InetAddress address;
 	private final DatagramSocket socket;
@@ -50,7 +49,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final int typeLength, final Connect connect)
 	{
 		super(properties, sender, typeLength, connect);
-		this.log = properties.log;
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.socket = properties.newListenSocket();
@@ -106,10 +104,10 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				}
 				else
 				{
-					if(log)
+					if(logger.isInfoEnabled())
 					{
 						final Thread t = Thread.currentThread();
-						System.out.println(t.getName() + " (" + t.getId() + ") gracefully terminates: " + e.getMessage());
+						logger.info("{} ({}) gracefully terminates: {}", new Object[]{t.getName(), t.getId(), e.getMessage()});
 					}
 				}
 			}
@@ -133,12 +131,12 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 					throwable );
 	}
 
-	private void logTerminate()
+	private static void logTerminate()
 	{
-		if(log)
+		if(logger.isInfoEnabled())
 		{
 			final Thread t = Thread.currentThread();
-			System.out.println(t.getName() + " (" + t.getId() + ") terminates.");
+			logger.info("{} ({}) terminates.", t.getName(), t.getId());
 		}
 	}
 

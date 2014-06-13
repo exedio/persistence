@@ -32,9 +32,13 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ClusterProperties extends Properties
 {
+	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
+
 	static ClusterProperties get(final ConnectProperties properties)
 	{
 		if(properties.noContext())
@@ -65,7 +69,6 @@ final class ClusterProperties extends Properties
 	private final int     secret              = value("secret", 0, MIN_VALUE);
 	private final boolean nodeAuto            = value("nodeAuto" , true);
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
-	        final boolean log                 = value("log", true);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final String  sendAddressField    = value("sendAddress",         MULTICAST_ADDRESS);
@@ -108,8 +111,8 @@ final class ClusterProperties extends Properties
 				if(node==0)
 					throw new IllegalArgumentException(); // must not be left at default value
 			}
-			if(log)
-				System.out.println("COPE Cluster Network node id: " + ClusterSenderInfo.toStringNodeID(node));
+			if(logger.isInfoEnabled())
+				logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
 			this.sendAddress   = getAddress(sendAddressField);
 			this.listenAddress = getAddress(listenAddressField);

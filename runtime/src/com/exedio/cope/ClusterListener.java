@@ -34,13 +34,16 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 abstract class ClusterListener
 {
+	static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+
 	private final ClusterProperties properties;
 	private final int secret;
 	private final int localNode;
-	private final boolean log;
 	private final int sequenceCheckerCapacity;
 	private final int typeLength;
 
@@ -51,7 +54,6 @@ abstract class ClusterListener
 		this.properties = properties;
 		this.secret = properties.getSecret();
 		this.localNode = properties.node;
-		this.log = properties.log;
 		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
 	}
@@ -101,8 +103,8 @@ abstract class ClusterListener
 
 				if(node(node, packet).invalidate(sequence))
 				{
-					if(log)
-						System.out.println("COPE Cluster Listener invalidate duplicate " + sequence + " from " + packet.getAddress());
+					if(logger.isWarnEnabled())
+						logger.warn("invalidate duplicate {} from {}", sequence, packet.getAddress());
 					break;
 				}
 
@@ -148,8 +150,8 @@ abstract class ClusterListener
 
 		if(node(node, packet).pingPong(ping, sequence))
 		{
-			if(log)
-				System.out.println("COPE Cluster Listener " + pingString(ping) + " duplicate " + sequence + " from " + packet.getAddress());
+			if(logger.isWarnEnabled())
+				logger.warn("{} duplicate {} from {}", new Object[]{pingString(ping), sequence, packet.getAddress()});
 			return false;
 		}
 
@@ -262,8 +264,7 @@ abstract class ClusterListener
 		Node(
 				final int id,
 				final DatagramPacket packet,
-				final int sequenceCheckerCapacity,
-				final boolean log)
+				final int sequenceCheckerCapacity)
 		{
 			this.id = id;
 			this.firstEncounter = System.currentTimeMillis();
@@ -272,8 +273,8 @@ abstract class ClusterListener
 			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
-			if(log)
-				System.out.println("COPE Cluster Listener encountered new node " + id);
+			if(logger.isInfoEnabled())
+				logger.info("encountered new node {}", id);
 		}
 
 		boolean invalidate(final int sequence)
@@ -306,7 +307,7 @@ abstract class ClusterListener
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, sequenceCheckerCapacity, log));
+			nodes.put(id, result = new Node(id, packet, sequenceCheckerCapacity));
 			return result;
 		}
 	}

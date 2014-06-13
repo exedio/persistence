@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: option cluster.log replaced by slf4j logging
 * MediaRequestLog#getRemoteAddr added
 * Use database sequence for IntegerField#defaultToNext.
 	This affects database schema when using #defaultToNext and
