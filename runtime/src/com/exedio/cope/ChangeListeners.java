@@ -36,8 +36,9 @@ final class ChangeListeners
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<>();
-	private final VolatileInt cleared = new VolatileInt();
-	private final VolatileInt removed = new VolatileInt();
+	private int cleared = 0;
+	private int removed = 0;
+
 	private final VolatileInt failed = new VolatileInt();
 
 	ChangeListeners()
@@ -55,7 +56,6 @@ final class ChangeListeners
 
 			// make a copy to avoid ConcurrentModificationViolations
 			final ArrayList<ChangeListener> result = new ArrayList<>(size);
-			int cleared = 0;
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ChangeListener listener = i.next().get();
@@ -67,8 +67,6 @@ final class ChangeListeners
 				else
 					result.add(listener);
 			}
-
-			this.cleared.inc(cleared);
 
 			return Collections.unmodifiableList(result);
 		}
@@ -82,11 +80,16 @@ final class ChangeListeners
 	ChangeListenerInfo getInfo()
 	{
 		final int size;
+		final int cleared;
+		final int removed;
+
 		synchronized(list)
 		{
 			size = list.size();
+			cleared = this.cleared;
+			removed = this.removed;
 		}
-		return new ChangeListenerInfo(size, cleared.get(), removed.get(), failed.get());
+		return new ChangeListenerInfo(size, cleared, removed, failed.get());
 	}
 
 	void add(final ChangeListener listener)
@@ -107,8 +110,6 @@ final class ChangeListeners
 
 		synchronized(list)
 		{
-			int cleared = 0;
-			int removed = 0;
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
 			{
 				final ChangeListener l = i.next().get();
@@ -123,8 +124,6 @@ final class ChangeListeners
 					removed++;
 				}
 			}
-			this.cleared.inc(cleared);
-			this.removed.inc(removed);
 		}
 	}
 
@@ -134,7 +133,7 @@ final class ChangeListeners
 		{
 			final int size = list.size();
 			list.clear();
-			removed.inc(size);
+			removed += size;
 		}
 	}
 
