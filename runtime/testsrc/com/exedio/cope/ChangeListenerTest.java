@@ -67,30 +67,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
 		assertInfo(1, 0, 0, 0);
 
-		try
-		{
-			model.addChangeListener(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("listener", e.getMessage());
-		}
-		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(1, 0, 0, 0);
-
-		try
-		{
-			model.removeChangeListener(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("listener", e.getMessage());
-		}
-		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(1, 0, 0, 0);
-
 		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.currentTransaction();
@@ -167,31 +143,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 1, 1);
 
-		// test weakness
-		FailListener l1 = new FailListener();
-		model.addChangeListener(l1);
-		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(1, 0, 1, 1);
-
-		System.gc();
-		assertEquals(list(l1), model.getChangeListeners());
-		assertInfo(1, 0, 1, 1);
-
-		l1 = null;
-		System.gc();
-		assertInfo(1, 0, 1, 1);
-		assertEquals(list(), model.getChangeListeners());
-		assertInfo(0, 1, 1, 1);
-
-		final FailListener l2 = new FailListener();
-		model.addChangeListener(l2);
-		model.addChangeListener(new FailListener());
-		System.gc();
-		model.removeChangeListener(l2);
-		assertInfo(0, 2, 2, 1);
-		assertEquals(list(), model.getChangeListeners());
-		assertInfo(0, 2, 2, 1);
-
 		model.startTransaction("CommitListenerTestX");
 		log.assertEmpty();
 	}
@@ -267,19 +218,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			}
 
 			event = null;
-		}
-	}
-
-	private static final class FailListener implements ChangeListener
-	{
-		FailListener()
-		{
-			// make constructor non-private
-		}
-
-		public void onChange(final ChangeEvent event)
-		{
-			throw new RuntimeException();
 		}
 	}
 
