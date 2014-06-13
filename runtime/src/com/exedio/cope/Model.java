@@ -535,6 +535,11 @@ public final class Model implements Serializable
 		changeListeners.remove(listener);
 	}
 
+	public void removeAllChangeListeners()
+	{
+		changeListeners.removeAll();
+	}
+
 	public List<SequenceInfo> getSequenceInfo()
 	{
 		return connect().database.getSequenceInfo();

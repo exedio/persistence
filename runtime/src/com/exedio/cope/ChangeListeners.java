@@ -128,6 +128,16 @@ final class ChangeListeners
 		}
 	}
 
+	void removeAll()
+	{
+		synchronized(list)
+		{
+			final int size = list.size();
+			list.clear();
+			removed.inc(size);
+		}
+	}
+
 	void dispatch(final ChangeEvent event, final ChangeListenerDispatcher interrupter)
 	{
 		final List<ChangeListener> listeners = get();

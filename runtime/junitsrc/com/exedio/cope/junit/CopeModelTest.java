@@ -18,7 +18,6 @@
 
 package com.exedio.cope.junit;
 
-import com.exedio.cope.ChangeListener;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -81,8 +80,7 @@ public abstract class CopeModelTest extends CopeAssert
 		model.rollbackIfNotCommitted();
 
 		model.setDatabaseListener(null);
-		for(final ChangeListener cl : model.getChangeListeners())
-			model.removeChangeListener(cl);
+		model.removeAllChangeListeners();
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
 	}
