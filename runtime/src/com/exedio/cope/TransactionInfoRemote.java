@@ -64,4 +64,10 @@ final class TransactionInfoRemote extends TransactionInfo
 	{
 		return new NotAvailableException("remote");
 	}
+
+	@Override
+	public String toString()
+	{
+		return "remote " + ClusterSenderInfo.toStringNodeID(remoteNode);
+	}
 }
