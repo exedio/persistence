@@ -21,9 +21,13 @@ package com.exedio.cope;
 import gnu.trove.TIntHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class ChangeListenerDispatcher implements Runnable
 {
+	private static final Logger logger = LoggerFactory.getLogger(ChangeListenerDispatcher.class);
+
 	private final Types types;
 	private final ChangeListeners manager;
 	private final LimitedQueue<ChangeEvent> queue;
@@ -69,8 +73,8 @@ final class ChangeListenerDispatcher implements Runnable
 		if(!queue.offer(event))
 		{
 			overflow.inc();
-			if(ChangeListeners.logger.isErrorEnabled())
-				ChangeListeners.logger.error("COPE Change Listener Dispatcher overflows");
+			if(logger.isErrorEnabled())
+				logger.error("overflows");
 		}
 	}
 
@@ -111,8 +115,8 @@ final class ChangeListenerDispatcher implements Runnable
 			catch(final Exception | AssertionError e)
 			{
 				exception.inc();
-				if(ChangeListeners.logger.isErrorEnabled())
-					ChangeListeners.logger.error("ChangeListenerDispatcher", e);
+				if(logger.isErrorEnabled())
+					logger.error("ChangeListenerDispatcher", e);
 			}
 		}
 		logTerminate();

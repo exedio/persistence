@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 final class ChangeListeners
 {
-	static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChangeListeners.class);
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<>();
