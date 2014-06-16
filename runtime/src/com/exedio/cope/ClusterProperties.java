@@ -71,13 +71,13 @@ final class ClusterProperties extends Properties
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
-	private final String  sendAddressField    = value("sendAddress",         MULTICAST_ADDRESS);
+	final   InetAddress   sendAddress         = valAd("sendAddress",         MULTICAST_ADDRESS);
 	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
-	private final String  listenAddressField  = value("listenAddress",       MULTICAST_ADDRESS);
+	final   InetAddress   listenAddress       = valAd("listenAddress",       MULTICAST_ADDRESS);
 	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
@@ -90,7 +90,6 @@ final class ClusterProperties extends Properties
 	private final int     packetSizeField     = value("packetSize",          1400, 32);
 
 	final int node;
-	final InetAddress sendAddress, listenAddress;
 	final int packetSize;
 	private final byte[] pingPayload;
 
@@ -114,9 +113,6 @@ final class ClusterProperties extends Properties
 			if(logger.isInfoEnabled())
 				logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
-			this.sendAddress   = getAddress(sendAddressField);
-			this.listenAddress = getAddress(listenAddressField);
-
 			if(listenThreads>listenThreadsMax)
 				throw new IllegalArgumentException(
 						"listenThreads=" + listenThreads + " must be less or equal " +
@@ -134,15 +130,14 @@ final class ClusterProperties extends Properties
 		else
 		{
 			this.node = 0;
-			this.sendAddress   = null;
-			this.listenAddress = null;
 			this.packetSize = MIN_VALUE;
 			this.pingPayload = null;
 		}
 	}
 
-	private static InetAddress getAddress(final String field) // TODO remove
+	private InetAddress valAd(final String key, final String defaultValue)
 	{
+		final String field = value(key, defaultValue);
 		try
 		{
 			return InetAddress.getByName(field);
