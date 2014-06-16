@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,9 +53,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		log = null;
 		super.tearDown();
 	}
-
-	// dead store is needed to assign null for testing garbage collection
-	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 
 	public void testIt() throws ChangeEvent.NotAvailableException
 	{
