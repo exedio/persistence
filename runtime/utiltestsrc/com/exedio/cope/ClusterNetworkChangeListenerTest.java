@@ -129,7 +129,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(expectedTransaction.getID(), event.getTransactionID());
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
 			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
-			assertEquals(expectedItems + "", event.toString());
+			assertEquals("" + expectedItems + ' ' + expectedTransaction.getID() + " ClusterNetworkChangeListenerTest#transactionA", event.toString());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
 
@@ -179,7 +179,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			{
 				assertEquals("remote", e.getMessage());
 			}
-			assertEquals(expectedItems + "", event.toString());
+			assertEquals(expectedItems + " remote " + modelA.getClusterSenderInfo().getNodeIDString(), event.toString());
 
 			event = null;
 		}

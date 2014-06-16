@@ -28,4 +28,8 @@ abstract class TransactionInfo
 	abstract long getID() throws NotAvailableException;
 	abstract String getName() throws NotAvailableException;
 	abstract Date getStartDate() throws NotAvailableException;
+
+	// enforce implementation
+	@Override
+	public abstract String toString();
 }

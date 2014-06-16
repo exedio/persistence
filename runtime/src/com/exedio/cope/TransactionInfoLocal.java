@@ -63,4 +63,10 @@ final class TransactionInfoLocal extends TransactionInfo
 	{
 		return new Date(startDate);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "" + id + ' ' + name;
+	}
 }

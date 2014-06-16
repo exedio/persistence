@@ -132,7 +132,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.ERROR, "change listener [" + item1.toString() + "] " + l.toString());
+		log.assertMessage(Level.ERROR, "change listener [" + item1.toString() + "] " + te.getID() + " CommitListenerTestE " + l.toString());
 
 		assertInfo(1, 0, 0, 1);
 		model.removeChangeListener(l);
@@ -160,7 +160,6 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 			assertNotNull(items);
 			assertTrue(!items.isEmpty());
 			assertUnmodifiable(items);
-			assertEquals(items.toString(), event.toString());
 
 			try
 			{
@@ -203,7 +202,7 @@ public class ChangeListenerTest extends AbstractRuntimeTest
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
-				assertEquals(event.getItems().toString(), event.toString());
+				assertEquals(event.getItems().toString() + ' ' + expectedTransaction.getID() + ' ' + expectedTransaction.getName(), event.toString());
 				assertNull(expectedTransaction.getBoundThread());
 				assertTrue(expectedTransaction.isClosed());
 			}
