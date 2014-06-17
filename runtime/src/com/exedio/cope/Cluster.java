@@ -28,14 +28,14 @@ final class Cluster
 	private final ClusterListenerMulticast listener;
 
 	Cluster(
-			final String name,
+			final String modelName,
 			final Types types,
 			final ClusterProperties properties,
 			final Connect connect)
 	{
 		this.properties = properties;
 		this.sender   = new ClusterSenderMulticast(properties);
-		this.listener = new ClusterListenerMulticast(properties, name, sender, types.concreteTypeCount, connect);
+		this.listener = new ClusterListenerMulticast(properties, modelName, sender, types.concreteTypeCount, connect);
 	}
 
 	void sendInvalidate(final TIntHashSet[] invalidations)

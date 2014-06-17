@@ -51,7 +51,7 @@ final class Connect
 	boolean revised = false;
 
 	Connect(
-			final String name,
+			final String modelName,
 			final Types types,
 			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
@@ -113,14 +113,14 @@ final class Connect
 				ClusterProperties.get(properties);
 
 			if(clusterProperties!=null)
-				this.cluster = new Cluster(name, types, clusterProperties, this);
+				this.cluster = new Cluster(modelName, types, clusterProperties, this);
 			else
 				this.cluster = null;
 		}
 
 		this.changeListenerDispatcher =
 			new ChangeListenerDispatcher(
-					types, name, changeListeners, properties);
+					types, modelName, changeListeners, properties);
 	}
 
 	void close()

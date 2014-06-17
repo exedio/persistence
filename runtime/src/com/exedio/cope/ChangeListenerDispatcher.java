@@ -39,7 +39,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 	ChangeListenerDispatcher(
 			final Types types,
-			final String name,
+			final String modelName,
 			final ChangeListeners manager,
 			final ConnectProperties properties)
 	{
@@ -49,7 +49,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 		this.threads = new ThreadSwarm(
 				this,
-				"COPE Change Listener Dispatcher " + name,
+				"COPE Change Listener Dispatcher " + modelName,
 				properties.changeListenersThreadsMax
 		);
 		if(properties.changeListenersPrioritySet)
