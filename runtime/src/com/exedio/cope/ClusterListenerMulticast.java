@@ -100,7 +100,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 				if(threadRun)
 				{
 					exception.inc();
-					e.printStackTrace();
+					logger.error("fail", e);
 				}
 				else
 				{
