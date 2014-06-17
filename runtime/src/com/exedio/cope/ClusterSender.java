@@ -123,7 +123,7 @@ abstract class ClusterSender
 	}
 
 	// info
-	private volatile long invalidationSplit = 0;
+	private final VolatileLong invalidationSplit = new VolatileLong();
 
 	final void invalidate(final TIntHashSet[] invalidations)
 	{
@@ -202,8 +202,7 @@ abstract class ClusterSender
 			}
 			while(true);
 
-			if(packetCount>1)
-				invalidationSplit += (packetCount-1);
+			invalidationSplit.inc(packetCount-1);
 		}
 		catch(final IOException e)
 		{
@@ -227,7 +226,7 @@ abstract class ClusterSender
 				getLocalPort(),
 				getSendBufferSize(),
 				getTrafficClass(),
-				invalidationSplit);
+				invalidationSplit.get());
 	}
 
 	abstract void send(final int length, final byte[] buf) throws IOException;
