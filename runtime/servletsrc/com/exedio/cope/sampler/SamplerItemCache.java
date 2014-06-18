@@ -22,6 +22,7 @@ import static com.exedio.cope.sampler.Util.diff;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Cope;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -52,6 +53,14 @@ final class SamplerItemCache extends Item
 		return Arrays.asList((SetValue<?>)
 			model         .map(m),
 			date          .map(SamplerModel.date.get(m)));
+	}
+
+	static SamplerItemCache forModelAndType(final SamplerModel model, final Type<?> type)
+	{
+		return TYPE.searchSingleton(Cope.and(
+				SamplerItemCache.model.equal(model),
+				SamplerItemCache.type.equal(SamplerTypeId.forId(type.getID()))
+		));
 	}
 
 
@@ -102,6 +111,11 @@ final class SamplerItemCache extends Item
 			stampsSize.map(to.getStampsSize()),
 			diff(stampsHits,   from.getStampsHits(),   to.getStampsHits()),
 			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+	}
+
+	int getInvalidationsOrdered()
+	{
+		return invalidationsOrdered.getMandatory(this);
 	}
 
 

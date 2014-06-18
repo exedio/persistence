@@ -191,7 +191,7 @@ public class SampleTest extends ConnectedTest
 	 * a low system time resolution.
 	 * @see Sampler#sample()
 	 */
-	private static void waitForSystemTimeChange()
+	static void waitForSystemTimeChange()
 	{
 		try
 		{

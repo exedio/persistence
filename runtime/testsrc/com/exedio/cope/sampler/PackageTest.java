@@ -29,6 +29,7 @@ public class PackageTest extends TestCase
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(StringUtilTest.class);
 		suite.addTestSuite(SampleTest.class);
+		suite.addTestSuite(SampleItemCacheTest.class);
 		suite.addTestSuite(SamplerTest.class);
 		suite.addTestSuite(PurgeTest.class);
 		suite.addTestSuite(DifferentiateTest.class);
