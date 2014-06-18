@@ -42,6 +42,13 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 		assertPurge(new Date(), 0, 0, 0, 0, 0);
 
+		sampler.sample(); // just initializes lastStep
+		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));

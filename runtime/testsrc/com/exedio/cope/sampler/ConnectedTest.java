@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.MODEL;
+import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -28,7 +29,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 {
 	ConnectedTest()
 	{
-		super(MODEL);
+		super(MODEL, true);
 	}
 
 	boolean c;
@@ -42,6 +43,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 		samplerModel.connect(new ConnectProperties(
 				Sampler.maskConnectSource(props.getSourceObject()),
 				props.getContext()));
+		sampler.reset();
 	}
 
 	@Override

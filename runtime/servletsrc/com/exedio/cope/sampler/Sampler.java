@@ -247,6 +247,11 @@ public class Sampler
 		}
 	}
 
+	void reset()
+	{
+		lastStep = null;
+	}
+
 	/**
 	 * Return the minimum duration (in milliseconds)
 	 * for a transaction to be recorded by the sampler.
