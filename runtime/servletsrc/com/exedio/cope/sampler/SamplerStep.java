@@ -99,7 +99,7 @@ final class SamplerStep
 			final long threshold = date.getTime() - transactionDuration;
 			for(final Transaction transaction : openTransactions)
 			{
-				if(transaction.getStartDate().getTime()<threshold)
+				if(transaction.getStartDate().getTime()<=threshold)
 					transactions.add(transaction);
 			}
 		}
