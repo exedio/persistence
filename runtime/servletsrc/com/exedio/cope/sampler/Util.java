@@ -36,7 +36,7 @@ final class Util
 	 */
 	static final SetValue<String> maC(final StringField f, final String s)
 	{
-		return f.map(shortify(f, s));
+		return SetValue.map(f, shortify(f, s));
 	}
 
 	private static final String shortify(final StringField f, final String s)
@@ -62,7 +62,7 @@ final class Util
 	 */
 	static final SetValue<Integer> maD(final IntegerField f, final int from, final int to)
 	{
-		return f.map(to - from);
+		return SetValue.map(f, to - from);
 	}
 
 	/**
@@ -78,7 +78,7 @@ final class Util
 
 			return f.map(Integer.MAX_VALUE);
 		}
-		return f.map((int)result);
+		return SetValue.map(f, (int)result);
 	}
 
 	static final int same(final int from, final int to)
@@ -102,7 +102,7 @@ final class Util
 	static final SetValue<SamplerMediaId> maS(final ItemField<SamplerMediaId> f, final MediaPath from, final MediaPath to)
 	{
 		assert from==to;
-		return f.map(SamplerMediaId.get(to));
+		return SetValue.map(f, SamplerMediaId.get(to));
 	}
 
 	private Util()
