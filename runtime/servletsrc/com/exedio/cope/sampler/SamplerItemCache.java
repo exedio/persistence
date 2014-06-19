@@ -49,7 +49,7 @@ final class SamplerItemCache extends Item
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
 			model.map(m),
@@ -85,7 +85,7 @@ final class SamplerItemCache extends Item
 	@CopeSchemaName("invalidateLastPurged")
 	private static final IntegerField stampsPurged         = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ItemCacheInfo from,
 			final ItemCacheInfo to)
 	{

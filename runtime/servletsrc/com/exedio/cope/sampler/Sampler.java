@@ -216,11 +216,11 @@ public class Sampler
 			}
 			for(int i = 0; i<to.itemCacheInfos.length; i++)
 			{
-				final List<SetValue<?>> payLoad = SamplerItemCache.map(from.itemCacheInfos[i], to.itemCacheInfos[i]);
+				final List<SetValue<?>> payLoad = SamplerItemCache.mapIt(from.itemCacheInfos[i], to.itemCacheInfos[i]);
 				if(payLoad!=null)
 				{
 					sv.clear();
-					sv.addAll(SamplerItemCache.map(model));
+					sv.addAll(SamplerItemCache.mapIt(model));
 					sv.addAll(payLoad);
 					SamplerItemCache.TYPE.newItem(sv);
 				}
