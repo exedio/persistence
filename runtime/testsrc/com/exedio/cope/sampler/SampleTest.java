@@ -27,14 +27,13 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.util.Date;
 import java.util.Iterator;
 
 public class SampleTest extends ConnectedTest
 {
-	public void testIt()
+	public void testIt() throws InterruptedException
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();
@@ -85,7 +84,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		final Date before66 = new Date();
 		final SamplerModel model66 = sampler.sampleInternal();
@@ -139,7 +138,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList(date66, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		final Date before77 = new Date();
 		final SamplerModel model77 = sampler.sampleInternal();
@@ -188,23 +187,6 @@ public class SampleTest extends ConnectedTest
 		assertEquals(c?asList(date66, date77):asList((Date)null, null), asList(sampler.analyzeDate(SamplerItemCache.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList(date66, date77  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
-	}
-
-	/**
-	 * Wait for new Date() to return a different value to avoid unique violation on SamplerModel.date. Especially useful for Windows systems which have
-	 * a low system time resolution.
-	 * @see Sampler#sample()
-	 */
-	static void waitForSystemTimeChange()
-	{
-		try
-		{
-			CopeAssert.sleepLongerThan(1);
-		}
-		catch (final InterruptedException e)
-		{
-			fail("Correctness of following code is not asserted.");
-		}
 	}
 
 	private final void touch()

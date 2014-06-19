@@ -18,7 +18,6 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.SampleTest.waitForSystemTimeChange;
 import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
@@ -32,14 +31,14 @@ public class SampleItemCacheTest extends ConnectedTest
 		skipTransactionManagement();
 	}
 
-	public void testNormal()
+	public void testNormal() throws InterruptedException
 	{
 		samplerModel.createSchema();
 
 		touch();
 		assertEquals(null, sampler.sampleInternal());
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
@@ -47,7 +46,7 @@ public class SampleItemCacheTest extends ConnectedTest
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
@@ -55,7 +54,7 @@ public class SampleItemCacheTest extends ConnectedTest
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
@@ -64,27 +63,27 @@ public class SampleItemCacheTest extends ConnectedTest
 		}
 	}
 
-	public void testEmptyStart()
+	public void testEmptyStart() throws InterruptedException
 	{
 		samplerModel.createSchema();
 
 		assertEquals(null, sampler.sampleInternal());
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE);
 		}
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE);
 		}
 
-		waitForSystemTimeChange();
+		sleepLongerThan(1);
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
