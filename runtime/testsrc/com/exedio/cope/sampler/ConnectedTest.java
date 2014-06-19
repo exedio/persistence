@@ -49,6 +49,7 @@ public class ConnectedTest extends AbstractRuntimeTest
 	@Override
 	protected void tearDown() throws Exception
 	{
+		samplerModel.rollbackIfNotCommitted();
 		samplerModel.dropSchema();
 		samplerModel.disconnect();
 		super.tearDown();
