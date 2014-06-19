@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.diff;
 import static com.exedio.cope.sampler.Util.same;
 
@@ -52,8 +53,8 @@ final class SamplerItemCache extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
-			model.map(m),
-			date .map(SamplerModel.date.get(m)));
+			map(model, m),
+			map(date , SamplerModel.date.get(m)));
 	}
 
 	static SamplerItemCache forModelAndType(final SamplerModel model, final Type<?> type)
@@ -90,25 +91,25 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo to)
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
-			type .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
-			limit.map(to.getLimit()),
-			level.map(to.getLevel()),
+			map (type ,  SamplerTypeId.get(same(from.getType(), to.getType()))),
+			map (limit,  to.getLimit()),
+			map (level,  to.getLevel()),
 			diff(hits,   from.getHits  (), to.getHits  ()),
 			diff(misses, from.getMisses(), to.getMisses()),
 
 			diff(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
 			diff(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
 			diff(replacements,    from.getReplacements   (), to.getReplacements   ()),
-			lastReplacementRun.map(to.getLastReplacementRun()),
+			map (lastReplacementRun, to.getLastReplacementRun()),
 
-			ageAverageMillis.map(to.getAgeAverageMillis()),
-			ageMinimumMillis.map(to.getAgeMinimumMillis()),
-			ageMaximumMillis.map(to.getAgeMaximumMillis()),
+			map(ageAverageMillis, to.getAgeAverageMillis()),
+			map(ageMinimumMillis, to.getAgeMinimumMillis()),
+			map(ageMaximumMillis, to.getAgeMaximumMillis()),
 
 			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			diff(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
-			stampsSize.map(to.getStampsSize()),
+			map (stampsSize,   to.getStampsSize()),
 			diff(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
 			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 
