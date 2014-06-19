@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.map;
 
 import com.exedio.cope.IntegerField;
@@ -46,7 +47,7 @@ final class SequenceInfo extends Composite
 			map(duplicate,  from.getDuplicate (), to.getDuplicate ()),
 			map(lost,       from.getLost      (), to.getLost      ()),
 			map(late,       from.getLate      (), to.getLate      ()),
-			pending.map(to.getPending()));
+			map(pending,    to.getPending     ()  ));
 	}
 
 	private SequenceInfo(final SetValue<?>... setValues)

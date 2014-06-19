@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.map;
 
 import com.exedio.cope.ActivationParameters;
@@ -63,7 +64,7 @@ final class SamplerModel extends Item
 			final Pool.Info to)
 	{
 		return Arrays.asList((SetValue<?>)
-			connectionPoolIdle.map(to.getIdleLevel()),
+			map(connectionPoolIdle, to.getIdleLevel()),
 			map(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
 			map(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
 			map(connectionPoolInvalidOnGet, from.getInvalidOnGet(), to.getInvalidOnGet()),
@@ -122,7 +123,7 @@ final class SamplerModel extends Item
 			map(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			map(itemCacheInvalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
-			itemCacheStampsSize.map(to.getStampsSize()),
+			map(itemCacheStampsSize,   to.getStampsSize()),
 			map(itemCacheStampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
 			map(itemCacheStampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 	}
@@ -155,7 +156,7 @@ final class SamplerModel extends Item
 			final ChangeListenerInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			changeListenerSize.map(to.getSize()),
+			map(changeListenerSize,    to.getSize()),
 			map(changeListenerCleared, from.getCleared(), to.getCleared()),
 			map(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
 			map(changeListenerFailed,  from.getFailed (), to.getFailed ()));
@@ -173,7 +174,7 @@ final class SamplerModel extends Item
 		return Arrays.asList((SetValue<?>)
 			map(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
 			map(changeListenerException, from.getException(), to.getException()),
-			changeListenerPending.map(to.getPending()));
+			map(changeListenerPending,   to.getPending()));
 	}
 
 
@@ -216,7 +217,7 @@ final class SamplerModel extends Item
 			final ClusterSenderInfo from,
 			final ClusterSenderInfo to)
 	{
-		return clusterSender.map(
+		return map(clusterSender,
 			(from!=null&&to!=null) ? new SamplerClusterSender(from, to) : null
 		);
 	}
@@ -228,7 +229,7 @@ final class SamplerModel extends Item
 			final ClusterListenerInfo from,
 			final ClusterListenerInfo to)
 	{
-		return clusterListener.map(
+		return map(clusterListener,
 			(from!=null&&to!=null) ? new SamplerClusterListener(from, to) : null
 		);
 	}
