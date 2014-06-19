@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.cutAndMap;
+import static com.exedio.cope.sampler.Util.maC;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
@@ -47,10 +47,10 @@ final class SamplerThread extends Composite
 	{
 		this(
 			map(id,       thread.getId()),
-			cutAndMap(name, thread.getName()),
+			maC(name,     thread.getName()),
 			map(priority, thread.getPriority()),
 			map(state,    thread.getState()),
-			cutAndMap(stackTrace, toString(thread.getStackTrace())));
+			maC(stackTrace, toString(thread.getStackTrace())));
 	}
 
 	private static String toString(final StackTraceElement[] trace)

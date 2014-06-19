@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.cutAndMap;
+import static com.exedio.cope.sampler.Util.maC;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
@@ -62,7 +62,7 @@ final class SamplerTransaction extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			map(id,        transaction.getID()),
-			cutAndMap(name, transaction.getName()),
+			maC(name,      transaction.getName()),
 			map(startDate, transaction.getStartDate()),
 			map(thread,    SamplerThread.create(transaction.getBoundThread())));
 	}

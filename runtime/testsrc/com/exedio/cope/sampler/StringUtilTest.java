@@ -56,7 +56,7 @@ public class StringUtilTest extends CopeAssert
 
 	private static void assertIt(final String expected, final StringField f, final String s)
 	{
-		final SetValue<?> sv = Util.cutAndMap(f, s);
+		final SetValue<?> sv = Util.maC(f, s);
 		assertSame(f, sv.settable);
 		assertEquals(expected, sv.value);
 	}

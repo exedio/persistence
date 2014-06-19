@@ -30,7 +30,10 @@ final class Util
 {
 	private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
-	static final SetValue<String> cutAndMap(final StringField f, final String s)
+	/**
+	 * cutAndMap
+	 */
+	static final SetValue<String> maC(final StringField f, final String s)
 	{
 		return f.map(shortify(f, s));
 	}

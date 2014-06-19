@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.cutAndMap;
+import static com.exedio.cope.sampler.Util.maC;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
@@ -70,7 +70,7 @@ final class SamplerClusterNode extends Item
 		return Arrays.asList((SetValue<?>)
 				map(id,             same(from.getID(), to.getID())),
 				map(firstEncounter, to.getFirstEncounter()),
-				cutAndMap(fromAddress, to.getAddress().toString()),
+				maC(fromAddress,    to.getAddress().toString()),
 				map(fromPort,       to.getPort()),
 
 				map(invalidate, new SequenceInfo(from.getInvalidateInfo(), to.getInvalidateInfo())),
