@@ -42,8 +42,8 @@ import java.util.List;
 @CopeSchemaName("DiffMedia")
 final class SamplerMedia extends Item
 {
-	private static final ItemField<SamplerModel  > model = ItemField.create(SamplerModel  .class).toFinal();
-	private static final ItemField<SamplerMediaId> media = ItemField.create(SamplerMediaId.class).toFinal();
+	private static final ItemField<SamplerModel  > model = field(SamplerModel  .class);
+	private static final ItemField<SamplerMediaId> media = field(SamplerMediaId.class);
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
