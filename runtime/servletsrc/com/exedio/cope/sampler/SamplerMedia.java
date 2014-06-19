@@ -68,7 +68,7 @@ final class SamplerMedia extends Item
 	private static final IntegerField notModified    = field(0);
 	private static final IntegerField delivered      = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final MediaInfo from,
 			final MediaInfo to)
 	{
