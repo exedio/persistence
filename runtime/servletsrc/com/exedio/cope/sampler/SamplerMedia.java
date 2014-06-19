@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.map;
+import static com.exedio.cope.sampler.Util.maD;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
@@ -72,17 +72,17 @@ final class SamplerMedia extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
-			map(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
-			map(exception,      from.getException     (), to.getException     ()),
-			map(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
-			map(guessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
-			map(notAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
-			map(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
-			map(moved,          from.getMoved         (), to.getMoved         ()),
-			map(isNull,         from.getIsNull        (), to.getIsNull        ()),
-			map(notComputable,  from.getNotComputable (), to.getNotComputable ()),
-			map(notModified,    from.getNotModified   (), to.getNotModified   ()),
-			map(delivered,      from.getDelivered     (), to.getDelivered     ()));
+			maD(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
+			maD(exception,      from.getException     (), to.getException     ()),
+			maD(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
+			maD(guessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
+			maD(notAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
+			maD(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
+			maD(moved,          from.getMoved         (), to.getMoved         ()),
+			maD(isNull,         from.getIsNull        (), to.getIsNull        ()),
+			maD(notComputable,  from.getNotComputable (), to.getNotComputable ()),
+			maD(notModified,    from.getNotModified   (), to.getNotModified   ()),
+			maD(delivered,      from.getDelivered     (), to.getDelivered     ()));
 	}
 
 

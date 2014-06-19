@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.map;
+import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
@@ -42,11 +42,11 @@ final class SequenceInfo extends Composite
 			final SequenceChecker.Info to)
 	{
 		this(
-			map(inOrder,    from.getInOrder   (), to.getInOrder   ()),
-			map(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
-			map(duplicate,  from.getDuplicate (), to.getDuplicate ()),
-			map(lost,       from.getLost      (), to.getLost      ()),
-			map(late,       from.getLate      (), to.getLate      ()),
+			maD(inOrder,    from.getInOrder   (), to.getInOrder   ()),
+			maD(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
+			maD(duplicate,  from.getDuplicate (), to.getDuplicate ()),
+			maD(lost,       from.getLost      (), to.getLost      ()),
+			maD(late,       from.getLate      (), to.getLate      ()),
 			map(pending,    to.getPending     ()  ));
 	}
 

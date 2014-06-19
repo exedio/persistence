@@ -56,12 +56,18 @@ final class Util
 	private static final String POSTFIX = " ...";
 
 
-	static final SetValue<Integer> map(final IntegerField f, final int from, final int to)
+	/**
+	 * diffAndMap
+	 */
+	static final SetValue<Integer> maD(final IntegerField f, final int from, final int to)
 	{
 		return f.map(to - from);
 	}
 
-	static final SetValue<Integer> map(final IntegerField f, final long from, final long to)
+	/**
+	 * diffAndMap
+	 */
+	static final SetValue<Integer> maD(final IntegerField f, final long from, final long to)
 	{
 		final long result = to - from;
 		if(result>Integer.MAX_VALUE)

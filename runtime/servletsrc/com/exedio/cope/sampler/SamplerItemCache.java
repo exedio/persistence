@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.map;
+import static com.exedio.cope.sampler.Util.maD;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
@@ -94,24 +94,24 @@ final class SamplerItemCache extends Item
 			map(type ,  SamplerTypeId.get(same(from.getType(), to.getType()))),
 			map(limit,  to.getLimit()),
 			map(level,  to.getLevel()),
-			map(hits,   from.getHits  (), to.getHits  ()),
-			map(misses, from.getMisses(), to.getMisses()),
+			maD(hits,   from.getHits  (), to.getHits  ()),
+			maD(misses, from.getMisses(), to.getMisses()),
 
-			map(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			map(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			map(replacements,    from.getReplacements   (), to.getReplacements   ()),
+			maD(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
+			maD(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			maD(replacements,    from.getReplacements   (), to.getReplacements   ()),
 			map(lastReplacementRun, to.getLastReplacementRun()),
 
 			map(ageAverageMillis, to.getAgeAverageMillis()),
 			map(ageMinimumMillis, to.getAgeMinimumMillis()),
 			map(ageMaximumMillis, to.getAgeMaximumMillis()),
 
-			map(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			map(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
+			maD(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			maD(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
 			map(stampsSize,   to.getStampsSize()),
-			map(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
-			map(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+			maD(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
+			maD(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 
 		if(isDefault(result))
 			return null;

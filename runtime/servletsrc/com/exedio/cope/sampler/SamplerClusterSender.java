@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.map;
+import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.IntegerField;
@@ -36,7 +36,7 @@ final class SamplerClusterSender extends Composite
 			final ClusterSenderInfo to)
 	{
 		this(
-			map(invalidationSplit, from.getInvalidationSplit(), to.getInvalidationSplit()));
+			maD(invalidationSplit, from.getInvalidationSplit(), to.getInvalidationSplit()));
 	}
 
 	private SamplerClusterSender(final SetValue<?>... setValues)

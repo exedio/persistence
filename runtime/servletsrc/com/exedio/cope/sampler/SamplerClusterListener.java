@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.map;
+import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.IntegerField;
@@ -39,10 +39,10 @@ final class SamplerClusterListener extends Composite
 			final ClusterListenerInfo to)
 	{
 		this(
-			map(exception,    from.getException   (), to.getException   ()),
-			map(missingMagic, from.getMissingMagic(), to.getMissingMagic()),
-			map(wrongSecret,  from.getWrongSecret (), to.getWrongSecret ()),
-			map(fromMyself,   from.getFromMyself  (), to.getFromMyself  ()));
+			maD(exception,    from.getException   (), to.getException   ()),
+			maD(missingMagic, from.getMissingMagic(), to.getMissingMagic()),
+			maD(wrongSecret,  from.getWrongSecret (), to.getWrongSecret ()),
+			maD(fromMyself,   from.getFromMyself  (), to.getFromMyself  ()));
 	}
 
 	private SamplerClusterListener(final SetValue<?>... setValues)
