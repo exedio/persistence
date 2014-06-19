@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.map;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
@@ -91,27 +91,27 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo to)
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
-			map (type ,  SamplerTypeId.get(same(from.getType(), to.getType()))),
-			map (limit,  to.getLimit()),
-			map (level,  to.getLevel()),
-			diff(hits,   from.getHits  (), to.getHits  ()),
-			diff(misses, from.getMisses(), to.getMisses()),
+			map(type ,  SamplerTypeId.get(same(from.getType(), to.getType()))),
+			map(limit,  to.getLimit()),
+			map(level,  to.getLevel()),
+			map(hits,   from.getHits  (), to.getHits  ()),
+			map(misses, from.getMisses(), to.getMisses()),
 
-			diff(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			diff(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			diff(replacements,    from.getReplacements   (), to.getReplacements   ()),
-			map (lastReplacementRun, to.getLastReplacementRun()),
+			map(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
+			map(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			map(replacements,    from.getReplacements   (), to.getReplacements   ()),
+			map(lastReplacementRun, to.getLastReplacementRun()),
 
 			map(ageAverageMillis, to.getAgeAverageMillis()),
 			map(ageMinimumMillis, to.getAgeMinimumMillis()),
 			map(ageMaximumMillis, to.getAgeMaximumMillis()),
 
-			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			diff(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
+			map(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			map(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
-			map (stampsSize,   to.getStampsSize()),
-			diff(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
-			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+			map(stampsSize,   to.getStampsSize()),
+			map(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
+			map(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 
 		if(isDefault(result))
 			return null;

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.map;
 import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
@@ -72,17 +72,17 @@ final class SamplerMedia extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
-			diff(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
-			diff(exception,      from.getException     (), to.getException     ()),
-			diff(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
-			diff(guessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
-			diff(notAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
-			diff(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
-			diff(moved,          from.getMoved         (), to.getMoved         ()),
-			diff(isNull,         from.getIsNull        (), to.getIsNull        ()),
-			diff(notComputable,  from.getNotComputable (), to.getNotComputable ()),
-			diff(notModified,    from.getNotModified   (), to.getNotModified   ()),
-			diff(delivered,      from.getDelivered     (), to.getDelivered     ()));
+			map(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
+			map(exception,      from.getException     (), to.getException     ()),
+			map(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
+			map(guessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
+			map(notAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
+			map(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
+			map(moved,          from.getMoved         (), to.getMoved         ()),
+			map(isNull,         from.getIsNull        (), to.getIsNull        ()),
+			map(notComputable,  from.getNotComputable (), to.getNotComputable ()),
+			map(notModified,    from.getNotModified   (), to.getNotModified   ()),
+			map(delivered,      from.getDelivered     (), to.getDelivered     ()));
 	}
 
 

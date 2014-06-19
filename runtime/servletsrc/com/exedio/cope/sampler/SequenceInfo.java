@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.map;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
@@ -41,11 +41,11 @@ final class SequenceInfo extends Composite
 			final SequenceChecker.Info to)
 	{
 		this(
-			diff(inOrder,    from.getInOrder   (), to.getInOrder   ()),
-			diff(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
-			diff(duplicate,  from.getDuplicate (), to.getDuplicate ()),
-			diff(lost,       from.getLost      (), to.getLost      ()),
-			diff(late,       from.getLate      (), to.getLate      ()),
+			map(inOrder,    from.getInOrder   (), to.getInOrder   ()),
+			map(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
+			map(duplicate,  from.getDuplicate (), to.getDuplicate ()),
+			map(lost,       from.getLost      (), to.getLost      ()),
+			map(late,       from.getLate      (), to.getLate      ()),
 			pending.map(to.getPending()));
 	}
 

@@ -20,7 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
-import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.map;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ClusterListenerInfo;
@@ -195,13 +195,13 @@ public class Sampler
 			sv.add(SamplerModel.initialized.map(to.initialized));
 			sv.add(SamplerModel.connected.map(to.connected));
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
-			sv.add(diff(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
+			sv.add(map(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
 			sv.addAll(SamplerModel.mapIt(from.itemCacheSummary, to.itemCacheSummary));
 			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
-			sv.add(diff(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
+			sv.add(map(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
 			sv.addAll(SamplerModel.mapIt(from.mediaSummary, to.mediaSummary));
 			sv.add(SamplerModel.mapIt(from.clusterSenderInfo, to.clusterSenderInfo));
 			sv.add(SamplerModel.mapIt(from.clusterListenerInfo, to.clusterListenerInfo));

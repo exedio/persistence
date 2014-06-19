@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.diff;
+import static com.exedio.cope.sampler.Util.map;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ChangeListenerDispatcherInfo;
@@ -64,10 +64,10 @@ final class SamplerModel extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			connectionPoolIdle.map(to.getIdleLevel()),
-			diff(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
-			diff(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
-			diff(connectionPoolInvalidOnGet, from.getInvalidOnGet(), to.getInvalidOnGet()),
-			diff(connectionPoolInvalidOnPut, from.getInvalidOnPut(), to.getInvalidOnPut()));
+			map(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
+			map(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
+			map(connectionPoolInvalidOnGet, from.getInvalidOnGet(), to.getInvalidOnGet()),
+			map(connectionPoolInvalidOnPut, from.getInvalidOnPut(), to.getInvalidOnPut()));
 	}
 
 
@@ -85,10 +85,10 @@ final class SamplerModel extends Item
 			final TransactionCounters to)
 	{
 		return Arrays.asList((SetValue<?>)
-			diff(commitWithoutConnection,   from.getCommitWithoutConnection  (), to.getCommitWithoutConnection  ()),
-			diff(commitWithConnection,      from.getCommitWithConnection     (), to.getCommitWithConnection     ()),
-			diff(rollbackWithoutConnection, from.getRollbackWithoutConnection(), to.getRollbackWithoutConnection()),
-			diff(rollbackWithConnection,    from.getRollbackWithConnection   (), to.getRollbackWithConnection   ()));
+			map(commitWithoutConnection,   from.getCommitWithoutConnection  (), to.getCommitWithoutConnection  ()),
+			map(commitWithConnection,      from.getCommitWithConnection     (), to.getCommitWithConnection     ()),
+			map(rollbackWithoutConnection, from.getRollbackWithoutConnection(), to.getRollbackWithoutConnection()),
+			map(rollbackWithConnection,    from.getRollbackWithConnection   (), to.getRollbackWithConnection   ()));
 	}
 
 
@@ -112,19 +112,19 @@ final class SamplerModel extends Item
 			final ItemCacheSummary to)
 	{
 		return Arrays.asList((SetValue<?>)
-			diff(itemCacheHits,   from.getHits  (), to.getHits  ()),
-			diff(itemCacheMisses, from.getMisses(), to.getMisses()),
+			map(itemCacheHits,   from.getHits  (), to.getHits  ()),
+			map(itemCacheMisses, from.getMisses(), to.getMisses()),
 
-			diff(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			diff(itemCacheReplacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			diff(itemCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
+			map(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
+			map(itemCacheReplacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			map(itemCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
 
-			diff(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			diff(itemCacheInvalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
+			map(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
+			map(itemCacheInvalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
 			itemCacheStampsSize.map(to.getStampsSize()),
-			diff(itemCacheStampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
-			diff(itemCacheStampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+			map(itemCacheStampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
+			map(itemCacheStampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 	}
 
 
@@ -138,10 +138,10 @@ final class SamplerModel extends Item
 			final QueryCacheInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			diff(queryCacheHits,          from.getHits         (), to.getHits         ()),
-			diff(queryCacheMisses,        from.getMisses       (), to.getMisses       ()),
-			diff(queryCacheReplacements,  from.getReplacements (), to.getReplacements ()),
-			diff(queryCacheInvalidations, from.getInvalidations(), to.getInvalidations()));
+			map(queryCacheHits,          from.getHits         (), to.getHits         ()),
+			map(queryCacheMisses,        from.getMisses       (), to.getMisses       ()),
+			map(queryCacheReplacements,  from.getReplacements (), to.getReplacements ()),
+			map(queryCacheInvalidations, from.getInvalidations(), to.getInvalidations()));
 	}
 
 
@@ -156,9 +156,9 @@ final class SamplerModel extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			changeListenerSize.map(to.getSize()),
-			diff(changeListenerCleared, from.getCleared(), to.getCleared()),
-			diff(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
-			diff(changeListenerFailed,  from.getFailed (), to.getFailed ()));
+			map(changeListenerCleared, from.getCleared(), to.getCleared()),
+			map(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
+			map(changeListenerFailed,  from.getFailed (), to.getFailed ()));
 	}
 
 
@@ -171,8 +171,8 @@ final class SamplerModel extends Item
 			final ChangeListenerDispatcherInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			diff(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
-			diff(changeListenerException, from.getException(), to.getException()),
+			map(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
+			map(changeListenerException, from.getException(), to.getException()),
 			changeListenerPending.map(to.getPending()));
 	}
 
@@ -196,17 +196,17 @@ final class SamplerModel extends Item
 			final MediaSummary to)
 	{
 		return Arrays.asList((SetValue<?>)
-			diff(mediasRedirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
-			diff(mediasException,      from.getException     (), to.getException     ()),
-			diff(mediasInvalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
-			diff(mediasGuessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
-			diff(mediasNotAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
-			diff(mediasNoSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
-			diff(mediasMoved,          from.getMoved         (), to.getMoved         ()),
-			diff(mediasIsNull,         from.getIsNull        (), to.getIsNull        ()),
-			diff(mediasNotComputable,  from.getNotComputable (), to.getNotComputable ()),
-			diff(mediasNotModified,    from.getNotModified   (), to.getNotModified   ()),
-			diff(mediasDelivered,      from.getDelivered     (), to.getDelivered     ()));
+			map(mediasRedirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
+			map(mediasException,      from.getException     (), to.getException     ()),
+			map(mediasInvalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
+			map(mediasGuessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
+			map(mediasNotAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
+			map(mediasNoSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
+			map(mediasMoved,          from.getMoved         (), to.getMoved         ()),
+			map(mediasIsNull,         from.getIsNull        (), to.getIsNull        ()),
+			map(mediasNotComputable,  from.getNotComputable (), to.getNotComputable ()),
+			map(mediasNotModified,    from.getNotModified   (), to.getNotModified   ()),
+			map(mediasDelivered,      from.getDelivered     (), to.getDelivered     ()));
 	}
 
 
