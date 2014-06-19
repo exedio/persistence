@@ -52,8 +52,8 @@ final class SamplerItemCache extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)));
+			model.map(m),
+			date .map(SamplerModel.date.get(m)));
 	}
 
 	static SamplerItemCache forModelAndType(final SamplerModel model, final Type<?> type)
