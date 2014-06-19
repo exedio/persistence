@@ -50,17 +50,17 @@ final class SamplerClusterNode extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)));
+			model.map(m),
+			date .map(SamplerModel.date.get(m)));
 	}
 
 
-	private static final DateField firstEncounter = new DateField().toFinal();
-	private static final StringField fromAddress = new StringField().toFinal();
-	private static final IntegerField fromPort = new IntegerField().toFinal().range(0, 0xffff);
+	private static final DateField    firstEncounter = new DateField   ().toFinal();
+	private static final StringField  fromAddress    = new StringField ().toFinal();
+	private static final IntegerField fromPort       = new IntegerField().toFinal().range(0, 0xffff);
 	private static final CompositeField<SequenceInfo> invalidate = CompositeField.create(SequenceInfo.class).toFinal();
-	private static final CompositeField<SequenceInfo> ping = CompositeField.create(SequenceInfo.class).toFinal();
-	private static final CompositeField<SequenceInfo> pong = CompositeField.create(SequenceInfo.class).toFinal();
+	private static final CompositeField<SequenceInfo> ping       = CompositeField.create(SequenceInfo.class).toFinal();
+	private static final CompositeField<SequenceInfo> pong       = CompositeField.create(SequenceInfo.class).toFinal();
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final ClusterListenerInfo.Node from,
@@ -73,18 +73,13 @@ final class SamplerClusterNode extends Item
 				fromPort      .map(to.getPort()),
 
 				invalidate.map(new SequenceInfo(from.getInvalidateInfo(), to.getInvalidateInfo())),
-				ping      .map(new SequenceInfo(from.getPingInfo(),       to.getPingInfo())),
-				pong      .map(new SequenceInfo(from.getPongInfo(),       to.getPongInfo())));
+				ping      .map(new SequenceInfo(from.getPingInfo      (), to.getPingInfo      ())),
+				pong      .map(new SequenceInfo(from.getPongInfo      (), to.getPongInfo      ())));
 	}
 
 
 	@SuppressWarnings("unused")
-	private SamplerClusterNode(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
+	private SamplerClusterNode(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;
-
 	static final Type<SamplerClusterNode> TYPE = TypesBound.newType(SamplerClusterNode.class);
 }

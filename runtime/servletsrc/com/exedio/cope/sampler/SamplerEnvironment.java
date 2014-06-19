@@ -88,12 +88,12 @@ final class SamplerEnvironment extends Item
 	}
 
 
-	private static final  StringField databaseProductName    = new StringField() .toFinal().lengthMax(1000);
-	private static final  StringField databaseProductVersion = new StringField() .toFinal().lengthMax(1000);
+	private static final  StringField databaseProductName    = new StringField ().toFinal().lengthMax(1000);
+	private static final  StringField databaseProductVersion = new StringField ().toFinal().lengthMax(1000);
 	private static final IntegerField databaseVersionMajor   = new IntegerField().toFinal();
 	private static final IntegerField databaseVersionMinor   = new IntegerField().toFinal();
-	private static final  StringField driverName             = new StringField() .toFinal().lengthMax(1000);
-	private static final  StringField driverVersion          = new StringField() .toFinal().lengthMax(1000);
+	private static final  StringField driverName             = new StringField ().toFinal().lengthMax(1000);
+	private static final  StringField driverVersion          = new StringField ().toFinal().lengthMax(1000);
 	private static final IntegerField driverVersionMajor     = new IntegerField().toFinal();
 	private static final IntegerField driverVersionMinor     = new IntegerField().toFinal();
 

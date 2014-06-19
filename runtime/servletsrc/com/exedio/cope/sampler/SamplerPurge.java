@@ -42,11 +42,11 @@ import java.util.Date;
 
 final class SamplerPurge extends Item
 {
-	private static final StringField type = new StringField().toFinal();
-	private static final DateField limit = new DateField().toFinal();
-	private static final DateField finished = new DateField().toFinal().defaultToNow();
-	private static final IntegerField rows  = new IntegerField().toFinal().min(0);
-	private static final LongField elapsed  = new LongField().toFinal().min(0);
+	private static final StringField  type     = new StringField ().toFinal();
+	private static final DateField    limit    = new DateField   ().toFinal();
+	private static final DateField    finished = new DateField   ().toFinal().defaultToNow();
+	private static final IntegerField rows     = new IntegerField().toFinal().min(0);
+	private static final LongField    elapsed  = new LongField   ().toFinal().min(0);
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
@@ -103,11 +103,6 @@ final class SamplerPurge extends Item
 			SamplerPurge.elapsed.map(elapsed));
 	}
 
-	private SamplerPurge(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
 	String getType()
 	{
 		return type.get(this);
@@ -134,6 +129,6 @@ final class SamplerPurge extends Item
 	}
 
 	private static final long serialVersionUID = 1l;
-
 	static final Type<SamplerPurge> TYPE = TypesBound.newType(SamplerPurge.class);
+	private SamplerPurge(final ActivationParameters ap){ super(ap); }
 }

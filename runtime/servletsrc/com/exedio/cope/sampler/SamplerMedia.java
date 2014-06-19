@@ -40,7 +40,7 @@ import java.util.List;
 @CopeSchemaName("DiffMedia")
 final class SamplerMedia extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
+	private static final ItemField<SamplerModel  > model = ItemField.create(SamplerModel  .class).toFinal();
 	private static final ItemField<SamplerMediaId> media = ItemField.create(SamplerMediaId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
@@ -54,17 +54,17 @@ final class SamplerMedia extends Item
 	}
 
 
-	private static final IntegerField redirectFrom  = new IntegerField().toFinal().min(0);
-	private static final IntegerField exception     = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidSpecial= new IntegerField().toFinal().min(0);
-	private static final IntegerField guessedUrl    = new IntegerField().toFinal().min(0);
-	private static final IntegerField notAnItem     = new IntegerField().toFinal().min(0);
-	private static final IntegerField noSuchItem    = new IntegerField().toFinal().min(0);
-	private static final IntegerField moved         = new IntegerField().toFinal().min(0);
-	private static final IntegerField isNull        = new IntegerField().toFinal().min(0);
-	private static final IntegerField notComputable = new IntegerField().toFinal().min(0);
-	private static final IntegerField notModified   = new IntegerField().toFinal().min(0);
-	private static final IntegerField delivered     = new IntegerField().toFinal().min(0);
+	private static final IntegerField redirectFrom   = new IntegerField().toFinal().min(0);
+	private static final IntegerField exception      = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidSpecial = new IntegerField().toFinal().min(0);
+	private static final IntegerField guessedUrl     = new IntegerField().toFinal().min(0);
+	private static final IntegerField notAnItem      = new IntegerField().toFinal().min(0);
+	private static final IntegerField noSuchItem     = new IntegerField().toFinal().min(0);
+	private static final IntegerField moved          = new IntegerField().toFinal().min(0);
+	private static final IntegerField isNull         = new IntegerField().toFinal().min(0);
+	private static final IntegerField notComputable  = new IntegerField().toFinal().min(0);
+	private static final IntegerField notModified    = new IntegerField().toFinal().min(0);
+	private static final IntegerField delivered      = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final MediaInfo from,
@@ -72,25 +72,19 @@ final class SamplerMedia extends Item
 	{
 		return Arrays.asList((SetValue<?>)
 			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
-			diff(redirectFrom,  from.getRedirectFrom(),  to.getRedirectFrom()),
-			diff(exception,     from.getException(),     to.getException()),
-			diff(invalidSpecial,from.getInvalidSpecial(),to.getInvalidSpecial()),
-			diff(guessedUrl,    from.getGuessedUrl(),    to.getGuessedUrl()),
-			diff(notAnItem,     from.getNotAnItem(),     to.getNotAnItem()),
-			diff(noSuchItem,    from.getNoSuchItem(),    to.getNoSuchItem()),
-			diff(moved,         from.getMoved(),         to.getMoved()),
-			diff(isNull,        from.getIsNull(),        to.getIsNull()),
-			diff(notComputable, from.getNotComputable(), to.getNotComputable()),
-			diff(notModified,   from.getNotModified(),   to.getNotModified()),
-			diff(delivered,     from.getDelivered(),     to.getDelivered()));
+			diff(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
+			diff(exception,      from.getException     (), to.getException     ()),
+			diff(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
+			diff(guessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
+			diff(notAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
+			diff(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
+			diff(moved,          from.getMoved         (), to.getMoved         ()),
+			diff(isNull,         from.getIsNull        (), to.getIsNull        ()),
+			diff(notComputable,  from.getNotComputable (), to.getNotComputable ()),
+			diff(notModified,    from.getNotModified   (), to.getNotModified   ()),
+			diff(delivered,      from.getDelivered     (), to.getDelivered     ()));
 	}
 
-
-	@SuppressWarnings("unused")
-	private SamplerMedia(final ActivationParameters ap)
-	{
-		super(ap);
-	}
 
 	SamplerModel getModel()
 	{
@@ -108,6 +102,6 @@ final class SamplerMedia extends Item
 	}
 
 	private static final long serialVersionUID = 1l;
-
 	static final Type<SamplerMedia> TYPE = TypesBound.newType(SamplerMedia.class);
+	@SuppressWarnings("unused") private SamplerMedia(final ActivationParameters ap){ super(ap); }
 }

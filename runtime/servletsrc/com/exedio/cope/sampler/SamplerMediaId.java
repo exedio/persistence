@@ -40,12 +40,6 @@ final class SamplerMediaId extends Item
 	}
 
 
-	@SuppressWarnings("unused")
-	private SamplerMediaId(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
 	String getID()
 	{
 		return id.get(this);
@@ -57,6 +51,6 @@ final class SamplerMediaId extends Item
 	}
 
 	private static final long serialVersionUID = 1l;
-
 	static final Type<SamplerMediaId> TYPE = TypesBound.newType(SamplerMediaId.class);
+	@SuppressWarnings("unused") private SamplerMediaId(final ActivationParameters ap){ super(ap); }
 }

@@ -43,8 +43,8 @@ import java.util.List;
 @CopeSchemaName("DiffItemCache")
 final class SamplerItemCache extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
-	private static final ItemField<SamplerTypeId> type = ItemField.create(SamplerTypeId.class).toFinal();
+	private static final ItemField<SamplerModel > model = ItemField.create(SamplerModel .class).toFinal();
+	private static final ItemField<SamplerTypeId> type  = ItemField.create(SamplerTypeId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
@@ -65,41 +65,40 @@ final class SamplerItemCache extends Item
 	}
 
 
-	private static final IntegerField limit = new IntegerField().toFinal().min(0);
-	private static final IntegerField level = new IntegerField().toFinal().min(0);
-	private static final IntegerField hits = new IntegerField().toFinal().min(0);
-	private static final IntegerField misses = new IntegerField().toFinal().min(0);
-	private static final IntegerField concurrentLoads = new IntegerField().toFinal().min(0);
-	private static final IntegerField replacementRuns = new IntegerField().toFinal().min(0);
-	private static final IntegerField replacements = new IntegerField().toFinal().min(0);
-	private static final DateField lastReplacementRun = new DateField().toFinal().optional();
-	private static final LongField ageAverageMillis = new LongField().toFinal();
-	private static final LongField ageMinimumMillis = new LongField().toFinal();
-	private static final LongField ageMaximumMillis = new LongField().toFinal();
+	private static final IntegerField limit                = new IntegerField().toFinal().min(0);
+	private static final IntegerField level                = new IntegerField().toFinal().min(0);
+	private static final IntegerField hits                 = new IntegerField().toFinal().min(0);
+	private static final IntegerField misses               = new IntegerField().toFinal().min(0);
+	private static final IntegerField concurrentLoads      = new IntegerField().toFinal().min(0);
+	private static final IntegerField replacementRuns      = new IntegerField().toFinal().min(0);
+	private static final IntegerField replacements         = new IntegerField().toFinal().min(0);
+	private static final DateField lastReplacementRun      = new DateField().toFinal().optional();
+	private static final LongField ageAverageMillis        = new LongField().toFinal();
+	private static final LongField ageMinimumMillis        = new LongField().toFinal();
+	private static final LongField ageMaximumMillis        = new LongField().toFinal();
 	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidationsDone = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidationsDone    = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("invalidateLastSize")
-	private static final IntegerField stampsSize = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsSize           = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("invalidateLastHits")
-	private static final IntegerField stampsHits = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsHits           = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("invalidateLastPurged")
-	private static final IntegerField stampsPurged = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsPurged         = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
 			final ItemCacheInfo from,
 			final ItemCacheInfo to)
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
-			type  .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
-			limit .map(to.getLimit()),
-			level .map(to.getLevel()),
-			diff(hits,   from.getHits(), to.getHits()),
+			type .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
+			limit.map(to.getLimit()),
+			level.map(to.getLevel()),
+			diff(hits,   from.getHits  (), to.getHits  ()),
 			diff(misses, from.getMisses(), to.getMisses()),
 
 			diff(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-
 			diff(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			diff(replacements,    from.getReplacements(),    to.getReplacements()),
+			diff(replacements,    from.getReplacements   (), to.getReplacements   ()),
 			lastReplacementRun.map(to.getLastReplacementRun()),
 
 			ageAverageMillis.map(to.getAgeAverageMillis()),
@@ -107,10 +106,10 @@ final class SamplerItemCache extends Item
 			ageMaximumMillis.map(to.getAgeMaximumMillis()),
 
 			diff(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			diff(invalidationsDone,    from.getInvalidationsDone(),    to.getInvalidationsDone()),
+			diff(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
 			stampsSize.map(to.getStampsSize()),
-			diff(stampsHits,   from.getStampsHits(),   to.getStampsHits()),
+			diff(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
 			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 
 		if(isDefault(result))
@@ -144,13 +143,6 @@ final class SamplerItemCache extends Item
 		return invalidationsOrdered.getMandatory(this);
 	}
 
-
-	@SuppressWarnings("unused")
-	private SamplerItemCache(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
 	SamplerModel getModel()
 	{
 		return model.get(this);
@@ -167,6 +159,6 @@ final class SamplerItemCache extends Item
 	}
 
 	private static final long serialVersionUID = 1l;
-
 	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class);
+	@SuppressWarnings("unused") private SamplerItemCache(final ActivationParameters ap){ super(ap); }
 }
