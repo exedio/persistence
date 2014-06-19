@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -86,10 +87,13 @@ final class Util
 		return to;
 	}
 
-	static final Type<?> same(final Type<?> from, final Type<?> to)
+	/**
+	 * assertSameAndMap
+	 */
+	static final SetValue<SamplerTypeId> maS(final ItemField<SamplerTypeId> f, final Type<?> from, final Type<?> to)
 	{
 		assert from==to;
-		return to;
+		return SetValue.map(f, SamplerTypeId.get(to));
 	}
 
 	static final MediaPath same(final MediaPath from, final MediaPath to)

@@ -20,7 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.maD;
-import static com.exedio.cope.sampler.Util.same;
+import static com.exedio.cope.sampler.Util.maS;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
@@ -91,7 +91,7 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo to)
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
-			map(type ,  SamplerTypeId.get(same(from.getType(), to.getType()))),
+			maS(type ,  from.getType(), to.getType()),
 			map(limit,  to.getLimit()),
 			map(level,  to.getLevel()),
 			maD(hits,   from.getHits  (), to.getHits  ()),
