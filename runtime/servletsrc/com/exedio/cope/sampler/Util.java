@@ -34,20 +34,22 @@ final class Util
 	/**
 	 * cutAndMap
 	 */
-	static final SetValue<String> maC(final StringField f, final String s)
+	static final SetValue<String> maC(
+			final StringField settable,
+			final String s)
 	{
-		return SetValue.map(f, shortify(f, s));
+		return SetValue.map(settable, shortify(settable, s));
 	}
 
-	private static final String shortify(final StringField f, final String s)
+	private static final String shortify(final StringField settable, final String s)
 	{
-		assert f.getMinimumLength()==1 : f;
-		assert f.getMaximumLength()>=POSTFIX.length() : f;
+		assert settable.getMinimumLength()==1 : settable;
+		assert settable.getMaximumLength()>=POSTFIX.length() : settable;
 
 		if(s==null || s.isEmpty())
 			return null;
 
-		final int max = f.getMaximumLength();
+		final int max = settable.getMaximumLength();
 		if(s.length()>max)
 			return s.substring(0, max-POSTFIX.length()) + POSTFIX;
 
@@ -60,25 +62,31 @@ final class Util
 	/**
 	 * diffAndMap
 	 */
-	static final SetValue<Integer> maD(final IntegerField f, final int from, final int to)
+	static final SetValue<Integer> maD(
+			final IntegerField settable,
+			final int from,
+			final int to)
 	{
-		return SetValue.map(f, to - from);
+		return SetValue.map(settable, to - from);
 	}
 
 	/**
 	 * diffAndMap
 	 */
-	static final SetValue<Integer> maD(final IntegerField f, final long from, final long to)
+	static final SetValue<Integer> maD(
+			final IntegerField settable,
+			final long from,
+			final long to)
 	{
 		final long result = to - from;
 		if(result>Integer.MAX_VALUE)
 		{
 			if(logger.isWarnEnabled())
-				logger.warn("integer exceeded for {} {}", f, result);
+				logger.warn("integer exceeded for {} {}", settable, result);
 
-			return f.map(Integer.MAX_VALUE);
+			return settable.map(Integer.MAX_VALUE);
 		}
-		return SetValue.map(f, (int)result);
+		return SetValue.map(settable, (int)result);
 	}
 
 	static final int same(final int from, final int to)
@@ -90,19 +98,25 @@ final class Util
 	/**
 	 * assertSameAndMap
 	 */
-	static final SetValue<SamplerTypeId> maS(final ItemField<SamplerTypeId> f, final Type<?> from, final Type<?> to)
+	static final SetValue<SamplerTypeId> maS(
+			final ItemField<SamplerTypeId> settable,
+			final Type<?> from,
+			final Type<?> to)
 	{
 		assert from==to;
-		return SetValue.map(f, SamplerTypeId.get(to));
+		return SetValue.map(settable, SamplerTypeId.get(to));
 	}
 
 	/**
 	 * assertSameAndMap
 	 */
-	static final SetValue<SamplerMediaId> maS(final ItemField<SamplerMediaId> f, final MediaPath from, final MediaPath to)
+	static final SetValue<SamplerMediaId> maS(
+			final ItemField<SamplerMediaId> settable,
+			final MediaPath from,
+			final MediaPath to)
 	{
 		assert from==to;
-		return SetValue.map(f, SamplerMediaId.get(to));
+		return SetValue.map(settable, SamplerMediaId.get(to));
 	}
 
 	private Util()
