@@ -51,8 +51,8 @@ final class SamplerClusterNode extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
-			model.map(m),
-			date .map(SamplerModel.date.get(m)));
+			map(model, m),
+			map(date,  SamplerModel.date.get(m)));
 	}
 
 
