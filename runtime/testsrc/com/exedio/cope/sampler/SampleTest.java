@@ -28,6 +28,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Media;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -52,6 +53,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
+		touch();
 		final Date before55 = new Date();
 		assertEquals(null, sampler.sampleInternal());
 		final Date after55 = new Date();
@@ -84,6 +86,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		waitForSystemTimeChange();
+		touch();
 		final Date before66 = new Date();
 		final SamplerModel model66 = sampler.sampleInternal();
 		final Date after66 = new Date();
@@ -137,6 +140,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList(date66, date66  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
 		waitForSystemTimeChange();
+		touch();
 		final Date before77 = new Date();
 		final SamplerModel model77 = sampler.sampleInternal();
 		final Date after77 = new Date();
@@ -201,6 +205,18 @@ public class SampleTest extends ConnectedTest
 		{
 			fail("Correctness of following code is not asserted.");
 		}
+	}
+
+	private final void touch()
+	{
+		deleteOnTearDown(SampledModelItem.TYPE.newItem(
+				SampledModelItem.code.map("zack"),
+				SampledModelItem.mediaA.map(Media.toValue(new byte[]{1,2,3}, "zick/zack")),
+				SampledModelItem.mediaB.map(Media.toValue(new byte[]{1,2,3}, "zick/zack"))
+		));
+		deleteOnTearDown(SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack")));
+		MODEL.commit();
+		MODEL.startTransaction("HistoryTest2");
 	}
 
 	private static final SamplerModel assertIt(

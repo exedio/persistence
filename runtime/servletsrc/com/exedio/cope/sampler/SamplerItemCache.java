@@ -31,6 +31,7 @@ import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
@@ -88,7 +89,7 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo from,
 			final ItemCacheInfo to)
 	{
-		return Arrays.asList((SetValue<?>)
+		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
 			type  .map(SamplerTypeId.get(same(from.getType(), to.getType()))),
 			limit .map(to.getLimit()),
 			level .map(to.getLevel()),
@@ -111,6 +112,31 @@ final class SamplerItemCache extends Item
 			stampsSize.map(to.getStampsSize()),
 			diff(stampsHits,   from.getStampsHits(),   to.getStampsHits()),
 			diff(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+
+		if(isDefault(result))
+			return null;
+
+		return result;
+	}
+
+	private static boolean isDefault(final List<SetValue<?>> result)
+	{
+		for(final SetValue<?> sv : result)
+		{
+			final Settable<?> s = sv.settable;
+			if(s==type || s==limit || s==lastReplacementRun ||
+				s==ageAverageMillis || s==ageMinimumMillis || s==ageMaximumMillis)
+				continue;
+
+			if(s instanceof IntegerField)
+			{
+				if(((Integer)sv.value).intValue() != 0)
+					return false;
+			}
+			else
+				throw new RuntimeException("" + sv);
+		}
+		return true;
 	}
 
 	int getInvalidationsOrdered()

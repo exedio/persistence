@@ -18,11 +18,13 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.TransactionTry;
+import com.exedio.cope.pattern.Media;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,6 +51,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
+		touch();
 		sampler.sample();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
@@ -56,6 +59,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
 
+		touch();
 		sleepLongerThan( 1 );
 		sampler.sample();
 		assertEquals(2, sampler.analyzeCount(SamplerModel.TYPE));
@@ -98,6 +102,18 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+	}
+
+	private final void touch()
+	{
+		deleteOnTearDown(SampledModelItem .TYPE.newItem(
+				SampledModelItem .code.map("zack"),
+				SampledModelItem.mediaA.map(Media.toValue(new byte[]{1,2,3}, "zick/zack")),
+				SampledModelItem.mediaB.map(Media.toValue(new byte[]{1,2,3}, "zick/zack"))
+		));
+		deleteOnTearDown(SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack")));
+		MODEL.commit();
+		MODEL.startTransaction("HistoryTest2");
 	}
 
 	private static final void assertPurge(final Date date, final int... progress)

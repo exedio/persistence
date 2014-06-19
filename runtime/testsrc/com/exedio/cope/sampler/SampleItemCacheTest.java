@@ -43,7 +43,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 
@@ -51,7 +51,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 
@@ -59,7 +59,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 	}
@@ -73,22 +73,22 @@ public class SampleItemCacheTest extends ConnectedTest
 		waitForSystemTimeChange();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
-			assertIt(model, SampledModelItem2.TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
+			assertIt(model, SampledModelItem2.TYPE);
 		}
 
 		waitForSystemTimeChange();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
-			assertIt(model, SampledModelItem2.TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
+			assertIt(model, SampledModelItem2.TYPE);
 		}
 
 		waitForSystemTimeChange();
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE, 0);
+			assertIt(model, SampledModelItem .TYPE);
 			assertIt(model, SampledModelItem2.TYPE, 1);
 		}
 	}
@@ -116,6 +116,15 @@ public class SampleItemCacheTest extends ConnectedTest
 		{
 			assertNull(i);
 		}
+		samplerModel.commit();
+	}
+
+	private static final void assertIt(
+			final SamplerModel model,
+			final Type<?> type)
+	{
+		samplerModel.startTransaction("HistoryTest2");
+		assertNull(SamplerItemCache.forModelAndType(model, type));
 		samplerModel.commit();
 	}
 }
