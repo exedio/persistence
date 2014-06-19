@@ -194,24 +194,24 @@ public class Sampler
 			sv.add(SamplerModel.duration.map(to.duration));
 			sv.add(SamplerModel.initialized.map(to.initialized));
 			sv.add(SamplerModel.connected.map(to.connected));
-			sv.addAll(SamplerModel.map(from.connectionPoolInfo, to.connectionPoolInfo));
+			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(diff(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
-			sv.addAll(SamplerModel.map(from.transactionCounters, to.transactionCounters));
-			sv.addAll(SamplerModel.map(from.itemCacheSummary, to.itemCacheSummary));
-			sv.addAll(SamplerModel.map(from.queryCacheInfo, to.queryCacheInfo));
-			sv.addAll(SamplerModel.map(from.changeListenerInfo, to.changeListenerInfo));
-			sv.addAll(SamplerModel.map(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
+			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
+			sv.addAll(SamplerModel.mapIt(from.itemCacheSummary, to.itemCacheSummary));
+			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
+			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
+			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
 			sv.add(diff(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
-			sv.addAll(SamplerModel.map(from.mediaSummary, to.mediaSummary));
-			sv.add(SamplerModel.map(from.clusterSenderInfo, to.clusterSenderInfo));
-			sv.add(SamplerModel.map(from.clusterListenerInfo, to.clusterListenerInfo));
+			sv.addAll(SamplerModel.mapIt(from.mediaSummary, to.mediaSummary));
+			sv.add(SamplerModel.mapIt(from.clusterSenderInfo, to.clusterSenderInfo));
+			sv.add(SamplerModel.mapIt(from.clusterListenerInfo, to.clusterListenerInfo));
 			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
 
 			for(final Transaction transaction : to.transactions)
 			{
 				sv.clear();
-				sv.addAll(SamplerTransaction.map(model));
-				sv.addAll(SamplerTransaction.map(transaction));
+				sv.addAll(SamplerTransaction.mapIt(model));
+				sv.addAll(SamplerTransaction.mapIt(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
 			}
 			for(int i = 0; i<to.itemCacheInfos.length; i++)
@@ -228,8 +228,8 @@ public class Sampler
 			for(int i = 0; i<to.mediaInfos.length; i++)
 			{
 				sv.clear();
-				sv.addAll(SamplerMedia.map(model));
-				sv.addAll(SamplerMedia.map(from.mediaInfos[i], to.mediaInfos[i]));
+				sv.addAll(SamplerMedia.mapIt(model));
+				sv.addAll(SamplerMedia.mapIt(from.mediaInfos[i], to.mediaInfos[i]));
 				SamplerMedia.TYPE.newItem(sv);
 			}
 			if(to.clusterListenerInfo!=null)
@@ -240,8 +240,8 @@ public class Sampler
 					if(fromNode!=null)
 					{
 						sv.clear();
-						sv.addAll(SamplerClusterNode.map(model));
-						sv.addAll(SamplerClusterNode.map(fromNode, toNode));
+						sv.addAll(SamplerClusterNode.mapIt(model));
+						sv.addAll(SamplerClusterNode.mapIt(fromNode, toNode));
 						SamplerClusterNode.TYPE.newItem(sv);
 					}
 				}

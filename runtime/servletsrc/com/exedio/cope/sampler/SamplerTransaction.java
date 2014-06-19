@@ -44,7 +44,7 @@ final class SamplerTransaction extends Item
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
 			model         .map(m),
@@ -57,7 +57,7 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final Transaction transaction)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
 		return Arrays.asList((SetValue<?>)
 			id       .map(transaction.getID()),

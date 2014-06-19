@@ -58,7 +58,7 @@ final class SamplerModel extends Item
 	private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final Pool.Info from,
 			final Pool.Info to)
 	{
@@ -80,7 +80,7 @@ final class SamplerModel extends Item
 	private static final IntegerField rollbackWithoutConnection = new IntegerField().toFinal().min(0);
 	private static final IntegerField rollbackWithConnection    = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final TransactionCounters from,
 			final TransactionCounters to)
 	{
@@ -107,7 +107,7 @@ final class SamplerModel extends Item
 	@CopeSchemaName("itemCacheInvalidateLastPurged")
 	private static final IntegerField itemCacheStampsPurged = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ItemCacheSummary from,
 			final ItemCacheSummary to)
 	{
@@ -133,7 +133,7 @@ final class SamplerModel extends Item
 	private static final IntegerField queryCacheReplacements  = new IntegerField().toFinal().min(0);
 	private static final IntegerField queryCacheInvalidations = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final QueryCacheInfo from,
 			final QueryCacheInfo to)
 	{
@@ -150,7 +150,7 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerFailed   = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ChangeListenerInfo from,
 			final ChangeListenerInfo to)
 	{
@@ -166,7 +166,7 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerException = new IntegerField().toFinal().min(0);
 	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ChangeListenerDispatcherInfo from,
 			final ChangeListenerDispatcherInfo to)
 	{
@@ -191,7 +191,7 @@ final class SamplerModel extends Item
 	private static final IntegerField mediasNotModified    = new IntegerField().toFinal().min(0);
 	private static final IntegerField mediasDelivered      = new IntegerField().toFinal().min(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final MediaSummary from,
 			final MediaSummary to)
 	{
@@ -212,7 +212,7 @@ final class SamplerModel extends Item
 
 	private static final CompositeField<SamplerClusterSender> clusterSender = CompositeField.create(SamplerClusterSender.class).toFinal().optional();
 
-	static SetValue<?> map(
+	static SetValue<?> mapIt(
 			final ClusterSenderInfo from,
 			final ClusterSenderInfo to)
 	{
@@ -224,7 +224,7 @@ final class SamplerModel extends Item
 
 	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
 
-	static SetValue<?> map(
+	static SetValue<?> mapIt(
 			final ClusterListenerInfo from,
 			final ClusterListenerInfo to)
 	{

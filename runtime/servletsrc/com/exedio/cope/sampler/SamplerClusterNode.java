@@ -47,7 +47,7 @@ final class SamplerClusterNode extends Item
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(final SamplerModel m)
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
 			model.map(m),
@@ -62,7 +62,7 @@ final class SamplerClusterNode extends Item
 	private static final CompositeField<SequenceInfo> ping       = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> pong       = CompositeField.create(SequenceInfo.class).toFinal();
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> map(
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ClusterListenerInfo.Node from,
 			final ClusterListenerInfo.Node to)
 	{
