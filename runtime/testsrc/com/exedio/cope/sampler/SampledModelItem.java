@@ -29,7 +29,7 @@ import com.exedio.cope.pattern.Media;
 public class SampledModelItem extends Item
 {
 	static final StringField code = new StringField();
-	static final Media mediaA= new Media();
+	static final Media mediaA = new Media();
 	static final Media mediaB = new Media();
 
 	SampledModelItem(final SetValue<?>... values)
