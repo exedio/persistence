@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.cutAndMap;
 
 import com.exedio.cope.ActivationParameters;
@@ -47,8 +48,8 @@ final class SamplerTransaction extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
 	{
 		return Arrays.asList((SetValue<?>)
-			model         .map(m),
-			date          .map(SamplerModel.date.get(m)));
+			map(model, m),
+			map(date,  SamplerModel.date.get(m)));
 	}
 
 
@@ -60,10 +61,10 @@ final class SamplerTransaction extends Item
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
 		return Arrays.asList((SetValue<?>)
-			id       .map(transaction.getID()),
+			map(id,        transaction.getID()),
 			cutAndMap(name, transaction.getName()),
-			startDate.map(transaction.getStartDate()),
-			thread   .map(SamplerThread.create(transaction.getBoundThread())));
+			map(startDate, transaction.getStartDate()),
+			map(thread,    SamplerThread.create(transaction.getBoundThread())));
 	}
 
 

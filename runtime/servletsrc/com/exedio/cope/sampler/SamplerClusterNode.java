@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.cutAndMap;
 import static com.exedio.cope.sampler.Util.same;
 
@@ -67,14 +68,14 @@ final class SamplerClusterNode extends Item
 			final ClusterListenerInfo.Node to)
 	{
 		return Arrays.asList((SetValue<?>)
-				id            .map(same(from.getID(), to.getID())),
-				firstEncounter.map(to.getFirstEncounter()),
+				map(id,             same(from.getID(), to.getID())),
+				map(firstEncounter, to.getFirstEncounter()),
 				cutAndMap(fromAddress, to.getAddress().toString()),
-				fromPort      .map(to.getPort()),
+				map(fromPort,       to.getPort()),
 
-				invalidate.map(new SequenceInfo(from.getInvalidateInfo(), to.getInvalidateInfo())),
-				ping      .map(new SequenceInfo(from.getPingInfo      (), to.getPingInfo      ())),
-				pong      .map(new SequenceInfo(from.getPongInfo      (), to.getPongInfo      ())));
+				map(invalidate, new SequenceInfo(from.getInvalidateInfo(), to.getInvalidateInfo())),
+				map(ping,       new SequenceInfo(from.getPingInfo      (), to.getPingInfo      ())),
+				map(pong,       new SequenceInfo(from.getPongInfo      (), to.getPongInfo      ())));
 	}
 
 

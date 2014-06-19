@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.cutAndMap;
 
 import com.exedio.cope.EnumField;
@@ -45,10 +46,10 @@ final class SamplerThread extends Composite
 	private SamplerThread(final Thread thread)
 	{
 		this(
-			id.map(thread.getId()),
+			map(id,       thread.getId()),
 			cutAndMap(name, thread.getName()),
-			priority.map(thread.getPriority()),
-			state.map(thread.getState()),
+			map(priority, thread.getPriority()),
+			map(state,    thread.getState()),
 			cutAndMap(stackTrace, toString(thread.getStackTrace())));
 	}
 
