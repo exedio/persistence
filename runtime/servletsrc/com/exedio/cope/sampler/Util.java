@@ -120,6 +120,12 @@ final class Util
 	}
 
 
+	static IntegerField field(final int minimum)
+	{
+		return new IntegerField().toFinal().min(minimum);
+	}
+
+
 	private Util()
 	{
 		// prevent instantiation

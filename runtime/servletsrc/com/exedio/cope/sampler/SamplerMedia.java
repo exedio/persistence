@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.Util.field;
 import static com.exedio.cope.sampler.Util.maD;
 import static com.exedio.cope.sampler.Util.maS;
 
@@ -54,17 +55,17 @@ final class SamplerMedia extends Item
 	}
 
 
-	private static final IntegerField redirectFrom   = new IntegerField().toFinal().min(0);
-	private static final IntegerField exception      = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidSpecial = new IntegerField().toFinal().min(0);
-	private static final IntegerField guessedUrl     = new IntegerField().toFinal().min(0);
-	private static final IntegerField notAnItem      = new IntegerField().toFinal().min(0);
-	private static final IntegerField noSuchItem     = new IntegerField().toFinal().min(0);
-	private static final IntegerField moved          = new IntegerField().toFinal().min(0);
-	private static final IntegerField isNull         = new IntegerField().toFinal().min(0);
-	private static final IntegerField notComputable  = new IntegerField().toFinal().min(0);
-	private static final IntegerField notModified    = new IntegerField().toFinal().min(0);
-	private static final IntegerField delivered      = new IntegerField().toFinal().min(0);
+	private static final IntegerField redirectFrom   = field(0);
+	private static final IntegerField exception      = field(0);
+	private static final IntegerField invalidSpecial = field(0);
+	private static final IntegerField guessedUrl     = field(0);
+	private static final IntegerField notAnItem      = field(0);
+	private static final IntegerField noSuchItem     = field(0);
+	private static final IntegerField moved          = field(0);
+	private static final IntegerField isNull         = field(0);
+	private static final IntegerField notComputable  = field(0);
+	private static final IntegerField notModified    = field(0);
+	private static final IntegerField delivered      = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final MediaInfo from,
