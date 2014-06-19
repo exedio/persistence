@@ -19,7 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Util.maD;
-import static com.exedio.cope.sampler.Util.same;
+import static com.exedio.cope.sampler.Util.maS;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeSchemaName;
@@ -71,7 +71,7 @@ final class SamplerMedia extends Item
 			final MediaInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			media.map(SamplerMediaId.get(same(from.getPath(), to.getPath()))),
+			maS(media,          from.getPath          (), to.getPath          ()),
 			maD(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
 			maD(exception,      from.getException     (), to.getException     ()),
 			maD(invalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),

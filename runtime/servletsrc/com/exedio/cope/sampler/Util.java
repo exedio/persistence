@@ -96,10 +96,13 @@ final class Util
 		return SetValue.map(f, SamplerTypeId.get(to));
 	}
 
-	static final MediaPath same(final MediaPath from, final MediaPath to)
+	/**
+	 * assertSameAndMap
+	 */
+	static final SetValue<SamplerMediaId> maS(final ItemField<SamplerMediaId> f, final MediaPath from, final MediaPath to)
 	{
 		assert from==to;
-		return to;
+		return f.map(SamplerMediaId.get(to));
 	}
 
 	private Util()
