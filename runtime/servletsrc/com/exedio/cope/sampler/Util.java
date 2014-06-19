@@ -34,14 +34,14 @@ final class Util
 	/**
 	 * cutAndMap
 	 */
-	static final SetValue<String> maC(
+	static SetValue<String> maC(
 			final StringField settable,
 			final String s)
 	{
 		return SetValue.map(settable, shortify(settable, s));
 	}
 
-	private static final String shortify(final StringField settable, final String s)
+	private static String shortify(final StringField settable, final String s)
 	{
 		assert settable.getMinimumLength()==1 : settable;
 		assert settable.getMaximumLength()>=POSTFIX.length() : settable;
@@ -62,7 +62,7 @@ final class Util
 	/**
 	 * diffAndMap
 	 */
-	static final SetValue<Integer> maD(
+	static SetValue<Integer> maD(
 			final IntegerField settable,
 			final int from,
 			final int to)
@@ -73,7 +73,7 @@ final class Util
 	/**
 	 * diffAndMap
 	 */
-	static final SetValue<Integer> maD(
+	static SetValue<Integer> maD(
 			final IntegerField settable,
 			final long from,
 			final long to)
@@ -89,7 +89,7 @@ final class Util
 		return SetValue.map(settable, (int)result);
 	}
 
-	static final int same(final int from, final int to)
+	static int same(final int from, final int to)
 	{
 		assert from==to;
 		return to;
@@ -98,7 +98,7 @@ final class Util
 	/**
 	 * assertSameAndMap
 	 */
-	static final SetValue<SamplerTypeId> maS(
+	static SetValue<SamplerTypeId> maS(
 			final ItemField<SamplerTypeId> settable,
 			final Type<?> from,
 			final Type<?> to)
@@ -110,7 +110,7 @@ final class Util
 	/**
 	 * assertSameAndMap
 	 */
-	static final SetValue<SamplerMediaId> maS(
+	static SetValue<SamplerMediaId> maS(
 			final ItemField<SamplerMediaId> settable,
 			final MediaPath from,
 			final MediaPath to)
