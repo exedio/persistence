@@ -162,15 +162,19 @@ public class Sampler
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
+	 */
+	@Deprecated
 	public final void sample()
 	{
-		sampleInternal();
+		sampleInternal(getTransactionDuration());
 	}
 
 	private SamplerStep lastStep = null;
 
 	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
-	SamplerModel sampleInternal()
+	SamplerModel sampleInternal(final long transactionDuration)
 	{
 		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample environment"))
 		{
@@ -178,7 +182,7 @@ public class Sampler
 			tx.commit();
 		}
 
-		final SamplerStep to = new SamplerStep(sampledModel, medias, getTransactionDuration());
+		final SamplerStep to = new SamplerStep(sampledModel, medias, transactionDuration);
 		final SamplerStep from = lastStep;
 		lastStep = to;
 		if(!to.isCompatibleTo(from))

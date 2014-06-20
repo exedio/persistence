@@ -51,6 +51,16 @@ public final class SamplerProperties extends Properties
 	}
 
 
+	// sample
+
+	private final long transactionDuration = 1000l * value("transactionDurationSeconds", 10, 0); // 10 seconds
+
+	public void sample(final Sampler sampler)
+	{
+		sampler.sampleInternal(transactionDuration);
+	}
+
+
 	// purge
 
 	private final int purgeDays = value("purgeDays", 8, 0); // amply one week
