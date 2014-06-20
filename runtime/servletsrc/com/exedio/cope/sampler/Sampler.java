@@ -162,15 +162,6 @@ public class Sampler
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
-	 */
-	@Deprecated
-	public final void sample()
-	{
-		sampleInternal(getTransactionDuration());
-	}
-
 	private SamplerStep lastStep = null;
 
 	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
@@ -264,18 +255,6 @@ public class Sampler
 		lastStep = null;
 	}
 
-	/**
-	 * Return the minimum duration (in milliseconds)
-	 * for a transaction to be recorded by the sampler.
-	 * This default implementation returns 10 seconds.
-	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
-	 */
-	@Deprecated
-	public long getTransactionDuration()
-	{
-		return (10*1000);
-	}
-
 	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
 	int analyzeCount(final Type<?> type)
 	{
@@ -350,6 +329,27 @@ public class Sampler
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
+	 */
+	@Deprecated
+	public final void sample()
+	{
+		sampleInternal(getTransactionDuration());
+	}
+
+	/**
+	 * Return the minimum duration (in milliseconds)
+	 * for a transaction to be recorded by the sampler.
+	 * This default implementation returns 10 seconds.
+	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
+	 */
+	@Deprecated
+	public long getTransactionDuration()
+	{
+		return (10*1000);
+	}
 
 	/**
 	 * @deprecated
