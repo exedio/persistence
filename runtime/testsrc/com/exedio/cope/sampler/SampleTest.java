@@ -198,6 +198,8 @@ public class SampleTest extends ConnectedTest
 		));
 		deleteOnTearDown(SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack")));
 		MODEL.commit();
+		SampledModelItem.mediaA.incrementDelivered();
+		SampledModelItem.mediaB.incrementDelivered();
 		MODEL.startTransaction("HistoryTest2");
 	}
 

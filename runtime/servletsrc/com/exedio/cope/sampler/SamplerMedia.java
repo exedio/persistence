@@ -31,6 +31,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
@@ -82,7 +83,7 @@ final class SamplerMedia extends Item
 			final MediaInfo from,
 			final MediaInfo to)
 	{
-		return Arrays.asList((SetValue<?>)
+		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
 			maS(media,          from.getPath          (), to.getPath          ()),
 			maD(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
 			maD(exception,      from.getException     (), to.getException     ()),
@@ -95,8 +96,31 @@ final class SamplerMedia extends Item
 			maD(notComputable,  from.getNotComputable (), to.getNotComputable ()),
 			maD(notModified,    from.getNotModified   (), to.getNotModified   ()),
 			maD(delivered,      from.getDelivered     (), to.getDelivered     ()));
+
+		if(isDefault(result))
+			return null;
+
+		return result;
 	}
 
+	private static boolean isDefault(final List<SetValue<?>> result)
+	{
+		for(final SetValue<?> sv : result)
+		{
+			final Settable<?> s = sv.settable;
+			if( s==model || s==media )
+				continue;
+
+			if(s instanceof IntegerField)
+			{
+				if(((Integer)sv.value).intValue() != 0)
+					return false;
+			}
+			else
+				throw new RuntimeException("" + sv);
+		}
+		return true;
+	}
 
 
 	int getDelivered()

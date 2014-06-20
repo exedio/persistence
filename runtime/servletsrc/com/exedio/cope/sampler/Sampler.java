@@ -227,10 +227,14 @@ public class Sampler
 			}
 			for(int i = 0; i<to.mediaInfos.length; i++)
 			{
-				sv.clear();
-				sv.addAll(SamplerMedia.mapIt(model));
-				sv.addAll(SamplerMedia.mapIt(from.mediaInfos[i], to.mediaInfos[i]));
-				SamplerMedia.TYPE.newItem(sv);
+				final List<SetValue<?>> payLoad = SamplerMedia.mapIt(from.mediaInfos[i], to.mediaInfos[i]);
+				if(payLoad!=null)
+				{
+					sv.clear();
+					sv.addAll(SamplerMedia.mapIt(model));
+					sv.addAll(payLoad);
+					SamplerMedia.TYPE.newItem(sv);
+				}
 			}
 			if(to.clusterListenerInfo!=null)
 			{

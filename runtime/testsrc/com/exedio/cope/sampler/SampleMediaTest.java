@@ -41,7 +41,7 @@ public class SampleMediaTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
+			assertIt(model, SampledModelItem.mediaA);
 			assertIt(model, SampledModelItem.mediaB, 1);
 		}
 
@@ -49,7 +49,7 @@ public class SampleMediaTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
+			assertIt(model, SampledModelItem.mediaA);
 			assertIt(model, SampledModelItem.mediaB, 1);
 		}
 
@@ -57,7 +57,7 @@ public class SampleMediaTest extends ConnectedTest
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
+			assertIt(model, SampledModelItem.mediaA);
 			assertIt(model, SampledModelItem.mediaB, 1);
 		}
 	}
@@ -71,22 +71,22 @@ public class SampleMediaTest extends ConnectedTest
 		sleepLongerThan(1);
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
-			assertIt(model, SampledModelItem.mediaB, 0);
+			assertIt(model, SampledModelItem.mediaA);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 
 		sleepLongerThan(1);
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
-			assertIt(model, SampledModelItem.mediaB, 0);
+			assertIt(model, SampledModelItem.mediaA);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 
 		sleepLongerThan(1);
 		touch();
 		{
 			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem.mediaA, 0);
+			assertIt(model, SampledModelItem.mediaA);
 			assertIt(model, SampledModelItem.mediaB, 1);
 		}
 	}
@@ -105,6 +105,16 @@ public class SampleMediaTest extends ConnectedTest
 		final SamplerMedia i = SamplerMedia.forModelAndType(model, media);
 		assertNotNull(i);
 		assertEquals("delivered", delivered, i.getDelivered());
+		samplerModel.commit();
+	}
+
+	private static final void assertIt(
+			final SamplerModel model,
+			final Media media)
+	{
+		samplerModel.startTransaction("HistoryTest2");
+		final SamplerMedia i = SamplerMedia.forModelAndType(model, media);
+		assertNull(i);
 		samplerModel.commit();
 	}
 }
