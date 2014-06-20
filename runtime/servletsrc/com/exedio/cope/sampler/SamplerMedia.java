@@ -108,7 +108,7 @@ final class SamplerMedia extends Item
 		for(final SetValue<?> sv : result)
 		{
 			final Settable<?> s = sv.settable;
-			if( s==model || s==media )
+			if(s==media)
 				continue;
 
 			if(s instanceof IntegerField)
