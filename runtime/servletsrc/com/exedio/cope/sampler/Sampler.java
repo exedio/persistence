@@ -268,7 +268,9 @@ public class Sampler
 	 * Return the minimum duration (in milliseconds)
 	 * for a transaction to be recorded by the sampler.
 	 * This default implementation returns 10 seconds.
+	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
 	 */
+	@Deprecated
 	public long getTransactionDuration()
 	{
 		return (10*1000);
