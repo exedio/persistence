@@ -24,6 +24,7 @@ import static com.exedio.cope.sampler.Util.maD;
 import static com.exedio.cope.sampler.Util.maS;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Cope;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -34,6 +35,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.MediaInfo;
+import com.exedio.cope.pattern.MediaPath;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +55,14 @@ final class SamplerMedia extends Item
 		return Arrays.asList((SetValue<?>)
 			map(model, m),
 			map(date,  SamplerModel.date.get(m)));
+	}
+
+	static SamplerMedia forModelAndType(final SamplerModel model, final MediaPath media)
+	{
+		return TYPE.searchSingleton(Cope.and(
+				SamplerMedia.model.equal(model),
+				SamplerMedia.media.equal(SamplerMediaId.forId(media.getID()))
+		));
 	}
 
 
@@ -87,6 +97,12 @@ final class SamplerMedia extends Item
 			maD(delivered,      from.getDelivered     (), to.getDelivered     ()));
 	}
 
+
+
+	int getDelivered()
+	{
+		return delivered.getMandatory(this);
+	}
 
 	SamplerModel getModel()
 	{

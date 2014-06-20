@@ -519,6 +519,14 @@ public abstract class MediaPath extends Pattern
 				delivered.get());
 	}
 
+	/**
+	 * For testing only. TODO
+	 */
+	public final void incrementDelivered()
+	{
+		delivered.inc();
+	}
+
 	public static final List<MediaRequestLog> getNoSuchPathLogs()
 	{
 		return noSuchPath.getLogs();

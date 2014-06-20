@@ -30,6 +30,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(StringUtilTest.class);
 		suite.addTestSuite(SampleTest.class);
 		suite.addTestSuite(SampleItemCacheTest.class);
+		suite.addTestSuite(SampleMediaTest.class);
 		suite.addTestSuite(SamplerTest.class);
 		suite.addTestSuite(PurgeTest.class);
 		suite.addTestSuite(DifferentiateTest.class);
