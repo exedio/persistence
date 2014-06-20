@@ -124,7 +124,7 @@ final class SamplerItemCache extends Item
 		for(final SetValue<?> sv : result)
 		{
 			final Settable<?> s = sv.settable;
-			if(s==type || s==limit || s==lastReplacementRun ||
+			if(s==type || s==limit || s==level || s==lastReplacementRun ||
 				s==ageAverageMillis || s==ageMinimumMillis || s==ageMaximumMillis)
 				continue;
 
