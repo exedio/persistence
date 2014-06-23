@@ -1,0 +1,4 @@
+build/
+runtime/servlettestweb/WEB-INF/classes/
+runtime/servlettestweb/WEB-INF/lib/
+tomcat/
