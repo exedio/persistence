@@ -92,6 +92,10 @@ public final class RevisionInfoRevise extends RevisionInfo
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #RevisionInfoRevise(int, String, Date, Map, String, Body[])} instead.
+	 */
+	@Deprecated
 	public RevisionInfoRevise(
 			final int number,
 			final Date date,
@@ -99,7 +103,18 @@ public final class RevisionInfoRevise extends RevisionInfo
 			final String comment,
 			final Body... body)
 	{
-		super(requireGreaterZero(number, "number"), date, environment);
+		this(number, null, date, environment, comment, body);
+	}
+
+	public RevisionInfoRevise(
+			final int number,
+			final String savepoint,
+			final Date date,
+			final Map<String, String> environment,
+			final String comment,
+			final Body... body)
+	{
+		super(requireGreaterZero(number, "number"), savepoint, date, environment);
 
 		this.comment = requireNonNull(comment, "comment");
 		this.body = requireNonEmptyAndCopy(body, "body");
@@ -129,6 +144,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 
 	static final RevisionInfoRevise read(
 			final int number,
+			final String savepoint,
 			final Date date,
 			final Map<String, String> environment,
 			final Properties p)
@@ -148,6 +164,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 
 		return new RevisionInfoRevise(
 				number,
+				savepoint,
 				date,
 				environment,
 				comment,

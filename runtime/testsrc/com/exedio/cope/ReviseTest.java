@@ -44,6 +44,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TimeZone;
 import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggingEvent;
 
 public class ReviseTest extends CopeAssert
 {
@@ -77,7 +78,16 @@ public class ReviseTest extends CopeAssert
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
 		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
-		log = new TestLogAppender();
+		log = new TestLogAppender() {
+			@Override
+			protected void append(final LoggingEvent event)
+			{
+				if("savepoint".equals(event.getMessage()))
+					return;
+
+				super.append(event);
+			}
+		};
 		logger.addAppender(log);
 	}
 
@@ -435,6 +445,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
+		assertNull(logProps.getProperty("savepoint"));
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("create"));
@@ -455,6 +466,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(String.valueOf(number), logProps.getProperty("revision"));
+		assertNotNull(logProps.getProperty("savepoint"));
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals(null, logProps.getProperty("create"));
@@ -466,7 +478,7 @@ public class ReviseTest extends CopeAssert
 			assertMinInt(0, logProps.getProperty("body" + i + ".elapsed"));
 		}
 		assertRevisionEnvironment(logProps);
-		assertEquals(14 + (3*revision.body.length), logProps.size());
+		assertEquals(15 + (3*revision.body.length), logProps.size());
 		return date;
 	}
 
@@ -484,6 +496,7 @@ public class ReviseTest extends CopeAssert
 		assertNotNull(log);
 		final Properties logProps = parse(log);
 		assertEquals(null, logProps.getProperty("revision"));
+		assertNotNull(logProps.getProperty("savepoint"));
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("mutex"));
@@ -491,7 +504,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(String.valueOf(actual  ), logProps.getProperty("mutex.actual"));
 		assertEquals(null, logProps.getProperty("create"));
 		assertRevisionEnvironment(logProps);
-		assertEquals(15, logProps.size());
+		assertEquals(16, logProps.size());
 		return date;
 	}
 

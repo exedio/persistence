@@ -90,6 +90,7 @@ public final class Revision
 	}
 
 	RevisionInfoRevise execute(
+			final String savepoint,
 			final Date date,
 			final Map<String, String> environment,
 			final ConnectionFactory connectionFactory)
@@ -116,7 +117,7 @@ public final class Revision
 		{
 			throw new SQLRuntimeException(e, "close");
 		}
-		return new RevisionInfoRevise(number, date, environment, comment, bodyInfo);
+		return new RevisionInfoRevise(number, savepoint, date, environment, comment, bodyInfo);
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")

@@ -37,9 +37,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class Revisions
 {
+	private static final Logger logger = LoggerFactory.getLogger(Revisions.class);
+
 	private final int number;
 	private final Revision[] revisions;
 
@@ -219,6 +223,7 @@ public final class Revisions
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final DialectParameters dialectParameters,
+			final Dialect dialect,
 			final boolean explicitRequest)
 	{
 		final int actualNumber = getActualNumber(properties, connectionPool, executor);
@@ -234,9 +239,15 @@ public final class Revisions
 					"(last revision in DB: "+actualNumber+"; last revision in model: "+number+")"
 				);
 			}
+
+			final String savepoint =
+				properties.reviseSavepoint
+				? getSavepoint(connectionPool, dialect)
+				: "disabled by " + ConnectProperties.reviseSavepointKey;
+
 			final Date date = new Date();
 			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
-			final RevisionInfoMutex mutex = new RevisionInfoMutex(date, environment, getNumber(), actualNumber);
+			final RevisionInfoMutex mutex = new RevisionInfoMutex(savepoint, date, environment, getNumber(), actualNumber);
 			try
 			{
 				mutex.insert(properties, connectionPool, executor);
@@ -250,11 +261,27 @@ public final class Revisions
 			}
 			for(final Revision revision : revisionsToRun)
 			{
-				revision.execute(date, environment, connectionFactory).
+				revision.execute(savepoint, date, environment, connectionFactory).
 					insert(properties, connectionPool, executor);
 			}
 			RevisionInfoMutex.delete(properties, connectionPool, executor);
 		}
+	}
+
+	private static String getSavepoint(final ConnectionPool connectionPool, final Dialect dialect)
+	{
+		String result;
+		try
+		{
+			result = dialect.getSchemaSavepoint(connectionPool);
+		}
+		catch(final SQLException e)
+		{
+			logger.error("savepoint", e);
+			return "fails: " + e.getMessage();
+		}
+		logger.info("savepoint {}", result);
+		return result;
 	}
 
 	@Override

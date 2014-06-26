@@ -301,4 +301,13 @@ abstract class Dialect
 	{
 		// empty default implementation
 	}
+
+	/**
+	 * @param connectionPool used by subclasses
+	 * @return never returns null
+	 */
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	{
+		throw new SQLException("not supported");
+	}
 }

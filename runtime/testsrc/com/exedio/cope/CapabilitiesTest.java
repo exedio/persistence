@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.sql.SQLException;
+
 public class CapabilitiesTest extends AbstractRuntimeTest
 {
 	public CapabilitiesTest()
@@ -39,6 +41,35 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), SchemaInfo.supportsNativeDate(model));
 		assertEquals(mysql && !props.isSupportDisabledForNotNull(), SchemaInfo.supportsNotNull(model));
 		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation() && model.connect().database.dialectParameters.environmentInfo.isDatabaseVersionAtLeast(5, 1), SchemaInfo.supportsUniqueViolation(model));
+	}
+
+	public void testSchemaSavepoint()
+	{
+		if(mysql)
+		{
+			try
+			{
+				final String result = model.getSchemaSavepoint();
+				//System.out.println(result);
+				assertNotNull(result);
+			}
+			catch(final SQLException e)
+			{
+				// ok
+			}
+		}
+		else
+		{
+			try
+			{
+				final String result = model.getSchemaSavepoint();
+				fail(result);
+			}
+			catch(final SQLException e)
+			{
+				assertEquals("not supported", e.getMessage());
+			}
+		}
 	}
 
 	@Deprecated

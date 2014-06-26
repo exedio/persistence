@@ -593,4 +593,48 @@ final class MysqlDialect extends Dialect
 			connectionPool.put(connection);
 		}
 	}
+
+	@Override
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	{
+		final Connection connection = connectionPool.get(true);
+		final String sql = "SHOW MASTER STATUS";
+		try(
+			java.sql.Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql))
+		{
+			if(!rs.next())
+				throw new SQLException(sql + " returns empty result, probably because no binlog is enabled");
+
+			final StringBuilder bf = new StringBuilder(sql);
+			boolean first = true;
+			do
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(" newLine");
+
+				bf.append(' ').append(rs.getString("File")).
+					append(':').append(rs.getInt   ("Position"));
+				{
+					final String s = rs.getString("Binlog_Do_DB");
+					if(s!=null && !s.isEmpty())
+						bf.append(" doDB=").append(s);
+				}
+				{
+					final String s = rs.getString("Binlog_Ignore_DB");
+					if(s!=null && !s.isEmpty())
+						bf.append(" ignoreDB=").append(s);
+				}
+			}
+			while(rs.next());
+
+			return bf.toString();
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
+	}
 }

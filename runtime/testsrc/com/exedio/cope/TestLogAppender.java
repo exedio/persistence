@@ -28,7 +28,7 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 
-public final class TestLogAppender extends AppenderSkeleton
+public class TestLogAppender extends AppenderSkeleton
 {
 	private final List<LoggingEvent> events = new ArrayList<>();
 

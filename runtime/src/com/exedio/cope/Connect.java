@@ -202,7 +202,11 @@ final class Connect
 		if(revised) // synchronization is done by Model#revise
 			return;
 
-		revisions.get().revise(properties, connectionFactory, connectionPool, executor, database.dialectParameters, explicitRequest);
+		revisions.get().revise(
+				properties,
+				connectionFactory, connectionPool,
+				executor, database.dialectParameters, dialect,
+				explicitRequest);
 
 		revised = true;
 	}
@@ -219,5 +223,10 @@ final class Connect
 		if(cluster!=null)
 			cluster.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
+	}
+
+	String getSchemaSavepoint() throws SQLException
+	{
+		return dialect.getSchemaSavepoint(connectionPool);
 	}
 }

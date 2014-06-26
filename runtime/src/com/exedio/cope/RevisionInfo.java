@@ -37,15 +37,18 @@ import java.util.TimeZone;
 public abstract class RevisionInfo
 {
 	private final int number;
+	private final String savepoint;
 	private final long date;
 	private final Map<String, String> environment;
 
 	RevisionInfo(
 			final int number,
+			final String savepoint,
 			final Date date,
 			final Map<String, String> environment)
 	{
 		this.number = number;
+		this.savepoint = savepoint;
 		this.date = requireNonNull(date, "date").getTime();
 		this.environment = requireNonNull(environment, "environment");
 	}
@@ -53,6 +56,14 @@ public abstract class RevisionInfo
 	public final int getNumber()
 	{
 		return number;
+	}
+
+	/**
+	 * @see Model#getSchemaSavepoint()
+	 */
+	public String getSavepoint()
+	{
+		return savepoint;
 	}
 
 	public final Date getDate()
@@ -66,6 +77,7 @@ public abstract class RevisionInfo
 	}
 
 	private static final String REVISION = "revision";
+	private static final String SAVEPOINT = "savepoint";
 	private static final String DATE = "dateUTC";
 	private static final String ENVIRONMENT_PREFIX = "env.";
 
@@ -82,6 +94,9 @@ public abstract class RevisionInfo
 
 		if(number>=0)
 			store.setProperty(REVISION, String.valueOf(number));
+
+		if(savepoint!=null)
+			store.setProperty(SAVEPOINT, savepoint);
 
 		store.setProperty(DATE, df().format(date));
 
@@ -138,7 +153,7 @@ public abstract class RevisionInfo
 
 		{
 			final RevisionInfoRevise i =
-				RevisionInfoRevise.read(revision, date, environment, p);
+				RevisionInfoRevise.read(revision, p.getProperty(SAVEPOINT), date, environment, p);
 			if(i!=null)
 				return i;
 		}
@@ -150,7 +165,7 @@ public abstract class RevisionInfo
 		}
 		{
 			final RevisionInfoMutex i =
-				RevisionInfoMutex.read(date, environment, p);
+				RevisionInfoMutex.read(p.getProperty(SAVEPOINT), date, environment, p);
 			if(i!=null)
 				return i;
 		}

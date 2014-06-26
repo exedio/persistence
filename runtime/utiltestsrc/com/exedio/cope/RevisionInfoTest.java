@@ -49,10 +49,11 @@ public class RevisionInfoTest extends CopeAssert
 	public void testRevise()
 	{
 		final RevisionInfoRevise i =
-			new RevisionInfoRevise(5, DATE, env, "comment5",
+			new RevisionInfoRevise(5, "saveRevise", DATE, env, "comment5",
 					new Body("sql5.0", 55, 23),
 					new Body("sql5.1", 56, 24));
 		assertEquals(5, i.getNumber());
+		assertEquals("saveRevise", i.getSavepoint());
 		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 		assertEquals("comment5", i.getComment());
@@ -76,6 +77,7 @@ public class RevisionInfoTest extends CopeAssert
 
 		assertEquals(map(
 				"revision", "5",
+				"savepoint", "saveRevise",
 				"dateUTC", DATE_STRING,
 				"env.env1Key", "env1Value",
 				"env.env2Key", "env2Value",
@@ -114,7 +116,7 @@ public class RevisionInfoTest extends CopeAssert
 
 		try
 		{
-			new RevisionInfoRevise(1, null, null, null, (Body[])null);
+			new RevisionInfoRevise(1, (String)null, null, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -123,7 +125,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, null, null, (Body[])null);
+			new RevisionInfoRevise(1, (String)null, DATE, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -132,7 +134,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(0, DATE, env, null, (Body[])null);
+			new RevisionInfoRevise(0, (String)null, DATE, env, null, (Body[])null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -141,7 +143,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, env, null, (Body[])null);
+			new RevisionInfoRevise(1, (String)null, DATE, env, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -150,7 +152,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, env, "comment", (Body[])null);
+			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -159,7 +161,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{});
+			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -168,14 +170,14 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{null});
+			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{null});
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("body[0]", e.getMessage());
 		}
-		new RevisionInfoRevise(1, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
+		new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
 
 		try
 		{
@@ -273,14 +275,16 @@ public class RevisionInfoTest extends CopeAssert
 	public void testMutex()
 	{
 		final RevisionInfoMutex i =
-			new RevisionInfoMutex(DATE, env, 78, 72);
+			new RevisionInfoMutex("saveMutex", DATE, env, 78, 72);
 		assertEquals(-1, i.getNumber());
+		assertEquals("saveMutex", i.getSavepoint());
 		assertEquals(DATE, i.getDate());
 		assertEqualsUnmodifiable(env, i.getEnvironment());
 		assertEquals(78, i.getExpectedNumber());
 		assertEquals(72, i.getActualNumber());
 
 		assertEquals(map(
+				"savepoint", "saveMutex",
 				"dateUTC", DATE_STRING,
 				"env.env1Key", "env1Value",
 				"env.env2Key", "env2Value",
@@ -301,7 +305,7 @@ public class RevisionInfoTest extends CopeAssert
 
 		try
 		{
-			new RevisionInfoMutex(null, null, -1, -1);
+			new RevisionInfoMutex((String)null, null, null, -1, -1);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -310,7 +314,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoMutex(DATE, null, -1, -1);
+			new RevisionInfoMutex((String)null, DATE, null, -1, -1);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -319,7 +323,7 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoMutex(DATE, env, -1, -1);
+			new RevisionInfoMutex((String)null, DATE, env, -1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -328,14 +332,14 @@ public class RevisionInfoTest extends CopeAssert
 		}
 		try
 		{
-			new RevisionInfoMutex(DATE, env, 0, 0);
+			new RevisionInfoMutex((String)null, DATE, env, 0, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expectedNumber must be greater than 0, but was 0", e.getMessage());
 		}
-		new RevisionInfoMutex(DATE, env, 1, 0);
+		new RevisionInfoMutex((String)null, DATE, env, 1, 0);
 	}
 
 	public void testParse() throws UnsupportedEncodingException

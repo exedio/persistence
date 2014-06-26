@@ -100,6 +100,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * Default is true.
 	 */
 	final boolean autoReviseEnabled = value("revise.auto.enabled", true);
+	static final String reviseSavepointKey = "revise.savepoint";
+	final boolean reviseSavepoint = value(reviseSavepointKey, false);
 
 
 	private final int connectionPoolIdleInitial = value("connectionPool.idleInitial", 0, 0);

@@ -36,6 +36,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -491,6 +492,21 @@ public final class Model implements Serializable
 	public void purgeSchema(final JobContext ctx)
 	{
 		connect().purgeSchema(ctx);
+	}
+
+	/**
+	 * Returns a string that may help you resetting the schema to the
+	 * current contents.
+	 * This may or may not be supported by the database.
+	 * The meaning of the result heavily depends on the database.
+	 * Never returns null.
+	 * @throws SQLException if not supported by the database
+	 */
+	public String getSchemaSavepoint() throws SQLException
+	{
+		transactions.assertNoCurrentTransaction();
+
+		return connect().getSchemaSavepoint();
 	}
 
 	/**

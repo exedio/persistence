@@ -29,13 +29,27 @@ public final class RevisionInfoMutex extends RevisionInfo
 	private final int expectedNumber;
 	private final int actualNumber;
 
+	/**
+	 * @deprecated Use {@link #RevisionInfoMutex(String, Date, Map, int, int)} instead.
+	 */
+	@Deprecated
 	public RevisionInfoMutex(
 			final Date date,
 			final Map<String, String> environment,
 			final int expectedNumber,
 			final int actualNumber)
 	{
-		super(NUMBER, date, environment);
+		this(null, date, environment, expectedNumber, actualNumber);
+	}
+
+	public RevisionInfoMutex(
+			final String savepoint,
+			final Date date,
+			final Map<String, String> environment,
+			final int expectedNumber,
+			final int actualNumber)
+	{
+		super(NUMBER, savepoint, date, environment);
 
 		if(expectedNumber<0)
 			throw new IllegalArgumentException("expectedNumber must be greater or equal zero, but was " + expectedNumber);
@@ -71,6 +85,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 	}
 
 	static final RevisionInfoMutex read(
+			final String savepoint,
 			final Date date,
 			final Map<String, String> environment,
 			final Properties p)
@@ -79,6 +94,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 			return null;
 
 		return new RevisionInfoMutex(
+				savepoint,
 				date,
 				environment,
 				Integer.valueOf(p.getProperty(EXPECTED)),

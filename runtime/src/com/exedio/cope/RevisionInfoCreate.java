@@ -29,7 +29,7 @@ public final class RevisionInfoCreate extends RevisionInfo
 			final Date date,
 			final Map<String, String> environment)
 	{
-		super(number, date, environment);
+		super(number, null, date, environment);
 
 		if(number<0)
 			throw new IllegalArgumentException("number must be greater or equal zero, but was " + number);

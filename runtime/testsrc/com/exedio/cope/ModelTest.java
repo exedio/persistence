@@ -254,6 +254,16 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 			assertEquals(expectedText, e.getMessage());
 		}
 
+		try
+		{
+			model.getSchemaSavepoint();
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
 		model.startTransaction();
