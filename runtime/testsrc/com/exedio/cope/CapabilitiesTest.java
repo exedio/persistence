@@ -23,6 +23,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	public CapabilitiesTest()
 	{
 		super(SchemaTest.MODEL);
+		skipTransactionManagement();
 	}
 
 	public void test()
