@@ -28,6 +28,12 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
+                    <label>instrument/antsrc</label>
+                    <type>java</type>
+                    <location>instrument/antsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>runtime/src</label>
                     <type>java</type>
                     <location>runtime/src</location>
@@ -130,7 +136,7 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime\postgresqlsrc</label>
+                    <label>runtime/postgresqlsrc</label>
                     <type>java</type>
                     <location>runtime/postgresqlsrc</location>
                     <encoding>UTF-8</encoding>
@@ -175,6 +181,10 @@
                     <source-folder style="packages">
                         <label>instrument/src</label>
                         <location>instrument/src</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>instrument/antsrc</label>
+                        <location>instrument/antsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/src</label>
@@ -245,7 +255,7 @@
                         <location>runtime/mysqlsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime\postgresqlsrc</label>
+                        <label>runtime/postgresqlsrc</label>
                         <location>runtime/postgresqlsrc</location>
                     </source-folder>
                     <source-file>
@@ -290,6 +300,7 @@
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
                 <package-root>instrument/annosrc</package-root>
+					 <package-root>instrument/antsrc</package-root>
                 <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
