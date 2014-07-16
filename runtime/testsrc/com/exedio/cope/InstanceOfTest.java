@@ -160,6 +160,15 @@ public class InstanceOfTest extends AbstractRuntimeTest
 		{
 			assertEquals("types must not be empty", e.getMessage());
 		}
+		try
+		{
+			TYPE_A.getThis().instanceOf(new Type<?>[]{null});
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("types[0]", e.getMessage());
+		}
 	}
 
 	public void testPolymorphicJoinCondition()
