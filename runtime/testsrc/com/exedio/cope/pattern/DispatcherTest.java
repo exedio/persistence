@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 
 import com.exedio.cope.junit.CopeModelTest;
@@ -69,6 +70,7 @@ public class DispatcherTest extends CopeModelTest
 	public void testIt()
 	{
 		assertNoUpdateCounterColumn(DispatcherItem.toTarget.getRunType());
+		assertEquals("success", getColumnName(DispatcherItem.toTarget.getRunSuccess()));
 
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
