@@ -35,6 +35,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.util.Cast;
@@ -66,7 +67,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.idField = integer;
-		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameEmpty.get()));
+		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
 		this.isfinal = integer.isFinal();
 		this.mandatory = integer.isMandatory();
 	}

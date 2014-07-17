@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
@@ -160,29 +161,13 @@ public final class IntegerField extends NumberField<Integer>
 					if(sourceName==null)
 						return null;
 
-					return annotationClass.cast(schemaName(sequenceName(sourceName.value())));
+					return annotationClass.cast(CopeSchemaNameElement.get(sequenceName(sourceName.value())));
 				}
 
 				if(source==null)
 					return null;
 
 				return source.getAnnotation(annotationClass);
-			}
-
-			private final CopeSchemaName schemaName(final String value)
-			{
-				return new CopeSchemaName()
-				{
-					public Class<? extends Annotation> annotationType()
-					{
-						return CopeSchemaName.class;
-					}
-
-					public String value()
-					{
-						return value;
-					}
-				};
 			}
 
 			public Annotation[] getAnnotations()

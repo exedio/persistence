@@ -16,34 +16,38 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.misc;
 
 import com.exedio.cope.CopeSchemaName;
 import java.lang.annotation.Annotation;
+import java.util.Objects;
 
-final class CopeSchemaNameEmpty
+public final class CopeSchemaNameElement
 {
-	static CopeSchemaName get()
+	public static CopeSchemaName get(final String value)
 	{
-		return instance;
-	}
+		Objects.requireNonNull(value, "value");
 
-	private static final CopeSchemaName instance = new CopeSchemaName()
+		return new CopeSchemaName()
 		{
-			@Override
 			public Class<? extends Annotation> annotationType()
 			{
 				return CopeSchemaName.class;
 			}
 
-			@Override
 			public String value()
 			{
-				return "";
+				return value;
 			}
 		};
+	}
 
-	private CopeSchemaNameEmpty()
+	public static CopeSchemaName getEmpty()
+	{
+		return get("");
+	}
+
+	private CopeSchemaNameElement()
 	{
 		// prevent instantiation
 	}

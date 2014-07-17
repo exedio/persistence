@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -139,7 +140,7 @@ public abstract class Pattern extends Feature
 				else
 					bf.append('-').append(postfix);
 
-				return annotationClass.cast(schemaName(bf.toString()));
+				return annotationClass.cast(CopeSchemaNameElement.get(bf.toString()));
 			}
 			else if(Computed.class==annotationClass)
 			{
@@ -254,7 +255,7 @@ public abstract class Pattern extends Feature
 				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
 				if(typeName!=null || patternName!=null)
 				{
-					return annotationClass.cast(schemaName(
+					return annotationClass.cast(CopeSchemaNameElement.get(
 						newSourceTypeId(
 							(   typeName!=null ?    typeName.value() : type.getID()),
 							(patternName!=null ? patternName.value() : Pattern.this.getName()),
@@ -305,22 +306,6 @@ public abstract class Pattern extends Feature
 				append(postfix);
 
 		return bf.toString();
-	}
-
-	static final CopeSchemaName schemaName(final String value)
-	{
-		return new CopeSchemaName()
-		{
-			public Class<? extends Annotation> annotationType()
-			{
-				return CopeSchemaName.class;
-			}
-
-			public String value()
-			{
-				return value;
-			}
-		};
 	}
 
 	@Override

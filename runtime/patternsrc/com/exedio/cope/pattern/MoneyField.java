@@ -28,6 +28,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -58,7 +59,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	private MoneyField(final PriceField amount, final CurrencySource<C> currency)
 	{
 		this.amount = amount;
-		addSource(amount, "amount", CustomAnnotatedElement.create(CopeSchemaNameEmpty.get()));
+		addSource(amount, "amount", CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty()));
 		this.isfinal = amount.isFinal();
 		this.mandatory = amount.isMandatory();
 		this.currency = currency;
