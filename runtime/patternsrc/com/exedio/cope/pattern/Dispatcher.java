@@ -49,6 +49,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.Clock;
@@ -107,7 +108,7 @@ public final class Dispatcher extends Pattern
 
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal().min(0);
-	final EnumField<Result> runSuccess = EnumField.create(Result.class).toFinal();
+	final EnumField<Result> runResult = EnumField.create(Result.class).toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
@@ -171,7 +172,7 @@ public final class Dispatcher extends Pattern
 		features.put("date", runDate);
 		features.put("runs", runRuns);
 		features.put("elapsed", runElapsed);
-		features.put("success", runSuccess);
+		features.put("result", runResult, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 		features.put("failure", runFailure);
 		final Type<Run> runType = newSourceType(Run.class, features, "Run");
 		this.mountIfMounted = new Mount(runParent, runRuns, runType);
@@ -258,9 +259,9 @@ public final class Dispatcher extends Pattern
 		return runElapsed;
 	}
 
-	public EnumField<Result> getRunSuccess()
+	public EnumField<Result> getRunResult()
 	{
-		return runSuccess;
+		return runResult;
 	}
 
 	public DataField getRunFailure()
@@ -353,7 +354,7 @@ public final class Dispatcher extends Pattern
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
-							runSuccess.map(Result.success));
+							runResult.map(Result.success));
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -384,7 +385,7 @@ public final class Dispatcher extends Pattern
 						runParent.map(item),
 						runDate.map(new Date(start)),
 						runElapsed.map(elapsed),
-						runSuccess.map(Result.failure),
+						runResult.map(Result.failure),
 						runFailure.map(baos.toByteArray()));
 
 					if(isFinal)
@@ -476,7 +477,7 @@ public final class Dispatcher extends Pattern
 		final Query<Run> q =
 			mount.runType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.runParent, item),
-				runSuccess.equal(Result.success)));
+				runResult.equal(Result.success)));
 		q.setOrderBy(mount.runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
@@ -503,7 +504,7 @@ public final class Dispatcher extends Pattern
 			mount.runType.search(
 					Cope.and(
 							Cope.equalAndCast(mount.runParent, item),
-							runSuccess.notEqual(Result.success)),
+							runResult.notEqual(Result.success)),
 					mount.runType.getThis(),
 					true);
 	}
@@ -567,7 +568,7 @@ public final class Dispatcher extends Pattern
 
 		public Result getResult()
 		{
-			return getPattern().runSuccess.get(this);
+			return getPattern().runResult.get(this);
 		}
 
 		public boolean isSuccess()

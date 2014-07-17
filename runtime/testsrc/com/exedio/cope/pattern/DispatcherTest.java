@@ -83,7 +83,7 @@ public class DispatcherTest extends TestWithEnvironment
 	@Test public void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
-		assertEquals("success", getColumnName(toTarget.getRunSuccess()));
+		assertEquals("success", getColumnName(toTarget.getRunResult()));
 
 		assertPending(item1);
 		assertPending(item2);
