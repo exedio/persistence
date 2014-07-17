@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
+import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
@@ -69,8 +70,8 @@ public class DispatcherTest extends CopeModelTest
 
 	public void testIt()
 	{
-		assertNoUpdateCounterColumn(DispatcherItem.toTarget.getRunType());
-		assertEquals("success", getColumnName(DispatcherItem.toTarget.getRunSuccess()));
+		assertNoUpdateCounterColumn(toTarget.getRunType());
+		assertEquals("success", getColumnName(toTarget.getRunSuccess()));
 
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
@@ -121,7 +122,7 @@ public class DispatcherTest extends CopeModelTest
 	{
 		try
 		{
-			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -130,7 +131,7 @@ public class DispatcherTest extends CopeModelTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
+			toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -139,7 +140,7 @@ public class DispatcherTest extends CopeModelTest
 		}
 		try
 		{
-			DispatcherItem.toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -334,7 +335,7 @@ public class DispatcherTest extends CopeModelTest
 		{
 			final Long failureElapsed = failureElapsedIter.next();
 			final Date expected = (Date)expectedFailureIter.next();
-			assertSame(DispatcherItem.toTarget, actual.getPattern());
+			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertEquals(expected, actual.getDate());
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
