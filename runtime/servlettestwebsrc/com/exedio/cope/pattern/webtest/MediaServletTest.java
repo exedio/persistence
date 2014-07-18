@@ -196,33 +196,33 @@ public class MediaServletTest extends TestCase
 		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "redirect/" + ITEM_JPG         , prefix + "redirect/" + ITEM_JPG + ".jpg");
 
-		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE);
+		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
 		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		if(!"OpenJDK Runtime Environment".equals(System.getProperty("java.runtime.name"))) // OpenJDK does not like GIF
 			assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
-		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE);
+		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
 		assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
-		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE);
+		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png", hour8(2));
 		assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png", hour8(3));
 		assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png", hour8(8));
 
-		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_TXT, NOT_COMPUTABLE);
+		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png" , hour8(2));
 		assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
 
-		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL);
-		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL);
+		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL, hour8(0));
+		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL, hour8(2));
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
 		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
 		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));
@@ -413,6 +413,13 @@ public class MediaServletTest extends TestCase
 
 	private static void assertNotFound(final String url, final String reason) throws IOException
 	{
+		assertNotFound(url, reason, null);
+	}
+
+	private static void assertNotFound(
+			final String url, final String reason,
+			final Date lastModified) throws IOException
+	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
@@ -422,6 +429,10 @@ public class MediaServletTest extends TestCase
 		assertEquals(HTTP_NOT_FOUND, conn.getResponseCode());
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
+		if(lastModified!=null)
+			assertEquals("lastModified", lastModified, new Date(conn.getLastModified()));
+		else
+			assertEquals("lastModified", 0, conn.getLastModified());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
@@ -444,6 +455,10 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+		if(lastModified!=null)
+			assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+		else
+			assertEquals(0, conn.getExpiration());
 		assertOnExceptionEmpty();
 	}
 
@@ -517,6 +532,8 @@ public class MediaServletTest extends TestCase
 		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
+		assertEquals("LastModified", 0, conn.getLastModified());
+		assertEquals("Expires",      0, conn.getExpiration());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
