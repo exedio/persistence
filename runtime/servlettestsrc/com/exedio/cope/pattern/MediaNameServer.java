@@ -21,10 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.CharsetName.UTF8;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,12 +39,15 @@ final class MediaNameServer extends MediaPath
 	private static final long serialVersionUID = 1l;
 
 	final StringField source;
+	final DateField lastModified;
 
-	MediaNameServer(final StringField source)
+	MediaNameServer(final StringField source, final DateField lastModified)
 	{
 		this.source = source;
+		this.lastModified = lastModified;
 		if(source!=null)
 			addSource(source, "Source");
+		addSource(lastModified, "LastModified");
 	}
 
 	StringField getSource()
@@ -54,6 +59,12 @@ final class MediaNameServer extends MediaPath
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;
+	}
+
+	@Override
+	public Date getLastModified(final Item item)
+	{
+		return source.get(item)!=null ? lastModified.get(item) : null;
 	}
 
 	@Override

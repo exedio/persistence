@@ -226,19 +226,28 @@ public class MediaServlet extends HttpServlet
 			path.countException(request, e);
 			onException(request, e);
 
-			response.setStatus(SC_INTERNAL_SERVER_ERROR);
-			MediaUtil.send("text/html", "us-ascii",
-				"<html>\n" +
-					"<head>\n" +
-						"<title>Internal Server Error</title>\n" +
-						"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-						"<meta name=\"generator\" content=\"cope media servlet\">\n" +
-					"</head>\n" +
-					"<body>\n" +
-						"<h1>Internal Server Error</h1>\n" +
-						"An internal error occured on the server.\n" +
-					"</body>\n" +
-				"</html>\n", response);
+			if(!response.isCommitted())
+			{
+				// IMPORTANT
+				// Prevent headers enabling caching to be transmitted for Internal Server Error.
+				// Without this, Internal Server Errors have been observed to be cached by
+				// Apache mod_diskcache.
+				response.reset();
+
+				response.setStatus(SC_INTERNAL_SERVER_ERROR);
+				MediaUtil.send("text/html", "us-ascii",
+					"<html>\n" +
+						"<head>\n" +
+							"<title>Internal Server Error</title>\n" +
+							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
+							"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+						"</head>\n" +
+						"<body>\n" +
+							"<h1>Internal Server Error</h1>\n" +
+							"An internal error occured on the server.\n" +
+						"</body>\n" +
+					"</html>\n", response);
+			}
 		}
 	}
 

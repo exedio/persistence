@@ -597,6 +597,20 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		}
 
 
+		@Override()
+		public boolean isCommitted()
+		{
+			assertNull(out);
+
+			return false;
+		}
+
+		@Override()
+		public void reset()
+		{
+			assertNull(out);
+		}
+
 		ByteArrayOutputStream out = null;
 
 		@Override

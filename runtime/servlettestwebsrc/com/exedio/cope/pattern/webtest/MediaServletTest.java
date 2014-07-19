@@ -63,6 +63,7 @@ public class MediaServletTest extends TestCase
 	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
+	private static final String ITEM_NAME_ERR_LM = "MediaServletItem-15";
 
 	private static final String CACHE_CONTROL = "Cache-Control";
 
@@ -306,6 +307,7 @@ public class MediaServletTest extends TestCase
 		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR + ".", prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
+		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR_LM + ".txt");
 	}
 
 	private static void assertTxt(final String url, final Date lastModified) throws IOException

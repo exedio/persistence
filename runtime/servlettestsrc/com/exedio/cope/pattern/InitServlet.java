@@ -125,6 +125,10 @@ public class InitServlet extends HttpServlet
 			catchPhrase.setCatchPhrase("zick");
 			catchPhrase.setContent(textValue, "text/plain", 14);
 
+			final MediaServletItem nameErrorLastModified = new MediaServletItem("media item 4 error");
+			assertID("MediaServletItem-15", nameErrorLastModified);
+			nameErrorLastModified.setNameServerLastModified(15);
+
 			tx.commit();
 		}
 		catch(final IOException e)
