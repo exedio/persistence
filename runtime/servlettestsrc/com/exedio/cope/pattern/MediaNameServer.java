@@ -56,10 +56,6 @@ final class MediaNameServer extends MediaPath
 		return source.get(item)!=null ? "text/plain" : null;
 	}
 
-	private static final long EXPIRES_OFFSET = 1000 * 5; // 5 seconds
-
-	private static final String RESPONSE_EXPIRES = "Expires";
-
 	@Override
 	public void doGetAndCommit(
 			final HttpServletRequest request, final HttpServletResponse response,
@@ -76,9 +72,6 @@ final class MediaNameServer extends MediaPath
 
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
-
-		final long now = System.currentTimeMillis();
-		response.setDateHeader(RESPONSE_EXPIRES, now+EXPIRES_OFFSET);
 
 		MediaUtil.send("text/plain", UTF8, content, response);
 	}
