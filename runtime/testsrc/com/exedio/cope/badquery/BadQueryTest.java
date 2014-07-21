@@ -51,46 +51,43 @@ public class BadQueryTest extends AbstractRuntimeTest
 		right2 = deleteOnTearDown(new SubContainer("right2", leftX, false, middle2));
 	}
 
-	public void testIt()
+	public void testWithSpecifyingjoin()
 	{
-		{
-			// with specifying join
-			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			query.setCondition(SuperContainer.TYPE.getThis().bind(superJoin).notInstanceOf(SubContainer.TYPE));
-			assertContains(leftX, left1, query.search());
-		}
-		{
-			// with specifying join but without condition
-			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			assertContains(leftX, left1, left2, query.search());
-		}
-
-		{
-			// without specifying join
-			final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
-			final Join superJoin = query.join(SuperContainer.TYPE);
-			superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-			query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
-			query.setCondition(SuperContainer.TYPE.getThis().notInstanceOf(SubContainer.TYPE));
-			try
-			{
-				query.search();
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				// TODO
-				// should not happen, since SuperContainer.this is not ambiguous
-				// because feature "this" is not inherited.
-				assertEquals("feature SuperContainer#" + synthetic("class", "SuperContainer") + " is ambiguous, use Function#bind (deprecated)", e.getMessage());
-			}
-		}
+		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
+		final Join superJoin = query.join(SuperContainer.TYPE);
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		query.setCondition(SuperContainer.TYPE.getThis().bind(superJoin).notInstanceOf(SubContainer.TYPE));
+		assertContains(leftX, left1, query.search());
 	}
 
+	public void testWithSpecifyingJoinButWithoutCondition()
+	{
+		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
+		final Join superJoin = query.join(SuperContainer.TYPE);
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		assertContains(leftX, left1, left2, query.search());
+	}
+
+	public void testWithoutSpecifyingJoin()
+	{
+		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
+		final Join superJoin = query.join(SuperContainer.TYPE);
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		query.setCondition(SuperContainer.TYPE.getThis().notInstanceOf(SubContainer.TYPE));
+		try
+		{
+			query.search();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			// TODO
+			// should not happen, since SuperContainer.this is not ambiguous
+			// because feature "this" is not inherited.
+			assertEquals("feature SuperContainer#" + synthetic("class", "SuperContainer") + " is ambiguous, use Function#bind (deprecated)", e.getMessage());
+		}
+	}
 }
