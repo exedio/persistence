@@ -67,5 +67,11 @@ public class InstanceOfQueryTest extends AbstractRuntimeTest
 					"use Function#bind (deprecated): " + query,
 					e.getMessage());
 		}
+
+		// positive case
+		query.setCondition(
+				IoqSourceSuper.ref.instanceOf(IoqTargetSub.TYPE)
+		);
+		query.search();
 	}
 }
