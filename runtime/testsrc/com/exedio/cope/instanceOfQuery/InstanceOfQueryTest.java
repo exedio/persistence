@@ -73,5 +73,11 @@ public class InstanceOfQueryTest extends AbstractRuntimeTest
 				IoqSourceSuper.ref.instanceOf(IoqTargetSub.TYPE)
 		);
 		query.search();
+
+		// positive case bound
+		query.setCondition(
+				IoqSourceSuper.ref.bind(joinB).instanceOf(IoqTargetSub.TYPE)
+		);
+		query.search();
 	}
 }
