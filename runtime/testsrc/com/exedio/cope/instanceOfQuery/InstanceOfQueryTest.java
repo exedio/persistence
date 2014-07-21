@@ -19,7 +19,6 @@
 package com.exedio.cope.instanceOfQuery;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.Cope;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -28,7 +27,7 @@ public class InstanceOfQueryTest extends AbstractRuntimeTest
 {
 	private static final Model MODEL = new Model(
 			IoqSourceSuper.TYPE, IoqSourceSubA.TYPE, WIoqSourceSubB.TYPE,
-			IoqTargetSuper.TYPE, IoqTargetSubA.TYPE, DIoqTargetSubB.TYPE
+			IoqTargetSuper.TYPE, IoqTargetSub.TYPE
 	);
 
 	public InstanceOfQueryTest()
@@ -42,13 +41,12 @@ public class InstanceOfQueryTest extends AbstractRuntimeTest
 		final Join joinB = query.join(WIoqSourceSubB.TYPE);
 		joinB.setCondition(WIoqSourceSubB.brother.bind(joinB).equalTarget());
 
-		final Join targetB = query.join(DIoqTargetSubB.TYPE);
-		targetB.setCondition(IoqSourceSuper.ref.equal(DIoqTargetSubB.TYPE.getThis().bind(targetB)));
+		final Join targetB = query.join(IoqTargetSub.TYPE);
+		targetB.setCondition(IoqSourceSuper.ref.equal(IoqTargetSub.TYPE.getThis().bind(targetB)));
 
-		query.setCondition(Cope.and(
-				IoqSourceSuper.ref.bind(joinB).instanceOf(IoqTargetSubA.TYPE),
-				IoqSourceSuper.ref.bind(targetB).instanceOf(DIoqTargetSubB.TYPE)
-		));
+		query.setCondition(
+				IoqSourceSuper.ref.bind(targetB).instanceOf(IoqTargetSub.TYPE)
+		);
 
 		try
 		{
