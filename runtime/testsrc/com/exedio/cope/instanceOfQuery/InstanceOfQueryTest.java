@@ -48,6 +48,13 @@ public class InstanceOfQueryTest extends AbstractRuntimeTest
 				IoqSourceSuper.ref.bind(targetB).instanceOf(IoqTargetSub.TYPE)
 		);
 
+		assertEquals(
+				"select this from IoqSourceSubA " +
+				"join IoqSourceSubB i1 on i1.IoqSourceSubB.brother=this " +
+				"join IoqTargetSub i2 on IoqSourceSuper.ref=i2.IoqTargetSub.this " +
+				"where i2.IoqSourceSuper.ref instanceOf IoqTargetSub",
+				query.toString());
+
 		try
 		{
 			query.search();
