@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instanceOfQuery;
 
-
 class IoqSourceSubA extends IoqSourceSuper
 {
 	/**
