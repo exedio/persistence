@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.badquery.BadQueryTest;
+import com.exedio.cope.instanceOfQuery.InstanceOfQueryTest;
 import com.exedio.cope.serialize.ItemSerializationTest;
 import com.exedio.cope.serialize.ModelSerializationTest;
 import com.exedio.cope.serialize.SerializationSizeTest;
@@ -181,6 +182,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( MysqlStringTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
+		suite.addTestSuite( InstanceOfQueryTest.class );
 		suite.addTestSuite( DefaultInheritanceTest.class );
 		suite.addTestSuite( PolymorphicBoundSelectTest.class );
 		suite.addTestSuite( DeleteAfterUniqueViolationTest.class );
