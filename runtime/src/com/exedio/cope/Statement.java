@@ -506,8 +506,11 @@ final class Statement
 			return jt.alias;
 		else
 		{
+			// TODO replace by assertion, once BadQueryTest works
 			if(ambiguousTables!=null && ambiguousTables.contains(table))
-				throw new IllegalArgumentException("feature " + exceptionColumn + " is ambiguous, use Function#bind (deprecated)"); // TODO replace by assertion, once BadQueryTest works
+				throw new IllegalArgumentException(
+						"feature " + exceptionColumn + " is ambiguous, " +
+						"use Function#bind (deprecated): " + tc.queryToString());
 			return table.quotedID;
 		}
 	}

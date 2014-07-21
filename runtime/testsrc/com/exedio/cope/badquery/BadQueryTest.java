@@ -87,7 +87,7 @@ public class BadQueryTest extends AbstractRuntimeTest
 			// TODO
 			// should not happen, since SuperContainer.this is not ambiguous
 			// because feature "this" is not inherited.
-			assertEquals("feature SuperContainer#" + synthetic("class", "SuperContainer") + " is ambiguous, use Function#bind (deprecated)", e.getMessage());
+			assertEquals("feature SuperContainer#" + synthetic("class", "SuperContainer") + " is ambiguous, use Function#bind (deprecated): " + query, e.getMessage());
 		}
 	}
 }

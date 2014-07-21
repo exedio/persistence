@@ -166,4 +166,9 @@ final class TC
 			result.addAll(tableSets);
 		return result;
 	}
+
+	String queryToString()
+	{
+		return query.toString();
+	}
 }
