@@ -75,6 +75,8 @@ performance / memory consumption
 	- update only columns, that have changed
 	- update only tables (in type hierarchy) with changed columns
 	This will decrease the size of MySQL binary logs (and similar functions of other RDBMS) as well.
+- Batched Updates
+	Is a JDBC functionality for reducing round trips to the database.
 - ItemCache: store values in three arrays int[], double[], String[] instead of a Map,
 	saves lots of objects going through full GC.
 	* implement pooling for various classes, especcially when trove LinkedHashMap is done
