@@ -57,7 +57,11 @@ final class PartOfReverse
 			{
 				final Pattern pattern = field.getPattern();
 				if(pattern instanceof PartOf<?>)
-					resultModifiable.add((PartOf<?>)pattern);
+				{
+					final PartOf<?> partOf = (PartOf<?>)pattern;
+					if(partOf.getContainer()==field)
+						resultModifiable.add(partOf);
+				}
 			}
 
 			final List<PartOf<?>> result = ListUtil.trimUnmodifiable(resultModifiable);

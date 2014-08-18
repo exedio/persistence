@@ -54,9 +54,8 @@ public class PartOfReverseTest extends CopeAssert
 	}
 	public void testOrder()
 	{
-		// TODO should be empty
-		assertEquals(asList(Part.partsOrdered), getDeclaredPartOfs(Order.TYPE));
-		assertEquals(asList(Part.partsOrdered), getPartOfs(Order.TYPE));
+		assertEquals(asList(), getDeclaredPartOfs(Order.TYPE));
+		assertEquals(asList(), getPartOfs(Order.TYPE));
 	}
 
 
