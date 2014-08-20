@@ -33,7 +33,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BlockField<E extends Block> extends Pattern
+public final class BlockField<E extends Block> extends Pattern implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -78,6 +78,12 @@ public final class BlockField<E extends Block> extends Pattern
 	}
 
 	public static <E extends Block> BlockField<E> create(final BlockType<E> valueType)
+	{
+		return new BlockField<>(valueType);
+	}
+
+	@Override
+	public BlockField<E> copy(final CopyMapper mapper)
 	{
 		return new BlockField<>(valueType);
 	}
