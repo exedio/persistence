@@ -34,28 +34,28 @@ public class PartOfReverseTest extends CopeAssert
 {
 	public void testSuperContainer()
 	{
-		assertEquals(asList(), getDeclaredPartOfs(SuperContainer.TYPE));
-		assertEquals(asList(), getPartOfs(SuperContainer.TYPE));
+		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SuperContainer.TYPE));
+		assertEqualsUnmodifiable(asList(), getPartOfs(SuperContainer.TYPE));
 	}
 	public void testContainer()
 	{
-		assertEquals(asList(Part.parts, Part.partsOrdered), getDeclaredPartOfs(Container.TYPE));
-		assertEquals(asList(Part.parts, Part.partsOrdered), getPartOfs(Container.TYPE));
+		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getDeclaredPartOfs(Container.TYPE));
+		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(Container.TYPE));
 	}
 	public void testSubContainer()
 	{
-		assertEquals(asList(), getDeclaredPartOfs(SubContainer.TYPE));
-		assertEquals(asList(Part.parts, Part.partsOrdered), getPartOfs(SubContainer.TYPE));
+		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SubContainer.TYPE));
+		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(SubContainer.TYPE));
 	}
 	public void testPart()
 	{
-		assertEquals(asList(), getDeclaredPartOfs(Part.TYPE));
-		assertEquals(asList(), getPartOfs(Part.TYPE));
+		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Part.TYPE));
+		assertEqualsUnmodifiable(asList(), getPartOfs(Part.TYPE));
 	}
 	public void testOrder()
 	{
-		assertEquals(asList(), getDeclaredPartOfs(Order.TYPE));
-		assertEquals(asList(), getPartOfs(Order.TYPE));
+		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Order.TYPE));
+		assertEqualsUnmodifiable(asList(), getPartOfs(Order.TYPE));
 	}
 
 
