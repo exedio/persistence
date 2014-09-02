@@ -57,6 +57,7 @@ final class MysqlDialect extends Dialect
 	private final String charset;
 
 	private final String deleteTable;
+	private final boolean smallIntegerTypes;
 
 	MysqlDialect(final Probe probe)
 	{
@@ -68,6 +69,7 @@ final class MysqlDialect extends Dialect
 		final String mb4 = utf8mb4 ? "mb4" : "";
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
+		this.smallIntegerTypes = probe.properties.mysqlSmallIntegerTypes;
 
 		final EnvironmentInfo env = probe.environmentInfo;
 		if(!utf8mb4 && env.isDatabaseVersionAtLeast(5, 7))
@@ -143,11 +145,14 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		// TODO
-		// We may want to support TINYINT, SMALLINT, and MEDIUMINT
-		// for saving space, but I could not find any saving in experiments.
+		// smallIntegerTypes does not save any space in experiments.
 		// https://dev.mysql.com/doc/refman/5.5/en/storage-requirements.html
-
+		if(smallIntegerTypes)
+		{
+			if(minimum>=Byte .MIN_VALUE && maximum<=Byte .MAX_VALUE) return "tinyint";
+			if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE) return "smallint";
+			if(minimum>=-8388608l       && maximum<=8388607l       ) return "mediumint";
+		}
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "int" : "bigint";
 	}
 
