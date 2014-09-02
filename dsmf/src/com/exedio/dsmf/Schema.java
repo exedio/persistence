@@ -87,14 +87,14 @@ public final class Schema extends Node
 		sequenceList.add(sequence);
 	}
 
-	void notifyExistentSequence(final String sequenceName, final Sequence.Type type)
+	void notifyExistentSequence(final String sequenceName, final Sequence.Type type, final long start)
 	{
 		final Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new Sequence(this, sequenceName, type, 0, false); // TODO extract start from dictionary
+			new Sequence(this, sequenceName, type, start, false);
 		else
-			result.notifyExists(type);
+			result.notifyExists(type, start);
 	}
 
 	public Sequence getSequence(final String name)

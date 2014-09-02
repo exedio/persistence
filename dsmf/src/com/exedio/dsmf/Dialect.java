@@ -160,7 +160,8 @@ public abstract class Dialect
 			{
 				final String name = resultSet.getString(1);
 				final long maxValue = resultSet.getLong(2);
-				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
+				final long start = resultSet.getLong(3);
+				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue), start);
 			}
 		});
 	}

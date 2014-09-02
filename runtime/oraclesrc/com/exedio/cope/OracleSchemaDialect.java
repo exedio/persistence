@@ -169,7 +169,7 @@ final class OracleSchemaDialect extends Dialect
 				schema);
 
 		verifySequences(
-				"SELECT SEQUENCE_NAME, MAX_VALUE " +
+				"SELECT SEQUENCE_NAME, MAX_VALUE, MIN_VALUE " +
 				"FROM USER_SEQUENCES",
 				schema);
 	}

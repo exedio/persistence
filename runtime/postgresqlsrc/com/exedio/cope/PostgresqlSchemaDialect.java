@@ -195,7 +195,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				schema);
 
 		verifySequences(
-				"SELECT sequence_name, maximum_value " +
+				"SELECT sequence_name, maximum_value, start_value " +
 				"FROM information_schema.sequences " +
 				"WHERE sequence_catalog='" + catalog + '\'',
 				schema);

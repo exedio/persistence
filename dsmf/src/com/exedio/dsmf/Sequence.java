@@ -24,7 +24,7 @@ public final class Sequence extends Node
 {
 	final String name;
 	private final Field<Type> type;
-	final long start;
+	private final Field<Long> start;
 
 	/**
 	 * @deprecated Use {@link Schema#newSequence(String,Sequence.Type,long)} instead
@@ -45,7 +45,7 @@ public final class Sequence extends Node
 
 		this.name = name;
 		this.type = new Field<>(type, required);
-		this.start = start;
+		this.start = new Field<>(start, required);
 
 		//noinspection ThisEscapedInObjectConstruction
 		schema.register(this);
@@ -72,13 +72,19 @@ public final class Sequence extends Node
 
 	public long getStartL()
 	{
-		return start;
+		return start.get();
 	}
 
 	void notifyExists(final Type existingType)
 	{
 		notifyExistsNode();
 		type.notifyExists(existingType);
+	}
+
+	void notifyExists(final Type existingType, final long existingStart)
+	{
+		notifyExists(existingType);
+		start.notifyExists(existingStart);
 	}
 
 	@Override
@@ -93,6 +99,10 @@ public final class Sequence extends Node
 		if(type.mismatches())
 			return Result.error(
 					"different type in database: >"+type.getExisting()+"<");
+
+		if(start.mismatches())
+			return Result.error(
+					"different start in database: " + start.getExisting());
 
 		return Result.ok;
 	}
@@ -111,7 +121,7 @@ public final class Sequence extends Node
 
 	void create(final StringBuilder bf)
 	{
-		dialect.createSequence(bf, quoteName(name), type.get(), start);
+		dialect.createSequence(bf, quoteName(name), type.get(), start.get());
 	}
 
 	public void drop()

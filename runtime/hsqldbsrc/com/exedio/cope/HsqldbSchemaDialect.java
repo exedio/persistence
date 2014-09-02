@@ -158,7 +158,7 @@ final class HsqldbSchemaDialect extends Dialect
 				schema);
 
 		verifySequences(
-				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE " +
+				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE, START_WITH " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES " +
 				"WHERE SEQUENCE_SCHEMA='PUBLIC'",
 				schema);

@@ -58,16 +58,14 @@ public class SchemaMismatchSequenceStartTest extends SchemaMismatchTest
 				schema.getSequences());
 	}
 
-	@SuppressWarnings({"MethodMayBeStatic", "unused"})
 	private String supported(final String s)
 	{
-		return null;
+		return mysql ? null : s;
 	}
 
-	@SuppressWarnings({"MethodMayBeStatic", "unused"})
 	private Node.Color supported(final Node.Color c)
 	{
-		return OK;
+		return mysql ? OK : c;
 	}
 
 	@CopeName("ItemAB")
