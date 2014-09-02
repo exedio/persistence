@@ -232,7 +232,9 @@ final class PostgresqlDialect extends Dialect
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).
-			append(" RESTART;");
+			append(" RESTART WITH ").
+			append(start).
+			append(';');
 	}
 
 	@Override
