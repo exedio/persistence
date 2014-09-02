@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static org.junit.Assert.assertEquals;
 
@@ -72,7 +72,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	{
 		execute(
 			"delete from " + q(getTableName(type)) + " " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException

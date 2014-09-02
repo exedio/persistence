@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.Sequence;
+
 enum PrimaryKeyGenerator
 {
 	memory(false)
@@ -25,7 +27,8 @@ enum PrimaryKeyGenerator
 		@Override
 		SequenceImpl newSequenceImpl(
 				final IntegerColumn column,
-				final int start,
+				final Sequence.Type type,
+				final long start,
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
@@ -37,11 +40,12 @@ enum PrimaryKeyGenerator
 		@Override
 		SequenceImpl newSequenceImpl(
 				final IntegerColumn column,
-				final int start,
+				final Sequence.Type type,
+				final long start,
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return new SequenceImplSequence(column, start, connectionPool, database, "");
+			return new SequenceImplSequence(column, type, start, connectionPool, database, "");
 		}
 	},
 	batchedSequence(true)
@@ -49,13 +53,14 @@ enum PrimaryKeyGenerator
 		@Override
 		SequenceImpl newSequenceImpl(
 				final IntegerColumn column,
-				final int start,
+				final Sequence.Type type,
+				final long start,
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
 			return column.primaryKey
-				? new SequenceImplBatchedSequence(column, start, connectionPool, database)
-				: new SequenceImplSequence       (column, start, connectionPool, database, "")
+				? new SequenceImplBatchedSequence(column, type, start, connectionPool, database)
+				: new SequenceImplSequence       (column, type, start, connectionPool, database, "")
 			;
 		}
 	};
@@ -69,7 +74,8 @@ enum PrimaryKeyGenerator
 
 	abstract SequenceImpl newSequenceImpl(
 			IntegerColumn column,
-			int start,
+			Sequence.Type type,
+			long start,
 			ConnectionPool connectionPool,
 			Database database);
 }

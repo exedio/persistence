@@ -24,7 +24,8 @@ import java.sql.Connection;
 
 final class SequenceImplSequence implements SequenceImpl
 {
-	private final int start;
+	private final Sequence.Type type;
+	private final long start;
 	private final Executor executor;
 	private final ConnectionPool connectionPool;
 	private final String name;
@@ -32,11 +33,13 @@ final class SequenceImplSequence implements SequenceImpl
 
 	SequenceImplSequence(
 			final IntegerColumn column,
-			final int start,
+			final Sequence.Type type,
+			final long start,
 			final ConnectionPool connectionPool,
 			final Database database,
 			final String nameSuffix)
 	{
+		this.type = type;
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
@@ -46,12 +49,14 @@ final class SequenceImplSequence implements SequenceImpl
 
 	SequenceImplSequence(
 			final String name,
-			final int start,
+			final Sequence.Type type,
+			final long start,
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final com.exedio.dsmf.Dialect dsmfDialect)
 	{
+		this.type = type;
 		this.start = start;
 		this.executor = executor;
 		this.connectionPool = connectionPool;
@@ -61,15 +66,15 @@ final class SequenceImplSequence implements SequenceImpl
 
 	public void makeSchema(final Schema schema)
 	{
-		new Sequence(schema, name, start);
+		new Sequence(schema, name, type, start);
 	}
 
-	public int next()
+	public long next()
 	{
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.nextSequence(executor, connection, quotedName).intValue();
+			return executor.dialect.nextSequence(executor, connection, quotedName).longValue();
 		}
 		finally
 		{
@@ -77,12 +82,12 @@ final class SequenceImplSequence implements SequenceImpl
 		}
 	}
 
-	public int getNext()
+	public long getNext()
 	{
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.getNextSequence(executor, connection, name).intValue();
+			return executor.dialect.getNextSequence(executor, connection, name).longValue();
 		}
 		finally
 		{
@@ -92,7 +97,7 @@ final class SequenceImplSequence implements SequenceImpl
 
 	public void delete(final StringBuilder bf, final Dialect dialect)
 	{
-		dialect.deleteSequence(bf, quotedName, start);
+		dialect.deleteSequence(bf, quotedName, type, start);
 	}
 
 	public void flush()

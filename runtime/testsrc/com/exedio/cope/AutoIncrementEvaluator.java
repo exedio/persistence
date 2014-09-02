@@ -68,9 +68,9 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 			final long start = System.nanoTime();
 			long executeUpdateAccu = 0;
 			long getGeneratedKeysAccu = 0;
-			for(int i=0; i<ITERATIONS; i++)
+			for(long i=0; i<ITERATIONS; i++)
 			{
-				final int pk;
+				final long pk;
 				try(PreparedStatement stmt =
 						con.prepareStatement(
 								"INSERT INTO testAutoIncrement (payLoad) VALUES (?)",
@@ -86,7 +86,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 						getGeneratedKeysAccu += (System.nanoTime() - getGeneratedKeysStart);
 						if(!resultSet.next())
 							throw new RuntimeException("empty in sequence ");
-						pk = resultSet.getInt(1);
+						pk = resultSet.getLong(1);
 					}
 				}
 				assertEquals(i+1, pk);

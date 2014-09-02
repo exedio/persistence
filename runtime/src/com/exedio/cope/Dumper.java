@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class Dumper
 {
-	private final HashMap<Type<?>, AtomicInteger> pks = new HashMap<>();
+	private final HashMap<Type<?>, AtomicLong> pks = new HashMap<>();
 
 	@SuppressWarnings("static-method")
 	public void prepare(
@@ -64,7 +64,7 @@ public final class Dumper
 			if(field instanceof FunctionField<?>)
 				set(row, (FunctionField<?>)field, e.getValue());
 		}
-		final int pk = nextPk(type);
+		final long pk = nextPk(type);
 		final E result = type.activate(pk);
 		final HashMap<BlobColumn, byte[]> blobs = Item.toBlobs(fieldValues, null);
 		final Connect connect = type.getModel().connect();
@@ -72,16 +72,16 @@ public final class Dumper
 		return result;
 	}
 
-	private int nextPk(final Type<?> type)
+	private long nextPk(final Type<?> type)
 	{
 		Type<?> pkType = type;
 		while(pkType.getSupertype()!=null)
 			pkType = pkType.getSupertype();
 
-		AtomicInteger pkSource = pks.get(pkType);
+		AtomicLong pkSource = pks.get(pkType);
 		if(pkSource==null)
 		{
-			pkSource = new AtomicInteger();
+			pkSource = new AtomicLong();
 			pks.put(pkType, pkSource);
 		}
 		return pkSource.getAndIncrement();
@@ -98,7 +98,7 @@ public final class Dumper
 			final Marshallers marshallers,
 			final Map<BlobColumn, byte[]> blobs,
 			final Type<?> type,
-			final int pk,
+			final long pk,
 			final Row row,
 			final Type<?> tableType,
 			final Appendable out)

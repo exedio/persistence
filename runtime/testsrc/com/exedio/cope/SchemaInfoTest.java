@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
@@ -81,7 +81,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		}
 		try
 		{
-			getPrimaryKeyColumnValue(null);
+			getPrimaryKeyColumnValueL(null);
 			fail();
 		}
 		catch(final NullPointerException e)

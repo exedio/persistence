@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.ListUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
+import gnu.trove.TLongHashSet;
+import gnu.trove.TLongIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -392,11 +392,10 @@ final class Types
 
 		if(pkLong<0)
 			throw new NoSuchIDException(id, true, "must be positive");
-		if(pkLong>=2147483648l)
-			throw new NoSuchIDException(id, true, "does not fit in 31 bit");
-		final int pk = (int)pkLong;
+		if(pkLong>type.createLimit)
+			throw new NoSuchIDException(id, true, "must be less or equal " + type.createLimit);
 
-		final Item result = type.getItemObject(pk);
+		final Item result = type.getItemObject(pkLong);
 		if(!result.existsCopeItem())
 			throw new NoSuchIDException(id, false, "item <" + pkLong + "> does not exist");
 		return result;
@@ -442,12 +441,12 @@ final class Types
 			type.disconnect();
 	}
 
-	Item[] activate(final TIntHashSet[] invalidations)
+	Item[] activate(final TLongHashSet[] invalidations)
 	{
 		int length = 0;
 		for(int type = 0; type<invalidations.length; type++)
 		{
-			final TIntHashSet set = invalidations[type];
+			final TLongHashSet set = invalidations[type];
 			if(set!=null)
 				length += set.size();
 		}
@@ -456,11 +455,11 @@ final class Types
 		int item = 0;
 		for(int type = 0; type<invalidations.length; type++)
 		{
-			final TIntHashSet set = invalidations[type];
+			final TLongHashSet set = invalidations[type];
 			if(set!=null)
 			{
 				final Type<?> typeO = getConcreteType(type);
-				for(final TIntIterator i = set.iterator(); i.hasNext(); )
+				for(final TLongIterator i = set.iterator(); i.hasNext(); )
 					result[item++] = typeO.activate(i.next());
 			}
 		}
@@ -468,7 +467,7 @@ final class Types
 		return result;
 	}
 
-	void unsetKnownToBeEmptyForTest(final TIntHashSet[] invalidations)
+	void unsetKnownToBeEmptyForTest(final TLongHashSet[] invalidations)
 	{
 		for(int typeIndex = 0; typeIndex<invalidations.length; typeIndex++)
 		{

@@ -24,6 +24,7 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.sql.Connection;
@@ -425,7 +426,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("TRUNCATE ").
 			append(quotedName);
@@ -436,7 +437,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	Integer nextSequence(
+	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -459,13 +460,11 @@ final class MysqlDialect extends Dialect
 			}
 		}).longValue() - 1;
 
-		if(result>Integer.MAX_VALUE || result<Integer.MIN_VALUE)
-			throw new RuntimeException(quotedName + '/' + result);
-		return (int)result;
+		return result;
 	}
 
 	@Override
-	Integer getNextSequence(
+	Long getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -476,15 +475,15 @@ final class MysqlDialect extends Dialect
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
 
-				// converts null into integer 0
-				return resultSet.getInt(1);
+				// converts null into long 0
+				return resultSet.getLong(1);
 			}
 		});
 	}
@@ -642,25 +641,25 @@ final class MysqlDialect extends Dialect
 					ctx.setMessage("sequence " + name + " query");
 				ctx.stopIfRequested();
 
-				final Integer maxObject = Executor.query(
+				final Number maxObject = Executor.query(
 						connection,
 						"SELECT MAX(" + column + ") FROM " + table,
-				new ResultSetHandler<Integer>()
+				new ResultSetHandler<Number>()
 				{
-					public Integer handle(final ResultSet resultSet) throws SQLException
+					public Number handle(final ResultSet resultSet) throws SQLException
 					{
 						if(!resultSet.next())
 							throw new RuntimeException("empty in sequence " + name);
 						final Object o = resultSet.getObject(1);
 						if(o==null)
 							return null;
-						return (Integer)o;
+						return (Number)o;
 					}
 				});
 				if(maxObject==null)
 					continue;
 
-				final int max = maxObject.intValue();
+				final long max = maxObject.longValue();
 
 				if(ctx.supportsMessage())
 					ctx.setMessage("sequence " + name + " purge less " + max);

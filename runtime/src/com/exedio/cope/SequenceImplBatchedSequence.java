@@ -19,26 +19,30 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 
 final class SequenceImplBatchedSequence implements SequenceImpl
 {
-	private static final int BATCH_NOT_INITIALIZED = Integer.MIN_VALUE;
+	private static final long BATCH_NOT_INITIALIZED = Long.MIN_VALUE;
 	private static final int BATCH_POWER = 6;
-	private static final int BATCH_SIZE = 1 << BATCH_POWER;
+	static final int BATCH_SIZE = 1 << BATCH_POWER;
 
+	private final Sequence.Type type;
 	private final SequenceImplSequence sequence;
 
 	private final Object lock = new Object();
-	private int batchStart = BATCH_NOT_INITIALIZED;
+	private long batchStart = BATCH_NOT_INITIALIZED;
 	private int indexInBatch = 0;
 
 	SequenceImplBatchedSequence(
 			final IntegerColumn column,
-			final int start,
+			final Sequence.Type type,
+			final long start,
 			final ConnectionPool connectionPool,
 			final Database database)
 	{
-		this.sequence = new SequenceImplSequence( column, start, connectionPool, database, String.valueOf(BATCH_POWER) );
+		this.type = type;
+		this.sequence = new SequenceImplSequence( column, type, start, connectionPool, database, String.valueOf(BATCH_POWER) );
 	}
 
 	@Override
@@ -48,7 +52,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	}
 
 	@Override
-	public int next()
+	public long next()
 	{
 		synchronized ( lock )
 		{
@@ -60,7 +64,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			{
 				// get from database:
 				batchStart = sequence.next();
-				if ( batchStart>(Integer.MAX_VALUE/BATCH_SIZE)-1 )
+				if ( batchStart>(type.MAX_VALUE/BATCH_SIZE)-1 )
 				{
 					throw new RuntimeException( "overflow: " + batchStart );
 				}
@@ -80,7 +84,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	}
 
 	@Override
-	public int getNext()
+	public long getNext()
 	{
 		synchronized ( lock )
 		{

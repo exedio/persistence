@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
 final class ClusterListenerMock extends ClusterListener
@@ -34,7 +34,7 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
-	final void invalidate(final int remoteNode, final TIntHashSet[] invalidations)
+	final void invalidate(final int remoteNode, final TLongHashSet[] invalidations)
 	{
 		testSink.add(invalidations);
 	}

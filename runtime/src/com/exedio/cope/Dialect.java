@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
+import com.exedio.dsmf.Sequence;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -322,9 +323,9 @@ abstract class Dialect
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
 	abstract void deleteSequence(
 			StringBuilder bf, String quotedName,
-			int start);
-	abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
-	abstract Integer getNextSequence(Executor executor, Connection connection, String name);
+			Sequence.Type type, long start);
+	abstract Long    nextSequence(Executor executor, Connection connection, String quotedName);
+	abstract Long getNextSequence(Executor executor, Connection connection, String name);
 
 	/**
 	 * @param ctx needed by subclasses

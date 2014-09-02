@@ -24,7 +24,7 @@ abstract class State
 {
 	final Item item;
 	final Type<?> type;
-	final int pk;
+	final long pk;
 	final int updateCount;
 
 	protected State(final Item item, final int updateCount)

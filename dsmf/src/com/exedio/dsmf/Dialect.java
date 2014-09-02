@@ -196,7 +196,7 @@ public abstract class Dialect
 
 	abstract void createSequence(
 			StringBuilder bf, String sequenceName,
-			int start);
+			Sequence.Type type, long start);
 
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{

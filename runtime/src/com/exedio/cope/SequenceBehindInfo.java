@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntCapped;
+
 /**
  * Maintains information about sequences running behind their actual data.
  * This may result in {@link UniqueViolationException unique violation}s in the future.
@@ -25,13 +27,13 @@ package com.exedio.cope;
 public final class SequenceBehindInfo
 {
 	final Feature feature;
-	final Integer featureMaximum;
-	final int sequenceNext;
+	final Long featureMaximum;
+	final long sequenceNext;
 
 	SequenceBehindInfo(
 			final Feature feature,
-			final Integer featureMaximum,
-			final int sequenceNext)
+			final Long featureMaximum,
+			final long sequenceNext)
 	{
 		this.feature = feature;
 		this.featureMaximum = featureMaximum;
@@ -43,12 +45,21 @@ public final class SequenceBehindInfo
 		return o!=null ? o.isBehindBy() : 0;
 	}
 
+	/**
+	 * @deprecated Use {@link #isBehindByL()} instead
+	 */
+	@Deprecated
 	public int isBehindBy()
+	{
+		return toIntCapped(isBehindByL());
+	}
+
+	public long isBehindByL()
 	{
 		if(featureMaximum==null)
 			return 0;
 
-		final int featureMaximumPrimitive = featureMaximum.intValue();
+		final long featureMaximumPrimitive = featureMaximum.longValue();
 		if(featureMaximumPrimitive<sequenceNext)
 			return 0;
 

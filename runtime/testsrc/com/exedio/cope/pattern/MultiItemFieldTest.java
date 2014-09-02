@@ -76,7 +76,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
 		final MultiItemFieldValuex i1 = expected.getField();
 		final MultiItemFieldValuex i2 = expected.getOptionalField();
-		final MultiItemFieldValuex i1S = reserialize(i1, 114);
+		final MultiItemFieldValuex i1S = reserialize(i1, 118);
 		assertEquals(i1S, i1);
 		assertEquals(i1S.hashCode(), i1.hashCode());
 		assertNotSame(i1S, i1);

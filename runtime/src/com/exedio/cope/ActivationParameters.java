@@ -26,9 +26,9 @@ package com.exedio.cope;
 public final class ActivationParameters
 {
 	final Type<?> type;
-	final int pk;
+	final long pk;
 
-	ActivationParameters(final Type<?> type, final int pk)
+	ActivationParameters(final Type<?> type, final long pk)
 	{
 		this.type = type;
 		this.pk = pk;

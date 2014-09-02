@@ -21,14 +21,15 @@ package com.exedio.dsmf;
 public final class Sequence extends Node
 {
 	final String name;
-	final int start;
+	private final Field<Type> type;
+	final long start;
 
-	public Sequence(final Schema schema, final String name, final int start)
+	public Sequence(final Schema schema, final String name, final Type type, final long start)
 	{
-		this(schema, name, start, true);
+		this(schema, name, type, start, true);
 	}
 
-	Sequence(final Schema schema, final String name, final int start, final boolean required)
+	Sequence(final Schema schema, final String name, final Type type, final long start, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider, required);
 
@@ -36,6 +37,7 @@ public final class Sequence extends Node
 			throw new RuntimeException();
 
 		this.name = name;
+		this.type = new Field<>(type, required);
 		this.start = start;
 
 		schema.register(this);
@@ -46,14 +48,24 @@ public final class Sequence extends Node
 		return name;
 	}
 
+	/**
+	 * @deprecated Use {@link #getStartL()} instead
+	 */
+	@Deprecated
 	public int getStart()
+	{
+		return toIntExact(getStartL());
+	}
+
+	public long getStartL()
 	{
 		return start;
 	}
 
-	void notifyExists()
+	void notifyExists(final Type existingType)
 	{
 		notifyExistsNode();
+		type.notifyExists(existingType);
 	}
 
 	@Override
@@ -64,6 +76,10 @@ public final class Sequence extends Node
 
 		if(!required())
 			return Result.notUsedWarning;
+
+		if(type.mismatches())
+			return Result.error(
+					"different type in database: >"+type.getExisting()+"<");
 
 		return Result.ok;
 	}
@@ -82,7 +98,7 @@ public final class Sequence extends Node
 
 	void create(final StringBuilder bf)
 	{
-		dialect.createSequence(bf, quoteName(name), start);
+		dialect.createSequence(bf, quoteName(name), type.get(), start);
 	}
 
 	public void drop()
@@ -108,6 +124,37 @@ public final class Sequence extends Node
 		return name;
 	}
 
+	public static enum Type
+	{
+		bit31(Integer.MAX_VALUE),
+		bit63(Long   .MAX_VALUE);
+
+		public final long MAX_VALUE;
+
+		Type(final long MAX_VALUE)
+		{
+			this.MAX_VALUE = MAX_VALUE;
+		}
+
+		static Type fromMaxValueExact(final long maxValue)
+		{
+			if(maxValue==Integer.MAX_VALUE)
+				return bit31;
+			else if(maxValue==Long.MAX_VALUE)
+				return bit63;
+			else
+				throw new IllegalArgumentException("" + maxValue);
+		}
+
+		public static Type fromMaxValueLenient(final long maxValue)
+		{
+			if(maxValue<0)
+				throw new IllegalArgumentException("" + maxValue);
+
+			return (maxValue<=Integer.MAX_VALUE) ? bit31 : bit63;
+		}
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
@@ -117,5 +164,18 @@ public final class Sequence extends Node
 	public int getStartWith()
 	{
 		return getStart();
+	}
+
+	/**
+	 * Can be replaced by static Math.toIntExact available in JDK 1.8
+	 */
+	@Deprecated
+	static int toIntExact(final long longValue)
+	{
+		if (longValue < Integer.MIN_VALUE || longValue > Integer.MAX_VALUE)
+		{
+			throw new ArithmeticException("value '"+longValue+"' out of integer range");
+		}
+		return (int)longValue;
 	}
 }

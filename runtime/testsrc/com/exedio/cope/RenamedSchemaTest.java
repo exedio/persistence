@@ -87,17 +87,17 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		{
 			final Sequence sequence = sequences.next();
 			assertEquals(primaryKeySequenceName("ZackItem_this_Seq"), sequence.getName());
-			assertEquals(0, sequence.getStart());
+			assertEquals(0, sequence.getStartL());
 		}
 		{
 			final Sequence sequence = sequences.next();
 			assertEquals(filterTableName("ZackItem_zackInteger_Seq"), sequence.getName());
-			assertEquals(1234, sequence.getStart());
+			assertEquals(1234, sequence.getStartL());
 		}
 		{
 			final Sequence sequence = sequences.next();
 			assertEquals(props.filterTableName("ZackItem_zackSequence"), sequence.getName());
-			assertEquals(555, sequence.getStart());
+			assertEquals(555, sequence.getStartL());
 		}
 		if(cluster)
 		{
@@ -110,7 +110,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 			{
 				assertEquals(primaryKeySequenceName("RenamScheTargItem_thi_Seq"), sequence.getName());
 			}
-			assertEquals(0, sequence.getStart());
+			assertEquals(0, sequence.getStartL());
 		}
 		assertFalse(sequences.hasNext());
 	}

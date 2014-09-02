@@ -23,7 +23,7 @@ import com.exedio.dsmf.Schema;
 interface SequenceImpl
 {
 	void makeSchema(Schema schema);
-	int next();
+	long next();
 
 	/**
 	 * Returns the same value as {@link #next()},
@@ -31,7 +31,7 @@ interface SequenceImpl
 	 * Thus multiple calls to {@link #getNext()} do
 	 * return the same value again and again.
 	 */
-	int getNext();
+	long getNext();
 	void delete(StringBuilder bf, Dialect dialect);
 	void flush();
 	String getSchemaName();

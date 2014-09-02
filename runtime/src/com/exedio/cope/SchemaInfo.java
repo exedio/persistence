@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntExact;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -109,8 +110,18 @@ public final class SchemaInfo
 
 	/**
 	 * Returns the value of primary key column in the database for the item.
+	 * @deprecated Use {@link #getPrimaryKeyColumnValueL(Item)} instead.
 	 */
+	@Deprecated
 	public static int getPrimaryKeyColumnValue(final Item item)
+	{
+		return toIntExact(getPrimaryKeyColumnValueL(item));
+	}
+
+	/**
+	 * Returns the value of primary key column in the database for the item.
+	 */
+	public static long getPrimaryKeyColumnValueL(final Item item)
 	{
 		return item.pk;
 	}

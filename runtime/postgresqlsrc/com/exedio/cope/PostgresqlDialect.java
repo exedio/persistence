@@ -29,6 +29,7 @@ import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
+import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
@@ -230,7 +231,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).
@@ -240,7 +241,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	Integer nextSequence(
+	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -250,22 +251,22 @@ final class PostgresqlDialect extends Dialect
 			append(quotedName).
 			append("')");
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + quotedName);
-				return ((Long)o).intValue();
+				return (Long)o;
 			}
 		});
 	}
 
 	@Override
-	Integer getNextSequence(
+	Long getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -280,16 +281,16 @@ final class PostgresqlDialect extends Dialect
 		bf.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return ((Long)o).intValue() + 1;
+				return ((Long)o).longValue() + 1;
 			}
 		});
 	}

@@ -66,7 +66,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 		assertSame(TYPE, item.getCopeType());
 		assertEquals("eins", item.getName());
 
-		final ItemSerializationItem readItem = reserialize(item, 112);
+		final ItemSerializationItem readItem = reserialize(item, 116);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(TYPE, readItem.getCopeType());
 		assertEquals("eins", readItem.getName());
@@ -89,7 +89,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 		final String id = unboundItem.getCopeID();
 		assertEquals(list.getRelationType(), unboundItem.getCopeType());
 
-		final Item readItem = reserialize(unboundItem, 390);
+		final Item readItem = reserialize(unboundItem, 394);
 		assertEquals(id, readItem.getCopeID());
 		assertSame(list.getRelationType(), readItem.getCopeType());
 		assertEquals("zack", list.getElement().get(readItem));

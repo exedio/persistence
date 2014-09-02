@@ -20,16 +20,15 @@ package com.exedio.cope;
 
 final class PK
 {
-	static final int MIN_VALUE = 0;
-	static final int MAX_VALUE = Integer.MAX_VALUE; // for any value than Integer.MAX_VALUE method isValid(int) needs another comparison
-	static final int NaPK = Integer.MIN_VALUE;
+	static final long MIN_VALUE = 0;
+	static final long NaPK = Long.MIN_VALUE;
 
 	private PK()
 	{
 		// prevent instantiation
 	}
 
-	static boolean isValid(final int pk)
+	static boolean isValid(final long pk)
 	{
 		return pk>=MIN_VALUE;
 	}

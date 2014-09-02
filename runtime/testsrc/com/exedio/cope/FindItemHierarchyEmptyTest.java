@@ -56,9 +56,9 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 		assertIDFails("HierarchyEmptySuper-" + Long.MIN_VALUE, "type <HierarchyEmptySuper-> does not exist", true);
 		assertIDFails("HierarchyEmptySuper-" + 2147483646l, "item <2147483646> does not exist", false); // 2^31 - 2
 		assertIDFails("HierarchyEmptySuper-" + 2147483647l, "item <2147483647> does not exist", false); // 2^31 - 1
-		assertIDFails("HierarchyEmptySuper-" + 2147483648l, "does not fit in 31 bit", true); // 2^31
-		assertIDFails("HierarchyEmptySuper-" + 2147483649l, "does not fit in 31 bit", true); // 2^31 + 1
-		assertIDFails("HierarchyEmptySuper-" + Long.MAX_VALUE, "does not fit in 31 bit", true);
+		assertIDFails("HierarchyEmptySuper-" + 2147483648l, "must be less or equal 2147483647", true); // 2^31
+		assertIDFails("HierarchyEmptySuper-" + 2147483649l, "must be less or equal 2147483647", true); // 2^31 + 1
+		assertIDFails("HierarchyEmptySuper-" + Long.MAX_VALUE, "must be less or equal 2147483647", true);
 		assertIDFails("HierarchyEmptySub-00"   , "has leading zeros", true);
 		assertIDFails("HierarchyEmptySub-000"  , "has leading zeros", true);
 		assertIDFails("HierarchyEmptySuper-01" , "has leading zeros", true);

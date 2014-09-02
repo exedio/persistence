@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.util.List;
 
@@ -100,17 +101,17 @@ class ConnectPropertiesTestClassNoConstructorDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		throw new RuntimeException();
 	}
 	@Override
-	Integer nextSequence(final Executor executor, final Connection connection, final String quotedName)
+	Long nextSequence(final Executor executor, final Connection connection, final String quotedName)
 	{
 		throw new RuntimeException();
 	}
 	@Override
-	Integer getNextSequence(final Executor executor, final Connection connection, final String name)
+	Long getNextSequence(final Executor executor, final Connection connection, final String name)
 	{
 		throw new RuntimeException();
 	}

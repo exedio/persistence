@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -126,9 +126,9 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 				"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
 				actual.toString());
 		assertSame  ("feature", TYPE.getThis(), actual.feature);
-		assertEquals("featureMaximum", featureMaximum, actual.featureMaximum);
+		assertEquals("featureMaximum", featureMaximum!=null ? featureMaximum.longValue() : null, actual.featureMaximum);
 		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
-		assertEquals("behindBy", behindBy, actual.isBehindBy());
+		assertEquals("behindBy", behindBy, actual.isBehindByL());
 
 		@SuppressWarnings("deprecation")
 		final int behindByDeprecated = TYPE.checkPrimaryKey();
@@ -141,7 +141,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
 		{
-			assertEquals("pk", pk, getPrimaryKeyColumnValue(
+			assertEquals("pk", pk, getPrimaryKeyColumnValueL(
 				tx.commit(
 					new AnItem(field)))
 			);

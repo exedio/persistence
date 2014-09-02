@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
-import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -122,7 +122,7 @@ final class Connect
 	}
 
 	void invalidate(
-			final TIntHashSet[] invalidations,
+			final TLongHashSet[] invalidations,
 			final boolean propagateToCluster,
 			final TransactionInfo transactionInfo)
 	{

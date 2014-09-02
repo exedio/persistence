@@ -18,26 +18,28 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntExact;
+
 public final class SequenceInfo
 {
 	private final Feature feature;
-	private final int start;
-	private final int minimum;
-	private final int maximum;
+	private final long start;
+	private final long minimum;
+	private final long maximum;
 
 	private final boolean known;
-	private final int count;
-	private final int first;
-	private final int last;
+	private final long count;
+	private final long first;
+	private final long last;
 
 	SequenceInfo(
 			final Feature feature,
-			final int start,
-			final int minimum,
-			final int maximum,
-			final int count,
-			final int first,
-			final int last)
+			final long start,
+			final long minimum,
+			final long maximum,
+			final long count,
+			final long first,
+			final long last)
 	{
 		assert feature!=null;
 
@@ -54,9 +56,9 @@ public final class SequenceInfo
 
 	SequenceInfo(
 			final Feature feature,
-			final int start,
-			final int minimum,
-			final int maximum)
+			final long start,
+			final long minimum,
+			final long maximum)
 	{
 		assert feature!=null;
 
@@ -76,22 +78,58 @@ public final class SequenceInfo
 		return feature;
 	}
 
+	/**
+	 * @deprecated Use {@link #getStartL()} instead.
+	 */
+	@Deprecated
 	public int getStart()
+	{
+		return toIntExact(getStartL());
+	}
+
+	public long getStartL()
 	{
 		return start;
 	}
 
+	/**
+	 * @deprecated Use {@link #getMinimumL()} instead.
+	 */
+	@Deprecated
 	public int getMinimum()
+	{
+		return toIntExact(getMinimumL());
+	}
+
+	public long getMinimumL()
 	{
 		return minimum;
 	}
 
+	/**
+	 * @deprecated Use {@link #getMaximumL()} instead.
+	 */
+	@Deprecated
 	public int getMaximum()
+	{
+		return toIntExact(getMaximumL());
+	}
+
+	public long getMaximumL()
 	{
 		return maximum;
 	}
 
+	/**
+	 * @deprecated Use {@link #getCountL()} instead.
+	 */
+	@Deprecated
 	public int getCount()
+	{
+		return toIntExact(getCountL());
+	}
+
+	public long getCountL()
 	{
 		return count;
 	}
@@ -103,8 +141,18 @@ public final class SequenceInfo
 
 	/**
 	 * Returns the first primary key number generated for the type since the startup of the application.
+	 * @deprecated Use {@link #getFirstL()} instead.
 	 */
+	@Deprecated
 	public int getFirst()
+	{
+		return toIntExact(getFirstL());
+	}
+
+	/**
+	 * Returns the first primary key number generated for the type since the startup of the application.
+	 */
+	public long getFirstL()
 	{
 		if(!known)
 			throw new IllegalStateException("not known");
@@ -114,8 +162,18 @@ public final class SequenceInfo
 
 	/**
 	 * Returns the last primary key number generated for the type.
+	 * @deprecated Use {@link #getLastL()} instead.
 	 */
+	@Deprecated
 	public int getLast()
+	{
+		return toIntExact(getLastL());
+	}
+
+	/**
+	 * Returns the last primary key number generated for the type.
+	 */
+	public long getLastL()
 	{
 		if(!known)
 			throw new IllegalStateException("not known");

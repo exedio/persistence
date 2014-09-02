@@ -49,13 +49,13 @@ public final class SequenceInfoAssert
 	static void assertInfoAny(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
-		assertEquals("start", start, info.getStart());
-		assertEquals("minimum", minimum, info.getMinimum());
-		assertEquals("maximum", maximum, info.getMaximum());
-		assertEquals("count", count, info.getCount());
+		assertEquals("start", start, info.getStartL());
+		assertEquals("minimum", minimum, info.getMinimumL());
+		assertEquals("maximum", maximum, info.getMaximumL());
+		assertEquals("count", count, info.getCountL());
 		assertTrue("known", info.isKnown());
-		assertEquals("first", first, info.getFirst());
-		assertEquals("last", last, info.getLast());
+		assertEquals("first", first, info.getFirstL());
+		assertEquals("last", last, info.getLastL());
 	}
 
 	public static void assertInfo(final Type<?> type, final SequenceInfo info)
@@ -76,14 +76,14 @@ public final class SequenceInfoAssert
 	static void assertInfoAny(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
-		assertEquals("start", start, info.getStart());
-		assertEquals("minimum", minimum, info.getMinimum());
-		assertEquals("maximum", maximum, info.getMaximum());
-		assertEquals("count", 0, info.getCount());
+		assertEquals("start", start, info.getStartL());
+		assertEquals("minimum", minimum, info.getMinimumL());
+		assertEquals("maximum", maximum, info.getMaximumL());
+		assertEquals("count", 0, info.getCountL());
 		assertFalse("known", info.isKnown());
 		try
 		{
-			info.getFirst();
+			info.getFirstL();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -92,7 +92,7 @@ public final class SequenceInfoAssert
 		}
 		try
 		{
-			info.getLast();
+			info.getLastL();
 			fail();
 		}
 		catch(final IllegalStateException e)

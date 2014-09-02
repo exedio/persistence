@@ -93,6 +93,12 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
 	}
 
+	protected static final String type(final This<?> element)
+	{
+		return
+				element.getType().getModel().connect().dialect.getIntegerType(PK.MIN_VALUE, element.getType().createLimit);
+	}
+
 	protected static final String type(final StringField element)
 	{
 		return

@@ -19,12 +19,14 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 
 final class SequenceX
 {
 	private final Feature feature;
-	private final int start;
+	private final Sequence.Type type;
+	private final long start;
 	private final SequenceCounter counter;
 
 	private SequenceImpl impl;
@@ -32,10 +34,11 @@ final class SequenceX
 
 	SequenceX(
 			final Feature feature,
-			final int start,
-			final int minimum, final int maximum)
+			final Sequence.Type type, final long start,
+			final long minimum, final long maximum)
 	{
 		this.feature = feature;
+		this.type = type;
 		this.start = start;
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
 	}
@@ -46,7 +49,7 @@ final class SequenceX
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
-		impl = database.newSequenceImpl(start, column);
+		impl = database.newSequenceImpl(type, start, column);
 	}
 
 	void connectSequence(final Database database, final String name)
@@ -55,7 +58,7 @@ final class SequenceX
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
-		impl = database.newSequenceImplCluster(start, name);
+		impl = database.newSequenceImplCluster(type, start, name);
 	}
 
 	void disconnect()
@@ -80,11 +83,11 @@ final class SequenceX
 		impl().makeSchema(schema);
 	}
 
-	int next()
+	long next()
 	{
 		knownToBeEmptyForTest = false;
 
-		final int result = impl().next();
+		final long result = impl().next();
 		counter.next(result);
 		return result;
 	}
@@ -109,7 +112,7 @@ final class SequenceX
 	{
 		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
-		final Integer featureMaximum;
+		final Long featureMaximum;
 		final Connection connection = connectionPool.get(true);
 		try
 		{

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 
 abstract class ClusterListenerModel extends ClusterListener
 {
@@ -36,7 +36,7 @@ abstract class ClusterListenerModel extends ClusterListener
 	}
 
 	@Override
-	final void invalidate(final int remoteNode, final TIntHashSet[] invalidations)
+	final void invalidate(final int remoteNode, final TLongHashSet[] invalidations)
 	{
 		connect.invalidate(invalidations, false, new TransactionInfoRemote(remoteNode));
 	}

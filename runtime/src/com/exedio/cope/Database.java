@@ -22,6 +22,7 @@ import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,16 +75,16 @@ final class Database
 		//System.out.println("using database "+getClass());
 	}
 
-	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)
+	SequenceImpl newSequenceImpl(final Sequence.Type type, final long start, final IntegerColumn column)
 	{
 		return
-			properties.primaryKeyGenerator.newSequenceImpl(column, start, connectionPool, this);
+			properties.primaryKeyGenerator.newSequenceImpl(column, type, start, connectionPool, this);
 	}
 
-	SequenceImpl newSequenceImplCluster(final int start, final String name)
+	SequenceImpl newSequenceImplCluster(final Sequence.Type type, final long start, final String name)
 	{
 		return
-			new SequenceImplSequence(name, start, properties, connectionPool, executor, dsmfDialect);
+			new SequenceImplSequence(name, type, start, properties, connectionPool, executor, dsmfDialect);
 	}
 
 	void addTable(final Table table)

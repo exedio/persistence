@@ -75,16 +75,16 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, ItemSerializationItem.name2);
 		assertAccu(  5, ItemSerializationItem.name2);
 
-		assertAccu(108, itemA);
+		assertAccu(112, itemA);
 		assertAccu(  5, itemA);
 		assertAccu(  5, itemA);
-		assertAccu( 10, itemB);
+		assertAccu( 14, itemB);
 		assertAccu(  5, itemB);
 		assertAccu(  5, itemB);
-		assertAccu( 73, item2A);
+		assertAccu( 77, item2A);
 		assertAccu(  5, item2A);
 		assertAccu(  5, item2A);
-		assertAccu( 10, item2B);
+		assertAccu( 14, item2B);
 		assertAccu(  5, item2B);
 		assertAccu(  5, item2B);
 	}
@@ -121,11 +121,11 @@ public class SerializationSizeTest extends TestWithEnvironment
 
 	@Test public void testItems()
 	{
-		assertAccu(108, new ItemSerializationItem("name"));
-		assertAccu( 10, new ItemSerializationItem("name"));
-		assertAccu( 10, new ItemSerializationItem("name"));
-		assertAccu( 73, new ItemSerializationItem2());
-		assertAccu( 10, new ItemSerializationItem2());
+		assertAccu(112, new ItemSerializationItem("name"));
+		assertAccu( 14, new ItemSerializationItem("name"));
+		assertAccu( 14, new ItemSerializationItem("name"));
+		assertAccu( 77, new ItemSerializationItem2());
+		assertAccu( 14, new ItemSerializationItem2());
 	}
 
 	@Test public void testUnboundItems()
@@ -140,11 +140,11 @@ public class SerializationSizeTest extends TestWithEnvironment
 		final List<? extends Item> list1 = getItems(ItemSerializationItem .list, item1);
 		final List<? extends Item> list2 = getItems(ItemSerializationItem2.list, item2);
 
-		assertAccu(386, list1.get(0));
-		assertAccu( 15, list1.get(1));
-		assertAccu( 15, list1.get(2));
-		assertAccu( 51, list2.get(0));
-		assertAccu( 15, list2.get(1));
+		assertAccu(390, list1.get(0));
+		assertAccu( 19, list1.get(1));
+		assertAccu( 19, list1.get(2));
+		assertAccu( 55, list2.get(0));
+		assertAccu( 19, list2.get(1));
 	}
 
 	private static List<? extends Item> getItems(final ListField<?> f, final Item parent)

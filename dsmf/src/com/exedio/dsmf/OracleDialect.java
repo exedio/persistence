@@ -194,7 +194,7 @@ public final class OracleDialect extends Dialect
 				schema);
 
 		schema.querySQL(
-				"SELECT SEQUENCE_NAME " +
+				"SELECT SEQUENCE_NAME, MAX_VALUE " +
 				"FROM USER_SEQUENCES",
 			new ResultSetHandler()
 			{
@@ -205,7 +205,8 @@ public final class OracleDialect extends Dialect
 					{
 						//printRow(resultSet);
 						final String name = resultSet.getString(1);
-						schema.notifyExistentSequence(name);
+						final long maxValue = resultSet.getLong(2);
+						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 					}
 				}
 			});
@@ -260,21 +261,21 @@ public final class OracleDialect extends Dialect
 	@Override
 	void createSequence(
 			final StringBuilder bf, final String sequenceName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
-		createSequenceStatic(bf, sequenceName, start);
+		createSequenceStatic(bf, sequenceName, type, start);
 	}
 
 	public static void createSequenceStatic(
 			final StringBuilder bf, final String sequenceName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
 					" INCREMENT BY 1" +
 					" START WITH ").append(start).append(
-					" MAXVALUE " + Integer.MAX_VALUE +
+					" MAXVALUE ").append(type.MAX_VALUE).append(
 					" MINVALUE ").append(start).append(
 
 					// BEWARE:

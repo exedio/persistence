@@ -33,8 +33,7 @@ final class ItemColumn extends IntegerColumn
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, id, false, optional, PK.MIN_VALUE, PK.MAX_VALUE, false);
-		assert targetType!=null;
+		super(table, id, false, optional, PK.MIN_VALUE, targetType.createLimit, true);
 		this.targetType = targetType;
 		this.integrityConstraintName = intern(makeGlobalID("Fk"));
 	}
@@ -42,9 +41,9 @@ final class ItemColumn extends IntegerColumn
 	/**
 	 * Creates a primary key column with a foreign key contraint.
 	 */
-	ItemColumn(final Table table, final Type<?> targetType)
+	ItemColumn(final Table table, final Type<?> targetType, final long maximum)
 	{
-		super(table);
+		super(table, maximum);
 		assert targetType!=null;
 		this.targetType = targetType;
 		this.integrityConstraintName = table.id+"_Sup";

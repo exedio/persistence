@@ -30,8 +30,8 @@ import static com.exedio.cope.ClusterUtil.formatNanos;
 import static com.exedio.cope.ClusterUtil.pingString;
 
 import com.exedio.cope.util.SequenceChecker;
-import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TLongHashSet;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -109,18 +109,18 @@ abstract class ClusterListener
 					break;
 				}
 
-				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
+				final TLongHashSet[] invalidations = new TLongHashSet[typeLength];
 				outer: while(iter.hasNext())
 				{
 					final int typeIdTransiently = iter.next();
-					final TIntHashSet set = new TIntHashSet();
+					final TLongHashSet set = new TLongHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
 					{
 						if(!iter.hasNext())
 							break outer;
 
-						final int pk = iter.next();
+						final long pk = iter.nextLong();
 						if(pk==PK.NaPK)
 							break inner;
 
@@ -164,7 +164,7 @@ abstract class ClusterListener
 			node.roundTrip(nanos);
 	}
 
-	abstract void invalidate(int remoteNode, TIntHashSet[] invalidations);
+	abstract void invalidate(int remoteNode, TLongHashSet[] invalidations);
 	abstract void pong(long pingNanos);
 	abstract int getReceiveBufferSize();
 

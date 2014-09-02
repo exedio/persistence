@@ -42,7 +42,8 @@ final class Table
 			final Type<?> supertype,
 			final int typeColumnMinLength,
 			final String[] typesOfInstancesColumnValues,
-			final boolean updateCounter)
+			final boolean updateCounter,
+			final long maximum)
 	{
 		this.database = database;
 		this.id = intern(database.makeName(id));
@@ -50,8 +51,8 @@ final class Table
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
 		this.primaryKey =
 			(supertype!=null)
-			? new ItemColumn(this, supertype)
-			: new IntegerColumn(this);
+			? new ItemColumn(this, supertype, maximum)
+			: new IntegerColumn(this, maximum);
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
 			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typeColumnMinLength, typesOfInstancesColumnValues)

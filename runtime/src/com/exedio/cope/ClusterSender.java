@@ -27,8 +27,8 @@ import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
 import static com.exedio.cope.ClusterUtil.marshal;
 
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
+import gnu.trove.TLongHashSet;
+import gnu.trove.TLongIterator;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -127,20 +127,21 @@ abstract class ClusterSender
 	// info
 	private final VolatileLong invalidationSplit = new VolatileLong();
 
-	final void invalidate(final TIntHashSet[] invalidations)
+	final void invalidate(final TLongHashSet[] invalidations)
 	{
 		final int packetSize = properties.packetSize;
+		final int packetSizeMinus4 = packetSize-4;
 		final int length;
 		{
 			int l =
 					INVALIDATE_TEMPLATE_SIZE +
 					4; // invalidationSequence
 
-			for(final TIntHashSet invalidation : invalidations)
+			for(final TLongHashSet invalidation : invalidations)
 				if(invalidation!=null)
 					l +=
-						8 + // type id (4 bytes) + NaPK for end (4 bytes)
-						(invalidation.size() << 2); // 4 bytes per PK
+						12 + // type id (4 bytes) + NaPK for end (8 bytes)
+						(invalidation.size() << 3); // 8 bytes per PK
 
 			length = l;
 		}
@@ -148,7 +149,7 @@ abstract class ClusterSender
 		System.arraycopy(invalidateTemplate, 0, buf, 0, INVALIDATE_TEMPLATE_SIZE);
 
 		int typeIdTransiently = 0;
-		TIntIterator i = null;
+		TLongIterator i = null;
 		try
 		{
 			int packetCount = 0;
@@ -170,7 +171,7 @@ abstract class ClusterSender
 						continue;
 					}
 
-					final TIntHashSet invalidation = invalidations[typeIdTransiently];
+					final TLongHashSet invalidation = invalidations[typeIdTransiently];
 					if(invalidation!=null)
 					{
 						if(pos>=packetSize)
@@ -185,7 +186,7 @@ abstract class ClusterSender
 							i = invalidation.iterator();
 						while(i.hasNext())
 						{
-							if(pos>=packetSize)
+							if(pos>=packetSizeMinus4)
 							{
 								send(pos, buf);
 								continue packetLoop;
@@ -193,7 +194,7 @@ abstract class ClusterSender
 							pos = marshal(pos, buf, i.next());
 						}
 
-						if(pos>=packetSize)
+						if(pos>=packetSizeMinus4)
 						{
 							send(pos, buf);
 							continue packetLoop;

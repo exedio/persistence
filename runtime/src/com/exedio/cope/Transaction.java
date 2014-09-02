@@ -22,8 +22,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TLongHashSet;
+import gnu.trove.TLongObjectHashMap;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -48,8 +48,8 @@ public final class Transaction
 	 * value in array is a map, where the keys are {@link Item#pk item pks}
 	 * and the values are {@link Entity}s
 	 */
-	private final TIntObjectHashMap<Entity>[] entityMaps;
-	private TIntHashSet[] invalidations = null;
+	private final TLongObjectHashMap<Entity>[] entityMaps;
+	private TLongHashSet[] invalidations = null;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
@@ -68,14 +68,14 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
-		this.entityMaps = cast(new TIntObjectHashMap<?>[concreteTypeCount]);
+		this.entityMaps = cast(new TLongObjectHashMap<?>[concreteTypeCount]);
 
 		if(logger.isDebugEnabled())
 			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
-	private static final <X> TIntObjectHashMap<X>[] cast(final TIntObjectHashMap[] o)
+	private static final <X> TLongObjectHashMap<X>[] cast(final TLongObjectHashMap[] o)
 	{
 		return o;
 	}
@@ -123,12 +123,12 @@ public final class Transaction
 		assert !closed : name;
 
 		final Type<?> type = item.type;
-		final int pk = item.pk;
+		final long pk = item.pk;
 
-		TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
+		TLongObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
 		if(entityMap==null)
 		{
-			entityMap = new TIntObjectHashMap<>();
+			entityMap = new TLongObjectHashMap<>();
 			entityMaps[type.cacheIdTransiently] = entityMap;
 		}
 
@@ -167,7 +167,7 @@ public final class Transaction
 
 	void removeEntity(final Item item)
 	{
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[item.type.cacheIdTransiently];
+		final TLongObjectHashMap<Entity> entityMap = entityMaps[item.type.cacheIdTransiently];
 		if(entityMap!=null)
 		{
 			entityMap.remove( item.pk );
@@ -226,7 +226,7 @@ public final class Transaction
 
 		for(final Type<?> instanceType : type.getTypesOfInstances())
 		{
-			final TIntHashSet invalidationsForType = invalidations[instanceType.cacheIdTransiently];
+			final TLongHashSet invalidationsForType = invalidations[instanceType.cacheIdTransiently];
 			if(invalidationsForType!=null && !invalidationsForType.isEmpty())
 				return true;
 		}
@@ -239,30 +239,30 @@ public final class Transaction
 		if(invalidations==null)
 			return false;
 
-		final TIntHashSet invalidationsForType = invalidations[item.type.cacheIdTransiently];
+		final TLongHashSet invalidationsForType = invalidations[item.type.cacheIdTransiently];
 		return invalidationsForType!=null && invalidationsForType.contains(item.pk);
 	}
 
 	void addInvalidation(final Item item)
 	{
 		if(invalidations==null)
-			invalidations = new TIntHashSet[entityMaps.length];
+			invalidations = new TLongHashSet[entityMaps.length];
 
 		final int typeTransiently = item.type.cacheIdTransiently;
-		TIntHashSet invalidationsForType = invalidations[typeTransiently];
+		TLongHashSet invalidationsForType = invalidations[typeTransiently];
 		if ( invalidationsForType==null )
 		{
-			invalidationsForType = new TIntHashSet();
+			invalidationsForType = new TLongHashSet();
 			invalidations[typeTransiently] = invalidationsForType;
 		}
 		invalidationsForType.add(item.pk);
 	}
 
-	Entity getEntityIfActive(final Type<?> type, final int pk)
+	Entity getEntityIfActive(final Type<?> type, final long pk)
 	{
 		assert !closed : name;
 
-		final TIntObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
+		final TLongObjectHashMap<Entity> entityMap = entityMaps[type.cacheIdTransiently];
 		if(entityMap==null)
 			return null;
 		return entityMap.get(pk);
@@ -375,7 +375,7 @@ public final class Transaction
 		// do this at the end, because there is no hurry with cleanup
 		for(int type = 0; type<entityMaps.length; type++)
 		{
-			final TIntObjectHashMap<Entity> map = entityMaps[type];
+			final TLongObjectHashMap<Entity> map = entityMaps[type];
 			if(map!=null)
 			{
 				map.clear();
@@ -387,7 +387,7 @@ public final class Transaction
 			assert entityMaps.length==invalidations.length;
 			for(int type = 0; type<invalidations.length; type++)
 			{
-				final TIntHashSet set = invalidations[type];
+				final TLongHashSet set = invalidations[type];
 				if(set!=null)
 				{
 					set.clear();

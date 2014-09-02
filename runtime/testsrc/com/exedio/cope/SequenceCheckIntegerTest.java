@@ -105,9 +105,9 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 				"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
 				actual.toString());
 		assertSame  ("feature", next, actual.feature);
-		assertEquals("featureMaximum", featureMaximum, actual.featureMaximum);
+		assertEquals("featureMaximum", featureMaximum!=null ? featureMaximum.longValue() : null, actual.featureMaximum);
 		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
-		assertEquals("behindBy", behindBy, actual.isBehindBy());
+		assertEquals("behindBy", behindBy, actual.isBehindByL());
 
 		@SuppressWarnings("deprecation")
 		final int behindByDeprecated = next.checkDefaultToNext();

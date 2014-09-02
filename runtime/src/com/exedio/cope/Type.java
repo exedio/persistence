@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntCapped;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -86,6 +88,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final Constructor<T> activationConstructor;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Method[] beforeNewItemMethods;
+	final long createLimit;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
@@ -252,14 +255,32 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
 
+		if(supertype!=null)
+		{
+			createLimit = supertype.createLimit;
+			if(getAnnotation(CopeCreateLimit.class)!=null)
+				throw new IllegalArgumentException(
+						"@" + CopeCreateLimit.class.getSimpleName() + " is allowed on top-level types only, " +
+						"but " + id + " has super type " + supertype.id);
+		}
+		else
+		{
+			final CopeCreateLimit ann = getAnnotation(CopeCreateLimit.class);
+			createLimit =
+				ann!=null
+				? requireNonNegative(ann.value(), "@" + CopeCreateLimit.class.getSimpleName() + " of " + id) // use Supplier in JDK 1.8
+				: Integer.MAX_VALUE;
+		}
+
 		this.primaryKeySequence =
 			supertype!=null
 			? supertype.primaryKeySequence
 			: new SequenceX(
 					thisFunction,
+					com.exedio.dsmf.Sequence.Type.fromMaxValueLenient(createLimit),
 					PK.MIN_VALUE,
 					PK.MIN_VALUE,
-					PK.MAX_VALUE);
+					createLimit);
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 	}
@@ -552,7 +573,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				supertype,
 				typeColumnMinLength,
 				mount().typesOfInstancesColumnValues,
-				!hasFinalTable());
+				!hasFinalTable(),
+				createLimit);
 		if(supertype==null)
 		{
 			primaryKeySequence.connectPrimaryKey(database, table.primaryKey);
@@ -694,7 +716,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@Deprecated
 	public int checkPrimaryKey()
 	{
-		return checkSequenceBehindPrimaryKey().isBehindBy();
+		return toIntCapped(checkSequenceBehindPrimaryKey().isBehindBy());
 	}
 
 	/**
@@ -924,6 +946,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		};
 	}
 
+	/**
+	 * @see CopeCreateLimit
+	 */
+	public long getCreateLimit()
+	{
+		return createLimit;
+	}
+
 	public T newItem(final List<SetValue<?>> setValues)
 	{
 		return newItem(SetValueUtil.toArray(setValues));
@@ -940,7 +970,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			setValues = EMPTY_SET_VALUES;
 
 		final LinkedHashMap<Field<?>, Object> fieldValues = prepareCreate(setValues);
-		final int pk = nextPrimaryKey();
+		final long pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
@@ -1013,7 +1043,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			cc.check(item, entity, exceptionItem);
 	}
 
-	int nextPrimaryKey()
+	long nextPrimaryKey()
 	{
 		return primaryKeySequence.next();
 	}
@@ -1125,7 +1155,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return id;
 	}
 
-	T getItemObject(final int pk)
+	T getItemObject(final long pk)
 	{
 		final Entity entity = getModel().currentTransaction().getEntityIfActive(this, pk);
 		if(entity!=null)
@@ -1134,7 +1164,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return activate(pk);
 	}
 
-	T activate(final int pk)
+	T activate(final long pk)
 	{
 		final ActivationParameters ap = new ActivationParameters(this, pk);
 		try
@@ -1170,10 +1200,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(isAbstract)
 			return;
 
-		final T item = activate(PK.MAX_VALUE);
+		final T item = activate(createLimit);
 		if(item.type!=this)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
-		if(item.pk!=PK.MAX_VALUE)
+		if(item.pk!=createLimit)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 	}
 

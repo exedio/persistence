@@ -18,18 +18,18 @@
 
 package com.exedio.cope;
 
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Long.MAX_VALUE;
+import static java.lang.Long.MIN_VALUE;
 import static java.util.Objects.requireNonNull;
 
 final class SequenceCounter
 {
 	private final Feature feature;
-	private final int start;
-	private final int minimum;
-	private final int maximum;
+	private final long start;
+	private final long minimum;
+	private final long maximum;
 
-	SequenceCounter(final Feature feature, final int start, final int minimum, final int maximum)
+	SequenceCounter(final Feature feature, final long start, final long minimum, final long maximum)
 	{
 		if(start<minimum || start>maximum)
 			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
@@ -40,11 +40,11 @@ final class SequenceCounter
 		this.maximum = maximum;
 	}
 
-	private volatile int count = 0;
-	private volatile int first = MAX_VALUE;
-	private volatile int last  = MIN_VALUE;
+	private volatile long count = 0;
+	private volatile long first = MAX_VALUE;
+	private volatile long last  = MIN_VALUE;
 
-	void next(final int result)
+	void next(final long result)
 	{
 		if(result<minimum || result>maximum)
 			throw new IllegalStateException(
@@ -64,9 +64,9 @@ final class SequenceCounter
 
 	SequenceInfo getInfo()
 	{
-		final int count = this.count;
-		final int first = this.first;
-		final int last  = this.last;
+		final long count = this.count;
+		final long first = this.first;
+		final long last  = this.last;
 		return
 			count!=0 && first!=MAX_VALUE && last!=MIN_VALUE
 			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)

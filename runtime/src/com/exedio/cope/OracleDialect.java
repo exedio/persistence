@@ -22,6 +22,7 @@ import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
 import java.math.BigDecimal;
@@ -400,7 +401,7 @@ final class OracleDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		// There seems to be a restart command in Oracle 12c:
 		// ALTER SEQUENCE SERIAL RESTART START WITH start
@@ -411,12 +412,12 @@ final class OracleDialect extends Dialect
 			"EXECUTE IMMEDIATE '");
 				com.exedio.dsmf.OracleDialect.createSequenceStatic(
 						bf, quotedName,
-						start);
+						type, start);
 				bf.append("';");
 	}
 
 	@Override
-	Integer nextSequence(
+	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -426,22 +427,22 @@ final class OracleDialect extends Dialect
 			append(quotedName).
 			append(".NEXTVAL FROM DUAL");
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + quotedName);
-				return ((BigDecimal)o).intValueExact();
+				return ((BigDecimal)o).longValueExact();
 			}
 		});
 	}
 
 	@Override
-	Integer getNextSequence(
+	Long getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -463,16 +464,16 @@ final class OracleDialect extends Dialect
 				"WHERE sequence_name=").
 			appendParameter(name);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return ((BigDecimal)o).intValueExact();
+				return ((BigDecimal)o).longValueExact();
 			}
 		});
 	}

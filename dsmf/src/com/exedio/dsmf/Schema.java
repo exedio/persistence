@@ -76,13 +76,13 @@ public final class Schema extends Node
 		sequenceList.add(sequence);
 	}
 
-	Sequence notifyExistentSequence(final String sequenceName)
+	Sequence notifyExistentSequence(final String sequenceName, final Sequence.Type type)
 	{
 		Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
-			result = new Sequence(this, sequenceName, 0, false); // TODO extract start from dictionary
+			result = new Sequence(this, sequenceName, type, 0, false); // TODO extract start from dictionary
 		else
-			result.notifyExists();
+			result.notifyExists(type);
 
 		return result;
 	}

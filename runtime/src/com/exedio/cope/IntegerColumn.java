@@ -91,12 +91,12 @@ class IntegerColumn extends Column
 	/**
 	 * Creates a primary key column.
 	 */
-	IntegerColumn(final Table table)
+	IntegerColumn(final Table table, final long maximum)
 	{
 		super(table, Table.PK_COLUMN_NAME, true, true, true);
 		this.minimum = PK.MIN_VALUE;
-		this.maximum = PK.MAX_VALUE;
-		this.longInsteadOfInt = false;
+		this.maximum = maximum;
+		this.longInsteadOfInt = true;
 		this.allowedValues = null;
 
 		assert assertMembers();
@@ -208,7 +208,7 @@ class IntegerColumn extends Column
 		}
 	}
 
-	Integer max(final Connection connection, final Executor executor)
+	Long max(final Connection connection, final Executor executor)
 	{
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT MAX(").
@@ -216,9 +216,9 @@ class IntegerColumn extends Column
 			append(") FROM ").
 			append(table.quotedID);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -226,7 +226,7 @@ class IntegerColumn extends Column
 				final Object o = resultSet.getObject(1);
 				if(o!=null)
 				{
-					final int result = Executor.convertSQLResult(o);
+					final long result = Executor.convertSQLResult(o);
 					if(result<minimum || result>maximum)
 						throw new RuntimeException("invalid maximum " + result + " in column " + id);
 					return result;

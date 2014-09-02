@@ -27,7 +27,14 @@ final class ClusterUtil
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;
 	static final byte MAGIC2 = 0x11;
-	static final byte MAGIC3 = 0x11;
+	/**
+	 * History
+	 * <ul>
+	 * <li>0x11: initial</li>
+	 * <li>0x12: change {@link Item#pk} from int to long</li>
+	 * </ul>
+	 */
+	static final byte MAGIC3 = 0x12;
 
 	static final int KIND_PING       = 0x00110001;
 	static final int KIND_PONG       = 0x00110002;

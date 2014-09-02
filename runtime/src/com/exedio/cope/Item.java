@@ -51,7 +51,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * The primary key of the item,
 	 * that is unique within the {@link #type} of this item.
 	 */
-	final int pk;
+	final long pk;
 
 	/**
 	 * Returns a string unique for this item in all other items of the model.
@@ -113,7 +113,17 @@ public abstract class Item implements Serializable, Comparable<Item>
 	@Override
 	public final int hashCode()
 	{
-		return type.hashCode() ^ pk;
+		return type.hashCode() ^ hashCode(pk);
+	}
+
+	/**
+	 * Returns the equivalent of {@link Long#hashCode()}
+	 * without instantiating a Long.
+	 * Can be replaced by static Long.hashCode available in JDK 1.8
+	 */
+	private static int hashCode(final long value)
+	{
+		return (int)(value ^ (value >>> 32));
 	}
 
 	/**
@@ -130,7 +140,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(typeResult!=0)
 			return typeResult;
 
-		return Integer.compare(pk, o.pk);
+		return Long.compare(pk, o.pk);
 	}
 
 	/**
@@ -510,7 +520,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	// serialization -------------
 
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 2l;
 
 	/**
 	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
@@ -528,12 +538,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	private static final class Serialized implements Serializable
 	{
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 2l;
 
 		private final Type<?> type;
-		private final int pk;
+		private final long pk;
 
-		Serialized(final Type<?> type, final int pk)
+		Serialized(final Type<?> type, final long pk)
 		{
 			this.type = type;
 			this.pk = pk;

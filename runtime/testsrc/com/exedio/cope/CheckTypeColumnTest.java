@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
@@ -79,15 +79,15 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 
 	@Test public void testOk()
 	{
-		assertEquals(0, getPrimaryKeyColumnValue(itema));
-		assertEquals(1, getPrimaryKeyColumnValue(itemb1));
-		assertEquals(2, getPrimaryKeyColumnValue(itemb2));
-		assertEquals(3, getPrimaryKeyColumnValue(itemc1));
-		assertEquals(0, getPrimaryKeyColumnValue(reffa));
-		assertEquals(1, getPrimaryKeyColumnValue(reffb1));
-		assertEquals(2, getPrimaryKeyColumnValue(reffb2));
-		assertEquals(3, getPrimaryKeyColumnValue(reffc1));
-		assertEquals(4, getPrimaryKeyColumnValue(reffN));
+		assertEquals(0, getPrimaryKeyColumnValueL(itema));
+		assertEquals(1, getPrimaryKeyColumnValueL(itemb1));
+		assertEquals(2, getPrimaryKeyColumnValueL(itemb2));
+		assertEquals(3, getPrimaryKeyColumnValueL(itemc1));
+		assertEquals(0, getPrimaryKeyColumnValueL(reffa));
+		assertEquals(1, getPrimaryKeyColumnValueL(reffb1));
+		assertEquals(2, getPrimaryKeyColumnValueL(reffb2));
+		assertEquals(3, getPrimaryKeyColumnValueL(reffc1));
+		assertEquals(4, getPrimaryKeyColumnValueL(reffN));
 
 		assertEquals(false, InstanceOfAItem.TYPE.getThis().needsCheckTypeColumn());
 		assertEquals(true, InstanceOfB1Item.TYPE.getThis().needsCheckTypeColumn());
@@ -314,7 +314,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 				"update " + q(getTableName(InstanceOfRefItem.TYPE)) + " " +
 				"set " + q(getTypeColumnName(InstanceOfRefItem.ref)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-				"where " + q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)) + "=" + getPrimaryKeyColumnValue(reffa));
+				"where " + q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)) + "=" + getPrimaryKeyColumnValueL(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
@@ -338,7 +338,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 			"update " + q(getTableName(type)) + " " +
 			"set " + q(getTypeColumnName(type)) + "='" + getTypeColumnValue(newType) + "' " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private <T extends Item> void deleteRow(
@@ -348,7 +348,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		execute(
 			"delete from " + q(getTableName(type)) + " " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
+			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException

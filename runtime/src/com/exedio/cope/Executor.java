@@ -377,14 +377,14 @@ final class Executor
 		numberFormat = new DecimalFormat("", nfs);
 	}
 
-	static int convertSQLResult(final Object sqlInteger)
+	static long convertSQLResult(final Object sqlNumber)
 	{
 		// IMPLEMENTATION NOTE
 		// Whether the returned object is an Integer, a Long or a BigDecimal,
 		// depends on the database used and for oracle on whether
 		// OracleStatement.defineColumnType is used or not, so we support all
 		// here.
-		return ((Number)sqlInteger).intValue();
+		return ((Number)sqlNumber).longValue();
 	}
 
 	// TestDatabaseListener ------------------

@@ -137,7 +137,7 @@ public final class MysqlDialect extends Dialect
 					{
 						final Sequence sequence = schema.getSequence(tableName);
 						if(sequence!=null && sequenceColumnName.equals(columnName))
-							sequence.notifyExists();
+							sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
 					}
 				}
 			}
@@ -316,13 +316,17 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void createSequence(
 			final StringBuilder bf, final String sequenceName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("CREATE TABLE ").
 			append(sequenceName).
 			append("(").
 				append(quoteName(sequenceColumnName)).
-				append(" INTEGER AUTO_INCREMENT PRIMARY KEY)" +
+				append(' ').
+				// must not use TINYINT, SMALLINT, MEDIUMINT as this is allowed only for
+				// schema.mysql.smallIntegerTypes=true
+				append(sequenceTypeMapper.map(type)).
+				append(" AUTO_INCREMENT PRIMARY KEY)" +
 			ENGINE +
 			" COMMENT='cope_sequence_table'");
 
@@ -333,9 +337,11 @@ public final class MysqlDialect extends Dialect
 		initializeSequence(bf, sequenceName, start);
 	}
 
+	static final SequenceTypeMapper sequenceTypeMapper = new SequenceTypeMapper("int", "bigint");
+
 	public static void initializeSequence(
 			final StringBuilder bf, final String sequenceName,
-			final int start)
+			final long start)
 	{
 		// From the MySQL documentation:
 		//

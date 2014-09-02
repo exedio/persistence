@@ -24,14 +24,14 @@ import java.sql.Connection;
 final class SequenceImplMax implements SequenceImpl
 {
 	private final IntegerColumn column;
-	private final int start;
+	private final long start;
 	private final ConnectionPool connectionPool;
 
 	private boolean computed = false;
-	private int next = Integer.MIN_VALUE;
+	private long next = Long.MIN_VALUE;
 	private final Object lock = new Object();
 
-	SequenceImplMax(final IntegerColumn column, final int start, final ConnectionPool connectionPool)
+	SequenceImplMax(final IntegerColumn column, final long start, final ConnectionPool connectionPool)
 	{
 		this.column = column;
 		this.start = start;
@@ -43,19 +43,19 @@ final class SequenceImplMax implements SequenceImpl
 		// empty
 	}
 
-	public int next()
+	public long next()
 	{
 		synchronized(lock)
 		{
-			final int result;
+			final long result;
 			if(computed)
 			{
 				result = next;
 			}
 			else
 			{
-				final Integer current = current();
-				result = current!=null ? (current.intValue() + 1) : start;
+				final Long current = current();
+				result = current!=null ? (current.longValue() + 1) : start;
 				computed = true;
 			}
 
@@ -64,26 +64,26 @@ final class SequenceImplMax implements SequenceImpl
 		}
 	}
 
-	public int getNext()
+	public long getNext()
 	{
 		synchronized(lock)
 		{
-			final int result;
+			final long result;
 			if(computed)
 			{
 				result = next;
 			}
 			else
 			{
-				final Integer current = current();
-				result = current!=null ? (current.intValue() + 1) : start;
+				final Long current = current();
+				result = current!=null ? (current.longValue() + 1) : start;
 			}
 
 			return result;
 		}
 	}
 
-	private Integer current()
+	private Long current()
 	{
 		final Connection connection = connectionPool.get(true);
 		try

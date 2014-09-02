@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntExact;
+
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -53,6 +55,7 @@ public final class Sequence extends Feature
 		this.end = end;
 		this.sequenceX = new SequenceX(
 				defaultToNextField!=null ? defaultToNextField : this,
+				com.exedio.dsmf.Sequence.Type.bit31,
 				start, min, end);
 	}
 
@@ -76,7 +79,7 @@ public final class Sequence extends Feature
 					"The result is not managed by a '{@link com.exedio.cope.Transaction}'."})
 	public int next()
 	{
-		return sequenceX.next();
+		return toIntExact(sequenceX.next());
 	}
 
 	public SequenceInfo getInfo()

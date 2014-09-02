@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import org.slf4j.Logger;
@@ -62,7 +62,7 @@ final class ChangeListenerDispatcher implements Runnable
 		return new ChangeListenerDispatcherInfo(overflow.get(), exception.get(), queue.size());
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final TransactionInfo transactionInfo)
+	void invalidate(final TLongHashSet[] invalidations, final TransactionInfo transactionInfo)
 	{
 		if(!manager.isUsed())
 			return;

@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.IntRatio.ratio;
 
-import gnu.trove.TIntHashSet;
-import gnu.trove.TIntIterator;
-import gnu.trove.TIntLongHashMap;
-import gnu.trove.TIntLongIterator;
-import gnu.trove.TIntObjectHashMap;
-import gnu.trove.TIntObjectIterator;
+import gnu.trove.TLongHashSet;
+import gnu.trove.TLongIterator;
+import gnu.trove.TLongLongHashMap;
+import gnu.trove.TLongLongIterator;
+import gnu.trove.TLongObjectHashMap;
+import gnu.trove.TLongObjectIterator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,12 +114,12 @@ final class ItemCache
 			cachlet.remove(item.pk);
 	}
 
-	void invalidate(final TIntHashSet[] invalidations)
+	void invalidate(final TLongHashSet[] invalidations)
 	{
 		final long stamp = ItemCacheStamp.get();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
-			final TIntHashSet invalidatedPKs = invalidations[typeTransiently];
+			final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
 			if(invalidatedPKs!=null)
 			{
 				final Cachlet cachlet = cachlets[typeTransiently];
@@ -178,8 +178,8 @@ final class ItemCache
 	{
 		private final Type<?> type;
 		private final int limit;
-		private final TIntObjectHashMap<WrittenState> map;
-		private final TIntLongHashMap stamps;
+		private final TLongObjectHashMap<WrittenState> map;
+		private final TLongLongHashMap stamps;
 
 		private final VolatileLong hits = new VolatileLong();
 		private final VolatileLong misses = new VolatileLong();
@@ -199,11 +199,11 @@ final class ItemCache
 
 			this.type = type;
 			this.limit = limit;
-			this.map = new TIntObjectHashMap<>();
-			this.stamps = enableStamps ? new TIntLongHashMap() : null;
+			this.map = new TLongObjectHashMap<>();
+			this.stamps = enableStamps ? new TLongLongHashMap() : null;
 		}
 
-		WrittenState get(final int pk)
+		WrittenState get(final long pk)
 		{
 			final WrittenState result;
 			synchronized(map)
@@ -226,7 +226,7 @@ final class ItemCache
 		 * @deprecated for unit tests only
 		 */
 		@Deprecated
-		WrittenState getInternal(final int pk)
+		WrittenState getInternal(final long pk)
 		{
 			synchronized(map)
 			{
@@ -258,7 +258,7 @@ final class ItemCache
 				{
 					final long now = System.currentTimeMillis();
 					long ageSum = 0;
-					for(final TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
+					for(final TLongObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final WrittenState currentState = i.value();
@@ -268,7 +268,7 @@ final class ItemCache
 					final long age = ageSum / mapSize;
 					final long ageLimit = (limit * age) / mapSize;
 					final long timeLimit = now-ageLimit;
-					for(final TIntObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
+					for(final TLongObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
 					{
 						i.advance();
 						final WrittenState currentState = i.value();
@@ -283,7 +283,7 @@ final class ItemCache
 			}
 		}
 
-		void remove(final int pk)
+		void remove(final long pk)
 		{
 			synchronized(map)
 			{
@@ -291,16 +291,16 @@ final class ItemCache
 			}
 		}
 
-		void invalidate(final TIntHashSet invalidatedPKs, final long stamp)
+		void invalidate(final TLongHashSet invalidatedPKs, final long stamp)
 		{
 			synchronized(map)
 			{
 				final int mapSizeBefore = map.size();
 
 				// TODO implement and use a removeAll
-				for(final TIntIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+				for(final TLongIterator i = invalidatedPKs.iterator(); i.hasNext(); )
 				{
-					final int pk = i.next();
+					final long pk = i.next();
 					map.remove(pk);
 
 					if(stamps!=null)
@@ -338,7 +338,7 @@ final class ItemCache
 					else
 					{
 						int purged = 0;
-						for(final TIntLongIterator i = stamps.iterator(); i.hasNext(); )
+						for(final TLongLongIterator i = stamps.iterator(); i.hasNext(); )
 						{
 							i.advance();
 							if(i.value()<untilStamp)
@@ -383,7 +383,7 @@ final class ItemCache
 			{
 				level = map.size();
 				lastReplacementRun = this.lastReplacementRun;
-				for(final TIntObjectIterator<WrittenState> stateMapI = map.iterator(); stateMapI.hasNext(); )
+				for(final TLongObjectIterator<WrittenState> stateMapI = map.iterator(); stateMapI.hasNext(); )
 				{
 					stateMapI.advance();
 					final WrittenState currentState = stateMapI.value();

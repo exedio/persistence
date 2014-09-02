@@ -161,7 +161,7 @@ public final class HsqldbDialect extends Dialect
 				schema);
 
 		schema.querySQL(
-				"SELECT SEQUENCE_NAME " +
+				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
 			new ResultSetHandler()
 			{
@@ -174,7 +174,8 @@ public final class HsqldbDialect extends Dialect
 						final String name = resultSet.getString(1);
 						if("LOB_ID".equals(name))
 							continue;
-						schema.notifyExistentSequence(name);
+						final long maxValue = resultSet.getLong(2);
+						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 					}
 				}
 			});
@@ -222,13 +223,15 @@ public final class HsqldbDialect extends Dialect
 	@Override
 	void createSequence(
 			final StringBuilder bf, final String sequenceName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
-					" AS INTEGER" +
+					" AS ").append(sequenceTypeMapper.map(type)).append(
 					" START WITH ").append(start).append(
 					" INCREMENT BY 1");
 	}
+
+	private static final SequenceTypeMapper sequenceTypeMapper = new SequenceTypeMapper("INTEGER", "BIGINT");
 }

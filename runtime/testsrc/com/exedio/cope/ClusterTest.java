@@ -29,6 +29,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
+import gnu.trove.TLongHashSet;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +46,7 @@ public abstract class ClusterTest
 	private ClusterListenerMock cl;
 
 	private static final int SECRET = 0x88776655;
-	private static final int PACKET_SIZE = 44;
+	private static final int PACKET_SIZE = 64;
 
 	private static ClusterProperties getProperties(final int node)
 	{
@@ -57,7 +58,7 @@ public abstract class ClusterTest
 					public String get(final String key)
 					{
 						if(key.equals("cluster.packetSize"))
-							return "47";
+							return "67";
 						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
 						else if(key.equals("cluster.nodeAuto"))
@@ -100,39 +101,39 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[] buf = m(new int[][]{new int[]{0x456789ab, 0xaf896745}, null, new int[]{}, null});
+		final byte[] buf = m(new long[][]{new long[]{0x456789abcb320021L, 0xaf896745ff735907L}, null, new long[]{}, null});
 		assertEqualsBytes(buf,
-				"c0be1111" + // magic
+				"c0be1112" + // magic
 				"55667788" + // secret
 				"33442211" + // node
 				"01001200" + // kind=invalidation
 				"00000000" + // sequence
 				"00000000" + // id 0
-					"456789af" + // pk2 (swapped by hash set)
-					"ab896745" + // pk1
-					"00000080" + // NaPK for end
+					"210032cbab896745" + // pk1
+					"075973ff456789af" + // pk2
+					"0000000000000080" + // NaPK for end
 				"02000000" + // id 2
-					"00000080" ); // NaPK for end
+					"0000000000000080" ); // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[] buf2 = m(new int[][]{new int[]{0x456789ac, 0xaf896746}, null, new int[]{}, null});
+		final byte[] buf2 = m(new long[][]{new long[]{0x456789ac34582998L, 0xaf896746aaab2341L}, null, new long[]{}, null});
 		assertEqualsBytes(buf2,
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, // magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, // magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, // secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // node
 				(byte)0x01, b0,         (byte)0x12, b0,         // kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // sequence
 				(byte)0,    b0,         b0,         b0,         // id 0
-					(byte)0x46, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
-					(byte)0xac, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
-					b0,         b0,         b0,         bNaPK,      // NaPK for end
+					(byte)0x41, (byte)0x23, (byte)0xab, (byte)0xaa, (byte)0x46, (byte)0x67, (byte)0x89, (byte)0xaf, // pk2 (swapped by hash set)
+					(byte)0x98, (byte)0x29, (byte)0x58, (byte)0x34, (byte)0xac, (byte)0x89, (byte)0x67, (byte)0x45, // pk1
+					b0,         b0,         b0,         b0,         b0,         b0,         b0,         bNaPK,      // NaPK for end
 				(byte)2,    b0,         b0,         b0,         // id 2
-					b0,         b0,         b0,         bNaPK);     // NaPK for end
+					b0,         b0,         b0,         b0,         b0,         b0,         b0,         bNaPK);     // NaPK for end
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] is = um(buf);
-			assertContains(is[0], 0x456789ab, 0xaf896745);
+			final TLongHashSet[] is = um(buf);
+			assertContains(is[0], 0x456789abcb320021L, 0xaf896745ff735907L);
 			assertEquals(null, is[1]);
 			assertTrue(is[2].isEmpty());
 			assertEquals(null, is[3]);
@@ -167,33 +168,33 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2, 3, 4, 5, 6}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)5, b0,         b0,         b0,         // 28 pk 5
-					(byte)2, b0,         b0,         b0,         // 32 pk 2
-					(byte)4, b0,         b0,         b0,         // 36 pk 4
-					(byte)1, b0,         b0,         b0,         // 40 pk 1
-					(byte)6, b0,         b0,         b0);        // 44 pk 6
+					(byte)5, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 5
+					(byte)2, b0,b0,b0,   b0,b0,b0,   b0,         // 40 pk 2
+					(byte)4, b0,b0,b0,   b0,b0,b0,   b0,         // 48 pk 4
+					(byte)1, b0,b0,b0,   b0,b0,b0,   b0,         // 56 pk 1
+					(byte)6, b0,b0,b0,   b0,b0,b0,   b0);        // 64 pk 6
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)3, b0,         b0,         b0,         // 28 pk 3
-					b0,      b0,         b0,         bNaPK);     // 32 NaPK for end
+					(byte)3, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 3
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 40 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 5, 2, 4, 1, 6);
 			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
@@ -203,7 +204,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertContains(pks[0], 3);
 			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
@@ -219,36 +220,36 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5, 6}, new int[]{11}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2, 3, 4, 5, 6}, new long[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)5, b0,         b0,         b0,         // 28 pk 5
-					(byte)2, b0,         b0,         b0,         // 32 pk 2
-					(byte)4, b0,         b0,         b0,         // 36 pk 4
-					(byte)1, b0,         b0,         b0,         // 40 pk 1
-					(byte)6, b0,         b0,         b0);        // 44 pk 6
+					(byte)5, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 5
+					(byte)2, b0,b0,b0,   b0,b0,b0,   b0,         // 40 pk 2
+					(byte)4, b0,b0,b0,   b0,b0,b0,   b0,         // 48 pk 4
+					(byte)1, b0,b0,b0,   b0,b0,b0,   b0,         // 56 pk 1
+					(byte)6, b0,b0,b0,   b0,b0,b0,   b0);        // 64 pk 6
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)3, b0,         b0,         b0,         // 28 pk 3
-					b0,      b0,         b0,         bNaPK,      // 32 NaPK for end
-				(byte)1,    b0,         b0,         b0,         // 36 type 1
-					(byte)11,b0,         b0,         b0,         // 40 pk 11
-					b0,      b0,         b0,         bNaPK);     // 44 NaPK for end
+					(byte)3, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 3
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK,      // 40 NaPK for end
+				(byte)1,    b0,         b0,         b0,         // 44 type 1
+					(byte)11,b0,b0,b0,   b0,b0,b0,   b0,         // 52 pk 11
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 60 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 5, 2, 4, 1, 6);
 			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
@@ -258,7 +259,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertContains(pks[0], 3);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -273,33 +274,33 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4, 5}, new int[]{11}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2, 3, 4, 5}, new long[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)5, b0,         b0,         b0,         // 28 pk 5
-					(byte)2, b0,         b0,         b0,         // 32 pk 2
-					(byte)4, b0,         b0,         b0,         // 36 pk 4
-					(byte)1, b0,         b0,         b0,         // 40 pk 1
-					(byte)3, b0,         b0,         b0);        // 44 pk 3
+					(byte)5, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 5
+					(byte)2, b0,b0,b0,   b0,b0,b0,   b0,         // 40 pk 2
+					(byte)4, b0,b0,b0,   b0,b0,b0,   b0,         // 48 pk 4
+					(byte)1, b0,b0,b0,   b0,b0,b0,   b0,         // 56 pk 1
+					(byte)3, b0,b0,b0,   b0,b0,b0,   b0);        // 64 pk 3
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)1,    b0,         b0,         b0,         // 24 type 1
-					(byte)11,b0,         b0,         b0,         // 28 pk 11
-					b0,      b0,         b0,         bNaPK);     // 32 NaPK for end
+					(byte)11,b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 11
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 40 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 5, 2, 4, 3, 1);
 			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
@@ -309,7 +310,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -324,33 +325,33 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3, 4}, new int[]{11}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2, 3, 4}, new long[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)2, b0,         b0,         b0,         // 28 pk 2
-					(byte)4, b0,         b0,         b0,         // 32 pk 4
-					(byte)1, b0,         b0,         b0,         // 36 pk 1
-					(byte)3, b0,         b0,         b0,         // 40 pk 3
-					b0,      b0,         b0,         bNaPK);     // 44 NaPK for end
+					(byte)2, b0,b0,b0,    b0,b0,b0,  b0,         // 32 pk 2
+					(byte)4, b0,b0,b0,    b0,b0,b0,  b0,         // 40 pk 4
+					(byte)1, b0,b0,b0,    b0,b0,b0,  b0,         // 48 pk 1
+					(byte)3, b0,b0,b0,    b0,b0,b0,  b0,         // 56 pk 3
+					b0,      b0,b0,b0,    b0,b0,b0,  bNaPK);     // 64 NaPK for end
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)1,    b0,         b0,         b0,         // 24 type 1
-					(byte)11,b0,         b0,         b0,         // 28 pk 11
-					b0,      b0,         b0,         bNaPK);     // 32 NaPK for end
+					(byte)11,b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 11
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 40 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 4, 3, 1);
 			assertEquals(null, pks[1]);
 			assertEquals(null, pks[2]);
@@ -360,7 +361,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -375,33 +376,33 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2, 3}, new int[]{11}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2, 3}, new long[]{11}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)2, b0,         b0,         b0,         // 28 pk 2
-					(byte)1, b0,         b0,         b0,         // 32 pk 1
-					(byte)3, b0,         b0,         b0,         // 36 pk 3
-					b0,      b0,         b0,         bNaPK,      // 40 NaPK for end
-				(byte)1,    b0,         b0,         b0);        // 44 type 1
+					(byte)2, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 2
+					(byte)1, b0,b0,b0,   b0,b0,b0,   b0,         // 40 pk 1
+					(byte)3, b0,b0,b0,   b0,b0,b0,   b0,         // 48 pk 3
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK,      // 56 NaPK for end
+				(byte)1,    b0,         b0,         b0);        // 60 type 1
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)1,    b0,         b0,         b0,         // 24 type 1
-					(byte)11,b0,         b0,         b0,         // 28 pk 11
-					b0,      b0,         b0,         bNaPK);     // 32 NaPK for end
+					(byte)11,b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 11
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 40 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 3, 1);
 			assertContains(pks[1]);
 			assertEquals(null, pks[2]);
@@ -411,7 +412,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -425,33 +426,33 @@ public abstract class ClusterTest
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11, 12}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2}, new long[]{11, 12}});
 		assertEqualsBytes(bufs[0],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0,    b0,         b0,         b0,         // 24 type 0
-					(byte)2, b0,         b0,         b0,         // 28 pk 2
-					(byte)1, b0,         b0,         b0,         // 32 pk 1
-					b0,      b0,         b0,         bNaPK,      // 36 NaPK for end
-				(byte)1,    b0,         b0,         b0,         // 40 type 1
-					(byte)11,b0,         b0,         b0);        // 44 pk 11
+					(byte)2, b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 2
+					(byte)1, b0,b0,b0,   b0,b0,b0,   b0,         // 40 pk 1
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK,      // 48 NaPK for end
+				(byte)1,    b0,         b0,         b0,         // 52 type 1
+					(byte)11,b0,b0,b0,   b0,b0,b0,   b0);        // 60 pk 11
 		assertEqualsBytes(bufs[1],
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x12, b0,         // 16 kind=invalidation
 				(byte)1,    b0,         b0,         b0,         // 20 sequence
 				(byte)1,    b0,         b0,         b0,         // 24 type 1
-					(byte)12,b0,         b0,         b0,         // 28 pk 12
-					b0,      b0,         b0,         bNaPK);     // 32 NaPK for end
+					(byte)12,b0,b0,b0,   b0,b0,b0,   b0,         // 32 pk 12
+					b0,      b0,b0,b0,   b0,b0,b0,   bNaPK);     // 40 NaPK for end
 		assertEquals(2, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -461,7 +462,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 
 		{
-			final TIntHashSet[] pks = um(bufs[1]);
+			final TLongHashSet[] pks = um(bufs[1]);
 			assertEquals(null, pks[0]);
 			assertContains(pks[1], 12);
 			assertEquals(null, pks[2]);
@@ -476,24 +477,24 @@ public abstract class ClusterTest
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
 
-		final byte[][] bufs = mm(new int[][]{new int[]{1, 2}, new int[]{11}});
+		final byte[][] bufs = mm(new long[][]{new long[]{1, 2}, new long[]{11}});
 		assertEqualsBytes(bufs[0],
-				"c0be1111" +     //  4 magic
+				"c0be1112" +     //  4 magic
 				"55667788" +     //  8 secret
 				"33442211" +     // 12 node
 				"01001200" +     // 16 kind=invalidation
 				"00000000" +     // 20 sequence
 				"00000000" +     // 24 type 0
-					"02000000" +  // 28 pk 2
-					"01000000" +  // 32 pk 1
-					"00000080" +  // 36 NaPK for end
-				"01000000" +     // 40 type 1
-					"0b000000" ); // 44 pk 11
+					"0200000000000000" +  // 32 pk 2
+					"0100000000000000" +  // 40 pk 1
+					"0000000000000080" +  // 48 NaPK for end
+				"01000000" +     // 52 type 1
+					"0b00000000000000" ); // 60 pk 11
 		assertEquals(1, bufs.length);
 		assertInfo(1, 0, 0, 0, new long[0][]);
 
 		{
-			final TIntHashSet[] pks = um(bufs[0]);
+			final TLongHashSet[] pks = um(bufs[0]);
 			assertContains(pks[0], 2, 1);
 			assertContains(pks[1], 11);
 			assertEquals(null, pks[2]);
@@ -513,7 +514,7 @@ public abstract class ClusterTest
 		final byte[] buf = sink.get(0);
 
 		assertEqualsBytes(buf,
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x01, b0,         (byte)0x11, b0,         // 16 kind=ping
@@ -523,7 +524,12 @@ public abstract class ClusterTest
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97); // 44 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
+				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
+				(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
 
 		assertEquals(
 				"PONG(2233445566778899)",
@@ -540,7 +546,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 44, but was 40", e.getMessage());
+				assertEquals("invalid ping, expected length 64, but was 60", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -555,7 +561,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 44, but was 43", e.getMessage());
+				assertEquals("invalid ping, expected length 64, but was 63", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -570,7 +576,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 44, but was 45", e.getMessage());
+				assertEquals("invalid ping, expected length 64, but was 65", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -585,7 +591,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid ping, expected length 44, but was 48", e.getMessage());
+				assertEquals("invalid ping, expected length 64, but was 68", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
@@ -626,7 +632,7 @@ public abstract class ClusterTest
 		for(final byte[] buf : sink)
 		{
 			assertEqualsBytes(buf,
-					(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+					(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 					(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 					(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 					(byte)0x01, b0,         (byte)0x11, b0,         // 16 kind=ping
@@ -636,7 +642,12 @@ public abstract class ClusterTest
 					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
 					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
 					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97); // 44 fillup
+					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
+					(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
+					(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
+					(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
+					(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
+					(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
 		}
 	}
 
@@ -650,7 +661,7 @@ public abstract class ClusterTest
 		final byte[] buf = sink.get(0);
 
 		assertEqualsBytes(buf,
-				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x11, //  4 magic
+				(byte)0xc0, (byte)0xbe, (byte)0x11, (byte)0x12, //  4 magic
 				(byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88, //  8 secret
 				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 12 node
 				(byte)0x02, b0,         (byte)0x11, b0,         // 16 kind=pong
@@ -660,7 +671,12 @@ public abstract class ClusterTest
 				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
 				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
 				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97); // 44 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
+				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
+				(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
 
 		ume(buf);
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -675,7 +691,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 44, but was 40", e.getMessage());
+				assertEquals("invalid pong, expected length 64, but was 60", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -690,7 +706,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 44, but was 43", e.getMessage());
+				assertEquals("invalid pong, expected length 64, but was 63", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -705,7 +721,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 44, but was 45", e.getMessage());
+				assertEquals("invalid pong, expected length 64, but was 65", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -720,7 +736,7 @@ public abstract class ClusterTest
 			}
 			catch(final RuntimeException e)
 			{
-				assertEquals("invalid pong, expected length 44, but was 48", e.getMessage());
+				assertEquals("invalid pong, expected length 64, but was 68", e.getMessage());
 			}
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -750,9 +766,9 @@ public abstract class ClusterTest
 	}
 
 
-	private static void assertContains(final TIntHashSet actual, final int... expected)
+	private static void assertContains(final TLongHashSet actual, final long... expected)
 	{
-		for(final int i : expected)
+		for(final long i : expected)
 			assertTrue(actual.contains(i));
 		assertEquals(expected.length, actual.size());
 	}
@@ -769,25 +785,25 @@ public abstract class ClusterTest
 		assertEquals(expectedData, Hex.encodeLower(actualData));
 	}
 
-	private static TIntHashSet[] convert(final int[][] invalidationNumbers)
+	private static TLongHashSet[] convert(final long[][] invalidationNumbers)
 	{
-		final TIntHashSet[] invalidations = new TIntHashSet[invalidationNumbers.length];
+		final TLongHashSet[] invalidations = new TLongHashSet[invalidationNumbers.length];
 		for(int i = 0; i<invalidationNumbers.length; i++)
 		{
-			final int[] invalidationNumber = invalidationNumbers[i];
+			final long[] invalidationNumber = invalidationNumbers[i];
 			if(invalidationNumber!=null)
 			{
-				invalidations[i] = new TIntHashSet();
-				for(final int b : invalidationNumber)
+				invalidations[i] = new TLongHashSet();
+				for(final long b : invalidationNumber)
 					invalidations[i].add(b);
 			}
 		}
 		return invalidations;
 	}
 
-	private byte[] m(final int[][] invalidationNumbers)
+	private byte[] m(final long[][] invalidationNumbers)
 	{
-		final TIntHashSet[] invalidations = convert(invalidationNumbers);
+		final TLongHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.invalidate(invalidations);
@@ -796,9 +812,9 @@ public abstract class ClusterTest
 		return sink.get(0);
 	}
 
-	private byte[][] mm(final int[][] invalidationNumbers)
+	private byte[][] mm(final long[][] invalidationNumbers)
 	{
-		final TIntHashSet[] invalidations = convert(invalidationNumbers);
+		final TLongHashSet[] invalidations = convert(invalidationNumbers);
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
 		cs.invalidate(invalidations);
@@ -810,9 +826,9 @@ public abstract class ClusterTest
 		return result;
 	}
 
-	private TIntHashSet[] um(final byte[] buf)
+	private TLongHashSet[] um(final byte[] buf)
 	{
-		return (TIntHashSet[])umx(buf);
+		return (TLongHashSet[])umx(buf);
 	}
 
 	private String umi(final byte[] buf)

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -180,7 +181,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	Integer nextSequence(
+	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -198,7 +199,7 @@ final class HsqldbDialect extends Dialect
 			final Statement bf = executor.newStatement();
 			bf.append("DECLARE LOCAL TEMPORARY TABLE ").
 				append(TEMP_TABLE).
-				append(" (x INTEGER)");
+				append(" (x BIGINT)");
 			executor.update(connection, null, bf);
 		}
 		{
@@ -208,7 +209,7 @@ final class HsqldbDialect extends Dialect
 				append(" VALUES (0)");
 			executor.updateStrict(connection, null, bf);
 		}
-		final Integer result;
+		final Long result;
 		{
 			final Statement bf = executor.newStatement();
 			bf.append("SELECT NEXT VALUE FOR ").
@@ -216,16 +217,16 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+			result = executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 			{
-				public Integer handle(final ResultSet resultSet) throws SQLException
+				public Long handle(final ResultSet resultSet) throws SQLException
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
 					final Object o = resultSet.getObject(1);
 					if(o==null)
 						throw new RuntimeException("null in sequence " + quotedName);
-					return (Integer)o;
+					return ((Number)o).longValue();
 				}
 			});
 		}
@@ -247,7 +248,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	Integer getNextSequence(
+	Long getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -257,16 +258,16 @@ final class HsqldbDialect extends Dialect
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Integer>()
+		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
 		{
-			public Integer handle(final ResultSet resultSet) throws SQLException
+			public Long handle(final ResultSet resultSet) throws SQLException
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return Integer.valueOf((String)o);
+				return Long.valueOf((String)o);
 			}
 		});
 	}
@@ -309,7 +310,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final int start)
+			final Sequence.Type type, final long start)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).

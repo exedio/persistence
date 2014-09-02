@@ -23,6 +23,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +92,7 @@ final class QueryCache
 		return map!=null;
 	}
 
-	void invalidate(final TIntHashSet[] invalidations)
+	void invalidate(final TLongHashSet[] invalidations)
 	{
 		final TIntArrayList invalidatedTypesTransientlyList = new TIntArrayList();
 

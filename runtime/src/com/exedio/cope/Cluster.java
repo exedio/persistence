@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TIntHashSet;
+import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
 final class Cluster
@@ -38,7 +38,7 @@ final class Cluster
 		this.listener = new ClusterListenerMulticast(properties, modelName, sender, types.concreteTypeCount, connect);
 	}
 
-	void sendInvalidate(final TIntHashSet[] invalidations)
+	void sendInvalidate(final TLongHashSet[] invalidations)
 	{
 		sender.invalidate(invalidations);
 	}
