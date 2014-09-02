@@ -56,6 +56,8 @@ public final class HsqldbDialect extends Dialect
 	{
 		switch(dataType)
 		{
+			case Types.TINYINT:   return "TINYINT";
+			case Types.SMALLINT:  return "SMALLINT";
 			case Types.INTEGER:   return "INTEGER";
 			case Types.BIGINT:    return "BIGINT";
 			case Types.DOUBLE:    return "DOUBLE";

@@ -48,25 +48,28 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 
 	@Test public void testType()
 	{
+		final String type1;
 		final String type2;
 		final String type4;
 		final String type8;
 		switch(dialect)
 		{
 			case hsqldb:
-				type2 = type4 = "INTEGER";
+				type1 = "TINYINT";
+				type2 = "SMALLINT";
+				type4 = "INTEGER";
 				type8 = "BIGINT";
 				break;
 			case mysql:
-				type2 = type4 = "int";
+				type1 = type2 = type4 = "int";
 				type8 = "bigint";
 				break;
 			case oracle:
-				type2 = type4 = "NUMBER(10)";
+				type1 = type2 = type4 = "NUMBER(10)";
 				type8 = "NUMBER(20)";
 				break;
 			case postgresql:
-				type2 = "smallint";
+				type1 = type2 = "smallint";
 				type4 = "integer";
 				type8 = "bigint";
 				break;
@@ -74,7 +77,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 				throw new AssertionError(dialect.name());
 		}
 
-		assertType(type2, byte1);
+		assertType(type1, byte1);
 		assertType(type2, byte1l);
 		assertType(type2, byte1u);
 		assertType(type2, byte2);

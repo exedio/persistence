@@ -58,8 +58,10 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "INTEGER" : "BIGINT";
+		if(minimum>=Byte   .MIN_VALUE && maximum<=Byte   .MAX_VALUE) return "TINYINT";
+		if(minimum>=Short  .MIN_VALUE && maximum<=Short  .MAX_VALUE) return "SMALLINT";
+		if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) return "INTEGER";
+		return "BIGINT";
 	}
 
 	@Override
