@@ -22,13 +22,31 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someDate;
 
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.util.Clock;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FieldDateTest extends FieldTest
 {
+	private AbsoluteMockClockStrategy clock;
+
+	@Override
+	public void setUp() throws Exception
+	{
+		super.setUp();
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Clock.clearOverride();
+		super.tearDown();
+	}
 
 	public void testSomeDate()
 	{
@@ -88,10 +106,10 @@ public class FieldDateTest extends FieldTest
 		restartTransaction();
 		assertEquals(null, item.getSomeDate());
 
-		final Date beforeTouch = new Date();
+		final Date touch = clock.add(1111);
 		item.touchSomeDate();
-		final Date afterTouch = new Date();
-		assertWithin(beforeTouch, afterTouch, item.getSomeDate());
+		clock.assertEmpty();
+		assertEquals(touch, item.getSomeDate());
 
 		// special test of Model#getItem for items without any attributes
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);

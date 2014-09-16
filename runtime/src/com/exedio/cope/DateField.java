@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Clock.newDate;
+
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.reflect.AnnotatedElement;
@@ -188,7 +190,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		try
 		{
-			set(item, new Date()); // TODO: make a more efficient implementation
+			set(item, newDate()); // TODO: make a more efficient implementation
 		}
 		catch(final MandatoryViolationException e)
 		{
