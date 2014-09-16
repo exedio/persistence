@@ -163,6 +163,7 @@ public class ItemTest extends TestmodelTest
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
+		model.flushConnectionPool();
 
 		model.startTransaction();
 	}

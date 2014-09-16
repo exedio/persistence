@@ -581,6 +581,11 @@ public final class Model implements Serializable
 		return connect().connectionPool.getInfo();
 	}
 
+	public void flushConnectionPool()
+	{
+		connect().connectionPool.flush();
+	}
+
 	public EnvironmentInfo getEnvironmentInfo()
 	{
 		return connect().database.dialectParameters.environmentInfo;
