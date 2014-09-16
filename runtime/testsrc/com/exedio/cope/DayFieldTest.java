@@ -24,6 +24,8 @@ import static com.exedio.cope.DayItem.optionalDay;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static java.util.TimeZone.getTimeZone;
 
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import java.util.TimeZone;
@@ -38,6 +40,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 	}
 
 	DayItem item, item2;
+	private AbsoluteMockClockStrategy clock;
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
 
@@ -52,6 +55,15 @@ public class DayFieldTest extends AbstractRuntimeTest
 		super.setUp();
 		item = deleteOnTearDown(new DayItem(DEFAULT));
 		item2 = deleteOnTearDown(new DayItem(DEFAULT2));
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Clock.clearOverride();
+		super.tearDown();
 	}
 
 	public void testIt()
@@ -124,7 +136,10 @@ public class DayFieldTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(optionalDay, item.getOptionalDay());
 
+		clock.add(988888888888l);
 		item.touchOptionalDay(tz("Europe/Berlin"));
+		clock.assertEmpty();
+		clock.add(988888888888l);
 		assertEquals(new Day(tz("Europe/Berlin")), item.getOptionalDay());
 
 		item.setOptionalDay(null);
