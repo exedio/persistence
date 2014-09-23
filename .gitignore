@@ -2,5 +2,7 @@ build/
 runtime/servlettestweb/WEB-INF/classes/
 runtime/servlettestweb/WEB-INF/lib/
 tomcat/
+ivy/artifacts/
+lib/ojdbc5.jar
 cope.properties
 .eclipse-output/
