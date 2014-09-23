@@ -361,6 +361,7 @@
 	<target name="runtime.utiltest.instrument" depends="instrument.taskdef">
 		<instrument
 				verify="${instrument.verify}"
+				annotateGenerated="true"
 				finalArgs="true"
 				verbose="false">
 			<fileset dir="runtime/utiltestsrc">
