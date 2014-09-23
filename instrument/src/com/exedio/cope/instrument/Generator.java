@@ -460,6 +460,8 @@ final class Generator
 					: null);
 			}
 
+			writeAnnotateGenerated();
+
 			if(wrapper.isMethodDeprecated())
 			{
 				writeIndent();
