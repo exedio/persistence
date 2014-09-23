@@ -845,6 +845,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				encoding="ascii"
+				annotateGenerated="true"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				hidingWarningSuppressor="hiding"
