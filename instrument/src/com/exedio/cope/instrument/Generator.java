@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
+import javax.annotation.Generated;
 
 final class Generator
 {
@@ -76,6 +77,7 @@ final class Generator
 	private final StringBuilder output;
 	private final String lineSeparator;
 	private final boolean longJavadoc;
+	private final boolean annotateGenerated;
 	private final String finalArgPrefix;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
@@ -100,6 +102,7 @@ final class Generator
 			lineSeparator = systemLineSeparator;
 
 		this.longJavadoc = params.longJavadoc;
+		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
@@ -721,6 +724,15 @@ final class Generator
 				Option.TEXT_NONE +
 				"</tt> " +
 				"in the class comment.");
+
+		if(annotateGenerated)
+		{
+			writeIndent();
+			write('@');
+			write(Generated.class.getName());
+			write("(\"com.exedio.cope.instrument\")");
+			write(lineSeparator);
+		}
 
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{

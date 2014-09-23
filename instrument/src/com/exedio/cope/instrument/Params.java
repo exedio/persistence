@@ -25,6 +25,7 @@ final class Params
 	boolean verify = false;
 	Charset charset = Charset.forName("US-ASCII");
 	boolean longJavadoc = true;
+	boolean annotateGenerated = true;
 	boolean finalArgs = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
