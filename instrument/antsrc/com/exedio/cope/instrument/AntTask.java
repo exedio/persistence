@@ -69,6 +69,11 @@ public final class AntTask extends Task
 		params.longJavadoc = value;
 	}
 
+	public void setAnnotateGenerated(final boolean value)
+	{
+		params.annotateGenerated = value;
+	}
+
 	public void setFinalArgs(final boolean value)
 	{
 		params.finalArgs = value;
