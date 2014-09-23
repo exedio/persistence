@@ -45,8 +45,6 @@ import java.util.Map;
  */
 public abstract class Item implements Serializable, Comparable<Item>
 {
-	private static final long serialVersionUID = 1l;
-
 	static final char ID_SEPARATOR = '-';
 
 	transient Type<? extends Item> type;
@@ -223,44 +221,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 		//System.out.println("activate item:"+type+" "+pk);
 
 		assert PK.isValid(pk) : pk;
-	}
-
-	// serialization -------------
-
-	/**
-	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
-	 */
-	protected final Object writeReplace()
-	{
-		return type.isBound() ? this : new Serialized(type, pk);
-	}
-
-	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
-	{
-		in.defaultReadObject();
-		type = TypesBound.forClass(getClass());
-	}
-
-	private static final class Serialized implements Serializable
-	{
-		private static final long serialVersionUID = 1l;
-
-		private final Type<?> type;
-		private final int pk;
-
-		Serialized(final Type<?> type, final int pk)
-		{
-			this.type = type;
-			this.pk = pk;
-		}
-
-		/**
-		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
-		 */
-		private Object readResolve()
-		{
-			return type.activate(pk);
-		}
 	}
 
 	public final <E> E get(final Function<E> function)
@@ -536,6 +496,46 @@ public abstract class Item implements Serializable, Comparable<Item>
 			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
 		}
 		return result;
+	}
+
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	protected final Object writeReplace()
+	{
+		return type.isBound() ? this : new Serialized(type, pk);
+	}
+
+	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
+	{
+		in.defaultReadObject();
+		type = TypesBound.forClass(getClass());
+	}
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+
+		private final Type<?> type;
+		private final int pk;
+
+		Serialized(final Type<?> type, final int pk)
+		{
+			this.type = type;
+			this.pk = pk;
+		}
+
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return type.activate(pk);
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------
