@@ -181,6 +181,15 @@ final class Generator
 		writeIndent();
 		write(" */");
 		write(lineSeparator);
+
+		if(annotateGenerated)
+		{
+			writeIndent();
+			write('@');
+			write(Generated.class.getName());
+			write("(\"com.exedio.cope.instrument\")");
+			write(lineSeparator);
+		}
 	}
 
 	private static final String link(final String target)
@@ -460,8 +469,6 @@ final class Generator
 					: null);
 			}
 
-			writeAnnotateGenerated();
-
 			if(wrapper.isMethodDeprecated())
 			{
 				writeIndent();
@@ -727,8 +734,6 @@ final class Generator
 				"</tt> " +
 				"in the class comment.");
 
-		writeAnnotateGenerated();
-
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{
 			writeIndent();
@@ -746,18 +751,6 @@ final class Generator
 		write(".newType(");
 		write(type.name);
 		write(".class);");
-	}
-
-	private void writeAnnotateGenerated()
-	{
-		if(annotateGenerated)
-		{
-			writeIndent();
-			write('@');
-			write(Generated.class.getName());
-			write("(\"com.exedio.cope.instrument\")");
-			write(lineSeparator);
-		}
 	}
 
 	void write() throws ParserException
