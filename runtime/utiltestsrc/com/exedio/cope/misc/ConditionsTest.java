@@ -29,7 +29,6 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Function;
-import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
@@ -126,7 +125,7 @@ public class ConditionsTest extends CopeAssert
 		}
 	}
 
-	static final class AnItem extends Item
+	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final StringField name1 = new StringField();
 		static final StringField name2 = new StringField();
