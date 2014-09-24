@@ -96,7 +96,7 @@ public class ConditionsTest extends CopeAssert
 		}
 	}
 
-	public void testIt()
+	public void testUnisonNull()
 	{
 		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(AnItem.name1)).toString());
@@ -110,7 +110,7 @@ public class ConditionsTest extends CopeAssert
 			unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
 	}
 
-	public void testError()
+	public void testUnisonNullNull()
 	{
 		try
 		{
