@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Conditions#equal and #implies added.
 * <instrument annotateGenerated="true" ... supported
 * Model#flushConnectionPool added.
 * bugfix: PartOf#get[Declared]PartOfs did consider order fields.

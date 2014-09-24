@@ -26,6 +26,23 @@ import java.util.List;
 
 public final class Conditions
 {
+	public static Condition equal(
+			final Condition left,
+			final Condition right)
+	{
+		return Cope.or(
+			left      .and(right      ),
+			left.not().and(right.not())
+		);
+	}
+
+	public static Condition implies(
+			final Condition premises,
+			final Condition conclusion)
+	{
+		return premises.not().or(conclusion);
+	}
+
 	public static Condition unisonNull(final List<? extends Function<?>> functions)
 	{
 		if(functions.size()<=1)
@@ -41,6 +58,7 @@ public final class Conditions
 		}
 		return Cope.and(isNull).or(Cope.and(isNotNull));
 	}
+
 
 	private Conditions()
 	{

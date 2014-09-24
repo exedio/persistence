@@ -18,10 +18,13 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Conditions.equal;
+import static com.exedio.cope.misc.Conditions.implies;
 import static com.exedio.cope.misc.Conditions.unisonNull;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.Condition;
 import com.exedio.cope.Function;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -32,6 +35,67 @@ import java.util.Collections;
 
 public class ConditionsTest extends CopeAssert
 {
+	public void testEqual()
+	{
+		assertEquals(
+				"((AnItem.name1='alpha' AND AnItem.name1='beta') OR" +
+				" (!(AnItem.name1='alpha') AND !(AnItem.name1='beta')))",
+				equal(AnItem.name1.equal("alpha"), AnItem.name1.equal("beta")).toString());
+	}
+
+	public void testEqualNull()
+	{
+		final Condition c = AnItem.name1.equal("beta");
+		try
+		{
+			equal(null, c);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			equal(c, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("conditions[1]", e.getMessage());
+		}
+	}
+
+	public void testImplies()
+	{
+		assertEquals(
+				"(!(AnItem.name1='alpha') OR AnItem.name1='beta')",
+				implies(AnItem.name1.equal("alpha"), AnItem.name1.equal("beta")).toString());
+	}
+
+	public void testImpliesNull()
+	{
+		final Condition c = AnItem.name1.equal("beta");
+		try
+		{
+			implies(null, c);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			implies(c, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("conditions[1]", e.getMessage());
+		}
+	}
+
 	public void testIt()
 	{
 		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
