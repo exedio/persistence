@@ -21,6 +21,9 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.Conditions.equal;
 import static com.exedio.cope.misc.Conditions.implies;
 import static com.exedio.cope.misc.Conditions.unisonNull;
+import static com.exedio.cope.misc.ConditionsTest.AnItem.name1;
+import static com.exedio.cope.misc.ConditionsTest.AnItem.name2;
+import static com.exedio.cope.misc.ConditionsTest.AnItem.name3;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;
@@ -40,12 +43,12 @@ public class ConditionsTest extends CopeAssert
 		assertEquals(
 				"((AnItem.name1='alpha' AND AnItem.name1='beta') OR" +
 				" (!(AnItem.name1='alpha') AND !(AnItem.name1='beta')))",
-				equal(AnItem.name1.equal("alpha"), AnItem.name1.equal("beta")).toString());
+				equal(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
 	public void testEqualNull()
 	{
-		final Condition c = AnItem.name1.equal("beta");
+		final Condition c = name1.equal("beta");
 		try
 		{
 			equal(null, c);
@@ -70,12 +73,12 @@ public class ConditionsTest extends CopeAssert
 	{
 		assertEquals(
 				"(!(AnItem.name1='alpha') OR AnItem.name1='beta')",
-				implies(AnItem.name1.equal("alpha"), AnItem.name1.equal("beta")).toString());
+				implies(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
 	public void testImpliesNull()
 	{
-		final Condition c = AnItem.name1.equal("beta");
+		final Condition c = name1.equal("beta");
 		try
 		{
 			implies(null, c);
@@ -99,15 +102,15 @@ public class ConditionsTest extends CopeAssert
 	public void testUnisonNull()
 	{
 		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
-		assertEquals("TRUE", unisonNull(asList(AnItem.name1)).toString());
+		assertEquals("TRUE", unisonNull(asList(name1)).toString());
 		assertEquals("(" +
 			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
 			"(AnItem.name1 is not null AND AnItem.name2 is not null))",
-			unisonNull(asList(AnItem.name1, AnItem.name2)).toString());
+			unisonNull(asList(name1, name2)).toString());
 		assertEquals("(" +
 			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
 			"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
-			unisonNull(asList(AnItem.name1, AnItem.name2, AnItem.name3)).toString());
+			unisonNull(asList(name1, name2, name3)).toString());
 	}
 
 	public void testUnisonNullNull()
