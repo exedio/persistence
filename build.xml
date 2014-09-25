@@ -182,12 +182,12 @@
 		</untar>
 		<chmod dir="tomcat/bin" perm="ugo+x" includes="*.sh" />
 		<copy todir="tomcat/conf">
-			<fileset dir="${basedir}">
+			<fileset dir="${basedir}/conf">
 				<include name="tomcat-users.xml" />
 			</fileset>
 		</copy>
 		<echo message="tomcat ports: shutdown=${tomcat.port.shutdown} http=${tomcat.port.http}" />
-		<copy file="server.xml" todir="tomcat/conf" overwrite="true">
+		<copy file="conf/server.xml" todir="tomcat/conf" overwrite="true">
 			<filterset>
 				<filter token="PORT_SHUTDOWN" value="${tomcat.port.shutdown}" />
 				<filter token="PORT_HTTP"     value="${tomcat.port.http}"     />
@@ -1018,7 +1018,7 @@
 					jvmargs="-Xmx250M"
 					output="${findbugs.output}"
 					outputFile="${basedir}/build/findbugs.${findbugs.output}"
-					excludeFilter="findbugs-exclude.xml"
+					excludeFilter="conf/findbugs-exclude.xml"
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/classes/dsmf/src" />
