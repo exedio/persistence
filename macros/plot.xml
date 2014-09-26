@@ -2,6 +2,11 @@
 
 <project name="plot" default="fail" basedir=".">
 
+	<!--
+		This macro provides data for Jenkins Plot Plugin.
+		https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin
+	-->
+
 	<macrodef name="plot">
 		<attribute name="file" />
 		<sequential>
