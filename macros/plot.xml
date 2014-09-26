@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<project name="plot" default="fail" basedir=".">
+
+	<macrodef name="plot">
+		<attribute name="file" />
+		<sequential>
+			<length file="@{file}" property="@{file}-plot" />
+			<echo message="YVALUE=${@{file}-plot}" file="@{file}-plot.properties" />
+		</sequential>
+	</macrodef>
+	
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+	
+</project>

@@ -7,6 +7,7 @@
 	
 	<import file="macros/compile.xml" />
 	<import file="macros/findbugs.xml" />
+	<import file="macros/plot.xml" />
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
@@ -31,6 +32,7 @@
 					<attribute name="Implementation-Vendor" value="exedio GmbH" />
 				</manifest>
 			</jar>
+			<plot file="@{jarfile}" />
 		</sequential>
 	</macrodef>
 
@@ -53,6 +55,7 @@
 					<attribute name="Class-Path" value="@{classpath}" />
 				</manifest>
 			</jar>
+			<plot file="@{jarfile}" />
 		</sequential>
 	</macrodef>
 	
