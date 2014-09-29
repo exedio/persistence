@@ -20,9 +20,6 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
-import com.exedio.cope.util.Hex;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,6 +32,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
+import com.exedio.cope.util.Hex;
 
 public final class MediaType
 {
@@ -156,6 +157,7 @@ public final class MediaType
 	public static final String WOFF = "application/font-woff";
 	public static final String TTF  = "application/x-font-ttf";
 	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
 	private static final byte[] ZIP_MAGIC = new byte[]{(byte)'P', (byte)'K', 0x03, 0x04};
 
@@ -239,6 +241,13 @@ public final class MediaType
 					// http://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
+			),
+			new MediaType(
+					// http://en.wikipedia.org/wiki/Office_Open_XML
+					new String[]{".xlsx", ".xlsm"},
+					ZIP_MAGIC,
+					XLSX,
+					"application/x-zip-compressed" // seen on IE8, Windows XP
 			),
 	};
 

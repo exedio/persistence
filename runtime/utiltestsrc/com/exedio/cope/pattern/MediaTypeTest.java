@@ -26,8 +26,6 @@ import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,6 +35,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.StrictFile;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -145,17 +146,17 @@ public class MediaTypeTest extends CopeAssert
 		final MediaType zip = forName("application/zip");
 		final MediaType jar = forName("application/java-archive");
 		final MediaType docx = forName("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+		final MediaType xslx = forName("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
 		assertMagic(JPEG,        jpg);
 		assertMagic(JPEG + "aa", jpg);
 		assertMagic(PNG,         png);
 		assertMagic(PNG  + "bb", png);
-		assertMagic(ZIP,         zip, jar, docx);
-		assertMagic(ZIP  + "cc", zip, jar, docx);
+		assertMagic(ZIP,         zip, jar, docx, xslx);
+		assertMagic(ZIP  + "cc", zip, jar, docx, xslx);
 		assertMagic(stealTail(JPEG));
 		assertMagic(stealTail(PNG));
 		assertMagic(stealTail(ZIP));
-
 	}
 
 	public void testForMagicFails() throws IOException
