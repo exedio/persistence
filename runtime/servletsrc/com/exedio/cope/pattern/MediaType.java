@@ -20,6 +20,9 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
+import com.exedio.cope.util.Hex;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,10 +35,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
-import com.exedio.cope.util.Hex;
 
 public final class MediaType
 {
