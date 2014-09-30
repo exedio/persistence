@@ -174,7 +174,7 @@ public abstract class MediaPath extends Pattern
 							"illegal catchphrase" +
 							" on " + item.getCopeID() +
 							" for " + getID() +
-							": >" + result + "< [" + i + ']');
+							": >" + result + "< at position " + i);
 			}
 
 			return result;
