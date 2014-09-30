@@ -169,7 +169,7 @@ public abstract class MediaPath extends Pattern
 			for(int i = 0; i<l; i++)
 			{
 				final char c = result.charAt(i);
-				if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')) )
+				if(! (('0'<=c&&c<='9')||('a'<=c&&c<='z')||('A'<=c&&c<='Z')||(c=='-')||(c=='_')) )
 					throw new IllegalArgumentException(
 							"illegal catchphrase" +
 							" on " + item.getCopeID() +

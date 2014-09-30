@@ -47,7 +47,7 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		normal = new MediaCatchPhraseItem("normal");
-		all    = new MediaCatchPhraseItem("all01289ABCYZabcyz-");
+		all    = new MediaCatchPhraseItem("all01289ABCYZabcyz-_");
 		single = new MediaCatchPhraseItem("S");
 		empty  = new MediaCatchPhraseItem("");
 		nulL   = new MediaCatchPhraseItem(null);
@@ -59,7 +59,7 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 	public void testIt()
 	{
 		assertIt("MediaCatchPhraseSuperItem/feature/", normal, "/normal");
-		assertIt("MediaCatchPhraseSuperItem/feature/", all,    "/all01289ABCYZabcyz-");
+		assertIt("MediaCatchPhraseSuperItem/feature/", all,    "/all01289ABCYZabcyz-_");
 		assertIt("MediaCatchPhraseSuperItem/feature/", single, "/S"     );
 		assertIt("MediaCatchPhraseSuperItem/feature/", empty,  ""       );
 		assertIt("MediaCatchPhraseSuperItem/feature/", nulL,   ""       );
