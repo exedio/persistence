@@ -30,9 +30,12 @@ public final class TypeColumnTypeTest extends CopeAssert
 	public void testIt()
 	{
 		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
+		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));
 
 		assertIt("VARCHAR(13)", StandardSuper.TYPE);
 		assertIt("VARCHAR(13)", Ref.standard);
+		assertIt("VARCHAR(14)", MinLengthSuper.TYPE);
+		assertIt("VARCHAR(14)", Ref.minLength);
 	}
 
 	private static void assertIt(final String expected, final Type<?> type)
@@ -70,9 +73,24 @@ public final class TypeColumnTypeTest extends CopeAssert
 		private StandardSub(final ActivationParameters ap) { super(ap); }
 	}
 
+	private static class MinLengthSuper extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		static final Type<MinLengthSuper> TYPE = TypesBound.newType(MinLengthSuper.class);
+		MinLengthSuper(final ActivationParameters ap) { super(ap); }
+	}
+
+	private static final class MinLengthSub extends MinLengthSuper
+	{
+		private static final long serialVersionUID = 1l;
+		static final Type<MinLengthSub> TYPE = TypesBound.newType(MinLengthSub.class);
+		private MinLengthSub(final ActivationParameters ap) { super(ap); }
+	}
+
 	private static final class Ref extends Item
 	{
 		static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);
+		static final ItemField<MinLengthSuper> minLength = ItemField.create(MinLengthSuper.class);
 		private static final long serialVersionUID = 1l;
 		static final Type<Ref> TYPE = TypesBound.newType(Ref.class);
 		private Ref(final ActivationParameters ap) { super(ap); }
@@ -80,6 +98,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 
 	private static final Model model = new Model(
 			StandardSuper.TYPE, StandardSub.TYPE,
+			MinLengthSuper.TYPE, MinLengthSub.TYPE,
 			Ref.TYPE);
 
 
