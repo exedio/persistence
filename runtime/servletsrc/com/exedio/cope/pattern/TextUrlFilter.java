@@ -231,21 +231,8 @@ public class TextUrlFilter extends MediaFilter
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, charset);
 
-		final int pasteStartLen = pasteStart.length();
-		final int pasteStopLen  = pasteStop .length();
-		final StringBuilder bf = new StringBuilder(srcString.length());
-		int nextStart = 0;
-		for(int start = srcString.indexOf(pasteStart); start>=0; start = srcString.indexOf(pasteStart, nextStart))
-		{
-			final int stop = srcString.indexOf(pasteStop, start);
-			if(stop<0)
-				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop);
-
-			bf.append(srcString.substring(nextStart, start));
-			appendKey(bf, item, srcString.substring(start + pasteStartLen, stop), request);
-
-			nextStart = stop + pasteStopLen;
-		}
+		final StringBuilder bf = new StringBuilder( srcString.length() );
+		final int nextStart = substitutePastes( bf, srcString, item, request );
 
 		commit();
 
@@ -259,6 +246,24 @@ public class TextUrlFilter extends MediaFilter
 			// short cut if there are no pastes at all
 			MediaUtil.send(supportedContentType, sourceByte, response);
 		}
+	}
+
+	private int substitutePastes( final StringBuilder bf, final String srcString, final Item item, final HttpServletRequest request )
+	{
+		final int pasteStartLen = pasteStart.length();
+		final int pasteStopLen = pasteStop.length();
+		int nextStart = 0;
+		for( int start = srcString.indexOf( pasteStart ); start >= 0; start = srcString.indexOf( pasteStart, nextStart ) )
+		{
+			final int stop = srcString.indexOf( pasteStop, start );
+			if( stop < 0 ) throw new IllegalArgumentException( pasteStart + ':' + start + '/' + pasteStop );
+
+			bf.append( srcString.substring( nextStart, start ) );
+			appendKey( bf, item, srcString.substring( start + pasteStartLen, stop ), request );
+
+			nextStart = stop + pasteStopLen;
+		}
+		return nextStart;
 	}
 
 	protected void appendKey(
