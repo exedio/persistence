@@ -379,9 +379,15 @@
 	</target>
 	
 	<target name="runtime.utiltest.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.anno.compile, runtime.test.feature.compile, runtime.utiltest.instrument">
+			depends="
+				dsmf.compile,
+				runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile,
+				instrument.anno.compile,
+				runtime.test.feature.compile, runtime.utiltest.instrument"
+			>
 		<compile srcdir="runtime/utiltestsrc">
 			<classpath>
+				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />

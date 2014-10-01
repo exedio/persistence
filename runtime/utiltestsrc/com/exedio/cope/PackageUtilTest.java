@@ -50,6 +50,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TypeSetModelTest.class);
 		suite.addTestSuite(TypeSetModelComplexTest.class);
 		suite.addTestSuite(TypeSetModelErrorTest.class);
+		suite.addTestSuite(TypeColumnTypeTest.class);
 		suite.addTestSuite(DateFieldWrongDefaultNowTest.class);
 		suite.addTestSuite(DayFieldWrongDefaultNowTest.class);
 		suite.addTestSuite(PatternComputedTest.class);
