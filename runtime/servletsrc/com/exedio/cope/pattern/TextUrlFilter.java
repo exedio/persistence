@@ -246,6 +246,19 @@ public class TextUrlFilter extends MediaFilter
 		}
 	}
 
+	public String getContent( final HttpServletRequest request, final Item item ) throws NotFound
+	{
+		checkContentType( item );
+
+		final byte[] sourceByte = raw.getBody().getArray(item);
+		final String srcString = new String(sourceByte, charset);
+
+		final StringBuilder bf = new StringBuilder( srcString.length() );
+		final int nextStart = substitutePastes( bf, srcString, item, request );
+
+		return bf.append( srcString.substring( nextStart ) ).toString();
+	}
+
 	private void checkContentType( final Item item ) throws NotFound
 	{
 		final String sourceContentType = raw.getContentType( item );

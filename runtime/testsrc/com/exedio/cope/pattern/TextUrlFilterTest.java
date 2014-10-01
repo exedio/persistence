@@ -88,6 +88,22 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
+	public void testTextUrlFilterGetContentItemNotExisting() throws IOException, NotFound
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
+		assertEquals("text/plain", item.getFertigContentType());
+		try
+		{
+			item.getFertigContent( new Request() );
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+		}
+		assertTrue(model.hasCurrentTransaction());
+	}
+
 	public void testPasteUrl() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
@@ -173,6 +189,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		fertig.doGetAndCommit(new Request(), new Response(body), item);
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction(TextUrlFilterTest.class.getName());
+		assertEquals(body, fertig.getContent( new Request(), item));
+		assertTrue(model.hasCurrentTransaction());
 	}
 
 	static class Request extends HttpServletRequestDummy
