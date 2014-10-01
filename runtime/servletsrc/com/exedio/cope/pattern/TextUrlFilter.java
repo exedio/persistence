@@ -224,9 +224,7 @@ public class TextUrlFilter extends MediaFilter
 			final Item item)
 	throws IOException, NotFound
 	{
-		final String sourceContentType = raw.getContentType(item);
-		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))
-			throw notFoundIsNull();
+		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, charset);
@@ -246,6 +244,12 @@ public class TextUrlFilter extends MediaFilter
 			// short cut if there are no pastes at all
 			MediaUtil.send(supportedContentType, sourceByte, response);
 		}
+	}
+
+	private void checkContentType( final Item item ) throws NotFound
+	{
+		final String sourceContentType = raw.getContentType( item );
+		if( sourceContentType == null || !supportedContentType.equals( sourceContentType ) ) throw notFoundIsNull();
 	}
 
 	private int substitutePastes( final StringBuilder bf, final String srcString, final Item item, final HttpServletRequest request )
