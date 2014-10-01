@@ -31,11 +31,14 @@ public final class TypeColumnTypeTest extends CopeAssert
 	{
 		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
 		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));
+		assertEquals("MinLengthIneffectiveSub", getTypeColumnValue(MinLengthIneffectiveSub.TYPE));
 
 		assertIt("VARCHAR(13)", StandardSuper.TYPE);
 		assertIt("VARCHAR(13)", Ref.standard);
 		assertIt("VARCHAR(14)", MinLengthSuper.TYPE);
 		assertIt("VARCHAR(14)", Ref.minLength);
+		assertIt("VARCHAR(25)", MinLengthIneffectiveSuper.TYPE);
+		assertIt("VARCHAR(25)", Ref.minLengthIneffective);
 	}
 
 	private static void assertIt(final String expected, final Type<?> type)
@@ -87,10 +90,25 @@ public final class TypeColumnTypeTest extends CopeAssert
 		private MinLengthSub(final ActivationParameters ap) { super(ap); }
 	}
 
+	private static class MinLengthIneffectiveSuper extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		static final Type<MinLengthIneffectiveSuper> TYPE = TypesBound.newType(MinLengthIneffectiveSuper.class);
+		MinLengthIneffectiveSuper(final ActivationParameters ap) { super(ap); }
+	}
+
+	private static final class MinLengthIneffectiveSub extends MinLengthIneffectiveSuper
+	{
+		private static final long serialVersionUID = 1l;
+		static final Type<MinLengthIneffectiveSub> TYPE = TypesBound.newType(MinLengthIneffectiveSub.class);
+		private MinLengthIneffectiveSub(final ActivationParameters ap) { super(ap); }
+	}
+
 	private static final class Ref extends Item
 	{
 		static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);
 		static final ItemField<MinLengthSuper> minLength = ItemField.create(MinLengthSuper.class);
+		static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
 		private static final long serialVersionUID = 1l;
 		static final Type<Ref> TYPE = TypesBound.newType(Ref.class);
 		private Ref(final ActivationParameters ap) { super(ap); }
@@ -99,6 +117,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 	private static final Model model = new Model(
 			StandardSuper.TYPE, StandardSub.TYPE,
 			MinLengthSuper.TYPE, MinLengthSub.TYPE,
+			MinLengthIneffectiveSuper.TYPE, MinLengthIneffectiveSub.TYPE,
 			Ref.TYPE);
 
 
