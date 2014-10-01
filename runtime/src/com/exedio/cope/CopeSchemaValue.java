@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * This may be useful to maintain schema compatibility to
  * former versions of the application or to a legacy application.
  */
-@Target({FIELD})
+@Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CopeSchemaValue
 {
