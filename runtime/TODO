@@ -91,5 +91,9 @@ performance / memory consumption
 - trove:
 	* implement equivalent of LinkedHashMap, would avoid clean-up sweeps for Cache#stateMaps
 	* implement TObjectObjectHashMap, would provide open hashing instead of chained hashing for Cache#queries
+- Type Columns
+	are columns "class" for polymorphic Types and columns "xxxType" for polymorphic ItemFields
+	- in memory: use cacheIdTransiently instead
+	- in database: use a number explicitly defined by annotation
 - rethink internal structure of Entity, State, Row
 - special handling of searches by unique constraints, bypassing QueryCache
