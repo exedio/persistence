@@ -54,7 +54,6 @@ performance / memory consumption
 - Media:
 	* store text/* gzipped and deliver as such to the browser
 	* https://developers.google.com/speed/docs/best-practices/rules_intro
-		- increase Expires header, is currently 5 seconds, maximum allowed by standard is 1 year.
 		- Cache-Control: public on non-@PreventUrlGuessing
 			* for Firefox workaround ?
 			* for proxies near client
