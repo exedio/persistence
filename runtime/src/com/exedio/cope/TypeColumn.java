@@ -26,9 +26,10 @@ final class TypeColumn extends StringColumn
 			final Table table,
 			final ItemColumn itemColumn,
 			final boolean optional,
+			final int minLength,
 			final String[] allowedValues)
 	{
-		super(table, itemColumn.id + "Type"/* not equal to "name"! */, false, optional, allowedValues);
+		super(table, itemColumn.id + "Type"/* not equal to "name"! */, false, optional, minLength, allowedValues);
 		this.itemColumnQuotedID = itemColumn.quotedID;
 	}
 

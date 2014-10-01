@@ -288,7 +288,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(typeColumnValues==null)
 			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else
-			typeColumn = new TypeColumn(table, result, optional, typeColumnValues);
+			typeColumn = new TypeColumn(table, result, optional, valueType.typeColumnMinLength, typeColumnValues);
 
 		connected = true;
 

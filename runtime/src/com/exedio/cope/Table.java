@@ -40,6 +40,7 @@ final class Table
 			final Database database,
 			final String id,
 			final Type<? extends Item> supertype,
+			final int typeColumnMinLength,
 			final String[] typesOfInstancesColumnValues,
 			final boolean updateCounter)
 	{
@@ -53,7 +54,7 @@ final class Table
 			: new IntegerColumn(this);
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
-			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typesOfInstancesColumnValues)
+			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typeColumnMinLength, typesOfInstancesColumnValues)
 			: null;
 		this.updateCounter =
 			updateCounter

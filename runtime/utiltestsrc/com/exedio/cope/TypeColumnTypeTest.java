@@ -35,8 +35,8 @@ public final class TypeColumnTypeTest extends CopeAssert
 
 		assertIt("VARCHAR(13)", StandardSuper.TYPE);
 		assertIt("VARCHAR(13)", Ref.standard);
-		assertIt("VARCHAR(14)", MinLengthSuper.TYPE);
-		assertIt("VARCHAR(14)", Ref.minLength);
+		assertIt("VARCHAR(20)", MinLengthSuper.TYPE);
+		assertIt("VARCHAR(20)", Ref.minLength);
 		assertIt("VARCHAR(25)", MinLengthIneffectiveSuper.TYPE);
 		assertIt("VARCHAR(25)", Ref.minLengthIneffective);
 	}
@@ -76,6 +76,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 		private StandardSub(final ActivationParameters ap) { super(ap); }
 	}
 
+	@CopeTypeColumnMinLength(20)
 	private static class MinLengthSuper extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -90,6 +91,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 		private MinLengthSub(final ActivationParameters ap) { super(ap); }
 	}
 
+	@CopeTypeColumnMinLength(20)
 	private static class MinLengthIneffectiveSuper extends Item
 	{
 		private static final long serialVersionUID = 1l;

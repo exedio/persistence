@@ -58,6 +58,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	final String id;
 	final String schemaId;
+	final int typeColumnMinLength;
 	private final Pattern pattern;
 	final boolean isAbstract;
 	final Type<? super T> supertype;
@@ -178,6 +179,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
 		this.supertype = supertype;
+		this.typeColumnMinLength = getTypeColumnMinLength();
 
 		if(supertype==null)
 		{
@@ -265,6 +267,21 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private static Class<Field<?>> cast(final Class<Field> c)
 	{
 		return (Class)c;
+	}
+
+	private int getTypeColumnMinLength()
+	{
+		final CopeTypeColumnMinLength annotation = getAnnotation(CopeTypeColumnMinLength.class);
+		if(annotation==null)
+			return 0;
+
+		final int value = annotation.value();
+		if(value<=0)
+			throw new IllegalArgumentException(
+					"illegal @" + CopeTypeColumnMinLength.class.getSimpleName() +
+					" for type " + id +
+					", must be greater zero, but was " + value);
+		return value;
 	}
 
 	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
@@ -532,6 +549,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				database,
 				schemaId,
 				supertype,
+				typeColumnMinLength,
 				mount().typesOfInstancesColumnValues,
 				!hasFinalTable());
 		if(supertype==null)

@@ -56,11 +56,12 @@ class StringColumn extends Column
 			final String id,
 			final boolean synthetic,
 			final boolean optional,
+			final int minLength,
 			final String[] allowedValues)
 	{
 		super(table, id, synthetic, false, optional);
 		this.minimumLength = 0;
-		this.maximumLength = maxLength(allowedValues);
+		this.maximumLength = Math.max(minLength, maxLength(allowedValues));
 		this.charSet  = null;
 		this.allowedValues = allowedValues;
 		this.mysqlExtendedVarchar = null;
