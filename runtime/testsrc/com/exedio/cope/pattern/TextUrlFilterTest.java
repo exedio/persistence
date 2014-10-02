@@ -189,7 +189,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		fertig.doGetAndCommit(new Request(), new Response(body), item);
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction(TextUrlFilterTest.class.getName());
-		assertEquals(body, fertig.getContent( new Request(), item));
+		assertEquals(body, item.getFertigContent(new Request()));
 		assertTrue(model.hasCurrentTransaction());
 	}
 

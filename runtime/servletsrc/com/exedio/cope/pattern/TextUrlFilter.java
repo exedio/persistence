@@ -246,7 +246,11 @@ public class TextUrlFilter extends MediaFilter
 		}
 	}
 
-	public String getContent( final HttpServletRequest request, final Item item ) throws NotFound
+	@Wrap(order=80, thrown={@Wrap.Thrown(NotFound.class)})
+	public final String getContent(
+			final Item item,
+			@Parameter("request") final HttpServletRequest request )
+		throws NotFound
 	{
 		checkContentType( item );
 
