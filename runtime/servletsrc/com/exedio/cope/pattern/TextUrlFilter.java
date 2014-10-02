@@ -260,7 +260,9 @@ public class TextUrlFilter extends MediaFilter
 		final StringBuilder bf = new StringBuilder( srcString.length() );
 		final int nextStart = substitutePastes( bf, srcString, item, request );
 
-		return bf.append( srcString.substring( nextStart ) ).toString();
+		if(nextStart>0)
+			return bf.append(srcString.substring(nextStart)).toString();
+		else return srcString;
 	}
 
 	private void checkContentType( final Item item ) throws NotFound
