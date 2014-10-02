@@ -193,7 +193,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			fertig.check(item);
+			item.checkFertig();
 			fail();
 		}
 		catch(final NotFound e)
@@ -205,13 +205,13 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 	public void testCheckBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
-		assertEquals(new HashSet<>(Arrays.asList("uno")), fertig.check(item));
+		assertEquals(new HashSet<>(Arrays.asList("uno")), item.checkFertig());
 	}
 
 	public void testCheckMultipleBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
-		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), fertig.check(item));
+		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), item.checkFertig());
 	}
 
 	private void assertGet(final String body) throws IOException, NotFound

@@ -290,6 +290,7 @@ public class TextUrlFilter extends MediaFilter
 		return nextStart;
 	}
 
+	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
 	public Set<String> check( final Item item ) throws NotFound
 	{
 		checkContentType( item );
