@@ -52,14 +52,17 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 
 	static final Charset UTF8 = Charset.forName(CharsetName.UTF8);
 
-	public void testIt() throws IOException, NotFound
+	public void testPasteContentTypesAllowed()
 	{
 		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
+	}
 
+	public void testContentTypeNull() throws IOException
+	{
 		assertEquals(null, item.getFertigContentType());
 		try
 		{
-			fertig.doGetAndCommit(null, null, item);
+			fertig.doGetAndCommit(new Request(), new Response(""), item);
 			fail();
 		}
 		catch(final NotFound e)
@@ -67,12 +70,15 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			assertEquals("is null", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
+	}
 
+	public void testTextUrlFilterItemNotExisting() throws IOException, NotFound
+	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
 		try
 		{
-			fertig.doGetAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), new Response(""), item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -80,13 +86,23 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
+	}
+
+	public void testPasteUrl() throws IOException, NotFound
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 
 		final String url1 = item.addFertigPaste("uno");
 		final MediaPath.Locator l = fertig.getPasteLocator(item, "uno");
 		assertLocator("TextUrlFilterItem-fertig/value/TextUrlFilterItem-fertig-0.png", l);
 		assertEquals(l.getURLByConnect(), fertig.getPasteURL(item, "uno"));
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
+	}
 
+	public void testDuplicatePasteValue() throws IOException
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
+		item.addFertigPaste("uno");
 
 		try
 		{
@@ -98,10 +114,16 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			assertEquals("unique violation for TextUrlFilterItem-fertig.parentAndKey", e.getMessage());
 		}
 		item2.addFertigPaste("uno");
+	}
 
-		final String url2 = item.addFertigPaste("duo");
+	public void testUrlReplacement() throws IOException, NotFound
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
+
+		final String url1 = item.addFertigPaste("uno");
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 
+		final String url2 = item.addFertigPaste("duo");
 		item.setFertigRaw("<paste>uno</paste><eins><paste>duo</paste>");
 		assertGet("<override>" + url1 + "</override><eins><override>" + url2 + "</override>");
 
@@ -113,11 +135,14 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 
 		item.setFertigRaw("<eins><paste>EXTRA</paste><zwei>");
 		assertGet("<eins><extra/><zwei>");
+	}
 
+	public void testPasteTypo() throws IOException, NotFound
+	{
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
 		{
-			fertig.doGetAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), new Response(""), item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -125,11 +150,14 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 			assertEquals("<paste>:6/</paste>", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
+	}
 
+	public void testMalformedRawContent() throws IOException, NotFound
+	{
 		item.setFertigRaw("<eins><paste>");
 		try
 		{
-			fertig.doGetAndCommit(new Request(), null, item);
+			fertig.doGetAndCommit(new Request(), new Response(""), item);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
