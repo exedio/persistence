@@ -29,6 +29,9 @@ import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.util.CharsetName;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
 
 public class TextUrlFilterTest extends AbstractRuntimeModelTest
@@ -151,6 +154,9 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 
 		item.setFertigRaw("<eins><paste>EXTRA</paste><zwei>");
 		assertGet("<eins><extra/><zwei>");
+
+		item.setFertigRaw("<eins><paste>EXTRA</paste><paste>EXTRA</paste><zwei>");
+		assertGet("<eins><extra/><extra/><zwei>");
 	}
 
 	public void testPasteTypo() throws IOException, NotFound
@@ -183,6 +189,31 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
+	public void testCheckContentTypeNull()
+	{
+		try
+		{
+			fertig.check(item);
+			fail();
+		}
+		catch(final NotFound e)
+		{
+			assertEquals("is null", e.getMessage());
+		}
+	}
+
+	public void testCheckBrokenLink() throws IOException, NotFound
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
+		assertEquals(new HashSet<>(Arrays.asList("uno")), fertig.check(item));
+	}
+
+	public void testCheckMultipleBrokenLink() throws IOException, NotFound
+	{
+		item.setFertigRaw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
+		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), fertig.check(item));
+	}
+
 	private void assertGet(final String body) throws IOException, NotFound
 	{
 		assertEquals("text/plain", item.getFertigContentType());
@@ -190,6 +221,8 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction(TextUrlFilterTest.class.getName());
 		assertEquals(body, item.getFertigContent(new Request()));
+		assertTrue(model.hasCurrentTransaction());
+		assertEquals(Collections.emptySet(), fertig.check(item));
 		assertTrue(model.hasCurrentTransaction());
 	}
 

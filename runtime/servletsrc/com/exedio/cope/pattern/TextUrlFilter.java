@@ -43,6 +43,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -287,6 +288,35 @@ public class TextUrlFilter extends MediaFilter
 			nextStart = stop + pasteStopLen;
 		}
 		return nextStart;
+	}
+
+	public Set<String> check( final Item item ) throws NotFound
+	{
+		checkContentType( item );
+		final Set<String> brokenCodes = new HashSet<>();
+		final byte[] sourceByte = getSource().getBody().getArray( item );
+		final String srcString = new String( sourceByte, charset );
+		String tempString = srcString;
+		while( tempString.indexOf( pasteStart ) > -1 )
+		{
+			final int startPos = tempString.indexOf( pasteStart );
+			final StringBuilder sb = new StringBuilder();
+			sb.append( tempString.substring( 0, startPos ) );
+			String paste = tempString.substring( startPos + pasteStart.length() );
+			paste = paste.substring( 0, paste.indexOf( pasteStop ) );
+			final String rest = tempString.substring( startPos );
+			try
+			{
+				getPaste( item, paste );
+			}
+			catch( final IllegalArgumentException e )
+			{
+				brokenCodes.add( paste );
+			}
+			sb.append( rest.substring( rest.indexOf( pasteStop ) + 1 ) );
+			tempString = sb.toString();
+		}
+		return brokenCodes;
 	}
 
 	protected void appendKey(
