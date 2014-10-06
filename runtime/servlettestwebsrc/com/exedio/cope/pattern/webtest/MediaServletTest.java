@@ -222,8 +222,8 @@ public class MediaServletTest extends TestCase
 		assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
 
-		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL, hour8(0));
-		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL, hour8(2));
+		assertNotFound(prefix + "html/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
+		assertNotFound(prefix + "html/" + ITEM_PNG, NOT_COMPUTABLE, hour8(2));
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
 		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
 		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));

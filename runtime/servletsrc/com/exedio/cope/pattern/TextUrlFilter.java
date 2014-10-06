@@ -269,7 +269,10 @@ public class TextUrlFilter extends MediaFilter
 	private void checkContentType( final Item item ) throws NotFound
 	{
 		final String sourceContentType = raw.getContentType( item );
-		if( sourceContentType == null || !supportedContentType.equals( sourceContentType ) ) throw notFoundIsNull();
+		if(sourceContentType==null)
+			throw notFoundIsNull();
+		if(!supportedContentType.equals(sourceContentType) )
+			throw notFoundNotComputable();
 	}
 
 	private int substitutePastes(
