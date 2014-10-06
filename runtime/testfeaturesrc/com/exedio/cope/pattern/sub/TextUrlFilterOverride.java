@@ -25,6 +25,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.TextUrlFilter;
 import java.nio.charset.Charset;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
@@ -42,6 +43,14 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 	}
 
 	@Override
+	public Set<String> check( final Item item ) throws NotFound
+	{
+		final Set<String> check = super.check( item );
+		check.remove( EXTRA );
+		return check;
+	}
+
+	@Override
 	protected void appendKey(
 			final StringBuilder bf,
 			final Item item,
@@ -50,11 +59,13 @@ public final class TextUrlFilterOverride extends TextUrlFilter
 	{
 		assertNotNull(item);
 		assertNotNull(request);
-		if("EXTRA".equals(key))
+		if(EXTRA.equals(key))
 			bf.append("<extra/>");
 		else
 			super.appendKey(bf, item, key, request);
 	}
+
+	private static final String EXTRA = "EXTRA";
 
 	@Override
 	protected void appendURL(

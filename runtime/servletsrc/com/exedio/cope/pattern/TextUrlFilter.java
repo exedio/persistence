@@ -43,6 +43,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -224,28 +225,13 @@ public class TextUrlFilter extends MediaFilter
 			final Item item)
 	throws IOException, NotFound
 	{
-		final String sourceContentType = raw.getContentType(item);
-		if(sourceContentType==null || !supportedContentType.equals(sourceContentType))
-			throw notFoundIsNull();
+		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
 		final String srcString = new String(sourceByte, charset);
 
-		final int pasteStartLen = pasteStart.length();
-		final int pasteStopLen  = pasteStop .length();
-		final StringBuilder bf = new StringBuilder(srcString.length());
-		int nextStart = 0;
-		for(int start = srcString.indexOf(pasteStart); start>=0; start = srcString.indexOf(pasteStart, nextStart))
-		{
-			final int stop = srcString.indexOf(pasteStop, start);
-			if(stop<0)
-				throw new IllegalArgumentException(pasteStart + ':' + start + '/' + pasteStop);
-
-			bf.append(srcString.substring(nextStart, start));
-			appendKey(bf, item, srcString.substring(start + pasteStartLen, stop), request);
-
-			nextStart = stop + pasteStopLen;
-		}
+		final StringBuilder bf = new StringBuilder( srcString.length() );
+		final int nextStart = substitutePastes( bf, srcString, item, request );
 
 		commit();
 
@@ -259,6 +245,79 @@ public class TextUrlFilter extends MediaFilter
 			// short cut if there are no pastes at all
 			MediaUtil.send(supportedContentType, sourceByte, response);
 		}
+	}
+
+	@Wrap(order=80, thrown={@Wrap.Thrown(NotFound.class)})
+	public final String getContent(
+			final Item item,
+			@Parameter("request") final HttpServletRequest request )
+		throws NotFound
+	{
+		checkContentType( item );
+
+		final byte[] sourceByte = raw.getBody().getArray(item);
+		final String srcString = new String(sourceByte, charset);
+
+		final StringBuilder bf = new StringBuilder( srcString.length() );
+		final int nextStart = substitutePastes( bf, srcString, item, request );
+
+		if(nextStart>0)
+			return bf.append(srcString.substring(nextStart)).toString();
+		else return srcString;
+	}
+
+	private void checkContentType( final Item item ) throws NotFound
+	{
+		final String sourceContentType = raw.getContentType( item );
+		if( sourceContentType == null || !supportedContentType.equals( sourceContentType ) ) throw notFoundIsNull();
+	}
+
+	private int substitutePastes( final StringBuilder bf, final String srcString, final Item item, final HttpServletRequest request )
+	{
+		final int pasteStartLen = pasteStart.length();
+		final int pasteStopLen = pasteStop.length();
+		int nextStart = 0;
+		for( int start = srcString.indexOf( pasteStart ); start >= 0; start = srcString.indexOf( pasteStart, nextStart ) )
+		{
+			final int stop = srcString.indexOf( pasteStop, start );
+			if( stop < 0 ) throw new IllegalArgumentException( pasteStart + ':' + start + '/' + pasteStop );
+
+			bf.append( srcString.substring( nextStart, start ) );
+			appendKey( bf, item, srcString.substring( start + pasteStartLen, stop ), request );
+
+			nextStart = stop + pasteStopLen;
+		}
+		return nextStart;
+	}
+
+	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
+	public Set<String> check( final Item item ) throws NotFound
+	{
+		checkContentType( item );
+		final Set<String> brokenCodes = new HashSet<>();
+		final byte[] sourceByte = getSource().getBody().getArray( item );
+		final String srcString = new String( sourceByte, charset );
+		String tempString = srcString;
+		while( tempString.indexOf( pasteStart ) > -1 )
+		{
+			final int startPos = tempString.indexOf( pasteStart );
+			final StringBuilder sb = new StringBuilder();
+			sb.append( tempString.substring( 0, startPos ) );
+			String paste = tempString.substring( startPos + pasteStart.length() );
+			paste = paste.substring( 0, paste.indexOf( pasteStop ) );
+			final String rest = tempString.substring( startPos );
+			try
+			{
+				getPaste( item, paste );
+			}
+			catch( final IllegalArgumentException e )
+			{
+				brokenCodes.add( paste );
+			}
+			sb.append( rest.substring( rest.indexOf( pasteStop ) + 1 ) );
+			tempString = sb.toString();
+		}
+		return brokenCodes;
 	}
 
 	protected void appendKey(
