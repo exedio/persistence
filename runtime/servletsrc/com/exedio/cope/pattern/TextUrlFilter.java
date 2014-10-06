@@ -263,7 +263,8 @@ public class TextUrlFilter extends MediaFilter
 
 		if(nextStart>0)
 			return bf.append(srcString.substring(nextStart)).toString();
-		else return srcString;
+		else
+			return srcString;
 	}
 
 	private void checkContentType( final Item item ) throws NotFound
