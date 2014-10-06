@@ -289,8 +289,9 @@ public class TextUrlFilter extends MediaFilter
 			final int stop = srcString.indexOf( pasteStop, start );
 			if( stop < 0 ) throw new IllegalArgumentException( pasteStart + ':' + start + '/' + pasteStop );
 
+			final String key = srcString.substring(start + pasteStartLen, stop);
 			bf.append( srcString.substring( nextStart, start ) );
-			appendKey( bf, item, srcString.substring( start + pasteStartLen, stop ), request );
+			appendKey(bf, item, key, request);
 
 			nextStart = stop + pasteStopLen;
 		}
