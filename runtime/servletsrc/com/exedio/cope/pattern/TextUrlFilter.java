@@ -272,7 +272,11 @@ public class TextUrlFilter extends MediaFilter
 		if( sourceContentType == null || !supportedContentType.equals( sourceContentType ) ) throw notFoundIsNull();
 	}
 
-	private int substitutePastes( final StringBuilder bf, final String srcString, final Item item, final HttpServletRequest request )
+	private int substitutePastes(
+			final StringBuilder bf,
+			final String srcString,
+			final Item item,
+			final HttpServletRequest request)
 	{
 		final int pasteStartLen = pasteStart.length();
 		final int pasteStopLen = pasteStop.length();
