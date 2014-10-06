@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.MAX_VALUE;
+import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
@@ -61,6 +63,16 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 		item.setOptionalPrice(storeOf(-444));
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(storeOf(-444), item.getOptionalPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
+
+		item.setOptionalPrice(MIN_VALUE);
+		assertEquals(storeOf(555), item.getFinalPrice());
+		assertEquals(Price.MIN_VALUE, item.getOptionalPrice());
+		assertEquals(storeOf(7777), item.getBigPrice());
+
+		item.setOptionalPrice(MAX_VALUE);
+		assertEquals(storeOf(555), item.getFinalPrice());
+		assertEquals(Price.MAX_VALUE, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
 
 		item.setOptionalPrice(null);
