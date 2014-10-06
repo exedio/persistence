@@ -30,6 +30,9 @@ import java.math.BigDecimal;
 
 public final class PriceTest extends CopeAssert
 {
+	private static final int MAX_STORE = Integer.MAX_VALUE;
+	private static final int MIN_STORE = Integer.MIN_VALUE;
+
 	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
 
@@ -51,8 +54,8 @@ public final class PriceTest extends CopeAssert
 		assertNotSame(storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertSame(ZERO, storeOf(0));
-		assertSame(MIN_VALUE, storeOf(Integer.MIN_VALUE));
-		assertSame(MAX_VALUE, storeOf(Integer.MAX_VALUE));
+		assertSame(MIN_VALUE, storeOf(MIN_STORE));
+		assertSame(MAX_VALUE, storeOf(MAX_STORE));
 	}
 
 	public static void testStoreOfInteger()
@@ -127,13 +130,13 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-10999, valueOf(-109.98501).store());
 		assertEquals(-10999, valueOf(-109.986  ).store());
 
-		assertEquals(Integer.MAX_VALUE, valueOf(Integer.MAX_VALUE/100d).store());
-		assertEquals(Integer.MIN_VALUE, valueOf(Integer.MIN_VALUE/100d).store());
+		assertEquals(MAX_STORE, valueOf(MAX_STORE/100d).store());
+		assertEquals(MIN_STORE, valueOf(MIN_STORE/100d).store());
 		assertSame(ZERO, valueOf( 0.0));
 		assertSame(ZERO, valueOf(-0.0));
 		try
 		{
-			valueOf((Integer.MAX_VALUE/100d) + 0.01);
+			valueOf((MAX_STORE/100d) + 0.01);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -142,7 +145,7 @@ public final class PriceTest extends CopeAssert
 		}
 		try
 		{
-			valueOf((Integer.MIN_VALUE/100d) - 0.01);
+			valueOf((MIN_STORE/100d) - 0.01);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -202,12 +205,12 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-304, valueOf(bd(-3045,   3)).store());
 		assertEquals(-305, valueOf(bd(-304501, 5)).store());
 
-		assertEquals(Integer.MAX_VALUE, valueOf(bd(Integer.MAX_VALUE, 2)).store());
-		assertEquals(Integer.MIN_VALUE, valueOf(bd(Integer.MIN_VALUE, 2)).store());
+		assertEquals(MAX_STORE, valueOf(bd(MAX_STORE, 2)).store());
+		assertEquals(MIN_STORE, valueOf(bd(MIN_STORE, 2)).store());
 		assertSame(ZERO, valueOf(bd(0, 0)));
 		try
 		{
-			valueOf(bd(Integer.MAX_VALUE, 2).add(bd(1, 2)));
+			valueOf(bd(MAX_STORE, 2).add(bd(1, 2)));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -216,7 +219,7 @@ public final class PriceTest extends CopeAssert
 		}
 		try
 		{
-			valueOf(bd(Integer.MIN_VALUE, 2).subtract(bd(1, 2)));
+			valueOf(bd(MIN_STORE, 2).subtract(bd(1, 2)));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -361,8 +364,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-555), storeOf( 555).negative());
 		assertEquals(storeOf( 555), storeOf(-555).negative());
 		assertSame(Price.ZERO, storeOf(0).negative());
-		assertEquals(storeOf(Integer.MIN_VALUE+1), MAX_VALUE.negative());
-		assertEquals(storeOf(Integer.MAX_VALUE), storeOf(Integer.MIN_VALUE+1).negative());
+		assertEquals(storeOf(MIN_STORE+1), MAX_VALUE.negative());
+		assertEquals(storeOf(MAX_STORE), storeOf(MIN_STORE+1).negative());
 		try
 		{
 			MIN_VALUE.negative();
