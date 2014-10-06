@@ -29,8 +29,11 @@ public final class Price implements Serializable, Comparable<Price>
 {
 	private static final int FACTOR_I = 100;
 
-	public static final Price MIN_VALUE = new Price(Integer.MIN_VALUE);
-	public static final Price MAX_VALUE = new Price(Integer.MAX_VALUE);
+	private static final int MAX_STORE = Integer.MAX_VALUE;
+	private static final int MIN_STORE = Integer.MIN_VALUE;
+
+	public static final Price MIN_VALUE = new Price(MIN_STORE);
+	public static final Price MAX_VALUE = new Price(MAX_STORE);
 
 	public static Price storeOf(final int store)
 	{
@@ -38,8 +41,8 @@ public final class Price implements Serializable, Comparable<Price>
 		switch(store)
 		{
 			case 0: return ZERO;
-			case Integer.MIN_VALUE: return MIN_VALUE;
-			case Integer.MAX_VALUE: return MAX_VALUE;
+			case MIN_STORE: return MIN_VALUE;
+			case MAX_STORE: return MAX_VALUE;
 		}
 
 		return new Price(store);
@@ -206,7 +209,7 @@ public final class Price implements Serializable, Comparable<Price>
 	public Price negative()
 	{
 		// TODO avoid the whole problem by disallowing Integer.MIN_VALUE for Price at all
-		if(store==Integer.MIN_VALUE)
+		if(store==MIN_STORE)
 			throw new ArithmeticException("no negative for " + this);
 
 		return storeOf(-store);
@@ -218,8 +221,8 @@ public final class Price implements Serializable, Comparable<Price>
 
 		if(
 			(store>0)
-			? (Integer.MAX_VALUE-store<other.store)
-			: (Integer.MIN_VALUE-store>other.store)
+			? (MAX_STORE-store<other.store)
+			: (MIN_STORE-store>other.store)
 			)
 		{
 			throw new ArithmeticException("overflow " + this + " plus " + other);
@@ -237,7 +240,7 @@ public final class Price implements Serializable, Comparable<Price>
 			final long a = store;
 			final long b = other.store;
 			final long r = a - b;
-			if(r>Integer.MAX_VALUE || r<Integer.MIN_VALUE)
+			if(r>MAX_STORE || r<MIN_STORE)
 				throw new ArithmeticException("overflow " + this + " minus " + other);
 		}
 
@@ -252,7 +255,7 @@ public final class Price implements Serializable, Comparable<Price>
 		{
 			final long a = store;
 			final long r = a * other;
-			if(r>Integer.MAX_VALUE || r<Integer.MIN_VALUE)
+			if(r>MAX_STORE || r<MIN_STORE)
 				throw new ArithmeticException("overflow " + this + " multiply " + other);
 		}
 
@@ -382,8 +385,8 @@ public final class Price implements Serializable, Comparable<Price>
 	}
 
 	private static final double DOUBLE_FACTOR = 100d;
-	private static final double DOUBLE_MIN_VALUE = Integer.MIN_VALUE/DOUBLE_FACTOR;
-	private static final double DOUBLE_MAX_VALUE = Integer.MAX_VALUE/DOUBLE_FACTOR;
+	private static final double DOUBLE_MIN_VALUE = MIN_STORE/DOUBLE_FACTOR;
+	private static final double DOUBLE_MAX_VALUE = MAX_STORE/DOUBLE_FACTOR;
 
 
 	// conversion BigDecimal
@@ -413,6 +416,6 @@ public final class Price implements Serializable, Comparable<Price>
 			return BigDecimal.valueOf(store, 2);
 	}
 
-	private static final BigDecimal BIG_MIN_VALUE = BigDecimal.valueOf(Integer.MIN_VALUE, 2);
-	private static final BigDecimal BIG_MAX_VALUE = BigDecimal.valueOf(Integer.MAX_VALUE, 2);
+	private static final BigDecimal BIG_MIN_VALUE = BigDecimal.valueOf(MIN_STORE, 2);
+	private static final BigDecimal BIG_MAX_VALUE = BigDecimal.valueOf(MAX_STORE, 2);
 }
