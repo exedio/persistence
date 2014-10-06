@@ -231,7 +231,7 @@ public class TextUrlFilter extends MediaFilter
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
-		final int nextStart = substitutePastes( bf, srcString, item, request );
+		final int nextStart = substitutePastes(bf, null, srcString, item, request);
 
 		commit();
 
@@ -259,7 +259,7 @@ public class TextUrlFilter extends MediaFilter
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
-		final int nextStart = substitutePastes( bf, srcString, item, request );
+		final int nextStart = substitutePastes(bf, null, srcString, item, request);
 
 		if(nextStart>0)
 			return bf.append(srcString.substring(nextStart)).toString();
@@ -277,6 +277,7 @@ public class TextUrlFilter extends MediaFilter
 
 	private int substitutePastes(
 			final StringBuilder bf,
+			final Set<String> brokenCodes,
 			final String srcString,
 			final Item item,
 			final HttpServletRequest request)
@@ -290,8 +291,22 @@ public class TextUrlFilter extends MediaFilter
 			if( stop < 0 ) throw new IllegalArgumentException( pasteStart + ':' + start + '/' + pasteStop );
 
 			final String key = srcString.substring(start + pasteStartLen, stop);
-			bf.append( srcString.substring( nextStart, start ) );
-			appendKey(bf, item, key, request);
+			if(bf!=null)
+			{
+				bf.append( srcString.substring( nextStart, start ) );
+				appendKey(bf, item, key, request);
+			}
+			if(brokenCodes!=null)
+			{
+				try
+				{
+					getPaste(item, key);
+				}
+				catch(final IllegalArgumentException e)
+				{
+					brokenCodes.add(key);
+				}
+			}
 
 			nextStart = stop + pasteStopLen;
 		}
@@ -305,26 +320,7 @@ public class TextUrlFilter extends MediaFilter
 		final Set<String> brokenCodes = new HashSet<>();
 		final byte[] sourceByte = getSource().getBody().getArray( item );
 		final String srcString = new String( sourceByte, charset );
-		String tempString = srcString;
-		while( tempString.indexOf( pasteStart ) > -1 )
-		{
-			final int startPos = tempString.indexOf( pasteStart );
-			final StringBuilder sb = new StringBuilder();
-			sb.append( tempString.substring( 0, startPos ) );
-			String paste = tempString.substring( startPos + pasteStart.length() );
-			paste = paste.substring( 0, paste.indexOf( pasteStop ) );
-			final String rest = tempString.substring( startPos );
-			try
-			{
-				getPaste( item, paste );
-			}
-			catch( final IllegalArgumentException e )
-			{
-				brokenCodes.add( paste );
-			}
-			sb.append( rest.substring( rest.indexOf( pasteStop ) + 1 ) );
-			tempString = sb.toString();
-		}
+		substitutePastes(null, brokenCodes, srcString, item, null);
 		return brokenCodes;
 	}
 
