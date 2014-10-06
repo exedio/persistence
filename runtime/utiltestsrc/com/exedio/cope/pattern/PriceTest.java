@@ -30,11 +30,11 @@ import java.math.BigDecimal;
 
 public final class PriceTest extends CopeAssert
 {
-	private static final int MAX_STORE = Integer.MAX_VALUE;
 	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
+	private static final int MAX_STORE = Integer.MAX_VALUE;
 
-	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
+	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 
 	public static void testIt()
 	{
