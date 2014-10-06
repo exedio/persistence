@@ -118,9 +118,9 @@ public class PriceFieldModelTest extends CopeAssert
 		assertEquals(Price.MAX_VALUE, optionalPrice.getMaximum());
 		assertEquals(Price.MAX_VALUE,      bigPrice.getMaximum());
 
-		assertEquals(Integer.MIN_VALUE,    finalPrice.getInt().getMinimum());
-		assertEquals(Integer.MIN_VALUE, optionalPrice.getInt().getMinimum());
-		assertEquals(5000,                   bigPrice.getInt().getMinimum());
+		assertEquals(Integer.MIN_VALUE+1,    finalPrice.getInt().getMinimum());
+		assertEquals(Integer.MIN_VALUE+1, optionalPrice.getInt().getMinimum());
+		assertEquals(5000,                     bigPrice.getInt().getMinimum());
 
 		assertEquals(Integer.MAX_VALUE,    finalPrice.getInt().getMaximum());
 		assertEquals(Integer.MAX_VALUE, optionalPrice.getInt().getMaximum());
@@ -132,8 +132,8 @@ public class PriceFieldModelTest extends CopeAssert
 		final PriceField f = new PriceField();
 		assertEquals(Price.MIN_VALUE, f.getMinimum());
 		assertEquals(Price.MAX_VALUE, f.getMaximum());
-		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
-		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
+		assertEquals(Integer.MIN_VALUE+1, f.getInt().getMinimum());
+		assertEquals(Integer.MAX_VALUE  , f.getInt().getMaximum());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -162,8 +162,8 @@ public class PriceFieldModelTest extends CopeAssert
 		final PriceField f = new PriceField().max(Price.storeOf(4000));
 		assertEquals(Price.MIN_VALUE,     f.getMinimum());
 		assertEquals(Price.storeOf(4000), f.getMaximum());
-		assertEquals(Integer.MIN_VALUE, f.getInt().getMinimum());
-		assertEquals(4000,              f.getInt().getMaximum());
+		assertEquals(Integer.MIN_VALUE+1, f.getInt().getMinimum());
+		assertEquals(4000,                f.getInt().getMaximum());
 
 		try
 		{

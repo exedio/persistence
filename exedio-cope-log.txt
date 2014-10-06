@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Price (and PriceField) does not support value -21474836.48 anymore.
+	Now supports range from -21474836.47 to 21474836.47 (inclusive).
+	This may affect database schema but not on MySQL.
+	This causes cope constraints to be slightly stricter.
 * TextUrlFilter#getContent and #check added.
 	Affects instrumented code.
 * @CopeTypeColumnMinLength added.

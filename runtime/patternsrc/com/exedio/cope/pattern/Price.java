@@ -30,7 +30,7 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final int FACTOR_I = 100;
 
 	private static final int MAX_STORE = Integer.MAX_VALUE;
-	private static final int MIN_STORE = Integer.MIN_VALUE;
+	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
 
 	public static final Price MIN_VALUE = new Price(MIN_STORE);
 	public static final Price MAX_VALUE = new Price(MAX_STORE);
@@ -43,6 +43,8 @@ public final class Price implements Serializable, Comparable<Price>
 			case 0: return ZERO;
 			case MIN_STORE: return MIN_VALUE;
 			case MAX_STORE: return MAX_VALUE;
+			case Integer.MIN_VALUE:
+				throw new IllegalArgumentException("Integer.MIN_VALUE not allowed");
 		}
 
 		return new Price(store);
@@ -59,6 +61,7 @@ public final class Price implements Serializable, Comparable<Price>
 	private Price(final int store)
 	{
 		this.store = store;
+		assert store!=Integer.MIN_VALUE;
 	}
 
 	public int store()
@@ -208,10 +211,6 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price negative()
 	{
-		// TODO avoid the whole problem by disallowing Integer.MIN_VALUE for Price at all
-		if(store==MIN_STORE)
-			throw new ArithmeticException("no negative for " + this);
-
 		return storeOf(-store);
 	}
 

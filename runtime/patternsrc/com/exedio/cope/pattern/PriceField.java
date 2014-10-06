@@ -25,6 +25,7 @@ import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -47,7 +48,9 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	public PriceField()
 	{
-		this(new IntegerField());
+		this(new IntegerField().range(
+				Price.MIN_VALUE.store(),
+				Price.MAX_VALUE.store()));
 	}
 
 	private PriceField(final IntegerField integer)
@@ -141,7 +144,13 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return integer.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = integer.getInitialExceptions();
+
+		if(integer.getMinimum()==Price.MIN_VALUE.store() &&
+			integer.getMaximum()==Price.MAX_VALUE.store())
+			result.remove(IntegerRangeViolationException.class);
+
+		return result;
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")

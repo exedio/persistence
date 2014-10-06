@@ -31,7 +31,7 @@ import java.math.BigDecimal;
 public final class PriceTest extends CopeAssert
 {
 	private static final int MAX_STORE = Integer.MAX_VALUE;
-	private static final int MIN_STORE = Integer.MIN_VALUE;
+	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
 
 	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
@@ -56,6 +56,19 @@ public final class PriceTest extends CopeAssert
 		assertSame(ZERO, storeOf(0));
 		assertSame(MIN_VALUE, storeOf(MIN_STORE));
 		assertSame(MAX_VALUE, storeOf(MAX_STORE));
+	}
+
+	public static void testStoreOfIntOutOfRange()
+	{
+		try
+		{
+			storeOf(Integer.MIN_VALUE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Integer.MIN_VALUE not allowed", e.getMessage());
+		}
 	}
 
 	public static void testStoreOfInteger()
@@ -150,7 +163,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too small: -2.1474836490000002E7", e.getMessage());
+			assertEquals("too small: -2.147483648E7", e.getMessage());
 		}
 		try
 		{
@@ -224,7 +237,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too small: -21474836.49", e.getMessage());
+			assertEquals("too small: -21474836.48", e.getMessage());
 		}
 		try
 		{
@@ -271,8 +284,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483647, MAX_VALUE.add(storeOf( 0)).store());
 		assertAddOverflows(       MAX_VALUE,    storeOf( 1));
 		assertAddOverflows(       MAX_VALUE,    storeOf( 2));
-		assertEquals(-2147483647, MIN_VALUE.add(storeOf( 1)).store());
-		assertEquals(-2147483648, MIN_VALUE.add(storeOf( 0)).store());
+		assertEquals(-2147483646, MIN_VALUE.add(storeOf( 1)).store());
+		assertEquals(-2147483647, MIN_VALUE.add(storeOf( 0)).store());
 		assertAddOverflows(       MIN_VALUE,    storeOf(-1));
 		assertAddOverflows(       MIN_VALUE,    storeOf(-2));
 
@@ -280,17 +293,17 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483646, MAX_VALUE_1.add(storeOf( 0)).store());
 		assertEquals( 2147483647, MAX_VALUE_1.add(storeOf( 1)).store());
 		assertAddOverflows(       MAX_VALUE_1,    storeOf( 2));
-		assertEquals(-2147483646, MIN_VALUE_1.add(storeOf( 1)).store());
-		assertEquals(-2147483647, MIN_VALUE_1.add(storeOf( 0)).store());
-		assertEquals(-2147483648, MIN_VALUE_1.add(storeOf(-1)).store());
+		assertEquals(-2147483645, MIN_VALUE_1.add(storeOf( 1)).store());
+		assertEquals(-2147483646, MIN_VALUE_1.add(storeOf( 0)).store());
+		assertEquals(-2147483647, MIN_VALUE_1.add(storeOf(-1)).store());
 		assertAddOverflows(       MIN_VALUE_1,    storeOf(-2));
 
 		assertEquals( 2147483646, storeOf(-1).add(MAX_VALUE).store());
 		assertEquals( 2147483647, storeOf( 0).add(MAX_VALUE).store());
 		assertAddOverflows(       storeOf( 1),    MAX_VALUE);
 		assertAddOverflows(       storeOf( 2),    MAX_VALUE);
-		assertEquals(-2147483647, storeOf( 1).add(MIN_VALUE).store());
-		assertEquals(-2147483648, storeOf( 0).add(MIN_VALUE).store());
+		assertEquals(-2147483646, storeOf( 1).add(MIN_VALUE).store());
+		assertEquals(-2147483647, storeOf( 0).add(MIN_VALUE).store());
 		assertAddOverflows(       storeOf(-1),    MIN_VALUE);
 		assertAddOverflows(       storeOf(-2),    MIN_VALUE);
 
@@ -298,9 +311,9 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483646, storeOf( 0).add(MAX_VALUE_1).store());
 		assertEquals( 2147483647, storeOf( 1).add(MAX_VALUE_1).store());
 		assertAddOverflows(       storeOf( 2),    MAX_VALUE_1);
-		assertEquals(-2147483646, storeOf( 1).add(MIN_VALUE_1).store());
-		assertEquals(-2147483647, storeOf( 0).add(MIN_VALUE_1).store());
-		assertEquals(-2147483648, storeOf(-1).add(MIN_VALUE_1).store());
+		assertEquals(-2147483645, storeOf( 1).add(MIN_VALUE_1).store());
+		assertEquals(-2147483646, storeOf( 0).add(MIN_VALUE_1).store());
+		assertEquals(-2147483647, storeOf(-1).add(MIN_VALUE_1).store());
 		assertAddOverflows(       storeOf(-2),    MIN_VALUE_1);
 
 		assertAddOverflows(MAX_VALUE,   MAX_VALUE  );
@@ -340,8 +353,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483647, MAX_VALUE.subtract(storeOf( 0)).store());
 		assertSubtractOverflows(  MAX_VALUE, storeOf(-1));
 		assertSubtractOverflows(  MAX_VALUE, storeOf(-2));
-		assertEquals(-2147483647, MIN_VALUE.subtract(storeOf(-1)).store());
-		assertEquals(-2147483648, MIN_VALUE.subtract(storeOf( 0)).store());
+		assertEquals(-2147483646, MIN_VALUE.subtract(storeOf(-1)).store());
+		assertEquals(-2147483647, MIN_VALUE.subtract(storeOf( 0)).store());
 		assertSubtractOverflows(  MIN_VALUE, storeOf( 1));
 		assertSubtractOverflows(  MIN_VALUE, storeOf( 2));
 	}
@@ -364,17 +377,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-555), storeOf( 555).negative());
 		assertEquals(storeOf( 555), storeOf(-555).negative());
 		assertSame(Price.ZERO, storeOf(0).negative());
-		assertEquals(storeOf(MIN_STORE+1), MAX_VALUE.negative());
-		assertEquals(storeOf(MAX_STORE), storeOf(MIN_STORE+1).negative());
-		try
-		{
-			MIN_VALUE.negative();
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("no negative for -21474836.48", e.getMessage());
-		}
+		assertEquals(storeOf(MIN_STORE), MAX_VALUE.negative());
+		assertEquals(storeOf(MAX_STORE), MIN_VALUE.negative());
 	}
 
 	public static void testMultiplyInt()
@@ -512,7 +516,7 @@ public final class PriceTest extends CopeAssert
 		assertToString("-1.20", storeOf(-120), "-1.2");
 		assertToString( "1.00", storeOf( 100),  "1"  );
 		assertToString("-1.00", storeOf(-100), "-1"  );
-		assertToString("-21474836.48", MIN_VALUE);
+		assertToString("-21474836.47", MIN_VALUE);
 		assertToString( "21474836.47", MAX_VALUE);
 	}
 
