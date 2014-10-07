@@ -217,9 +217,10 @@ public abstract class Feature implements Serializable
 		return (MountType)result;
 	}
 
-	final boolean isMounted()
+	final void assertNotMounted()
 	{
-		return mountIfMounted!=null;
+		if(mountIfMounted!=null)
+			throw new RuntimeException("must be called before mounting the feature");
 	}
 
 	final boolean isMountedToType()
@@ -325,8 +326,7 @@ public abstract class Feature implements Serializable
 
 	final void registerPattern(final Pattern pattern)
 	{
-		if(isMounted())
-			throw new RuntimeException("registerPattern must be called before mounting the feature.");
+		assertNotMounted();
 		if(pattern==null)
 			throw new NullPointerException();
 
@@ -340,9 +340,7 @@ public abstract class Feature implements Serializable
 
 	public final boolean isSourceAlready()
 	{
-		if(isMounted())
-			throw new RuntimeException("isSourceAlready must be called before mounting the feature.");
-
+		assertNotMounted();
 		return patternUntilMount!=null;
 	}
 
