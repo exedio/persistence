@@ -331,7 +331,9 @@ public abstract class Feature implements Serializable
 			throw new NullPointerException();
 
 		if(patternUntilMount!=null)
-			throw new IllegalStateException("feature has already registered pattern " + this.patternUntilMount + " and tried to register a new one: " + pattern);
+			throw new IllegalStateException(
+					"feature has already registered pattern " + this.patternUntilMount +
+					" and tried to register a new one: " + pattern);
 
 		this.patternUntilMount = pattern;
 	}
