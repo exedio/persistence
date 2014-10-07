@@ -48,7 +48,7 @@ public final class PartOf<C extends Item> extends Pattern
 		this.container = container;
 		addSource(container, "Container");
 		this.order = order;
-		if(order!=null)
+		if(order!=null && !order.isSourceAlready())
 			addSource(order, "Order");
 	}
 

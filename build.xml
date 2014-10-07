@@ -372,6 +372,7 @@
 				<include name="com/exedio/cope/pattern/EnumSetFieldFinalTest.java" />
 				<include name="com/exedio/cope/pattern/MediaRootUrlTest.java" />
 				<include name="com/exedio/cope/pattern/MediaFilterFallbackItem.java" />
+				<include name="com/exedio/cope/pattern/PartOfOrderReuseTest.java" />
 				<include name="com/exedio/cope/pattern/ThumbnailMagickItem.java" />
 				<include name="com/exedio/cope/revstat/RevisionStatisticsItem.java" />
 			</fileset>

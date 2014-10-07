@@ -338,6 +338,14 @@ public abstract class Feature implements Serializable
 		this.patternUntilMount = pattern;
 	}
 
+	public final boolean isSourceAlready()
+	{
+		if(isMounted())
+			throw new RuntimeException("isSourceAlready must be called before mounting the feature.");
+
+		return patternUntilMount!=null;
+	}
+
 	/**
 	 * @see Pattern#getSourceFields()
 	 */

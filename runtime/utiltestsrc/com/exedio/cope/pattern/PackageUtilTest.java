@@ -57,6 +57,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MoneyTest.class);
 		suite.addTestSuite(NestedHashAlgorithmTest.class);
 		suite.addTestSuite(PartOfReverseTest.class);
+		suite.addTestSuite(PartOfOrderReuseTest.class);
 		suite.addTestSuite(PasswordRecoveryConfigTest.class);
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceProportionatelyTest.class);
