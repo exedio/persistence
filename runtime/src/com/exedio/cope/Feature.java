@@ -45,10 +45,12 @@ public abstract class Feature implements Serializable
 	private static abstract class Mount
 	{
 		private final AnnotatedElement annotationSource;
+		final Pattern pattern;
 
-		Mount(final AnnotatedElement annotationSource)
+		Mount(final AnnotatedElement annotationSource, final Pattern pattern)
 		{
 			this.annotationSource = annotationSource;
+			this.pattern = pattern;
 		}
 
 		boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
@@ -76,9 +78,13 @@ public abstract class Feature implements Serializable
 		final String name;
 		final String id;
 
-		MountType(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		MountType(
+				final Type<? extends Item> type,
+				final String name,
+				final AnnotatedElement annotationSource,
+				final Pattern pattern)
 		{
-			super(annotationSource);
+			super(annotationSource, pattern);
 			assert type!=null;
 			assert name!=null;
 
@@ -139,7 +145,7 @@ public abstract class Feature implements Serializable
 
 		MountString(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
 		{
-			super(annotationSource);
+			super(annotationSource, null);
 			assert string!=null;
 			assert serializable!=null;
 
@@ -179,11 +185,10 @@ public abstract class Feature implements Serializable
 
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountType(type, name, annotationSource);
+		this.mountIfMounted = new MountType(type, name, annotationSource, patternUntilMount);
 
 		type.registerMounted(this);
 
-		this.pattern = this.patternUntilMount;
 		this.patternUntilMount = null;
 	}
 
@@ -317,7 +322,6 @@ public abstract class Feature implements Serializable
 	// patterns ------------------
 
 	private Pattern patternUntilMount = null;
-	private Pattern pattern = null;
 
 	final void registerPattern(final Pattern pattern)
 	{
@@ -337,12 +341,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final Pattern getPattern()
 	{
-		if(!isMounted())
-			throw new RuntimeException("getPattern must be called after mounting the feature.");
-		if(patternUntilMount!=null)
-			throw new RuntimeException();
-
-		return pattern;
+		return mount().pattern;
 	}
 
 
