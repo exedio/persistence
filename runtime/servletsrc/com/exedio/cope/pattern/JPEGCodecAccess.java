@@ -22,9 +22,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class JPEGCodecAccess
 {
+	private static final Logger logger = LoggerFactory.getLogger(JPEGCodecAccess.class);
+
 	static boolean available()
 	{
 		return create!=null && decode!=null;
@@ -59,17 +63,17 @@ final class JPEGCodecAccess
 		try
 		{
 			final Method result = Class.forName(className).getMethod(methodName, parameterTypes);
-			System.out.println("JPEGCodecAccess available: " + className + '#' + methodName);
+			logger.info("available: " + className + '#' + methodName);
 			return result;
 		}
 		catch(final ClassNotFoundException e)
 		{
-			System.out.println("JPEGCodecAccess not available: " + className);
+			logger.warn("not available: " + className);
 			return null;
 		}
 		catch(final NoSuchMethodException e)
 		{
-			System.out.println("JPEGCodecAccess not available: " + className + '#' + methodName);
+			logger.warn("not available: " + className + '#' + methodName);
 			return null;
 		}
 	}
