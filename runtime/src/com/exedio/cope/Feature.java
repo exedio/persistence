@@ -327,8 +327,7 @@ public abstract class Feature implements Serializable
 	final void registerPattern(final Pattern pattern)
 	{
 		assertNotMounted();
-		if(pattern==null)
-			throw new NullPointerException();
+		assert pattern!=null;
 
 		if(patternUntilMount!=null)
 			throw new IllegalStateException(
