@@ -69,13 +69,13 @@ public class PartOfModelTest extends CopeAssert
 
 		assertSame(PartOfItem.container, PartOfItem.parts.getContainer());
 		assertSame(null, PartOfItem.parts.getOrder());
-		assertEquals(PartOfItem.parts, PartOfItem.container.getPattern());
+		assertSame(PartOfItem.parts, PartOfItem.container.getPattern());
 		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.parts.getSourceFeatures());
 
 		assertSame(PartOfOrderedItem.container, PartOfOrderedItem.partsOrdered.getContainer());
 		assertSame(PartOfOrderedItem.order, PartOfOrderedItem.partsOrdered.getOrder());
-		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
-		assertEquals(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
+		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
+		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
 		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
 
 		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
