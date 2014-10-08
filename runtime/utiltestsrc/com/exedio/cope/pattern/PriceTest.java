@@ -268,6 +268,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd( 2,   0), storeOf( 200).bigValue());
 		assertEquals(bd(-2,   0), storeOf(-200).bigValue());
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
+		assertSame(BigDecimal.ZERO, storeOf(0).bigValue()); // relies on BigDecimal implementation
 	}
 
 	public static void testAdd()
