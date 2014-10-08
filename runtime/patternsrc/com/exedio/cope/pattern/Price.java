@@ -234,13 +234,13 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		// TODO shortcut for neutral element
 
-		// TODO check overflow without using long
+		if(
+			(store<0)
+			? (MAX_STORE+store<other.store)
+			: (MIN_STORE+store>other.store)
+			)
 		{
-			final long a = store;
-			final long b = other.store;
-			final long r = a - b;
-			if(r>MAX_STORE || r<MIN_STORE)
-				throw new ArithmeticException("overflow " + this + " minus " + other);
+			throw new ArithmeticException("overflow " + this + " minus " + other);
 		}
 
 		return storeOf(store - other.store);
