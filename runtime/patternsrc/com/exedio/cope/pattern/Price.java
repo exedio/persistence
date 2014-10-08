@@ -216,7 +216,10 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price add(final Price other)
 	{
-		// TODO shortcut for neutral element
+		if(other.store==0)
+			return this;
+		if(store==0)
+			return other;
 
 		if(
 			(store>0)
@@ -232,7 +235,8 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price subtract(final Price other)
 	{
-		// TODO shortcut for neutral element
+		if(other.store==0)
+			return this;
 
 		if(
 			(store<0)
@@ -248,7 +252,8 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price multiply(final int other)
 	{
-		// TODO shortcut for neutral element
+		if(other==1)
+			return this;
 
 		// TODO check overflow without using long
 		{
@@ -263,13 +268,17 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price multiply(final double other)
 	{
-		// TODO shortcut for neutral element
+		if(other==1.0)
+			return this;
+
 		return valueOf(doubleValue() * other);
 	}
 
 	public Price divide(final double other)
 	{
-		// TODO shortcut for neutral element
+		if(other==1.0)
+			return this;
+
 		return valueOf(doubleValue() / other);
 	}
 

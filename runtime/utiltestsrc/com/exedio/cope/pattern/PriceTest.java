@@ -278,6 +278,14 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 	}
 
+	public static void testAddNeutral()
+	{
+		final Price p = storeOf(555);
+		assertSame(p, p.add(ZERO));
+		assertSame(p, ZERO.add(p));
+		assertSame(ZERO, ZERO.add(ZERO));
+	}
+
 	public static void testAddOverflow()
 	{
 		assertEquals( 2147483646, MAX_VALUE.add(storeOf(-1)).store());
@@ -347,6 +355,14 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
 	}
 
+	public static void testSubtractNeutral()
+	{
+		final Price p = storeOf(555);
+		assertSame(p, p.subtract(ZERO));
+		assertEquals(storeOf(-555), ZERO.subtract(p));
+		assertSame(ZERO, ZERO.subtract(ZERO));
+	}
+
 	public static void testSubtractOverflow()
 	{
 		assertEquals( 2147483646, MAX_VALUE.subtract(storeOf( 1)).store());
@@ -387,7 +403,18 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
 		assertEquals(-999, storeOf( 333).multiply(-3).store());
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
+	}
 
+	public static void testMultiplyIntNeutral()
+	{
+		final Price p = storeOf(555);
+		assertSame(ZERO, p.multiply(0));
+		assertSame(p, p.multiply(1));
+		assertEquals(storeOf(-555), p.multiply(-1));
+	}
+
+	public static void testMultiplyIntOverflow()
+	{
 		assertEquals( 1073741823, storeOf(1073741823).multiply(1).store());
 		assertEquals( 1073741824, storeOf(1073741824).multiply(1).store());
 		assertEquals( 1073741825, storeOf(1073741825).multiply(1).store());
@@ -415,7 +442,18 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
 		assertEquals(-999, storeOf( 333).multiply(-3d).store());
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+	}
 
+	public static void testMultiplyDoubleNeutral()
+	{
+		final Price p = storeOf(555);
+		assertSame(ZERO, p.multiply(0.0));
+		assertSame(p, p.multiply(1.0));
+		assertEquals(storeOf(-555), p.multiply(-1.0));
+	}
+
+	public static void testMultiplyDoubleOverflow()
+	{
 		assertEquals( 1073741823, storeOf(1073741823).multiply(1d).store());
 		assertEquals( 1073741824, storeOf(1073741824).multiply(1d).store());
 		assertEquals( 1073741825, storeOf(1073741825).multiply(1d).store());
@@ -446,7 +484,26 @@ public final class PriceTest extends CopeAssert
 		assertEquals(-333, storeOf(-999).divide( 3d).store());
 		assertEquals(-333, storeOf( 999).divide(-3d).store());
 		assertEquals( 333, storeOf(-999).divide(-3d).store());
+	}
 
+	public static void testDivideDoubleNeutral()
+	{
+		final Price p = storeOf(555);
+		try
+		{
+			p.divide(0.0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Infinity not allowed", e.getMessage());
+		}
+		assertSame(p, p.divide(1.0));
+		assertEquals(storeOf(-555), p.divide(-1.0));
+	}
+
+	public static void testDivideDoubleOverflow()
+	{
 		assertEquals( 1073741823, storeOf(1073741823).divide(1d ).store());
 		assertEquals( 1073741824, storeOf(1073741824).divide(1d ).store());
 		assertEquals( 1073741825, storeOf(1073741825).divide(1d ).store());
