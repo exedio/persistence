@@ -64,15 +64,6 @@ public final class Money<C extends Money.Currency>
 		return getAmount(currency).store();
 	}
 
-	/**
-	 * @deprecated Use {@link #amountStore(Currency)} instead
-	 */
-	@Deprecated
-	public int store(final C currency)
-	{
-		return amountStore(currency);
-	}
-
 	public C getCurrency()
 	{
 		return currency;
@@ -305,15 +296,6 @@ public final class Money<C extends Money.Currency>
 		return getAmount(currency).doubleValue();
 	}
 
-	/**
-	 * @deprecated Use {@link #doubleAmount(Currency)} instead
-	 */
-	@Deprecated
-	public double doubleValue(final Currency currency)
-	{
-		return doubleAmount(currency);
-	}
-
 
 	// conversion BigDecimal
 
@@ -325,15 +307,6 @@ public final class Money<C extends Money.Currency>
 	public BigDecimal bigAmount(final C currency)
 	{
 		return getAmount(currency).bigValue();
-	}
-
-	/**
-	 * @deprecated Use {@link #bigAmount(Currency)} instead
-	 */
-	@Deprecated
-	public BigDecimal bigValue(final C currency)
-	{
-		return bigAmount(currency);
 	}
 
 
@@ -366,5 +339,34 @@ public final class Money<C extends Money.Currency>
 	Price amountWithoutCurrency()
 	{
 		return amount;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #amountStore(Currency)} instead
+	 */
+	@Deprecated
+	public int store(final C currency)
+	{
+		return amountStore(currency);
+	}
+
+	/**
+	 * @deprecated Use {@link #doubleAmount(Currency)} instead
+	 */
+	@Deprecated
+	public double doubleValue(final Currency currency)
+	{
+		return doubleAmount(currency);
+	}
+
+	/**
+	 * @deprecated Use {@link #bigAmount(Currency)} instead
+	 */
+	@Deprecated
+	public BigDecimal bigValue(final C currency)
+	{
+		return bigAmount(currency);
 	}
 }
