@@ -63,4 +63,22 @@ public final class MoneyTest extends CopeAssert
 			assertEquals("currency mismatch 0.00eur/usd", e.getMessage());
 		}
 	}
+
+	public static void testNegativeReuse()
+	{
+		final Money<Cy> z = zero(eur);
+		final Money<Cy> a = storeOf(1, eur);
+		assertSame(z, z.negative());
+		assertEquals(storeOf(-1, eur), a.negative());
+	}
+
+	public static void testAddReuse()
+	{
+		final Money<Cy> z = zero(eur);
+		final Money<Cy> a = storeOf(1, eur);
+		assertSame(a, a.add(z));
+		assertSame(a, z.add(a));
+		assertSame(z, z.add(z));
+		assertEquals(storeOf(2, eur), a.add(a));
+	}
 }

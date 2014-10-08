@@ -86,6 +86,19 @@ public final class Money<C extends Money.Currency>
 
 	private Money<C> wrap(final Price amount)
 	{
+		if(this.amount.equals(amount))
+			return this;
+
+		return valueOf(amount, currency);
+	}
+
+	private Money<C> wrap(final Price amount, final Money<C> other)
+	{
+		if(this.amount.equals(amount))
+			return this;
+		if(other.amount.equals(amount))
+			return other;
+
 		return valueOf(amount, currency);
 	}
 
@@ -198,12 +211,12 @@ public final class Money<C extends Money.Currency>
 
 	public Money<C> getLower(final Money<C> other)
 	{
-		return wrap( amount.getLower(unwrap(other)) );
+		return wrap( amount.getLower(unwrap(other)), other );
 	}
 
 	public Money<C> getGreater(final Money<C> other)
 	{
-		return wrap( amount.getGreater(unwrap(other)) );
+		return wrap( amount.getGreater(unwrap(other)), other );
 	}
 
 
@@ -216,12 +229,12 @@ public final class Money<C extends Money.Currency>
 
 	public Money<C> add(final Money<C> other)
 	{
-		return wrap( amount.add(unwrap(other)) );
+		return wrap( amount.add(unwrap(other)), other );
 	}
 
 	public Money<C> subtract(final Money<C> other)
 	{
-		return wrap( amount.subtract(unwrap(other)) );
+		return wrap( amount.subtract(unwrap(other)), other );
 	}
 
 	public Money<C> multiply(final int other)
