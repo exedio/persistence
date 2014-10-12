@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 abstract class ClusterListener
 {
-	static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
 
 	private final ClusterProperties properties;
 	private final int secret;
@@ -237,6 +237,8 @@ abstract class ClusterListener
 
 	private static final class Node
 	{
+		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+
 		private static boolean check(final SequenceChecker checker, final int sequence)
 		{
 			synchronized(checker)
