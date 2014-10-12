@@ -124,10 +124,10 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private static void logTerminate()
 	{
-		if(ThreadSwarm.logger.isInfoEnabled())
+		if(logger.isInfoEnabled())
 		{
 			final Thread t = Thread.currentThread();
-			ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) terminates.", t.getName(), t.getId()));
+			logger.info(MessageFormat.format("{0} ({1}) terminates.", t.getName(), t.getId()));
 		}
 	}
 

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 final class ThreadSwarm
 {
-	static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
+	private static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
 
 	private final ThreadController[] threads;
 

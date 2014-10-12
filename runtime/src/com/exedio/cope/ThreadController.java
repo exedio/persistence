@@ -25,9 +25,13 @@ import static java.util.Objects.requireNonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.Thread.State;
 import java.text.MessageFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ThreadController
 {
+	private static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
+
 	private static final int NO_PRIORITY = Integer.MIN_VALUE;
 
 	private final Runnable target;
@@ -139,8 +143,8 @@ public final class ThreadController
 		if(thread!=null)
 		{
 			thread.join();
-			if(ThreadSwarm.logger.isInfoEnabled())
-				ThreadSwarm.logger.info(MessageFormat.format("{0} ({1}) done.", thread.getName(), thread.getId()));
+			if(logger.isInfoEnabled())
+				logger.info(MessageFormat.format("{0} ({1}) done.", thread.getName(), thread.getId()));
 		}
 	}
 
