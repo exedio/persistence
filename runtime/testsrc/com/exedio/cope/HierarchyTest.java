@@ -307,8 +307,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 
 	public void testModel()
 	{
-		model.checkSchema();
-
 		model.commit();
 
 		if(!postgresql)

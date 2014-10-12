@@ -85,7 +85,6 @@ abstract class Column
 	abstract void load(ResultSet resultSet, int columnIndex, Row row) throws SQLException;
 	abstract String cacheToDatabase(Object cache);
 	abstract Object cacheToDatabasePrepared(Object cache);
-	abstract Object getCheckValue();
 
 	void makeSchema(final com.exedio.dsmf.Table dsmfTable, final boolean supportsNotNull)
 	{

@@ -76,10 +76,4 @@ final class TimestampColumn extends Column
 	{
 		return (cache==null) ? null : new Timestamp(((Long)cache).longValue());
 	}
-
-	@Override
-	Object getCheckValue()
-	{
-		return Long.valueOf(System.currentTimeMillis());
-	}
 }
