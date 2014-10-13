@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-public final class Join implements java.io.Serializable
+import java.io.Serializable;
+
+public final class Join implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
