@@ -24,7 +24,7 @@ public final class Join implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	static enum Kind
+	public static enum Kind
 	{
 		INNER("join "),
 		OUTER_LEFT("left join "),
