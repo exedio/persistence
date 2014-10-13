@@ -24,7 +24,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 {
 	private static final int BATCH_POWER = 6;
 	private static final int BATCH_SIZE = 1 << BATCH_POWER;
-	
+
 	private final SequenceImplSequence sequence;
 
 	private final Object lock = new Object();
