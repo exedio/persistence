@@ -375,23 +375,6 @@ public final class Model implements Serializable
 		connect().database.createSchemaConstraints(types);
 	}
 
-	/**
-	 * Checks the schema,
-	 * whether the tables representing the types do exist.
-	 * Issues a single database statement,
-	 * that touches all tables and columns,
-	 * that would have been created by
-	 * {@link #createSchema()}.
-	 * @throws RuntimeException
-	 * 	if something is wrong with the database.
-	 * 	TODO: use a more specific exception.
-	 */
-	public void checkSchema()
-	{
-		final Transaction tx = currentTransaction();
-		tx.connect.database.checkSchema(tx.getConnection());
-	}
-
 	public void checkEmptySchema()
 	{
 		final Timer.Interval timer = schemaTimer.start();
@@ -1082,6 +1065,19 @@ public final class Model implements Serializable
 	public void createDatabaseConstraints(final EnumSet<Constraint.Type> types)
 	{
 		createSchemaConstraints(types);
+	}
+
+	/**
+	 * Checks the schema,
+	 * whether the tables representing the types do exist.
+	 * @deprecated
+	 * This functionality is no longer supported.
+	 * This method does nothing.
+	 */
+	@Deprecated
+	public void checkSchema()
+	{
+		// empty
 	}
 
 	/**

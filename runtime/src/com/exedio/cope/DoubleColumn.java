@@ -94,10 +94,4 @@ final class DoubleColumn extends Column
 		assert cache==null || cache instanceof Double;
 		return cache;
 	}
-
-	@Override
-	Object getCheckValue()
-	{
-		return Double.valueOf(2.2);
-	}
 }

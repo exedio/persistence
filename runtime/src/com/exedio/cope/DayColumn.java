@@ -85,10 +85,4 @@ final class DayColumn extends Column
 	{
 		return (cache==null) ? null : DayField.marshal(getDay(((Integer)cache).intValue()));
 	}
-
-	@Override
-	Object getCheckValue()
-	{
-		return Integer.valueOf(DayColumn.getTransientNumber(new Day(2005, 9, 26)));
-	}
 }

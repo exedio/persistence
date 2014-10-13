@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Executor.NO_SUCH_ROW;
-
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
@@ -135,111 +133,6 @@ final class Database
 		buildStage = false;
 
 		makeSchema().createConstraints(types);
-	}
-
-	//private static int checkTableTime = 0;
-
-	void checkSchema(final Connection connection)
-	{
-		buildStage = false;
-
-		//final long time = System.currentTimeMillis();
-
-		// IMPLEMENTATION NOTE
-		// MySQL can have at most 63 joined tables in one statement
-		// and other databases probably have similar constraints as
-		// well, so we limit the number of joined table here.
-		final int CHUNK_LENGTH = 60;
-		final int tablesSize = tables.size();
-
-		for(int chunkFromIndex = 0; chunkFromIndex<tablesSize; chunkFromIndex+=CHUNK_LENGTH)
-		{
-			final int chunkToIndex = Math.min(chunkFromIndex+CHUNK_LENGTH, tablesSize);
-			final List<Table> tableChunk = tables.subList(chunkFromIndex, chunkToIndex);
-
-			final Statement bf = executor.newStatement(true);
-			bf.append("SELECT COUNT(*) FROM ");
-			boolean first = true;
-
-			for(final Table table : tableChunk)
-			{
-				if(first)
-					first = false;
-				else
-					bf.append(',');
-
-				bf.append(table.quotedID);
-			}
-
-			bf.append(" WHERE ");
-			first = true;
-			for(final Table table : tableChunk)
-			{
-				if(first)
-					first = false;
-				else
-					bf.append(" AND ");
-
-				final Column primaryKey = table.primaryKey;
-				bf.append(primaryKey).
-					append('=').
-					appendParameter(PK.NaPK);
-
-				final Column typeColumn = table.typeColumn;
-				if(typeColumn!=null)
-				{
-					if(first)
-						first = false;
-					else
-						bf.append(" AND ");
-
-					bf.append(typeColumn).
-						append('=').
-						appendParameter("x");
-				}
-
-				final Column updateCounter = table.updateCounter;
-				if(updateCounter!=null)
-				{
-					if(first)
-						first = false;
-					else
-						bf.append(" AND ");
-
-					bf.append(updateCounter).
-						append('=').
-						appendParameter(Integer.MIN_VALUE);
-				}
-
-				for(final Column column : table.getColumns())
-				{
-					bf.append(" AND ").
-						append(column);
-
-					if(column instanceof BlobColumn || (oracle && column instanceof StringColumn && ((StringColumn)column).maximumLength>Dialect.ORACLE_VARCHAR_MAX_CHARS))
-					{
-						bf.append("IS NOT NULL");
-					}
-					else
-					{
-						bf.append('=').
-							appendParameter(column, column.getCheckValue());
-					}
-				}
-			}
-
-			//System.out.println("-----------"+chunkFromIndex+"-"+chunkToIndex+"----"+bf);
-			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
-			{
-				public Void handle(final ResultSet resultSet) throws SQLException
-				{
-					if(!resultSet.next())
-						throw new SQLException(NO_SUCH_ROW);
-
-					return null;
-				}
-			});
-		}
 	}
 
 	void dropSchema()

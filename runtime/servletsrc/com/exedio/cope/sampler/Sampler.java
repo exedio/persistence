@@ -155,11 +155,6 @@ public class Sampler
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
-		try(TransactionTry tx = samplerModel.startTransactionTry("check"))
-		{
-			samplerModel.checkSchema();
-			tx.commit();
-		}
 	}
 
 	private SamplerStep lastStep = null;

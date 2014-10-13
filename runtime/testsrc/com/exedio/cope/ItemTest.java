@@ -141,8 +141,6 @@ public class ItemTest extends TestmodelTest
 
 	public void testCheckDatabase()
 	{
-		model.checkSchema();
-
 		model.commit();
 
 		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));

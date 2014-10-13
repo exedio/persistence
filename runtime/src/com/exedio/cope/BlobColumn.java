@@ -73,12 +73,6 @@ final class BlobColumn extends Column
 		throw new RuntimeException(id);
 	}
 
-	@Override
-	Object getCheckValue()
-	{
-		throw new RuntimeException(id);
-	}
-
 
 	byte[] load(final Connection connection, final Executor executor, final Item item)
 	{

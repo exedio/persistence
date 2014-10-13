@@ -122,8 +122,6 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 
 	public void testModel()
 	{
-		model.checkSchema();
-
 		model.commit();
 
 		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));

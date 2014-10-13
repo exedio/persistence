@@ -195,11 +195,4 @@ class StringColumn extends Column
 		assert cache==null || cache instanceof String;
 		return cache;
 	}
-
-	@Override
-	final Object getCheckValue()
-	{
-		return "z";
-	}
-
 }

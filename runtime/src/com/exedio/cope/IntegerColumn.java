@@ -182,12 +182,6 @@ class IntegerColumn extends Column
 		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
 	}
 
-	@Override
-	final Object getCheckValue()
-	{
-		return longInsteadOfInt ? (Object)Long.valueOf(1) : Integer.valueOf(1);
-	}
-
 	private final Number convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
