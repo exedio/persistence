@@ -18,6 +18,8 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.Util.maC;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DateField;
@@ -41,7 +43,7 @@ final class SamplerEnvironment extends Item
 	@SuppressWarnings("unused")
 	private static final DateField sampleDate     = new DateField().toFinal().defaultToNow();
 
-	static void sample(final Model model)
+	static void sample(final Model model, final String buildTag)
 	{
 		final Date connectDate = model.getConnectDate();
 		if(connectDate==null || forConnectDate(connectDate)!=null)
@@ -53,6 +55,7 @@ final class SamplerEnvironment extends Item
 		addHostname(sv);
 		addConnection(sv, model);
 		addEnvironmentInfo(sv, model);
+		addBuildTag(sv, buildTag);
 		TYPE.newItem(sv);
 	}
 
@@ -108,6 +111,14 @@ final class SamplerEnvironment extends Item
 		sv.add(driverVersion         .map(i.getDriverVersion         ()));
 		sv.add(driverVersionMajor    .map(i.getDriverMajorVersion    ()));
 		sv.add(driverVersionMinor    .map(i.getDriverMinorVersion    ()));
+	}
+
+
+	private static final StringField buildTag = new StringField().toFinal().optional().lengthMax(1000);
+
+	private static final void addBuildTag(final ArrayList<SetValue<?>> sv, final String buildTag)
+	{
+		sv.add(maC(SamplerEnvironment.buildTag, buildTag));
 	}
 
 
