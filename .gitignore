@@ -5,4 +5,6 @@ tomcat/
 ivy/artifacts/
 lib/ojdbc5.jar
 cope.properties
+local.properties
+test-properties/mysql*.properties
 .eclipse-output/
