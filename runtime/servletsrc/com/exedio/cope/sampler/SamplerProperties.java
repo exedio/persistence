@@ -57,7 +57,12 @@ public final class SamplerProperties extends Properties
 
 	public void sample(final Sampler sampler)
 	{
-		sampler.sampleInternal(transactionDuration);
+		sample(sampler, null);
+	}
+
+	public void sample(final Sampler sampler, final String buildTag)
+	{
+		sampler.sampleInternal(transactionDuration, buildTag);
 	}
 
 

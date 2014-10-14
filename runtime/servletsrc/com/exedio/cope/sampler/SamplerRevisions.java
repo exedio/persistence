@@ -36,6 +36,10 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(12, "add SamplerEnvironment#buildTag",
+				"ALTER TABLE `SamplerEnvironment` " +
+					"ADD COLUMN `buildTag` text CHARACTER SET utf8 COLLATE utf8_bin"
+			),
 			new Revision(11, "remove tables for absolute values, not used anymore since revision 6",
 				"DROP TABLE `SamplerClusterNode`",
 				"DROP TABLE `SamplerItemCache`",

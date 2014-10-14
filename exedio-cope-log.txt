@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Sampler supports storing build tag.
+	Use SamplerProperties#sample(Sampler sampler, String buildTag)
 * Model.checkSchema() is no longer supported.
 * PartOf allows order shared by multiple parts.
 * Price (and PriceField) does not support value -21474836.48 anymore.
