@@ -299,12 +299,10 @@ public abstract class CopeAssert extends TestCase
 
 			assertEquals(expectedSize, bos.size());
 
-			final Object result;
 			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())))
 			{
-				result = ois.readObject();
+				return (S)ois.readObject();
 			}
-			return (S)result;
 		}
 		catch(final IOException e)
 		{
