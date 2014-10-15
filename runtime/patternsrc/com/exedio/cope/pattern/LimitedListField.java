@@ -22,6 +22,7 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
