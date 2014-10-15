@@ -313,12 +313,9 @@ public abstract class CopeAssert extends TestCase
 	{
 		requireNonNull(bytes);
 
-		try
+		try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes)))
 		{
-			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes)))
-			{
-				return ois.readObject();
-			}
+			return ois.readObject();
 		}
 		catch(final IOException e)
 		{
