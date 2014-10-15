@@ -301,33 +301,27 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public Condition contains(final E value)
 	{
-		final Condition[] conditions = new Condition[sources.length];
-
-		for(int i = 0; i<sources.length; i++)
-			conditions[i] = sources[i].equal(value);
-
-		return Cope.or(conditions);
+		return contains(null, value);
 	}
 
-	// todo remove duplicate code
 	public final Condition contains(final Join join, E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
 
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = sources[i].bind(join).equal(value);
+			conditions[i] = bind(sources[i], join).equal(value);
 
 		return Cope.or(conditions);
 	}
 
+	private com.exedio.cope.Function<E> bind(FunctionField<E> source, Join join)
+	{
+		return join == null ? source : source.bind(join);
+	}
+
 	public Condition containsAny(final Collection<E> set)
 	{
-		final Condition[] conditions = new Condition[set.size()];
-		int i = 0;
-		for(final E item : set)
-			conditions[i++] = contains(item);
-
-		return Cope.or(conditions);
+		return containsAny(null, set);
 	}
 
 	public final Condition containsAny(final Join join, final Collection<E> set)
