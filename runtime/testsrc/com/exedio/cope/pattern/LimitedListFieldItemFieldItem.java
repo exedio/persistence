@@ -26,11 +26,10 @@ import com.exedio.cope.ItemField;
  */
 public final class LimitedListFieldItemFieldItem extends Item
 {
-	// explicit external source
-
 	static final ItemField<LimitedListFieldItem> limitedListFieldItem = ItemField.create(LimitedListFieldItem.class);
 
-/**
+
+	/**
 
 	 **
 	 * Creates a new LimitedListFieldItemFieldItem with all the fields initially needed.
