@@ -314,7 +314,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return Cope.or(conditions);
 	}
 
-	private static <E> com.exedio.cope.Function<E> bind(final FunctionField<E> source, final Join join)
+	private static <E> Function<E> bind(final FunctionField<E> source, final Join join)
 	{
 		return join == null ? source : source.bind(join);
 	}
