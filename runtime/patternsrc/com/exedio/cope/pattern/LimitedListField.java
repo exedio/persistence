@@ -22,9 +22,11 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -300,10 +302,35 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public Condition contains(final E value)
 	{
+		return contains(null, value);
+	}
+
+	public final Condition contains(final Join join, final E value)
+	{
 		final Condition[] conditions = new Condition[sources.length];
 
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = sources[i].equal(value);
+			conditions[i] = bind(sources[i], join).equal(value);
+
+		return Cope.or(conditions);
+	}
+
+	private static <E> Function<E> bind(final FunctionField<E> source, final Join join)
+	{
+		return join == null ? source : source.bind(join);
+	}
+
+	public Condition containsAny(final Collection<E> set)
+	{
+		return containsAny(null, set);
+	}
+
+	public final Condition containsAny(final Join join, final Collection<E> set)
+	{
+		final Condition[] conditions = new Condition[set.size()];
+		int i = 0;
+		for(final E item : set)
+			conditions[i++] = contains(join, item);
 
 		return Cope.or(conditions);
 	}

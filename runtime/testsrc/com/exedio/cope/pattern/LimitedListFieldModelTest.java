@@ -45,18 +45,21 @@ import java.util.List;
 
 public class LimitedListFieldModelTest extends CopeAssert
 {
-	public static final Model MODEL = new Model(LimitedListFieldItem.TYPE);
+	public static final Model MODEL = new Model(
+		LimitedListFieldItem.TYPE,
+		LimitedListFieldItemFieldItem.TYPE
+	);
 
 	static
 	{
 		MODEL.enableSerialization(LimitedListFieldModelTest.class, "MODEL");
 	}
 
-	protected static final Integer i0 = Integer.valueOf(0);
-	protected static final Integer i1 = Integer.valueOf(1);
-	protected static final Integer i2 = Integer.valueOf(2);
-	protected static final Integer i3 = Integer.valueOf(3);
-	protected static final Integer i4 = Integer.valueOf(4);
+	protected static final Integer i0 = 0;
+	protected static final Integer i1 = 1;
+	protected static final Integer i2 = 2;
+	protected static final Integer i3 = 3;
+	protected static final Integer i4 = 4;
 
 	public void testIt()
 	{
