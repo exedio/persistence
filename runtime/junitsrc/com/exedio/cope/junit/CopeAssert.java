@@ -284,24 +284,40 @@ public abstract class CopeAssert extends TestCase
 		assertTrue(message, !expectedAfter.before(actual));
 	}
 
-	@SuppressWarnings("unchecked")
 	public static final <S> S reserialize(final S value, final int expectedSize)
+	{
+		final byte[] bos = serialize(value);
+		assertEquals(expectedSize, bos.length);
+		@SuppressWarnings("unchecked")
+		final S result = (S)deserialize(bos);
+		return result;
+	}
+
+	private static final byte[] serialize(final Object value)
 	{
 		requireNonNull(value);
 
+		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try(ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos))
+		{
+			oos.writeObject(value);
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return bos.toByteArray();
+	}
+
+	private static final Object deserialize(final byte[] bytes)
+	{
+		requireNonNull(bytes);
+
 		try
 		{
-			final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			try(ObjectOutputStream oos = new DeduplicateStringsObjectOutputStream(bos))
+			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes)))
 			{
-				oos.writeObject(value);
-			}
-
-			assertEquals(expectedSize, bos.size());
-
-			try(ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray())))
-			{
-				return (S)ois.readObject();
+				return ois.readObject();
 			}
 		}
 		catch(final IOException e)
