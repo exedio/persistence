@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
+import static com.exedio.cope.pattern.LimitedListFieldItemFieldItem.limitedListFieldItem;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -223,7 +224,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 	public void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(LimitedListFieldItem.TYPE, LimitedListFieldItemFieldItem.limitedListFieldItem.equalTarget());
+		final Join j = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
@@ -248,7 +249,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 	public void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join join = q.join(LimitedListFieldItem.TYPE, LimitedListFieldItemFieldItem.limitedListFieldItem.equalTarget());
+		final Join join = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 
