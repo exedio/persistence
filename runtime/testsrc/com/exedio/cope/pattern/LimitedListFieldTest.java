@@ -239,11 +239,11 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		final String f = "LimitedListFieldItem.strings-";
 		assertEquals("FALSE", strings.containsAny(Collections.<String>emptyList()).toString());
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
-			strings.containsAny(Arrays.asList("a")).toString());
+			strings.containsAny(asList("a")).toString());
 		assertEquals(
 			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
 			 "OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
-			strings.containsAny(Arrays.asList("a","b")).toString());
+			strings.containsAny(asList("a","b")).toString());
 	}
 
 	public void testContainsAnyInJoin()
@@ -255,10 +255,10 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 
 		assertEquals("FALSE", strings.containsAny(join, Collections.<String>emptyList()).toString());
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
-			strings.containsAny(join, Arrays.asList("a")).toString());
+			strings.containsAny(join, asList("a")).toString());
 		assertEquals(
 			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
 				"OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
-			strings.containsAny(join, Arrays.asList("a","b")).toString());
+			strings.containsAny(join, asList("a","b")).toString());
 	}
 }
