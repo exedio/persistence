@@ -293,7 +293,7 @@ public abstract class CopeAssert extends TestCase
 		return result;
 	}
 
-	private static final byte[] serialize(final Object value)
+	public static final byte[] serialize(final Object value)
 	{
 		requireNonNull(value);
 
@@ -309,7 +309,7 @@ public abstract class CopeAssert extends TestCase
 		return bos.toByteArray();
 	}
 
-	private static final Object deserialize(final byte[] bytes)
+	public static final Object deserialize(final byte[] bytes)
 	{
 		requireNonNull(bytes);
 
