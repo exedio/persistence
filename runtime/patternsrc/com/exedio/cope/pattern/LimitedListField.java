@@ -304,7 +304,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return contains(null, value);
 	}
 
-	public final Condition contains(final Join join, E value)
+	public final Condition contains(final Join join, final E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
 
@@ -314,7 +314,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return Cope.or(conditions);
 	}
 
-	private com.exedio.cope.Function<E> bind(FunctionField<E> source, Join join)
+	private static <E> com.exedio.cope.Function<E> bind(final FunctionField<E> source, final Join join)
 	{
 		return join == null ? source : source.bind(join);
 	}
