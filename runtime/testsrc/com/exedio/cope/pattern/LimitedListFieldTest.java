@@ -24,8 +24,10 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
-import com.exedio.cope.SetValue;
+import com.exedio.cope.Join;
+import com.exedio.cope.Query;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 public class LimitedListFieldTest extends AbstractRuntimeTest
@@ -156,7 +158,7 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(new SetValue<?>[]{strings.map(asList("lets1", "lets2", "lets3", "lets4"))}));
+		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(strings.map(asList("lets1", "lets2", "lets3", "lets4"))));
 		assertEqualsUnmodifiable(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.getString0());
 		assertEquals("lets2", item2.getString1());
@@ -216,5 +218,46 @@ public class LimitedListFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
+	}
+
+	public void testContainsInJoin()
+	{
+		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
+		final Join j = q.join(LimitedListFieldItem.TYPE, LimitedListFieldItemFieldItem.limitedListFieldItem.equalTarget());
+
+		final String f = "l1.LimitedListFieldItem.strings-";
+		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+			LimitedListFieldItem.strings.contains(j, "a").toString());
+
+		assertEquals("("+f+"0 is null OR "+f+"1 is null OR "+f+"2 is null OR "+f+"3 is null)",
+			LimitedListFieldItem.strings.contains(j, null).toString());
+	}
+
+	public void testContainsAny()
+	{
+		final String f = "LimitedListFieldItem.strings-";
+		assertEquals("FALSE", LimitedListFieldItem.strings.containsAny(Collections.<String>emptyList()).toString());
+		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+			LimitedListFieldItem.strings.containsAny(Arrays.asList("a")).toString());
+		assertEquals(
+			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
+			 "OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
+			LimitedListFieldItem.strings.containsAny(Arrays.asList("a","b")).toString());
+	}
+
+	public void testContainsAnyInJoin()
+	{
+		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
+		final Join join = q.join(LimitedListFieldItem.TYPE, LimitedListFieldItemFieldItem.limitedListFieldItem.equalTarget());
+
+		final String f = "l1.LimitedListFieldItem.strings-";
+
+		assertEquals("FALSE", LimitedListFieldItem.strings.containsAny(join, Collections.<String>emptyList()).toString());
+		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+			LimitedListFieldItem.strings.containsAny(join, Arrays.asList("a")).toString());
+		assertEquals(
+			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
+				"OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
+			LimitedListFieldItem.strings.containsAny(join, Arrays.asList("a","b")).toString());
 	}
 }

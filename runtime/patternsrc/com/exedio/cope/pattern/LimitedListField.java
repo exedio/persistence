@@ -25,6 +25,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -304,6 +305,37 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		for(int i = 0; i<sources.length; i++)
 			conditions[i] = sources[i].equal(value);
+
+		return Cope.or(conditions);
+	}
+
+	// todo remove duplicate code
+	public final Condition contains(final Join join, E value)
+	{
+		final Condition[] conditions = new Condition[sources.length];
+
+		for(int i = 0; i<sources.length; i++)
+			conditions[i] = sources[i].bind(join).equal(value);
+
+		return Cope.or(conditions);
+	}
+
+	public Condition containsAny(final Collection<E> set)
+	{
+		final Condition[] conditions = new Condition[set.size()];
+		int i = 0;
+		for(final E item : set)
+			conditions[i++] = contains(item);
+
+		return Cope.or(conditions);
+	}
+
+	public final Condition containsAny(final Join join, final Collection<E> set)
+	{
+		final Condition[] conditions = new Condition[set.size()];
+		int i = 0;
+		for(final E item : set)
+			conditions[i++] = contains(join, item);
 
 		return Cope.or(conditions);
 	}
