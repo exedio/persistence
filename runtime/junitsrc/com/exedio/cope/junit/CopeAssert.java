@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
@@ -285,8 +287,7 @@ public abstract class CopeAssert extends TestCase
 	@SuppressWarnings("unchecked")
 	public static final <S> S reserialize(final S value, final int expectedSize)
 	{
-		if(value==null)
-			throw new NullPointerException();
+		requireNonNull(value);
 
 		try
 		{
