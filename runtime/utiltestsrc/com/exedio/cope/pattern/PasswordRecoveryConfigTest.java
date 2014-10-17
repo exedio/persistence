@@ -50,7 +50,7 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("reuseMillis must be greater or equal zero, but was -1", e.getMessage());
+			assertEquals("reuseMillis must not be negative, but was -1", e.getMessage());
 		}
 		try
 		{

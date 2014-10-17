@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -211,10 +213,8 @@ public final class PasswordRecovery extends Pattern
 		 */
 		public Config(final int expiryMillis, final int reuseMillis)
 		{
-			if(expiryMillis<=0)
-				throw new IllegalArgumentException("expiryMillis must be greater zero, but was " + expiryMillis);
-			if(reuseMillis<0)
-				throw new IllegalArgumentException("reuseMillis must be greater or equal zero, but was " + reuseMillis);
+			requireGreaterZero(expiryMillis, "expiryMillis");
+			requireNonNegative(reuseMillis, "reuseMillis");
 			if(reuseMillis>expiryMillis)
 				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
 
