@@ -138,7 +138,7 @@ public final class PasswordRecovery extends Pattern
 		final int reuse = config.getReuseMillis();
 		final long now = Clock.currentTimeMillis();
 
-		if(config.getReuseMillis()>0)
+		if(reuse>0)
 		{
 			final Query<Token> tokens =
 				tokenType.newQuery(Cope.and(
