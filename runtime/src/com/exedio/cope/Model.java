@@ -595,15 +595,6 @@ public final class Model implements Serializable
 	// ----------------------- transaction
 
 	/**
-	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
-	 */
-	@Deprecated
-	public Transaction startTransaction()
-	{
-		return startTransaction(null);
-	}
-
-	/**
 	 * @param name
 	 * 	a name for the transaction, useful for debugging.
 	 * 	This name is used in {@link Transaction#toString()}.
@@ -899,6 +890,15 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
+	 */
+	@Deprecated
+	public Transaction startTransaction()
+	{
+		return startTransaction(null);
+	}
 
 	/**
 	 * @deprecated
