@@ -256,7 +256,7 @@ public class IntegerTest extends AbstractRuntimeTest
 
 		model.commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		model.startTransaction(IntegerTest.class.getName());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

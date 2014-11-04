@@ -566,7 +566,7 @@ public class DoubleTest extends AbstractRuntimeTest
 
 		model.commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		model.startTransaction(DoubleTest.class.getName());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

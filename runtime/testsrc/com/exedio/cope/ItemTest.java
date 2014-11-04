@@ -163,7 +163,7 @@ public class ItemTest extends TestmodelTest
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 		model.flushConnectionPool();
 
-		model.startTransaction();
+		model.startTransaction(ItemTest.class.getName());
 	}
 
 	public void testItemCreation()

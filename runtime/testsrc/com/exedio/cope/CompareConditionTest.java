@@ -314,7 +314,7 @@ public class CompareConditionTest extends AbstractRuntimeTest
 
 		model.commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		model.startTransaction(CompareConditionTest.class.getName());
 	}
 
 	public void testGroup()

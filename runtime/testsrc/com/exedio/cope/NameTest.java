@@ -149,7 +149,7 @@ public class NameTest extends AbstractRuntimeTest
 			}
 		}
 
-		model.startTransaction();
+		model.startTransaction(NameTest.class.getName());
 
 		// test persistence
 

@@ -255,7 +255,7 @@ public class LongTest extends AbstractRuntimeTest
 
 		model.commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		model.startTransaction(LongTest.class.getName());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

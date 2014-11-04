@@ -164,7 +164,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeTest
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 
-		model.startTransaction();
+		model.startTransaction(HierarchyEmptyTest.class.getName());
 	}
 
 }
