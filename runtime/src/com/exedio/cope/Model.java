@@ -598,8 +598,9 @@ public final class Model implements Serializable
 	 * @throws IllegalStateException
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
-	 * @see #startTransaction(String)
+	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
 	 */
+	@Deprecated
 	public Transaction startTransaction()
 	{
 		return startTransaction(null);
