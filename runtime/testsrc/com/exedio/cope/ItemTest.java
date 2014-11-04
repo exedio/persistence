@@ -141,7 +141,7 @@ public class ItemTest extends TestmodelTest
 
 	public void testCheckDatabase()
 	{
-		model.commit();
+		commit();
 
 		model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 		model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
@@ -163,7 +163,7 @@ public class ItemTest extends TestmodelTest
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 		model.flushConnectionPool();
 
-		model.startTransaction(ItemTest.class.getName());
+		startTransaction();
 	}
 
 	public void testItemCreation()

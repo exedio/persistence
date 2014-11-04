@@ -57,6 +57,16 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super.tearDown();
 	}
 
+	protected final void startTransaction()
+	{
+		model.startTransaction(getClass().getName());
+	}
+
+	protected final void commit()
+	{
+		model.commit();
+	}
+
 	protected final File deleteOnTearDown(final File file)
 	{
 		return files.deleteOnTearDown(file);

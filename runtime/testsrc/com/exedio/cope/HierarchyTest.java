@@ -372,7 +372,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());
 
-		model.startTransaction(HierarchyTest.class.getName());
+		startTransaction();
 	}
 
 	public void testPrimaryKeyInfo()
@@ -381,7 +381,7 @@ public class HierarchyTest extends AbstractRuntimeTest
 		// for flushing the info
 		MODEL.dropSchema();
 		MODEL.createSchema();
-		MODEL.startTransaction(HierarchyTest.class.getName());
+		startTransaction();
 
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 

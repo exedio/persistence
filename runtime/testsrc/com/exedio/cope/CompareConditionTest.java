@@ -312,9 +312,9 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			assertEquals((2.1+2.2+2.3)/3.0, q.searchSingleton().doubleValue(), 0.000000000000005);
 		}
 
-		model.commit();
+		commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction(CompareConditionTest.class.getName());
+		startTransaction();
 	}
 
 	public void testGroup()

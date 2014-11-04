@@ -49,11 +49,6 @@ public class TransactionTest extends TestmodelTest
 		return model.startTransaction(name);
 	}
 
-	private void commit()
-	{
-		model.commit();
-	}
-
 	private void rollback()
 	{
 		model.rollback();

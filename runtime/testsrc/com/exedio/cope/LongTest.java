@@ -253,9 +253,9 @@ public class LongTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(valueOf(8), item.getMin4Max8());
 
-		model.commit();
+		commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction(LongTest.class.getName());
+		startTransaction();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
