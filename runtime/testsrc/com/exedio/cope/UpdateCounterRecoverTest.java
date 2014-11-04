@@ -46,18 +46,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testSameTransaction() throws SQLException
 	{
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
 		if(cache)
 		{
@@ -85,18 +85,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testSameTransactionDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
 		if(cache)
 		{
@@ -120,18 +120,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testCommit() throws SQLException
 	{
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
 		if(cache)
 		{
@@ -152,8 +152,8 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 			assertEquals("name1", item.getName());
 		}
 
-		model.commit();
-		model.startTransaction();
+		commit();
+		startTransaction();
 
 		item.setName("name2");
 		assertEquals("name2", item.getName());
@@ -162,18 +162,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testCommitDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
 		if(cache)
 		{
@@ -189,8 +189,8 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 			assertEquals(true, item.existsCopeItem());
 		}
 
-		model.commit();
-		model.startTransaction();
+		commit();
+		startTransaction();
 
 		item.deleteCopeItem();
 		assertEquals(false, item.existsCopeItem());
@@ -200,18 +200,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testRollback() throws SQLException
 	{
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals("name0", item.getName());
 		if(cache)
 		{
@@ -233,7 +233,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		}
 
 		model.rollback();
-		model.startTransaction();
+		startTransaction();
 
 		item.setName("name2");
 		assertEquals("name2", item.getName());
@@ -242,18 +242,18 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 	public void testRollbackDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		// This transaction fills the global cache
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
-		model.commit();
+		commit();
 
 		execute(
 				"update " + q(getTableName(TYPE)) +
 				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
 
-		model.startTransaction();
+		startTransaction();
 		assertEquals(true, item.existsCopeItem());
 		if(cache)
 		{
@@ -270,7 +270,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
 		}
 
 		model.rollback();
-		model.startTransaction();
+		startTransaction();
 
 		item.deleteCopeItem();
 		assertEquals(false, item.existsCopeItem());

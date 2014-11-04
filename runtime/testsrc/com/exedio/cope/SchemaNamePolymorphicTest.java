@@ -130,7 +130,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 	private final void toSchema() throws SQLException
 	{
 		assertNull(connection);
-		model.commit();
+		commit();
 		connection = SchemaInfo.newConnection(model);
 	}
 
@@ -138,7 +138,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 	{
 		connection.close();
 		connection = null;
-		model.startTransaction();
+		startTransaction();
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
