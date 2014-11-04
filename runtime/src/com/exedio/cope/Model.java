@@ -595,24 +595,12 @@ public final class Model implements Serializable
 	// ----------------------- transaction
 
 	/**
-	 * @throws IllegalStateException
-	 *    if there is already a transaction bound
-	 *    to the current thread for this model
-	 * @see #startTransaction(String)
-	 */
-	public Transaction startTransaction()
-	{
-		return startTransaction(null);
-	}
-
-	/**
 	 * @param name
 	 * 	a name for the transaction, useful for debugging.
 	 * 	This name is used in {@link Transaction#toString()}.
 	 * @throws IllegalStateException
 	 *    if there is already a transaction bound
 	 *    to the current thread for this model
-	 * @see #startTransaction()
 	 * @see #startTransactionTry(String)
 	 */
 	public Transaction startTransaction(final String name)
@@ -902,6 +890,15 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
+	 */
+	@Deprecated
+	public Transaction startTransaction()
+	{
+		return startTransaction(null);
+	}
 
 	/**
 	 * @deprecated

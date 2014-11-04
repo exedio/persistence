@@ -115,6 +115,16 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		super.tearDown();
 	}
 
+	protected final void startTransaction()
+	{
+		model.startTransaction(getClass().getName());
+	}
+
+	protected final void commit()
+	{
+		model.commit();
+	}
+
 	protected final String synthetic(final String name, final String global)
 	{
 		return tester.synthetic(name, global);

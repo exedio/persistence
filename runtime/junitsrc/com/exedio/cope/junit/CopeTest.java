@@ -223,7 +223,7 @@ public abstract class CopeTest extends CopeAssert
 						model.rollbackIfNotCommitted();
 						model.tearDownSchema();
 						model.createSchema();
-						model.startTransaction();
+						model.startTransaction(CopeTest.class.getName());
 					}
 				}
 			}

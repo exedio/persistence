@@ -254,9 +254,9 @@ public class IntegerTest extends AbstractRuntimeTest
 		assertEquals(valueOf(8), item.getMin4Max8());
 
 
-		model.commit();
+		commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		startTransaction();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

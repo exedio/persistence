@@ -486,9 +486,9 @@ public class StringTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals("abcdef", item.getLowercase());
 
-		model.commit();
+		commit();
 		model.checkUnsupportedConstraints();
-		model.startTransaction();
+		startTransaction();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

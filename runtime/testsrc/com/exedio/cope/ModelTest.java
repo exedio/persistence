@@ -266,6 +266,6 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
-		model.startTransaction();
+		model.startTransaction(ModelTest.class.getName());
 	}
 }

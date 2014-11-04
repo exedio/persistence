@@ -332,7 +332,7 @@ final class RuntimeTester
 
 		final com.exedio.dsmf.Schema schema = model.getVerifiedSchema();
 
-		model.startTransaction();
+		model.startTransaction(RuntimeTester.class.getName() + "#assertSchema");
 
 		if(hsqldb||postgresql)
 			return;
