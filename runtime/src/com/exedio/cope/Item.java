@@ -245,19 +245,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			FinalViolationException,
 			ClassCastException
 	{
-		type.assertBelongs(field);
-
-		if(field.isfinal)
-			throw FinalViolationException.create(field, this);
-
-		field.check(value, this);
-
-		type.checkUniqueConstraints(this, Collections.singletonMap(field, value));
-
-		final Entity entity = getEntity();
-		entity.put(field, value);
-		type.checkCheckConstraints(this, entity, this);
-		entity.write(Collections.<BlobColumn, byte[]>emptyMap());
+		set(field.map(value));
 	}
 
 	/**
