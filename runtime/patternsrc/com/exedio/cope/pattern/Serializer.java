@@ -22,15 +22,11 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -150,12 +146,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final E value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			StringLengthViolationException,
-			FinalViolationException,
-			ClassCastException
 	{
 		source.set(item, serialize(value));
 	}

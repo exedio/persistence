@@ -24,16 +24,13 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -262,11 +259,6 @@ public class Hash extends Pattern implements HashInterface
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public final void set(final Item item, final String plainText)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			StringLengthViolationException,
-			FinalViolationException
 	{
 		storage.set(item, hash(plainText, item));
 	}

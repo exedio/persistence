@@ -148,9 +148,6 @@ public final class BooleanField extends FunctionField<Boolean>
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final boolean value)
-		throws
-			UniqueViolationException,
-			FinalViolationException
 	{
 		set(item, Boolean.valueOf(value));
 	}

@@ -335,10 +335,6 @@ public final class IntegerField extends NumberField<Integer>
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void set(final Item item, final int value)
-		throws
-			UniqueViolationException,
-			FinalViolationException,
-			IntegerRangeViolationException
 	{
 		set(item, Integer.valueOf(value));
 	}
@@ -360,7 +356,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
-	void checkNotNull(final Integer value, final Item exceptionItem) throws IntegerRangeViolationException
+	void checkNotNull(final Integer value, final Item exceptionItem)
 	{
 		final int valuePrimitive = value.intValue();
 		if(valuePrimitive<minimum)

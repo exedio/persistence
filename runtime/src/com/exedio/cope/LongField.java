@@ -226,9 +226,6 @@ public final class LongField extends NumberField<Long>
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final long value)
-		throws
-			UniqueViolationException,
-			FinalViolationException
 	{
 		set(item, Long.valueOf(value));
 	}
@@ -250,7 +247,7 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
-	void checkNotNull(final Long value, final Item exceptionItem) throws LongRangeViolationException
+	void checkNotNull(final Long value, final Item exceptionItem)
 	{
 		final long valuePrimitive = value.longValue();
 		if(valuePrimitive<minimum)

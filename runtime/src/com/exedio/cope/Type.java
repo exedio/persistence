@@ -913,7 +913,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	public T newItem(final List<SetValue<?>> setValues)
-		throws ConstraintViolationException
 	{
 		return newItem(SetValueUtil.toArray(setValues));
 	}
@@ -921,7 +920,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private static final SetValue<?>[] EMPTY_SET_VALUES = {};
 
 	public T newItem(SetValue<?>... setValues)
-		throws ConstraintViolationException
 	{
 		if(isAbstract)
 			throw new IllegalArgumentException("cannot create item of abstract type " + id);

@@ -184,17 +184,7 @@ public final class DateField extends FunctionField<Date>
 			doc="Sets the current date for the date field {0}.", // TODO better text
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
-		throws
-			UniqueViolationException,
-			FinalViolationException
 	{
-		try
-		{
-			set(item, newDate()); // TODO: make a more efficient implementation
-		}
-		catch(final MandatoryViolationException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
+		set(item, newDate()); // TODO: make a more efficient implementation
 	}
 }

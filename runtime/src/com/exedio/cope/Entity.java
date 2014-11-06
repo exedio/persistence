@@ -54,7 +54,7 @@ final class Entity
 		}
 	}
 
-	void write(final Map<BlobColumn, byte[]> blobs) throws UniqueViolationException
+	void write(final Map<BlobColumn, byte[]> blobs)
 	{
 		boolean discard = true;
 		try

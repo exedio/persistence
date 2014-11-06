@@ -21,17 +21,13 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -210,12 +206,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			thrownGetter=Thrown.class)
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			StringLengthViolationException,
-			FinalViolationException,
-			ClassCastException
 	{
 		assertValue(value, item);
 		int i = 0;

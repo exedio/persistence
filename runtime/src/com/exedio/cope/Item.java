@@ -26,7 +26,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -238,12 +237,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
 	public final <E> void set(final FunctionField<E> field, final E value)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			StringLengthViolationException,
-			FinalViolationException,
-			ClassCastException
 	{
 		set(field.map(value));
 	}
@@ -258,12 +251,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
 	public final void set(final SetValue<?>... setValues)
-		throws
-			UniqueViolationException,
-			MandatoryViolationException,
-			StringLengthViolationException,
-			FinalViolationException,
-			ClassCastException
 	{
 		requireNonNull(setValues, "setValues");
 		if(setValues.length==0)
@@ -288,14 +275,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 		entity.write(toBlobs(fieldValues, this));
 	}
 
-	public final void deleteCopeItem() throws IntegrityViolationException
+	/**
+	 * @throws IntegrityViolationException
+	 */
+	public final void deleteCopeItem()
 	{
 		checkDeleteCopeItem(new HashSet<Item>());
 		deleteCopeItem(new HashSet<Item>());
 	}
 
 	private final void checkDeleteCopeItem(final HashSet<Item> toDelete)
-			throws IntegrityViolationException
 	{
 		toDelete.add(this);
 

@@ -196,7 +196,6 @@ final class Executor
 			final Connection connection,
 			final Item exceptionItem,
 			final Statement statement)
-		throws UniqueViolationException
 	{
 		final int rows = update(connection, exceptionItem, statement);
 		if(rows!=1)
@@ -207,7 +206,6 @@ final class Executor
 			final Connection connection,
 			final Item exceptionItem,
 			final Statement statement)
-		throws UniqueViolationException
 	{
 		final DatabaseListener listener = this.listener;
 		final long nanoStart = listener!=null ? nanoTime() : 0;
@@ -277,7 +275,6 @@ final class Executor
 			final Connection connection,
 			final Statement statement,
 			final ResultSetHandler<R> generatedKeysHandler)
-		throws UniqueViolationException
 	{
 		final String sqlText = statement.getText();
 		final DatabaseListener listener = this.listener;

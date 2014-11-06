@@ -234,7 +234,7 @@ public final class DataField extends Field<DataField.Value>
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@Override
-	public void set(final Item item, final Value data) throws MandatoryViolationException, DataLengthViolationException
+	public void set(final Item item, final Value data)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
@@ -265,7 +265,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final byte[] data) throws MandatoryViolationException, DataLengthViolationException
+	public void set(final Item item, final byte[] data)
 	{
 		set(item, toValue(data));
 	}
@@ -285,7 +285,7 @@ public final class DataField extends Field<DataField.Value>
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final InputStream data)
-	throws MandatoryViolationException, DataLengthViolationException, IOException
+	throws IOException
 	{
 		set(item, toValue(data));
 	}
@@ -304,7 +304,7 @@ public final class DataField extends Field<DataField.Value>
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
 	public void set(final Item item, final File data)
-	throws MandatoryViolationException, DataLengthViolationException, IOException
+	throws IOException
 	{
 		set(item, toValue(data));
 	}
@@ -367,7 +367,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	@Override
-	final void checkNotNull(final Value value, final Item item) throws MandatoryViolationException
+	final void checkNotNull(final Value value, final Item item)
 	{
 		final long lengthIfKnown = value.estimateLength();
 		if(lengthIfKnown>maximumLength)

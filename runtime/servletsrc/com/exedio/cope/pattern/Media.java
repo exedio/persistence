@@ -404,7 +404,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public void set(
 			final Item item,
 			final Media.Value value)
-		throws DataLengthViolationException, IOException
+		throws IOException
 	{
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, item);
@@ -435,7 +435,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final Item item,
 			@Parameter("body") final byte[] body,
 			@Parameter("contentType") final String contentType)
-		throws DataLengthViolationException
 	{
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
@@ -487,7 +486,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final Item item,
 			@Parameter("body") final InputStream body,
 			@Parameter("contentType") final String contentType)
-		throws DataLengthViolationException, IOException
+		throws IOException
 	{
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
@@ -539,7 +538,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final Item item,
 			@Parameter("body") final File body,
 			@Parameter("contentType") final String contentType)
-		throws DataLengthViolationException, IOException
+		throws IOException
 	{
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
@@ -554,7 +553,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final Item item,
 			final DataField.Value body,
 			final String contentType)
-		throws DataLengthViolationException, IOException
+		throws IOException
 	{
 		assert !((body==null||contentType==null) && !optional) : getID();
 

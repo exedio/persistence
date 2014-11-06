@@ -173,7 +173,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
-	void checkNotNull(final Double value, final Item exceptionItem) throws IntegerRangeViolationException
+	void checkNotNull(final Double value, final Item exceptionItem)
 	{
 		final double valuePrimitive = value.doubleValue();
 
@@ -200,18 +200,8 @@ public final class DoubleField extends NumberField<Double>
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public final void set(final Item item, final double value)
-		throws
-			UniqueViolationException,
-			FinalViolationException
 	{
-		try
-		{
-			set(item, Double.valueOf(value));
-		}
-		catch(final MandatoryViolationException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
+		set(item, Double.valueOf(value));
 	}
 
 	/**

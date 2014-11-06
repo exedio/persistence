@@ -140,7 +140,10 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return new SetValue<?>[]{ map(value) };
 	}
 
-	public final void check(final E value) throws ConstraintViolationException
+	/**
+	 * @throws ConstraintViolationException if <tt>value</tt> does not satisfy constraints.
+	 */
+	public final void check(final E value)
 	{
 		check(value, null);
 	}
@@ -150,11 +153,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * {@link Item#set(FunctionField,Object)}
 	 * and {@link Item#Item(SetValue[])}
 	 * and throws the exception specified there.
+	 * @throws ConstraintViolationException if <tt>value</tt> does not satisfy constraints.
 	 */
 	final void check(final Object value, final Item exceptionItem)
-		throws
-			MandatoryViolationException,
-			StringLengthViolationException
 	{
 		if(value == null)
 		{
