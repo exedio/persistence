@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -203,6 +204,21 @@ public abstract class Item implements Serializable, Comparable<Item>
 	}
 
 	/**
+	 * Is called before every item modification.
+	 * Override this method when needed.
+	 * The default implementation does nothing.
+	 * @see Item#set(SetValue[])
+	 * @see Item#set(FunctionField, Object)
+	 * @param is never null and never empty
+	 * @return must not return null
+	 */
+	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		System.out.println(Arrays.asList(setValues)); // TODO remove
+		return setValues;
+	}
+
+	/**
 	 * Activation constructor.
 	 * Is used for internal purposes only.
 	 * Does not actually create a new item, but a passive item object for
@@ -250,10 +266,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @throws ClassCastException
 	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
 	 */
-	public final void set(final SetValue<?>... setValues)
+	public final void set(SetValue<?>... setValues)
 	{
 		requireNonNull(setValues, "setValues");
 		if(setValues.length==0)
+			return;
+
+		setValues = beforeSetCopeItem(setValues);
+		requireNonNull(setValues, "setValues");
+		if(setValues.length==0) // TODO test this
 			return;
 
 		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);

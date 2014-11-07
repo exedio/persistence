@@ -45,6 +45,7 @@ final class CreateItem extends CreateSuperItem
 	{
 		// do not call super.afterNewCopeItem here for testing
 		// in a normal production environment you should definitely not forget this
+		notifyAfterNewCopeItemInvoked();
 		setText(getText() + ".postCreate");
 	}
 
