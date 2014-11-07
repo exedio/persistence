@@ -21,6 +21,7 @@ package com.exedio.cope;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 
 public class DumperItem extends Item
 {
@@ -47,8 +48,7 @@ public class DumperItem extends Item
 	@Override
 	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
 	{
-		Assert.fail(Arrays.toString(setValues));
-		return null;
+		throw new AssertionFailedError(Arrays.toString(setValues));
 	}
 
 
