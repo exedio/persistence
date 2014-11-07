@@ -48,6 +48,11 @@ public final class UtilTestLogAppender extends AppenderSkeleton
 		assertMessage(Level.INFO, msg);
 	}
 
+	public void assertWarn(final String msg)
+	{
+		assertMessage(Level.WARN, msg);
+	}
+
 	public void assertMessage(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());

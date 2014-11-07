@@ -137,7 +137,12 @@ public final class ConnectToken
 	public boolean returnItConditionally()
 	{
 		if(returned.getAndSet(true))
+		{
+			logger.warn(
+					"ConnectToken {}: returned {} excessively ({})",
+					new Object[]{model, id, name});
 			return false;
+		}
 
 		return manciple.returnIt(this);
 	}

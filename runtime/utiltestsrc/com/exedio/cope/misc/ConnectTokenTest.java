@@ -210,7 +210,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertTrue(model.isConnected());
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true,  token1);
-		log.assertEmpty();
+		log.assertWarn("ConnectToken " + model.toString() + ": returned 1 excessively (token1Name)");
 
 		assertEquals(true, token0.returnItConditionally());
 		assertNotConnected();
@@ -222,7 +222,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
-		log.assertEmpty();
+		log.assertWarn("ConnectToken " + model.toString() + ": returned 0 excessively (token0Name)");
 	}
 
 	public void testNullName()
