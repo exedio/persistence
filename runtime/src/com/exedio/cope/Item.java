@@ -214,7 +214,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 */
 	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
 	{
-		System.out.println(Arrays.asList(setValues)); // TODO remove
 		return setValues;
 	}
 
