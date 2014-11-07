@@ -126,6 +126,11 @@ public final class ConnectToken
 		return returned.get();
 	}
 
+	/**
+	 * @throws IllegalArgumentException
+	 * if token was already returned.
+	 * You may want to use {@link #returnItConditionally()} instead.
+	 */
 	public boolean returnStrictly()
 	{
 		if(returned.getAndSet(true))
@@ -134,6 +139,11 @@ public final class ConnectToken
 		return manciple.returnIt(this);
 	}
 
+	/**
+	 * Return false,
+	 * if token was already returned.
+	 * You may want to use {@link #returnStrictly()} instead.
+	 */
 	public boolean returnItConditionally()
 	{
 		if(returned.getAndSet(true))
