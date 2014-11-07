@@ -136,7 +136,7 @@ public class Sampler
 		finally
 		{
 			if(mustReturn)
-				result.returnIt();
+				result.returnStrictly();
 		}
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST

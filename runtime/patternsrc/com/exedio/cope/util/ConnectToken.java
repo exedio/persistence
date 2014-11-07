@@ -70,7 +70,7 @@ public final class ConnectToken
 
 	public boolean returnIt()
 	{
-		return ct.returnIt();
+		return ct.returnStrictly();
 	}
 
 	@Deprecated // needed for jdk 1.5

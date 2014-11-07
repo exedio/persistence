@@ -119,7 +119,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
 		log.assertInfo("ConnectToken " + model.toString() + ": issued conditionally 2 (token2Name)");
 
-		assertEquals(false, token0.returnIt());
+		assertEquals(false, token0.returnStrictly());
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
@@ -129,7 +129,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
 		log.assertInfo("ConnectToken " + model.toString() + ": returned 0 (token0Name)");
 
-		assertEquals(false, token2.returnIt());
+		assertEquals(false, token2.returnStrictly());
 		assertTrue(model.isConnected());
 		assertSame(props, model.getConnectProperties());
 		assertEquals(connectDate, model.getConnectDate());
@@ -139,7 +139,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertToken(2, before2, after2, "token2Name", true,  false, true,  token2);
 		log.assertInfo("ConnectToken " + model.toString() + ": returned 2 (token2Name)");
 
-		assertEquals(true, token1.returnIt());
+		assertEquals(true, token1.returnStrictly());
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
@@ -148,7 +148,7 @@ public class ConnectTokenTest extends CopeAssert
 
 		try
 		{
-			token0.returnIt();
+			token0.returnStrictly();
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -241,7 +241,7 @@ public class ConnectTokenTest extends CopeAssert
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0", token0.toString());
 		log.assertInfo("ConnectToken " + model.toString() + ": connected 0 (null)");
 
-		assertEquals(true, token0.returnIt());
+		assertEquals(true, token0.returnStrictly());
 		assertNotConnected();
 		assertToken(0, before0, after0, null, false, true,  true, token0);
 		log.assertInfo("ConnectToken " + model.toString() + ": disconnected 0 (null)");

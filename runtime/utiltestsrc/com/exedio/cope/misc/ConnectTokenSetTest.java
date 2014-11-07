@@ -91,7 +91,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertEquals(list(token0), getTokens(model));
 		assertTrue(model.isConnected());
 
-		token0.returnIt();
+		token0.returnStrictly();
 		assertEquals(list(), getTokens(model));
 		assertFalse(model.isConnected());
 
@@ -101,7 +101,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertEquals(list(token1), getTokens(model));
 		assertTrue(model.isConnected());
 
-		token1.returnIt();
+		token1.returnStrictly();
 		assertEquals(list(), getTokens(model));
 		assertFalse(model.isConnected());
 
@@ -119,7 +119,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertEquals(list(token0a), getTokens(model));
 		assertTrue(model.isConnected());
 
-		token0a.returnIt();
+		token0a.returnStrictly();
 		assertEquals(list(), getTokens(model));
 		assertFalse(model.isConnected());
 

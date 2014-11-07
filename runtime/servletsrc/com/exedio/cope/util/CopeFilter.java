@@ -75,7 +75,7 @@ public final class CopeFilter implements Filter
 	{
 		if(connectToken!=null)
 		{
-			connectToken.returnIt();
+			connectToken.returnStrictly();
 			connectToken = null;
 		}
 	}

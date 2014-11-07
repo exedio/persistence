@@ -144,7 +144,7 @@ public class InitServlet extends HttpServlet
 	@Override
 	public void destroy()
 	{
-		connectToken.returnIt();
+		connectToken.returnStrictly();
 		connectToken = null;
 		super.destroy();
 	}

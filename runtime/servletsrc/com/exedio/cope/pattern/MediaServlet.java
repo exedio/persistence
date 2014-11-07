@@ -92,7 +92,7 @@ public class MediaServlet extends HttpServlet
 		{
 			if(mustReturn)
 			{
-				connectToken.returnIt();
+				connectToken.returnStrictly();
 				connectToken = null;
 			}
 		}
@@ -143,7 +143,7 @@ public class MediaServlet extends HttpServlet
 	{
 		if(connectToken!=null)
 		{
-			connectToken.returnIt();
+			connectToken.returnStrictly();
 			connectToken = null;
 		}
 		pathes.clear();

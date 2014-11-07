@@ -126,7 +126,7 @@ public final class ConnectToken
 		return returned.get();
 	}
 
-	public boolean returnIt()
+	public boolean returnStrictly()
 	{
 		if(returned.getAndSet(true))
 			throw new IllegalStateException("connect token " + id + " already returned");
@@ -349,6 +349,15 @@ public final class ConnectToken
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #returnStrictly()} instead
+	 */
+	@Deprecated
+	public boolean returnIt()
+	{
+		return returnStrictly();
+	}
 
 	/**
 	 * @param properties is ignored
