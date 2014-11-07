@@ -208,7 +208,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * The default implementation does nothing.
 	 * @see Item#set(SetValue[])
 	 * @see Item#set(FunctionField, Object)
-	 * @param is never null and never empty
+	 * @param setValues is never null and never empty
 	 * @return must not return null
 	 */
 	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
