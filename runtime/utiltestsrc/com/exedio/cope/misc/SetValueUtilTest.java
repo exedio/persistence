@@ -55,6 +55,36 @@ public class SetValueUtilTest extends CopeAssert
 		assertEquals("value2", getFirst(l.toArray(a), f2));
 	}
 
+	public void testGetFirstNullSetValues()
+	{
+		final StringField f = new StringField();
+		try
+		{
+			getFirst((SetValue<?>[])null, f);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			getFirst(asList((SetValue<?>[])null), f);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	public void testGetFirstNullSettable()
+	{
+		// TODO should rather throw an exception
+		assertEquals(null, getFirst(new SetValue<?>[]{}, null));
+		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), null));
+	}
+
 	public void testAdd()
 	{
 		final SetValue<?> m1 = new StringField().map("v1");
