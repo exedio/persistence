@@ -34,6 +34,20 @@ public final class SetValueUtil
 			: null;
 	}
 
+	public static <E> E getFirst(final SetValue<?>[] setValues, final Settable<E> settable)
+	{
+		for(final SetValue<?> setValue : setValues)
+		{
+			if(settable==setValue.settable)
+			{
+				@SuppressWarnings("unchecked")
+				final E result = (E)setValue.value;
+				return result;
+			}
+		}
+		return null;
+	}
+
 	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
 		for(final SetValue<?> setValue : setValues)

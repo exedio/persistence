@@ -34,18 +34,25 @@ public class SetValueUtilTest extends CopeAssert
 		final StringField f1 = new StringField();
 		final StringField f2 = new StringField();
 		final ArrayList<SetValue<?>> l = new ArrayList<>();
+		final SetValue<?>[] a = new SetValue[]{};
 
 		l.add(f1.map("value1a"));
 		assertEquals("value1a", getFirst(l, f1));
+		assertEquals("value1a", getFirst(l.toArray(a), f1));
 		assertEquals(null, getFirst(l, f2));
+		assertEquals(null, getFirst(l.toArray(a), f2));
 
 		l.add(f1.map("value1b"));
 		assertEquals("value1a", getFirst(l, f1));
+		assertEquals("value1a", getFirst(l.toArray(a), f1));
 		assertEquals(null, getFirst(l, f2));
+		assertEquals(null, getFirst(l.toArray(a), f2));
 
 		l.add(f2.map("value2"));
 		assertEquals("value1a", getFirst(l, f1));
+		assertEquals("value1a", getFirst(l.toArray(a), f1));
 		assertEquals("value2", getFirst(l, f2));
+		assertEquals("value2", getFirst(l.toArray(a), f2));
 	}
 
 	public void testAdd()
