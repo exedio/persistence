@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -64,6 +66,8 @@ public final class SetValueUtil
 
 	public static SetValue<?>[] add(final SetValue<?>[] setValues, final SetValue<?> value)
 	{
+		requireNonNull(value, "value");
+
 		final SetValue<?>[] result = new SetValue<?>[setValues.length + 1];
 		System.arraycopy(setValues, 0, result, 0, setValues.length);
 		result[result.length - 1] = value;

@@ -82,7 +82,14 @@ public class SetValueUtilTest extends CopeAssert
 
 	public void testAddNullValue()
 	{
-		// TODO should rather throw an exception
-		assertEquals(asList((SetValue<?>)null), asList(add(new SetValue<?>[]{}, null)));
+		try
+		{
+			add(new SetValue<?>[]{}, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("value", e.getMessage());
+		}
 	}
 }
