@@ -51,6 +51,8 @@ final class BeforeSetItem extends Item
 				throw new RuntimeException(Action.class.getName());
 			}
 		};
+		// TODO add something
+		// TODO change something on the same instance of SetValue array
 
 		abstract void execute();
 	}
