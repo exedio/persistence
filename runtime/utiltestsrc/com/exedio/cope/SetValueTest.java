@@ -26,6 +26,50 @@ import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
 {
+	public void testNormal()
+	{
+		final MockSettable settable = new MockSettable("alpha");
+		final SetValue<?> value = map(settable, "alphaValue");
+		assertEquals("alpha=alphaValue", value.toString());
+	}
+
+	public void testNormal2()
+	{
+		final MockSettable settable = new MockSettable("beta");
+		final SetValue<?> value = map(settable, "betaValue");
+		assertEquals("beta=betaValue", value.toString());
+	}
+
+	public void testNullValue()
+	{
+		final MockSettable settable = new MockSettable("gamma");
+		final SetValue<?> value = map(settable, null);
+		assertEquals("gamma=null", value.toString());
+	}
+
+	public void testNullValueAndNullToString()
+	{
+		final MockSettable settable = new MockSettable(null);
+		final SetValue<?> value = map(settable, null);
+		assertEquals("null=null", value.toString());
+	}
+
+	public void testNullFeature()
+	{
+		try
+		{
+			// NOTE
+			// The <String,StringField> below is needed for
+			// javac of JDK 1.6, but not for JDK 1.7
+			SetValue.<String,StringField>map(null, "nullValue");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("settable", e.getMessage());
+		}
+	}
+
 	private static final class MockSettable extends Feature implements Settable<String>
 	{
 		private static final long serialVersionUID = 1l;
@@ -76,50 +120,6 @@ public class SetValueTest extends TestCase
 		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type<?> defaultType)
 		{
 			bf.append(toString);
-		}
-	}
-
-	public void testNormal()
-	{
-		final MockSettable settable = new MockSettable("alpha");
-		final SetValue<?> value = map(settable, "alphaValue");
-		assertEquals("alpha=alphaValue", value.toString());
-	}
-
-	public void testNormal2()
-	{
-		final MockSettable settable = new MockSettable("beta");
-		final SetValue<?> value = map(settable, "betaValue");
-		assertEquals("beta=betaValue", value.toString());
-	}
-
-	public void testNullValue()
-	{
-		final MockSettable settable = new MockSettable("gamma");
-		final SetValue<?> value = map(settable, null);
-		assertEquals("gamma=null", value.toString());
-	}
-
-	public void testNullValueAndNullToString()
-	{
-		final MockSettable settable = new MockSettable(null);
-		final SetValue<?> value = map(settable, null);
-		assertEquals("null=null", value.toString());
-	}
-
-	public void testNullFeature()
-	{
-		try
-		{
-			// NOTE
-			// The <String,StringField> below is needed for
-			// javac of JDK 1.6, but not for JDK 1.7
-			SetValue.<String,StringField>map(null, "nullValue");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("settable", e.getMessage());
 		}
 	}
 }
