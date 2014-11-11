@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Objects;
 
 public final class SetValue<E>
 {
@@ -48,6 +49,23 @@ public final class SetValue<E>
 	{
 		this.settable = requireNonNull(settable, "settable");
 		this.value = value;
+	}
+
+	@Override
+	public boolean equals(final Object other)
+	{
+		if(!(other instanceof SetValue<?>))
+			return false;
+
+		final SetValue<?> o = (SetValue<?>)other;
+
+		return settable.equals(o.settable) && Objects.equals(value, o.value);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return settable.hashCode() ^ Objects.hashCode(value);
 	}
 
 	@Override

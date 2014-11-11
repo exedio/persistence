@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.SetValue.map;
 
 import java.lang.reflect.Type;
@@ -52,6 +54,19 @@ public class SetValueTest extends TestCase
 		final MockSettable settable = new MockSettable(null);
 		final SetValue<?> value = map(settable, null);
 		assertEquals("null=null", value.toString());
+	}
+
+	public void testEqualsAndHash()
+	{
+		final MockSettable settable = new MockSettable("alpha");
+		assertEqualsAndHash(
+				map(settable, "alphaValue"),
+				map(settable, "alphaValue"));
+		assertNotEqualsAndHash(
+				map(settable, "alphaValue"),
+				map(new MockSettable("other"), "alphaValue"),
+				map(settable, "betaValue"),
+				map(settable, null));
 	}
 
 	public void testNullFeature()
