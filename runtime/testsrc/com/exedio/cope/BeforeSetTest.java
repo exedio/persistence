@@ -1,0 +1,137 @@
+/*
+ * Copyright (C) 2004-2012  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static com.exedio.cope.BeforeSetItem.field1;
+import static com.exedio.cope.BeforeSetItem.Action.constraintViolation;
+import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
+import static java.util.Arrays.asList;
+
+import com.exedio.cope.BeforeSetItem.Action;
+
+public class BeforeSetTest extends AbstractRuntimeModelTest
+{
+	private static final Model MODEL = new Model(BeforeSetItem.TYPE);
+
+	public BeforeSetTest()
+	{
+		super(MODEL);
+	}
+
+	public void test()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(asList(), item.getCalls());
+
+		item.setField1(12);
+		assertEquals(12, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(asList(
+				"[BeforeSetItem.field1=12]"),
+				item.getCalls());
+
+		item.setField2(22);
+		assertEquals(12, item.getField1());
+		assertEquals(22, item.getField2());
+		assertEquals(asList(
+				"[BeforeSetItem.field1=12]",
+				"[BeforeSetItem.field2=22]"),
+				item.getCalls());
+
+		item.setFields(13, 23);
+		assertEquals(13, item.getField1());
+		assertEquals(23, item.getField2());
+		assertEquals(asList(
+				"[BeforeSetItem.field1=12]",
+				"[BeforeSetItem.field2=22]",
+				"[BeforeSetItem.field1=13, BeforeSetItem.field2=23]"),
+				item.getCalls());
+	}
+
+	public void testActionConstraintViolation()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setAction(constraintViolation);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(field1, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + constraintViolation + "]"), item.getCalls());
+	}
+
+	public void testActionRuntimeException()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setAction(runtimeException);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(Action.class.getName(), e.getMessage());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + runtimeException + "]"), item.getCalls());
+	}
+
+	public void testConstraintViolation()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setField1(-1);
+			fail();
+		}
+		catch(final IntegerRangeViolationException e)
+		{
+			assertEquals(field1, e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(asList("[BeforeSetItem.field1=-1]"), item.getCalls());
+	}
+}
