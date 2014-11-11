@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.EqualsAssertUtil.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssertUtil.assertNotEqualsAndHash;
 import static com.exedio.cope.SetValue.map;
 
 import java.lang.reflect.Type;
