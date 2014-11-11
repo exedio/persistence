@@ -274,6 +274,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		requireNonNull(setValues, "setValues");
 		if(setValues.length==0) // TODO test this
 			return;
+		// TODO test for duplicates
 
 		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
