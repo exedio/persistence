@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SetValue.map;
+
 import java.lang.reflect.Type;
 import java.util.Set;
 import junit.framework.TestCase;
@@ -80,28 +82,28 @@ public class SetValueTest extends TestCase
 	public void testNormal()
 	{
 		final MockSettable settable = new MockSettable("alpha");
-		final SetValue<?> value = SetValue.map(settable, "alphaValue");
+		final SetValue<?> value = map(settable, "alphaValue");
 		assertEquals("alpha=alphaValue", value.toString());
 	}
 
 	public void testNormal2()
 	{
 		final MockSettable settable = new MockSettable("beta");
-		final SetValue<?> value = SetValue.map(settable, "betaValue");
+		final SetValue<?> value = map(settable, "betaValue");
 		assertEquals("beta=betaValue", value.toString());
 	}
 
 	public void testNullValue()
 	{
 		final MockSettable settable = new MockSettable("gamma");
-		final SetValue<?> value = SetValue.map(settable, null);
+		final SetValue<?> value = map(settable, null);
 		assertEquals("gamma=null", value.toString());
 	}
 
 	public void testNullValueAndNullToString()
 	{
 		final MockSettable settable = new MockSettable(null);
-		final SetValue<?> value = SetValue.map(settable, null);
+		final SetValue<?> value = map(settable, null);
 		assertEquals("null=null", value.toString());
 	}
 
