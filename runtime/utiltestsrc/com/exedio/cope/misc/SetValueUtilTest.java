@@ -18,7 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
@@ -44,5 +46,41 @@ public class SetValueUtilTest extends CopeAssert
 		l.add(f2.map("value2"));
 		assertEquals("value1a", getFirst(l, f1));
 		assertEquals("value2", getFirst(l, f2));
+	}
+
+	public void testAdd()
+	{
+		final SetValue<?> m1 = new StringField().map("v1");
+		final SetValue<?> m2 = new StringField().map("v2");
+		final SetValue<?> mX = new StringField().map("vX");
+
+		assertEquals(asList(mX        ), asList(add(new SetValue<?>[]{      }, mX)));
+		assertEquals(asList(m1,     mX), asList(add(new SetValue<?>[]{m1    }, mX)));
+		assertEquals(asList(m1, m2, mX), asList(add(new SetValue<?>[]{m1, m2}, mX)));
+	}
+
+	public void testAddNullSetValues()
+	{
+		final SetValue<?> m = new StringField().map("vX");
+		try
+		{
+			add(null, m);
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	public void testAddNullValue()
+	{
+		try
+		{
+			add(new SetValue<?>[]{}, null);
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }

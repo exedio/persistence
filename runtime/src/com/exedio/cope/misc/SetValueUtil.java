@@ -48,6 +48,15 @@ public final class SetValueUtil
 		return null;
 	}
 
+	public static SetValue<?>[] add(final SetValue<?>[] setValues, final SetValue<?> value)
+	{
+		final SetValue<?>[] result = new SetValue<?>[setValues.length + 1];
+		System.arraycopy(setValues, 0, result, 0, setValues.length);
+		result[result.length - 1] = value;
+		return result;
+	}
+
+
 	private SetValueUtil()
 	{
 		// prevent instantiation
