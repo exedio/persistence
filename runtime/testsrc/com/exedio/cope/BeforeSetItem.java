@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
 
+import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.pattern.ListField;
 import java.util.Arrays;
 
@@ -39,35 +40,42 @@ final class BeforeSetItem extends Item
 	{
 		constraintViolation
 		{
-			@Override void execute()
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
 				throw MandatoryViolationException.create(field1, null);
 			}
 		},
 		runtimeException
 		{
-			@Override void execute()
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
 				throw new RuntimeException(Action.class.getName());
 			}
+		},
+		addField1
+		{
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
+			{
+				return SetValueUtil.add(setValues, field1.map(99));
+			}
 		};
-		// TODO add something
+		// TODO addField1 with ConstraintViolation
 		// TODO change something on the same instance of SetValue array
 
-		abstract void execute();
+		abstract SetValue<?>[] execute(SetValue<?>[] setValues);
 	}
 
 	static final EnumField<Action> action = EnumField.create(Action.class).optional();
 	static final ListField<String> calls = ListField.create(new StringField());
 
 	@Override
-	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	protected SetValue<?>[] beforeSetCopeItem(SetValue<?>[] setValues)
 	{
 		addToCalls(Arrays.toString(setValues));
 
 		final Action actionValue = getFirst(Arrays.asList(setValues), action);
 		if(actionValue!=null)
-			actionValue.execute();
+			setValues = actionValue.execute(setValues);
 
 		return setValues;
 	}
