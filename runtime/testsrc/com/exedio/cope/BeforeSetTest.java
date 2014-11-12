@@ -22,6 +22,7 @@ import static com.exedio.cope.BeforeSetItem.field1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1ConstraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.constraintViolation;
+import static com.exedio.cope.BeforeSetItem.Action.replaceField1;
 import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
 import static java.util.Arrays.asList;
 
@@ -153,6 +154,25 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(21, item.getField2());
 		assertEquals(null, item.getAction());
 		assertEquals(asList("[BeforeSetItem.action=" + addField1ConstraintViolation + "]"), item.getCalls());
+	}
+
+	public void testActionReplaceField1()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		item.setFieldsAndAction(12, 22, replaceField1);
+		assertEquals(99, item.getField1());
+		assertEquals(22, item.getField2());
+		assertEquals(replaceField1, item.getAction());
+		assertEquals(asList("[" +
+				"BeforeSetItem.field1=12, " +
+				"BeforeSetItem.field2=22, " +
+				"BeforeSetItem.action=" + replaceField1 + "]"),
+				item.getCalls());
 	}
 
 	public void testConstraintViolation()

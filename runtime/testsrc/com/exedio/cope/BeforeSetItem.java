@@ -36,6 +36,14 @@ final class BeforeSetItem extends Item
 				field2.map(value2));
 	}
 
+	void setFieldsAndAction(final int value1, final int value2, final Action actionValue)
+	{
+		set(
+				field1.map(value1),
+				field2.map(value2),
+				action.map(actionValue));
+	}
+
 	enum Action
 	{
 		constraintViolation
@@ -65,14 +73,25 @@ final class BeforeSetItem extends Item
 			{
 				return SetValueUtil.add(setValues, field1.map(-1));
 			}
+		},
+		replaceField1
+		{
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
+			{
+				for(int i = 0; i<setValues.length; i++)
+				{
+					if(setValues[i].settable==field1)
+						setValues[i] = field1.map(99);
+				}
+				return setValues;
+			}
 		};
-		// TODO change something on the same instance of SetValue array
 
 		abstract SetValue<?>[] execute(SetValue<?>[] setValues);
 	}
 
 	static final EnumField<Action> action = EnumField.create(Action.class).optional();
-	static final ListField<String> calls = ListField.create(new StringField());
+	static final ListField<String> calls = ListField.create(new StringField().lengthMax(100));
 
 	@Override
 	protected SetValue<?>[] beforeSetCopeItem(SetValue<?>[] setValues)
