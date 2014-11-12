@@ -58,8 +58,14 @@ final class BeforeSetItem extends Item
 			{
 				return SetValueUtil.add(setValues, field1.map(99));
 			}
+		},
+		addField1ConstraintViolation
+		{
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
+			{
+				return SetValueUtil.add(setValues, field1.map(-1));
+			}
 		};
-		// TODO addField1 with ConstraintViolation
 		// TODO change something on the same instance of SetValue array
 
 		abstract SetValue<?>[] execute(SetValue<?>[] setValues);

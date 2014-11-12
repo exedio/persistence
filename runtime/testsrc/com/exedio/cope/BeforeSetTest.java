@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.BeforeSetItem.field1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1;
+import static com.exedio.cope.BeforeSetItem.Action.addField1ConstraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.constraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
 import static java.util.Arrays.asList;
@@ -127,6 +128,31 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(21, item.getField2());
 		assertEquals(addField1, item.getAction());
 		assertEquals(asList("[BeforeSetItem.action=" + addField1 + "]"), item.getCalls());
+	}
+
+	public void testActionAddField1ConstraintViolation()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setAction(addField1ConstraintViolation);
+			fail();
+		}
+		catch(final IntegerRangeViolationException e)
+		{
+			assertEquals(field1, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals(-1, e.getValue());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + addField1ConstraintViolation + "]"), item.getCalls());
 	}
 
 	public void testConstraintViolation()
