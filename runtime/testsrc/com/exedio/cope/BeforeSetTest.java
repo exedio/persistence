@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.BeforeSetItem.field1;
+import static com.exedio.cope.BeforeSetItem.Action.addDuplicate;
 import static com.exedio.cope.BeforeSetItem.Action.addField1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1ConstraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.constraintViolation;
@@ -173,6 +174,29 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 				"BeforeSetItem.field2=22, " +
 				"BeforeSetItem.action=" + replaceField1 + "]"),
 				item.getCalls());
+	}
+
+	public void testActionAddDuplicate()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setAction(addDuplicate);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("SetValues contain duplicate settable BeforeSetItem.field1", e.getMessage());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + addDuplicate + "]"), item.getCalls());
 	}
 
 	public void testConstraintViolation()

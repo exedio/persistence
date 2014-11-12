@@ -85,6 +85,15 @@ final class BeforeSetItem extends Item
 				}
 				return setValues;
 			}
+		},
+		addDuplicate
+		{
+			@Override SetValue<?>[] execute(SetValue<?>[] setValues)
+			{
+				setValues = SetValueUtil.add(setValues, field1.map(99));
+				setValues = SetValueUtil.add(setValues, field1.map(99));
+				return setValues;
+			}
 		};
 
 		abstract SetValue<?>[] execute(SetValue<?>[] setValues);
