@@ -24,6 +24,7 @@ import static com.exedio.cope.misc.SetValueUtil.getFirst;
 import com.exedio.cope.pattern.ListField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import junit.framework.Assert;
 
 final class BeforeSetItem extends Item
 {
@@ -118,9 +119,18 @@ final class BeforeSetItem extends Item
 	static final EnumField<Action> action = EnumField.create(Action.class).optional();
 	static final ListField<String> calls = ListField.create(new StringField().lengthMax(100));
 
+	private boolean fail = false;
+
+	void setFail()
+	{
+		fail = true;
+	}
+
 	@Override
 	protected SetValue<?>[] beforeSetCopeItem(SetValue<?>[] setValues)
 	{
+		Assert.assertFalse(fail);
+
 		addToCalls(Arrays.toString(setValues));
 
 		final Action actionValue = getFirst(Arrays.asList(setValues), action);

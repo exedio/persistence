@@ -209,6 +209,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getAction());
 		assertEquals(asList(), item.getCalls());
 
+		item.setFail();
 		try
 		{
 			item.set((SetValue[])null);
@@ -245,6 +246,22 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(21, item.getField2());
 		assertEquals(null, item.getAction());
 		assertEquals(asList("[BeforeSetItem.action=" + returnNull + "]"), item.getCalls());
+	}
+
+	public void testSetEmpty()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		item.setFail();
+		item.set(new SetValue[]{});
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
 	}
 
 	public void testActionReturnEmpty()
