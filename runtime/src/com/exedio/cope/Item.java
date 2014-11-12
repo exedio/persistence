@@ -272,7 +272,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 		setValues = beforeSetCopeItem(setValues);
 		requireNonNull(setValues, "setValues");
-		if(setValues.length==0) // TODO test this
+		if(setValues.length==0)
 			return;
 
 		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);

@@ -94,6 +94,20 @@ final class BeforeSetItem extends Item
 				setValues = SetValueUtil.add(setValues, field1.map(99));
 				return setValues;
 			}
+		},
+		returnNull
+		{
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
+			{
+				return null;
+			}
+		},
+		returnEmpty
+		{
+			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
+			{
+				return new SetValue<?>[]{};
+			}
 		};
 
 		abstract SetValue<?>[] execute(SetValue<?>[] setValues);

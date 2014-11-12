@@ -24,6 +24,8 @@ import static com.exedio.cope.BeforeSetItem.Action.addField1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1ConstraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.constraintViolation;
 import static com.exedio.cope.BeforeSetItem.Action.replaceField1;
+import static com.exedio.cope.BeforeSetItem.Action.returnEmpty;
+import static com.exedio.cope.BeforeSetItem.Action.returnNull;
 import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
 import static java.util.Arrays.asList;
 
@@ -197,6 +199,67 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(21, item.getField2());
 		assertEquals(null, item.getAction());
 		assertEquals(asList("[BeforeSetItem.action=" + addDuplicate + "]"), item.getCalls());
+	}
+
+	public void testSetNull()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.set((SetValue[])null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("setValues", e.getMessage());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+	}
+
+	public void testActionReturnNull()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		try
+		{
+			item.setAction(returnNull);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("setValues", e.getMessage());
+		}
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + returnNull + "]"), item.getCalls());
+	}
+
+	public void testActionReturnEmpty()
+	{
+		final BeforeSetItem item = new BeforeSetItem();
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList(), item.getCalls());
+
+		item.setAction(returnEmpty);
+		assertEquals(11, item.getField1());
+		assertEquals(21, item.getField2());
+		assertEquals(null, item.getAction());
+		assertEquals(asList("[BeforeSetItem.action=" + returnEmpty + "]"), item.getCalls());
 	}
 
 	public void testConstraintViolation()
