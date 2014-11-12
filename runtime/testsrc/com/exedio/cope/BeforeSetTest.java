@@ -257,7 +257,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList(), item.getCalls());
 
 		item.setFail();
-		item.set(new SetValue[]{});
+		item.set(new SetValue<?>[]{});
 		assertEquals(11, item.getField1());
 		assertEquals(21, item.getField2());
 		assertEquals(null, item.getAction());
