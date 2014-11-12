@@ -97,6 +97,7 @@ final class BeforeSetItem extends Item
 		},
 		returnNull
 		{
+			@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
 				return null;
