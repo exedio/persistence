@@ -145,6 +145,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		{
 			assertEquals(field1, e.getFeature());
 			assertEquals(item, e.getItem());
+			assertEquals(-1, e.getValue());
 		}
 		assertEquals(11, item.getField1());
 		assertEquals(21, item.getField2());
