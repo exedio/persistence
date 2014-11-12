@@ -271,7 +271,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			return;
 
 		setValues = beforeSetCopeItem(setValues);
-		requireNonNull(setValues, "setValues");
+		requireNonNull(setValues, "setValues after beforeSetCopeItem");
 		if(setValues.length==0)
 			return;
 

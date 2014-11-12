@@ -239,7 +239,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("setValues", e.getMessage());
+			assertEquals("setValues after beforeSetCopeItem", e.getMessage());
 		}
 		assertEquals(11, item.getField1());
 		assertEquals(21, item.getField2());
