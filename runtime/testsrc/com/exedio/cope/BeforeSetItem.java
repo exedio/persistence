@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
 
-import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.pattern.ListField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
@@ -65,14 +65,14 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return SetValueUtil.add(setValues, field1.map(99));
+				return add(setValues, field1.map(99));
 			}
 		},
 		addField1ConstraintViolation
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return SetValueUtil.add(setValues, field1.map(-1));
+				return add(setValues, field1.map(-1));
 			}
 		},
 		replaceField1
@@ -91,8 +91,8 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(SetValue<?>[] setValues)
 			{
-				setValues = SetValueUtil.add(setValues, field1.map(99));
-				setValues = SetValueUtil.add(setValues, field1.map(99));
+				setValues = add(setValues, field1.map(99));
+				setValues = add(setValues, field1.map(99));
 				return setValues;
 			}
 		},
