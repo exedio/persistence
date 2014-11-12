@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.SetValueUtil.getFirst;
 
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.pattern.ListField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
 final class BeforeSetItem extends Item
