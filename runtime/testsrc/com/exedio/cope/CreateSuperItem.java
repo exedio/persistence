@@ -19,9 +19,12 @@
 package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 
 class CreateSuperItem extends Item
 {
@@ -42,8 +45,31 @@ class CreateSuperItem extends Item
 	@Override
 	protected void afterNewCopeItem()
 	{
+		notifyAfterNewCopeItemInvoked();
 		setText(getText() + ".postCreateSuper");
 	}
+
+
+	/**
+	 * BEWARE:
+	 * This code relies on the fact, that JVM initializes this variable to false
+	 * even before the super constructore returns.
+	 */
+	private boolean afterNewCopeItemInvoked;
+
+	protected final void notifyAfterNewCopeItemInvoked()
+	{
+		assertFalse(afterNewCopeItemInvoked);
+		afterNewCopeItemInvoked = true;
+	}
+
+	@Override
+	protected final SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		assertTrue(Arrays.toString(setValues), afterNewCopeItemInvoked);
+		return setValues;
+	}
+
 
 	/**
 

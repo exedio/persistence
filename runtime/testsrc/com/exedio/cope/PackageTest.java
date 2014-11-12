@@ -66,6 +66,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( ItemSerializationTest.class );
 		suite.addTestSuite( SerializationSizeTest.class );
 		suite.addTestSuite( CreateTest.class );
+		suite.addTestSuite( BeforeSetTest.class );
 		suite.addTestSuite( SchemaInfoTest.class );
 		suite.addTestSuite( SchemaInfoConnectionTest.class );
 		suite.addTestSuite( DumperTest.class );

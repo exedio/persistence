@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 
 public class DumperItem extends Item
 {
@@ -42,6 +44,13 @@ public class DumperItem extends Item
 	{
 		Assert.fail("must not be called");
 	}
+
+	@Override
+	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		throw new AssertionFailedError(Arrays.toString(setValues));
+	}
+
 
 	/**
 
