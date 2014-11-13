@@ -150,11 +150,48 @@ public class PasswordLimiterTest extends CopeTest
 		assertFalse(refusal4.existsCopeItem());
 	}
 
+	public void testReset()
+	{
+		assertEquals(list(), getRefusals());
+		assertEquals(true, i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(true, i2.checkPasswordLimited(PASSWORD2, clock));
+
+		final Refusal refusal1a = refuse(i);
+		assertEquals(list(refusal1a), getRefusals());
+		assertEquals(true, i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(true, i2.checkPasswordLimited(PASSWORD2, clock));
+
+		final Refusal refusal1b = refuse(i);
+		assertEquals(list(refusal1a, refusal1b), getRefusals());
+		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(true , i2.checkPasswordLimited(PASSWORD2, clock));
+
+		final Refusal refusal2a = refuse(i2);
+		assertEquals(list(refusal1a, refusal1b, refusal2a), getRefusals());
+		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(true , i2.checkPasswordLimited(PASSWORD2, clock));
+
+		final Refusal refusal2b = refuse(i2);
+		assertEquals(list(refusal1a, refusal1b, refusal2a, refusal2b), getRefusals());
+		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(false, i2.checkPasswordLimited(PASSWORD2, clock));
+
+		i.resetPasswordLimited();
+		assertEquals(list(refusal2a, refusal2b), getRefusals());
+		assertEquals(true , i .checkPasswordLimited(PASSWORD , clock));
+		assertEquals(false, i2.checkPasswordLimited(PASSWORD2, clock));
+	}
+
 	private final Refusal refuse()
+	{
+		return refuse(i);
+	}
+
+	private final Refusal refuse(final PasswordLimiterItem item)
 	{
 		final List<Refusal> existing = getRefusals();
 		final long f = clock.addNow();
-		assertEquals(false, i.checkPasswordLimited("wrongpass"));
+		assertEquals(false, item.checkPasswordLimited("wrongpass"));
 		clock.assertEmpty();
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
