@@ -40,6 +40,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(EnumSetFieldFinalTest.class);
 		suite.addTestSuite(EnumMapFieldSchemaNameTest.class);
 		suite.addTestSuite(EnumSetFieldSchemaNameTest.class);
+		suite.addTestSuite(EnumFieldNameTest.class);
 		suite.addTestSuite(ErrorLogTest.class);
 		suite.addTestSuite(HashAlgorithmAdapterTest.class);
 		suite.addTestSuite(HashPlainTextLimitTest.class);

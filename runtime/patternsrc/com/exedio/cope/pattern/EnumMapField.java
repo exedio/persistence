@@ -56,9 +56,17 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		for(final K key : keyClass.getEnumConstants())
 		{
 			final FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
-			addSource(value, key.name(), EnumAnnotatedElement.get(key));
+			addSource(value, stripUnderline(key.name()), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
 		}
+	}
+
+	static String stripUnderline(final String s)
+	{
+		if(s.indexOf('_')<0)
+			return s;
+
+		return s.replace("_", "");
 	}
 
 	public static final <K extends Enum<K>,V> EnumMapField<K,V> create(
