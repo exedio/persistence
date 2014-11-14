@@ -136,7 +136,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Media()
 	{
-		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false));
+		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false, 61));
 	}
 
 	@Override
@@ -251,7 +251,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional));
+		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional, SubContentType.DEFAULT_LENGTH));
+	}
+
+	public Media contentTypeLengthMax(final int maximumLength)
+	{
+		return new Media(isfinal, optional, body.getMaximumLength(), contentType.lengthMax(maximumLength));
 	}
 
 	@Override
@@ -275,6 +280,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public boolean checkContentType(final String contentType)
 	{
 		return this.contentType.check(contentType);
+	}
+
+	public int getContentTypeMaximumLength()
+	{
+		return contentType.getMaximumLength();
 	}
 
 	public String getContentTypeDescription()
@@ -744,7 +754,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Deprecated
 	public Media(final String fixedMimeMajor)
 	{
-		this(false, false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false, false));
+		this(false, false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false, false, SubContentType.DEFAULT_LENGTH));
 	}
 
 	/**

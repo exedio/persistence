@@ -76,6 +76,19 @@ final class EnumContentType extends ContentType<Integer>
 	}
 
 	@Override
+	int getMaximumLength()
+	{
+		int result = 0;
+		for(final String type : types)
+		{
+			final int length = type.length();
+			if(result<length)
+				result = length;
+		}
+		return result;
+	}
+
+	@Override
 	String describe()
 	{
 		final StringBuilder bf = new StringBuilder();

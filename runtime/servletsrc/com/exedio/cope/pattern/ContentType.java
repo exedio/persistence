@@ -54,7 +54,17 @@ abstract class ContentType<B>
 	abstract ContentType<B> copy();
 	abstract ContentType<B> toFinal();
 	abstract ContentType<B> optional();
+
+	/**
+	 * @param maximumLength used in subclasses
+	 */
+	ContentType<?> lengthMax(final int maximumLength)
+	{
+		throw new IllegalArgumentException("not allowed for " + describe());
+	}
+
 	abstract boolean check(String contentType);
+	abstract int getMaximumLength();
 	abstract String describe();
 	abstract List<String> getAllowed();
 	abstract String get(Item item, DateField nullSensor);

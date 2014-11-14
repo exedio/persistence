@@ -66,6 +66,7 @@ public class MediaFixedTest extends TestWithEnvironment
 		assertEquals(true, photo.checkContentType("image/jpeg"));
 		assertEquals(false, photo.checkContentType("imaxge/jpeg"));
 		assertEquals(false, photo.checkContentType("image/jpxeg"));
+		assertEquals(10, photo.getContentTypeMaximumLength());
 		assertEquals("image/jpeg", photo.getContentTypeDescription());
 		assertEqualsUnmodifiable(list("image/jpeg"), photo.getContentTypesAllowed());
 		assertEquals(2000, photo.getMaximumLength());

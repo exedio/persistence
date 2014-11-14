@@ -26,35 +26,51 @@ import java.util.List;
 
 final class DefaultContentType extends ContentType<String>
 {
+	private final int maxLength;
+
 	DefaultContentType(
 			final boolean isfinal,
-			final boolean optional)
+			final boolean optional,
+			final int maxLength)
 	{
-		super(makeField(61, new CharSet('+', '+', '-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
+		super(makeField(maxLength, new CharSet('+', '+', '-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
+		this.maxLength = maxLength;
 	}
 
 	@Override
 	DefaultContentType copy()
 	{
-		return new DefaultContentType(field.isFinal(), !field.isMandatory());
+		return new DefaultContentType(field.isFinal(), !field.isMandatory(), maxLength);
 	}
 
 	@Override
 	DefaultContentType toFinal()
 	{
-		return new DefaultContentType(true, !field.isMandatory());
+		return new DefaultContentType(true, !field.isMandatory(), maxLength);
 	}
 
 	@Override
 	DefaultContentType optional()
 	{
-		return new DefaultContentType(field.isFinal(), true);
+		return new DefaultContentType(field.isFinal(), true, maxLength);
+	}
+
+	@Override
+	DefaultContentType lengthMax(final int maximumLength)
+	{
+		return new DefaultContentType(field.isFinal(), !field.isMandatory(), maximumLength);
 	}
 
 	@Override
 	boolean check(final String contentType)
 	{
 		return contentType.indexOf('/')>=0;
+	}
+
+	@Override
+	int getMaximumLength()
+	{
+		return maxLength;
 	}
 
 	@Override

@@ -31,40 +31,57 @@ final class SubContentType extends ContentType<String>
 	private final String major;
 	private final String prefix;
 	private final int prefixLength;
+	private final int minorMaxLength;
+
+	static int DEFAULT_LENGTH = 30;
 
 	SubContentType(
 			final String major,
 			final boolean isfinal,
-			final boolean optional)
+			final boolean optional,
+			final int minorMaxLength)
 	{
-		super(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
+		super(makeField(minorMaxLength, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
 		this.major = requireNonNull(major, "fixedMimeMajor");
 		this.prefix = major + '/';
 		this.prefixLength = this.prefix.length();
+		this.minorMaxLength = minorMaxLength;
 	}
 
 	@Override
 	SubContentType copy()
 	{
-		return new SubContentType(major, field.isFinal(), !field.isMandatory());
+		return new SubContentType(major, field.isFinal(), !field.isMandatory(), minorMaxLength);
 	}
 
 	@Override
 	SubContentType toFinal()
 	{
-		return new SubContentType(major, true, !field.isMandatory());
+		return new SubContentType(major, true, !field.isMandatory(), minorMaxLength);
 	}
 
 	@Override
 	SubContentType optional()
 	{
-		return new SubContentType(major, field.isFinal(), true);
+		return new SubContentType(major, field.isFinal(), true, minorMaxLength);
+	}
+
+	@Override
+	SubContentType lengthMax(final int maximumLength)
+	{
+		return new SubContentType(major, field.isFinal(), !field.isMandatory(), maximumLength - prefixLength);
 	}
 
 	@Override
 	boolean check(final String contentType)
 	{
 		return contentType.startsWith(prefix);
+	}
+
+	@Override
+	int getMaximumLength()
+	{
+		return prefixLength + minorMaxLength;
 	}
 
 	@Override

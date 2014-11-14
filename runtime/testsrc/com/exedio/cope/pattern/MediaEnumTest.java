@@ -69,6 +69,7 @@ public class MediaEnumTest extends TestWithEnvironment
 		assertEquals(false, sheet.checkContentType("image/jpg"));
 		assertEquals(true, sheet.checkContentType("application/pdf"));
 		assertEquals(false, sheet.checkContentType("application/msword"));
+		assertEquals(15, sheet.getContentTypeMaximumLength());
 		assertEquals("application/pdf,image/png", sheet.getContentTypeDescription());
 		assertEqualsUnmodifiable(list("application/pdf", "image/png"), sheet.getContentTypesAllowed());
 		assertEquals(5000, sheet.getMaximumLength());

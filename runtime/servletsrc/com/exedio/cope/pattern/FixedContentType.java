@@ -61,6 +61,12 @@ final class FixedContentType extends ContentType<Void>
 	}
 
 	@Override
+	int getMaximumLength()
+	{
+		return full.length();
+	}
+
+	@Override
 	String describe()
 	{
 		return full;

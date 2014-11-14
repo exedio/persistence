@@ -90,6 +90,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertContains(file.getInitialExceptions());
 		assertEquals(true, file.checkContentType("some/thing"));
 		assertEquals(false, file.checkContentType("something"));
+		assertEquals(61, file.getContentTypeMaximumLength());
 		assertEquals("*/*", file.getContentTypeDescription());
 		assertEquals(null, file.getContentTypesAllowed());
 		assertEquals(20, file.getMaximumLength());
