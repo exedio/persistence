@@ -104,9 +104,9 @@ public class StringCopyTest extends CopeAssert
 
 	public void testIllegalRange()
 	{
-		assertWrongLength(-1, 20, "mimimum length must be positive, but was -1.");
-		assertWrongLength( 0,  0, "maximum length must be greater zero, but was 0.");
-		assertWrongLength(20, 10, "maximum length must be greater or equal mimimum length, but was 10 and 20.");
+		assertWrongLength(-1, 20, "minimumLength must not be negative, but was -1");
+		assertWrongLength( 0,  0, "maximumLength must be greater zero, but was 0");
+		assertWrongLength(20, 10, "maximumLength must be greater or equal minimumLength, but was 10 and 20");
 	}
 
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)

@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonNegative;
+
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Set;
@@ -57,12 +60,10 @@ public final class StringField extends FunctionField<String>
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
 
-		if(minimumLength<0)
-			throw new IllegalArgumentException("mimimum length must be positive, but was " + minimumLength + '.');
-		if(maximumLength<=0)
-			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
+		requireNonNegative(minimumLength, "minimumLength");
+		requireGreaterZero(maximumLength, "maximumLength");
 		if(minimumLength>maximumLength)
-			throw new IllegalArgumentException("maximum length must be greater or equal mimimum length, but was " + maximumLength + " and " + minimumLength + '.');
+			throw new IllegalArgumentException("maximumLength must be greater or equal minimumLength, but was " + maximumLength + " and " + minimumLength);
 
 		mountDefaultSource();
 	}

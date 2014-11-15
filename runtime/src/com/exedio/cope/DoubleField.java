@@ -49,7 +49,7 @@ public final class DoubleField extends NumberField<Double>
 		assertLimit(minimum, "minimum");
 		assertLimit(maximum, "maximum");
 		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefaultSource();
 	}
@@ -57,9 +57,9 @@ public final class DoubleField extends NumberField<Double>
 	private static final void assertLimit(final double value, final String name)
 	{
 		if(Double.isInfinite(value))
-			throw new IllegalArgumentException(name + " must not be infinite, but was " + value + '.');
+			throw new IllegalArgumentException(name + " must not be infinite, but was " + value);
 		if(Double.isNaN(value))
-			throw new IllegalArgumentException(name + " must not be NaN, but was " + value + '.');
+			throw new IllegalArgumentException(name + " must not be NaN, but was " + value);
 	}
 
 	public DoubleField()

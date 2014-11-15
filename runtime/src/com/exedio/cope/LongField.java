@@ -49,7 +49,7 @@ public final class LongField extends NumberField<Long>
 		this.maximum = maximum;
 
 		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefaultSource();
 	}

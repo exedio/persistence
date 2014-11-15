@@ -56,7 +56,7 @@ public final class IntegerField extends NumberField<Integer>
 		this.maximum = maximum;
 
 		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than mimimum, but was " + maximum + " and " + minimum + '.');
+			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefaultSource();
 		this.defaultToNextSequence =

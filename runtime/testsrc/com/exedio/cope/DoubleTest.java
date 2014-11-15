@@ -272,18 +272,18 @@ public class DoubleTest extends AbstractRuntimeTest
 			assertEquals(20.2, copy.getMaximum());
 		}
 
-		assertIllegalRange(POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity.");
-		assertIllegalRange(44.22, POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity.");
-		assertIllegalRange(NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity.");
-		assertIllegalRange(44.22, NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity.");
-		assertIllegalRange(NaN, 44.22, "minimum must not be NaN, but was NaN.");
-		assertIllegalRange(44.22, NaN, "maximum must not be NaN, but was NaN.");
-		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than mimimum, but was 0.0 and 0.0.");
-		assertIllegalRange(22.2, 22.2, "maximum must be greater than mimimum, but was 22.2 and 22.2.");
-		assertIllegalRange(22.2, 21.1, "maximum must be greater than mimimum, but was 21.1 and 22.2.");
-		assertIllegalRange(MAX, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MAX + ".");
-		assertIllegalRange(MIN, MIN, "maximum must be greater than mimimum, but was " + MIN + " and " + MIN + ".");
-		assertIllegalRange(MAX, MAX, "maximum must be greater than mimimum, but was " + MAX + " and " + MAX + ".");
+		assertIllegalRange(POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity");
+		assertIllegalRange(44.22, POSITIVE_INFINITY, "maximum must not be infinite, but was Infinity");
+		assertIllegalRange(NEGATIVE_INFINITY, 44.22, "minimum must not be infinite, but was -Infinity");
+		assertIllegalRange(44.22, NEGATIVE_INFINITY, "maximum must not be infinite, but was -Infinity");
+		assertIllegalRange(NaN, 44.22, "minimum must not be NaN, but was NaN");
+		assertIllegalRange(44.22, NaN, "maximum must not be NaN, but was NaN");
+		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than minimum, but was 0.0 and 0.0");
+		assertIllegalRange(22.2, 22.2, "maximum must be greater than minimum, but was 22.2 and 22.2");
+		assertIllegalRange(22.2, 21.1, "maximum must be greater than minimum, but was 21.1 and 22.2");
+		assertIllegalRange(MAX, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MAX);
+		assertIllegalRange(MIN, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MIN);
+		assertIllegalRange(MAX, MAX, "maximum must be greater than minimum, but was " + MAX + " and " + MAX);
 
 		// test conditions
 		assertEqualsAndHash(any.equal(1.1), any.equal(1.1));

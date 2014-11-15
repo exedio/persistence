@@ -27,12 +27,12 @@ public class LongFieldTest extends CopeAssert
 {
 	public void testIllegalRange()
 	{
-		assertIllegalRange(0,  0,  "maximum must be greater than mimimum, but was 0 and 0.");
-		assertIllegalRange(22, 22, "maximum must be greater than mimimum, but was 22 and 22.");
-		assertIllegalRange(22, 21, "maximum must be greater than mimimum, but was 21 and 22.");
-		assertIllegalRange(MAX_VALUE, MIN_VALUE, "maximum must be greater than mimimum, but was " + MIN_VALUE + " and " + MAX_VALUE + ".");
-		assertIllegalRange(MIN_VALUE, MIN_VALUE, "maximum must be greater than mimimum, but was " + MIN_VALUE + " and " + MIN_VALUE + ".");
-		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than mimimum, but was " + MAX_VALUE + " and " + MAX_VALUE + ".");
+		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
+		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");
+		assertIllegalRange(22, 21, "maximum must be greater than minimum, but was 21 and 22");
+		assertIllegalRange(MAX_VALUE, MIN_VALUE, "maximum must be greater than minimum, but was " + MIN_VALUE + " and " + MAX_VALUE);
+		assertIllegalRange(MIN_VALUE, MIN_VALUE, "maximum must be greater than minimum, but was " + MIN_VALUE + " and " + MIN_VALUE);
+		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than minimum, but was " + MAX_VALUE + " and " + MAX_VALUE);
 	}
 
 	private static void assertIllegalRange(final long minimum, final long maximum, final String message)

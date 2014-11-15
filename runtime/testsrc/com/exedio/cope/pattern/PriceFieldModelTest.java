@@ -210,7 +210,7 @@ public class PriceFieldModelTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("maximum must be greater than mimimum, but was 0 and 0.", e.getMessage());
+			assertEquals("maximum must be greater than minimum, but was 0 and 0", e.getMessage());
 		}
 	}
 
