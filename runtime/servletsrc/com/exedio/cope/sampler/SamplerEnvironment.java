@@ -30,6 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.RevisionInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import java.net.InetAddress;
@@ -156,7 +157,16 @@ final class SamplerEnvironment extends Item
 			return;
 
 		final TreeMap<Date, ArrayList<RevisionInfo>> revisions = new TreeMap<>();
-		final Map<Integer, byte[]> logs = model.getRevisionLogs();
+		final Map<Integer, byte[]> logs;
+		final Transaction tx = model.leaveTransaction(); // TODO do not leave transaction
+		try
+		{
+			logs = model.getRevisionLogs();
+		}
+		finally
+		{
+			model.joinTransaction(tx);
+		}
 
 		for(final Map.Entry<Integer, byte[]> entry : logs.entrySet())
 		{
@@ -165,7 +175,7 @@ final class SamplerEnvironment extends Item
 			{
 				final Date date = info.getDate();
 				if(forConnectDate(date)!=null)
-					return;
+					continue;
 
 				ArrayList<RevisionInfo> list = revisions.get(date);
 				if(list==null)
@@ -190,6 +200,7 @@ final class SamplerEnvironment extends Item
 			addConnection(sv, environment);
 			addEnvironmentInfo(sv, environment);
 			addBuildTag(sv, RevisionInfo.class.getName() + ' ' + info.getNumber() + '-' + list.get(list.size()-1).getNumber());
+			System.out.println("GO " + sv); // TODO
 			TYPE.newItem(sv);
 		}
 	}

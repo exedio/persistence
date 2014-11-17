@@ -57,7 +57,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(null, sampler.sampleInternal());
 		final Date after55 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(1, SamplerEnvironment.TYPE.search().size());
+		assertEquals(2, SamplerEnvironment.TYPE.search().size());
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
 			assertFalse(iter.hasNext());
@@ -90,7 +90,7 @@ public class SampleTest extends ConnectedTest
 		final SamplerModel model66 = sampler.sampleInternal();
 		final Date after66 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(1, SamplerEnvironment.TYPE.search().size());
+		assertEquals(2, SamplerEnvironment.TYPE.search().size());
 		assertWithin(before55, after55, SamplerModel.from.get(model66));
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
@@ -144,7 +144,7 @@ public class SampleTest extends ConnectedTest
 		final SamplerModel model77 = sampler.sampleInternal();
 		final Date after77 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(1, SamplerEnvironment.TYPE.search().size());
+		assertEquals(2, SamplerEnvironment.TYPE.search().size());
 		assertEquals(date66, SamplerModel.from.get(model77));
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
