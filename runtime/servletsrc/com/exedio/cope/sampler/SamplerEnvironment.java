@@ -164,6 +164,9 @@ final class SamplerEnvironment extends Item
 			if(info!=null)
 			{
 				final Date date = info.getDate();
+				if(forConnectDate(date)!=null)
+					return;
+
 				ArrayList<RevisionInfo> list = revisions.get(date);
 				if(list==null)
 				{
