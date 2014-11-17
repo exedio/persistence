@@ -158,14 +158,21 @@ final class SamplerEnvironment extends Item
 
 		final TreeMap<Date, ArrayList<RevisionInfo>> revisions = new TreeMap<>();
 		final Map<Integer, byte[]> logs;
-		final Transaction tx = model.leaveTransaction(); // TODO do not leave transaction
-		try
+		if(model.hasCurrentTransaction())
+		{
+			final Transaction tx = model.leaveTransaction(); // TODO do not leave transaction
+			try
+			{
+				logs = model.getRevisionLogs();
+			}
+			finally
+			{
+				model.joinTransaction(tx);
+			}
+		}
+		else
 		{
 			logs = model.getRevisionLogs();
-		}
-		finally
-		{
-			model.joinTransaction(tx);
 		}
 
 		for(final Map.Entry<Integer, byte[]> entry : logs.entrySet())
