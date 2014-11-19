@@ -75,6 +75,8 @@ final class CompositeType<E>
 				final FunctionField<?> template = (FunctionField<?>)feature;
 				if(template.isFinal())
 					throw new IllegalArgumentException("final fields not supported: " + fieldID);
+				if(template.hasDefault() && template.getDefaultConstant()==null)
+					throw new IllegalArgumentException("fields with non-constant defaults are not supported: " + fieldID);
 				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 				templates.put(fieldName, template);
 				templatePositions.put(template, position++);

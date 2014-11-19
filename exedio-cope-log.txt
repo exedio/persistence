@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Composite fails on fields with non-constant defaults.
+	This was never supported.
+	This breaks backwards API compatibility, causes model initialization to fail.
 * PasswordLimiter#reset added.
 	Affects instrumented code.
 * SetValueUtil#add added.

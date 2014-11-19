@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.CompositeField.create;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
@@ -181,6 +182,27 @@ public class CompositeErrorTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
 		static final BooleanField finalField = new BooleanField().toFinal();
+	}
+
+
+	public void testNonConstantDefaultField()
+	{
+		try
+		{
+			create(NonConstantDefaultField.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("fields with non-constant defaults are not supported: " + NonConstantDefaultField.class.getName() + "#defaultNowField", e.getMessage());
+		}
+	}
+
+	static final class NonConstantDefaultField extends Composite
+	{
+		private static final long serialVersionUID = 1l;
+		private NonConstantDefaultField(final SetValue<?>[] setValues) { super(setValues); }
+		static final DateField defaultNowField = new DateField().defaultToNow();
 	}
 
 
