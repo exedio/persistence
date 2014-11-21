@@ -24,6 +24,8 @@ import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.Properties;
+import java.util.Collection;
 
 public class ConnectedTest extends AbstractRuntimeTest
 {
@@ -41,9 +43,36 @@ public class ConnectedTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;
 		samplerModel.connect(new ConnectProperties(
-				Sampler.maskConnectSource(props.getSourceObject()),
+				Sampler.maskConnectSource(maskRevisionSchemaNames(props.getSourceObject())),
 				props.getContext()));
 		sampler.reset();
+	}
+
+	private static Properties.Source maskRevisionSchemaNames(final Properties.Source original)
+	{
+		return new Properties.Source(){
+
+			public String get(final String key)
+			{
+				// If this is explicitly specified, the table name
+				// collides between the sampler model and the sampled model.
+				if("schema.revision.table" .equals(key) ||
+					"schema.revision.unique".equals(key))
+					return null;
+
+				return original.get(key);
+			}
+
+			public String getDescription()
+			{
+				return original.getDescription();
+			}
+
+			public Collection<String> keySet()
+			{
+				return original.keySet();
+			}
+		};
 	}
 
 	@Override
