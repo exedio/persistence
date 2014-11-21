@@ -25,7 +25,7 @@ import static com.exedio.cope.sampler.Stuff.samplerModel;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.ConnectProperties;
 
-public class ConnectedTest extends AbstractRuntimeTest
+public abstract class ConnectedTest extends AbstractRuntimeTest
 {
 	ConnectedTest()
 	{
