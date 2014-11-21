@@ -87,7 +87,7 @@ final class SamplerEnvironment extends Item
 
 	private static void addHostname(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(hostname.map(getFromInfo(environment, "hostname")));
+		sv.add(hostname.map(getS(environment, "hostname")));
 	}
 
 
@@ -103,8 +103,8 @@ final class SamplerEnvironment extends Item
 
 	private static void addConnection(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(connectionUrl     .map(getFromInfo(environment, "connection.url",  "jdbc.url" )));
-		sv.add(connectionUsername.map(getFromInfo(environment, "connection.user", "jdbc.user")));
+		sv.add(connectionUrl     .map(getS(environment, "connection.url",  "jdbc.url" )));
+		sv.add(connectionUsername.map(getS(environment, "connection.user", "jdbc.user")));
 	}
 
 
@@ -132,14 +132,14 @@ final class SamplerEnvironment extends Item
 
 	private static final void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(databaseProductName   .map(getFromInfo(environment, "database.name")));
-		sv.add(databaseProductVersion.map(getFromInfo(environment, "database.version")));
-		sv.add(databaseVersionMajor  .map(getFromInfoInt(environment, "database.version.major")));
-		sv.add(databaseVersionMinor  .map(getFromInfoInt(environment, "database.version.minor")));
-		sv.add(driverName            .map(getFromInfo(environment, "driver.name")));
-		sv.add(driverVersion         .map(getFromInfo(environment, "driver.version")));
-		sv.add(driverVersionMajor    .map(getFromInfoInt(environment, "driver.version.major")));
-		sv.add(driverVersionMinor    .map(getFromInfoInt(environment, "driver.version.minor")));
+		sv.add(databaseProductName   .map(getS(environment, "database.name")));
+		sv.add(databaseProductVersion.map(getS(environment, "database.version")));
+		sv.add(databaseVersionMajor  .map(getI(environment, "database.version.major")));
+		sv.add(databaseVersionMinor  .map(getI(environment, "database.version.minor")));
+		sv.add(driverName            .map(getS(environment, "driver.name")));
+		sv.add(driverVersion         .map(getS(environment, "driver.version")));
+		sv.add(driverVersionMajor    .map(getI(environment, "driver.version.major")));
+		sv.add(driverVersionMinor    .map(getI(environment, "driver.version.minor")));
 	}
 
 
@@ -212,12 +212,12 @@ final class SamplerEnvironment extends Item
 		}
 	}
 
-	private static String getFromInfo(final Map<String, String> environment, final String key)
+	private static String getS(final Map<String, String> environment, final String key)
 	{
 		return environment.get(key);
 	}
 
-	private static String getFromInfo(final Map<String, String> environment, final String key, final String deprecatedKey)
+	private static String getS(final Map<String, String> environment, final String key, final String deprecatedKey)
 	{
 		if(key.equals(deprecatedKey))
 			throw new IllegalArgumentException(key);
@@ -229,9 +229,9 @@ final class SamplerEnvironment extends Item
 		return environment.get(deprecatedKey);
 	}
 
-	private static int getFromInfoInt(final Map<String, String> environment, final String key)
+	private static int getI(final Map<String, String> environment, final String key)
 	{
-		return Integer.parseInt(getFromInfo(environment, key));
+		return Integer.parseInt(getS(environment, key));
 	}
 
 
