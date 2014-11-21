@@ -920,6 +920,7 @@
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
+			  runtime.utiltest.compile,
 			  instrument.compile" />
 	
 	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.anno.jar, instrument.jar" />
