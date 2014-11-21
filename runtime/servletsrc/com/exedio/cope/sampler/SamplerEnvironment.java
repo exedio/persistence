@@ -207,7 +207,6 @@ final class SamplerEnvironment extends Item
 			addConnection(sv, environment);
 			addEnvironmentInfo(sv, environment);
 			addBuildTag(sv, RevisionInfo.class.getName() + ' ' + info.getNumber() + '-' + list.get(list.size()-1).getNumber());
-			System.out.println("GO " + sv); // TODO
 			TYPE.newItem(sv);
 		}
 	}
