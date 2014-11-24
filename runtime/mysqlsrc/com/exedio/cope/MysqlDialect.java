@@ -107,7 +107,11 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
+		// TODO
+		// We may want to support TINYINT, SMALLINT, and MEDIUMINT
+		// for saving space, but I could not find any saving in experiments.
+		// https://dev.mysql.com/doc/refman/5.5/en/storage-requirements.html
+
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "int" : "bigint";
 	}
 
