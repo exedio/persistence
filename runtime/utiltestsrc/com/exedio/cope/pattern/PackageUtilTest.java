@@ -31,6 +31,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(BlockErrorTest.class);
 		suite.addTestSuite(BlockRenamedIdTest.class);
 		suite.addTestSuite(BlockMountTest.class);
+		suite.addTestSuite(ColorFieldRgbTest.class);
 		suite.addTestSuite(CompositeTest.class);
 		suite.addTestSuite(CompositeErrorTest.class);
 		suite.addTestSuite(CompositeMountTest.class);

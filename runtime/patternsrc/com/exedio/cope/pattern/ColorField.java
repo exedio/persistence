@@ -220,6 +220,25 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	}
 
 	/**
+	 * Returns the value for field {@link #getRGB()}
+	 * representing the given color.
+	 */
+	public static int toRGB(final Color color)
+	{
+		return reverseAlpha(color.getRGB());
+	}
+
+	/**
+	 * Converts a value for field {@link #getRGB()}
+	 * into a color.
+	 */
+	public static Color fromRGB(final int rgb)
+	{
+		final boolean hasAlpha = rgb > 0xffffff || rgb < 0;
+		return new Color(hasAlpha ? reverseAlpha(rgb) : rgb, hasAlpha);
+	}
+
+	/**
 	 * @see #getRGB()
 	 */
 	private static int reverseAlpha(final int rgb)
