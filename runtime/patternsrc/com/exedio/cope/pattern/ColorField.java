@@ -117,7 +117,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	public Color getDefaultConstant()
 	{
-		return color(this.rgb.getDefaultConstant());
+		return fromRGB(this.rgb.getDefaultConstant());
 	}
 
 	/**
@@ -164,18 +164,13 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	{
 		return
 			mandatory
-			? color(rgb.getMandatory(item))
-			: color(rgb.get(item));
+			? fromRGB(rgb.getMandatory(item))
+			: fromRGB(rgb.get(item));
 	}
 
-	private Color color(final Integer rgb)
+	private static Color fromRGB(final Integer rgb)
 	{
-		return (rgb!=null) ? color(rgb.intValue()) : null;
-	}
-
-	private Color color(final int rgb)
-	{
-		return new Color(alphaAllowed ? reverseAlpha(rgb) : rgb, alphaAllowed);
+		return (rgb!=null) ? fromRGB(rgb.intValue()) : null;
 	}
 
 	@Wrap(order=20,
