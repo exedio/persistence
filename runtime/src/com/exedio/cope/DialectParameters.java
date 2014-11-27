@@ -33,7 +33,6 @@ final class DialectParameters
 
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
-	final NullsAreSorted nullsAreSorted;
 
 	DialectParameters(final ConnectProperties properties, final Connection connection)
 	{
@@ -43,7 +42,6 @@ final class DialectParameters
 		{
 			final DatabaseMetaData dmd = connection.getMetaData();
 			this.environmentInfo = new EnvironmentInfo(dmd);
-			this.nullsAreSorted = NullsAreSorted.valueOf(dmd);
 		}
 		catch(final SQLException e)
 		{

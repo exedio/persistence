@@ -34,13 +34,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 final class OracleDialect extends Dialect
 {
-	private static final Logger logger = LoggerFactory.getLogger(OracleDialect.class);
-
 	protected OracleDialect(final DialectParameters parameters)
 	{
 		super(
@@ -190,14 +186,6 @@ final class OracleDialect extends Dialect
 			appendParameter(value.length).
 			append(",1))=").
 			appendParameter(Hex.encodeUpper(value));
-	}
-
-	@Override
-	boolean nullsAreSortedLow()
-	{
-		if(super.nullsAreSortedLow()==false)
-			logger.warn("nullsAreSortedLow is unexpectedly correct");
-		return false;
 	}
 
 	@Override
