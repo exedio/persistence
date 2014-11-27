@@ -19,10 +19,14 @@
 package com.exedio.cope.sampler;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.Revisions;
+import com.exedio.cope.misc.DirectRevisionsFactory;
 
 public final class Stuff
 {
-	static final Model MODEL = new Model(SampledModelItem.TYPE, SampledModelItem2.TYPE);
+	static final Model MODEL = new Model(
+			DirectRevisionsFactory.make(new Revisions(5)),
+			SampledModelItem.TYPE, SampledModelItem2.TYPE);
 
 	static
 	{
