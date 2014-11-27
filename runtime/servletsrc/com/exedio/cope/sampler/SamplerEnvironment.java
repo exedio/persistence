@@ -156,7 +156,6 @@ final class SamplerEnvironment extends Item
 		if(model.getRevisions()==null)
 			return;
 
-		final TreeMap<Date, ArrayList<RevisionInfo>> revisions = new TreeMap<>();
 		final Map<Integer, byte[]> logs;
 		if(model.hasCurrentTransaction())
 		{
@@ -175,6 +174,7 @@ final class SamplerEnvironment extends Item
 			logs = model.getRevisionLogs();
 		}
 
+		final TreeMap<Date, ArrayList<RevisionInfo>> revisions = new TreeMap<>();
 		for(final Map.Entry<Integer, byte[]> entry : logs.entrySet())
 		{
 			final RevisionInfo info = RevisionInfo.read(entry.getValue());
