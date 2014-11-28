@@ -708,6 +708,8 @@
 			<fileset dir="build/classes/runtime/servletsrc" />
 			<fileset dir="build/classes/runtime/servlettestsrc" />
 		</copy>
+		<copy file ="runtime/servlettestweb/log4j.properties"
+				todir="runtime/servlettestweb/WEB-INF/classes" />
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
@@ -716,6 +718,8 @@
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/hsqldb.jar" />
 			<fileset file="lib/slf4j-api.jar" />
+			<fileset file="lib/slf4j-log4j12.jar" />
+			<fileset file="lib/log4j-bundle.jar" />
 		</copy>
 	</target>
 	
