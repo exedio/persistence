@@ -7,4 +7,5 @@ lib/ojdbc5.jar
 cope.properties
 local.properties
 test-properties/mysql*.properties
+test-properties/postgresql*.properties
 .eclipse-output/
