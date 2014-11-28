@@ -258,12 +258,12 @@ public class MediaServlet extends HttpServlet
 			final Exception exception)
 	{
 		if(logger.isErrorEnabled())
-			logger.error("Media Servlet Path={} Query={} Host={} Referer={} Agent={}", new Object[]{
-					request.getPathInfo(),
-					request.getQueryString(),
-					request.getHeader("Host"),
-					request.getHeader("Referer"),
-					request.getHeader("User-Agent") },
+			logger.error(
+					"Path="     + request.getPathInfo() +
+					" Query="   + request.getQueryString() +
+					" Host="    + request.getHeader("Host") +
+					" Referer=" + request.getHeader("Referer") +
+					" Agent="   + request.getHeader("User-Agent"),
 				exception );
 	}
 }
