@@ -68,7 +68,7 @@ public final class ConnectToken
 
 		if(logger.isInfoEnabled())
 			logger.info( MessageFormat.format(
-					"ConnectToken {0}: {2} {1} ({3})",
+					"{0}: {2} {1} ({3})",
 						model, id,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
 						name ) );
@@ -81,7 +81,7 @@ public final class ConnectToken
 
 		if(logger.isInfoEnabled())
 			logger.info( MessageFormat.format(
-					"ConnectToken {0}: {2} {1} ({3})",
+					"{0}: {2} {1} ({3})",
 							model, id,
 							disconnect ? "disconnected" : "returned",
 							name ) );
@@ -149,7 +149,7 @@ public final class ConnectToken
 		if(returned.getAndSet(true))
 		{
 			logger.warn(
-					"ConnectToken {}: returned {} excessively ({})",
+					"{}: returned {} excessively ({})",
 					new Object[]{model, id, name});
 			return false;
 		}
