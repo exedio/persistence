@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,11 +66,11 @@ public final class ConnectToken
 		this.didConnect = didConnect;
 
 		if(logger.isInfoEnabled())
-			logger.info( MessageFormat.format(
-					"{0}: {2} {1} ({3})",
-						model, id,
+			logger.info(
+					"{}: {} {} ({})", new Object[] {
+						model,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
-						name ) );
+						id, name } );
 	}
 
 	void onReturn(final boolean disconnect)
@@ -80,11 +79,11 @@ public final class ConnectToken
 			model.disconnect();
 
 		if(logger.isInfoEnabled())
-			logger.info( MessageFormat.format(
-					"{0}: {2} {1} ({3})",
-							model, id,
+			logger.info(
+					"{}: {} {} ({})", new Object[] {
+							model,
 							disconnect ? "disconnected" : "returned",
-							name ) );
+							id, name } );
 	}
 
 	public Model getModel()
