@@ -24,12 +24,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-
 /**
+ * Enables url finger printing for any
+ * {@link MediaPath}.
+ * @see MediaPath#isUrlFingerPrinted()
  * @see <a href="https://developers.google.com/speed/docs/best-practices/caching#LeverageBrowserCaching">google</a>
  */
+@Target(FIELD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface UrlFingerPrinting
 {
 	// no parameters
