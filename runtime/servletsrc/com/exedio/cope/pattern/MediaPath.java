@@ -62,7 +62,7 @@ public abstract class MediaPath extends Pattern
 		{
 			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
 			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
-			this.urlFingerPrinting = feature.isAnnotationPresent(UrlFingerPrinting.class);
+			this.urlFingerPrinting = !feature.isFinal() && feature.isAnnotationPresent(UrlFingerPrinting.class);
 			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
 				throw new RuntimeException(
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +

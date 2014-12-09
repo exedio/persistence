@@ -34,7 +34,7 @@ public class MediaFinalUrlFingerPrintingTest extends CopeAssert
 		assertEquals(false, AnItem.nonFinal.isUrlFingerPrinted());
 		assertEquals(false, AnItem.isFinal.isUrlFingerPrinted());
 		assertEquals(true,  AnItem.nonFinalFinger.isUrlFingerPrinted());
-		assertEquals(true,  AnItem.isFinalFinger.isUrlFingerPrinted()); // TODO false
+		assertEquals(false, AnItem.isFinalFinger.isUrlFingerPrinted());
 	}
 
 
