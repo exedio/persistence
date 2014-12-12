@@ -128,9 +128,9 @@ public final class BlockType<E> // TODO make Serializable as singleton
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
 		requireNonNull(javaClass, "valueClass");
+		assertFinalSubClass(BlockField.class, Block.class, javaClass);
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
-		assertFinalSubClass(BlockField.class, Block.class, javaClass);
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		final BlockType<T> result = new BlockType<>(javaClass);
