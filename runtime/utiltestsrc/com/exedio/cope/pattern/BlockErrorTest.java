@@ -52,7 +52,7 @@ public class BlockErrorTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
-					"is not final: " +
+					"BlockField requires a final class: " +
 					NonFinal.class.getName(), e.getMessage());
 		}
 	}

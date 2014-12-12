@@ -55,7 +55,7 @@ public class CompositeErrorTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(e.getMessage(),
-					"is not final: " +
+					"CompositeField requires a final class: " +
 					NonFinal.class.getName(), e.getMessage());
 		}
 	}

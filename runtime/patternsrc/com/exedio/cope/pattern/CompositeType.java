@@ -162,7 +162,7 @@ final class CompositeType<E>
 		if(Composite.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
 		if(!Modifier.isFinal(valueClass.getModifiers()))
-			throw new IllegalArgumentException("is not final: " + valueClass.getName());
+			throw new IllegalArgumentException(CompositeField.class.getSimpleName() + " requires a final class: " + valueClass.getName());
 
 		synchronized(types)
 		{

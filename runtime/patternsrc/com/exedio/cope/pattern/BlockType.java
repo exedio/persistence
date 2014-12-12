@@ -135,7 +135,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		if(Block.class.equals(javaClass))
 			throw new IllegalArgumentException("is not a subclass of " + Block.class.getName() + " but Block itself");
 		if(!Modifier.isFinal(javaClass.getModifiers()))
-			throw new IllegalArgumentException("is not final: " + javaClass.getName());
+			throw new IllegalArgumentException(BlockField.class.getSimpleName() + " requires a final class: " + javaClass.getName());
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		final BlockType<T> result = new BlockType<>(javaClass);
