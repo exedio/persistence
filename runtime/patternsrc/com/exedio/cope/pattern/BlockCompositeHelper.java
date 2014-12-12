@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Pattern;
 import java.lang.reflect.Modifier;
 
@@ -26,8 +28,10 @@ final class BlockCompositeHelper
 	static <T> void assertFinalSubClass(
 			final Class<? extends Pattern> fieldClass,
 			final Class<T> superClass,
+			final String javaClassName,
 			final Class<? extends T> javaClass)
 	{
+		requireNonNull(javaClass, javaClassName);
 		if(!superClass.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException("is not a subclass of " + superClass.getName() + ": "+javaClass.getName());
 		if(superClass.equals(javaClass))

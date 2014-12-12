@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
-import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Copyable;
@@ -127,8 +126,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
-		requireNonNull(javaClass, "valueClass");
-		assertFinalSubClass(BlockField.class, Block.class, javaClass);
+		assertFinalSubClass(BlockField.class, Block.class, "valueClass", javaClass);
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 

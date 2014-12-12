@@ -156,8 +156,7 @@ final class CompositeType<E>
 
 	static final <E extends Composite> CompositeType<E> get(final Class<E> valueClass)
 	{
-		requireNonNull(valueClass, "valueClass");
-		assertFinalSubClass(CompositeField.class, Composite.class, valueClass);
+		assertFinalSubClass(CompositeField.class, Composite.class, "valueClass", valueClass);
 
 		synchronized(types)
 		{
