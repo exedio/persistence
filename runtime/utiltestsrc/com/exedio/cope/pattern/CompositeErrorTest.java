@@ -77,7 +77,8 @@ public class CompositeErrorTest extends CopeAssert
 		{
 			assertEquals(e.getMessage(),
 					NoConstructor.class.getName() +
-					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])", e.getMessage());
+					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])",
+					e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}
@@ -138,7 +139,10 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(NotFunctionField.class.getName() + "#notFunctionField must be an instance of " + FunctionField.class, e.getMessage());
+			assertEquals(
+					NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
+					FunctionField.class,
+					e.getMessage());
 		}
 	}
 
@@ -159,7 +163,10 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("CompositeField requires a subclass of " + Composite.class.getName() + " but not Composite itself", e.getMessage());
+			assertEquals(
+					"CompositeField requires a subclass of " + Composite.class.getName() +
+					" but not Composite itself",
+					e.getMessage());
 		}
 	}
 
@@ -173,7 +180,9 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("final fields not supported: " + FinalField.class.getName() + "#finalField", e.getMessage());
+			assertEquals(
+					"final fields not supported: " + FinalField.class.getName() + "#finalField",
+					e.getMessage());
 		}
 	}
 
@@ -194,7 +203,10 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("fields with non-constant defaults are not supported: " + NonConstantDefaultField.class.getName() + "#defaultNowField", e.getMessage());
+			assertEquals(
+					"fields with non-constant defaults are not supported: " +
+					NonConstantDefaultField.class.getName() + "#defaultNowField",
+					e.getMessage());
 		}
 	}
 
@@ -216,7 +228,9 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("CompositeField requires a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
+			assertEquals(
+					"CompositeField requires a subclass of " + Composite.class.getName() + ": " +
+					CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
 }

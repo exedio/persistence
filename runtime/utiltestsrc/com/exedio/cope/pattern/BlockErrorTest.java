@@ -75,7 +75,8 @@ public class BlockErrorTest extends CopeAssert
 		{
 			assertEquals(e.getMessage(),
 					NoConstructor.class.getName() +
-					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")", e.getMessage());
+					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")",
+					e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}
@@ -137,7 +138,10 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(NotCopyableField.class.getName() + "#notCopyableField must be an instance of " + Copyable.class, e.getMessage());
+			assertEquals(
+					NotCopyableField.class.getName() +
+					"#notCopyableField must be an instance of " + Copyable.class,
+					e.getMessage());
 		}
 	}
 
@@ -163,7 +167,10 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("BlockField requires a subclass of " + Block.class.getName() + " but not Block itself", e.getMessage());
+			assertEquals(
+					"BlockField requires a subclass of " + Block.class.getName() +
+					" but not Block itself",
+					e.getMessage());
 		}
 	}
 
@@ -178,7 +185,10 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("BlockField requires a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
+			assertEquals(
+					"BlockField requires a subclass of " + Block.class.getName() + ": " +
+					BlockErrorTest.class.getName(),
+					e.getMessage());
 		}
 	}
 
