@@ -163,7 +163,7 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Block.class.getName() + " but Block itself", e.getMessage());
+			assertEquals("BlockField requires a subclass of " + Block.class.getName() + " but not Block itself", e.getMessage());
 		}
 	}
 
@@ -178,7 +178,7 @@ public class BlockErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
+			assertEquals("BlockField requires a subclass of " + Block.class.getName() + ": " + BlockErrorTest.class.getName(), e.getMessage());
 		}
 	}
 

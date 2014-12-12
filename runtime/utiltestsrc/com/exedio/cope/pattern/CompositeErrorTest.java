@@ -159,7 +159,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Composite.class.getName() + " but Composite itself", e.getMessage());
+			assertEquals("CompositeField requires a subclass of " + Composite.class.getName() + " but not Composite itself", e.getMessage());
 		}
 	}
 
@@ -216,7 +216,7 @@ public class CompositeErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("is not a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
+			assertEquals("CompositeField requires a subclass of " + Composite.class.getName() + ": " + CompositeErrorTest.class.getName(), e.getMessage());
 		}
 	}
 }
