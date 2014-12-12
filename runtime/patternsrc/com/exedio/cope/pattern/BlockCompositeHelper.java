@@ -34,11 +34,14 @@ final class BlockCompositeHelper
 	{
 		requireNonNull(javaClass, javaClassName);
 		if(!superClass.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + superClass.getName() + ": "+javaClass.getName());
+			throw new IllegalArgumentException(
+					"is not a subclass of " + superClass.getName() + ": "+javaClass.getName());
 		if(superClass.equals(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + superClass.getName() + " but " + superClass.getSimpleName() + " itself");
+			throw new IllegalArgumentException(
+					"is not a subclass of " + superClass.getName() + " but " + superClass.getSimpleName() + " itself");
 		if(!Modifier.isFinal(javaClass.getModifiers()))
-			throw new IllegalArgumentException(fieldClass.getSimpleName() + " requires a final class: " + javaClass.getName());
+			throw new IllegalArgumentException(
+					fieldClass.getSimpleName() + " requires a final class: " + javaClass.getName());
 	}
 
 	static <E> Constructor<E> getConstructor(final Class<E> valueClass, final Class<?> parameter)
