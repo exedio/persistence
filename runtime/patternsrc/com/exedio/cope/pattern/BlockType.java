@@ -120,7 +120,6 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
-		@SuppressWarnings({"unchecked", "rawtypes"})
 		final BlockType<T> result = new BlockType<>(javaClass);
 		types.put(javaClass, result);
 
