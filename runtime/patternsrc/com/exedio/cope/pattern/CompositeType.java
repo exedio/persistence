@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
+import static com.exedio.cope.pattern.BlockCompositeHelper.getConstructor;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConstraintViolationException;
@@ -50,19 +51,8 @@ final class CompositeType<E>
 	private CompositeType(final Class<E> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
+		this.constructor = getConstructor(valueClass, SetValue[].class);
 		final String classID = valueClass.getName();
-		try
-		{
-			constructor = valueClass.getDeclaredConstructor(SetValue[].class);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException(
-					classID + " does not have a constructor " +
-					valueClass.getSimpleName() + '(' + SetValue.class.getName() + "[])", e);
-		}
-		constructor.setAccessible(true);
-
 		{
 			int position = 0;
 			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(valueClass).entrySet())

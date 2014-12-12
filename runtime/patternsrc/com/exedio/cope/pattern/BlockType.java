@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
+import static com.exedio.cope.pattern.BlockCompositeHelper.getConstructor;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Copyable;
@@ -47,19 +48,8 @@ public final class BlockType<E> // TODO make Serializable as singleton
 	private BlockType(final Class<E> javaClass)
 	{
 		this.javaClass = javaClass;
+		this.constructor = getConstructor(javaClass, BlockActivationParameters.class);
 		final String classID = javaClass.getName();
-		try
-		{
-			constructor = javaClass.getDeclaredConstructor(BlockActivationParameters.class);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw new IllegalArgumentException(
-					classID + " does not have a constructor " +
-					javaClass.getSimpleName() + '(' + BlockActivationParameters.class.getName() + ')', e);
-		}
-		constructor.setAccessible(true);
-
 		{
 			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 			{

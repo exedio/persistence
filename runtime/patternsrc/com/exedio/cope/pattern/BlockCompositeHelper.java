@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Pattern;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 final class BlockCompositeHelper
@@ -38,6 +39,33 @@ final class BlockCompositeHelper
 			throw new IllegalArgumentException("is not a subclass of " + superClass.getName() + " but " + superClass.getSimpleName() + " itself");
 		if(!Modifier.isFinal(javaClass.getModifiers()))
 			throw new IllegalArgumentException(fieldClass.getSimpleName() + " requires a final class: " + javaClass.getName());
+	}
+
+	static <E> Constructor<E> getConstructor(final Class<E> valueClass, final Class<?> parameter)
+	{
+		final Constructor<E> constructor;
+		final String classID = valueClass.getName();
+		try
+		{
+			constructor = valueClass.getDeclaredConstructor(parameter);
+		}
+		catch(final NoSuchMethodException e)
+		{
+			throw new IllegalArgumentException(
+					classID + " does not have a constructor " +
+					valueClass.getSimpleName() + '(' + getName(parameter) + ')', e);
+		}
+		constructor.setAccessible(true);
+		return constructor;
+	}
+
+	private static String getName(final Class<?> clazz)
+	{
+		final Class<?> componentType = clazz.getComponentType();
+		return
+			componentType!=null
+			? componentType.getName() + "[]"
+			: clazz.getName();
 	}
 
 
