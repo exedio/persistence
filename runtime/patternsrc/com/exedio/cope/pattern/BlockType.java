@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConstraintViolationException;
@@ -29,7 +30,6 @@ import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -130,12 +130,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		requireNonNull(javaClass, "valueClass");
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
-		if(!Block.class.isAssignableFrom(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + Block.class.getName() + ": "+javaClass.getName());
-		if(Block.class.equals(javaClass))
-			throw new IllegalArgumentException("is not a subclass of " + Block.class.getName() + " but Block itself");
-		if(!Modifier.isFinal(javaClass.getModifiers()))
-			throw new IllegalArgumentException(BlockField.class.getSimpleName() + " requires a final class: " + javaClass.getName());
+		assertFinalSubClass(BlockField.class, Block.class, javaClass);
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		final BlockType<T> result = new BlockType<>(javaClass);

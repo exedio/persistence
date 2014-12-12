@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConstraintViolationException;
@@ -29,7 +30,6 @@ import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -154,15 +154,10 @@ final class CompositeType<E>
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
-	static final <E> CompositeType<E> get(final Class<E> valueClass)
+	static final <E extends Composite> CompositeType<E> get(final Class<E> valueClass)
 	{
 		requireNonNull(valueClass, "valueClass");
-		if(!Composite.class.isAssignableFrom(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + ": "+valueClass.getName());
-		if(Composite.class.equals(valueClass))
-			throw new IllegalArgumentException("is not a subclass of " + Composite.class.getName() + " but Composite itself");
-		if(!Modifier.isFinal(valueClass.getModifiers()))
-			throw new IllegalArgumentException(CompositeField.class.getSimpleName() + " requires a final class: " + valueClass.getName());
+		assertFinalSubClass(CompositeField.class, Composite.class, valueClass);
 
 		synchronized(types)
 		{
