@@ -605,8 +605,6 @@ public abstract class MediaPath extends Pattern
 		if(slash<0)
 		{
 			final int dot = pathInfo.indexOf('.', fromIndex);
-			//System.out.println("trailingDot="+trailingDot);
-
 			if(dot>=0)
 				id = pathInfo.substring(fromIndex, dot);
 			else
@@ -625,12 +623,10 @@ public abstract class MediaPath extends Pattern
 				throw notFoundGuessedUrl();
 		}
 
-		//System.out.println("ID="+id);
 		final Model model = getType().getModel();
 		try(TransactionTry tx = model.startTransactionTry("MediaPath#doGet " + pathInfo))
 		{
 			final Item item = tx.getItem(id);
-			//System.out.println("item="+item);
 			{
 				final Locator locator = getLocator(item);
 				if(locator!=null)
@@ -662,8 +658,6 @@ public abstract class MediaPath extends Pattern
 
 			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
-
-			//System.out.println("request for " + toString() + " took " + (System.currentTimeMillis() - start) + " ms, " + id);
 		}
 		catch(final NoSuchIDException e)
 		{
@@ -735,12 +729,9 @@ public abstract class MediaPath extends Pattern
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
 		final long lastModified = roundLastModified(lastModifiedRaw);
-		//System.out.println("lastModified="+lastModified+"("+getLastModified(item)+")");
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
 		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-		//System.out.println("ifModifiedSince="+request.getHeader(REQUEST_IF_MODIFIED_SINCE));
-		//System.out.println("ifModifiedSince="+ifModifiedSince);
 
 		if( isFinal() || isUrlFingerPrinted() )
 		{
@@ -762,11 +753,7 @@ public abstract class MediaPath extends Pattern
 		{
 			commit();
 
-			//System.out.println("not modified");
 			response.setStatus(SC_NOT_MODIFIED);
-
-			//System.out.println(request.getMethod()+' '+request.getProtocol()+" IMS="+format(ifModifiedSince)+"  LM="+format(lastModified)+"  NOT modified");
-
 			notModified.inc();
 		}
 		else

@@ -158,7 +158,6 @@ public class MediaServlet extends HttpServlet
 		throws IOException
 	{
 		final String pathInfo = request.getPathInfo();
-		//System.out.println("pathInfo="+pathInfo);
 		final MediaPath path;
 		final int slash2;
 		try
@@ -175,10 +174,7 @@ public class MediaServlet extends HttpServlet
 				throw notFoundNoSuchPath();
 
 			final String featureString = pathInfo.substring(1, slash2);
-			//System.out.println("featureString="+featureString);
-
 			path = pathes.get(featureString);
-			//System.out.println("path="+path);
 			if(path==null)
 			{
 				final MediaPath alt = pathesRedirectFrom.get(featureString);
@@ -196,7 +192,6 @@ public class MediaServlet extends HttpServlet
 						append('/').
 						append(alt.getName()).
 						append(pathInfo.substring(slash2));
-					//System.out.println("location="+location);
 
 					response.setStatus(SC_MOVED_PERMANENTLY);
 					response.setHeader(RESPONSE_LOCATION, location.toString());
