@@ -683,9 +683,6 @@ public abstract class MediaPath extends Pattern
 
 	// cache
 
-	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
-	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-
 	private final void doGetAndCommitWithCache(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
@@ -731,7 +728,7 @@ public abstract class MediaPath extends Pattern
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
 		final long lastModified = roundLastModified(lastModifiedRaw);
-		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
+		response.setDateHeader("Last-Modified", lastModified);
 
 		if( isFinal() || isUrlFingerPrinted() )
 		{
@@ -749,7 +746,7 @@ public abstract class MediaPath extends Pattern
 				setExpiresHeader(response, mediaOffsetExpires);
 		}
 
-		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
+		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			commit();
