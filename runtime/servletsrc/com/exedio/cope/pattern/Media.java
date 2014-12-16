@@ -647,15 +647,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		throws IOException, NotFound
 	{
 		final String contentType = getContentType(item);
-		//System.out.println("contentType="+contentType);
 		if(contentType==null)
 			throw notFoundIsNull();
 
 		final byte[] body = getBody(item);
 
 		commit();
-
-		//response.setHeader("Cache-Control", "public");
 
 		MediaUtil.send(contentType, body, response);
 	}
