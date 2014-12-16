@@ -684,7 +684,6 @@ public abstract class MediaPath extends Pattern
 	// cache
 
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
-	private static final String RESPONSE_EXPIRES = "Expires";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
 	private static final String RESPONSE_CACHE_CONTROL = "Cache-Control";
 	private static final String RESPONSE_CACHE_CONTROL_PRIVATE = "private";
@@ -738,13 +737,13 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			response.setDateHeader(RESPONSE_EXPIRES, Clock.currentTimeMillis() + (1000l*60*60*24*363)); // 363 days
+			setExpiresHeader(response, 1000l*60*60*24*363); // 363 days
 		}
 		else
 		{
 			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
-				response.setDateHeader(RESPONSE_EXPIRES, Clock.currentTimeMillis() + mediaOffsetExpires);
+				setExpiresHeader(response, mediaOffsetExpires);
 		}
 
 		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
@@ -770,6 +769,11 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = lastModifiedDate.getTime();
 		final long remainder = lastModified%1000;
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
+	}
+
+	private static void setExpiresHeader(final HttpServletResponse response, final long offset)
+	{
+		response.setDateHeader("Expires", Clock.currentTimeMillis() + offset);
 	}
 
 	/**
