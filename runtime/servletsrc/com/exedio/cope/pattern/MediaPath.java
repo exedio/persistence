@@ -685,8 +685,6 @@ public abstract class MediaPath extends Pattern
 
 	private static final String REQUEST_IF_MODIFIED_SINCE = "If-Modified-Since";
 	private static final String RESPONSE_LAST_MODIFIED = "Last-Modified";
-	private static final String RESPONSE_CACHE_CONTROL = "Cache-Control";
-	private static final String RESPONSE_CACHE_CONTROL_PRIVATE = "private";
 
 	private final void doGetAndCommitWithCache(
 			final HttpServletRequest request,
@@ -707,7 +705,7 @@ public abstract class MediaPath extends Pattern
 				if(!URL_TOKEN.equals(e.nextElement()))
 					throw notFoundNotAnItem();
 
-			response.setHeader(RESPONSE_CACHE_CONTROL, RESPONSE_CACHE_CONTROL_PRIVATE);
+			response.setHeader("Cache-Control", "private");
 		}
 		else
 		{
