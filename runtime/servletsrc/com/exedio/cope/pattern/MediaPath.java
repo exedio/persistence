@@ -731,8 +731,6 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader(RESPONSE_LAST_MODIFIED, lastModified);
 
-		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
-
 		if( isFinal() || isUrlFingerPrinted() )
 		{
 			// RFC 2616:
@@ -749,6 +747,7 @@ public abstract class MediaPath extends Pattern
 				response.setDateHeader(RESPONSE_EXPIRES, Clock.currentTimeMillis() + mediaOffsetExpires);
 		}
 
+		final long ifModifiedSince = request.getDateHeader(REQUEST_IF_MODIFIED_SINCE);
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			commit();
