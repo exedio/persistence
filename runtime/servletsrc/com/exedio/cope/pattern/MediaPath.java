@@ -573,8 +573,6 @@ public abstract class MediaPath extends Pattern
 			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
-		//final long start = System.currentTimeMillis();
-
 		final int fromIndex;
 		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
 		{
