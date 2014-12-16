@@ -705,6 +705,11 @@ public abstract class MediaPath extends Pattern
 				if(!URL_TOKEN.equals(e.nextElement()))
 					throw notFoundNotAnItem();
 
+			// Cache-Control forbids shared caches, such as company proxies to cache
+			// such urls.
+			// TODO make this customizable
+			// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
+			// and RFC 2616 Section 14.9.1 What is Cacheable
 			response.setHeader("Cache-Control", "private");
 		}
 		else
