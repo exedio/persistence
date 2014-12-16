@@ -719,8 +719,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			doGetAndCommit(request, response, item);
-			delivered.inc(); // TODO deliveredUnconditional
+			deliver(request, response, item);
 			return;
 		}
 
@@ -756,8 +755,7 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			doGetAndCommit(request, response, item);
-			delivered.inc(); // deliveredConditional
+			deliver(request, response, item);
 		}
 	}
 
@@ -774,6 +772,16 @@ public abstract class MediaPath extends Pattern
 	private static void setExpiresHeader(final HttpServletResponse response, final long offset)
 	{
 		response.setDateHeader("Expires", Clock.currentTimeMillis() + offset);
+	}
+
+	private void deliver(
+			final HttpServletRequest request,
+			final HttpServletResponse response,
+			final Item item)
+		throws IOException, NotFound
+	{
+		doGetAndCommit(request, response, item);
+		delivered.inc();
 	}
 
 	/**
