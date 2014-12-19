@@ -57,15 +57,19 @@ final class JavaClass extends JavaFeature
 	throws ParserException
 	{
 		super(file, parent, modifiers, null, stripGenerics(simpleName));
-		System.out.println("xxxxxxx " + stripGenerics(simpleName));
+		System.out.println("name " + stripGenerics(simpleName));
 		this.nameSpace = new NS(file.nameSpace);
 		this.isEnum = isEnum;
-		this.classExtends = classExtends;
+		this.classExtends = stripGenerics(classExtends);
+		System.out.println("extends " + this.classExtends);
 		file.add(this);
 	}
 
 	private static String stripGenerics(final String s)
 	{
+		if(s==null)
+			return null;
+
 		if(!s.endsWith(">"))
 			return s;
 
