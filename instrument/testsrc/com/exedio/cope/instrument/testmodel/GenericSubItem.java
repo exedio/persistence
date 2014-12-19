@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public final class GenericSubItem extends GenericItem<Long>
 {
 	/**

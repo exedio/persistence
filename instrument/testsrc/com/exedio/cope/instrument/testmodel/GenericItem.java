@@ -21,10 +21,10 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 
+@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericItem<N extends Number> extends Item
 {
 	static final ItemField<GenericSubItem> toSub = ItemField.create(GenericSubItem.class);
-	@SuppressWarnings("rawtypes") // TODO instrumentor generics
 	static final ItemField<GenericItem> toSuper = ItemField.create(GenericItem.class);
 
 	/**
