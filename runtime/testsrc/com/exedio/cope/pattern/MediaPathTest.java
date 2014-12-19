@@ -719,7 +719,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
-			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("contentLength", 10011, this.contentLength);
 		}
 
 		void assertOkAndCache(final long lastModified)
@@ -730,7 +730,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
-			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("contentLength", 10011, this.contentLength);
 		}
 
 		void assertNotModified(final long lastModified)

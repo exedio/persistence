@@ -120,6 +120,7 @@ public final class MediaPathFeature extends MediaPath
 			}
 		}
 		commit();
+		response.setContentLength(10011);
 	}
 
 	@Override
