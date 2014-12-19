@@ -57,6 +57,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 	private MyMediaServlet servlet;
 	private AbsoluteMockClockStrategy clock;
 	private int mediaOffsetExpires;
+	private MediaInfo normalInfo = null;
 
 	@Override
 	public void setUp() throws Exception
@@ -70,6 +71,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		this.mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
+		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
 	@Override
@@ -346,6 +348,78 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		clock.add(333348888);
 		service(new Request(ok)).assertExpires(333348888 + ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
 		clock.assertEmpty();
+	}
+
+	// TODO testInfo with others
+
+	public void testInfoNotAnItem() throws ServletException, IOException
+	{
+		assertNotFound("/MediaPathItem/normal/x", "not an item");
+		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+	}
+
+	public void testInfoNoSuchItem() throws ServletException, IOException
+	{
+		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
+		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+	}
+
+	public void testInfoMoved() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		assertRedirect("/MediaPathItem/normal/" + id, prefix + "/MediaPathItem/normal/" + id + ".jpg");
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+	}
+
+	public void testInfoIsNull() throws ServletException, IOException
+	{
+		item.setNormalResult(Result.notFoundIsNull);
+		assertNotFound("/MediaPathItem/normal/" + id, "is null");
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+	}
+
+	public void testInfoNotComputable() throws ServletException, IOException
+	{
+		item.setNormalResult(Result.notFoundNotComputable);
+		assertNotFound("/MediaPathItem/normal/" + id, "not computable");
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+	}
+
+	// TODO testInfoNotModified
+
+	public void testInfoDelivered() throws ServletException, IOException
+	{
+		assertOk("/MediaPathItem/normal/" + id);
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+	}
+
+	private void assertInfo(
+			final int noSuchPath,
+			final int redirectFrom,
+			final int exception,
+			final int invalidSpecial,
+			final int guessedUrl,
+			final int notAnItem,
+			final int noSuchItem,
+			final int moved,
+			final int isNull,
+			final int notComputable,
+			final int notModified,
+			final int delivered)
+	{
+		final MediaInfo i = MediaPathItem.normal.getInfo();
+		assertEquals("noSuchPath",     noSuchPath,     0);
+		assertEquals("redirectFrom",   redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom());
+		assertEquals("exception",      exception,      i.getException()      - normalInfo.getException());
+		assertEquals("invalidSpecial", invalidSpecial, i.getInvalidSpecial() - normalInfo.getInvalidSpecial());
+		assertEquals("guessedUrl",     guessedUrl,     i.getGuessedUrl()     - normalInfo.getGuessedUrl());
+		assertEquals("notAnItem",      notAnItem,      i.getNotAnItem()      - normalInfo.getNotAnItem());
+		assertEquals("noSuchItem",     noSuchItem,     i.getNoSuchItem()     - normalInfo.getNoSuchItem());
+		assertEquals("moved",          moved,          i.getMoved()          - normalInfo.getMoved());
+		assertEquals("isNull",         isNull,         i.getIsNull()         - normalInfo.getIsNull());
+		assertEquals("notComputable",  notComputable,  i.getNotComputable()  - normalInfo.getNotComputable());
+		assertEquals("notModified",    notModified,    i.getNotModified()    - normalInfo.getNotModified());
+		assertEquals("delivered",      delivered,      i.getDelivered()      - normalInfo.getDelivered());
 	}
 
 	private void assertOk(
