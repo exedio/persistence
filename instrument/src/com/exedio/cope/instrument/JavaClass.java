@@ -56,11 +56,20 @@ final class JavaClass extends JavaFeature
 			final String classExtends)
 	throws ParserException
 	{
-		super(file, parent, modifiers, null, simpleName);
+		super(file, parent, modifiers, null, stripGenerics(simpleName));
+		System.out.println("xxxxxxx " + stripGenerics(simpleName));
 		this.nameSpace = new NS(file.nameSpace);
 		this.isEnum = isEnum;
 		this.classExtends = classExtends;
 		file.add(this);
+	}
+
+	private static String stripGenerics(final String s)
+	{
+		if(!s.endsWith(">"))
+			return s;
+
+		return s.substring(0, s.indexOf('<'));
 	}
 
 	void add(final JavaField javaField)
