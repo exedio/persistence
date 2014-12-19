@@ -24,6 +24,7 @@ import com.exedio.cope.ItemField;
 public class GenericItem<N extends Number> extends Item
 {
 	static final ItemField<GenericSubItem> toSub = ItemField.create(GenericSubItem.class);
+	@SuppressWarnings("rawtypes") // TODO instrumentor generics
 	static final ItemField<GenericItem> toSuper = ItemField.create(GenericItem.class);
 
 	/**
