@@ -48,5 +48,4 @@ final class JavaConstructor extends JavaBehaviour
 		java.lang.reflect.Modifier.PROTECTED |
 		java.lang.reflect.Modifier.PRIVATE;
 	}
-
 }

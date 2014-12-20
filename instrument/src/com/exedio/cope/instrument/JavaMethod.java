@@ -54,5 +54,4 @@ final class JavaMethod extends JavaBehaviour
 		java.lang.reflect.Modifier.NATIVE |
 		java.lang.reflect.Modifier.SYNCHRONIZED;
 	}
-
 }
