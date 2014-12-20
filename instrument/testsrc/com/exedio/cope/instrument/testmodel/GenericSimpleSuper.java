@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );

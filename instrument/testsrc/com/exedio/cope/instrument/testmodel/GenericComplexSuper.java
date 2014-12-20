@@ -23,7 +23,6 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import java.util.Collection;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);

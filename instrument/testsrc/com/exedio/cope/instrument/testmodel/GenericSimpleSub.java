@@ -20,7 +20,6 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 {
 	static final GenericFeatureClass fromSub = new GenericFeatureClass();

@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import java.util.Collection;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericComplexMid<L extends Collection<String>> extends GenericComplexSuper<Long, L>
 {
 	static final GenericFeatureClass fromMid = new GenericFeatureClass();
