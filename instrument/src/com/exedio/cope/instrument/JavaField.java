@@ -65,19 +65,10 @@ final class JavaField
 		this(template.parent, template.modifier, template.type, name);
 	}
 
-	/**
-	 * See Java Specification 8.3.1 &quot;Field Modifiers&quot;
-	 */
 	@Override
 	final int getAllowedModifiers()
 	{
-		return Modifier.PUBLIC
-			| Modifier.PROTECTED
-			| Modifier.PRIVATE
-			| Modifier.FINAL
-			| Modifier.STATIC
-			| Modifier.TRANSIENT
-			| Modifier.VOLATILE;
+		return Modifier.fieldModifiers();
 	}
 
 	void setDocComment(final String docComment)

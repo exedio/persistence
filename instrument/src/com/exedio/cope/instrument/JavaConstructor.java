@@ -19,6 +19,8 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Modifier;
+
 /**
  * Represents a constructor of a class parsed by the java parser.
  * @see Parser
@@ -36,16 +38,9 @@ final class JavaConstructor extends JavaBehaviour
 		super(parent, modifiers, null, name);
 	}
 
-	/**
-	 * See Java Language Specification 8.6.3
-	 * &quot;Constructor Modifiers&quot;
-	 */
 	@Override
 	public final int getAllowedModifiers()
 	{
-		return
-		java.lang.reflect.Modifier.PUBLIC |
-		java.lang.reflect.Modifier.PROTECTED |
-		java.lang.reflect.Modifier.PRIVATE;
+		return Modifier.constructorModifiers();
 	}
 }

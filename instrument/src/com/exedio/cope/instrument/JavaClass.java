@@ -147,14 +147,7 @@ final class JavaClass extends JavaFeature
 	@Override
 	public final int getAllowedModifiers()
 	{
-		return
-		Modifier.INTERFACE |
-		Modifier.PUBLIC |
-		Modifier.PROTECTED |
-		Modifier.PRIVATE |
-		Modifier.FINAL |
-		Modifier.STATIC |
-		Modifier.ABSTRACT;
+		return Modifier.INTERFACE | Modifier.classModifiers();
 	}
 
 	void setDocComment(final String docComment)
