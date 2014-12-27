@@ -46,6 +46,17 @@ final class Generics
 			return s;
 	}
 
+	static String strip(final String s)
+	{
+		if(s==null)
+			return null;
+
+		if(!s.endsWith(">"))
+			return s;
+
+		return s.substring(0, s.indexOf('<'));
+	}
+
 	static List<String> get(final String s)
 	{
 		final int lt = s.indexOf('<');

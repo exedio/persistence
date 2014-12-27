@@ -97,7 +97,7 @@ final class JavaRepository
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
-					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.type);
+					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
 					if(typeClass==null)
 						continue feature;
 
