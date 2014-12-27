@@ -79,7 +79,7 @@ abstract class JavaFeature
 		final int over=modifier&~getAllowedModifiers();
 		if(over!=0)
 			throw new ParserException(
-			"modifier(s) "+java.lang.reflect.Modifier.toString(over)+
+			"modifier(s) "+Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
 	}
