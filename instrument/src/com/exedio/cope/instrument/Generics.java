@@ -49,43 +49,41 @@ final class Generics
 	static List<String> get(final String s)
 	{
 		final int lt = s.indexOf('<');
-		if(lt>=0)
-		{
-			final ArrayList<String> result = new ArrayList<>();
-
-			final int gt = s.lastIndexOf('>');
-			if(gt<0)
-				throw new RuntimeException(s);
-
-			int beginOfPart = lt + 1;
-			int level = 0;
-			for(int i = beginOfPart; i<gt; i++)
-			{
-				switch(s.charAt(i))
-				{
-					case '<':
-						level++;
-						break;
-					case '>':
-						level--;
-						break;
-					case ',':
-						if(level==0)
-						{
-							result.add(s.substring(beginOfPart, i).trim());
-							beginOfPart = i + 1;
-						}
-						break;
-				}
-			}
-			if(level!=0)
-				throw new RuntimeException(s);
-
-			result.add(s.substring(beginOfPart, gt).trim());
-			return result;
-		}
-		else
+		if(lt<0)
 			return Collections.emptyList();
+
+		final ArrayList<String> result = new ArrayList<>();
+
+		final int gt = s.lastIndexOf('>');
+		if(gt<0)
+			throw new RuntimeException(s);
+
+		int beginOfPart = lt + 1;
+		int level = 0;
+		for(int i = beginOfPart; i<gt; i++)
+		{
+			switch(s.charAt(i))
+			{
+				case '<':
+					level++;
+					break;
+				case '>':
+					level--;
+					break;
+				case ',':
+					if(level==0)
+					{
+						result.add(s.substring(beginOfPart, i).trim());
+						beginOfPart = i + 1;
+					}
+					break;
+			}
+		}
+		if(level!=0)
+			throw new RuntimeException(s);
+
+		result.add(s.substring(beginOfPart, gt).trim());
+		return result;
 	}
 
 	static Type[] getTypes(final String s)
