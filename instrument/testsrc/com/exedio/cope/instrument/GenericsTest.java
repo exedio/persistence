@@ -33,8 +33,11 @@ public class GenericsTest extends TestCase
 		assertEquals(asList("Gen1"), get("Raw< Gen1 >"));
 		assertEquals(asList("Gen1", "Gen2"), get("Raw<Gen1,Gen2>"));
 		assertEquals(asList("Gen1", "Gen2"), get("Raw< Gen1 , Gen2 >"));
-		assertEquals(asList("Gen1", "Gen2<NestGen2A"), get("Raw<Gen1,Gen2<NestGen2A>>")); // TODO missing >
-		assertEquals(asList("Gen1", "Gen2<?"), get("Raw<Gen1,Gen2<?>>")); // TODO missing >
-		assertEquals(asList("Gen1", "Gen2< NestGen2A"), get("Raw< Gen1, Gen2< NestGen2A >>")); // TODO missing >
+		assertEquals(asList("Gen1", "Gen2<NestGen2A>"), get("Raw<Gen1,Gen2<NestGen2A>>"));
+		assertEquals(asList("Gen1", "Gen2<?>"), get("Raw<Gen1,Gen2<?>>"));
+		assertEquals(asList("Gen1", "Gen2< NestGen2A >"), get("Raw< Gen1, Gen2< NestGen2A >>"));
+		assertEquals(asList("Gen1<NestGen1A>", "Gen2"), get("Raw<Gen1<NestGen1A>,Gen2>"));
+		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A>>"));
+		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A,NestGen2B,NestGen2C>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A,NestGen2B,NestGen2C>>"));
 	}
 }
