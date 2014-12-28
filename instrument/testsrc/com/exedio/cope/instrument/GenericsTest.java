@@ -18,22 +18,23 @@
 
 package com.exedio.cope.instrument;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static com.exedio.cope.instrument.Generics.get;
+import static java.util.Arrays.asList;
 
-public class PackageTest extends TestCase
+import junit.framework.TestCase;
+
+public class GenericsTest extends TestCase
 {
-	public static Test suite()
+	public void testIt()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ExampleTest.class);
-		suite.addTestSuite(Example15Test.class);
-		suite.addTestSuite(ExampleAnnTest.class);
-		suite.addTestSuite(ResolveImportTest.class);
-		suite.addTestSuite(GeneratorTest.class);
-		suite.addTestSuite(GenericsTest.class);
-		suite.addTestSuite(GenericResolverTest.class);
-		return suite;
+		assertEquals(asList(), get(""));
+		assertEquals(asList(), get("Raw"));
+		assertEquals(asList("Gen1"), get("Raw<Gen1>"));
+		assertEquals(asList("Gen1"), get("Raw< Gen1 >"));
+		assertEquals(asList("Gen1", "Gen2"), get("Raw<Gen1,Gen2>"));
+		assertEquals(asList("Gen1", "Gen2"), get("Raw< Gen1 , Gen2 >"));
+		assertEquals(asList("Gen1", "Gen2<NestGen2A"), get("Raw<Gen1,Gen2<NestGen2A>>")); // TODO missing >
+		assertEquals(asList("Gen1", "Gen2<?"), get("Raw<Gen1,Gen2<?>>")); // TODO missing >
+		assertEquals(asList("Gen1", "Gen2< NestGen2A"), get("Raw< Gen1, Gen2< NestGen2A >>")); // TODO missing >
 	}
 }
