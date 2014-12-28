@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.GenericResolver.neW;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
@@ -39,56 +40,56 @@ public class GenericResolverTest extends CopeAssert
 		final Type type2 = new MyType("type2");
 
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(AllImplementation.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(AllImplementation.class)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(AllImplementationImp.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(AllImplementationImp.class)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(AllImplementationImpExt.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(AllImplementationImpExt.class)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(AllImplementationExtImp.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(AllImplementationExtImp.class)));
 		assertEquals(
-				list(type1, type2),
-				list(gr.get(NoneImplementation.class, type1, type2)));
+				asList(type1, type2),
+				asList(gr.get(NoneImplementation.class, type1, type2)));
 		assertEquals(
-				list(type2, type1),
-				list(gr.get(NoneReverseImplementation.class, type1, type2)));
+				asList(type2, type1),
+				asList(gr.get(NoneReverseImplementation.class, type1, type2)));
 		assertEquals(
-				list(Reader.class, type2),
-				list(gr.get(HalfImplementation.class, type2)));
+				asList(Reader.class, type2),
+				asList(gr.get(HalfImplementation.class, type2)));
 		assertEquals(
-				list(Reader.class, generic(List.class, Integer.class)),
-				list(gr.get(NestedImplementation.class)));
+				asList(Reader.class, generic(List.class, Integer.class)),
+				asList(gr.get(NestedImplementation.class)));
 		assertEquals(
-				list(Reader.class, generic(List.class, type2)),
-				list(gr.get(NestedParamImplementation.class, type2)));
+				asList(Reader.class, generic(List.class, type2)),
+				asList(gr.get(NestedParamImplementation.class, type2)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(IndirectAllImplementation.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(IndirectAllImplementation.class)));
 		assertEquals(
-				list(Writer.class, Reader.class),
-				list(gr.get(IndirectAllReverseImplementation.class)));
+				asList(Writer.class, Reader.class),
+				asList(gr.get(IndirectAllReverseImplementation.class)));
 		assertEquals(
-				list(type1, type2),
-				list(gr.get(IndirectNoneImplementation.class, type1, type2)));
+				asList(type1, type2),
+				asList(gr.get(IndirectNoneImplementation.class, type1, type2)));
 		assertEquals(
-				list(type2, type1),
-				list(gr.get(IndirectNoneReverseImplementation.class, type1, type2)));
+				asList(type2, type1),
+				asList(gr.get(IndirectNoneReverseImplementation.class, type1, type2)));
 		assertEquals(
-				list(Reader.class, type2),
-				list(gr.get(IndirectHalfImplementation.class, type2)));
+				asList(Reader.class, type2),
+				asList(gr.get(IndirectHalfImplementation.class, type2)));
 		assertEquals(
-				list(type2, Reader.class),
-				list(gr.get(IndirectHalfReverseImplementation.class, type2)));
+				asList(type2, Reader.class),
+				asList(gr.get(IndirectHalfReverseImplementation.class, type2)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(Indirect2AllImplementation.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(Indirect2AllImplementation.class)));
 		assertEquals(
-				list(Reader.class, Writer.class),
-				list(gr.get(Indirect2All2Implementation.class)));
+				asList(Reader.class, Writer.class),
+				asList(gr.get(Indirect2All2Implementation.class)));
 	}
 
 	interface Interface<K,V>
@@ -258,10 +259,5 @@ public class GenericResolverTest extends CopeAssert
 					'<' + java.util.Arrays.toString(actualTypeArguments) + '>';
 			}
 		};
-	}
-
-	private static final List<Type> list(final Type... o)
-	{
-		return java.util.Arrays.asList(o);
 	}
 }
