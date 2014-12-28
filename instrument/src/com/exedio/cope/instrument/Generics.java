@@ -52,12 +52,11 @@ final class Generics
 		if(lt<0)
 			return Collections.emptyList();
 
-		final ArrayList<String> result = new ArrayList<>();
-
 		final int gt = s.lastIndexOf('>');
 		if(gt<0)
 			throw new RuntimeException(s);
 
+		final ArrayList<String> result = new ArrayList<>();
 		int beginOfPart = lt + 1;
 		int level = 0;
 		for(int i = beginOfPart; i<gt; i++)
