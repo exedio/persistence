@@ -54,6 +54,8 @@ abstract class JavaFeature
 	 */
 	final String type;
 
+	final String typeRaw;
+
 	final String name;
 
 	JavaFeature(
@@ -68,6 +70,7 @@ abstract class JavaFeature
 		this.parent=parent;
 		this.modifier=modifier;
 		this.type=type;
+		this.typeRaw=Generics.strip(type);
 		this.name=name;
 
 		if(file==null)
