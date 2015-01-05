@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,6 +58,7 @@ final class Generics
 		return s.substring(0, s.indexOf('<'));
 	}
 
+	@SuppressFBWarnings("SF_SWITCH_NO_DEFAULT")
 	static List<String> get(final String s)
 	{
 		final int lt = s.indexOf('<');
