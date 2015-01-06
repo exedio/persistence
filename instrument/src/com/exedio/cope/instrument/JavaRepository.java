@@ -254,6 +254,7 @@ final class JavaRepository
 	 * Classes of non-toplevel types must override this constant
 	 * for working around http://bugs.java.com/view_bug.do?bug_id=7101374
 	 */
+	@SuppressFBWarnings("NM_CLASS_NAMING_CONVENTION")
 	public static final class classWildcard
 	{
 		public static final Class<Wildcard> value = Wildcard.class;
