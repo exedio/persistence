@@ -95,7 +95,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final GenericSimpleSuper<?> methodFromSuper()
 	{
-		return GenericSimpleSuper.fromSuper.method(GenericSimpleSuper.class);
+		return GenericSimpleSuper.fromSuper.method(GenericSimpleSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -105,7 +105,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final java.util.List<GenericSimpleSuper<?>> methodFromSuperNested()
 	{
-		return GenericSimpleSuper.fromSuper.methodNested(GenericSimpleSuper.class);
+		return GenericSimpleSuper.fromSuper.methodNested(GenericSimpleSuper.classWildcard.value);
 	}/**
 
 	 **

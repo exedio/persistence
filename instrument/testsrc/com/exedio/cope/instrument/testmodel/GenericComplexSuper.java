@@ -110,7 +110,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final GenericComplexSuper<?,?> methodFromSuper()
 	{
-		return GenericComplexSuper.fromSuper.method(GenericComplexSuper.class);
+		return GenericComplexSuper.fromSuper.method(GenericComplexSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -120,7 +120,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final java.util.List<GenericComplexSuper<?,?>> methodFromSuperNested()
 	{
-		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.class);
+		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.classWildcard.value);
 	}/**
 
 	 **

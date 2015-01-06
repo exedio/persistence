@@ -593,6 +593,8 @@ final class Generator
 						comma.appendTo(output);
 						write(feature.parent.name);
 						write(".class");
+						if(feature.parent.javaClass.typeParameters>0)
+							write("Wildcard.value");
 					}
 				}
 				else

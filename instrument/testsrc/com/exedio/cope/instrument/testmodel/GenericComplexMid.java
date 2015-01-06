@@ -74,7 +74,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final GenericComplexMid<?> methodFromMid()
 	{
-		return GenericComplexMid.fromMid.method(GenericComplexMid.class);
+		return GenericComplexMid.fromMid.method(GenericComplexMid.classWildcard.value);
 	}/**
 
 	 **
@@ -84,7 +84,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	static final java.util.List<GenericComplexMid<?>> methodFromMidNested()
 	{
-		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.class);
+		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.classWildcard.value);
 	}/**
 
 	 **
