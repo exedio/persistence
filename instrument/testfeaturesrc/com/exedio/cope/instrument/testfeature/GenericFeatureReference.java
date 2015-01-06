@@ -52,14 +52,6 @@ public final class GenericFeatureReference<E> implements Settable<E>
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=300, name="for{0}")
-	public <P extends Item> P searchUnique(
-			@SuppressWarnings("unused") final Class<P> typeClass,
-			@SuppressWarnings("unused") final E value)
-	{
-		throw new RuntimeException();
-	}
-
 
 	// implements Settable
 
