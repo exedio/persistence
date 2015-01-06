@@ -111,7 +111,7 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
-	public String getCanonicalName()
+	public String getCanonicalNameWildcard()
 	{
 		final StringBuilder buf=new StringBuilder();
 		final String packagename = file.getPackageName();
@@ -126,6 +126,13 @@ final class JavaClass extends JavaFeature
 			if(i!=this)
 				buf.insert(pos, '.');
 			buf.insert(pos, i.name);
+		}
+		if(genericParameters>0)
+		{
+			buf.append("<?");
+			for(int i = 1; i<genericParameters; i++)
+				buf.append(",?");
+			buf.append('>');
 		}
 		return buf.toString();
 	}

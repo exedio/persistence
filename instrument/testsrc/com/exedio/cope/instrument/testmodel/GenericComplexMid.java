@@ -46,8 +46,8 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexMid(
 				final com.exedio.cope.instrument.testmodel.GenericComplexSub toSub,
-				final com.exedio.cope.instrument.testmodel.GenericComplexMid toMid,
-				final com.exedio.cope.instrument.testmodel.GenericComplexSuper toSuper)
+				final com.exedio.cope.instrument.testmodel.GenericComplexMid<?> toMid,
+				final com.exedio.cope.instrument.testmodel.GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSub.map(toSub),

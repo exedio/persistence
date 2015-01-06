@@ -211,7 +211,7 @@ final class Context
 			{
 				final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
 				if(javaClass!=null)
-					return javaClass.getCanonicalName();
+					return javaClass.getCanonicalNameWildcard();
 			}
 			throw new RuntimeException(name);
 		}
