@@ -19,14 +19,14 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
+import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import java.util.Collection;
 
 @SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
-	static final ItemField<GenericComplexSub> toSub = ItemField.create(GenericComplexSub.class).unique();
-	static final ItemField<GenericComplexSuper> toSuper = ItemField.create(GenericComplexSuper.class).unique();
+	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
+	static final GenericFeatureReference<GenericComplexSuper> toSuper = GenericFeatureReference.create(GenericComplexSuper.class);
 
 	/**
 
@@ -82,9 +82,6 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setToSub(final GenericComplexSub toSub)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.UniqueViolationException
 	{
 		GenericComplexSuper.toSub.set(this,toSub);
 	}/**
@@ -120,9 +117,6 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setToSuper(final GenericComplexSuper toSuper)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.UniqueViolationException
 	{
 		GenericComplexSuper.toSuper.set(this,toSuper);
 	}/**

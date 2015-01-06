@@ -19,13 +19,13 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
+import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 
 @SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericSimpleSuper<N extends Number> extends Item
 {
-	static final ItemField<GenericSimpleSub> toSub = ItemField.create(GenericSimpleSub.class).unique();
-	static final ItemField<GenericSimpleSuper> toSuper = ItemField.create(GenericSimpleSuper.class).unique();
+	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
+	static final GenericFeatureReference<GenericSimpleSuper> toSuper = GenericFeatureReference.create(GenericSimpleSuper.class);
 
 	/**
 
@@ -81,9 +81,6 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setToSub(final GenericSimpleSub toSub)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.UniqueViolationException
 	{
 		GenericSimpleSuper.toSub.set(this,toSub);
 	}/**
@@ -119,9 +116,6 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setToSuper(final GenericSimpleSuper toSuper)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.UniqueViolationException
 	{
 		GenericSimpleSuper.toSuper.set(this,toSuper);
 	}/**
