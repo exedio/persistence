@@ -20,7 +20,6 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 {
 	static final GenericFeatureClass fromSub = new GenericFeatureClass();
@@ -37,7 +36,7 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericSimpleSub(
 				final com.exedio.cope.instrument.testmodel.GenericSimpleSub toSub,
-				final com.exedio.cope.instrument.testmodel.GenericSimpleSuper toSuper)
+				final com.exedio.cope.instrument.testmodel.GenericSimpleSuper<?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.GenericSimpleSuper.toSub.map(toSub),

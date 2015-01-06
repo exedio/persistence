@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import java.util.List;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public final class GenericComplexSub extends GenericComplexMid<List<String>>
 {
 	static final GenericFeatureClass fromSub = new GenericFeatureClass();
@@ -39,8 +38,8 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexSub(
 				final com.exedio.cope.instrument.testmodel.GenericComplexSub toSub,
-				final com.exedio.cope.instrument.testmodel.GenericComplexMid toMid,
-				final com.exedio.cope.instrument.testmodel.GenericComplexSuper toSuper)
+				final com.exedio.cope.instrument.testmodel.GenericComplexMid<?> toMid,
+				final com.exedio.cope.instrument.testmodel.GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSub.map(toSub),

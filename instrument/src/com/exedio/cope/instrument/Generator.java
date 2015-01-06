@@ -593,6 +593,8 @@ final class Generator
 						comma.appendTo(output);
 						write(feature.parent.name);
 						write(".class");
+						if(feature.parent.javaClass.typeParameters>0)
+							write("Wildcard.value");
 					}
 				}
 				else
@@ -746,11 +748,27 @@ final class Generator
 		write((block ? BlockType.class : Type.class).getName());
 		write('<');
 		write(type.name);
+		writeWildcard(type);
 		write("> TYPE = ");
 		write((block ? BlockType.class : TypesBound.class).getName());
 		write(".newType(");
 		write(type.name);
-		write(".class);");
+		write(".class");
+		if(type.javaClass.typeParameters>0)
+			write("Wildcard.value");
+		write(");");
+	}
+
+	private void writeWildcard(final CopeType type) throws ParserException
+	{
+		final int typeParameters = type.javaClass.typeParameters;
+		if(typeParameters>0)
+		{
+			write("<?");
+			for(int i = 1; i<typeParameters; i++)
+				write(",?");
+			write('>');
+		}
 	}
 
 	void write() throws ParserException

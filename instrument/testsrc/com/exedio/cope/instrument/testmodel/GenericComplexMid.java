@@ -21,10 +21,17 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import java.util.Collection;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericComplexMid<L extends Collection<String>> extends GenericComplexSuper<Long, L>
 {
 	static final GenericFeatureClass fromMid = new GenericFeatureClass();
+
+
+	public static final class classWildcard
+	{
+		@SuppressWarnings("unchecked")
+		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
+	}
+
 
 	/**
 
@@ -39,8 +46,8 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexMid(
 				final com.exedio.cope.instrument.testmodel.GenericComplexSub toSub,
-				final com.exedio.cope.instrument.testmodel.GenericComplexMid toMid,
-				final com.exedio.cope.instrument.testmodel.GenericComplexSuper toSuper)
+				final com.exedio.cope.instrument.testmodel.GenericComplexMid<?> toMid,
+				final com.exedio.cope.instrument.testmodel.GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSub.map(toSub),
@@ -65,9 +72,9 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericComplexMid methodFromMid()
+	static final GenericComplexMid<?> methodFromMid()
 	{
-		return GenericComplexMid.fromMid.method(GenericComplexMid.class);
+		return GenericComplexMid.fromMid.method(GenericComplexMid.classWildcard.value);
 	}/**
 
 	 **
@@ -75,9 +82,9 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 *       It can be customized with the tag <tt>@cope.methodNested public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<GenericComplexMid> methodFromMidNested()
+	static final java.util.List<GenericComplexMid<?>> methodFromMidNested()
 	{
-		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.class);
+		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.classWildcard.value);
 	}/**
 
 	 **
@@ -93,7 +100,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@SuppressWarnings("hiding")
-	public static final com.exedio.cope.Type<GenericComplexMid> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexMid.class);/**
+	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexMid.classWildcard.value);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.

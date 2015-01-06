@@ -23,14 +23,21 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import java.util.Collection;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
-	static final GenericFeatureReference<GenericComplexMid  > toMid   = GenericFeatureReference.create(GenericComplexMid  .class);
-	static final GenericFeatureReference<GenericComplexSuper> toSuper = GenericFeatureReference.create(GenericComplexSuper.class);
+	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard.value);
+	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
+
+
+	public static final class classWildcard
+	{
+		@SuppressWarnings("unchecked")
+		public static final Class<GenericComplexSuper<?,?>> value = (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
+	}
+
 
 	/**
 
@@ -45,8 +52,8 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexSuper(
 				final GenericComplexSub toSub,
-				final GenericComplexMid toMid,
-				final GenericComplexSuper toSuper)
+				final GenericComplexMid<?> toMid,
+				final GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			GenericComplexSuper.toSub.map(toSub),
@@ -81,7 +88,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericComplexMid methodToMid(final GenericComplexMid toMid)
+	final GenericComplexMid<?> methodToMid(final GenericComplexMid<?> toMid)
 	{
 		return GenericComplexSuper.toMid.method(this,toMid);
 	}/**
@@ -91,7 +98,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericComplexSuper methodToSuper(final GenericComplexSuper toSuper)
+	final GenericComplexSuper<?,?> methodToSuper(final GenericComplexSuper<?,?> toSuper)
 	{
 		return GenericComplexSuper.toSuper.method(this,toSuper);
 	}/**
@@ -101,9 +108,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericComplexSuper methodFromSuper()
+	static final GenericComplexSuper<?,?> methodFromSuper()
 	{
-		return GenericComplexSuper.fromSuper.method(GenericComplexSuper.class);
+		return GenericComplexSuper.fromSuper.method(GenericComplexSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -111,9 +118,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.methodNested public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<GenericComplexSuper> methodFromSuperNested()
+	static final java.util.List<GenericComplexSuper<?,?>> methodFromSuperNested()
 	{
-		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.class);
+		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -128,7 +135,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final com.exedio.cope.Type<GenericComplexSuper> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSuper.class);/**
+	public static final com.exedio.cope.Type<GenericComplexSuper<?,?>> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSuper.classWildcard.value);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.

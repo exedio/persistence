@@ -22,13 +22,20 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 
-@SuppressWarnings("rawtypes") // TODO instrumentor generics
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
-	static final GenericFeatureReference<GenericSimpleSuper> toSuper = GenericFeatureReference.create(GenericSimpleSuper.class);
+	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard.value);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
+
+
+	public static final class classWildcard
+	{
+		@SuppressWarnings("unchecked")
+		public static final Class<GenericSimpleSuper<?>> value = (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
+	}
+
 
 	/**
 
@@ -42,7 +49,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericSimpleSuper(
 				final GenericSimpleSub toSub,
-				final GenericSimpleSuper toSuper)
+				final GenericSimpleSuper<?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			GenericSimpleSuper.toSub.map(toSub),
@@ -76,7 +83,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericSimpleSuper methodToSuper(final GenericSimpleSuper toSuper)
+	final GenericSimpleSuper<?> methodToSuper(final GenericSimpleSuper<?> toSuper)
 	{
 		return GenericSimpleSuper.toSuper.method(this,toSuper);
 	}/**
@@ -86,9 +93,9 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericSimpleSuper methodFromSuper()
+	static final GenericSimpleSuper<?> methodFromSuper()
 	{
-		return GenericSimpleSuper.fromSuper.method(GenericSimpleSuper.class);
+		return GenericSimpleSuper.fromSuper.method(GenericSimpleSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -96,9 +103,9 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.methodNested public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<GenericSimpleSuper> methodFromSuperNested()
+	static final java.util.List<GenericSimpleSuper<?>> methodFromSuperNested()
 	{
-		return GenericSimpleSuper.fromSuper.methodNested(GenericSimpleSuper.class);
+		return GenericSimpleSuper.fromSuper.methodNested(GenericSimpleSuper.classWildcard.value);
 	}/**
 
 	 **
@@ -113,7 +120,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final com.exedio.cope.Type<GenericSimpleSuper> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSuper.class);/**
+	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSuper.classWildcard.value);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
