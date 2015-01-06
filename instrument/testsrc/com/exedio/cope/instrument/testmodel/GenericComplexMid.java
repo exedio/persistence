@@ -82,7 +82,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 *       It can be customized with the tag <tt>@cope.methodNested public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<GenericComplexMid> methodFromMidNested()
+	static final java.util.List<GenericComplexMid<?>> methodFromMidNested()
 	{
 		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.class);
 	}/**

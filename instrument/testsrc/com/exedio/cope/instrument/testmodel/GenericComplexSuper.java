@@ -118,7 +118,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.methodNested public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<GenericComplexSuper> methodFromSuperNested()
+	static final java.util.List<GenericComplexSuper<?,?>> methodFromSuperNested()
 	{
 		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.class);
 	}/**
