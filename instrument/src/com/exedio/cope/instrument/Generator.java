@@ -752,18 +752,18 @@ final class Generator
 		write(".newType(");
 		write(type.name);
 		write(".class");
-		if(type.javaClass.genericParameters>0)
+		if(type.javaClass.typeParameters>0)
 			write("Wildcard.value");
 		write(");");
 	}
 
 	private void writeWildcard(final CopeType type) throws ParserException
 	{
-		final int genericParameters = type.javaClass.genericParameters;
-		if(genericParameters>0)
+		final int typeParameters = type.javaClass.typeParameters;
+		if(typeParameters>0)
 		{
 			write("<?");
-			for(int i = 1; i<genericParameters; i++)
+			for(int i = 1; i<typeParameters; i++)
 				write(",?");
 			write('>');
 		}

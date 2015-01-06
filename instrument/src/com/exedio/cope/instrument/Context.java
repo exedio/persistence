@@ -50,15 +50,15 @@ final class Context
 	private String getClassToken()
 	{
 		final CopeType type = feature.parent;
-		final int genericParameters = type.javaClass.genericParameters;
-		if(genericParameters==0)
+		final int typeParameters = type.javaClass.typeParameters;
+		if(typeParameters==0)
 			return type.name;
 
 		final StringBuilder bf = new StringBuilder(type.name);
-		if(genericParameters>0)
+		if(typeParameters>0)
 		{
 			bf.append("<?");
-			for(int i = 1; i<genericParameters; i++)
+			for(int i = 1; i<typeParameters; i++)
 				bf.append(",?");
 			bf.append('>');
 		}
