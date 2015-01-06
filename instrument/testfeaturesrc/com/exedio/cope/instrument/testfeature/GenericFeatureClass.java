@@ -21,6 +21,7 @@ package com.exedio.cope.instrument.testfeature;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.util.List;
 
 @WrapFeature
 public final class GenericFeatureClass
@@ -28,6 +29,14 @@ public final class GenericFeatureClass
 	@Wrap(order=10)
 	@SuppressWarnings("static-method")
 	public <P extends Item> P method(
+			@SuppressWarnings("unused") final Class<P> typeClass)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=20)
+	@SuppressWarnings("static-method")
+	public <P extends Item> List<P> methodNested(
 			@SuppressWarnings("unused") final Class<P> typeClass)
 	{
 		throw new RuntimeException();
