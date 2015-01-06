@@ -45,14 +45,7 @@ public final class GenericFeatureReference<E> implements Settable<E>
 	}
 
 	@Wrap(order=10)
-	public E get(
-			@SuppressWarnings("unused") final Item item)
-	{
-		throw new RuntimeException();
-	}
-
-	@Wrap(order=20)
-	public void set(
+	public E method(
 			@SuppressWarnings("unused") final Item item,
 			@SuppressWarnings("unused") final E value)
 	{
