@@ -25,9 +25,9 @@ import com.exedio.cope.instrument.WrapFeature;
 @WrapFeature
 public final class GenericFeatureClass
 {
-	@Wrap(order=10, name="for{0}")
+	@Wrap(order=10)
 	@SuppressWarnings("static-method")
-	public <P extends Item> P searchUnique(
+	public <P extends Item> P method(
 			@SuppressWarnings("unused") final Class<P> typeClass)
 	{
 		throw new RuntimeException();
