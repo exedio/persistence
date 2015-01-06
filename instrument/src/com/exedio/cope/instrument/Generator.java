@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
@@ -706,47 +705,6 @@ final class Generator
 		write("long serialVersionUID = 1l;");
 	}
 
-	private void writeClassWildcard(final CopeType type)
-	{
-		final Option option = type.classWildcardOption;
-		if(!option.exists)
-			return;
-
-		if(type.javaClass.genericParameters==0)
-			return;
-
-		writeCommentHeader();
-		writeIndent();
-		write(" * @see ");
-		write(Item.class.getName());
-		write("#classWildcard()");
-		write(lineSeparator);
-		writeCommentFooter(
-				"It can be customized with the tag " +
-				"<tt>@" + CopeType.TAG_CLASS_WILDCARD + ' ' +
-				Option.TEXT_NONE +
-				"</tt> " +
-				"in the class comment.");
-
-		writeIndent();
-		write('@');
-		write(SuppressWarnings.class.getName());
-		write("({\"unchecked\",\"deprecation\"})");
-		write(lineSeparator);
-
-		writeIndent();
-		writeModifier( PUBLIC | STATIC | FINAL );
-		write("Class<");
-		write(type.name);
-		writeWildcard(type);
-		write("> classWildcard = (Class<");
-		write(type.name);
-		writeWildcard(type);
-		write(">)(Class<?>)");
-		write(type.name);
-		write(".class;");
-	}
-
 	private void writeType(final CopeType type)
 	{
 		if(type.isComposite)
@@ -795,7 +753,7 @@ final class Generator
 		write(type.name);
 		write(".class");
 		if(type.javaClass.genericParameters>0)
-			write("Wildcard");
+			write("Wildcard.value");
 		write(");");
 	}
 
@@ -854,7 +812,6 @@ final class Generator
 			writeFeature(feature);
 
 		writeSerialVersionUID();
-		writeClassWildcard(type);
 		writeType(type);
 		writeActivationConstructor(type);
 	}

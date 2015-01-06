@@ -254,7 +254,7 @@ final class JavaRepository
 	 * Classes of non-toplevel types must override this constant
 	 * for working around http://bugs.java.com/view_bug.do?bug_id=7101374
 	 */
-	public static final class ClassWildcard
+	public static final class classWildcard
 	{
 		public static final Class<Wildcard> value = Wildcard.class;
 	}
@@ -283,8 +283,8 @@ final class JavaRepository
 			if(superResult!=null)
 				return superResult;
 
-			if(name.endsWith("$ClassWildcard"))
-				return ClassWildcard.class;
+			if(name.endsWith("$classWildcard"))
+				return classWildcard.class;
 
 			final JavaClass javaClass = getJavaClass(name);
 			if(javaClass!=null)

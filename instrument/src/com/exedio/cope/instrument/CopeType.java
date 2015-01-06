@@ -35,7 +35,6 @@ import java.util.TreeSet;
 final class CopeType
 {
 	private static final String TAG_PREFIX = CopeFeature.TAG_PREFIX;
-	static final String TAG_CLASS_WILDCARD         = TAG_PREFIX + "classWildcard";
 	static final String TAG_TYPE                   = TAG_PREFIX + "type";
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
 	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
@@ -57,7 +56,6 @@ final class CopeType
 	final boolean isComposite;
 	final String name;
 	final Visibility visibility;
-	final Option classWildcardOption;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -78,7 +76,6 @@ final class CopeType
 		copeTypeByJavaClass.put(javaClass, this);
 
 		final String docComment = javaClass.getDocComment();
-		this.classWildcardOption         = new Option(Tags.getLine(docComment, TAG_CLASS_WILDCARD),         false);
 		this.typeOption                  = new Option(Tags.getLine(docComment, TAG_TYPE),                   false);
 		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
 		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
