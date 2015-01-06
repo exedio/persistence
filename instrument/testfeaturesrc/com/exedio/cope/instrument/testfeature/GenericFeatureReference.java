@@ -19,15 +19,12 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 @WrapFeature
@@ -112,6 +109,6 @@ public final class GenericFeatureReference<E> implements Settable<E>
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return new HashSet<>(Arrays.asList((Class<? extends Throwable>)MandatoryViolationException.class, UniqueViolationException.class));
+		return Collections.emptySet();
 	}
 }
