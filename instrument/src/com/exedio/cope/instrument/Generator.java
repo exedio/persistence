@@ -735,7 +735,7 @@ final class Generator
 		write(lineSeparator);
 
 		writeIndent();
-		writeModifier( PUBLIC | STATIC  | FINAL );
+		writeModifier( PUBLIC | STATIC | FINAL );
 		write("Class<");
 		write(type.name);
 		writeWildcard(type);
