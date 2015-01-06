@@ -30,6 +30,8 @@ import java.util.Set;
 @WrapFeature
 public final class GenericFeatureReference<E> implements Settable<E>
 {
+	public final Class<E> valueClass;
+
 	public static <E> GenericFeatureReference<E> create(final Class<E> valueClass)
 	{
 		return new GenericFeatureReference<>(valueClass);
@@ -37,6 +39,8 @@ public final class GenericFeatureReference<E> implements Settable<E>
 
 	private GenericFeatureReference(final Class<E> valueClass)
 	{
+		this.valueClass = valueClass;
+
 		final Class<?> superClass = Item.class;
 		if(!superClass.isAssignableFrom(valueClass))
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());

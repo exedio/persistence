@@ -16,26 +16,25 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument;
+package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.testmodel.GenericTest;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-public class PackageTest extends TestCase
+public class GenericTest extends TestCase
 {
-	public static Test suite()
+	public void testType()
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ExampleTest.class);
-		suite.addTestSuite(Example15Test.class);
-		suite.addTestSuite(ExampleAnnTest.class);
-		suite.addTestSuite(ResolveImportTest.class);
-		suite.addTestSuite(GeneratorTest.class);
-		suite.addTestSuite(GenericTest.class);
-		suite.addTestSuite(GenericsTest.class);
-		suite.addTestSuite(GenericResolverTest.class);
-		return suite;
+		assertEquals("GenericSimpleSuper" , GenericSimpleSuper .TYPE.getID());
+		assertEquals("GenericSimpleSub"   , GenericSimpleSub   .TYPE.getID());
+		assertEquals("GenericComplexSuper", GenericComplexSuper.TYPE.getID());
+		assertEquals("GenericComplexSub"  , GenericComplexSub  .TYPE.getID());
+	}
+
+	public void testValueClass()
+	{
+		assertEquals(GenericSimpleSub   .class, GenericSimpleSuper .toSub  .valueClass);
+		assertEquals(GenericSimpleSuper .class, GenericSimpleSuper .toSuper.valueClass);
+		assertEquals(GenericComplexSub  .class, GenericComplexSuper.toSub  .valueClass);
+		assertEquals(GenericComplexSuper.class, GenericComplexSuper.toSuper.valueClass);
 	}
 }
