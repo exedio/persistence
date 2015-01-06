@@ -28,6 +28,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 
 	public static final class ClassWildcard
 	{
+		@SuppressWarnings("unchecked")
 		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
 	}
 

@@ -34,6 +34,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 
 	public static final class ClassWildcard
 	{
+		@SuppressWarnings("unchecked")
 		public static final Class<GenericComplexSuper<?,?>> value = (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
 	}
 

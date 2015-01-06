@@ -32,6 +32,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 
 	public static final class ClassWildcard
 	{
+		@SuppressWarnings("unchecked")
 		public static final Class<GenericSimpleSuper<?>> value = (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
 	}
 
