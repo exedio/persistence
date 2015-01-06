@@ -26,10 +26,17 @@ import java.util.Collection;
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
-	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard);
-	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard);
+	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .ClassWildcard.value);
+	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.ClassWildcard.value);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
+
+
+	public static final class ClassWildcard
+	{
+		public static final Class<GenericComplexSuper<?,?>> value = (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
+	}
+
 
 	/**
 

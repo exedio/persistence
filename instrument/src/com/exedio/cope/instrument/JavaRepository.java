@@ -250,6 +250,20 @@ final class JavaRepository
 		return result;
 	}
 
+	/**
+	 * Classes of non-toplevel types must override this constant
+	 * for working around http://bugs.java.com/view_bug.do?bug_id=7101374
+	 */
+	public static final class ClassWildcard
+	{
+		public static final Class<Wildcard> value = Wildcard.class;
+	}
+
+	private static final class Wildcard extends Item
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
 	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
@@ -268,6 +282,9 @@ final class JavaRepository
 			final Class<?> superResult = super.getClass(name);
 			if(superResult!=null)
 				return superResult;
+
+			if(name.endsWith("$ClassWildcard"))
+				return ClassWildcard.class;
 
 			final JavaClass javaClass = getJavaClass(name);
 			if(javaClass!=null)

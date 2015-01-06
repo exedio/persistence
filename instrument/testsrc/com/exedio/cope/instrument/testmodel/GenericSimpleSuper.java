@@ -25,9 +25,16 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
-	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard);
+	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.ClassWildcard.value);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
+
+
+	public static final class ClassWildcard
+	{
+		public static final Class<GenericSimpleSuper<?>> value = (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
+	}
+
 
 	/**
 

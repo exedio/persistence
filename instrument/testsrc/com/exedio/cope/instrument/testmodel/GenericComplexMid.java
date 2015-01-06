@@ -25,6 +25,13 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 {
 	static final GenericFeatureClass fromMid = new GenericFeatureClass();
 
+
+	public static final class ClassWildcard
+	{
+		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
+	}
+
+
 	/**
 
 	 **

@@ -396,23 +396,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 		}
 	}
 
-
-	/**
-	 * @deprecated
-	 * Do not use this constant in client code.
-	 * This is to be used by beanshell when running the instrumentor.
-	 * Classes of non-toplevel types must override this constant
-	 * for working around http://bugs.java.com/view_bug.do?bug_id=7101374
-	 */
-	@Deprecated
-	public static final Class<?> classWildcard = Wildcard.class;
-
-	private static final class Wildcard extends Item
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-
 	// activation/deactivation -----------------------------------------------------
 
 	final Entity getEntity()
