@@ -28,8 +28,7 @@ public final class GenericFeatureClass
 	@Wrap(order=300, name="for{0}")
 	@SuppressWarnings("static-method")
 	public <P extends Item> P searchUnique(
-			@SuppressWarnings("unused") final Class<P> typeClass,
-			@SuppressWarnings("unused") final String value)
+			@SuppressWarnings("unused") final Class<P> typeClass)
 	{
 		throw new RuntimeException();
 	}

@@ -86,9 +86,9 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericSimpleSuper forToSuperC(final java.lang.String toSuperC)
+	static final GenericSimpleSuper forToSuperC()
 	{
-		return GenericSimpleSuper.toSuperC.searchUnique(GenericSimpleSuper.class,toSuperC);
+		return GenericSimpleSuper.toSuperC.searchUnique(GenericSimpleSuper.class);
 	}/**
 
 	 **

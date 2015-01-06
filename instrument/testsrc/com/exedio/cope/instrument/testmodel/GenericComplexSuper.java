@@ -87,9 +87,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericComplexSuper forToSuperC(final java.lang.String toSuperC)
+	static final GenericComplexSuper forToSuperC()
 	{
-		return GenericComplexSuper.toSuperC.searchUnique(GenericComplexSuper.class,toSuperC);
+		return GenericComplexSuper.toSuperC.searchUnique(GenericComplexSuper.class);
 	}/**
 
 	 **
