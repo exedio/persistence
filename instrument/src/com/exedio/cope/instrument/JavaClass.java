@@ -42,6 +42,7 @@ final class JavaClass extends JavaFeature
 
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
+	final int genericParameters;
 	final boolean isEnum;
 	final String classExtends;
 	private String docComment;
@@ -58,6 +59,7 @@ final class JavaClass extends JavaFeature
 	{
 		super(file, parent, modifiers, null, Generics.strip(simpleName));
 		this.nameSpace = new NS(file.nameSpace);
+		this.genericParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;
 		this.classExtends = Generics.strip(classExtends);
 		file.add(this);

@@ -49,7 +49,20 @@ final class Context
 
 	private String getClassToken()
 	{
-		return feature.parent.name;
+		final CopeType type = feature.parent;
+		final int genericParameters = type.javaClass.genericParameters;
+		if(genericParameters==0)
+			return type.name;
+
+		final StringBuilder bf = new StringBuilder(type.name);
+		if(genericParameters>0)
+		{
+			bf.append("<?");
+			for(int i = 1; i<genericParameters; i++)
+				bf.append(",?");
+			bf.append('>');
+		}
+		return bf.toString();
 	}
 
 	private String getGenericFieldParameter(final int number)
@@ -189,13 +202,14 @@ final class Context
 		if(fullyQualified)
 		{
 			final JavaFile file = feature.parent.javaClass.file;
+			final String nameRaw = Generics.strip(name);
 			{
-				final Class<?> clazz = file.findTypeExternally(name);
+				final Class<?> clazz = file.findTypeExternally(nameRaw);
 				if(clazz!=null)
 					return clazz.getCanonicalName();
 			}
 			{
-				final JavaClass javaClass = file.repository.getJavaClass(name);
+				final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
 				if(javaClass!=null)
 					return javaClass.getCanonicalName();
 			}
