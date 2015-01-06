@@ -27,6 +27,7 @@ public class GenericTest extends TestCase
 		assertEquals("GenericSimpleSuper" , GenericSimpleSuper .TYPE.getID());
 		assertEquals("GenericSimpleSub"   , GenericSimpleSub   .TYPE.getID());
 		assertEquals("GenericComplexSuper", GenericComplexSuper.TYPE.getID());
+		assertEquals("GenericComplexMid"  , GenericComplexMid  .TYPE.getID());
 		assertEquals("GenericComplexSub"  , GenericComplexSub  .TYPE.getID());
 	}
 
@@ -35,6 +36,7 @@ public class GenericTest extends TestCase
 		assertEquals(GenericSimpleSub   .class, GenericSimpleSuper .toSub  .valueClass);
 		assertEquals(GenericSimpleSuper .class, GenericSimpleSuper .toSuper.valueClass);
 		assertEquals(GenericComplexSub  .class, GenericComplexSuper.toSub  .valueClass);
+		assertEquals(GenericComplexMid  .class, GenericComplexSuper.toMid  .valueClass);
 		assertEquals(GenericComplexSuper.class, GenericComplexSuper.toSuper.valueClass);
 	}
 }
