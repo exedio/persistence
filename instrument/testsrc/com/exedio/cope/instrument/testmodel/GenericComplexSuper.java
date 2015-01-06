@@ -29,7 +29,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
 	static final GenericFeatureReference<GenericComplexSuper> toSuper = GenericFeatureReference.create(GenericComplexSuper.class);
 
-	static final GenericFeatureClass toSuperC = new GenericFeatureClass();
+	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
 	/**
 
@@ -87,9 +87,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericComplexSuper forToSuperC()
+	static final GenericComplexSuper forFromSuper()
 	{
-		return GenericComplexSuper.toSuperC.searchUnique(GenericComplexSuper.class);
+		return GenericComplexSuper.fromSuper.searchUnique(GenericComplexSuper.class);
 	}/**
 
 	 **

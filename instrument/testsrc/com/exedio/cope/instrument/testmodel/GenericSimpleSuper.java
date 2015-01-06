@@ -28,7 +28,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
 	static final GenericFeatureReference<GenericSimpleSuper> toSuper = GenericFeatureReference.create(GenericSimpleSuper.class);
 
-	static final GenericFeatureClass toSuperC = new GenericFeatureClass();
+	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
 	/**
 
@@ -86,9 +86,9 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final GenericSimpleSuper forToSuperC()
+	static final GenericSimpleSuper forFromSuper()
 	{
-		return GenericSimpleSuper.toSuperC.searchUnique(GenericSimpleSuper.class);
+		return GenericSimpleSuper.fromSuper.searchUnique(GenericSimpleSuper.class);
 	}/**
 
 	 **
