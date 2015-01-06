@@ -25,7 +25,7 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
-	static final GenericFeatureReference<GenericSimpleSuper> toSuper = GenericFeatureReference.create(GenericSimpleSuper.class);
+	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
@@ -41,7 +41,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericSimpleSuper(
 				final GenericSimpleSub toSub,
-				final GenericSimpleSuper toSuper)
+				final GenericSimpleSuper<?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			GenericSimpleSuper.toSub.map(toSub),
@@ -75,7 +75,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericSimpleSuper methodToSuper(final GenericSimpleSuper toSuper)
+	final GenericSimpleSuper<?> methodToSuper(final GenericSimpleSuper<?> toSuper)
 	{
 		return GenericSimpleSuper.toSuper.method(this,toSuper);
 	}/**

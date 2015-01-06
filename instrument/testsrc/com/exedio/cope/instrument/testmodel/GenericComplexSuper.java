@@ -26,8 +26,8 @@ import java.util.Collection;
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
-	static final GenericFeatureReference<GenericComplexMid  > toMid   = GenericFeatureReference.create(GenericComplexMid  .class);
-	static final GenericFeatureReference<GenericComplexSuper> toSuper = GenericFeatureReference.create(GenericComplexSuper.class);
+	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard);
+	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard);
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
@@ -44,8 +44,8 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexSuper(
 				final GenericComplexSub toSub,
-				final GenericComplexMid toMid,
-				final GenericComplexSuper toSuper)
+				final GenericComplexMid<?> toMid,
+				final GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			GenericComplexSuper.toSub.map(toSub),
@@ -80,7 +80,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericComplexMid methodToMid(final GenericComplexMid toMid)
+	final GenericComplexMid<?> methodToMid(final GenericComplexMid<?> toMid)
 	{
 		return GenericComplexSuper.toMid.method(this,toMid);
 	}/**
@@ -90,7 +90,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final GenericComplexSuper methodToSuper(final GenericComplexSuper toSuper)
+	final GenericComplexSuper<?,?> methodToSuper(final GenericComplexSuper<?,?> toSuper)
 	{
 		return GenericComplexSuper.toSuper.method(this,toSuper);
 	}/**
