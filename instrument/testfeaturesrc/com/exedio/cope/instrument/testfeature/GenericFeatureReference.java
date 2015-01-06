@@ -23,7 +23,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
@@ -48,14 +47,14 @@ public final class GenericFeatureReference<E> implements Settable<E>
 			throw new RuntimeException("is not a real subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10)
 	public E get(
 			@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=20, doc="Sets a new value for {0}.")
+	@Wrap(order=20)
 	public void set(
 			@SuppressWarnings("unused") final Item item,
 			@SuppressWarnings("unused") final E value)
@@ -63,12 +62,10 @@ public final class GenericFeatureReference<E> implements Settable<E>
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=300, name="for{0}",
-			doc="Finds a {2} by it''s {0}.",
-			docReturn="null if there is no matching item.")
+	@Wrap(order=300, name="for{0}")
 	public <P extends Item> P searchUnique(
 			@SuppressWarnings("unused") final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") @SuppressWarnings("unused") final E value)
+			@SuppressWarnings("unused") final E value)
 	{
 		throw new RuntimeException();
 	}
