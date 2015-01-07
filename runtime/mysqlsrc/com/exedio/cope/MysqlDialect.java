@@ -608,7 +608,7 @@ final class MysqlDialect extends Dialect
 			ResultSet rs = statement.executeQuery(sql))
 		{
 			if(!rs.next())
-				throw new SQLException(sql + " returns empty result, probably because no binlog is enabled");
+				throw new SQLException(sql + " returns empty result, probably because binlog is disabled");
 
 			final StringBuilder bf = new StringBuilder(sql);
 			boolean first = true;
