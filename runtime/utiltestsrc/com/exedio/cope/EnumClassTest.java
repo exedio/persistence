@@ -98,4 +98,18 @@ public class EnumClassTest extends CopeAssert
 		Zwei {@Override int zack(){ return 2; } };
 		abstract int zack();
 	}
+
+	@SuppressWarnings("unchecked") // OK: test bad api usage
+	public void testEnumItself()
+	{
+		try
+		{
+			EnumField.create(Enum.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("not an enum: " + Enum.class, e.getMessage());
+		}
+	}
 }
