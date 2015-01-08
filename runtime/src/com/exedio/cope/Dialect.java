@@ -39,6 +39,10 @@ abstract class Dialect
 	protected static final int TWOPOW8 = 1<<8;
 	protected static final int TWOPOW16 = 1<<16;
 	protected static final int TWOPOW24 = 1<<24;
+
+	/**
+	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
+	 */
 	protected static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
 
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
