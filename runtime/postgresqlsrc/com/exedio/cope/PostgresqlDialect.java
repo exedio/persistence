@@ -44,6 +44,9 @@ final class PostgresqlDialect extends Dialect
 			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + ei.getDriverVersionDescription());
 	}
 
+	/**
+	 * See http://www.postgresql.org/docs/9.3/static/datatype-numeric.html
+	 */
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
