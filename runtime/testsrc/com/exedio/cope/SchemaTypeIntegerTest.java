@@ -73,19 +73,19 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 			throw new AssertionFailedError(dialect.name());
 
 
-		assertIt(type2, byte1);
-		assertIt(type2, byte1l);
-		assertIt(type2, byte1u);
-		assertIt(type2, byte2);
-		assertIt(type4, byte2l);
-		assertIt(type4, byte2u);
-		assertIt(type4, byte4);
-		assertIt(type8, byte4l);
-		assertIt(type8, byte4u);
-		assertIt(type8, byte8);
+		assertType(type2, byte1);
+		assertType(type2, byte1l);
+		assertType(type2, byte1u);
+		assertType(type2, byte2);
+		assertType(type4, byte2l);
+		assertType(type4, byte2u);
+		assertType(type4, byte4);
+		assertType(type8, byte4l);
+		assertType(type8, byte4u);
+		assertType(type8, byte8);
 	}
 
-	private void assertIt(final String expected, final LongField field)
+	private void assertType(final String expected, final LongField field)
 	{
 		assertEquals(
 				field.getID(),
