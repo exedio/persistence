@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsNativeDate;
+import static com.exedio.cope.SchemaInfo.supportsNotNull;
+import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
+
 import java.sql.SQLException;
 
 public class CapabilitiesTest extends AbstractRuntimeTest
@@ -37,10 +42,10 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		assertEquals(mysql, model.supportsRandom());
 
 		// SchemaInfo
-		assertEquals(!mysql, SchemaInfo.supportsCheckConstraints(model));
-		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), SchemaInfo.supportsNativeDate(model));
-		assertEquals((mysql||postgresql) && !props.isSupportDisabledForNotNull(), SchemaInfo.supportsNotNull(model));
-		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation() && model.connect().database.dialectParameters.environmentInfo.isDatabaseVersionAtLeast(5, 1), SchemaInfo.supportsUniqueViolation(model));
+		assertEquals(!mysql, supportsCheckConstraints(model));
+		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), supportsNativeDate(model));
+		assertEquals((mysql||postgresql) && !props.isSupportDisabledForNotNull(), supportsNotNull(model));
+		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation() && model.connect().database.dialectParameters.environmentInfo.isDatabaseVersionAtLeast(5, 1), supportsUniqueViolation(model));
 	}
 
 	public void testSchemaSavepoint()
