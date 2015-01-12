@@ -42,7 +42,7 @@ public final class SchemaTypeIntegerItem extends Item
 
 	SchemaTypeIntegerItem(final ArrayList<SetValue<?>> sv)
 	{
-		super(sv.toArray(new SetValue<?>[0]));
+		super(sv.toArray(new SetValue<?>[sv.size()]));
 	}
 
 	/**
