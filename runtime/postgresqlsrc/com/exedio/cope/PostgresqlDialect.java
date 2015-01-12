@@ -35,13 +35,6 @@ final class PostgresqlDialect extends Dialect
 		super(
 				parameters,
 				new com.exedio.dsmf.PostgresqlDialect());
-
-		final EnvironmentInfo ei = parameters.environmentInfo;
-		// version 8 needed for savepoints
-		if(ei.getDatabaseMajorVersion()<8)
-			throw new RuntimeException("postgresql support needs at least database version 8, but was: " + ei.getDatabaseVersionDescription());
-		if(ei.getDriverMajorVersion()<8)
-			throw new RuntimeException("postgresql support needs at least jdbc driver version 8, but was: " + ei.getDriverVersionDescription());
 	}
 
 	/**
