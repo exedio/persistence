@@ -39,25 +39,25 @@ public class CheckConstraintSchemaTest extends AbstractRuntimeTest
 
 	public void testMeta()
 	{
-		if(!postgresql)
-		{
-			final Schema schema = model.getVerifiedSchema();
+		if(postgresql)
+			return;
 
-			final Table table = schema.getTable(getTableName(TYPE));
-			assertNotNull(table);
-			assertEquals(null, table.getError());
-			assertEquals(Schema.Color.OK, table.getParticularColor());
+		final Schema schema = model.getVerifiedSchema();
 
-			final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
-			assertNotNull(superTable);
-			assertEquals(null, superTable.getError());
-			assertEquals(Schema.Color.OK, superTable.getParticularColor());
+		final Table table = schema.getTable(getTableName(TYPE));
+		assertNotNull(table);
+		assertEquals(null, table.getError());
+		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-			assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
-			assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
+		final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
+		assertNotNull(superTable);
+		assertEquals(null, superTable.getError());
+		assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-			assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
-		}
+		assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
+		assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
+
+		assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
 	}
 
 	private final String q(final IntegerField f)
