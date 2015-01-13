@@ -32,6 +32,9 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte4l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte8;
 
+import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
 import java.util.ArrayList;
 import junit.framework.AssertionFailedError;
 
@@ -128,6 +131,24 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 			assertEquals(field.getID(), field.getMinimum(), field.getMandatory(min ));
 			assertEquals(field.getID(), field.getMaximum(), field.getMandatory(max ));
 			assertEquals(field.getID(), 0                 , field.getMandatory(zero));
+		}
+	}
+
+	public void testSchema()
+	{
+		model.commit();
+		final Schema schema = model.getVerifiedSchema();
+
+		final Table table = schema.getTable(getTableName(TYPE));
+		assertNotNull(table);
+		assertEquals(null, table.getError());
+		assertEquals(Schema.Color.OK, table.getParticularColor());
+
+		for(final Column column : table.getColumns())
+		{
+			final String msg = column.getName() + '<' + column.getType() + '>';
+			assertEquals(msg, null, column.getError());
+			assertEquals(msg, Schema.Color.OK, column.getParticularColor());
 		}
 	}
 }
