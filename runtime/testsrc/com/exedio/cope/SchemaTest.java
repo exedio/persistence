@@ -48,6 +48,7 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
+import junit.framework.AssertionFailedError;
 
 public class SchemaTest extends AbstractRuntimeTest
 {
@@ -61,7 +62,6 @@ public class SchemaTest extends AbstractRuntimeTest
 
 	public void testSchema()
 	{
-		if(postgresql) return;
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -101,8 +101,13 @@ public class SchemaTest extends AbstractRuntimeTest
 			string8 = "VARCHAR(8)";
 		else if(mysql)
 			string8 = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
-		else
+		else if(oracle)
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
+		else if(postgresql)
+			string8 = "VARCHAR(8)";
+		else
+			throw new AssertionFailedError(dialect.name());
+
 		assertEquals(string8, min4Max8Column.getType());
 
 		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" REGEXP '^[A-Z]*$')" : "";
@@ -141,7 +146,8 @@ public class SchemaTest extends AbstractRuntimeTest
 				fail();
 		}
 
-		assertEquals(Schema.Color.OK, table.getCumulativeColor());
+		if(!postgresql)
+			assertEquals(Schema.Color.OK, table.getCumulativeColor());
 	}
 
 	private final String q(final Field<?> f)

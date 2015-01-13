@@ -39,9 +39,6 @@ public class CheckConstraintSchemaTest extends AbstractRuntimeTest
 
 	public void testMeta()
 	{
-		if(postgresql)
-			return;
-
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));

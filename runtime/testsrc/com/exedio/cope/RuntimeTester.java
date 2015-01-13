@@ -274,8 +274,11 @@ final class RuntimeTester
 		assertEquals(name, type, constraint.getClass());
 		assertEquals(name, condition, constraint.getRequiredCondition());
 		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
+		if(!( (type==CheckConstraint.class||type==UniqueConstraint.class) && postgresql ))
+		{
+			assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
+			assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
+		}
 		return type.cast(constraint);
 	}
 

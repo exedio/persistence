@@ -108,7 +108,6 @@ public class NameTest extends AbstractRuntimeTest
 
 		model.commit();
 
-		if(!postgresql)
 		{
 			final Schema schema = model.getVerifiedSchema();
 			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
