@@ -45,7 +45,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		assertEquals(!mysql, supportsCheckConstraints(model));
 		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), supportsNativeDate(model));
 		assertEquals((mysql||postgresql) && !props.isSupportDisabledForNotNull(), supportsNotNull(model));
-		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation() && model.connect().database.dialectParameters.environmentInfo.isDatabaseVersionAtLeast(5, 1), supportsUniqueViolation(model));
+		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
 	public void testSchemaSavepoint()
