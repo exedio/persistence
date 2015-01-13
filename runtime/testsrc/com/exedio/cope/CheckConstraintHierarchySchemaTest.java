@@ -42,9 +42,6 @@ public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeTest
 
 	public void testSchema()
 	{
-		if(postgresql)
-			return;
-
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
