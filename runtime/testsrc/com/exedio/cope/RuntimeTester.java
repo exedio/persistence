@@ -47,10 +47,10 @@ final class RuntimeTester
 
 	enum Dialect
 	{
-		HSQLDB("TIMESTAMP"),
-		MYSQL(null),
-		ORACLE("TIMESTAMP(3)"),
-		POSTGRESQL("timestamp (3) without time zone");
+		hsqldb("TIMESTAMP"),
+		mysql(null),
+		oracle("TIMESTAMP(3)"),
+		postgresql("timestamp (3) without time zone");
 
 		final String dateTimestampType;
 
@@ -74,21 +74,21 @@ final class RuntimeTester
 		final String database = model.getConnectProperties().getDialect();
 
 		if("com.exedio.cope.HsqldbDialect".equals(database))
-			dialect = Dialect.HSQLDB;
+			dialect = Dialect.hsqldb;
 		else if("com.exedio.cope.MysqlDialect".equals(database))
-			dialect = Dialect.MYSQL;
+			dialect = Dialect.mysql;
 		else if("com.exedio.cope.OracleDialect".equals(database))
-			dialect = Dialect.ORACLE;
+			dialect = Dialect.oracle;
 		else if("com.exedio.cope.PostgresqlDialect".equals(database))
-			dialect = Dialect.POSTGRESQL;
+			dialect = Dialect.postgresql;
 		else
 			fail(database);
 
 
-		hsqldb = dialect==Dialect.HSQLDB;
-		mysql  = dialect==Dialect.MYSQL;
-		oracle = dialect==Dialect.ORACLE;
-		postgresql = dialect==Dialect.POSTGRESQL;
+		hsqldb     = dialect==Dialect.hsqldb;
+		mysql      = dialect==Dialect.mysql;
+		oracle     = dialect==Dialect.oracle;
+		postgresql = dialect==Dialect.postgresql;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
 	}
 

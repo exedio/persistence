@@ -89,13 +89,13 @@ public class QueryInfoTest extends AbstractRuntimeTest
 
 		switch(dialect)
 		{
-			case MYSQL:
+			case mysql:
 			{
 				final QueryInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
 				break;
 			}
-			case ORACLE:
+			case oracle:
 			{
 				final QueryInfo planId = rootChilds.next();
 				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
@@ -126,8 +126,8 @@ public class QueryInfoTest extends AbstractRuntimeTest
 				}
 				break;
 			}
-			case HSQLDB:
-			case POSTGRESQL:
+			case hsqldb:
+			case postgresql:
 				break;
 			default:
 				fail(dialect.toString());
