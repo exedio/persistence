@@ -92,7 +92,7 @@ public abstract class Dialect
 						{
 							String columnType = getColumnType(dataType, resultSet);
 							if(columnType==null)
-								columnType = String.valueOf(dataType);
+								columnType = "DATA_TYPE(" + dataType + ')';
 
 							table.notifyExistentColumn(columnName, columnType);
 						}
