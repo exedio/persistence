@@ -24,6 +24,7 @@ import static com.exedio.dsmf.PostgresqlDialect.DATE;
 import static com.exedio.dsmf.PostgresqlDialect.DOUBLE;
 import static com.exedio.dsmf.PostgresqlDialect.INTEGER;
 import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
+import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
@@ -71,7 +72,7 @@ final class PostgresqlDialect extends Dialect
 			final int maxBytes /* TODO should be maxChars*/,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxBytes>10485760) ? "TEXT" : "VARCHAR("+maxBytes+')';
+		return (maxBytes>VARCHAR_LIMIT) ? "TEXT" : "VARCHAR("+maxBytes+')';
 	}
 
 	@Override
