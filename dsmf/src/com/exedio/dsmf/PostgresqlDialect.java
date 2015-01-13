@@ -131,6 +131,24 @@ public final class PostgresqlDialect extends Dialect
 				"JOIN information_schema.key_column_usage tgt ON rc.unique_constraint_name=tgt.constraint_name " +
 				"WHERE rc.constraint_catalog='" + catalog + '\'',
 				schema);
+
+		schema.querySQL(
+				"SELECT sequence_name " +
+				"FROM information_schema.sequences " +
+				"WHERE sequence_catalog='" + catalog + '\'',
+			new ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final String name = resultSet.getString(1);
+						schema.notifyExistentSequence(name);
+					}
+				}
+			});
 	}
 
 	@Override

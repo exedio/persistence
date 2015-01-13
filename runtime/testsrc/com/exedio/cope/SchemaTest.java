@@ -129,16 +129,12 @@ public class SchemaTest extends AbstractRuntimeTest
 				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
 				break;
 			case sequence:
-				if(postgresql)
-					break;
 				final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
 				assertEquals(null, sequence.getError());
 				assertEquals(Schema.Color.OK, sequence.getParticularColor());
 				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
 				break;
 			case batchedSequence:
-				if(postgresql)
-					break;
 				final Sequence batchedSequence = schema.getSequence(filterTableName("SchemaItem_this_Seq6"));
 				assertEquals(null, batchedSequence.getError());
 				assertEquals(Schema.Color.OK, batchedSequence.getParticularColor());
