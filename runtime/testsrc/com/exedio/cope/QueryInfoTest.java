@@ -128,6 +128,7 @@ public class QueryInfoTest extends AbstractRuntimeTest
 			}
 			case hsqldb:
 			case postgresql:
+				assertFalse(rootChilds.hasNext());
 				break;
 			default:
 				fail(dialect.toString());
