@@ -32,7 +32,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	}
 
 	protected RuntimeTester.Dialect dialect = null;
-	protected boolean hsqldb;
 	protected boolean mysql;
 	protected boolean oracle;
 	protected boolean postgresql;
@@ -44,7 +43,6 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super.setUp();
 		tester.setUp();
 		dialect = tester.dialect;
-		hsqldb = tester.hsqldb;
 		mysql  = tester.mysql;
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
