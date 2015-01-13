@@ -126,6 +126,15 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	{
+		bf.append(
+				ascending
+				? " NULLS FIRST"
+				: " NULLS LAST" );
+	}
+
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;
