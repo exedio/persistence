@@ -108,8 +108,8 @@ public abstract class SchemaTest extends TestCase
 		{
 			Class.forName("org.postgresql.Driver");
 			dialect = new PostgresqlDialect();
-			stringType = "VARCHAR(8)";
-			intType = "INTEGER";
+			stringType = "varchar(8)";
+			intType = "integer";
 			intType2 = null;
 			hsqldb = false;
 			postgresql = true;

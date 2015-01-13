@@ -104,7 +104,7 @@ public class SchemaTest extends AbstractRuntimeTest
 		else if(oracle)
 			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
 		else if(postgresql)
-			string8 = "VARCHAR(8)";
+			string8 = "varchar(8)";
 		else
 			throw new AssertionFailedError(dialect.name());
 

@@ -67,8 +67,8 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 				type8 = "NUMBER(20)";
 				break;
 			case postgresql:
-				type2 = type4 = "INTEGER";
-				type8 = "BIGINT";
+				type2 = type4 = "integer";
+				type8 = "bigint";
 				break;
 			default:
 				throw new AssertionFailedError(dialect.name());

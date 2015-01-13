@@ -72,7 +72,7 @@ final class PostgresqlDialect extends Dialect
 			final int maxBytes /* TODO should be maxChars*/,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxBytes>VARCHAR_LIMIT) ? "TEXT" : "VARCHAR("+maxBytes+')';
+		return (maxBytes>VARCHAR_LIMIT) ? "text" : "varchar("+maxBytes+')';
 	}
 
 	@Override

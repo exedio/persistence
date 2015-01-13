@@ -30,11 +30,11 @@ public final class PostgresqlDialect extends Dialect
 		super(null);
 	}
 
-	public static final String INTEGER   = "INTEGER";
-	public static final String BIGINT    = "BIGINT";
-	public static final String DOUBLE    = "DOUBLE PRECISION";
+	public static final String INTEGER   = "integer";
+	public static final String BIGINT    = "bigint";
+	public static final String DOUBLE    = "double precision";
 	public static final int VARCHAR_LIMIT = 10485760;
-	public static final String DATE      = "DATE";
+	public static final String DATE      = "date";
 	public static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field, TODO fetch precision and time zone
 	public static final String BINARY    = "bytea";
 
@@ -65,9 +65,9 @@ public final class PostgresqlDialect extends Dialect
 				return DOUBLE;
 			case Types.VARCHAR:
 				if( columnSize<0 || columnSize>VARCHAR_LIMIT )
-					return "TEXT";
+					return "text";
 				else
-					return "VARCHAR("+columnSize+')';
+					return "varchar("+columnSize+')';
 			case Types.DATE:
 				return DATE;
 			case Types.TIMESTAMP:
