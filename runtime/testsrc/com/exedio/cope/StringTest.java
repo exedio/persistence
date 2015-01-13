@@ -640,9 +640,8 @@ public class StringTest extends AbstractRuntimeTest
 		assertStringSet(item, sa, "ab''");
 		assertStringSet(item, sa, "''ab");
 
-		// MySQL and PostgreSQL do interpret backslash sequences
+		// PostgreSQL interprets backslash sequences
 		// if prepared statements are disabled
-		// http://dev.mysql.com/doc/refman/5.1/en/string-syntax.html
 		// http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
 		if( !(postgresql && model.getConnectProperties().isSupportDisabledForPreparedStatements()) )
 		{
