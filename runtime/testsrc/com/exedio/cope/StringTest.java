@@ -640,27 +640,22 @@ public class StringTest extends AbstractRuntimeTest
 		assertStringSet(item, sa, "ab''");
 		assertStringSet(item, sa, "''ab");
 
-		// PostgreSQL interprets backslash sequences
-		// if prepared statements are disabled
-		// http://www.postgresql.org/docs/9.0/interactive/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
-		if( !(postgresql && model.getConnectProperties().isSupportDisabledForPreparedStatements()) )
-		{
-			assertStringSet(item, sa, "-\\0- slash zero");
-			assertStringSet(item, sa, "-\\'- slash quote");
-			assertStringSet(item, sa, "-\\\"- slash double quote");
-			assertStringSet(item, sa, "-\\b- slash b");
-			assertStringSet(item, sa, "-\\f- slash f");
-			assertStringSet(item, sa, "-\\n- slash n");
-			assertStringSet(item, sa, "-\\r- slash r");
-			assertStringSet(item, sa, "-\\t- slash t");
-			assertStringSet(item, sa, "-\\z- slash z");
-			assertStringSet(item, sa, "-\\Z- slash Z");
-			assertStringSet(item, sa, "-\\\\- slash slash");
-			assertStringSet(item, sa, "-\\%- slash percent");
-			assertStringSet(item, sa, "-\\_- slash underscore");
-			assertStringSet(item, sa, "-\\xaf- slash hex");
-			assertStringSet(item, sa, "-\\uafec- slash unicode");
-		}
+		// Test that database does not interpret backslash sequences
+		assertStringSet(item, sa, "-\\0- slash zero");
+		assertStringSet(item, sa, "-\\'- slash quote");
+		assertStringSet(item, sa, "-\\\"- slash double quote");
+		assertStringSet(item, sa, "-\\b- slash b");
+		assertStringSet(item, sa, "-\\f- slash f");
+		assertStringSet(item, sa, "-\\n- slash n");
+		assertStringSet(item, sa, "-\\r- slash r");
+		assertStringSet(item, sa, "-\\t- slash t");
+		assertStringSet(item, sa, "-\\z- slash z");
+		assertStringSet(item, sa, "-\\Z- slash Z");
+		assertStringSet(item, sa, "-\\\\- slash slash");
+		assertStringSet(item, sa, "-\\%- slash percent");
+		assertStringSet(item, sa, "-\\_- slash underscore");
+		assertStringSet(item, sa, "-\\xaf- slash hex");
+		assertStringSet(item, sa, "-\\uafec- slash unicode");
 
 		// TODO use streams for oracle
 		assertStringSet(item, sa, makeString(Math.min(sa.getMaximumLength(), oracle ? (1300/*32766-1*/) : (4 * 1000 * 1000))));
