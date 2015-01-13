@@ -364,10 +364,13 @@ final class RuntimeTester
 			assertOk(table.getName(), table);
 		}
 
+		if(postgresql)
+			return;
+
 		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
 			assertOk(sequence.getName(), sequence);
 
-		if(hsqldb||postgresql)
+		if(hsqldb)
 			return;
 
 		assertOk("schema", schema);
