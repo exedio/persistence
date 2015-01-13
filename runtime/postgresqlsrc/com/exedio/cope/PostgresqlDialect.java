@@ -23,9 +23,9 @@ import static com.exedio.dsmf.PostgresqlDialect.BINARY;
 import static com.exedio.dsmf.PostgresqlDialect.DATE;
 import static com.exedio.dsmf.PostgresqlDialect.DOUBLE;
 import static com.exedio.dsmf.PostgresqlDialect.INTEGER;
+import static com.exedio.dsmf.PostgresqlDialect.SMALLINT;
 import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
 import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
-import static com.exedio.dsmf.PostgresqlDialect.SMALLINT;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
