@@ -7,8 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Order By Null
-	- ConnectProperties field hsqldb.nullsAreSortedLow removed.
+* ConnectProperties field hsqldb.nullsAreSortedLow removed
 * instrumentor supports type parameters of items
 * @UrlFingerPrinting is ignored for final MediaPathes
 * ColorField#to/fromRGB added.
