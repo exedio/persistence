@@ -60,6 +60,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
+	 * See http://www.postgresql.org/docs/9.3/static/datatype-character.html
 	 * Datatype "varchar" can have at most 10485760 characters in postgresql.
 	 * <p>
 	 * Does never return "char(n)", because even if minChars==maxChars,
