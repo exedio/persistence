@@ -25,6 +25,7 @@ import static com.exedio.dsmf.PostgresqlDialect.DOUBLE;
 import static com.exedio.dsmf.PostgresqlDialect.INTEGER;
 import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
 import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
+import static com.exedio.dsmf.PostgresqlDialect.SMALLINT;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
@@ -51,7 +52,12 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? INTEGER : BIGINT; // TODO: smallint
+		if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE)
+			return SMALLINT;
+		else if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE)
+			return INTEGER;
+		else
+			return BIGINT;
 	}
 
 	@Override

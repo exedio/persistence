@@ -30,6 +30,7 @@ public final class PostgresqlDialect extends Dialect
 		super(null);
 	}
 
+	public static final String SMALLINT  = "smallint";
 	public static final String INTEGER   = "integer";
 	public static final String BIGINT    = "bigint";
 	public static final String DOUBLE    = "double precision";
@@ -57,6 +58,8 @@ public final class PostgresqlDialect extends Dialect
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
+			case Types.SMALLINT:
+				return SMALLINT;
 			case Types.INTEGER:
 				return INTEGER;
 			case Types.BIGINT:
