@@ -52,7 +52,7 @@ public class CacheIsolationTest extends AbstractRuntimeTest
 
 	public void test() throws MandatoryViolationException
 	{
-		if(postgresql||hsqldb) return;
+		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
