@@ -97,17 +97,15 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
 
 		final String string8;
-		if(hsqldb)
-			string8 = "VARCHAR(8)";
-		else if(mysql)
-			string8 = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
-		else if(oracle)
-			string8 = "VARCHAR2(24 BYTE)"; // varchar specifies bytes
-		else if(postgresql)
-			string8 = "varchar(8)";
-		else
-			throw new AssertionFailedError(dialect.name());
-
+		switch(dialect)
+		{
+			case hsqldb:     string8 = "VARCHAR(8)"; break;
+			case mysql :     string8 = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin"; break;
+			case oracle:     string8 = "VARCHAR2(24 BYTE)"; break; // varchar specifies bytes
+			case postgresql: string8 = "varchar(8)"; break;
+			default:
+				throw new AssertionFailedError(dialect.name());
+		}
 		assertEquals(string8, min4Max8Column.getType());
 
 		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" REGEXP '^[A-Z]*$')" : "";
