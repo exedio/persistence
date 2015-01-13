@@ -81,6 +81,9 @@ final class PostgresqlDialect extends Dialect
 		return "LENGTH";
 	}
 
+	/**
+	 * See http://www.postgresql.org/docs/9.3/static/datatype-datetime.html
+	 */
 	@Override
 	String getDayType()
 	{
