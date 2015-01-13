@@ -52,29 +52,27 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 		final String type2;
 		final String type4;
 		final String type8;
-		if(hsqldb)
+		switch(dialect)
 		{
-			type2 = type4 = "INTEGER";
-			type8 = "BIGINT";
+			case hsqldb:
+				type2 = type4 = "INTEGER";
+				type8 = "BIGINT";
+				break;
+			case mysql:
+				type2 = type4 = "int";
+				type8 = "bigint";
+				break;
+			case oracle:
+				type2 = type4 = "NUMBER(10)";
+				type8 = "NUMBER(20)";
+				break;
+			case postgresql:
+				type2 = type4 = "INTEGER";
+				type8 = "BIGINT";
+				break;
+			default:
+				throw new AssertionFailedError(dialect.name());
 		}
-		else if(mysql)
-		{
-			type2 = type4 = "int";
-			type8 = "bigint";
-		}
-		else if(oracle)
-		{
-			type2 = type4 = "NUMBER(10)";
-			type8 = "NUMBER(20)";
-		}
-		else if(postgresql)
-		{
-			type2 = type4 = "INTEGER";
-			type8 = "BIGINT";
-		}
-		else
-			throw new AssertionFailedError(dialect.name());
-
 
 		assertType(type2, byte1);
 		assertType(type2, byte1l);
