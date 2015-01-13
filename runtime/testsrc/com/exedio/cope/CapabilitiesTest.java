@@ -50,30 +50,31 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 
 	public void testSchemaSavepoint()
 	{
-		if(mysql)
+		switch(dialect)
 		{
-			try
-			{
-				final String result = model.getSchemaSavepoint();
-				//System.out.println(result);
-				assertNotNull(result);
-			}
-			catch(final SQLException e)
-			{
-				// ok
-			}
-		}
-		else
-		{
-			try
-			{
-				final String result = model.getSchemaSavepoint();
-				fail(result);
-			}
-			catch(final SQLException e)
-			{
-				assertEquals("not supported", e.getMessage());
-			}
+			case mysql:
+				try
+				{
+					final String result = model.getSchemaSavepoint();
+					//System.out.println(result);
+					assertNotNull(result);
+				}
+				catch(final SQLException e)
+				{
+					// ok
+				}
+				break;
+			default:
+				try
+				{
+					final String result = model.getSchemaSavepoint();
+					fail(result);
+				}
+				catch(final SQLException e)
+				{
+					assertEquals("not supported", e.getMessage());
+				}
+				break;
 		}
 	}
 
