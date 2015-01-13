@@ -58,25 +58,18 @@ public final class PostgresqlDialect extends Dialect
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
-			case Types.SMALLINT:
-				return SMALLINT;
-			case Types.INTEGER:
-				return INTEGER;
-			case Types.BIGINT:
-				return BIGINT;
-			case Types.DOUBLE:
-				return DOUBLE;
+			case Types.SMALLINT:  return SMALLINT;
+			case Types.INTEGER:   return INTEGER;
+			case Types.BIGINT:    return BIGINT;
+			case Types.DOUBLE:    return DOUBLE;
 			case Types.VARCHAR:
 				if( columnSize<0 || columnSize>VARCHAR_LIMIT )
 					return "text";
 				else
 					return "varchar("+columnSize+')';
-			case Types.DATE:
-				return DATE;
-			case Types.TIMESTAMP:
-				return TIMESTAMP;
-			case Types.BINARY:
-				return BINARY;
+			case Types.DATE:      return DATE;
+			case Types.TIMESTAMP: return TIMESTAMP;
+			case Types.BINARY:    return BINARY;
 			default:
 				return null;
 		}

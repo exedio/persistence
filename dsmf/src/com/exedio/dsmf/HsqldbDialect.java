@@ -34,18 +34,12 @@ public final class HsqldbDialect extends Dialect
 	{
 		switch(dataType)
 		{
-			case Types.INTEGER:
-				return "INTEGER";
-			case Types.BIGINT:
-				return "BIGINT";
-			case Types.DOUBLE:
-				return "DOUBLE";
-			case Types.TIMESTAMP:
-				return "TIMESTAMP";
-			case Types.DATE:
-				return "DATE";
-			case Types.BLOB:
-				return "BLOB";
+			case Types.INTEGER:   return "INTEGER";
+			case Types.BIGINT:    return "BIGINT";
+			case Types.DOUBLE:    return "DOUBLE";
+			case Types.TIMESTAMP: return "TIMESTAMP";
+			case Types.DATE:      return "DATE";
+			case Types.BLOB:      return "BLOB";
 			case Types.VARCHAR:
 				final int columnSize = resultSet.getInt("COLUMN_SIZE");
 				return "VARCHAR("+columnSize+')';

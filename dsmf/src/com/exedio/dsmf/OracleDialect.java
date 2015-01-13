@@ -68,17 +68,12 @@ public final class OracleDialect extends Dialect
 
 				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
 			}
-			case Types.VARCHAR:
-				return "VARCHAR2("+columnSize+" BYTE)";
+			case Types.VARCHAR:     return "VARCHAR2("+columnSize+" BYTE)";
 			case Types.TIMESTAMP:
-			case Types.DATE:
-				return "DATE";
-			case Types.LONGVARCHAR:
-				return "LONG";
-			case Types.BLOB:
-				return "BLOB";
-			case Types.CLOB:
-				return "CLOB";
+			case Types.DATE:        return "DATE";
+			case Types.LONGVARCHAR: return "LONG";
+			case Types.BLOB:        return "BLOB";
+			case Types.CLOB:        return "CLOB";
 			default:
 				return null;
 		}
