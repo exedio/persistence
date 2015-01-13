@@ -102,7 +102,7 @@ public final class OracleDialect extends Dialect
 	{
 		super.verify(schema);
 
-		schema.querySQL("SELECT TABLE_NAME FROM user_tables", new Node.ResultSetHandler()
+		schema.querySQL("SELECT TABLE_NAME FROM user_tables", new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -204,7 +204,7 @@ public final class OracleDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME " +
 				"FROM USER_SEQUENCES",
-			new Node.ResultSetHandler()
+			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{

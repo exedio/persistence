@@ -80,7 +80,7 @@ public final class MysqlDialect extends Dialect
 			"SELECT TABLE_NAME " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
-			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			new ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
 			{
 				//printMeta(resultSet);
 				while(resultSet.next())
@@ -100,7 +100,7 @@ public final class MysqlDialect extends Dialect
 			"SELECT TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
 			"FROM information_schema.COLUMNS " +
 			"WHERE TABLE_SCHEMA='" + catalog + '\'',
-			new Node.ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			new ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
 			{
 				//printMeta(resultSet);
 				while(resultSet.next())
@@ -165,7 +165,7 @@ public final class MysqlDialect extends Dialect
 					bf.append("SHOW COLUMNS FROM ").
 						append(quoteName(table.name));
 
-					schema.querySQL(bf.toString(), new Node.ResultSetHandler()
+					schema.querySQL(bf.toString(), new ResultSetHandler()
 						{
 							public void run(final ResultSet resultSet) throws SQLException
 							{

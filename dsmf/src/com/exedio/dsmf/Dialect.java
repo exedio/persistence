@@ -59,7 +59,7 @@ public abstract class Dialect
 
 	void verify(final Schema schema)
 	{
-		schema.querySQL(Node.GET_TABLES, new Node.ResultSetHandler()
+		schema.querySQL(Node.GET_TABLES, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -77,7 +77,7 @@ public abstract class Dialect
 				}
 			});
 
-		schema.querySQL(Node.GET_COLUMNS, new Node.ResultSetHandler()
+		schema.querySQL(Node.GET_COLUMNS, new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{

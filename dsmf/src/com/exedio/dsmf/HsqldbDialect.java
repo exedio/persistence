@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -58,7 +59,7 @@ public final class HsqldbDialect extends Dialect
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
-			new Node.ResultSetHandler()
+			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
@@ -94,7 +95,7 @@ public final class HsqldbDialect extends Dialect
 								append(constraintName).
 								append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
 
-							schema.querySQL(bf.toString(), new Node.ResultSetHandler()
+							schema.querySQL(bf.toString(), new ResultSetHandler()
 								{
 									public void run(final ResultSet resultSet) throws SQLException
 									{
@@ -136,7 +137,7 @@ public final class HsqldbDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
-			new Node.ResultSetHandler()
+			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
 				{
