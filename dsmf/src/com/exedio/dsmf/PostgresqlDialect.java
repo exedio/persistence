@@ -40,6 +40,19 @@ public final class PostgresqlDialect extends Dialect
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
+		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
+		if(withoutNullable==null)
+			return null;
+
+		final boolean nullable = resultSet.getBoolean("NULLABLE");
+		if(nullable || "this".equals(resultSet.getString("COLUMN_NAME"))) // TODO
+			return withoutNullable;
+
+		return withoutNullable + " not null";
+	}
+
+	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
+	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
