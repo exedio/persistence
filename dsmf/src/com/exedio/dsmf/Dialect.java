@@ -83,9 +83,9 @@ public abstract class Dialect
 				{
 					while(resultSet.next())
 					{
-						final String tableName = resultSet.getString("TABLE_NAME");
+						final String tableName  = resultSet.getString("TABLE_NAME" );
 						final String columnName = resultSet.getString("COLUMN_NAME");
-						final int dataType = resultSet.getInt("DATA_TYPE");
+						final int    dataType   = resultSet.getInt   ("DATA_TYPE"  );
 
 						final Table table = schema.getTable(tableName);
 						if(table!=null)
