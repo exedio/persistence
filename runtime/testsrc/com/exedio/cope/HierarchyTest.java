@@ -309,7 +309,6 @@ public class HierarchyTest extends AbstractRuntimeTest
 	{
 		model.commit();
 
-		if(!postgresql)
 		{
 			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
 			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
