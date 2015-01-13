@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.dsmf.PostgresqlDialect.BIGINT;
+import static com.exedio.dsmf.PostgresqlDialect.BINARY;
+import static com.exedio.dsmf.PostgresqlDialect.DATE;
+import static com.exedio.dsmf.PostgresqlDialect.DOUBLE;
+import static com.exedio.dsmf.PostgresqlDialect.INTEGER;
+import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
+
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import java.io.IOException;
@@ -43,13 +50,13 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "INTEGER" : "BIGINT"; // TODO: smallint
+		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? INTEGER : BIGINT; // TODO: smallint
 	}
 
 	@Override
 	String getDoubleType()
 	{
-		return "DOUBLE PRECISION";
+		return DOUBLE;
 	}
 
 	/**
@@ -75,19 +82,19 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getDayType()
 	{
-		return "DATE";
+		return DATE;
 	}
 
 	@Override
 	String getDateTimestampType()
 	{
-		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
+		return TIMESTAMP;
 	}
 
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return (maximumLength<Integer.MAX_VALUE) ? "bytea" : null;
+		return (maximumLength<Integer.MAX_VALUE) ? BINARY : null;
 	}
 
 	@Override

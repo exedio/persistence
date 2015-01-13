@@ -30,6 +30,13 @@ public final class PostgresqlDialect extends Dialect
 		super(null);
 	}
 
+	public static final String INTEGER   = "INTEGER";
+	public static final String BIGINT    = "BIGINT";
+	public static final String DOUBLE    = "DOUBLE PRECISION";
+	public static final String DATE      = "DATE";
+	public static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field, TODO fetch precision and time zone
+	public static final String BINARY    = "bytea";
+
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
@@ -37,11 +44,11 @@ public final class PostgresqlDialect extends Dialect
 		switch(dataType)
 		{
 			case Types.INTEGER:
-				return "INTEGER";
+				return INTEGER;
 			case Types.BIGINT:
-				return "BIGINT";
+				return BIGINT;
 			case Types.DOUBLE:
-				return "DOUBLE PRECISION";
+				return DOUBLE;
 			case Types.VARCHAR:
 				switch(columnSize)
 				{
@@ -49,11 +56,11 @@ public final class PostgresqlDialect extends Dialect
 					default: return "VARCHAR("+columnSize+')';
 				}
 			case Types.DATE:
-				return "DATE";
+				return DATE;
 			case Types.TIMESTAMP:
-				return "timestamp (3) without time zone"; // TODO fetch precision and time zone
+				return TIMESTAMP;
 			case Types.BINARY:
-				return "bytea";
+				return BINARY;
 			default:
 				return null;
 		}
