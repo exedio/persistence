@@ -50,7 +50,7 @@ abstract class Dialect
 
 	final com.exedio.dsmf.Dialect dsmfDialect;
 
-	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect) // TODO remove unused
+	protected Dialect(final com.exedio.dsmf.Dialect dsmfDialect)
 	{
 		this.dsmfDialect = dsmfDialect;
 	}

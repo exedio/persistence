@@ -39,10 +39,12 @@ import java.util.List;
 
 final class PostgresqlDialect extends Dialect
 {
+	/**
+	 * @param parameters must be there to be called by reflection
+	 */
 	protected PostgresqlDialect(final DialectParameters parameters)
 	{
 		super(
-				parameters,
 				new com.exedio.dsmf.PostgresqlDialect());
 	}
 

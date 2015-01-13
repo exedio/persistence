@@ -47,7 +47,6 @@ final class MysqlDialect extends Dialect
 	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(
-				parameters,
 				new com.exedio.dsmf.MysqlDialect(
 						parameters.properties.mysqlRowFormat.sql));
 		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
