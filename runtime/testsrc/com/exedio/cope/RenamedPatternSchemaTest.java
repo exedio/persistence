@@ -35,8 +35,6 @@ public class RenamedPatternSchemaTest extends AbstractRuntimeTest
 
 	public void testSchema()
 	{
-		if(postgresql) return;
-
 		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
