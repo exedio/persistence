@@ -100,14 +100,8 @@ final class HsqldbDialect extends Dialect
 	@Override
 	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		if(ascending)
-		{
+		if(!ascending)
 			bf.append(" NULLS LAST");
-		}
-		else
-		{
-			bf.append(" NULLS LAST");
-		}
 	}
 
 	@Override
