@@ -87,6 +87,9 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 			sv.add(field.map(makeMax(field)));
 		final MysqlStringItem max = TYPE.newItem(sv);
 
+		for(final StringField field : fields)
+			assertEquals(makeMax(field), field.get(max));
+
 		restartTransaction();
 		for(final StringField field : fields)
 			assertEquals(makeMax(field), field.get(max));
