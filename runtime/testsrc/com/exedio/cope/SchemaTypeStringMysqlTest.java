@@ -18,31 +18,31 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.MysqlStringItem.TYPE;
-import static com.exedio.cope.MysqlStringItem.longMax;
-import static com.exedio.cope.MysqlStringItem.longMin;
-import static com.exedio.cope.MysqlStringItem.mediumMax;
-import static com.exedio.cope.MysqlStringItem.mediumMin;
-import static com.exedio.cope.MysqlStringItem.mediumMinExt;
-import static com.exedio.cope.MysqlStringItem.textMax;
-import static com.exedio.cope.MysqlStringItem.textMaxExt;
-import static com.exedio.cope.MysqlStringItem.textMin;
-import static com.exedio.cope.MysqlStringItem.textMinExt;
-import static com.exedio.cope.MysqlStringItem.varcharMax;
-import static com.exedio.cope.MysqlStringItem.varcharMaxExt;
-import static com.exedio.cope.MysqlStringItem.varcharMin;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.TYPE;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.longMax;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.longMin;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMax;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMin;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMinExt;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textMax;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textMaxExt;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textMin;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textMinExt;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMax;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMaxExt;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMin;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
 
-public class MysqlStringTest extends AbstractRuntimeModelTest
+public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public MysqlStringTest()
+	public SchemaTypeStringMysqlTest()
 	{
 		super(MODEL);
 	}
@@ -86,11 +86,11 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final StringField field : fields)
 			sv.add(field.map("x"));
-		final MysqlStringItem min = TYPE.newItem(sv);
+		final SchemaTypeStringMysqlItem min = TYPE.newItem(sv);
 		sv.clear();
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax(field)));
-		final MysqlStringItem max = TYPE.newItem(sv);
+		final SchemaTypeStringMysqlItem max = TYPE.newItem(sv);
 
 		for(final StringField field : fields)
 		{

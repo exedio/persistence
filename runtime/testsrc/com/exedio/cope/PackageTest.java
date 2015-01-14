@@ -152,6 +152,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( RenamedPatternSchemaTest.class );
 		suite.addTestSuite( SchemaModifyTest.class );
 		suite.addTestSuite( SchemaTypeIntegerTest.class );
+		suite.addTestSuite( SchemaTypeStringMysqlTest.class );
 		suite.addTestSuite( QueryInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );
 		suite.addTestSuite( TransactionEmptyTest.class );
@@ -181,7 +182,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CheckTypeColumnAbstractLinearTest.class );
 		suite.addTestSuite( SchemaPurgeTest.class );
 		suite.addTestSuite( TransactionTryTest.class );
-		suite.addTestSuite( MysqlStringTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTestSuite( InstanceOfQueryTest.class );

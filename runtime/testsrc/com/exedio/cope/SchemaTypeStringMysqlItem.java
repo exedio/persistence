@@ -22,7 +22,7 @@ package com.exedio.cope;
  * @cope.constructor none
  * @cope.generic.constructor none
  */
-public final class MysqlStringItem extends Item
+public final class SchemaTypeStringMysqlItem extends Item
 {
 	static final StringField varcharMin = new StringField().lengthMax(1);
 	static final StringField varcharMax = new StringField().lengthMax(85);
@@ -49,7 +49,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getVarcharMin()
 	{
-		return MysqlStringItem.varcharMin.get(this);
+		return SchemaTypeStringMysqlItem.varcharMin.get(this);
 	}/**
 
 	 **
@@ -63,7 +63,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.varcharMin.set(this,varcharMin);
+		SchemaTypeStringMysqlItem.varcharMin.set(this,varcharMin);
 	}/**
 
 	 **
@@ -74,7 +74,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getVarcharMax()
 	{
-		return MysqlStringItem.varcharMax.get(this);
+		return SchemaTypeStringMysqlItem.varcharMax.get(this);
 	}/**
 
 	 **
@@ -88,7 +88,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.varcharMax.set(this,varcharMax);
+		SchemaTypeStringMysqlItem.varcharMax.set(this,varcharMax);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getTextMin()
 	{
-		return MysqlStringItem.textMin.get(this);
+		return SchemaTypeStringMysqlItem.textMin.get(this);
 	}/**
 
 	 **
@@ -113,7 +113,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.textMin.set(this,textMin);
+		SchemaTypeStringMysqlItem.textMin.set(this,textMin);
 	}/**
 
 	 **
@@ -124,7 +124,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getTextMax()
 	{
-		return MysqlStringItem.textMax.get(this);
+		return SchemaTypeStringMysqlItem.textMax.get(this);
 	}/**
 
 	 **
@@ -138,7 +138,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.textMax.set(this,textMax);
+		SchemaTypeStringMysqlItem.textMax.set(this,textMax);
 	}/**
 
 	 **
@@ -149,7 +149,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getMediumMin()
 	{
-		return MysqlStringItem.mediumMin.get(this);
+		return SchemaTypeStringMysqlItem.mediumMin.get(this);
 	}/**
 
 	 **
@@ -163,7 +163,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.mediumMin.set(this,mediumMin);
+		SchemaTypeStringMysqlItem.mediumMin.set(this,mediumMin);
 	}/**
 
 	 **
@@ -174,7 +174,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getMediumMax()
 	{
-		return MysqlStringItem.mediumMax.get(this);
+		return SchemaTypeStringMysqlItem.mediumMax.get(this);
 	}/**
 
 	 **
@@ -188,7 +188,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.mediumMax.set(this,mediumMax);
+		SchemaTypeStringMysqlItem.mediumMax.set(this,mediumMax);
 	}/**
 
 	 **
@@ -199,7 +199,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getLongMin()
 	{
-		return MysqlStringItem.longMin.get(this);
+		return SchemaTypeStringMysqlItem.longMin.get(this);
 	}/**
 
 	 **
@@ -213,7 +213,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.longMin.set(this,longMin);
+		SchemaTypeStringMysqlItem.longMin.set(this,longMin);
 	}/**
 
 	 **
@@ -224,7 +224,7 @@ public final class MysqlStringItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getLongMax()
 	{
-		return MysqlStringItem.longMax.get(this);
+		return SchemaTypeStringMysqlItem.longMax.get(this);
 	}/**
 
 	 **
@@ -238,7 +238,7 @@ public final class MysqlStringItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		MysqlStringItem.longMax.set(this,longMax);
+		SchemaTypeStringMysqlItem.longMax.set(this,longMax);
 	}/**
 
 	 **
@@ -248,12 +248,12 @@ public final class MysqlStringItem extends Item
 	private static final long serialVersionUID = 1l;/**
 
 	 **
-	 * The persistent type information for mysqlStringItem.
+	 * The persistent type information for schemaTypeStringMysqlItem.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final com.exedio.cope.Type<MysqlStringItem> TYPE = com.exedio.cope.TypesBound.newType(MysqlStringItem.class);/**
+	public static final com.exedio.cope.Type<SchemaTypeStringMysqlItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringMysqlItem.class);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
@@ -261,5 +261,5 @@ public final class MysqlStringItem extends Item
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private MysqlStringItem(final com.exedio.cope.ActivationParameters ap){super(ap);
+	@SuppressWarnings("unused") private SchemaTypeStringMysqlItem(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
