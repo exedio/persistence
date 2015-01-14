@@ -205,6 +205,13 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	{
+		// Do nothing, as MySQL default behaviour defines behaviour of cope.
+		// All other dialects have to adapt.
+	}
+
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;

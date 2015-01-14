@@ -209,7 +209,10 @@ abstract class Dialect
 	 */
 	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		// do nothing
+		bf.append(
+				ascending
+				? " NULLS FIRST"
+				: " NULLS LAST" );
 	}
 
 	abstract LimitSupport getLimitSupport();
