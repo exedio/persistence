@@ -60,9 +60,6 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
 		j.setCondition(PolymorphicBoundSelectSuperItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSuperItem.TYPE.getThis().bind(j), PolymorphicBoundSelectSuperItem.parent);
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent);
-		if(!model.nullsAreSortedLow())
-			assertEquals(list(list(superItem, superItem), list(null, null)), q.search());
-		else
-			assertEquals(list(list(null, null), list(superItem, superItem)), q.search());
+		assertEquals(list(list(null, null), list(superItem, superItem)), q.search());
 	}
 }

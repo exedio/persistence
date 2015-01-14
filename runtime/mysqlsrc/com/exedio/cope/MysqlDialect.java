@@ -47,7 +47,6 @@ final class MysqlDialect extends Dialect
 	protected MysqlDialect(final DialectParameters parameters)
 	{
 		super(
-				parameters,
 				new com.exedio.dsmf.MysqlDialect(
 						parameters.properties.mysqlRowFormat.sql));
 		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
@@ -203,6 +202,13 @@ final class MysqlDialect extends Dialect
 		bf.append(dividend, join).
 			append(" DIV ").
 			append(divisor, join);
+	}
+
+	@Override
+	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	{
+		// Do nothing, as MySQL default behaviour defines behaviour of cope.
+		// All other dialects have to adapt.
 	}
 
 	@Override

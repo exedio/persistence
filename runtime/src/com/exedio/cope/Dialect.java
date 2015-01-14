@@ -48,12 +48,10 @@ abstract class Dialect
 	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
 	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 
-	private final NullsAreSorted nullsAreSorted;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 
-	protected Dialect(final DialectParameters parameters, final com.exedio.dsmf.Dialect dsmfDialect)
+	protected Dialect(final com.exedio.dsmf.Dialect dsmfDialect)
 	{
-		this.nullsAreSorted = parameters.nullsAreSorted;
 		this.dsmfDialect = dsmfDialect;
 	}
 
@@ -122,11 +120,6 @@ abstract class Dialect
 				throw new RuntimeException(field.toString(), e);
 			}
 		}
-	}
-
-	boolean nullsAreSortedLow()
-	{
-		return nullsAreSorted.low();
 	}
 
 	boolean supportsEmptyStrings()
@@ -216,7 +209,10 @@ abstract class Dialect
 	 */
 	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		// do nothing
+		bf.append(
+				ascending
+				? " NULLS FIRST"
+				: " NULLS LAST" );
 	}
 
 	abstract LimitSupport getLimitSupport();

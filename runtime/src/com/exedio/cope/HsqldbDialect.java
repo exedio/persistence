@@ -30,20 +30,13 @@ import java.util.List;
 
 final class HsqldbDialect extends Dialect
 {
-	private final boolean nullsAreSortedLow;
-
 	/**
 	 * @param parameters must be there to be called by reflection
 	 */
 	protected HsqldbDialect(final DialectParameters parameters)
 	{
 		super(
-				parameters,
 				new com.exedio.dsmf.HsqldbDialect());
-
-		this.nullsAreSortedLow = parameters.properties.hsqldbNullsAreSortedLow;
-		if(!parameters.nullsAreSorted.equals(NullsAreSorted.atStart))
-			throw new IllegalStateException(parameters.nullsAreSorted.name());
 	}
 
 	@Override
@@ -104,24 +97,10 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	boolean nullsAreSortedLow()
-	{
-		return nullsAreSortedLow;
-	}
-
-	@Override
 	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
-		if(ascending)
-		{
-			if(!nullsAreSortedLow)
-				bf.append(" NULLS LAST");
-		}
-		else
-		{
-			if(nullsAreSortedLow)
-				bf.append(" NULLS LAST");
-		}
+		if(!ascending)
+			bf.append(" NULLS LAST");
 	}
 
 	@Override

@@ -308,9 +308,16 @@ public final class Model implements Serializable
 		return new Date(initializeDate);
 	}
 
+	/**
+	 * @deprecated
+	 * Is not supported any longer.
+	 * Always returns true.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public boolean nullsAreSortedLow()
 	{
-		return connect().dialect.nullsAreSortedLow();
+		return true;
 	}
 
 	/**

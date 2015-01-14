@@ -224,37 +224,11 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		query.setGroupBy( GroupItem.optionalDouble );
 		query.setOrderBy( GroupItem.optionalDouble, true );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble", query.toString() );
-		if ( model.nullsAreSortedLow() )
-		{
-			assertContains(
-				list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1),
-				query.search()
-			);
-		}
-		else
-		{
-			assertContains(
-				list(1.0, 2, 1), list(2.0, 1, 1), list(null, 3, 1),
-				query.search()
-			);
-		}
+		assertContains( list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1), query.search() );
 
 		query.setOrderBy( GroupItem.optionalDouble, false );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble desc", query.toString() );
-		if ( model.nullsAreSortedLow() )
-		{
-			assertContains(
-				list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1),
-				query.search()
-			);
-		}
-		else
-		{
-			assertContains(
-				list(2.0, 1, 1), list(1.0, 2, 1), list(null, 3, 1),
-				query.search()
-			);
-		}
+		assertContains( list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1), query.search() );
 	}
 
 }
