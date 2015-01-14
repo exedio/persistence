@@ -106,15 +106,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link HiddenFeatures#get(Model)} instead.
-	 */
-	@Deprecated
-	public Map<Feature, Feature> getHiddenFeatures()
-	{
-		return HiddenFeatures.get(this);
-	}
-
-	/**
 	 * Connects this model to the database described in the properties.
 	 *
 	 * @throws IllegalStateException if this model has already been connected.
@@ -213,16 +204,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * calls {@link #reviseIfSupportedAndAutoEnabled}
-	 * @deprecated use {@link #reviseIfSupportedAndAutoEnabled} instead
-	 */
-	@Deprecated
-	public void reviseIfSupported()
-	{
-		reviseIfSupportedAndAutoEnabled();
-	}
-
-	/**
 	 * If this method returns successfully, the model's revisions (if any) have been executed.
 	 *
 	 * Automatic execution of revisions is controlled by connect property revise.auto.enabled.
@@ -306,18 +287,6 @@ public final class Model implements Serializable
 	public Date getInitializeDate()
 	{
 		return new Date(initializeDate);
-	}
-
-	/**
-	 * @deprecated
-	 * Is not supported any longer.
-	 * Always returns true.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public boolean nullsAreSortedLow()
-	{
-		return true;
 	}
 
 	/**
@@ -897,6 +866,37 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link HiddenFeatures#get(Model)} instead.
+	 */
+	@Deprecated
+	public Map<Feature, Feature> getHiddenFeatures()
+	{
+		return HiddenFeatures.get(this);
+	}
+
+	/**
+	 * calls {@link #reviseIfSupportedAndAutoEnabled}
+	 * @deprecated use {@link #reviseIfSupportedAndAutoEnabled} instead
+	 */
+	@Deprecated
+	public void reviseIfSupported()
+	{
+		reviseIfSupportedAndAutoEnabled();
+	}
+
+	/**
+	 * @deprecated
+	 * Is not supported any longer.
+	 * Always returns true.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public boolean nullsAreSortedLow()
+	{
+		return true;
+	}
 
 	/**
 	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
