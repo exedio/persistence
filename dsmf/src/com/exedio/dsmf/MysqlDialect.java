@@ -124,7 +124,7 @@ public final class MysqlDialect extends Dialect
 					if("NO".equals(isNullable))
 					{
 						if(!"PRI".equals(resultSet.getString(8)))
-							type.append(" not null");
+							type.append(NOT_NULL);
 					}
 					else if(!"YES".equals(isNullable))
 						throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);

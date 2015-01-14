@@ -34,6 +34,7 @@ import static com.exedio.cope.MysqlStringItem.varcharMin;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 	private void assertType(final String type, final StringField field)
 	{
 		assertEquals(
-				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? " not null" : ""),
+				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : ""),
 				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
 	}
 

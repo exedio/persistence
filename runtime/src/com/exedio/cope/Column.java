@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
@@ -91,7 +92,7 @@ abstract class Column
 		final String databaseType = getDatabaseType();
 		final String databaseTypeClause =
 			!optional && supportsNotNull
-			? databaseType + " not null"
+			? databaseType + NOT_NULL
 			: databaseType;
 
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);

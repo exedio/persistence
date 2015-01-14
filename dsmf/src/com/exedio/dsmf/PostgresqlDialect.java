@@ -50,7 +50,7 @@ public final class PostgresqlDialect extends Dialect
 		if(nullable || "this".equals(resultSet.getString("COLUMN_NAME"))) // TODO
 			return withoutNullable;
 
-		return withoutNullable + " not null";
+		return withoutNullable + NOT_NULL;
 	}
 
 	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException

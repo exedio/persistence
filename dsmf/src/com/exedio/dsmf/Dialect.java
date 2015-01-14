@@ -25,6 +25,8 @@ import java.sql.SQLException;
 
 public abstract class Dialect
 {
+	public static final String NOT_NULL = " not null";
+
 	final String schema;
 
 	Dialect(final String schema)

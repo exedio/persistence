@@ -31,6 +31,7 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte4;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte8;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
@@ -91,7 +92,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 	{
 		assertEquals(
 				field.getID(),
-				expected + (SchemaInfo.supportsNotNull(MODEL) ? " not null" : ""),
+				expected + (SchemaInfo.supportsNotNull(MODEL) ? NOT_NULL : ""),
 				model.getSchema().
 					getTable(getTableName(field.getType())).
 					getColumn(getColumnName(field)).
