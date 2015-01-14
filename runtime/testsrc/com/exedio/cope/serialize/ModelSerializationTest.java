@@ -48,6 +48,9 @@ public class ModelSerializationTest extends CopeAssert
 	@SuppressWarnings("unused")
 	private static final String modelWrong = "wrong";
 
+	private static final Class<?> itemClass = ModelSerializationItem.class;
+	private static final Class<?> testClass = ModelSerializationTest.class;
+
 	public void test() throws IOException
 	{
 		assertNotSerializable(model, Model.class);
@@ -73,7 +76,7 @@ public class ModelSerializationTest extends CopeAssert
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationItem.class, null);
+			model.enableSerialization(itemClass, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -82,57 +85,57 @@ public class ModelSerializationTest extends CopeAssert
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationItem.class, "model");
+			model.enableSerialization(itemClass, "model");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationItem.class.getName() + "#model does not exist.", e.getMessage());
+			assertEquals(itemClass.getName() + "#model does not exist.", e.getMessage());
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationTest.class, "modelx");
+			model.enableSerialization(testClass, "modelx");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationTest.class.getName() + "#modelx does not exist.", e.getMessage());
+			assertEquals(testClass.getName() + "#modelx does not exist.", e.getMessage());
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationTest.class, "modelNonStatic");
+			model.enableSerialization(testClass, "modelNonStatic");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationTest.class.getName() + "#modelNonStatic is not static final.", e.getMessage());
+			assertEquals(testClass.getName() + "#modelNonStatic is not static final.", e.getMessage());
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationTest.class, "modelNonFinal");
+			model.enableSerialization(testClass, "modelNonFinal");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationTest.class.getName() + "#modelNonFinal is not static final.", e.getMessage());
+			assertEquals(testClass.getName() + "#modelNonFinal is not static final.", e.getMessage());
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationTest.class, "modelNull");
+			model.enableSerialization(testClass, "modelNull");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationTest.class.getName() + "#modelNull is null.", e.getMessage());
+			assertEquals(testClass.getName() + "#modelNull is null.", e.getMessage());
 		}
 		try
 		{
-			model.enableSerialization(ModelSerializationTest.class, "modelWrong");
+			model.enableSerialization(testClass, "modelWrong");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(ModelSerializationTest.class.getName() + "#modelWrong is not a model, but java.lang.String.", e.getMessage());
+			assertEquals(testClass.getName() + "#modelWrong is not a model, but java.lang.String.", e.getMessage());
 		}
 		try
 		{
@@ -148,7 +151,7 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
 		assertNotSerializable(AnItem.TYPE, Type.class);
 
-		model.enableSerialization(ModelSerializationTest.class, "model");
+		model.enableSerialization(testClass, "model");
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
 		assertNotSerializable(AnItem.TYPE, Type.class);
@@ -159,16 +162,16 @@ public class ModelSerializationTest extends CopeAssert
 		assertNotSerializable(AnItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
-		assertEquals(ModelSerializationTest.class.getName() + "#model", model.toString());
+		assertEquals(testClass.getName() + "#model", model.toString());
 
 		try
 		{
-			model.enableSerialization(ModelSerializationItem.class, "modelx");
+			model.enableSerialization(itemClass, "modelx");
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("enableSerialization already been called for " + ModelSerializationTest.class.getName() + "#model", e.getMessage());
+			assertEquals("enableSerialization already been called for " + testClass.getName() + "#model", e.getMessage());
 		}
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
