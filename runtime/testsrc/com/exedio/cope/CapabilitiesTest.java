@@ -37,7 +37,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
-		assertEquals(true, model.nullsAreSortedLow());
 		assertEquals(!oracle && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
 		assertEquals(mysql, model.supportsRandom());
 
@@ -82,5 +81,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	public void testDeprecated()
 	{
 		assertEquals(true, SchemaInfo.supportsSequences(model));
+		assertEquals(true, model.nullsAreSortedLow());
 	}
 }

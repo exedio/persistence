@@ -36,7 +36,6 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		super(PlusIntegerTest.MODEL);
 	}
 
-	boolean nullsLow;
 	PlusIntegerItem item0;
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
@@ -45,7 +44,6 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		nullsLow = model.nullsAreSortedLow();
 		item0 = new PlusIntegerItem(1, null, null);
 		item1 = new PlusIntegerItem(2, 12,   null);
 		item2 = new PlusIntegerItem(3, 13,   null);
@@ -57,9 +55,9 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		assertOrder(list(item0, item1, item2), numC, numA);
 		assertOrder(list(item0, item1, item2), numA, numC);
 
-		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB);
-		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numA);
-		assertOrder(nullsLow ? list(item0, item1, item2) : list(item1, item2, item0), numB, numC);
+		assertOrder(list(item0, item1, item2), numB);
+		assertOrder(list(item0, item1, item2), numB, numA);
+		assertOrder(list(item0, item1, item2), numB, numC);
 	}
 
 	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
