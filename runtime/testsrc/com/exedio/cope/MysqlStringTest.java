@@ -84,15 +84,15 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final StringField field : fields)
-			sv.add(field.map(makeString(field)));
-		final MysqlStringItem item = TYPE.newItem(sv);
+			sv.add(field.map(makeMax(field)));
+		final MysqlStringItem max = TYPE.newItem(sv);
 
 		restartTransaction();
 		for(final StringField field : fields)
-			assertEquals(makeString(field), field.get(item));
+			assertEquals(makeMax(field), field.get(max));
 	}
 
-	private static String makeString(final StringField field)
+	private static String makeMax(final StringField field)
 	{
 		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
 		final char[] buf = new char[length];
