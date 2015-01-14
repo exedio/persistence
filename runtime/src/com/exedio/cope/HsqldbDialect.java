@@ -33,7 +33,7 @@ final class HsqldbDialect extends Dialect
 	/**
 	 * @param parameters must be there to be called by reflection
 	 */
-	protected HsqldbDialect(final DialectParameters parameters)
+	HsqldbDialect(final DialectParameters parameters)
 	{
 		super(
 				new com.exedio.dsmf.HsqldbDialect());
@@ -97,7 +97,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
 		if(!ascending)
 			bf.append(" NULLS LAST");
@@ -130,7 +130,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").
 			append(source, join).
@@ -138,7 +138,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		appendMatchClauseByLike(bf, function, value);
 	}
@@ -155,7 +155,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected Integer nextSequence(
+	Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -222,7 +222,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected Integer getNextSequence(
+	Integer getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -247,7 +247,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(
+	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
 			final ConnectionPool connectionPool)
@@ -282,7 +282,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).

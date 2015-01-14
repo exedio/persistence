@@ -102,7 +102,7 @@ public abstract class Dialect
 			});
 	}
 
-	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(
 			sql,
@@ -212,7 +212,7 @@ public abstract class Dialect
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
-	protected static final void printMeta(final ResultSet resultSet) throws SQLException
+	static final void printMeta(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -224,7 +224,7 @@ public abstract class Dialect
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
-	protected static final void printRow(final ResultSet resultSet) throws SQLException
+	static final void printRow(final ResultSet resultSet) throws SQLException
 	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();

@@ -44,7 +44,7 @@ final class MysqlDialect extends Dialect
 {
 	private final String deleteTable;
 
-	protected MysqlDialect(final DialectParameters parameters)
+	MysqlDialect(final DialectParameters parameters)
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(
@@ -53,7 +53,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void completeConnectionInfo(final Properties info)
+	void completeConnectionInfo(final Properties info)
 	{
 		// http://dev.mysql.com/doc/connector-j/en/connector-j-reference-configuration-properties.html
 		info.setProperty("useUnicode", "true");
@@ -66,7 +66,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void prepareDumperConnection(final Appendable out) throws IOException
+	void prepareDumperConnection(final Appendable out) throws IOException
 	{
 		out.append(
 				"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
@@ -81,7 +81,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		out.append(
 				"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
@@ -205,7 +205,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
 		// Do nothing, as MySQL default behaviour defines behaviour of cope.
 		// All other dialects have to adapt.
@@ -241,7 +241,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").
 			append(source, join).
@@ -249,7 +249,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(MATCH(").
 			append(function, (Join)null).
@@ -270,7 +270,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected String getClause(final String column, final CharSet set)
+	String getClause(final String column, final CharSet set)
 	{
 		if(!set.isSubsetOfAscii())
 			return super.getClause(column, set);
@@ -284,7 +284,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void append(
+	void append(
 			final Statement statement,
 			final StringFunction function,
 			final Join join,
@@ -301,7 +301,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
+	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("ALTER TABLE "))
@@ -349,7 +349,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append("TRUNCATE ").
 			append(quotedName);
@@ -360,7 +360,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected Integer nextSequence(
+	Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -389,7 +389,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected Integer getNextSequence(
+	Integer getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -414,7 +414,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(
+	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
 			final ConnectionPool connectionPool)
@@ -547,7 +547,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	protected void purgeSchema(
+	void purgeSchema(
 			final JobContext ctx,
 			final Database database,
 			final ConnectionPool connectionPool)

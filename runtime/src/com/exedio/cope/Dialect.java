@@ -36,21 +36,21 @@ import java.util.Properties;
  */
 abstract class Dialect
 {
-	protected static final int TWOPOW8 = 1<<8;
-	protected static final int TWOPOW16 = 1<<16;
-	protected static final int TWOPOW24 = 1<<24;
+	static final int TWOPOW8 = 1<<8;
+	static final int TWOPOW16 = 1<<16;
+	static final int TWOPOW24 = 1<<24;
 
 	/**
 	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
 	 */
-	protected static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
+	static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
 
-	protected static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
-	protected static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
+	static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
+	static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 
 	final com.exedio.dsmf.Dialect dsmfDialect;
 
-	protected Dialect(final com.exedio.dsmf.Dialect dsmfDialect)
+	Dialect(final com.exedio.dsmf.Dialect dsmfDialect)
 	{
 		this.dsmfDialect = dsmfDialect;
 	}
@@ -58,7 +58,7 @@ abstract class Dialect
 	/**
 	 * @param info used in subclasses
 	 */
-	protected void completeConnectionInfo(final Properties info)
+	void completeConnectionInfo(final Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
@@ -67,7 +67,7 @@ abstract class Dialect
 	 * @param out used in subclasses
 	 * @throws IOException thrown by subclasses
 	 */
-	protected void prepareDumperConnection(final Appendable out) throws IOException
+	void prepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
@@ -76,24 +76,24 @@ abstract class Dialect
 	 * @param out used in subclasses
 	 * @throws IOException thrown by subclasses
 	 */
-	protected void unprepareDumperConnection(final Appendable out) throws IOException
+	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	protected int getTransationIsolation()
+	int getTransationIsolation()
 	{
 		return Connection.TRANSACTION_REPEATABLE_READ;
 	}
 
-	protected static final String EXPLAIN_PLAN = "explain plan";
+	static final String EXPLAIN_PLAN = "explain plan";
 
 	/**
 	 * @param statement used in subclasses
 	 * @param connection used in subclasses
 	 * @param executor used in subclasses
 	 */
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
+	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		return null;
 	}
@@ -207,7 +207,7 @@ abstract class Dialect
 	 * @param bf the statement, the postfix is to be appended to
 	 * @param ascending whether the order by is ascending or descending
 	 */
-	protected void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement bf, final boolean ascending)
 	{
 		bf.append(
 				ascending
@@ -247,7 +247,7 @@ abstract class Dialect
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
-	protected static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
+	static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append(function, (Join)null).
 			append(" LIKE ").
@@ -264,7 +264,7 @@ abstract class Dialect
 	/**
 	 * Returns null, if the dialect does not support clauses for CharacterSet.
 	 */
-	protected String getClause(final String column, final CharSet set)
+	String getClause(final String column, final CharSet set)
 	{
 		if(column==null)
 			throw new NullPointerException();
@@ -275,7 +275,7 @@ abstract class Dialect
 	}
 
 	@SuppressWarnings("unused")
-	protected void append(
+	void append(
 			final Statement statement,
 			final StringFunction function,
 			final Join join,
@@ -284,17 +284,17 @@ abstract class Dialect
 		throw new RuntimeException("CharSetCondition not yet implemented");
 	}
 
-	protected abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
-	protected abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
-	protected abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
-	protected abstract Integer getNextSequence(Executor executor, Connection connection, String name);
+	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
+	abstract void deleteSequence(StringBuilder bf, String quotedName, int startWith);
+	abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
+	abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 
 	/**
 	 * @param ctx needed by subclasses
 	 * @param database needed by subclasses
 	 * @param connectionPool needed by subclasses
 	 */
-	protected void purgeSchema(
+	void purgeSchema(
 			final JobContext ctx,
 			final Database database,
 			final ConnectionPool connectionPool)

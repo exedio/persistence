@@ -37,7 +37,7 @@ import java.util.Random;
 
 final class OracleDialect extends Dialect
 {
-	protected OracleDialect(final DialectParameters parameters)
+	OracleDialect(final DialectParameters parameters)
 	{
 		super(
 				new com.exedio.dsmf.OracleDialect(
@@ -45,7 +45,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected int getTransationIsolation()
+	int getTransationIsolation()
 	{
 		return Connection.TRANSACTION_READ_COMMITTED;
 	}
@@ -153,7 +153,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("TO_CHAR(").
 			append(source, join).
@@ -161,7 +161,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(CONTAINS(").
 			append(function, (Join)null).
@@ -234,7 +234,7 @@ final class OracleDialect extends Dialect
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Override
-	protected QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
+	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
 	{
 		final String statementText = statement.getText();
 		if(statementText.startsWith("alter table "))
@@ -379,7 +379,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
 	{
 		bf.append(
 			"EXECUTE IMMEDIATE " +
@@ -390,7 +390,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected Integer nextSequence(
+	Integer nextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String quotedName)
@@ -415,7 +415,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected Integer getNextSequence(
+	Integer getNextSequence(
 			final Executor executor,
 			final Connection connection,
 			final String name)
@@ -445,7 +445,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	protected void deleteSchema(
+	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
 			final ConnectionPool connectionPool)
