@@ -141,7 +141,7 @@ public abstract class Constraint extends Node
 		else
 		{
 			if(requiredCondition!=null && existingCondition!=null &&
-				!requiredCondition.equals(existingCondition))
+				!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
 			{
 				error = "different condition in database: expected ---" + requiredCondition + "---, but was ---" + existingCondition + "---";
 				particularColor = Color.ERROR;
@@ -166,6 +166,11 @@ public abstract class Constraint extends Node
 		this.error = error;
 		this.particularColor = particularColor;
 		cumulativeColor = particularColor;
+	}
+
+	String normalizeCondition(final String s)
+	{
+		return s;
 	}
 
 	public final boolean required()

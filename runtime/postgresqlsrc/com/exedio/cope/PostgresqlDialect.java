@@ -86,7 +86,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getStringLength()
 	{
-		return "LENGTH";
+		return "length";
 	}
 
 	/**
@@ -108,6 +108,12 @@ final class PostgresqlDialect extends Dialect
 	String getBlobType(final long maximumLength)
 	{
 		return (maximumLength<Integer.MAX_VALUE) ? BINARY : null;
+	}
+
+	@Override
+	final String getBlobLength()
+	{
+		return "octet_length";
 	}
 
 	@Override

@@ -57,6 +57,11 @@ public abstract class Dialect
 		return true;
 	}
 
+	String normalizeCheckConstraintCondition(final String s)
+	{
+		return s;
+	}
+
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
 	void verify(final Schema schema)

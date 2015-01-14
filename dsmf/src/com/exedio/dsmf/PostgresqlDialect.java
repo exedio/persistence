@@ -30,6 +30,37 @@ public final class PostgresqlDialect extends Dialect
 		super(null);
 	}
 
+	@Override
+	String normalizeCheckConstraintCondition(final String x)
+	{
+		final String s = x.
+				replace(")::text", ")").
+				replace(")::double precision", ")").
+				replaceAll(" = ANY \\(ARRAY\\[(.*?)]\\)", " IN ($1)");
+
+		final StringBuilder bf = new StringBuilder();
+		final int l = s.length();
+		for(int i = 0; i<l; i++)
+		{
+			final char c = s.charAt(i);
+			switch(c)
+			{
+				case ' ':
+				case '\"':
+				case '(':
+				case ')':
+					// omit character
+					// TODO do omit outside string literals only
+					break;
+				default:
+					bf.append(c);
+			}
+		}
+		final String result = bf.toString();
+		//System.out.println("---" + x + "---" + result + "---");
+		return result;
+	}
+
 	public static final String SMALLINT  = "smallint";
 	public static final String INTEGER   = "integer";
 	public static final String BIGINT    = "bigint";

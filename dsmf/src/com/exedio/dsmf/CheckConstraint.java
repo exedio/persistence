@@ -50,6 +50,12 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
+	String normalizeCondition(final String s)
+	{
+		return dialect.normalizeCheckConstraintCondition(s);
+	}
+
+	@Override
 	public int check()
 	{
 		final StringBuilder bf = new StringBuilder();
