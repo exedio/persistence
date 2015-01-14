@@ -90,10 +90,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 		assertEquals(
 				field.getID(),
 				expected + (SchemaInfo.supportsNotNull(MODEL) ? NOT_NULL : ""),
-				model.getSchema().
-					getTable(getTableName(field.getType())).
-					getColumn(getColumnName(field)).
-					getType());
+				model.getSchema().getTable(getTableName(field.getType())).getColumn(getColumnName(field)).getType());
 	}
 
 	public void testValues()
