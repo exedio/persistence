@@ -78,22 +78,18 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 		if(oracle)
 			return;
 
-		final ArrayList<SetValue<?>> sv = new ArrayList<>();
-		for(final Field<?> f : TYPE.getFields())
-		{
-			final StringField sf = (StringField)f;
-			sv.add(sf.map(makeString(sf)));
-		}
+		final ArrayList<StringField> fields = new ArrayList<>();
+		for(final Field<?> field : TYPE.getFields())
+			fields.add((StringField)field);
 
+		final ArrayList<SetValue<?>> sv = new ArrayList<>();
+		for(final StringField field : fields)
+			sv.add(field.map(makeString(field)));
 		final MysqlStringItem item = TYPE.newItem(sv);
 
 		restartTransaction();
-
-		for(final Field<?> f : TYPE.getFields())
-		{
-			final StringField sf = (StringField)f;
-			assertEquals(makeString(sf), sf.get(item));
-		}
+		for(final StringField field : fields)
+			assertEquals(makeString(field), field.get(item));
 	}
 
 	private static String makeString(final StringField field)
