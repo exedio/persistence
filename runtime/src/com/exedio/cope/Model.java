@@ -310,8 +310,7 @@ public final class Model implements Serializable
 
 	/**
 	 * @deprecated
-	 *	Is not supported any longer.
-	 * Handling of null is managed by {@link OrderBy}.
+	 * Is not supported any longer.
 	 * Always returns true.
 	 */
 	@Deprecated
