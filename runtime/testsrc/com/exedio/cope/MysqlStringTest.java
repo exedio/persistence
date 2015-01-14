@@ -73,7 +73,7 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
 	}
 
-	public void testMax()
+	public void testValues()
 	{
 		if(oracle)
 			return;
@@ -84,15 +84,25 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final StringField field : fields)
+			sv.add(field.map("x"));
+		final MysqlStringItem min = TYPE.newItem(sv);
+		sv.clear();
+		for(final StringField field : fields)
 			sv.add(field.map(makeMax(field)));
 		final MysqlStringItem max = TYPE.newItem(sv);
 
 		for(final StringField field : fields)
+		{
+			assertEquals("x"           , field.get(min));
 			assertEquals(makeMax(field), field.get(max));
+		}
 
 		restartTransaction();
 		for(final StringField field : fields)
+		{
+			assertEquals("x"           , field.get(min));
 			assertEquals(makeMax(field), field.get(max));
+		}
 	}
 
 	private static String makeMax(final StringField field)
