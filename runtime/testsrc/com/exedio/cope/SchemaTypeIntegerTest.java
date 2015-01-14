@@ -108,15 +108,15 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final LongField field : fields)
 			sv.add(field.map(field.getMinimum()));
-		final SchemaTypeIntegerItem min = new SchemaTypeIntegerItem(sv);
+		final SchemaTypeIntegerItem min = TYPE.newItem(sv);
 		sv.clear();
 		for(final LongField field : fields)
 			sv.add(field.map(field.getMaximum()));
-		final SchemaTypeIntegerItem max = new SchemaTypeIntegerItem(sv);
+		final SchemaTypeIntegerItem max = TYPE.newItem(sv);
 		sv.clear();
 		for(final LongField field : fields)
 			sv.add(field.map(0l));
-		final SchemaTypeIntegerItem zero = new SchemaTypeIntegerItem(sv);
+		final SchemaTypeIntegerItem zero = TYPE.newItem(sv);
 
 		for(final LongField field : fields)
 		{

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
-
 /**
  * @cope.constructor none
  * @cope.generic.constructor none
@@ -40,10 +38,6 @@ public final class SchemaTypeIntegerItem extends Item
 
 	static final LongField byte8  = new LongField();
 
-	SchemaTypeIntegerItem(final ArrayList<SetValue<?>> sv)
-	{
-		super(sv.toArray(new SetValue<?>[sv.size()]));
-	}
 
 	/**
 
