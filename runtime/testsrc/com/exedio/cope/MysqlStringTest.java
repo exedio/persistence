@@ -69,6 +69,7 @@ public class MysqlStringTest extends AbstractRuntimeModelTest
 	private void assertType(final String type, final StringField field)
 	{
 		assertEquals(
+				field.getID(),
 				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : ""),
 				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
 	}
