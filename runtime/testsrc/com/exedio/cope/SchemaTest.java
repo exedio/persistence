@@ -144,8 +144,7 @@ public class SchemaTest extends AbstractRuntimeTest
 				fail();
 		}
 
-		if(!postgresql)
-			assertEquals(Schema.Color.OK, table.getCumulativeColor());
+		assertEquals(Schema.Color.OK, table.getCumulativeColor());
 	}
 
 	private final String q(final Field<?> f)
