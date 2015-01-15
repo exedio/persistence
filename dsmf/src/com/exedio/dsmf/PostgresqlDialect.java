@@ -22,6 +22,7 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 
 public final class PostgresqlDialect extends Dialect
 {
@@ -119,7 +120,7 @@ public final class PostgresqlDialect extends Dialect
 				"uc.consrc " +
 				"FROM pg_constraint uc " +
 				"INNER JOIN pg_class ut on uc.conrelid=ut.oid " +
-				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p','u')",
+				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
 			new ResultSetHandler()
 			{
 				public void run(final ResultSet resultSet) throws SQLException
@@ -143,8 +144,6 @@ public final class PostgresqlDialect extends Dialect
 						}
 						else if("p".equals(constraintType))
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("u".equals(constraintType))
-							table.notifyExistentUniqueConstraint(constraintName, "postgresql unique constraint dummy clause"); // TODO, still don't know where to get this information
 						else
 							throw new RuntimeException(constraintType+'-'+constraintName);
 
@@ -154,6 +153,48 @@ public final class PostgresqlDialect extends Dialect
 			});
 
 		final String catalog = schema.getCatalog();
+
+		schema.querySQL(
+				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +
+				"FROM information_schema.table_constraints tc " +
+				"JOIN information_schema.key_column_usage cu " +
+				"ON tc.constraint_name=cu.constraint_name AND tc.table_name=cu.table_name " +
+				"WHERE tc.constraint_type='UNIQUE' " +
+				"AND tc.table_catalog='" + catalog + "' " +
+				"AND cu.table_catalog='" + catalog + "' " +
+				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position",
+			new ResultSetHandler()
+			{
+				public void run(final ResultSet resultSet) throws SQLException
+				{
+					//printMeta(resultSet);
+					final ArrayList<String> condition = new ArrayList<>();
+					Table lastTable = null;
+					String lastConstraintName = null;
+					while(resultSet.next())
+					{
+						//printRow(resultSet);
+						final Table table = schema.getTable(resultSet.getString(1));
+						if(table!=null)
+						{
+							final String constraintName = resultSet.getString(2);
+							final String columnName = resultSet.getString(3);
+
+							if(lastTable!=null && (table!=lastTable || !constraintName.equals(lastConstraintName)))
+							{
+								lastTable.notifyExistentUniqueConstraint(lastConstraintName, condition);
+								condition.clear();
+							}
+
+							condition.add(columnName);
+							lastTable = table;
+							lastConstraintName = constraintName;
+						}
+					}
+					if(lastTable!=null)
+						lastTable.notifyExistentUniqueConstraint(lastConstraintName, condition);
+				}
+			});
 
 		verifyForeignKeyConstraints(
 				"SELECT rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
