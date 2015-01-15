@@ -446,9 +446,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public static enum DeletePolicy
 	{
-		FORBID(),
-		NULLIFY(),
-		CASCADE();
+		FORBID,
+		NULLIFY,
+		CASCADE;
 	}
 
 	// convenience methods for conditions and views ---------------------------------
