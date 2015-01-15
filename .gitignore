@@ -8,5 +8,6 @@ cope.properties
 local.properties
 test-properties/mysql*.properties
 test-properties/postgresql*.properties
+test-properties/disabled/
 .eclipse-output/
 /nbproject/private/
