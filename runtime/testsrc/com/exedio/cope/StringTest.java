@@ -640,6 +640,13 @@ public class StringTest extends AbstractRuntimeTest
 		assertStringSet(item, sa, "ab''");
 		assertStringSet(item, sa, "''ab");
 
+		// PostgreSQL does not support \0 in characters:
+		// http://www.postgresql.org/message-id/45DAE076.1060407@opencloud.com
+		// Error message is
+		// ERROR: invalid byte sequence for encoding "UTF8": 0x00
+		if(!postgresql)
+			assertStringSet(item, sa, "-\0- zero");
+
 		// Test that database does not interpret backslash sequences
 		assertStringSet(item, sa, "-\\0- slash zero");
 		assertStringSet(item, sa, "-\\'- slash quote");
