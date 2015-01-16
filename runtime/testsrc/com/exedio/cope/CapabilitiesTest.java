@@ -37,14 +37,42 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
-		assertEquals(!oracle && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
-		assertEquals(mysql, model.supportsRandom());
+		boolean supportsEmptyStrings = true;
+		boolean supportsRandom = false;
+		boolean supportsCheckConstraints = true;
+		boolean supportsNativeDate = true;
+		boolean supportsNotNull = true;
+		boolean supportsUniqueViolation = false;
+
+		switch(dialect)
+		{
+			case hsqldb:
+				supportsNotNull = false;
+				break;
+			case mysql:
+				supportsRandom = true;
+				supportsCheckConstraints = false;
+				supportsNativeDate = false;
+				supportsUniqueViolation = true;
+				break;
+			case oracle:
+				supportsEmptyStrings = false;
+				supportsNotNull = false;
+				break;
+			case postgresql:
+				break;
+			default:
+				fail(dialect.name());
+		}
+
+		assertEquals(supportsEmptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(supportsRandom, model.supportsRandom());
 
 		// SchemaInfo
-		assertEquals(!mysql, supportsCheckConstraints(model));
-		assertEquals(!mysql && !props.isSupportDisabledForNativeDate(), supportsNativeDate(model));
-		assertEquals((mysql||postgresql) && !props.isSupportDisabledForNotNull(), supportsNotNull(model));
-		assertEquals(mysql && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
+		assertEquals(supportsCheckConstraints, supportsCheckConstraints(model));
+		assertEquals(supportsNativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
+		assertEquals(supportsNotNull         && !props.isSupportDisabledForNotNull(),         supportsNotNull        (model));
+		assertEquals(supportsUniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
 	public void testSchemaSavepoint()
