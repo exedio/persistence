@@ -70,7 +70,7 @@ public final class Schedule extends Pattern
 
 	public enum Interval
 	{
-		DAILY
+		DAILY(DAY_OF_WEEK)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
@@ -79,38 +79,32 @@ public final class Schedule extends Pattern
 				cal.set(MINUTE, 0);
 				cal.set(HOUR_OF_DAY, 0);
 			}
-			@Override void add(final GregorianCalendar cal, final int amount)
-			{
-				cal.add(DAY_OF_WEEK, amount);
-			}
 		},
-		WEEKLY
+		WEEKLY(WEEK_OF_MONTH)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
 				DAILY.setToFrom(cal);
 				cal.set(DAY_OF_WEEK, MONDAY);
 			}
-			@Override void add(final GregorianCalendar cal, final int amount)
-			{
-				cal.add(WEEK_OF_MONTH, amount);
-			}
 		},
-		MONTHLY
+		MONTHLY(MONTH)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
 				DAILY.setToFrom(cal);
 				cal.set(DAY_OF_MONTH, 1);
 			}
-			@Override void add(final GregorianCalendar cal, final int amount)
-			{
-				cal.add(MONTH, amount);
-			}
 		};
 
 		abstract void setToFrom(GregorianCalendar cal);
-		abstract void add(GregorianCalendar cal, int amount);
+
+		final int addField;
+
+		Interval(final int addField)
+		{
+			this.addField = addField;
+		}
 	}
 
 	private final TimeZone timeZone;
@@ -295,7 +289,7 @@ public final class Schedule extends Pattern
 		if(lastUntil==null)
 		{
 			final Date until = cal.getTime();
-			interval.add(cal, -1);
+			cal.add(interval.addField, -1);
 			final Date from = cal.getTime();
 			runNow(item, interval, from, until, 1, 1, now, ctx);
 		}
@@ -305,7 +299,7 @@ public final class Schedule extends Pattern
 			while(lastUntil.before(cal.getTime()))
 			{
 				dates.add(0, cal.getTime());
-				interval.add(cal, -1);
+				cal.add(interval.addField, -1);
 			}
 			dates.add(0, lastUntil);
 
