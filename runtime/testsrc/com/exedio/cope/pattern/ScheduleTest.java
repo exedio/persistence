@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
@@ -26,7 +25,6 @@ import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static com.exedio.cope.pattern.ScheduleItem.reportRunParent;
-import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
@@ -89,14 +87,6 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 	public void testNoUpdateCounterColumn()
 	{
 		assertNoUpdateCounterColumn(report.getRunType());
-	}
-
-	public void testEnumSchema()
-	{
-		assertEquals(asList(DAILY, WEEKLY, MONTHLY), asList(Schedule.Interval.values()));
-		assertEquals(10, getColumnValue(DAILY));
-		assertEquals(20, getColumnValue(WEEKLY));
-		assertEquals(30, getColumnValue(MONTHLY));
 	}
 
 	public void testDaily()

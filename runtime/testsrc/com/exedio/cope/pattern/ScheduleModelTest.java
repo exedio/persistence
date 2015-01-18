@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.TYPE;
 import static com.exedio.cope.pattern.ScheduleItem.report;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -153,6 +154,7 @@ public class ScheduleModelTest extends CopeAssert
 
 	public void testEnumSchema()
 	{
+		assertEquals(asList(DAILY, WEEKLY, MONTHLY), asList(Schedule.Interval.values()));
 		assertEquals(10, getColumnValue(DAILY  ));
 		assertEquals(20, getColumnValue(WEEKLY ));
 		assertEquals(30, getColumnValue(MONTHLY));
