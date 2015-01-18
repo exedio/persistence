@@ -77,11 +77,11 @@ public class DynamicModelTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		// test model
-		assertEquals(String .class, ValueType.STRING .getValueClass());
-		assertEquals(Boolean.class, ValueType.BOOLEAN.getValueClass());
-		assertEquals(Integer.class, ValueType.INTEGER.getValueClass());
-		assertEquals(Double .class, ValueType.DOUBLE .getValueClass());
-		assertEquals(Enum   .class, ValueType.ENUM   .getValueClass());
+		assertEquals(String .class, STRING .getValueClass());
+		assertEquals(Boolean.class, BOOLEAN.getValueClass());
+		assertEquals(Integer.class, INTEGER.getValueClass());
+		assertEquals(Double .class, DOUBLE .getValueClass());
+		assertEquals(Enum   .class, ENUM   .getValueClass());
 
 		assertEquals(TYPE, features.getType());
 		assertEquals("features", features.getName());
@@ -103,24 +103,24 @@ public class DynamicModelTest extends AbstractRuntimeTest
 				DynamicModelItem.TYPE.getThis(),
 				DynamicModelItem.name,
 				DynamicModelItem.features,
-				DynamicModelItem.features.getField(ValueType.STRING, 0, null),
-				DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null),
-				DynamicModelItem.features.getField(ValueType.INTEGER, 0, null),
-				DynamicModelItem.features.getField(ValueType.DOUBLE, 0, null),
-				DynamicModelItem.features.getField(ValueType.ENUM, 0, null),
-				DynamicModelItem.features.getField(ValueType.ENUM, 1, null),
+				DynamicModelItem.features.getField(STRING , 0, null),
+				DynamicModelItem.features.getField(BOOLEAN, 0, null),
+				DynamicModelItem.features.getField(INTEGER, 0, null),
+				DynamicModelItem.features.getField(DOUBLE , 0, null),
+				DynamicModelItem.features.getField(ENUM   , 0, null),
+				DynamicModelItem.features.getField(ENUM   , 1, null),
 				DynamicModelItem.features.getTypeField(),
 				DynamicModelItem.small,
-				DynamicModelItem.small.getField(ValueType.STRING, 0, null),
+				DynamicModelItem.small.getField(STRING, 0, null),
 				DynamicModelItem.small.getTypeField(),
 			}), DynamicModelItem.TYPE.getFeatures());
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.STRING,  0, null), "string0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.BOOLEAN, 0, null), "bool0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.INTEGER, 0, null), "int0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.DOUBLE,  0, null), "double0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    0, null), "enum0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ValueType.ENUM,    1, null), "enum1");
-		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "string0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(STRING,  0, null), "string0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(BOOLEAN, 0, null), "bool0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(INTEGER, 0, null), "int0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(DOUBLE,  0, null), "double0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ENUM,    0, null), "enum0");
+		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ENUM,    1, null), "enum1");
+		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(STRING, 0, null), "string0");
 		assertSerializedSame(DynamicModelItem.features, 390);
 		assertSerializedSame(DynamicModelItem.small   , 387);
 
@@ -144,7 +144,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertContains(cellPhone.getFields());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> akkuTime = cellPhone.addIntegerField("akkuTime");
-		assertEquals(ValueType.INTEGER, akkuTime.getValueType());
+		assertEquals(INTEGER, akkuTime.getValueType());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
 		assertSame(TYPE, akkuTime.getField().getType());
@@ -155,7 +155,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(null, cellPhone.getField("akkuTimeX"));
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> memory = cellPhone.addStringField("memory");
-		assertEquals(ValueType.STRING, memory.getValueType());
+		assertEquals(STRING, memory.getValueType());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
 		assertSame(TYPE, memory.getField().getType());
@@ -197,7 +197,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertContains(cellPhone, organizer, features.getTypes());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> weight = organizer.addIntegerField("weight");
-		assertEquals(ValueType.INTEGER, weight.getValueType());
+		assertEquals(INTEGER, weight.getValueType());
 		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
 		assertSame(akkuTime.getField(), weight.getField());
@@ -211,7 +211,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(500, item2.getFeatures(weight));
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> bluetooth = organizer.addBooleanField("bluetooth");
-		assertEquals(ValueType.BOOLEAN, bluetooth.getValueType());
+		assertEquals(BOOLEAN, bluetooth.getValueType());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
 		assertSame(TYPE, bluetooth.getField().getType());
@@ -220,7 +220,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(list(weight, bluetooth), organizer.getFields());
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> length = organizer.addDoubleField("length");
-		assertEquals(ValueType.DOUBLE, length.getValueType());
+		assertEquals(DOUBLE, length.getValueType());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
 		assertSame(TYPE, length.getField().getType());
@@ -236,7 +236,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(2.2, item2.getFeatures(length));
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> color = organizer.addEnumField("color");
-		assertEquals(ValueType.ENUM, color.getValueType());
+		assertEquals(ENUM, color.getValueType());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
 		assertSame(TYPE, color.getFieldEnum().getType());
@@ -265,7 +265,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertEquals(colorBlue, item2.getFeatures(color));
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> manufacturer = organizer.addEnumField("manufacturer");
-		assertEquals(ValueType.ENUM, manufacturer.getValueType());
+		assertEquals(ENUM, manufacturer.getValueType());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(TYPE, manufacturer.getFieldEnum().getType());
@@ -406,7 +406,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -415,7 +415,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + INTEGER, e.getMessage());
 		}
 		try
 		{
@@ -424,7 +424,7 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + ValueType.INTEGER, e.getMessage());
+			assertEquals("operation allowed for getValueType()==ENUM fields only, but was " + INTEGER, e.getMessage());
 		}
 
 
