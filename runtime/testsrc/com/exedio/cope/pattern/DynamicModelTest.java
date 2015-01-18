@@ -19,9 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.pattern.DynamicModel.ValueType.BOOLEAN;
+import static com.exedio.cope.pattern.DynamicModel.ValueType.DOUBLE;
+import static com.exedio.cope.pattern.DynamicModel.ValueType.ENUM;
+import static com.exedio.cope.pattern.DynamicModel.ValueType.INTEGER;
+import static com.exedio.cope.pattern.DynamicModel.ValueType.STRING;
 import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
 import static com.exedio.cope.pattern.DynamicModelItem.features;
 import static com.exedio.cope.pattern.DynamicModelItem.small;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.Feature;
@@ -116,6 +123,13 @@ public class DynamicModelTest extends AbstractRuntimeTest
 		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(ValueType.STRING, 0, null), "string0");
 		assertSerializedSame(DynamicModelItem.features, 390);
 		assertSerializedSame(DynamicModelItem.small   , 387);
+
+		assertEquals(asList(STRING, BOOLEAN, INTEGER, DOUBLE, ENUM), asList(ValueType.values()));
+		assertEquals(10, getColumnValue(STRING ));
+		assertEquals(20, getColumnValue(BOOLEAN));
+		assertEquals(30, getColumnValue(INTEGER));
+		assertEquals(40, getColumnValue(DOUBLE ));
+		assertEquals(50, getColumnValue(ENUM   ));
 
 		// test persistence
 		assertContains(features.getTypes());
