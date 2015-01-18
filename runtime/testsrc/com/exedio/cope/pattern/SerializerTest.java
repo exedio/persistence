@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SerializerItem.TYPE;
 import static com.exedio.cope.pattern.SerializerItem.integer;
 import static com.exedio.cope.pattern.SerializerItem.map;
+import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -66,6 +67,8 @@ public class SerializerTest extends AbstractRuntimeTest
 				integer.getSource(),
 				map,
 				map.getSource(),
+				mapWildcard,
+				mapWildcard.getSource(),
 			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -73,6 +76,8 @@ public class SerializerTest extends AbstractRuntimeTest
 				integer.getSource(),
 				map,
 				map.getSource(),
+				mapWildcard,
+				mapWildcard.getSource(),
 			}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, integer.getSource().getType());
