@@ -18,18 +18,12 @@
 
 package com.exedio.dsmf;
 
-
 public class SQLInjectionTest extends SchemaTest
 {
 	private static final String MESSAGE_PREFIX = "database name contains forbidden characters: ";
 
 	private static final String TABLE = "InjectionTable";
 	private static final String COLUMN = "injectionColumn";
-
-	private static final void failIfNotDebugging()
-	{
-		fail();
-	}
 
 	public void testTableCreate()
 	{
@@ -43,7 +37,7 @@ public class SQLInjectionTest extends SchemaTest
 		try
 		{
 			badTable.create();
-			failIfNotDebugging();
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
@@ -62,12 +56,11 @@ public class SQLInjectionTest extends SchemaTest
 		try
 		{
 			table.create();
-			failIfNotDebugging();
+			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(MESSAGE_PREFIX + BAD_COLUMN, e.getMessage());
 		}
 	}
-
 }
