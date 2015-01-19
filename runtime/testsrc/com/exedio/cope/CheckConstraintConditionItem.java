@@ -37,8 +37,8 @@ final class CheckConstraintConditionItem extends Item
 	//static final CheckConstraint like = new CheckConstraint(string.like("like it")); TODO
 	static final CheckConstraint instanceOf     = new CheckConstraint(item.instanceOf   (CheckConstraintConditionItemSub.TYPE));
 	static final CheckConstraint instanceOfNot  = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemSub.TYPE));
-	//static final CheckConstraint singleInstanceOf    = new CheckConstraint(item.instanceOf   (CheckConstraintConditionItemBottom.TYPE)); TODO
-	//static final CheckConstraint singleInstanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemBottom.TYPE)); TODO
+	static final CheckConstraint singleInstanceOf    = new CheckConstraint(item.instanceOf   (CheckConstraintConditionItemBottom.TYPE));
+	static final CheckConstraint singleInstanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemBottom.TYPE));
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
 

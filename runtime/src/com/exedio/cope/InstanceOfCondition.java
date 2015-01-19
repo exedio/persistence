@@ -93,9 +93,6 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	{
 		final Type<?> type = function.getValueType();
 		appendType(bf);
-		if(not)
-			bf.append(" NOT");
-		bf.append(" IN(");
 
 		final TreeSet<String> typeIds = new TreeSet<>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : types)
@@ -110,17 +107,29 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		if(typeIds.isEmpty())
 			throw new RuntimeException("no concrete type for " + Arrays.toString(types));
 
-		boolean first = true;
-		for(final String id : typeIds)
+		if(typeIds.size()==1)
 		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.appendParameter(id);
+			bf.append(not ? "<>" : "=");
+			bf.appendParameter(typeIds.iterator().next());
 		}
-		bf.append(')');
+		else
+		{
+			if(not)
+				bf.append(" NOT");
+			bf.append(" IN(");
+
+			boolean first = true;
+			for(final String id : typeIds)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+
+				bf.appendParameter(id);
+			}
+			bf.append(')');
+		}
 	}
 
 	@Override
