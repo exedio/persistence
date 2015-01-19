@@ -149,7 +149,7 @@ public class ItemTest extends TestmodelTest
 		model.createSchemaConstraints(EnumSet.of(Constraint.Type.PrimaryKey, Constraint.Type.ForeignKey));
 		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
 		model.createSchemaConstraints(EnumSet.of(Constraint.Type.ForeignKey));
-		if(!mysql) // causes: Error on rename of './yourdatabase/#sql-35fb_13a3b' to './yourdatabase/CollisionItem2' (errno: 150)
+		if(!mysql) // causes SQLException: Cannot drop index 'CollisItem2_collAttri_Unq': needed in a foreign key constraint
 		{
 			model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
 			model.createSchemaConstraints(EnumSet.of(Constraint.Type.Unique));
