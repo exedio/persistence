@@ -274,6 +274,7 @@
 						<pathelement location="build/classes/instrument/annosrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
 						<pathelement location="lib/${@{dialect.file}.jar}" />
 					</classpath>

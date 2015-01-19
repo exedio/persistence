@@ -32,6 +32,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This MySQL driver requires the InnoDB engine.
@@ -42,6 +44,8 @@ import java.util.Properties;
  */
 final class MysqlDialect extends Dialect
 {
+	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
+
 	private final String deleteTable;
 
 	MysqlDialect(final DialectParameters parameters)
@@ -596,6 +600,9 @@ final class MysqlDialect extends Dialect
 						connection,
 						"DELETE FROM " + table + " WHERE " + column + " < " + max);
 				ctx.incrementProgress(rows);
+
+				if(rows>0 && logger.isInfoEnabled())
+					logger.info("sequence {} purge less {} rows {}", new Object[]{name, max, rows});
 			}
 		}
 		finally
