@@ -79,7 +79,7 @@ public final class PostgresqlDialect extends Dialect
 			return null;
 
 		final boolean nullable = resultSet.getBoolean("NULLABLE");
-		if(nullable || "this".equals(resultSet.getString("COLUMN_NAME"))) // TODO
+		if(nullable || "this".equals(resultSet.getString("COLUMN_NAME"))) // TODO does not work with primary key of table 'while'
 			return withoutNullable;
 
 		return withoutNullable + NOT_NULL;
