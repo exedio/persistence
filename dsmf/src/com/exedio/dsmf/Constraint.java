@@ -143,7 +143,9 @@ public abstract class Constraint extends Node
 			if(requiredCondition!=null && existingCondition!=null &&
 				!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
 			{
-				error = "different condition in database: expected ---" + requiredCondition + "---, but was ---" + existingCondition + "---";
+				error = "different condition in database: " +
+						"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
+						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---";
 				particularColor = Color.ERROR;
 			}
 			else if(requiredCondition==null && existingCondition!=null)
