@@ -178,8 +178,8 @@ public final class CompositeCondition extends Condition
 
 	public static enum Operator
 	{
-		AND(" and ", FALSE, TRUE),
-		OR (" or ",  TRUE, FALSE);
+		AND(" AND ", FALSE, TRUE),
+		OR (" OR ",  TRUE, FALSE);
 
 		final String sql;
 		final Literal absorber;

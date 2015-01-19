@@ -42,16 +42,11 @@ public final class IsNullCondition<E> extends Condition
 		this.not = not;
 	}
 
-	private final String sql()
-	{
-		return not ? " is not null" : " is null";
-	}
-
 	@Override
 	void append(final Statement bf)
 	{
 		bf.append(function, null).
-			append(sql());
+			append(not ? " IS NOT NULL" : " IS NULL");
 	}
 
 	@Override
@@ -87,6 +82,6 @@ public final class IsNullCondition<E> extends Condition
 	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		function.toString(bf, defaultType);
-		bf.append(sql());
+		bf.append(not ? " is not null" : " is null");
 	}
 }

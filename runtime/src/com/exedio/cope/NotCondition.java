@@ -45,7 +45,7 @@ public final class NotCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append("not(");
+		bf.append("NOT(");
 		argument.append(bf);
 		bf.append(')');
 	}

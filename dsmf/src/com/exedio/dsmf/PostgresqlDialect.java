@@ -35,9 +35,13 @@ public final class PostgresqlDialect extends Dialect
 	String normalizeCheckConstraintCondition(final String x)
 	{
 		final String s = x.
-				replace(")::text", ")").
-				replace(")::double precision", ")").
-				replaceAll(" = ANY \\(ARRAY\\[(.*?)]\\)", " IN ($1)");
+				replace("::bigint", "").
+				replace("::text[]", "").
+				replace("::text", "").
+				replace("::character varying", "").
+				replace("::double precision", "").
+				replaceAll( " = ANY \\(*ARRAY\\[(.*?)]\\)*", " IN ($1)").
+				replaceAll(" <> ALL \\(*ARRAY\\[(.*?)]\\)*", " NOT IN ($1)");
 
 		final StringBuilder bf = new StringBuilder();
 		final int l = s.length();

@@ -94,8 +94,8 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		final Type<?> type = function.getValueType();
 		appendType(bf);
 		if(not)
-			bf.append(" not");
-		bf.append(" in(");
+			bf.append(" NOT");
+		bf.append(" IN(");
 
 		final TreeSet<String> typeIds = new TreeSet<>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : types)
