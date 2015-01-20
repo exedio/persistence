@@ -37,7 +37,9 @@ public final class PostgresqlDialect extends Dialect
 		final String s = x.
 				replace("::bigint", "").
 				replace("::text[]", "").
+				replace("::\"text\"[]", "").
 				replace("::text", "").
+				replace("::\"text\"", "").
 				replace("::character varying", "").
 				replace("::double precision", "").
 				replace("::numeric", "").
@@ -52,7 +54,6 @@ public final class PostgresqlDialect extends Dialect
 			switch(c)
 			{
 				case ' ':
-				case '\"':
 				case '(':
 				case ')':
 					// omit character

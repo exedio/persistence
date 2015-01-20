@@ -48,6 +48,16 @@ final class PostgresqlDialect extends Dialect
 				new com.exedio.dsmf.PostgresqlDialect());
 	}
 
+	@Override
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		try(java.sql.Statement st = connection.createStatement())
+		{
+			// http://www.postgresql.org/docs/9.3/interactive/runtime-config-compatible.html#GUC-QUOTE-ALL-IDENTIFIERS
+			st.execute("SET quote_all_identifiers TO ON");
+		}
+	}
+
 	/**
 	 * See http://www.postgresql.org/docs/9.3/static/datatype-numeric.html
 	 */
@@ -92,7 +102,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getStringLength()
 	{
-		return "length";
+		return "\"length\"";
 	}
 
 	/**
@@ -119,7 +129,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	final String getBlobLength()
 	{
-		return "octet_length";
+		return "\"octet_length\"";
 	}
 
 	@Override

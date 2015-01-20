@@ -64,6 +64,15 @@ abstract class Dialect
 	}
 
 	/**
+	 * @param connection used in subclasses
+	 * @throws SQLException thrown by subclasses
+	 */
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	/**
 	 * @param out used in subclasses
 	 * @throws IOException thrown by subclasses
 	 */

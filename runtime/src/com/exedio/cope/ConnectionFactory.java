@@ -34,6 +34,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	private final String url;
 	private final Driver driver;
+	private final Dialect dialect;
 	private final Properties info;
 	private final int transactionIsolation;
 
@@ -44,6 +45,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	{
 		this.url = properties.getConnectionUrl();
 		this.driver = driver;
+		this.dialect = dialect;
 
 		info = properties.newConnectionInfo();
 		dialect.completeConnectionInfo(info);
@@ -69,6 +71,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		if(result==null)
 			throw new RuntimeException(driver.toString() + '/' + url);
 		result.setTransactionIsolation(transactionIsolation);
+		dialect.completeConnection(result);
 		return result;
 	}
 
