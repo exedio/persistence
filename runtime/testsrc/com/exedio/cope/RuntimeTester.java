@@ -339,7 +339,7 @@ final class RuntimeTester
 			for(final com.exedio.dsmf.Column column : table.getColumns())
 				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
 
-			if(hsqldb||postgresql)
+			if(hsqldb)
 				continue;
 
 			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
@@ -364,7 +364,7 @@ final class RuntimeTester
 		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
 			assertOk(sequence.getName(), sequence);
 
-		if(hsqldb||postgresql)
+		if(hsqldb)
 			return;
 
 		assertOk("schema", schema);

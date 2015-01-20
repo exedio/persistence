@@ -184,6 +184,12 @@ abstract class Dialect
 
 	abstract String getIntegerType(long minimum, long maximum);
 	abstract String getDoubleType();
+
+	String format(final double number)
+	{
+		return Double.toString(number);
+	}
+
 	abstract String getStringType(int maxChars, MysqlExtendedVarchar mysqlExtendedVarchar);
 
 	String getStringLength()

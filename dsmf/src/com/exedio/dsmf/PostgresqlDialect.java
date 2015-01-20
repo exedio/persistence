@@ -40,6 +40,7 @@ public final class PostgresqlDialect extends Dialect
 				replace("::text", "").
 				replace("::character varying", "").
 				replace("::double precision", "").
+				replace("::numeric", "").
 				replaceAll( " = ANY \\(*ARRAY\\[(.*?)]\\)*", " IN ($1)").
 				replaceAll(" <> ALL \\(*ARRAY\\[(.*?)]\\)*", " NOT IN ($1)");
 

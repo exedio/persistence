@@ -93,6 +93,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(DataDigestTest.class);
 		suite.addTestSuite(QueryRangeTest.class);
 		suite.addTestSuite(SequenceCounterTest.class);
+		suite.addTestSuite(PostgresqlDoubleTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.misc.PackageUtilTest.suite());
 		suite.addTest(com.exedio.cope.pattern.PackageUtilTest.suite());
