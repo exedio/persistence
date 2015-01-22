@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.io.InputStream;
@@ -173,12 +172,7 @@ abstract class Dialect
 		throw new RuntimeException("not supported");
 	}
 
-	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
-	{
-		statementText.append('\'');
-		Hex.append(statementText, parameter, parameter.length);
-		statementText.append('\'');
-	}
+	abstract void addBlobInStatementText(StringBuilder statementText, byte[] parameter);
 
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,

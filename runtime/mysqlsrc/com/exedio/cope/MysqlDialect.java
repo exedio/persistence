@@ -192,8 +192,9 @@ final class MysqlDialect extends Dialect
 	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
-		statementText.append('x');
-		super.addBlobInStatementText(statementText, parameter);
+		statementText.append("x'");
+		Hex.append(statementText, parameter, parameter.length);
+		statementText.append('\'');
 	}
 
 	@Override

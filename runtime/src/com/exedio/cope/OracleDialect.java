@@ -103,6 +103,14 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
+	{
+		statementText.append('\'');
+		Hex.append(statementText, parameter, parameter.length);
+		statementText.append('\'');
+	}
+
+	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
 			final Function<E> dividend,

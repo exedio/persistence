@@ -86,8 +86,9 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
-		statementText.append('X');
-		super.addBlobInStatementText(statementText, parameter);
+		statementText.append("X'");
+		Hex.append(statementText, parameter, parameter.length);
+		statementText.append('\'');
 	}
 
 	@Override
