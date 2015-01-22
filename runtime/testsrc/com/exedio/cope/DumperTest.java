@@ -49,14 +49,15 @@ public class DumperTest extends AbstractRuntimeTest
 		super.setUp();
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();
-		if(hsqldb)
-			dataL = "X'aabbcc'";
-		else if(mysql)
-			dataL = "x'aabbcc'";
-		else if(postgresql)
-			dataL = "E'\\\\xaabbcc'";
-		else
-			dataL = "'aabbcc'";
+		switch(dialect)
+		{
+			case hsqldb:     dataL =      "X'aabbcc'"; break;
+			case mysql:      dataL =      "x'aabbcc'"; break;
+			case postgresql: dataL = "E'\\\\xaabbcc'"; break;
+			case oracle:     dataL =       "'aabbcc'"; break;
+			default:
+				fail(dialect.toString());
+		}
 	}
 
 	public void testOk() throws IOException
