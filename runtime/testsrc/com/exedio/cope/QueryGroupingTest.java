@@ -153,7 +153,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		}
 		catch ( final IllegalStateException e )
 		{
-			// fine
+			assertEquals("grouping not supported for single-select queries", e.getMessage());
 		}
 	}
 
