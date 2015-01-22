@@ -26,7 +26,7 @@ import static com.exedio.cope.GroupItem.optionalDouble;
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
 
-public class QueryGroupingTest extends AbstractRuntimeTest
+public class QueryGroupingTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model( TYPE );
 
@@ -41,10 +41,10 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testGroupBy()
 	{
-		final GroupItem item1 = deleteOnTearDown( new GroupItem(day1, 1) );
-		final GroupItem item2a = deleteOnTearDown( new GroupItem(day2, 2) );
-		final GroupItem item2b = deleteOnTearDown( new GroupItem(day2, 3) );
-		final GroupItem item3 = deleteOnTearDown( new GroupItem(day3, 4) );
+		final GroupItem item1  = new GroupItem(day1, 1);
+		final GroupItem item2a = new GroupItem(day2, 2);
+		final GroupItem item2b = new GroupItem(day2, 3);
+		final GroupItem item3  = new GroupItem(day3, 4);
 
 		assertContains(
 			item1, item2a, item2b, item3,
@@ -133,8 +133,8 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			//Caused by: org.postgresql.util.PSQLException: FEHLER: aktuelle Transaktion wurde abgebrochen, Befehle werden bis zum Ende der Transaktion ignoriert
 			return;
 		}
-		deleteOnTearDown( new GroupItem(day1, 1) );
-		deleteOnTearDown( new GroupItem(day2, 2) );
+		new GroupItem(day1, 1);
+		new GroupItem(day2, 2);
 		final Query<?> query = Query.newQuery( new Selectable<?>[]{day, number}, TYPE, null );
 		query.setGroupBy( number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
@@ -164,13 +164,13 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testMultiGrouping()
 	{
-		final GroupItem item1 = deleteOnTearDown( new GroupItem(day1, 1) );
+		final GroupItem item1  = new GroupItem(day1, 1);
 		item1.setOptionalDouble( 10.0 );
-		final GroupItem item2a = deleteOnTearDown( new GroupItem(day2, 2) );
+		final GroupItem item2a = new GroupItem(day2, 2);
 		item2a.setOptionalDouble( 20.0 );
-		final GroupItem item2b = deleteOnTearDown( new GroupItem(day2, 3) );
+		final GroupItem item2b = new GroupItem(day2, 3);
 		item2b.setOptionalDouble( 25.0 );
-		final GroupItem item2c = deleteOnTearDown( new GroupItem(day2, 3) );
+		final GroupItem item2c = new GroupItem(day2, 3);
 		item2c.setOptionalDouble( 27.0 );
 
 		final Query<?> query = Query.newQuery(
@@ -192,9 +192,9 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testGroupJoin()
 	{
-		deleteOnTearDown( new GroupItem(day1, 1) );
-		deleteOnTearDown( new GroupItem(day1, 2) );
-		deleteOnTearDown( new GroupItem(day2, 3) );
+		new GroupItem(day1, 1);
+		new GroupItem(day1, 2);
+		new GroupItem(day2, 3);
 
 		final Query<?> query = Query.newQuery(
 			new Selectable<?>[]{day, day}, TYPE, null
@@ -217,11 +217,11 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testSorting()
 	{
-		final GroupItem item2 = deleteOnTearDown( new GroupItem(day1, 1) );
+		final GroupItem item2 = new GroupItem(day1, 1);
 		item2.setOptionalDouble( 2.0 );
-		final GroupItem item1 = deleteOnTearDown( new GroupItem(day1, 2) );
+		final GroupItem item1 = new GroupItem(day1, 2);
 		item1.setOptionalDouble( 1.0 );
-		deleteOnTearDown( new GroupItem(day2, 3) );
+		new GroupItem(day2, 3);
 
 		final Query<?> query = Query.newQuery(
 			new Selectable<?>[]{optionalDouble, number.sum(), new Count()}, TYPE, null
