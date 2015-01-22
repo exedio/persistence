@@ -53,8 +53,8 @@ public class DumperTest extends AbstractRuntimeTest
 		{
 			case hsqldb:     dataL =      "X'aabbcc'"; break;
 			case mysql:      dataL =      "x'aabbcc'"; break;
-			case postgresql: dataL = "E'\\\\xaabbcc'"; break;
 			case oracle:     dataL =       "'aabbcc'"; break;
+			case postgresql: dataL = "E'\\\\xaabbcc'"; break;
 			default:
 				fail(dialect.toString());
 		}
