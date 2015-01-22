@@ -18,12 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.GroupItem.TYPE;
+import static com.exedio.cope.GroupItem.day;
+import static com.exedio.cope.GroupItem.number;
+import static com.exedio.cope.GroupItem.optionalDouble;
+
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
 
 public class QueryGroupingTest extends AbstractRuntimeTest
 {
-	static final Model MODEL = new Model( GroupItem.TYPE );
+	static final Model MODEL = new Model( TYPE );
 
 	static final Day day1 = new Day(2006, 02, 19);
 	static final Day day2 = new Day(2006, 02, 20);
@@ -43,11 +48,11 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 		assertContains(
 			item1, item2a, item2b, item3,
-			GroupItem.TYPE.search()
+			TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable<?>[]{GroupItem.day, GroupItem.number.sum()}, GroupItem.TYPE, null );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{day, number.sum()}, TYPE, null );
 		assertEquals( "select day,sum(number) from GroupItem", query.toString() );
-		query.setGroupBy( GroupItem.day );
+		query.setGroupBy( day );
 		assertEquals( "select day,sum(number) from GroupItem group by day", query.toString() );
 
 		assertContains(
@@ -55,29 +60,29 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.number.min(), GroupItem.number.max() );
+		query.setSelects( day, number.min(), number.max() );
 		assertEquals( "select day,min(number),max(number) from GroupItem group by day", query.toString() );
 		assertContains(
 			list(day1, 1, 1), list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
 
-		query.setCondition( GroupItem.day.greater(day1) );
+		query.setCondition( day.greater(day1) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where day>'2006/2/19' group by day", query.toString() );
 		assertContains(
 			list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
 
-		query.setCondition( GroupItem.number.notEqual(3) );
+		query.setCondition( number.notEqual(3) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where number<>'3' group by day", query.toString() );
 		assertContains(
 			list(day1, 1, 1), list(day2, 2, 2), list(day3, 4, 4),
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.optionalDouble.sum() );
-		query.setCondition( GroupItem.day.equal(day2) );
+		query.setSelects( day, optionalDouble.sum() );
+		query.setCondition( day.equal(day2) );
 		assertEquals( "select day,sum(optionalDouble) from GroupItem where day='2006/2/20' group by day", query.toString() );
 		assertContains(
 			list(day2, null),
@@ -97,7 +102,7 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.optionalDouble.sum(), new Count() );
+		query.setSelects( day, optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day2, 4.5, 2),
 			query.search()
@@ -130,8 +135,8 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		}
 		deleteOnTearDown( new GroupItem(day1, 1) );
 		deleteOnTearDown( new GroupItem(day2, 2) );
-		final Query<?> query = Query.newQuery( new Selectable<?>[]{GroupItem.day, GroupItem.number}, GroupItem.TYPE, null );
-		query.setGroupBy( GroupItem.number );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{day, number}, TYPE, null );
+		query.setGroupBy( number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
 		try
 		{
@@ -145,10 +150,10 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 
 	public void testCannotGroupSingleSelect()
 	{
-		final Query<GroupItem> query = GroupItem.TYPE.newQuery();
+		final Query<GroupItem> query = TYPE.newQuery();
 		try
 		{
-			query.setGroupBy( GroupItem.day );
+			query.setGroupBy( day );
 			fail();
 		}
 		catch ( final IllegalStateException e )
@@ -169,16 +174,16 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		item2c.setOptionalDouble( 27.0 );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable<?>[]{GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum()}, GroupItem.TYPE, null
+			new Selectable<?>[]{day, number, optionalDouble.sum()}, TYPE, null
 		);
-		query.setGroupBy( GroupItem.day, GroupItem.number );
+		query.setGroupBy( day, number );
 		assertEquals( "select day,number,sum(optionalDouble) from GroupItem group by day,number", query.toString() );
 		assertContains(
 			list(day1, 1, 10.0), list(day2, 2, 20.0), list(day2, 3, 52.0),
 			query.search()
 		);
 
-		query.setSelects( GroupItem.day, GroupItem.number, GroupItem.optionalDouble.sum(), new Count() );
+		query.setSelects( day, number, optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day1, 1, 10.0, 1), list(day2, 2, 20.0, 1), list(day2, 3, 52.0, 2),
 			query.search()
@@ -192,18 +197,18 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		deleteOnTearDown( new GroupItem(day2, 3) );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable<?>[]{GroupItem.day, GroupItem.day}, GroupItem.TYPE, null
+			new Selectable<?>[]{day, day}, TYPE, null
 		);
-		final Join join = query.join( GroupItem.TYPE );
-		join.setCondition( GroupItem.day.bind(join).equal(GroupItem.day) );
-		query.setSelects( GroupItem.day, GroupItem.number, GroupItem.number.bind(join) );
+		final Join join = query.join( TYPE );
+		join.setCondition( day.bind(join).equal(day) );
+		query.setSelects( day, number, number.bind(join) );
 		assertContains(
 			list(day1, 1, 2), list(day1, 2, 1), list(day1, 1, 1), list(day1, 2, 2), list(day2, 3, 3),
 			query.search()
 		);
 
-		query.setGroupBy( GroupItem.day );
-		query.setSelects( GroupItem.day, new Count() );
+		query.setGroupBy( day );
+		query.setSelects( day, new Count() );
 		assertContains(
 			list(day1, 4), list(day2, 1),
 			query.search()
@@ -219,14 +224,14 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		deleteOnTearDown( new GroupItem(day2, 3) );
 
 		final Query<?> query = Query.newQuery(
-			new Selectable<?>[]{GroupItem.optionalDouble, GroupItem.number.sum(), new Count()}, GroupItem.TYPE, null
+			new Selectable<?>[]{optionalDouble, number.sum(), new Count()}, TYPE, null
 		);
-		query.setGroupBy( GroupItem.optionalDouble );
-		query.setOrderBy( GroupItem.optionalDouble, true );
+		query.setGroupBy( optionalDouble );
+		query.setOrderBy( optionalDouble, true );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble", query.toString() );
 		assertContains( list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1), query.search() );
 
-		query.setOrderBy( GroupItem.optionalDouble, false );
+		query.setOrderBy( optionalDouble, false );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble desc", query.toString() );
 		assertContains( list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1), query.search() );
 	}
