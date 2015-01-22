@@ -53,6 +53,8 @@ public class DumperTest extends AbstractRuntimeTest
 			dataL = "X'aabbcc'";
 		else if(mysql)
 			dataL = "x'aabbcc'";
+		else if(postgresql)
+			dataL = "E'\\\\xaabbcc'";
 		else
 			dataL = "'aabbcc'";
 	}

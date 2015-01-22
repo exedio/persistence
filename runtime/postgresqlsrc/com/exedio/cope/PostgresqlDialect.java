@@ -126,6 +126,17 @@ final class PostgresqlDialect extends Dialect
 		return (maximumLength<Integer.MAX_VALUE) ? BINARY : null;
 	}
 
+	/**
+	 * See http://www.postgresql.org/docs/9.3/interactive/datatype-binary.html#AEN5318
+	 */
+	@Override
+	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
+	{
+		statementText.append("E'\\\\x");
+		Hex.append(statementText, parameter, parameter.length);
+		statementText.append('\'');
+	}
+
 	@Override
 	final String getBlobLength()
 	{
