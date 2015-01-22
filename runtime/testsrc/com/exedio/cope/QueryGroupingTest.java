@@ -111,28 +111,6 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 
 	public void testUngroupedSelect()
 	{
-		if ( postgresql )
-		{
-			// TODO: this test fails on postgresql, with the error below:
-			//
-			//java.lang.RuntimeException: test completed successfully but didn't clean up database
-			//	at com.exedio.cope.junit.CopeTest.tearDown(CopeTest.java:221)
-			//	at com.exedio.cope.AbstractRuntimeTest.tearDown(AbstractRuntimeTest.java:182)
-			//	at com.exedio.cope.junit.CopeTest.runBare(CopeTest.java:107)
-			//Caused by: java.lang.RuntimeException: test completed successfully but failed to delete a 'deleteOnTearDown' item
-			//	at com.exedio.cope.junit.CopeTest.tearDown(CopeTest.java:211)
-			//Caused by: com.exedio.dsmf.SQLRuntimeException: delete from "GroupItem" where "this"=?1? and "catch"=?0?
-			//	at com.exedio.cope.Executor.update(Executor.java:297)
-			//	at com.exedio.cope.Executor.updateStrict(Executor.java:244)
-			//	at com.exedio.cope.DeletedState.doDelete(DeletedState.java:83)
-			//	at com.exedio.cope.DeletedState.write(DeletedState.java:50)
-			//	at com.exedio.cope.Entity.write(Entity.java:62)
-			//	at com.exedio.cope.Item.deleteCopeItem(Item.java:416)
-			//	at com.exedio.cope.Item.deleteCopeItem(Item.java:343)
-			//	at com.exedio.cope.junit.CopeTest.tearDown(CopeTest.java:198)
-			//Caused by: org.postgresql.util.PSQLException: FEHLER: aktuelle Transaktion wurde abgebrochen, Befehle werden bis zum Ende der Transaktion ignoriert
-			return;
-		}
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
 		final Query<?> query = Query.newQuery( new Selectable<?>[]{day, number}, TYPE, null );
