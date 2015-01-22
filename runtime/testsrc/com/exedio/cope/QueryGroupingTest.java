@@ -51,28 +51,28 @@ public class QueryGroupingTest extends AbstractRuntimeTest
 		assertEquals( "select day,sum(number) from GroupItem group by day", query.toString() );
 
 		assertContains(
-			list(day1, i1), list(day2, i5), list(day3, i4),
+			list(day1, 1), list(day2, 5), list(day3, 4),
 			query.search()
 		);
 
 		query.setSelects( GroupItem.day, GroupItem.number.min(), GroupItem.number.max() );
 		assertEquals( "select day,min(number),max(number) from GroupItem group by day", query.toString() );
 		assertContains(
-			list(day1, i1, i1), list(day2, i2, i3), list(day3, i4, i4),
+			list(day1, 1, 1), list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
 
 		query.setCondition( GroupItem.day.greater(day1) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where day>'2006/2/19' group by day", query.toString() );
 		assertContains(
-			list(day2, i2, i3), list(day3, i4, i4),
+			list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
 
 		query.setCondition( GroupItem.number.notEqual(3) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where number<>'3' group by day", query.toString() );
 		assertContains(
-			list(day1, i1, i1), list(day2, i2, i2), list(day3, i4, i4),
+			list(day1, 1, 1), list(day2, 2, 2), list(day3, 4, 4),
 			query.search()
 		);
 
