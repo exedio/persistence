@@ -27,6 +27,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 		skipTransactionManagement();
 	}
 
+	boolean itemCacheStamps;
 	CacheIsolationItem item;
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 
@@ -35,7 +36,9 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 
-		System.out.println("CacheReadPoisoningBruteForceTest cache.stamps " + model.getConnectProperties().itemCacheStamps);
+		itemCacheStamps = model.getConnectProperties().itemCacheStamps;
+
+		System.out.println("CacheReadPoisoningBruteForceTest cache.stamps " + itemCacheStamps);
 
 		try(TransactionTry tx = model.startTransactionTry("CacheBadReadTest setUp"))
 		{
@@ -118,12 +121,12 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheStamp "+i, model.getConnectProperties().itemCacheStamps);
+				assertTrue("itemCacheStamp "+i, itemCacheStamps);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheStamp "+i, model.getConnectProperties().itemCacheStamps);
+				assertFalse("itemCacheStamp "+i, itemCacheStamps);
 			}
 			finally
 			{
