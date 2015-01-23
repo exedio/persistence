@@ -35,6 +35,8 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
 	{
 		super.setUp();
 
+		System.out.println("CacheReadPoisoningBruteForceTest cache.stamps " + model.getConnectProperties().itemCacheStamps);
+
 		try(TransactionTry tx = model.startTransactionTry("CacheBadReadTest setUp"))
 		{
 			item = deleteOnTearDown(new CacheIsolationItem("itemName"));
