@@ -232,7 +232,7 @@ public final class PostgresqlDialect extends Dialect
 	@Override
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
-		bf.append(" WITHOUT OIDS");
+		bf.append(" WITH (OIDS=FALSE)");
 	}
 
 	// same as oracle
