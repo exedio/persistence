@@ -23,6 +23,7 @@ import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import junit.framework.TestCase;
 
 /**
@@ -31,7 +32,7 @@ import junit.framework.TestCase;
  */
 public class ConnectPropertiesTest extends TestCase
 {
-	public void testIt() throws IOException
+	public void testNormal() throws IOException
 	{
 		final ConnectProperties p = new ConnectProperties(
 				loadProperties(getClass().getResourceAsStream("connectPropertiesTest.properties")),
@@ -43,6 +44,50 @@ public class ConnectPropertiesTest extends TestCase
 		}
 
 		p.ensureValidity();
+	}
+
+	public void testPostgresqlSearchPath() throws IOException
+	{
+		final String propKey = "connection.postgresql.search_path";
+		final Source source =
+				Sources.cascade(
+						new Source(){
+
+							@Override
+							public String get(final String key)
+							{
+								if(key.equals(propKey))
+									return "123,567";
+
+								return null;
+							}
+
+							@Override
+							public Collection<String> keySet()
+							{
+								throw new RuntimeException();
+							}
+
+							@Override
+							public String getDescription()
+							{
+								return "getDescription";
+							}
+						},
+						loadProperties(getClass().getResourceAsStream("connectPropertiesTest.properties"))
+				);
+		try
+		{
+			new ConnectProperties(source, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"value for " + propKey + " '123,567' contains forbidden comma on position 3.",
+					e.getMessage());
+			assertEquals(IllegalArgumentException.class, e.getClass());
+		}
 	}
 
 	private static Source loadProperties(final InputStream stream) throws IOException
