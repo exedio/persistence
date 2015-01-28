@@ -29,6 +29,7 @@ import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
 
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,6 +40,8 @@ import java.util.List;
 
 final class PostgresqlDialect extends Dialect
 {
+	private final String searchPath;
+
 	/**
 	 * @param parameters must be there to be called by reflection
 	 */
@@ -46,13 +49,19 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect());
+
+		searchPath = parameters.properties.connectionPostgresqlSearchPath;
 	}
 
 	@Override
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void completeConnection(final Connection connection) throws SQLException
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
+			// http://www.postgresql.org/docs/9.3/interactive/runtime-config-client.html#GUC-SEARCH-PATH
+			st.execute("SET search_path TO " + searchPath);
+
 			// http://www.postgresql.org/docs/9.3/interactive/runtime-config-compatible.html#GUC-QUOTE-ALL-IDENTIFIERS
 			st.execute("SET quote_all_identifiers TO ON");
 		}

@@ -37,6 +37,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionUrl      = value      ("connection.url",      (String)null);
 	private final String connectionUsername = value      ("connection.username", (String)null);
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
+	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", "\"$user\"");
 
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
@@ -214,6 +215,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			dialectCode = dialectCodeRaw;
 
 		dialect = getDialectConstructor(dialectCode, source.getDescription());
+
+		{
+			final int position = connectionPostgresqlSearchPath.indexOf(',');
+			if(position>=0)
+				throw new IllegalArgumentException(
+					"value for connection.postgresql.search_path '" + connectionPostgresqlSearchPath + "'" +
+					" contains forbidden comma on position " + position + '.');
+		}
 
 		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
 			throw new RuntimeException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
