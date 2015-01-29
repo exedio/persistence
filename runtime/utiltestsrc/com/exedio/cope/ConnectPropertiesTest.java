@@ -26,13 +26,13 @@ import java.io.InputStream;
 import java.util.Collection;
 import junit.framework.TestCase;
 
-/**
- * This tests makes sure, that no properties are changed by accident.
- * Adapt if necessary.
- */
 public class ConnectPropertiesTest extends TestCase
 {
-	public void testNormal() throws IOException
+	/**
+	 * This tests makes sure, that no properties are changed by accident.
+	 * Adapt if necessary.
+	 */
+	public void testRegression() throws IOException
 	{
 		final ConnectProperties p = new ConnectProperties(
 				loadProperties(getClass().getResourceAsStream("connectPropertiesTest.properties")),
