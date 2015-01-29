@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class ScheduleTest extends AbstractRuntimeModelTest
@@ -67,6 +68,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				report.getRunFrom ().map(date("2014/11/29-00:00:00.000")),
 				report.getRunUntil().map(date("2014/11/30-00:00:00.000")),
 				report.getRunRun  ().map(date("2014/11/30-00:00:00.000")),
+				report.getRunProgress().map(0),
 				report.getRunElapsed().map(5000l));
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
@@ -445,6 +447,25 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns(
 				ern(WEEKLY, "2008/01/17-00:00:00.000", "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000"),
 				ern(WEEKLY, "2008/01/21-00:00:00.000", "2008/01/28-00:00:00.000", "2008/01/28-00:00:00.000"));
+	}
+
+	public void testProgress()
+	{
+		assertEquals(DAILY, item.getReportInterval());
+		item.setProgress(5);
+
+		run(6, "2008/03/14-01:49:49.888");
+		final Iterator<Run> runs = report.getRunType().search(null, report.getRunType().getThis(), true).iterator();
+		{
+			final Run run = runs.next();
+			assertEquals(0, run.getProgress());
+		}
+		{
+			final Run run = runs.next();
+			assertEquals(item, run.getParent());
+			assertEquals(5, run.getProgress());
+		}
+		assertFalse(runs.hasNext());
 	}
 
 	private final void run(final int progress, final String now)

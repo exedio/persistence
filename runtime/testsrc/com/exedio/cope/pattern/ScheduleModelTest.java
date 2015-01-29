@@ -51,7 +51,10 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
 
-		assertEqualsUnmodifiable(list(TYPE.getThis(), report, report.getEnabled(), report.getInterval(), ScheduleItem.fail), TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(
+				TYPE.getThis(), report, report.getEnabled(), report.getInterval(),
+				ScheduleItem.fail, ScheduleItem.progress),
+				TYPE.getFeatures());
 		assertEquals(TYPE, report.getInterval().getType());
 		assertEquals("report-interval", report.getInterval().getName());
 		assertEquals(TYPE, report.getEnabled().getType());
@@ -65,6 +68,7 @@ public class ScheduleModelTest extends CopeAssert
 				report.getRunRuns(),
 				report.getRunUntil(),
 				report.getRunRun(),
+				report.getRunProgress(),
 				report.getRunElapsed()
 			), report.getRunType().getFeatures());
 

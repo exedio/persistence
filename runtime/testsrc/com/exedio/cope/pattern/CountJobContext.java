@@ -35,4 +35,10 @@ class CountJobContext extends AssertionErrorJobContext
 	{
 		progress++;
 	}
+
+	@Override
+	public void incrementProgress(final int delta)
+	{
+		progress += delta;
+	}
 }

@@ -40,6 +40,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -52,6 +53,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.ProxyJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -199,6 +201,11 @@ public final class Schedule extends Pattern
 		return runs.run;
 	}
 
+	public IntegerField getRunProgress()
+	{
+		return runs.progress;
+	}
+
 	public LongField getRunElapsed()
 	{
 		return runs.elapsed;
@@ -330,15 +337,54 @@ public final class Schedule extends Pattern
 			final JobContext ctx)
 	{
 		ctx.stopIfRequested();
+		final RunContext runCtx = new RunContext(ctx);
 		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 		{
 			final long elapsedStart = nanoTime();
-			item.run(this, from, until, ctx);
+			item.run(this, from, until, runCtx);
 			final long elapsedEnd = nanoTime();
-			runs.newItem(item, interval, from, until, now, toMillies(elapsedEnd, elapsedStart));
+			runs.newItem(
+					item, interval, from, until, now,
+					runCtx.getProgress(),
+					toMillies(elapsedEnd, elapsedStart));
 			tx.commit();
 		}
 		ctx.incrementProgress();
+	}
+
+	private static final class RunContext extends ProxyJobContext
+	{
+		private int progress = 0;
+
+		RunContext(final JobContext target)
+		{
+			super(target);
+		}
+
+		@Override
+		public boolean supportsProgress()
+		{
+			return true;
+		}
+
+		@Override
+		public void incrementProgress()
+		{
+			super.incrementProgress();
+			progress++;
+		}
+
+		@Override
+		public void incrementProgress(final int delta)
+		{
+			super.incrementProgress(delta);
+			progress += delta;
+		}
+
+		int getProgress()
+		{
+			return progress;
+		}
 	}
 
 	private TransactionTry startTransaction(final Item item, final String name)
@@ -353,6 +399,7 @@ public final class Schedule extends Pattern
 		final DateField from = new DateField().toFinal();
 		final DateField until = new DateField().toFinal();
 		final DateField run = new DateField().toFinal();
+		final IntegerField progress = new IntegerField().toFinal().min(0);
 		final LongField elapsed = new LongField().toFinal().min(0);
 
 		private Mount mountIfMounted = null;
@@ -373,6 +420,7 @@ public final class Schedule extends Pattern
 			features.put("runs",  runs);
 			features.put("until", until);
 			features.put("run",   run);
+			features.put("progress", progress);
 			features.put("elapsed", elapsed);
 			@SuppressWarnings("synthetic-access")
 			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
@@ -414,6 +462,7 @@ public final class Schedule extends Pattern
 				final Date from,
 				final Date until,
 				final Date now,
+				final int progress,
 				final long elapsed)
 		{
 			final Mount mount = mount();
@@ -424,6 +473,7 @@ public final class Schedule extends Pattern
 					this.from.map(from),
 					this.until.map(until),
 					this.run.map(now),
+					this.progress.map(progress),
 					this.elapsed.map(elapsed));
 		}
 	}
@@ -466,6 +516,11 @@ public final class Schedule extends Pattern
 		public Date getRun()
 		{
 			return getPattern().runs.run.get(this);
+		}
+
+		public int getProgress()
+		{
+			return getPattern().runs.progress.getMandatory(this);
 		}
 
 		public long getElapsed()
