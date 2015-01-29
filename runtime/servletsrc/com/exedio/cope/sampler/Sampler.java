@@ -289,6 +289,8 @@ public class Sampler
 
 	public final void purge(final Date limit, final JobContext ctx)
 	{
+		requireNonNull(ctx, "ctx");
+
 		final ArrayList<Type<?>> types = new ArrayList<>();
 		final ArrayList<Type<?>> lastTypes = new ArrayList<>();
 		for(final Type<?> type : samplerModel.getTypes())

@@ -54,4 +54,17 @@ public class SamplerTest extends TestCase
 			assertEquals("0", e.getMessage());
 		}
 	}
+
+	public void testPurgeNull()
+	{
+		try
+		{
+			sampler.purge(1, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
+	}
 }
