@@ -67,6 +67,29 @@ public class ConnectPropertiesTest extends TestCase
 		}
 	}
 
+	public void testConnectionPoolIdleInitial() throws IOException
+	{
+		final String propKey = "connectionPool.idleInitial";
+		final Source source =
+				Sources.cascade(
+						source(propKey, "51"),
+						loadProperties()
+				);
+		try
+		{
+			new ConnectProperties(source, null);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(
+					"value for " + propKey + " must not be greater than connectionPool.idleLimit",
+					e.getMessage());
+			// TODO use IllegalPropertiesException when available in copeutil
+			assertEquals(RuntimeException.class, e.getClass());
+		}
+	}
+
 	private static Source source(
 			final String key1, final String value1)
 	{
