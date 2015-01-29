@@ -44,6 +44,74 @@ public class ConnectPropertiesTest extends TestCase
 		p.ensureValidity();
 	}
 
+	public void testConnectionUrlMissingPrefix() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"someUrl",
+				"cannot parse connection.url=someUrl, missing prefix 'jdbc:'");
+	}
+
+	public void testConnectionUrlMissingColon() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"jdbc:someCode",
+				"cannot parse connection.url=jdbc:someCode, missing second colon");
+	}
+
+	public void testConnectionUrlTwoCharacters() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"jdbc:a:",
+				"dialect from getDescription / getDescription / test must have at least two characters, but was a");
+	}
+
+	public void testConnectionUrlClassNotFound() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"jdbc:classNotFound:",
+				"class com.exedio.cope.ClassNotFoundDialect from getDescription / getDescription / test not found.");
+	}
+
+	public void testConnectionUrlClassNotDialect() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"jdbc:connectPropertiesTestClassNotDialect:",
+				"class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
+				" from getDescription / getDescription / test not a subclass of com.exedio.cope.Dialect.");
+	}
+
+	public void testConnectionUrlClassNoConstructor() throws IOException
+	{
+		assertConnectionUrlFailure(
+				"jdbc:connectPropertiesTestClassNoConstructor:",
+				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
+				" from getDescription / getDescription / test does not have the required constructor.");
+	}
+
+	private static void assertConnectionUrlFailure(final String url, final String message) throws IOException
+	{
+		final String propKey = "connection.url";
+		final Source source =
+				Sources.cascade(
+						source("dialect", "from url"),
+						source(propKey, url),
+						loadProperties()
+				);
+		try
+		{
+			new ConnectProperties(source, null);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(
+					message,
+					e.getMessage());
+			// TODO use IllegalPropertiesException when available in copeutil
+			assertEquals(RuntimeException.class, e.getClass());
+		}
+	}
+
 	public void testPostgresqlSearchPath() throws IOException
 	{
 		final String propKey = "connection.postgresql.search_path";
