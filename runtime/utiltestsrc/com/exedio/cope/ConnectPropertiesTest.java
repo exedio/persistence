@@ -49,29 +49,7 @@ public class ConnectPropertiesTest extends TestCase
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
 				Sources.cascade(
-						new Source(){
-
-							@Override
-							public String get(final String key)
-							{
-								if(key.equals(propKey))
-									return "123,567";
-
-								return null;
-							}
-
-							@Override
-							public Collection<String> keySet()
-							{
-								throw new RuntimeException();
-							}
-
-							@Override
-							public String getDescription()
-							{
-								return "getDescription";
-							}
-						},
+						source(propKey, "123,567"),
 						loadProperties()
 				);
 		try
@@ -86,6 +64,31 @@ public class ConnectPropertiesTest extends TestCase
 					e.getMessage());
 			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
+	}
+
+	private static Source source(
+			final String key1, final String value1)
+	{
+		return new Source(){
+			@Override
+			public String get(final String key)
+			{
+				if(key.equals(key1))
+					return value1;
+
+				return null;
+			}
+			@Override
+			public Collection<String> keySet()
+			{
+				throw new RuntimeException();
+			}
+			@Override
+			public String getDescription()
+			{
+				return "getDescription";
+			}
+		};
 	}
 
 	private static Source loadProperties() throws IOException
