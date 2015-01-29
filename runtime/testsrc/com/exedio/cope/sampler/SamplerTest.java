@@ -41,4 +41,17 @@ public class SamplerTest extends TestCase
 			assertEquals("sampledModel", e.getMessage());
 		}
 	}
+
+	public void testPurgeNegative()
+	{
+		try
+		{
+			sampler.purge(0, null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("0", e.getMessage());
+		}
+	}
 }
