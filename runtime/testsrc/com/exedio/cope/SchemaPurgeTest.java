@@ -302,6 +302,19 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	public void testNullContext()
+	{
+		try
+		{
+			model.purgeSchema(null);
+			fail();
+		}
+		catch(final NullPointerException s)
+		{
+			assertEquals("ctx", s.getMessage());
+		}
+	}
+
 	static final class AnItem extends Item
 	{
 		static final IntegerField next = new IntegerField().defaultToNext(1000);
