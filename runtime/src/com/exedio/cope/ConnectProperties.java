@@ -246,7 +246,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " not found.");
+			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " not found.", e);
 		}
 
 		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
@@ -260,7 +260,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.");
+			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.", e);
 		}
 	}
 

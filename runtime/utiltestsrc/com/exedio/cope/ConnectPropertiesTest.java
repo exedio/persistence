@@ -73,7 +73,7 @@ public class ConnectPropertiesTest extends TestCase
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
 				"class com.exedio.cope.ClassNotFoundDialect from getDescription / getDescription / test not found.",
-				null);
+				ClassNotFoundException.class);
 	}
 
 	public void testConnectionUrlClassNotDialect() throws IOException
@@ -91,13 +91,13 @@ public class ConnectPropertiesTest extends TestCase
 				"jdbc:connectPropertiesTestClassNoConstructor:",
 				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
 				" from getDescription / getDescription / test does not have the required constructor.",
-				null);
+				NoSuchMethodException.class);
 	}
 
 	private static void assertConnectionUrlFailure(
 			final String url,
 			final String message,
-			final Class<Exception> cause)
+			final Class<? extends Exception> cause)
 		throws IOException
 	{
 		final String propKey = "connection.url";
