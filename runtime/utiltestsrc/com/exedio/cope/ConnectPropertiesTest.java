@@ -34,9 +34,7 @@ public class ConnectPropertiesTest extends TestCase
 	 */
 	public void testRegression() throws IOException
 	{
-		final ConnectProperties p = new ConnectProperties(
-				loadProperties(getClass().getResourceAsStream("connectPropertiesTest.properties")),
-				null);
+		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
 
 		for(final Field field : p.getFields())
 		{
@@ -74,7 +72,7 @@ public class ConnectPropertiesTest extends TestCase
 								return "getDescription";
 							}
 						},
-						loadProperties(getClass().getResourceAsStream("connectPropertiesTest.properties"))
+						loadProperties()
 				);
 		try
 		{
@@ -88,6 +86,12 @@ public class ConnectPropertiesTest extends TestCase
 					e.getMessage());
 			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
+	}
+
+	private static Source loadProperties() throws IOException
+	{
+		return loadProperties(
+				ConnectPropertiesTest.class.getResourceAsStream("connectPropertiesTest.properties"));
 	}
 
 	private static Source loadProperties(final InputStream stream) throws IOException
