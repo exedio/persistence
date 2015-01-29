@@ -62,6 +62,7 @@ public class ConnectPropertiesTest extends TestCase
 			assertEquals(
 					"value for " + propKey + " '123,567' contains forbidden comma on position 3.",
 					e.getMessage());
+			// TODO use IllegalPropertiesException when available in copeutil
 			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
 	}
