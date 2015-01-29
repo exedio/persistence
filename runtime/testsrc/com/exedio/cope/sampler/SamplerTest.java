@@ -24,10 +24,13 @@ import junit.framework.TestCase;
 
 public class SamplerTest extends TestCase
 {
-	public void testIt()
+	public void testToString()
 	{
 		assertEquals("Sampler#com.exedio.cope.sampler.Stuff#MODEL", sampler.toString());
+	}
 
+	public void testConstructorNull()
+	{
 		try
 		{
 			new Sampler(null);
