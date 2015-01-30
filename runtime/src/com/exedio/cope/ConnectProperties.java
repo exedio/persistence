@@ -225,7 +225,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 
 		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
-			throw new RuntimeException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
+			throw new IllegalArgumentException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
 	}
 
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)

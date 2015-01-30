@@ -161,13 +161,13 @@ public class ConnectPropertiesTest extends TestCase
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					"value for " + propKey + " must not be greater than connectionPool.idleLimit",
 					e.getMessage());
 			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(RuntimeException.class, e.getClass());
+			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
 	}
 
