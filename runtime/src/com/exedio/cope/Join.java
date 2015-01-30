@@ -28,14 +28,16 @@ public final class Join implements Serializable
 
 	public static enum Kind
 	{
-		INNER("join "),
-		OUTER_LEFT("left join "),
-		OUTER_RIGHT("right join ");
+		INNER("join ", "JOIN "),
+		OUTER_LEFT("left join ", "LEFT JOIN "),
+		OUTER_RIGHT("right join ", "RIGHT JOIN ");
 
+		final String toString;
 		final String sql;
 
-		Kind(final String sql)
+		Kind(final String toString, final String sql)
 		{
+			this.toString = toString;
 			this.sql = sql;
 		}
 	}
@@ -108,7 +110,7 @@ public final class Join implements Serializable
 	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		bf.append(' ').
-			append(kind.sql).
+			append(kind.toString).
 			append(type).
 			append(' ').
 			append(getToStringAlias());
@@ -153,7 +155,7 @@ public final class Join implements Serializable
 
 		if(condition!=null)
 		{
-			bf.append(" on ");
+			bf.append(" ON ");
 			condition.append(bf);
 		}
 	}
