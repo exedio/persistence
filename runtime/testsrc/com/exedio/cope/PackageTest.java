@@ -135,6 +135,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SelectTest.class );
 		suite.addTestSuite( SelectBindTest.class );
 		suite.addTestSuite( DistinctTest.class );
+		suite.addTestSuite( DistinctOrderByTest.class );
 		suite.addTestSuite( FunctionTest.class );
 		suite.addTestSuite( CoalesceTest.class );
 		suite.addTestSuite( CoalesceFunctionTest.class );
