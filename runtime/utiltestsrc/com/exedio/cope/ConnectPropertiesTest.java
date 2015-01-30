@@ -112,13 +112,13 @@ public class ConnectPropertiesTest extends TestCase
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 					message,
 					e.getMessage());
 			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(RuntimeException.class, e.getClass());
+			assertEquals(IllegalArgumentException.class, e.getClass());
 
 			final Throwable actualCause = e.getCause();
 			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);

@@ -205,10 +205,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final String url = connectionUrl;
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw new RuntimeException("cannot parse connection.url=" + url + ", missing prefix '" + prefix + '\'');
+				throw new IllegalArgumentException("cannot parse connection.url=" + url + ", missing prefix '" + prefix + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw new RuntimeException("cannot parse connection.url=" + url + ", missing second colon");
+				throw new IllegalArgumentException("cannot parse connection.url=" + url + ", missing second colon");
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
@@ -231,7 +231,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
 	{
 		if(dialectCode.length()<=2)
-			throw new RuntimeException("dialect from " + sourceDescription + " must have at least two characters, but was " + dialectCode);
+			throw new IllegalArgumentException("dialect from " + sourceDescription + " must have at least two characters, but was " + dialectCode);
 
 		final String dialectName =
 			"com.exedio.cope." +
@@ -246,12 +246,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " not found.", e);
+			throw new IllegalArgumentException("class " + dialectName + " from " + sourceDescription + " not found.", e);
 		}
 
 		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
 		{
-			throw new RuntimeException(dialectClassRaw.toString() + " from " + sourceDescription + " not a subclass of " + Dialect.class.getName() + '.');
+			throw new IllegalArgumentException(dialectClassRaw.toString() + " from " + sourceDescription + " not a subclass of " + Dialect.class.getName() + '.');
 		}
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
@@ -260,7 +260,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw new RuntimeException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.", e);
+			throw new IllegalArgumentException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.", e);
 		}
 	}
 
