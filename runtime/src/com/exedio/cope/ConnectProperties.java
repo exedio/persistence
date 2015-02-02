@@ -156,6 +156,31 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
 	final boolean itemCacheStamps = value("cache.stamps", true);
 
+	/**
+	 * @see Query#getSearchSizeLimit()
+	 * @see Query#setSearchSizeLimit(int)
+	 */
+	public int getQuerySearchSizeLimit()
+	{
+		return querySearchSizeLimit;
+	}
+
+	public int getItemCacheLimit()
+	{
+		return itemCacheLimit;
+	}
+
+	public int getQueryCacheLimit()
+	{
+		return queryCacheLimit;
+	}
+
+	int getQueryCacheSizeLimit()
+	{
+		return queryCacheSizeLimit;
+	}
+
+
 	final int dataFieldBufferSizeDefault = value("dataField.bufferSizeDefault", 20*1024, 1);
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 
@@ -366,30 +391,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			mysqlLowerCaseTableNames
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
-	}
-
-	/**
-	 * @see Query#getSearchSizeLimit()
-	 * @see Query#setSearchSizeLimit(int)
-	 */
-	public int getQuerySearchSizeLimit()
-	{
-		return querySearchSizeLimit;
-	}
-
-	public int getItemCacheLimit()
-	{
-		return itemCacheLimit;
-	}
-
-	public int getQueryCacheLimit()
-	{
-		return queryCacheLimit;
-	}
-
-	int getQueryCacheSizeLimit()
-	{
-		return queryCacheSizeLimit;
 	}
 
 	public String getMediaRootUrl()
