@@ -6,9 +6,5 @@ ivy/artifacts/
 lib/ojdbc5.jar
 cope.properties
 local.properties
-test-properties/mysql*.properties
-test-properties/oracle*.properties
-test-properties/postgresql*.properties
-test-properties/disabled/
 .eclipse-output/
 /nbproject/private/

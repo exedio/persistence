@@ -1,0 +1,4 @@
+mysql*.properties
+oracle*.properties
+postgresql*.properties
+disabled/
