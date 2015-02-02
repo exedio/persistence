@@ -98,7 +98,7 @@ public final class DataField extends Field<DataField.Value>
 		final ConnectProperties properties = model.getConnectProperties();
 		column = new BlobColumn(table, name, optional, maximumLength);
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
-		bufferSizeLimit = min(properties.dataFieldBufferSizeLimit, maximumLength);
+		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 
 		return column;
 	}
