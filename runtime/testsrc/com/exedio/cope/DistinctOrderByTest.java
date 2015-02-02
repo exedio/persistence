@@ -32,24 +32,34 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 		super(PlusIntegerTest.MODEL);
 	}
 
+	private PlusIntegerItem item1;
+	private PlusIntegerItem item2;
+	private Query<PlusIntegerItem> q;
+
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-	}
+		item1 = deleteOnTearDown(new PlusIntegerItem(2, 4, 5));
+		item2 = deleteOnTearDown(new PlusIntegerItem(1, 4, 5));
 
-	public void testIt()
-	{
-		final PlusIntegerItem item1 = deleteOnTearDown(new PlusIntegerItem(2, 4, 5));
-		final PlusIntegerItem item2 = deleteOnTearDown(new PlusIntegerItem(1, 4, 5));
-
-		final Query<PlusIntegerItem> q = TYPE.newQuery();
+		q = TYPE.newQuery();
 		final Join join = q.join(TYPE);
 		join.setCondition(numC.equal(numC.bind(join)));
-		q.setDistinct(true);
-		assertContains(item1, item2, q.search());
+	}
 
+	public void testDistinct()
+	{
+		q.setDistinct(true);
+
+		assertContains(item1, item2, q.search());
+	}
+
+	public void testDistinctOrderBy()
+	{
+		q.setDistinct(true);
 		q.setOrderBy(numA, true);
+
 		switch(dialect)
 		{
 			case hsqldb:
