@@ -50,6 +50,10 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 
 	public void testVanilla()
 	{
+		assertEquals(
+				"select this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC",
+				query.toString());
 		assertContains(item1, item1, item2, item2, query.search());
 	}
 
@@ -57,6 +61,10 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 	{
 		query.setDistinct(true);
 
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC",
+				query.toString());
 		assertContains(item1, item2, query.search());
 	}
 
@@ -64,6 +72,11 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 	{
 		query.setOrderBy(numA, true);
 
+		assertEquals(
+				"select this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC " +
+				"order by numA",
+				query.toString());
 		assertContains(item1, item1, item2, item2, query.search());
 	}
 
@@ -71,6 +84,12 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 	{
 		query.setDistinct(true);
 		query.setOrderBy(numA, true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC " +
+				"order by numA",
+				query.toString());
 
 		switch(dialect)
 		{
