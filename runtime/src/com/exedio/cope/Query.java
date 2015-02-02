@@ -447,7 +447,7 @@ public final class Query<R> implements Serializable
 	{
 		return
 			(searchSizeCacheLimit==SEARCH_SIZE_CACHE_LIMIT_DEFAULT)
-			? model.getConnectProperties().getQueryCacheSizeLimit()
+			? model.getConnectProperties().queryCacheSizeLimit
 			: searchSizeCacheLimit;
 	}
 
