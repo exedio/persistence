@@ -39,12 +39,45 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
 	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", "\"$user\"");
 
+
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", false);
 	private final boolean disableNotNull            = value("disableSupport.notNull", false);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
+
+	public boolean isSupportDisabledForEmptyStrings()
+	{
+		return disableEmptyStrings;
+	}
+
+	public boolean isSupportDisabledForPreparedStatements()
+	{
+		return disablePreparedStatements;
+	}
+
+	public boolean isSupportDisabledForNativeDate()
+	{
+		return disableNativeDate;
+	}
+
+	public boolean isSupportDisabledForNotNull()
+	{
+		return disableNotNull;
+	}
+
+	boolean isSupportDisabledForUniqueViolation()
+	{
+		return disableUniqueViolation;
+	}
+
+	public boolean isSupportDisabledForSemicolon()
+	{
+		return disableSemicolon;
+	}
+
+
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
 	/**
@@ -308,36 +341,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		e.put("connection.url",  connectionUrl);
 		e.put("connection.user", connectionUsername);
-	}
-
-	public boolean isSupportDisabledForPreparedStatements()
-	{
-		return disablePreparedStatements;
-	}
-
-	boolean isSupportDisabledForUniqueViolation()
-	{
-		return disableUniqueViolation;
-	}
-
-	public boolean isSupportDisabledForEmptyStrings()
-	{
-		return disableEmptyStrings;
-	}
-
-	public boolean isSupportDisabledForNativeDate()
-	{
-		return disableNativeDate;
-	}
-
-	public boolean isSupportDisabledForNotNull()
-	{
-		return disableNotNull;
-	}
-
-	public boolean isSupportDisabledForSemicolon()
-	{
-		return disableSemicolon;
 	}
 
 	String filterTableName(final String tableName)
