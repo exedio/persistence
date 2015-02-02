@@ -80,6 +80,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
+	public boolean getFulltextIndex()
+	{
+		return fulltextIndex;
+	}
+
+
 	/**
 	 * By default, {@link Model#deleteSchemaForTest()} does some optimizations
 	 * for executing faster that {@link Model#deleteSchema()}.
@@ -360,11 +366,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			mysqlLowerCaseTableNames
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
-	}
-
-	public boolean getFulltextIndex()
-	{
-		return fulltextIndex;
 	}
 
 	/**
