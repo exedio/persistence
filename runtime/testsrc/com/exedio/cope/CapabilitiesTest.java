@@ -33,7 +33,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		skipTransactionManagement();
 	}
 
-	public void test()
+	public void testSupports()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
