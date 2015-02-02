@@ -48,6 +48,11 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		join.setCondition(numC.equal(numC.bind(join)));
 	}
 
+	public void testVanilla()
+	{
+		assertContains(item1, item1, item2, item2, query.search());
+	}
+
 	public void testDistinct()
 	{
 		query.setDistinct(true);
