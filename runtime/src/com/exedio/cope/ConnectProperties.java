@@ -132,6 +132,17 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final int connectionPoolIdleInitial = value("connectionPool.idleInitial", 0, 0);
 	private final int connectionPoolIdleLimit   = value("connectionPool.idleLimit",  50, 0);
 
+	public int getConnectionPoolIdleInitial()
+	{
+		return connectionPoolIdleInitial;
+	}
+
+	public int getConnectionPoolIdleLimit()
+	{
+		return connectionPoolIdleLimit;
+	}
+
+
 	private final int querySearchSizeLimit = value("query.searchSizeLimit", 100000, 1);
 
 	private final int itemCacheLimit  = value("cache.item.limit", 100000, 0);
@@ -354,16 +365,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getFulltextIndex()
 	{
 		return fulltextIndex;
-	}
-
-	public int getConnectionPoolIdleInitial()
-	{
-		return connectionPoolIdleInitial;
-	}
-
-	public int getConnectionPoolIdleLimit()
-	{
-		return connectionPoolIdleLimit;
 	}
 
 	/**
