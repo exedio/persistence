@@ -25,7 +25,7 @@ import static com.exedio.cope.Query.newQuery;
 
 import java.util.List;
 
-public class DistinctTest extends AbstractRuntimeTest
+public class DistinctTest extends AbstractRuntimeModelTest
 {
 	public DistinctTest()
 	{

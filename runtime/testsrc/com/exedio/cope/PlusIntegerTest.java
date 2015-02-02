@@ -34,7 +34,7 @@ import static com.exedio.cope.PlusIntegerItem.plusAC;
 import static com.exedio.cope.PlusIntegerItem.plusBC;
 import static java.lang.Integer.valueOf;
 
-public class PlusIntegerTest extends AbstractRuntimeTest
+public class PlusIntegerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

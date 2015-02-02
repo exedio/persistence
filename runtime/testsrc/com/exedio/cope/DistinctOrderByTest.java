@@ -25,7 +25,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.dsmf.SQLRuntimeException;
 
-public class DistinctOrderByTest extends AbstractRuntimeTest
+public class DistinctOrderByTest extends AbstractRuntimeModelTest
 {
 	public DistinctOrderByTest()
 	{
@@ -96,10 +96,6 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 				}
 				catch(final SQLRuntimeException e)
 				{
-					model.rollback();
-					model.startTransaction("DistinctOrderByTest");
-					dontDeleteOnTearDown(item1);
-					dontDeleteOnTearDown(item2);
 					final String cause = e.getCause().getMessage();
 					assertTrue(cause, cause.startsWith(
 							"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list"));
