@@ -55,6 +55,13 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		assertContains(item1, item2, query.search());
 	}
 
+	public void testOrderBy()
+	{
+		query.setOrderBy(numA, true);
+
+		assertContains(item1, item1, item2, item2, query.search());
+	}
+
 	public void testDistinctOrderBy()
 	{
 		query.setDistinct(true);
