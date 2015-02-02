@@ -37,27 +37,27 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
-		boolean supportsEmptyStrings = true;
-		boolean supportsRandom = false;
-		boolean supportsCheckConstraints = true;
-		boolean supportsNativeDate = true;
-		boolean supportsNotNull = true;
-		boolean supportsUniqueViolation = false;
+		boolean emptyStrings = true;
+		boolean random = false;
+		boolean checkConstraints = true;
+		boolean nativeDate = true;
+		boolean notNull = true;
+		boolean uniqueViolation = false;
 
 		switch(dialect)
 		{
 			case hsqldb:
-				supportsNotNull = false;
+				notNull = false;
 				break;
 			case mysql:
-				supportsRandom = true;
-				supportsCheckConstraints = false;
-				supportsNativeDate = false;
-				supportsUniqueViolation = true;
+				random = true;
+				checkConstraints = false;
+				nativeDate = false;
+				uniqueViolation = true;
 				break;
 			case oracle:
-				supportsEmptyStrings = false;
-				supportsNotNull = false;
+				emptyStrings = false;
+				notNull = false;
 				break;
 			case postgresql:
 				break;
@@ -65,14 +65,14 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 				fail(dialect.name());
 		}
 
-		assertEquals(supportsEmptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
-		assertEquals(supportsRandom, model.supportsRandom());
+		assertEquals(emptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo
-		assertEquals(supportsCheckConstraints, supportsCheckConstraints(model));
-		assertEquals(supportsNativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
-		assertEquals(supportsNotNull         && !props.isSupportDisabledForNotNull(),         supportsNotNull        (model));
-		assertEquals(supportsUniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
+		assertEquals(checkConstraints, supportsCheckConstraints(model));
+		assertEquals(nativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
+		assertEquals(notNull         && !props.isSupportDisabledForNotNull(),         supportsNotNull        (model));
+		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
 	public void testSchemaSavepoint()
