@@ -32,6 +32,7 @@ import static com.exedio.cope.PlusIntegerItem.plusABC;
 import static com.exedio.cope.PlusIntegerItem.plusABaC;
 import static com.exedio.cope.PlusIntegerItem.plusAC;
 import static com.exedio.cope.PlusIntegerItem.plusBC;
+import static java.lang.Integer.valueOf;
 
 public class PlusIntegerTest extends AbstractRuntimeTest
 {
@@ -135,20 +136,20 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		}
 
 		// test normal operation
-		assertEquals(i1, item.getNumA());
-		assertEquals(i2, item.getNumB());
-		assertEquals(i3, item.getNumC());
+		assertEquals(valueOf(1), item.getNumA());
+		assertEquals(valueOf(2), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal(1)));
 		assertContains(item, TYPE.search(numB.equal(2)));
 		assertContains(item, TYPE.search(numC.equal(3)));
 
-		assertEquals(i10,item.getPlusA9());
-		assertEquals(i3, item.getPlusAB());
-		assertEquals(i4, item.getPlusAC());
-		assertEquals(i5, item.getPlusBC());
-		assertEquals(i6, item.getPlusABC());
-		assertEquals(i18,item.getMultiplyB9());
-		assertEquals(i6, item.getMultiplyBC());
+		assertEquals(valueOf(10), item.getPlusA9());
+		assertEquals(valueOf( 3), item.getPlusAB());
+		assertEquals(valueOf( 4), item.getPlusAC());
+		assertEquals(valueOf( 5), item.getPlusBC());
+		assertEquals(valueOf( 6), item.getPlusABC());
+		assertEquals(valueOf(18), item.getMultiplyB9());
+		assertEquals(valueOf( 6), item.getMultiplyBC());
 		assertContains(item, TYPE.search(plusA9.equal(10)));
 		assertContains(item, TYPE.search(plusAB.equal(3)));
 		assertContains(item, TYPE.search(plusAC.equal(4)));
@@ -165,17 +166,17 @@ public class PlusIntegerTest extends AbstractRuntimeTest
 		// test null propagation
 		item.setNumA(null);
 
-		assertEquals(null, item.getNumA());
-		assertEquals(i2, item.getNumB());
-		assertEquals(i3, item.getNumC());
+		assertEquals(null,       item.getNumA());
+		assertEquals(valueOf(2), item.getNumB());
+		assertEquals(valueOf(3), item.getNumC());
 		assertContains(item, TYPE.search(numA.equal((Integer)null)));
 		assertContains(item, TYPE.search(numB.equal(2)));
 		assertContains(item, TYPE.search(numC.equal(3)));
 
-		assertEquals(null, item.getPlusA9());
-		assertEquals(null, item.getPlusAB());
-		assertEquals(null, item.getPlusAC());
-		assertEquals(i5, item.getPlusBC());
+		assertEquals(null,       item.getPlusA9());
+		assertEquals(null,       item.getPlusAB());
+		assertEquals(null,       item.getPlusAC());
+		assertEquals(valueOf(5), item.getPlusBC());
 		assertEquals(null, item.getPlusABC());
 		assertContains(item, TYPE.search(plusA9.equal((Integer)null)));
 		assertContains(item, TYPE.search(plusAB.equal((Integer)null)));
