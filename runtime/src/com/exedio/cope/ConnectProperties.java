@@ -39,11 +39,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
 	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", "\"$user\"");
 
-	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
-	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
+	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", false);
 	private final boolean disableNotNull            = value("disableSupport.notNull", false);
+	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
