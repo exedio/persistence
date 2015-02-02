@@ -38,11 +38,11 @@ public class DistinctTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusIntegerItem(1, 2, 0));
-		item2 = deleteOnTearDown(new PlusIntegerItem(1, 3, 0));
-		item3 = deleteOnTearDown(new PlusIntegerItem(1, 4, 0));
-		item4 = deleteOnTearDown(new PlusIntegerItem(1, 4, 0));
-		item4 = deleteOnTearDown(new PlusIntegerItem(2, 4, 0));
+		item1 = new PlusIntegerItem(1, 2, 0);
+		item2 = new PlusIntegerItem(1, 3, 0);
+		item3 = new PlusIntegerItem(1, 4, 0);
+		item4 = new PlusIntegerItem(1, 4, 0);
+		item4 = new PlusIntegerItem(2, 4, 0);
 	}
 
 	public void testDistinctSingle()

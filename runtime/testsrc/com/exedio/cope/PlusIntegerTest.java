@@ -50,8 +50,8 @@ public class PlusIntegerTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new PlusIntegerItem(1, 2, 3));
-		item2 = deleteOnTearDown(new PlusIntegerItem(3, 4, 5));
+		item  = new PlusIntegerItem(1, 2, 3);
+		item2 = new PlusIntegerItem(3, 4, 5);
 	}
 
 	public void testSum()

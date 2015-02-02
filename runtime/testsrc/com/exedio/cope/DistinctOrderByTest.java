@@ -40,8 +40,8 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusIntegerItem(2, 4, 5));
-		item2 = deleteOnTearDown(new PlusIntegerItem(1, 4, 5));
+		item1 = new PlusIntegerItem(2, 4, 5);
+		item2 = new PlusIntegerItem(1, 4, 5);
 
 		query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
