@@ -34,7 +34,7 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 
 	private PlusIntegerItem item1;
 	private PlusIntegerItem item2;
-	private Query<PlusIntegerItem> q;
+	private Query<PlusIntegerItem> query;
 
 	@Override
 	public void setUp() throws Exception
@@ -43,29 +43,29 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 		item1 = deleteOnTearDown(new PlusIntegerItem(2, 4, 5));
 		item2 = deleteOnTearDown(new PlusIntegerItem(1, 4, 5));
 
-		q = TYPE.newQuery();
-		final Join join = q.join(TYPE);
+		query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
 		join.setCondition(numC.equal(numC.bind(join)));
 	}
 
 	public void testDistinct()
 	{
-		q.setDistinct(true);
+		query.setDistinct(true);
 
-		assertContains(item1, item2, q.search());
+		assertContains(item1, item2, query.search());
 	}
 
 	public void testDistinctOrderBy()
 	{
-		q.setDistinct(true);
-		q.setOrderBy(numA, true);
+		query.setDistinct(true);
+		query.setOrderBy(numA, true);
 
 		switch(dialect)
 		{
 			case hsqldb:
 				try
 				{
-					q.search();
+					query.search();
 					fail();
 				}
 				catch(final SQLRuntimeException e)
@@ -74,12 +74,12 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 				}
 				break;
 			case mysql:
-				assertEquals(asList(item2, item1), q.search());
+				assertEquals(asList(item2, item1), query.search());
 				break;
 			case oracle:
 				try
 				{
-					q.search();
+					query.search();
 					fail();
 				}
 				catch(final SQLRuntimeException e)
@@ -91,7 +91,7 @@ public class DistinctOrderByTest extends AbstractRuntimeTest
 			case postgresql:
 				try
 				{
-					q.search();
+					query.search();
 					fail();
 				}
 				catch(final SQLRuntimeException e)
