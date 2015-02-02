@@ -187,10 +187,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	final ClusterProperties clusterPropertiesWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
 
-	final StringField mediaRooturl =  field("media.rooturl", "media/");
+
+	final StringField mediaRooturl       = field("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final String mediaUrlSecret = noContext()
-			? checkMediaUrlSecret(valueHidden("media.url.secret", ""))
+			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
 
 	private static final String checkMediaUrlSecret(final String s)
@@ -206,6 +207,26 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private static final String checkMediaUrlSecretContext(final String s)
 	{
 		return ( (s==null) || (s.length()<10) ) ? null : s;
+	}
+
+	public String getMediaRootUrl()
+	{
+		return mediaRooturl.get();
+	}
+
+	/**
+	 * Returns the offset, the Expires http header of media
+	 * is set into the future.
+	 * Together with a http reverse proxy this ensures,
+	 * that for that time no request for that data will reach the servlet.
+	 * This may reduce the load on the server.
+	 * If zero, no Expires header is sent.
+	 *
+	 * TODO: make this configurable per media as well.
+	 */
+	public int getMediaOffsetExpires()
+	{
+		return mediaOffsetExpires;
 	}
 
 	public String getMediaUrlSecret()
@@ -386,26 +407,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			mysqlLowerCaseTableNames
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
-	}
-
-	public String getMediaRootUrl()
-	{
-		return mediaRooturl.get();
-	}
-
-	/**
-	 * Returns the offset, the Expires http header of media
-	 * is set into the future.
-	 * Together with a http reverse proxy this ensures,
-	 * that for that time no request for that data will reach the servlet.
-	 * This may reduce the load on the server.
-	 * If zero, no Expires header is sent.
-	 *
-	 * TODO: make this configurable per media as well.
-	 */
-	public int getMediaOffsetExpires()
-	{
-		return mediaOffsetExpires;
 	}
 
 	boolean noContext()
