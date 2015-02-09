@@ -64,6 +64,7 @@ performance / memory consumption
 		- propagate from Media to its MediaFilters
 		- do not compute secret in url, but store in database
 		- do not put url secret into query parameter, but integrate into url path
+	* directly implement HEAD method
 - ConnectionPool:
 	* replace expensive connection testing on retrieval from pool
 		by periodic expiry of connections that have not been used for some time.
