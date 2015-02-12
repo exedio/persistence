@@ -327,7 +327,7 @@ public abstract class MediaPath extends Pattern
 		if(!mount().preventUrlGuessing)
 			return null;
 
-		final String sss = getNonGuessableUrlSecret();
+		final String sss = getConnectProperties().getMediaUrlSecret();
 		if(sss==null)
 		{
 			final StringBuilder bf = new StringBuilder();
@@ -350,7 +350,7 @@ public abstract class MediaPath extends Pattern
 		if(!mount().preventUrlGuessing)
 			return null;
 
-		final String sss = getNonGuessableUrlSecret();
+		final String sss = getConnectProperties().getMediaUrlSecret();
 		if(sss==null)
 			return getID() + '-' + itemID;
 
@@ -383,11 +383,6 @@ public abstract class MediaPath extends Pattern
 	public static final boolean isUrlGuessingPreventedSecurely(final ConnectProperties properties)
 	{
 		return properties.getMediaUrlSecret()!=null;
-	}
-
-	private final String getNonGuessableUrlSecret()
-	{
-		return getConnectProperties().getMediaUrlSecret();
 	}
 
 
