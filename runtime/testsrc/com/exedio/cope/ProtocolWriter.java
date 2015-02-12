@@ -47,7 +47,6 @@ public class ProtocolWriter extends AbstractRuntimeTest
 			for(final ConnectProperties.Field field : p.getFields())
 			{
 				if(field.getDefaultValue()!=null
-					&& field!=p.mediaRooturl
 					&& !field.hasHiddenValue()
 					&& field.isSpecified()
 					&& field.getValue()!=null)

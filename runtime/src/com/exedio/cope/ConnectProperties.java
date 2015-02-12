@@ -193,7 +193,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final ClusterProperties clusterPropertiesWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
 
 
-	final StringField mediaRooturl       = field("media.rooturl", "media/");
+	private final String mediaRooturl    = value("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final String mediaUrlSecret = noContext()
 			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
@@ -216,7 +216,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getMediaRootUrl()
 	{
-		return mediaRooturl.get();
+		return mediaRooturl;
 	}
 
 	/**
