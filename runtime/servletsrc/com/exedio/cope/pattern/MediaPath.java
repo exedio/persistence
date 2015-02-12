@@ -111,7 +111,7 @@ public abstract class MediaPath extends Pattern
 	final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
-			mediaRootUrl = getType().getModel().getConnectProperties().getMediaRootUrl();
+			mediaRootUrl = getConnectProperties().getMediaRootUrl();
 
 		return mediaRootUrl;
 	}
@@ -387,7 +387,7 @@ public abstract class MediaPath extends Pattern
 
 	private final String getNonGuessableUrlSecret()
 	{
-		return getType().getModel().getConnectProperties().getMediaUrlSecret();
+		return getConnectProperties().getMediaUrlSecret();
 	}
 
 
@@ -738,7 +738,7 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			final int mediaOffsetExpires = getType().getModel().getConnectProperties().getMediaOffsetExpires();
+			final int mediaOffsetExpires = getConnectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
 				setExpiresHeader(response, mediaOffsetExpires);
 		}
@@ -755,6 +755,11 @@ public abstract class MediaPath extends Pattern
 		{
 			deliver(request, response, item);
 		}
+	}
+
+	private ConnectProperties getConnectProperties()
+	{
+		return getType().getModel().getConnectProperties();
 	}
 
 	/**
