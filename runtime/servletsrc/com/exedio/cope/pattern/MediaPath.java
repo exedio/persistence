@@ -111,7 +111,7 @@ public abstract class MediaPath extends Pattern
 	final String getMediaRootUrl()
 	{
 		if(mediaRootUrl==null)
-			mediaRootUrl = getConnectProperties().getMediaRootUrl();
+			mediaRootUrl = connectProperties().getMediaRootUrl();
 
 		return mediaRootUrl;
 	}
@@ -327,7 +327,7 @@ public abstract class MediaPath extends Pattern
 		if(!mount().preventUrlGuessing)
 			return null;
 
-		final String sss = getConnectProperties().getMediaUrlSecret();
+		final String sss = connectProperties().getMediaUrlSecret();
 		if(sss==null)
 		{
 			final StringBuilder bf = new StringBuilder();
@@ -350,7 +350,7 @@ public abstract class MediaPath extends Pattern
 		if(!mount().preventUrlGuessing)
 			return null;
 
-		final String sss = getConnectProperties().getMediaUrlSecret();
+		final String sss = connectProperties().getMediaUrlSecret();
 		if(sss==null)
 			return getID() + '-' + itemID;
 
@@ -733,7 +733,7 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			final int mediaOffsetExpires = getConnectProperties().getMediaOffsetExpires();
+			final int mediaOffsetExpires = connectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
 				setExpiresHeader(response, mediaOffsetExpires);
 		}
@@ -752,7 +752,7 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	private ConnectProperties getConnectProperties()
+	private ConnectProperties connectProperties()
 	{
 		return getType().getModel().getConnectProperties();
 	}
