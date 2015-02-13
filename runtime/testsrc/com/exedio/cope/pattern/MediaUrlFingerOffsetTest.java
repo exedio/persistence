@@ -23,6 +23,11 @@ import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
 public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
@@ -58,5 +63,56 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		fileFinger.getLastModified().set(item, new Date(24 + 192)); // YD
 		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fYC/" + item + ".jpg", item.getFotoFingerLocator());
 		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item,          item.getFileFingerLocator());
+	}
+
+	public void testGlobalOffset()
+	{
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fXC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item,          item.getFileFingerLocator());
+
+		reconnect(1);
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fYC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item,          item.getFileFingerLocator());
+
+		reconnect(3);
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.faC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item,          item.getFileFingerLocator());
+
+		reconnect(0);
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fXC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item,          item.getFileFingerLocator());
+	}
+
+	private void reconnect(final int offset)
+	{
+		model.commit();
+		model.disconnect();
+		final Properties.Source s = Sources.cascade(
+				new Properties.Source()
+				{
+					@Override public String get(final String key)
+					{
+						if(key.equals("media.offsetFingerprint"))
+							return "" + offset;
+
+						return null;
+					}
+
+					@Override
+					public Collection<String> keySet()
+					{
+						return Arrays.asList("media.offsetFingerprint");
+					}
+
+					@Override
+					public String getDescription()
+					{
+						return "media.offsetFingerprint";
+					}
+				},
+				getConnectProperties().getSourceObject()
+		);
+		model.connect(ConnectProperties.factory().create(s));
+		model.startTransaction("MediaUrlFingerOffsetTest");
 	}
 }
