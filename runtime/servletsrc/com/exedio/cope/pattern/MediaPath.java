@@ -76,8 +76,6 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	private String mediaRootUrl = null;
-
 	@Override
 	protected void onMount()
 	{
@@ -110,10 +108,7 @@ public abstract class MediaPath extends Pattern
 
 	final String getMediaRootUrl()
 	{
-		if(mediaRootUrl==null)
-			mediaRootUrl = connectProperties().getMediaRootUrl();
-
-		return mediaRootUrl;
+		return connectProperties().getMediaRootUrl();
 	}
 
 	public boolean isContentTypeWrapped()
