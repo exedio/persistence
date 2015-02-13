@@ -46,7 +46,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		fileFinger.getLastModified().set(item, new Date(23 + 192)); // XD
 	}
 
-	public void testIt()
+	public void testTouchLastModified()
 	{
 		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fXC/" + item + ".jpg", item.getFotoFingerLocator());
 		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item,          item.getFileFingerLocator());
