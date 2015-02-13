@@ -50,5 +50,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 	{
 		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fXC/" + item + ".jpg", item.getFotoFingerLocator());
 		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item,          item.getFileFingerLocator());
+
+		fotoFinger.getLastModified().set(item, new Date(24 + 128)); // YC
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fYC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item,          item.getFileFingerLocator());
+
+		fileFinger.getLastModified().set(item, new Date(24 + 192)); // YD
+		assertLocator(fotoFinger, "MediaUrlItem/fotoFinger/.fYC/" + item + ".jpg", item.getFotoFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item,          item.getFileFingerLocator());
 	}
 }
