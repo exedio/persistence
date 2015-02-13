@@ -54,6 +54,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(MediaTest.class);
 		suite.addTestSuite(MediaUrlModelTest.class);
 		suite.addTestSuite(MediaUrlTest.class);
+		suite.addTestSuite(MediaUrlFingerOffsetTest.class);
 		suite.addTestSuite(MediaCatchphraseTest.class);
 		suite.addTestSuite(MediaPathTest.class);
 		suite.addTestSuite(MediaPathLocatorTest.class);
