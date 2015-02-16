@@ -42,19 +42,37 @@ public final class MediaFingerprintOffset
 		this.ramp = 0;
 	}
 
-	public int getInitialValue()
+	int getInitialValue()
 	{
 		return initialValue;
 	}
 
-	public int getValue()
+	int getValue()
 	{
 		return value;
 	}
 
-	public int getRamp()
+	int getRamp()
 	{
 		return ramp;
+	}
+
+	public String getInfo()
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append(value);
+
+		if(ramp!=0)
+			bf.append(" ramp ").
+				append(ramp).
+				append('/').
+				append(MAX_RAMP+1);
+
+		if(value!=initialValue)
+			bf.append(" initially ").
+				append(initialValue);
+
+		return bf.toString();
 	}
 
 	public void set(final int value, final int ramp)
