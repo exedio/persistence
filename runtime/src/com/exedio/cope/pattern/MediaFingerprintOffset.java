@@ -65,15 +65,16 @@ public final class MediaFingerprintOffset
 			final StringBuilder bf = new StringBuilder();
 			bf.append(value);
 
+			if(value!=initialValue)
+				bf.append(" (initially ").
+					append(initialValue).
+					append(')');
+
 			if(ramp!=0)
 				bf.append(" ramp ").
 					append(ramp).
 					append('/').
 					append(MAX_RAMP+1);
-
-			if(value!=initialValue)
-				bf.append(" initially ").
-					append(initialValue);
 
 			return bf.toString();
 		}

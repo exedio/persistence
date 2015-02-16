@@ -69,14 +69,14 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setValueAndResetRamp(1, "1 initially 0");
+		setValueAndResetRamp(1, "1 (initially 0)");
 		assertIt(".fYD", item1);
 		assertIt(".fYD", item2);
 		assertIt(".fYD", item3);
 		assertIt(".fYD", item4);
 		assertIt(".fYD", item5);
 
-		setValueAndResetRamp(3, "3 initially 0");
+		setValueAndResetRamp(3, "3 (initially 0)");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
@@ -136,35 +136,35 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setValueAndResetRamp(3, "3 initially 0");
+		setValueAndResetRamp(3, "3 (initially 0)");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setRamp(1, "3 ramp 1/1000 initially 0");
+		setRamp(1, "3 (initially 0) ramp 1/1000");
 		assertIt(".fbD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setRamp(2, "3 ramp 2/1000 initially 0");
+		setRamp(2, "3 (initially 0) ramp 2/1000");
 		assertIt(".fbD", item1);
 		assertIt(".fbD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setRamp(4, "3 ramp 4/1000 initially 0");
+		setRamp(4, "3 (initially 0) ramp 4/1000");
 		assertIt(".fbD", item1);
 		assertIt(".fbD", item2);
 		assertIt(".fbD", item3);
 		assertIt(".fbD", item4);
 		assertIt(".faD", item5);
 
-		setRamp(0, "3 initially 0");
+		setRamp(0, "3 (initially 0)");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
