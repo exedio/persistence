@@ -52,21 +52,6 @@ public final class MediaFingerprintOffset
 			ramp==0;
 	}
 
-	int getInitialValue()
-	{
-		return initialValue;
-	}
-
-	int getValue()
-	{
-		return value;
-	}
-
-	int getRamp()
-	{
-		return ramp;
-	}
-
 	public String getInfo()
 	{
 		final StringBuilder bf = new StringBuilder();
