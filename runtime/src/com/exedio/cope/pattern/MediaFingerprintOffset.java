@@ -28,7 +28,7 @@ public final class MediaFingerprintOffset
 	private final int initialValue;
 	private int value;
 	private int ramp;
-	private static final int MAX_RAMP = 255;
+	private static final int MAX_RAMP = 999;
 
 	public MediaFingerprintOffset(final int value)
 	{
