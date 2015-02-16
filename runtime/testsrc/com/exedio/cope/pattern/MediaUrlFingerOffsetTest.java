@@ -69,21 +69,21 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(1, 0, "1 initially 0");
+		setOffset(1, "1 initially 0");
 		assertIt(".fYD", item1);
 		assertIt(".fYD", item2);
 		assertIt(".fYD", item3);
 		assertIt(".fYD", item4);
 		assertIt(".fYD", item5);
 
-		setOffset(3, 0, "3 initially 0");
+		setOffset(3, "3 initially 0");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setOffset(0, 0, "0");
+		setOffset(0, "0");
 		assertIt(".fXD", item1);
 		assertIt(".fXD", item2);
 		assertIt(".fXD", item3);
@@ -99,28 +99,28 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(0, 1, "0 ramp 1/1000");
+		setRamp(1, "0 ramp 1/1000");
 		assertIt(".fYD", item1);
 		assertIt(".fXD", item2);
 		assertIt(".fXD", item3);
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(0, 2, "0 ramp 2/1000");
+		setRamp(2, "0 ramp 2/1000");
 		assertIt(".fYD", item1);
 		assertIt(".fYD", item2);
 		assertIt(".fXD", item3);
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(0, 4, "0 ramp 4/1000");
+		setRamp(4, "0 ramp 4/1000");
 		assertIt(".fYD", item1);
 		assertIt(".fYD", item2);
 		assertIt(".fYD", item3);
 		assertIt(".fYD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(0, 0, "0");
+		setRamp(0, "0");
 		assertIt(".fXD", item1);
 		assertIt(".fXD", item2);
 		assertIt(".fXD", item3);
@@ -136,35 +136,35 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 
-		setOffset(3, 0, "3 initially 0");
+		setOffset(3, "3 initially 0");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setOffset(3, 1, "3 ramp 1/1000 initially 0");
+		setRamp(1, "3 ramp 1/1000 initially 0");
 		assertIt(".fbD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setOffset(3, 2, "3 ramp 2/1000 initially 0");
+		setRamp(2, "3 ramp 2/1000 initially 0");
 		assertIt(".fbD", item1);
 		assertIt(".fbD", item2);
 		assertIt(".faD", item3);
 		assertIt(".faD", item4);
 		assertIt(".faD", item5);
 
-		setOffset(3, 4, "3 ramp 4/1000 initially 0");
+		setRamp(4, "3 ramp 4/1000 initially 0");
 		assertIt(".fbD", item1);
 		assertIt(".fbD", item2);
 		assertIt(".fbD", item3);
 		assertIt(".fbD", item4);
 		assertIt(".faD", item5);
 
-		setOffset(3, 0, "3 initially 0");
+		setRamp(0, "3 initially 0");
 		assertIt(".faD", item1);
 		assertIt(".faD", item2);
 		assertIt(".faD", item3);
@@ -179,9 +179,15 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 				item.getFileFingerLocator());
 	}
 
-	private void setOffset(final int offset, final int ramp, final String info)
+	private void setOffset(final int offset, final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().set(offset, ramp/1000d);
+		model.getConnectProperties().mediaFingerprintOffset().setValue(offset);
+		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+	}
+
+	private void setRamp(final int ramp, final String info)
+	{
+		model.getConnectProperties().mediaFingerprintOffset().setRamp(ramp/1000d);
 		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
 	}
 }
