@@ -102,4 +102,10 @@ public final class MediaFingerprintOffset
 			? (value + 1)
 			: value;
 	}
+
+	@Override
+	public String toString()
+	{
+		return getInfo();
+	}
 }
