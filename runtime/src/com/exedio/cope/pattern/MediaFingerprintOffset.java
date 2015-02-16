@@ -22,27 +22,27 @@ import static com.exedio.cope.misc.Check.requireNonNegative;
 
 public final class MediaFingerprintOffset
 {
-	private final int mediaOffFingerInit;
-	private int mediaOffsetFingerprint;
+	private final int initialValue;
+	private int value;
 
-	public MediaFingerprintOffset(final int mediaOffsetExpires)
+	public MediaFingerprintOffset(final int value)
 	{
-		this.mediaOffFingerInit = requireNonNegative(mediaOffsetExpires, "mediaOffsetExpires");
-		this.mediaOffsetFingerprint = mediaOffFingerInit;
+		this.initialValue = requireNonNegative(value, "value");
+		this.value = initialValue;
 	}
 
-	public int getInitially()
+	public int getInitialValue()
 	{
-		return mediaOffFingerInit;
+		return initialValue;
 	}
 
-	public int get()
+	public int getValue()
 	{
-		return mediaOffsetFingerprint;
+		return value;
 	}
 
-	public void set(final int offset)
+	public void set(final int value)
 	{
-		mediaOffsetFingerprint = requireNonNegative(offset, "offset");
+		this.value = requireNonNegative(value, "value");
 	}
 }
