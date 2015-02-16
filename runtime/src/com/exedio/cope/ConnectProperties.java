@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
@@ -195,7 +196,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final String mediaRooturl    = value("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
-	private final int mediaOffsetFinger  = value("media.offsetFingerprint", 0, 0);
+	private final int mediaOffFingerInit = value("media.offsetFingerprint", 0, 0);
 	private final String mediaUrlSecret = noContext()
 			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
@@ -235,9 +236,21 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mediaOffsetExpires;
 	}
 
+	public int getMediaOffsetFingerprintInitially()
+	{
+		return mediaOffFingerInit;
+	}
+
+	private int mediaOffsetFingerprint = mediaOffFingerInit;
+
 	public int getMediaOffsetFingerprint()
 	{
-		return mediaOffsetFinger;
+		return mediaOffsetFingerprint;
+	}
+
+	public void setMediaOffsetFingerprint(final int offset)
+	{
+		mediaOffsetFingerprint = requireNonNegative(offset, "offset");
 	}
 
 	public String getMediaUrlSecret()
