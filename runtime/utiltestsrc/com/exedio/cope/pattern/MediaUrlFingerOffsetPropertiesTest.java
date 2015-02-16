@@ -35,7 +35,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0, p.mediaFingerprintOffset().getRamp());
 		assertEquals("0", p.mediaFingerprintOffset().getInfo());
 
-		p.mediaFingerprintOffset().setValue(55);
+		p.mediaFingerprintOffset().setValueAndResetRamp(55);
 		assertEquals(0,  p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(55, p.mediaFingerprintOffset().getValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
@@ -69,7 +69,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 
-		p.mediaFingerprintOffset().setValue(0);
+		p.mediaFingerprintOffset().setValueAndResetRamp(0);
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
@@ -143,7 +143,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0, p.mediaFingerprintOffset().getRamp());
 		assertEquals("0", p.mediaFingerprintOffset().getInfo());
 
-		p.mediaFingerprintOffset().setValue(0);
+		p.mediaFingerprintOffset().setValueAndResetRamp(0);
 		assertEquals(0, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(0, p.mediaFingerprintOffset().getValue());
 		assertEquals(0, p.mediaFingerprintOffset().getRamp());
@@ -155,7 +155,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(999, p.mediaFingerprintOffset().getRamp());
 		assertEquals("0 ramp 999/1000", p.mediaFingerprintOffset().getInfo());
 
-		p.mediaFingerprintOffset().setValue(5);
+		p.mediaFingerprintOffset().setValueAndResetRamp(5);
 		assertEquals(0, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(5, p.mediaFingerprintOffset().getValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
@@ -181,7 +181,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		final ConnectProperties p = new ConnectProperties(source, null);
 		try
 		{
-			p.mediaFingerprintOffset().setValue(-1);
+			p.mediaFingerprintOffset().setValueAndResetRamp(-1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -75,7 +75,7 @@ public final class MediaFingerprintOffset
 		return bf.toString();
 	}
 
-	public void setValue(final int value)
+	public void setValueAndResetRamp(final int value)
 	{
 		requireNonNegative(value, "value");
 		this.value = value;
