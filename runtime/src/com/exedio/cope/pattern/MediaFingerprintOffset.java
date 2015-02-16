@@ -91,6 +91,8 @@ public final class MediaFingerprintOffset
 			this.initialValue = requireNonNegative(initialValue, "value");
 			this.value = requireNonNegative(value, "value");
 			this.ramp = ramp;
+
+			assert 0<=ramp && ramp<=MAX_RAMP : ramp;
 		}
 
 		State reset()
