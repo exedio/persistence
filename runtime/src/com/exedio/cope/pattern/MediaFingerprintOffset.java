@@ -38,7 +38,7 @@ public final class MediaFingerprintOffset
 	}
 
 	/**
-	 * Returns true if calling {@link reset()} would change anything.
+	 * Returns true if calling {@link #reset()} would change anything.
 	 */
 	public boolean isInitial()
 	{
