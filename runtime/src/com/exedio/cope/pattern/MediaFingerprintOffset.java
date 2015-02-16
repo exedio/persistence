@@ -27,53 +27,6 @@ public final class MediaFingerprintOffset
 {
 	private volatile State state;
 
-	public MediaFingerprintOffset(final int value)
-	{
-		this.state = new State(value);
-	}
-
-	public void reset()
-	{
-		this.state = state.reset();
-	}
-
-	/**
-	 * Returns true if calling {@link #reset()} would change anything.
-	 */
-	public boolean isInitial()
-	{
-		return state.isInitial();
-	}
-
-	public String getInfo()
-	{
-		return state.getInfo();
-	}
-
-	public void setValueAndResetRamp(final int value)
-	{
-		state = state.setValueAndResetRamp(value);
-	}
-
-	/**
-	 * @param ramp a value between 0.0 and 1.0.
-	 */
-	public void setRamp(final double ramp)
-	{
-		state = state.setRamp(ramp);
-	}
-
-	int get(final Item item)
-	{
-		return state.get(item);
-	}
-
-	@Override
-	public String toString()
-	{
-		return state.getInfo();
-	}
-
 	private static final class State
 	{
 		private final int initialValue;
@@ -152,5 +105,52 @@ public final class MediaFingerprintOffset
 				? (value + 1)
 				: value;
 		}
+	}
+
+	public MediaFingerprintOffset(final int value)
+	{
+		this.state = new State(value);
+	}
+
+	public void reset()
+	{
+		this.state = state.reset();
+	}
+
+	/**
+	 * Returns true if calling {@link #reset()} would change anything.
+	 */
+	public boolean isInitial()
+	{
+		return state.isInitial();
+	}
+
+	public String getInfo()
+	{
+		return state.getInfo();
+	}
+
+	public void setValueAndResetRamp(final int value)
+	{
+		state = state.setValueAndResetRamp(value);
+	}
+
+	/**
+	 * @param ramp a value between 0.0 and 1.0.
+	 */
+	public void setRamp(final double ramp)
+	{
+		state = state.setRamp(ramp);
+	}
+
+	int get(final Item item)
+	{
+		return state.get(item);
+	}
+
+	@Override
+	public String toString()
+	{
+		return state.getInfo();
 	}
 }
