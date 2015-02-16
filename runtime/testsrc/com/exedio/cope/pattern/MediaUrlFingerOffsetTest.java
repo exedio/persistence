@@ -55,61 +55,61 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	public void testTouchLastModified()
 	{
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1,          item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1, item1.getFileFingerLocator());
 
 		fileFinger.getLastModified().set(item1, new Date(24 + 192)); // YD
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1,          item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1, item1.getFileFingerLocator());
 	}
 
 	public void testGlobalOffset()
 	{
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(1, 0);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(3, 0);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.faD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(0, 0);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(0, 1);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(0, 2);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5, item5.getFileFingerLocator());
 
 		setOffset(0, 4);
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1,          item1.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2,          item2.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item3,          item3.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item4,          item4.getFileFingerLocator());
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5,          item5.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item1, item1.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item2, item2.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item3, item3.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fYD/" + item4, item4.getFileFingerLocator());
+		assertLocator(fileFinger, "MediaUrlItem/fileFinger/.fXD/" + item5, item5.getFileFingerLocator());
 	}
 
 	private void setOffset(final int offset, final int ramp)
