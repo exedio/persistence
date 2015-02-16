@@ -79,6 +79,7 @@ public final class MediaFingerprintOffset
 	{
 		requireNonNegative(value, "value");
 		this.value = value;
+		this.ramp = 0; // TODO do some synchronization
 	}
 
 	/**
