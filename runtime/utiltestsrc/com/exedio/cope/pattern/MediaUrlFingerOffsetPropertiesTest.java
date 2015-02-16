@@ -41,6 +41,12 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
 		assertEquals("55 initially 0", p.mediaFingerprintOffset().getInfo());
 
+		p.mediaFingerprintOffset().setRamp(0.0);
+		assertEquals(0,  p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(55, p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
+		assertEquals("55 initially 0", p.mediaFingerprintOffset().getInfo());
+
 		p.mediaFingerprintOffset().setRamp(1.0);
 		assertEquals(0,   p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(55,  p.mediaFingerprintOffset().getValue());
@@ -64,6 +70,12 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 
 		p.mediaFingerprintOffset().setValue(0);
+		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
+		assertEquals("0 initially 55", p.mediaFingerprintOffset().getInfo());
+
+		p.mediaFingerprintOffset().setRamp(0.0);
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
