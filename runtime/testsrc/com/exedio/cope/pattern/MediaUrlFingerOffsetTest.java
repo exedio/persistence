@@ -128,6 +128,50 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item5);
 	}
 
+	public void testGlobalOffsetValueAndRamp()
+	{
+		assertIt(".fXD", item1);
+		assertIt(".fXD", item2);
+		assertIt(".fXD", item3);
+		assertIt(".fXD", item4);
+		assertIt(".fXD", item5);
+
+		setOffset(3, 0);
+		assertIt(".faD", item1);
+		assertIt(".faD", item2);
+		assertIt(".faD", item3);
+		assertIt(".faD", item4);
+		assertIt(".faD", item5);
+
+		setOffset(3, 1);
+		assertIt(".fbD", item1);
+		assertIt(".faD", item2);
+		assertIt(".faD", item3);
+		assertIt(".faD", item4);
+		assertIt(".faD", item5);
+
+		setOffset(3, 2);
+		assertIt(".fbD", item1);
+		assertIt(".fbD", item2);
+		assertIt(".faD", item3);
+		assertIt(".faD", item4);
+		assertIt(".faD", item5);
+
+		setOffset(3, 4);
+		assertIt(".fbD", item1);
+		assertIt(".fbD", item2);
+		assertIt(".fbD", item3);
+		assertIt(".fbD", item4);
+		assertIt(".faD", item5);
+
+		setOffset(3, 0);
+		assertIt(".faD", item1);
+		assertIt(".faD", item2);
+		assertIt(".faD", item3);
+		assertIt(".faD", item4);
+		assertIt(".faD", item5);
+	}
+
 	private static void assertIt(final String fingerprint, final MediaUrlItem item)
 	{
 		assertLocator(fileFinger, "MediaUrlItem/fileFinger/" + fingerprint + "/" + item, item.getFileFingerLocator());
