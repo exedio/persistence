@@ -75,15 +75,21 @@ public final class MediaFingerprintOffset
 		return bf.toString();
 	}
 
-	public void set(final int value, final int ramp)
+	/**
+	 * @param ramp a value between 0.0 and 1.0.
+	 */
+	public void set(final int value, final double ramp)
 	{
 		requireNonNegative(value, "value");
-		requireNonNegative(ramp,  "ramp");
-		if(ramp>MAX_RAMP)
-			throw new IllegalArgumentException("ramp must be less or equal " + MAX_RAMP + ", but was " + ramp);
+		if(! (0.0<=ramp && ramp<=1.0) )
+			throw new IllegalArgumentException("ramp must be between 0.0 and 1.0, but was " + String.valueOf(ramp));
+
+		int rampInt = (int)Math.round( ramp*(MAX_RAMP+1) );
+		if(rampInt>MAX_RAMP)
+			rampInt = MAX_RAMP;
 
 		this.value = value;
-		this.ramp  = ramp;
+		this.ramp  = rampInt;
 	}
 
 	int get(final Item item)

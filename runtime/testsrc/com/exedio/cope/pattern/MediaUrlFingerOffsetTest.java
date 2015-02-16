@@ -181,7 +181,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	private void setOffset(final int offset, final int ramp, final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().set(offset, ramp);
+		model.getConnectProperties().mediaFingerprintOffset().set(offset, ramp/1000d);
 		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
 	}
 }
