@@ -32,10 +32,22 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		final ConnectProperties p = new ConnectProperties(source, null);
 		assertEquals(0, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(0, p.mediaFingerprintOffset().getValue());
+		assertEquals(0, p.mediaFingerprintOffset().getRamp());
 
-		p.mediaFingerprintOffset().set(55);
+		p.mediaFingerprintOffset().set(55, 0);
 		assertEquals(0,  p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(55, p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
+
+		p.mediaFingerprintOffset().set(55, 255);
+		assertEquals(0,   p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(55,  p.mediaFingerprintOffset().getValue());
+		assertEquals(255, p.mediaFingerprintOffset().getRamp());
+
+		p.mediaFingerprintOffset().reset();
+		assertEquals(0, p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(0, p.mediaFingerprintOffset().getValue());
+		assertEquals(0, p.mediaFingerprintOffset().getRamp());
 	}
 
 	public void testCustom()
@@ -44,10 +56,22 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		final ConnectProperties p = new ConnectProperties(source, null);
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(55, p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
 
-		p.mediaFingerprintOffset().set(0);
+		p.mediaFingerprintOffset().set(0, 0);
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(0,  p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
+
+		p.mediaFingerprintOffset().set(0, 255);
+		assertEquals(55,  p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(0,   p.mediaFingerprintOffset().getValue());
+		assertEquals(255, p.mediaFingerprintOffset().getRamp());
+
+		p.mediaFingerprintOffset().reset();
+		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(55, p.mediaFingerprintOffset().getValue());
+		assertEquals(0,  p.mediaFingerprintOffset().getRamp());
 	}
 
 	public void testNewFail()
@@ -63,18 +87,52 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		}
 	}
 
-	public void testSetFail()
+	public void testSetValueFail()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
 		try
 		{
-			p.mediaFingerprintOffset().set(-1);
+			p.mediaFingerprintOffset().set(-1, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("value must not be negative, but was -1", e.getMessage());
+		}
+		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(55, p.mediaFingerprintOffset().getValue());
+	}
+
+	public void testSetRampNegative()
+	{
+		final Source source = source(55);
+		final ConnectProperties p = new ConnectProperties(source, null);
+		try
+		{
+			p.mediaFingerprintOffset().set(0, -1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("ramp must not be negative, but was -1", e.getMessage());
+		}
+		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
+		assertEquals(55, p.mediaFingerprintOffset().getValue());
+	}
+
+	public void testSetRampTooLarge()
+	{
+		final Source source = source(55);
+		final ConnectProperties p = new ConnectProperties(source, null);
+		try
+		{
+			p.mediaFingerprintOffset().set(0, 256);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("ramp must be less or equal 255, but was 256", e.getMessage());
 		}
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
 		assertEquals(55, p.mediaFingerprintOffset().getValue());

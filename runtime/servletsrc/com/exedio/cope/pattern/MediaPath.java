@@ -111,9 +111,9 @@ public abstract class MediaPath extends Pattern
 		return connectProperties().getMediaRootUrl();
 	}
 
-	final int getMediaOffsetFingerprint()
+	final int getMediaOffsetFingerprint(final Item item)
 	{
-		return connectProperties().mediaFingerprintOffset().getValue();
+		return connectProperties().mediaFingerprintOffset().get(item);
 	}
 
 	public boolean isContentTypeWrapped()
@@ -221,7 +221,7 @@ public abstract class MediaPath extends Pattern
 
 			if(fingerprint!=Long.MIN_VALUE)
 			{
-				final int offset = getMediaOffsetFingerprint();
+				final int offset = getMediaOffsetFingerprint(item);
 				bf.append(".f");
 				MediaBase64.append(bf, fingerprint + offset);
 				bf.append('/');

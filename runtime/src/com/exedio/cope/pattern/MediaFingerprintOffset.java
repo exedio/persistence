@@ -18,17 +18,28 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.misc.Check.requireNonNegative;
+
+import com.exedio.cope.Item;
 
 public final class MediaFingerprintOffset
 {
 	private final int initialValue;
 	private int value;
+	private int ramp;
+	private static final int MAX_RAMP = 255;
 
 	public MediaFingerprintOffset(final int value)
 	{
 		this.initialValue = requireNonNegative(value, "value");
+		reset();
+	}
+
+	public void reset()
+	{
 		this.value = initialValue;
+		this.ramp = 0;
 	}
 
 	public int getInitialValue()
@@ -41,8 +52,30 @@ public final class MediaFingerprintOffset
 		return value;
 	}
 
-	public void set(final int value)
+	public int getRamp()
 	{
-		this.value = requireNonNegative(value, "value");
+		return ramp;
+	}
+
+	public void set(final int value, final int ramp)
+	{
+		requireNonNegative(value, "value");
+		requireNonNegative(ramp,  "ramp");
+		if(ramp>MAX_RAMP)
+			throw new IllegalArgumentException("ramp must be less or equal " + MAX_RAMP + ", but was " + ramp);
+
+		this.value = value;
+		this.ramp  = ramp;
+	}
+
+	int get(final Item item)
+	{
+		if(ramp==0)
+			return value;
+
+		return
+			(getPrimaryKeyColumnValue(item)<ramp)
+			? (value + 1)
+			: value;
 	}
 }
