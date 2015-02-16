@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 {
-	public void testMediaOffsetFingerprintDefault()
+	public void testDefault()
 	{
 		final Source source = source(null);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -38,7 +38,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(55, p.mediaFingerprintOffset().getValue());
 	}
 
-	public void testMediaOffsetFingerprintCustom()
+	public void testCustom()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -62,7 +62,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0,  p.mediaFingerprintOffset().getValue());
 	}
 
-	public void testMediaOffsetFingerprintInvalid()
+	public void testInvalid()
 	{
 		final String propKey = "media.offsetFingerprint";
 		final Source source = source(-1);
