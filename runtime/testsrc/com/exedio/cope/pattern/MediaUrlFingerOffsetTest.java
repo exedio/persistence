@@ -61,7 +61,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fYD", item1);
 	}
 
-	public void testGlobalOffset()
+	public void testGlobalOffsetValue()
 	{
 		assertIt(".fXD", item1);
 		assertIt(".fXD", item2);
@@ -89,6 +89,15 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item3);
 		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
+	}
+
+	public void testGlobalOffsetRamp()
+	{
+		assertIt(".fXD", item1);
+		assertIt(".fXD", item2);
+		assertIt(".fXD", item3);
+		assertIt(".fXD", item4);
+		assertIt(".fXD", item5);
 
 		setOffset(0, 1);
 		assertIt(".fYD", item1);
@@ -109,6 +118,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fYD", item2);
 		assertIt(".fYD", item3);
 		assertIt(".fYD", item4);
+		assertIt(".fXD", item5);
+
+		setOffset(0, 0);
+		assertIt(".fXD", item1);
+		assertIt(".fXD", item2);
+		assertIt(".fXD", item3);
+		assertIt(".fXD", item4);
 		assertIt(".fXD", item5);
 	}
 
