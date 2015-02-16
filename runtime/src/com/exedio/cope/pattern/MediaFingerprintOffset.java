@@ -48,16 +48,16 @@ public final class MediaFingerprintOffset
 			assert 0<=ramp && ramp<=MAX_RAMP : ramp;
 		}
 
-		State reset()
-		{
-			return new State(initialValue, initialValue, 0);
-		}
-
 		boolean isInitial()
 		{
 			return
 				value==initialValue &&
 				ramp==0;
+		}
+
+		State reset()
+		{
+			return new State(initialValue, initialValue, 0);
 		}
 
 		String getInfo()
@@ -112,17 +112,17 @@ public final class MediaFingerprintOffset
 		this.state = new State(value);
 	}
 
-	public void reset()
-	{
-		this.state = state.reset();
-	}
-
 	/**
 	 * Returns true if calling {@link #reset()} would change anything.
 	 */
 	public boolean isInitial()
 	{
 		return state.isInitial();
+	}
+
+	public void reset()
+	{
+		this.state = state.reset();
 	}
 
 	public String getInfo()
