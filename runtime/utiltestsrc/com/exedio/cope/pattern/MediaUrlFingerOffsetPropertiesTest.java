@@ -50,6 +50,19 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0,  p.mediaFingerprintOffset().getValue());
 	}
 
+	public void testNewFail()
+	{
+		try
+		{
+			new MediaFingerprintOffset(-1);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("value must not be negative, but was -1", e.getMessage());
+		}
+	}
+
 	public void testSetFail()
 	{
 		final Source source = source(55);
