@@ -42,6 +42,16 @@ public final class MediaFingerprintOffset
 		this.ramp = 0;
 	}
 
+	/**
+	 * Returns true if calling {@link reset()} would change anything.
+	 */
+	public boolean isInitial()
+	{
+		return
+			value==initialValue &&
+			ramp==0;
+	}
+
 	int getInitialValue()
 	{
 		return initialValue;
@@ -50,11 +60,6 @@ public final class MediaFingerprintOffset
 	int getValue()
 	{
 		return value;
-	}
-
-	public boolean isValueInitial()
-	{
-		return initialValue==value;
 	}
 
 	int getRamp()
