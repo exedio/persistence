@@ -52,6 +52,11 @@ public final class MediaFingerprintOffset
 		return value;
 	}
 
+	public boolean isValueInitial()
+	{
+		return initialValue==value;
+	}
+
 	int getRamp()
 	{
 		return ramp;
