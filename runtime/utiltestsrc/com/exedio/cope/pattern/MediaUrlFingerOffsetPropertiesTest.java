@@ -77,7 +77,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 			assertEquals("value must not be negative, but was -1", e.getMessage());
 		}
 		assertEquals(55, p.mediaFingerprintOffset().getInitialValue());
-		assertEquals(55,  p.mediaFingerprintOffset().getValue());
+		assertEquals(55, p.mediaFingerprintOffset().getValue());
 	}
 
 	public void testInvalid()
