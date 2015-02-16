@@ -55,6 +55,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MediaTypeMediaTest.class);
 		suite.addTestSuite(MediaRootUrlTest.class);
 		suite.addTestSuite(MediaSummaryTest.class);
+		suite.addTestSuite(MediaUrlFingerOffsetPropertiesTest.class);
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(MessageDigestHashAlgorithmTest.class);
 		suite.addTestSuite(MoneyTest.class);
