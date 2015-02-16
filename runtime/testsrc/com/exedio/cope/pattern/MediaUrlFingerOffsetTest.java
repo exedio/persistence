@@ -174,7 +174,9 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	private static void assertIt(final String fingerprint, final MediaUrlItem item)
 	{
-		assertLocator(fileFinger, "MediaUrlItem/fileFinger/" + fingerprint + "/" + item, item.getFileFingerLocator());
+		assertLocator(
+				fileFinger, "MediaUrlItem/fileFinger/" + fingerprint + "/" + item,
+				item.getFileFingerLocator());
 	}
 
 	private void setOffset(final int offset, final int ramp, final String info)
