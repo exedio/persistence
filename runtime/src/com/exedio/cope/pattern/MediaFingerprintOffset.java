@@ -83,7 +83,7 @@ public final class MediaFingerprintOffset
 
 		State(final int value)
 		{
-			this(requireNonNegative(value, "value"), value, 0);
+			this(value, value, 0);
 		}
 
 		private State(final int initialValue, final int value, final int ramp)
