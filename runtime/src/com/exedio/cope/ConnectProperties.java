@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -236,21 +236,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return mediaOffsetExpires;
 	}
 
-	public int getMediaOffsetFingerprintInitially()
-	{
-		return mediaOffFingerInit;
-	}
+	private final MediaFingerprintOffset mediaFingerprintOffset = new MediaFingerprintOffset(mediaOffFingerInit);
 
-	private int mediaOffsetFingerprint = mediaOffFingerInit;
-
-	public int getMediaOffsetFingerprint()
+	public MediaFingerprintOffset mediaFingerprintOffset()
 	{
-		return mediaOffsetFingerprint;
-	}
-
-	public void setMediaOffsetFingerprint(final int offset)
-	{
-		mediaOffsetFingerprint = requireNonNegative(offset, "offset");
+		return mediaFingerprintOffset;
 	}
 
 	public String getMediaUrlSecret()

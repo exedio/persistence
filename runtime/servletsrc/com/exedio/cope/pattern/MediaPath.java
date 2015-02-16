@@ -113,7 +113,7 @@ public abstract class MediaPath extends Pattern
 
 	final int getMediaOffsetFingerprint()
 	{
-		return connectProperties().getMediaOffsetFingerprint();
+		return connectProperties().mediaFingerprintOffset().get();
 	}
 
 	public boolean isContentTypeWrapped()

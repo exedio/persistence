@@ -30,36 +30,36 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 	{
 		final Source source = source(null);
 		final ConnectProperties p = new ConnectProperties(source, null);
-		assertEquals(0, p.getMediaOffsetFingerprintInitially());
-		assertEquals(0, p.getMediaOffsetFingerprint());
+		assertEquals(0, p.mediaFingerprintOffset().getInitially());
+		assertEquals(0, p.mediaFingerprintOffset().get());
 
-		p.setMediaOffsetFingerprint(55);
-		assertEquals(0,  p.getMediaOffsetFingerprintInitially());
-		assertEquals(55, p.getMediaOffsetFingerprint());
+		p.mediaFingerprintOffset().set(55);
+		assertEquals(0,  p.mediaFingerprintOffset().getInitially());
+		assertEquals(55, p.mediaFingerprintOffset().get());
 	}
 
 	public void testMediaOffsetFingerprintCustom()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
-		assertEquals(55, p.getMediaOffsetFingerprintInitially());
-		assertEquals(55, p.getMediaOffsetFingerprint());
+		assertEquals(55, p.mediaFingerprintOffset().getInitially());
+		assertEquals(55, p.mediaFingerprintOffset().get());
 
-		p.setMediaOffsetFingerprint(0);
-		assertEquals(55, p.getMediaOffsetFingerprintInitially());
-		assertEquals(0,  p.getMediaOffsetFingerprint());
+		p.mediaFingerprintOffset().set(0);
+		assertEquals(55, p.mediaFingerprintOffset().getInitially());
+		assertEquals(0,  p.mediaFingerprintOffset().get());
 
 		try
 		{
-			p.setMediaOffsetFingerprint(-1);
+			p.mediaFingerprintOffset().set(-1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
 		}
-		assertEquals(55, p.getMediaOffsetFingerprintInitially());
-		assertEquals(0,  p.getMediaOffsetFingerprint());
+		assertEquals(55, p.mediaFingerprintOffset().getInitially());
+		assertEquals(0,  p.mediaFingerprintOffset().get());
 	}
 
 	public void testMediaOffsetFingerprintInvalid()
