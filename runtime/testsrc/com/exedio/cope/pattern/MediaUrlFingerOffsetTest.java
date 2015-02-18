@@ -139,7 +139,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item[4]);
 		assertIt(".fXD", item[ 998]);
 		assertIt(".fXD", item[ 999]);
-		assertIt(".fXD", item[1000]); // TODO ramp
+		assertIt(".fYD", item[1000]);
 		assertIt(".fXD", item[1001]);
 		assertIt(".fXD", item[1002]);
 		assertIt(".fXD", item[1003]);
@@ -155,8 +155,8 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item[4]);
 		assertIt(".fXD", item[ 998]);
 		assertIt(".fXD", item[ 999]);
-		assertIt(".fXD", item[1000]); // TODO ramp
-		assertIt(".fXD", item[1001]); // TODO ramp
+		assertIt(".fYD", item[1000]);
+		assertIt(".fYD", item[1001]);
 		assertIt(".fXD", item[1002]);
 		assertIt(".fXD", item[1003]);
 		assertIt(".fXD", item[1004]);
@@ -171,10 +171,10 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item[4]);
 		assertIt(".fXD", item[ 998]);
 		assertIt(".fXD", item[ 999]);
-		assertIt(".fXD", item[1000]); // TODO ramp
-		assertIt(".fXD", item[1001]); // TODO ramp
-		assertIt(".fXD", item[1002]); // TODO ramp
-		assertIt(".fXD", item[1003]); // TODO ramp
+		assertIt(".fYD", item[1000]);
+		assertIt(".fYD", item[1001]);
+		assertIt(".fYD", item[1002]);
+		assertIt(".fYD", item[1003]);
 		assertIt(".fXD", item[1004]);
 		assertIt(".fXD", item[1005]);
 		assertIt(".fXD", item[1006]);
@@ -189,13 +189,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fYD", item[ 997]);
 		assertIt(".fXD", item[ 998]);
 		assertIt(".fXD", item[ 999]);
-		assertIt(".fXD", item[1000]); // TODO ramp
-		assertIt(".fXD", item[1001]); // TODO ramp
-		assertIt(".fXD", item[1002]); // TODO ramp
-		assertIt(".fXD", item[1003]); // TODO ramp
-		assertIt(".fXD", item[1004]); // TODO ramp
-		assertIt(".fXD", item[1005]); // TODO ramp
-		assertIt(".fXD", item[1006]); // TODO ramp
+		assertIt(".fYD", item[1000]);
+		assertIt(".fYD", item[1001]);
+		assertIt(".fYD", item[1002]);
+		assertIt(".fYD", item[1003]);
+		assertIt(".fYD", item[1004]);
+		assertIt(".fYD", item[1005]);
+		assertIt(".fYD", item[1006]);
 
 		setRamp(999, "0 ramp 999/1000");
 		assertIt(".fYD", item[0]);
@@ -207,13 +207,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fYD", item[ 997]);
 		assertIt(".fYD", item[ 998]);
 		assertIt(".fXD", item[ 999]);
-		assertIt(".fXD", item[1000]); // TODO ramp
-		assertIt(".fXD", item[1001]); // TODO ramp
-		assertIt(".fXD", item[1002]); // TODO ramp
-		assertIt(".fXD", item[1003]); // TODO ramp
-		assertIt(".fXD", item[1004]); // TODO ramp
-		assertIt(".fXD", item[1005]); // TODO ramp
-		assertIt(".fXD", item[1006]); // TODO ramp
+		assertIt(".fYD", item[1000]);
+		assertIt(".fYD", item[1001]);
+		assertIt(".fYD", item[1002]);
+		assertIt(".fYD", item[1003]);
+		assertIt(".fYD", item[1004]);
+		assertIt(".fYD", item[1005]);
+		assertIt(".fYD", item[1006]);
 
 		setRamp(0, "0");
 		assertIt(".fXD", item[0]);
@@ -273,7 +273,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".faD", item[4]);
 		assertIt(".faD", item[ 998]);
 		assertIt(".faD", item[ 999]);
-		assertIt(".faD", item[1000]); // TODO ramp
+		assertIt(".fbD", item[1000]);
 		assertIt(".faD", item[1001]);
 		assertIt(".faD", item[1002]);
 		assertIt(".faD", item[1003]);
@@ -289,8 +289,8 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".faD", item[4]);
 		assertIt(".faD", item[ 998]);
 		assertIt(".faD", item[ 999]);
-		assertIt(".faD", item[1000]); // TODO ramp
-		assertIt(".faD", item[1001]); // TODO ramp
+		assertIt(".fbD", item[1000]);
+		assertIt(".fbD", item[1001]);
 		assertIt(".faD", item[1002]);
 		assertIt(".faD", item[1003]);
 		assertIt(".faD", item[1004]);
@@ -305,10 +305,10 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".faD", item[4]);
 		assertIt(".faD", item[ 998]);
 		assertIt(".faD", item[ 999]);
-		assertIt(".faD", item[1000]); // TODO ramp
-		assertIt(".faD", item[1001]); // TODO ramp
-		assertIt(".faD", item[1002]); // TODO ramp
-		assertIt(".faD", item[1003]); // TODO ramp
+		assertIt(".fbD", item[1000]);
+		assertIt(".fbD", item[1001]);
+		assertIt(".fbD", item[1002]);
+		assertIt(".fbD", item[1003]);
 		assertIt(".faD", item[1004]);
 		assertIt(".faD", item[1005]);
 		assertIt(".faD", item[1006]);
@@ -323,13 +323,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fbD", item[ 997]);
 		assertIt(".faD", item[ 998]);
 		assertIt(".faD", item[ 999]);
-		assertIt(".faD", item[1000]); // TODO ramp
-		assertIt(".faD", item[1001]); // TODO ramp
-		assertIt(".faD", item[1002]); // TODO ramp
-		assertIt(".faD", item[1003]); // TODO ramp
-		assertIt(".faD", item[1004]); // TODO ramp
-		assertIt(".faD", item[1005]); // TODO ramp
-		assertIt(".faD", item[1006]); // TODO ramp
+		assertIt(".fbD", item[1000]);
+		assertIt(".fbD", item[1001]);
+		assertIt(".fbD", item[1002]);
+		assertIt(".fbD", item[1003]);
+		assertIt(".fbD", item[1004]);
+		assertIt(".fbD", item[1005]);
+		assertIt(".fbD", item[1006]);
 
 		setRamp(999, "3 (initially 0) ramp 999/1000");
 		assertIt(".fbD", item[0]);
@@ -341,13 +341,13 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fbD", item[ 997]);
 		assertIt(".fbD", item[ 998]);
 		assertIt(".faD", item[ 999]);
-		assertIt(".faD", item[1000]); // TODO ramp
-		assertIt(".faD", item[1001]); // TODO ramp
-		assertIt(".faD", item[1002]); // TODO ramp
-		assertIt(".faD", item[1003]); // TODO ramp
-		assertIt(".faD", item[1004]); // TODO ramp
-		assertIt(".faD", item[1005]); // TODO ramp
-		assertIt(".faD", item[1006]); // TODO ramp
+		assertIt(".fbD", item[1000]);
+		assertIt(".fbD", item[1001]);
+		assertIt(".fbD", item[1002]);
+		assertIt(".fbD", item[1003]);
+		assertIt(".fbD", item[1004]);
+		assertIt(".fbD", item[1005]);
+		assertIt(".fbD", item[1006]);
 
 		setRamp(0, "3 (initially 0)");
 		assertIt(".faD", item[0]);

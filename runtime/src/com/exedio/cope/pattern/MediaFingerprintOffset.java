@@ -102,7 +102,7 @@ public final class MediaFingerprintOffset
 				return value;
 
 			return
-				(getPrimaryKeyColumnValue(item)<ramp)
+				( (getPrimaryKeyColumnValue(item)%(MAX_RAMP+1)) < ramp )
 				? (value + 1)
 				: value;
 		}
