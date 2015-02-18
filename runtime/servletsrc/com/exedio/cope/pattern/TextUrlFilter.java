@@ -334,7 +334,7 @@ public class TextUrlFilter extends MediaFilter
 		appendURL(bf, getPaste(item, key), request);
 	}
 
-	private final Paste getPaste(final Item item, final String key)
+	final Paste getPaste(final Item item, final String key)
 	{
 		final Mount mount = mount();
 		return mount.pasteType.searchSingletonStrict(Cope.and(
