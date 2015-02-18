@@ -32,7 +32,7 @@ public final class MediaFingerprintOffset
 		private final int initialValue;
 		private final int value;
 		private final int ramp;
-		private static final int MAX_RAMP = 999;
+		private static final int RAMP_MODULUS = 1000;
 
 		State(final int value)
 		{
@@ -45,7 +45,7 @@ public final class MediaFingerprintOffset
 			this.value = requireNonNegative(value, "value");
 			this.ramp = ramp;
 
-			assert 0<=ramp && ramp<=MAX_RAMP : ramp;
+			assert 0<=ramp && ramp<RAMP_MODULUS : ramp;
 		}
 
 		boolean isInitial()
@@ -74,7 +74,7 @@ public final class MediaFingerprintOffset
 				bf.append(" ramp ").
 					append(ramp).
 					append('/').
-					append(MAX_RAMP+1);
+					append(RAMP_MODULUS);
 
 			return bf.toString();
 		}
@@ -89,9 +89,9 @@ public final class MediaFingerprintOffset
 			if(! (0.0<=ramp && ramp<=1.0) )
 				throw new IllegalArgumentException("ramp must be between 0.0 and 1.0, but was " + String.valueOf(ramp));
 
-			int rampInt = (int)Math.round( ramp*(MAX_RAMP+1) );
-			if(rampInt>MAX_RAMP)
-				rampInt = MAX_RAMP;
+			int rampInt = (int)Math.round( ramp*RAMP_MODULUS );
+			if(rampInt>=RAMP_MODULUS)
+				rampInt = RAMP_MODULUS - 1;
 
 			return new State(initialValue, value, rampInt);
 		}
@@ -102,7 +102,7 @@ public final class MediaFingerprintOffset
 				return value;
 
 			return
-				( (getPrimaryKeyColumnValue(item)%(MAX_RAMP+1)) < ramp )
+				( (getPrimaryKeyColumnValue(item)%RAMP_MODULUS) < ramp )
 				? (value + 1)
 				: value;
 		}
