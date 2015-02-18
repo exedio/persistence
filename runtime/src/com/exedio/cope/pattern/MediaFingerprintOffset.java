@@ -31,6 +31,7 @@ public final class MediaFingerprintOffset
 	{
 		private final int initialValue;
 		private final int value;
+		private final int valueRamped;
 		private final int ramp;
 		private static final int RAMP_MODULUS = 1000;
 
@@ -43,6 +44,7 @@ public final class MediaFingerprintOffset
 		{
 			this.initialValue = requireNonNegative(initialValue, "value");
 			this.value = requireNonNegative(value, "value");
+			this.valueRamped = value + 1;
 			this.ramp = ramp;
 
 			assert 0<=ramp && ramp<RAMP_MODULUS : ramp;
@@ -103,7 +105,7 @@ public final class MediaFingerprintOffset
 
 			return
 				( (getPrimaryKeyColumnValue(item)%RAMP_MODULUS) < ramp )
-				? (value + 1)
+				? valueRamped
 				: value;
 		}
 	}
