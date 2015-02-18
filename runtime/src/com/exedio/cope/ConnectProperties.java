@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
+import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -195,6 +196,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final String mediaRooturl    = value("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
+	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = noContext()
 			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
@@ -232,6 +234,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public int getMediaOffsetExpires()
 	{
 		return mediaOffsetExpires;
+	}
+
+	private final MediaFingerprintOffset mediaFingerprintOffsetState = new MediaFingerprintOffset(mediaFingerOffset);
+
+	public MediaFingerprintOffset mediaFingerprintOffset()
+	{
+		return mediaFingerprintOffsetState;
 	}
 
 	public String getMediaUrlSecret()

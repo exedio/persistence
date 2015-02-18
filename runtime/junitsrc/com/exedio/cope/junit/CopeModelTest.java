@@ -79,6 +79,8 @@ public abstract class CopeModelTest extends CopeAssert
 		// because test could have started a transaction
 		model.rollbackIfNotCommitted();
 
+		if(model.isConnected())
+			model.getConnectProperties().mediaFingerprintOffset().reset();
 		model.setDatabaseListener(null);
 		model.removeAllChangeListeners();
 		ModelConnector.dropAndDisconnect();
