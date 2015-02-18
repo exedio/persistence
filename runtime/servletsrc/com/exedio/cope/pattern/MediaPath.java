@@ -221,9 +221,8 @@ public abstract class MediaPath extends Pattern
 
 			if(fingerprint!=Long.MIN_VALUE)
 			{
-				final int offset = getMediaOffsetFingerprint(item);
 				bf.append(".f");
-				MediaBase64.append(bf, fingerprint + offset);
+				MediaBase64.append(bf, fingerprint + getMediaOffsetFingerprint(item));
 				bf.append('/');
 			}
 
