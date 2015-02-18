@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.SchemaInfo;
 import java.util.Date;
 
 public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
@@ -61,10 +61,10 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	public void testGlobalOffsetValue()
 	{
-		assertEquals(   0, SchemaInfo.getPrimaryKeyColumnValue(item[   0]));
-		assertEquals(   1, SchemaInfo.getPrimaryKeyColumnValue(item[   1]));
-		assertEquals(1005, SchemaInfo.getPrimaryKeyColumnValue(item[1005]));
-		assertEquals(1006, SchemaInfo.getPrimaryKeyColumnValue(item[1006]));
+		assertEquals(   0, getPrimaryKeyColumnValue(item[   0]));
+		assertEquals(   1, getPrimaryKeyColumnValue(item[   1]));
+		assertEquals(1005, getPrimaryKeyColumnValue(item[1005]));
+		assertEquals(1006, getPrimaryKeyColumnValue(item[1006]));
 
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
