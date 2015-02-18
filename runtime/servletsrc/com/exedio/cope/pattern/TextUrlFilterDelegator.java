@@ -63,7 +63,7 @@ public class TextUrlFilterDelegator extends MediaFilter
 		super(raw);
 
 		this.raw = raw;
-		this.delegate = delegate;
+		this.delegate = requireNonNull(delegate, "delegate");
 		this.supportedContentType = requireNonEmpty(supportedContentType, "supportedContentType");
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
