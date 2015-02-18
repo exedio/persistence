@@ -508,6 +508,7 @@ public class TextUrlFilter extends MediaFilter
 	 * @deprecated Use {@link #getPasteURL(Item,String)} instead
 	 */
 	@Deprecated
+	@SuppressFBWarnings("NM_CONFUSING")
 	public final String getPasteUrl( final Item item, final String key )
 	{
 		return getPasteURL(item, key);
