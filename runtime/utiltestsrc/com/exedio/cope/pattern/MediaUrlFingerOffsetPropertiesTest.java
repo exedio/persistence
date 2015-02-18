@@ -196,7 +196,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 
 	public void testInvalid()
 	{
-		final String propKey = "media.offsetFingerprint";
+		final String propKey = "media.fingerprintOffset";
 		final Source source = source(-1);
 		try
 		{
@@ -221,7 +221,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
 		if(offset!=null)
-			source.setProperty("media.offsetFingerprint", "" + offset);
+			source.setProperty("media.fingerprintOffset", "" + offset);
 		return Sources.view(source , "MediaUrlFingerOffsetPropertiesTest");
 	}
 }

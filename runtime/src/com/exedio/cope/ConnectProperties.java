@@ -196,7 +196,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final String mediaRooturl    = value("media.rooturl", "media/");
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
-	private final int mediaFingerOffset  = value("media.offsetFingerprint", 0, 0);
+	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = noContext()
 			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
