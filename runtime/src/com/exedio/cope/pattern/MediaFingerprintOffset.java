@@ -86,6 +86,11 @@ public final class MediaFingerprintOffset
 			return new State(initialValue, value, 0);
 		}
 
+		double getRamp()
+		{
+			return ((double)ramp) / RAMP_MODULUS;
+		}
+
 		State setRamp(final double ramp)
 		{
 			if(! (0.0<=ramp && ramp<=1.0) )
@@ -139,7 +144,16 @@ public final class MediaFingerprintOffset
 	}
 
 	/**
+	 * @see #setRamp(double)
+	 */
+	public double getRamp()
+	{
+		return state.getRamp();
+	}
+
+	/**
 	 * @param ramp a value between 0.0 and 1.0.
+	 * @see #getRamp()
 	 */
 	public void setRamp(final double ramp)
 	{

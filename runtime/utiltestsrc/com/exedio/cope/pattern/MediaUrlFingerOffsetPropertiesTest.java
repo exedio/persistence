@@ -80,18 +80,22 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		final ConnectProperties p = new ConnectProperties(source, null);
 		assertEquals("0", p.mediaFingerprintOffset().getInfo());
 		assertEquals(true, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.000, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(1/1000d);
 		assertEquals("0 ramp 1/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.001, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(2/1000d);
 		assertEquals("0 ramp 2/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.002, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(33/1000d);
 		assertEquals("0 ramp 33/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.033, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(450/1000d);
 		assertEquals("0 ramp 450/1000", p.mediaFingerprintOffset().getInfo());
@@ -100,18 +104,22 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		p.mediaFingerprintOffset().setRamp(997/1000d);
 		assertEquals("0 ramp 997/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.997, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(998/1000d);
 		assertEquals("0 ramp 998/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.998, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(999/1000d);
 		assertEquals("0 ramp 999/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.999, p.mediaFingerprintOffset().getRamp());
 
 		p.mediaFingerprintOffset().setRamp(0.99999000);
 		assertEquals("0 ramp 999/1000", p.mediaFingerprintOffset().getInfo());
 		assertEquals(false, p.mediaFingerprintOffset().isInitial());
+		assertEquals(0.999, p.mediaFingerprintOffset().getRamp());
 	}
 
 	public void testSetValueResetsRamp()
