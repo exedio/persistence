@@ -87,12 +87,12 @@ public class TextUrlFilterDelegator extends MediaFilter
 
 	public final Locator getPasteLocator(final Item item, final String key)
 	{
-		return delegate.getLocator(getPaste(item, key));
+		return delegate.getPasteLocator(item, key);
 	}
 
 	public final String getPasteURL( final Item item, final String key )
 	{
-		return delegate.getURL(getPaste(item, key));
+		return delegate.getPasteURL(item, key);
 	}
 
 	@Override
@@ -221,18 +221,18 @@ public class TextUrlFilterDelegator extends MediaFilter
 			final String key,
 			final HttpServletRequest request)
 	{
-		appendURL(bf, getPaste(item, key), request);
+		appendURL(bf, getPasteLocator(item, key), request);
 	}
 
-	protected void appendURL(
+	private static void appendURL(
 			final StringBuilder bf,
-			final Paste paste,
+			final Locator locator,
 			final HttpServletRequest request)
 	{
 		bf.append(request.getContextPath());
 		bf.append(request.getServletPath());
 		bf.append('/');
-		delegate.getLocator(paste).appendPath(bf);
+		locator.appendPath(bf);
 	}
 
 	@Override
