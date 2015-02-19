@@ -51,7 +51,7 @@ import java.util.zip.ZipFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TextUrlFilter extends MediaFilter
+public class TextUrlFilter extends CheckableMediaFilter
 {
 	private static final long serialVersionUID = 1l;
 
@@ -314,6 +314,7 @@ public class TextUrlFilter extends MediaFilter
 		return nextStart;
 	}
 
+	@Override
 	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
 	public Set<String> check( final Item item ) throws NotFound
 	{

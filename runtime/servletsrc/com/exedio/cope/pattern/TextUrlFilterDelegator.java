@@ -37,7 +37,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TextUrlFilterDelegator extends MediaFilter
+public class TextUrlFilterDelegator extends CheckableMediaFilter
 {
 	private static final long serialVersionUID = 1l;
 
@@ -204,6 +204,7 @@ public class TextUrlFilterDelegator extends MediaFilter
 		return nextStart;
 	}
 
+	@Override
 	@Wrap(order=30, thrown={@Wrap.Thrown(NotFound.class)})
 	public Set<String> check( final Item item ) throws NotFound
 	{
