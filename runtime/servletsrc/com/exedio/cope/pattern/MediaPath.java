@@ -564,6 +564,7 @@ public abstract class MediaPath extends Pattern
 
 
 	final void doGet(
+			final MediaServlet servlet,
 			final HttpServletRequest request, final HttpServletResponse response,
 			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
@@ -646,6 +647,9 @@ public abstract class MediaPath extends Pattern
 					}
 				}
 			}
+
+			if(servlet.isAccessControlAllowOriginWildcard(this, item))
+				response.setHeader("Access-Control-Allow-Origin", "*");
 
 			doGetAndCommitWithCache(request, response, item);
 

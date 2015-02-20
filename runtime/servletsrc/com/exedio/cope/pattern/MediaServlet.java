@@ -23,6 +23,7 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
@@ -210,7 +211,7 @@ public class MediaServlet extends HttpServlet
 
 		try
 		{
-			path.doGet(request, response, pathInfo, slash2+1);
+			path.doGet(this, request, response, pathInfo, slash2+1);
 		}
 		catch(final NotFound notFound)
 		{
@@ -247,6 +248,23 @@ public class MediaServlet extends HttpServlet
 	}
 
 	private static final String RESPONSE_LOCATION = "Location";
+
+
+	/**
+	 * Let this method return true, if you want to add a header
+	 * {@code Access-Control-Allow-Origin: *}
+	 * to the response.
+	 * This is typically needed for fonts served from a different domain.
+	 * The default implementation returns false.
+	 * @param path used by subclasses
+	 * @param item used by subclasses
+	 */
+	protected boolean isAccessControlAllowOriginWildcard(
+			final MediaPath path,
+			final Item item)
+	{
+		return false;
+	}
 
 	protected void onException(
 			final HttpServletRequest request,
