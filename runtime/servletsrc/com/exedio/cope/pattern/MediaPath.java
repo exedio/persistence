@@ -805,7 +805,11 @@ public abstract class MediaPath extends Pattern
 	 * if the method completes normally (without exception).
 	 * Otherwise the implementor may or may not commit the transaction.
 	 */
-	public abstract void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item) throws IOException, NotFound;
+	public abstract void doGetAndCommit(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Item item)
+		throws IOException, NotFound;
 
 
 	// convenience methods
