@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  *    &lt;servlet-class&gt;com.exedio.cope.pattern.MediaServlet&lt;/servlet-class&gt;
  *    &lt;init-param&gt;
  *       &lt;param-name&gt;model&lt;/param-name&gt;
- *       &lt;param-value&gt;{@link com.exedio.cope.Model com.bigbusiness.shop.Main#model}&lt;/param-value&gt;
+ *       &lt;param-value&gt;{@link com.exedio.cope.Model com.exedio.shop.Main#model}&lt;/param-value&gt;
  *    &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
