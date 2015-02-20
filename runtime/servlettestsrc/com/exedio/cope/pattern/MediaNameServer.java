@@ -69,7 +69,8 @@ final class MediaNameServer extends MediaPath
 
 	@Override
 	public void doGetAndCommit(
-			final HttpServletRequest request, final HttpServletResponse response,
+			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final Item item)
 		throws IOException, NotFound
 	{

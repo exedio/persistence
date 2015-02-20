@@ -53,7 +53,8 @@ final class MediaCustom extends MediaPath
 
 	@Override
 	public void doGetAndCommit(
-			final HttpServletRequest request, final HttpServletResponse response,
+			final HttpServletRequest request,
+			final HttpServletResponse response,
 			final Item item)
 	{
 		throw new RuntimeException();
