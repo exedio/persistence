@@ -42,7 +42,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	private static final long serialVersionUID = 1l;
 
 	private final Media raw;
-	protected final TextUrlFilter delegate;
+	final TextUrlFilter delegate;
 	private final String supportedContentType;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;
