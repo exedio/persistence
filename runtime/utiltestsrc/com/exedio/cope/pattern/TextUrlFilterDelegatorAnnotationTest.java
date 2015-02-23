@@ -38,7 +38,7 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 
 		assertPresent(false, pasteValue(AnItem.simple), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.simple.getSource(), PreventUrlGuessing.class);
-		assertPresent(false,  pasteValue(AnItem.secret), PreventUrlGuessing.class);
+		assertPresent(false, pasteValue(AnItem.secret), PreventUrlGuessing.class);
 		assertPresent(true,  AnItem.secret.getSource(), PreventUrlGuessing.class);
 		assertPresent(false, pasteValue(AnItem.finger), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger.getSource(), PreventUrlGuessing.class);
@@ -47,7 +47,7 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.simple.getSource(), UrlFingerPrinting.class);
 		assertPresent(false, pasteValue(AnItem.secret), UrlFingerPrinting.class);
 		assertPresent(false, AnItem.secret.getSource(), UrlFingerPrinting.class);
-		assertPresent(false,  pasteValue(AnItem.finger), UrlFingerPrinting.class);
+		assertPresent(false, pasteValue(AnItem.finger), UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger.getSource(), UrlFingerPrinting.class);
 
 		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
