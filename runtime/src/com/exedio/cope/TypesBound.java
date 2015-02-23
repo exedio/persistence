@@ -126,6 +126,8 @@ public final class TypesBound
 		{
 			for(final Field field : clazz.getDeclaredFields())
 			{
+				if(field.isSynthetic())
+					continue;
 				if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
 					continue;
 				if(!Feature.class.isAssignableFrom(field.getType()))

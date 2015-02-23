@@ -65,6 +65,8 @@ final class WrapperByAnnotations
 
 		for(final Method method : clazz.getDeclaredMethods())
 		{
+			if(method.isSynthetic())
+				continue;
 			if(!Modifier.isPublic(method.getModifiers()))
 				continue;
 

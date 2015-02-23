@@ -41,6 +41,9 @@ public final class SerializationCheck
 		{
 			for(final Field field : clazz.getDeclaredFields())
 			{
+				if(field.isSynthetic())
+					continue;
+
 				final int modifiers = field.getModifiers();
 				if(!Modifier.isStatic(modifiers) &&
 					!Modifier.isTransient(modifiers))
