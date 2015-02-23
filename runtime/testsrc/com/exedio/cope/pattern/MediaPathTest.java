@@ -24,6 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -350,6 +351,17 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		clock.assertEmpty();
 	}
 
+	public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertOk();
+
+		item.setAccessControlAllowOriginWildcard(true);
+		service(new Request(ok)).assertOkAndAccessControlAllowOrigin("*");
+	}
+
 	// TODO testInfo with others
 
 	public void testInfoNotAnItem() throws ServletException, IOException
@@ -582,6 +594,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 
 		private String location;
+		private String accessControlAllowOrigin;
 
 		@Override()
 		public void setHeader(final String name, final String value)
@@ -592,6 +605,12 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				assertEquals(null, this.location);
 				assertNull(out);
 				this.location = value;
+			}
+			else if("Access-Control-Allow-Origin".equals(name))
+			{
+				assertNotNull(value);
+				assertNull(out);
+				this.accessControlAllowOrigin = value;
 			}
 			else
 				super.setHeader(name, value);
@@ -720,6 +739,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
 			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
 		void assertOkAndCache(final long lastModified)
@@ -731,6 +751,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
 			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
 		void assertNotModified(final long lastModified)
@@ -742,6 +763,19 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+		}
+
+		void assertOkAndAccessControlAllowOrigin(final String value)
+		{
+			assertEquals("location",      null, this.location);
+			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("sc",            Integer.MIN_VALUE, this.status);
+			assertEquals("charset",       null, this.charset);
+			assertEquals("contentType",   null, this.contentType);
+			assertEquals("content",       null, this.out);
+			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("accessControlAllowOrigin", value, this.accessControlAllowOrigin);
 		}
 
 		void assertError(
@@ -758,6 +792,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   contentType,      this.contentType);
 			assertEquals("content",       content, new String(this.out.toByteArray(), UTF8));
 			assertEquals("contentLength", content.length(), this.contentLength);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
 		void assertRedirect(final String location)
@@ -769,6 +804,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.out);
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
 		Response assertExpires(final long expires)
@@ -786,6 +822,14 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		MyMediaServlet()
 		{
 			// make package private
+		}
+
+		@Override
+		protected boolean isAccessControlAllowOriginWildcard(
+				final MediaPath path,
+				final Item item)
+		{
+			return ((MediaPathItem)item).getAccessControlAllowOriginWildcard();
 		}
 
 		@Override
