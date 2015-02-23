@@ -256,8 +256,8 @@ public class MediaServlet extends HttpServlet
 	 * to the response.
 	 * This is typically needed for fonts served from a different domain.
 	 * The default implementation returns false.
-	 * @param path used by subclasses
-	 * @param item used by subclasses
+	 * @param path the media path of the current request
+	 * @param item the item of the current request
 	 */
 	protected boolean isAccessControlAllowOriginWildcard(
 			final MediaPath path,
