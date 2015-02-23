@@ -197,7 +197,7 @@ class HttpServletResponseDummy implements HttpServletResponse
 	@Override()
 	public void setHeader(final String name, final String value)
 	{
-		throw new AssertionError();
+		throw new AssertionError(name);
 	}
 
 	@Override()
