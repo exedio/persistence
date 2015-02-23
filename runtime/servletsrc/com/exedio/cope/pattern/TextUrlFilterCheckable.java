@@ -25,6 +25,6 @@ import java.util.Set;
 public interface TextUrlFilterCheckable
 {
 
-	public Set<String> check(Item item) throws NotFound;
+	Set<String> check(Item item) throws NotFound;
 
 }
