@@ -37,12 +37,12 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TextUrlFilterDelegator extends CheckableMediaFilter
+public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilterCheckable
 {
 	private static final long serialVersionUID = 1l;
 
 	private final Media raw;
-	private final TextUrlFilter delegate;
+	protected final TextUrlFilter delegate;
 	private final String supportedContentType;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;

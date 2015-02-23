@@ -51,7 +51,7 @@ import java.util.zip.ZipFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TextUrlFilter extends CheckableMediaFilter
+public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 {
 	private static final long serialVersionUID = 1l;
 
