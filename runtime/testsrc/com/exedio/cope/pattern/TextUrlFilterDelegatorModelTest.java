@@ -18,11 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.roh2;
 
-import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -32,13 +30,6 @@ import java.nio.charset.Charset;
 public class TextUrlFilterDelegatorModelTest extends CopeAssert
 {
 	private static final Charset charset = Charset.forName(CharsetName.UTF8);
-
-	static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(TextUrlFilterDelegatorModelTest.class, "MODEL");
-	}
 
 	public void testRawNull()
 	{
