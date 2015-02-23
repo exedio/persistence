@@ -21,78 +21,54 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.Cope;
-import com.exedio.cope.DataField;
-import com.exedio.cope.Features;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.EncodingToCharset;
+import com.exedio.cope.pattern.TextUrlFilter.Paste;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.nio.charset.Charset;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
+public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilterCheckable
 {
 	private static final long serialVersionUID = 1l;
 
 	private final Media raw;
+	final TextUrlFilter delegate;
 	private final String supportedContentType;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;
 	private final String pasteStart;
 	private final String pasteStop;
 
-	final StringField pasteKey;
-	final Media pasteValue;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final AnnotationProxy annotationProxy = new AnnotationProxy();
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mountIfMounted = null;
 
-	public TextUrlFilter(
+	public TextUrlFilterDelegator(
 			final Media raw,
+			final TextUrlFilter delegate,
 			final String supportedContentType,
 			final Charset charset,
 			final String pasteStart,
-			final String pasteStop,
-			final StringField pasteKey,
-			final Media pasteValue)
+			final String pasteStop)
 	{
 		super(raw);
 
 		this.raw = raw;
+		this.delegate = requireNonNull(delegate, "delegate");
 		this.supportedContentType = requireNonEmpty(supportedContentType, "supportedContentType");
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
-		this.pasteKey   = requireNonNull (pasteKey,   "pasteKey");
-		this.pasteValue = requireNonNull (pasteValue, "pasteValue");
 		addSource(raw, "Raw", annotationProxy);
-	}
-
-	Type<Paste> getPasteType()
-	{
-		return mount().pasteType;
 	}
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
@@ -104,105 +80,19 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		this.raw.set( item, raw );
 	}
 
-	@Wrap(order=20)
-	public final Paste addPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value)
+	private final Paste getPaste(final Item item, final String key)
 	{
-		final Mount mount = mount();
-		return mount.pasteType.newItem(
-				this.pasteKey.map(key),
-				this.pasteValue.map(value),
-				Cope.mapAndCast(mount.pasteParent, item));
-	}
-
-	@Wrap(order=30, thrown=@Wrap.Thrown(IOException.class))
-	public final void modifyPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value )
-	throws IOException
-	{
-		pasteValue.set(getPaste(item, key), value);
-	}
-
-	@Wrap(order=50, thrown=@Wrap.Thrown(IOException.class))
-	public final Paste putPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value)
-	throws IOException
-	{
-		final Mount mount = mount();
-		final Paste existing =
-			mount.pasteType.searchSingleton(Cope.and(
-				Cope.equalAndCast(mount.pasteParent, item),
-				pasteKey.equal(key)));
-
-		if(existing==null)
-			return mount.pasteType.newItem(
-					this.pasteKey.map(key),
-					this.pasteValue.map(value),
-					Cope.mapAndCast(mount.pasteParent, item));
-		else
-		{
-			pasteValue.set(existing, value);
-			return existing;
-		}
+		return delegate.getPaste(item, key);
 	}
 
 	public final Locator getPasteLocator(final Item item, final String key)
 	{
-		return pasteValue.getLocator(getPaste(item, key));
+		return delegate.getPasteLocator(item, key);
 	}
 
 	public final String getPasteURL( final Item item, final String key )
 	{
-		return pasteValue.getURL(getPaste(item, key));
-	}
-
-	@Override
-	protected final void onMount()
-	{
-		super.onMount();
-		final Type<?> type = getType();
-
-		final ItemField<? extends Item> pasteParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
-		final UniqueConstraint pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
-		final Features features = new Features();
-		features.put("parent", pasteParent);
-		features.put("key", pasteKey);
-		features.put("parentAndKey", pasteParentAndKey);
-		features.put("value", pasteValue, annotationProxy);
-		features.put("pastes", PartOf.create(pasteParent, pasteKey));
-		final Type<Paste> pasteType = newSourceType(Paste.class, features);
-		this.mountIfMounted = new Mount(pasteParent, pasteType);
-	}
-
-	private static final class Mount
-	{
-		final ItemField<? extends Item> pasteParent;
-		final Type<Paste> pasteType;
-
-		Mount(
-				final ItemField<? extends Item> pasteParent,
-				final Type<Paste> pasteType)
-		{
-			assert pasteParent!=null;
-			assert pasteType!=null;
-
-			this.pasteParent = pasteParent;
-			this.pasteType = pasteType;
-		}
-	}
-
-	private final Mount mount()
-	{
-		final Mount mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return delegate.getPasteURL(item, key);
 	}
 
 	@Override
@@ -247,7 +137,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		}
 	}
 
-	@Wrap(order=80, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=20, thrown={@Wrap.Thrown(NotFound.class)})
 	public final String getContent(
 			final Item item,
 			@Parameter("request") final HttpServletRequest request )
@@ -315,7 +205,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	}
 
 	@Override
-	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=30, thrown={@Wrap.Thrown(NotFound.class)})
 	public Set<String> check( final Item item ) throws NotFound
 	{
 		checkContentType( item );
@@ -332,27 +222,18 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 			final String key,
 			final HttpServletRequest request)
 	{
-		appendURL(bf, getPaste(item, key), request);
+		appendURL(bf, getPasteLocator(item, key), request);
 	}
 
-	final Paste getPaste(final Item item, final String key)
-	{
-		final Mount mount = mount();
-		return mount.pasteType.searchSingletonStrict(Cope.and(
-				Cope.equalAndCast(mount.pasteParent, item),
-				pasteKey.equal(key)
-		));
-	}
-
-	protected void appendURL(
+	private static void appendURL(
 			final StringBuilder bf,
-			final Paste paste,
+			final Locator locator,
 			final HttpServletRequest request)
 	{
 		bf.append(request.getContextPath());
 		bf.append(request.getServletPath());
 		bf.append('/');
-		pasteValue.getLocator(paste).appendPath(bf);
+		locator.appendPath(bf);
 	}
 
 	@Override
@@ -363,48 +244,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	public final List<String> getPasteContentTypesAllowed()
 	{
-		return pasteValue.getContentTypesAllowed();
-	}
-
-	@Computed
-	public static final class Paste extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		private Paste(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
-		String getKey()
-		{
-			return getPattern().pasteKey.get(this);
-		}
-
-		public MediaPath.Locator getLocator()
-		{
-			return getPattern().pasteValue.getLocator(this);
-		}
-
-		public String getURL()
-		{
-			return getPattern().pasteValue.getURL(this);
-		}
-
-		String getContentType()
-		{
-			return getPattern().pasteValue.getContentType(this);
-		}
-
-		byte[] getBody()
-		{
-			return getPattern().pasteValue.getBody(this);
-		}
-
-		private TextUrlFilter getPattern()
-		{
-			return (TextUrlFilter)getCopeType().getPattern();
-		}
+		return delegate.getPasteContentTypesAllowed();
 	}
 
 	private final class AnnotationProxy implements AnnotatedElement
@@ -418,7 +258,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		{
 			return
 				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilter.this.isAnnotationPresent(annotationClass)
+				? TextUrlFilterDelegator.this.isAnnotationPresent(annotationClass)
 				: false;
 		}
 
@@ -426,92 +266,24 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		{
 			return
 				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilter.this.getAnnotation(annotationClass)
+				? TextUrlFilterDelegator.this.getAnnotation(annotationClass)
 				: null;
 		}
 
 		public Annotation[] getAnnotations()
 		{
-			throw new RuntimeException(TextUrlFilter.this.toString());
+			throw new RuntimeException(TextUrlFilterDelegator.this.toString());
 		}
 
 		public Annotation[] getDeclaredAnnotations()
 		{
-			throw new RuntimeException(TextUrlFilter.this.toString());
+			throw new RuntimeException(TextUrlFilterDelegator.this.toString());
 		}
 
 		@Override
 		public String toString()
 		{
-			return TextUrlFilter.this.toString() + "-annotations";
+			return TextUrlFilterDelegator.this.toString() + "-annotations";
 		}
-	}
-
-	@Wrap(order=100, thrown=@Wrap.Thrown(value=IOException.class))
-	public final void putPastesFromZip(
-			final Item item,
-			@Parameter("file") final File file)
-		throws IOException
-	{
-		try(ZipFile zipFile = new ZipFile(file))
-		{
-			for(final Enumeration<? extends ZipEntry> entries = zipFile.entries();
-					entries.hasMoreElements(); )
-			{
-				final ZipEntry entry = entries.nextElement();
-				final String name = entry.getName();
-				try
-				{
-					final MediaType contentType = MediaType.forFileName(name);
-					if(contentType==null)
-						throw new IllegalArgumentException("unknown content type for entry " + name);
-
-					putPaste(item, name, Media.toValue(DataField.toValue(zipFile, entry), contentType.getName()));
-				}
-				catch(final ConstraintViolationException e)
-				{
-					throw new IllegalArgumentException(name, e);
-				}
-			}
-		}
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #TextUrlFilter(Media, String, Charset, String, String, StringField, Media)} instead
-	 */
-	@Deprecated
-	public TextUrlFilter(
-			final Media raw,
-			final String supportedContentType,
-			final String encoding,
-			final String pasteStart,
-			final String pasteStop,
-			final StringField pasteKey,
-			final Media pasteValue)
-	{
-		this(
-				raw, supportedContentType, EncodingToCharset.convert(encoding),
-				pasteStart, pasteStop, pasteKey, pasteValue);
-	}
-
-	/**
-	 * @deprecated Use {@link #getPasteContentTypesAllowed()} instead
-	 */
-	@Deprecated
-	public final List<String> getSupportedPasteContentTypes()
-	{
-		return getPasteContentTypesAllowed();
-	}
-
-	/**
-	 * @deprecated Use {@link #getPasteURL(Item,String)} instead
-	 */
-	@Deprecated
-	@SuppressFBWarnings("NM_CONFUSING")
-	public final String getPasteUrl( final Item item, final String key )
-	{
-		return getPasteURL(item, key);
 	}
 }
