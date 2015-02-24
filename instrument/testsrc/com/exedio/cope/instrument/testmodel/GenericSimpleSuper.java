@@ -35,8 +35,14 @@ public class GenericSimpleSuper<N extends Number> extends Item
 
 	public static final class classWildcard
 	{
+		public static final Class<GenericSimpleSuper<?>> value = make();
+
+		// method needed because there is probably a bug in javac, not needed in eclipse
 		@SuppressWarnings("unchecked")
-		public static final Class<GenericSimpleSuper<?>> value = (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
+		private static Class<GenericSimpleSuper<?>> make()
+		{
+			return (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
+		}
 	}
 
 

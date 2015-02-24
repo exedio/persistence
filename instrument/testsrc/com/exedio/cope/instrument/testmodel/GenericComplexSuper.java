@@ -30,6 +30,7 @@ import java.util.Collection;
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
+	@SuppressWarnings("unchecked") // probably a bug in javac, not needed in eclipse
 	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard.value);
 	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value);
 
@@ -38,8 +39,14 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 
 	public static final class classWildcard
 	{
+		public static final Class<GenericComplexSuper<?,?>> value = make();
+
+		// method needed because there is probably a bug in javac, not needed in eclipse
 		@SuppressWarnings("unchecked")
-		public static final Class<GenericComplexSuper<?,?>> value = (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
+		private static Class<GenericComplexSuper<?,?>> make()
+		{
+			return (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
+		}
 	}
 
 
