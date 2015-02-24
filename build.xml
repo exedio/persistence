@@ -995,6 +995,8 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
+			<arg value="-Xmaxerrs"  /><arg value="10000" />
+			<arg value="-Xmaxwarns" /><arg value="10000" />
 		</javadoc>
 	</target>
 	
