@@ -28,7 +28,7 @@ public final class StableQueryIterator<E>
 {
 	/**
 	 * @param query
-	 * <b>BEWARE:<b>
+	 * <b>BEWARE:</b>
 	 * The mechanism of this iterator works only,
 	 * if the query result is stable.
 	 * This means, the result of the query does not change while iterating.

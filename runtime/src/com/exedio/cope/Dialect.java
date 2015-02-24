@@ -234,7 +234,7 @@ abstract class Dialect
 
 	/**
 	 * Appends a clause to the statement causing the database limiting the query result.
-	 * This method is never called for <tt>offset==0 && limit=={@link Query#UNLIMITED}</tt>.
+	 * This method is never called for <tt>offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}</tt>.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
 	 * @param offset the number of rows to be skipped
 	 *        or zero, if no rows to be skipped.

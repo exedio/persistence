@@ -27,8 +27,8 @@ import static java.util.Objects.requireNonNull;
  * together with the schema yet,
  * so you have to do this manually.
  *
- * MySQL: create fulltext index <index_name> on <table_name>(<column_name>)
- * Oracle: create index <index_name> ON <table_name>(<column_name>) indextype is CTXSYS.CONTEXT
+ * MySQL: create fulltext index index_name on table_name (column_name)
+ * Oracle: create index index_name ON table_name(column_name) indextype is CTXSYS.CONTEXT
  *
  * @author Ralf Wiebicke
  */

@@ -91,7 +91,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	/**
 	 * Returns true, if <tt>o</tt> represents the same item as this item.
 	 * Is equivalent to
-	 * <pre>(o != null) && (o instanceof Item) && getCopeID().equals(((Item)o).getCopeID())</pre>
+	 * <pre>(o != null) &amp;&amp; (o instanceof Item) &amp;&amp; getCopeID().equals(((Item)o).getCopeID())</pre>
 	 * Does not activate this item, if it's not already active.
 	 */
 	@Override
@@ -296,6 +296,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * @throws IntegrityViolationException
+	 * if this item cannot be deleted due a {@link ItemField reference} with
+	 * {@link DeletePolicy#FORBID} pointing to this item.
 	 */
 	public final void deleteCopeItem()
 	{

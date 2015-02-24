@@ -272,7 +272,7 @@ public final class DataField extends Field<DataField.Value>
 
 	/**
 	 * Provides data for this persistent data field.
-	 * Closes <data>data</data> after reading the contents of the stream.
+	 * Closes {@code data} after reading the contents of the stream.
 	 * @param data give null to remove data.
 	 * @throws MandatoryViolationException
 	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
