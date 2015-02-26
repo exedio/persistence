@@ -81,8 +81,8 @@ public final class RevisionInfoRevise extends RevisionInfo
 				return null;
 			return new Body(
 					sql,
-					Integer.valueOf(p.getProperty(bodyPrefix + "rows")),
-					Long   .valueOf(p.getProperty(bodyPrefix + "elapsed")));
+					Integer.parseInt (p.getProperty(bodyPrefix + "rows")),
+					Long   .parseLong(p.getProperty(bodyPrefix + "elapsed")));
 		}
 
 		@Override

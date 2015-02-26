@@ -127,7 +127,7 @@ public abstract class RevisionInfo
 			return null;
 
 		final String revisionString = p.getProperty(REVISION);
-		final int revision = revisionString!=null ? Integer.valueOf(revisionString) : -1;
+		final int revision = revisionString!=null ? Integer.parseInt(revisionString) : -1;
 		final Date date;
 		try
 		{
