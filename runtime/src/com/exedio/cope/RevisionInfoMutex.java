@@ -97,8 +97,8 @@ public final class RevisionInfoMutex extends RevisionInfo
 				savepoint,
 				date,
 				environment,
-				Integer.valueOf(p.getProperty(EXPECTED)),
-				Integer.valueOf(p.getProperty(ACTUAL)));
+				Integer.parseInt(p.getProperty(EXPECTED)),
+				Integer.parseInt(p.getProperty(ACTUAL)));
 	}
 
 	static final void delete(

@@ -3,7 +3,7 @@
 <project name="findbugs" default="fail" basedir=".">
 
 	<target name="findbugs.taskdef">
-		<property name="findbugs.root" value="findbugs-2.0.1" />
+		<property name="findbugs.root" value="findbugs-3.0.0" />
 		<untar
 				compression="gzip"
 				src="${basedir}/lib/findbugs.tar.gz"

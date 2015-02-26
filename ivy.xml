@@ -62,7 +62,7 @@
 		
 		<!-- build dependencies -->
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
-		<dependency org="findbugs-x" name="findbugs" rev="2.0.1" conf="build->default" />
+		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 		<dependency org="com.exedio" name="copeconsole" rev="6541" conf="build->runtime">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>
