@@ -805,6 +805,13 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			};
 		}
 
+		@SuppressWarnings("unused")
+		@Override
+		public void flushBuffer() throws IOException
+		{
+			// ok
+		}
+
 		void assertOk()
 		{
 			assertEquals("location",      null, this.location);
