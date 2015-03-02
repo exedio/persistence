@@ -641,7 +641,7 @@ public abstract class MediaPath extends Pattern
 			if(servlet.isAccessControlAllowOriginWildcard(this, item))
 				response.setHeader("Access-Control-Allow-Origin", "*");
 
-			doGetAndCommitWithCache(request, response, item);
+			doGetAndCommitWithCache(servlet, request, response, item);
 
 			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
@@ -671,6 +671,7 @@ public abstract class MediaPath extends Pattern
 	// cache
 
 	private final void doGetAndCommitWithCache(
+			final MediaServlet servlet,
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -743,7 +744,10 @@ public abstract class MediaPath extends Pattern
 			// Apache 2.4 does not accept 304 responses with a content-length unequal to the original.
 			// The flushBuffer()-Method prevents Tomcat from adding a content-length to the request header.
 			// Of course, this is a hot fix. Remove it, if you find a better solution to avoid the content-length header.
-			response.flushBuffer();
+			if (servlet.isFlushBufferDirectlyAfter304Status(this, item))
+			{
+				response.flushBuffer();
+			}
 
 			notModified.inc();
 		}

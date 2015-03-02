@@ -249,11 +249,10 @@ public class MediaServlet extends HttpServlet
 
 
 	/**
-	 * Let this method return true, if you want to add a header
-	 * {@code Access-Control-Allow-Origin: *}
-	 * to the response.
-	 * This is typically needed for fonts served from a different domain.
-	 * The default implementation returns false.
+	 * Tomcat returns the content-length 0 if the response body is lesser than the buffer size.
+	 * Apache 2.4 does not accept 304 responses with a content-length unequal to the original.
+	 * The flushBuffer()-Method prevents Tomcat from adding a content-length to the request header.
+	 * Of course, this is a hot fix. Remove it, if you find a better solution to avoid the content-length header.
 	 * @param path the media path of the current request
 	 * @param item the item of the current request
 	 */
@@ -262,6 +261,22 @@ public class MediaServlet extends HttpServlet
 			final Item item)
 	{
 		return false;
+	}
+
+	/**
+	 * Let this method return true, if you want to add a header
+	 * {@code Access-Control-Allow-Origin: *}
+	 * to the response.
+	 * This is typically needed for fonts served from a different domain.
+	 * The default implementation returns false.
+	 * @param path the media path of the current request
+	 * @param item the item of the current request
+	 */
+	protected boolean isFlushBufferDirectlyAfter304Status(
+			final MediaPath path,
+			final Item item)
+	{
+		return true;
 	}
 
 	protected void onException(
