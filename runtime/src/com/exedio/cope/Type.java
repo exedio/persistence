@@ -23,7 +23,6 @@ import static com.exedio.cope.FeatureSubSet.features;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Compare;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
@@ -515,7 +514,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 						id + " (" + model + ") and " +
 						o.id + " (" + o.model + ").");
 
-			return Compare.compare(orderIdTransiently, o.orderIdTransiently);
+			return Integer.compare(orderIdTransiently, o.orderIdTransiently);
 		}
 	}
 

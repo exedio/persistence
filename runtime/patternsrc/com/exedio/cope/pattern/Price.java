@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.misc.Compare;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -146,7 +145,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public int compareTo(final Price other)
 	{
-		return Compare.compare(store, other.store);
+		return Integer.compare(store, other.store);
 	}
 
 	public boolean equalsZero()

@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.misc.Compare;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -120,7 +119,7 @@ final class WrapperByAnnotations
 			if(o1==o2)
 				return 0;
 
-			return Compare.compare(o1.order(), o2.order());
+			return Integer.compare(o1.order(), o2.order());
 		}
 	};
 

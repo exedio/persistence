@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.misc.Compare;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -131,7 +130,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(typeResult!=0)
 			return typeResult;
 
-		return Compare.compare(pk, o.pk);
+		return Integer.compare(pk, o.pk);
 	}
 
 	/**

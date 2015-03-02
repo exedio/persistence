@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.misc.Compare;
 import java.util.List;
 
 public final class CompareAssert
@@ -35,7 +34,7 @@ public final class CompareAssert
 			{
 				assertEquals(
 						"" + i + '/' + j + '(' + ni + '/' + nj + ')',
-						Compare.compare(ni, nj), i.compareTo(j));
+						Integer.compare(ni, nj), i.compareTo(j));
 
 				nj++;
 			}

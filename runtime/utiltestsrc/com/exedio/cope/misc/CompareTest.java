@@ -24,6 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CompareTest extends CopeAssert
 {
+	@Deprecated // OK: testing deprecated api
 	public void testIt()
 	{
 		assertEquals( 0, compare(0, 0));

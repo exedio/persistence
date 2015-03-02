@@ -25,8 +25,12 @@ public final class Compare
 		// prevent instantiation
 	}
 
+	/**
+	 * Use {@link Integer#compare(int, int)} instead.
+	 */
+	@Deprecated
 	public static int compare(final int left, final int right)
 	{
-		return (left<right ? -1 : (left==right ? 0 : 1));
+		return Integer.compare(left, right);
 	}
 }
