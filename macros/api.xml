@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<project name="api" default="fail" basedir=".">
+
+	<macrodef name="api">
+		<attribute name="title" />
+		<element name="src" />
+		<element name="myClasspath" />
+		<sequential>
+
+			<delete dir="build/api" />
+			<mkdir  dir="build/api" />
+
+			<condition property="api.doclint" value="-Xdoclint:all,-missing" else="-nosince"> <!-- nosince is just a dummy -->
+				<available classname="java.util.Optional" /> <!-- available since JDK 1.8 -->
+			</condition>
+			<echo message="doclint //${api.doclint}//" />
+
+			<javadoc
+					destdir="build/api"
+					maxmemory="100m"
+					private="on"
+					author="on"
+					use="on"
+					version="on"
+					windowtitle="@{title}"
+					splitindex="on"
+					failonerror="true"
+				>
+				<sourcefiles>
+					<src />
+				</sourcefiles>
+				<doctitle><![CDATA[@{title}]]></doctitle>
+				<header><![CDATA[@{title}]]></header>
+				<footer><![CDATA[@{title}]]></footer>
+				<bottom><![CDATA[Copyright &copy; 2004-2015 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.<br>${build.tag}]]></bottom>
+				<classpath>
+					<myClasspath />
+				</classpath>
+				<tag name="cope.addTo" enabled="false" />
+				<tag name="cope.blind" enabled="false" />
+				<tag name="cope.check" enabled="false" />
+				<tag name="cope.checkVerbosely" enabled="false" />
+				<tag name="cope.constructor" enabled="false" />
+				<tag name="cope.createEvent" enabled="false" />
+				<tag name="cope.dispatch" enabled="false" />
+				<tag name="cope.EventParent" enabled="false" />
+				<tag name="cope.finder" enabled="false" />
+				<tag name="cope.for" enabled="false" />
+				<tag name="cope.generated" enabled="false" />
+				<tag name="cope.generic.constructor" enabled="false" />
+				<tag name="cope.getBody" enabled="false" />
+				<tag name="cope.getContainer" enabled="false" />
+				<tag name="cope.getContentType" enabled="false" />
+				<tag name="cope.getDistinctParentsOf" enabled="false" />
+				<tag name="cope.get" enabled="false" />
+				<tag name="cope.getEvents" enabled="false" />
+				<tag name="cope.getLastModified" enabled="false" />
+				<tag name="cope.getLength" enabled="false" />
+				<tag name="cope.getLocator" enabled="false" />
+				<tag name="cope.getMap" enabled="false" />
+				<tag name="cope.getParts" enabled="false" />
+				<tag name="cope.getQuery" enabled="false" />
+				<tag name="cope.getURL" enabled="false" />
+				<tag name="cope.ignore" enabled="false" />
+				<tag name="cope.initial" enabled="false" />
+				<tag name="cope.isNull" enabled="false" />
+				<tag name="cope.next" enabled="false" />
+				<tag name="cope.Parent" enabled="false" />
+				<tag name="cope.set" enabled="false" />
+				<tag name="cope.setMap" enabled="false" />
+				<tag name="cope.setRaw" enabled="false" />
+				<tag name="cope.touch" enabled="false" />
+				<tag name="cope.type" enabled="false" />
+				<arg value="${api.doclint}" />
+				<arg value="-Xmaxerrs"  /><arg value="10000" />
+				<arg value="-Xmaxwarns" /><arg value="10000" />
+			</javadoc>
+
+		</sequential>
+	</macrodef>
+
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+
+</project>

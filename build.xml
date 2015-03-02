@@ -965,27 +965,18 @@
 	</target>
 	
 	<target name="api">
-		<delete dir="build/api" />
-		<javadoc
-				destdir="build/api"
-				maxmemory="60m"
-				source="1.7"
-				private="on"
-				author="off"
-				use="off"
-				version="off"
-				notree="true"
-				noindex="true"
-				failonerror="true">
-			<fileset file="dsmf/src/com" includes="**/*.java" />
-			<fileset file="runtime/src/com" includes="**/*.java" />
-			<fileset file="runtime/patternsrc/com" includes="**/*.java" />
-			<fileset file="runtime/servletsrc/com" includes="**/*.java" />
-			<fileset file="runtime/junitsrc/com" includes="**/*.java" />
-			<fileset file="instrument/annosrc/com" includes="**/*.java" />
-			<fileset file="instrument/src/com" includes="**/*.java" />
-			<fileset file="instrument/antsrc/com" includes="**/*.java" />
-			<classpath>
+		<api title="cope persistence">
+			<src>
+				<fileset file="dsmf/src/com" includes="**/*.java" />
+				<fileset file="runtime/src/com" includes="**/*.java" />
+				<fileset file="runtime/patternsrc/com" includes="**/*.java" />
+				<fileset file="runtime/servletsrc/com" includes="**/*.java" />
+				<fileset file="runtime/junitsrc/com" includes="**/*.java" />
+				<fileset file="instrument/annosrc/com" includes="**/*.java" />
+				<fileset file="instrument/src/com" includes="**/*.java" />
+				<fileset file="instrument/antsrc/com" includes="**/*.java" />
+			</src>
+			<myClasspath>
 				<pathelement location="lib/trove.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
@@ -996,10 +987,8 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-			<arg value="-Xmaxerrs"  /><arg value="10000" />
-			<arg value="-Xmaxwarns" /><arg value="10000" />
-		</javadoc>
+			</myClasspath>
+		</api>
 	</target>
 	
 	<target name="testprotocol" depends="runtime.test.protocol, runtime.core.compile">
