@@ -17,9 +17,9 @@
 				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
 				classpath="build/findbugs-home/lib/findbugs-ant.jar" />
 	</target>
-	
+
 	<target name="fail">
 		<fail message="This file contains helper macros only. There are no targets." />
 	</target>
-	
+
 </project>
