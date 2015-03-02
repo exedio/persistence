@@ -14,9 +14,9 @@
 			<echo message="YVALUE=${@{file}-plot}" file="@{file}-plot.properties" />
 		</sequential>
 	</macrodef>
-	
+
 	<target name="fail">
 		<fail message="This file contains helper macros only. There are no targets." />
 	</target>
-	
+
 </project>
