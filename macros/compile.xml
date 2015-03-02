@@ -16,7 +16,7 @@
 					 debug="on"
 					 optimize="off">
 				<classpath />
-				<compilerarg value="-Xlint" />
+				<compilerarg value="-Xlint:all,-path" />
 				<compilerarg value="-encoding" />
 				<compilerarg value="ascii" />
 				<compilerarg value="-Xmaxwarns" />
@@ -36,9 +36,9 @@
 			</copy>
 		</sequential>
 	</macrodef>
-	
+
 	<target name="fail">
 		<fail message="This file contains helper macros only. There are no targets." />
 	</target>
-	
+
 </project>
