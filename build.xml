@@ -5,9 +5,11 @@
 	<property file="local.properties" />
 	<property file="project.properties" />
 	
-	<import file="macros/compile.xml" />
-	<import file="macros/findbugs.xml" />
-	<import file="macros/plot.xml" />
+	<import>
+		<fileset dir="macros">
+			<include name="*.xml" />
+		</fileset>
+	</import>
 	
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
