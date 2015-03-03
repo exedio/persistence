@@ -609,6 +609,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			else if("Access-Control-Allow-Origin".equals(name))
 			{
 				assertNotNull(value);
+				assertEquals(null, this.accessControlAllowOrigin);
 				assertNull(out);
 				this.accessControlAllowOrigin = value;
 			}
