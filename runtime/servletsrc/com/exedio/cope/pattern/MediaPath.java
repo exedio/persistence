@@ -740,10 +740,6 @@ public abstract class MediaPath extends Pattern
 
 			response.setStatus(SC_NOT_MODIFIED);
 
-			// Tomcat returns the content-length 0 if the response body is lesser than the buffer size.
-			// Apache 2.4 does not accept 304 responses with a content-length unequal to the original.
-			// The flushBuffer()-Method prevents Tomcat from adding a content-length to the request header.
-			// Of course, this is a hot fix. Remove it, if you find a better solution to avoid the content-length header.
 			if (servlet.isFlushBufferDirectlyAfter304Status(this, item))
 			{
 				response.flushBuffer();
