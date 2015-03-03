@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
@@ -28,7 +28,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.annotation.Annotation;
-import java.nio.charset.Charset;
 
 public class TextUrlFilterAnnotationTest extends CopeAssert
 {
@@ -93,7 +92,7 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 
 		public ATextUrlFilter(final Media raw, final Media pasteValue)
 		{
-			super(raw, "text/plain", Charset.forName(UTF8), "<paste>", "</paste>", new StringField(), pasteValue);
+			super(raw, "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), pasteValue);
 		}
 	}
 

@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.CharsetName;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -181,20 +182,12 @@ final class QueryCache
 		private final byte[] text;
 		private final int hashCode;
 
-		private static final String CHARSET = CharsetName.UTF8;
+		private static final Charset CHARSET = UTF_8;
 
 		Key(final Query<? extends Object> query, final boolean totalOnly)
 		{
-			try
-			{
-				text = query.toString(true, totalOnly).getBytes(CHARSET);
-			}
-			catch(final UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(CHARSET, e);
-			}
+			text = query.toString(true, totalOnly).getBytes(CHARSET);
 			// TODO compress
-
 			hashCode = Arrays.hashCode(text);
 		}
 
@@ -214,14 +207,7 @@ final class QueryCache
 
 		String getText()
 		{
-			try
-			{
-				return new String(text, CHARSET);
-			}
-			catch(final UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(CHARSET, e);
-			}
+			return new String(text, CHARSET);
 		}
 
 		@Override

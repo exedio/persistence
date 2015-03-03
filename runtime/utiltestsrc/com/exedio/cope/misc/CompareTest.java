@@ -21,6 +21,8 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.Compare.compare;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.CharsetName;
+import java.nio.charset.StandardCharsets;
 
 public class CompareTest extends CopeAssert
 {
@@ -30,5 +32,10 @@ public class CompareTest extends CopeAssert
 		assertEquals( 0, compare(0, 0));
 		assertEquals(-1, compare(0, 1));
 		assertEquals( 1, compare(1, 0));
+	}
+
+	public void testStandardCharsets()
+	{
+		assertEquals(CharsetName.UTF8, StandardCharsets.UTF_8.name());
 	}
 }

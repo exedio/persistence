@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.DataField.Value;
 import com.exedio.cope.junit.CopeAssert;
@@ -57,7 +57,7 @@ public class DataDigestTest extends CopeAssert
 
 	private static final void assertUpdate(final String hash, final String input) throws IOException
 	{
-		assertUpdate(hash, input.getBytes(UTF8));
+		assertUpdate(hash, input.getBytes(UTF_8));
 	}
 
 	private static final void assertUpdate(final String hash, final byte[] input) throws IOException

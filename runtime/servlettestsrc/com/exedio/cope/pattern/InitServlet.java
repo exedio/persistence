@@ -18,13 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,16 +43,7 @@ public class InitServlet extends HttpServlet
 	{
 		super.init();
 
-		final byte[] textValue;
-		try
-		{
-			textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF8);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
-
+		final byte[] textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF_8);
 		final Class<?> thisClass = InitServlet.class;
 		connectToken = ConnectToken.issue(model, thisClass.getName());
 		model.createSchema();

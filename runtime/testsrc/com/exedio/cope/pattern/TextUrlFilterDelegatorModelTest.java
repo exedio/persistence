@@ -20,17 +20,15 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.roh2;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterDelegatorModelTest extends CopeAssert
 {
-	private static final Charset charset = Charset.forName(CharsetName.UTF8);
-
 	public void testRawNull()
 	{
 		try
@@ -101,7 +99,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", charset, null, null);
+			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -114,7 +112,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", charset, "", null);
+			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "", null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -127,7 +125,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", charset, "(", null);
+			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -140,7 +138,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", charset, "(", "");
+			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", "");
 			fail();
 		}
 		catch(final IllegalArgumentException e)

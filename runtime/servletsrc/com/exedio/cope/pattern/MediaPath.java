@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
@@ -38,7 +38,6 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
@@ -359,25 +358,18 @@ public abstract class MediaPath extends Pattern
 
 	private static final String makeUrlTokenDigest(final String plainText)
 	{
-		try
+		final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
+		messageDigest.update(plainText.getBytes(UTF_8));
+		final byte[] digest = messageDigest.digest();
+		final byte[] digestShrink = new byte[10];
+		int j = 0;
+		for(final byte b : digest)
 		{
-			final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
-			messageDigest.update(plainText.getBytes(UTF8));
-			final byte[] digest = messageDigest.digest();
-			final byte[] digestShrink = new byte[10];
-			int j = 0;
-			for(final byte b : digest)
-			{
-				digestShrink[j++] ^= b;
-				if(j>=digestShrink.length)
-					j = 0;
-			}
-			return Hex.encodeLower(digestShrink);
+			digestShrink[j++] ^= b;
+			if(j>=digestShrink.length)
+				j = 0;
 		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return Hex.encodeLower(digestShrink);
 	}
 
 	public static final boolean isUrlGuessingPreventedSecurely(final ConnectProperties properties)

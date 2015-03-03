@@ -23,11 +23,23 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 public final class MediaUtil
 {
+	public static void send(
+			final String contentType,
+			final Charset charset,
+			final String body,
+			final HttpServletResponse response)
+		throws IOException
+	{
+		response.setCharacterEncoding(charset.name());
+		send(contentType, body.getBytes(charset), response);
+	}
+
 	public static void send(
 			final String contentType,
 			final String charsetName,

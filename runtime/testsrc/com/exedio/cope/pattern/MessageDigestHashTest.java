@@ -27,7 +27,7 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.password;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordFinal;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.FinalViolationException;
@@ -97,7 +97,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(false, password.isMandatory());
 		assertEquals(String.class, password.getInitialType());
 		assertContains(password.getInitialExceptions());
-		assertEquals(UTF8, encoding(password));
+		assertEquals(UTF_8.name(), encoding(password));
 		assertEquals(5, algo(password).getIterations());
 
 		assertEquals(TYPE, passwordLatin.getType());
@@ -120,7 +120,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, passwordFinal.isMandatory());
 		assertEquals(String.class, passwordFinal.getInitialType());
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, passwordFinal.getInitialExceptions());
-		assertEquals(UTF8, encoding(passwordFinal));
+		assertEquals(UTF_8.name(), encoding(passwordFinal));
 		assertEquals(5, algo(passwordFinal).getIterations());
 
 		assertEquals(TYPE, passwordMandatory.getType());
@@ -132,7 +132,7 @@ public class MessageDigestHashTest extends AbstractRuntimeTest
 		assertEquals(true, passwordMandatory.isMandatory());
 		assertEquals(String.class, passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, passwordMandatory.getInitialExceptions());
-		assertEquals(UTF8, encoding(passwordMandatory));
+		assertEquals(UTF_8.name(), encoding(passwordMandatory));
 		assertEquals(5, algo(passwordMandatory).getIterations());
 
 		assertSerializedSame(password         , 400);

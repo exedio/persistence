@@ -22,7 +22,7 @@ import static com.exedio.cope.pattern.MD5Item.TYPE;
 import static com.exedio.cope.pattern.MD5Item.password;
 import static com.exedio.cope.pattern.MessageDigestHashTest.algo;
 import static com.exedio.cope.pattern.MessageDigestHashTest.encoding;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
@@ -83,7 +83,7 @@ public class MD5Test extends AbstractRuntimeTest
 		assertEquals(true, password.isMandatory());
 		assertEquals(String.class, password.getInitialType());
 		assertContains(MandatoryViolationException.class, password.getInitialExceptions());
-		assertEquals(UTF8, encoding(password));
+		assertEquals(UTF_8.name(), encoding(password));
 		assertEquals(1, algo(password).getIterations());
 
 		assertEquals(FRANZ_MD5, password.hash(FRANZ));

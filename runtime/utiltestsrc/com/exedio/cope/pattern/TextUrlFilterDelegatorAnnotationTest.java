@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
@@ -28,7 +28,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.annotation.Annotation;
-import java.nio.charset.Charset;
 
 public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 {
@@ -80,7 +79,7 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 			super(ap);
 		}
 
-		static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", Charset.forName(UTF8), "<paste>", "</paste>", new StringField(), new Media());
+		static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), new Media());
 
 		static final TextUrlFilterDelegator simple = new ATextUrlFilterDelegator(new Media(), delegate);
 		@PreventUrlGuessing
@@ -95,7 +94,7 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 
 		public ATextUrlFilterDelegator(final Media raw, final TextUrlFilter delegate)
 		{
-			super(raw, delegate, "text/plain", Charset.forName(UTF8), "<paste>", "</paste>");
+			super(raw, delegate, "text/plain", UTF_8, "<paste>", "</paste>");
 		}
 	}
 

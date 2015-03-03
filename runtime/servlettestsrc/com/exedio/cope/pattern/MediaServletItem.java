@@ -21,11 +21,10 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.util.CharsetName;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,7 +109,7 @@ final class MediaServletItem extends Item
 	/** @cope.getURL none */
 	static final TextUrlFilter html = new TextUrlFilter(
 			content,
-			"text/html", Charset.forName(CharsetName.UTF8),
+			"text/html", StandardCharsets.UTF_8,
 			"(", ")",
 			new StringField(),
 			new Media());

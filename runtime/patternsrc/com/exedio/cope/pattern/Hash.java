@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
@@ -63,7 +63,7 @@ public class Hash extends Pattern implements HashInterface
 
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
-		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, Charset.forName(UTF8)), DEFAULT_VALIDATOR);
+		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, UTF_8), DEFAULT_VALIDATOR);
 	}
 
 	public Hash(final Algorithm algorithm, final Charset charset)
@@ -73,7 +73,7 @@ public class Hash extends Pattern implements HashInterface
 
 	public Hash(final Algorithm algorithm)
 	{
-		this(newStorage(wrap(algorithm, Charset.forName(UTF8))), algorithm);
+		this(newStorage(wrap(algorithm, UTF_8)), algorithm);
 	}
 
 	public Hash(final HashAlgorithm algorithm)

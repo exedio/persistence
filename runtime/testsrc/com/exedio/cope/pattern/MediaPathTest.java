@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
@@ -33,7 +33,6 @@ import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -784,14 +783,13 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				final String charset,
 				final String contentType,
 				final String content)
-			throws UnsupportedEncodingException
 		{
 			assertEquals("location",      null,             this.location);
 			assertEquals("lastModified",  Long.MIN_VALUE,   this.lastModified);
 			assertEquals("sc",            sc,               this.status);
 			assertEquals("charset",       charset,          this.charset);
 			assertEquals("contentType",   contentType,      this.contentType);
-			assertEquals("content",       content, new String(this.out.toByteArray(), UTF8));
+			assertEquals("content",       content, new String(this.out.toByteArray(), UTF_8));
 			assertEquals("contentLength", content.length(), this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}

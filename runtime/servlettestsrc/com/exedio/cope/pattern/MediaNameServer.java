@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
@@ -85,7 +85,7 @@ final class MediaNameServer extends MediaPath
 		if(content.endsWith(" error"))
 			throw new RuntimeException("test error in MediaNameServer");
 
-		MediaUtil.send("text/plain", UTF8, content, response);
+		MediaUtil.send("text/plain", UTF_8, content, response);
 	}
 
 	@Override

@@ -18,12 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.CharsetName.UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
@@ -299,15 +298,7 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 			final String plainText,
 			final String expectedHash)
 	{
-		final byte[] plainTextBytes;
-		try
-		{
-			plainTextBytes = plainText.getBytes(UTF8);
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
+		final byte[] plainTextBytes = plainText.getBytes(UTF_8);
 		final byte[] plainTextBytesCopy = Arrays.copyOf(plainTextBytes);
 
 		final MockSecureRandom saltSource = (MockSecureRandom)algorithm.getSaltSource();
@@ -318,14 +309,6 @@ public class MessageDigestAlgorithmTest extends CopeAssert
 
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
-
-		try
-		{
-			assertFalse(algorithm.check((plainText+"x").getBytes(UTF8), Hex.decodeLower(expectedHash)));
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
+		assertFalse(algorithm.check((plainText+"x").getBytes(UTF_8), Hex.decodeLower(expectedHash)));
 	}
 }

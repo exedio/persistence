@@ -22,14 +22,13 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig2;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
-import com.exedio.cope.util.CharsetName;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -53,8 +52,6 @@ public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
 		item  = new TextUrlFilterDelegatorItem();
 		item2 = new TextUrlFilterDelegatorItem();
 	}
-
-	static final Charset UTF8 = Charset.forName(CharsetName.UTF8);
 
 	public void testPasteContentTypesAllowed()
 	{
@@ -265,7 +262,7 @@ public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
 		@Override
 		public void setCharacterEncoding(final String charset)
 		{
-			assertEquals(CharsetName.UTF8, charset);
+			assertEquals(UTF_8.name(), charset);
 		}
 
 		@Override
@@ -282,7 +279,7 @@ public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
 				@Override
 			   public void write(final byte b[], final int off, final int len)
 			   {
-			   	assertEquals(body, new String(b, off, len, UTF8));
+			   	assertEquals(body, new String(b, off, len, UTF_8));
 			   	assertEquals(contentLength, len);
 			   }
 

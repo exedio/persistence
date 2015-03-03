@@ -19,18 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.util.CharsetName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest extends CopeAssert
 {
-	private static final Charset charset = Charset.forName(CharsetName.UTF8);
-
 	public void testRawNull()
 	{
 		try
@@ -109,7 +107,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, null, null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -121,7 +119,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, "", null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, "", null, null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -133,7 +131,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, "(", null, null, null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -145,7 +143,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, "(", "", null, null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", "", null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -157,7 +155,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, "(", ")", null, null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -169,7 +167,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 	{
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", charset, "(", ")", new StringField(), null);
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", new StringField(), null);
 			fail();
 		}
 		catch(final NullPointerException e)
