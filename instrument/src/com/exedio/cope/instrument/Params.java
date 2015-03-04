@@ -19,11 +19,12 @@
 package com.exedio.cope.instrument;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 final class Params
 {
 	boolean verify = false;
-	Charset charset = Charset.forName("US-ASCII");
+	Charset charset = StandardCharsets.US_ASCII;
 	boolean longJavadoc = true;
 	boolean annotateGenerated = false;
 	boolean finalArgs = false;

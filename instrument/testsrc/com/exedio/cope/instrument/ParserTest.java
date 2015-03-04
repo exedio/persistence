@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import com.exedio.cope.instrument.Lexer.CommentToken;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -53,7 +53,7 @@ public abstract class ParserTest extends TestCase
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile javaFile = new JavaFile(repository);
-		final Parser parser = new Parser(new Lexer(inputFile, Charset.forName("ascii"), javaFile), testParseConsumer, javaFile);
+		final Parser parser = new Parser(new Lexer(inputFile, StandardCharsets.US_ASCII, javaFile), testParseConsumer, javaFile);
 		if(assertText)
 			testParseConsumer.output = parser.javaFile.buffer;
 		parser.parseFile();

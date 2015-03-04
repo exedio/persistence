@@ -40,13 +40,14 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Iterables;
-import com.exedio.cope.util.CharsetName;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public final class Dispatcher extends Pattern
 
 	private static final long serialVersionUID = 1l;
 
-	private static final String ENCODING = CharsetName.UTF8;
+	static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	private final BooleanField pending;
 
@@ -269,13 +270,13 @@ public final class Dispatcher extends Pattern
 
 					tx.startTransaction(id + " register failure " + itemID);
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					try(PrintStream out = new PrintStream(baos, false, ENCODING))
+					try(PrintStream out = new PrintStream(baos, false, ENCODING.name()))
 					{
 						cause.printStackTrace(out);
 					}
 					catch(final UnsupportedEncodingException e)
 					{
-						throw new RuntimeException(ENCODING, e);
+						throw new RuntimeException(ENCODING.name(), e);
 					}
 
 					mount.runType.newItem(
@@ -452,14 +453,7 @@ public final class Dispatcher extends Pattern
 
 		public String getFailure()
 		{
-			try
-			{
-				return new String(getPattern().runFailure.getArray(this), ENCODING);
-			}
-			catch(final UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(ENCODING, e);
-			}
+			return new String(getPattern().runFailure.getArray(this), ENCODING);
 		}
 	}
 
