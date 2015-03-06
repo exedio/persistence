@@ -48,7 +48,9 @@ public abstract class Condition implements java.io.Serializable
 		return composite(CompositeCondition.Operator.OR, other);
 	}
 
-	private final Condition composite(final CompositeCondition.Operator operator, final Condition other)
+	private final Condition composite(
+			final CompositeCondition.Operator operator,
+			final Condition other)
 	{
 		if(this instanceof Literal)
 			if(other instanceof Literal)
@@ -73,7 +75,9 @@ public abstract class Condition implements java.io.Serializable
 		return operator.absorber==literal ? literal : other;
 	}
 
-	private final Condition compositeFlattening(final CompositeCondition.Operator operator, final Condition other)
+	private final Condition compositeFlattening(
+			final CompositeCondition.Operator operator,
+			final Condition other)
 	{
 		if(this instanceof CompositeCondition && ((CompositeCondition)this).operator==operator)
 		{
