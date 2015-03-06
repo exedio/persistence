@@ -40,31 +40,32 @@ public abstract class Condition implements java.io.Serializable
 
 	public final Condition and(final Condition other)
 	{
-		return composite(CompositeCondition.Operator.AND, other);
+		return composite(CompositeCondition.Operator.AND, this, other);
 	}
 
 	public final Condition or(final Condition other)
 	{
-		return composite(CompositeCondition.Operator.OR, other);
+		return composite(CompositeCondition.Operator.OR, this, other);
 	}
 
-	private final Condition composite(
+	private static final Condition composite(
 			final CompositeCondition.Operator operator,
+			final Condition left,
 			final Condition other)
 	{
-		if(this instanceof Literal)
+		if(left instanceof Literal)
 			if(other instanceof Literal)
 				return valueOf(
 					(operator==CompositeCondition.Operator.AND)
-					? ( ((Literal)this).value && ((Literal)other).value )
-					: ( ((Literal)this).value || ((Literal)other).value ));
+					? ( ((Literal)left).value && ((Literal)other).value )
+					: ( ((Literal)left).value || ((Literal)other).value ));
 			else
-				return compositeLiteral(operator, (Literal)this, other);
+				return compositeLiteral(operator, (Literal)left, other);
 		else
 			if(other instanceof Literal)
-				return compositeLiteral(operator, (Literal)other, this);
+				return compositeLiteral(operator, (Literal)other, left);
 			else
-				return compositeFlattening(operator, other);
+				return compositeFlattening(operator, left, other);
 	}
 
 	private static final Condition compositeLiteral(
@@ -75,13 +76,14 @@ public abstract class Condition implements java.io.Serializable
 		return operator.absorber==literal ? literal : other;
 	}
 
-	private final Condition compositeFlattening(
+	private static final Condition compositeFlattening(
 			final CompositeCondition.Operator operator,
+			final Condition leftCondition,
 			final Condition other)
 	{
-		if(this instanceof CompositeCondition && ((CompositeCondition)this).operator==operator)
+		if(leftCondition instanceof CompositeCondition && ((CompositeCondition)leftCondition).operator==operator)
 		{
-			final CompositeCondition left = (CompositeCondition)this;
+			final CompositeCondition left = (CompositeCondition)leftCondition;
 
 			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
 			{
@@ -107,13 +109,13 @@ public abstract class Condition implements java.io.Serializable
 				final CompositeCondition right = (CompositeCondition)other;
 
 				final Condition[] c = new Condition[1 + right.conditions.length];
-				c[0] = this;
+				c[0] = leftCondition;
 				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
 				return new CompositeCondition(operator, c);
 			}
 			else
 			{
-				return new CompositeCondition(operator, new Condition[]{this, other});
+				return new CompositeCondition(operator, new Condition[]{leftCondition, other});
 			}
 		}
 	}
