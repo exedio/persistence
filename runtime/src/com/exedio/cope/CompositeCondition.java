@@ -269,13 +269,13 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	static Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
+	static Condition composite(final Operator operator, final List<? extends Condition> conditions)
 	{
 		return composite(operator,
 				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
 	}
 
-	static Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
+	static Condition composite(final Operator operator, final Condition[] conditions)
 	{
 		requireNonNull(conditions, "conditions");
 
