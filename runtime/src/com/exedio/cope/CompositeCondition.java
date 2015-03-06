@@ -198,14 +198,14 @@ public final class CompositeCondition extends Condition
 
 
 	static Condition composite(
-			final CompositeCondition.Operator operator,
+			final Operator operator,
 			final Condition left,
 			final Condition right)
 	{
 		if(left instanceof Literal)
 			if(right instanceof Literal)
 				return valueOf(
-					(operator==CompositeCondition.Operator.AND)
+					(operator==Operator.AND)
 					? ( ((Literal)left).value && ((Literal)right).value )
 					: ( ((Literal)left).value || ((Literal)right).value ));
 			else
@@ -218,7 +218,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	private static Condition compositeLiteral(
-			final CompositeCondition.Operator operator,
+			final Operator operator,
 			final Literal literal,
 			final Condition other)
 	{
@@ -226,7 +226,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	private static Condition compositeFlattening(
-			final CompositeCondition.Operator operator,
+			final Operator operator,
 			final Condition leftCondition,
 			final Condition rightCondition)
 	{
