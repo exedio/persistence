@@ -195,4 +195,77 @@ public final class CompositeCondition extends Condition
 			this.identity = identity;
 		}
 	}
+
+
+	static Condition composite(
+			final CompositeCondition.Operator operator,
+			final Condition left,
+			final Condition right)
+	{
+		if(left instanceof Literal)
+			if(right instanceof Literal)
+				return valueOf(
+					(operator==CompositeCondition.Operator.AND)
+					? ( ((Literal)left).value && ((Literal)right).value )
+					: ( ((Literal)left).value || ((Literal)right).value ));
+			else
+				return compositeLiteral(operator, (Literal)left, right);
+		else
+			if(right instanceof Literal)
+				return compositeLiteral(operator, (Literal)right, left);
+			else
+				return compositeFlattening(operator, left, right);
+	}
+
+	private static final Condition compositeLiteral(
+			final CompositeCondition.Operator operator,
+			final Literal literal,
+			final Condition other)
+	{
+		return operator.absorber==literal ? literal : other;
+	}
+
+	private static final Condition compositeFlattening(
+			final CompositeCondition.Operator operator,
+			final Condition leftCondition,
+			final Condition rightCondition)
+	{
+		if(leftCondition instanceof CompositeCondition && ((CompositeCondition)leftCondition).operator==operator)
+		{
+			final CompositeCondition left = (CompositeCondition)leftCondition;
+
+			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)rightCondition;
+
+				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				final Condition[] c = new Condition[left.conditions.length + 1];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				c[left.conditions.length] = rightCondition;
+				return new CompositeCondition(operator, c);
+			}
+		}
+		else
+		{
+			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)rightCondition;
+
+				final Condition[] c = new Condition[1 + right.conditions.length];
+				c[0] = leftCondition;
+				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				return new CompositeCondition(operator, new Condition[]{leftCondition, rightCondition});
+			}
+		}
+	}
 }
