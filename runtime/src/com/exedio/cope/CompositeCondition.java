@@ -287,7 +287,7 @@ public final class CompositeCondition extends Condition
 			if(c==null)
 				throw new NullPointerException("conditions" + '[' + i + ']');
 
-			if(c instanceof Condition.Literal)
+			if(c instanceof Literal)
 			{
 				if(operator.absorber==c)
 					return c;
