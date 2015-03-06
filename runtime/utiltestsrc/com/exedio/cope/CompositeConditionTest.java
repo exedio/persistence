@@ -24,9 +24,11 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static java.util.Arrays.asList;
 
+import com.exedio.cope.CompositeCondition.Operator;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class CompositeConditionTest extends CopeAssert
 {
@@ -49,7 +51,7 @@ public class CompositeConditionTest extends CopeAssert
 
 		try
 		{
-			new CompositeCondition(null, (Condition[])null);
+			newCompositeCondition(null, (Condition[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -58,7 +60,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND);
+			newCompositeCondition(AND);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -67,7 +69,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, Collections.<Condition>emptyList());
+			newCompositeCondition(AND, Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -76,7 +78,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR);
+			newCompositeCondition(OR);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -85,7 +87,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, Collections.<Condition>emptyList());
+			newCompositeCondition(OR, Collections.<Condition>emptyList());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -94,7 +96,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, asList((Condition)null));
+			newCompositeCondition(AND, asList((Condition)null));
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -103,7 +105,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, (Condition)null);
+			newCompositeCondition(OR, (Condition)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -112,7 +114,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, asList((Condition)null));
+			newCompositeCondition(OR, asList((Condition)null));
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -121,7 +123,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, Condition.TRUE);
+			newCompositeCondition(AND, Condition.TRUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -130,7 +132,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(AND, asList(Condition.TRUE));
+			newCompositeCondition(AND, asList(Condition.TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -139,7 +141,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, Condition.TRUE);
+			newCompositeCondition(OR, Condition.TRUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -148,7 +150,7 @@ public class CompositeConditionTest extends CopeAssert
 		}
 		try
 		{
-			new CompositeCondition(OR, asList(Condition.TRUE));
+			newCompositeCondition(OR, asList(Condition.TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -157,15 +159,15 @@ public class CompositeConditionTest extends CopeAssert
 		}
 
 		// test flattening of CompositeCondition
-		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
-		assertEquals(new CompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
-		assertEquals(new CompositeCondition(OR,  c1, c2, c3), c1.or(c2).or(c3));
-		assertEquals(new CompositeCondition(OR,  c1, c2, c3), c1.or(c2.or(c3)));
+		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
+		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
+		assertEquals(newCompositeCondition(OR,  c1, c2, c3), c1.or(c2).or(c3));
+		assertEquals(newCompositeCondition(OR,  c1, c2, c3), c1.or(c2.or(c3)));
 
-		assertEquals(new CompositeCondition(AND, new CompositeCondition(OR,  c1, c2), c3), c1.or(c2).and(c3));
-		assertEquals(new CompositeCondition(AND, c1, new CompositeCondition(OR,  c2, c3)), c1.and(c2.or(c3)));
-		assertEquals(new CompositeCondition(OR,  new CompositeCondition(AND, c1, c2), c3), c1.and(c2).or(c3));
-		assertEquals(new CompositeCondition(OR,  c1, new CompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
+		assertEquals(newCompositeCondition(AND, newCompositeCondition(OR,  c1, c2), c3), c1.or(c2).and(c3));
+		assertEquals(newCompositeCondition(AND, c1, newCompositeCondition(OR,  c2, c3)), c1.and(c2.or(c3)));
+		assertEquals(newCompositeCondition(OR,  newCompositeCondition(AND, c1, c2), c3), c1.and(c2).or(c3));
+		assertEquals(newCompositeCondition(OR,  c1, newCompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
 	}
 
 	public void testNot()
@@ -219,8 +221,8 @@ public class CompositeConditionTest extends CopeAssert
 		assertSame(TRUE,  FALSE.or(TRUE));
 
 		// Function.in
-		assertEquals(new CompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
-		assertEquals(new CompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
+		assertEquals(newCompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
+		assertEquals(newCompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
 		assertEquals(c1, field.in(1.0));
 		assertEquals(c1, field.in(asList(1.0)));
 		assertEquals(c2, field.in(2.0));
@@ -231,5 +233,22 @@ public class CompositeConditionTest extends CopeAssert
 		// Condition.valueOf
 		assertSame(Condition.TRUE,  Condition.valueOf(true));
 		assertSame(Condition.FALSE, Condition.valueOf(false));
+	}
+
+
+	@SuppressWarnings("deprecation")
+	private static CompositeCondition newCompositeCondition(
+			final Operator operator,
+			final List<? extends Condition> conditions)
+	{
+		return new CompositeCondition(operator, conditions);
+	}
+
+	@SuppressWarnings("deprecation")
+	private static CompositeCondition newCompositeCondition(
+			final Operator operator,
+			final Condition... conditions)
+	{
+		return new CompositeCondition(operator, conditions);
 	}
 }
