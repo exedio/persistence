@@ -32,9 +32,11 @@ public final class CompositeCondition extends Condition
 	final Condition[] conditions;
 
 	/**
+	 * @deprecated Use {@link Cope#and(List)} or {@link Cope#or(List)} instead
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.size()==0</tt>
 	 */
+	@Deprecated
 	public CompositeCondition(
 			final Operator operator,
 			final List<? extends Condition> conditions)
@@ -43,9 +45,11 @@ public final class CompositeCondition extends Condition
 	}
 
 	/**
+	 * @deprecated Use {@link Cope#and(Condition[])} or {@link Cope#or(Condition[])} instead
 	 * @throws NullPointerException if <tt>conditions==null</tt>
 	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
 	 */
+	@Deprecated
 	public CompositeCondition(
 			final Operator operator,
 			final Condition... conditions)
@@ -193,6 +197,134 @@ public final class CompositeCondition extends Condition
 			this.sql = sql;
 			this.absorber = absorber;
 			this.identity = identity;
+		}
+	}
+
+
+	static Condition composite(
+			final Operator operator,
+			final Condition left,
+			final Condition right)
+	{
+		if(left instanceof Literal)
+			if(right instanceof Literal)
+				return valueOf(
+					(operator==Operator.AND)
+					? ( ((Literal)left).value && ((Literal)right).value )
+					: ( ((Literal)left).value || ((Literal)right).value ));
+			else
+				return compositeLiteral(operator, (Literal)left, right);
+		else
+			if(right instanceof Literal)
+				return compositeLiteral(operator, (Literal)right, left);
+			else
+				return compositeFlattening(operator, left, right);
+	}
+
+	private static Condition compositeLiteral(
+			final Operator operator,
+			final Literal literal,
+			final Condition other)
+	{
+		return operator.absorber==literal ? literal : other;
+	}
+
+	private static Condition compositeFlattening(
+			final Operator operator,
+			final Condition leftCondition,
+			final Condition rightCondition)
+	{
+		if(leftCondition instanceof CompositeCondition && ((CompositeCondition)leftCondition).operator==operator)
+		{
+			final CompositeCondition left = (CompositeCondition)leftCondition;
+
+			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)rightCondition;
+
+				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				final Condition[] c = new Condition[left.conditions.length + 1];
+				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
+				c[left.conditions.length] = rightCondition;
+				return new CompositeCondition(operator, c);
+			}
+		}
+		else
+		{
+			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			{
+				final CompositeCondition right = (CompositeCondition)rightCondition;
+
+				final Condition[] c = new Condition[1 + right.conditions.length];
+				c[0] = leftCondition;
+				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
+				return new CompositeCondition(operator, c);
+			}
+			else
+			{
+				return new CompositeCondition(operator, new Condition[]{leftCondition, rightCondition});
+			}
+		}
+	}
+
+	static Condition composite(final Operator operator, final List<? extends Condition> conditions)
+	{
+		return composite(operator,
+				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
+	}
+
+	static Condition composite(final Operator operator, final Condition[] conditions)
+	{
+		requireNonNull(conditions, "conditions");
+
+		int filtered = 0;
+
+		for(int i = 0; i<conditions.length; i++)
+		{
+			final Condition c = conditions[i];
+			if(c==null)
+				throw new NullPointerException("conditions" + '[' + i + ']');
+
+			if(c instanceof Literal)
+			{
+				if(operator.absorber==c)
+					return c;
+				else
+					filtered++;
+			}
+		}
+
+		final Condition[] filteredConditions;
+		if(filtered==0)
+		{
+			filteredConditions = conditions;
+		}
+		else
+		{
+			filteredConditions = new Condition[conditions.length-filtered];
+
+			int j = 0;
+			for(final Condition c : conditions)
+				if(operator.identity!=c)
+					filteredConditions[j++] = c;
+
+			assert j==filteredConditions.length;
+		}
+
+		switch(filteredConditions.length)
+		{
+			case 0:
+				return operator.identity;
+			case 1:
+				return filteredConditions[0];
+			default:
+				return new CompositeCondition(operator, filteredConditions);
 		}
 	}
 }

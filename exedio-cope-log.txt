@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: UniqueConstraint#search(Object...) did fail for IntegerField
+	with range constraint when searching out of range.
 * Schedule records progress reported to JobContext.
 	This affects database schema, adds a column to run table of each Schedule,
 	should be initialized to 0 (zero).

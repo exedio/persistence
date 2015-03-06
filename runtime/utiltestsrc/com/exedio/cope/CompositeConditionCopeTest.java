@@ -25,6 +25,7 @@ import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
 
+import com.exedio.cope.CompositeCondition.Operator;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
@@ -50,9 +51,9 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertSameAnd(c1, c1, TRUE);
 		assertSameAnd(c1, TRUE, c1);
-		assertEqualsAnd(new CompositeCondition(AND, c1, c2), TRUE, c1, c2);
-		assertEqualsAnd(new CompositeCondition(AND, c1, c2), c1, TRUE, c2);
-		assertEqualsAnd(new CompositeCondition(AND, c1, c2), c1, c2, TRUE);
+		assertEqualsAnd(newCompositeCondition(AND, c1, c2), TRUE, c1, c2);
+		assertEqualsAnd(newCompositeCondition(AND, c1, c2), c1, TRUE, c2);
+		assertEqualsAnd(newCompositeCondition(AND, c1, c2), c1, c2, TRUE);
 		assertSameAnd(c1, TRUE, TRUE, c1);
 		assertSameAnd(c1, TRUE, c1, TRUE);
 		assertSameAnd(c1, c1, TRUE, TRUE);
@@ -60,9 +61,9 @@ public class CompositeConditionCopeTest extends CopeAssert
 
 		assertSameOr(c1, c1, FALSE);
 		assertSameOr(c1, FALSE, c1);
-		assertEqualsOr(new CompositeCondition(OR, c1, c2), FALSE, c1, c2);
-		assertEqualsOr(new CompositeCondition(OR, c1, c2), c1, FALSE, c2);
-		assertEqualsOr(new CompositeCondition(OR, c1, c2), c1, c2, FALSE);
+		assertEqualsOr(newCompositeCondition(OR, c1, c2), FALSE, c1, c2);
+		assertEqualsOr(newCompositeCondition(OR, c1, c2), c1, FALSE, c2);
+		assertEqualsOr(newCompositeCondition(OR, c1, c2), c1, c2, FALSE);
 		assertSameOr(c1, FALSE, FALSE, c1);
 		assertSameOr(c1, FALSE, c1, FALSE);
 		assertSameOr(c1, c1, FALSE, FALSE);
@@ -162,5 +163,14 @@ public class CompositeConditionCopeTest extends CopeAssert
 		{
 			assertEquals(expectedMessage, e.getMessage());
 		}
+	}
+
+
+	@SuppressWarnings("deprecation")
+	private static CompositeCondition newCompositeCondition(
+			final Operator operator,
+			final Condition... conditions)
+	{
+		return new CompositeCondition(operator, conditions);
 	}
 }

@@ -40,82 +40,12 @@ public abstract class Condition implements java.io.Serializable
 
 	public final Condition and(final Condition other)
 	{
-		return composite(CompositeCondition.Operator.AND, other);
+		return CompositeCondition.composite(CompositeCondition.Operator.AND, this, other);
 	}
 
 	public final Condition or(final Condition other)
 	{
-		return composite(CompositeCondition.Operator.OR, other);
-	}
-
-	private final Condition composite(
-			final CompositeCondition.Operator operator,
-			final Condition other)
-	{
-		if(this instanceof Literal)
-			if(other instanceof Literal)
-				return valueOf(
-					(operator==CompositeCondition.Operator.AND)
-					? ( ((Literal)this).value && ((Literal)other).value )
-					: ( ((Literal)this).value || ((Literal)other).value ));
-			else
-				return compositeLiteral(operator, (Literal)this, other);
-		else
-			if(other instanceof Literal)
-				return compositeLiteral(operator, (Literal)other, this);
-			else
-				return compositeFlattening(operator, other);
-	}
-
-	private static final Condition compositeLiteral(
-			final CompositeCondition.Operator operator,
-			final Literal literal,
-			final Condition other)
-	{
-		return operator.absorber==literal ? literal : other;
-	}
-
-	private final Condition compositeFlattening(
-			final CompositeCondition.Operator operator,
-			final Condition other)
-	{
-		if(this instanceof CompositeCondition && ((CompositeCondition)this).operator==operator)
-		{
-			final CompositeCondition left = (CompositeCondition)this;
-
-			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
-			{
-				final CompositeCondition right = (CompositeCondition)other;
-
-				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
-				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
-				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
-				return new CompositeCondition(operator, c);
-			}
-			else
-			{
-				final Condition[] c = new Condition[left.conditions.length + 1];
-				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
-				c[left.conditions.length] = other;
-				return new CompositeCondition(operator, c);
-			}
-		}
-		else
-		{
-			if(other instanceof CompositeCondition && ((CompositeCondition)other).operator==operator)
-			{
-				final CompositeCondition right = (CompositeCondition)other;
-
-				final Condition[] c = new Condition[1 + right.conditions.length];
-				c[0] = this;
-				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
-				return new CompositeCondition(operator, c);
-			}
-			else
-			{
-				return new CompositeCondition(operator, new Condition[]{this, other});
-			}
-		}
+		return CompositeCondition.composite(CompositeCondition.Operator.OR, this, other);
 	}
 
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
