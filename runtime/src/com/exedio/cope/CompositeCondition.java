@@ -268,4 +268,59 @@ public final class CompositeCondition extends Condition
 			}
 		}
 	}
+
+	static Condition composite(final CompositeCondition.Operator operator, final List<? extends Condition> conditions)
+	{
+		return composite(operator,
+				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
+	}
+
+	static Condition composite(final CompositeCondition.Operator operator, final Condition[] conditions)
+	{
+		requireNonNull(conditions, "conditions");
+
+		int filtered = 0;
+
+		for(int i = 0; i<conditions.length; i++)
+		{
+			final Condition c = conditions[i];
+			if(c==null)
+				throw new NullPointerException("conditions" + '[' + i + ']');
+
+			if(c instanceof Condition.Literal)
+			{
+				if(operator.absorber==c)
+					return c;
+				else
+					filtered++;
+			}
+		}
+
+		final Condition[] filteredConditions;
+		if(filtered==0)
+		{
+			filteredConditions = conditions;
+		}
+		else
+		{
+			filteredConditions = new Condition[conditions.length-filtered];
+
+			int j = 0;
+			for(final Condition c : conditions)
+				if(operator.identity!=c)
+					filteredConditions[j++] = c;
+
+			assert j==filteredConditions.length;
+		}
+
+		switch(filteredConditions.length)
+		{
+			case 0:
+				return operator.identity;
+			case 1:
+				return filteredConditions[0];
+			default:
+				return new CompositeCondition(operator, filteredConditions);
+		}
+	}
 }
