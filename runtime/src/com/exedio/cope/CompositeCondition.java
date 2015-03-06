@@ -217,7 +217,7 @@ public final class CompositeCondition extends Condition
 				return compositeFlattening(operator, left, right);
 	}
 
-	private static final Condition compositeLiteral(
+	private static Condition compositeLiteral(
 			final CompositeCondition.Operator operator,
 			final Literal literal,
 			final Condition other)
@@ -225,7 +225,7 @@ public final class CompositeCondition extends Condition
 		return operator.absorber==literal ? literal : other;
 	}
 
-	private static final Condition compositeFlattening(
+	private static Condition compositeFlattening(
 			final CompositeCondition.Operator operator,
 			final Condition leftCondition,
 			final Condition rightCondition)
