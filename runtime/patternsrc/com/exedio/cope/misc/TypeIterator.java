@@ -26,9 +26,9 @@ import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public final class TypeIterator
 {
@@ -112,7 +112,7 @@ public final class TypeIterator
 				}
 				else
 				{
-					this.iterator = Iter.<E>empty();
+					this.iterator = Collections.<E>emptyIterator();
 				}
 			}
 
@@ -145,30 +145,6 @@ public final class TypeIterator
 		{
 			throw new UnsupportedOperationException();
 		}
-
-		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: universal object
-		private static final <E> Iterator<E> empty()
-		{
-			return (Iterator)EMPTY;
-		}
-
-		private static final Iterator<Object> EMPTY = new Iterator<Object>(){
-
-			public boolean hasNext()
-			{
-				return false;
-			}
-
-			public Object next()
-			{
-				throw new NoSuchElementException();
-			}
-
-			public void remove()
-			{
-				throw new RuntimeException();
-			}
-		};
 	}
 
 
