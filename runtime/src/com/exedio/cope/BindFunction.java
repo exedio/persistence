@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.ExtremumAggregate;
 import java.util.Collection;
@@ -36,11 +38,8 @@ public class BindFunction<E> implements Function<E>
 	 */
 	public BindFunction(final Function<E> function, final Join join)
 	{
-		assert function!=null;
-		assert join!=null;
-
-		this.function = function;
-		this.join = join;
+		this.function = requireNonNull(function, "function");
+		this.join = requireNonNull(join, "join");
 	}
 
 	public final E get(final Item item)
