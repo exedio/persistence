@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
-public interface Selectable<E extends Object> extends java.io.Serializable
+import java.io.Serializable;
+
+public interface Selectable<E extends Object> extends Serializable
 {
 	/**
 	 * Returns {@link #getValueType()}.{@link SelectType#getJavaClass() getJavaClass()}
