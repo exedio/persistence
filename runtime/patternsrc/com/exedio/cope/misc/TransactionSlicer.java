@@ -18,6 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 
@@ -33,14 +36,11 @@ public final class TransactionSlicer
 
 	public TransactionSlicer(final Model model, final int bitesPerSlice)
 	{
-		this.model = model;
-		this.bitesPerSlice = bitesPerSlice;
+		this.model = requireNonNull(model, "model");
+		this.bitesPerSlice = requireGreaterZero(bitesPerSlice, "bitesPerSlice");
 		this.transaction = model.currentTransaction();
 		this.transactionName = transaction.getName();
 		this.bitsLeft = bitesPerSlice;
-
-		if(bitesPerSlice<=0)
-			throw new IllegalArgumentException("bitesPerSlice must be positive, but was " + bitesPerSlice);
 	}
 
 	public boolean commitAndStartPossibly()

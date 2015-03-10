@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
@@ -59,8 +60,7 @@ public final class TypeIterator
 			final int slice)
 	{
 		requireNonNull(type, "type");
-		if(slice<1)
-			throw new IllegalArgumentException("slice must be greater 0, but was " + slice);
+		requireGreaterZero(slice, "slice");
 
 		return new Iter<>(type, condition, transactionally, slice);
 	}

@@ -89,7 +89,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("slice must be greater 0, but was 0", e.getMessage());
+			assertEquals("slice must be greater zero, but was 0", e.getMessage());
 		}
 
 		assertIt(asList(item0, item1, item2, item3, item4), null);
