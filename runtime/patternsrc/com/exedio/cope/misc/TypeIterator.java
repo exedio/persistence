@@ -59,10 +59,11 @@ public final class TypeIterator
 			final boolean transactionally,
 			final int slice)
 	{
-		requireNonNull(type, "type");
-		requireGreaterZero(slice, "slice");
-
-		return new Iter<>(type, condition, transactionally, slice);
+		return new Iter<>(
+				requireNonNull(type, "type"),
+				condition,
+				transactionally,
+				requireGreaterZero(slice, "slice"));
 	}
 
 	private static final class Iter<E extends Item> implements Iterator<E>
