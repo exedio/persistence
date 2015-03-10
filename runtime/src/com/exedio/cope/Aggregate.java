@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
+
 public abstract class Aggregate<E> implements Selectable<E>
 {
 	private static final long serialVersionUID = 1l;
@@ -63,6 +65,11 @@ public abstract class Aggregate<E> implements Selectable<E>
 	public final Type<? extends Item> getType()
 	{
 		return source.getType();
+	}
+
+	public final CompareCondition<E> greaterOrEqual(final E value)
+	{
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
 	/**

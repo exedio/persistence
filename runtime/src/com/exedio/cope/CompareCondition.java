@@ -28,7 +28,7 @@ public final class CompareCondition<E> extends Condition
 	private static final long serialVersionUID = 1l;
 
 	private final CompareFunctionCondition.Operator operator;
-	private final Function<E> left;
+	private final Selectable<E> left;
 	private final E right;
 
 	/**
@@ -44,7 +44,7 @@ public final class CompareCondition<E> extends Condition
 	 */
 	public CompareCondition(
 			final CompareFunctionCondition.Operator operator,
-			final Function<E> left,
+			final Selectable<E> left,
 			final E right)
 	{
 		this.operator = requireNonNull(operator, "operator");
@@ -63,7 +63,7 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	public boolean get(final Item item)
 	{
-		return operator.evaluate(left.get(item), right);
+		return operator.evaluate(((Function<E>)left).get(item), right); // TODO ------
 	}
 
 	@Override
