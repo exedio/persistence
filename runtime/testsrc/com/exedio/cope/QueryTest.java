@@ -42,6 +42,7 @@ public class QueryTest extends AbstractRuntimeTest
 	public void testIt()
 	{
 		final Query<?> q = DayItem.TYPE.newQuery(null);
+		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
 		assertEquals(DayItem.TYPE, q.getType());
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
@@ -75,6 +76,7 @@ public class QueryTest extends AbstractRuntimeTest
 	public void testSetSelect()
 	{
 		final Query<DayItem> q = DayItem.TYPE.newQuery(null);
+		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
 
 		try
 		{
@@ -85,6 +87,8 @@ public class QueryTest extends AbstractRuntimeTest
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
+		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
+
 		try
 		{
 			q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
@@ -94,6 +98,7 @@ public class QueryTest extends AbstractRuntimeTest
 		{
 			assertEquals("use setSelect instead", e.getMessage());
 		}
+		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
 	}
 
 	public void testSetSelects()
@@ -126,6 +131,15 @@ public class QueryTest extends AbstractRuntimeTest
 	public void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		try
+		{
+			q.getSelectSingle();
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("use getSelectMulti instead", e.getMessage());
+		}
 		try
 		{
 			q.setSelect(DayItem.TYPE.getThis());
