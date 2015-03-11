@@ -615,6 +615,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		}
 
 		@Override()
+		@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 		public String[] getParameterValues(final String name)
 		{
 			if(!"t".equals(name))
