@@ -53,6 +53,7 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected void tearDown() throws Exception
 	{
 		files.tearDown();
+		System.clearProperty("media.url.secret");
 
 		super.tearDown();
 	}

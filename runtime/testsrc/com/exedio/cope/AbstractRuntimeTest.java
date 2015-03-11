@@ -106,6 +106,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected void tearDown() throws Exception
 	{
 		files.tearDown();
+		System.clearProperty("media.url.secret");
 
 		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
 

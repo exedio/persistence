@@ -33,7 +33,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -350,6 +353,18 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		clock.assertEmpty();
 	}
 
+	public void testGuess() throws ServletException, IOException
+	{
+		item.setGuessContentType("image/jpeg");
+		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
+		assertEquals(ok + "?t=MediaPathItem.guess-" + id, "/" + item.getGuessLocator().getPath());
+		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl("private");
+
+		assertNotFound(ok, "guessed url", "zack");
+		assertNotFound(ok, "guessed url", "");
+		assertNotFound(ok, "guessed url");
+	}
+
 	public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
@@ -445,7 +460,16 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			final String reason)
 		throws ServletException, IOException
 	{
-		service(new Request(pathInfo)).assertError(
+		assertNotFound(pathInfo, reason, null);
+	}
+
+	private void assertNotFound(
+			final String pathInfo,
+			final String reason,
+			final String token)
+		throws ServletException, IOException
+	{
+		service(new Request(pathInfo).token(token)).assertError(
 				SC_NOT_FOUND, "us-ascii", "text/html",
 				"<html>\n" +
 				"<head>\n" +
@@ -500,11 +524,18 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 	private static final class Request extends HttpServletRequestDummy
 	{
 		private final String pathInfo;
+		private String token;
 		private long ifModifiedSince = -1;
 
 		Request(final String pathInfo)
 		{
 			this.pathInfo = pathInfo;
+		}
+
+		Request token(final String token)
+		{
+			this.token = token;
+			return this;
 		}
 
 		Request ifModifiedSince(final long ifModifiedSince)
@@ -580,7 +611,31 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		@Override
 		public String getQueryString()
 		{
-			return null;
+			return token!=null ? ("t=" + token) : null;
+		}
+
+		@Override()
+		public String[] getParameterValues(final String name)
+		{
+			if(!"t".equals(name))
+				return super.getParameterValues(name);
+
+			return token!=null ? new String[]{token} : null;
+		}
+
+		@Override()
+		public Enumeration<?> getParameterNames()
+		{
+			return token!=null ? new Vector<>(Arrays.asList("t")).elements() : null;
+		}
+
+		@Override()
+		public String getParameter(final String name)
+		{
+			if("t".equals(name))
+				return token;
+			else
+				return super.getParameter(name);
 		}
 	}
 
@@ -593,6 +648,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 
 		private String location;
+		private String cacheControl;
 		private String accessControlAllowOrigin;
 
 		@Override()
@@ -604,6 +660,13 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				assertEquals(null, this.location);
 				assertNull(out);
 				this.location = value;
+			}
+			else if("Cache-Control".equals(name))
+			{
+				assertNotNull(value);
+				assertEquals(null, this.cacheControl);
+				assertNull(out);
+				this.cacheControl = value;
 			}
 			else if("Access-Control-Allow-Origin".equals(name))
 			{
@@ -748,6 +811,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
@@ -760,6 +824,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
@@ -772,6 +837,20 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("cacheControl",  null, this.cacheControl);
+			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+		}
+
+		void assertOkAndCacheControl(final String value)
+		{
+			assertEquals("location",      null, this.location);
+			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("sc",            Integer.MIN_VALUE, this.status);
+			assertEquals("charset",       null, this.charset);
+			assertEquals("contentType",   null, this.contentType);
+			assertEquals("content",       "responseBody", this.outString());
+			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("cacheControl",  value, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
@@ -784,6 +863,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
+			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", value, this.accessControlAllowOrigin);
 		}
 
@@ -800,6 +880,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   contentType,      this.contentType);
 			assertEquals("content",       content,          this.outString());
 			assertEquals("contentLength", content.length(), this.contentLength);
+			assertEquals("cacheControl",  null,             this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
@@ -812,6 +893,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
+			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
 
