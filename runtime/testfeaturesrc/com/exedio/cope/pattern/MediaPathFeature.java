@@ -26,7 +26,9 @@ import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -120,7 +122,13 @@ public final class MediaPathFeature extends MediaPath
 			}
 		}
 		commit();
+
 		response.setContentLength(10011);
+
+		try(ServletOutputStream out = response.getOutputStream())
+		{
+			out.write("responseBody".getBytes(StandardCharsets.US_ASCII));
+		}
 	}
 
 	@Override

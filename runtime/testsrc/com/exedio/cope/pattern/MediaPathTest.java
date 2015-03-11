@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
@@ -33,6 +32,7 @@ import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -706,9 +706,18 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		ByteArrayOutputStream out = null;
 
+		String outString()
+		{
+			return
+					out!=null
+					? new String(out.toByteArray(), StandardCharsets.US_ASCII)
+					: null;
+		}
+
 		@Override
 		public ServletOutputStream getOutputStream()
 		{
+			assertFalse(MODEL.hasCurrentTransaction());
 			assertNull(out);
 
 			final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
@@ -737,7 +746,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.out);
+			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
@@ -749,7 +758,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.out);
+			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
@@ -761,7 +770,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            SC_NOT_MODIFIED, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.out);
+			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
@@ -773,7 +782,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.out);
+			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("accessControlAllowOrigin", value, this.accessControlAllowOrigin);
 		}
@@ -789,7 +798,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            sc,               this.status);
 			assertEquals("charset",       charset,          this.charset);
 			assertEquals("contentType",   contentType,      this.contentType);
-			assertEquals("content",       content, new String(this.out.toByteArray(), UTF_8));
+			assertEquals("content",       content,          this.outString());
 			assertEquals("contentLength", content.length(), this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
@@ -801,7 +810,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("sc",            SC_MOVED_PERMANENTLY, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.out);
+			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 		}
