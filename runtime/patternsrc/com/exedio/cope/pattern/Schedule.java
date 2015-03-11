@@ -142,6 +142,11 @@ public final class Schedule extends Pattern
 		return locale;
 	}
 
+	public GregorianCalendar newGregorianCalendar()
+	{
+		return new GregorianCalendar(timeZone, locale);
+	}
+
 	@Override
 	public void onMount()
 	{
@@ -289,7 +294,7 @@ public final class Schedule extends Pattern
 			tx.commit();
 		}
 
-		final GregorianCalendar cal = new GregorianCalendar(timeZone, locale);
+		final GregorianCalendar cal = newGregorianCalendar();
 		cal.setTime(now);
 		interval.setToFrom(cal);
 

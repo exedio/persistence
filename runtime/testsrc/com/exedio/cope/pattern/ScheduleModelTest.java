@@ -32,6 +32,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -104,6 +105,8 @@ public class ScheduleModelTest extends CopeAssert
 	{
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
+		final GregorianCalendar cal = report.newGregorianCalendar();
+		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
 	}
 
 	public void testTimeZoneNull()
