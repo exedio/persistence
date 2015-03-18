@@ -19,6 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
+import static com.exedio.cope.QuerySelectTest.AnItem.field1;
+import static com.exedio.cope.QuerySelectTest.AnItem.field2;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.List;
@@ -27,32 +30,32 @@ public class QuerySelectTest extends CopeAssert
 {
 	public void testSetSelect()
 	{
-		final Query<AnItem> q = AnItem.TYPE.newQuery(null);
-		assertEquals(AnItem.TYPE.getThis(), q.getSelectSingle());
+		final Query<AnItem> q = TYPE.newQuery(null);
+		assertEquals(TYPE.getThis(), q.getSelectSingle());
 		assertEquals("select this from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.field1});
+			q.setSelects(new Selectable<?>[]{field1});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + field1 + "]", e.getMessage());
 		}
-		assertEquals(AnItem.TYPE.getThis(), q.getSelectSingle());
+		assertEquals(TYPE.getThis(), q.getSelectSingle());
 		assertEquals("select this from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.field1});
+			q.setSelects(new Selectable<?>[]{TYPE.getThis(), field1});
 			fail();
 		}
 		catch(final IllegalStateException e)
 		{
 			assertEquals("use setSelect instead", e.getMessage());
 		}
-		assertEquals(AnItem.TYPE.getThis(), q.getSelectSingle());
+		assertEquals(TYPE.getThis(), q.getSelectSingle());
 		assertEquals("select this from AnItem", q.toString());
 	}
 
@@ -60,28 +63,28 @@ public class QuerySelectTest extends CopeAssert
 	{
 		try
 		{
-			newQuery(new Selectable<?>[]{AnItem.field1}, AnItem.TYPE, null);
+			newQuery(new Selectable<?>[]{field1}, TYPE, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + field1 + "]", e.getMessage());
 		}
 
-		final Query<List<Object>> q = newQuery(new Selectable<?>[]{AnItem.field1, AnItem.field2}, AnItem.TYPE, null);
+		final Query<List<Object>> q = newQuery(new Selectable<?>[]{field1, field2}, TYPE, null);
 		assertEquals("select field1,field2 from AnItem", q.toString());
 
-		q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.field1});
+		q.setSelects(new Selectable<?>[]{TYPE.getThis(), field1});
 		assertEquals("select this,field1 from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.field1});
+			q.setSelects(new Selectable<?>[]{field1});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + field1 + "]", e.getMessage());
 		}
 		assertEquals("select this,field1 from AnItem", q.toString());
 	}
@@ -89,7 +92,7 @@ public class QuerySelectTest extends CopeAssert
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSetSelectsUnchecked()
 	{
-		final Query q = newQuery(new Selectable[]{AnItem.field1, AnItem.field2}, AnItem.TYPE, null);
+		final Query q = newQuery(new Selectable[]{field1, field2}, TYPE, null);
 		try
 		{
 			q.getSelectSingle();
@@ -101,7 +104,7 @@ public class QuerySelectTest extends CopeAssert
 		}
 		try
 		{
-			q.setSelect(AnItem.TYPE.getThis());
+			q.setSelect(TYPE.getThis());
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -121,6 +124,6 @@ public class QuerySelectTest extends CopeAssert
 
 	static
 	{
-		new Model(AnItem.TYPE);
+		new Model(TYPE);
 	}
 }
