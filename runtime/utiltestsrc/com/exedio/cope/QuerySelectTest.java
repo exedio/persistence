@@ -28,6 +28,47 @@ import java.util.List;
 
 public class QuerySelectTest extends CopeAssert
 {
+	public void testSetSelectsCheck()
+	{
+		final Query<List<Object>> q = newQuery(new Function<?>[]{field1, field2}, TYPE, null);
+		try
+		{
+			q.setSelects((Selectable[])null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		try
+		{
+			q.setSelects(new Selectable<?>[]{});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("must have at least 2 selects, but was []", e.getMessage());
+		}
+		try
+		{
+			q.setSelects(new Selectable<?>[]{field1});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("must have at least 2 selects, but was [" + field1 + "]", e.getMessage());
+		}
+		try
+		{
+			q.setSelects(new Selectable<?>[]{field1, null});
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("selects[1]", e.getMessage());
+		}
+	}
+
 	public void testSetSelect()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
