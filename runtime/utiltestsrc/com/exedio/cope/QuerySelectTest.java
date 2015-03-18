@@ -33,19 +33,19 @@ public class QuerySelectTest extends CopeAssert
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.day});
+			q.setSelects(new Selectable<?>[]{AnItem.field1});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
 		}
 		assertEquals(AnItem.TYPE.getThis(), q.getSelectSingle());
 		assertEquals("select this from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.day});
+			q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.field1});
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -60,36 +60,36 @@ public class QuerySelectTest extends CopeAssert
 	{
 		try
 		{
-			newQuery(new Selectable<?>[]{AnItem.day}, AnItem.TYPE, null);
+			newQuery(new Selectable<?>[]{AnItem.field1}, AnItem.TYPE, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
 		}
 
-		final Query<List<Object>> q = newQuery(new Selectable<?>[]{AnItem.day, AnItem.optionalDay}, AnItem.TYPE, null);
-		assertEquals("select day,optionalDay from AnItem", q.toString());
+		final Query<List<Object>> q = newQuery(new Selectable<?>[]{AnItem.field1, AnItem.field2}, AnItem.TYPE, null);
+		assertEquals("select field1,field2 from AnItem", q.toString());
 
-		q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.day});
-		assertEquals("select this,day from AnItem", q.toString());
+		q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.field1});
+		assertEquals("select this,field1 from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{AnItem.day});
+			q.setSelects(new Selectable<?>[]{AnItem.field1});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
+			assertEquals("must have at least 2 selects, but was [" + AnItem.field1 + "]", e.getMessage());
 		}
-		assertEquals("select this,day from AnItem", q.toString());
+		assertEquals("select this,field1 from AnItem", q.toString());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	public void testSetSelectsUnchecked()
 	{
-		final Query q = newQuery(new Selectable[]{AnItem.day, AnItem.optionalDay}, AnItem.TYPE, null);
+		final Query q = newQuery(new Selectable[]{AnItem.field1, AnItem.field2}, AnItem.TYPE, null);
 		try
 		{
 			q.getSelectSingle();
@@ -112,8 +112,8 @@ public class QuerySelectTest extends CopeAssert
 
 	static class AnItem extends Item
 	{
-		static final DayField day = new DayField();
-		static final DayField optionalDay = new DayField();
+		static final DayField field1 = new DayField();
+		static final DayField field2 = new DayField();
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
 		private AnItem(final ActivationParameters ap) { super(ap); }
