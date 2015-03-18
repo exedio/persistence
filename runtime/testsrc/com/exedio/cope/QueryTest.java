@@ -77,6 +77,7 @@ public class QueryTest extends AbstractRuntimeTest
 	{
 		final Query<DayItem> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
+		assertEquals("select this from DayItem", q.toString());
 
 		try
 		{
@@ -88,6 +89,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
 		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
+		assertEquals("select this from DayItem", q.toString());
 
 		try
 		{
@@ -99,6 +101,7 @@ public class QueryTest extends AbstractRuntimeTest
 			assertEquals("use setSelect instead", e.getMessage());
 		}
 		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
+		assertEquals("select this from DayItem", q.toString());
 	}
 
 	public void testSetSelects()
@@ -114,7 +117,10 @@ public class QueryTest extends AbstractRuntimeTest
 		}
 
 		final Query<List<Object>> q = newQuery(new Selectable<?>[]{DayItem.day, DayItem.optionalDay}, DayItem.TYPE, null);
+		assertEquals("select day,optionalDay from DayItem", q.toString());
+
 		q.setSelects(new Selectable<?>[]{DayItem.TYPE.getThis(), DayItem.day});
+		assertEquals("select this,day from DayItem", q.toString());
 
 		try
 		{
@@ -125,6 +131,7 @@ public class QueryTest extends AbstractRuntimeTest
 		{
 			assertEquals("must have at least 2 selects, but was [" + DayItem.day + "]", e.getMessage());
 		}
+		assertEquals("select this,day from DayItem", q.toString());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
