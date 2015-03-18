@@ -91,6 +91,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(CopyConstraintNotFinalTest.class);
 		suite.addTestSuite(TimerTest.class);
 		suite.addTestSuite(DataDigestTest.class);
+		suite.addTestSuite(QuerySelectTest.class);
 		suite.addTestSuite(QueryRangeTest.class);
 		suite.addTestSuite(SequenceCounterTest.class);
 		suite.addTestSuite(PostgresqlDoubleTest.class);
