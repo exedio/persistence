@@ -36,7 +36,7 @@ public class QuerySelectTest extends CopeAssert
 			q.setSelects(new Selectable<?>[]{AnItem.day});
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
 		}
@@ -48,7 +48,7 @@ public class QuerySelectTest extends CopeAssert
 			q.setSelects(new Selectable<?>[]{AnItem.TYPE.getThis(), AnItem.day});
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("use setSelect instead", e.getMessage());
 		}
@@ -63,7 +63,7 @@ public class QuerySelectTest extends CopeAssert
 			newQuery(new Selectable<?>[]{AnItem.day}, AnItem.TYPE, null);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
 		}
@@ -79,7 +79,7 @@ public class QuerySelectTest extends CopeAssert
 			q.setSelects(new Selectable<?>[]{AnItem.day});
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("must have at least 2 selects, but was [" + AnItem.day + "]", e.getMessage());
 		}
@@ -95,7 +95,7 @@ public class QuerySelectTest extends CopeAssert
 			q.getSelectSingle();
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("use getSelectMulti instead", e.getMessage());
 		}
@@ -104,7 +104,7 @@ public class QuerySelectTest extends CopeAssert
 			q.setSelect(AnItem.TYPE.getThis());
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalStateException e)
 		{
 			assertEquals("use setSelects instead", e.getMessage());
 		}
