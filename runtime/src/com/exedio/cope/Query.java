@@ -176,8 +176,7 @@ public final class Query<R> implements Serializable
 		this.selectsMulti = selectsCopy;
 	}
 
-	/** grouping functionality is 'beta' - API may change */
-	public void setGroupBy( final Selectable<?>... groupBy )
+	public void setGroupBy(final Selectable<?>... groupBy)
 	{
 		if(selectsMulti==null)
 			throw new IllegalStateException("grouping not supported for single-select queries");
