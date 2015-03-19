@@ -88,6 +88,7 @@ public final class Query<R> implements Serializable
 		this.joinIndex = query.joinIndex;
 		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
+		this.groupBy = query.groupBy;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
@@ -108,6 +109,7 @@ public final class Query<R> implements Serializable
 		this.joinIndex = query.joinIndex;
 		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
+		this.groupBy = query.groupBy;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;

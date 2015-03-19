@@ -162,15 +162,15 @@ public class QueryCopyTest extends CopeAssert
 		{
 			final Query<?> copy = new Query<>(query);
 			assertIt(
-					false, TYPE, null, null, null, null, null, 0, -1,
-					"select string,date from AnItem", // TODO bug: missing group by
+					false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
+					"select string,date from AnItem group by date,intx",
 					copy);
 		}
 		{
 			final Query<?> copy = new Query<>(intx, query);
 			assertIt(
-					false, TYPE, null, null, null, null, null, 0, -1,
-					"select intx from AnItem", // TODO bug: missing group by
+					false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
+					"select intx from AnItem group by date,intx",
 					copy);
 		}
 	}
