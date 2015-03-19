@@ -43,6 +43,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(-1, query.getLimit());
 		assertEquals(77, query.getSearchSizeLimit());
 		assertEquals(66, query.getSearchSizeCacheLimit());
+		assertEquals("select this from AnItem", query.toString());
 
 		final Query<?> copy = new Query<>(string, query);
 		assertEquals(false, copy.isDistinct());
@@ -55,6 +56,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(-1, copy.getLimit());
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
+		assertEquals("select string from AnItem", copy.toString());
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
@@ -75,6 +77,12 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(44, query.getLimit());
 		assertEquals(177, query.getSearchSizeLimit());
 		assertEquals(166, query.getSearchSizeCacheLimit());
+		assertEquals(
+				"select distinct this from AnItem " +
+				"join AnItem a1 where string='zack' " +
+				"order by date desc " +
+				"offset '33' limit '44'",
+				query.toString());
 
 		assertEquals(false, copy.isDistinct());
 		assertSame(TYPE, copy.getType());
@@ -86,6 +94,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(-1, copy.getLimit());
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
+		assertEquals("select string from AnItem", copy.toString());
 	}
 
 	public void testAdvanced()
@@ -115,6 +124,12 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
+		assertEquals(
+				"select distinct this " +
+				"from AnItem join AnItem a1 where string='zack' " +
+				"order by date desc " +
+				"offset '33' limit '44'",
+				query.toString());
 
 		final Query<?> copy = new Query<>(string, query);
 		assertEquals(true, copy.isDistinct());
@@ -125,6 +140,12 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), copy.getOrderByAscending());
 		assertEquals(33, copy.getOffset());
 		assertEquals(44, copy.getLimit());
+		assertEquals(
+				"select distinct string " +
+				"from AnItem join AnItem a1 where string='zack' " +
+				"order by date desc " +
+				"offset '33' limit '44'",
+				copy.toString());
 
 		copy.setDistinct(false);
 		final Join joinCopy = copy.join(TYPE);
@@ -141,6 +162,12 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(), copy.getOrderByAscending());
 		assertEquals(0, copy.getOffset());
 		assertEquals(-1, copy.getLimit());
+		assertEquals(
+				"select string from AnItem " +
+				"join AnItem a1 " +
+				"join AnItem a2 " +
+				"where intx='1'",
+				copy.toString());
 
 		assertEquals(true, query.isDistinct());
 		assertSame(TYPE, query.getType());
@@ -150,6 +177,12 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
+		assertEquals(
+				"select distinct this " +
+				"from AnItem join AnItem a1 where string='zack' " +
+				"order by date desc " +
+				"offset '33' limit '44'",
+				query.toString());
 	}
 
 	static class AnItem extends Item
