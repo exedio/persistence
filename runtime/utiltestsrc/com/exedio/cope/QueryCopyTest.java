@@ -69,20 +69,16 @@ public class QueryCopyTest extends CopeAssert
 		query.setSearchSizeLimit(177);
 		query.setSearchSizeCacheLimit(166);
 
-		assertEquals(true, query.isDistinct());
-		assertSame(TYPE, query.getType());
-		assertEquals(list(joinQuery), query.getJoins());
-		assertSame(conditionQuery, query.getCondition());
-		assertEquals(list(date), query.getOrderByFunctions());
-		assertEquals(list(false), query.getOrderByAscending());
-		assertEquals(33, query.getOffset());
-		assertEquals(44, query.getLimit());
-		assertEquals(
+		assertIt(
+				true, TYPE,
+				asList(joinQuery), conditionQuery,
+				asList(date), asList(false),
+				33, 44,
 				"select distinct this from AnItem " +
 				"join AnItem a1 where string='zack' " +
 				"order by date desc " +
 				"offset '33' limit '44'",
-				query.toString());
+				query);
 		assertEquals(177, query.getSearchSizeLimit());
 		assertEquals(166, query.getSearchSizeCacheLimit());
 
