@@ -48,7 +48,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( FinalTest.class );
 		suite.addTestSuite( QueryTest.class );
 		suite.addTestSuite( QueryGroupingTest.class );
-		suite.addTestSuite( QueryCopyTest.class );
 		suite.addTestSuite( QueryKeyTest.class );
 		suite.addTestSuite( QuerySearchSizeLimitTest.class );
 		suite.addTestSuite( QuerySearchSizeLimitSetTest.class );
