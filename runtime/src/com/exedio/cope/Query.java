@@ -42,12 +42,14 @@ public final class Query<R> implements Serializable
 	final Model model;
 	private Selectable<? extends R> selectSingle;
 	private Selectable<?>[] selectsMulti;
-	private Selectable<?>[] groupBy;
 	private boolean distinct = false;
 	final Type<?> type;
 	private int joinIndex = 0;
 	ArrayList<Join> joins = null;
 	private Condition condition;
+
+	// groupBy-arrays must never be modified, because they are reused by copy constructor
+	private Selectable<?>[] groupBy;
 
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
 	private Selectable<?>[] orderBy = null;
