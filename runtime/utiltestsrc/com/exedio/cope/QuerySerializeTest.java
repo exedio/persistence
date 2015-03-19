@@ -26,25 +26,28 @@ public class QuerySerializeTest extends CopeAssert
 	public void testSerialize()
 	{
 		final Query<?> q = Item1.TYPE.newQuery(null);
-		assertSerializedEquals(q, 769);
+		assertSerializedEquals(q, 784);
 
 		q.setCondition(Item1.field1.isNotNull());
-		assertSerializedEquals(q, 923);
+		assertSerializedEquals(q, 938);
 
 		final Join j = q.join(Item1.TYPE);
-		assertSerializedEquals(q, 1176);
+		assertSerializedEquals(q, 1191);
 
 		j.setCondition(Item1.field1.equal("zack"));
-		assertSerializedEquals(q, 1424);
+		assertSerializedEquals(q, 1439);
 
 		q.addOrderBy(Item1.field1);
-		assertSerializedEquals(q, 1501);
+		assertSerializedEquals(q, 1516);
+
+		q.setHaving(Item1.field1.equal("zick"));
+		assertSerializedEquals(q, 1538);
 
 		q.setLimit(10, 20);
-		assertSerializedEquals(q, 1501);
+		assertSerializedEquals(q, 1538);
 
 		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
-		assertSerializedEquals(qMulti, 839);
+		assertSerializedEquals(qMulti, 854);
 	}
 
 	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
