@@ -149,6 +149,32 @@ public class QueryCopyTest extends CopeAssert
 				query);
 	}
 
+	public void testMulti()
+	{
+		final Query<?> query = Query.newQuery(new Selectable[]{string, date}, TYPE, null);
+		query.setGroupBy(date, intx);
+
+		assertIt(
+				false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
+				"select string,date from AnItem group by date,intx",
+				query);
+
+		{
+			final Query<?> copy = new Query<>(query);
+			assertIt(
+					false, TYPE, null, null, null, null, null, 0, -1,
+					"select string,date from AnItem", // TODO bug: missing group by
+					copy);
+		}
+		{
+			final Query<?> copy = new Query<>(intx, query);
+			assertIt(
+					false, TYPE, null, null, null, null, null, 0, -1,
+					"select intx from AnItem", // TODO bug: missing group by
+					copy);
+		}
+	}
+
 	static class AnItem extends Item
 	{
 		static final DayField date = new DayField();
