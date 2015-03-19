@@ -25,6 +25,7 @@ import static com.exedio.cope.QueryCopyTest.AnItem.string;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.util.Collections;
 import java.util.List;
 
 public class QueryCopyTest extends CopeAssert
@@ -173,12 +174,17 @@ public class QueryCopyTest extends CopeAssert
 	{
 		assertEquals(distinct, query.isDistinct());
 		assertSame(type, query.getType());
-		assertEquals(joins           !=null ? joins            : asList(), query.getJoins());
+		assertEquals(nullToEmpty(joins), query.getJoins());
 		assertSame(condition, query.getCondition());
-		assertEquals(orderBy         !=null ? orderBy          : asList(), query.getOrderByFunctions());
-		assertEquals(orderByAscending!=null ? orderByAscending : asList(), query.getOrderByAscending());
+		assertEquals(nullToEmpty(orderBy), query.getOrderByFunctions());
+		assertEquals(nullToEmpty(orderByAscending), query.getOrderByAscending());
 		assertEquals(offset, query.getOffset());
 		assertEquals(limit, query.getLimit());
 		assertEquals(toString, query.toString());
+	}
+
+	private static <E> List<E> nullToEmpty(final List<E> l)
+	{
+		return l!=null ? l : Collections.<E>emptyList();
 	}
 }
