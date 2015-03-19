@@ -19,6 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
+import static com.exedio.cope.CompareConditionItem.date;
+import static com.exedio.cope.CompareConditionItem.intx;
+import static com.exedio.cope.CompareConditionItem.string;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -44,7 +47,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(77, query.getSearchSizeLimit());
 		assertEquals(66, query.getSearchSizeCacheLimit());
 
-		final Query<?> copy = new Query<>(CompareConditionItem.string, query);
+		final Query<?> copy = new Query<>(string, query);
 		assertEquals(false, copy.isDistinct());
 		assertSame(TYPE, copy.getType());
 		assertEquals(list(), copy.getJoins());
@@ -58,9 +61,9 @@ public class QueryCopyTest extends CopeAssert
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
-		final Condition conditionQuery = CompareConditionItem.string.equal("zack");
+		final Condition conditionQuery = string.equal("zack");
 		query.setCondition(conditionQuery);
-		query.addOrderBy(CompareConditionItem.date, false);
+		query.addOrderBy(date, false);
 		query.setLimit(33, 44);
 		query.setSearchSizeLimit(177);
 		query.setSearchSizeCacheLimit(166);
@@ -69,7 +72,7 @@ public class QueryCopyTest extends CopeAssert
 		assertSame(TYPE, query.getType());
 		assertEquals(list(joinQuery), query.getJoins());
 		assertSame(conditionQuery, query.getCondition());
-		assertEquals(list(CompareConditionItem.date), query.getOrderByFunctions());
+		assertEquals(list(date), query.getOrderByFunctions());
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
@@ -102,33 +105,33 @@ public class QueryCopyTest extends CopeAssert
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
-		final Condition conditionQuery = CompareConditionItem.string.equal("zack");
+		final Condition conditionQuery = string.equal("zack");
 		query.setCondition(conditionQuery);
-		query.addOrderBy(CompareConditionItem.date, false);
+		query.addOrderBy(date, false);
 		query.setLimit(33, 44);
 
 		assertEquals(true, query.isDistinct());
 		assertSame(TYPE, query.getType());
 		assertEquals(list(joinQuery), query.getJoins());
 		assertSame(conditionQuery, query.getCondition());
-		assertEquals(list(CompareConditionItem.date), query.getOrderByFunctions());
+		assertEquals(list(date), query.getOrderByFunctions());
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
 
-		final Query<?> copy = new Query<>(CompareConditionItem.string, query);
+		final Query<?> copy = new Query<>(string, query);
 		assertEquals(true, copy.isDistinct());
 		assertSame(TYPE, copy.getType());
 		assertEquals(list(joinQuery), copy.getJoins());
 		assertSame(conditionQuery, copy.getCondition());
-		assertEquals(list(CompareConditionItem.date), copy.getOrderByFunctions());
+		assertEquals(list(date), copy.getOrderByFunctions());
 		assertEquals(list(false), copy.getOrderByAscending());
 		assertEquals(33, copy.getOffset());
 		assertEquals(44, copy.getLimit());
 
 		copy.setDistinct(false);
 		final Join joinCopy = copy.join(TYPE);
-		final Condition conditionCopy = CompareConditionItem.intx.equal(1);
+		final Condition conditionCopy = intx.equal(1);
 		copy.setCondition(conditionCopy);
 		copy.resetOrderBy();
 		copy.setLimit(0);
@@ -146,7 +149,7 @@ public class QueryCopyTest extends CopeAssert
 		assertSame(TYPE, query.getType());
 		assertEquals(list(joinQuery), query.getJoins());
 		assertSame(conditionQuery, query.getCondition());
-		assertEquals(list(CompareConditionItem.date), query.getOrderByFunctions());
+		assertEquals(list(date), query.getOrderByFunctions());
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
