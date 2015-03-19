@@ -102,14 +102,10 @@ public class QueryCopyTest extends CopeAssert
 	public void testAdvanced()
 	{
 		final Query<?> query = TYPE.newQuery();
-		assertEquals(false, query.isDistinct());
-		assertSame(TYPE, query.getType());
-		assertEquals(list(), query.getJoins());
-		assertSame(null, query.getCondition());
-		assertEquals(list(), query.getOrderByFunctions());
-		assertEquals(list(), query.getOrderByAscending());
-		assertEquals(0, query.getOffset());
-		assertEquals(-1, query.getLimit());
+		assertIt(
+				false, TYPE, null, null, null, null, 0, -1,
+				"select this from AnItem",
+				query);
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
@@ -196,7 +192,7 @@ public class QueryCopyTest extends CopeAssert
 	{
 		assertEquals(distinct, query.isDistinct());
 		assertSame(type, query.getType());
-		assertEquals(joins, query.getJoins());
+		assertEquals(joins           !=null ? joins            : asList(), query.getJoins());
 		assertSame(condition, query.getCondition());
 		assertEquals(orderBy         !=null ? orderBy          : asList(), query.getOrderByFunctions());
 		assertEquals(orderByAscending!=null ? orderByAscending : asList(), query.getOrderByAscending());
