@@ -86,17 +86,12 @@ public class QueryCopyTest extends CopeAssert
 				"offset '33' limit '44'",
 				query.toString());
 
-		assertEquals(false, copy.isDistinct());
-		assertSame(TYPE, copy.getType());
-		assertEquals(list(), copy.getJoins());
-		assertSame(null, copy.getCondition());
-		assertEquals(list(), copy.getOrderByFunctions());
-		assertEquals(list(), copy.getOrderByAscending());
-		assertEquals(0, copy.getOffset());
-		assertEquals(-1, copy.getLimit());
+		assertIt(
+				false, TYPE, null, null, null, null, 0, -1,
+				"select string from AnItem",
+				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
-		assertEquals("select string from AnItem", copy.toString());
 	}
 
 	public void testAdvanced()
