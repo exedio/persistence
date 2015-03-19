@@ -156,20 +156,16 @@ public class QueryCopyTest extends CopeAssert
 		copy.resetOrderBy();
 		copy.setLimit(0);
 
-		assertEquals(false, copy.isDistinct());
-		assertSame(TYPE, copy.getType());
-		assertEquals(list(joinQuery, joinCopy), copy.getJoins());
-		assertSame(conditionCopy, copy.getCondition());
-		assertEquals(list(), copy.getOrderByFunctions());
-		assertEquals(list(), copy.getOrderByAscending());
-		assertEquals(0, copy.getOffset());
-		assertEquals(-1, copy.getLimit());
-		assertEquals(
+		assertIt(
+				false, TYPE,
+				asList(joinQuery, joinCopy), conditionCopy,
+				null, null,
+				0, -1,
 				"select string from AnItem " +
 				"join AnItem a1 " +
 				"join AnItem a2 " +
 				"where intx='1'",
-				copy.toString());
+				copy);
 
 		assertIt(
 				true, TYPE,
@@ -210,8 +206,8 @@ public class QueryCopyTest extends CopeAssert
 		assertSame(type, query.getType());
 		assertEquals(joins, query.getJoins());
 		assertSame(condition, query.getCondition());
-		assertEquals(orderBy, query.getOrderByFunctions());
-		assertEquals(orderByAscending, query.getOrderByAscending());
+		assertEquals(orderBy         !=null ? orderBy          : asList(), query.getOrderByFunctions());
+		assertEquals(orderByAscending!=null ? orderByAscending : asList(), query.getOrderByAscending());
 		assertEquals(offset, query.getOffset());
 		assertEquals(limit, query.getLimit());
 		assertEquals(toString, query.toString());
