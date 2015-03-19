@@ -51,6 +51,8 @@ public final class Query<R> implements Serializable
 	// groupBy-arrays must never be modified, because they are reused by copy constructor
 	private Selectable<?>[] groupBy;
 
+	private Condition having;
+
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
 	private Selectable<?>[] orderBy = null;
 	private boolean[] orderAscending;
@@ -91,6 +93,7 @@ public final class Query<R> implements Serializable
 		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
 		this.groupBy = query.groupBy;
+		this.having = query.having;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
@@ -112,6 +115,7 @@ public final class Query<R> implements Serializable
 		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
 		this.condition = query.condition;
 		this.groupBy = query.groupBy;
+		this.having = query.having;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
 		this.offset = query.offset;
@@ -285,6 +289,19 @@ public final class Query<R> implements Serializable
 		if(selectsMulti==null)
 			throw new IllegalStateException("grouping not supported for single-select queries");
 		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
+	}
+
+
+	// having
+
+	public void setHaving(final Condition having)
+	{
+		this.having = replaceTrue(having);
+	}
+
+	public Condition getHaving()
+	{
+		return this.having;
 	}
 
 
@@ -845,6 +862,12 @@ public final class Query<R> implements Serializable
 			}
 		}
 
+		if(having!=null)
+		{
+			bf.append(" having ");
+			having.toString(bf, key, type);
+		}
+
 		if(!totalOnly)
 		{
 			if(orderBy!=null)
@@ -975,6 +998,12 @@ public final class Query<R> implements Serializable
 
 				bf.appendSelect(groupBy[i], null);
 			}
+		}
+
+		if(having!=null)
+		{
+			bf.append(" HAVING ");
+			having.append(bf);
 		}
 
 		if(!totalOnly)

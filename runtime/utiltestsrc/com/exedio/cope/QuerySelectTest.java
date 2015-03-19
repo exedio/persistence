@@ -24,6 +24,7 @@ import static com.exedio.cope.QuerySelectTest.AnItem.field1;
 import static com.exedio.cope.QuerySelectTest.AnItem.field2;
 
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.util.Day;
 import java.util.List;
 
 public class QuerySelectTest extends CopeAssert
@@ -152,6 +153,35 @@ public class QuerySelectTest extends CopeAssert
 		{
 			assertEquals("use setSelects instead", e.getMessage());
 		}
+	}
+
+	public void testSetHaving()
+	{
+		final Query<AnItem> q = TYPE.newQuery(null);
+		assertSame(null, q.getHaving());
+		assertEquals("select this from AnItem", q.toString());
+
+		final Condition having1 = field1.equal(new Day(2008,3,14));
+		q.setHaving(having1);
+		assertSame(having1, q.getHaving());
+		assertEquals("select this from AnItem having field1='2008/3/14'", q.toString());
+
+		final Condition having2 = field1.equal(new Day(2010,12,5));
+		q.setHaving(having2);
+		assertSame(having2, q.getHaving());
+		assertEquals("select this from AnItem having field1='2010/12/5'", q.toString());
+
+		q.setHaving(Condition.TRUE);
+		assertSame(null, q.getHaving());
+		assertEquals("select this from AnItem", q.toString());
+
+		q.setHaving(having2);
+		assertSame(having2, q.getHaving());
+		assertEquals("select this from AnItem having field1='2010/12/5'", q.toString());
+
+		q.setHaving(null);
+		assertSame(null, q.getHaving());
+		assertEquals("select this from AnItem", q.toString());
 	}
 
 	static class AnItem extends Item
