@@ -176,13 +176,6 @@ public final class Query<R> implements Serializable
 		this.selectsMulti = selectsCopy;
 	}
 
-	public void setGroupBy(final Selectable<?>... groupBy)
-	{
-		if(selectsMulti==null)
-			throw new IllegalStateException("grouping not supported for single-select queries");
-		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
-	}
-
 	private static final Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
 	{
 		if(selects.length<2)
@@ -272,6 +265,9 @@ public final class Query<R> implements Serializable
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 
+
+	// groupBy
+
 	public List<Selectable<?>> getGroupBy()
 	{
 		return
@@ -279,6 +275,16 @@ public final class Query<R> implements Serializable
 			? Collections.<Selectable<?>>emptyList()
 			: Collections.unmodifiableList(Arrays.asList(groupBy));
 	}
+
+	public void setGroupBy(final Selectable<?>... groupBy)
+	{
+		if(selectsMulti==null)
+			throw new IllegalStateException("grouping not supported for single-select queries");
+		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
+	}
+
+
+	// orderBy
 
 	public List<Selectable<?>> getOrderByFunctions()
 	{
@@ -380,6 +386,9 @@ public final class Query<R> implements Serializable
 		orderAscending = null;
 	}
 
+
+	// offset / limit
+
 	public int getOffset()
 	{
 		return offset;
@@ -418,6 +427,9 @@ public final class Query<R> implements Serializable
 		this.limit = UNLIMITED;
 	}
 
+
+	// searchSizeLimit
+
 	/**
 	 * @see #setSearchSizeLimit(int)
 	 */
@@ -455,6 +467,9 @@ public final class Query<R> implements Serializable
 		this.searchSizeLimit = searchSizeLimit;
 	}
 
+
+	// searchSizeCacheLimit
+
 	/**
 	 * @see #setSearchSizeCacheLimit(int)
 	 */
@@ -490,6 +505,7 @@ public final class Query<R> implements Serializable
 
 		this.searchSizeCacheLimit = searchSizeCacheLimit;
 	}
+
 
 	/**
 	 * Searches for items matching this query.
