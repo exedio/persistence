@@ -48,15 +48,10 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(66, query.getSearchSizeCacheLimit());
 
 		final Query<?> copy = new Query<>(string, query);
-		assertEquals(false, copy.isDistinct());
-		assertSame(TYPE, copy.getType());
-		assertEquals(list(), copy.getJoins());
-		assertSame(null, copy.getCondition());
-		assertEquals(list(), copy.getOrderByFunctions());
-		assertEquals(list(), copy.getOrderByAscending());
-		assertEquals(0, copy.getOffset());
-		assertEquals(-1, copy.getLimit());
-		assertEquals("select string from AnItem", copy.toString());
+		assertIt(
+				false, TYPE, null, null, null, null, 0, -1,
+				"select string from AnItem",
+				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 
