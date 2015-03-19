@@ -134,20 +134,16 @@ public class QueryCopyTest extends CopeAssert
 				query.toString());
 
 		final Query<?> copy = new Query<>(string, query);
-		assertEquals(true, copy.isDistinct());
-		assertSame(TYPE, copy.getType());
-		assertEquals(list(joinQuery), copy.getJoins());
-		assertSame(conditionQuery, copy.getCondition());
-		assertEquals(list(date), copy.getOrderByFunctions());
-		assertEquals(list(false), copy.getOrderByAscending());
-		assertEquals(33, copy.getOffset());
-		assertEquals(44, copy.getLimit());
-		assertEquals(
+		assertIt(
+				true, TYPE,
+				asList(joinQuery), conditionQuery,
+				asList(date), asList(false),
+				33, 44,
 				"select distinct string " +
 				"from AnItem join AnItem a1 where string='zack' " +
 				"order by date desc " +
 				"offset '33' limit '44'",
-				copy.toString());
+				copy);
 
 		copy.setDistinct(false);
 		final Join joinCopy = copy.join(TYPE);
