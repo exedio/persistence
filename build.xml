@@ -487,6 +487,7 @@
 				<exclude name="RuntimeAssert.java" /><!-- TODO remove -->
 				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
 				<exclude name="QueryTest.java" /><!-- TODO remove -->
+				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->

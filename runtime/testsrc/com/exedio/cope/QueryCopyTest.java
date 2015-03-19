@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CompareConditionItem.TYPE;
-import static com.exedio.cope.CompareConditionItem.date;
-import static com.exedio.cope.CompareConditionItem.intx;
-import static com.exedio.cope.CompareConditionItem.string;
+import static com.exedio.cope.QueryCopyTest.AnItem.TYPE;
+import static com.exedio.cope.QueryCopyTest.AnItem.date;
+import static com.exedio.cope.QueryCopyTest.AnItem.intx;
+import static com.exedio.cope.QueryCopyTest.AnItem.string;
 
 import com.exedio.cope.junit.CopeAssert;
 
@@ -153,5 +153,20 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(list(false), query.getOrderByAscending());
 		assertEquals(33, query.getOffset());
 		assertEquals(44, query.getLimit());
+	}
+
+	static class AnItem extends Item
+	{
+		static final DayField date = new DayField();
+		static final IntegerField intx = new IntegerField();
+		static final StringField string = new StringField();
+		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		private static final long serialVersionUID = 1l;
+		private AnItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	static
+	{
+		new Model(TYPE);
 	}
 }
