@@ -27,9 +27,6 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class QueryCopyTest extends CopeAssert
 {
-	@SuppressWarnings("unused")
-	private static final Model MODEL = CompareConditionTest.MODEL; // mount types
-
 	public void testSimple()
 	{
 		final Query<?> query = TYPE.newQuery();
