@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public final class Join implements Serializable
 {
@@ -86,7 +87,7 @@ public final class Join implements Serializable
 			index==o.index &&
 			kind==o.kind &&
 			type==o.type &&
-			condition==null ? o.condition==null : condition.equals(o.condition);
+			Objects.equals(condition, o.condition);
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public final class Join implements Serializable
 			index ^
 			kind.hashCode() ^
 			type.hashCode() ^
-			(condition==null ? 0 : condition.hashCode());
+			Objects.hashCode(condition);
 	}
 
 	@Override
