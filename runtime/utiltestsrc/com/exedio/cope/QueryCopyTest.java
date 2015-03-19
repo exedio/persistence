@@ -37,7 +37,7 @@ public class QueryCopyTest extends CopeAssert
 		query.setSearchSizeCacheLimit(66);
 
 		assertIt(
-				false, TYPE, null, null, null, null, 0, -1,
+				false, TYPE, null, null, null, null, null, 0, -1,
 				"select this from AnItem",
 				query);
 		assertEquals(77, query.getSearchSizeLimit());
@@ -45,7 +45,7 @@ public class QueryCopyTest extends CopeAssert
 
 		final Query<?> copy = new Query<>(string, query);
 		assertIt(
-				false, TYPE, null, null, null, null, 0, -1,
+				false, TYPE, null, null, null, null, null, 0, -1,
 				"select string from AnItem",
 				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
@@ -63,7 +63,7 @@ public class QueryCopyTest extends CopeAssert
 		assertIt(
 				true, TYPE,
 				asList(joinQuery), conditionQuery,
-				asList(date), asList(false),
+				null, asList(date), asList(false),
 				33, 44,
 				"select distinct this from AnItem " +
 				"join AnItem a1 where string='zack' " +
@@ -74,7 +74,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(166, query.getSearchSizeCacheLimit());
 
 		assertIt(
-				false, TYPE, null, null, null, null, 0, -1,
+				false, TYPE, null, null, null, null, null, 0, -1,
 				"select string from AnItem",
 				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
@@ -85,7 +85,7 @@ public class QueryCopyTest extends CopeAssert
 	{
 		final Query<?> query = TYPE.newQuery();
 		assertIt(
-				false, TYPE, null, null, null, null, 0, -1,
+				false, TYPE, null, null, null, null, null, 0, -1,
 				"select this from AnItem",
 				query);
 
@@ -99,7 +99,7 @@ public class QueryCopyTest extends CopeAssert
 		assertIt(
 				true, TYPE,
 				asList(joinQuery), conditionQuery,
-				asList(date), asList(false),
+				null, asList(date), asList(false),
 				33, 44,
 				"select distinct this " +
 				"from AnItem join AnItem a1 where string='zack' " +
@@ -111,7 +111,7 @@ public class QueryCopyTest extends CopeAssert
 		assertIt(
 				true, TYPE,
 				asList(joinQuery), conditionQuery,
-				asList(date), asList(false),
+				null, asList(date), asList(false),
 				33, 44,
 				"select distinct string " +
 				"from AnItem join AnItem a1 where string='zack' " +
@@ -129,7 +129,7 @@ public class QueryCopyTest extends CopeAssert
 		assertIt(
 				false, TYPE,
 				asList(joinQuery, joinCopy), conditionCopy,
-				null, null,
+				null, null, null,
 				0, -1,
 				"select string from AnItem " +
 				"join AnItem a1 " +
@@ -140,7 +140,7 @@ public class QueryCopyTest extends CopeAssert
 		assertIt(
 				true, TYPE,
 				asList(joinQuery), conditionQuery,
-				asList(date), asList(false),
+				null, asList(date), asList(false),
 				33, 44,
 				"select distinct this " +
 				"from AnItem join AnItem a1 where string='zack' " +
@@ -167,6 +167,7 @@ public class QueryCopyTest extends CopeAssert
 	void assertIt(
 			final boolean distinct, final Type<?> type, final List<Join> joins,
 			final Condition condition,
+			final List<? extends Function<?>> groupBy,
 			final List<? extends Function<?>> orderBy, final List<Boolean> orderByAscending,
 			final int offset, final int limit,
 			final String toString,
@@ -178,6 +179,7 @@ public class QueryCopyTest extends CopeAssert
 		assertSame(condition, query.getCondition());
 		assertEquals(nullToEmpty(orderBy), query.getOrderByFunctions());
 		assertEquals(nullToEmpty(orderByAscending), query.getOrderByAscending());
+		assertEquals(nullToEmpty(groupBy), query.getGroupBy());
 		assertEquals(offset, query.getOffset());
 		assertEquals(limit, query.getLimit());
 		assertEquals(toString, query.toString());

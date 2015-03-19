@@ -272,6 +272,14 @@ public final class Query<R> implements Serializable
 		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
 	}
 
+	public List<Selectable<?>> getGroupBy()
+	{
+		return
+			groupBy==null
+			? Collections.<Selectable<?>>emptyList()
+			: Collections.unmodifiableList(Arrays.asList(groupBy));
+	}
+
 	public List<Selectable<?>> getOrderByFunctions()
 	{
 		return
