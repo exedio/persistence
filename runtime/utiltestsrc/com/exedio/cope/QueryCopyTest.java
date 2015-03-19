@@ -151,7 +151,7 @@ public class QueryCopyTest extends CopeAssert
 
 	public void testMulti()
 	{
-		final Query<?> query = Query.newQuery(new Selectable[]{string, date}, TYPE, null);
+		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
 		query.setGroupBy(date, intx);
 
 		assertIt(
