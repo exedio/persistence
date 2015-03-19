@@ -22,8 +22,10 @@ import static com.exedio.cope.QueryCopyTest.AnItem.TYPE;
 import static com.exedio.cope.QueryCopyTest.AnItem.date;
 import static com.exedio.cope.QueryCopyTest.AnItem.intx;
 import static com.exedio.cope.QueryCopyTest.AnItem.string;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.util.List;
 
 public class QueryCopyTest extends CopeAssert
 {
@@ -169,20 +171,16 @@ public class QueryCopyTest extends CopeAssert
 				"where intx='1'",
 				copy.toString());
 
-		assertEquals(true, query.isDistinct());
-		assertSame(TYPE, query.getType());
-		assertEquals(list(joinQuery), query.getJoins());
-		assertSame(conditionQuery, query.getCondition());
-		assertEquals(list(date), query.getOrderByFunctions());
-		assertEquals(list(false), query.getOrderByAscending());
-		assertEquals(33, query.getOffset());
-		assertEquals(44, query.getLimit());
-		assertEquals(
+		assertIt(
+				true, TYPE,
+				asList(joinQuery), conditionQuery,
+				asList(date), asList(false),
+				33, 44,
 				"select distinct this " +
 				"from AnItem join AnItem a1 where string='zack' " +
 				"order by date desc " +
 				"offset '33' limit '44'",
-				query.toString());
+				query);
 	}
 
 	static class AnItem extends Item
@@ -198,5 +196,24 @@ public class QueryCopyTest extends CopeAssert
 	static
 	{
 		new Model(TYPE);
+	}
+
+	void assertIt(
+			final boolean distinct, final Type<?> type, final List<Join> joins,
+			final Condition condition,
+			final List<? extends Function<?>> orderBy, final List<Boolean> orderByAscending,
+			final int offset, final int limit,
+			final String toString,
+			final Query<?> query)
+	{
+		assertEquals(distinct, query.isDistinct());
+		assertSame(type, query.getType());
+		assertEquals(joins, query.getJoins());
+		assertSame(condition, query.getCondition());
+		assertEquals(orderBy, query.getOrderByFunctions());
+		assertEquals(orderByAscending, query.getOrderByAscending());
+		assertEquals(offset, query.getOffset());
+		assertEquals(limit, query.getLimit());
+		assertEquals(toString, query.toString());
 	}
 }
