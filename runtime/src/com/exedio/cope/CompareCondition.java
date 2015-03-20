@@ -44,7 +44,7 @@ public final class CompareCondition<E> extends Condition
 	 */
 	public CompareCondition(
 			final CompareFunctionCondition.Operator operator,
-			final Selectable<E> left,
+			final Selectable<E> left, // TODO binary compatibility --------------------------------
 			final E right)
 	{
 		this.operator = requireNonNull(operator, "operator");
