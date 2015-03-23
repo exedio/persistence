@@ -38,7 +38,7 @@ public final class QueryIterators
 			final Condition condition,
 			final int slice)
 	{
-		return iterate(type, condition, false, slice);
+		return iterateType(type, condition, false, slice);
 	}
 
 	/**
@@ -50,10 +50,10 @@ public final class QueryIterators
 			final Condition condition,
 			final int slice)
 	{
-		return iterate(type, condition, true, slice);
+		return iterateType(type, condition, true, slice);
 	}
 
-	private static <E extends Item> Iterator<E> iterate(
+	private static <E extends Item> Iterator<E> iterateType(
 			final Type<E> type,
 			final Condition condition,
 			final boolean transactionally,
