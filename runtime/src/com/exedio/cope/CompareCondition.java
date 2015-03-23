@@ -44,7 +44,7 @@ public final class CompareCondition<E> extends Condition
 	 */
 	public CompareCondition(
 			final CompareFunctionCondition.Operator operator,
-			final Selectable<E> left, // TODO binary compatibility --------------------------------
+			final Selectable<E> left,
 			final E right)
 	{
 		this.operator = requireNonNull(operator, "operator");
@@ -112,5 +112,19 @@ public final class CompareCondition<E> extends Condition
 			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else
 			bf.append(o.toString());
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #CompareCondition(CompareFunctionCondition.Operator, Selectable, Object)}} instead
+	 */
+	@Deprecated
+	public CompareCondition(
+			final CompareFunctionCondition.Operator operator,
+			final Function<E> left,
+			final E right)
+	{
+		this(operator, (Selectable<E>)left, right);
 	}
 }
