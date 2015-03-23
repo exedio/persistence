@@ -161,22 +161,22 @@ public class Random implements NumberFunction<Double>
 
 	public final CompareCondition<Double> less(final Double value)
 	{
-		return new CompareCondition<>(Operator.Less, this, value);
+		return new CompareCondition<>(Operator.Less, (Selectable<Double>)this, value);
 	}
 
 	public final CompareCondition<Double> lessOrEqual(final Double value)
 	{
-		return new CompareCondition<>(Operator.LessEqual, this, value);
+		return new CompareCondition<>(Operator.LessEqual, (Selectable<Double>)this, value);
 	}
 
 	public final CompareCondition<Double> greater(final Double value)
 	{
-		return new CompareCondition<>(Operator.Greater, this, value);
+		return new CompareCondition<>(Operator.Greater, (Selectable<Double>)this, value);
 	}
 
 	public final CompareCondition<Double> greaterOrEqual(final Double value)
 	{
-		return new CompareCondition<>(Operator.GreaterEqual, this, value);
+		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<Double>)this, value);
 	}
 
 	public Condition between(final Double lowerBound, final Double upperBound)

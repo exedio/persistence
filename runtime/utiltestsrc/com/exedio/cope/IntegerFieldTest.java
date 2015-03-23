@@ -259,6 +259,6 @@ public class IntegerFieldTest extends CopeAssert
 			final IntegerField field,
 			final Integer value)
 	{
-		return new CompareCondition<>(operator, field, value);
+		return new CompareCondition<>(operator, (Selectable<Integer>)field, value);
 	}
 }
