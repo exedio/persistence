@@ -127,18 +127,19 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCannotGroupSingleSelect()
+	public void testSingleSelect()
 	{
-		final Query<GroupItem> query = TYPE.newQuery();
-		try
-		{
-			query.setGroupBy( day );
-			fail();
-		}
-		catch ( final IllegalStateException e )
-		{
-			assertEquals("grouping not supported for single-select queries", e.getMessage());
-		}
+		new GroupItem(day1, 1);
+		new GroupItem(day2, 2);
+		new GroupItem(day2, 3);
+		new GroupItem(day3, 4);
+		final Query<Integer> query = new Query<>(number.max());
+		query.setGroupBy( day );
+		query.setOrderBy(number.max(), true);
+		assertEquals(asList(1, 3, 4), query.search());
+
+		query.setOrderBy(number.max(), false);
+		assertEquals(asList(4, 3, 1), query.search());
 	}
 
 	public void testMultiGrouping()

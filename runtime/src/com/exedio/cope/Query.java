@@ -286,8 +286,6 @@ public final class Query<R> implements Serializable
 
 	public void setGroupBy(final Selectable<?>... groupBy)
 	{
-		if(selectsMulti==null)
-			throw new IllegalStateException("grouping not supported for single-select queries");
 		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
 	}
 
