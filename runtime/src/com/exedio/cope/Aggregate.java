@@ -67,11 +67,6 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return source.getType();
 	}
 
-	public final CompareCondition<E> greaterOrEqual(final E value)
-	{
-		return new CompareCondition<>(Operator.GreaterEqual, this, value);
-	}
-
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -132,5 +127,12 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append('(');
 		source.toString(bf, defaultType);
 		bf.append(')');
+	}
+
+	// convenience methods for conditions and views ---------------------------------
+
+	public final CompareCondition<E> greaterOrEqual(final E value)
+	{
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 }
