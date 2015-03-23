@@ -25,7 +25,7 @@ import com.exedio.cope.Query;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public final class StableQueryIterator<E>
+public final class StableQueryIterator
 {
 	/**
 	 * @param query
