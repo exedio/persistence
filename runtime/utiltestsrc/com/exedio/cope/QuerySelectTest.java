@@ -184,6 +184,22 @@ public class QuerySelectTest extends CopeAssert
 		assertEquals("select this from AnItem", q.toString());
 	}
 
+	public void testGetAggregate()
+	{
+		final Condition c = field1.max().greater(new Day(2008,3,14));
+		try
+		{
+			c.get(null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"not supported for non-function: max(AnItem.field1) on null",
+					e.getMessage());
+		}
+	}
+
 	static class AnItem extends Item
 	{
 		static final DayField field1 = new DayField();

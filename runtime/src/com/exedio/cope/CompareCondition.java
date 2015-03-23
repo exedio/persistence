@@ -63,7 +63,11 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	public boolean get(final Item item)
 	{
-		return operator.evaluate(((Function<E>)left).get(item), right); // TODO ------
+		 // TODO do something nicer
+		if(!(left instanceof Function))
+			throw new IllegalArgumentException("not supported for non-function: " + left + " on " + item);
+
+		return operator.evaluate(((Function<E>)left).get(item), right);
 	}
 
 	@Override
