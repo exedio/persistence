@@ -131,8 +131,28 @@ public abstract class Aggregate<E> implements Selectable<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
+	public final CompareCondition<E> less(final E value)
+	{
+		return new CompareCondition<>(Operator.Less, this, value);
+	}
+
+	public final CompareCondition<E> lessOrEqual(final E value)
+	{
+		return new CompareCondition<>(Operator.LessEqual, this, value);
+	}
+
+	public final CompareCondition<E> greater(final E value)
+	{
+		return new CompareCondition<>(Operator.Greater, this, value);
+	}
+
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.GreaterEqual, this, value);
+	}
+
+	public Condition between(final E lowerBound, final E upperBound)
+	{
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 }
