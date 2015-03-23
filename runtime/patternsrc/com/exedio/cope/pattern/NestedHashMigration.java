@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
+import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.pattern.NestedHashAlgorithm.create;
 import static java.util.Objects.requireNonNull;
 
@@ -156,7 +156,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		final String id = getID();
 
 		for(final Item item : Iterables.once(
-				iterateTransactionally(type, getLegacyHash().isNotNull(), 100)))
+				iterateTypeTransactionally(type, getLegacyHash().isNotNull(), 100)))
 		{
 			ctx.stopIfRequested();
 			final String itemID = item.getCopeID();

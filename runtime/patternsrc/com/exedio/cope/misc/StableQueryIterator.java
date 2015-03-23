@@ -36,7 +36,7 @@ public final class StableQueryIterator
 	 * Otherwise, the iterator may miss some results,
 	 * or return duplicates.
 	 * Consider using
-	 * {@link TypeIterator#iterate(com.exedio.cope.Type, com.exedio.cope.Condition, int)}
+	 * {@link QueryIterators#iterateType(com.exedio.cope.Type, com.exedio.cope.Condition, int)}
 	 * to deal with unstable queries.
 	 */
 	public static <E> Iterator<E> iterate(

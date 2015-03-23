@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.Iterables.once;
+import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
-import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static java.lang.System.nanoTime;
 import static java.util.Calendar.DAY_OF_MONTH;
@@ -258,7 +258,7 @@ public final class Schedule extends Pattern
 
 		final Date now = new Date(Clock.currentTimeMillis()); // TODO per item
 
-		for(final P item : once(iterateTransactionally(
+		for(final P item : once(iterateTypeTransactionally(
 				getType().as(parentClass), enabled.equal(true), 1000)))
 		{
 			ctx.stopIfRequested();

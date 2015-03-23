@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
-import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
 import static java.lang.System.nanoTime;
 import static java.util.Objects.requireNonNull;
 
@@ -219,7 +219,7 @@ public final class Dispatcher extends Pattern
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
 
 		for(final P item : Iterables.once(
-				iterateTransactionally(type, pending.equal(true), config.getSearchSize())))
+				iterateTypeTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
 			ctx.stopIfRequested();
 			if(probeRequired)

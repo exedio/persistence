@@ -20,7 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
-import static com.exedio.cope.misc.TypeIterator.iterateTransactionally;
+import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -75,7 +75,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 	{
 		try
 		{
-			iterateTransactionally(null, null, 0);
+			iterateTypeTransactionally(null, null, 0);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -84,7 +84,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 		}
 		try
 		{
-			iterateTransactionally(TYPE, null, 0);
+			iterateTypeTransactionally(TYPE, null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -100,12 +100,12 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
 
 	private static void assertIt(final List<QueryAggregatorItem> expected, final Condition c)
 	{
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 1)));
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 2)));
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 3)));
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 4)));
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 5)));
-		assertEquals(expected, l(iterateTransactionally(TYPE, c, 6)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 1)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 2)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 3)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 4)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 5)));
+		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 6)));
 	}
 
 	private static ArrayList<QueryAggregatorItem> l(final Iterator<QueryAggregatorItem> iterator)

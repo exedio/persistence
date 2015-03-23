@@ -18,134 +18,39 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static java.util.Objects.requireNonNull;
-
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
-import com.exedio.cope.Query;
-import com.exedio.cope.This;
-import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
+/**
+ * @deprecated Use {@link QueryIterators} instead
+ */
+@Deprecated
 public final class TypeIterator
 {
+	/**
+	 * @deprecated Use {@link QueryIterators#iterateType(Type, Condition, int)} instead
+	 */
+	@Deprecated
 	public static <E extends Item> Iterator<E> iterate(
 			final Type<E> type,
 			final Condition condition,
 			final int slice)
 	{
-		return iterate(type, condition, false, slice);
+		return QueryIterators.iterateType(type, condition, slice);
 	}
 
 	/**
-	 * Works as {@link #iterate(Type, Condition, int)}
-	 * but creates its own transaction whenever needed.
+	 * @deprecated Use {@link QueryIterators#iterateTypeTransactionally(Type, Condition, int)} instead
 	 */
+	@Deprecated
 	public static <E extends Item> Iterator<E> iterateTransactionally(
 			final Type<E> type,
 			final Condition condition,
 			final int slice)
 	{
-		return iterate(type, condition, true, slice);
-	}
-
-	private static <E extends Item> Iterator<E> iterate(
-			final Type<E> type,
-			final Condition condition,
-			final boolean transactionally,
-			final int slice)
-	{
-		return new Iter<>(
-				requireNonNull(type, "type"),
-				condition,
-				transactionally,
-				requireGreaterZero(slice, "slice"));
-	}
-
-	private static final class Iter<E extends Item> implements Iterator<E>
-	{
-		private final This<E> typeThis;
-		private final Condition condition;
-		private final boolean transactionally;
-		private final Query<E> query;
-
-		private Iterator<E> iterator;
-		private boolean limitExhausted;
-
-		Iter(
-				final Type<E> type,
-				final Condition condition,
-				final boolean transactionally,
-				final int slice)
-		{
-			this.typeThis = type.getThis();
-			this.condition = condition;
-			this.transactionally = transactionally;
-
-			this.query  = type.newQuery(condition);
-			query.setOrderBy(typeThis, true);
-			query.setLimit(0, slice);
-			this.iterator = search();
-		}
-
-		public boolean hasNext()
-		{
-			return iterator.hasNext();
-		}
-
-		public E next()
-		{
-			final E result = iterator.next();
-			if(result==null)
-				throw new NullPointerException("does not support null in result");
-
-			if(!iterator.hasNext())
-			{
-				if(limitExhausted)
-				{
-					final Condition c = typeThis.greater(result);
-					query.setCondition(condition!=null ? condition.and(c) : c);
-					this.iterator = search();
-				}
-				else
-				{
-					this.iterator = Collections.<E>emptyIterator();
-				}
-			}
-
-			return result;
-		}
-
-		private Iterator<E> search()
-		{
-			final List<E> result;
-
-			if(transactionally)
-			{
-				try(TransactionTry tx = typeThis.getType().getModel().startTransactionTry(query.toString()))
-				{
-					result = query.search();
-					tx.commit();
-				}
-			}
-			else
-			{
-				result = query.search();
-			}
-
-			limitExhausted = (result.size()==query.getLimit());
-
-			return result.iterator();
-		}
-
-		public void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
+		return QueryIterators.iterateTypeTransactionally(type, condition, slice);
 	}
 
 
