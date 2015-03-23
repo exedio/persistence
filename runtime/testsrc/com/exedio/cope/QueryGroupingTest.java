@@ -140,6 +140,9 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 
 		query.setOrderBy(number.max(), false);
 		assertEquals(asList(4, 3, 1), query.search());
+
+		query.setCondition(number.lessOrEqual(2));
+		assertEquals(asList(2, 1), query.search());
 	}
 
 	public void testMultiGrouping()
