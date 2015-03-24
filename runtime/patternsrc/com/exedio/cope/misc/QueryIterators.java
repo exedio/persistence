@@ -59,14 +59,14 @@ public final class QueryIterators
 			final boolean transactionally,
 			final int slice)
 	{
-		return new Iter<>(
+		return new ByType<>(
 				requireNonNull(type, "type"),
 				condition,
 				transactionally,
 				requireGreaterZero(slice, "slice"));
 	}
 
-	private static final class Iter<E extends Item> implements Iterator<E>
+	private static final class ByType<E extends Item> implements Iterator<E>
 	{
 		private final This<E> typeThis;
 		private final Condition condition;
@@ -76,7 +76,7 @@ public final class QueryIterators
 		private Iterator<E> iterator;
 		private boolean limitExhausted;
 
-		Iter(
+		ByType(
 				final Type<E> type,
 				final Condition condition,
 				final boolean transactionally,
