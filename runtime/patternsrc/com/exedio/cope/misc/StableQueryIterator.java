@@ -51,11 +51,11 @@ public final class StableQueryIterator
 		final Query<E> queryCopy = new Query<>(query);
 		final int queryLimit = queryCopy.getLimit();
 		return (queryLimit==-1)
-			? new Unlimited<>(queryCopy, slice)
-			: new Limited  <>(queryCopy, slice, queryLimit);
+			? new ByStableQueryUnlimited<>(queryCopy, slice)
+			: new ByStableQueryLimited  <>(queryCopy, slice, queryLimit);
 	}
 
-	private static final class Unlimited<E> implements Iterator<E>
+	private static final class ByStableQueryUnlimited<E> implements Iterator<E>
 	{
 		private final Query<E> query;
 		private final int slice;
@@ -63,7 +63,7 @@ public final class StableQueryIterator
 		private int offset;
 		private Iterator<E> iterator;
 
-		Unlimited(
+		ByStableQueryUnlimited(
 				final Query<E> query,
 				final int slice)
 		{
@@ -105,7 +105,7 @@ public final class StableQueryIterator
 		}
 	}
 
-	private static final class Limited<E> implements Iterator<E>
+	private static final class ByStableQueryLimited<E> implements Iterator<E>
 	{
 		private final Query<E> query;
 		private final int slice;
@@ -114,7 +114,7 @@ public final class StableQueryIterator
 		private final int queryEnd;
 		private Iterator<E> iterator;
 
-		Limited(
+		ByStableQueryLimited(
 				final Query<E> query,
 				final int slice,
 				final int queryLimit)
