@@ -28,7 +28,7 @@ public final class CompareCondition<E> extends Condition
 	private static final long serialVersionUID = 1l;
 
 	private final CompareFunctionCondition.Operator operator;
-	private final Function<E> left;
+	private final Selectable<E> left;
 	private final E right;
 
 	/**
@@ -44,7 +44,7 @@ public final class CompareCondition<E> extends Condition
 	 */
 	public CompareCondition(
 			final CompareFunctionCondition.Operator operator,
-			final Function<E> left,
+			final Selectable<E> left,
 			final E right)
 	{
 		this.operator = requireNonNull(operator, "operator");
@@ -63,7 +63,11 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	public boolean get(final Item item)
 	{
-		return operator.evaluate(left.get(item), right);
+		 // TODO do something nicer
+		if(!(left instanceof Function))
+			throw new IllegalArgumentException("not supported for non-function: " + left + " on " + item);
+
+		return operator.evaluate(((Function<E>)left).get(item), right);
 	}
 
 	@Override
@@ -112,5 +116,19 @@ public final class CompareCondition<E> extends Condition
 			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
 		else
 			bf.append(o.toString());
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #CompareCondition(CompareFunctionCondition.Operator, Selectable, Object)}} instead
+	 */
+	@Deprecated
+	public CompareCondition(
+			final CompareFunctionCondition.Operator operator,
+			final Function<E> left,
+			final E right)
+	{
+		this(operator, (Selectable<E>)left, right);
 	}
 }

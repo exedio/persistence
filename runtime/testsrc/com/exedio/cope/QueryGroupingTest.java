@@ -22,6 +22,7 @@ import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
 import static com.exedio.cope.GroupItem.optionalDouble;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -126,18 +127,22 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCannotGroupSingleSelect()
+	public void testSingleSelect()
 	{
-		final Query<GroupItem> query = TYPE.newQuery();
-		try
-		{
-			query.setGroupBy( day );
-			fail();
-		}
-		catch ( final IllegalStateException e )
-		{
-			assertEquals("grouping not supported for single-select queries", e.getMessage());
-		}
+		new GroupItem(day1, 1);
+		new GroupItem(day2, 2);
+		new GroupItem(day2, 3);
+		new GroupItem(day3, 4);
+		final Query<Integer> query = new Query<>(number.max());
+		query.setGroupBy( day );
+		query.setOrderBy(number.max(), true);
+		assertEquals(asList(1, 3, 4), query.search());
+
+		query.setOrderBy(number.max(), false);
+		assertEquals(asList(4, 3, 1), query.search());
+
+		query.setCondition(number.lessOrEqual(2));
+		assertEquals(asList(2, 1), query.search());
 	}
 
 	public void testMultiGrouping()
@@ -214,4 +219,35 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertContains( list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1), query.search() );
 	}
 
+	public void testHaving()
+	{
+		new GroupItem(day1, 1);
+		new GroupItem(day1, 2);
+		new GroupItem(day2, 1);
+		new GroupItem(day2, 2);
+		new GroupItem(day2, 3);
+
+		final Query<?> query = Query.newQuery(new Selectable<?>[]{day, number.max()}, TYPE, null);
+		query.setGroupBy(day);
+		query.setOrderBy(day, true);
+		assertEquals(
+				"select day,max(number) from GroupItem " +
+				"group by day " +
+				"order by day",
+				query.toString() );
+		assertEquals(
+				asList(asList(day1, 2), asList(day2, 3)),
+				query.search());
+
+		query.setHaving(number.max().greaterOrEqual(3));
+		assertEquals(
+				"select day,max(number) from GroupItem " +
+				"group by day " +
+				"having max(number)>='3' " +
+				"order by day",
+				query.toString() );
+		assertEquals(
+				asList(asList(day2, 3)),
+				query.search());
+	}
 }

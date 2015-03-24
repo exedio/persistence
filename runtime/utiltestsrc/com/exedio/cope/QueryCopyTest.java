@@ -153,24 +153,31 @@ public class QueryCopyTest extends CopeAssert
 	{
 		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
 		query.setGroupBy(date, intx);
+		query.setHaving(string.equal("haveItOrNot"));
 
 		assertIt(
 				false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
-				"select string,date from AnItem group by date,intx",
+				"select string,date from AnItem " +
+				"group by date,intx " +
+				"having string='haveItOrNot'",
 				query);
 
 		{
 			final Query<?> copy = new Query<>(query);
 			assertIt(
 					false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
-					"select string,date from AnItem group by date,intx",
+					"select string,date from AnItem " +
+					"group by date,intx " +
+					"having string='haveItOrNot'",
 					copy);
 		}
 		{
 			final Query<?> copy = new Query<>(intx, query);
 			assertIt(
 					false, TYPE, null, null, asList(date, intx), null, null, 0, -1,
-					"select intx from AnItem group by date,intx",
+					"select intx from AnItem " +
+					"group by date,intx " +
+					"having string='haveItOrNot'",
 					copy);
 		}
 	}

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
+
 public abstract class Aggregate<E> implements Selectable<E>
 {
 	private static final long serialVersionUID = 1l;
@@ -125,5 +127,32 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append('(');
 		source.toString(bf, defaultType);
 		bf.append(')');
+	}
+
+	// convenience methods for conditions and views ---------------------------------
+
+	public final CompareCondition<E> less(final E value)
+	{
+		return new CompareCondition<>(Operator.Less, this, value);
+	}
+
+	public final CompareCondition<E> lessOrEqual(final E value)
+	{
+		return new CompareCondition<>(Operator.LessEqual, this, value);
+	}
+
+	public final CompareCondition<E> greater(final E value)
+	{
+		return new CompareCondition<>(Operator.Greater, this, value);
+	}
+
+	public final CompareCondition<E> greaterOrEqual(final E value)
+	{
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
+	}
+
+	public Condition between(final E lowerBound, final E upperBound)
+	{
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 }

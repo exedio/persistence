@@ -615,7 +615,7 @@ public class DoubleTest extends AbstractRuntimeTest
 			final DoubleField field,
 			final Double value)
 	{
-		return new CompareCondition<>(operator, field, value);
+		return new CompareCondition<>(operator, (Selectable<Double>)field, value);
 	}
 
 	public void testSchema()
