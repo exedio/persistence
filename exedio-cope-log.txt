@@ -7,9 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* switch to trove4j from mvnrepository.com
-	replace trove.jar by trove4j.jar in your build scripts
-	trove-src.jar will not be fetched anymore
+* Switched to trove4j from mvnrepository.com.
+	- replace trove.jar by trove4j.jar in your build scripts
+	- file trove-src.jar will not be fetched anymore
 * Schedule#newGregorianCalendar added.
 * bugfix: UniqueConstraint#search(Object...) did fail for IntegerField
 	with range constraint when searching out of range.
