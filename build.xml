@@ -251,7 +251,7 @@
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -275,7 +275,7 @@
 						<pathelement location="build/classes/runtime/src" />
 						<pathelement location="build/classes/instrument/annosrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
 						<pathelement location="lib/${@{dialect.file}.jar}" />
@@ -336,7 +336,7 @@
 							runtime.junit.compile" />
 	
 	<target name="runtime.core.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.protocol">
-		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove.jar exedio-cope-util.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove4j.jar exedio-cope-util.jar">
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/dialects" />
@@ -400,7 +400,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
@@ -423,7 +423,7 @@
 				<pathelement location="build/classes/runtime/utiltestsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
@@ -511,7 +511,7 @@
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/log4j-bundle.jar" />
@@ -550,7 +550,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
@@ -584,7 +584,7 @@
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
@@ -617,7 +617,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/@{env.driver}" />
@@ -650,7 +650,7 @@
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
-					<fileset file="lib/trove.jar" />
+					<fileset file="lib/trove4j.jar" />
 					<fileset file="lib/slf4j-api.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/exedio-cope-servletutil.jar" />
@@ -717,7 +717,7 @@
 		<copy file ="runtime/servlettestweb/log4j.properties"
 				todir="runtime/servlettestweb/WEB-INF/classes" />
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
-			<fileset file="lib/trove.jar" />
+			<fileset file="lib/trove4j.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
 			<fileset file="lib/exedio-cope-servletutil.jar" />
 			<fileset file="lib/exedio-cope-console.jar" />
@@ -851,7 +851,7 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
@@ -910,7 +910,7 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -979,7 +979,7 @@
 				<fileset file="instrument/antsrc/com" includes="**/*.java" />
 			</src>
 			<myClasspath>
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/bsh-core.jar" />
@@ -999,7 +999,7 @@
 				fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="lib/trove.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-console.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
@@ -1048,7 +1048,7 @@
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
-				<pathelement location="${basedir}/lib/trove.jar" />
+				<pathelement location="${basedir}/lib/trove4j.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
@@ -1104,7 +1104,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove.jar" />
+						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />

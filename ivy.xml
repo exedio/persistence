@@ -34,7 +34,10 @@
 	</publications>
 	<dependencies defaultconf="runtime->*">
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
-		<dependency org="net.sf.trove4j-x" name="trove4j" rev="2.0.2" />
+		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2">
+			<conf name="runtime" mapped="default" />
+			<conf name="build" mapped="sources" />
+		</dependency>
 		<dependency org="org.cojen" name="cojen" rev="2.0">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
