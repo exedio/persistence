@@ -42,7 +42,10 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
-		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" />
+		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4">
+			<conf name="runtime" mapped="default" />
+			<conf name="build" mapped="sources" />
+		</dependency>
 		<dependency org="junit" name="junit" rev="4.4">
 			<conf name="junit" mapped="default" />
 			<conf name="test" mapped="default" />
