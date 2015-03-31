@@ -32,10 +32,12 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
 
+@Computed()
 @CopeName("CopeRevstat")
 final class Revstat extends Item
 {

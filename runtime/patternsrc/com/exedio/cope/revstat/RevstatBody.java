@@ -30,9 +30,11 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PartOf;
 import java.util.List;
 
+@Computed()
 @CopeName("CopeRevstatBody")
 final class RevstatBody extends Item
 {
