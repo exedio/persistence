@@ -194,6 +194,15 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
+	public static void testValueOfDoubleRoundSpecialProblem()
+	{
+		final double problem = 0.575;
+		assertEquals( "0.575", Double.toString( problem));
+		assertEquals("-0.575", Double.toString(-problem));
+		assertEquals(    57,   valueOf( problem).store()); // TODO should be  58 because it should round towards even numbers
+		assertEquals(   -57,   valueOf(-problem).store()); // TODO should be -58 because it should round towards even numbers
+	}
+
 	public static void testValueOfBigDecimal()
 	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
