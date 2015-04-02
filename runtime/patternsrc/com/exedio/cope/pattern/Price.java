@@ -270,7 +270,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(other==1.0)
 			return this;
 
-		return valueOf(doubleValue() * other);
+		return storeOf(doubleStore() * other);
 	}
 
 	public Price divide(final double other)
@@ -278,7 +278,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(other==1.0)
 			return this;
 
-		return valueOf(doubleValue() / other);
+		return storeOf(doubleStore() / other);
 	}
 
 	/**
@@ -394,6 +394,28 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final double DOUBLE_FACTOR = 100d;
 	private static final double DOUBLE_MIN_VALUE = MIN_STORE/DOUBLE_FACTOR;
 	private static final double DOUBLE_MAX_VALUE = MAX_STORE/DOUBLE_FACTOR;
+
+	private static Price storeOf(final double store)
+	{
+		if(Double.isNaN(store))
+			throw new IllegalArgumentException("NaN not allowed");
+		if(Double.isInfinite(store))
+			throw new IllegalArgumentException("Infinity not allowed");
+		if(store<DOUBLE_MIN_STORE)
+			throw new IllegalArgumentException("too small: " + (store/DOUBLE_FACTOR));
+		if(store>DOUBLE_MAX_STORE)
+			throw new IllegalArgumentException("too big: " + (store/DOUBLE_FACTOR));
+
+		return storeOf((int)Math.rint(store));
+	}
+
+	private double doubleStore()
+	{
+		return store;
+	}
+
+	private static final double DOUBLE_MIN_STORE = MIN_STORE;
+	private static final double DOUBLE_MAX_STORE = MAX_STORE;
 
 
 	// conversion BigDecimal
