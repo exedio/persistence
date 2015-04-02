@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.Price.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class PriceTest extends CopeAssert
 {
@@ -201,6 +202,19 @@ public final class PriceTest extends CopeAssert
 		assertEquals("-0.575", Double.toString(-problem));
 		assertEquals(    57,   valueOf( problem).store()); // TODO should be  58 because it should round towards even numbers
 		assertEquals(   -57,   valueOf(-problem).store()); // TODO should be -58 because it should round towards even numbers
+		assertEquals(    58,   valueOfByBigDecimal( problem).store());
+		assertEquals(   -58,   valueOfByBigDecimal(-problem).store());
+	}
+
+	public static Price valueOfByBigDecimal(final double value)
+	{
+		final BigDecimal unrounded = BigDecimal.valueOf(value);
+		//System.out.println(unrounded);
+		final BigDecimal moved = unrounded.movePointRight(2);
+		//System.out.println(moved);
+		final BigDecimal rounded = moved.setScale(0, RoundingMode.HALF_EVEN);
+		//System.out.println(rounded);
+		return storeOf(rounded.intValueExact());
 	}
 
 	public static void testValueOfBigDecimal()
