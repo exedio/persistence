@@ -383,7 +383,11 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value>DOUBLE_MAX_VALUE)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf((int)Math.rint(100d * value));
+		return storeOf(
+				BigDecimal.valueOf(value).
+				movePointRight(2).
+				setScale(0, RoundingMode.HALF_EVEN).
+				intValueExact());
 	}
 
 	public double doubleValue()
