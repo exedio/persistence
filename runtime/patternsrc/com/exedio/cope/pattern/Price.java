@@ -292,7 +292,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return this;
 
-		return valueOf(doubleValue() *        100d / (100 + rate));
+		return storeOf(doubleStore() *        100d / (100 + rate));
 	}
 
 	/**
@@ -306,7 +306,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return ZERO;
 
-		return valueOf(doubleValue() * (1d - (100d / (100 + rate))));
+		return storeOf(doubleStore() * (1d - (100d / (100 + rate))));
 	}
 
 	private static void checkRatePercent(final int rate)
