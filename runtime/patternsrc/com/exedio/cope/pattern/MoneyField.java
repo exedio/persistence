@@ -63,6 +63,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		this.isfinal = amount.isFinal();
 		this.mandatory = amount.isMandatory();
 		this.currency = currency;
+		// TODO polymorhism of CurrencySource
 		if(currency instanceof ExclusiveCurrencySource<?>)
 			addSource(currency.getField(), "currency");
 	}
@@ -146,17 +147,23 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			if(mandatory)
 				throw MandatoryViolationException.create(this, item);
 
+			// TODO polymorhism of CurrencySource
 			if(currency instanceof SharedCurrencySource<?>)
 			{
 				amount.set(item, null);
 			}
-			else
+			else if(currency instanceof ExclusiveCurrencySource<?>)
 			{
 				item.set(amount.map(null), currency.getField().map(null));
+			}
+			else
+			{
+				throw new RuntimeException("" + currency);
 			}
 		}
 		else
 		{
+			// TODO polymorhism of CurrencySource
 			if(currency instanceof SharedCurrencySource<?>)
 			{
 				{
@@ -166,11 +173,15 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				}
 				amount.set(item, value.amountWithoutCurrency());
 			}
-			else
+			else if(currency instanceof ExclusiveCurrencySource<?>)
 			{
 				item.set(
 						amount.map(value.amountWithoutCurrency()),
 						currency.getField().map(value.getCurrency()));
+			}
+			else
+			{
+				throw new RuntimeException("" + currency);
 			}
 		}
 	}
@@ -194,6 +205,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			throw MandatoryViolationException.create(this, exceptionItem);
 
 
+		// TODO polymorhism of CurrencySource
 		if(currency instanceof SharedCurrencySource<?>)
 		{
 			if(value!=null)
@@ -214,12 +226,16 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				};
 			}
 		}
-		else
+		else if(currency instanceof ExclusiveCurrencySource<?>)
 		{
 			return new SetValue<?>[]{
 				amountExecute( value!=null ? value.amountWithoutCurrency() : null, exceptionItem ),
 				currency.getField().map( value!=null ? value.getCurrency() : null )
 			};
+		}
+		else
+		{
+			throw new RuntimeException("" + currency);
 		}
 	}
 
