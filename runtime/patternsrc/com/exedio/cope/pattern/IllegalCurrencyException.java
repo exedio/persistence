@@ -28,11 +28,22 @@ public final class IllegalCurrencyException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 
+	static void check(
+			final MoneyField<?> feature,
+			final Item item,
+			final Money<?> value,
+			final Currency allowed)
+	{
+		if(!value.getCurrency().equals(allowed))
+			throw new IllegalCurrencyException(feature, item, value, allowed);
+	}
+
+
 	private final MoneyField<?> feature;
 	private final Money<?> value;
 	private final Currency allowed;
 
-	IllegalCurrencyException(
+	private IllegalCurrencyException(
 			final MoneyField<?> feature,
 			final Item item,
 			final Money<?> value,

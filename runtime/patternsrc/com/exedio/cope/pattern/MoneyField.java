@@ -166,11 +166,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			// TODO polymorhism of CurrencySource
 			if(currency instanceof SharedCurrencySource<?>)
 			{
-				{
-					final C expectedCurrency = currency.get(item);
-					if(!value.getCurrency().equals(expectedCurrency))
-						throw new IllegalCurrencyException(this, item, value, expectedCurrency);
-				}
+				IllegalCurrencyException.check(this, item, value, currency.get(item));
 				amount.set(item, value.amountWithoutCurrency());
 			}
 			else if(currency instanceof ExclusiveCurrencySource<?>)
@@ -210,10 +206,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				final SetValue<C> c = getFirst(sources, currency.getField());
-				final C expectedCurrency = c==null ? currency.get(exceptionItem) : c.value;
-				if(!value.getCurrency().equals(expectedCurrency))
-					throw new IllegalCurrencyException(this, exceptionItem, value, expectedCurrency);
+				{
+					final SetValue<C> c = getFirst(sources, currency.getField());
+					IllegalCurrencyException.check(this, exceptionItem, value,
+							c==null ? currency.get(exceptionItem) : c.value);
+				}
 
 				return new SetValue<?>[]{
 					amountExecute( value.amountWithoutCurrency(), exceptionItem )
