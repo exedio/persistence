@@ -57,6 +57,12 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	}
 
 	@Override
+	Class<C> getInitialType()
+	{
+		return currency.getValueClass();
+	}
+
+	@Override
 	C get(final Item item)
 	{
 		return currency.get(item);

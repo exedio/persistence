@@ -114,7 +114,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ReflectionTypes.parameterized(Money.class, currency.getField().getValueClass());
+		return ReflectionTypes.parameterized(Money.class, currency.getInitialType());
 	}
 
 	@Override

@@ -27,5 +27,6 @@ abstract class CurrencySource<C extends Money.Currency>
 	abstract CurrencySource<C> toFinal();
 	abstract CurrencySource<C> optional();
 	abstract FunctionField<C> getField();
+	abstract Class<C> getInitialType();
 	abstract C get(final Item item);
 }

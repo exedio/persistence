@@ -59,6 +59,12 @@ final class SharedCurrencySource<C extends Money.Currency> extends CurrencySourc
 	}
 
 	@Override
+	Class<C> getInitialType()
+	{
+		return currency.getValueClass();
+	}
+
+	@Override
 	C get(final Item item)
 	{
 		return currency.get(item);
