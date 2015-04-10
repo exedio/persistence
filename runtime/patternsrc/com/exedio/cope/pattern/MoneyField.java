@@ -40,6 +40,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 {
 	private static final long serialVersionUID = 1l;
 
+	public static <C extends Money.Currency> MoneyField<C> fixed(final C currency)
+	{
+		return new MoneyField<>(new PriceField(), new FixedCurrencySource<>(currency));
+	}
+
 	public static <C extends Money.Currency> MoneyField<C> shared(final FunctionField<C> currency)
 	{
 		return new MoneyField<>(new PriceField(), new SharedCurrencySource<>(currency));
@@ -88,9 +93,26 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return amount;
 	}
 
+	/**
+	 * BEWARE:
+	 * This method returns null, if the currency is not stored
+	 * in a field.
+	 * @see #getCurrencyValue()
+	 */
 	public FunctionField<C> getCurrencyField()
 	{
 		return currency.getField();
+	}
+
+	/**
+	 * BEWARE:
+	 * This method returns null, if the currency is stored
+	 * in a field.
+	 * @see #getCurrencyField()
+	 */
+	public C getCurrencyValue()
+	{
+		return currency.getValue();
 	}
 
 	public Class<C> getCurrencyClass()
@@ -153,7 +175,8 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				throw MandatoryViolationException.create(this, item);
 
 			// TODO polymorhism of CurrencySource
-			if(currency instanceof SharedCurrencySource<?>)
+			if(currency instanceof FixedCurrencySource<?> ||
+				currency instanceof SharedCurrencySource<?>)
 			{
 				amount.set(item, null);
 			}
@@ -169,7 +192,8 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		else
 		{
 			// TODO polymorhism of CurrencySource
-			if(currency instanceof SharedCurrencySource<?>)
+			if(currency instanceof FixedCurrencySource<?> ||
+				currency instanceof SharedCurrencySource<?>)
 			{
 				IllegalCurrencyException.check(this, item, value, currency.get(item));
 				amount.set(item, value.amountWithoutCurrency());
@@ -216,6 +240,23 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 					IllegalCurrencyException.check(this, exceptionItem, value,
 							c==null ? currency.get(exceptionItem) : c.value);
 				}
+
+				return new SetValue<?>[]{
+					amountExecute( value.amountWithoutCurrency(), exceptionItem )
+				};
+			}
+			else
+			{
+				return new SetValue<?>[]{
+					amountExecute( null, exceptionItem )
+				};
+			}
+		}
+		else if(currency instanceof FixedCurrencySource<?>)
+		{
+			if(value!=null)
+			{
+				IllegalCurrencyException.check(this, exceptionItem, value, currency.get(null));
 
 				return new SetValue<?>[]{
 					amountExecute( value.amountWithoutCurrency(), exceptionItem )

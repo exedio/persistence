@@ -19,10 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.pattern.CurrencyFixed.fix;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.currency;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclusive;
+import static com.exedio.cope.pattern.MoneyFieldItem.fixed;
+import static com.exedio.cope.pattern.MoneyFieldItem.fixedEnum;
 import static com.exedio.cope.pattern.MoneyFieldItem.shared;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharedMandatory;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.eur;
@@ -44,6 +47,16 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 
 	public void testNames()
 	{
+		assertEquals("fixed",                fixed                     .getName());
+		assertEquals("fixed-amount",         fixed.getAmount()         .getName());
+		assertEquals("fixed-amount-int",     fixed.getAmount().getInt().getName());
+		assertEquals(null,                   fixed.getCurrencyField());
+		assertEquals(CurrencyFixed.fix,      fixed.getCurrencyValue());
+		assertEquals("fixedEnum",            fixedEnum                     .getName());
+		assertEquals("fixedEnum-amount",     fixedEnum.getAmount()         .getName());
+		assertEquals("fixedEnum-amount-int", fixedEnum.getAmount().getInt().getName());
+		assertEquals(null,                   fixedEnum.getCurrencyField());
+		assertEquals(Currency.eur,           fixedEnum.getCurrencyValue());
 		assertEquals("shared",               shared                     .getName());
 		assertEquals("shared-amount",        shared.getAmount()         .getName());
 		assertEquals("shared-amount-int",    shared.getAmount().getInt().getName());
@@ -51,24 +64,66 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("sharedMandatory-amount",     sharedMandatory.getAmount()         .getName());
 		assertEquals("sharedMandatory-amount-int", sharedMandatory.getAmount().getInt().getName());
 		assertEquals("currency",             shared.getCurrencyField()     .getName());
+		assertEquals(null,                   shared.getCurrencyValue());
 		assertEquals("exclusive",            exclusive                     .getName());
 		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
 		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
 		assertEquals("exclusive-currency",   exclusive.getCurrencyField()  .getName());
+		assertEquals(null,                   exclusive.getCurrencyValue());
 		assertSame(shared.getCurrencyField(), sharedMandatory.getCurrencyField());
 
+		assertEquals(CurrencyFixed.class, fixed     .getCurrencyClass());
+		assertEquals(Currency.class, fixedEnum      .getCurrencyClass());
 		assertEquals(Currency.class, shared         .getCurrencyClass());
 		assertEquals(Currency.class, sharedMandatory.getCurrencyClass());
 		assertEquals(Currency.class, exclusive      .getCurrencyClass());
 
+		assertEquals("com.exedio.cope.pattern.Money<" + CurrencyFixed.class.getName() + ">", fixed     .getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", fixedEnum      .getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", shared         .getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharedMandatory.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclusive      .getInitialType().toString());
 
+		assertEquals("fixed_int",           getColumnName(fixed.getAmount().getInt()));
+		assertEquals("fixedEnum_int",       getColumnName(fixedEnum.getAmount().getInt()));
 		assertEquals("shared_int",          getColumnName(shared.getAmount().getInt()));
 		assertEquals("currency" ,           getColumnName(shared.getCurrencyField()));
 		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
 		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrencyField()));
+	}
+	public void testFixedConsistencyOkSingle()
+	{
+		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+
+		i.setFixed(valueOf(6.66, fix));
+		assertEquals(valueOf(6.66, fix), i.getFixed());
+
+		i.setFixed(null);
+		assertEquals(null, i.getFixed());
+	}
+	public void testFixedConsistencyOkMulti()
+	{
+		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+
+		i.set(fixed.map(valueOf(6.66, fix)));
+		assertEquals(valueOf(6.66, fix), i.getFixed());
+
+		i.set(fixed.map(null));
+		assertEquals(null, i.getFixed());
+	}
+	// TODO test more
+	public void testFixedEnum()
+	{
+		final MoneyFieldItem i = fixedEnum(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getFixedEnum());
+
+		i.setFixedEnum(valueOf(6.66, eur));
+		assertEquals(valueOf(6.66, eur), i.getFixedEnum());
+
+		i.setFixedEnum(null);
+		assertEquals(null, i.getFixedEnum());
 	}
 	public void testSharedConsistencyOkSingle()
 	{
