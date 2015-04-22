@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.StringField.truncateValue;
+
 import com.exedio.cope.instrument.ConstructorComment;
 
 /**
@@ -93,7 +95,7 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 
 		bf.append("character set violation").
 			append(getItemPhrase()).
-			append(", '").append(value).append('\'');
+			append(", ").append(truncateValue(value));
 
 		if(withFeature)
 			bf.append(" for ").

@@ -242,6 +242,32 @@ public final class StringField extends FunctionField<String>
 		}
 	}
 
+	static String truncateValue(final String value)
+	{
+		final StringBuilder bf = new StringBuilder();
+		final int length = value.length();
+		final boolean truncate = length>200;
+		bf.append('\'');
+		if(truncate)
+		{
+			bf.append(value.substring(0, 100)).
+				append(" ... ").
+				append(value.substring(180));
+		}
+		else
+		{
+			bf.append(value);
+		}
+		bf.append('\'');
+
+		if(truncate)
+			bf.append(" (truncated, was ").
+				append(length).
+				append(" characters)");
+
+		return bf.toString();
+	}
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public final LikeCondition like(final String value)

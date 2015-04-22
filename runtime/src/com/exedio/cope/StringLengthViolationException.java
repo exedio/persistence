@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.StringField.truncateValue;
+
 import com.exedio.cope.instrument.ConstructorComment;
 
 /**
@@ -85,9 +87,9 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 		bf.append("length violation").
 			append(getItemPhrase()).
-			append(", '").
-			append(value).
-			append("' is too ").
+			append(", ").
+			append(truncateValue(value)).
+			append(" is too ").
 			append((len<min)?"short":"long");
 
 		if(withFeature)
