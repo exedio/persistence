@@ -510,6 +510,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 	static SimpleDateFormat df()
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+		result.setTimeZone(report.getTimeZone());
 		result.setLenient(false);
 		return result;
 	}
