@@ -37,6 +37,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopeSchemaValue;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
@@ -72,13 +73,21 @@ public final class Schedule extends Pattern
 
 	public enum Interval
 	{
-		DAILY(DAY_OF_WEEK)
+		@CopeSchemaValue(7)
+		HOURLY(HOUR_OF_DAY)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
 				cal.set(MILLISECOND, 0);
 				cal.set(SECOND, 0);
 				cal.set(MINUTE, 0);
+			}
+		},
+		DAILY(DAY_OF_WEEK)
+		{
+			@Override void setToFrom(final GregorianCalendar cal)
+			{
+				HOURLY.setToFrom(cal);
 				cal.set(HOUR_OF_DAY, 0);
 			}
 		},

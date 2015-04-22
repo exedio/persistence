@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
+import static com.exedio.cope.pattern.Schedule.Interval.HOURLY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
@@ -197,6 +198,58 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		run(0, "2008/03/11-00:00", 0);
 		assertLogs();
 		assertRuns();
+	}
+
+	public void testHourly()
+	{
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "2008/03/14-05:49:49.888");
+		assertLogs(
+				log("2008/03/14-04:00", "2008/03/14-05:00"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-04:00", "2008/03/14-05:00", "2008/03/14-05:49:49.888"));
+
+		run(0, "2008/03/14-05:49:49.888");
+		assertLogs();
+		assertRuns();
+
+		run(0, "2008/03/14-05:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2008/03/14-06:00");
+		assertLogs(
+				log("2008/03/14-05:00", "2008/03/14-06:00"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-05:00", "2008/03/14-06:00", "2008/03/14-06:00"));
+
+		run(2, "2008/03/14-08:00");
+		assertLogs(
+				log("2008/03/14-06:00", "2008/03/14-07:00", "1/2"),
+				log("2008/03/14-07:00", "2008/03/14-08:00", "2/2"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-06:00", "2008/03/14-07:00", "2008/03/14-08:00"),
+				ern(HOURLY, "2008/03/14-07:00", "2008/03/14-08:00", "2008/03/14-08:00"));
+
+		run(6, "2008/03/14-14:00"); // cross noon
+		assertLogs(
+				log("2008/03/14-08:00", "2008/03/14-09:00", "1/6"),
+				log("2008/03/14-09:00", "2008/03/14-10:00", "2/6"),
+				log("2008/03/14-10:00", "2008/03/14-11:00", "3/6"),
+				log("2008/03/14-11:00", "2008/03/14-12:00", "4/6"),
+				log("2008/03/14-12:00", "2008/03/14-13:00", "5/6"),
+				log("2008/03/14-13:00", "2008/03/14-14:00", "6/6"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-08:00", "2008/03/14-09:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-09:00", "2008/03/14-10:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-10:00", "2008/03/14-11:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-11:00", "2008/03/14-12:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-12:00", "2008/03/14-13:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-13:00", "2008/03/14-14:00", "2008/03/14-14:00"));
 	}
 
 	public void testWeekly()
