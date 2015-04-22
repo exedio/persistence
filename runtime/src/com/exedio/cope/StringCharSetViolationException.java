@@ -89,11 +89,19 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		return
-			"character set violation" + getItemPhrase() +
-			", '" + value + "'" +
-			(withFeature ? (" for "+ feature) : "") +
-			", contains forbidden character '" + character +
-			"' on position " + position + '.';
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append("character set violation").
+			append(getItemPhrase()).
+			append(", '").append(value).append('\'');
+
+		if(withFeature)
+			bf.append(" for ").
+				append(feature);
+
+		bf.append(", contains forbidden character '").append(character).
+			append("' on position ").append(position).append('.');
+
+		return bf.toString();
 	}
 }
