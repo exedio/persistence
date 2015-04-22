@@ -372,7 +372,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/14-00:00", "2008/03/15-00:00", "2008/03/15-00:00"));
 	}
 
-	public void testDaylightSavingShorter()
+	public void testDaylightSavingDailyShorter()
 	{
 		assertEquals(24*3600000, date("2014/03/29-00:00").getTime()-date("2014/03/28-00:00").getTime());
 		assertEquals(24*3600000, date("2014/03/30-00:00").getTime()-date("2014/03/29-00:00").getTime());
@@ -416,7 +416,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
-	public void testDaylightSavingLonger()
+	public void testDaylightSavingDailyLonger()
 	{
 		assertEquals(24*3600000, date("2014/10/25-00:00").getTime()-date("2014/10/24-00:00").getTime());
 		assertEquals(24*3600000, date("2014/10/26-00:00").getTime()-date("2014/10/25-00:00").getTime());
@@ -458,6 +458,56 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		run(0, "2014/10/28-23:59:59.999");
 		assertLogs();
 		assertRuns();
+	}
+
+	public void testDaylightSavingHourlyShorter()
+	{
+		assertEquals(60000, date("2014/03/30-01:58").getTime()-date("2014/03/30-01:57").getTime());
+		assertEquals(60000, date("2014/03/30-01:59").getTime()-date("2014/03/30-01:58").getTime());
+		assertEquals(60000, date("2014/03/30-03:00").getTime()-date("2014/03/30-01:59").getTime());
+		assertEquals(60000, date("2014/03/30-03:01").getTime()-date("2014/03/30-03:00").getTime());
+		assertEquals(60000, date("2014/03/30-03:02").getTime()-date("2014/03/30-03:01").getTime());
+
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "2014/03/30-01:00");
+		assertLogs(
+				log("2014/03/30-00:00", "2014/03/30-01:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-00:00", "2014/03/30-01:00", "2014/03/30-01:00"));
+
+		run(0, "2014/03/30-01:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-03:00");
+		assertLogs(
+				log("2014/03/30-01:00", "2014/03/30-03:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-01:00", "2014/03/30-03:00", "2014/03/30-03:00"));
+
+		run(0, "2014/03/30-03:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-04:00");
+		assertLogs(
+				log("2014/03/30-03:00", "2014/03/30-04:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-03:00", "2014/03/30-04:00", "2014/03/30-04:00"));
+
+		run(0, "2014/03/30-04:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-05:00");
+		assertLogs(
+				log("2014/03/30-04:00", "2014/03/30-05:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-04:00", "2014/03/30-05:00", "2014/03/30-05:00"));
 	}
 
 	public void testReconfigure()
