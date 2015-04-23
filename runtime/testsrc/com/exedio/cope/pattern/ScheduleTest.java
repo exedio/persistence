@@ -325,6 +325,10 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(24*3600000, date("2014/03/30-00:00").getTime()-date("2014/03/29-00:00").getTime());
 		assertEquals(23*3600000, date("2014/03/31-00:00").getTime()-date("2014/03/30-00:00").getTime());
 		assertEquals(24*3600000, date("2014/04/01-00:00").getTime()-date("2014/03/31-00:00").getTime());
+		assertEquals(date("TZ+0100 2014/03/29-00:00"), date("2014/03/29-00:00"));
+		assertEquals(date("TZ+0100 2014/03/30-00:00"), date("2014/03/30-00:00"));
+		assertEquals(date("TZ+0200 2014/03/31-00:00"), date("2014/03/31-00:00"));
+		assertEquals(date("TZ+0200 2014/04/01-00:00"), date("2014/04/01-00:00"));
 
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -365,6 +369,10 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(24*3600000, date("2014/10/26-00:00").getTime()-date("2014/10/25-00:00").getTime());
 		assertEquals(25*3600000, date("2014/10/27-00:00").getTime()-date("2014/10/26-00:00").getTime());
 		assertEquals(24*3600000, date("2014/10/28-00:00").getTime()-date("2014/10/27-00:00").getTime());
+		assertEquals(date("TZ+0200 2014/10/25-00:00"), date("2014/10/25-00:00"));
+		assertEquals(date("TZ+0200 2014/10/26-00:00"), date("2014/10/26-00:00"));
+		assertEquals(date("TZ+0100 2014/10/27-00:00"), date("2014/10/27-00:00"));
+		assertEquals(date("TZ+0100 2014/10/28-00:00"), date("2014/10/28-00:00"));
 
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -507,9 +515,12 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		clock.assertEmpty();
 	}
 
-	static SimpleDateFormat df()
+	static SimpleDateFormat df(final boolean withTimeZone)
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat(
+				withTimeZone
+				? "'TZ'Z yyyy/MM/dd-HH:mm:ss.SSS"
+				:       "yyyy/MM/dd-HH:mm:ss.SSS");
 		result.setTimeZone(report.getTimeZone());
 		result.setLenient(false);
 		return result;
@@ -517,18 +528,19 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 
 	private static final Date date(final String s)
 	{
+		final boolean withTimeZone = s.startsWith("TZ");
 		final String full;
 		switch(s.length())
 		{
-			case 23: full = s; break;
-			case 16: full = s + ":00.000"; break;
+			case 23: case 31: full = s; break;
+			case 16: case 24: full = s + ":00.000"; break;
 			default:
 				throw new RuntimeException(s);
 		}
-		assertEquals(23, full.length());
+		assertEquals(withTimeZone?31:23, full.length());
 		try
 		{
-			return df().parse(full);
+			return df(withTimeZone).parse(full);
 		}
 		catch(final ParseException e)
 		{
@@ -588,7 +600,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		{
 			return
 					item.toString() + "---" +
-					df().format(from) + "---" + df().format(until) + "---" +
+					df(true).format(from) + "---" + df(true).format(until) + "---" +
 					transactionName;
 		}
 	}
@@ -660,7 +672,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		@Override
 		public String toString()
 		{
-			return "" + parent + ' ' + interval + ' ' + df().format(from) + "---" + df().format(until) + "---" + df().format(run);
+			return "" + parent + ' ' + interval + ' ' + df(true).format(from) + "---" + df(true).format(until) + "---" + df(true).format(run);
 		}
 	}
 }
