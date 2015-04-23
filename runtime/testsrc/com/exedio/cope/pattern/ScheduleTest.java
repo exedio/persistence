@@ -510,6 +510,37 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(HOURLY, "2014/03/30-04:00", "2014/03/30-05:00", "2014/03/30-05:00"));
 	}
 
+	public void testDaylightSavingHourlyLonger()
+	{
+		assertEquals(   60000, date("2014/10/26-01:58").getTime()-date("2014/10/26-01:57").getTime());
+		assertEquals(   60000, date("2014/10/26-01:59").getTime()-date("2014/10/26-01:58").getTime());
+		assertEquals(61*60000, date("2014/10/26-02:00").getTime()-date("2014/10/26-01:59").getTime());
+		assertEquals(   60000, date("2014/10/26-02:01").getTime()-date("2014/10/26-02:00").getTime());
+		assertEquals(   60000, date("2014/10/26-02:02").getTime()-date("2014/10/26-02:01").getTime());
+
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "2014/10/26-01:00");
+		assertLogs(
+				log("2014/10/26-00:00", "2014/10/26-01:00"));
+		assertRuns(
+				ern(HOURLY, "2014/10/26-00:00", "2014/10/26-01:00", "2014/10/26-01:00"));
+
+		run(0, "2014/10/26-01:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(2, "2014/10/26-02:00");
+		// TODO -----------------------------------------------------
+		//assertLogs(
+				//log("2014/10/26-01:00", "2014/10/26-02:00"));
+		//assertRuns(
+				//ern(HOURLY, "2014/10/26-01:00", "2014/10/26-02:00", "2014/10/26-02:00"));
+	}
+
 	public void testReconfigure()
 	{
 		assertEquals(DAILY, item.getReportInterval());
