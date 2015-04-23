@@ -467,6 +467,10 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(60000, date("2014/03/30-03:00").getTime()-date("2014/03/30-01:59").getTime());
 		assertEquals(60000, date("2014/03/30-03:01").getTime()-date("2014/03/30-03:00").getTime());
 		assertEquals(60000, date("2014/03/30-03:02").getTime()-date("2014/03/30-03:01").getTime());
+		assertEquals(date("TZ+0100 2014/03/30-01:58"), date("2014/03/30-01:58"));
+		assertEquals(date("TZ+0100 2014/03/30-01:59"), date("2014/03/30-01:59"));
+		assertEquals(date("TZ+0200 2014/03/30-03:00"), date("2014/03/30-03:00"));
+		assertEquals(date("TZ+0200 2014/03/30-03:01"), date("2014/03/30-03:01"));
 
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -517,6 +521,20 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertEquals(61*60000, date("2014/10/26-02:00").getTime()-date("2014/10/26-01:59").getTime());
 		assertEquals(   60000, date("2014/10/26-02:01").getTime()-date("2014/10/26-02:00").getTime());
 		assertEquals(   60000, date("2014/10/26-02:02").getTime()-date("2014/10/26-02:01").getTime());
+		assertEquals(date("TZ+0200 2014/10/26-01:58"), date("2014/10/26-01:58"));
+		assertEquals(date("TZ+0200 2014/10/26-01:59"), date("2014/10/26-01:59"));
+		assertEquals(date("TZ+0100 2014/10/26-02:00"), date("2014/10/26-02:00"));
+		assertEquals(date("TZ+0100 2014/10/26-02:01"), date("2014/10/26-02:01"));
+		assertEquals(60000, date("TZ+0200 2014/10/26-01:58").getTime()-date("TZ+0200 2014/10/26-01:57").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-01:59").getTime()-date("TZ+0200 2014/10/26-01:58").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-01:59").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:01").getTime()-date("TZ+0200 2014/10/26-02:00").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:02").getTime()-date("TZ+0200 2014/10/26-02:01").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:58").getTime()-date("TZ+0200 2014/10/26-02:57").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:59").getTime()-date("TZ+0200 2014/10/26-02:58").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-02:59").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:01").getTime()-date("TZ+0100 2014/10/26-02:00").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:02").getTime()-date("TZ+0100 2014/10/26-02:01").getTime());
 
 		assertEquals(DAILY, item.getReportInterval());
 
