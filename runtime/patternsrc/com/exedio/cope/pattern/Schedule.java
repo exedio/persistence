@@ -256,7 +256,7 @@ public final class Schedule extends Pattern
 	{
 		requireNonNull(ctx, "ctx");
 
-		final Date now = new Date(Clock.currentTimeMillis()); // TODO per item
+		final Date now = Clock.newDate(); // TODO per item
 
 		for(final P item : once(iterateTypeTransactionally(
 				getType().as(parentClass), enabled.equal(true), 1000)))
