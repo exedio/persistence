@@ -551,6 +551,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertLogs();
 		assertRuns();
 
+		assertEquals(1, date("TZ+0200 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-01:59:59.999").getTime());
 		run(2, "TZ+0200 2014/10/26-02:00");
 		assertLogs(
 				log("TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-02:00", "1/2"),
