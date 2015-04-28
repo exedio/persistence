@@ -38,7 +38,7 @@ public final class HsqldbDialect extends Dialect
 			case Types.INTEGER:   return "INTEGER";
 			case Types.BIGINT:    return "BIGINT";
 			case Types.DOUBLE:    return "DOUBLE";
-			case Types.TIMESTAMP: return "TIMESTAMP";
+			case Types.TIMESTAMP: return "TIMESTAMP(3) WITHOUT TIME ZONE"; // TODO fetch precision and time zone from resultSet
 			case Types.DATE:      return "DATE";
 			case Types.BLOB:      return "BLOB";
 			case Types.VARCHAR:

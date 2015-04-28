@@ -69,7 +69,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
-		return "TIMESTAMP";
+		return "TIMESTAMP(3) WITHOUT TIME ZONE";
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
