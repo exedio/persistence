@@ -190,6 +190,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( DefaultInheritanceTest.class );
 		suite.addTestSuite( PolymorphicBoundSelectTest.class );
 		suite.addTestSuite( DeleteAfterUniqueViolationTest.class );
+		suite.addTestSuite( FieldDateDaylightSavingTest.class );
 		suite.addTest( com.exedio.cope.reflect.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.pattern.PackageTest.suite() );
 		suite.addTest( com.exedio.cope.util.PackageTest.suite() );
