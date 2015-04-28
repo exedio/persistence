@@ -73,6 +73,43 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		}
 	}
 
+	public void testAutumnEnd() throws ParseException
+	{
+		final Date cutoff = date("2014/10/26 02:00:00.000 (+0100)");
+		assertDate(cutoff, cutoff);
+
+		{
+			final Date minus1000 = date("2014/10/26 02:59:59.000 (+0200)");
+			assertDiff(-1000, cutoff, minus1000);
+			assertDate(minus1000, natve ? date(minus1000, 3600000) : minus1000); // TODO bug
+		}
+		{
+			final Date minus2 = date("2014/10/26 02:59:59.998 (+0200)");
+			assertDiff(-2, cutoff, minus2);
+			assertDate(minus2, natve ? date(minus2, 3600000) : minus2); // TODO bug
+		}
+		{
+			final Date minus1 = date("2014/10/26 02:59:59.999 (+0200)");
+			assertDiff(-1, cutoff, minus1);
+			assertDate(minus1, natve ? date(minus1, 3600000) : minus1); // TODO bug
+		}
+		{
+			final Date plus1 = date("2014/10/26 02:00:00.001 (+0100)");
+			assertDiff(1, cutoff, plus1);
+			assertDate(plus1, plus1);
+		}
+		{
+			final Date plus2 = date("2014/10/26 02:00:00.002 (+0100)");
+			assertDiff(2, cutoff, plus2);
+			assertDate(plus2, plus2);
+		}
+		{
+			final Date plus1000 = date("2014/10/26 02:00:01.000 (+0100)");
+			assertDiff(1000, cutoff, plus1000);
+			assertDate(plus1000, plus1000);
+		}
+	}
+
 
 	private static final Date date(final Date date, final int offset)
 	{
