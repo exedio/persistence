@@ -76,7 +76,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	public void testAutumnStart() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0200)");
-		assertDate(cutoff, natve ? date(cutoff, 3600000) : cutoff); // TODO bug
+		assertDate(cutoff, 3600000); // TODO bug
 
 		{
 			final Date minus1000 = date("2014/10/26 01:59:59.000 (+0200)");
@@ -96,17 +96,17 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		{
 			final Date plus1 = date("2014/10/26 02:00:00.001 (+0200)");
 			assertDiff(1, cutoff, plus1);
-			assertDate(plus1, natve ? date(plus1, 3600000) : plus1); // TODO bug
+			assertDate(plus1, 3600000); // TODO bug
 		}
 		{
 			final Date plus2 = date("2014/10/26 02:00:00.002 (+0200)");
 			assertDiff(2, cutoff, plus2);
-			assertDate(plus2, natve ? date(plus2, 3600000) : plus2); // TODO bug
+			assertDate(plus2, 3600000); // TODO bug
 		}
 		{
 			final Date plus1000 = date("2014/10/26 02:00:01.000 (+0200)");
 			assertDiff(1000, cutoff, plus1000);
-			assertDate(plus1000, natve ? date(plus1000, 3600000) : plus1000); // TODO bug
+			assertDate(plus1000, 3600000); // TODO bug
 		}
 	}
 
@@ -118,17 +118,17 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		{
 			final Date minus1000 = date("2014/10/26 02:59:59.000 (+0200)");
 			assertDiff(-1000, cutoff, minus1000);
-			assertDate(minus1000, natve ? date(minus1000, 3600000) : minus1000); // TODO bug
+			assertDate(minus1000, 3600000); // TODO bug
 		}
 		{
 			final Date minus2 = date("2014/10/26 02:59:59.998 (+0200)");
 			assertDiff(-2, cutoff, minus2);
-			assertDate(minus2, natve ? date(minus2, 3600000) : minus2); // TODO bug
+			assertDate(minus2, 3600000); // TODO bug
 		}
 		{
 			final Date minus1 = date("2014/10/26 02:59:59.999 (+0200)");
 			assertDiff(-1, cutoff, minus1);
-			assertDate(minus1, natve ? date(minus1, 3600000) : minus1); // TODO bug
+			assertDate(minus1, 3600000); // TODO bug
 		}
 		{
 			final Date plus1 = date("2014/10/26 02:00:00.001 (+0100)");
@@ -148,11 +148,6 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	}
 
 
-	private static final Date date(final Date date, final int offset)
-	{
-		return new Date(date.getTime()+offset);
-	}
-
 	private static final Date date(final String s) throws ParseException
 	{
 		return df().parse(s);
@@ -168,13 +163,17 @@ public class FieldDateDaylightSavingTest extends FieldTest
 
 	private void assertDate(final Date date)
 	{
-		assertDate(date, date);
+		assertDate(date, 0);
 	}
 
-	private void assertDate(final Date expectedSet, final Date expectedGet)
+	private void assertDate(final Date expectedSet, final int offset)
 	{
 		assertEquals(Date.class, expectedSet.getClass());
-		assertEquals(Date.class, expectedGet.getClass());
+
+		final Date expectedGet =
+				(natve && offset!=0)
+				? new Date(expectedSet.getTime()+offset)
+				: expectedSet;
 
 		item.setSomeDate(expectedSet);
 		restartTransaction();
