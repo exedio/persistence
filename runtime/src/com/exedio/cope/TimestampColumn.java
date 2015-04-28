@@ -52,8 +52,19 @@ final class TimestampColumn extends Column
 			throws SQLException
 	{
 		final Timestamp ts = resultSet.getTimestamp(columnIndex);
-		//System.out.println("TimestampColumn.load "+columnIndex+" "+ts);
-		row.put(this, (ts!=null) ? Long.valueOf(ts.getTime()) : null);
+
+		final Long rowValue;
+		if(ts==null)
+		{
+			rowValue = null;
+		}
+		else
+		{
+			assert noNanos(ts) : ts;
+			rowValue = Long.valueOf(ts.getTime());
+		}
+
+		row.put(this, rowValue);
 	}
 
 	@Override
@@ -74,6 +85,16 @@ final class TimestampColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (cache==null) ? null : new Timestamp(((Long)cache).longValue());
+		if(cache==null)
+			return null;
+
+		final Timestamp ts = new Timestamp(((Long)cache).longValue());
+		assert noNanos(ts) : ts;
+		return ts;
+	}
+
+	private static boolean noNanos(final Timestamp ts)
+	{
+		return (ts.getNanos()%1000000)==0;
 	}
 }
