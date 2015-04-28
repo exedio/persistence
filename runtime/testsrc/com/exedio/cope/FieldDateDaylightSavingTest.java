@@ -39,7 +39,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	public void testSpring() throws ParseException
 	{
 		final Date cutoff = date("2014/3/30 02:00:00.000 (+0100)");
-		assertDate(cutoff, cutoff);
+		assertDate(cutoff);
 
 		{
 			final Date minus1000 = date("2014/3/30 01:59:59.000 (+0100)");
@@ -59,17 +59,17 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		{
 			final Date plus1 = date("2014/3/30 03:00:00.001 (+0200)");
 			assertDiff(1, cutoff, plus1);
-			assertDate(plus1, plus1);
+			assertDate(plus1);
 		}
 		{
 			final Date plus2 = date("2014/3/30 03:00:00.002 (+0200)");
 			assertDiff(2, cutoff, plus2);
-			assertDate(plus2, plus2);
+			assertDate(plus2);
 		}
 		{
 			final Date plus1000 = date("2014/3/30 03:00:01.000 (+0200)");
 			assertDiff(1000, cutoff, plus1000);
-			assertDate(plus1000, plus1000);
+			assertDate(plus1000);
 		}
 	}
 
@@ -113,7 +113,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	public void testAutumnEnd() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0100)");
-		assertDate(cutoff, cutoff);
+		assertDate(cutoff);
 
 		{
 			final Date minus1000 = date("2014/10/26 02:59:59.000 (+0200)");
@@ -133,17 +133,17 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		{
 			final Date plus1 = date("2014/10/26 02:00:00.001 (+0100)");
 			assertDiff(1, cutoff, plus1);
-			assertDate(plus1, plus1);
+			assertDate(plus1);
 		}
 		{
 			final Date plus2 = date("2014/10/26 02:00:00.002 (+0100)");
 			assertDiff(2, cutoff, plus2);
-			assertDate(plus2, plus2);
+			assertDate(plus2);
 		}
 		{
 			final Date plus1000 = date("2014/10/26 02:00:01.000 (+0100)");
 			assertDiff(1000, cutoff, plus1000);
-			assertDate(plus1000, plus1000);
+			assertDate(plus1000);
 		}
 	}
 
