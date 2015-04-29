@@ -26,6 +26,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.util.TimeZoneStrict;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
@@ -42,7 +43,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TimeZone;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
@@ -60,7 +60,7 @@ public class ReviseTest extends CopeAssert
 	private static SimpleDateFormat df()
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-		result.setTimeZone(TimeZone.getTimeZone("UTC"));
+		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 		return result;
 	}
 

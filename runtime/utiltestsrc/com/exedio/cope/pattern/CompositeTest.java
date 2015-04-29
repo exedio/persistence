@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
@@ -37,7 +38,6 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class CompositeTest extends CopeAssert
 {
@@ -497,16 +497,9 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDate());
 		assertEquals(null, value.getDay());
 
-		value.touchDay(tz("Europe/Berlin"));
+		value.touchDay(getTimeZone("Europe/Berlin"));
 		assertEquals(null, value.getDate());
-		assertEquals(new Day(tz("Europe/Berlin")), value.getDay());
-	}
-
-	private static final TimeZone tz(final String ID)
-	{
-		final TimeZone result = TimeZone.getTimeZone(ID);
-		assertEquals(ID, result.getID());
-		return result;
+		assertEquals(new Day(getTimeZone("Europe/Berlin")), value.getDay());
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage

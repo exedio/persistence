@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.util.TimeZoneStrict;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,7 +33,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TimeZone;
 
 public abstract class RevisionInfo
 {
@@ -84,7 +84,7 @@ public abstract class RevisionInfo
 	private static SimpleDateFormat df()
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-		result.setTimeZone(TimeZone.getTimeZone("UTC"));
+		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 		return result;
 	}
 

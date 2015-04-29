@@ -22,13 +22,12 @@ import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.DayItem.day;
 import static com.exedio.cope.DayItem.optionalDay;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static java.util.TimeZone.getTimeZone;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
-import java.util.TimeZone;
 
 public class DayFieldTest extends AbstractRuntimeTest
 {
@@ -137,10 +136,10 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(optionalDay, item.getOptionalDay());
 
 		clock.add(988888888888l);
-		item.touchOptionalDay(tz("Europe/Berlin"));
+		item.touchOptionalDay(getTimeZone("Europe/Berlin"));
 		clock.assertEmpty();
 		clock.add(988888888888l);
-		assertEquals(new Day(tz("Europe/Berlin")), item.getOptionalDay());
+		assertEquals(new Day(getTimeZone("Europe/Berlin")), item.getOptionalDay());
 
 		item.setOptionalDay(null);
 		assertEquals(null, item.getOptionalDay());
@@ -175,12 +174,5 @@ public class DayFieldTest extends AbstractRuntimeTest
 	public void testSchema()
 	{
 		assertSchema();
-	}
-
-	private static final TimeZone tz(final String ID)
-	{
-		final TimeZone result = getTimeZone(ID);
-		assertEquals(ID, result.getID());
-		return result;
 	}
 }

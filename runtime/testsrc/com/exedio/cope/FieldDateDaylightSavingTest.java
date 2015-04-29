@@ -18,12 +18,11 @@
 
 package com.exedio.cope;
 
-import static java.util.TimeZone.getTimeZone;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class FieldDateDaylightSavingTest extends FieldTest
 {
@@ -156,7 +155,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	private static final SimpleDateFormat df()
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS (z)");
-		result.setTimeZone(tz("Europe/Berlin"));
+		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;
 	}
@@ -189,13 +188,5 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	private static void assertDiff(final long diff, final Date d1, final Date d2)
 	{
 		assertEquals(diff, d2.getTime()-d1.getTime());
-	}
-
-	private static final TimeZone tz(final String ID)
-	{
-		// TODO use com.exedio.cope.util.TimeZoneStrict when available
-		final TimeZone result = getTimeZone(ID);
-		assertEquals(ID, result.getID());
-		return result;
 	}
 }
