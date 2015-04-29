@@ -73,13 +73,7 @@ final class TimestampColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-		{
-			// Don't use a static instance,
-			// since then access must be synchronized
-			final SimpleDateFormat df = new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
-
-			return df.format(new Date(((Long)cache).longValue()));
-		}
+			return newLiteralFormat().format(new Date(((Long)cache).longValue()));
 	}
 
 	@Override
@@ -96,5 +90,14 @@ final class TimestampColumn extends Column
 	private static boolean noNanos(final Timestamp ts)
 	{
 		return (ts.getNanos()%1000000)==0;
+	}
+
+	/**
+	 * Don't use a static instance,
+	 * since then access must be synchronized
+	 */
+	static final SimpleDateFormat newLiteralFormat()
+	{
+		return new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
 	}
 }

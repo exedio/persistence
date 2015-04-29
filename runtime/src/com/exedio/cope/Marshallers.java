@@ -25,7 +25,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -175,9 +174,7 @@ final class Marshallers
 				@Override
 				String marshalLiteral(final Date value)
 				{
-					// Don't use a static instance,
-					// since then access must be synchronized
-					return new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}").format(value);
+					return TimestampColumn.newLiteralFormat().format(value);
 				}
 
 				@Override
