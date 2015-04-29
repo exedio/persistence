@@ -78,9 +78,12 @@ public final class Schedule extends Pattern
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
-				cal.set(MILLISECOND, 0);
-				cal.set(SECOND, 0);
-				cal.set(MINUTE, 0);
+				if(cal.get(MILLISECOND)!=0)
+					cal.set(MILLISECOND, 0);
+				if(cal.get(SECOND)!=0)
+					cal.set(SECOND, 0);
+				if(cal.get(MINUTE)!=0)
+					cal.set(MINUTE, 0);
 			}
 		},
 		DAILY(DAY_OF_WEEK)
