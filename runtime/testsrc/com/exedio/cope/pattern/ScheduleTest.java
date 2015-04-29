@@ -798,8 +798,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 			this.from = requireNonNull(from);
 			this.until = requireNonNull(until);
 			this.run = requireNonNull(run);
-			// TODO DO NOT MERGE !!!
-			//assertTrue(from.before(until));
+			assertTrue(from.before(until));
 			assertTrue(!run.before(until));
 		}
 
