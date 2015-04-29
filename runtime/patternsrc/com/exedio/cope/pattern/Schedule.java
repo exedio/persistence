@@ -78,19 +78,27 @@ public final class Schedule extends Pattern
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
-				if(cal.get(MILLISECOND)!=0)
-					cal.set(MILLISECOND, 0);
-				if(cal.get(SECOND)!=0)
-					cal.set(SECOND, 0);
-				if(cal.get(MINUTE)!=0)
-					cal.set(MINUTE, 0);
+				setIf(cal, MILLISECOND);
+				setIf(cal, SECOND);
+				setIf(cal, MINUTE);
+			}
+
+			/**
+			 * This is a workaround for a bug in GregorianCalendar.
+			 */
+			private void setIf(final GregorianCalendar cal, final int field)
+			{
+				if(cal.get(field)!=0)
+					cal.set(field, 0);
 			}
 		},
 		DAILY(DAY_OF_WEEK)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
-				HOURLY.setToFrom(cal);
+				cal.set(MILLISECOND, 0);
+				cal.set(SECOND, 0);
+				cal.set(MINUTE, 0);
 				cal.set(HOUR_OF_DAY, 0);
 			}
 		},
