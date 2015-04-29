@@ -137,9 +137,7 @@ final class Executor
 		{
 			try(PreparedStatement prepared = connection.prepareStatement(sqlText))
 			{
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
+				statement.setParameters(prepared);
 
 				nanoPrepared = takeTimes ? nanoTime() : 0;
 				try(ResultSet resultSet = prepared.executeQuery())
@@ -229,9 +227,7 @@ final class Executor
 		{
 			try(PreparedStatement prepared = connection.prepareStatement(statement.getText()))
 			{
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
+				statement.setParameters(prepared);
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 				rows = prepared.executeUpdate();
 			}
@@ -306,9 +302,7 @@ final class Executor
 		{
 			try(PreparedStatement prepared = connection.prepareStatement(sqlText, RETURN_GENERATED_KEYS))
 			{
-				int parameterIndex = 1;
-				for(final Object p : statement.parameters)
-					prepared.setObject(parameterIndex++, p);
+				statement.setParameters(prepared);
 				nanoPrepared = listener!=null ? nanoTime() : 0;
 
 				prepared.executeUpdate();

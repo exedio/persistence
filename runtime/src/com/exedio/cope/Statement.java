@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.Arrays;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +39,7 @@ final class Statement
 
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
-	final ArrayList<Object> parameters;
+	private final ArrayList<Object> parameters;
 	final TC tc;
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
@@ -341,6 +343,13 @@ final class Statement
 	String getText()
 	{
 		return text.toString();
+	}
+
+	void setParameters(final PreparedStatement prepared) throws SQLException
+	{
+		int parameterIndex = 1;
+		for(final Object p : parameters)
+			prepared.setObject(parameterIndex++, p);
 	}
 
 	@Override
