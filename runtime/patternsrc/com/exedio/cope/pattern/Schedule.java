@@ -341,6 +341,12 @@ public final class Schedule extends Pattern
 			final Date now,
 			final JobContext ctx)
 	{
+		assert from.before(until);
+		assert !now.before(until);
+		assert count>0 : count;
+		assert total>0 : total;
+		assert count<=total : "" + count + '/' + total;
+
 		ctx.stopIfRequested();
 		final RunContext runCtx = new RunContext(ctx);
 		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
