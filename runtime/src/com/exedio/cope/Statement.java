@@ -22,6 +22,7 @@ import com.exedio.cope.misc.Arrays;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -349,7 +350,14 @@ final class Statement
 	{
 		int parameterIndex = 1;
 		for(final Object p : parameters)
-			prepared.setObject(parameterIndex++, p);
+		{
+			if(p instanceof Timestamp)
+				prepared.setTimestamp(parameterIndex, (Timestamp)p, TimestampColumn.newGMTCalendar());
+			else
+				prepared.setObject(parameterIndex, p);
+
+			parameterIndex++;
+		}
 	}
 
 	@Override
