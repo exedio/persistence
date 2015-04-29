@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
@@ -211,13 +212,11 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
 					"property " + propKey + " in MediaUrlFingerOffsetPropertiesTest has invalid value, expected an integer greater or equal 0, but got -1.",
 					e.getMessage());
-			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
 	}
 
