@@ -167,7 +167,7 @@ final class Marshallers
 				@Override
 				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Timestamp cell = row.getTimestamp(columnIndex);
+					final Timestamp cell = row.getTimestamp(columnIndex, TimestampColumn.newGMTCalendar());
 					return (cell!=null) ? new Date(cell.getTime()) : null;
 				}
 

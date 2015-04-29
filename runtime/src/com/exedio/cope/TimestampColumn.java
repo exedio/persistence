@@ -18,11 +18,16 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.TimeZoneStrict;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 final class TimestampColumn extends Column
 {
@@ -51,7 +56,7 @@ final class TimestampColumn extends Column
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
-		final Timestamp ts = resultSet.getTimestamp(columnIndex);
+		final Timestamp ts = resultSet.getTimestamp(columnIndex, newGMTCalendar());
 
 		final Long rowValue;
 		if(ts==null)
@@ -98,6 +103,17 @@ final class TimestampColumn extends Column
 	 */
 	static final SimpleDateFormat newLiteralFormat()
 	{
-		return new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
+		final SimpleDateFormat result =
+				new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
+		result.setTimeZone(GMT);
+		result.setLenient(false);
+		return result;
 	}
+
+	static final Calendar newGMTCalendar()
+	{
+		return new GregorianCalendar(GMT, Locale.ENGLISH);
+	}
+
+	private static final TimeZone GMT = TimeZoneStrict.getTimeZone("GMT");
 }
