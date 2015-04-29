@@ -151,21 +151,19 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		return result;
 	}
 
-	private void assertDate(final Date expectedSet)
+	private void assertDate(final Date date)
 	{
-		assertEquals(Date.class, expectedSet.getClass());
+		assertEquals(Date.class, date.getClass());
 
-		final Date expectedGet = expectedSet; // TODO cleanup
-
-		item.setSomeDate(expectedSet);
+		item.setSomeDate(date);
 		restartTransaction();
 		final Date actual = item.getSomeDate();
 		assertEquals(Date.class, actual.getClass());
 		assertEquals(
-				"" + (actual.getTime()-expectedGet.getTime()) +
-				" " + df().format(expectedGet) +
+				"" + (actual.getTime()-date.getTime()) +
+				" " + df().format(date) +
 				" " + df().format(actual),
-				expectedGet, actual);
+				date, actual);
 	}
 
 	private static void assertDiff(final long diff, final Date d1, final Date d2)
