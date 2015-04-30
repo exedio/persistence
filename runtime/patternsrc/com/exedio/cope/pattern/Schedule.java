@@ -136,6 +136,8 @@ public final class Schedule extends Pattern
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
 
+	private static final int DELAY_MILLISECONDS = 5 * 60 * 1000; // 5 minutes
+
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
 
@@ -318,7 +320,7 @@ public final class Schedule extends Pattern
 		}
 
 		final GregorianCalendar cal = newGregorianCalendar();
-		cal.setTime(now);
+		cal.setTimeInMillis(now.getTime() - DELAY_MILLISECONDS);
 		interval.setToFrom(cal);
 		assert !cal.getTime().after(now);
 
