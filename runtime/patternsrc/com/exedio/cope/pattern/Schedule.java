@@ -144,7 +144,9 @@ public final class Schedule extends Pattern
 
 	public GregorianCalendar newGregorianCalendar()
 	{
-		return new GregorianCalendar(timeZone, locale);
+		final GregorianCalendar result = new GregorianCalendar(timeZone, locale);
+		result.setLenient(false);
+		return result;
 	}
 
 	@Override
