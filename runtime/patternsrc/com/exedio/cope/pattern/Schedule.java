@@ -85,6 +85,8 @@ public final class Schedule extends Pattern
 
 			/**
 			 * This is a workaround for a bug in GregorianCalendar.
+			 * Calling {@link java.util.Calendar#set(int, int)} instead
+			 * exposes a bug that adds another hour during autumn DST switch.
 			 */
 			private void setIf(final GregorianCalendar cal, final int field)
 			{
