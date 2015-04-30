@@ -107,6 +107,7 @@ public class ScheduleModelTest extends CopeAssert
 		assertSame(Locale.GERMAN, report.getLocale());
 		final GregorianCalendar cal = report.newGregorianCalendar();
 		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
+		assertEquals(true, cal.isLenient());
 	}
 
 	public void testTimeZoneNull()
