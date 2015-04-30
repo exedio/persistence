@@ -125,9 +125,10 @@ public class ScheduleModelTest extends CopeAssert
 
 	public void testLocaleNull()
 	{
+		final TimeZone tz = TimeZone.getDefault();
 		try
 		{
-			new Schedule(TimeZone.getDefault(), null);
+			new Schedule(tz, null);
 			fail();
 		}
 		catch(final NullPointerException e)
