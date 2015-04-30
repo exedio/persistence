@@ -37,6 +37,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopeSchemaValue;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
@@ -72,6 +73,26 @@ public final class Schedule extends Pattern
 
 	public enum Interval
 	{
+		@CopeSchemaValue(7)
+		HOURLY(HOUR_OF_DAY)
+		{
+			@Override void setToFrom(final GregorianCalendar cal)
+			{
+				setIf(cal, MILLISECOND);
+				setIf(cal, SECOND);
+				setIf(cal, MINUTE);
+			}
+
+			/**
+			 * This is a workaround for a bug in GregorianCalendar.
+			 * Calling {@link java.util.Calendar#set(int, int)} instead
+			 * exposes a bug that adds another hour during autumn DST switch.
+			 */
+			private void setIf(final GregorianCalendar cal, final int field)
+			{
+				cal.add(field, -cal.get(field));
+			}
+		},
 		DAILY(DAY_OF_WEEK)
 		{
 			@Override void setToFrom(final GregorianCalendar cal)

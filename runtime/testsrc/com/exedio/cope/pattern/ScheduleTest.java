@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
+import static com.exedio.cope.pattern.Schedule.Interval.HOURLY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
@@ -199,6 +200,58 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
+	public void testHourly()
+	{
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "2008/03/14-05:49:49.888");
+		assertLogs(
+				log("2008/03/14-04:00", "2008/03/14-05:00"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-04:00", "2008/03/14-05:00", "2008/03/14-05:49:49.888"));
+
+		run(0, "2008/03/14-05:49:49.888");
+		assertLogs();
+		assertRuns();
+
+		run(0, "2008/03/14-05:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2008/03/14-06:00");
+		assertLogs(
+				log("2008/03/14-05:00", "2008/03/14-06:00"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-05:00", "2008/03/14-06:00", "2008/03/14-06:00"));
+
+		run(2, "2008/03/14-08:00");
+		assertLogs(
+				log("2008/03/14-06:00", "2008/03/14-07:00", "1/2"),
+				log("2008/03/14-07:00", "2008/03/14-08:00", "2/2"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-06:00", "2008/03/14-07:00", "2008/03/14-08:00"),
+				ern(HOURLY, "2008/03/14-07:00", "2008/03/14-08:00", "2008/03/14-08:00"));
+
+		run(6, "2008/03/14-14:00"); // cross noon
+		assertLogs(
+				log("2008/03/14-08:00", "2008/03/14-09:00", "1/6"),
+				log("2008/03/14-09:00", "2008/03/14-10:00", "2/6"),
+				log("2008/03/14-10:00", "2008/03/14-11:00", "3/6"),
+				log("2008/03/14-11:00", "2008/03/14-12:00", "4/6"),
+				log("2008/03/14-12:00", "2008/03/14-13:00", "5/6"),
+				log("2008/03/14-13:00", "2008/03/14-14:00", "6/6"));
+		assertRuns(
+				ern(HOURLY, "2008/03/14-08:00", "2008/03/14-09:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-09:00", "2008/03/14-10:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-10:00", "2008/03/14-11:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-11:00", "2008/03/14-12:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-12:00", "2008/03/14-13:00", "2008/03/14-14:00"),
+				ern(HOURLY, "2008/03/14-13:00", "2008/03/14-14:00", "2008/03/14-14:00"));
+	}
+
 	public void testWeekly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
@@ -319,7 +372,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/14-00:00", "2008/03/15-00:00", "2008/03/15-00:00"));
 	}
 
-	public void testDaylightSavingShorter()
+	public void testDaylightSavingDailyShorter()
 	{
 		assertEquals(24*3600000, date("2014/03/29-00:00").getTime()-date("2014/03/28-00:00").getTime());
 		assertEquals(24*3600000, date("2014/03/30-00:00").getTime()-date("2014/03/29-00:00").getTime());
@@ -363,7 +416,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
-	public void testDaylightSavingLonger()
+	public void testDaylightSavingDailyLonger()
 	{
 		assertEquals(24*3600000, date("2014/10/25-00:00").getTime()-date("2014/10/24-00:00").getTime());
 		assertEquals(24*3600000, date("2014/10/26-00:00").getTime()-date("2014/10/25-00:00").getTime());
@@ -405,6 +458,126 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		run(0, "2014/10/28-23:59:59.999");
 		assertLogs();
 		assertRuns();
+	}
+
+	public void testDaylightSavingHourlyShorter()
+	{
+		assertEquals(60000, date("2014/03/30-01:58").getTime()-date("2014/03/30-01:57").getTime());
+		assertEquals(60000, date("2014/03/30-01:59").getTime()-date("2014/03/30-01:58").getTime());
+		assertEquals(60000, date("2014/03/30-03:00").getTime()-date("2014/03/30-01:59").getTime());
+		assertEquals(60000, date("2014/03/30-03:01").getTime()-date("2014/03/30-03:00").getTime());
+		assertEquals(60000, date("2014/03/30-03:02").getTime()-date("2014/03/30-03:01").getTime());
+		assertEquals(date("TZ+0100 2014/03/30-01:58"), date("2014/03/30-01:58"));
+		assertEquals(date("TZ+0100 2014/03/30-01:59"), date("2014/03/30-01:59"));
+		assertEquals(date("TZ+0200 2014/03/30-03:00"), date("2014/03/30-03:00"));
+		assertEquals(date("TZ+0200 2014/03/30-03:01"), date("2014/03/30-03:01"));
+
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "2014/03/30-01:00");
+		assertLogs(
+				log("2014/03/30-00:00", "2014/03/30-01:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-00:00", "2014/03/30-01:00", "2014/03/30-01:00"));
+
+		run(0, "2014/03/30-01:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-03:00");
+		assertLogs(
+				log("2014/03/30-01:00", "2014/03/30-03:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-01:00", "2014/03/30-03:00", "2014/03/30-03:00"));
+
+		run(0, "2014/03/30-03:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-04:00");
+		assertLogs(
+				log("2014/03/30-03:00", "2014/03/30-04:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-03:00", "2014/03/30-04:00", "2014/03/30-04:00"));
+
+		run(0, "2014/03/30-04:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "2014/03/30-05:00");
+		assertLogs(
+				log("2014/03/30-04:00", "2014/03/30-05:00"));
+		assertRuns(
+				ern(HOURLY, "2014/03/30-04:00", "2014/03/30-05:00", "2014/03/30-05:00"));
+	}
+
+	public void testDaylightSavingHourlyLonger()
+	{
+		assertEquals(   60000, date("2014/10/26-01:58").getTime()-date("2014/10/26-01:57").getTime());
+		assertEquals(   60000, date("2014/10/26-01:59").getTime()-date("2014/10/26-01:58").getTime());
+		assertEquals(61*60000, date("2014/10/26-02:00").getTime()-date("2014/10/26-01:59").getTime());
+		assertEquals(   60000, date("2014/10/26-02:01").getTime()-date("2014/10/26-02:00").getTime());
+		assertEquals(   60000, date("2014/10/26-02:02").getTime()-date("2014/10/26-02:01").getTime());
+		assertEquals(date("TZ+0200 2014/10/26-01:58"), date("2014/10/26-01:58"));
+		assertEquals(date("TZ+0200 2014/10/26-01:59"), date("2014/10/26-01:59"));
+		assertEquals(date("TZ+0100 2014/10/26-02:00"), date("2014/10/26-02:00"));
+		assertEquals(date("TZ+0100 2014/10/26-02:01"), date("2014/10/26-02:01"));
+		assertEquals(60000, date("TZ+0200 2014/10/26-01:58").getTime()-date("TZ+0200 2014/10/26-01:57").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-01:59").getTime()-date("TZ+0200 2014/10/26-01:58").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-01:59").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:01").getTime()-date("TZ+0200 2014/10/26-02:00").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:02").getTime()-date("TZ+0200 2014/10/26-02:01").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:58").getTime()-date("TZ+0200 2014/10/26-02:57").getTime());
+		assertEquals(60000, date("TZ+0200 2014/10/26-02:59").getTime()-date("TZ+0200 2014/10/26-02:58").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-02:59").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:01").getTime()-date("TZ+0100 2014/10/26-02:00").getTime());
+		assertEquals(60000, date("TZ+0100 2014/10/26-02:02").getTime()-date("TZ+0100 2014/10/26-02:01").getTime());
+
+		assertEquals(DAILY, item.getReportInterval());
+
+		item.setReportInterval(HOURLY);
+		assertEquals(HOURLY, item.getReportInterval());
+
+		run(1, "TZ+0200 2014/10/26-01:00");
+		assertLogs(
+				log("TZ+0200 2014/10/26-00:00", "TZ+0200 2014/10/26-01:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0200 2014/10/26-00:00", "TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-01:00"));
+
+		run(0, "TZ+0200 2014/10/26-01:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		assertEquals(1, date("TZ+0200 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-01:59:59.999").getTime());
+		run(1, "TZ+0200 2014/10/26-02:00");
+		assertLogs(
+				log("TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-02:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-02:00", "TZ+0200 2014/10/26-02:00"));
+
+		run(0, "TZ+0200 2014/10/26-02:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		assertEquals(3600000, date("TZ+0100 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-02:00").getTime());
+		run(1, "TZ+0100 2014/10/26-02:00");
+		assertLogs(
+				log("TZ+0200 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0200 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00"));
+
+		run(0, "TZ+0100 2014/10/26-02:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "TZ+0100 2014/10/26-03:00");
+		assertLogs(
+				log("TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00", "TZ+0100 2014/10/26-03:00"));
 	}
 
 	public void testReconfigure()
