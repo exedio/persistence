@@ -557,6 +557,27 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				log("TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-02:00"));
 		assertRuns(
 				ern(HOURLY, "TZ+0200 2014/10/26-01:00", "TZ+0200 2014/10/26-02:00", "TZ+0200 2014/10/26-02:00"));
+
+		run(0, "TZ+0200 2014/10/26-02:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		assertEquals(3600000, date("TZ+0100 2014/10/26-02:00").getTime()-date("TZ+0200 2014/10/26-02:00").getTime());
+		run(1, "TZ+0100 2014/10/26-02:00");
+		assertLogs(
+				log("TZ+0200 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0200 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-02:00"));
+
+		run(0, "TZ+0100 2014/10/26-02:59:59.999");
+		assertLogs();
+		assertRuns();
+
+		run(1, "TZ+0100 2014/10/26-03:00");
+		assertLogs(
+				log("TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00"));
+		assertRuns(
+				ern(HOURLY, "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00", "TZ+0100 2014/10/26-03:00"));
 	}
 
 	public void testReconfigure()

@@ -88,8 +88,7 @@ public final class Schedule extends Pattern
 			 */
 			private void setIf(final GregorianCalendar cal, final int field)
 			{
-				if(cal.get(field)!=0)
-					cal.set(field, 0);
+				cal.add(field, -cal.get(field));
 			}
 		},
 		DAILY(DAY_OF_WEEK)
