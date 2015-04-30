@@ -297,6 +297,7 @@ public final class Schedule extends Pattern
 		final GregorianCalendar cal = newGregorianCalendar();
 		cal.setTime(now);
 		interval.setToFrom(cal);
+		assert !cal.getTime().after(now);
 
 		if(lastUntil==null)
 		{
