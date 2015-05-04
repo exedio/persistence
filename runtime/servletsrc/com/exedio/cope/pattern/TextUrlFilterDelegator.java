@@ -47,9 +47,6 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	private final String pasteStart;
 	private final String pasteStop;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this);
-
 	public TextUrlFilterDelegator(
 			final Media raw,
 			final TextUrlFilter delegate,
@@ -66,7 +63,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
-		addSource(raw, "Raw", annotationProxy);
+		addSource(raw, "Raw", new MediaPathAnnotationProxy(this));
 	}
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
