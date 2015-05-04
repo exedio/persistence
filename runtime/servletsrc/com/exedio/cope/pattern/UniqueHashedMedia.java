@@ -93,7 +93,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.toFinal();
-		addSource(this.media, "media", ComputedElement.get());
+		addSource(this.media, "media", new MediaPathAnnotationProxy(this, true));
 		final StringField hashField = new StringField().
 				toFinal().unique().
 				lengthExact(digestStringLength).

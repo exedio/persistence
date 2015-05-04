@@ -21,20 +21,27 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Pattern;
+import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ComputedElement;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
 final class MediaPathAnnotationProxy implements AnnotatedElement
 {
 	private final Pattern source;
+	private final boolean computed;
 
-	MediaPathAnnotationProxy(final Pattern source)
+	MediaPathAnnotationProxy(final Pattern source, final boolean computed)
 	{
 		this.source = requireNonNull(source);
+		this.computed = computed;
 	}
 
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
+		if(computed && Computed.class==annotationClass)
+			return true;
+
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? source.isAnnotationPresent(annotationClass)
@@ -43,6 +50,9 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
+		if(computed && Computed.class==annotationClass)
+			return annotationClass.cast(ComputedElement.get().getAnnotation(Computed.class));
+
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? source.getAnnotation(annotationClass)

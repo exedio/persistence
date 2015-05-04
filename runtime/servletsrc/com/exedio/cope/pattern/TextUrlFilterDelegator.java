@@ -63,7 +63,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
-		addSource(raw, "Raw", new MediaPathAnnotationProxy(this));
+		addSource(raw, "Raw", new MediaPathAnnotationProxy(this, false));
 	}
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))

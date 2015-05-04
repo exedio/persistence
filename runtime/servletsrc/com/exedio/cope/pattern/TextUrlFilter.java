@@ -63,7 +63,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	final StringField pasteKey;
 	final Media pasteValue;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this);
+	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this, false);
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 

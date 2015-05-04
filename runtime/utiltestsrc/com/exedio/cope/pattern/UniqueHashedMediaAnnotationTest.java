@@ -34,7 +34,7 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.simple,            PreventUrlGuessing.class);
 		assertPresent(false, AnItem.simple.getMedia(), PreventUrlGuessing.class);
 		assertPresent(true,  AnItem.secret,            PreventUrlGuessing.class);
-		assertPresent(false, AnItem.secret.getMedia(), PreventUrlGuessing.class); // TODO should be true
+		assertPresent(true,  AnItem.secret.getMedia(), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger,            PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger.getMedia(), PreventUrlGuessing.class);
 	}
@@ -46,7 +46,7 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.secret,            UrlFingerPrinting.class);
 		assertPresent(false, AnItem.secret.getMedia(), UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger,            UrlFingerPrinting.class);
-		assertPresent(false, AnItem.finger.getMedia(), UrlFingerPrinting.class); // TODO should be true
+		assertPresent(true,  AnItem.finger.getMedia(), UrlFingerPrinting.class);
 	}
 
 	public void testComputed()
