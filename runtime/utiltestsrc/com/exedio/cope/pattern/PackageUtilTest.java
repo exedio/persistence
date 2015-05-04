@@ -68,6 +68,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
 		suite.addTestSuite(ThumbnailMagickModelTest.class);
 		suite.addTestSuite(ThumbnailMagickTest.class);
+		suite.addTestSuite(UniqueHashedMediaAnnotationTest.class);
 		suite.addTestSuite(UniqueHashedMediaErrorTest.class);
 		return suite;
 	}
