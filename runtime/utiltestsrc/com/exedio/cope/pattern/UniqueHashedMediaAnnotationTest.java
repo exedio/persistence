@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 
 public class UniqueHashedMediaAnnotationTest extends CopeAssert
@@ -46,6 +47,19 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.secret.getMedia(), UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger,            UrlFingerPrinting.class);
 		assertPresent(false, AnItem.finger.getMedia(), UrlFingerPrinting.class); // TODO should be true
+	}
+
+	public void testComputed()
+	{
+		assertPresent(false, AnItem.simple,            Computed.class);
+		assertPresent(true,  AnItem.simple.getMedia(), Computed.class);
+		assertPresent(true,  AnItem.simple.getHash(),  Computed.class);
+		assertPresent(false, AnItem.secret,            Computed.class);
+		assertPresent(true,  AnItem.secret.getMedia(), Computed.class);
+		assertPresent(true,  AnItem.secret.getHash(),  Computed.class);
+		assertPresent(false, AnItem.finger,            Computed.class);
+		assertPresent(true,  AnItem.finger.getMedia(), Computed.class);
+		assertPresent(true,  AnItem.finger.getHash(),  Computed.class);
 	}
 
 	public void testDeprecated()
