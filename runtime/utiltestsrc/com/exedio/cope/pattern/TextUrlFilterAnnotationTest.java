@@ -72,18 +72,14 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 
 	static final class AnItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
 		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing
 		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
 		@UrlFingerPrinting
 		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
+
+		private static final long serialVersionUID = 1l;
+		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	static final class ATextUrlFilter extends TextUrlFilter

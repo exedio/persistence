@@ -72,13 +72,6 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 
 	static final class AnItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
 		static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), new Media());
 
 		static final TextUrlFilterDelegator simple = new ATextUrlFilterDelegator(new Media(), delegate);
@@ -86,6 +79,9 @@ public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 		static final TextUrlFilterDelegator secret = new ATextUrlFilterDelegator(new Media(), delegate);
 		@UrlFingerPrinting
 		static final TextUrlFilterDelegator finger = new ATextUrlFilterDelegator(new Media(), delegate);
+
+		private static final long serialVersionUID = 1l;
+		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	static final class ATextUrlFilterDelegator extends TextUrlFilterDelegator
