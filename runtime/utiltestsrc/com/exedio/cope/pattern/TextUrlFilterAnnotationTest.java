@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 
 public class TextUrlFilterAnnotationTest extends CopeAssert
@@ -48,6 +49,13 @@ public class TextUrlFilterAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.secret.getSource(), UrlFingerPrinting.class);
 		assertPresent(true,  pasteValue(AnItem.finger), UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger.getSource(), UrlFingerPrinting.class);
+
+		assertPresent(false, pasteValue(AnItem.simple), Computed.class);
+		assertPresent(false, AnItem.simple.getSource(), Computed.class);
+		assertPresent(false, pasteValue(AnItem.secret), Computed.class);
+		assertPresent(false, AnItem.secret.getSource(), Computed.class);
+		assertPresent(false, pasteValue(AnItem.finger), Computed.class);
+		assertPresent(false, AnItem.finger.getSource(), Computed.class);
 
 		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
 		assertPresent(false, AnItem.simple.getSource(), Deprecated.class);
