@@ -38,8 +38,6 @@ import com.exedio.cope.misc.EncodingToCharset;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -65,7 +63,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	final StringField pasteKey;
 	final Media pasteValue;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final AnnotationProxy annotationProxy = new AnnotationProxy();
+	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this);
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
@@ -404,46 +402,6 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		private TextUrlFilter getPattern()
 		{
 			return (TextUrlFilter)getCopeType().getPattern();
-		}
-	}
-
-	private final class AnnotationProxy implements AnnotatedElement
-	{
-		AnnotationProxy()
-		{
-			// just to make non-private
-		}
-
-		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-		{
-			return
-				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilter.this.isAnnotationPresent(annotationClass)
-				: false;
-		}
-
-		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
-		{
-			return
-				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilter.this.getAnnotation(annotationClass)
-				: null;
-		}
-
-		public Annotation[] getAnnotations()
-		{
-			throw new RuntimeException(TextUrlFilter.this.toString());
-		}
-
-		public Annotation[] getDeclaredAnnotations()
-		{
-			throw new RuntimeException(TextUrlFilter.this.toString());
-		}
-
-		@Override
-		public String toString()
-		{
-			return TextUrlFilter.this.toString() + "-annotations";
 		}
 	}
 

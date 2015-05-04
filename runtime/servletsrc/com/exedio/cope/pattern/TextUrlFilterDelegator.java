@@ -27,8 +27,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.TextUrlFilter.Paste;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.HashSet;
@@ -50,7 +48,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	private final String pasteStop;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final AnnotationProxy annotationProxy = new AnnotationProxy();
+	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this);
 
 	public TextUrlFilterDelegator(
 			final Media raw,
@@ -245,45 +243,5 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	public final List<String> getPasteContentTypesAllowed()
 	{
 		return delegate.getPasteContentTypesAllowed();
-	}
-
-	private final class AnnotationProxy implements AnnotatedElement
-	{
-		AnnotationProxy()
-		{
-			// just to make non-private
-		}
-
-		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
-		{
-			return
-				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilterDelegator.this.isAnnotationPresent(annotationClass)
-				: false;
-		}
-
-		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
-		{
-			return
-				(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-				? TextUrlFilterDelegator.this.getAnnotation(annotationClass)
-				: null;
-		}
-
-		public Annotation[] getAnnotations()
-		{
-			throw new RuntimeException(TextUrlFilterDelegator.this.toString());
-		}
-
-		public Annotation[] getDeclaredAnnotations()
-		{
-			throw new RuntimeException(TextUrlFilterDelegator.this.toString());
-		}
-
-		@Override
-		public String toString()
-		{
-			return TextUrlFilterDelegator.this.toString() + "-annotations";
-		}
 	}
 }
