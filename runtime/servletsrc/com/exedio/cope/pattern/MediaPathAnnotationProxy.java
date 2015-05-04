@@ -18,10 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Pattern;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Objects;
 
 final class MediaPathAnnotationProxy implements AnnotatedElement
 {
@@ -29,7 +30,7 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 
 	MediaPathAnnotationProxy(final Pattern source)
 	{
-		this.source = Objects.requireNonNull(source);
+		this.source = requireNonNull(source);
 	}
 
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
