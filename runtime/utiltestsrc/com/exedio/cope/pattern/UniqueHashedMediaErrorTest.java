@@ -60,7 +60,6 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 					e.getMessage());
 		}
 	}
-
 	static abstract class AbstractItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
