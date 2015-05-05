@@ -340,17 +340,25 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			response.assertExpires(Long.MIN_VALUE).assertOkAndCache(77772000l);
 	}
 
+	/**
+	 * This test became useless, as there is no connection between
+	 * toFinal and Expires anymore.
+	 */
 	public void testExpiresFinal() throws ServletException, IOException
 	{
 		MediaPathItem.normal.setFinal(true);
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
-		final long ALMOST_ONE_YEAR = 31363200000l;
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
-		clock.add(333348888);
-		service(new Request(ok)).assertExpires(333348888 + ALMOST_ONE_YEAR).assertOkAndCache(333339000l);
+		if(mediaOffsetExpires>0)
+			clock.add(333348888);
+		final Response response = service(new Request(ok));
 		clock.assertEmpty();
+		if(mediaOffsetExpires>0)
+			response.assertExpires(333348888 + mediaOffsetExpires).assertOkAndCache(333339000l);
+		else
+			response.assertExpires(Long.MIN_VALUE).assertOkAndCache(333339000l);
 	}
 
 	public void testGuess() throws ServletException, IOException

@@ -718,7 +718,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
-		if( isFinal() || isUrlFingerPrinted() )
+		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
 			// To mark a response as "never expires," an origin server sends an
