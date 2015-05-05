@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @UrlFingerPrinting will be applied to final media as well.
+	BEWARE: final media will not have Expires time of one year anymore.
+	If you want this again, use @UrlFingerPrinting.
 * bugfix: Price#valueOf(double) sometimes did wrong rounding in equidistant case (again)
 * Switched to trove4j from mvnrepository.com.
 	- replace trove.jar by trove4j.jar in your build scripts
