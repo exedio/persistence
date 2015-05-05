@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Clock.newDate;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
@@ -606,7 +608,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
-			values.add(this.lastModified.map(new Date()));
+			values.add(this.lastModified.map(newDate()));
 			values.add(this.body.map(body));
 
 			return SetValueUtil.toArray(values);

@@ -33,6 +33,8 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.util.Clock;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,13 +47,23 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		super(MediaTest.MODEL);
 	}
 
+	AbsoluteMockClockStrategy clock;
 	protected MediaItem item;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
+		clock = new AbsoluteMockClockStrategy();
+		Clock.override(clock);
 		item = deleteOnTearDown(new MediaItem("test media item"));
+	}
+
+	@Override
+	protected void tearDown() throws Exception
+	{
+		Clock.clearOverride();
+		super.tearDown();
 	}
 
 	public void testIt() throws IOException
@@ -126,20 +138,20 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(file.isNull()));
 		assertContains(TYPE.search(file.isNotNull()));
 		{
-			final Date before = new Date();
+			clock.add(123456001);
 			item.setFile(stream(bytes4), "file-major/file-minor");
-			final Date after = new Date();
+			clock.assertEmpty();
 			assertStreamClosed();
-			assertContent(bytes4, before, after, "file-major/file-minor", "");
+			assertContent(bytes4, new Date(123456001), "file-major/file-minor", "");
 		}
 		assertContains(TYPE.search(file.isNull()));
 		assertContains(item, TYPE.search(file.isNotNull()));
 		{
-			final Date before = new Date();
+			clock.add(123456002);
 			item.setFile(stream(bytes6), "file-major2/file-minor2");
-			final Date after = new Date();
+			clock.assertEmpty();
 			assertStreamClosed();
-			assertContent(bytes6, before, after, "file-major2/file-minor2", "");
+			assertContent(bytes6, new Date(123456002), "file-major2/file-minor2", "");
 
 			try
 			{
@@ -153,7 +165,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(item, e.getItem());
 				assertEquals("illegalContentType", e.getContentType());
 				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
-				assertContent(bytes6, before, after, "file-major2/file-minor2", "");
+				assertContent(bytes6, new Date(123456002), "file-major2/file-minor2", "");
 			}
 		}
 		assertExtension("image/jpeg", ".jpg");
@@ -166,46 +178,47 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertExtension("application/java-archive", ".jar");
 		if(!oracle)
 		{
-			final Date before = new Date();
+			clock.add(123456003);
 			item.setFile(stream(bytes0), "empty-major/empty-minor");
-			final Date after = new Date();
+			clock.assertEmpty();
 			assertStreamClosed();
-			assertContent(bytes0, before, after, "empty-major/empty-minor", "");
+			assertContent(bytes0, new Date(123456003), "empty-major/empty-minor", "");
 		}
 		item.setFile((InputStream)null, null);
 		assertNull();
 		{
-			final Date before = new Date();
+			clock.add(123457);
 			item.setFile(file(bytes8), "empty-major/empty-minor");
-			final Date after = new Date();
-			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
 		}
 		item.setFile((File)null, null);
 		assertNull();
 		{
-			final Date before = new Date();
+			clock.add(123456004);
 			item.setFile(bytes8, "empty-major/empty-minor");
-			final Date after = new Date();
-			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes8, new Date(123456004), "empty-major/empty-minor", "");
 		}
 		item.setFile((byte[])null, null);
 		assertNull();
 		{
-			final Date before = new Date();
+			clock.add(123456005);
 			item.setFile(Media.toValue(bytes8, "empty-major/empty-minor"));
-			final Date after = new Date();
-			assertContent(bytes8, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes8, new Date(123456005), "empty-major/empty-minor", "");
 		}
 		item.setFile((Media.Value)null);
 		assertNull();
 		{
 			// test length violation
-			final Date before = new Date();
+			clock.add(123456006);
 			item.setFile(bytes20, "empty-major/empty-minor");
-			final Date after = new Date();
-			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes20, new Date(123456006), "empty-major/empty-minor", "");
 
 			// byte[]
+			clock.add(123456007);
 			try
 			{
 				item.setFile(bytes21, "empty-major-long/empty-minor-long");
@@ -220,7 +233,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
-			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes20, new Date(123456006), "empty-major/empty-minor", "");
+
+			clock.add(123456008);
 			try
 			{
 				new MediaItem(Media.toValue(bytes21, "empty-major-long/empty-minor-long"));
@@ -235,8 +251,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
+			clock.assertEmpty();
 
 			// file
+			clock.add(123456009);
 			try
 			{
 				item.setFile(file(bytes21), "empty-major-long/empty-minor-long");
@@ -251,7 +269,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
 			}
-			assertContent(bytes20, before, after, "empty-major/empty-minor", "");
+			clock.assertEmpty();
+			assertContent(bytes20, new Date(123456006), "empty-major/empty-minor", "");
+
+			clock.add(123456010);
 			try
 			{
 				new MediaItem(Media.toValue(file(bytes21), "empty-major-long/empty-minor-long"));
@@ -266,8 +287,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals(true, e.isLengthExact());
 				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
 			}
+			clock.assertEmpty();
 
 			// stream
+			clock.add(123456011);
 			try
 			{
 				item.setFile(stream(bytes21), "empty-major-long/empty-minor-long");
@@ -283,7 +306,10 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals("length violation on " + item + ", 21 bytes or more is too long for " + body, e.getMessage());
 			}
 			assertStreamClosed();
-			//assertContent(data20, before, after, "empty-major-long/empty-minor-long", ".empty-major-long.empty-minor-long"); TODO
+			//assertContent(data20, new Date(123457), "empty-major-long/empty-minor-long", ".empty-major-long.empty-minor-long"); TODO
+			clock.assertEmpty();
+
+			clock.add(123456012);
 			try
 			{
 				new MediaItem(Media.toValue(stream(bytes21), "empty-major-long/empty-minor-long"));
@@ -299,6 +325,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 				assertEquals("length violation, 21 bytes or more is too long for " + body, e.getMessage());
 			}
 			assertStreamClosed();
+			clock.assertEmpty();
 		}
 		item.setFile((byte[])null, null);
 		assertNull();
@@ -317,7 +344,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 
 	private void assertContent(
 			final byte[] expectedData,
-			final Date before, final Date after,
+			final Date lastModified,
 			final String expectedContentType, final String expectedExtension)
 	throws IOException
 	{
@@ -326,7 +353,7 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 		assertData(expectedData, item.getFileBody());
 		assertDataFile(expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
-		assertWithin(before, after, item.getFileLastModified());
+		assertEquals(lastModified, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertLocator(file, path, item.getFileLocator());
 	}
@@ -344,11 +371,11 @@ public class MediaDefaultTest extends AbstractRuntimeTest
 	private void assertExtension(final String contentType, final String extension)
 		throws IOException
 	{
-		final Date before = new Date();
+		clock.add(9876543);
 		item.setFile(stream(bytes6), contentType);
-		final Date after = new Date();
+		clock.assertEmpty();
 		assertStreamClosed();
-		assertContent(bytes6, before, after, contentType, extension);
+		assertContent(bytes6, new Date(9876543), contentType, extension);
 	}
 
 	private static final byte[] bytes0  = {};
