@@ -366,6 +366,17 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".faD", item[1006]);
 	}
 
+	public void testDummy()
+	{
+		assertIt(".fXD", item[0]);
+
+		enableDummy("0 OVERRIDDEN BY DUMMY");
+		assertIt(".fDUMMY", item[0]);
+
+		disableDummy("0");
+		assertIt(".fXD", item[0]);
+	}
+
 	private static void assertIt(final String fingerprint, final MediaUrlItem item)
 	{
 		assertLocator(
@@ -382,6 +393,18 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 	private void setRamp(final int ramp, final String info)
 	{
 		model.getConnectProperties().mediaFingerprintOffset().setRamp(ramp/1000d);
+		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+	}
+
+	private void enableDummy(final String info)
+	{
+		model.getConnectProperties().mediaFingerprintOffset().enableDummy();
+		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+	}
+
+	private void disableDummy(final String info)
+	{
+		model.getConnectProperties().mediaFingerprintOffset().disableDummy();
 		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
 	}
 }
