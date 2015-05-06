@@ -160,9 +160,9 @@ public final class MediaFingerprintOffset
 		state = state.setRamp(ramp);
 	}
 
-	int get(final Item item)
+	long apply(final long lastModified, final Item item)
 	{
-		return state.get(item);
+		return lastModified + state.get(item);
 	}
 
 	@Override

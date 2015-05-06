@@ -110,9 +110,9 @@ public abstract class MediaPath extends Pattern
 		return connectProperties().getMediaRootUrl();
 	}
 
-	final int fingerprintOffset(final Item item)
+	final long fingerprintOffset(final long lastModified, final Item item)
 	{
-		return connectProperties().mediaFingerprintOffset().get(item);
+		return connectProperties().mediaFingerprintOffset().apply(lastModified, item);
 	}
 
 	public boolean isContentTypeWrapped()
@@ -221,7 +221,7 @@ public abstract class MediaPath extends Pattern
 			if(fingerprintLastModified!=Long.MIN_VALUE)
 			{
 				bf.append(".f");
-				MediaBase64.append(bf, fingerprintLastModified + fingerprintOffset(item));
+				MediaBase64.append(bf, fingerprintOffset(fingerprintLastModified, item));
 				bf.append('/');
 			}
 
