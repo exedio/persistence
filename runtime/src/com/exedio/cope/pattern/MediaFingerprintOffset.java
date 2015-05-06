@@ -103,15 +103,17 @@ public final class MediaFingerprintOffset
 			return new State(initialValue, value, rampInt);
 		}
 
-		int get(final Item item)
+		long apply(final long lastModified, final Item item)
 		{
 			if(ramp==0)
-				return value;
+				return lastModified + value;
 
-			return
+			return lastModified +
+			(
 				( (getPrimaryKeyColumnValue(item)%RAMP_MODULUS) < ramp )
 				? valueRamped
-				: value;
+				: value
+			);
 		}
 	}
 
@@ -162,7 +164,7 @@ public final class MediaFingerprintOffset
 
 	long apply(final long lastModified, final Item item)
 	{
-		return lastModified + state.get(item);
+		return state.apply(lastModified, item);
 	}
 
 	@Override
