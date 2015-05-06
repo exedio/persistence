@@ -110,7 +110,7 @@ public abstract class MediaPath extends Pattern
 		return connectProperties().getMediaRootUrl();
 	}
 
-	final int getMediaOffsetFingerprint(final Item item)
+	final int fingerprintOffset(final Item item)
 	{
 		return connectProperties().mediaFingerprintOffset().get(item);
 	}
@@ -221,7 +221,7 @@ public abstract class MediaPath extends Pattern
 			if(fingerprintLastModified!=Long.MIN_VALUE)
 			{
 				bf.append(".f");
-				MediaBase64.append(bf, fingerprintLastModified + getMediaOffsetFingerprint(item));
+				MediaBase64.append(bf, fingerprintLastModified + fingerprintOffset(item));
 				bf.append('/');
 			}
 
