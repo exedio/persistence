@@ -220,6 +220,27 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		}
 	}
 
+	public void testDummy()
+	{
+		final Source source = source(55);
+		final ConnectProperties p = new ConnectProperties(source, null);
+		p.mediaFingerprintOffset().setValueAndResetRamp(66);
+		p.mediaFingerprintOffset().setRamp(0.333);
+		assertEquals("66 (initially 55) ramp 333/1000", p.mediaFingerprintOffset().getInfo());
+
+		p.mediaFingerprintOffset().enableDummy();
+		assertEquals("66 (initially 55) ramp 333/1000 OVERRIDDEN BY DUMMY", p.mediaFingerprintOffset().getInfo());
+
+		p.mediaFingerprintOffset().disableDummy();
+		assertEquals("66 (initially 55) ramp 333/1000", p.mediaFingerprintOffset().getInfo());
+
+		p.mediaFingerprintOffset().enableDummy();
+		assertEquals("66 (initially 55) ramp 333/1000 OVERRIDDEN BY DUMMY", p.mediaFingerprintOffset().getInfo());
+
+		p.mediaFingerprintOffset().reset();
+		assertEquals("55", p.mediaFingerprintOffset().getInfo());
+	}
+
 
 	private static Source source(final Integer offset)
 	{

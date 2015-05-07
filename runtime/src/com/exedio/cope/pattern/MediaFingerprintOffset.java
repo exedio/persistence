@@ -34,18 +34,20 @@ public final class MediaFingerprintOffset
 		private final int valueRamped;
 		private final int ramp;
 		private static final int RAMP_MODULUS = 1000;
+		private final boolean dummy;
 
 		State(final int value)
 		{
-			this(value, value, 0);
+			this(value, value, 0, false);
 		}
 
-		private State(final int initialValue, final int value, final int ramp)
+		private State(final int initialValue, final int value, final int ramp, final boolean dummy)
 		{
 			this.initialValue = requireNonNegative(initialValue, "value");
 			this.value = requireNonNegative(value, "value");
 			this.valueRamped = value + 1;
 			this.ramp = ramp;
+			this.dummy = dummy;
 
 			assert 0<=ramp && ramp<RAMP_MODULUS : ramp;
 		}
@@ -59,7 +61,7 @@ public final class MediaFingerprintOffset
 
 		State reset()
 		{
-			return new State(initialValue, initialValue, 0);
+			return new State(initialValue, initialValue, 0, false);
 		}
 
 		String getInfo()
@@ -78,12 +80,15 @@ public final class MediaFingerprintOffset
 					append('/').
 					append(RAMP_MODULUS);
 
+			if(dummy)
+				bf.append(" OVERRIDDEN BY DUMMY");
+
 			return bf.toString();
 		}
 
 		State setValueAndResetRamp(final int value)
 		{
-			return new State(initialValue, value, 0);
+			return new State(initialValue, value, 0, dummy);
 		}
 
 		double getRamp()
@@ -100,11 +105,29 @@ public final class MediaFingerprintOffset
 			if(rampInt>=RAMP_MODULUS)
 				rampInt = RAMP_MODULUS - 1;
 
-			return new State(initialValue, value, rampInt);
+			return new State(initialValue, value, rampInt, dummy);
+		}
+
+		State enableDummy()
+		{
+			return new State(initialValue, value, ramp, true);
+		}
+
+		State disableDummy()
+		{
+			return new State(initialValue, value, ramp, false);
 		}
 
 		long apply(final long lastModified, final Item item)
 		{
+			if(dummy)
+				return
+					3 + // D
+					20 *64 + // U
+					12 *64*64 + // M
+					12 *64*64*64 + // M
+					24 *64*64*64*64; // Y
+
 			if(ramp==0)
 				return lastModified + value;
 
@@ -160,6 +183,16 @@ public final class MediaFingerprintOffset
 	public void setRamp(final double ramp)
 	{
 		state = state.setRamp(ramp);
+	}
+
+	public void enableDummy()
+	{
+		state = state.enableDummy();
+	}
+
+	public void disableDummy()
+	{
+		state = state.disableDummy();
 	}
 
 	long apply(final long lastModified, final Item item)
