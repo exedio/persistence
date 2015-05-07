@@ -22,6 +22,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 
+/**
+ * This test became useless, as there is no connection between
+ * toFinal and @UrlFingerPrinting anymore.
+ */
 public class MediaFinalUrlFingerPrintingTest extends CopeAssert
 {
 	public void testIt()
@@ -34,7 +38,7 @@ public class MediaFinalUrlFingerPrintingTest extends CopeAssert
 		assertEquals(false, AnItem.nonFinal.isUrlFingerPrinted());
 		assertEquals(false, AnItem.isFinal.isUrlFingerPrinted());
 		assertEquals(true,  AnItem.nonFinalFinger.isUrlFingerPrinted());
-		assertEquals(false, AnItem.isFinalFinger.isUrlFingerPrinted());
+		assertEquals(true,  AnItem.isFinalFinger.isUrlFingerPrinted());
 	}
 
 
