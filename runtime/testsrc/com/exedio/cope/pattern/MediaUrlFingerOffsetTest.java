@@ -386,25 +386,30 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	private void setValueAndResetRamp(final int offset, final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().setValueAndResetRamp(offset);
-		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+		offset().setValueAndResetRamp(offset);
+		assertEquals(info, offset().getInfo());
 	}
 
 	private void setRamp(final int ramp, final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().setRamp(ramp/1000d);
-		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+		offset().setRamp(ramp/1000d);
+		assertEquals(info, offset().getInfo());
 	}
 
 	private void enableDummy(final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().enableDummy();
-		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+		offset().enableDummy();
+		assertEquals(info, offset().getInfo());
 	}
 
 	private void disableDummy(final String info)
 	{
-		model.getConnectProperties().mediaFingerprintOffset().disableDummy();
-		assertEquals(info, model.getConnectProperties().mediaFingerprintOffset().getInfo());
+		offset().disableDummy();
+		assertEquals(info, offset().getInfo());
+	}
+
+	private MediaFingerprintOffset offset()
+	{
+		return model.getConnectProperties().mediaFingerprintOffset();
 	}
 }
