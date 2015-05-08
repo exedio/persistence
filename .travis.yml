@@ -6,6 +6,6 @@ jdk:
 
 before_script:
   - mysql -e 'create database cope_test;'
-  - echo -e "connection.url=jdbc:mysql://localhost/cope\nconnection.username=travis\nconnection.password=\nx-build.driver=mysql-connector-java.jar" > conf/environment/mysql.properties
+  - echo -e "connection.url=jdbc:mysql://localhost/cope_test\nconnection.username=travis\nconnection.password=\nx-build.driver=mysql-connector-java.jar" > conf/environment/mysql.properties
 
 script: "ant jenkins"
