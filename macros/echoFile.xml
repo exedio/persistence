@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<project name="echoFile" default="fail" basedir=".">
+
+	<macrodef name="echoFile">
+		<attribute name="file" />
+		<sequential>
+			<LoadFile srcFile="@{file}" property="@{file}" />
+			<echo message="-------- start @{file}" />
+			<echo message="${@{file}}" />
+			<echo message="-------- end of @{file}" />
+		</sequential>
+	</macrodef>
+
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+
+</project>
