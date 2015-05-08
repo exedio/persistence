@@ -4,6 +4,9 @@ jdk:
   - oraclejdk7
   - openjdk7
 
+addons:
+  postgresql: "9.3"
+
 before_script:
   - mysql -e 'create database cope_test;'
   - psql  -c 'create database cope_test;' -U postgres
