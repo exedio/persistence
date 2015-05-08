@@ -951,7 +951,7 @@
 		<foreachEnvironment skipSwitch="index">
 			<body>
 				<mkdir dir="build/environments" />
-				<copy file="environment.html" tofile="build/environments/@{env}.html">
+				<copy file="conf/environment.html" tofile="build/environments/@{env}.html">
 					<filterset>
 						<filter token="HOST" value="http://localhost:${tomcat.port.http}/" />
 						<filter token="ENV" value="@{env}" />
