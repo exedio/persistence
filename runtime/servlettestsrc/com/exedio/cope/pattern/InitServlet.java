@@ -149,7 +149,7 @@ public class InitServlet extends HttpServlet
 	{
 		final String path = locator.getPath();
 		if(!expected.equals(path))
-			throw new RuntimeException(path);
+			throw new RuntimeException("expected '" + expected + "', but was '" + path + '\'');
 	}
 
 	@Override
