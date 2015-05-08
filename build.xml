@@ -133,7 +133,7 @@
 								failonerror="true"
 								output="build/@{name}-catalina-start.log">
 							<arg value="run" />
-							<env key="CATALINA_OPTS" value="-enableassertions -Dcom.exedio.cope.media.imagemagick=true -Dcom.exedio.cope.media.convertcommand=${com.exedio.cope.media.convertcommand} -XX:MaxPermSize=150M" />
+							<env key="CATALINA_OPTS" value="-enableassertions -XX:MaxPermSize=150M" />
 						</exec>
 					</forget>
 					<echo message="tomcat (@{name}): waiting to be ready ..." />
@@ -431,8 +431,6 @@
 				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/hsqldb.jar" />
 			</classpath>
-			<sysproperty key="com.exedio.cope.media.imagemagick" value="true" />
-			<sysproperty key="com.exedio.cope.media.convertcommand" value="${com.exedio.cope.media.convertcommand}" />
 		</ljunit>
 	</target>
 	

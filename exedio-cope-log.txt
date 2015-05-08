@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaImageMagick[Filter|Thumbnail] removed.
+	This breaks backwards API compatibility, causes compiler error. Was
+	deprecated since 7 Feb 2014.
+	- Use com.exedio.cope.im4java.MediaImageMagickFilter from exedio-cope-im4java.jar
+		instead. See migration-guide.txt for instructions.
+	- Remove com.exedio.cope.media.imagemagick and com.exedio.cope.media.convertcommand
+		from your build environment as well.
 * @UrlFingerPrinting will be applied to final media as well.
 	BEWARE: final media will not have Expires time of one year anymore.
 	If you want this again, use @UrlFingerPrinting.

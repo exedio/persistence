@@ -204,24 +204,6 @@ public class MediaServletTest extends TestCase
 		if(!"OpenJDK Runtime Environment".equals(System.getProperty("java.runtime.name"))) // OpenJDK does not like GIF
 			assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
-		assertNotFound(prefix + "thumbnailMagick/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
-		assertNotFound(prefix + "thumbnailMagick/" + ITEM_EMP, IS_NULL);
-		assertBin(prefix + "thumbnailMagick/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
-		assertBin(prefix + "thumbnailMagick/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
-		assertBin(prefix + "thumbnailMagick/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
-
-		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
-		assertNotFound(prefix + "thumbnailMagickPng/" + ITEM_EMP, IS_NULL);
-		assertBin(prefix + "thumbnailMagickPng/" + ITEM_PNG + ".png", "image/png", hour8(2));
-		assertBin(prefix + "thumbnailMagickPng/" + ITEM_JPG + ".png", "image/png", hour8(3));
-		assertBin(prefix + "thumbnailMagickPng/" + ITEM_GIF + ".png", "image/png", hour8(8));
-
-		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
-		assertNotFound(prefix + "thumbnailMagickSame/" + ITEM_EMP, IS_NULL);
-		assertBin(prefix + "thumbnailMagickSame/" + ITEM_PNG + ".png", "image/png" , hour8(2));
-		assertBin(prefix + "thumbnailMagickSame/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
-		assertBin(prefix + "thumbnailMagickSame/" + ITEM_GIF + ".gif", "image/gif" , hour8(8));
-
 		assertNotFound(prefix + "html/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "html/" + ITEM_PNG, NOT_COMPUTABLE, hour8(2));
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
