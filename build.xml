@@ -86,7 +86,7 @@
 		<sequential>
 			<for param="env.file">
 				<path>
-					<fileset dir="${basedir}/test-properties" includes="*.properties" />
+					<fileset dir="${basedir}/conf/environment" includes="*.properties" />
 				</path>
 				<sequential>
 					<basename file="@{env.file}" property="@{env.file}.env" suffix=".properties" />
