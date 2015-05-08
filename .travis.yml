@@ -6,6 +6,7 @@ jdk:
 
 before_script:
   - mysql -e 'create database cope_test;'
+  - psql  -c 'create database cope_test;' -U postgres
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test\n"\
     "connection.username=travis\n"\
@@ -26,5 +27,11 @@ before_script:
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
     > conf/environment/mysql-noPrep.properties
+  - echo -e -n \
+    "connection.url=jdbc:postgresql://localhost/cope_test\n"\
+    "connection.username=postgres\n"\
+    "connection.password=\n"\
+    "x-build.driver=postgresql.jar\n"\
+    > conf/environment/postgresql.properties
 
 script: "ant jenkins"
