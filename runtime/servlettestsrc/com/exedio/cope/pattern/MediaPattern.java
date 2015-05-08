@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
@@ -67,9 +69,15 @@ public final class MediaPattern extends Pattern
 
 	private static Date hour(final int hour) throws ParseException
 	{
-		return
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
-			parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:55.555");
+		return df().parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:55.555");
+	}
+
+	private static SimpleDateFormat df()
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(getTimeZone("Europe/Berlin"));
+		result.setLenient(false);
+		return result;
 	}
 
 	@Override
