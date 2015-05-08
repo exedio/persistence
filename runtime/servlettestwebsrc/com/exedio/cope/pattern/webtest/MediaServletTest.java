@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern.webtest;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.io.File.createTempFile;
 import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
 import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
@@ -605,16 +606,20 @@ public class MediaServletTest extends TestCase
 
 	private static Date hour8(final int hour) throws ParseException
 	{
-		return
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
-			parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
+		return df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
 	}
 
 	private static Date hour9(final int hour) throws ParseException
 	{
-		return
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
-			parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
+		return df().parse("2010-09-11 " + new DecimalFormat("00").format(hour) + ":23:56.000");
+	}
+
+	private static SimpleDateFormat df()
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(getTimeZone("Europe/Berlin"));
+		result.setLenient(false);
+		return result;
 	}
 
 	private static long addMillis(final Date date, final int millis)
