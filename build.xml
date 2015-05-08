@@ -1081,7 +1081,7 @@
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/exedio-cope-log.txt" />
 		</copy>
-		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 			</filterset>
