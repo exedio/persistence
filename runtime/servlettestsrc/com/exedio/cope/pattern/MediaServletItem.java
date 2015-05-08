@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
@@ -60,15 +62,21 @@ final class MediaServletItem extends Item
 	private void setContentLastModified(final int hour) throws ParseException
 	{
 		content.getLastModified().set(this,
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
-			parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+			df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
 	}
 
 	void setNameServerLastModified(final int hour) throws ParseException
 	{
 		setNameServerLastModified(
-			new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").
-			parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+			df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+	}
+
+	private static SimpleDateFormat df()
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(getTimeZone("Europe/Berlin"));
+		result.setLenient(false);
+		return result;
 	}
 
 	@SuppressWarnings("unused")
