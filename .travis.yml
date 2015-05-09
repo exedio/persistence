@@ -34,6 +34,7 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
+    "connection.postgresql.search_path=public\n"\
     "x-build.driver=postgresql.jar\n"\
     > conf/environment/postgresql.properties
 
