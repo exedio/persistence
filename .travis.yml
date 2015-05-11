@@ -58,3 +58,6 @@ script: "ant jenkins"
 
 after_script:
   - cat build/testprotocol.html
+  - cat build/*-catalina-start.log
+  - cat build/*-catalina-stop.log
+  - cat tomcat/logs/*.log

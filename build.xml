@@ -158,16 +158,6 @@
 					<echo message="tomcat (@{name}): waiting to be stopped ..." />
 					<sleep seconds="10" />
 					<echo message="tomcat (@{name}): stopped." />
-					<echoFile file="build/@{name}-catalina-start.log" />
-					<echoFile file="build/@{name}-catalina-stop.log" />
-					<for param="log.file">
-						<path>
-							<fileset dir="${basedir}/tomcat/logs" includes="*.log" />
-						</path>
-						<sequential>
-							<echoFile file="@{log.file}" />
-						</sequential>
-					</for>
 				</finally>
 			</trycatch>
 		</sequential>
