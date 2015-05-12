@@ -282,9 +282,8 @@ final class MysqlDialect extends Dialect
 
 		final StringBuilder bf = new StringBuilder();
 		bf.append(column).
-			append(" REGEXP '").
-			append(set.getRegularExpression()).
-			append('\'');
+			append(" REGEXP ").
+			append(StringColumn.cacheToDatabaseStatic(set.getRegularExpression()));
 		return bf.toString();
 	}
 
