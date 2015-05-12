@@ -314,7 +314,7 @@ final class Statement
 	Statement appendParameter(final String value)
 	{
 		if(parameters==null)
-			this.text.append('\'').append(value).append('\'');
+			this.text.append(StringColumn.cacheToDatabaseStatic(value));
 		else
 		{
 			this.text.append(QUESTION_MARK);

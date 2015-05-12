@@ -147,6 +147,36 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	public void testConditionApos()
+	{
+		final CharSet cs = StringCharSetItem.apos.getCharSet();
+		assertEquals("^[',A-Z]*$", cs.getRegularExpression());
+
+		final StringCharSetItem yes   = any("yes", "AB'CD");
+		final StringCharSetItem no    = any("no" , "aB'CD");
+
+		final CharSetCondition c = new CharSetCondition(any, cs);
+		assertEquals(true,  c.get(yes));
+		assertEquals(false, c.get(no));
+
+		if(mysql)
+		{
+			assertEquals(Arrays.asList(yes), TYPE.search(c, TYPE.getThis(), true));
+		}
+		else
+		{
+			try
+			{
+				TYPE.search(c);
+				fail();
+			}
+			catch(final RuntimeException e)
+			{
+				assertEquals("CharSetCondition not yet implemented", e.getMessage());
+			}
+		}
+	}
+
 	public void testSchema()
 	{
 		assertSchema();

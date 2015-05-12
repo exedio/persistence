@@ -299,9 +299,8 @@ final class MysqlDialect extends Dialect
 
 		statement.
 			append(function, (Join)null).
-			append(" REGEXP '").
-			append(set.getRegularExpression()).
-			append('\'');
+			append(" REGEXP ").
+			appendParameter(set.getRegularExpression());
 	}
 
 	@Override
