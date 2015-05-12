@@ -64,6 +64,13 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	public void testCheckUnsupportedConstraints()
+	{
+		commit();
+		model.checkUnsupportedConstraints();
+		startTransaction();
+	}
+
 	public void testCondition()
 	{
 		assertEquals(
