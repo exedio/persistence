@@ -749,6 +749,11 @@ public final class Model implements Serializable
 
 	private Serialized serialized = null;
 
+	public boolean isSerializationEnabled()
+	{
+		return serialized!=null;
+	}
+
 	public void enableSerialization(final Class<?> type, final String name)
 	{
 		requireNonNull(type, "type");

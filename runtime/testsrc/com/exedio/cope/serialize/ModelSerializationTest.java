@@ -53,6 +53,7 @@ public class ModelSerializationTest extends CopeAssert
 
 	public void test() throws IOException
 	{
+		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
 		assertNotSerializable(AnItem.TYPE, Type.class);
@@ -74,6 +75,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals("type", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(itemClass, null);
@@ -83,6 +85,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals("name", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(itemClass, "model");
@@ -92,6 +95,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(itemClass.getName() + "#model does not exist.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(testClass, "modelx");
@@ -101,6 +105,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(testClass.getName() + "#modelx does not exist.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(testClass, "modelNonStatic");
@@ -110,6 +115,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(testClass.getName() + "#modelNonStatic is not static final.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(testClass, "modelNonFinal");
@@ -119,6 +125,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(testClass.getName() + "#modelNonFinal is not static final.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(testClass, "modelNull");
@@ -128,6 +135,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(testClass.getName() + "#modelNull is null.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(testClass, "modelWrong");
@@ -137,6 +145,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals(testClass.getName() + "#modelWrong is not a model, but java.lang.String.", e.getMessage());
 		}
+		assertEquals(false, model.isSerializationEnabled());
 		try
 		{
 			model.enableSerialization(CacheIsolationTest.class, "MODEL");
@@ -147,11 +156,13 @@ public class ModelSerializationTest extends CopeAssert
 			assertEquals("enableSerialization does not resolve to itself com.exedio.cope.CacheIsolationTest#MODEL", e.getMessage());
 		}
 
+		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
 		assertNotSerializable(AnItem.TYPE, Type.class);
 
 		model.enableSerialization(testClass, "model");
+		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
 		assertNotSerializable(AnItem.TYPE, Type.class);
@@ -173,6 +184,7 @@ public class ModelSerializationTest extends CopeAssert
 		{
 			assertEquals("enableSerialization already been called for " + testClass.getName() + "#model", e.getMessage());
 		}
+		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
 		assertNotSerializable(AnItem.TYPE, Type.class);
