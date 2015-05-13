@@ -62,6 +62,11 @@ public abstract class CopeModelTest extends CopeAssert
 		return true;
 	}
 
+	protected String getTransactionName()
+	{
+		return "tx:" + getClass().getName();
+	}
+
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -70,7 +75,7 @@ public abstract class CopeModelTest extends CopeAssert
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
 		if(doesManageTransactions())
-			model.startTransaction("tx:" + getClass().getName());
+			model.startTransaction(getTransactionName());
 	}
 
 	@Override
