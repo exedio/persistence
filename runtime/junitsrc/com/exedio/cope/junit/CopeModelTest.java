@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -33,7 +35,7 @@ public abstract class CopeModelTest extends CopeAssert
 
 	protected CopeModelTest(final Model model)
 	{
-		this.model = model;
+		this.model = requireNonNull(model, "model");
 	}
 
 	public final Model getModel()
