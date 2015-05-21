@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class MinusView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
@@ -30,9 +28,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> minuend;
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> subtrahend;
 
 	private MinusView(final Function<E> minuend, final Function<E> subtrahend)

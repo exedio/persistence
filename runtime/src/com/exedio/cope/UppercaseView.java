@@ -18,14 +18,12 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Locale;
 
 public final class UppercaseView extends StringView
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<String> source;
 
 	/**

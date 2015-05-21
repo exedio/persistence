@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class CoalesceView<E> extends View<E>
 {
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
@@ -49,7 +47,6 @@ public final class CoalesceView<E> extends View<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E>[] parameters;
 	private final E literal;
 

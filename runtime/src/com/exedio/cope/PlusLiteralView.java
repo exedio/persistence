@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class PlusLiteralView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
@@ -32,7 +30,6 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> left;
 	private final E right;
 

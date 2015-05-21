@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public final class DivideView<E extends Number> extends NumberView<E>
 {
 	public static final <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
@@ -30,9 +28,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> dividend;
-	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> divisor;
 
 	private DivideView(final Function<E> dividend, final Function<E> divisor)
