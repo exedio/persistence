@@ -25,29 +25,29 @@ public class QuerySerializeTest extends CopeAssert
 {
 	public void testSerialize()
 	{
-		final Query<?> q = Item1.TYPE.newQuery(null);
-		assertSerializedEquals(q, 784);
+		final Query<?> q = AnItem.TYPE.newQuery(null);
+		assertSerializedEquals(q, 785);
 
-		q.setCondition(Item1.field1.isNotNull());
-		assertSerializedEquals(q, 938);
+		q.setCondition(AnItem.field1.isNotNull());
+		assertSerializedEquals(q, 939);
 
-		final Join j = q.join(Item1.TYPE);
-		assertSerializedEquals(q, 1191);
+		final Join j = q.join(AnItem.TYPE);
+		assertSerializedEquals(q, 1192);
 
-		j.setCondition(Item1.field1.equal("zack"));
-		assertSerializedEquals(q, 1439);
+		j.setCondition(AnItem.field1.equal("zack"));
+		assertSerializedEquals(q, 1440);
 
-		q.addOrderBy(Item1.field1);
-		assertSerializedEquals(q, 1516);
+		q.addOrderBy(AnItem.field1);
+		assertSerializedEquals(q, 1517);
 
-		q.setHaving(Item1.field1.equal("zick"));
-		assertSerializedEquals(q, 1538);
+		q.setHaving(AnItem.field1.equal("zick"));
+		assertSerializedEquals(q, 1539);
 
 		q.setLimit(10, 20);
-		assertSerializedEquals(q, 1538);
+		assertSerializedEquals(q, 1539);
 
-		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{Item1.field1, Item1.TYPE.getThis()}, Item1.TYPE, null);
-		assertSerializedEquals(qMulti, 854);
+		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{AnItem.field1, AnItem.TYPE.getThis()}, AnItem.TYPE, null);
+		assertSerializedEquals(qMulti, 855);
 	}
 
 	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
@@ -55,16 +55,16 @@ public class QuerySerializeTest extends CopeAssert
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
 	}
 
-	static final class Item1 extends Item
+	static final class AnItem extends Item
 	{
 		static final StringField field1 = new StringField();
-		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
+		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 
-		private Item1(final ActivationParameters ap) { super(ap); }
+		private AnItem(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;
 	}
 
-	private static final Model MODEL = new Model(Item1.TYPE);
+	private static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
