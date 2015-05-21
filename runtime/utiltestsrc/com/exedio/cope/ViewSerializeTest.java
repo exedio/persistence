@@ -39,6 +39,7 @@ public class ViewSerializeTest extends TestCase
 
 	public void testViewNonMounted()
 	{
+		// TODO should work
 		final UppercaseView feature = field.toUpperCase();
 		try
 		{
