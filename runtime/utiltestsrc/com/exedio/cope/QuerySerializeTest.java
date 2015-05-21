@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
+import static com.exedio.cope.QuerySerializeTest.AnItem.field;
+
 import com.exedio.cope.junit.CopeAssert;
 import java.util.List;
 
@@ -25,28 +28,28 @@ public class QuerySerializeTest extends CopeAssert
 {
 	public void testSerialize()
 	{
-		final Query<?> q = AnItem.TYPE.newQuery(null);
+		final Query<?> q = TYPE.newQuery(null);
 		assertSerializedEquals(q, 785);
 
-		q.setCondition(AnItem.field.isNotNull());
+		q.setCondition(field.isNotNull());
 		assertSerializedEquals(q, 938);
 
-		final Join j = q.join(AnItem.TYPE);
+		final Join j = q.join(TYPE);
 		assertSerializedEquals(q, 1191);
 
-		j.setCondition(AnItem.field.equal("zack"));
+		j.setCondition(field.equal("zack"));
 		assertSerializedEquals(q, 1439);
 
-		q.addOrderBy(AnItem.field);
+		q.addOrderBy(field);
 		assertSerializedEquals(q, 1516);
 
-		q.setHaving(AnItem.field.equal("zick"));
+		q.setHaving(field.equal("zick"));
 		assertSerializedEquals(q, 1538);
 
 		q.setLimit(10, 20);
 		assertSerializedEquals(q, 1538);
 
-		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{AnItem.field, AnItem.TYPE.getThis()}, AnItem.TYPE, null);
+		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{field, TYPE.getThis()}, TYPE, null);
 		assertSerializedEquals(qMulti, 854);
 	}
 
