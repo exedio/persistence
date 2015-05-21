@@ -30,9 +30,9 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> minuend;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> subtrahend;
 
 	private MinusView(final Function<E> minuend, final Function<E> subtrahend)

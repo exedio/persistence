@@ -32,7 +32,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E> left;
 	private final E right;
 

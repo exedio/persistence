@@ -37,7 +37,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E>[] addends;
 
 	static <E> Class<E> valueClass(final Function<E>[] sources)

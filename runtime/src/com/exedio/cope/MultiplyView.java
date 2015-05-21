@@ -37,7 +37,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	@SuppressFBWarnings("SE_BAD_FIELD") // TODO Function should implement Serializable
 	private final Function<E>[] multipliers;
 
 	private MultiplyView(final Function<E>[] multipliers)

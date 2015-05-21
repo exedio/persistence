@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ViewSerializeTest.AnItem.TYPE;
 import static com.exedio.cope.ViewSerializeTest.AnItem.field;
 import static com.exedio.cope.ViewSerializeTest.AnItem.view;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.junit.CopeAssert.serialize;
+import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;
 
@@ -39,17 +41,16 @@ public class ViewSerializeTest extends TestCase
 
 	public void testViewNonMounted()
 	{
-		// TODO should work
 		final UppercaseView feature = field.toUpperCase();
-		try
-		{
-			serialize(feature);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("java.io.NotSerializableException: " + UppercaseView.class.getName(), e.getMessage());
-		}
+		assertEquals(asList(field), feature.getSources());
+		assertSame  (       field , feature.getSources().get(0));
+		assertEquals(TYPE, feature.getType());
+
+		final UppercaseView reserialized = reserialize(feature, 1147);
+		assertNotSame(feature, reserialized);
+		assertEquals(asList(field), reserialized.getSources());
+		assertSame  (       field , reserialized.getSources().get(0));
+		assertEquals(TYPE, reserialized.getType());
 	}
 
 	public void testViewWithFieldNonMounted()
@@ -62,7 +63,7 @@ public class ViewSerializeTest extends TestCase
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("java.io.NotSerializableException: " + UppercaseView.class.getName(), e.getMessage());
+			assertEquals("java.io.NotSerializableException: " + StringField.class.getName(), e.getMessage());
 		}
 	}
 

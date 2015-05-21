@@ -24,6 +24,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -374,7 +375,12 @@ public abstract class Feature implements Serializable
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
-			throw new NotSerializableException(getClass().getName());
+		{
+			if(isSerializableNonMounted())
+				return this;
+			else
+				throw new NotSerializableException(getClass().getName());
+		}
 
 		return mount.serializable();
 	}
@@ -383,20 +389,29 @@ public abstract class Feature implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
-	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws IOException, ClassNotFoundException
 	{
-		throw new InvalidObjectException("required " + Serialized.class);
+		if(isSerializableNonMounted())
+			ois.defaultReadObject();
+		else
+			throw new InvalidObjectException("required " + Serialized.class);
 	}
 
 	/**
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	protected final Object readResolve() throws InvalidObjectException
 	{
-		throw new InvalidObjectException("required " + Serialized.class);
+		if(isSerializableNonMounted())
+			return this;
+		else
+			throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	private boolean isSerializableNonMounted()
+	{
+		return this instanceof View; // TODO something more generic
 	}
 
 	private static final class Serialized implements Serializable
