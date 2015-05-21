@@ -20,11 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
+import static com.exedio.cope.junit.CopeAssert.reserialize;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.List;
+import junit.framework.TestCase;
 
-public class QuerySerializeTest extends CopeAssert
+public class QuerySerializeTest extends TestCase
 {
 	public void testSerialize()
 	{
