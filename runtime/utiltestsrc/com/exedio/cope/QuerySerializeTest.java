@@ -28,26 +28,26 @@ public class QuerySerializeTest extends CopeAssert
 		final Query<?> q = AnItem.TYPE.newQuery(null);
 		assertSerializedEquals(q, 785);
 
-		q.setCondition(AnItem.field1.isNotNull());
-		assertSerializedEquals(q, 939);
+		q.setCondition(AnItem.field.isNotNull());
+		assertSerializedEquals(q, 938);
 
 		final Join j = q.join(AnItem.TYPE);
-		assertSerializedEquals(q, 1192);
+		assertSerializedEquals(q, 1191);
 
-		j.setCondition(AnItem.field1.equal("zack"));
-		assertSerializedEquals(q, 1440);
+		j.setCondition(AnItem.field.equal("zack"));
+		assertSerializedEquals(q, 1439);
 
-		q.addOrderBy(AnItem.field1);
-		assertSerializedEquals(q, 1517);
+		q.addOrderBy(AnItem.field);
+		assertSerializedEquals(q, 1516);
 
-		q.setHaving(AnItem.field1.equal("zick"));
-		assertSerializedEquals(q, 1539);
+		q.setHaving(AnItem.field.equal("zick"));
+		assertSerializedEquals(q, 1538);
 
 		q.setLimit(10, 20);
-		assertSerializedEquals(q, 1539);
+		assertSerializedEquals(q, 1538);
 
-		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{AnItem.field1, AnItem.TYPE.getThis()}, AnItem.TYPE, null);
-		assertSerializedEquals(qMulti, 855);
+		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{AnItem.field, AnItem.TYPE.getThis()}, AnItem.TYPE, null);
+		assertSerializedEquals(qMulti, 854);
 	}
 
 	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
@@ -57,7 +57,7 @@ public class QuerySerializeTest extends CopeAssert
 
 	static final class AnItem extends Item
 	{
-		static final StringField field1 = new StringField();
+		static final StringField field = new StringField();
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 
 		private AnItem(final ActivationParameters ap) { super(ap); }
