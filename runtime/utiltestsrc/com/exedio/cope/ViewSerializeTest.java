@@ -51,7 +51,7 @@ public class ViewSerializeTest extends TestCase
 		}
 	}
 
-	public void testFieldNonMounted()
+	public void testViewWithFieldNonMounted()
 	{
 		final UppercaseView view = new StringField().toUpperCase();
 		try
@@ -62,6 +62,20 @@ public class ViewSerializeTest extends TestCase
 		catch(final RuntimeException e)
 		{
 			assertEquals("java.io.NotSerializableException: " + UppercaseView.class.getName(), e.getMessage());
+		}
+	}
+
+	public void testFieldNonMounted()
+	{
+		final StringField feature = new StringField();
+		try
+		{
+			serialize(feature);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("java.io.NotSerializableException: " + StringField.class.getName(), e.getMessage());
 		}
 	}
 
