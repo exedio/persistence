@@ -39,10 +39,10 @@ public class ViewSerializeTest extends TestCase
 
 	public void testViewNonMounted()
 	{
-		final UppercaseView view = field.toUpperCase();
+		final UppercaseView feature = field.toUpperCase();
 		try
 		{
-			serialize(view);
+			serialize(feature);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -53,10 +53,10 @@ public class ViewSerializeTest extends TestCase
 
 	public void testViewWithFieldNonMounted()
 	{
-		final UppercaseView view = new StringField().toUpperCase();
+		final UppercaseView feature = new StringField().toUpperCase();
 		try
 		{
-			serialize(view);
+			serialize(feature);
 			fail();
 		}
 		catch(final RuntimeException e)
