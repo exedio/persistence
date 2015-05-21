@@ -21,14 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashSet;
 
 public final class CheckConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Condition condition;
 
 	public CheckConstraint(final Condition condition)

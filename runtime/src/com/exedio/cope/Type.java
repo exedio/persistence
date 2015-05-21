@@ -65,9 +65,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<>(this);
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> featuresDeclared;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<Feature> features;
 	private final HashMap<String, Feature> featuresByNameDeclared;
 	private final HashMap<String, Feature> featuresByName;

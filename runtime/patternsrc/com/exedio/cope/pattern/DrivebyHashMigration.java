@@ -27,7 +27,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Set;
 
@@ -37,7 +36,6 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 
 	private final Hash legacyHash;
 	private final Hash targetHash;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 
 	/**
 	 * @param legacy the algorithm the passwords are currently hashed with

@@ -25,7 +25,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -38,7 +37,6 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<?>[] fields;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
