@@ -32,11 +32,13 @@ public class ViewSerializeTest extends TestCase
 	public void testField()
 	{
 		assertSerializedSame(field, 370);
+		assertEquals("AnItem.field", field.toString());
 	}
 
 	public void testView()
 	{
 		assertSerializedSame(view,  369);
+		assertEquals("AnItem.view", view.toString());
 	}
 
 	public void testViewNonMounted()
@@ -45,17 +47,20 @@ public class ViewSerializeTest extends TestCase
 		assertEquals(asList(field), feature.getSources());
 		assertSame  (       field , feature.getSources().get(0));
 		assertEquals(TYPE, feature.getType());
+		assertEquals("upper(AnItem.field)", feature.toString());
 
 		final UppercaseView reserialized = reserialize(feature, 1147);
 		assertNotSame(feature, reserialized);
 		assertEquals(asList(field), reserialized.getSources());
 		assertSame  (       field , reserialized.getSources().get(0));
 		assertEquals(TYPE, reserialized.getType());
+		assertEquals("upper(AnItem.field)", reserialized.toString());
 	}
 
 	public void testViewWithFieldNonMounted()
 	{
-		final UppercaseView feature = new StringField().toUpperCase();
+		final StringField source = new StringField();
+		final UppercaseView feature = source.toUpperCase();
 		try
 		{
 			serialize(feature);
@@ -65,6 +70,7 @@ public class ViewSerializeTest extends TestCase
 		{
 			assertEquals("java.io.NotSerializableException: " + StringField.class.getName(), e.getMessage());
 		}
+		assertEquals("upper(" + toStringObject(source) + ")", feature.toString());
 	}
 
 	public void testFieldNonMounted()
@@ -79,6 +85,12 @@ public class ViewSerializeTest extends TestCase
 		{
 			assertEquals("java.io.NotSerializableException: " + StringField.class.getName(), e.getMessage());
 		}
+		assertEquals(toStringObject(feature), feature.toString());
+	}
+
+	public void testType()
+	{
+		assertEquals(asList(TYPE.getThis(), field, view), TYPE.getFeatures());
 	}
 
 
@@ -102,5 +114,10 @@ public class ViewSerializeTest extends TestCase
 	static
 	{
 		MODEL.enableSerialization(ViewSerializeTest.class, "MODEL");
+	}
+
+	private static String toStringObject(final Object object)
+	{
+		return object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object));
 	}
 }
