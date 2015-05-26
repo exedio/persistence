@@ -39,7 +39,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
-	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		assert this.type == type;

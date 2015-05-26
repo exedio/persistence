@@ -139,7 +139,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(!this.optional && valueType.isSingle())
 			throw new IllegalArgumentException(

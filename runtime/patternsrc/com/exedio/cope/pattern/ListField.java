@@ -145,7 +145,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		return element;
 	}
 
-	public Type<? extends Item> getRelationType()
+	public Type<?> getRelationType()
 	{
 		return mount().relationType;
 	}

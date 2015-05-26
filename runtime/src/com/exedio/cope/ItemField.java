@@ -229,7 +229,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 
 	@Override
-	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 

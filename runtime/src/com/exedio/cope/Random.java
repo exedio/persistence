@@ -54,7 +54,7 @@ public class Random implements NumberFunction<Double>
 		return SimpleSelectType.DOUBLE;
 	}
 
-	public Type<? extends Item> getType()
+	public Type<?> getType()
 	{
 		return type;
 	}

@@ -112,7 +112,7 @@ public final class Features
 			final String postfix = entry.getKey();
 			if(!source.isMountedToType())
 				source.mount(type, name + '-' + postfix, getAnnotationSource(source));
-			final Type<? extends Item> sourceType = source.getType();
+			final Type<?> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
 				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');

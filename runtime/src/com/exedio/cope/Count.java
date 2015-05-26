@@ -39,7 +39,7 @@ public class Count implements Selectable<Integer>
 	}
 
 	@Override
-	public Type<? extends Item> getType()
+	public Type<?> getType()
 	{
 		throw new UnsupportedOperationException( "Not supported yet." );
 	}

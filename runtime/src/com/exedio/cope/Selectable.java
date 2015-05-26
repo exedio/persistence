@@ -29,7 +29,7 @@ public interface Selectable<E extends Object> extends Serializable
 
 	SelectType<E> getValueType();
 
-	Type<? extends Item> getType();
+	Type<?> getType();
 
 	void toString(StringBuilder bf, Type<?> defaultType);
 

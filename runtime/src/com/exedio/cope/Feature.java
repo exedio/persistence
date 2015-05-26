@@ -75,12 +75,12 @@ public abstract class Feature implements Serializable
 
 	private static final class MountType extends Mount
 	{
-		final Type<? extends Item> type;
+		final Type<?> type;
 		final String name;
 		final String id;
 
 		MountType(
-				final Type<? extends Item> type,
+				final Type<?> type,
 				final String name,
 				final AnnotatedElement annotationSource,
 				final Pattern pattern)
@@ -176,7 +176,7 @@ public abstract class Feature implements Serializable
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		{
 			final int i = NAME_CHAR_SET.indexOfNotContains(name);
@@ -230,7 +230,7 @@ public abstract class Feature implements Serializable
 		return (mount!=null) && (mount instanceof MountType);
 	}
 
-	public Type<? extends Item> getType()
+	public Type<?> getType()
 	{
 		return mountType().type;
 	}

@@ -51,7 +51,7 @@ abstract class DefaultSource<E>
 	 * @param name used in subclasses
 	 * @param annotationSource used in subclasses
 	 */
-	void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		// empty
 	}

@@ -39,7 +39,7 @@ public final class TypesBound
 		// prevent instantiation
 	}
 
-	private static final HashMap<Class<? extends Item>, Type<? extends Item>> types = new HashMap<>();
+	private static final HashMap<Class<? extends Item>, Type<?>> types = new HashMap<>();
 
 	/**
 	 * @throws IllegalArgumentException if there is no type for the given java class.
@@ -56,7 +56,7 @@ public final class TypesBound
 	 */
 	public static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
-		final Type<? extends Item> result = types.get(javaClass);
+		final Type<?> result = types.get(javaClass);
 		if(result==null)
 			throw new IllegalArgumentException("there is no type for " + javaClass);
 		return result;

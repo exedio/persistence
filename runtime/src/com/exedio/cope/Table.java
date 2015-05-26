@@ -39,7 +39,7 @@ final class Table
 	Table(
 			final Database database,
 			final String id,
-			final Type<? extends Item> supertype,
+			final Type<?> supertype,
 			final int typeColumnMinLength,
 			final String[] typesOfInstancesColumnValues,
 			final boolean updateCounter)

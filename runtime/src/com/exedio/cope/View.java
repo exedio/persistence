@@ -48,7 +48,7 @@ public abstract class View<E> extends Feature
 	private final List<Function<?>> sourceList;
 	private final String name;
 	final Class<E> valueClass;
-	final Type<? extends Item> sourceType;
+	final Type<?> sourceType;
 
 	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
@@ -168,7 +168,7 @@ public abstract class View<E> extends Feature
 	// second initialization phase ---------------------------------------------------
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
@@ -177,7 +177,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return (sourceType!=null) ? sourceType : super.getType();
 	}

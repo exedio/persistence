@@ -142,7 +142,7 @@ public final class MapField<K,V> extends Pattern
 		return value;
 	}
 
-	public Type<? extends Item> getRelationType()
+	public Type<?> getRelationType()
 	{
 		return mount().relationType;
 	}

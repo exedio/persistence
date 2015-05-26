@@ -67,8 +67,8 @@ public abstract class Pattern extends Feature
 	private Features sourceFeaturesGather = new Features();
 	private List<Feature> sourceFeatureList = null;
 
-	private ArrayList<Type<? extends Item>> sourceTypesWhileGather = new ArrayList<>();
-	private List<Type<? extends Item>> sourceTypes = null;
+	private ArrayList<Type<?>> sourceTypesWhileGather = new ArrayList<>();
+	private List<Type<?>> sourceTypes = null;
 
 	protected final void addSource(final Feature feature, final String postfix)
 	{
@@ -309,7 +309,7 @@ public abstract class Pattern extends Feature
 	}
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 		initialize();
@@ -340,7 +340,7 @@ public abstract class Pattern extends Feature
 	/**
 	 * @see Type#getPattern()
 	 */
-	public final List<Type<? extends Item>> getSourceTypes()
+	public final List<Type<?>> getSourceTypes()
 	{
 		if(sourceTypes==null)
 			throw new IllegalStateException("getSourceTypes can be called only after pattern is mounted, not before");
@@ -350,7 +350,7 @@ public abstract class Pattern extends Feature
 
 	// Make non-final method from super class final
 	@Override
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return super.getType();
 	}
@@ -383,7 +383,7 @@ public abstract class Pattern extends Feature
 	 * @deprecated Use {@link #getSourceTypes()} instead
 	 */
 	@Deprecated
-	public final List<Type<? extends Item>> getGeneratedTypes()
+	public final List<Type<?>> getGeneratedTypes()
 	{
 		return getSourceTypes();
 	}

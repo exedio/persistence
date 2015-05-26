@@ -151,7 +151,7 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	@Override
-	final void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 

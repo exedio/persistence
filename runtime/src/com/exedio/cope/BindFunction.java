@@ -84,7 +84,7 @@ public class BindFunction<E> implements Function<E>
 		function.appendSelect(bf, this.join);
 	}
 
-	public final Type<? extends Item> getType()
+	public final Type<?> getType()
 	{
 		return function.getType();
 	}

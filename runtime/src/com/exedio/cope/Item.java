@@ -45,7 +45,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 {
 	static final char ID_SEPARATOR = '-';
 
-	transient Type<? extends Item> type;
+	transient Type<?> type;
 
 	/**
 	 * The primary key of the item,
@@ -81,7 +81,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * Returns the type of this item.
 	 * Never returns null.
 	 */
-	public final Type<? extends Item> getCopeType()
+	public final Type<?> getCopeType()
 	{
 		assert type!=null;
 		return type;

@@ -119,7 +119,7 @@ public final class IntegerField extends NumberField<Integer>
 		}
 
 		@Override
-		void mount(final Type<? extends Item> type, final String name, final AnnotatedElement annotationSource)
+		void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 		{
 			getSequence().mount(type, sequenceName(name), new AnnotationProxy(annotationSource));
 		}

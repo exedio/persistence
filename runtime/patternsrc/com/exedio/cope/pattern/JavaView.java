@@ -38,7 +38,7 @@ public final class JavaView extends Pattern
 		final java.lang.reflect.Type valueGenericType;
 
 		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-		Mount(final Type<? extends Item> type, final String name)
+		Mount(final Type<?> type, final String name)
 		{
 			final String getterName =
 				("get" + Character.toUpperCase(name.charAt(0)) + name.substring(1)).replace("-", "");
