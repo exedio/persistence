@@ -181,11 +181,11 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	private static final class Mount
 	{
-		final ItemField<? extends Item> pasteParent;
+		final ItemField<?> pasteParent;
 		final Type<Paste> pasteType;
 
 		Mount(
-				final ItemField<? extends Item> pasteParent,
+				final ItemField<?> pasteParent,
 				final Type<Paste> pasteType)
 		{
 			assert pasteParent!=null;
