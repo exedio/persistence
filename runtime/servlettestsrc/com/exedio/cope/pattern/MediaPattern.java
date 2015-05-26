@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.ActivationParameters;
@@ -86,7 +87,7 @@ public final class MediaPattern extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField( ItemField.DeletePolicy.CASCADE ).toFinal();
+		parent = type.newItemField(CASCADE).toFinal();
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("value", sourceTypeValue);

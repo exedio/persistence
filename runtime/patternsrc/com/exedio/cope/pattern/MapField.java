@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.util.Cast.verboseCast;
 import static java.util.Objects.requireNonNull;
 
@@ -74,7 +75,7 @@ public final class MapField<K,V> extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, key);
 		final Features features = new Features();
 		features.put("parent", parent);

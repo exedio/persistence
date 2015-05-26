@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Iterables.once;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
@@ -452,7 +453,7 @@ public final class Schedule extends Pattern
 
 		void onMount(final Schedule pattern, final Type<?> type)
 		{
-			final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+			final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 			final PartOf<?> runs = PartOf.create(parent, from);
 			final Features features = new Features();
 			features.put("parent", parent);

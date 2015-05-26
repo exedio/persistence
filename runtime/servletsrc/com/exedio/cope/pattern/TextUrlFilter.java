@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -166,7 +167,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		super.onMount();
 		final Type<?> type = getType();
 
-		final ItemField<? extends Item> pasteParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final ItemField<? extends Item> pasteParent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
 		final Features features = new Features();
 		features.put("parent", pasteParent);

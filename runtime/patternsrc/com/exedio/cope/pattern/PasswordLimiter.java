@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
@@ -91,7 +92,7 @@ public final class PasswordLimiter extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final PartOf<?>refusals = PartOf.create(parent, date);
 		final Features features = new Features();
 		features.put("parent", parent);

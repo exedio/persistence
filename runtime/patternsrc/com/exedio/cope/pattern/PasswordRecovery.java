@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
@@ -87,7 +88,7 @@ public final class PasswordRecovery extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		parent = type.newItemField(CASCADE).toFinal();
 		tokens = PartOf.create(parent, expires);
 		final Features features = new Features();
 		features.put("parent", parent);

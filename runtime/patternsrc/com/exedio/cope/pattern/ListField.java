@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
@@ -76,7 +77,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		super.onMount();
 		final Type<?> type = getType();
 
-		final ItemField<?> parent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, order);
 		final Features features = new Features();
 		features.put("parent", parent);

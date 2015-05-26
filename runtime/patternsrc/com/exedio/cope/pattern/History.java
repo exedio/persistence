@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Cope;
@@ -67,7 +69,7 @@ public final class History extends Pattern
 		super.onMount();
 		final Type<?> type = getType();
 
-		eventParent = type.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		eventParent = type.newItemField(CASCADE).toFinal();
 		eventEvents = PartOf.create(eventParent, eventDate);
 		final Features features = new Features();
 		features.put("parent", eventParent);
@@ -78,7 +80,7 @@ public final class History extends Pattern
 		eventType = newSourceType(Event.class, features, "Event");
 
 		features.clear();
-		featureEvent = eventType.newItemField(ItemField.DeletePolicy.CASCADE).toFinal();
+		featureEvent = eventType.newItemField(CASCADE).toFinal();
 		featureFeatures = PartOf.create(featureEvent);
 		featureUnique = new UniqueConstraint(featureEvent, featureId.getIdField());
 		features.put("event", featureEvent);

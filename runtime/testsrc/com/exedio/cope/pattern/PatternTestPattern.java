@@ -18,11 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
@@ -78,7 +79,7 @@ class PatternTestPattern extends Pattern
 		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
 		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
 
-		addSource(ownItem = subType.newItemField(DeletePolicy.NULLIFY), "ownItem", af("ownItem"));
+		addSource(ownItem = subType.newItemField(NULLIFY), "ownItem", af("ownItem"));
 	}
 
 	ItemField<PatternTestTypeItem> getOwnItem()
