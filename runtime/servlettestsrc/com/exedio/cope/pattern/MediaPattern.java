@@ -40,7 +40,7 @@ public final class MediaPattern extends Pattern
 
 	private final Media sourceFeature;
 
-	private ItemField<? extends Item> parent = null;
+	private ItemField<?> parent = null;
 	private final Media sourceTypeValue;
 	private Type<SourceItem> sourceType = null;
 
