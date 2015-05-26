@@ -171,6 +171,14 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals(30, getColumnValue(MONTHLY));
 	}
 
+	public void testEnumLimit()
+	{
+		assertEquals(720, HOURLY .limit);
+		assertEquals( 62, DAILY  .limit);
+		assertEquals( 25, WEEKLY .limit);
+		assertEquals( 12, MONTHLY.limit);
+	}
+
 	public void testJobContextNull()
 	{
 		try

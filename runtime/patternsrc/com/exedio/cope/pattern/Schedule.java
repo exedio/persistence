@@ -74,7 +74,7 @@ public final class Schedule extends Pattern
 	public enum Interval
 	{
 		@CopeSchemaValue(7)
-		HOURLY(HOUR_OF_DAY)
+		HOURLY(HOUR_OF_DAY, 30*24) // limit: 30 days
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
@@ -93,7 +93,7 @@ public final class Schedule extends Pattern
 				cal.add(field, -cal.get(field));
 			}
 		},
-		DAILY(DAY_OF_WEEK)
+		DAILY(DAY_OF_WEEK, 2*31) // limit: 2 months
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
@@ -103,7 +103,7 @@ public final class Schedule extends Pattern
 				cal.set(HOUR_OF_DAY, 0);
 			}
 		},
-		WEEKLY(WEEK_OF_MONTH)
+		WEEKLY(WEEK_OF_MONTH, 25) // limit: half a year
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
@@ -111,7 +111,7 @@ public final class Schedule extends Pattern
 				cal.set(DAY_OF_WEEK, MONDAY);
 			}
 		},
-		MONTHLY(MONTH)
+		MONTHLY(MONTH, 12) // limit: one year
 		{
 			@Override void setToFrom(final GregorianCalendar cal)
 			{
@@ -123,10 +123,14 @@ public final class Schedule extends Pattern
 		abstract void setToFrom(GregorianCalendar cal);
 
 		final int addField;
+		final int limit; // TODO allow customization
 
-		Interval(final int addField)
+		Interval(final int addField, final int limit)
 		{
 			this.addField = addField;
+			this.limit = limit;
+
+			assert limit>=12 : limit;
 		}
 	}
 
@@ -342,10 +346,10 @@ public final class Schedule extends Pattern
 			dates.add(0, lastUntil);
 
 			final int total = dates.size() - 1;
-			if(total>30) // TODO allow customization
+			if(total>interval.limit)
 				throw new RuntimeException(
 						"schedule aborting because suspicious amount of work to do: " +
-						getID() + ',' + item.getCopeID() + ',' + total);
+						getID() + ',' + item.getCopeID() + ',' + total + ',' + interval + ',' + interval.limit);
 
 			final Iterator<Date> i = dates.iterator();
 			Date from = i.next();
