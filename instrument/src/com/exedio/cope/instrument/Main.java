@@ -20,6 +20,7 @@
 package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.lang.System.lineSeparator;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -96,7 +97,11 @@ final class Main
 				if(!parser.lexer.inputEqual(baos))
 				{
 					if(params.verify)
-						throw new HumanReadableException("Not yet instrumented " + file.getAbsolutePath());
+						throw new HumanReadableException(
+								"Not yet instrumented " + file.getAbsolutePath() + lineSeparator() +
+								"Instrumentor runs in verify mode, which is typically enabled while Continious Integration." + lineSeparator() +
+								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
+								"but you did not run the intrumentor.");
 					logInstrumented(file);
 					delete(file);
 					final CharsetEncoder decoder = charset.newEncoder();
