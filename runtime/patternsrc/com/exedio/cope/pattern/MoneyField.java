@@ -93,6 +93,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return currency.getField();
 	}
 
+	public Class<C> getCurrencyClass()
+	{
+		return currency.getInitialType();
+	}
+
 	@Override
 	public boolean isInitial()
 	{

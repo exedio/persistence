@@ -57,6 +57,10 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("exclusive-currency",   exclusive.getCurrency()       .getName());
 		assertSame(shared.getCurrency(), sharedMandatory.getCurrency());
 
+		assertEquals(Currency.class, shared         .getCurrencyClass());
+		assertEquals(Currency.class, sharedMandatory.getCurrencyClass());
+		assertEquals(Currency.class, exclusive      .getCurrencyClass());
+
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", shared         .getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharedMandatory.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclusive      .getInitialType().toString());
