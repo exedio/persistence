@@ -57,11 +57,11 @@ final class Connect
 	{
 		this.properties = properties;
 
-		final DialectParameters dialectParameters = properties.probe();
+		final Probe probe = properties.probe();
 
-		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
-		this.dialect = properties.createDialect(dialectParameters);
-		this.connectionFactory = new ConnectionFactory(properties, dialectParameters.driver, dialect);
+		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
+		this.dialect = properties.createDialect(probe);
+		this.connectionFactory = new ConnectionFactory(properties, probe.driver, dialect);
 		@SuppressWarnings("deprecation") // TODO when property context is not supported anymore
 		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,
@@ -73,7 +73,7 @@ final class Connect
 		this.executor = new Executor(dialect, properties, marshallers);
 		this.database = new Database(
 				dialect.dsmfDialect,
-				dialectParameters,
+				probe,
 				dialect,
 				connectionPool,
 				executor,
@@ -180,7 +180,7 @@ final class Connect
 		revisions.get().revise(
 				properties,
 				connectionFactory, connectionPool,
-				executor, database.dialectParameters, dialect,
+				executor, database.probe, dialect,
 				explicitRequest);
 
 		revised = true;

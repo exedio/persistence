@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-final class DialectParameters // TODO rename to Probe
+final class Probe
 {
 	final ConnectProperties properties;
 	final Driver driver;
@@ -36,7 +36,7 @@ final class DialectParameters // TODO rename to Probe
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
 
-	DialectParameters(
+	Probe(
 			final ConnectProperties properties,
 			final Driver driver,
 			final Connection connection)

@@ -43,14 +43,14 @@ final class PostgresqlDialect extends Dialect
 	private final String searchPath;
 
 	/**
-	 * @param parameters must be there to be called by reflection
+	 * @param probe must be there to be called by reflection
 	 */
-	PostgresqlDialect(final DialectParameters parameters)
+	PostgresqlDialect(final Probe probe)
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect());
 
-		searchPath = parameters.properties.connectionPostgresqlSearchPath;
+		searchPath = probe.properties.connectionPostgresqlSearchPath;
 	}
 
 	@Override

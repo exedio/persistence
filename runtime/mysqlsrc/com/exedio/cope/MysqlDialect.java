@@ -48,12 +48,12 @@ final class MysqlDialect extends Dialect
 
 	private final String deleteTable;
 
-	MysqlDialect(final DialectParameters parameters)
+	MysqlDialect(final Probe probe)
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(
-						parameters.properties.mysqlRowFormat.sql));
-		this.deleteTable = parameters.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
+						probe.properties.mysqlRowFormat.sql));
+		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
 	@Override

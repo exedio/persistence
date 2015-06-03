@@ -366,7 +366,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
 		{
-			return dialectClass.getDeclaredConstructor(DialectParameters.class);
+			return dialectClass.getDeclaredConstructor(Probe.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
@@ -374,11 +374,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	Dialect createDialect(final DialectParameters parameters)
+	Dialect createDialect(final Probe probe)
 	{
 		try
 		{
-			return this.dialect.newInstance(parameters);
+			return this.dialect.newInstance(probe);
 		}
 		catch(final ReflectiveOperationException e)
 		{
@@ -386,7 +386,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	DialectParameters probe()
+	Probe probe()
 	{
 		final Driver driver;
 
@@ -403,7 +403,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		try(Connection connection = driver.connect(connectionUrl, newConnectionInfo()))
 		{
-			return new DialectParameters(this, driver, connection);
+			return new Probe(this, driver, connection);
 		}
 		catch(final SQLException e)
 		{

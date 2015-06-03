@@ -41,7 +41,7 @@ final class Database
 	private boolean buildStage = true;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
-	final DialectParameters dialectParameters;
+	final Probe probe;
 	final Dialect dialect;
 	final Transactions transactions;
 	private final RevisionsConnect revisions;
@@ -53,16 +53,16 @@ final class Database
 
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
-			final DialectParameters dialectParameters,
+			final Probe probe,
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Transactions transactions,
 			final RevisionsConnect revisions)
 	{
-		this.properties = dialectParameters.properties;
+		this.properties = probe.properties;
 		this.dsmfDialect = dsmfDialect;
-		this.dialectParameters = dialectParameters;
+		this.probe = probe;
 		this.dialect = dialect;
 		this.transactions = transactions;
 		this.revisions = revisions;
@@ -120,7 +120,7 @@ final class Database
 		makeSchema().create();
 
 		if(revisions!=null)
-			revisions.get().insertCreate(properties, connectionPool, executor, dialectParameters.getRevisionEnvironment());
+			revisions.get().insertCreate(properties, connectionPool, executor, probe.getRevisionEnvironment());
 
 		for(final Table table : tables)
 			table.knownToBeEmptyForTest = true;

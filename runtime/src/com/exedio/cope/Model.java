@@ -549,7 +549,7 @@ public final class Model implements Serializable
 
 	public EnvironmentInfo getEnvironmentInfo()
 	{
-		return connect().database.dialectParameters.environmentInfo;
+		return connect().database.probe.environmentInfo;
 	}
 
 	public Properties getClusterProperties()

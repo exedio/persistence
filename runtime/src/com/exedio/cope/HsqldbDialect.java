@@ -31,9 +31,9 @@ import java.util.List;
 final class HsqldbDialect extends Dialect
 {
 	/**
-	 * @param parameters must be there to be called by reflection
+	 * @param probe must be there to be called by reflection
 	 */
-	HsqldbDialect(final DialectParameters parameters)
+	HsqldbDialect(final Probe probe)
 	{
 		super(
 				new com.exedio.dsmf.HsqldbDialect());

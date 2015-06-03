@@ -222,7 +222,7 @@ public final class Revisions
 			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final DialectParameters dialectParameters,
+			final Probe probe,
 			final Dialect dialect,
 			final boolean explicitRequest)
 	{
@@ -246,7 +246,7 @@ public final class Revisions
 				: "disabled by " + ConnectProperties.reviseSavepointKey;
 
 			final Date date = new Date();
-			final Map<String, String> environment = dialectParameters.getRevisionEnvironment();
+			final Map<String, String> environment = probe.getRevisionEnvironment();
 			final RevisionInfoMutex mutex = new RevisionInfoMutex(savepoint, date, environment, getNumber(), actualNumber);
 			try
 			{

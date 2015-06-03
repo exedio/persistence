@@ -37,11 +37,11 @@ import java.util.Random;
 
 final class OracleDialect extends Dialect
 {
-	OracleDialect(final DialectParameters parameters)
+	OracleDialect(final Probe probe)
 	{
 		super(
 				new com.exedio.dsmf.OracleDialect(
-						parameters.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
+						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 	}
 
 	@Override
