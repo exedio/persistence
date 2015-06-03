@@ -64,7 +64,7 @@ public class ConnectPropertiesTest extends TestCase
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"dialect from getDescription / getDescription / connectPropertiesTest.properties must have at least two characters, but was a",
+				"dialect from dialect / connection.url / connectPropertiesTest.properties must have at least two characters, but was a",
 				null);
 	}
 
@@ -72,7 +72,7 @@ public class ConnectPropertiesTest extends TestCase
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
-				"class com.exedio.cope.ClassNotFoundDialect from getDescription / getDescription / connectPropertiesTest.properties not found.",
+				"class com.exedio.cope.ClassNotFoundDialect from dialect / connection.url / connectPropertiesTest.properties not found.",
 				ClassNotFoundException.class);
 	}
 
@@ -81,7 +81,7 @@ public class ConnectPropertiesTest extends TestCase
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
 				"class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
-				" from getDescription / getDescription / connectPropertiesTest.properties not a subclass of com.exedio.cope.Dialect.",
+				" from dialect / connection.url / connectPropertiesTest.properties not a subclass of com.exedio.cope.Dialect.",
 				null);
 	}
 
@@ -90,7 +90,7 @@ public class ConnectPropertiesTest extends TestCase
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
 				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
-				" from getDescription / getDescription / connectPropertiesTest.properties does not have the required constructor.",
+				" from dialect / connection.url / connectPropertiesTest.properties does not have the required constructor.",
 				NoSuchMethodException.class);
 	}
 
@@ -190,7 +190,7 @@ public class ConnectPropertiesTest extends TestCase
 			@Override
 			public String getDescription()
 			{
-				return "getDescription";
+				return key1;
 			}
 		};
 	}
