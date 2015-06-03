@@ -23,9 +23,14 @@ import static java.lang.Thread.MIN_PRIORITY;
 
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.Sources;
+import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -378,6 +383,31 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(dialect.toGenericString(), e);
+		}
+	}
+
+	DialectParameters probe()
+	{
+		final Driver driver;
+
+		try
+		{
+			driver = DriverManager.getDriver(connectionUrl);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, connectionUrl);
+		}
+		if(driver==null)
+			throw new RuntimeException(connectionUrl);
+
+		try(Connection connection = driver.connect(connectionUrl, newConnectionInfo()))
+		{
+			return new DialectParameters(this, driver, connection);
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, connectionUrl);
 		}
 	}
 

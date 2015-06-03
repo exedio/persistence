@@ -21,11 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
-import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TIntHashSet;
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,33 +57,11 @@ final class Connect
 	{
 		this.properties = properties;
 
-		final String url = properties.getConnectionUrl();
-		final Driver driver;
+		final DialectParameters dialectParameters = properties.probe();
 
-		try
-		{
-			driver = DriverManager.getDriver(url);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, url);
-		}
-		if(driver==null)
-			throw new RuntimeException(url);
-
-		final DialectParameters dialectParameters;
-		try(Connection probeConnection =
-				driver.connect(url, properties.newConnectionInfo()))
-		{
-			dialectParameters = new DialectParameters(properties, probeConnection);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, url);
-		}
 		this.revisions = RevisionsConnect.wrap(dialectParameters.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(dialectParameters);
-		this.connectionFactory = new ConnectionFactory(properties, driver, dialect);
+		this.connectionFactory = new ConnectionFactory(properties, dialectParameters.driver, dialect);
 		@SuppressWarnings("deprecation") // TODO when property context is not supported anymore
 		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,

@@ -23,20 +23,26 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-final class DialectParameters
+final class DialectParameters // TODO rename to Probe
 {
 	final ConnectProperties properties;
+	final Driver driver;
 
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
 
-	DialectParameters(final ConnectProperties properties, final Connection connection)
+	DialectParameters(
+			final ConnectProperties properties,
+			final Driver driver,
+			final Connection connection)
 	{
 		this.properties = properties;
+		this.driver = driver;
 
 		try
 		{
