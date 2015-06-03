@@ -18,11 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.dsmf.SQLRuntimeException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -40,19 +38,11 @@ final class Probe
 			final ConnectProperties properties,
 			final Driver driver,
 			final Connection connection)
+		throws SQLException
 	{
 		this.properties = properties;
 		this.driver = driver;
-
-		try
-		{
-			final DatabaseMetaData dmd = connection.getMetaData();
-			this.environmentInfo = new EnvironmentInfo(dmd);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getMetaData");
-		}
+		this.environmentInfo = new EnvironmentInfo(connection.getMetaData());
 	}
 
 	Map<String, String> getRevisionEnvironment()
