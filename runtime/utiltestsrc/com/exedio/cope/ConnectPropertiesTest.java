@@ -21,9 +21,11 @@ package com.exedio.cope;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.concurrent.Callable;
 import junit.framework.TestCase;
 
 public class ConnectPropertiesTest extends TestCase
@@ -215,5 +217,18 @@ public class ConnectPropertiesTest extends TestCase
 		{
 			stream.close();
 		}
+	}
+
+	public void testProbe() throws Exception
+	{
+		final ConnectProperties p = new ConnectProperties(
+				Sources.load(new File("runtime/utiltest.properties")), null);
+
+		final Callable<?> test = p.getProbeTest();
+		assertEquals(
+				"HSQL Database Engine 2.2.9 (2.2) " +
+				"HSQL Database Engine Driver 2.2.9 (2.2)",
+				test.call());
+		assertEquals("probe", test.toString());
 	}
 }

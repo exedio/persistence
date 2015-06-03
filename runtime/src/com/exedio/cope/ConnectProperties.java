@@ -33,6 +33,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
@@ -464,6 +465,28 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			return true;
 		}
+	}
+
+	public Callable<?> getProbeTest()
+	{
+		return new Callable<String>()
+		{
+			@Override
+			public String call()
+			{
+				final EnvironmentInfo info = probe().environmentInfo;
+				return
+						info.getDatabaseProductName() + ' ' +
+						info.getDatabaseVersionDescription() + ' ' +
+						info.getDriverName() + ' ' +
+						info.getDriverVersionDescription();
+			}
+			@Override
+			public String toString()
+			{
+				return "probe";
+			}
+		};
 	}
 
 	// TODO move into framework
