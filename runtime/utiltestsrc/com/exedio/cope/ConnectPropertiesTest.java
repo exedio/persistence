@@ -64,7 +64,7 @@ public class ConnectPropertiesTest extends TestCase
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"dialect from getDescription / getDescription / test must have at least two characters, but was a",
+				"dialect from getDescription / getDescription / connectPropertiesTest.properties must have at least two characters, but was a",
 				null);
 	}
 
@@ -72,7 +72,7 @@ public class ConnectPropertiesTest extends TestCase
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
-				"class com.exedio.cope.ClassNotFoundDialect from getDescription / getDescription / test not found.",
+				"class com.exedio.cope.ClassNotFoundDialect from getDescription / getDescription / connectPropertiesTest.properties not found.",
 				ClassNotFoundException.class);
 	}
 
@@ -81,7 +81,7 @@ public class ConnectPropertiesTest extends TestCase
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
 				"class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
-				" from getDescription / getDescription / test not a subclass of com.exedio.cope.Dialect.",
+				" from getDescription / getDescription / connectPropertiesTest.properties not a subclass of com.exedio.cope.Dialect.",
 				null);
 	}
 
@@ -90,7 +90,7 @@ public class ConnectPropertiesTest extends TestCase
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
 				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
-				" from getDescription / getDescription / test does not have the required constructor.",
+				" from getDescription / getDescription / connectPropertiesTest.properties does not have the required constructor.",
 				NoSuchMethodException.class);
 	}
 
@@ -197,8 +197,9 @@ public class ConnectPropertiesTest extends TestCase
 
 	private static Source loadProperties()
 	{
+		final String name = "connectPropertiesTest.properties";
 		final Source s = Sources.load(
-				ConnectPropertiesTest.class.getResource("connectPropertiesTest.properties"));
+				ConnectPropertiesTest.class.getResource(name));
 
 		return new Source(){
 			@Override public String get(final String key)
@@ -211,7 +212,7 @@ public class ConnectPropertiesTest extends TestCase
 			}
 			@Override public String getDescription()
 			{
-				return "test";
+				return name;
 			}
 		};
 	}
