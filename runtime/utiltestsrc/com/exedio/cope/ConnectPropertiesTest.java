@@ -22,8 +22,6 @@ import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import junit.framework.TestCase;
@@ -34,7 +32,7 @@ public class ConnectPropertiesTest extends TestCase
 	 * This tests makes sure, that no properties are changed by accident.
 	 * Adapt if necessary.
 	 */
-	public void testRegression() throws IOException
+	public void testRegression()
 	{
 		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
 
@@ -46,7 +44,7 @@ public class ConnectPropertiesTest extends TestCase
 		p.ensureValidity();
 	}
 
-	public void testConnectionUrlMissingPrefix() throws IOException
+	public void testConnectionUrlMissingPrefix()
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
@@ -54,7 +52,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlMissingColon() throws IOException
+	public void testConnectionUrlMissingColon()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
@@ -62,7 +60,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlTwoCharacters() throws IOException
+	public void testConnectionUrlTwoCharacters()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
@@ -70,7 +68,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlClassNotFound() throws IOException
+	public void testConnectionUrlClassNotFound()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
@@ -78,7 +76,7 @@ public class ConnectPropertiesTest extends TestCase
 				ClassNotFoundException.class);
 	}
 
-	public void testConnectionUrlClassNotDialect() throws IOException
+	public void testConnectionUrlClassNotDialect()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
@@ -87,7 +85,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlClassNoConstructor() throws IOException
+	public void testConnectionUrlClassNoConstructor()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
@@ -100,7 +98,6 @@ public class ConnectPropertiesTest extends TestCase
 			final String url,
 			final String message,
 			final Class<? extends Exception> cause)
-		throws IOException
 	{
 		final String propKey = "connection.url";
 		final Source source =
@@ -127,7 +124,7 @@ public class ConnectPropertiesTest extends TestCase
 		}
 	}
 
-	public void testPostgresqlSearchPath() throws IOException
+	public void testPostgresqlSearchPath()
 	{
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
@@ -150,7 +147,7 @@ public class ConnectPropertiesTest extends TestCase
 		}
 	}
 
-	public void testConnectionPoolIdleInitial() throws IOException
+	public void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
@@ -198,25 +195,25 @@ public class ConnectPropertiesTest extends TestCase
 		};
 	}
 
-	private static Source loadProperties() throws IOException
+	private static Source loadProperties()
 	{
-		return loadProperties(
-				ConnectPropertiesTest.class.getResourceAsStream("connectPropertiesTest.properties"));
-	}
+		final Source s = Sources.load(
+				ConnectPropertiesTest.class.getResource("connectPropertiesTest.properties"));
 
-	private static Source loadProperties(final InputStream stream) throws IOException
-	{
-		assertNotNull(stream);
-		try
-		{
-			final java.util.Properties result = new java.util.Properties();
-			result.load(stream);
-			return Sources.view(result, "test");
-		}
-		finally
-		{
-			stream.close();
-		}
+		return new Source(){
+			@Override public String get(final String key)
+			{
+				return s.get(key);
+			}
+			@Override public Collection<String> keySet()
+			{
+				return s.keySet();
+			}
+			@Override public String getDescription()
+			{
+				return "test";
+			}
+		};
 	}
 
 	public void testProbe() throws Exception
