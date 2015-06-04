@@ -624,9 +624,7 @@ public abstract class MediaPath extends Pattern
 					{
 						final StringBuilder location = new StringBuilder();
 						location.
-							append(request.getScheme()).
-							append("://").
-							append(request.getHeader("Host")).
+							// There is no need for absolute url anymore: http://en.wikipedia.org/wiki/HTTP_location
 							append(request.getContextPath()).
 							append(request.getServletPath()).
 							append('/');

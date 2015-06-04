@@ -70,17 +70,20 @@ public class MediaServletTest extends TestCase
 
 	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
 
+	private String schemeAndHost;
+
 	@Override
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
 		onException.delete();
 	}
 
 	public void testIt() throws Exception
 	{
-		final String app = "http://localhost:" + System.getProperty("tomcat.port.http") + "/cope-runtime-servlet/";
-		final URL init = new URL(app + "init");
+		final String app = "/cope-runtime-servlet/";
+		final URL init = new URL(schemeAndHost + app + "init");
 		init.getContent();
 
 		final String prefix = app + "media/MediaServletItem/";
@@ -293,17 +296,17 @@ public class MediaServletTest extends TestCase
 		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR_LM + ".txt");
 	}
 
-	private static void assertTxt(final String url, final Date lastModified) throws IOException
+	private void assertTxt(final String url, final Date lastModified) throws IOException
 	{
 		assertTxt(url, lastModified, -1, false);
 	}
 
-	private static void assertTxt(final String url, final String contentType, final Date lastModified) throws IOException
+	private void assertTxt(final String url, final String contentType, final Date lastModified) throws IOException
 	{
 		assertTxt(url, contentType, lastModified, -1, false);
 	}
 
-	private static void assertTxt(
+	private void assertTxt(
 			final String url,
 			final Date lastModified,
 			final long ifModifiedSince,
@@ -313,7 +316,7 @@ public class MediaServletTest extends TestCase
 		assertTxt(url, "text/plain", lastModified, ifModifiedSince, expectNotModified);
 	}
 
-	private static void assertTxt(
+	private void assertTxt(
 			final String url,
 			final String contentType,
 			final Date lastModified,
@@ -322,7 +325,7 @@ public class MediaServletTest extends TestCase
 		throws IOException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
@@ -373,10 +376,10 @@ public class MediaServletTest extends TestCase
 		return builder.toString();
 	}
 
-	private static void assertMoved(final String url, final String target) throws IOException
+	private void assertMoved(final String url, final String target) throws IOException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode());
@@ -396,17 +399,17 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static void assertNotFound(final String url, final String reason) throws IOException
+	private void assertNotFound(final String url, final String reason) throws IOException
 	{
 		assertNotFound(url, reason, null);
 	}
 
-	private static void assertNotFound(
+	private void assertNotFound(
 			final String url, final String reason,
 			final Date lastModified) throws IOException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		if(HTTP_NOT_FOUND!=conn.getResponseCode())
@@ -447,7 +450,7 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static void assertBin(
+	private void assertBin(
 			final String url,
 			final String contentType,
 			final Date lastModified)
@@ -456,7 +459,7 @@ public class MediaServletTest extends TestCase
 		assertBin(url, contentType, lastModified, null);
 	}
 
-	private static void assertBinPrivate(
+	private void assertBinPrivate(
 			final String url,
 			final String contentType,
 			final Date lastModified)
@@ -465,7 +468,7 @@ public class MediaServletTest extends TestCase
 		assertBin(url, contentType, lastModified, "private");
 	}
 
-	private static void assertBin(
+	private void assertBin(
 			final String url,
 			final String contentType,
 			final Date lastModified,
@@ -475,7 +478,7 @@ public class MediaServletTest extends TestCase
 		assertBin(url, contentType, lastModified, cacheControl, 5000);
 	}
 
-	private static void assertBin(
+	private void assertBin(
 			final String url,
 			final String contentType,
 			final Date lastModified,
@@ -484,7 +487,7 @@ public class MediaServletTest extends TestCase
 		throws IOException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals("url="+ url, HTTP_OK, conn.getResponseCode());
@@ -506,10 +509,10 @@ public class MediaServletTest extends TestCase
 		assertOnExceptionEmpty();
 	}
 
-	private static void assertInternalError(final String url) throws IOException
+	private void assertInternalError(final String url) throws IOException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		if(HTTP_INTERNAL_ERROR!=conn.getResponseCode())
@@ -551,9 +554,9 @@ public class MediaServletTest extends TestCase
 		StrictFile.delete(onException);
 	}
 
-	private static void assertNameURL(final String url) throws IOException
+	private void assertNameURL(final String url) throws IOException
 	{
-		final HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());

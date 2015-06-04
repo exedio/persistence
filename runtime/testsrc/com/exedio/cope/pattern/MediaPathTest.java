@@ -126,7 +126,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertError(pathInfo);
 	}
 
-	private static final String prefix = "testScheme://testHostHeader/testContextPath/testServletPath";
+	private static final String prefix = "/testContextPath/testServletPath";
 
 	public void testRedirectFrom() throws ServletException, IOException
 	{
@@ -568,12 +568,6 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		public String getMethod()
 		{
 			return "GET";
-		}
-
-		@Override()
-		public String getScheme()
-		{
-			return "testScheme";
 		}
 
 		@Override()
