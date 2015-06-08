@@ -805,6 +805,17 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			};
 		}
 
+
+		private int flushBufferCount = 0;
+
+		@Override
+		public void flushBuffer()
+		{
+			assertNull(out);
+			flushBufferCount++;
+		}
+
+
 		void assertOk()
 		{
 			assertEquals("location",      null, this.location);
@@ -816,6 +827,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		void assertOkAndCache(final long lastModified)
@@ -829,6 +841,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		void assertNotModified(final long lastModified)
@@ -842,6 +855,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   1, this.flushBufferCount);
 		}
 
 		void assertOkAndCacheControl(final String value)
@@ -855,6 +869,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("cacheControl",  value, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		void assertOkAndAccessControlAllowOrigin(final String value)
@@ -868,6 +883,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", 10011, this.contentLength);
 			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", value, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		void assertError(
@@ -885,6 +901,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", content.length(), this.contentLength);
 			assertEquals("cacheControl",  null,             this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		void assertRedirect(final String location)
@@ -898,6 +915,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
 			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
+			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
 
 		Response assertExpires(final long expires)

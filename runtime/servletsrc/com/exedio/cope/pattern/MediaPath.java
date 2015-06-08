@@ -641,7 +641,7 @@ public abstract class MediaPath extends Pattern
 			if(servlet.isAccessControlAllowOriginWildcard(this, item))
 				response.setHeader("Access-Control-Allow-Origin", "*");
 
-			doGetAndCommitWithCache(request, response, item);
+			doGetAndCommitWithCache(servlet, request, response, item);
 
 			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
@@ -671,6 +671,7 @@ public abstract class MediaPath extends Pattern
 	// cache
 
 	private final void doGetAndCommitWithCache(
+			final MediaServlet servlet,
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -738,6 +739,10 @@ public abstract class MediaPath extends Pattern
 			commit();
 
 			response.setStatus(SC_NOT_MODIFIED);
+
+			if(servlet.doFlushBufferOnNotModified(this, item))
+				response.flushBuffer();
+
 			notModified.inc();
 		}
 		else
