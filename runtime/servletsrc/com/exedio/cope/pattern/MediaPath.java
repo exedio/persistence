@@ -788,20 +788,20 @@ public abstract class MediaPath extends Pattern
 		// message, by appending each subsequent field-value to the first, each
 		// separated by a comma.
 
-		final StringBuilder stringBuilder = new StringBuilder();
+		final StringBuilder bf = new StringBuilder();
 
 		if (privateCacheControl)
-			stringBuilder.append("private");
+			bf.append("private");
 
 		if (maxAgeInSeconds != null)
 		{
-			if (stringBuilder.length() != 0)
-				stringBuilder.append(',');
-			stringBuilder.append("max-age=" + maxAgeInSeconds);
+			if(bf.length() != 0)
+				bf.append(',');
+			bf.append("max-age=" + maxAgeInSeconds);
 		}
 
-		if (stringBuilder.length() != 0)
-			response.setHeader("Cache-Control", stringBuilder.toString());
+		if(bf.length()!=0)
+			response.setHeader("Cache-Control", bf.toString());
 	}
 
 	private void deliver(
