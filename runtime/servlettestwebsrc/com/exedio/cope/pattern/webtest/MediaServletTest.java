@@ -470,7 +470,6 @@ public class MediaServletTest extends TestCase
 		assertBin(url, contentType, lastModified, "private,max-age=5");
 	}
 
-
 	private void assertBin(
 			final String url,
 			final String contentType,
