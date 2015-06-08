@@ -360,9 +360,12 @@ final class Parser
 						case '-':
 							throw lexer.newParseException("expected extends or implements");
 						case 'e':
-							if(classExtends!=null)
-								throw lexer.newParseException("more than one type in extends clause");
-							classExtends = s;
+							if(!Modifier.isInterface(modifiers))
+							{
+								if(classExtends!=null)
+									throw lexer.newParseException("more than one type in extends clause");
+								classExtends = s;
+							}
 							break;
 						case 'i':
 							break;
