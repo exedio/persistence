@@ -708,7 +708,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(response, cacheControlPrivate, null);
+			setCacheControl(response, cacheControlPrivate, Integer.MIN_VALUE);
 			deliver(request, response, item);
 			return;
 		}
@@ -719,7 +719,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
-		final Integer cacheControlMaxAge;
+		final int cacheControlMaxAge;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -735,7 +735,7 @@ public abstract class MediaPath extends Pattern
 			if(mediaOffsetExpires>0)
 				cacheControlMaxAge = mediaOffsetExpires/1000;
 			else
-				cacheControlMaxAge = null;
+				cacheControlMaxAge = Integer.MIN_VALUE;
 		}
 
 		setCacheControl(response, cacheControlPrivate, cacheControlMaxAge);
@@ -776,7 +776,7 @@ public abstract class MediaPath extends Pattern
 	private static void setCacheControl(
 			final HttpServletResponse response,
 			final boolean isPrivate,
-			final Integer maxAge)
+			final int maxAge)
 	{
 		// RFC 2616
 		// 4.2 Message Headers
@@ -793,9 +793,9 @@ public abstract class MediaPath extends Pattern
 		if(isPrivate)
 			bf.append("private");
 
-		if(maxAge!=null)
+		if(maxAge>=0)
 		{
-			if(bf.length() != 0)
+			if(bf.length()!=0)
 				bf.append(',');
 
 			bf.append("max-age=").
