@@ -867,7 +867,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   contentType,      this.contentType);
 			assertEquals("content",       content,          this.outString());
 			assertEquals("contentLength", content.length(), this.contentLength);
-			// assertEquals("cacheControl",  null,             this.cacheControl); FIXME
+			assertEquals("cacheControl",  null,             this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
@@ -881,7 +881,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
-			// assertEquals("cacheControl",  null, this.cacheControl); FIXME
+			assertEquals("cacheControl",  null, this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
