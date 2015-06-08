@@ -719,7 +719,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
-		Integer maxAgeInSeconds = null;
+		final Integer maxAgeInSeconds;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -734,6 +734,8 @@ public abstract class MediaPath extends Pattern
 			final int mediaOffsetExpires = connectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
 				maxAgeInSeconds = mediaOffsetExpires/1000;
+			else
+				maxAgeInSeconds = null;
 		}
 
 		setCacheControl(response, privateCacheControl, maxAgeInSeconds);
