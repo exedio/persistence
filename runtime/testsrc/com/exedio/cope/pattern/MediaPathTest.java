@@ -769,7 +769,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			return getMaxAgeCacheControlString(getMaxAge());
 		}
 
-		private String getMaxAgeCacheControlString(final Integer maxAge)
+		private static String getMaxAgeCacheControlString(final Integer maxAge)
 		{
 			if(maxAge == null)
 			{
