@@ -293,6 +293,19 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
 	}
 
+	public void testExpires() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		item.setCatchphrase("phrase");
+		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertOk();
+
+		item.setNormalLastModified(new Date(77772000l));
+		final Response response = service(new Request(ok));
+		response.assertOkAndCache(77772000l);
+	}
+
 	/**
 	 * This test became useless, as there is no connection between
 	 * toFinal and Expires anymore.
