@@ -277,7 +277,7 @@ public class MediaServlet extends HttpServlet
 	 * @param path the media path of the current request
 	 * @param item the item of the current request
 	 */
-	protected boolean isFlushBufferDirectlyAfter304Status(
+	protected boolean doFlushBufferOnNotModified(
 			final MediaPath path,
 			final Item item)
 	{

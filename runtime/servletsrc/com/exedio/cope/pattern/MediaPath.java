@@ -740,7 +740,7 @@ public abstract class MediaPath extends Pattern
 
 			response.setStatus(SC_NOT_MODIFIED);
 
-			if(servlet.isFlushBufferDirectlyAfter304Status(this, item))
+			if(servlet.doFlushBufferOnNotModified(this, item))
 				response.flushBuffer();
 
 			notModified.inc();
