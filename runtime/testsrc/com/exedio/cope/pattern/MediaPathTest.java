@@ -795,11 +795,6 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		void assertOkAndCache(final long lastModified)
 		{
-			assertOkAndCache(lastModified, getMaxAge());
-		}
-
-		void assertOkAndCache(final long lastModified, final Integer maxAge)
-		{
 			assertEquals("location",      null, this.location);
 			assertEquals("lastModified",  lastModified, this.lastModified);
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
@@ -807,7 +802,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  getMaxAgeCacheControlString(maxAge), this.cacheControl);
+			assertEquals("cacheControl",  getMaxAgeCacheControlString(getMaxAge()), this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
