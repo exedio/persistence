@@ -34,7 +34,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -677,6 +676,8 @@ public abstract class MediaPath extends Pattern
 			final Item item)
 		throws IOException, NotFound
 	{
+		boolean cacheControlPrivate = false;
+
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
 		// Query strings can be used to effectively disable the cache by using many urls
@@ -695,7 +696,7 @@ public abstract class MediaPath extends Pattern
 			// TODO make this customizable
 			// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
 			// and RFC 2616 Section 14.9.1 What is Cacheable
-			response.setHeader("Cache-Control", "private");
+			cacheControlPrivate = true;
 		}
 		else
 		{
@@ -707,6 +708,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
+			setCacheControl(response, cacheControlPrivate, Integer.MIN_VALUE);
 			deliver(request, response, item);
 			return;
 		}
@@ -717,6 +719,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
+		final int cacheControlMaxAge;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -724,14 +727,18 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			setExpiresHeader(response, 1000l*60*60*24*363); // 363 days
+			cacheControlMaxAge = 60*60*24*363; // 363 days
 		}
 		else
 		{
 			final int mediaOffsetExpires = connectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
-				setExpiresHeader(response, mediaOffsetExpires);
+				cacheControlMaxAge = mediaOffsetExpires/1000;
+			else
+				cacheControlMaxAge = Integer.MIN_VALUE;
 		}
+
+		setCacheControl(response, cacheControlPrivate, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -766,9 +773,37 @@ public abstract class MediaPath extends Pattern
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
-	private static void setExpiresHeader(final HttpServletResponse response, final long offset)
+	private static void setCacheControl(
+			final HttpServletResponse response,
+			final boolean isPrivate,
+			final int maxAge)
 	{
-		response.setDateHeader("Expires", Clock.currentTimeMillis() + offset);
+		// RFC 2616
+		// 4.2 Message Headers
+		// Multiple message-header fields with the same field-name MAY be
+		// present in a message if and only if the entire field-value for that
+		// header field is defined as a comma-separated list [i.e., #(values)].
+		// It MUST be possible to combine the multiple header fields into one
+		// "field-name: field-value" pair, without changing the semantics of the
+		// message, by appending each subsequent field-value to the first, each
+		// separated by a comma.
+
+		final StringBuilder bf = new StringBuilder();
+
+		if(isPrivate)
+			bf.append("private");
+
+		if(maxAge>=0)
+		{
+			if(bf.length()!=0)
+				bf.append(',');
+
+			bf.append("max-age=").
+				append(maxAge);
+		}
+
+		if(bf.length()!=0)
+			response.setHeader("Cache-Control", bf.toString());
 	}
 
 	private void deliver(

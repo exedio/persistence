@@ -260,9 +260,9 @@ public class MediaServletTest extends TestCase
 
 		// finger
 
-		final long ALMOST_ONE_YEAR = 31363200000l;
-		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), null, ALMOST_ONE_YEAR);
-		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), null, ALMOST_ONE_YEAR);
+		final int ALMOST_ONE_YEAR = 31363200;
+		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), "max-age="+ALMOST_ONE_YEAR);
+		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), "max-age="+ALMOST_ONE_YEAR);
 		assertMoved(prefix + "finger/.fjYxVepS/" + ITEM_JPG + ".jpg",
 						prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "finger/"           + ITEM_JPG + ".jpg",
@@ -340,9 +340,8 @@ public class MediaServletTest extends TestCase
 		//System.out.println("LastModified: "+new Date(actualLastModified));
 		assertEqualsDate(lastModified, new Date(actualLastModified));
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
-		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
-		assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
-		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
+		assertEquals(0, conn.getExpiration());
+		assertEquals("max-age=5", conn.getHeaderField(CACHE_CONTROL));
 		final String data = lines(
 			"This is an example file",
 			"for testing media data."
@@ -421,7 +420,8 @@ public class MediaServletTest extends TestCase
 			assertEquals("lastModified", lastModified, new Date(conn.getLastModified()));
 		else
 			assertEquals("lastModified", 0, conn.getLastModified());
-		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
+
+		assertFalse("private", conn.getHeaderField(CACHE_CONTROL) != null && conn.getHeaderField(CACHE_CONTROL).contains("private"));
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
 		{
@@ -443,10 +443,12 @@ public class MediaServletTest extends TestCase
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
+
+		assertEquals(0, conn.getExpiration());
 		if(lastModified!=null)
-			assertWithin(new Date(date+4000), new Date(date+6000), new Date(conn.getExpiration()));
+			assertEquals("max-age=5", conn.getHeaderField(CACHE_CONTROL));
 		else
-			assertEquals(0, conn.getExpiration());
+			assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertOnExceptionEmpty();
 	}
 
@@ -456,7 +458,7 @@ public class MediaServletTest extends TestCase
 			final Date lastModified)
 		throws IOException
 	{
-		assertBin(url, contentType, lastModified, null);
+		assertBin(url, contentType, lastModified, "max-age=5");
 	}
 
 	private void assertBinPrivate(
@@ -465,7 +467,7 @@ public class MediaServletTest extends TestCase
 			final Date lastModified)
 		throws IOException
 	{
-		assertBin(url, contentType, lastModified, "private");
+		assertBin(url, contentType, lastModified, "private,max-age=5");
 	}
 
 	private void assertBin(
@@ -473,17 +475,6 @@ public class MediaServletTest extends TestCase
 			final String contentType,
 			final Date lastModified,
 			final String cacheControl)
-		throws IOException
-	{
-		assertBin(url, contentType, lastModified, cacheControl, 5000);
-	}
-
-	private void assertBin(
-			final String url,
-			final String contentType,
-			final Date lastModified,
-			final String cacheControl,
-			final long expires)
 		throws IOException
 	{
 		final Date before = new Date();
@@ -503,8 +494,7 @@ public class MediaServletTest extends TestCase
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
 		assertEquals(cacheControl, conn.getHeaderField(CACHE_CONTROL));
-		//System.out.println("Expires: "+new Date(textConn.getExpiration()));
-		assertWithin(new Date(date+expires-2000), new Date(date+expires+1000), new Date(conn.getExpiration()));
+		assertEquals(0L, conn.getExpiration());
 
 		assertOnExceptionEmpty();
 	}
@@ -655,18 +645,6 @@ public class MediaServletTest extends TestCase
 
 		assertTrue(message, !expectedBeforeFloor.after(actual));
 		assertTrue(message, !expectedAfterCeil.before(actual));
-	}
-
-	private static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
-	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
-		final String message =
-			"expected date within " + df.format(expectedBefore) +
-			" and " + df.format(expectedAfter) +
-			", but was " + df.format(actual);
-
-		assertTrue(message, !expectedBefore.after(actual));
-		assertTrue(message, !expectedAfter.before(actual));
 	}
 
 	private static String lines( final String... lines )
