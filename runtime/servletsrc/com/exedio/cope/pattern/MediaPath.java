@@ -677,7 +677,6 @@ public abstract class MediaPath extends Pattern
 		throws IOException, NotFound
 	{
 		boolean privateCacheControl = false;
-		final long lastModified;
 
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
@@ -717,7 +716,7 @@ public abstract class MediaPath extends Pattern
 		// NOTE:
 		// Last Modification Date must be rounded to full seconds,
 		// otherwise comparison for SC_NOT_MODIFIED doesn't work.
-		lastModified = roundLastModified(lastModifiedRaw);
+		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
 		Integer maxAgeInSeconds = null;
