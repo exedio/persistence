@@ -775,7 +775,7 @@ public abstract class MediaPath extends Pattern
 
 	private static void setCacheControl(
 			final HttpServletResponse response,
-			final boolean privateCacheControl,
+			final boolean isPrivate,
 			final Integer maxAgeInSeconds)
 	{
 		// RFC 2616
@@ -790,7 +790,7 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder bf = new StringBuilder();
 
-		if (privateCacheControl)
+		if(isPrivate)
 			bf.append("private");
 
 		if (maxAgeInSeconds != null)
