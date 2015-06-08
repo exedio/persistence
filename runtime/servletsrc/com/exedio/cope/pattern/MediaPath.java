@@ -776,7 +776,7 @@ public abstract class MediaPath extends Pattern
 	private static void setCacheControl(
 			final HttpServletResponse response,
 			final boolean isPrivate,
-			final Integer maxAgeInSeconds)
+			final Integer maxAge)
 	{
 		// RFC 2616
 		// 4.2 Message Headers
@@ -793,11 +793,11 @@ public abstract class MediaPath extends Pattern
 		if(isPrivate)
 			bf.append("private");
 
-		if (maxAgeInSeconds != null)
+		if(maxAge!=null)
 		{
 			if(bf.length() != 0)
 				bf.append(',');
-			bf.append("max-age=" + maxAgeInSeconds);
+			bf.append("max-age=" + maxAge);
 		}
 
 		if(bf.length()!=0)
