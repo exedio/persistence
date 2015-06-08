@@ -719,7 +719,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
-		final Integer maxAgeInSeconds;
+		final Integer cacheControlMaxAge;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -727,18 +727,18 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			maxAgeInSeconds = 60*60*24*363; // 363 days
+			cacheControlMaxAge = 60*60*24*363; // 363 days
 		}
 		else
 		{
 			final int mediaOffsetExpires = connectProperties().getMediaOffsetExpires();
 			if(mediaOffsetExpires>0)
-				maxAgeInSeconds = mediaOffsetExpires/1000;
+				cacheControlMaxAge = mediaOffsetExpires/1000;
 			else
-				maxAgeInSeconds = null;
+				cacheControlMaxAge = null;
 		}
 
-		setCacheControl(response, privateCacheControl, maxAgeInSeconds);
+		setCacheControl(response, privateCacheControl, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
