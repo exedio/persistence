@@ -912,7 +912,17 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				final MediaPath path,
 				final Item item)
 		{
+			assertTrue(MODEL.hasCurrentTransaction());
 			return ((MediaPathItem)item).getAccessControlAllowOriginWildcard();
+		}
+
+		@Override
+		protected boolean doFlushBufferOnNotModified(
+				final MediaPath path,
+				final Item item)
+		{
+			assertFalse(MODEL.hasCurrentTransaction());
+			return super.doFlushBufferOnNotModified(path, item);
 		}
 
 		@Override
@@ -920,6 +930,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				final HttpServletRequest request,
 				final Exception exception)
 		{
+			assertFalse(MODEL.hasCurrentTransaction());
 			if(failOnException)
 				throw new RuntimeException(exception);
 		}
