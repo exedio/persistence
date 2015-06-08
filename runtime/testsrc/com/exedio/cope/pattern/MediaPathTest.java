@@ -921,7 +921,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				final MediaPath path,
 				final Item item)
 		{
-			assertFalse(MODEL.hasCurrentTransaction());
+			assertTrue(MODEL.hasCurrentTransaction());
 			return super.doFlushBufferOnNotModified(path, item);
 		}
 
