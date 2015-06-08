@@ -731,9 +731,9 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			final int mediaOffsetExpires = connectProperties().getMediaOffsetExpires();
-			if(mediaOffsetExpires>0)
-				cacheControlMaxAge = mediaOffsetExpires/1000;
+			final int maxAge = connectProperties().getMediaMaxAge();
+			if(maxAge>0)
+				cacheControlMaxAge = maxAge;
 			else
 				cacheControlMaxAge = Integer.MIN_VALUE;
 		}

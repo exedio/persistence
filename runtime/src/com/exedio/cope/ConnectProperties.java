@@ -236,10 +236,21 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	 * If zero, no Expires header is sent.
 	 *
 	 * TODO: make this configurable per media as well.
+	 * @see #getMediaMaxAge()
 	 */
 	public int getMediaOffsetExpires()
 	{
 		return mediaOffsetExpires;
+	}
+
+	private final int mediaMaxAge = mediaOffsetExpires/1000;
+
+	/**
+	 * @see #getMediaOffsetExpires()
+	 */
+	public int getMediaMaxAge()
+	{
+		return mediaMaxAge;
 	}
 
 	private final MediaFingerprintOffset mediaFingerprintOffsetState = new MediaFingerprintOffset(mediaFingerOffset);
