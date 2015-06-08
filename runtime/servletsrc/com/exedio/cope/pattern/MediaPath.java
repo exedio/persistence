@@ -738,7 +738,6 @@ public abstract class MediaPath extends Pattern
 
 		setCacheControl(response, privateCacheControl, maxAgeInSeconds);
 
-
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
@@ -772,7 +771,10 @@ public abstract class MediaPath extends Pattern
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
-	private static void setCacheControl(final HttpServletResponse response, final boolean privateCacheControl, final Integer maxAgeInSeconds)
+	private static void setCacheControl(
+			final HttpServletResponse response,
+			final boolean privateCacheControl,
+			final Integer maxAgeInSeconds)
 	{
 		// RFC 2616
 		// 4.2 Message Headers
@@ -787,24 +789,17 @@ public abstract class MediaPath extends Pattern
 		final StringBuilder stringBuilder = new StringBuilder();
 
 		if (privateCacheControl)
-		{
 			stringBuilder.append("private");
-		}
 
 		if (maxAgeInSeconds != null)
 		{
 			if (stringBuilder.length() != 0)
-			{
-				stringBuilder.append(",");
-			}
+				stringBuilder.append(',');
 			stringBuilder.append("max-age=" + maxAgeInSeconds);
 		}
 
 		if (stringBuilder.length() != 0)
-		{
 			response.setHeader("Cache-Control", stringBuilder.toString());
-		}
-
 	}
 
 	private void deliver(
