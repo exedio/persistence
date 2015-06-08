@@ -797,7 +797,9 @@ public abstract class MediaPath extends Pattern
 		{
 			if(bf.length() != 0)
 				bf.append(',');
-			bf.append("max-age=" + maxAge);
+
+			bf.append("max-age=").
+				append(maxAge);
 		}
 
 		if(bf.length()!=0)
