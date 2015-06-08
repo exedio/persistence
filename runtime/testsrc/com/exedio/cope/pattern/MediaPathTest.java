@@ -320,6 +320,15 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertNotFound(ok, "guessed url");
 	}
 
+	public void testGuessAndAge() throws ServletException, IOException
+	{
+		item.setGuessContentType("image/jpeg");
+		item.setGuessLastModified(new Date(333338888));
+		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
+		assertEquals(ok + "?t=MediaPathItem.guess-" + id, "/" + item.getGuessLocator().getPath());
+		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl("private,max-age=5");
+	}
+
 	public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
