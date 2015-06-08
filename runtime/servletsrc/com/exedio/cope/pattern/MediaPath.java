@@ -732,10 +732,7 @@ public abstract class MediaPath extends Pattern
 		else
 		{
 			final int maxAge = connectProperties().getMediaMaxAge();
-			if(maxAge>0)
-				cacheControlMaxAge = maxAge;
-			else
-				cacheControlMaxAge = Integer.MIN_VALUE;
+			cacheControlMaxAge = (maxAge>0) ? maxAge : Integer.MIN_VALUE;
 		}
 
 		setCacheControl(response, cacheControlPrivate, cacheControlMaxAge);
