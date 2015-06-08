@@ -339,7 +339,10 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		item.setGuessLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
 		assertEquals(ok + "?t=MediaPathItem.guess-" + id, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl("private,max-age=5");
+		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl(
+				MODEL.getConnectProperties().getMediaOffsetExpires()>0
+				? "private,max-age=5"
+				: "private");
 	}
 
 	public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
