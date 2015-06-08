@@ -676,7 +676,7 @@ public abstract class MediaPath extends Pattern
 			final Item item)
 		throws IOException, NotFound
 	{
-		boolean privateCacheControl = false;
+		boolean cacheControlPrivate = false;
 
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
@@ -696,7 +696,7 @@ public abstract class MediaPath extends Pattern
 			// TODO make this customizable
 			// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
 			// and RFC 2616 Section 14.9.1 What is Cacheable
-			privateCacheControl = true;
+			cacheControlPrivate = true;
 		}
 		else
 		{
@@ -708,7 +708,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(response, privateCacheControl, null);
+			setCacheControl(response, cacheControlPrivate, null);
 			deliver(request, response, item);
 			return;
 		}
@@ -738,7 +738,7 @@ public abstract class MediaPath extends Pattern
 				cacheControlMaxAge = null;
 		}
 
-		setCacheControl(response, privateCacheControl, cacheControlMaxAge);
+		setCacheControl(response, cacheControlPrivate, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
