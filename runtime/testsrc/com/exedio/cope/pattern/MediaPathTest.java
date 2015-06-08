@@ -815,6 +815,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			flushBufferCount++;
 		}
 
+
 		void assertOk()
 		{
 			assertEquals("location",      null, this.location);
