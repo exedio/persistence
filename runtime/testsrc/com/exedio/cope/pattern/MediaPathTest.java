@@ -834,7 +834,6 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		void assertOkAndCacheControl(final String value)
 		{
 			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  lastModified, this.lastModified);
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
@@ -848,7 +847,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		void assertOkAndAccessControlAllowOrigin(final String value)
 		{
 			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
 			assertEquals("sc",            Integer.MIN_VALUE, this.status);
 			assertEquals("charset",       null, this.charset);
 			assertEquals("contentType",   null, this.contentType);
