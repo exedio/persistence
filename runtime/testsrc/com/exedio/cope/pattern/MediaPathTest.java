@@ -755,27 +755,12 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		}
 
 
-		private Integer getMaxAge()
+		private String maxAge()
 		{
-			if(mediaOffsetExpires>0)
-			{
-				return (int)((mediaOffsetExpires)/1000L);
-			}
-			return null;
-		}
-
-		private String getMaxAgeCacheControlString()
-		{
-			return getMaxAgeCacheControlString(getMaxAge());
-		}
-
-		private static String getMaxAgeCacheControlString(final Integer maxAge)
-		{
-			if(maxAge == null)
-			{
-				return null;
-			}
-			return "max-age="+maxAge;
+			return
+				mediaOffsetExpires>0
+				? "max-age="+(mediaOffsetExpires/1000l)
+				: null;
 		}
 
 
@@ -802,7 +787,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       "responseBody", this.outString());
 			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  getMaxAgeCacheControlString(getMaxAge()), this.cacheControl);
+			assertEquals("cacheControl",  maxAge(), this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 			assertEquals("flushBuffer",   0, this.flushBufferCount);
 		}
@@ -816,7 +801,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			assertEquals("contentType",   null, this.contentType);
 			assertEquals("content",       null, this.outString());
 			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
-			assertEquals("cacheControl",  getMaxAgeCacheControlString(), this.cacheControl);
+			assertEquals("cacheControl",  maxAge(), this.cacheControl);
 			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
 			assertEquals("flushBuffer",   1, this.flushBufferCount);
 		}
