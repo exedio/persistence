@@ -248,7 +248,6 @@ public class MediaServlet extends HttpServlet
 	private static final String RESPONSE_LOCATION = "Location";
 
 
-
 	/**
 	 * Let this method return true, if you want to add a header
 	 * {@code Access-Control-Allow-Origin: *}
