@@ -893,7 +893,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 		Response assertLastModified(final long lastModified)
 		{
-			assertEquals("lastModified",  lastModified, this.lastModified);
+			assertEquals("lastModified", lastModified, this.lastModified);
 			return this;
 		}
 	}
