@@ -260,8 +260,9 @@ public class MediaServletTest extends TestCase
 
 		// finger
 
-		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), "max-age=31363200");
-		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), "max-age=31363200");
+		final int ALMOST_ONE_YEAR = 31363200;
+		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), "max-age="+ALMOST_ONE_YEAR);
+		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), "max-age="+ALMOST_ONE_YEAR);
 		assertMoved(prefix + "finger/.fjYxVepS/" + ITEM_JPG + ".jpg",
 						prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "finger/"           + ITEM_JPG + ".jpg",
