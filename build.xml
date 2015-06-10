@@ -74,6 +74,7 @@
 				<formatter type="xml" />
 				<classpath />
 				<test name="@{test}" todir="build/testresults" outfile="@{test}-@{env}" />
+				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 				<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
 				<assertions><enable/></assertions>
 			</junit>
@@ -558,6 +559,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${runtime.test}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
 					<assertions><enable/></assertions>
@@ -591,6 +593,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="com.exedio.cope.ProtocolWriter" />
+					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
@@ -1112,6 +1115,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
 					<assertions><enable/></assertions>
