@@ -62,6 +62,25 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	@SuppressWarnings(
 	{"unchecked", "rawtypes"})
 	@Test
+	public void testCreateNotAssignable()
+	{
+		try
+		{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
+			{AnotherItem1.class, AnotherItem2.class});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			final String expected = "common interface >"+InterfaceItemFieldInterface.class
+					+"< must be assignable from class >"+AnotherItem1.class+"<";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+
+	@SuppressWarnings(
+	{"unchecked", "rawtypes"})
+	@Test
 	public void testCreateClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
@@ -79,5 +98,15 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 					+InterfaceItemFieldInterfaceImplementationC.class+"";
 			assertEquals(expected, e.getMessage());
 		}
+	}
+
+	static final class AnotherItem1 extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class AnotherItem2 extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
 	}
 }
