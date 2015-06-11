@@ -59,6 +59,10 @@ public class InterfaceItemFieldHelper<I>
 		for(int i = 0; i<classes.length; i++)
 		{
 			final Class<? extends Item> type = classes[i];
+			if(type==null)
+			{
+				throw new NullPointerException("no null values for classes allowed");
+			}
 			if(!commonInterface.isAssignableFrom(type))
 			{
 				throw new IllegalArgumentException("common interface >"+commonInterface+"< must be assignable from class >"

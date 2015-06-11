@@ -62,6 +62,24 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	@SuppressWarnings(
 	{"unchecked", "rawtypes"})
 	@Test
+	public void testCreateNull()
+	{
+		try
+		{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
+			{null, null});
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			final String expected = "no null values for classes allowed";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+
+	@SuppressWarnings(
+	{"unchecked", "rawtypes"})
+	@Test
 	public void testCreateNotAssignable()
 	{
 		try
