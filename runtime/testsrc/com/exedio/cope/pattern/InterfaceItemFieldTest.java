@@ -27,4 +27,12 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 		final InterfaceItemFieldItem expected = new InterfaceItemFieldItem(fieldValue);
 		assertEquals(expected, InterfaceItemFieldItem.field.getSource(InterfaceItemFieldItem.class, fieldValue));
 	}
+
+	@Test
+	public void testGet()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA expected = new InterfaceItemFieldItemInterfaceImplementationA();
+		final InterfaceItemFieldItem item = new InterfaceItemFieldItem(expected);
+		assertEquals(expected, item.getField());
+	}
 }

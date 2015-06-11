@@ -22,6 +22,11 @@ final class InterfaceItemFieldItem extends Item
 		});
 	}
 
+	InterfaceItemFieldItemInterface getField()
+	{
+		return field.get(this);
+	}
+
 /**
 
 	 **
