@@ -45,6 +45,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(ErrorLogTest.class);
 		suite.addTestSuite(HashAlgorithmAdapterTest.class);
 		suite.addTestSuite(HashPlainTextLimitTest.class);
+		suite.addTestSuite(InterfaceItemFieldStandardTest.class);
 		suite.addTestSuite(JavaViewGetterMissingTest.class);
 		suite.addTestSuite(JavaViewInPatternTest.class);
 		suite.addTestSuite(JPEGCodecAccessTest.class);
