@@ -1,0 +1,83 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
+
+public class InterfaceItemFieldErrorTest extends CopeAssert
+{
+	@SuppressWarnings(
+	{"unchecked", "rawtypes"})
+	@Test
+	public void testCreateNoClass()
+	{
+		try
+		{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
+			{});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			final String expected = "must use at least 2 classes";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+
+	@SuppressWarnings(
+	{"unchecked", "rawtypes"})
+	@Test
+	public void testCreateOnlyOneClass()
+	{
+		try
+		{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
+			{InterfaceItemFieldInterfaceImplementationA.class});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			final String expected = "must use at least 2 classes";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+
+	@SuppressWarnings(
+	{"unchecked", "rawtypes"})
+	@Test
+	public void testCreateClassesNotAllowedToBeSuperClassesOfEachOther()
+	{
+		try
+		{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
+			{
+					InterfaceItemFieldInterfaceImplementationA.class,
+					InterfaceItemFieldInterfaceImplementationC.class});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			final String expected = "Classes must not be super-classes of each other: "
+					+InterfaceItemFieldInterfaceImplementationA.class+" is assignable from "
+					+InterfaceItemFieldInterfaceImplementationC.class+"";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+}
