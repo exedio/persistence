@@ -8,3 +8,6 @@ cope.properties
 local.properties
 .eclipse-output/
 /nbproject/private/
+/.idea/workspace.xml
+/.idea/scopes
+/.idea/uiDesigner.xml
