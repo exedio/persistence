@@ -11,6 +11,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Arrays;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +88,11 @@ public class InterfaceItemField<I> extends Pattern implements Settable<I>
 			}
 		}
 		throw new IllegalArgumentException(interfaceItem+" is not in "+this);
+	}
+
+	public List<ItemField<?>> getComponents()
+	{
+		return Collections.unmodifiableList(fields);
 	}
 
 	@SuppressWarnings("unchecked")
