@@ -197,6 +197,11 @@ public class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return commonInterface;
 	}
 
+	public Class<I> getInitialTypeAsClass()
+	{
+		return commonInterface;
+	}
+
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return new InterfaceItemFieldHelper<I>(INTERFACEITEMFIELD).getInitialExceptions(this);
