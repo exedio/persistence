@@ -22,6 +22,34 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 	}
 
 	@Test
+	public void testHashCode()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA fieldValue = new InterfaceItemFieldItemInterfaceImplementationA();
+		final InterfaceItemFieldItem expected = new InterfaceItemFieldItem(fieldValue);
+		final InterfaceItemFieldItemInterface i1 = expected.getField();
+		final InterfaceItemFieldItemInterface i2 = expected.getField();
+		assertEquals(i1, i2);
+		assertEquals(i1, fieldValue);
+		assertSame(i1, fieldValue);
+		assertFalse(i1.equals(null));
+	}
+
+	@Test
+	public void testSerialization()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA fieldValue = new InterfaceItemFieldItemInterfaceImplementationA();
+		final InterfaceItemFieldItem expected = new InterfaceItemFieldItem(fieldValue);
+		final InterfaceItemFieldItemInterface i1 = expected.getField();
+		final InterfaceItemFieldItemInterface i2 = expected.getOptionalField();
+		final InterfaceItemFieldItemInterface i1S = reserialize(i1, 135);
+		assertEquals(i1S, i1);
+		assertEquals(i1S.hashCode(), i1.hashCode());
+		assertNotSame(i1S, i1);
+		assertFalse(i1S.equals(i2));
+		assertEquals("InterfaceItemFieldItemInterfaceImplementationA-0", i1S.toString());
+	}
+
+	@Test
 	public void testGetSource()
 	{
 		final InterfaceItemFieldItemInterfaceImplementationA fieldValue = new InterfaceItemFieldItemInterfaceImplementationA();
