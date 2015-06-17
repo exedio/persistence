@@ -34,6 +34,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 
 	private PlusIntegerItem item1;
 	private PlusIntegerItem item2;
+	private PlusIntegerItem item3;
 	private Query<PlusIntegerItem> query;
 
 	@Override
@@ -42,6 +43,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		super.setUp();
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
+		item3 = new PlusIntegerItem(1, 4, 5);
 
 		query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -54,7 +56,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 				"select this from PlusIntegerItem " +
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
-		assertContains(item1, item1, item2, item2, query.search());
+		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
 	public void testDistinct()
@@ -65,7 +67,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 				"select distinct this from PlusIntegerItem " +
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
-		assertContains(item1, item2, query.search());
+		assertContains(item1, item2, item3, query.search());
 	}
 
 	public void testOrderBy()
@@ -77,11 +79,16 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 				"join PlusIntegerItem p1 on numC=p1.numC " +
 				"order by numA",
 				query.toString());
-		assertContains(item1, item1, item2, item2, query.search());
+		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
 	public void testDistinctOrderBy()
 	{
+		assertEquals(
+				"select this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC",
+				query.toString());
+
 		query.setDistinct(true);
 		query.setOrderBy(numA, true);
 
@@ -105,7 +112,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 				}
 				break;
 			case mysql:
-				assertEquals(asList(item2, item1), query.search());
+				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
 				try
