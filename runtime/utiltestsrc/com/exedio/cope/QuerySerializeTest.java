@@ -30,28 +30,29 @@ public class QuerySerializeTest extends TestCase
 	public void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		assertSerializedEquals(q, 785);
+		int size=785;
+		assertSerializedEquals(q, size);
 
 		q.setCondition(field.isNotNull());
-		assertSerializedEquals(q, 938);
+		assertSerializedEquals(q, size += 153);
 
 		final Join j = q.join(TYPE);
-		assertSerializedEquals(q, 1191);
+		assertSerializedEquals(q, size += 253);
 
 		j.setCondition(field.equal("zack"));
-		assertSerializedEquals(q, 1439);
+		assertSerializedEquals(q, size += 248);
 
 		q.addOrderBy(field);
-		assertSerializedEquals(q, 1516);
+		assertSerializedEquals(q, size += 77);
 
 		q.setHaving(field.equal("zick"));
-		assertSerializedEquals(q, 1538);
+		assertSerializedEquals(q, size += 22);
 
 		q.setLimit(10, 20);
-		assertSerializedEquals(q, 1538);
+		assertSerializedEquals(q, size);
 
 		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{field, TYPE.getThis()}, TYPE, null);
-		assertSerializedEquals(qMulti, 854);
+		assertSerializedEquals(qMulti, size - 684);
 	}
 
 	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
