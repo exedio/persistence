@@ -144,4 +144,19 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 		sb.append(")");
 		assertEquals(sb.toString(), InterfaceItemFieldItem.field.isNotNull().toString());
 	}
+
+	@Test
+	public void testGetComponents()
+	{
+		assertEqualsUnmodifiable(
+				list(InterfaceItemFieldItem.field.of(InterfaceItemFieldItemInterfaceImplementationA.class),
+						InterfaceItemFieldItem.field.of(InterfaceItemFieldItemInterfaceImplementationB.class)),
+				InterfaceItemFieldItem.field.getComponents());
+	}
+
+	@Test
+	public void testOfNull()
+	{
+		assertEquals(null, InterfaceItemFieldItem.field.of(InterfaceItemFieldItemInterfaceImplementationC.class));
+	}
 }

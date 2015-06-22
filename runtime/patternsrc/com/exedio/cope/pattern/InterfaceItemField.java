@@ -95,6 +95,18 @@ public class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return Collections.unmodifiableList(fields);
 	}
 
+	public ItemField<? extends Item> of(final Class<? extends I> clazz)
+	{
+		for(final ItemField<? extends Item> field : fields)
+		{
+			if(field.getValueClass().isAssignableFrom(clazz))
+			{
+				return field;
+			}
+		}
+		return null;
+	}
+
 	@SuppressWarnings("unchecked")
 	private <K extends Item> Condition equal(final I interfaceItem, final ItemField<K> field)
 	{
