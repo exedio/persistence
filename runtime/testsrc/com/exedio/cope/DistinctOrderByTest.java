@@ -101,46 +101,67 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		switch(dialect)
 		{
 			case hsqldb:
-				try
-				{
-					query.search();
-					fail();
-				}
-				catch(final SQLRuntimeException e)
-				{
-					assertEquals("invalid ORDER BY expression", e.getCause().getMessage());
-				}
+				notAllowedHsqldb(query);
 				break;
 			case mysql:
+				assertEquals(
+						"SELECT DISTINCT PlusIntegerItem0.`this` " +
+						"FROM `PlusIntegerItem` PlusIntegerItem0 " +
+						"JOIN `PlusIntegerItem` PlusIntegerItem1 ON PlusIntegerItem0.`numC`=PlusIntegerItem1.`numC` " +
+						"ORDER BY PlusIntegerItem0.`numA`",
+						SchemaInfo.search(query));
 				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
-				try
-				{
-					query.search();
-					fail();
-				}
-				catch(final SQLRuntimeException e)
-				{
-					final String cause = e.getCause().getMessage();
-					assertTrue(cause, cause.startsWith("ORA-01791: "));
-				}
+				notAllowedOracle(query);
 				break;
 			case postgresql:
-				try
-				{
-					query.search();
-					fail();
-				}
-				catch(final SQLRuntimeException e)
-				{
-					final String cause = e.getCause().getMessage();
-					assertTrue(cause, cause.startsWith(
-							"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list"));
-				}
+				notAllowedPostgresql(query);
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
+		}
+	}
+
+
+	static void notAllowedHsqldb(final Query<?> query)
+	{
+		try
+		{
+			query.search();
+			fail();
+		}
+		catch(final SQLRuntimeException e)
+		{
+			assertEquals("invalid ORDER BY expression", e.getCause().getMessage());
+		}
+	}
+
+	static void notAllowedOracle(final Query<?> query)
+	{
+		try
+		{
+			query.search();
+			fail();
+		}
+		catch(final SQLRuntimeException e)
+		{
+			final String cause = e.getCause().getMessage();
+			assertTrue(cause, cause.startsWith("ORA-01791: "));
+		}
+	}
+
+	static void notAllowedPostgresql(final Query<?> query)
+	{
+		try
+		{
+			query.search();
+			fail();
+		}
+		catch(final SQLRuntimeException e)
+		{
+			final String cause = e.getCause().getMessage();
+			assertTrue(cause, cause.startsWith("ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list"));
 		}
 	}
 }
