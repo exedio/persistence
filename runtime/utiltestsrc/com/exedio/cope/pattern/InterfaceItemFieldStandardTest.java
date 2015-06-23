@@ -44,11 +44,6 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 				{InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class});
 
-		final InterfaceItemFieldInterface getField()
-		{
-			return field.get(this);
-		}
-
 		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
 		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -65,11 +60,6 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 				{InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class}).optional();
 
-		final InterfaceItemFieldInterface getField()
-		{
-			return field.get(this);
-		}
-
 		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
 		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -85,11 +75,6 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 				InterfaceItemFieldInterface.class, new Class[]
 				{InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class}).toFinal();
-
-		final InterfaceItemFieldInterface getField()
-		{
-			return field.get(this);
-		}
 	}
 
 	@Test
