@@ -31,12 +31,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class InterfaceItemFieldHelper<I>
+final class InterfaceItemFieldHelper<I>
 {
-	public InterfaceItemFieldHelper()
-	{
-	}
-
 	@SuppressWarnings("unchecked")
 	I get(final Settable<I> pattern, final Item item, final List<ItemField<? extends Item>> fields)
 	{
