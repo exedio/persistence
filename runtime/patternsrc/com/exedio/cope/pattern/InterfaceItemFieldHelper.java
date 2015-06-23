@@ -33,14 +33,17 @@ import java.util.Set;
 
 final class InterfaceItemFieldHelper
 {
-	@SuppressWarnings("unchecked")
 	static <I> I get(final Settable<I> pattern, final Item item, final List<ItemField<? extends Item>> fields)
 	{
 		for(final ItemField<? extends Item> field : fields)
 		{
 			final Item value = field.get(item);
 			if(value!=null)
-				return (I)value;
+			{
+				@SuppressWarnings("unchecked")
+				final I result = (I)value;
+				return result;
+			}
 		}
 
 		if(pattern.isMandatory())
