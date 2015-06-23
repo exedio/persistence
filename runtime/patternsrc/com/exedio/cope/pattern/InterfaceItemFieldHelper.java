@@ -52,7 +52,7 @@ final class InterfaceItemFieldHelper
 			return null;
 	}
 
-	static <I> Set<Class<? extends Throwable>> getInitialExceptions(final Settable<I> settable)
+	static Set<Class<? extends Throwable>> getInitialExceptions(final Settable<?> settable)
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		if(settable.isMandatory())
@@ -60,10 +60,10 @@ final class InterfaceItemFieldHelper
 		return result;
 	}
 
-	static <I> ArrayList<ItemField<? extends Item>> checkClass(
+	static ArrayList<ItemField<? extends Item>> checkClass(
 			final boolean isFinal,
 			final boolean unique,
-			final Class<I> commonInterface,
+			final Class<?> commonInterface,
 			final Class<? extends Item>[] classes
 			)
 	{
@@ -106,7 +106,7 @@ final class InterfaceItemFieldHelper
 		return fields;
 	}
 
-	static <I> Condition buildXORCondition(final List<ItemField<? extends Item>> fields, final Settable<I> settable)
+	static Condition buildXORCondition(final List<ItemField<? extends Item>> fields, final Settable<?> settable)
 	{
 		final List<Condition> ors = new ArrayList<>(fields.size());
 		for(final ItemField<? extends Item> i : fields)
