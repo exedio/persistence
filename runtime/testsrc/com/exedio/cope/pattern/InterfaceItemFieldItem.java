@@ -70,7 +70,8 @@ final class InterfaceItemFieldItem extends Item
 		this.set(InterfaceItemFieldItem.optionalField.map(value));
 	}
 
-/**
+
+	/**
 
 	 **
 	 * Creates a new InterfaceItemFieldItem with all the fields initially needed.

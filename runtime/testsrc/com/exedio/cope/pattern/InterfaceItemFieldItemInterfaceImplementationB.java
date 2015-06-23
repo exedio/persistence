@@ -25,7 +25,8 @@ public class InterfaceItemFieldItemInterfaceImplementationB extends Item impleme
 {
 	public static final StringField value = new StringField().defaultTo("B");
 
-/**
+
+	/**
 
 	 **
 	 * Creates a new InterfaceItemFieldItemInterfaceImplementationB with all the fields initially needed.
