@@ -31,7 +31,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Arrays;
-import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -241,12 +240,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return true;
 	}
 
-	public Type getInitialType()
-	{
-		return commonInterface;
-	}
-
-	public Class<I> getInitialTypeAsClass()
+	public Class<I> getInitialType()
 	{
 		return commonInterface;
 	}
