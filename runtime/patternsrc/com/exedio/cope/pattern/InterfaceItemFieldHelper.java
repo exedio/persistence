@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.InterfaceItemField.INTERFACEITEMFIELD;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
@@ -31,8 +33,6 @@ import java.util.Set;
 
 public final class InterfaceItemFieldHelper<I>
 {
-	private static final String patternName = InterfaceItemField.INTERFACEITEMFIELD;
-
 	public InterfaceItemFieldHelper()
 	{
 	}
@@ -48,7 +48,7 @@ public final class InterfaceItemFieldHelper<I>
 		}
 
 		if(pattern.isMandatory())
-			throw new NullPointerException(patternName+pattern+" is mandatory but has no value set");
+			throw new NullPointerException(INTERFACEITEMFIELD+pattern+" is mandatory but has no value set");
 		else
 			return null;
 	}
