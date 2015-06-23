@@ -59,15 +59,13 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	@Test
 	public void testCreateNull()
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
-			{null, null});
+			InterfaceItemField.create(InterfaceItemFieldInterface.class,
+			null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -77,15 +75,13 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	@Test
 	public void testCreateNotAssignable()
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
-			{AnotherItem1.class, AnotherItem2.class});
+			InterfaceItemField.create(InterfaceItemFieldInterface.class,
+			AnotherItem1.class, AnotherItem2.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -96,17 +92,14 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	@Test
 	public void testCreateClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
-			{
+			InterfaceItemField.create(InterfaceItemFieldInterface.class,
 					InterfaceItemFieldInterfaceImplementationA.class,
-					InterfaceItemFieldInterfaceImplementationC.class});
+					InterfaceItemFieldInterfaceImplementationC.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

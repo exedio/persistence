@@ -37,12 +37,10 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		@SuppressWarnings(
-		{"unchecked", "rawtypes"})
 		static final InterfaceItemField<InterfaceItemFieldInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldInterface.class, new Class[]
-				{InterfaceItemFieldInterfaceImplementationA.class,
-						InterfaceItemFieldInterfaceImplementationB.class});
+				InterfaceItemFieldInterface.class,
+				InterfaceItemFieldInterfaceImplementationA.class,
+						InterfaceItemFieldInterfaceImplementationB.class);
 
 		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
 		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
@@ -53,12 +51,10 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		@SuppressWarnings(
-		{"unchecked", "rawtypes"})
 		static final InterfaceItemField<InterfaceItemFieldInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldInterface.class, new Class[]
-				{InterfaceItemFieldInterfaceImplementationA.class,
-						InterfaceItemFieldInterfaceImplementationB.class}).optional();
+				InterfaceItemFieldInterface.class,
+				InterfaceItemFieldInterfaceImplementationA.class,
+						InterfaceItemFieldInterfaceImplementationB.class).optional();
 
 		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
 		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
@@ -69,12 +65,10 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		@SuppressWarnings(
-		{"unchecked", "rawtypes"})
 		static final InterfaceItemField<InterfaceItemFieldInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldInterface.class, new Class[]
-				{InterfaceItemFieldInterfaceImplementationA.class,
-						InterfaceItemFieldInterfaceImplementationB.class}).toFinal();
+				InterfaceItemFieldInterface.class,
+				InterfaceItemFieldInterfaceImplementationA.class,
+						InterfaceItemFieldInterfaceImplementationB.class).toFinal();
 	}
 
 	@Test

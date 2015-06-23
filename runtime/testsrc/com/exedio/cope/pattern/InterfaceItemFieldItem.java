@@ -25,20 +25,16 @@ final class InterfaceItemFieldItem extends Item
 	/**
 	 * @cope.ignore
 	 */
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	static final InterfaceItemField<InterfaceItemFieldItemInterface> field = InterfaceItemField.create(
-			InterfaceItemFieldItemInterface.class, new Class[]
-			{InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class});
+			InterfaceItemFieldItemInterface.class,
+			InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class);
 
 	/**
 	 * @cope.ignore
 	 */
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	static final InterfaceItemField<InterfaceItemFieldItemInterface> optionalField = InterfaceItemField.create(
-			InterfaceItemFieldItemInterface.class, new Class[]
-			{InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class})
+			InterfaceItemFieldItemInterface.class,
+			InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class)
 			.optional();
 
 	InterfaceItemFieldItem(final InterfaceItemFieldItemInterface field)
