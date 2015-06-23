@@ -98,7 +98,7 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		final List<Class<? extends Item>> expected = new ArrayList<>();
 		expected.add(InterfaceItemFieldInterfaceImplementationA.class);
 		expected.add(InterfaceItemFieldInterfaceImplementationB.class);
-		assertContainsList(expected, Arrays.asList(AnMandatoryItem.field.getClasses()));
+		assertEquals(expected, Arrays.asList(AnMandatoryItem.field.getClasses()));
 	}
 
 	@Test
