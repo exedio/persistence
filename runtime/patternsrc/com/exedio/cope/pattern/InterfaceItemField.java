@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.InterfaceItemFieldHelper.buildXORCondition;
+import static com.exedio.cope.pattern.InterfaceItemFieldHelper.checkClass;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -55,7 +58,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	{
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
-		this.fields = InterfaceItemFieldHelper.checkClass(isFinal, false, commonInterface, classes);
+		this.fields = checkClass(isFinal, false, commonInterface, classes);
 
 		this.commonInterface = commonInterface;
 		this.classes = Arrays.copyOf(classes);
@@ -82,7 +85,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 			addSource(field, field.getValueClass().getSimpleName());
 		}
 		addSource(
-				new CheckConstraint(InterfaceItemFieldHelper.buildXORCondition(fields, this)),
+				new CheckConstraint(buildXORCondition(fields, this)),
 				"xor");
 	}
 
