@@ -55,7 +55,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	{
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
-		this.fields = new InterfaceItemFieldHelper<I>().checkClass(isFinal, false, commonInterface, classes);
+		this.fields = InterfaceItemFieldHelper.checkClass(isFinal, false, commonInterface, classes);
 
 		this.commonInterface = commonInterface;
 		this.classes = Arrays.copyOf(classes);
@@ -82,7 +82,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 			addSource(field, field.getValueClass().getSimpleName());
 		}
 		addSource(
-				new CheckConstraint(new InterfaceItemFieldHelper<I>().buildXORCondition(fields, this)),
+				new CheckConstraint(InterfaceItemFieldHelper.buildXORCondition(fields, this)),
 				"xor");
 	}
 
@@ -91,7 +91,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	@Wrap(order = 10, name = "get{0}", doc = "Returns the value of {0}.")
 	public I get(final Item item)
 	{
-		return new InterfaceItemFieldHelper<I>().get(this, item, fields);
+		return InterfaceItemFieldHelper.get(this, item, fields);
 	}
 
 	@Wrap(order = 100, name = "get{0}Source",
@@ -234,7 +234,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return new InterfaceItemFieldHelper<I>().getInitialExceptions(this);
+		return InterfaceItemFieldHelper.getInitialExceptions(this);
 	}
 
 	public InterfaceItemField<I> optional()

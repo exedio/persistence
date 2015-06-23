@@ -31,10 +31,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-final class InterfaceItemFieldHelper<I>
+final class InterfaceItemFieldHelper
 {
 	@SuppressWarnings("unchecked")
-	I get(final Settable<I> pattern, final Item item, final List<ItemField<? extends Item>> fields)
+	static <I> I get(final Settable<I> pattern, final Item item, final List<ItemField<? extends Item>> fields)
 	{
 		for(final ItemField<? extends Item> field : fields)
 		{
@@ -49,7 +49,7 @@ final class InterfaceItemFieldHelper<I>
 			return null;
 	}
 
-	Set<Class<? extends Throwable>> getInitialExceptions(final Settable<I> settable)
+	static <I> Set<Class<? extends Throwable>> getInitialExceptions(final Settable<I> settable)
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		if(settable.isMandatory())
@@ -57,7 +57,7 @@ final class InterfaceItemFieldHelper<I>
 		return result;
 	}
 
-	ArrayList<ItemField<? extends Item>> checkClass(
+	static <I> ArrayList<ItemField<? extends Item>> checkClass(
 			final boolean isFinal,
 			final boolean unique,
 			final Class<I> commonInterface,
@@ -103,7 +103,7 @@ final class InterfaceItemFieldHelper<I>
 		return fields;
 	}
 
-	Condition buildXORCondition(final List<ItemField<? extends Item>> fields, final Settable<I> settable)
+	static <I> Condition buildXORCondition(final List<ItemField<? extends Item>> fields, final Settable<I> settable)
 	{
 		final List<Condition> ors = new ArrayList<>(fields.size());
 		for(final ItemField<? extends Item> i : fields)
@@ -126,5 +126,11 @@ final class InterfaceItemFieldHelper<I>
 			ors.add(Cope.and(ands));
 		}
 		return Cope.or(ors);
+	}
+
+
+	private InterfaceItemFieldHelper()
+	{
+		// prevent instantiation
 	}
 }
