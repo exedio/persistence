@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +48,9 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		{
 			return field.get(this);
 		}
+
+		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
+		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	static final class AnOptionalItem extends com.exedio.cope.Item
@@ -62,6 +69,9 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 		{
 			return field.get(this);
 		}
+
+		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
+		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	static final class AnFinalItem extends com.exedio.cope.Item
@@ -136,5 +146,32 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	public void testIsMandatoryFalse()
 	{
 		assertEquals(false, AnOptionalItem.field.isMandatory());
+	}
+
+	@Test
+	public void testMandatoryCheckConstraint()
+	{
+		assertEquals(
+			"(" +
+			"(AnMandatoryItem.field-InterfaceItemFieldInterfaceImplementationA is not null AND" +
+			" AnMandatoryItem.field-InterfaceItemFieldInterfaceImplementationB is null) OR " +
+			"(AnMandatoryItem.field-InterfaceItemFieldInterfaceImplementationA is null AND" +
+			" AnMandatoryItem.field-InterfaceItemFieldInterfaceImplementationB is not null)" +
+			")",
+			check(AnMandatoryItem.field).getCondition().toString());
+	}
+
+	@Test
+	public void testOptionalCheckConstraint()
+	{
+		assertEquals(
+			"(AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationB is null OR" +
+			" AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationA is null)", // TODO order
+			check(AnOptionalItem.field).getCondition().toString());
+	}
+
+	private static final CheckConstraint check(final InterfaceItemField<?> field)
+	{
+		return (CheckConstraint)field.getSourceFeatures().get(field.getSourceFeatures().size()-1);
 	}
 }
