@@ -29,7 +29,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class InterfaceItemFieldHelper<I>
+public final class InterfaceItemFieldHelper<I>
 {
 	private final String patternName;
 

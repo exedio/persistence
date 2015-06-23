@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class InterfaceItemField<I> extends Pattern implements Settable<I>
+public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 {
 	private static final long serialVersionUID = 1L;
 	private static final String INTERFACEITEMFIELD = "interfaceItem";
