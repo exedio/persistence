@@ -73,7 +73,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return new InterfaceItemField<>(commonInterface, classes);
 	}
 
-	@SuppressWarnings("unchecked") // OK: generic array
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
 	public static <K> InterfaceItemField<K> create(
 			final Class<K> commonInterface,
 			final Class<? extends Item> class1,
