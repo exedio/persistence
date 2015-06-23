@@ -53,7 +53,10 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		this(false, false, commonInterface, classes);
 	}
 
-	private InterfaceItemField(final boolean isFinal, final boolean optional, final Class<I> commonInterface,
+	private InterfaceItemField(
+			final boolean isFinal,
+			final boolean optional,
+			final Class<I> commonInterface,
 			final Class<? extends Item>[] classes)
 	{
 		this.isFinal = isFinal;
@@ -64,7 +67,9 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		this.classes = Arrays.copyOf(classes);
 	}
 
-	public static <K> InterfaceItemField<K> create(final Class<K> commonInterface,final Class<? extends Item>[] classes)
+	public static <K> InterfaceItemField<K> create(
+			final Class<K> commonInterface,
+			final Class<? extends Item>[] classes)
 	{
 		return new InterfaceItemField<>(commonInterface, classes);
 	}
@@ -99,7 +104,9 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 	@Wrap(order = 100, name = "get{0}Source",
 			doc = "Returns the source item referencing <tt>"+INTERFACEITEMFIELD+"</tt>.")
-	public <K extends Item> K getSource(final Class<K> sourceType, @Parameter(INTERFACEITEMFIELD) final I interfaceItem)
+	public <K extends Item> K getSource(
+			final Class<K> sourceType,
+			@Parameter(INTERFACEITEMFIELD) final I interfaceItem)
 	{
 		for(final ItemField<? extends Item> field : fields)
 		{
