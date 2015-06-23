@@ -493,9 +493,9 @@ final class Statement
 		{
 			for(final Table iTable : superTables)
 			{
-				append(" join ");
+				append(" JOIN ");
 				appendTableDefinition(join, iTable);
-				append(" on ");
+				append(" ON ");
 				append(iTable.primaryKey, join);
 				append('=');
 				append(table.primaryKey, join);
