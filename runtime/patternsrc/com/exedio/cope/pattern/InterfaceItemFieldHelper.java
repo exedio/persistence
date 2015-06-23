@@ -31,11 +31,10 @@ import java.util.Set;
 
 public final class InterfaceItemFieldHelper<I>
 {
-	private final String patternName;
+	private static final String patternName = InterfaceItemField.INTERFACEITEMFIELD;
 
-	public InterfaceItemFieldHelper(final String patternName)
+	public InterfaceItemFieldHelper()
 	{
-		this.patternName = patternName;
 	}
 
 	@SuppressWarnings("unchecked")
