@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.UniqueViolationException;
 import org.junit.Test;
 
 public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
@@ -184,6 +185,41 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("class >"+InterfaceItemFieldItemInterfaceImplementationC.class
 					+"< is not supported by InterfaceItemFieldItem.field", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testUniqueSetNull()
+	{
+		final InterfaceItemFieldItem item1 = new InterfaceItemFieldItem(
+				new InterfaceItemFieldItemInterfaceImplementationA());
+		final InterfaceItemFieldItem item2 = new InterfaceItemFieldItem(
+				new InterfaceItemFieldItemInterfaceImplementationA());
+		item1.setUniqueField(null);
+		item2.setUniqueField(null);
+		assertEquals(null, item1.getUniqueField());
+		assertEquals(null, item2.getUniqueField());
+	}
+
+	@Test
+	public void testUnique()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA value = new InterfaceItemFieldItemInterfaceImplementationA();
+		final InterfaceItemFieldItem item1 = new InterfaceItemFieldItem(
+				value);
+		final InterfaceItemFieldItem item2 = new InterfaceItemFieldItem(
+				value);
+		item1.setUniqueField(value);
+		try
+		{
+			item2.setUniqueField(value);
+			fail("exception expected");
+		}
+		catch(final UniqueViolationException e)
+		{
+			assertEquals("unique violation on "+item2
+					+" for InterfaceItemFieldItem.uniqueField-InterfaceItemFieldItemInterfaceImplementationAImplicitUnique",
+					e.getMessage());
 		}
 	}
 }

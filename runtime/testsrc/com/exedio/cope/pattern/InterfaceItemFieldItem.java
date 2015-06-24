@@ -37,6 +37,13 @@ final class InterfaceItemFieldItem extends Item
 			InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class)
 			.optional();
 
+	/**
+	 * @cope.ignore
+	 */
+	static final InterfaceItemField<InterfaceItemFieldItemInterface> uniqueField = InterfaceItemField.create(
+			InterfaceItemFieldItemInterface.class,
+			InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class).optional().unique();
+
 	InterfaceItemFieldItem(final InterfaceItemFieldItemInterface field)
 			throws com.exedio.cope.MandatoryViolationException
 	{
@@ -64,6 +71,16 @@ final class InterfaceItemFieldItem extends Item
 	void setOptionalField(final InterfaceItemFieldItemInterface value)
 	{
 		this.set(InterfaceItemFieldItem.optionalField.map(value));
+	}
+
+	InterfaceItemFieldItemInterface getUniqueField()
+	{
+		return uniqueField.get(this);
+	}
+
+	void setUniqueField(final InterfaceItemFieldItemInterface value)
+	{
+		this.set(InterfaceItemFieldItem.uniqueField.map(value));
 	}
 
 

@@ -46,21 +46,24 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	private final List<ItemField<? extends Item>> fields;
 	private final boolean mandatory;
 	private final boolean isFinal;
+	private final boolean unique;
 
 	private InterfaceItemField(final Class<I> commonInterface, final Class<? extends Item>[] classes)
 	{
-		this(false, false, commonInterface, classes);
+		this(false, false, false, commonInterface, classes);
 	}
 
 	private InterfaceItemField(
 			final boolean isFinal,
 			final boolean optional,
+			final boolean unique,
 			final Class<I> commonInterface,
 			final Class<? extends Item>[] classes)
 	{
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
-		this.fields = checkClass(isFinal, false, commonInterface, classes);
+		this.unique = unique;
+		this.fields = checkClass(isFinal, unique, commonInterface, classes);
 
 		this.commonInterface = commonInterface;
 		this.classes = Arrays.copyOf(classes);
@@ -253,11 +256,16 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 	public InterfaceItemField<I> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, true, unique, commonInterface, getClasses());
 	}
 
 	public InterfaceItemField<I> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, commonInterface, getClasses());
+		return new InterfaceItemField<>(true, !mandatory, unique, commonInterface, getClasses());
+	}
+
+	public InterfaceItemField<I> unique()
+	{
+		return new InterfaceItemField<>(isFinal, !mandatory, true, commonInterface, getClasses());
 	}
 }
