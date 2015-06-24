@@ -67,6 +67,15 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 		this.commonInterface = commonInterface;
 		this.classes = Arrays.copyOf(classes);
+
+		for(final ItemField<? extends Item> field : fields)
+		{
+			// TODO: simpleName might not be unique
+			addSource(field, field.getValueClass().getSimpleName());
+		}
+		addSource(
+				new CheckConstraint(buildXORCondition(fields, this)),
+				"xor");
 	}
 
 	public static <K> InterfaceItemField<K> create(
@@ -88,21 +97,6 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	public Class<? extends Item>[] getClasses()
 	{
 		return Arrays.copyOf(classes);
-	}
-
-	@Override
-	protected void onMount()
-	{
-		super.onMount();
-
-		for(final ItemField<? extends Item> field : fields)
-		{
-			// TODO: simpleName might not be unique
-			addSource(field, field.getValueClass().getSimpleName());
-		}
-		addSource(
-				new CheckConstraint(buildXORCondition(fields, this)),
-				"xor");
 	}
 
 	@SuppressWarnings("unchecked")
