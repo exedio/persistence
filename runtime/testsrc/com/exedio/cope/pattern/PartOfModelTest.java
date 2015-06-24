@@ -92,7 +92,7 @@ public class PartOfModelTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("feature", e.getMessage());
+			assertEquals("container", e.getMessage());
 		}
 		try
 		{
@@ -101,7 +101,7 @@ public class PartOfModelTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("feature", e.getMessage());
+			assertEquals("container", e.getMessage());
 		}
 		try
 		{
