@@ -131,16 +131,17 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return Collections.unmodifiableList(fields);
 	}
 
-	public ItemField<? extends Item> of(final Class<? extends I> clazz)
+	@SuppressWarnings("unchecked")
+	public <X extends Item> ItemField<X> of(final Class<X> clazz)
 	{
 		for(final ItemField<? extends Item> field : fields)
 		{
 			if(field.getValueClass().isAssignableFrom(clazz))
 			{
-				return field;
+				return (ItemField<X>)field;
 			}
 		}
-		return null;
+		throw new IllegalArgumentException("class >"+clazz+"< is not supported by "+this);
 	}
 
 	@SuppressWarnings("unchecked")

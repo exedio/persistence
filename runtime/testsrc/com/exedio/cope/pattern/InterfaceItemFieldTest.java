@@ -173,8 +173,17 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 	}
 
 	@Test
-	public void testOfNull()
+	public void testOfNotValidClassParameter()
 	{
-		assertEquals(null, InterfaceItemFieldItem.field.of(InterfaceItemFieldItemInterfaceImplementationC.class));
+		try
+		{
+			InterfaceItemFieldItem.field.of(InterfaceItemFieldItemInterfaceImplementationC.class);
+			fail("exception expected");
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("class >"+InterfaceItemFieldItemInterfaceImplementationC.class
+					+"< is not supported by InterfaceItemFieldItem.field", e.getMessage());
+		}
 	}
 }
