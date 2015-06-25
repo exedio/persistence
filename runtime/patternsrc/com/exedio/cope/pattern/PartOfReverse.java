@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ListUtil;
 import java.util.ArrayList;
@@ -55,12 +55,14 @@ final class PartOfReverse
 
 			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{
-				final Pattern pattern = field.getPattern();
-				if(pattern instanceof PartOf<?>)
+				for(final Feature feature : field.getType().getFeatures())
 				{
-					final PartOf<?> partOf = (PartOf<?>)pattern;
-					if(partOf.getContainer()==field)
-						resultModifiable.add(partOf);
+					if(feature instanceof PartOf<?>)
+					{
+						final PartOf<?> partOf = (PartOf<?>)feature;
+						if(partOf.getContainer()==field)
+							resultModifiable.add(partOf);
+					}
 				}
 			}
 
