@@ -44,6 +44,11 @@ final class InterfaceItemFieldItem extends Item
 			InterfaceItemFieldItemInterface.class,
 			InterfaceItemFieldItemInterfaceImplementationA.class, InterfaceItemFieldItemInterfaceImplementationB.class).optional().unique();
 
+	/**
+	 * @cope.ignore
+	 */
+	static final PartOf<InterfaceItemFieldItemInterfaceImplementationA> partOfClassA = PartOf.create(field.of(InterfaceItemFieldItemInterfaceImplementationA.class));
+
 	InterfaceItemFieldItem(final InterfaceItemFieldItemInterface field)
 			throws com.exedio.cope.MandatoryViolationException
 	{

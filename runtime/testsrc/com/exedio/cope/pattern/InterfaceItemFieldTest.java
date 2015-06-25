@@ -222,4 +222,54 @@ public class InterfaceItemFieldTest extends AbstractRuntimeModelTest
 					e.getMessage());
 		}
 	}
+
+	@Test
+	public void testgetPartOfReverse()
+	{
+		assertEquals(list(InterfaceItemFieldItem.partOfClassA), PartOf.getPartOfs(InterfaceItemFieldItemInterfaceImplementationA.TYPE));
+		assertEquals(list(InterfaceItemFieldItem.partOfClassA), PartOf.getDeclaredPartOfs(InterfaceItemFieldItemInterfaceImplementationA.TYPE));
+	}
+
+	@Test
+	public void testgetPartOfReverseEmpty()
+	{
+		assertEquals(list(), PartOf.getPartOfs(InterfaceItemFieldItemInterfaceImplementationB.TYPE));
+		assertEquals(list(), PartOf.getDeclaredPartOfs(InterfaceItemFieldItemInterfaceImplementationB.TYPE));
+	}
+
+	@Test
+	public void testPartOf()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA field = new InterfaceItemFieldItemInterfaceImplementationA();
+		final InterfaceItemFieldItem item1 = new InterfaceItemFieldItem(
+				field);
+		final InterfaceItemFieldItem item2 = new InterfaceItemFieldItem(
+				field);
+		assertEquals(list(item1, item2), InterfaceItemFieldItem.partOfClassA.getParts(field));
+	}
+
+	@Test
+	public void testPartOfEmpty()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationA field = new InterfaceItemFieldItemInterfaceImplementationA();
+		new InterfaceItemFieldItem(new InterfaceItemFieldItemInterfaceImplementationB());
+		assertEquals(list(), InterfaceItemFieldItem.partOfClassA.getParts(field));
+	}
+
+	@Test
+	public void testPartOfInvalidClassParameter()
+	{
+		final InterfaceItemFieldItemInterfaceImplementationB field = new InterfaceItemFieldItemInterfaceImplementationB();
+		try
+		{
+			InterfaceItemFieldItem.partOfClassA.getParts(field);
+			fail("exception expected");
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals(
+					"expected a com.exedio.cope.pattern.InterfaceItemFieldItemInterfaceImplementationA, but was a com.exedio.cope.pattern.InterfaceItemFieldItemInterfaceImplementationB",
+					e.getMessage());
+		}
+	}
 }
