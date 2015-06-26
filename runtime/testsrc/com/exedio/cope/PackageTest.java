@@ -185,6 +185,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CheckTypeColumnAbstractLinearTest.class );
 		suite.addTestSuite( SchemaPurgeTest.class );
 		suite.addTestSuite( TransactionTryTest.class );
+		suite.addTestSuite( JoinWithInheritanceTest.class );
 
 		suite.addTestSuite( BadQueryTest.class );
 		suite.addTestSuite( InstanceOfQueryTest.class );
