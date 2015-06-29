@@ -18,28 +18,29 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.InterfaceItemFieldHelper.buildXORCondition;
-import static com.exedio.cope.pattern.InterfaceItemFieldHelper.checkClass;
-
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 {
 	private static final long serialVersionUID = 1L;
-	static final String INTERFACEITEMFIELD = "interfaceItem";
+	private static final String INTERFACEITEMFIELD = "interfaceItem";
 
 	private final Class<I> commonInterface;
 	private final Class<? extends Item>[] classes;
@@ -104,7 +105,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	@Wrap(order = 10, name = "get{0}", doc = "Returns the value of {0}.")
 	public I get(final Item item)
 	{
-		return InterfaceItemFieldHelper.get(this, item, fields);
+		return get(this, item, fields);
 	}
 
 	@Wrap(order = 100, name = "get{0}Source",
@@ -144,7 +145,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	@SuppressWarnings("unchecked")
 	private <K extends Item> Condition equal(final I interfaceItem, final ItemField<K> field)
 	{
-		return field.equal((K)interfaceItem);
+		return field.equal((K) interfaceItem);
 	}
 
 	public SetValue<I> map(final I value)
@@ -245,7 +246,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return InterfaceItemFieldHelper.getInitialExceptions(this);
+		return getInitialExceptions(this);
 	}
 
 	public InterfaceItemField<I> optional()
@@ -261,5 +262,107 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	public InterfaceItemField<I> unique()
 	{
 		return new InterfaceItemField<>(isFinal, !mandatory, true, commonInterface, getClasses());
+	}
+
+	/**
+	 * static helper methods
+	 */
+
+	private static <I> I get(final Settable<I> pattern, final Item item, final List<ItemField<? extends Item>> fields)
+	{
+		for(final ItemField<? extends Item> field : fields)
+		{
+			final Item value = field.get(item);
+			if(value!=null)
+			{
+				@SuppressWarnings("unchecked")
+				final I result = (I)value;
+				return result;
+			}
+		}
+
+		if(pattern.isMandatory())
+			throw new NullPointerException(INTERFACEITEMFIELD+pattern+" is mandatory but has no value set");
+		else
+			return null;
+	}
+
+	private static Set<Class<? extends Throwable>> getInitialExceptions(final Settable<?> settable)
+	{
+		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
+		if(settable.isMandatory())
+			result.add(MandatoryViolationException.class);
+		return result;
+	}
+
+	private static ArrayList<ItemField<? extends Item>> checkClass(
+			final boolean isFinal,
+			final boolean unique,
+			final Class<?> commonInterface,
+			final Class<? extends Item>[] classes
+	)
+	{
+		if(classes.length<=1)
+		{
+			throw new IllegalArgumentException("must use at least 2 classes");
+		}
+		final ArrayList<ItemField<? extends Item>> fields = new ArrayList<>();
+		for(int i = 0; i<classes.length; i++)
+		{
+			final Class<? extends Item> type = classes[i];
+			if(type==null)
+			{
+				throw new NullPointerException("no null values for classes allowed");
+			}
+			if(!commonInterface.isAssignableFrom(type))
+			{
+				throw new IllegalArgumentException("common interface >"+commonInterface+"< must be assignable from class >"
+						+type+"<");
+			}
+
+			// don't allow different mixin classes to (potentially) share instances
+			// because:
+			// - unique constraints on ItemFields wouldn't work
+			// - searching source would need to be adapted
+			for(int j = 0; j<classes.length; j++)
+			{
+				if(i!=j&&classes[i].isAssignableFrom(classes[j]))
+					throw new IllegalArgumentException("Classes must not be super-classes of each other: "+classes[i]
+							+" is assignable from "+classes[j]);
+			}
+
+			ItemField<? extends Item> field = ItemField.create(type, ItemField.DeletePolicy.CASCADE).optional();
+			if(isFinal)
+				field = field.toFinal();
+			if(unique)
+				field = field.unique();
+			fields.add(field);
+		}
+		return fields;
+	}
+
+	private static Condition buildXORCondition(final List<ItemField<? extends Item>> fields, final Settable<?> settable)
+	{
+		final List<Condition> ors = new ArrayList<>(fields.size());
+		for(final ItemField<? extends Item> i : fields)
+		{
+			final List<Condition> ands = new ArrayList<>(fields.size());
+			for(final ItemField<? extends Item> j : fields)
+			{
+				if(i==j)
+				{
+					if(settable.isMandatory())
+					{
+						ands.add(j.isNotNull());
+					}
+				}
+				else
+				{
+					ands.add(j.isNull());
+				}
+			}
+			ors.add(Cope.and(ands));
+		}
+		return Cope.or(ors);
 	}
 }
