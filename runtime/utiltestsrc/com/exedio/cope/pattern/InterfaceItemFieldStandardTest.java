@@ -145,7 +145,7 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	{
 		assertEquals(
 			"(AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationB is null OR" +
-			" AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationA is null)", // TODO order
+			" AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationA is null)",
 			check(AnOptionalItem.field).getCondition().toString());
 	}
 
