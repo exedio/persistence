@@ -932,7 +932,8 @@ public final class Query<R> implements Serializable
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
-		if (totalOnly && distinct)
+		boolean countSubSelect=totalOnly && (distinct || groupBy!=null);
+		if (countSubSelect)
 		{
 			bf.append("SELECT COUNT(*) FROM ( ");
 		}
@@ -945,7 +946,7 @@ public final class Query<R> implements Serializable
 		final Selectable<?>[] selects = this.selects();
 		final Marshaller<?>[] selectMarshallers;
 
-		if(!distinct&&totalOnly)
+		if(!countSubSelect&&totalOnly)
 		{
 			bf.append("COUNT(*)");
 			selectMarshallers = null;
@@ -1041,7 +1042,7 @@ public final class Query<R> implements Serializable
 
 		final ArrayList<Object> result = new ArrayList<>();
 
-		if(totalOnly && distinct)
+		if(countSubSelect)
 		{
 			bf.append(" )");
 			if (dialect.subqueryRequiresAlias())
