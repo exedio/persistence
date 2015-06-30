@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
@@ -32,9 +33,11 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public final class InterfaceItemField<I> extends Pattern implements Settable<I>
@@ -48,23 +51,37 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	private final boolean mandatory;
 	private final boolean isFinal;
 	private final boolean unique;
+	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
 	private InterfaceItemField(final Class<I> commonInterface, final Class<? extends Item>[] classes)
 	{
-		this(false, false, false, commonInterface, classes);
+		this(false, false, false, null, commonInterface, classes);
 	}
 
 	private InterfaceItemField(
 			final boolean isFinal,
 			final boolean optional,
 			final boolean unique,
+			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<I> commonInterface,
 			final Class<? extends Item>[] classes)
 	{
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
 		this.unique = unique;
-		this.fields = checkClassAndAddSources(isFinal, unique, commonInterface, classes);
+		if(copyToMap != null)
+		{
+			this.copyToMap = copyToMap;
+		}
+		else
+		{
+			this.copyToMap = new HashMap<>();
+			for(final Class<? extends Item> clazz : classes)
+			{
+				this.copyToMap.put(clazz, null);
+			}
+		}
+		this.fields = checkClassAndAddSources(isFinal, unique, this.copyToMap, commonInterface, classes);
 
 		this.commonInterface = commonInterface;
 		this.classes = Arrays.copyOf(classes);
@@ -79,6 +96,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 	private ArrayList<ItemField<? extends Item>> checkClassAndAddSources(
 			final boolean isFinal,
 			final boolean unique,
+			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<?> commonInterface,
 			final Class<? extends Item>[] classes
 	)
@@ -117,6 +135,13 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 				field = field.toFinal();
 			if(unique)
 				field = field.unique();
+			if(copyToMap.get(type) != null)
+			{
+				for(final FunctionField<?> functionField : copyToMap.get(type))
+				{
+					field = field.copyTo(functionField);
+				}
+			}
 			fields.add(field);
 		}
 		return fields;
@@ -335,16 +360,37 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 
 	public InterfaceItemField<I> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, unique, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, commonInterface, getClasses());
 	}
 
 	public InterfaceItemField<I> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, unique, commonInterface, getClasses());
+		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, commonInterface, getClasses());
 	}
 
 	public InterfaceItemField<I> unique()
 	{
-		return new InterfaceItemField<>(isFinal, !mandatory, true, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, commonInterface, getClasses());
+	}
+
+	public InterfaceItemField<I> copyTo(
+			final Class<? extends Item> clazz,
+			final FunctionField<?> functionField)
+	{
+		final Map<Class<? extends Item>, FunctionField<?>[]> map = new HashMap<>(copyToMap);
+		if(map.get(clazz) != null)
+		{
+			final FunctionField<?>[] functionFields = map.get(clazz);
+			final int length = functionFields.length;
+			final FunctionField<?>[] result = new FunctionField<?>[length + 1];
+			System.arraycopy(functionFields, 0, result, 0, length);
+			result[length] = functionField;
+			map.put(clazz, result);
+		}
+		else
+		{
+			map.put(clazz, new FunctionField<?>[]{functionField});
+		}
+		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, commonInterface, getClasses());
 	}
 }
