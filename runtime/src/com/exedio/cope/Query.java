@@ -932,7 +932,7 @@ public final class Query<R> implements Serializable
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
-		boolean countSubSelect=totalOnly && (distinct || groupBy!=null);
+		final boolean countSubSelect = totalOnly && (distinct || groupBy!=null);
 		if (countSubSelect)
 		{
 			bf.append("SELECT COUNT(*) FROM ( ");
