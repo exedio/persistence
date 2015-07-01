@@ -1073,7 +1073,7 @@ public final class Query<R> implements Serializable
 					resultSet.next();
 					result.add(resultSet.getInt(1));
 					if(resultSet.next())
-						throw new RuntimeException();
+						throw new RuntimeException("Only one total result set expected: " + bf.toString());
 					return null;
 				}
 
