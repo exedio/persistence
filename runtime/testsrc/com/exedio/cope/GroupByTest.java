@@ -22,7 +22,6 @@ import static com.exedio.cope.testmodel.FinalItem.TYPE;
 import static com.exedio.cope.testmodel.FinalItem.finalString;
 import static com.exedio.cope.testmodel.FinalItem.nonFinalInteger;
 
-import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.testmodel.FinalItem;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class GroupByTest extends TestmodelTest
 
 	public void testGroupByCount()
 	{
-		final Selectable<?>[] selection = new Selectable<?>[]{finalString, new ExtremumAggregate<>(nonFinalInteger, true)};
+		final Selectable<?>[] selection = new Selectable<?>[]{finalString, nonFinalInteger.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
 		items.setGroupBy(finalString);
 		assertCount(items, 4, 4);
@@ -65,7 +64,7 @@ public class GroupByTest extends TestmodelTest
 
 	public void testGroupByCountWithLimit()
 	{
-		final Selectable<?>[] selection = new Selectable<?>[]{finalString, new ExtremumAggregate<>(nonFinalInteger, true)};
+		final Selectable<?>[] selection = new Selectable<?>[]{finalString, nonFinalInteger.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
 		items.setGroupBy(finalString);
 		items.setLimit(0, 3);
