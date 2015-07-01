@@ -1071,7 +1071,7 @@ public final class Query<R> implements Serializable
 				if(totalOnly)
 				{
 					resultSet.next();
-					result.add(Integer.valueOf(resultSet.getInt(1)));
+					result.add(resultSet.getInt(1));
 					if(resultSet.next())
 						throw new RuntimeException();
 					return null;
