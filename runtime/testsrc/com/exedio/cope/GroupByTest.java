@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.testmodel.FinalItem.TYPE;
+import static com.exedio.cope.testmodel.FinalItem.finalString;
+import static com.exedio.cope.testmodel.FinalItem.nonFinalInteger;
+
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.testmodel.FinalItem;
 import java.util.List;
@@ -40,30 +44,30 @@ public class GroupByTest extends TestmodelTest
 
 	public void testSimpleCount()
 	{
-		final Query<FinalItem> items = FinalItem.TYPE.newQuery();
+		final Query<FinalItem> items = TYPE.newQuery();
 		assertCount(items, 8, 8);
 	}
 
 	public void testSimpleCountWithLimit()
 	{
-		final Query<FinalItem> items = FinalItem.TYPE.newQuery();
+		final Query<FinalItem> items = TYPE.newQuery();
 		items.setLimit(0, 3);
 		assertCount(items, 3, 8);
 	}
 
 	public void testGroupByCount()
 	{
-		final Selectable<?>[] selection = new Selectable<?>[]{FinalItem.finalString, new ExtremumAggregate<>(FinalItem.nonFinalInteger, true)};
-		final Query<List<Object>> items = Query.newQuery(selection, FinalItem.TYPE, null);
-		items.setGroupBy(FinalItem.finalString);
+		final Selectable<?>[] selection = new Selectable<?>[]{finalString, new ExtremumAggregate<>(nonFinalInteger, true)};
+		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
+		items.setGroupBy(finalString);
 		assertCount(items, 4, 4);
 	}
 
 	public void testGroupByCountWithLimit()
 	{
-		final Selectable<?>[] selection = new Selectable<?>[]{FinalItem.finalString, new ExtremumAggregate<>(FinalItem.nonFinalInteger, true)};
-		final Query<List<Object>> items = Query.newQuery(selection, FinalItem.TYPE, null);
-		items.setGroupBy(FinalItem.finalString);
+		final Selectable<?>[] selection = new Selectable<?>[]{finalString, new ExtremumAggregate<>(nonFinalInteger, true)};
+		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
+		items.setGroupBy(finalString);
 		items.setLimit(0, 3);
 		assertCount(items, 3, 4);
 	}
