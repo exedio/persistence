@@ -68,7 +68,7 @@ public class GroupByTest extends TestmodelTest
 		assertCount(items, 3, 4);
 	}
 
-	private void assertCount(final Query<?> items, final int expectedSize, final int expectedTotal)
+	private static void assertCount(final Query<?> items, final int expectedSize, final int expectedTotal)
 	{
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedSize, items.searchAndTotal().getData().size());
