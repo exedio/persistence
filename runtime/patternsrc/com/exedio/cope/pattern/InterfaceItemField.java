@@ -93,7 +93,7 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		addSource(createXORCheckConstraint(), "xor");
 	}
 
-	private ArrayList<ItemField<? extends Item>> checkClassAndAddSources(
+	private static ArrayList<ItemField<? extends Item>> checkClassAndAddSources(
 			final boolean isFinal,
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
