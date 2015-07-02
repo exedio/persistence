@@ -99,14 +99,14 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		{
 			InterfaceItemField.create(InterfaceItemFieldInterface.class,
 					InterfaceItemFieldInterfaceImplementationA.class,
-					InterfaceItemFieldInterfaceImplementationC.class);
+					InterfaceItemFieldInterfaceImplementationASub.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			final String expected = "Classes must not be super-classes of each other: "
 					+InterfaceItemFieldInterfaceImplementationA.class+" is assignable from "
-					+InterfaceItemFieldInterfaceImplementationC.class+"";
+					+InterfaceItemFieldInterfaceImplementationASub.class+"";
 			assertEquals(expected, e.getMessage());
 		}
 	}
