@@ -141,18 +141,8 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 			this(DoubleCopyConstraintItem.value.map(value), DoubleCopyConstraintItem.template.map(template), DoubleCopyConstraintItem.field.map(field));
 		}
 
-		
 
-		
 
-		
-
-		
-
-		
-		
-
-		
 	/**
 
 	 **
@@ -251,16 +241,8 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 			this(AllCopyConstraintItem.value.map(value), AllCopyConstraintItem.field.map(field));
 		}
 
-		
 
-		
 
-		
-
-		
-		
-
-		
 	/**
 
 	 **
@@ -346,16 +328,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		}
 
 
-		
 
-		
-
-		
-
-		
-		
-
-		
 	/**
 
 	 **
@@ -428,16 +401,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		public static final StringField value = new StringField().toFinal();
 
 
-		
 
-		
-
-		
-
-		
-		
-
-		
 	/**
 
 	 **
@@ -510,16 +474,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		public static final StringField value = new StringField().toFinal();
 
 
-		
 
-		
-
-		
-
-		
-		
-
-		
 	/**
 
 	 **
@@ -592,18 +547,8 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		public static final StringField value = new StringField().toFinal();
 		public static final StringField template = new StringField().toFinal();
 
-		
 
-		
 
-		
-
-		
-
-		
-		
-
-		
 	/**
 
 	 **
