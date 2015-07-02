@@ -60,6 +60,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 1), list(day2, 5), list(day3, 4),
 			query.search()
 		);
+		assertEquals(3, query.total());
 
 		query.setSelects( day, number.min(), number.max() );
 		assertEquals( "select day,min(number),max(number) from GroupItem group by day", query.toString() );
@@ -67,6 +68,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 1, 1), list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
+		assertEquals(3, query.total());
 
 		query.setCondition( day.greater(day1) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where day>'2006/2/19' group by day", query.toString() );
@@ -74,6 +76,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day2, 2, 3), list(day3, 4, 4),
 			query.search()
 		);
+		assertEquals(2, query.total());
 
 		query.setCondition( number.notEqual(3) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where number<>'3' group by day", query.toString() );
@@ -81,6 +84,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 1, 1), list(day2, 2, 2), list(day3, 4, 4),
 			query.search()
 		);
+		assertEquals(3, query.total());
 
 		query.setSelects( day, optionalDouble.sum() );
 		query.setCondition( day.equal(day2) );
@@ -89,6 +93,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day2, null),
 			query.search()
 		);
+		assertEquals(1, query.total());
 
 		item2a.setOptionalDouble( 3.5 );
 		assertEquals( null, item2b.getOptionalDouble() );
@@ -96,18 +101,21 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day2, 3.5),
 			query.search()
 		);
+		assertEquals(1, query.total());
 
 		item2b.setOptionalDouble( 1.0 );
 		assertContains(
 			list(day2, 4.5),
 			query.search()
 		);
+		assertEquals(1, query.total());
 
 		query.setSelects( day, optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day2, 4.5, 2),
 			query.search()
 		);
+		assertEquals(1, query.total());
 	}
 
 	public void testUngroupedSelect()
@@ -125,6 +133,21 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		{
 			// fine
 		}
+		if(oracle)
+		{
+			assertEquals(2, query.total());
+		}
+		else
+		{
+			try
+			{
+				fail( "" + query.total() );
+			}
+			catch ( final SQLRuntimeException e )
+			{
+				// fine
+			}
+		}
 	}
 
 	public void testSingleSelect()
@@ -137,12 +160,15 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		query.setGroupBy( day );
 		query.setOrderBy(number.max(), true);
 		assertEquals(asList(1, 3, 4), query.search());
+		assertEquals(3, query.total());
 
 		query.setOrderBy(number.max(), false);
 		assertEquals(asList(4, 3, 1), query.search());
+		assertEquals(3, query.total());
 
 		query.setCondition(number.lessOrEqual(2));
 		assertEquals(asList(2, 1), query.search());
+		assertEquals(2, query.total());
 	}
 
 	public void testMultiGrouping()
@@ -165,12 +191,14 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 1, 10.0), list(day2, 2, 20.0), list(day2, 3, 52.0),
 			query.search()
 		);
+		assertEquals(3, query.total());
 
 		query.setSelects( day, number, optionalDouble.sum(), new Count() );
 		assertContains(
 			list(day1, 1, 10.0, 1), list(day2, 2, 20.0, 1), list(day2, 3, 52.0, 2),
 			query.search()
 		);
+		assertEquals(3, query.total());
 	}
 
 	public void testGroupJoin()
@@ -189,6 +217,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 1, 2), list(day1, 2, 1), list(day1, 1, 1), list(day1, 2, 2), list(day2, 3, 3),
 			query.search()
 		);
+		assertEquals(5, query.total());
 
 		query.setGroupBy( day );
 		query.setSelects( day, new Count() );
@@ -196,6 +225,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 			list(day1, 4), list(day2, 1),
 			query.search()
 		);
+		assertEquals(2, query.total());
 	}
 
 	public void testSorting()
@@ -213,10 +243,12 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		query.setOrderBy( optionalDouble, true );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble", query.toString() );
 		assertContains( list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1), query.search() );
+		assertEquals(3, query.total());
 
 		query.setOrderBy( optionalDouble, false );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble desc", query.toString() );
 		assertContains( list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1), query.search() );
+		assertEquals(3, query.total());
 	}
 
 	public void testHaving()
@@ -238,6 +270,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(
 				asList(asList(day1, 2), asList(day2, 3)),
 				query.search());
+		assertEquals(2, query.total());
 
 		query.setHaving(number.max().greaterOrEqual(3));
 		assertEquals(
@@ -249,5 +282,6 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(
 				asList(asList(day2, 3)),
 				query.search());
+		assertEquals(1, query.total());
 	}
 }

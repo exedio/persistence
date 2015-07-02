@@ -349,5 +349,6 @@ public class CompareConditionTest extends AbstractRuntimeTest
 			list(null, null),
 			q.search()
 		);
+		assertEquals(6, q.total());
 	}
 }
