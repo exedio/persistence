@@ -100,6 +100,12 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 						InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class),
 				asList(AnMandatoryItem.field.getClasses()));
+		assertEquals(
+				asList(
+						InterfaceItemFieldInterfaceImplementationA.class,
+						InterfaceItemFieldInterfaceImplementationB.class,
+						InterfaceItemFieldInterfaceImplementationC.class),
+				asList(ThreeItem.mandatory.getClasses()));
 	}
 
 	@Test
