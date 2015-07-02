@@ -39,7 +39,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
-	public void testCreateNoClass()
+	public void testCreateNoComponentClass()
 	{
 		try
 		{
@@ -49,14 +49,14 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "must use at least 2 classes";
+			final String expected = "must use at least 2 componentClasses";
 			assertEquals(expected, e.getMessage());
 		}
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
-	public void testCreateOnlyOneClass()
+	public void testCreateOnlyOneComponentClass()
 	{
 		try
 		{
@@ -66,7 +66,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "must use at least 2 classes";
+			final String expected = "must use at least 2 componentClasses";
 			assertEquals(expected, e.getMessage());
 		}
 	}
@@ -99,13 +99,13 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			final String expected = "valueClass >"+InterfaceItemFieldInterface.class
-					+"< must be assignable from class >"+AnotherItem1.class+"<";
+					+"< must be assignable from componentClass >"+AnotherItem1.class+"<";
 			assertEquals(expected, e.getMessage());
 		}
 	}
 
 	@Test
-	public void testCreateClassesNotAllowedToBeSuperClassesOfEachOther()
+	public void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
 		{
@@ -116,7 +116,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "Classes must not be super-classes of each other: "
+			final String expected = "componentClasses must not be super-classes of each other: "
 					+InterfaceItemFieldInterfaceImplementationA.class+" is assignable from "
 					+InterfaceItemFieldInterfaceImplementationASub.class+"";
 			assertEquals(expected, e.getMessage());

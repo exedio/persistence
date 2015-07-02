@@ -95,19 +95,19 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testGetClasses()
+	public void testGetComponentClasses()
 	{
 		assertEqualsUnmodifiable(
 				asList(
 						InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class),
-				AnMandatoryItem.field.getClasses());
+				AnMandatoryItem.field.getComponentClasses());
 		assertEqualsUnmodifiable(
 				asList(
 						InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class,
 						InterfaceItemFieldInterfaceImplementationC.class),
-				ThreeItem.mandatory.getClasses());
+				ThreeItem.mandatory.getComponentClasses());
 	}
 
 	@Test

@@ -46,16 +46,18 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private static final String INTERFACEITEMFIELD = "interfaceItem";
 
 	private final Class<E> valueClass;
-	private final Class<? extends Item>[] classes;
+	private final Class<? extends Item>[] componentClasses;
 	private final List<ItemField<?>> components;
 	private final boolean mandatory;
 	private final boolean isFinal;
 	private final boolean unique;
 	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
-	private InterfaceItemField(final Class<E> valueClass, final Class<? extends Item>[] classes)
+	private InterfaceItemField(
+			final Class<E> valueClass,
+			final Class<? extends Item>[] componentClasses)
 	{
-		this(false, false, false, null, valueClass, classes);
+		this(false, false, false, null, valueClass, componentClasses);
 	}
 
 	private InterfaceItemField(
@@ -64,7 +66,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<E> valueClass,
-			final Class<? extends Item>[] classes)
+			final Class<? extends Item>[] componentClasses)
 	{
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
@@ -76,15 +78,15 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		else
 		{
 			this.copyToMap = new HashMap<>();
-			for(final Class<? extends Item> clazz : classes)
+			for(final Class<? extends Item> componentClass : componentClasses)
 			{
-				this.copyToMap.put(clazz, null);
+				this.copyToMap.put(componentClass, null);
 			}
 		}
-		this.components = createComponents(isFinal, unique, this.copyToMap, valueClass, classes);
+		this.components = createComponents(isFinal, unique, this.copyToMap, valueClass, componentClasses);
 
 		this.valueClass = valueClass;
-		this.classes = Arrays.copyOf(classes);
+		this.componentClasses = Arrays.copyOf(componentClasses);
 		for(final ItemField<?> component : components)
 		{
 			// TODO: simpleName might not be unique
@@ -98,45 +100,45 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<?> valueClass,
-			final Class<? extends Item>[] classes)
+			final Class<? extends Item>[] componentClasses)
 	{
-		if(classes.length<=1)
+		if(componentClasses.length<=1)
 		{
-			throw new IllegalArgumentException("must use at least 2 classes");
+			throw new IllegalArgumentException("must use at least 2 componentClasses");
 		}
 		final ArrayList<ItemField<?>> components = new ArrayList<>();
-		for(int i = 0; i<classes.length; i++)
+		for(int i = 0; i<componentClasses.length; i++)
 		{
-			final Class<? extends Item> type = classes[i];
-			if(type==null)
+			final Class<? extends Item> componentClass = componentClasses[i];
+			if(componentClass==null)
 			{
 				throw new NullPointerException("no null values for classes allowed");
 			}
-			if(!valueClass.isAssignableFrom(type))
+			if(!valueClass.isAssignableFrom(componentClass))
 			{
-				throw new IllegalArgumentException("valueClass >" + valueClass + "< must be assignable from class >"
-						+type+"<");
+				throw new IllegalArgumentException("valueClass >" + valueClass + "< must be assignable from componentClass >"
+						+componentClass+"<");
 			}
 
 			// don't allow different mixin classes to (potentially) share instances
 			// because:
 			// - unique constraints on ItemFields wouldn't work
 			// - searching source would need to be adapted
-			for(int j = 0; j<classes.length; j++)
+			for(int j = 0; j<componentClasses.length; j++)
 			{
-				if(i!=j&&classes[i].isAssignableFrom(classes[j]))
-					throw new IllegalArgumentException("Classes must not be super-classes of each other: "+classes[i]
-							+" is assignable from "+classes[j]);
+				if(i!=j&&componentClasses[i].isAssignableFrom(componentClasses[j]))
+					throw new IllegalArgumentException("componentClasses must not be super-classes of each other: "+componentClasses[i]
+							+" is assignable from "+componentClasses[j]);
 			}
 
-			ItemField<?> component = ItemField.create(type, ItemField.DeletePolicy.CASCADE).optional();
+			ItemField<?> component = ItemField.create(componentClass, ItemField.DeletePolicy.CASCADE).optional();
 			if(isFinal)
 				component = component.toFinal();
 			if(unique)
 				component = component.unique();
-			if(copyToMap.get(type) != null)
+			if(copyToMap.get(componentClass) != null)
 			{
-				for(final FunctionField<?> functionField : copyToMap.get(type))
+				for(final FunctionField<?> functionField : copyToMap.get(componentClass))
 				{
 					component = component.copyTo(functionField);
 				}
@@ -173,33 +175,33 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public static <E> InterfaceItemField<E> create(
 			final Class<E> valueClass,
-			final Class<? extends Item>[] classes)
+			final Class<? extends Item>[] componentClasses)
 	{
-		return new InterfaceItemField<>(valueClass, classes);
+		return new InterfaceItemField<>(valueClass, componentClasses);
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
 	public static <E> InterfaceItemField<E> create(
 			final Class<E> valueClass,
-			final Class<? extends Item> class1,
-			final Class<? extends Item> class2)
+			final Class<? extends Item> componentClass1,
+			final Class<? extends Item> componentClass2)
 	{
-		return create(valueClass, new Class[]{class1, class2});
+		return create(valueClass, new Class[]{componentClass1, componentClass2});
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
 	public static <E> InterfaceItemField<E> create(
 			final Class<E> valueClass,
-			final Class<? extends Item> class1,
-			final Class<? extends Item> class2,
-			final Class<? extends Item> class3)
+			final Class<? extends Item> componentClass1,
+			final Class<? extends Item> componentClass2,
+			final Class<? extends Item> componentClass3)
 	{
-		return create(valueClass, new Class[]{class1, class2, class3});
+		return create(valueClass, new Class[]{componentClass1, componentClass2, componentClass3});
 	}
 
-	public List<Class<? extends Item>> getClasses()
+	public List<Class<? extends Item>> getComponentClasses()
 	{
-		return Collections.unmodifiableList(java.util.Arrays.asList(classes));
+		return Collections.unmodifiableList(java.util.Arrays.asList(componentClasses));
 	}
 
 	// checked in constructor
@@ -244,16 +246,16 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(components);
 	}
 
-	public <X extends Item> ItemField<X> of(final Class<X> clazz)
+	public <X extends Item> ItemField<X> of(final Class<X> componentClass)
 	{
 		for(final ItemField<?> component : components)
 		{
-			if(component.getValueClass()==clazz)
+			if(component.getValueClass()==componentClass)
 			{
-				return component.as(clazz);
+				return component.as(componentClass);
 			}
 		}
-		throw new IllegalArgumentException("class >"+clazz+"< is not supported by "+this);
+		throw new IllegalArgumentException("class >"+componentClass+"< is not supported by "+this);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -368,17 +370,17 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public InterfaceItemField<E> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, classes);
+		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, componentClasses);
 	}
 
 	public InterfaceItemField<E> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, classes);
+		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, componentClasses);
 	}
 
 	public InterfaceItemField<E> unique()
 	{
-		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, classes);
+		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, componentClasses);
 	}
 
 	public InterfaceItemField<E> copyTo(
@@ -399,6 +401,6 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, classes);
+		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, componentClasses);
 	}
 }
