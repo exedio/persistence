@@ -71,6 +71,29 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 						InterfaceItemFieldInterfaceImplementationB.class).toFinal();
 	}
 
+	static final class ThreeItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final InterfaceItemField<InterfaceItemFieldInterface> mandatory = InterfaceItemField.create(
+				InterfaceItemFieldInterface.class,
+				InterfaceItemFieldInterfaceImplementationA.class,
+				InterfaceItemFieldInterfaceImplementationB.class,
+				InterfaceItemFieldInterfaceImplementationC.class);
+
+		/** @cope.ignore */
+		static final InterfaceItemField<InterfaceItemFieldInterface> optional = InterfaceItemField.create(
+				InterfaceItemFieldInterface.class,
+				InterfaceItemFieldInterfaceImplementationA.class,
+				InterfaceItemFieldInterfaceImplementationB.class,
+				InterfaceItemFieldInterfaceImplementationC.class).
+				optional();
+
+		static final Type<ThreeItem> TYPE = TypesBound.newType(ThreeItem.class);
+		private ThreeItem(final ActivationParameters ap) { super(ap); }
+	}
+
 	@Test
 	public void testGetClasses()
 	{
@@ -138,6 +161,19 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 			" AnMandatoryItem.field-InterfaceItemFieldInterfaceImplementationB is not null)" +
 			")",
 			check(AnMandatoryItem.field).getCondition().toString());
+		assertEquals(
+			"(" +
+			"(ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationA is not null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationB is not null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.mandatory-InterfaceItemFieldInterfaceImplementationC is not null)" +
+			")",
+			check(ThreeItem.mandatory).getCondition().toString());
 	}
 
 	@Test
@@ -145,8 +181,18 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	{
 		assertEquals(
 			"(AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationB is null OR" +
-			" AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationA is null)", // TODO order
+			" AnOptionalItem.field-InterfaceItemFieldInterfaceImplementationA is null)",
 			check(AnOptionalItem.field).getCondition().toString());
+		assertEquals(
+			"(" +
+			"(ThreeItem.optional-InterfaceItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.optional-InterfaceItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.optional-InterfaceItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.optional-InterfaceItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.optional-InterfaceItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.optional-InterfaceItemFieldInterfaceImplementationB is null)" +
+			")",
+			check(ThreeItem.optional).getCondition().toString());
 	}
 
 	private static final CheckConstraint check(final InterfaceItemField<?> field)

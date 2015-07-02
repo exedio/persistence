@@ -187,6 +187,16 @@ public final class InterfaceItemField<I> extends Pattern implements Settable<I>
 		return create(commonInterface, new Class[]{class1, class2});
 	}
 
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
+	public static <K> InterfaceItemField<K> create(
+			final Class<K> commonInterface,
+			final Class<? extends Item> class1,
+			final Class<? extends Item> class2,
+			final Class<? extends Item> class3)
+	{
+		return create(commonInterface, new Class[]{class1, class2, class3});
+	}
+
 	public Class<? extends Item>[] getClasses()
 	{
 		return Arrays.copyOf(classes);
