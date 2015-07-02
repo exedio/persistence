@@ -98,8 +98,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<?> valueClass,
-			final Class<? extends Item>[] classes
-	)
+			final Class<? extends Item>[] classes)
 	{
 		if(classes.length<=1)
 		{
@@ -147,7 +146,8 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return fields;
 	}
 
-	private CheckConstraint createXORCheckConstraint() {
+	private CheckConstraint createXORCheckConstraint()
+	{
 		final List<Condition> ors = new ArrayList<>(fields.size());
 		for(final ItemField<? extends Item> i : fields)
 		{
