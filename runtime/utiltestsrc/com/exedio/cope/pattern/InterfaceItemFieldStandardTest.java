@@ -129,7 +129,17 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 				"class >class com.exedio.cope.pattern.InterfaceItemFieldInterfaceImplementationC< is not supported by AnMandatoryItem.field",
 				e.getMessage());
 		}
-		assertSame(c.get(0), AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationASub.class)); // TODO should not work
+		try
+		{
+			AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationASub.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"class >class com.exedio.cope.pattern.InterfaceItemFieldInterfaceImplementationASub< is not supported by AnMandatoryItem.field",
+				e.getMessage());
+		}
 	}
 
 	@Test
