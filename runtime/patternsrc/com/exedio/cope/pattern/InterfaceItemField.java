@@ -45,7 +45,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private static final long serialVersionUID = 1L;
 	private static final String INTERFACEITEMFIELD = "interfaceItem";
 
-	private final Class<E> commonInterface;
+	private final Class<E> valueClass;
 	private final Class<? extends Item>[] classes;
 	private final List<ItemField<? extends Item>> fields;
 	private final boolean mandatory;
@@ -53,9 +53,9 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private final boolean unique;
 	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
-	private InterfaceItemField(final Class<E> commonInterface, final Class<? extends Item>[] classes)
+	private InterfaceItemField(final Class<E> valueClass, final Class<? extends Item>[] classes)
 	{
-		this(false, false, false, null, commonInterface, classes);
+		this(false, false, false, null, valueClass, classes);
 	}
 
 	private InterfaceItemField(
@@ -63,7 +63,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final boolean optional,
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
-			final Class<E> commonInterface,
+			final Class<E> valueClass,
 			final Class<? extends Item>[] classes)
 	{
 		this.isFinal = isFinal;
@@ -81,9 +81,9 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 				this.copyToMap.put(clazz, null);
 			}
 		}
-		this.fields = checkClassAndAddSources(isFinal, unique, this.copyToMap, commonInterface, classes);
+		this.fields = checkClassAndAddSources(isFinal, unique, this.copyToMap, valueClass, classes);
 
-		this.commonInterface = commonInterface;
+		this.valueClass = valueClass;
 		this.classes = Arrays.copyOf(classes);
 		for(final ItemField<? extends Item> field : fields)
 		{
@@ -97,7 +97,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final boolean isFinal,
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
-			final Class<?> commonInterface,
+			final Class<?> valueClass,
 			final Class<? extends Item>[] classes
 	)
 	{
@@ -113,9 +113,9 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			{
 				throw new NullPointerException("no null values for classes allowed");
 			}
-			if(!commonInterface.isAssignableFrom(type))
+			if(!valueClass.isAssignableFrom(type))
 			{
-				throw new IllegalArgumentException("common interface >"+commonInterface+"< must be assignable from class >"
+				throw new IllegalArgumentException("valueClass >" + valueClass + "< must be assignable from class >"
 						+type+"<");
 			}
 
@@ -172,29 +172,29 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	}
 
 	public static <E> InterfaceItemField<E> create(
-			final Class<E> commonInterface,
+			final Class<E> valueClass,
 			final Class<? extends Item>[] classes)
 	{
-		return new InterfaceItemField<>(commonInterface, classes);
+		return new InterfaceItemField<>(valueClass, classes);
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
 	public static <E> InterfaceItemField<E> create(
-			final Class<E> commonInterface,
+			final Class<E> valueClass,
 			final Class<? extends Item> class1,
 			final Class<? extends Item> class2)
 	{
-		return create(commonInterface, new Class[]{class1, class2});
+		return create(valueClass, new Class[]{class1, class2});
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
 	public static <E> InterfaceItemField<E> create(
-			final Class<E> commonInterface,
+			final Class<E> valueClass,
 			final Class<? extends Item> class1,
 			final Class<? extends Item> class2,
 			final Class<? extends Item> class3)
 	{
-		return create(commonInterface, new Class[]{class1, class2, class3});
+		return create(valueClass, new Class[]{class1, class2, class3});
 	}
 
 	public Class<? extends Item>[] getClasses()
@@ -357,7 +357,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public Class<E> getInitialType()
 	{
-		return commonInterface;
+		return valueClass;
 	}
 
 	public Set<Class<? extends Throwable>> getInitialExceptions()
@@ -370,17 +370,17 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public InterfaceItemField<E> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, getClasses());
 	}
 
 	public InterfaceItemField<E> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, commonInterface, getClasses());
+		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, getClasses());
 	}
 
 	public InterfaceItemField<E> unique()
 	{
-		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, getClasses());
 	}
 
 	public InterfaceItemField<E> copyTo(
@@ -401,6 +401,6 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, commonInterface, getClasses());
+		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, getClasses());
 	}
 }

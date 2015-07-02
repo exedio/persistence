@@ -98,7 +98,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "common interface >"+InterfaceItemFieldInterface.class
+			final String expected = "valueClass >"+InterfaceItemFieldInterface.class
 					+"< must be assignable from class >"+AnotherItem1.class+"<";
 			assertEquals(expected, e.getMessage());
 		}
