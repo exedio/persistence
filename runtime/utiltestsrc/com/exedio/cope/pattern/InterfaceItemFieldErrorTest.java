@@ -23,6 +23,20 @@ import org.junit.Test;
 
 public class InterfaceItemFieldErrorTest extends CopeAssert
 {
+	@Test
+	public void testCreateNoInterface()
+	{
+		try
+		{
+			InterfaceItemField.create(null, AnotherItem1.class, AnotherItem2.class);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	public void testCreateNoClass()
