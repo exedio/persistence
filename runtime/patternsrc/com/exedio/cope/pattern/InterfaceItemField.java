@@ -202,7 +202,6 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(java.util.Arrays.asList(classes));
 	}
 
-	@SuppressWarnings("unchecked")
 	// checked in constructor
 	@Wrap(order = 10, name = "get{0}", doc = "Returns the value of {0}.")
 	public E get(final Item item)
