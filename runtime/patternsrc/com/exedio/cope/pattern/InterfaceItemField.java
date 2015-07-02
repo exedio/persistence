@@ -131,7 +131,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 							+" is assignable from "+componentClasses[j]);
 			}
 
-			ItemField<?> component = ItemField.create(componentClass, ItemField.DeletePolicy.CASCADE).optional();
+			ItemField<?> component = ItemField.create(componentClass).optional();
 			if(isFinal)
 				component = component.toFinal();
 			if(unique)
