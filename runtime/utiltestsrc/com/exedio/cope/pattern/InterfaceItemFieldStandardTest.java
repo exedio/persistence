@@ -95,17 +95,17 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	@Test
 	public void testGetClasses()
 	{
-		assertEquals(
+		assertEqualsUnmodifiable(
 				asList(
 						InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class),
-				asList(AnMandatoryItem.field.getClasses()));
-		assertEquals(
+				AnMandatoryItem.field.getClasses());
+		assertEqualsUnmodifiable(
 				asList(
 						InterfaceItemFieldInterfaceImplementationA.class,
 						InterfaceItemFieldInterfaceImplementationB.class,
 						InterfaceItemFieldInterfaceImplementationC.class),
-				asList(ThreeItem.mandatory.getClasses()));
+				ThreeItem.mandatory.getClasses());
 	}
 
 	@Test

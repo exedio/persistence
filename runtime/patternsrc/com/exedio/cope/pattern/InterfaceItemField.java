@@ -197,9 +197,9 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return create(valueClass, new Class[]{class1, class2, class3});
 	}
 
-	public Class<? extends Item>[] getClasses()
+	public List<Class<? extends Item>> getClasses()
 	{
-		return Arrays.copyOf(classes);
+		return Collections.unmodifiableList(java.util.Arrays.asList(classes));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -370,17 +370,17 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public InterfaceItemField<E> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, getClasses());
+		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, classes);
 	}
 
 	public InterfaceItemField<E> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, getClasses());
+		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, classes);
 	}
 
 	public InterfaceItemField<E> unique()
 	{
-		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, getClasses());
+		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, classes);
 	}
 
 	public InterfaceItemField<E> copyTo(
@@ -401,6 +401,6 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, getClasses());
+		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, classes);
 	}
 }
