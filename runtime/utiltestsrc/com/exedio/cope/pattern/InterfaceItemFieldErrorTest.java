@@ -23,8 +23,7 @@ import org.junit.Test;
 
 public class InterfaceItemFieldErrorTest extends CopeAssert
 {
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	public void testCreateNoClass()
 	{
@@ -41,8 +40,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	public void testCreateOnlyOneClass()
 	{
