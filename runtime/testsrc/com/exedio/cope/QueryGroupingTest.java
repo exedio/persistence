@@ -133,13 +133,20 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		{
 			// fine
 		}
-		try
+		if(oracle)
 		{
-			fail( "" + query.total() );
+			assertEquals(2, query.total());
 		}
-		catch ( final SQLRuntimeException e )
+		else
 		{
-			// fine
+			try
+			{
+				fail( "" + query.total() );
+			}
+			catch ( final SQLRuntimeException e )
+			{
+				// fine
+			}
 		}
 	}
 
