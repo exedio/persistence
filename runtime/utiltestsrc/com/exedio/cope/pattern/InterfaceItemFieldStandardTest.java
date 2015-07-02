@@ -18,16 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Arrays.asList;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.Test;
 
 public class InterfaceItemFieldStandardTest extends CopeAssert
@@ -97,10 +95,11 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 	@Test
 	public void testGetClasses()
 	{
-		final List<Class<? extends Item>> expected = new ArrayList<>();
-		expected.add(InterfaceItemFieldInterfaceImplementationA.class);
-		expected.add(InterfaceItemFieldInterfaceImplementationB.class);
-		assertEquals(expected, Arrays.asList(AnMandatoryItem.field.getClasses()));
+		assertEquals(
+				asList(
+						InterfaceItemFieldInterfaceImplementationA.class,
+						InterfaceItemFieldInterfaceImplementationB.class),
+				asList(AnMandatoryItem.field.getClasses()));
 	}
 
 	@Test
