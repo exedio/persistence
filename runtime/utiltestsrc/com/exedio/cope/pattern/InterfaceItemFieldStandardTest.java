@@ -22,10 +22,12 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import java.util.List;
 import org.junit.Test;
 
 public class InterfaceItemFieldStandardTest extends CopeAssert
@@ -106,6 +108,28 @@ public class InterfaceItemFieldStandardTest extends CopeAssert
 						InterfaceItemFieldInterfaceImplementationB.class,
 						InterfaceItemFieldInterfaceImplementationC.class),
 				ThreeItem.mandatory.getClasses());
+	}
+
+	@Test
+	public void testOf()
+	{
+		final List<ItemField<?>> c = AnMandatoryItem.field.getComponents();
+		assertEquals(2, c.size());
+
+		assertSame(c.get(0), AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationA.class));
+		assertSame(c.get(1), AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationB.class));
+		try
+		{
+			AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationC.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"class >class com.exedio.cope.pattern.InterfaceItemFieldInterfaceImplementationC< is not supported by AnMandatoryItem.field",
+				e.getMessage());
+		}
+		assertSame(c.get(0), AnMandatoryItem.field.of(InterfaceItemFieldInterfaceImplementationASub.class)); // TODO should not work
 	}
 
 	@Test
