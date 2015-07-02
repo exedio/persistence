@@ -47,7 +47,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	private final Class<E> valueClass;
 	private final Class<? extends Item>[] classes;
-	private final List<ItemField<? extends Item>> components;
+	private final List<ItemField<?>> components;
 	private final boolean mandatory;
 	private final boolean isFinal;
 	private final boolean unique;
@@ -85,7 +85,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 		this.valueClass = valueClass;
 		this.classes = Arrays.copyOf(classes);
-		for(final ItemField<? extends Item> component : components)
+		for(final ItemField<?> component : components)
 		{
 			// TODO: simpleName might not be unique
 			addSource(component, component.getValueClass().getSimpleName());
@@ -93,7 +93,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		addSource(createXORCheckConstraint(), "xor");
 	}
 
-	private static ArrayList<ItemField<? extends Item>> createComponents(
+	private static ArrayList<ItemField<?>> createComponents(
 			final boolean isFinal,
 			final boolean unique,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
@@ -104,7 +104,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		{
 			throw new IllegalArgumentException("must use at least 2 classes");
 		}
-		final ArrayList<ItemField<? extends Item>> components = new ArrayList<>();
+		final ArrayList<ItemField<?>> components = new ArrayList<>();
 		for(int i = 0; i<classes.length; i++)
 		{
 			final Class<? extends Item> type = classes[i];
@@ -129,7 +129,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 							+" is assignable from "+classes[j]);
 			}
 
-			ItemField<? extends Item> component = ItemField.create(type, ItemField.DeletePolicy.CASCADE).optional();
+			ItemField<?> component = ItemField.create(type, ItemField.DeletePolicy.CASCADE).optional();
 			if(isFinal)
 				component = component.toFinal();
 			if(unique)
@@ -149,10 +149,10 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private CheckConstraint createXORCheckConstraint()
 	{
 		final List<Condition> ors = new ArrayList<>(components.size());
-		for(final ItemField<? extends Item> i : components)
+		for(final ItemField<?> i : components)
 		{
 			final List<Condition> ands = new ArrayList<>(components.size());
-			for(final ItemField<? extends Item> j : components)
+			for(final ItemField<?> j : components)
 			{
 				if(i==j)
 				{
@@ -206,7 +206,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	@Wrap(order = 10, name = "get{0}", doc = "Returns the value of {0}.")
 	public E get(final Item item)
 	{
-		for(final ItemField<? extends Item> component : components)
+		for(final ItemField<?> component : components)
 		{
 			final Item value = component.get(item);
 			if(value!=null)
@@ -229,7 +229,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final Class<K> sourceType,
 			@Parameter(INTERFACEITEMFIELD) final E interfaceItem)
 	{
-		for(final ItemField<? extends Item> component : components)
+		for(final ItemField<?> component : components)
 		{
 			if(component.getValueClass().isInstance(interfaceItem))
 			{
@@ -246,7 +246,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 
 	public <X extends Item> ItemField<X> of(final Class<X> clazz)
 	{
-		for(final ItemField<? extends Item> component : components)
+		for(final ItemField<?> component : components)
 		{
 			if(component.getValueClass()==clazz)
 			{
@@ -291,7 +291,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		if(value!=null&&Item.class.isAssignableFrom(value.getClass())&&!valueSet)
 		{
 			final StringBuilder sb = new StringBuilder("value class should be on of <");
-			for(final Iterator<ItemField<? extends Item>> it = components.iterator(); it.hasNext();)
+			for(final Iterator<ItemField<?>> it = components.iterator(); it.hasNext();)
 			{
 				final ItemField component = it.next();
 				sb.append(component.getValueClass().getSimpleName());
@@ -323,7 +323,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private Condition nullCondition(final boolean not)
 	{
 		Condition c = null;
-		for(final ItemField<? extends Item> component : components)
+		for(final ItemField<?> component : components)
 		{
 			final Condition part = not
 					? component.isNotNull()
