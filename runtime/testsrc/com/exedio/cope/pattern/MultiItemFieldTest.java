@@ -22,6 +22,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueViolationException;
 import org.junit.Test;
 
@@ -301,6 +302,21 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 					"integrity violation on deletion of MultiItemFieldItemInterfaceImplementationA-0 because of MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA referring to 1 item(s)",
 					e.getMessage());
 		}
+	}
+
+	@Test
+	public void testMap()
+	{
+		MultiItemFieldItemInterfaceImplementationA a = new MultiItemFieldItemInterfaceImplementationA();
+		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) a), MultiItemFieldItem.field.map(a));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationA-0", MultiItemFieldItem.field.map(a).toString());
+	}
+
+	@Test
+	public void testMapNull()
+	{
+		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, (MultiItemFieldItemInterface) null), MultiItemFieldItem.optionalField.map(null));
+		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
 	}
 
 	static final class AnCascadeItem extends Item

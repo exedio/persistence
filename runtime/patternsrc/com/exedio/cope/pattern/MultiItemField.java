@@ -225,6 +225,11 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			return null;
 	}
 
+	public final void set(final Item item, final E value)
+	{
+		item.set(map(value));
+	}
+
 	public <K extends Item> K getSource(
 			final Class<K> sourceType,
 			final E interfaceItem)

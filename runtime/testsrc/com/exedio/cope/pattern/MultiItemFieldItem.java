@@ -65,7 +65,7 @@ final class MultiItemFieldItem extends Item
 
 	void setField(final MultiItemFieldItemInterface value)
 	{
-		this.set(MultiItemFieldItem.field.map(value));
+		field.set(this, value);
 	}
 
 	MultiItemFieldItemInterface getOptionalField()
@@ -75,7 +75,7 @@ final class MultiItemFieldItem extends Item
 
 	void setOptionalField(final MultiItemFieldItemInterface value)
 	{
-		this.set(MultiItemFieldItem.optionalField.map(value));
+		optionalField.set(this, value);
 	}
 
 	MultiItemFieldItemInterface getUniqueField()
@@ -85,7 +85,7 @@ final class MultiItemFieldItem extends Item
 
 	void setUniqueField(final MultiItemFieldItemInterface value)
 	{
-		this.set(MultiItemFieldItem.uniqueField.map(value));
+		uniqueField.set(this, value);
 	}
 
 
