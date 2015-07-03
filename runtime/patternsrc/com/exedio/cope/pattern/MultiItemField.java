@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -51,19 +54,21 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	private final boolean mandatory;
 	private final boolean isFinal;
 	private final boolean unique;
+	private final DeletePolicy policy;
 	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
 	private MultiItemField(
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		this(false, false, false, null, valueClass, componentClasses);
+		this(false, false, false, DeletePolicy.FORBID, null, valueClass, componentClasses);
 	}
 
 	private MultiItemField(
 			final boolean isFinal,
 			final boolean optional,
 			final boolean unique,
+			final DeletePolicy policy,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
@@ -71,6 +76,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		this.isFinal = isFinal;
 		this.mandatory = !optional;
 		this.unique = unique;
+		this.policy = requireNonNull(policy, "policy");
 		if(copyToMap != null)
 		{
 			this.copyToMap = copyToMap;
@@ -83,7 +89,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				this.copyToMap.put(componentClass, null);
 			}
 		}
-		this.components = createComponents(isFinal, unique, this.copyToMap, valueClass, componentClasses);
+		this.components = createComponents(isFinal, unique, policy, this.copyToMap, valueClass, componentClasses);
 
 		this.valueClass = valueClass;
 		this.componentClasses = Arrays.copyOf(componentClasses);
@@ -98,6 +104,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	private static ArrayList<ItemField<?>> createComponents(
 			final boolean isFinal,
 			final boolean unique,
+			final DeletePolicy policy,
 			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<?> valueClass,
 			final Class<? extends Item>[] componentClasses)
@@ -140,6 +147,8 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				component = component.toFinal();
 			if(unique)
 				component = component.unique();
+			if(policy == DeletePolicy.CASCADE)
+				component = component.cascade();
 			if(copyToMap.get(componentClass) != null)
 			{
 				for(final FunctionField<?> functionField : copyToMap.get(componentClass))
@@ -372,19 +381,29 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return result;
 	}
 
+	public DeletePolicy getDeletePolicy()
+	{
+		return policy;
+	}
+
 	public MultiItemField<E> optional()
 	{
-		return new MultiItemField<>(isFinal, true, unique, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, true, unique, policy, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> toFinal()
 	{
-		return new MultiItemField<>(true, !mandatory, unique, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(true, !mandatory, unique, policy, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> unique()
 	{
-		return new MultiItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, !mandatory, true, policy, copyToMap, valueClass, componentClasses);
+	}
+
+	public MultiItemField<E> cascade()
+	{
+		return new MultiItemField<>(isFinal, !mandatory, unique, DeletePolicy.CASCADE, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> copyTo(
@@ -405,6 +424,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new MultiItemField<>(isFinal, !mandatory, unique, map, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, !mandatory, unique, policy, map, valueClass, componentClasses);
 	}
 }

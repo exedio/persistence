@@ -94,6 +94,20 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private ThreeItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	static final class AnCascadeItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class).cascade();
+
+		static final Type<AnCascadeItem> TYPE = TypesBound.newType(AnCascadeItem.class);
+		private AnCascadeItem(final ActivationParameters ap) { super(ap); }
+	}
+
 	@Test
 	public void testGetComponentClasses()
 	{
@@ -237,5 +251,21 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	private static final CheckConstraint check(final MultiItemField<?> field)
 	{
 		return (CheckConstraint)field.getSourceFeatures().get(field.getSourceFeatures().size()-1);
+	}
+
+	@Test
+	public void testDefaultPolicyForbid()
+	{
+		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getDeletePolicy());
+		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getComponents().get(0).getDeletePolicy());
+		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getComponents().get(1).getDeletePolicy());
+	}
+
+	@Test
+	public void testCascadePolicy()
+	{
+		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getDeletePolicy());
+		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(0).getDeletePolicy());
+		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(1).getDeletePolicy());
 	}
 }
