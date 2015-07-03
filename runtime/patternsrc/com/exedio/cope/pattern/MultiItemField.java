@@ -44,7 +44,6 @@ import java.util.Set;
 public final class MultiItemField<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1L;
-	private static final String MULTIITEMFIELD = "interfaceItem";
 
 	private final Class<E> valueClass;
 	private final Class<? extends Item>[] componentClasses;
@@ -221,7 +220,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		}
 
 		if(isMandatory())
-			throw new NullPointerException(MULTIITEMFIELD + this +" is mandatory but has no value set");
+			throw new NullPointerException("multiItemField " + this + " is mandatory but has no value set");
 		else
 			return null;
 	}
