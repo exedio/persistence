@@ -33,7 +33,7 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("no null value for valueClass allowed", e.getMessage());
 		}
 	}
 

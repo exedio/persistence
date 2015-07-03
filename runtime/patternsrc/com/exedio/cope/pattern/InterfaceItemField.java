@@ -102,6 +102,10 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 			final Class<?> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
+		if(valueClass == null)
+		{
+			throw new NullPointerException("no null value for valueClass allowed");
+		}
 		if(componentClasses.length<=1)
 		{
 			throw new IllegalArgumentException("must use at least 2 componentClasses");
