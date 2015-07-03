@@ -23,7 +23,7 @@ import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 
-public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
+public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(
 			A.TYPE, B.TYPE, C.TYPE, PartialCopyConstraintItem.TYPE, AllCopyConstraintItem.TYPE, DoubleCopyConstraintItem.TYPE
@@ -31,10 +31,10 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 
 	static
 	{
-		MODEL.enableSerialization(InterfaceItemFieldCopyConstraintTest.class, "MODEL");
+		MODEL.enableSerialization(MultiItemFieldCopyConstraintTest.class, "MODEL");
 	}
 
-	public InterfaceItemFieldCopyConstraintTest()
+	public MultiItemFieldCopyConstraintTest()
 	{
 		super(MODEL);
 	}
@@ -131,12 +131,12 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		/**
 		 * @cope.ignore
 		 */
-		static final InterfaceItemField<InterfaceItemFieldItemInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldItemInterface.class,
+		static final MultiItemField<MultiItemFieldItemInterface> field = MultiItemField.create(
+				MultiItemFieldItemInterface.class,
 				A.class,
 				C.class).toFinal().copyTo(C.class, value).copyTo(C.class, template);
 
-		DoubleCopyConstraintItem(final String value, final String template, final InterfaceItemFieldItemInterface field)
+		DoubleCopyConstraintItem(final String value, final String template, final MultiItemFieldItemInterface field)
 		{
 			this(DoubleCopyConstraintItem.value.map(value), DoubleCopyConstraintItem.template.map(template), DoubleCopyConstraintItem.field.map(field));
 		}
@@ -231,12 +231,12 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		/**
 		 * @cope.ignore
 		 */
-		static final InterfaceItemField<InterfaceItemFieldItemInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldItemInterface.class,
+		static final MultiItemField<MultiItemFieldItemInterface> field = MultiItemField.create(
+				MultiItemFieldItemInterface.class,
 				A.class,
 				B.class).toFinal().copyTo(A.class, value).copyTo(B.class, value);
 
-		AllCopyConstraintItem(final String value, final InterfaceItemFieldItemInterface field)
+		AllCopyConstraintItem(final String value, final MultiItemFieldItemInterface field)
 		{
 			this(AllCopyConstraintItem.value.map(value), AllCopyConstraintItem.field.map(field));
 		}
@@ -317,12 +317,12 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 		/**
 		 * @cope.ignore
 		 */
-		static final InterfaceItemField<InterfaceItemFieldItemInterface> field = InterfaceItemField.create(
-				InterfaceItemFieldItemInterface.class,
+		static final MultiItemField<MultiItemFieldItemInterface> field = MultiItemField.create(
+				MultiItemFieldItemInterface.class,
 				A.class,
 				B.class).toFinal().copyTo(A.class, value);
 
-		PartialCopyConstraintItem(final String template, final InterfaceItemFieldItemInterface field)
+		PartialCopyConstraintItem(final String template, final MultiItemFieldItemInterface field)
 		{
 			this(PartialCopyConstraintItem.value.map(template), PartialCopyConstraintItem.field.map(field));
 		}
@@ -396,7 +396,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 	@SuppressWarnings("unused") private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
 
-	static final class A extends com.exedio.cope.Item implements InterfaceItemFieldItemInterface
+	static final class A extends com.exedio.cope.Item implements MultiItemFieldItemInterface
 	{
 		public static final StringField value = new StringField().toFinal();
 
@@ -469,7 +469,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 	@SuppressWarnings("unused") private A(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
 
-	static final class B extends com.exedio.cope.Item implements InterfaceItemFieldItemInterface
+	static final class B extends com.exedio.cope.Item implements MultiItemFieldItemInterface
 	{
 		public static final StringField value = new StringField().toFinal();
 
@@ -542,7 +542,7 @@ public class InterfaceItemFieldCopyConstraintTest extends AbstractRuntimeModelTe
 	@SuppressWarnings("unused") private B(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
 
-	static final class C extends com.exedio.cope.Item implements InterfaceItemFieldItemInterface
+	static final class C extends com.exedio.cope.Item implements MultiItemFieldItemInterface
 	{
 		public static final StringField value = new StringField().toFinal();
 		public static final StringField template = new StringField().toFinal();

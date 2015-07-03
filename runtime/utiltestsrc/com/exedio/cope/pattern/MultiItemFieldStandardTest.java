@@ -1,0 +1,241 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.pattern;
+
+import static java.util.Arrays.asList;
+
+import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.ItemField;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
+import com.exedio.cope.junit.CopeAssert;
+import java.util.List;
+import org.junit.Test;
+
+public class MultiItemFieldStandardTest extends CopeAssert
+{
+	static final class AnMandatoryItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class);
+
+		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
+		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	static final class AnOptionalItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class).optional();
+
+		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
+		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	static final class AnFinalItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class).toFinal();
+	}
+
+	static final class ThreeItem extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> mandatory = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class,
+				MultiItemFieldInterfaceImplementationC.class);
+
+		/** @cope.ignore */
+		static final MultiItemField<MultiItemFieldInterface> optional = MultiItemField.create(
+				MultiItemFieldInterface.class,
+				MultiItemFieldInterfaceImplementationA.class,
+				MultiItemFieldInterfaceImplementationB.class,
+				MultiItemFieldInterfaceImplementationC.class).
+				optional();
+
+		static final Type<ThreeItem> TYPE = TypesBound.newType(ThreeItem.class);
+		private ThreeItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@Test
+	public void testGetComponentClasses()
+	{
+		assertEqualsUnmodifiable(
+				asList(
+						MultiItemFieldInterfaceImplementationA.class,
+						MultiItemFieldInterfaceImplementationB.class),
+				AnMandatoryItem.field.getComponentClasses());
+		assertEqualsUnmodifiable(
+				asList(
+						MultiItemFieldInterfaceImplementationA.class,
+						MultiItemFieldInterfaceImplementationB.class,
+						MultiItemFieldInterfaceImplementationC.class),
+				ThreeItem.mandatory.getComponentClasses());
+	}
+
+	@Test
+	public void testOf()
+	{
+		final List<ItemField<?>> c = AnMandatoryItem.field.getComponents();
+		assertEquals(2, c.size());
+
+		assertSame(c.get(0), AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationA.class));
+		assertSame(c.get(1), AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationB.class));
+		try
+		{
+			AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationC.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"class >class com.exedio.cope.pattern.MultiItemFieldInterfaceImplementationC< is not supported by AnMandatoryItem.field",
+				e.getMessage());
+		}
+		try
+		{
+			AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationASub.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"class >class com.exedio.cope.pattern.MultiItemFieldInterfaceImplementationASub< is not supported by AnMandatoryItem.field",
+				e.getMessage());
+		}
+	}
+
+	@Test
+	public void testGetInitialExceptionsMandatory()
+	{
+		assertContains(MandatoryViolationException.class, AnMandatoryItem.field.getInitialExceptions());
+	}
+
+	@Test
+	public void testGetInitialExceptionsOptional()
+	{
+		assertContains(AnOptionalItem.field.getInitialExceptions());
+	}
+
+	@Test
+	public void testGetInitialType()
+	{
+		assertEquals(MultiItemFieldInterface.class, AnMandatoryItem.field.getInitialType());
+	}
+
+	@Test
+	public void testIsFinal()
+	{
+		assertEquals(true, AnFinalItem.field.isFinal());
+	}
+
+	@Test
+	public void testIsFinalFalse()
+	{
+		assertEquals(false, AnMandatoryItem.field.isFinal());
+	}
+
+	public void testIsInitial()
+	{
+		assertEquals(true, AnMandatoryItem.field.isInitial());
+	}
+
+	@Test
+	public void testIsMandatory()
+	{
+		assertEquals(true, AnMandatoryItem.field.isMandatory());
+	}
+
+	@Test
+	public void testIsMandatoryFalse()
+	{
+		assertEquals(false, AnOptionalItem.field.isMandatory());
+	}
+
+	@Test
+	public void testMandatoryCheckConstraint()
+	{
+		assertEquals(
+			"(" +
+			"(AnMandatoryItem.field-MultiItemFieldInterfaceImplementationA is not null AND" +
+			" AnMandatoryItem.field-MultiItemFieldInterfaceImplementationB is null) OR " +
+			"(AnMandatoryItem.field-MultiItemFieldInterfaceImplementationA is null AND" +
+			" AnMandatoryItem.field-MultiItemFieldInterfaceImplementationB is not null)" +
+			")",
+			check(AnMandatoryItem.field).getCondition().toString());
+		assertEquals(
+			"(" +
+			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is not null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is not null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is not null)" +
+			")",
+			check(ThreeItem.mandatory).getCondition().toString());
+	}
+
+	@Test
+	public void testOptionalCheckConstraint()
+	{
+		assertEquals(
+			"(AnOptionalItem.field-MultiItemFieldInterfaceImplementationB is null OR" +
+			" AnOptionalItem.field-MultiItemFieldInterfaceImplementationA is null)",
+			check(AnOptionalItem.field).getCondition().toString());
+		assertEquals(
+			"(" +
+			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationB is null AND" +
+			" ThreeItem.optional-MultiItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.optional-MultiItemFieldInterfaceImplementationC is null) OR " +
+			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationA is null AND" +
+			" ThreeItem.optional-MultiItemFieldInterfaceImplementationB is null)" +
+			")",
+			check(ThreeItem.optional).getCondition().toString());
+	}
+
+	private static final CheckConstraint check(final MultiItemField<?> field)
+	{
+		return (CheckConstraint)field.getSourceFeatures().get(field.getSourceFeatures().size()-1);
+	}
+}

@@ -21,14 +21,14 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class InterfaceItemFieldErrorTest extends CopeAssert
+public class MultiItemFieldErrorTest extends CopeAssert
 {
 	@Test
 	public void testCreateNoInterface()
 	{
 		try
 		{
-			InterfaceItemField.create(null, AnotherItem1.class, AnotherItem2.class);
+			MultiItemField.create(null, AnotherItem1.class, AnotherItem2.class);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -43,8 +43,8 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
-			{});
+			MultiItemField.create(MultiItemFieldInterface.class, new Class[]
+					{});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -60,8 +60,8 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class, new Class[]
-			{InterfaceItemFieldInterfaceImplementationA.class});
+			MultiItemField.create(MultiItemFieldInterface.class, new Class[]
+					{MultiItemFieldInterfaceImplementationA.class});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -76,8 +76,8 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class,
-			null, null);
+			MultiItemField.create(MultiItemFieldInterface.class,
+					null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -92,13 +92,13 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class,
-			AnotherItem1.class, AnotherItem2.class);
+			MultiItemField.create(MultiItemFieldInterface.class,
+					AnotherItem1.class, AnotherItem2.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "valueClass >"+InterfaceItemFieldInterface.class
+			final String expected = "valueClass >"+MultiItemFieldInterface.class
 					+"< must be assignable from componentClass >"+AnotherItem1.class+"<";
 			assertEquals(expected, e.getMessage());
 		}
@@ -109,16 +109,16 @@ public class InterfaceItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			InterfaceItemField.create(InterfaceItemFieldInterface.class,
-					InterfaceItemFieldInterfaceImplementationA.class,
-					InterfaceItemFieldInterfaceImplementationASub.class);
+			MultiItemField.create(MultiItemFieldInterface.class,
+					MultiItemFieldInterfaceImplementationA.class,
+					MultiItemFieldInterfaceImplementationASub.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			final String expected = "componentClasses must not be super-classes of each other: "
-					+InterfaceItemFieldInterfaceImplementationA.class+" is assignable from "
-					+InterfaceItemFieldInterfaceImplementationASub.class+"";
+					+MultiItemFieldInterfaceImplementationA.class+" is assignable from "
+					+MultiItemFieldInterfaceImplementationASub.class+"";
 			assertEquals(expected, e.getMessage());
 		}
 	}

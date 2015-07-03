@@ -40,10 +40,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class InterfaceItemField<E> extends Pattern implements Settable<E>
+public final class MultiItemField<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1L;
-	private static final String INTERFACEITEMFIELD = "interfaceItem";
+	private static final String MULTIITEMFIELD = "interfaceItem";
 
 	private final Class<E> valueClass;
 	private final Class<? extends Item>[] componentClasses;
@@ -53,14 +53,14 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	private final boolean unique;
 	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
-	private InterfaceItemField(
+	private MultiItemField(
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
 		this(false, false, false, null, valueClass, componentClasses);
 	}
 
-	private InterfaceItemField(
+	private MultiItemField(
 			final boolean isFinal,
 			final boolean optional,
 			final boolean unique,
@@ -177,15 +177,15 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return new CheckConstraint(Cope.or(ors));
 	}
 
-	public static <E> InterfaceItemField<E> create(
+	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		return new InterfaceItemField<>(valueClass, componentClasses);
+		return new MultiItemField<>(valueClass, componentClasses);
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
-	public static <E> InterfaceItemField<E> create(
+	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item> componentClass1,
 			final Class<? extends Item> componentClass2)
@@ -194,7 +194,7 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
-	public static <E> InterfaceItemField<E> create(
+	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item> componentClass1,
 			final Class<? extends Item> componentClass2,
@@ -224,16 +224,16 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		}
 
 		if(isMandatory())
-			throw new NullPointerException(INTERFACEITEMFIELD+ this +" is mandatory but has no value set");
+			throw new NullPointerException(MULTIITEMFIELD + this +" is mandatory but has no value set");
 		else
 			return null;
 	}
 
 	@Wrap(order = 100, name = "get{0}Source",
-			doc = "Returns the source item referencing <tt>"+INTERFACEITEMFIELD+"</tt>.")
+			doc = "Returns the source item referencing <tt>"+ MULTIITEMFIELD +"</tt>.")
 	public <K extends Item> K getSource(
 			final Class<K> sourceType,
-			@Parameter(INTERFACEITEMFIELD) final E interfaceItem)
+			@Parameter(MULTIITEMFIELD) final E interfaceItem)
 	{
 		for(final ItemField<?> component : components)
 		{
@@ -372,22 +372,22 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		return result;
 	}
 
-	public InterfaceItemField<E> optional()
+	public MultiItemField<E> optional()
 	{
-		return new InterfaceItemField<>(isFinal, true, unique, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, true, unique, copyToMap, valueClass, componentClasses);
 	}
 
-	public InterfaceItemField<E> toFinal()
+	public MultiItemField<E> toFinal()
 	{
-		return new InterfaceItemField<>(true, !mandatory, unique, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(true, !mandatory, unique, copyToMap, valueClass, componentClasses);
 	}
 
-	public InterfaceItemField<E> unique()
+	public MultiItemField<E> unique()
 	{
-		return new InterfaceItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, !mandatory, true, copyToMap, valueClass, componentClasses);
 	}
 
-	public InterfaceItemField<E> copyTo(
+	public MultiItemField<E> copyTo(
 			final Class<? extends Item> clazz,
 			final FunctionField<?> functionField)
 	{
@@ -405,6 +405,6 @@ public final class InterfaceItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new InterfaceItemField<>(isFinal, !mandatory, unique, map, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, !mandatory, unique, map, valueClass, componentClasses);
 	}
 }
