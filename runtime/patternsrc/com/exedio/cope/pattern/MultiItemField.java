@@ -89,9 +89,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				this.copyToMap.put(componentClass, null);
 			}
 		}
+		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.components = createComponents(isFinal, unique, policy, this.copyToMap, valueClass, componentClasses);
 
-		this.valueClass = valueClass;
 		this.componentClasses = Arrays.copyOf(componentClasses);
 		for(final ItemField<?> component : components)
 		{
@@ -109,10 +109,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<?> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		if(valueClass == null)
-		{
-			throw new NullPointerException("no null value for valueClass allowed");
-		}
 		if(componentClasses.length<=1)
 		{
 			throw new IllegalArgumentException("must use at least 2 componentClasses");
@@ -120,11 +116,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final ArrayList<ItemField<?>> components = new ArrayList<>();
 		for(int i = 0; i<componentClasses.length; i++)
 		{
-			final Class<? extends Item> componentClass = componentClasses[i];
-			if(componentClass==null)
-			{
-				throw new NullPointerException("no null values for classes allowed");
-			}
+			final Class<? extends Item> componentClass = requireNonNull(componentClasses[i], "componentClass");
 			if(!valueClass.isAssignableFrom(componentClass))
 			{
 				throw new IllegalArgumentException("valueClass >" + valueClass + "< must be assignable from componentClass >"

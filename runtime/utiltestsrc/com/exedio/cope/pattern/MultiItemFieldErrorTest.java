@@ -33,7 +33,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("no null value for valueClass allowed", e.getMessage());
+			assertEquals("valueClass", e.getMessage());
 		}
 	}
 
@@ -82,7 +82,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 		catch(final NullPointerException e)
 		{
-			final String expected = "no null values for classes allowed";
+			final String expected = "componentClass";
 			assertEquals(expected, e.getMessage());
 		}
 	}
