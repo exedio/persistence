@@ -31,8 +31,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -209,8 +207,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(java.util.Arrays.asList(componentClasses));
 	}
 
-	// checked in constructor
-	@Wrap(order = 10, name = "get{0}", doc = "Returns the value of {0}.")
 	public E get(final Item item)
 	{
 		for(final ItemField<?> component : components)
@@ -218,7 +214,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Item value = component.get(item);
 			if(value!=null)
 			{
-				@SuppressWarnings("unchecked")
+				@SuppressWarnings("unchecked")// checked in constructor
 				final E result = (E)value;
 				return result;
 			}
@@ -230,11 +226,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			return null;
 	}
 
-	@Wrap(order = 100, name = "get{0}Source",
-			doc = "Returns the source item referencing <tt>"+ MULTIITEMFIELD +"</tt>.")
 	public <K extends Item> K getSource(
 			final Class<K> sourceType,
-			@Parameter(MULTIITEMFIELD) final E interfaceItem)
+			final E interfaceItem)
 	{
 		for(final ItemField<?> component : components)
 		{
