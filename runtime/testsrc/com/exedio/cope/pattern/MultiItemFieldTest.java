@@ -339,6 +339,14 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
 	}
 
+	@Test
+	public void testMapInvalid()
+	{
+		MultiItemFieldItemInterfaceImplementationC c = new MultiItemFieldItemInterfaceImplementationC();
+		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) c), MultiItemFieldItem.field.map(c));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationC-0", MultiItemFieldItem.field.map(c).toString());
+	}
+
 	static final class AnCascadeItem extends Item
 	{
 		/** @cope.ignore */
