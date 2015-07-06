@@ -268,4 +268,14 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(0).getDeletePolicy());
 		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(1).getDeletePolicy());
 	}
+
+	@Test
+	public void testEqualConditionNull3Classes()
+	{
+		assertEquals(
+				"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null" +
+				" AND ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null" +
+				" AND ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null)",
+				ThreeItem.mandatory.equal(null).toString());
+	}
 }

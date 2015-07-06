@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.Condition;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -73,11 +74,28 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	}
 
 	@Test
-	public void testGetSource()
+	public void testEqual()
 	{
 		final MultiItemFieldItemInterfaceImplementationA fieldValue = new MultiItemFieldItemInterfaceImplementationA();
-		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		assertEquals(expected, MultiItemFieldItem.field.getSource(MultiItemFieldItem.class, fieldValue));
+		assertEquals(
+				"MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA='MultiItemFieldItemInterfaceImplementationA-0'",
+				MultiItemFieldItem.field.equal(fieldValue).toString());
+	}
+
+	@Test
+	public void testEqualConditionNull()
+	{
+		assertEquals(
+				"(MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA is null" +
+				" AND MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationB is null)",
+				MultiItemFieldItem.field.equal(null).toString());
+	}
+
+	@Test
+	public void testEqualConditionInvalidClass()
+	{
+		final MultiItemFieldItemInterfaceImplementationC invalid = new MultiItemFieldItemInterfaceImplementationC();
+		assertEquals(Condition.FALSE, MultiItemFieldItem.field.equal(invalid));
 	}
 
 	@Test

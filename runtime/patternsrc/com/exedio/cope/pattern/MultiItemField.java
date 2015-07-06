@@ -230,20 +230,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		item.set(map(value));
 	}
 
-	public <K extends Item> K getSource(
-			final Class<K> sourceType,
-			final E interfaceItem)
-	{
-		for(final ItemField<?> component : components)
-		{
-			if(component.getValueClass().isInstance(interfaceItem))
-			{
-				return getType().as(sourceType).searchSingleton(equal(interfaceItem, component));
-			}
-		}
-		throw new IllegalArgumentException(interfaceItem+" is not in "+this);
-	}
-
 	public List<ItemField<?>> getComponents()
 	{
 		return Collections.unmodifiableList(components);
@@ -261,10 +247,25 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		throw new IllegalArgumentException("class >"+componentClass+"< is not supported by "+this);
 	}
 
-	@SuppressWarnings("unchecked")
-	private <K extends Item> Condition equal(final E interfaceItem, final ItemField<K> field)
+	public Condition equal(final E value)
 	{
-		return field.equal((K) interfaceItem);
+		if(value == null)
+			return isNull();
+		for(final ItemField<?> component : components)
+		{
+			if(component.getValueClass().isInstance(value))
+			{
+				return equal(value, component);
+			}
+		}
+		return Condition.FALSE;
+	}
+
+	private <K extends Item> Condition equal(final E value, final ItemField<K> component)
+	{
+		@SuppressWarnings("unchecked")
+		final K typedValue = (K) value;
+		return component.equal(typedValue);
 	}
 
 	public SetValue<E> map(final E value)
