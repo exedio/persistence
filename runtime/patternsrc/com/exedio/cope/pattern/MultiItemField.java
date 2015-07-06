@@ -261,10 +261,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return Condition.FALSE;
 	}
 
-	private <K extends Item> Condition equal(final E value, final ItemField<K> component)
+	private <X extends Item> Condition equal(final E value, final ItemField<X> component)
 	{
 		@SuppressWarnings("unchecked")
-		final K typedValue = (K) value;
+		final X typedValue = (X) value;
 		return component.equal(typedValue);
 	}
 
