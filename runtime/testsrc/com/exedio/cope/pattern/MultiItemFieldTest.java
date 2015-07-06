@@ -157,7 +157,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"value class should be on of <MultiItemFieldItemInterfaceImplementationA,MultiItemFieldItemInterfaceImplementationB> but was <MultiItemFieldItemInterfaceImplementationC>",
+					"value class should be on of <MultiItemFieldItemInterfaceImplementationA,MultiItemFieldItemInterfaceImplementationB>" +
+					" but was <MultiItemFieldItemInterfaceImplementationC>",
 					e.getMessage());
 		}
 	}
@@ -317,7 +318,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(IntegrityViolationException e)
 		{
 			assertEquals(
-					"integrity violation on deletion of MultiItemFieldItemInterfaceImplementationA-0 because of MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA referring to 1 item(s)",
+					"integrity violation on deletion of MultiItemFieldItemInterfaceImplementationA-0" +
+					" because of MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA referring to 1 item(s)",
 					e.getMessage());
 		}
 	}
