@@ -267,17 +267,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		{
 			if(component.getValueClass().isInstance(value))
 			{
-				return equal(value, component);
+				return Cope.equalAndCast(component, value);
 			}
 		}
 		return Condition.FALSE;
-	}
-
-	private <X extends Item> Condition equal(final E value, final ItemField<X> component)
-	{
-		@SuppressWarnings("unchecked")
-		final X typedValue = (X) value;
-		return component.equal(typedValue);
 	}
 
 	public SetValue<E> map(final E value)
