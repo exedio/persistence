@@ -87,8 +87,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	public void testEqualConditionNull()
 	{
 		assertEquals(
-				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null" +
-				" AND MultiItemFieldItem.field-MultiItemFieldComponentxB is null)",
+				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null AND" +
+				" MultiItemFieldItem.field-MultiItemFieldComponentxB is null)",
 				MultiItemFieldItem.field.equal(null).toString());
 	}
 
