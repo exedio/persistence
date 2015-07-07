@@ -315,7 +315,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		{
 			Cast.verboseCast(valueClass, value); // throws ClassCastException
 
-			final StringBuilder sb = new StringBuilder("value class should be on of <");
+			final StringBuilder sb = new StringBuilder("value class should be one of <");
 			for(final Iterator<ItemField<?>> it = components.iterator(); it.hasNext();)
 			{
 				final ItemField component = it.next();
