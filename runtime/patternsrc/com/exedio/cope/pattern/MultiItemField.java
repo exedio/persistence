@@ -286,8 +286,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	}
 
 	@Override
-	@SuppressWarnings(
-	{"unchecked", "rawtypes"})
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && isMandatory())
@@ -301,10 +299,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		boolean valueSet = false;
 		for(int i = 0; i<components.size(); i++)
 		{
-			final ItemField component = components.get(i);
+			final ItemField<?> component = components.get(i);
 			if(component.getValueClass().isInstance(value))
 			{
-				result[i] = component.map(component.getValueClass().cast(value));
+				result[i] = Cope.mapAndCast(component, value);
 				valueSet = true;
 			}
 			else
