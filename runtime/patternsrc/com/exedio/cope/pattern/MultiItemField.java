@@ -225,9 +225,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Item value = component.get(item);
 			if(value!=null)
 			{
-				@SuppressWarnings("unchecked")// checked in constructor
-				final E result = (E)value;
-				return result;
+				return valueClass.cast(value);
 			}
 		}
 
