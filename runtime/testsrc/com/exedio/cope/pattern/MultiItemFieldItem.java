@@ -58,31 +58,37 @@ final class MultiItemFieldItem extends Item
 		});
 	}
 
+	// TODO generate by instrumentor
 	MultiItemFieldItemInterface getField()
 	{
 		return field.get(this);
 	}
 
+	// TODO generate by instrumentor
 	void setField(final MultiItemFieldItemInterface value)
 	{
 		field.set(this, value);
 	}
 
+	// TODO generate by instrumentor
 	MultiItemFieldItemInterface getOptionalField()
 	{
 		return optionalField.get(this);
 	}
 
+	// TODO generate by instrumentor
 	void setOptionalField(final MultiItemFieldItemInterface value)
 	{
 		optionalField.set(this, value);
 	}
 
+	// TODO generate by instrumentor
 	MultiItemFieldItemInterface getUniqueField()
 	{
 		return uniqueField.get(this);
 	}
 
+	// TODO generate by instrumentor
 	void setUniqueField(final MultiItemFieldItemInterface value)
 	{
 		uniqueField.set(this, value);
