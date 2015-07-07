@@ -428,6 +428,14 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<? extends Item> clazz,
 			final FunctionField<?> functionField)
 	{
+		{
+			final List<Class<? extends Item>> classes = java.util.Arrays.asList(componentClasses);
+			if(!classes.contains(requireNonNull(clazz, "componentClass")))
+				throw new IllegalArgumentException(
+						"illegal componentClass " + clazz + ", " +
+						"must be one of " + classes + '.');
+		}
+
 		final Map<Class<? extends Item>, FunctionField<?>[]> map = new HashMap<>(copyToMap);
 		if(map.get(clazz) != null)
 		{

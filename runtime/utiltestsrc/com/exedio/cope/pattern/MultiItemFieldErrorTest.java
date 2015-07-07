@@ -123,6 +123,47 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
+	@Test
+	public void testCreateCopyNullComponent()
+	{
+		final MultiItemField<?> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class);
+		try
+		{
+			field.copyTo(null, MultiItemFieldComponentC.value);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("componentClass", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testCreateCopyNoSuchComponent()
+	{
+		final MultiItemField<?> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class);
+		try
+		{
+			field.copyTo(MultiItemFieldComponentC.class, MultiItemFieldComponentC.value);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"illegal componentClass class com.exedio.cope.pattern.MultiItemFieldComponentC, " +
+				"must be one of [" +
+				"class com.exedio.cope.pattern.MultiItemFieldComponentA, " +
+				"class com.exedio.cope.pattern.MultiItemFieldComponentB].",
+				e.getMessage());
+		}
+	}
+
 	static final class AnotherItem1 extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
