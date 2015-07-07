@@ -43,16 +43,16 @@ public class PartOfContainerReuseTest extends CopeAssert
 		assertSame(container, parts1.getContainer());
 		assertSame(container, parts2.getContainer());
 		assertSame(order1, parts1.getOrder());
-		assertSame(order1, parts2.getOrder());
+		assertSame(order2, parts2.getOrder());
 
-		assertSame(parts1, container.getPattern());
+		assertSame(parts1, container.getPattern()); // TODO should be parts2 as well
 		assertSame(parts1, order1.getPattern());
-		assertSame(parts1, order2.getPattern());
+		assertSame(parts2, order2.getPattern());
 		assertSame(null, parts1.getPattern());
 		assertSame(null, parts2.getPattern());
 
 		assertEqualsUnmodifiable(list(container, order1), parts1.getSourceFeatures());
-		assertEqualsUnmodifiable(list(container, order2), parts2.getSourceFeatures()); // TODO should be order as well
+		assertEqualsUnmodifiable(list(           order2), parts2.getSourceFeatures()); // TODO should be container as well
 	}
 
 
