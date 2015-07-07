@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;
@@ -256,17 +258,17 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	@Test
 	public void testDefaultPolicyForbid()
 	{
-		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getDeletePolicy());
-		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getComponents().get(0).getDeletePolicy());
-		assertEquals(ItemField.DeletePolicy.FORBID, AnMandatoryItem.field.getComponents().get(1).getDeletePolicy());
+		assertEquals(FORBID, AnMandatoryItem.field.getDeletePolicy());
+		assertEquals(FORBID, AnMandatoryItem.field.getComponents().get(0).getDeletePolicy());
+		assertEquals(FORBID, AnMandatoryItem.field.getComponents().get(1).getDeletePolicy());
 	}
 
 	@Test
 	public void testCascadePolicy()
 	{
-		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getDeletePolicy());
-		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(0).getDeletePolicy());
-		assertEquals(ItemField.DeletePolicy.CASCADE, AnCascadeItem.field.getComponents().get(1).getDeletePolicy());
+		assertEquals(CASCADE, AnCascadeItem.field.getDeletePolicy());
+		assertEquals(CASCADE, AnCascadeItem.field.getComponents().get(0).getDeletePolicy());
+		assertEquals(CASCADE, AnCascadeItem.field.getComponents().get(1).getDeletePolicy());
 	}
 
 	@Test
