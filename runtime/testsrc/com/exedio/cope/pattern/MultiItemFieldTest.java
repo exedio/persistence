@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Condition;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
@@ -173,6 +174,27 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 			assertEquals(
 					"value class should be on of <MultiItemFieldComponentxA,MultiItemFieldComponentxB>" +
 					" but was <MultiItemFieldComponentxC>",
+					e.getMessage());
+		}
+		assertEquals(expected, item.getField());
+	}
+
+	@Test
+	public void testSetClassCast()
+	{
+		@SuppressWarnings({"cast", "unchecked", "rawtypes"}) // OK: test bad API usage
+		final MultiItemField<String> field = (MultiItemField<String>)(MultiItemField)MultiItemFieldItem.field;
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
+		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
+		try
+		{
+			field.set(item, "zack");
+			fail("exception expected");
+		}
+		catch(final CheckViolationException e) // TODO ClassCastException
+		{
+			assertEquals(
+					"check violation on MultiItemFieldItem-0 for MultiItemFieldItem.field-xor",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());
