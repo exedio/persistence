@@ -191,6 +191,8 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	public void testIsInitial()
 	{
 		assertEquals(true, AnMandatoryItem.field.isInitial());
+		assertEquals(false, AnOptionalItem.field.isInitial());
+		assertEquals(true, AnFinalItem.field.isInitial());
 	}
 
 	@Test
