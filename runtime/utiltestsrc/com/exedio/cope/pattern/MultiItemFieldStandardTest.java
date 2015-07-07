@@ -275,9 +275,9 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	public void testEqualConditionNull3Classes()
 	{
 		assertEquals(
-				"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null" +
-				" AND ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null" +
-				" AND ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null)",
+				"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
+				" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
+				" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null)",
 				ThreeItem.mandatory.equal(null).toString());
 	}
 }
