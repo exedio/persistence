@@ -229,6 +229,11 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testUniqueSetNull()
 	{
+		assertNull(MultiItemFieldItem.field.of(MultiItemFieldComponentxA.class).getImplicitUniqueConstraint());
+		assertNull(MultiItemFieldItem.field.of(MultiItemFieldComponentxB.class).getImplicitUniqueConstraint());
+		assertNotNull(MultiItemFieldItem.uniqueField.of(MultiItemFieldComponentxA.class).getImplicitUniqueConstraint());
+		assertNotNull(MultiItemFieldItem.uniqueField.of(MultiItemFieldComponentxB.class).getImplicitUniqueConstraint());
+
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
 				new MultiItemFieldComponentxA());
 		final MultiItemFieldItem item2 = new MultiItemFieldItem(
