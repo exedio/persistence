@@ -22,6 +22,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.UniqueViolationException;
@@ -148,9 +149,10 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 			item.setField(null);
 			fail("exception expected");
 		}
-		catch(final IllegalArgumentException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals("MultiItemFieldItem.field is mandatory", e.getMessage());
+			assertEquals(MultiItemFieldItem.field, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(expected, item.getField());
 	}

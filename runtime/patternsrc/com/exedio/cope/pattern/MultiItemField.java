@@ -288,6 +288,12 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	{"unchecked", "rawtypes"})
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
+		if(value==null && isMandatory())
+		{
+			// avoid CheckViolationException
+			throw MandatoryViolationException.create(this, exceptionItem);
+		}
+
 		final SetValue<?>[] result = new SetValue<?>[components.size()];
 
 		boolean valueSet = false;
@@ -318,10 +324,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			sb.append(value.getClass().getSimpleName());
 			sb.append(">");
 			throw new IllegalArgumentException(sb.toString());
-		}
-		if(isMandatory()&&!valueSet)
-		{
-			throw new IllegalArgumentException(this+" is mandatory");
 		}
 		return result;
 	}
