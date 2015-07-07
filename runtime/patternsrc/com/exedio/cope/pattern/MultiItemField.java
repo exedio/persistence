@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.ItemField.DeletePolicy;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
@@ -27,6 +26,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -136,8 +136,20 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				component = component.toFinal();
 			if(unique)
 				component = component.unique();
-			if(policy == DeletePolicy.CASCADE)
-				component = component.cascade();
+
+			switch(policy)
+			{
+				case FORBID:
+					// is  by default
+					break;
+				case CASCADE:
+					component = component.cascade();
+					break;
+				default:
+					throw new RuntimeException(); // NULLIFY not yet implemented
+			}
+			assert policy==component.getDeletePolicy();
+
 			if(copyToMap.get(componentClass) != null)
 			{
 				for(final FunctionField<?> functionField : copyToMap.get(componentClass))
