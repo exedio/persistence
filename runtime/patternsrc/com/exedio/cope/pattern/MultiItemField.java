@@ -425,30 +425,30 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	}
 
 	public MultiItemField<E> copyTo(
-			final Class<? extends Item> clazz,
+			final Class<? extends Item> componentClass,
 			final FunctionField<?> functionField)
 	{
 		{
 			final List<Class<? extends Item>> classes = java.util.Arrays.asList(componentClasses);
-			if(!classes.contains(requireNonNull(clazz, "componentClass")))
+			if(!classes.contains(requireNonNull(componentClass, "componentClass")))
 				throw new IllegalArgumentException(
-						"illegal componentClass " + clazz + ", " +
+						"illegal componentClass " + componentClass + ", " +
 						"must be one of " + classes + '.');
 		}
 
 		final Map<Class<? extends Item>, FunctionField<?>[]> map = new HashMap<>(copyToMap);
-		if(map.get(clazz) != null)
+		if(map.get(componentClass)!=null)
 		{
-			final FunctionField<?>[] functionFields = map.get(clazz);
+			final FunctionField<?>[] functionFields = map.get(componentClass);
 			final int length = functionFields.length;
 			final FunctionField<?>[] result = new FunctionField<?>[length + 1];
 			System.arraycopy(functionFields, 0, result, 0, length);
 			result[length] = functionField;
-			map.put(clazz, result);
+			map.put(componentClass, result);
 		}
 		else
 		{
-			map.put(clazz, new FunctionField<?>[]{functionField});
+			map.put(componentClass, new FunctionField<?>[]{functionField});
 		}
 		return new MultiItemField<>(isFinal, optional, unique, policy, map, valueClass, componentClasses);
 	}
