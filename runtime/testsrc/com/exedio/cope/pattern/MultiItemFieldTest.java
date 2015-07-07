@@ -112,8 +112,14 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldComponentxB expected2 = new MultiItemFieldComponentxB();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
+		assertEquals(expected, item.getField());
+		assertEquals(expected, item.getFieldA());
+		assertEquals(null,     item.getFieldB());
+
 		item.setField(expected2);
 		assertEquals(expected2, item.getField());
+		assertEquals(null,      item.getFieldA());
+		assertEquals(expected2, item.getFieldB());
 	}
 
 	@Test
@@ -123,8 +129,13 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		item.setOptionalField(expected);
 		assertEquals(expected, item.getOptionalField());
+		assertEquals(expected, item.getOptionalFieldA());
+		assertEquals(null,     item.getOptionalFieldB());
+
 		item.setOptionalField(null);
 		assertEquals(null, item.getOptionalField());
+		assertEquals(null, item.getOptionalFieldA());
+		assertEquals(null, item.getOptionalFieldB());
 	}
 
 	@Test

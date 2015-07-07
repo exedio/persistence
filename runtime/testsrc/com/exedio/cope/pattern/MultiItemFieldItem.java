@@ -29,6 +29,17 @@ final class MultiItemFieldItem extends Item
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class);
 
+	MultiItemFieldComponentxA getFieldA()
+	{
+		return field.of(MultiItemFieldComponentxA.class).get(this);
+	}
+
+	MultiItemFieldComponentxB getFieldB()
+	{
+		return field.of(MultiItemFieldComponentxB.class).get(this);
+	}
+
+
 	/**
 	 * @cope.ignore
 	 */
@@ -36,6 +47,17 @@ final class MultiItemFieldItem extends Item
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class)
 			.optional();
+
+	MultiItemFieldComponentxA getOptionalFieldA()
+	{
+		return optionalField.of(MultiItemFieldComponentxA.class).get(this);
+	}
+
+	MultiItemFieldComponentxB getOptionalFieldB()
+	{
+		return optionalField.of(MultiItemFieldComponentxB.class).get(this);
+	}
+
 
 	/**
 	 * @cope.ignore
