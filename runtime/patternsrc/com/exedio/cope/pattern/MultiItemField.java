@@ -60,7 +60,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		this(false, false, false, DeletePolicy.FORBID, null, valueClass, componentClasses);
+		this(false, false, false, DeletePolicy.FORBID, new LinkedHashMap<Class<? extends Item>, FunctionField<?>[]>(), valueClass, componentClasses);
 	}
 
 	private MultiItemField(
@@ -76,18 +76,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		this.optional = optional;
 		this.unique = unique;
 		this.policy = requireNonNull(policy, "policy");
-		if(copyToMap != null)
-		{
-			this.copyToMap = copyToMap;
-		}
-		else
-		{
-			this.copyToMap = new LinkedHashMap<>();
-			for(final Class<? extends Item> componentClass : componentClasses)
-			{
-				this.copyToMap.put(componentClass, null);
-			}
-		}
+		this.copyToMap = requireNonNull(copyToMap);
 		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.components = createComponents(isFinal, unique, policy, this.copyToMap, valueClass, componentClasses);
 
