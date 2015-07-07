@@ -154,9 +154,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 			if(copyToMap.get(componentClass) != null)
 			{
-				for(final FunctionField<?> functionField : copyToMap.get(componentClass))
+				for(final FunctionField<?> copy : copyToMap.get(componentClass))
 				{
-					component = component.copyTo(functionField);
+					component = component.copyTo(copy);
 				}
 			}
 			components.add(component);
@@ -426,7 +426,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	public MultiItemField<E> copyTo(
 			final Class<? extends Item> componentClass,
-			final FunctionField<?> functionField)
+			final FunctionField<?> copy)
 	{
 		{
 			final List<Class<? extends Item>> classes = java.util.Arrays.asList(componentClasses);
@@ -439,16 +439,16 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final Map<Class<? extends Item>, FunctionField<?>[]> map = new HashMap<>(copyToMap);
 		if(map.get(componentClass)!=null)
 		{
-			final FunctionField<?>[] functionFields = map.get(componentClass);
-			final int length = functionFields.length;
+			final FunctionField<?>[] copys = map.get(componentClass);
+			final int length = copys.length;
 			final FunctionField<?>[] result = new FunctionField<?>[length + 1];
-			System.arraycopy(functionFields, 0, result, 0, length);
-			result[length] = functionField;
+			System.arraycopy(copys, 0, result, 0, length);
+			result[length] = copy;
 			map.put(componentClass, result);
 		}
 		else
 		{
-			map.put(componentClass, new FunctionField<?>[]{functionField});
+			map.put(componentClass, new FunctionField<?>[]{copy});
 		}
 		return new MultiItemField<>(isFinal, optional, unique, policy, map, valueClass, componentClasses);
 	}
