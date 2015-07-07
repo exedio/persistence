@@ -38,7 +38,6 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
@@ -52,7 +51,6 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
@@ -66,7 +64,6 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
@@ -77,14 +74,12 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
 				MultiItemFieldComponentB.class,
 				MultiItemFieldComponentC.class);
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
@@ -100,7 +95,6 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		private static final long serialVersionUID = 1l;
 
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
