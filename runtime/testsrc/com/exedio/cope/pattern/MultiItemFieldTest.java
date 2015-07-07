@@ -130,8 +130,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSetNullForMandatory()
 	{
-		final MultiItemFieldItem item = new MultiItemFieldItem(
-				new MultiItemFieldItemInterfaceImplementationA());
+		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		try
 		{
 			item.setField(null);
@@ -141,14 +141,15 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("MultiItemFieldItem.field is mandatory", e.getMessage());
 		}
+		assertEquals(expected, item.getField());
 	}
 
 	@Test
 	public void testSetInvalidInterfaceItem()
 	{
 		final MultiItemFieldItemInterfaceImplementationC notExpected = new MultiItemFieldItemInterfaceImplementationC();
-		final MultiItemFieldItem item = new MultiItemFieldItem(
-				new MultiItemFieldItemInterfaceImplementationA());
+		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		try
 		{
 			item.setField(notExpected);
@@ -161,6 +162,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 					" but was <MultiItemFieldItemInterfaceImplementationC>",
 					e.getMessage());
 		}
+		assertEquals(expected, item.getField());
 	}
 
 	@Test
@@ -244,6 +246,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 					+" for MultiItemFieldItem.uniqueField-MultiItemFieldItemInterfaceImplementationAImplicitUnique",
 					e.getMessage());
 		}
+		assertEquals(value, item1.getUniqueField());
 	}
 
 	@Test
