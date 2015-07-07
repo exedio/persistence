@@ -340,20 +340,17 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	private Condition nullCondition(final boolean not)
 	{
-		Condition c = null;
+		final Condition[] parts = new Condition[components.size()];
+		int i = 0;
 		for(final ItemField<?> component : components)
 		{
-			final Condition part = not
+			parts[i++] = not
 					? component.isNotNull()
 					: component.isNull();
-
-			c = c==null
-					? part
-					: not
-							? c.or(part)
-							: c.and(part);
 		}
-		return c;
+		return not
+			? Cope.or (parts)
+			: Cope.and(parts);
 	}
 
 	public boolean isFinal()
