@@ -299,8 +299,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testCascade()
 	{
-		MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
-		AnCascadeItem toBeCascadeDeleted = new AnCascadeItem(item);
+		final MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
+		final AnCascadeItem toBeCascadeDeleted = new AnCascadeItem(item);
 		item.deleteCopeItem();
 		assertEquals(false, toBeCascadeDeleted.existsCopeItem());
 	}
@@ -308,14 +308,14 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testForbid()
 	{
-		MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
 		new MultiItemFieldItem(item);
 		try
 		{
 			item.deleteCopeItem();
 			fail("exception expected");
 		}
-		catch(IntegrityViolationException e)
+		catch(final IntegrityViolationException e)
 		{
 			assertEquals(
 					"integrity violation on deletion of MultiItemFieldItemInterfaceImplementationA-0" +
@@ -327,7 +327,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testMap()
 	{
-		MultiItemFieldItemInterfaceImplementationA a = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldItemInterfaceImplementationA a = new MultiItemFieldItemInterfaceImplementationA();
 		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) a), MultiItemFieldItem.field.map(a));
 		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationA-0", MultiItemFieldItem.field.map(a).toString());
 	}
@@ -342,7 +342,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testMapInvalid()
 	{
-		MultiItemFieldItemInterfaceImplementationC c = new MultiItemFieldItemInterfaceImplementationC();
+		final MultiItemFieldItemInterfaceImplementationC c = new MultiItemFieldItemInterfaceImplementationC();
 		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) c), MultiItemFieldItem.field.map(c));
 		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationC-0", MultiItemFieldItem.field.map(c).toString());
 	}
@@ -355,7 +355,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 				MultiItemFieldItemInterfaceImplementationA.class,
 				MultiItemFieldItemInterfaceImplementationB.class).cascade();
 
-		AnCascadeItem(MultiItemFieldItemInterface value)
+		AnCascadeItem(final MultiItemFieldItemInterface value)
 		{
 			this(field.map(value));
 		}
