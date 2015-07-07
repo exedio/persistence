@@ -39,10 +39,10 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class);
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class);
 
 		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
 		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
@@ -53,10 +53,10 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class).optional();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class).optional();
 
 		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
 		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
@@ -67,10 +67,10 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class).toFinal();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class).toFinal();
 	}
 
 	static final class ThreeItem extends com.exedio.cope.Item
@@ -78,18 +78,18 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> mandatory = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class,
-				MultiItemFieldInterfaceImplementationC.class);
+		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class,
+				MultiItemFieldComponentC.class);
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> optional = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class,
-				MultiItemFieldInterfaceImplementationC.class).
+		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class,
+				MultiItemFieldComponentC.class).
 				optional();
 
 		static final Type<ThreeItem> TYPE = TypesBound.newType(ThreeItem.class);
@@ -101,10 +101,10 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldInterface> field = MultiItemField.create(
-				MultiItemFieldInterface.class,
-				MultiItemFieldInterfaceImplementationA.class,
-				MultiItemFieldInterfaceImplementationB.class).cascade();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class).cascade();
 
 		static final Type<AnCascadeItem> TYPE = TypesBound.newType(AnCascadeItem.class);
 		private AnCascadeItem(final ActivationParameters ap) { super(ap); }
@@ -115,14 +115,14 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		assertEqualsUnmodifiable(
 				asList(
-						MultiItemFieldInterfaceImplementationA.class,
-						MultiItemFieldInterfaceImplementationB.class),
+						MultiItemFieldComponentA.class,
+						MultiItemFieldComponentB.class),
 				AnMandatoryItem.field.getComponentClasses());
 		assertEqualsUnmodifiable(
 				asList(
-						MultiItemFieldInterfaceImplementationA.class,
-						MultiItemFieldInterfaceImplementationB.class,
-						MultiItemFieldInterfaceImplementationC.class),
+						MultiItemFieldComponentA.class,
+						MultiItemFieldComponentB.class,
+						MultiItemFieldComponentC.class),
 				ThreeItem.mandatory.getComponentClasses());
 	}
 
@@ -132,28 +132,28 @@ public class MultiItemFieldStandardTest extends CopeAssert
 		final List<ItemField<?>> c = AnMandatoryItem.field.getComponents();
 		assertEquals(2, c.size());
 
-		assertSame(c.get(0), AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationA.class));
-		assertSame(c.get(1), AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationB.class));
+		assertSame(c.get(0), AnMandatoryItem.field.of(MultiItemFieldComponentA.class));
+		assertSame(c.get(1), AnMandatoryItem.field.of(MultiItemFieldComponentB.class));
 		try
 		{
-			AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationC.class);
+			AnMandatoryItem.field.of(MultiItemFieldComponentC.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-				"class >class com.exedio.cope.pattern.MultiItemFieldInterfaceImplementationC< is not supported by AnMandatoryItem.field",
+				"class >class com.exedio.cope.pattern.MultiItemFieldComponentC< is not supported by AnMandatoryItem.field",
 				e.getMessage());
 		}
 		try
 		{
-			AnMandatoryItem.field.of(MultiItemFieldInterfaceImplementationASub.class);
+			AnMandatoryItem.field.of(MultiItemFieldComponentASub.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-				"class >class com.exedio.cope.pattern.MultiItemFieldInterfaceImplementationASub< is not supported by AnMandatoryItem.field",
+				"class >class com.exedio.cope.pattern.MultiItemFieldComponentASub< is not supported by AnMandatoryItem.field",
 				e.getMessage());
 		}
 	}
@@ -173,7 +173,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	@Test
 	public void testGetInitialType()
 	{
-		assertEquals(MultiItemFieldInterface.class, AnMandatoryItem.field.getInitialType());
+		assertEquals(MultiItemFieldValue.class, AnMandatoryItem.field.getInitialType());
 	}
 
 	@Test
@@ -212,23 +212,23 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	{
 		assertEquals(
 			"(" +
-			"(AnMandatoryItem.field-MultiItemFieldInterfaceImplementationA is not null AND" +
-			" AnMandatoryItem.field-MultiItemFieldInterfaceImplementationB is null) OR " +
-			"(AnMandatoryItem.field-MultiItemFieldInterfaceImplementationA is null AND" +
-			" AnMandatoryItem.field-MultiItemFieldInterfaceImplementationB is not null)" +
+			"(AnMandatoryItem.field-MultiItemFieldComponentA is not null AND" +
+			" AnMandatoryItem.field-MultiItemFieldComponentB is null) OR " +
+			"(AnMandatoryItem.field-MultiItemFieldComponentA is null AND" +
+			" AnMandatoryItem.field-MultiItemFieldComponentB is not null)" +
 			")",
 			check(AnMandatoryItem.field).getCondition().toString());
 		assertEquals(
 			"(" +
-			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is not null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null) OR " +
-			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is not null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null) OR " +
-			"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is not null)" +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is not null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentC is null) OR " +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is not null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentC is null) OR " +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
+			" ThreeItem.mandatory-MultiItemFieldComponentC is not null)" +
 			")",
 			check(ThreeItem.mandatory).getCondition().toString());
 	}
@@ -237,17 +237,17 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	public void testOptionalCheckConstraint()
 	{
 		assertEquals(
-			"(AnOptionalItem.field-MultiItemFieldInterfaceImplementationB is null OR" +
-			" AnOptionalItem.field-MultiItemFieldInterfaceImplementationA is null)",
+			"(AnOptionalItem.field-MultiItemFieldComponentB is null OR" +
+			" AnOptionalItem.field-MultiItemFieldComponentA is null)",
 			check(AnOptionalItem.field).getCondition().toString());
 		assertEquals(
 			"(" +
-			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationB is null AND" +
-			" ThreeItem.optional-MultiItemFieldInterfaceImplementationC is null) OR " +
-			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationA is null AND" +
-			" ThreeItem.optional-MultiItemFieldInterfaceImplementationC is null) OR " +
-			"(ThreeItem.optional-MultiItemFieldInterfaceImplementationA is null AND" +
-			" ThreeItem.optional-MultiItemFieldInterfaceImplementationB is null)" +
+			"(ThreeItem.optional-MultiItemFieldComponentB is null AND" +
+			" ThreeItem.optional-MultiItemFieldComponentC is null) OR " +
+			"(ThreeItem.optional-MultiItemFieldComponentA is null AND" +
+			" ThreeItem.optional-MultiItemFieldComponentC is null) OR " +
+			"(ThreeItem.optional-MultiItemFieldComponentA is null AND" +
+			" ThreeItem.optional-MultiItemFieldComponentB is null)" +
 			")",
 			check(ThreeItem.optional).getCondition().toString());
 	}
@@ -277,9 +277,9 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	public void testEqualConditionNull3Classes()
 	{
 		assertEquals(
-				"(ThreeItem.mandatory-MultiItemFieldInterfaceImplementationA is null AND" +
-				" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationB is null AND" +
-				" ThreeItem.mandatory-MultiItemFieldInterfaceImplementationC is null)",
+				"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
+				" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
+				" ThreeItem.mandatory-MultiItemFieldComponentC is null)",
 				ThreeItem.mandatory.equal(null).toString());
 	}
 }

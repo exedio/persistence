@@ -43,7 +43,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldInterface.class, new Class[]
+			MultiItemField.create(MultiItemFieldValue.class, new Class[]
 					{});
 			fail();
 		}
@@ -60,8 +60,8 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldInterface.class, new Class[]
-					{MultiItemFieldInterfaceImplementationA.class});
+			MultiItemField.create(MultiItemFieldValue.class, new Class[]
+					{MultiItemFieldComponentA.class});
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -76,7 +76,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldInterface.class,
+			MultiItemField.create(MultiItemFieldValue.class,
 					null, null);
 			fail();
 		}
@@ -92,13 +92,13 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldInterface.class,
+			MultiItemField.create(MultiItemFieldValue.class,
 					AnotherItem1.class, AnotherItem2.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "valueClass >"+MultiItemFieldInterface.class
+			final String expected = "valueClass >"+MultiItemFieldValue.class
 					+"< must be assignable from componentClass >"+AnotherItem1.class+"<";
 			assertEquals(expected, e.getMessage());
 		}
@@ -109,16 +109,16 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldInterface.class,
-					MultiItemFieldInterfaceImplementationA.class,
-					MultiItemFieldInterfaceImplementationASub.class);
+			MultiItemField.create(MultiItemFieldValue.class,
+					MultiItemFieldComponentA.class,
+					MultiItemFieldComponentASub.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			final String expected = "componentClasses must not be super-classes of each other: "
-					+MultiItemFieldInterfaceImplementationA.class+" is assignable from "
-					+MultiItemFieldInterfaceImplementationASub.class+"";
+					+MultiItemFieldComponentA.class+" is assignable from "
+					+MultiItemFieldComponentASub.class+"";
 			assertEquals(expected, e.getMessage());
 		}
 	}
