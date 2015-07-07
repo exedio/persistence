@@ -235,7 +235,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			return null;
 	}
 
-	public final void set(final Item item, final E value)
+	public void set(final Item item, final E value)
 	{
 		item.set(map(value));
 	}
