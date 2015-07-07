@@ -386,14 +386,14 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return policy;
 	}
 
-	public MultiItemField<E> optional()
-	{
-		return new MultiItemField<>(isFinal, true, unique, policy, copyToMap, valueClass, componentClasses);
-	}
-
 	public MultiItemField<E> toFinal()
 	{
 		return new MultiItemField<>(true, optional, unique, policy, copyToMap, valueClass, componentClasses);
+	}
+
+	public MultiItemField<E> optional()
+	{
+		return new MultiItemField<>(isFinal, true, unique, policy, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> unique()
