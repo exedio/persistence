@@ -319,12 +319,12 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			for(final Iterator<ItemField<?>> it = components.iterator(); it.hasNext();)
 			{
 				final ItemField component = it.next();
-				sb.append(component.getValueClass().getSimpleName());
+				sb.append(component.getValueClass().getName());
 				if(it.hasNext())
 					sb.append(",");
 			}
 			sb.append("> but was <");
-			sb.append(value.getClass().getSimpleName());
+			sb.append(value.getClass().getName());
 			sb.append(">");
 			throw new IllegalArgumentException(sb.toString());
 		}

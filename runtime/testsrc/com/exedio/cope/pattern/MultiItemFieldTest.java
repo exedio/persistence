@@ -171,8 +171,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"value class should be one of <MultiItemFieldComponentxA,MultiItemFieldComponentxB>" +
-					" but was <MultiItemFieldComponentxC>",
+					"value class should be one of <com.exedio.cope.pattern.MultiItemFieldComponentxA,com.exedio.cope.pattern.MultiItemFieldComponentxB>" +
+					" but was <com.exedio.cope.pattern.MultiItemFieldComponentxC>",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());
