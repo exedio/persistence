@@ -356,7 +356,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	public boolean isInitial()
 	{
-		return true;
+		return isFinal() || isMandatory();
 	}
 
 	public Class<E> getInitialType()
