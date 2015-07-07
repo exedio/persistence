@@ -37,7 +37,7 @@ import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +54,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	private final boolean isFinal;
 	private final boolean unique;
 	private final DeletePolicy policy;
-	private final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap;
+	private final LinkedHashMap<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
 	private MultiItemField(
 			final Class<E> valueClass,
@@ -68,7 +68,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final boolean optional,
 			final boolean unique,
 			final DeletePolicy policy,
-			final Map<Class<? extends Item>, FunctionField<?>[]> copyToMap,
+			final LinkedHashMap<Class<? extends Item>, FunctionField<?>[]> copyToMap,
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
@@ -82,7 +82,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		}
 		else
 		{
-			this.copyToMap = new HashMap<>();
+			this.copyToMap = new LinkedHashMap<>();
 			for(final Class<? extends Item> componentClass : componentClasses)
 			{
 				this.copyToMap.put(componentClass, null);
@@ -436,7 +436,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 						"must be one of " + classes + '.');
 		}
 
-		final Map<Class<? extends Item>, FunctionField<?>[]> map = new HashMap<>(copyToMap);
+		final LinkedHashMap<Class<? extends Item>, FunctionField<?>[]> map = new LinkedHashMap<>(copyToMap);
 		if(map.get(componentClass)!=null)
 		{
 			final FunctionField<?>[] copys = map.get(componentClass);

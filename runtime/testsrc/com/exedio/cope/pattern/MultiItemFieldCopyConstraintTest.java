@@ -19,9 +19,13 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
+import com.exedio.cope.FunctionField;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import java.util.Iterator;
 
 public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 {
@@ -38,6 +42,42 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 	{
 		super(MODEL);
 	}
+
+
+	public void testModelAll()
+	{
+		final Iterator<CopyConstraint> i = AllCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		assertIt(A.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(A.class), i.next());
+		assertIt(B.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(B.class), i.next());
+		assertFalse(i.hasNext());
+	}
+
+	public void testModelDouble()
+	{
+		final Iterator<CopyConstraint> i = DoubleCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		assertIt(C.value,    DoubleCopyConstraintItem.value,    DoubleCopyConstraintItem.field.of(C.class), i.next());
+		assertIt(C.template, DoubleCopyConstraintItem.template, DoubleCopyConstraintItem.field.of(C.class), i.next());
+		assertFalse(i.hasNext());
+	}
+
+	public void testModelPartial()
+	{
+		final Iterator<CopyConstraint> i = PartialCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		assertIt(A.value, PartialCopyConstraintItem.value, PartialCopyConstraintItem.field.of(A.class), i.next());
+		assertFalse(i.hasNext());
+	}
+
+	private static void assertIt(
+			final FunctionField<?> template,
+			final FunctionField<?> copy,
+			final ItemField<?> target,
+			final CopyConstraint actual)
+	{
+		assertEquals(template, actual.getTemplate());
+		assertEquals(copy, actual.getCopy());
+		assertEquals(target, actual.getTarget());
+	}
+
 
 	public void testOk()
 	{
