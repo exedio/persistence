@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Condition;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
@@ -191,10 +190,10 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 			field.set(item, "zack");
 			fail("exception expected");
 		}
-		catch(final CheckViolationException e) // TODO ClassCastException
+		catch(final ClassCastException e)
 		{
 			assertEquals(
-					"check violation on MultiItemFieldItem-0 for MultiItemFieldItem.field-xor",
+					"expected a com.exedio.cope.pattern.MultiItemFieldValuex, but was a java.lang.String",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());

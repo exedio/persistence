@@ -32,6 +32,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.Arrays;
+import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -310,8 +311,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				result[i] = component.mapNull();
 			}
 		}
-		if(value!=null&&Item.class.isAssignableFrom(value.getClass())&&!valueSet)
+		if(value!=null && !valueSet)
 		{
+			Cast.verboseCast(valueClass, value); // throws ClassCastException
+
 			final StringBuilder sb = new StringBuilder("value class should be on of <");
 			for(final Iterator<ItemField<?>> it = components.iterator(); it.hasNext();)
 			{
