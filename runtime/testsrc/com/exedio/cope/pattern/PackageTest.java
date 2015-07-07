@@ -108,6 +108,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(BlockFieldMediaFilterTest.class);
 		suite.addTestSuite(BlockFieldNestedTest.class);
 		suite.addTestSuite(UniqueHashedMediaTest.class);
+		suite.addTestSuite(MultiItemFieldTest.class);
 		return suite;
 	}
 }
