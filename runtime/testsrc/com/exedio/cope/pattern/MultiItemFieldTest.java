@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -168,11 +169,14 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 			item.setField(notExpected);
 			fail("exception expected");
 		}
-		catch(final IllegalArgumentException e)
+		catch(final ConstraintViolationException e)
 		{
+			assertEquals(MultiItemFieldItem.field, e.getFeature());
+			assertEquals(item, e.getItem());
 			assertEquals(
-					"value class should be one of <com.exedio.cope.pattern.MultiItemFieldComponentxA,com.exedio.cope.pattern.MultiItemFieldComponentxB>" +
-					" but was <com.exedio.cope.pattern.MultiItemFieldComponentxC>",
+					"illegal instance on MultiItemFieldItem-0, " +
+					"value is com.exedio.cope.pattern.MultiItemFieldComponentxC for MultiItemFieldItem.field, " +
+					"must be one of [class com.exedio.cope.pattern.MultiItemFieldComponentxA, class com.exedio.cope.pattern.MultiItemFieldComponentxB].",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());

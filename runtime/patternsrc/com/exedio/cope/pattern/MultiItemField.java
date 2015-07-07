@@ -22,7 +22,9 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
+import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -36,7 +38,6 @@ import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -315,20 +316,43 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		{
 			Cast.verboseCast(valueClass, value); // throws ClassCastException
 
-			final StringBuilder sb = new StringBuilder("value class should be one of <");
-			for(final Iterator<ItemField<?>> it = components.iterator(); it.hasNext();)
-			{
-				final ItemField component = it.next();
-				sb.append(component.getValueClass().getName());
-				if(it.hasNext())
-					sb.append(",");
-			}
-			sb.append("> but was <");
-			sb.append(value.getClass().getName());
-			sb.append(">");
-			throw new IllegalArgumentException(sb.toString());
+			throw new IllegalInstanceException(this, exceptionItem, value.getClass());
 		}
 		return result;
+	}
+
+	private static final class IllegalInstanceException extends ConstraintViolationException
+	{
+		private final MultiItemField<?> feature;
+		private final Class<?> valueClass;
+
+		IllegalInstanceException(
+				final MultiItemField<?> feature,
+				final Item item,
+				final Class<?> valueClass)
+		{
+			super(item, null);
+			this.feature = feature;
+			this.valueClass = valueClass;
+		}
+
+		@Override
+		public Feature getFeature()
+		{
+			return feature;
+		}
+
+		@Override
+		protected String getMessage(final boolean withFeature)
+		{
+			return
+					"illegal instance" + getItemPhrase() +
+					", value is " + valueClass.getName() +
+					(withFeature ? (" for "+ feature) : "") +
+					", must be one of " + feature.getComponentClasses() + '.';
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 	public Condition isNull()
