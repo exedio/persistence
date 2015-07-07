@@ -48,7 +48,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	private final Class<E> valueClass;
 	private final Class<? extends Item>[] componentClasses;
 	private final List<ItemField<?>> components;
-	private final boolean mandatory;
+	private final boolean optional;
 	private final boolean isFinal;
 	private final boolean unique;
 	private final DeletePolicy policy;
@@ -71,7 +71,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<? extends Item>[] componentClasses)
 	{
 		this.isFinal = isFinal;
-		this.mandatory = !optional;
+		this.optional = optional;
 		this.unique = unique;
 		this.policy = requireNonNull(policy, "policy");
 		if(copyToMap != null)
@@ -351,7 +351,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	public boolean isMandatory()
 	{
-		return mandatory;
+		return !optional;
 	}
 
 	public boolean isInitial()
@@ -384,17 +384,17 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	public MultiItemField<E> toFinal()
 	{
-		return new MultiItemField<>(true, !mandatory, unique, policy, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(true, optional, unique, policy, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> unique()
 	{
-		return new MultiItemField<>(isFinal, !mandatory, true, policy, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, optional, true, policy, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> cascade()
 	{
-		return new MultiItemField<>(isFinal, !mandatory, unique, DeletePolicy.CASCADE, copyToMap, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, optional, unique, DeletePolicy.CASCADE, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> copyTo(
@@ -415,6 +415,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		{
 			map.put(clazz, new FunctionField<?>[]{functionField});
 		}
-		return new MultiItemField<>(isFinal, !mandatory, unique, policy, map, valueClass, componentClasses);
+		return new MultiItemField<>(isFinal, optional, unique, policy, map, valueClass, componentClasses);
 	}
 }
