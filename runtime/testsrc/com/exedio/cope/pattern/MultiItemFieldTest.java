@@ -31,9 +31,9 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(MultiItemFieldItem.TYPE,
 			AnCascadeItem.TYPE,
-			MultiItemFieldItemInterfaceImplementationA.TYPE,
-			MultiItemFieldItemInterfaceImplementationB.TYPE,
-			MultiItemFieldItemInterfaceImplementationC.TYPE);
+			MultiItemFieldComponentxA.TYPE,
+			MultiItemFieldComponentxB.TYPE,
+			MultiItemFieldComponentxC.TYPE);
 
 	static
 	{
@@ -48,10 +48,10 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testHashCode()
 	{
-		final MultiItemFieldItemInterfaceImplementationA fieldValue = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		final MultiItemFieldItemInterface i1 = expected.getField();
-		final MultiItemFieldItemInterface i2 = expected.getField();
+		final MultiItemFieldValuex i1 = expected.getField();
+		final MultiItemFieldValuex i2 = expected.getField();
 		assertEquals(i1, i2);
 		assertEquals(i1, fieldValue);
 		assertSame(i1, fieldValue);
@@ -61,24 +61,24 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSerialization()
 	{
-		final MultiItemFieldItemInterfaceImplementationA fieldValue = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		final MultiItemFieldItemInterface i1 = expected.getField();
-		final MultiItemFieldItemInterface i2 = expected.getOptionalField();
-		final MultiItemFieldItemInterface i1S = reserialize(i1, 131);
+		final MultiItemFieldValuex i1 = expected.getField();
+		final MultiItemFieldValuex i2 = expected.getOptionalField();
+		final MultiItemFieldValuex i1S = reserialize(i1, 114);
 		assertEquals(i1S, i1);
 		assertEquals(i1S.hashCode(), i1.hashCode());
 		assertNotSame(i1S, i1);
 		assertFalse(i1S.equals(i2));
-		assertEquals("MultiItemFieldItemInterfaceImplementationA-0", i1S.toString());
+		assertEquals("MultiItemFieldComponentxA-0", i1S.toString());
 	}
 
 	@Test
 	public void testEqual()
 	{
-		final MultiItemFieldItemInterfaceImplementationA fieldValue = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		assertEquals(
-				"MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA='MultiItemFieldItemInterfaceImplementationA-0'",
+				"MultiItemFieldItem.field-MultiItemFieldComponentxA='MultiItemFieldComponentxA-0'",
 				MultiItemFieldItem.field.equal(fieldValue).toString());
 	}
 
@@ -86,22 +86,22 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	public void testEqualConditionNull()
 	{
 		assertEquals(
-				"(MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA is null" +
-				" AND MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationB is null)",
+				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null" +
+				" AND MultiItemFieldItem.field-MultiItemFieldComponentxB is null)",
 				MultiItemFieldItem.field.equal(null).toString());
 	}
 
 	@Test
 	public void testEqualConditionInvalidClass()
 	{
-		final MultiItemFieldItemInterfaceImplementationC invalid = new MultiItemFieldItemInterfaceImplementationC();
+		final MultiItemFieldComponentxC invalid = new MultiItemFieldComponentxC();
 		assertEquals(Condition.FALSE, MultiItemFieldItem.field.equal(invalid));
 	}
 
 	@Test
 	public void testGet()
 	{
-		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		assertEquals(expected, item.getField());
 	}
@@ -109,8 +109,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSet()
 	{
-		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
-		final MultiItemFieldItemInterfaceImplementationB expected2 = new MultiItemFieldItemInterfaceImplementationB();
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
+		final MultiItemFieldComponentxB expected2 = new MultiItemFieldComponentxB();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		item.setField(expected2);
 		assertEquals(expected2, item.getField());
@@ -119,7 +119,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSetNull()
 	{
-		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		item.setOptionalField(expected);
 		assertEquals(expected, item.getOptionalField());
@@ -130,7 +130,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSetNullForMandatory()
 	{
-		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		try
 		{
@@ -147,8 +147,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testSetInvalidInterfaceItem()
 	{
-		final MultiItemFieldItemInterfaceImplementationC notExpected = new MultiItemFieldItemInterfaceImplementationC();
-		final MultiItemFieldItemInterfaceImplementationA expected = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxC notExpected = new MultiItemFieldComponentxC();
+		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		try
 		{
@@ -158,8 +158,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"value class should be on of <MultiItemFieldItemInterfaceImplementationA,MultiItemFieldItemInterfaceImplementationB>" +
-					" but was <MultiItemFieldItemInterfaceImplementationC>",
+					"value class should be on of <MultiItemFieldComponentxA,MultiItemFieldComponentxB>" +
+					" but was <MultiItemFieldComponentxC>",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());
@@ -170,9 +170,9 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("(");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA is null");
+		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxA is null");
 		sb.append(" AND ");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationB is null");
+		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxB is null");
 		sb.append(")");
 		assertEquals(sb.toString(), MultiItemFieldItem.field.isNull().toString());
 	}
@@ -182,9 +182,9 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("(");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA is not null");
+		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxA is not null");
 		sb.append(" OR ");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationB is not null");
+		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxB is not null");
 		sb.append(")");
 		assertEquals(sb.toString(), MultiItemFieldItem.field.isNotNull().toString());
 	}
@@ -193,8 +193,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	public void testGetComponents()
 	{
 		assertEqualsUnmodifiable(
-				list(MultiItemFieldItem.field.of(MultiItemFieldItemInterfaceImplementationA.class),
-						MultiItemFieldItem.field.of(MultiItemFieldItemInterfaceImplementationB.class)),
+				list(MultiItemFieldItem.field.of(MultiItemFieldComponentxA.class),
+						MultiItemFieldItem.field.of(MultiItemFieldComponentxB.class)),
 				MultiItemFieldItem.field.getComponents());
 	}
 
@@ -203,12 +203,12 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			MultiItemFieldItem.field.of(MultiItemFieldItemInterfaceImplementationC.class);
+			MultiItemFieldItem.field.of(MultiItemFieldComponentxC.class);
 			fail("exception expected");
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("class >"+MultiItemFieldItemInterfaceImplementationC.class
+			assertEquals("class >"+MultiItemFieldComponentxC.class
 					+"< is not supported by MultiItemFieldItem.field", e.getMessage());
 		}
 	}
@@ -217,9 +217,9 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	public void testUniqueSetNull()
 	{
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
-				new MultiItemFieldItemInterfaceImplementationA());
+				new MultiItemFieldComponentxA());
 		final MultiItemFieldItem item2 = new MultiItemFieldItem(
-				new MultiItemFieldItemInterfaceImplementationA());
+				new MultiItemFieldComponentxA());
 		item1.setUniqueField(null);
 		item2.setUniqueField(null);
 		assertEquals(null, item1.getUniqueField());
@@ -229,7 +229,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testUnique()
 	{
-		final MultiItemFieldItemInterfaceImplementationA value = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA value = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
 				value);
 		final MultiItemFieldItem item2 = new MultiItemFieldItem(
@@ -243,7 +243,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final UniqueViolationException e)
 		{
 			assertEquals("unique violation on "+item2
-					+" for MultiItemFieldItem.uniqueField-MultiItemFieldItemInterfaceImplementationAImplicitUnique",
+					+" for MultiItemFieldItem.uniqueField-MultiItemFieldComponentxAImplicitUnique",
 					e.getMessage());
 		}
 		assertEquals(value, item1.getUniqueField());
@@ -252,21 +252,21 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testgetPartOfReverse()
 	{
-		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getPartOfs(MultiItemFieldItemInterfaceImplementationA.TYPE));
-		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getDeclaredPartOfs(MultiItemFieldItemInterfaceImplementationA.TYPE));
+		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getPartOfs(MultiItemFieldComponentxA.TYPE));
+		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxA.TYPE));
 	}
 
 	@Test
 	public void testgetPartOfReverseEmpty()
 	{
-		assertEquals(list(), PartOf.getPartOfs(MultiItemFieldItemInterfaceImplementationB.TYPE));
-		assertEquals(list(), PartOf.getDeclaredPartOfs(MultiItemFieldItemInterfaceImplementationB.TYPE));
+		assertEquals(list(), PartOf.getPartOfs(MultiItemFieldComponentxB.TYPE));
+		assertEquals(list(), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxB.TYPE));
 	}
 
 	@Test
 	public void testPartOf()
 	{
-		final MultiItemFieldItemInterfaceImplementationA field = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
 				field);
 		final MultiItemFieldItem item2 = new MultiItemFieldItem(
@@ -277,15 +277,15 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testPartOfEmpty()
 	{
-		final MultiItemFieldItemInterfaceImplementationA field = new MultiItemFieldItemInterfaceImplementationA();
-		new MultiItemFieldItem(new MultiItemFieldItemInterfaceImplementationB());
+		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
+		new MultiItemFieldItem(new MultiItemFieldComponentxB());
 		assertEquals(list(), MultiItemFieldItem.partOfClassA.getParts(field));
 	}
 
 	@Test
 	public void testPartOfInvalidClassParameter()
 	{
-		final MultiItemFieldItemInterfaceImplementationB field = new MultiItemFieldItemInterfaceImplementationB();
+		final MultiItemFieldComponentxB field = new MultiItemFieldComponentxB();
 		try
 		{
 			MultiItemFieldItem.partOfClassA.getParts(field);
@@ -294,7 +294,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final ClassCastException e)
 		{
 			assertEquals(
-					"expected a com.exedio.cope.pattern.MultiItemFieldItemInterfaceImplementationA, but was a com.exedio.cope.pattern.MultiItemFieldItemInterfaceImplementationB",
+					"expected a com.exedio.cope.pattern.MultiItemFieldComponentxA, but was a com.exedio.cope.pattern.MultiItemFieldComponentxB",
 					e.getMessage());
 		}
 	}
@@ -302,7 +302,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testCascade()
 	{
-		final MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
 		final AnCascadeItem toBeCascadeDeleted = new AnCascadeItem(item);
 		item.deleteCopeItem();
 		assertEquals(false, toBeCascadeDeleted.existsCopeItem());
@@ -311,7 +311,7 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testForbid()
 	{
-		final MultiItemFieldItemInterfaceImplementationA item = new MultiItemFieldItemInterfaceImplementationA();
+		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
 		new MultiItemFieldItem(item);
 		try
 		{
@@ -321,8 +321,8 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		catch(final IntegrityViolationException e)
 		{
 			assertEquals(
-					"integrity violation on deletion of MultiItemFieldItemInterfaceImplementationA-0" +
-					" because of MultiItemFieldItem.field-MultiItemFieldItemInterfaceImplementationA referring to 1 item(s)",
+					"integrity violation on deletion of MultiItemFieldComponentxA-0" +
+					" because of MultiItemFieldItem.field-MultiItemFieldComponentxA referring to 1 item(s)",
 					e.getMessage());
 		}
 	}
@@ -330,35 +330,35 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 	@Test
 	public void testMap()
 	{
-		final MultiItemFieldItemInterfaceImplementationA a = new MultiItemFieldItemInterfaceImplementationA();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) a), MultiItemFieldItem.field.map(a));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationA-0", MultiItemFieldItem.field.map(a).toString());
+		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
+		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldValuex) a), MultiItemFieldItem.field.map(a));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", MultiItemFieldItem.field.map(a).toString());
 	}
 
 	@Test
 	public void testMapNull()
 	{
-		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, (MultiItemFieldItemInterface) null), MultiItemFieldItem.optionalField.map(null));
+		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, (MultiItemFieldValuex) null), MultiItemFieldItem.optionalField.map(null));
 		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
 	}
 
 	@Test
 	public void testMapInvalid()
 	{
-		final MultiItemFieldItemInterfaceImplementationC c = new MultiItemFieldItemInterfaceImplementationC();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldItemInterface) c), MultiItemFieldItem.field.map(c));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldItemInterfaceImplementationC-0", MultiItemFieldItem.field.map(c).toString());
+		final MultiItemFieldComponentxC c = new MultiItemFieldComponentxC();
+		assertEquals(SetValue.map(MultiItemFieldItem.field, (MultiItemFieldValuex) c), MultiItemFieldItem.field.map(c));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxC-0", MultiItemFieldItem.field.map(c).toString());
 	}
 
 	static final class AnCascadeItem extends Item
 	{
 		/** @cope.ignore */
-		static final MultiItemField<MultiItemFieldItemInterface> field = MultiItemField.create(
-				MultiItemFieldItemInterface.class,
-				MultiItemFieldItemInterfaceImplementationA.class,
-				MultiItemFieldItemInterfaceImplementationB.class).cascade();
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
+				MultiItemFieldValuex.class,
+				MultiItemFieldComponentxA.class,
+				MultiItemFieldComponentxB.class).cascade();
 
-		AnCascadeItem(final MultiItemFieldItemInterface value)
+		AnCascadeItem(final MultiItemFieldValuex value)
 		{
 			this(field.map(value));
 		}

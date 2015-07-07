@@ -25,31 +25,31 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * @cope.ignore
 	 */
-	static final MultiItemField<MultiItemFieldItemInterface> field = MultiItemField.create(
-			MultiItemFieldItemInterface.class,
-			MultiItemFieldItemInterfaceImplementationA.class, MultiItemFieldItemInterfaceImplementationB.class);
+	static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
+			MultiItemFieldValuex.class,
+			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class);
 
 	/**
 	 * @cope.ignore
 	 */
-	static final MultiItemField<MultiItemFieldItemInterface> optionalField = MultiItemField.create(
-			MultiItemFieldItemInterface.class,
-			MultiItemFieldItemInterfaceImplementationA.class, MultiItemFieldItemInterfaceImplementationB.class)
+	static final MultiItemField<MultiItemFieldValuex> optionalField = MultiItemField.create(
+			MultiItemFieldValuex.class,
+			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class)
 			.optional();
 
 	/**
 	 * @cope.ignore
 	 */
-	static final MultiItemField<MultiItemFieldItemInterface> uniqueField = MultiItemField.create(
-			MultiItemFieldItemInterface.class,
-			MultiItemFieldItemInterfaceImplementationA.class, MultiItemFieldItemInterfaceImplementationB.class).optional().unique();
+	static final MultiItemField<MultiItemFieldValuex> uniqueField = MultiItemField.create(
+			MultiItemFieldValuex.class,
+			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class).optional().unique();
 
 	/**
 	 * @cope.ignore
 	 */
-	static final PartOf<MultiItemFieldItemInterfaceImplementationA> partOfClassA = PartOf.create(field.of(MultiItemFieldItemInterfaceImplementationA.class));
+	static final PartOf<MultiItemFieldComponentxA> partOfClassA = PartOf.create(field.of(MultiItemFieldComponentxA.class));
 
-	MultiItemFieldItem(final MultiItemFieldItemInterface field)
+	MultiItemFieldItem(final MultiItemFieldValuex field)
 			throws com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]
@@ -59,37 +59,37 @@ final class MultiItemFieldItem extends Item
 	}
 
 	// TODO generate by instrumentor
-	MultiItemFieldItemInterface getField()
+	MultiItemFieldValuex getField()
 	{
 		return field.get(this);
 	}
 
 	// TODO generate by instrumentor
-	void setField(final MultiItemFieldItemInterface value)
+	void setField(final MultiItemFieldValuex value)
 	{
 		field.set(this, value);
 	}
 
 	// TODO generate by instrumentor
-	MultiItemFieldItemInterface getOptionalField()
+	MultiItemFieldValuex getOptionalField()
 	{
 		return optionalField.get(this);
 	}
 
 	// TODO generate by instrumentor
-	void setOptionalField(final MultiItemFieldItemInterface value)
+	void setOptionalField(final MultiItemFieldValuex value)
 	{
 		optionalField.set(this, value);
 	}
 
 	// TODO generate by instrumentor
-	MultiItemFieldItemInterface getUniqueField()
+	MultiItemFieldValuex getUniqueField()
 	{
 		return uniqueField.get(this);
 	}
 
 	// TODO generate by instrumentor
-	void setUniqueField(final MultiItemFieldItemInterface value)
+	void setUniqueField(final MultiItemFieldValuex value)
 	{
 		uniqueField.set(this, value);
 	}

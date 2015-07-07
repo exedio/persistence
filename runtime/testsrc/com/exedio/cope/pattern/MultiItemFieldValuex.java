@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 
-public interface MultiItemFieldItemInterface extends Serializable
+public interface MultiItemFieldValuex extends Serializable
 {
 	public String getValue();
 }
