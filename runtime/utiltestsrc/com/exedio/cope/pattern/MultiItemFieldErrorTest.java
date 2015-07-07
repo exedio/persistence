@@ -164,6 +164,24 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
+	@Test
+	public void testCreateCopyNullCopy()
+	{
+		final MultiItemField<?> field = MultiItemField.create(
+				MultiItemFieldValue.class,
+				MultiItemFieldComponentA.class,
+				MultiItemFieldComponentB.class);
+		try
+		{
+			field.copyTo(MultiItemFieldComponentA.class, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("copyTo", e.getMessage());
+		}
+	}
+
 	static final class AnotherItem1 extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
