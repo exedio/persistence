@@ -46,7 +46,8 @@ public final class PartOf<C extends Item> extends Pattern
 	private PartOf(final ItemField<C> container, final FunctionField<?> order)
 	{
 		this.container = requireNonNull(container, "container");
-		addSource(container, "Container");
+		if(!container.isSourceAlready())
+			addSource(container, "Container");
 		this.order = order;
 		if(order!=null && !order.isSourceAlready())
 			addSource(order, "Order");
