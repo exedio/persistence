@@ -27,7 +27,7 @@ final class ItemFunctionUtil
 
 	static <X extends Item> CompareFunctionCondition<?> equalTarget(final ItemFunction<X> function, final Join targetJoin)
 	{
-		return function.equal(function.getValueType().asSubtype(targetJoin.getType()).thisFunction.bind(targetJoin));
+		return function.equal(function.getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
 	}
 
 	static void checkTypeColumnNeeded(final ItemFunction<?> function)

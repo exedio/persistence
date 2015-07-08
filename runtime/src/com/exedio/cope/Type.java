@@ -737,9 +737,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	/**
-	 * @see Class#asSubclass(Class)
+	 * @see Class#cast(Object)
 	 */
-	public Type<? extends T> asSubtype(final Type<?> subtype)
+	public Type<? extends T> castTypeExtends(final Type<?> subtype)
 	{
 		if(subtype==null)
 			return null;
@@ -1313,6 +1313,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #castTypeExtends(Type)} instead
+	 */
+	@Deprecated
+	public Type<? extends T> asSubtype(final Type<?> subtype)
+	{
+		return castTypeExtends(subtype);
+	}
 
 	/**
 	 * @deprecated Use {@link #forClass(Class)} instead
