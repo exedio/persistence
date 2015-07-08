@@ -230,12 +230,12 @@ public final class This<E extends Item> extends Feature
 
 	public CompareFunctionCondition<?> equalTarget()
 	{
-		return equal(getValueType().thisFunction);
+		return ItemFunctionUtil.equalTarget(this);
 	}
 
 	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
-		return equal(getValueType().thisFunction.bind(targetJoin));
+		return ItemFunctionUtil.equalTarget(this, targetJoin);
 	}
 
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)

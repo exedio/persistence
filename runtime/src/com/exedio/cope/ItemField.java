@@ -455,12 +455,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public CompareFunctionCondition<?> equalTarget()
 	{
-		return equal(getValueType().thisFunction);
+		return ItemFunctionUtil.equalTarget(this);
 	}
 
 	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
-		return equal(getValueType().thisFunction.bind(targetJoin));
+		return ItemFunctionUtil.equalTarget(this, targetJoin);
 	}
 
 	@Override
