@@ -52,7 +52,7 @@ final class Transactions
 		setThreadLocal(tx);
 	}
 
-	private boolean hasCurrent()
+	boolean hasCurrent()
 	{
 		return currentIfBound()!=null;
 	}

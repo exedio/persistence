@@ -631,7 +631,7 @@ public final class Model implements Serializable
 
 	public boolean hasCurrentTransaction()
 	{
-		return transactions.currentIfBound()!=null;
+		return transactions.hasCurrent();
 	}
 
 	/**
