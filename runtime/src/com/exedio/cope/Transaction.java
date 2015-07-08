@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
@@ -397,7 +399,37 @@ public final class Transaction
 			}
 			invalidations = null;
 		}
+
+		if(!rollback)
+			fireCommitListeners();
 	}
+
+
+	// commitListeners
+
+	private ArrayList<Runnable> commitListeners = null;
+
+	void addCommitListener(final Runnable listener)
+	{
+		requireNonNull(listener, "listener");
+		if(commitListeners==null)
+			commitListeners = new ArrayList<>();
+		commitListeners.add(listener);
+	}
+
+	private void fireCommitListeners()
+	{
+		if(commitListeners==null)
+			return;
+
+		for(final Runnable listener : commitListeners)
+			listener.run();
+
+		// cleanup
+		commitListeners.clear();
+		commitListeners = null;
+	}
+
 
 	public long getID()
 	{

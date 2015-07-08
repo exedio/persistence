@@ -645,6 +645,11 @@ public final class Model implements Serializable
 		return transactions.current();
 	}
 
+	public void addCommitListener(final Runnable listener)
+	{
+		transactions.current().addCommitListener(listener);
+	}
+
 	public void rollback()
 	{
 		commitOrRollback(true);
