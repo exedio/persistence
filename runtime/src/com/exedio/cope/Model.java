@@ -642,11 +642,7 @@ public final class Model implements Serializable
 	 */
 	public Transaction currentTransaction()
 	{
-		final Transaction result = transactions.currentIfBound();
-		if(result==null)
-			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
-		assert result.assertBoundToCurrentThread();
-		return result;
+		return transactions.current();
 	}
 
 	public void rollback()

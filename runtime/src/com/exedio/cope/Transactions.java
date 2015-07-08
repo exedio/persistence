@@ -57,7 +57,7 @@ final class Transactions
 		return currentIfBound()!=null;
 	}
 
-	private Transaction current()
+	Transaction current()
 	{
 		final Transaction result = currentIfBound();
 		if(result==null)
