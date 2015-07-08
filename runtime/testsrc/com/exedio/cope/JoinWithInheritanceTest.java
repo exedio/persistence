@@ -18,8 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.util.Arrays.asList;
+
 import com.exedio.cope.pattern.ListField;
-import java.util.Arrays;
 import org.junit.Test;
 
 public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
@@ -49,7 +50,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		query.joinOuterLeft(ArticleContainer.articles.getRelationType(), ArticleContainer.articles.getParent().equalTarget());
 		final Join articleJoin = query.join(SpecificArticle.TYPE);
 		articleJoin.setCondition(((ItemField<?>)ArticleContainer.articles.getElement()).equalTarget(articleJoin));
-		assertEquals(Arrays.asList(productSuite), query.search());
+		assertEquals(asList(productSuite), query.search());
 	}
 
 	@Test
@@ -63,7 +64,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 				.equalTarget());
 		final Join articleJoin = query.join(ReallySpecificArticle.TYPE);
 		articleJoin.setCondition(((ItemField<?>)ArticleContainer.specificArticles.getElement()).equalTarget(articleJoin));
-		assertEquals(Arrays.asList(), query.search());
+		assertEquals(asList(), query.search());
 	}
 
 	@Test
