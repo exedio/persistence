@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.JoinWithInheritanceTest.ArticleContainer.articles;
+import static com.exedio.cope.JoinWithInheritanceTest.ArticleContainer.specificArticles;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.pattern.ListField;
@@ -47,9 +49,9 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		productSuite.addToArticles(new SpecificArticle());
 
 		final Query<ArticleContainer> query = ArticleContainer.TYPE.newQuery();
-		query.joinOuterLeft(ArticleContainer.articles.getRelationType(), ArticleContainer.articles.getParent().equalTarget());
+		query.joinOuterLeft(articles.getRelationType(), articles.getParent().equalTarget());
 		final Join articleJoin = query.join(SpecificArticle.TYPE);
-		articleJoin.setCondition(((ItemField<?>)ArticleContainer.articles.getElement()).equalTarget(articleJoin));
+		articleJoin.setCondition(((ItemField<?>)articles.getElement()).equalTarget(articleJoin));
 		assertEquals(asList(productSuite), query.search());
 	}
 
@@ -60,10 +62,10 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		productSuite.addToArticles(new SpecificArticle());
 
 		final Query<ArticleContainer> query = ArticleContainer.TYPE.newQuery();
-		query.joinOuterLeft(ArticleContainer.specificArticles.getRelationType(), ArticleContainer.specificArticles.getParent()
+		query.joinOuterLeft(specificArticles.getRelationType(), specificArticles.getParent()
 				.equalTarget());
 		final Join articleJoin = query.join(ReallySpecificArticle.TYPE);
-		articleJoin.setCondition(((ItemField<?>)ArticleContainer.specificArticles.getElement()).equalTarget(articleJoin));
+		articleJoin.setCondition(((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin));
 		assertEquals(asList(), query.search());
 	}
 
@@ -74,11 +76,11 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		productSuite.addToArticles(new SpecificArticle());
 
 		final Query<ArticleContainer> query = ArticleContainer.TYPE.newQuery();
-		query.joinOuterLeft(ArticleContainer.specificArticles.getRelationType(), ArticleContainer.specificArticles.getParent().equalTarget());
+		query.joinOuterLeft(specificArticles.getRelationType(), specificArticles.getParent().equalTarget());
 		final Join articleJoin = query.join(Article.TYPE);
 		try
 		{
-			((ItemField<?>)ArticleContainer.specificArticles.getElement()).equalTarget(articleJoin);
+			((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin);
 			fail("exception expected");
 		}
 		catch(final ClassCastException e)
@@ -94,12 +96,12 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		productSuite.addToArticles(new SpecificArticle());
 
 		final Query<ArticleContainer> query = ArticleContainer.TYPE.newQuery();
-		final Join test = query.joinOuterLeft(ArticleContainer.articles.getRelationType(), ArticleContainer.articles.getParent()
+		final Join test = query.joinOuterLeft(articles.getRelationType(), articles.getParent()
 				.equalTarget());
 		query.join(SpecificArticle.TYPE);
 		try
 		{
-			((ItemField<?>)ArticleContainer.articles.getElement()).equalTarget(test);
+			((ItemField<?>)articles.getElement()).equalTarget(test);
 			fail("exception expected");
 		}
 		catch(final ClassCastException e)
