@@ -53,6 +53,11 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		query.joinOuterLeft(articles.getRelationType(), articles.getParent().equalTarget());
 		final Join articleJoin = query.join(SpecificArticle.TYPE);
 		articleJoin.setCondition(((ItemField<?>)articles.getElement()).equalTarget(articleJoin));
+		assertEquals(
+				"select this from Container " +
+				"left join Container-articles c1 on Container-articles.parent=this " +
+				"join SpecificArticle s2 on Container-articles.element=s2.SpecificArticle.this",
+				query.toString());
 		assertEquals(asList(container), query.search());
 	}
 
@@ -67,6 +72,11 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 				.equalTarget());
 		final Join articleJoin = query.join(ReallySpecificArticle.TYPE);
 		articleJoin.setCondition(((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin));
+		assertEquals(
+				"select this from Container " +
+				"left join Container-specificArticles c1 on Container-specificArticles.parent=this " +
+				"join ReallySpecificArticle r2 on Container-specificArticles.element=r2.ReallySpecificArticle.this",
+				query.toString());
 		assertEquals(asList(), query.search());
 	}
 
