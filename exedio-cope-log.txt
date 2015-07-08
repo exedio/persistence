@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ItemFunction#equalTarget(Join) does fail now, if target type does not conform to join.
+	This breaks backwards API compatibility - before just Query#search did fail in such cases.
 * ConnectProperties#getProbeTest added.
 * MoneyField#getCurrencyClass added.
 * MediaImageMagick[Filter|Thumbnail] removed.
