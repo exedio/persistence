@@ -4,4 +4,4 @@
 Persistence framework for Java.
 
 exedio persistence provides a database access layer for java applications.
-A detailed introduction is available at [exedio.github.io](http://exedio.github.io/).
+A detailed introduction is available at [exedio.github.io](https://exedio.github.io/).
