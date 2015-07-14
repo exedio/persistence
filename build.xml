@@ -1083,7 +1083,7 @@
 		</copy>
 	</target>
 
-	<target name="single.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
+	<target name="single.test" depends="runtime.test.compile, runtime.utiltest.compile">
 		<fail unless="testpath">provide test class path name</fail>
 		<propertyregex property="testclass"
 							input="${testpath}"
@@ -1107,6 +1107,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
+						<pathelement location="build/classes/runtime/utiltestsrc" />
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
