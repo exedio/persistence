@@ -252,7 +252,7 @@ public final class StringField extends FunctionField<String>
 		{
 			bf.append(value.substring(0, 100)).
 				append(" ... ").
-				append(value.substring(180));
+				append(value.substring(length-20, length));
 		}
 		else
 		{
