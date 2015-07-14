@@ -709,6 +709,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	/**
+	 * Returns all types whose {@link #getSupertype() super type}
+	 * is this type.
 	 * @see #getSubtypesTransitively()
 	 */
 	public List<Type<? extends T>> getSubtypes()
@@ -717,6 +719,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	/**
+	 * Returns a list of all {@link #getSubtypes() subtypes}
+	 * and all subtypes of the subtypes etc.
+	 * The result includes this type as well, as any type is its
+	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
 	public List<Type<? extends T>> getSubtypesTransitively()
