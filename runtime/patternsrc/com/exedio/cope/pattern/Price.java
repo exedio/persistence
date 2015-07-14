@@ -267,18 +267,26 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price multiply(final double other)
 	{
-		if(other==1.0)
-			return this;
-
-		return storeOf(doubleStore() * other);
+		return multiply(other, RoundingMode.HALF_EVEN);
 	}
-
-	public Price divide(final double other)
+	public Price multiply(final double other, final RoundingMode rm)
 	{
 		if(other==1.0)
 			return this;
 
-		return storeOf(doubleStore() / other);
+		return valueOf(bigValue().multiply(BigDecimal.valueOf(other)), rm);
+	}
+
+	public Price divide(final double other)
+	{
+		return divide(other, RoundingMode.HALF_EVEN);
+	}
+	public Price divide(final double other, final RoundingMode rm)
+	{
+		if(other==1.0)
+			return this;
+
+		return valueOf(doubleValue() / other, rm);
 	}
 
 	/**
@@ -286,13 +294,20 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price grossToNetPercent(final int rate)
 	{
+		return grossToNetPercent(rate, RoundingMode.HALF_EVEN);
+	}
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
+	public Price grossToNetPercent(final int rate, final RoundingMode rm)
+	{
 		checkRatePercent(rate);
 
 		// shortcut for computation below
 		if(rate==0)
 			return this;
 
-		return storeOf(doubleStore() *        100d / (100 + rate));
+		return valueOf(doubleValue() *        100d / (100 + rate), rm);
 	}
 
 	/**
@@ -300,13 +315,20 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price grossToTaxPercent(final int rate)
 	{
+		return grossToTaxPercent(rate, RoundingMode.HALF_EVEN);
+	}
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
+	public Price grossToTaxPercent(final int rate, final RoundingMode rm)
+	{
 		checkRatePercent(rate);
 
 		// shortcut for computation below
 		if(rate==0)
 			return ZERO;
 
-		return storeOf(doubleStore() * (1d - (100d / (100 + rate))));
+		return valueOf(doubleValue() * (1d - (100d / (100 + rate))), rm);
 	}
 
 	private static void checkRatePercent(final int rate)
@@ -373,6 +395,10 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static Price valueOf(final double value)
 	{
+		return valueOf(value, RoundingMode.HALF_EVEN);
+	}
+	public static Price valueOf(final double value, final RoundingMode rm)
+	{
 		// TODO reuse common small values
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException("NaN not allowed");
@@ -386,7 +412,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(
 				BigDecimal.valueOf(value).
 				movePointRight(2).
-				setScale(0, RoundingMode.HALF_EVEN).
+				setScale(0, rm).
 				intValueExact());
 	}
 
@@ -399,32 +425,13 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final double DOUBLE_MIN_VALUE = MIN_STORE/DOUBLE_FACTOR;
 	private static final double DOUBLE_MAX_VALUE = MAX_STORE/DOUBLE_FACTOR;
 
-	private static Price storeOf(final double store)
-	{
-		if(Double.isNaN(store))
-			throw new IllegalArgumentException("NaN not allowed");
-		if(Double.isInfinite(store))
-			throw new IllegalArgumentException("Infinity not allowed");
-		if(store<DOUBLE_MIN_STORE)
-			throw new IllegalArgumentException("too small: " + (store/DOUBLE_FACTOR));
-		if(store>DOUBLE_MAX_STORE)
-			throw new IllegalArgumentException("too big: " + (store/DOUBLE_FACTOR));
-
-		return storeOf((int)Math.rint(store));
-	}
-
-	private double doubleStore()
-	{
-		return store;
-	}
-
-	private static final double DOUBLE_MIN_STORE = MIN_STORE;
-	private static final double DOUBLE_MAX_STORE = MAX_STORE;
-
-
 	// conversion BigDecimal
 
 	public static Price valueOf(final BigDecimal value)
+	{
+		return valueOf(value, RoundingMode.HALF_EVEN);
+	}
+	public static Price valueOf(final BigDecimal value, final RoundingMode rm)
 	{
 		// TODO reuse common small values
 		if(value.compareTo(BIG_MIN_VALUE)<0)
@@ -432,7 +439,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value.compareTo(BIG_MAX_VALUE)>0)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf(value.movePointRight(2).setScale(0, RoundingMode.HALF_EVEN).intValue());
+		return storeOf(value.movePointRight(2).setScale(0, rm).intValue());
 	}
 
 	public BigDecimal bigValue()
