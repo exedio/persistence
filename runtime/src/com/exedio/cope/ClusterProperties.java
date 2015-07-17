@@ -79,6 +79,7 @@ final class ClusterProperties extends Properties
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
 	final   InetAddress   listenAddress       = valAd("listenAddress",       MULTICAST_ADDRESS);
 	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
+	private final InetAddress listenInterface = valAd("listenInterface");
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	private final int     listenThreads       = value("listenThreads",       1, 1);
@@ -138,6 +139,23 @@ final class ClusterProperties extends Properties
 	private InetAddress valAd(final String key, final String defaultValue)
 	{
 		final String field = value(key, defaultValue);
+		try
+		{
+			return InetAddress.getByName(field);
+		}
+		catch(final UnknownHostException e)
+		{
+			throw new RuntimeException(field, e);
+		}
+	}
+
+	private InetAddress valAd(final String key)
+	{
+		final String DEFAULT = "DEFAULT";
+		final String field = value(key, DEFAULT);
+		if(DEFAULT.equals(field))
+			return null;
+
 		try
 		{
 			return InetAddress.getByName(field);
@@ -228,6 +246,8 @@ final class ClusterProperties extends Properties
 			{
 				@SuppressWarnings("resource") // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
+				if(listenInterface!=null)
+					resultMulti.setInterface(listenInterface);
 				resultMulti.joinGroup(listenAddress);
 				result = resultMulti;
 			}
