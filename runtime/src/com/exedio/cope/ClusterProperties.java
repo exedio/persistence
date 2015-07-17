@@ -71,6 +71,7 @@ final class ClusterProperties extends Properties
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
+	private final InetAddress sendInterface   = valAd("sendInterface");
 	final   InetAddress   sendAddress         = valAd("sendAddress",         MULTICAST_ADDRESS);
 	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
@@ -208,7 +209,9 @@ final class ClusterProperties extends Properties
 			final DatagramSocket result =
 				sendSourcePortAuto
 				? new DatagramSocket()
-				: new DatagramSocket(sendSourcePort);
+				: (sendInterface==null
+					? new DatagramSocket(sendSourcePort)
+					: new DatagramSocket(sendSourcePort, sendInterface));
 			if(!sendBufferDefault)
 				result.setSendBufferSize(sendBuffer);
 			if(!sendTrafficDefault)
