@@ -203,6 +203,36 @@ public final class PriceTest extends CopeAssert
 		assertEquals(   -58,   valueOf(-problem).store());
 	}
 
+	public static void testValueOfDoubleRoundSpecialProblem2()
+	{
+		final double problem = 1.435;
+		assertEquals( "1.435", Double.toString( problem));
+		assertEquals("-1.435", Double.toString(-problem));
+		assertEquals(    144,  valueOf( problem).store());
+		assertEquals(   -144,  valueOf(-problem).store());
+	}
+
+	public static void testRoundSpecialProblemOnDivide()
+	{
+		final Price problem = Price.storeOf(115);
+		assertEquals( "2.0", Double.toString( 2d));
+		assertEquals("-2.0", Double.toString(-2d));
+		// result 0.575
+		assertEquals(    58, problem.divide( 2d).store());
+		assertEquals(   -58, problem.divide(-2d).store());
+	}
+
+	public static void testRoundSpecialProblemOnMultiply()
+	{
+		final Price problem = Price.storeOf(41);
+		final double multiplier = 3.5;
+		assertEquals( "3.5", Double.toString( multiplier));
+		assertEquals("-3.5", Double.toString(-multiplier));
+		// result 1.435
+		assertEquals(   144, problem.multiply( multiplier).store());
+		assertEquals(  -144, problem.multiply(-multiplier).store());
+	}
+
 	public static void testValueOfBigDecimal()
 	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
