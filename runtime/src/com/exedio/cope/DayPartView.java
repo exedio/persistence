@@ -90,11 +90,11 @@ public final class DayPartView extends NumberView<Integer>
 			}
 		};
 
-		final String nameForQuery;
+		final String viewName;
 
-		Part(final String nameForQuery)
+		Part(final String viewName)
 		{
-			this.nameForQuery = nameForQuery;
+			this.viewName = viewName;
 		}
 
 		abstract String getNameForDialect(final Dialect dialect);
@@ -104,7 +104,7 @@ public final class DayPartView extends NumberView<Integer>
 
 	DayPartView(final DayField source, final Part part)
 	{
-		super(new Function<?>[]{source}, part.nameForQuery, Integer.class);
+		super(new Function<?>[]{source}, part.viewName, Integer.class);
 		this.source = source;
 		this.part = part;
 	}
