@@ -37,20 +37,20 @@ public final class DayPartView extends NumberView<Integer>
 			{
 				return "dayOfMonth";
 			}
-			
+
 			@Override
 			int getPart(final Day day)
 			{
 				return day.getDay();
 			}
-			
+
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
 				return dialect.getDayOfMonth();
 			}
 		},
-		
+
 		MONTH
 		{
 			@Override
@@ -58,20 +58,20 @@ public final class DayPartView extends NumberView<Integer>
 			{
 				return "month";
 			}
-			
+
 			@Override
 			int getPart(final Day day)
 			{
 				return day.getMonth();
 			}
-			
+
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
 				return dialect.getMonth();
 			}
 		},
-		
+
 		YEAR
 		{
 			@Override
@@ -79,20 +79,20 @@ public final class DayPartView extends NumberView<Integer>
 			{
 				return "year";
 			}
-			
+
 			@Override
 			int getPart(final Day day)
 			{
 				return day.getYear();
 			}
-			
+
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
 				return dialect.getYear();
 			}
 		},
-		
+
 		WEEK_OF_YEAR
 		{
 			@Override
@@ -100,24 +100,24 @@ public final class DayPartView extends NumberView<Integer>
 			{
 				return "weekOfYear";
 			}
-			
+
 			@Override
 			int getPart(final Day day)
 			{
 				return day.getGregorianCalendar(TimeZone.getDefault()).get(Calendar.WEEK_OF_YEAR);
 			}
-			
+
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
 				return dialect.getWeekOfYear();
 			}
 		};
-		
+
 		abstract String getNameForQuery();
-		
+
 		abstract String getNameForDialect(final Dialect dialect);
-		
+
 		abstract int getPart(final Day day);
 	}
 
@@ -143,8 +143,6 @@ public final class DayPartView extends NumberView<Integer>
 	{
 		return source;
 	}
-	
-	
 
 	@Override
 	public Integer mapJava(final Object[] sourceValues)

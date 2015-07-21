@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
@@ -29,7 +28,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -201,27 +199,27 @@ abstract class Dialect
 	{
 		return "CHAR_LENGTH";
 	}
-	
+
 	String getDayOfMonth()
 	{
 		return "DAY";
 	}
-	
+
 	String getMonth()
 	{
 		return "MONTH";
 	}
-	
+
 	String getYear()
 	{
 		return "YEAR";
 	}
-	
+
 	String getWeekOfYear()
 	{
 		return "WEEK";
 	}
-	
+
 	void appendDatePartExtraction(final DayPartView dayPartView, final Statement bf, final Join join)
 	{
 		bf.append("EXTRACT(")
