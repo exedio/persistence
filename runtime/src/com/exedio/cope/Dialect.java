@@ -220,12 +220,12 @@ abstract class Dialect
 		return "WEEK";
 	}
 
-	void appendDatePartExtraction(final DayPartView dayPartView, final Statement bf, final Join join)
+	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
 	{
 		bf.append("EXTRACT(")
-				.append(dayPartView.getPart().getNameForDialect(this))
+				.append(view.getPart().getNameForDialect(this))
 				.append(" FROM ")
-				.append(dayPartView.getSource(), join)
+				.append(view.getSource(), join)
 				.append(")");
 	}
 
