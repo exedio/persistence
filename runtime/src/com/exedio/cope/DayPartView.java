@@ -30,35 +30,6 @@ public final class DayPartView extends NumberView<Integer>
 	private final Part part;
 
 	enum Part {
-		DAY_OF_MONTH("dayOfMonth")
-		{
-			@Override
-			int getPart(final Day day)
-			{
-				return day.getDay();
-			}
-
-			@Override
-			String getNameForDialect(final Dialect dialect)
-			{
-				return dialect.getDayOfMonth();
-			}
-		},
-
-		MONTH("month")
-		{
-			@Override
-			int getPart(final Day day)
-			{
-				return day.getMonth();
-			}
-
-			@Override
-			String getNameForDialect(final Dialect dialect)
-			{
-				return dialect.getMonth();
-			}
-		},
 
 		YEAR("year")
 		{
@@ -74,7 +45,20 @@ public final class DayPartView extends NumberView<Integer>
 				return dialect.getYear();
 			}
 		},
+		MONTH("month")
+		{
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getMonth();
+			}
 
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getMonth();
+			}
+		},
 		WEEK_OF_YEAR("weekOfYear")
 		{
 			@Override
@@ -87,6 +71,20 @@ public final class DayPartView extends NumberView<Integer>
 			String getNameForDialect(final Dialect dialect)
 			{
 				return dialect.getWeekOfYear();
+			}
+		},
+		DAY_OF_MONTH("dayOfMonth")
+		{
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getDay();
+			}
+
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getDayOfMonth();
 			}
 		};
 
