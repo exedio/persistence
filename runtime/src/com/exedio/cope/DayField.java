@@ -232,10 +232,12 @@ public final class DayField extends FunctionField<Day>
 	{
 		return new DayPartView(this, DayPartField.MONTH);
 	}
+
 	public final DayPartView year()
 	{
 		return new DayPartView(this, DayPartField.YEAR);
 	}
+
 	public final DayPartView week()
 	{
 		return new DayPartView(this, DayPartField.WEEK);
