@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DayPartView.DayPartField;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -290,5 +291,11 @@ final class HsqldbDialect extends Dialect
 			append(" RESTART WITH ").
 			append(startWith).
 			append(';');
+	}
+
+	@Override
+	String getDatePartExtractionPrefix(DayPartField field)
+	{
+		return super.getDatePartExtractionPrefix(field).replace("week", "week_of_year");
 	}
 }

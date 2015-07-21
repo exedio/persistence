@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DayPartView.DayPartField;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -220,6 +221,24 @@ public final class DayField extends FunctionField<Day>
 		@SuppressWarnings("deprecation")
 		final java.sql.Date result = new java.sql.Date(year, month, day);
 		return result;
+	}
+	
+	public final DayPartView day()
+	{
+		return new DayPartView(this, DayPartField.DAY);
+	}
+	
+	public final DayPartView month()
+	{
+		return new DayPartView(this, DayPartField.MONTH);
+	}
+	public final DayPartView year()
+	{
+		return new DayPartView(this, DayPartField.YEAR);
+	}
+	public final DayPartView week()
+	{
+		return new DayPartView(this, DayPartField.WEEK);
 	}
 
 	// ------------------- deprecated stuff -------------------

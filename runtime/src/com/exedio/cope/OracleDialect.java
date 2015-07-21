@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DayPartView.DayPartField;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -505,6 +506,30 @@ final class OracleDialect extends Dialect
 		finally
 		{
 			connectionPool.put(connection);
+		}
+	}
+
+	@Override
+	String getDatePartExtractionPrefix(DayPartField field)
+	{
+		switch (field)
+		{
+			case WEEK:
+				return "TO_CHAR(";
+			default:
+				return super.getDatePartExtractionPrefix(field);
+		}
+	}
+	
+	@Override
+	String getDatePartExtractionSuffix(DayPartField field)
+	{
+		switch (field)
+		{
+			case WEEK:
+				return ", 'IW' )";
+			default:
+				return super.getDatePartExtractionPrefix(field);
 		}
 	}
 }
