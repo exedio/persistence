@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.TimeZone;
 
 public final class DayPartView extends NumberView<Integer>
@@ -71,7 +71,7 @@ public final class DayPartView extends NumberView<Integer>
 			case YEAR:
 				return sourceValueAsDay.getYear();
 			case WEEK:
-				return sourceValueAsDay.getGregorianCalendar(TimeZone.getDefault()).get(GregorianCalendar.WEEK_OF_YEAR);
+				return sourceValueAsDay.getGregorianCalendar(TimeZone.getDefault()).get(Calendar.WEEK_OF_YEAR);
 			default:
 				throw new IllegalArgumentException("Unkown DayPartField");
 		}
