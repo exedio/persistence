@@ -742,6 +742,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(   0), storeOf(   0).grossToNetPercent(0));
 		assertEquals(storeOf( 126), storeOf( 126).grossToNetPercent(0));
 		assertEquals(storeOf(-126), storeOf(-126).grossToNetPercent(0));
+		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20));
+		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20));
 
 		try
 		{
@@ -766,6 +768,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(0));
 		assertEquals(storeOf(  0), storeOf( 126).grossToTaxPercent(0));
 		assertEquals(storeOf(  0), storeOf(-126).grossToTaxPercent(0));
+		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92));
+		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92));
 
 		try
 		{
