@@ -92,6 +92,21 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	void appendDatePartExtraction(final DayPartView dayPartView, final Statement bf, final Join join)
+	{
+		if(Part.WEEK_OF_YEAR.equals(dayPartView.getPart()))
+		{
+			bf.append("TO_NUMBER(TO_CHAR(").
+				append(dayPartView.getSource(), join).
+				append(", 'IW'))");
+		}
+		else
+		{
+			super.appendDatePartExtraction(dayPartView, bf, join);
+		}
+	}
+
+	@Override
 	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
@@ -506,21 +521,6 @@ final class OracleDialect extends Dialect
 		finally
 		{
 			connectionPool.put(connection);
-		}
-	}
-
-	@Override
-	void appendDatePartExtraction(final DayPartView dayPartView, final Statement bf, final Join join)
-	{
-		if (Part.WEEK_OF_YEAR.equals(dayPartView.getPart()))
-		{
-			bf.append("TO_NUMBER(TO_CHAR(")
-					.append(dayPartView.getSource(), join)
-					.append(", 'IW'))");
-		}
-		else
-		{
-			super.appendDatePartExtraction(dayPartView, bf, join);
 		}
 	}
 }
