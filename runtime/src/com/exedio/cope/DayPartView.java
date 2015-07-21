@@ -30,14 +30,8 @@ public final class DayPartView extends NumberView<Integer>
 	private final Part part;
 
 	enum Part {
-		DAY_OF_MONTH
+		DAY_OF_MONTH("dayOfMonth")
 		{
-			@Override
-			String getNameForQuery()
-			{
-				return "dayOfMonth";
-			}
-
 			@Override
 			int getPart(final Day day)
 			{
@@ -51,14 +45,8 @@ public final class DayPartView extends NumberView<Integer>
 			}
 		},
 
-		MONTH
+		MONTH("month")
 		{
-			@Override
-			String getNameForQuery()
-			{
-				return "month";
-			}
-
 			@Override
 			int getPart(final Day day)
 			{
@@ -72,14 +60,8 @@ public final class DayPartView extends NumberView<Integer>
 			}
 		},
 
-		YEAR
+		YEAR("year")
 		{
-			@Override
-			String getNameForQuery()
-			{
-				return "year";
-			}
-
 			@Override
 			int getPart(final Day day)
 			{
@@ -93,14 +75,8 @@ public final class DayPartView extends NumberView<Integer>
 			}
 		},
 
-		WEEK_OF_YEAR
+		WEEK_OF_YEAR("weekOfYear")
 		{
-			@Override
-			String getNameForQuery()
-			{
-				return "weekOfYear";
-			}
-
 			@Override
 			int getPart(final Day day)
 			{
@@ -114,7 +90,12 @@ public final class DayPartView extends NumberView<Integer>
 			}
 		};
 
-		abstract String getNameForQuery();
+		final String nameForQuery;
+
+		Part(final String nameForQuery)
+		{
+			this.nameForQuery = nameForQuery;
+		}
 
 		abstract String getNameForDialect(final Dialect dialect);
 
@@ -123,7 +104,7 @@ public final class DayPartView extends NumberView<Integer>
 
 	DayPartView(final DayField source, final Part part)
 	{
-		super(new Function<?>[]{source}, part.getNameForQuery(), Integer.class);
+		super(new Function<?>[]{source}, part.nameForQuery, Integer.class);
 		this.source = source;
 		this.part = part;
 	}
