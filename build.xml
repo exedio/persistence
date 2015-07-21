@@ -1098,6 +1098,8 @@
 						 showoutput="true" printsummary="true">
 					<formatter type="brief" usefile="false" />
 					<formatter type="xml" />
+					<!--jvmarg value="-Xdebug" />
+					<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000" /-->
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
