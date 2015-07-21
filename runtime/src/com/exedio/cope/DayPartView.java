@@ -124,8 +124,8 @@ public final class DayPartView extends NumberView<Integer>
 	DayPartView(final DayField source, final Part part)
 	{
 		super(new Function<?>[]{source}, part.getNameForQuery(), Integer.class);
-		this.part = part;
 		this.source = source;
+		this.part = part;
 	}
 
 	@Override
