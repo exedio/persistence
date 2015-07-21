@@ -154,6 +154,11 @@ public class DayFieldTest extends AbstractRuntimeTest
 		final DayPartView yearDpv = day.year();
 		final DayPartView weekDpv = day.week();
 
+		assertEquals("datePart_DAY(DayItem.day)", dayDpv.toString());
+		assertEquals("datePart_MONTH(DayItem.day)", monthDpv.toString());
+		assertEquals("datePart_YEAR(DayItem.day)", yearDpv.toString());
+		assertEquals("datePart_WEEK(DayItem.day)", weekDpv.toString());
+
 		final Day day1 = new Day(2006, 9, 23);
 		final Day day2 = new Day(2006, 9, 22);
 		final Day day3 = new Day(2006, 10, 23);
