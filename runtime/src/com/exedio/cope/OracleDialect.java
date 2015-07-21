@@ -529,7 +529,7 @@ final class OracleDialect extends Dialect
 			case WEEK:
 				return ", 'IW' )";
 			default:
-				return super.getDatePartExtractionPrefix(field);
+				return super.getDatePartExtractionSuffix(field);
 		}
 	}
 }
