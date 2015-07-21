@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.DayPartView.DayPartField;
+import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
@@ -201,18 +201,34 @@ abstract class Dialect
 	{
 		return "CHAR_LENGTH";
 	}
-
-	String getDatePartExtractionPrefix(final DayPartField field)
+	
+	String getDayOfMonth()
 	{
-		return new StringBuilder("EXTRACT(")
-				.append(field.name().toLowerCase(Locale.ENGLISH))
-				.append(" from ")
-				.toString();
+		return "DAY";
 	}
-
-	String getDatePartExtractionSuffix(final DayPartField field)
+	
+	String getMonth()
 	{
-		return ")";
+		return "MONTH";
+	}
+	
+	String getYear()
+	{
+		return "YEAR";
+	}
+	
+	String getWeekOfYear()
+	{
+		return "WEEK";
+	}
+	
+	void appendDatePartExtraction(final DayPartView dayPartView, final Statement bf, final Join join)
+	{
+		bf.append("EXTRACT(")
+				.append(dayPartView.getPart().getNameForDialect(this))
+				.append(" FROM ")
+				.append(dayPartView.getSource(), join)
+				.append(")");
 	}
 
 	abstract String getDayType();

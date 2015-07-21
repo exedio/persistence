@@ -154,10 +154,10 @@ public class DayFieldTest extends AbstractRuntimeTest
 		final DayPartView yearDpv = day.year();
 		final DayPartView weekDpv = day.week();
 
-		assertEquals("datePart_DAY(DayItem.day)", dayDpv.toString());
-		assertEquals("datePart_MONTH(DayItem.day)", monthDpv.toString());
-		assertEquals("datePart_YEAR(DayItem.day)", yearDpv.toString());
-		assertEquals("datePart_WEEK(DayItem.day)", weekDpv.toString());
+		assertEquals("dayOfMonth(DayItem.day)", dayDpv.toString());
+		assertEquals("month(DayItem.day)", monthDpv.toString());
+		assertEquals("year(DayItem.day)", yearDpv.toString());
+		assertEquals("weekOfYear(DayItem.day)", weekDpv.toString());
 
 		final Day day1 = new Day(2006, 9, 23);
 		final Day day2 = new Day(2006, 9, 22);
@@ -208,10 +208,10 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(43)));
 
-		assertContains(15, 23, new Query<>(dayDpv, TYPE, null).search());
-		assertContains(8, 10, new Query<>(monthDpv, TYPE, null).search());
-		assertContains(2005, 2006, new Query<>(yearDpv, TYPE, null).search());
-		assertContains(33, 43, new Query<>(weekDpv, TYPE, null).search());
+		assertContains(23, new Query<>(dayDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(10, new Query<>(monthDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(2006, new Query<>(yearDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(43, new Query<>(weekDpv, TYPE, TYPE.thisFunction.equal(item)).search());
 
 		final DayPartView optionalDayDpv = optionalDay.day();
 		final DayPartView optionalMonthDpv = optionalDay.month();

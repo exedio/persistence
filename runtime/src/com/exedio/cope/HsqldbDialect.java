@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.DayPartView.DayPartField;
+import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -294,8 +294,8 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getDatePartExtractionPrefix(final DayPartField field)
+	String getWeekOfYear()
 	{
-		return super.getDatePartExtractionPrefix(field).replace("week", "week_of_year");
+		return "WEEK_OF_YEAR";
 	}
 }

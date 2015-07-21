@@ -26,17 +26,105 @@ public final class DayPartView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final Function<Day> source;
-	private final DayPartField dayPartField;
+	private final DayField source;
+	private final Part part;
 
-	enum DayPartField {
-		DAY, MONTH, YEAR, WEEK;
+	enum Part {
+		DAY_OF_MONTH
+		{
+			@Override
+			String getNameForQuery()
+			{
+				return "dayOfMonth";
+			}
+			
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getDay();
+			}
+			
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getDayOfMonth();
+			}
+		},
+		
+		MONTH
+		{
+			@Override
+			String getNameForQuery()
+			{
+				return "month";
+			}
+			
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getMonth();
+			}
+			
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getMonth();
+			}
+		},
+		
+		YEAR
+		{
+			@Override
+			String getNameForQuery()
+			{
+				return "year";
+			}
+			
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getYear();
+			}
+			
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getYear();
+			}
+		},
+		
+		WEEK_OF_YEAR
+		{
+			@Override
+			String getNameForQuery()
+			{
+				return "weekOfYear";
+			}
+			
+			@Override
+			int getPart(final Day day)
+			{
+				return day.getGregorianCalendar(TimeZone.getDefault()).get(Calendar.WEEK_OF_YEAR);
+			}
+			
+			@Override
+			String getNameForDialect(final Dialect dialect)
+			{
+				return dialect.getWeekOfYear();
+			}
+		};
+		
+		abstract String getNameForQuery();
+		
+		abstract String getNameForDialect(final Dialect dialect);
+		
+		abstract int getPart(final Day day);
 	}
 
-	DayPartView(final Function<Day> source, final DayPartField dayPartField)
+	DayPartView(final DayField source, final Part part)
 	{
-		super(new Function<?>[]{source}, "datePart_" + dayPartField.name(), Integer.class);
-		this.dayPartField = dayPartField;
+		super(new Function<?>[]{source}, part.getNameForQuery(), Integer.class);
+		this.part = part;
 		this.source = source;
 	}
 
@@ -45,6 +133,18 @@ public final class DayPartView extends NumberView<Integer>
 	{
 		return SimpleSelectType.INTEGER;
 	}
+
+	Part getPart()
+	{
+		return part;
+	}
+
+	DayField getSource()
+	{
+		return source;
+	}
+	
+	
 
 	@Override
 	public Integer mapJava(final Object[] sourceValues)
@@ -55,27 +155,12 @@ public final class DayPartView extends NumberView<Integer>
 		{
 			return null;
 		}
-		final Day sourceValueAsDay = (Day)sourceValue;
-		switch (dayPartField)
-		{
-			case DAY:
-				return sourceValueAsDay.getDay();
-			case MONTH:
-				return sourceValueAsDay.getMonth();
-			case YEAR:
-				return sourceValueAsDay.getYear();
-			case WEEK:
-				return sourceValueAsDay.getGregorianCalendar(TimeZone.getDefault()).get(Calendar.WEEK_OF_YEAR);
-			default:
-				throw new IllegalArgumentException("Unkown DayPartField");
-		}
+		return part.getPart((Day)sourceValue);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
-		bf.append(bf.dialect.getDatePartExtractionPrefix(dayPartField))
-				.append(source, join)
-				.append(bf.dialect.getDatePartExtractionSuffix(dayPartField));
+		bf.dialect.appendDatePartExtraction(this, bf, join);
 	}
 }

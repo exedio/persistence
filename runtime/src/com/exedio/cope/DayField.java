@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.DayPartView.DayPartField;
+import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -225,22 +225,22 @@ public final class DayField extends FunctionField<Day>
 
 	public final DayPartView day()
 	{
-		return new DayPartView(this, DayPartField.DAY);
+		return new DayPartView(this, Part.DAY_OF_MONTH);
 	}
 
 	public final DayPartView month()
 	{
-		return new DayPartView(this, DayPartField.MONTH);
+		return new DayPartView(this, Part.MONTH);
 	}
 
 	public final DayPartView year()
 	{
-		return new DayPartView(this, DayPartField.YEAR);
+		return new DayPartView(this, Part.YEAR);
 	}
 
 	public final DayPartView week()
 	{
-		return new DayPartView(this, DayPartField.WEEK);
+		return new DayPartView(this, Part.WEEK_OF_YEAR);
 	}
 
 	// ------------------- deprecated stuff -------------------
