@@ -33,13 +33,7 @@ public final class DayPartView extends NumberView<Integer>
 		DAY, MONTH, YEAR, WEEK;
 	}
 
-	/**
-	 * Creates a new DatePart.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper methods
-	 * {@link DayField#day()}, {@link DayField#month()}, {@link DayField#year()} or {@link DayField#week()}.
-	 */
-	protected DayPartView(final Function<Day> source, final DayPartField dayPartField)
+	DayPartView(final Function<Day> source, final DayPartField dayPartField)
 	{
 		super(new Function<?>[]{source}, "datePart_" + dayPartField.name(), Integer.class);
 		this.dayPartField = dayPartField;
