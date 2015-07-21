@@ -4,7 +4,7 @@
 				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 	<info
 			organisation="com.exedio"
-			module="cope"
+			module="cope-AddDateExtraction"
 			revision="@BUILD_REVISION@">
 		<license
 				name="GNU Lesser General Public License, Version 2.1"
