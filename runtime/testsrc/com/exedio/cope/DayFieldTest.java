@@ -240,6 +240,44 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(optionalWeekDpv.isNotNull()));
 	}
 
+	public void testDayPartViewsWeekAroundNewYear()
+	{
+		assertWeek(new Day(2002, 12, 27), 52); // Friday
+		assertWeek(new Day(2002, 12, 28), 52); // Saturday
+		assertWeek(new Day(2002, 12, 29), 52); // Sunday
+		assertWeek(new Day(2002, 12, 30),  1); // Monday
+		assertWeek(new Day(2002, 12, 31),  1); // Tuesday
+		assertWeek(new Day(2003,  1,  1),  1); // Wednesday
+		assertWeek(new Day(2003,  1,  2),  1); // Thursday
+
+		assertWeek(new Day(2003, 12, 27), 52); // Saturday
+		assertWeek(new Day(2003, 12, 28), 52); // Sunday
+		assertWeek(new Day(2003, 12, 29),  1); // Monday
+		assertWeek(new Day(2003, 12, 30),  1); // Tuesday
+		assertWeek(new Day(2003, 12, 31),  1); // Wednesday
+		assertWeek(new Day(2004,  1,  1),  1); // Thursday
+		assertWeek(new Day(2004,  1,  2),  1); // Friday
+
+		assertWeek(new Day(2004, 12, 31), 53); // Sunday
+		assertWeek(new Day(2005,  1,  1), 53); // Monday
+		assertWeek(new Day(2005,  1,  2), 53); // Tuesday
+		assertWeek(new Day(2005,  1,  3),  1); // Wednesday
+		assertWeek(new Day(2005,  1,  4),  1); // Thursday
+
+		assertWeek(new Day(2005, 12, 31), 52); // Saturday
+		assertWeek(new Day(2006,  1,  1), 52); // Sunday
+		assertWeek(new Day(2006,  1,  2),  1); // Monday
+		assertWeek(new Day(2006,  1,  3),  1); // Tuesday
+	}
+
+	private void assertWeek(final Day value, final int week)
+	{
+		final DayPartView view = day.weekOfYear();
+		item.setDay(value);
+		assertEquals(week, view.get(item).intValue());
+		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.equal(item)).search());
+	}
+
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{
