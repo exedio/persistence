@@ -223,7 +223,7 @@ public final class DayField extends FunctionField<Day>
 		return result;
 	}
 
-	public final DayPartView day()
+	public final DayPartView dayOfMonth()
 	{
 		return new DayPartView(this, Part.DAY_OF_MONTH);
 	}
@@ -238,7 +238,7 @@ public final class DayField extends FunctionField<Day>
 		return new DayPartView(this, Part.YEAR);
 	}
 
-	public final DayPartView week()
+	public final DayPartView weekOfYear()
 	{
 		return new DayPartView(this, Part.WEEK_OF_YEAR);
 	}
