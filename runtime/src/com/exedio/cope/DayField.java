@@ -222,12 +222,12 @@ public final class DayField extends FunctionField<Day>
 		final java.sql.Date result = new java.sql.Date(year, month, day);
 		return result;
 	}
-	
+
 	public final DayPartView day()
 	{
 		return new DayPartView(this, DayPartField.DAY);
 	}
-	
+
 	public final DayPartView month()
 	{
 		return new DayPartView(this, DayPartField.MONTH);

@@ -510,7 +510,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	String getDatePartExtractionPrefix(DayPartField field)
+	String getDatePartExtractionPrefix(final DayPartField field)
 	{
 		switch (field)
 		{
@@ -520,9 +520,9 @@ final class OracleDialect extends Dialect
 				return super.getDatePartExtractionPrefix(field);
 		}
 	}
-	
+
 	@Override
-	String getDatePartExtractionSuffix(DayPartField field)
+	String getDatePartExtractionSuffix(final DayPartField field)
 	{
 		switch (field)
 		{

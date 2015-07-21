@@ -201,7 +201,7 @@ abstract class Dialect
 	{
 		return "CHAR_LENGTH";
 	}
-	
+
 	String getDatePartExtractionPrefix(final DayPartField field)
 	{
 		return new StringBuilder("EXTRACT(")
@@ -209,7 +209,7 @@ abstract class Dialect
 				.append(" from ")
 				.toString();
 	}
-	
+
 	String getDatePartExtractionSuffix(final DayPartField field)
 	{
 		return ")";

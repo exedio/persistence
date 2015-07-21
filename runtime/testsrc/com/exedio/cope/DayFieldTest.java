@@ -70,7 +70,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		final Day thisDay = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);
 		final Day nextDay = new Day(2005, 9, 24);
-		
+
 		assertEquals(TYPE, day.getType());
 		assertEquals(Day.class, day.getValueClass());
 		assertSerializedSame(day, 364);
@@ -114,7 +114,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item, item2, TYPE.search(optionalDay.isNull()));
 		assertEquals(list(), TYPE.search(optionalDay.notEqual((Day)null)));
 		assertEquals(list(), TYPE.search(optionalDay.isNotNull()));
-		
+
 		item.setDay(nextDay);
 		restartTransaction();
 		assertEquals(nextDay, item.getDay());
@@ -146,7 +146,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		restartTransaction();
 		assertEquals(null, item.getOptionalDay());
 	}
-	
+
 	public void testDayPartViews()
 	{
 		final DayPartView dayDpv = day.day();
@@ -157,7 +157,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		final Day day1 = new Day(2006, 9, 23);
 		final Day day2 = new Day(2006, 9, 22);
 		final Day day3 = new Day(2006, 10, 23);
-		
+
 		item.setDay(day1);
 		restartTransaction();
 		assertEquals(23, dayDpv.get(item).intValue());
@@ -172,7 +172,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(yearDpv.equal(2006)));
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(38)));
-		
+
 		item.setDay(day2);
 		restartTransaction();
 		assertEquals(22, dayDpv.get(item).intValue());
@@ -187,7 +187,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(yearDpv.equal(2006)));
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(38)));
-		
+
 		item.setDay(day3);
 		restartTransaction();
 		assertEquals(23, dayDpv.get(item).intValue());
@@ -202,17 +202,17 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(item, TYPE.search(yearDpv.equal(2006)));
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(43)));
-		
+
 		assertContains(15, 23, new Query<>(dayDpv, TYPE, null).search());
 		assertContains(8, 10, new Query<>(monthDpv, TYPE, null).search());
 		assertContains(2005, 2006, new Query<>(yearDpv, TYPE, null).search());
 		assertContains(33, 43, new Query<>(weekDpv, TYPE, null).search());
-		
+
 		final DayPartView optionalDayDpv = optionalDay.day();
 		final DayPartView optionalMonthDpv = optionalDay.month();
 		final DayPartView optionalYearDpv = optionalDay.year();
 		final DayPartView optionalWeekDpv = optionalDay.week();
-		
+
 		assertContains(item, item2, TYPE.search(optionalDayDpv.isNull()));
 		assertContains(TYPE.search(optionalDayDpv.isNotNull()));
 		assertContains(item, item2, TYPE.search(optionalMonthDpv.isNull()));
@@ -221,7 +221,7 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertContains(TYPE.search(optionalYearDpv.isNotNull()));
 		assertContains(item, item2, TYPE.search(optionalWeekDpv.isNull()));
 		assertContains(TYPE.search(optionalWeekDpv.isNotNull()));
-		
+
 		final Day optionalDay = new Day(5555, 12, 31);
 		item.setOptionalDay(optionalDay);
 		restartTransaction();

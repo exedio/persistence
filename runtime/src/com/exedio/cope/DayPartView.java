@@ -10,7 +10,7 @@ public class DayPartView extends NumberView<Integer>
 
 	private final Function<Day> source;
 	private final DayPartField dayPartField;
-	
+
 	enum DayPartField {
 		DAY, MONTH, YEAR, WEEK;
 	}

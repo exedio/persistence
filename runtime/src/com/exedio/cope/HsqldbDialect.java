@@ -294,7 +294,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getDatePartExtractionPrefix(DayPartField field)
+	String getDatePartExtractionPrefix(final DayPartField field)
 	{
 		return super.getDatePartExtractionPrefix(field).replace("week", "week_of_year");
 	}
