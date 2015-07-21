@@ -515,7 +515,7 @@ final class OracleDialect extends Dialect
 		switch (field)
 		{
 			case WEEK:
-				return "TO_CHAR(";
+				return "TO_NUMBER(TO_CHAR(";
 			default:
 				return super.getDatePartExtractionPrefix(field);
 		}
@@ -527,7 +527,7 @@ final class OracleDialect extends Dialect
 		switch (field)
 		{
 			case WEEK:
-				return ", 'IW' )";
+				return ", 'IW' ))";
 			default:
 				return super.getDatePartExtractionSuffix(field);
 		}
