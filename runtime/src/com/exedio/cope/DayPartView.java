@@ -22,7 +22,7 @@ import com.exedio.cope.util.Day;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-public class DayPartView extends NumberView<Integer>
+public final class DayPartView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -53,7 +53,7 @@ public class DayPartView extends NumberView<Integer>
 	}
 
 	@Override
-	public final Integer mapJava(final Object[] sourceValues)
+	public Integer mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
@@ -78,7 +78,7 @@ public class DayPartView extends NumberView<Integer>
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append(bf.dialect.getDatePartExtractionPrefix(dayPartField))
 				.append(source, join)
