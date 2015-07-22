@@ -270,12 +270,12 @@ public final class Price implements Serializable, Comparable<Price>
 		return multiply(other, RoundingMode.HALF_EVEN);
 	}
 
-	public Price multiply(final double other, final RoundingMode rm)
+	public Price multiply(final double other, final RoundingMode roundingMode)
 	{
 		if(other==1.0)
 			return this;
 
-		return valueOf(bigValue().multiply(BigDecimal.valueOf(other)), rm);
+		return valueOf(bigValue().multiply(BigDecimal.valueOf(other)), roundingMode);
 	}
 
 	public Price divide(final double other)
@@ -283,14 +283,14 @@ public final class Price implements Serializable, Comparable<Price>
 		return divide(other, RoundingMode.HALF_EVEN);
 	}
 
-	public Price divide(final double other, final RoundingMode rm)
+	public Price divide(final double other, final RoundingMode roundingMode)
 	{
 		if(other==1.0)
 			return this;
 		//backward compatibility
 		if (other==0.0)
 			throw new IllegalArgumentException("Infinity not allowed");
-		return valueOf(bigValue().divide(BigDecimal.valueOf(other), 2, rm), RoundingMode.UNNECESSARY);
+		return valueOf(bigValue().divide(BigDecimal.valueOf(other), 2, roundingMode), RoundingMode.UNNECESSARY);
 	}
 
 	/**
@@ -304,7 +304,7 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
-	public Price grossToNetPercent(final int rate, final RoundingMode rm)
+	public Price grossToNetPercent(final int rate, final RoundingMode roundingMode)
 	{
 		checkRatePercent(rate);
 
@@ -312,7 +312,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return this;
 
-		return multiply(100).divide((100d + rate), rm);
+		return multiply(100).divide((100d + rate), roundingMode);
 	}
 
 	/**
@@ -326,7 +326,7 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
-	public Price grossToTaxPercent(final int rate, final RoundingMode rm)
+	public Price grossToTaxPercent(final int rate, final RoundingMode roundingMode)
 	{
 		checkRatePercent(rate);
 
@@ -334,7 +334,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return ZERO;
 
-		return multiply(rate).divide((100d + rate), rm);
+		return multiply(rate).divide((100d + rate), roundingMode);
 	}
 
 	private static void checkRatePercent(final int rate)
@@ -404,7 +404,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return valueOf(value, RoundingMode.HALF_EVEN);
 	}
 
-	public static Price valueOf(final double value, final RoundingMode rm)
+	public static Price valueOf(final double value, final RoundingMode roundingMode)
 	{
 		// TODO reuse common small values
 		if(Double.isNaN(value))
@@ -419,7 +419,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(
 				BigDecimal.valueOf(value).
 				movePointRight(2).
-				setScale(0, rm).
+				setScale(0, roundingMode).
 				intValueExact());
 	}
 
@@ -439,7 +439,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return valueOf(value, RoundingMode.HALF_EVEN);
 	}
 
-	public static Price valueOf(final BigDecimal value, final RoundingMode rm)
+	public static Price valueOf(final BigDecimal value, final RoundingMode roundingMode)
 	{
 		// TODO reuse common small values
 		if(value.compareTo(BIG_MIN_VALUE)<0)
@@ -447,7 +447,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value.compareTo(BIG_MAX_VALUE)>0)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf(value.movePointRight(2).setScale(0, rm).intValue());
+		return storeOf(value.movePointRight(2).setScale(0, roundingMode).intValue());
 	}
 
 	public BigDecimal bigValue()
