@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
@@ -269,6 +270,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return multiply(other, RoundingMode.HALF_EVEN);
 	}
+
 	public Price multiply(final double other, final RoundingMode rm)
 	{
 		if(other==1.0)
@@ -281,12 +283,15 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return divide(other, RoundingMode.HALF_EVEN);
 	}
+
 	public Price divide(final double other, final RoundingMode rm)
 	{
 		if(other==1.0)
 			return this;
-
-		return valueOf(doubleValue() / other, rm);
+		//backward compatibility
+		if (other==0.0)
+			throw new IllegalArgumentException("Infinity not allowed");
+		return valueOf(bigValue().divide(BigDecimal.valueOf(other), 2, rm), RoundingMode.UNNECESSARY);
 	}
 
 	/**
@@ -296,6 +301,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return grossToNetPercent(rate, RoundingMode.HALF_EVEN);
 	}
+
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
@@ -307,7 +313,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return this;
 
-		return valueOf(doubleValue() *        100d / (100 + rate), rm);
+		return multiply(100).divide((100d + rate), rm);
 	}
 
 	/**
@@ -317,6 +323,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return grossToTaxPercent(rate, RoundingMode.HALF_EVEN);
 	}
+
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
@@ -328,7 +335,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return ZERO;
 
-		return valueOf(doubleValue() * (1d - (100d / (100 + rate))), rm);
+		return multiply(rate).divide((100d + rate), rm);
 	}
 
 	private static void checkRatePercent(final int rate)
@@ -397,6 +404,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return valueOf(value, RoundingMode.HALF_EVEN);
 	}
+
 	public static Price valueOf(final double value, final RoundingMode rm)
 	{
 		// TODO reuse common small values
@@ -431,6 +439,7 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		return valueOf(value, RoundingMode.HALF_EVEN);
 	}
+
 	public static Price valueOf(final BigDecimal value, final RoundingMode rm)
 	{
 		// TODO reuse common small values
