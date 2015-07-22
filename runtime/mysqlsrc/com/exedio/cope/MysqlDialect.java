@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -651,6 +652,21 @@ final class MysqlDialect extends Dialect
 		finally
 		{
 			connectionPool.put(connection);
+		}
+	}
+
+	@Override
+	void appendDatePartExtraction(DayPartView view, Statement bf, Join join)
+	{
+		if(Part.WEEK_OF_YEAR.equals(view.getPart()))
+		{
+			bf.append("WEEKOFYEAR(").
+				append(view.getSource(), join).
+				append(")");
+		}
+		else
+		{
+			super.appendDatePartExtraction(view, bf, join);
 		}
 	}
 }
