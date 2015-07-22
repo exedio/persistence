@@ -28,7 +28,7 @@ public class CommitListenerTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitListener(appender(bf, "one"));
+		model.addCommitHook(appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -39,8 +39,8 @@ public class CommitListenerTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitListener(appender(bf, "one"));
-		model.addCommitListener(appender(bf, "two"));
+		model.addCommitHook(appender(bf, "one"));
+		model.addCommitHook(appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -51,9 +51,9 @@ public class CommitListenerTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitListener(appender(bf, "one"));
-		model.addCommitListener(thrower("thrower"));
-		model.addCommitListener(appender(bf, "two"));
+		model.addCommitHook(appender(bf, "one"));
+		model.addCommitHook(thrower("thrower"));
+		model.addCommitHook(appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -74,7 +74,7 @@ public class CommitListenerTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitListener(appender(bf, "one"));
+		model.addCommitHook(appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -83,17 +83,17 @@ public class CommitListenerTest extends CopeAssert
 		assertEquals(false, model.hasCurrentTransaction());
 	}
 
-	public void testNullListener()
+	public void testNullHook()
 	{
 		model.startTransaction("tx");
 		try
 		{
-			model.addCommitListener(null);
+			model.addCommitHook(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("listener", e.getMessage());
+			assertEquals("hook", e.getMessage());
 		}
 	}
 
@@ -101,7 +101,7 @@ public class CommitListenerTest extends CopeAssert
 	{
 		try
 		{
-			model.addCommitListener(null);
+			model.addCommitHook(null);
 			fail();
 		}
 		catch(final IllegalStateException e)

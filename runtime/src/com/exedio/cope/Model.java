@@ -645,9 +645,9 @@ public final class Model implements Serializable
 		return transactions.current();
 	}
 
-	public void addCommitListener(final Runnable listener)
+	public void addCommitHook(final Runnable hook)
 	{
-		transactions.current().addCommitListener(listener);
+		transactions.current().addCommitHook(hook);
 	}
 
 	public void rollback()

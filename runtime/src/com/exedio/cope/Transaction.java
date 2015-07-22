@@ -401,33 +401,33 @@ public final class Transaction
 		}
 
 		if(!rollback)
-			fireCommitListeners();
+			fireCommitHooks();
 	}
 
 
-	// commitListeners
+	// commitHooks
 
-	private ArrayList<Runnable> commitListeners = null;
+	private ArrayList<Runnable> commitHooks = null;
 
-	void addCommitListener(final Runnable listener)
+	void addCommitHook(final Runnable hook)
 	{
-		requireNonNull(listener, "listener");
-		if(commitListeners==null)
-			commitListeners = new ArrayList<>();
-		commitListeners.add(listener);
+		requireNonNull(hook, "hook");
+		if(commitHooks==null)
+			commitHooks = new ArrayList<>();
+		commitHooks.add(hook);
 	}
 
-	private void fireCommitListeners()
+	private void fireCommitHooks()
 	{
-		if(commitListeners==null)
+		if(commitHooks==null)
 			return;
 
-		for(final Runnable listener : commitListeners)
-			listener.run();
+		for(final Runnable hook : commitHooks)
+			hook.run();
 
 		// cleanup
-		commitListeners.clear();
-		commitListeners = null;
+		commitHooks.clear();
+		commitHooks = null;
 	}
 
 
