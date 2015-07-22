@@ -29,7 +29,9 @@ public class CommitHookTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
+		assertEquals(0, model.currentTransaction().getCommitHookCount());
 		model.addCommitHook(appender(bf, "one"));
+		assertEquals(1, model.currentTransaction().getCommitHookCount());
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -40,8 +42,11 @@ public class CommitHookTest extends CopeAssert
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
+		assertEquals(0, model.currentTransaction().getCommitHookCount());
 		model.addCommitHook(appender(bf, "one"));
+		assertEquals(1, model.currentTransaction().getCommitHookCount());
 		model.addCommitHook(appender(bf, "two"));
+		assertEquals(2, model.currentTransaction().getCommitHookCount());
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -89,6 +94,7 @@ public class CommitHookTest extends CopeAssert
 	public void testNullHook()
 	{
 		model.startTransaction("tx");
+		assertEquals(0, model.currentTransaction().getCommitHookCount());
 		try
 		{
 			model.addCommitHook(null);
@@ -98,6 +104,7 @@ public class CommitHookTest extends CopeAssert
 		{
 			assertEquals("hook", e.getMessage());
 		}
+		assertEquals(0, model.currentTransaction().getCommitHookCount());
 	}
 
 	public void testNoTransaction()
