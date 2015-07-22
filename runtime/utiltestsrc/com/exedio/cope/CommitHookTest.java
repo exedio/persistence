@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.junit.CopeAssert;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
+import java.util.ArrayList;
 
 public class CommitHookTest extends CopeAssert
 {
@@ -57,6 +58,7 @@ public class CommitHookTest extends CopeAssert
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
+		assertEquals(list(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
 		try
 		{
 			model.commit();
@@ -68,6 +70,7 @@ public class CommitHookTest extends CopeAssert
 		}
 		assertEquals("one,", bf.toString());
 		assertEquals(false, model.hasCurrentTransaction());
+		assertEquals(list(), new ArrayList<>(model.getOpenTransactions()));
 	}
 
 	public void testRollback()
