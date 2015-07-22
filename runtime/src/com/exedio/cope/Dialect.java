@@ -226,7 +226,7 @@ abstract class Dialect
 				.append(view.getPart().getNameForDialect(this))
 				.append(" FROM ")
 				.append(view.getSource(), join)
-				.append(")");
+				.append(')');
 	}
 
 	abstract String getDayType();

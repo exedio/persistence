@@ -172,7 +172,7 @@ final class MysqlDialect extends Dialect
 		{
 			bf.append("WEEKOFYEAR(").
 				append(view.getSource(), join).
-				append(")");
+				append(')');
 		}
 		else
 		{
