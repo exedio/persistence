@@ -18,9 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+
 import com.exedio.cope.util.Day;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public final class DayPartView extends NumberView<Integer>
 {
@@ -64,7 +65,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			int getPart(final Day day)
 			{
-				return day.getGregorianCalendar(TimeZone.getDefault()).get(Calendar.WEEK_OF_YEAR);
+				return day.getGregorianCalendar(getTimeZone("UTC")).get(Calendar.WEEK_OF_YEAR);
 			}
 
 			@Override
