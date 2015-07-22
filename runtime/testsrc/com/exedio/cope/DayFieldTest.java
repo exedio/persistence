@@ -147,6 +147,137 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertEquals(null, item.getOptionalDay());
 	}
 
+	public void testDayPartViews()
+	{
+		final DayPartView dayDpv = day.dayOfMonth();
+		final DayPartView monthDpv = day.month();
+		final DayPartView yearDpv = day.year();
+		final DayPartView weekDpv = day.weekOfYear();
+
+		assertEquals("dayOfMonth(DayItem.day)", dayDpv.toString());
+		assertEquals("month(DayItem.day)", monthDpv.toString());
+		assertEquals("year(DayItem.day)", yearDpv.toString());
+		assertEquals("weekOfYear(DayItem.day)", weekDpv.toString());
+
+		final Day day1 = new Day(2006, 9, 23);
+		final Day day2 = new Day(2006, 9, 22);
+		final Day day3 = new Day(2006, 10, 23);
+
+		item.setDay(day1);
+		restartTransaction();
+		assertEquals(23, dayDpv.get(item).intValue());
+		assertEquals(9, monthDpv.get(item).intValue());
+		assertEquals(2006, yearDpv.get(item).intValue());
+		assertEquals(38, weekDpv.get(item).intValue());
+		assertContains(TYPE.search(dayDpv.equal(1)));
+		assertContains(item, TYPE.search(dayDpv.equal(23)));
+		assertContains(TYPE.search(monthDpv.equal(10)));
+		assertContains(item, TYPE.search(monthDpv.equal(9)));
+		assertContains(TYPE.search(yearDpv.equal(2007)));
+		assertContains(item, TYPE.search(yearDpv.equal(2006)));
+		assertContains(TYPE.search(weekDpv.equal(1)));
+		assertContains(item, TYPE.search(weekDpv.equal(38)));
+
+		item.setDay(day2);
+		restartTransaction();
+		assertEquals(22, dayDpv.get(item).intValue());
+		assertEquals(9, monthDpv.get(item).intValue());
+		assertEquals(2006, yearDpv.get(item).intValue());
+		assertEquals(38, weekDpv.get(item).intValue());
+		assertContains(TYPE.search(dayDpv.equal(1)));
+		assertContains(item, TYPE.search(dayDpv.equal(22)));
+		assertContains(TYPE.search(monthDpv.equal(10)));
+		assertContains(item, TYPE.search(monthDpv.equal(9)));
+		assertContains(TYPE.search(yearDpv.equal(2007)));
+		assertContains(item, TYPE.search(yearDpv.equal(2006)));
+		assertContains(TYPE.search(weekDpv.equal(1)));
+		assertContains(item, TYPE.search(weekDpv.equal(38)));
+
+		item.setDay(day3);
+		restartTransaction();
+		assertEquals(23, dayDpv.get(item).intValue());
+		assertEquals(10, monthDpv.get(item).intValue());
+		assertEquals(2006, yearDpv.get(item).intValue());
+		assertEquals(43, weekDpv.get(item).intValue());
+		assertContains(TYPE.search(dayDpv.equal(1)));
+		assertContains(item, TYPE.search(dayDpv.equal(23)));
+		assertContains(TYPE.search(monthDpv.equal(9)));
+		assertContains(item, TYPE.search(monthDpv.equal(10)));
+		assertContains(TYPE.search(yearDpv.equal(2007)));
+		assertContains(item, TYPE.search(yearDpv.equal(2006)));
+		assertContains(TYPE.search(weekDpv.equal(1)));
+		assertContains(item, TYPE.search(weekDpv.equal(43)));
+
+		assertContains(23, new Query<>(dayDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(10, new Query<>(monthDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(2006, new Query<>(yearDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(43, new Query<>(weekDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+
+		final DayPartView optionalDayDpv = optionalDay.dayOfMonth();
+		final DayPartView optionalMonthDpv = optionalDay.month();
+		final DayPartView optionalYearDpv = optionalDay.year();
+		final DayPartView optionalWeekDpv = optionalDay.weekOfYear();
+
+		assertContains(item, item2, TYPE.search(optionalDayDpv.isNull()));
+		assertContains(TYPE.search(optionalDayDpv.isNotNull()));
+		assertContains(item, item2, TYPE.search(optionalMonthDpv.isNull()));
+		assertContains(TYPE.search(optionalMonthDpv.isNotNull()));
+		assertContains(item, item2, TYPE.search(optionalYearDpv.isNull()));
+		assertContains(TYPE.search(optionalYearDpv.isNotNull()));
+		assertContains(item, item2, TYPE.search(optionalWeekDpv.isNull()));
+		assertContains(TYPE.search(optionalWeekDpv.isNotNull()));
+
+		final Day optionalDay = new Day(5555, 12, 31);
+		item.setOptionalDay(optionalDay);
+		restartTransaction();
+		assertContains(item2, TYPE.search(optionalDayDpv.isNull()));
+		assertContains(item, TYPE.search(optionalDayDpv.isNotNull()));
+		assertContains(item2, TYPE.search(optionalMonthDpv.isNull()));
+		assertContains(item, TYPE.search(optionalMonthDpv.isNotNull()));
+		assertContains(item2, TYPE.search(optionalYearDpv.isNull()));
+		assertContains(item, TYPE.search(optionalYearDpv.isNotNull()));
+		assertContains(item2, TYPE.search(optionalWeekDpv.isNull()));
+		assertContains(item, TYPE.search(optionalWeekDpv.isNotNull()));
+	}
+
+	public void testDayPartViewsWeekAroundNewYear()
+	{
+		assertWeek(new Day(2002, 12, 27), 52); // Friday
+		assertWeek(new Day(2002, 12, 28), 52); // Saturday
+		assertWeek(new Day(2002, 12, 29), 52); // Sunday
+		assertWeek(new Day(2002, 12, 30),  1); // Monday
+		assertWeek(new Day(2002, 12, 31),  1); // Tuesday
+		assertWeek(new Day(2003,  1,  1),  1); // Wednesday
+		assertWeek(new Day(2003,  1,  2),  1); // Thursday
+
+		assertWeek(new Day(2003, 12, 27), 52); // Saturday
+		assertWeek(new Day(2003, 12, 28), 52); // Sunday
+		assertWeek(new Day(2003, 12, 29),  1); // Monday
+		assertWeek(new Day(2003, 12, 30),  1); // Tuesday
+		assertWeek(new Day(2003, 12, 31),  1); // Wednesday
+		assertWeek(new Day(2004,  1,  1),  1); // Thursday
+		assertWeek(new Day(2004,  1,  2),  1); // Friday
+
+		assertWeek(new Day(2004, 12, 31), 53); // Sunday
+		assertWeek(new Day(2005,  1,  1), 53); // Monday
+		assertWeek(new Day(2005,  1,  2), 53); // Tuesday
+		assertWeek(new Day(2005,  1,  3),  1); // Wednesday
+		assertWeek(new Day(2005,  1,  4),  1); // Thursday
+
+		assertWeek(new Day(2005, 12, 31), 52); // Saturday
+		assertWeek(new Day(2006,  1,  1), 52); // Sunday
+		assertWeek(new Day(2006,  1,  2),  1); // Monday
+		assertWeek(new Day(2006,  1,  3),  1); // Tuesday
+	}
+
+	private void assertWeek(final Day value, final int week)
+	{
+		final DayPartView view = day.weekOfYear();
+		item.setDay(value);
+		assertEquals(week, view.get(item).intValue());
+		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.equal(item)).search());
+	}
+
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	public void testUnchecked()
 	{

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -88,6 +89,21 @@ final class OracleDialect extends Dialect
 	String getDayType()
 	{
 		return "DATE";
+	}
+
+	@Override
+	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
+	{
+		if(Part.WEEK_OF_YEAR.equals(view.getPart()))
+		{
+			bf.append("TO_NUMBER(TO_CHAR(").
+				append(view.getSource(), join).
+				append(", 'IW'))");
+		}
+		else
+		{
+			super.appendDatePartExtraction(view, bf, join);
+		}
 	}
 
 	@Override

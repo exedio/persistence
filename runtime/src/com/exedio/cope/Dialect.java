@@ -200,6 +200,35 @@ abstract class Dialect
 		return "CHAR_LENGTH";
 	}
 
+	String getDayOfMonth()
+	{
+		return "DAY";
+	}
+
+	String getMonth()
+	{
+		return "MONTH";
+	}
+
+	String getYear()
+	{
+		return "YEAR";
+	}
+
+	String getWeekOfYear()
+	{
+		return "WEEK";
+	}
+
+	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
+	{
+		bf.append("EXTRACT(")
+				.append(view.getPart().getNameForDialect(this))
+				.append(" FROM ")
+				.append(view.getSource(), join)
+				.append(')');
+	}
+
 	abstract String getDayType();
 
 	/**

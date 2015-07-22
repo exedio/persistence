@@ -67,6 +67,12 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	String getWeekOfYear()
+	{
+		return "WEEK_OF_YEAR";
+	}
+
+	@Override
 	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3) WITHOUT TIME ZONE";
