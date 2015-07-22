@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 
-public class CommitListenerTest extends CopeAssert
+public class CommitHookTest extends CopeAssert
 {
 	public void testOne()
 	{
