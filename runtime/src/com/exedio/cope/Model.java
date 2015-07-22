@@ -645,11 +645,6 @@ public final class Model implements Serializable
 		return transactions.current();
 	}
 
-	public void addCommitHook(final Runnable hook)
-	{
-		transactions.current().addCommitHook(hook);
-	}
-
 	public void rollback()
 	{
 		commitOrRollback(true);
@@ -690,6 +685,11 @@ public final class Model implements Serializable
 	public Collection<Transaction> getOpenTransactions()
 	{
 		return transactions.getOpen();
+	}
+
+	public void addCommitHook(final Runnable hook)
+	{
+		transactions.current().addCommitHook(hook);
 	}
 
 	/**
