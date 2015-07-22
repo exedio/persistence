@@ -240,7 +240,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(    58, problem.divide( 2d).store());
 		assertEquals(   -58, problem.divide(-2d).store());
 		assertValueOfDoubleOnDivide(problem, 2d, 57, DOWN, HALF_DOWN);
-		assertValueOfDoubleOnDivide(problem, 2d, 58, UP, HALF_UP, HALF_EVEN);
+		assertValueOfDoubleOnDivide(problem, 2d, 58, HALF_EVEN, HALF_UP, UP);
 	}
 
 	private static void assertValueOfDoubleOnDivide(final Price origin, final double divisor, final int expected, final RoundingMode... roundingModes)
@@ -261,7 +261,7 @@ public final class PriceTest extends CopeAssert
 		// result 1.435
 		assertEquals(   144, problem.multiply( multiplier).store());
 		assertEquals(  -144, problem.multiply(-multiplier).store());
-		assertValueOfDoubleOnMultiply(problem, multiplier, 144, UP, HALF_UP, HALF_EVEN);
+		assertValueOfDoubleOnMultiply(problem, multiplier, 144, HALF_EVEN, HALF_UP, UP);
 		assertValueOfDoubleOnMultiply(problem, multiplier, 143, DOWN, HALF_DOWN);
 	}
 
@@ -786,6 +786,9 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20));
 		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20));
 		assertEquals(storeOf(  57), storeOf(  69).grossToNetPercent(20, HALF_DOWN));
+		assertEquals(storeOf( -57), storeOf( -69).grossToNetPercent(20, HALF_DOWN));
+		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20, HALF_UP));
+		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20, HALF_UP));
 
 		try
 		{
