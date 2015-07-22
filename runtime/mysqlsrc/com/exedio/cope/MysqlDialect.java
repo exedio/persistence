@@ -166,6 +166,21 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
+	{
+		if(Part.WEEK_OF_YEAR.equals(view.getPart()))
+		{
+			bf.append("WEEKOFYEAR(").
+				append(view.getSource(), join).
+				append(")");
+		}
+		else
+		{
+			super.appendDatePartExtraction(view, bf, join);
+		}
+	}
+
+	@Override
 	String getDateTimestampType()
 	{
 		// TODO
@@ -652,21 +667,6 @@ final class MysqlDialect extends Dialect
 		finally
 		{
 			connectionPool.put(connection);
-		}
-	}
-
-	@Override
-	void appendDatePartExtraction(DayPartView view, Statement bf, Join join)
-	{
-		if(Part.WEEK_OF_YEAR.equals(view.getPart()))
-		{
-			bf.append("WEEKOFYEAR(").
-				append(view.getSource(), join).
-				append(")");
-		}
-		else
-		{
-			super.appendDatePartExtraction(view, bf, join);
 		}
 	}
 }
