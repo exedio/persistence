@@ -24,9 +24,15 @@ import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static java.math.RoundingMode.DOWN;
+import static java.math.RoundingMode.HALF_DOWN;
+import static java.math.RoundingMode.HALF_EVEN;
+import static java.math.RoundingMode.HALF_UP;
+import static java.math.RoundingMode.UP;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public final class PriceTest extends CopeAssert
 {
@@ -201,6 +207,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals("-0.575", Double.toString(-problem));
 		assertEquals(    58,   valueOf( problem).store());
 		assertEquals(   -58,   valueOf(-problem).store());
+		assertValueOfDouble(problem, 58, HALF_EVEN, HALF_UP, UP);
+		assertValueOfDouble(problem, 57, DOWN, HALF_DOWN);
 	}
 
 	public static void testValueOfDoubleRoundSpecialProblem2()
@@ -210,6 +218,17 @@ public final class PriceTest extends CopeAssert
 		assertEquals("-1.435", Double.toString(-problem));
 		assertEquals(    144,  valueOf( problem).store());
 		assertEquals(   -144,  valueOf(-problem).store());
+		assertValueOfDouble(problem, 144, HALF_EVEN, HALF_UP, UP);
+		assertValueOfDouble(problem, 143, DOWN, HALF_DOWN);
+	}
+
+	private static void assertValueOfDouble(final double origin, final int expected, final RoundingMode... roundingModes)
+	{
+		for(final RoundingMode rm : roundingModes)
+		{
+			assertEquals( expected, valueOf( origin, rm).store());
+			assertEquals(-expected, valueOf(-origin, rm).store());
+		}
 	}
 
 	public static void testRoundSpecialProblemOnDivide()
@@ -220,6 +239,17 @@ public final class PriceTest extends CopeAssert
 		// result 0.575
 		assertEquals(    58, problem.divide( 2d).store());
 		assertEquals(   -58, problem.divide(-2d).store());
+		assertValueOfDoubleOnDivide(problem, 2d, 57, DOWN, HALF_DOWN);
+		assertValueOfDoubleOnDivide(problem, 2d, 58, HALF_EVEN, HALF_UP, UP);
+	}
+
+	private static void assertValueOfDoubleOnDivide(final Price origin, final double divisor, final int expected, final RoundingMode... roundingModes)
+	{
+		for (final RoundingMode rm : roundingModes)
+		{
+			assertEquals(    expected,   origin.divide(divisor, rm).store());
+			assertEquals(   -expected,   origin.divide(-divisor, rm).store());
+		}
 	}
 
 	public static void testRoundSpecialProblemOnMultiply()
@@ -231,6 +261,17 @@ public final class PriceTest extends CopeAssert
 		// result 1.435
 		assertEquals(   144, problem.multiply( multiplier).store());
 		assertEquals(  -144, problem.multiply(-multiplier).store());
+		assertValueOfDoubleOnMultiply(problem, multiplier, 144, HALF_EVEN, HALF_UP, UP);
+		assertValueOfDoubleOnMultiply(problem, multiplier, 143, DOWN, HALF_DOWN);
+	}
+
+	private static void assertValueOfDoubleOnMultiply(final Price origin, final double multiplier, final int expected, final RoundingMode... roundingModes)
+	{
+		for(final RoundingMode rm : roundingModes)
+		{
+			assertEquals( expected, origin.multiply( multiplier, rm).store());
+			assertEquals(-expected, origin.multiply(-multiplier, rm).store());
+		}
 	}
 
 	public static void testValueOfBigDecimal()
@@ -505,7 +546,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 2.147483648E7", e.getMessage());
+			assertEquals("too big: 21474836.480", e.getMessage());
 		}
 		try
 		{
@@ -514,7 +555,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 2.14748365E7", e.getMessage());
+			assertEquals("too big: 21474836.500", e.getMessage());
 		}
 	}
 
@@ -555,7 +596,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 2.147483648E7", e.getMessage());
+			assertEquals("too big: 21474836.48", e.getMessage());
 		}
 		try
 		{
@@ -564,7 +605,7 @@ public final class PriceTest extends CopeAssert
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 2.14748365E7", e.getMessage());
+			assertEquals("too big: 21474836.50", e.getMessage());
 		}
 	}
 
@@ -744,6 +785,10 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-126), storeOf(-126).grossToNetPercent(0));
 		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20));
 		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20));
+		assertEquals(storeOf(  57), storeOf(  69).grossToNetPercent(20, HALF_DOWN));
+		assertEquals(storeOf( -57), storeOf( -69).grossToNetPercent(20, HALF_DOWN));
+		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20, HALF_UP));
+		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20, HALF_UP));
 
 		try
 		{
@@ -768,8 +813,10 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(0));
 		assertEquals(storeOf(  0), storeOf( 126).grossToTaxPercent(0));
 		assertEquals(storeOf(  0), storeOf(-126).grossToTaxPercent(0));
-		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92));
-		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92));
+		assertEquals(storeOf( 58), storeOf( 120).grossToTaxPercent(92));
+		assertEquals(storeOf(-58), storeOf(-120).grossToTaxPercent(92));
+		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92, HALF_DOWN));
+		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92, HALF_DOWN));
 
 		try
 		{
