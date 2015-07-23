@@ -26,6 +26,8 @@ import java.util.Arrays;
 // TODO cache of common small values
 public final class Price implements Serializable, Comparable<Price>
 {
+	private static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
+
 	private static final int FACTOR_I = 100;
 
 	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
@@ -267,7 +269,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price multiply(final double other)
 	{
-		return multiply(other, RoundingMode.HALF_EVEN);
+		return multiply(other, DEFAULT_ROUNDING_MODE);
 	}
 
 	public Price multiply(final double other, final RoundingMode roundingMode)
@@ -280,7 +282,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price divide(final double other)
 	{
-		return divide(other, RoundingMode.HALF_EVEN);
+		return divide(other, DEFAULT_ROUNDING_MODE);
 	}
 
 	public Price divide(final double other, final RoundingMode roundingMode)
@@ -308,7 +310,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price grossToNetPercent(final int rate)
 	{
-		return grossToNetPercent(rate, RoundingMode.HALF_EVEN);
+		return grossToNetPercent(rate, DEFAULT_ROUNDING_MODE);
 	}
 
 	/**
@@ -330,7 +332,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price grossToTaxPercent(final int rate)
 	{
-		return grossToTaxPercent(rate, RoundingMode.HALF_EVEN);
+		return grossToTaxPercent(rate, DEFAULT_ROUNDING_MODE);
 	}
 
 	/**
@@ -411,7 +413,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static Price valueOf(final double value)
 	{
-		return valueOf(value, RoundingMode.HALF_EVEN);
+		return valueOf(value, DEFAULT_ROUNDING_MODE);
 	}
 
 	public static Price valueOf(final double value, final RoundingMode roundingMode)
@@ -446,7 +448,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static Price valueOf(final BigDecimal value)
 	{
-		return valueOf(value, RoundingMode.HALF_EVEN);
+		return valueOf(value, DEFAULT_ROUNDING_MODE);
 	}
 
 	public static Price valueOf(final BigDecimal value, final RoundingMode roundingMode)
