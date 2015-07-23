@@ -416,7 +416,7 @@ public final class Transaction
 	{
 		requireNonNull(hook, "hook");
 		if(commitHooks==null)
-			commitHooks = new ArrayList<>();
+			commitHooks = new ArrayList<>(5);
 		commitHooks.add(hook);
 		commitHookCount++;
 	}
