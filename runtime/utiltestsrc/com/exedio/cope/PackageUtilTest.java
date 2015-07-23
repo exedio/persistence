@@ -27,6 +27,7 @@ public class PackageUtilTest extends TestCase
 	public static Test suite()
 	{
 		final TestSuite suite = new TestSuite();
+		suite.addTestSuite(CommitHookTest.class);
 		suite.addTestSuite(IntegerFieldTest.class);
 		suite.addTestSuite(IntegerRangeDigitsTest.class);
 		suite.addTestSuite(LongRangeDigitsTest.class);

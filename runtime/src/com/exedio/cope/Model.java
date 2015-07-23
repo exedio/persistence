@@ -687,6 +687,11 @@ public final class Model implements Serializable
 		return transactions.getOpen();
 	}
 
+	public void addCommitHook(final Runnable hook)
+	{
+		transactions.current().addCommitHook(hook);
+	}
+
 	/**
 	 * @see #startTransaction(String)
 	 */
