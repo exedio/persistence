@@ -288,7 +288,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(other==1.0)
 			return this;
 		//backward compatibility
-		if (other==0.0)
+		if(other==0.0)
 			throw new IllegalArgumentException("Infinity not allowed");
 		return valueOf(bigValue().divide(BigDecimal.valueOf(other), 2, roundingMode), RoundingMode.UNNECESSARY);
 	}
@@ -322,7 +322,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return this;
 
-		return multiply(100).divide((100 + rate), roundingMode);
+		return multiply(100).divide(100 + rate, roundingMode);
 	}
 
 	/**
@@ -344,7 +344,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(rate==0)
 			return ZERO;
 
-		return multiply(rate).divide((100 + rate), roundingMode);
+		return multiply(rate).divide(100 + rate, roundingMode);
 	}
 
 	private static void checkRatePercent(final int rate)
