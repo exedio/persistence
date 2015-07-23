@@ -295,10 +295,10 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private Price divide(final int other, final RoundingMode roundingMode)
 	{
-		if(other==1.0)
+		if(other==1)
 			return this;
 		//backward compatibility
-		if (other==0.0)
+		if(other==0)
 			throw new IllegalArgumentException("Infinity not allowed");
 		return valueOf(bigValue().divide(new BigDecimal(other), 2, roundingMode), RoundingMode.UNNECESSARY);
 	}
