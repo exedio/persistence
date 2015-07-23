@@ -242,6 +242,20 @@ public class DayFieldTest extends AbstractRuntimeTest
 
 	public void testDayPartViewsWeekAroundNewYear()
 	{
+		assertWeek(new Day(2000, 12, 30), 52); // Saturday
+		assertWeek(new Day(2000, 12, 31), 52); // Sunday
+		assertWeek(new Day(2001,  1,  1),  1); // Monday
+		assertWeek(new Day(2001,  1,  2),  1); // Tuesday
+		assertWeek(new Day(2001,  1,  3),  1); // Wednesday
+		assertWeek(new Day(2001,  1,  4),  1); // Thursday
+
+		assertWeek(new Day(2001, 12, 29), 52); // Saturday
+		assertWeek(new Day(2001, 12, 30), 52); // Sunday
+		assertWeek(new Day(2001, 12, 31),  1); // Monday
+		assertWeek(new Day(2002,  1,  1),  1); // Tuesday
+		assertWeek(new Day(2002,  1,  2),  1); // Wednesday
+		assertWeek(new Day(2002,  1,  3),  1); // Thursday
+
 		assertWeek(new Day(2002, 12, 27), 52); // Friday
 		assertWeek(new Day(2002, 12, 28), 52); // Saturday
 		assertWeek(new Day(2002, 12, 29), 52); // Sunday
@@ -257,6 +271,14 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertWeek(new Day(2003, 12, 31),  1); // Wednesday
 		assertWeek(new Day(2004,  1,  1),  1); // Thursday
 		assertWeek(new Day(2004,  1,  2),  1); // Friday
+
+		assertWeek(new Day(1998, 12, 30), 53); // Wednesday
+		assertWeek(new Day(1998, 12, 31), 53); // Thursday
+		assertWeek(new Day(1999,  1,  1), 53); // Friday
+		assertWeek(new Day(1999,  1,  2), 53); // Saturday
+		assertWeek(new Day(1999,  1,  3), 53); // Sunday
+		assertWeek(new Day(1999,  1,  4),  1); // Monday
+		assertWeek(new Day(1999,  1,  5),  1); // Tuesday
 
 		assertWeek(new Day(2004, 12, 31), 53); // Friday
 		assertWeek(new Day(2005,  1,  1), 53); // Saturday
