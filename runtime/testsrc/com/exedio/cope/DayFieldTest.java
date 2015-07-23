@@ -258,11 +258,11 @@ public class DayFieldTest extends AbstractRuntimeTest
 		assertWeek(new Day(2004,  1,  1),  1); // Thursday
 		assertWeek(new Day(2004,  1,  2),  1); // Friday
 
-		assertWeek(new Day(2004, 12, 31), 53); // Sunday
-		assertWeek(new Day(2005,  1,  1), 53); // Monday
-		assertWeek(new Day(2005,  1,  2), 53); // Tuesday
-		assertWeek(new Day(2005,  1,  3),  1); // Wednesday
-		assertWeek(new Day(2005,  1,  4),  1); // Thursday
+		assertWeek(new Day(2004, 12, 31), 53); // Friday
+		assertWeek(new Day(2005,  1,  1), 53); // Saturday
+		assertWeek(new Day(2005,  1,  2), 53); // Sunday
+		assertWeek(new Day(2005,  1,  3),  1); // Monday
+		assertWeek(new Day(2005,  1,  4),  1); // Tuesday
 
 		assertWeek(new Day(2005, 12, 31), 52); // Saturday
 		assertWeek(new Day(2006,  1,  1), 52); // Sunday
