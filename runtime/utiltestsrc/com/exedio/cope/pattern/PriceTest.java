@@ -816,6 +816,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf( 58), storeOf( 120).grossToTaxPercent(92));
 		assertEquals(storeOf(-58), storeOf(-120).grossToTaxPercent(92));
 		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92, HALF_DOWN));
+		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92, HALF_DOWN));
 
 		try
 		{
