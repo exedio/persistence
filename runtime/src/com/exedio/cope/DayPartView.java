@@ -22,6 +22,7 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.util.Day;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public final class DayPartView extends NumberView<Integer>
 {
@@ -65,7 +66,11 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			int getPart(final Day day)
 			{
-				return day.getGregorianCalendar(getTimeZone("UTC")).get(Calendar.WEEK_OF_YEAR);
+				final GregorianCalendar cal =  day.getGregorianCalendar(getTimeZone("UTC"));
+				// ISO 8601
+				cal.setFirstDayOfWeek(Calendar.MONDAY);
+				cal.setMinimalDaysInFirstWeek(4);
+				return cal.get(Calendar.WEEK_OF_YEAR);
 			}
 
 			@Override
