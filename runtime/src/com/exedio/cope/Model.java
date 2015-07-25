@@ -672,6 +672,13 @@ public final class Model implements Serializable
 			final long oldestStamp = transactions.getOldestCacheStamp();
 			connect().itemCache.purgeStamps(oldestStamp);
 		}
+
+		// NOTE:
+		// Calling Commit Hooks must be the very last thing to do. If one of the
+		// hooks fails, the transaction should still be successfully and completely
+		// committed.
+		if(!rollback)
+			tx.fireCommitHooks();
 	}
 
 	/**

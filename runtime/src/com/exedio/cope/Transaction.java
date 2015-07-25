@@ -400,9 +400,6 @@ public final class Transaction
 			}
 			invalidations = null;
 		}
-
-		if(!rollback)
-			fireCommitHooks();
 	}
 
 
@@ -421,7 +418,7 @@ public final class Transaction
 		commitHookCount++;
 	}
 
-	private void fireCommitHooks()
+	void fireCommitHooks()
 	{
 		if(commitHooks==null)
 			return;
