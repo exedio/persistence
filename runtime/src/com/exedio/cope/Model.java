@@ -647,7 +647,7 @@ public final class Model implements Serializable
 
 	public void rollback()
 	{
-		commitOrRollback(true);
+		commitOrRollback(false);
 	}
 
 	public void rollbackIfNotCommitted()
@@ -659,13 +659,13 @@ public final class Model implements Serializable
 
 	public void commit()
 	{
-		commitOrRollback(false);
+		commitOrRollback(true);
 	}
 
-	private void commitOrRollback(final boolean rollback)
+	private void commitOrRollback(final boolean commit)
 	{
 		final Transaction tx = transactions.remove();
-		tx.commitOrRollback(rollback, this, transactionCounter);
+		tx.commitOrRollback(commit, this, transactionCounter);
 
 		if(tx.connect.properties.itemCacheStamps)
 		{
@@ -677,7 +677,7 @@ public final class Model implements Serializable
 		// Calling Commit Hooks must be the very last thing to do. If one of the
 		// hooks fails, the transaction should still be successfully and completely
 		// committed.
-		tx.handleCommitHooks(rollback);
+		tx.handleCommitHooks(commit);
 	}
 
 	/**

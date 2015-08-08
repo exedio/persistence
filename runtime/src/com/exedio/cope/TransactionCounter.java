@@ -25,20 +25,20 @@ final class TransactionCounter
 	private final VolatileLong rollbackWithout = new VolatileLong();
 	private final VolatileLong rollbackWith = new VolatileLong();
 
-	void count(final boolean rollback, final boolean hadConnection)
+	void count(final boolean commit, final boolean hadConnection)
 	{
 		final VolatileLong c;
 
 		if(hadConnection)
-			if(rollback)
-				c = rollbackWith;
-			else
+			if(commit)
 				c = commitWith;
-		else
-			if(rollback)
-				c = rollbackWithout;
 			else
+				c = rollbackWith;
+		else
+			if(commit)
 				c = commitWithout;
+			else
+				c = rollbackWithout;
 
 		c.inc();
 	}

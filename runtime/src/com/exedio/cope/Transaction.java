@@ -304,13 +304,13 @@ public final class Transaction
 	 * calling this method directly breaks model.openTransactions
 	 */
 	void commitOrRollback(
-			final boolean rollback,
+			final boolean commit,
 			final Model model,
 			final TransactionCounter transactionCounter)
 	{
 		assert !closed : name;
 
-		if(!rollback && invalidations!=null)
+		if(commit && invalidations!=null)
 		{
 			assert entityMaps.length==invalidations.length;
 			model.types.unsetKnownToBeEmptyForTest(invalidations);
@@ -325,15 +325,15 @@ public final class Transaction
 				hadConnection = true;
 				try
 				{
-					if(rollback)
-						connection.rollback();
-					else
+					if(commit)
 						connection.commit();
+					else
+						connection.rollback();
 				}
 				catch(final SQLException e)
 				{
 					logger.warn( "commit or rollback failed", e );
-					throw new SQLRuntimeException(e, rollback ? "rollback" : "commit");
+					throw new SQLRuntimeException(e, commit ? "commit" : "rollback");
 				}
 				catch(final RuntimeException e)
 				{
@@ -362,7 +362,7 @@ public final class Transaction
 
 		if(invalidations!=null)
 		{
-			if(!rollback)
+			if(commit)
 			{
 				// notify global cache
 				connect.invalidate(invalidations, true);
@@ -370,10 +370,10 @@ public final class Transaction
 			}
 		}
 
-		transactionCounter.count(rollback, hadConnection);
+		transactionCounter.count(commit, hadConnection);
 
 		if(logger.isDebugEnabled())
-			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (rollback ? "rollback" : "commit")));
+			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (commit ? "commit" : "rollback")));
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup
@@ -418,12 +418,12 @@ public final class Transaction
 		commitHookCount++;
 	}
 
-	void handleCommitHooks(final boolean rollback)
+	void handleCommitHooks(final boolean commit)
 	{
 		if(commitHooks==null)
 			return;
 
-		if(!rollback)
+		if(commit)
 		{
 			for(final Runnable hook : commitHooks)
 				hook.run();
