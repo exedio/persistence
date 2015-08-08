@@ -677,8 +677,7 @@ public final class Model implements Serializable
 		// Calling Commit Hooks must be the very last thing to do. If one of the
 		// hooks fails, the transaction should still be successfully and completely
 		// committed.
-		if(!rollback)
-			tx.fireCommitHooks();
+		tx.handleCommitHooks(rollback);
 	}
 
 	/**

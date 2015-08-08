@@ -418,13 +418,16 @@ public final class Transaction
 		commitHookCount++;
 	}
 
-	void fireCommitHooks()
+	void handleCommitHooks(final boolean rollback)
 	{
 		if(commitHooks==null)
 			return;
 
-		for(final Runnable hook : commitHooks)
-			hook.run();
+		if(!rollback)
+		{
+			for(final Runnable hook : commitHooks)
+				hook.run();
+		}
 
 		// cleanup
 		commitHooks.clear();
