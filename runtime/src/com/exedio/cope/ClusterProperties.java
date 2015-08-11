@@ -71,6 +71,7 @@ final class ClusterProperties extends Properties
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
+	private final InetAddress sendInterface   = valAd("sendInterface");
 	final   InetAddress   sendAddress         = valAd("sendAddress",         MULTICAST_ADDRESS);
 	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
@@ -79,6 +80,7 @@ final class ClusterProperties extends Properties
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
 	final   InetAddress   listenAddress       = valAd("listenAddress",       MULTICAST_ADDRESS);
 	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
+	private final InetAddress listenInterface = valAd("listenInterface");
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	private final int     listenThreads       = value("listenThreads",       1, 1);
@@ -148,6 +150,23 @@ final class ClusterProperties extends Properties
 		}
 	}
 
+	private InetAddress valAd(final String key)
+	{
+		final String DEFAULT = "DEFAULT";
+		final String value = value(key, DEFAULT);
+		if(DEFAULT.equals(value))
+			return null;
+
+		try
+		{
+			return InetAddress.getByName(value);
+		}
+		catch(final UnknownHostException e)
+		{
+			throw new RuntimeException(value, e);
+		}
+	}
+
 	private boolean isEnabled()
 	{
 		return secret!=0;
@@ -190,7 +209,9 @@ final class ClusterProperties extends Properties
 			final DatagramSocket result =
 				sendSourcePortAuto
 				? new DatagramSocket()
-				: new DatagramSocket(sendSourcePort);
+				: (sendInterface==null
+					? new DatagramSocket(sendSourcePort)
+					: new DatagramSocket(sendSourcePort, sendInterface));
 			if(!sendBufferDefault)
 				result.setSendBufferSize(sendBuffer);
 			if(!sendTrafficDefault)
@@ -228,6 +249,8 @@ final class ClusterProperties extends Properties
 			{
 				@SuppressWarnings("resource") // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
+				if(listenInterface!=null)
+					resultMulti.setInterface(listenInterface);
 				resultMulti.joinGroup(listenAddress);
 				result = resultMulti;
 			}
