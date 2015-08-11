@@ -153,17 +153,17 @@ final class ClusterProperties extends Properties
 	private InetAddress valAd(final String key)
 	{
 		final String DEFAULT = "DEFAULT";
-		final String field = value(key, DEFAULT);
-		if(DEFAULT.equals(field))
+		final String value = value(key, DEFAULT);
+		if(DEFAULT.equals(value))
 			return null;
 
 		try
 		{
-			return InetAddress.getByName(field);
+			return InetAddress.getByName(value);
 		}
 		catch(final UnknownHostException e)
 		{
-			throw new RuntimeException(field, e);
+			throw new RuntimeException(value, e);
 		}
 	}
 
