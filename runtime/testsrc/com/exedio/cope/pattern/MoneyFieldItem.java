@@ -81,7 +81,7 @@ public final class MoneyFieldItem extends Item
 
 	Currency getExclusiveCurrency()
 	{
-		return exclusive.getCurrency().get(this);
+		return exclusive.getCurrencyField().get(this);
 	}
 
 

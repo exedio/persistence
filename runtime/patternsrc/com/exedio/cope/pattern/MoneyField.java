@@ -88,7 +88,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return amount;
 	}
 
-	public FunctionField<C> getCurrency()
+	public FunctionField<C> getCurrencyField()
 	{
 		return currency.getField();
 	}
@@ -268,5 +268,16 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	public final IsNullCondition<?> isNotNull()
 	{
 		return amount.isNotNull();
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getCurrencyField()} instead
+	 */
+	@Deprecated
+	public FunctionField<C> getCurrency()
+	{
+		return getCurrencyField();
 	}
 }

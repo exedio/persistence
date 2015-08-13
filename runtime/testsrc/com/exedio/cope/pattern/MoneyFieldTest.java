@@ -50,12 +50,12 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("sharedMandatory",            sharedMandatory                     .getName());
 		assertEquals("sharedMandatory-amount",     sharedMandatory.getAmount()         .getName());
 		assertEquals("sharedMandatory-amount-int", sharedMandatory.getAmount().getInt().getName());
-		assertEquals("currency",             shared.getCurrency()          .getName());
+		assertEquals("currency",             shared.getCurrencyField()     .getName());
 		assertEquals("exclusive",            exclusive                     .getName());
 		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
 		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
-		assertEquals("exclusive-currency",   exclusive.getCurrency()       .getName());
-		assertSame(shared.getCurrency(), sharedMandatory.getCurrency());
+		assertEquals("exclusive-currency",   exclusive.getCurrencyField()  .getName());
+		assertSame(shared.getCurrencyField(), sharedMandatory.getCurrencyField());
 
 		assertEquals(Currency.class, shared         .getCurrencyClass());
 		assertEquals(Currency.class, sharedMandatory.getCurrencyClass());
@@ -66,9 +66,9 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclusive      .getInitialType().toString());
 
 		assertEquals("shared_int",          getColumnName(shared.getAmount().getInt()));
-		assertEquals("currency" ,           getColumnName(shared.getCurrency()));
+		assertEquals("currency" ,           getColumnName(shared.getCurrencyField()));
 		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
-		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrency()));
+		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrencyField()));
 	}
 	public void testSharedConsistencyOkSingle()
 	{
