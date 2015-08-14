@@ -20,10 +20,19 @@ package com.exedio.cope.pattern;
 
 public final class CurrencyFixed implements Money.Currency
 {
-	public static CurrencyFixed fix = new CurrencyFixed();
+	public static final CurrencyFixed fix = new CurrencyFixed("fix");
+	public static final CurrencyFixed fixOther = new CurrencyFixed("fixOther");
 
-	private CurrencyFixed()
+	private final String code;
+
+	private CurrencyFixed(final String code)
 	{
-		// prevent instantiation
+		this.code = code;
+	}
+
+	@Override
+	public String toString()
+	{
+		return code;
 	}
 }

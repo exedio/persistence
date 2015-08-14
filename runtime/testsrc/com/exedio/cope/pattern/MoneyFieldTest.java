@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.pattern.CurrencyFixed.fix;
+import static com.exedio.cope.pattern.CurrencyFixed.fixOther;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.currency;
@@ -118,7 +119,74 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		i.set(fixed.map(null));
 		assertEquals(null, i.getFixed());
 	}
-	// TODO test more
+	public void testFixedConsistencyBrokenCreate()
+	{
+		try
+		{
+			fixed(valueOf(5.55, fixOther));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(fixed, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(valueOf(5.55, fixOther), e.getValue());
+			assertEquals(fix, e.getAllowed());
+			assertEquals(
+					"illegal currency at '5.55fixOther' " +
+					"for MoneyFieldItem.fixed, " +
+					"allowed is 'fix'.",
+					e.getMessage());
+		}
+	}
+	public void testFixedConsistencyBrokenSingle()
+	{
+		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+
+		try
+		{
+			i.setFixed(valueOf(6.66, fixOther));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(fixed, e.getFeature());
+			assertEquals(i, e.getItem());
+			assertEquals(valueOf(6.66, fixOther), e.getValue());
+			assertEquals(fix, e.getAllowed());
+			assertEquals(
+					"illegal currency at '6.66fixOther' " +
+					"on " + i + " for MoneyFieldItem.fixed, " +
+					"allowed is 'fix'.",
+					e.getMessage());
+		}
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+	}
+	public void testFixedConsistencyBrokenMulti()
+	{
+		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+
+		try
+		{
+			i.set(fixed.map(valueOf(6.66, fixOther)));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(fixed, e.getFeature());
+			assertEquals(i, e.getItem());
+			assertEquals(valueOf(6.66, fixOther), e.getValue());
+			assertEquals(fix, e.getAllowed());
+			assertEquals(
+					"illegal currency at '6.66fixOther' " +
+					"on " + i + " for MoneyFieldItem.fixed, " +
+					"allowed is 'fix'.",
+					e.getMessage());
+		}
+		assertEquals(valueOf(5.55, fix), i.getFixed());
+	}
 	public void testFixedEnum()
 	{
 		final MoneyFieldItem i = fixedEnum(valueOf(5.55, eur));
