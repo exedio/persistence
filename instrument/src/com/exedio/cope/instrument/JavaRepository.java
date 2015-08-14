@@ -26,6 +26,7 @@ import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
 import com.exedio.cope.pattern.Composite;
+import com.exedio.cope.pattern.Money;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -336,7 +337,7 @@ final class JavaRepository
 	// The name of this enum and its only enum value
 	// must match the names used in the hack of the beanshell.
 	// see bsh-core.PATCH
-	public static enum EnumBeanShellHackClass
+	public static enum EnumBeanShellHackClass implements Money.Currency
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
 	}
