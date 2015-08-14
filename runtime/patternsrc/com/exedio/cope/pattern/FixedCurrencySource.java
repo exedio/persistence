@@ -63,9 +63,10 @@ final class FixedCurrencySource<C extends Money.Currency> extends CurrencySource
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	Class<C> getInitialType()
 	{
-		return (Class<C>)currency.getClass(); // TODO -------------------------
+		return (Class<C>)currency.getClass();
 	}
 
 	@Override
