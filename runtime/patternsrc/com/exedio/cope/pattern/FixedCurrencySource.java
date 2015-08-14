@@ -18,16 +18,60 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 
-abstract class CurrencySource<C extends Money.Currency>
+final class FixedCurrencySource<C extends Money.Currency> extends CurrencySource<C>
 {
-	abstract CurrencySource<C> copy();
-	abstract CurrencySource<C> toFinal();
-	abstract CurrencySource<C> optional();
-	abstract FunctionField<C> getField();
-	C getValue() { return null; }
-	abstract Class<C> getInitialType();
-	abstract C get(final Item item);
+	private final C currency;
+
+	FixedCurrencySource(final C currency)
+	{
+		this.currency = requireNonNull(currency, "currency");
+	}
+
+	@Override
+	CurrencySource<C> copy()
+	{
+		return this;
+	}
+
+	@Override
+	CurrencySource<C> toFinal()
+	{
+		return this;
+	}
+
+	@Override
+	CurrencySource<C> optional()
+	{
+		return this;
+	}
+
+	@Override
+	FunctionField<C> getField()
+	{
+		return null;
+	}
+
+	@Override
+	C getValue()
+	{
+		return currency;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	Class<C> getInitialType()
+	{
+		return (Class<C>)currency.getClass();
+	}
+
+	@Override
+	C get(final Item item)
+	{
+		return currency;
+	}
 }

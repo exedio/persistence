@@ -18,16 +18,21 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.FunctionField;
-import com.exedio.cope.Item;
-
-abstract class CurrencySource<C extends Money.Currency>
+public final class CurrencyFixed implements Money.Currency
 {
-	abstract CurrencySource<C> copy();
-	abstract CurrencySource<C> toFinal();
-	abstract CurrencySource<C> optional();
-	abstract FunctionField<C> getField();
-	C getValue() { return null; }
-	abstract Class<C> getInitialType();
-	abstract C get(final Item item);
+	public static final CurrencyFixed fix = new CurrencyFixed("fix");
+	public static final CurrencyFixed fixOther = new CurrencyFixed("fixOther");
+
+	private final String code;
+
+	private CurrencyFixed(final String code)
+	{
+		this.code = code;
+	}
+
+	@Override
+	public String toString()
+	{
+		return code;
+	}
 }
