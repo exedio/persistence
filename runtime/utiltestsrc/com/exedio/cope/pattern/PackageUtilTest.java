@@ -62,6 +62,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(MessageDigestAlgorithmTest.class);
 		suite.addTestSuite(MessageDigestHashAlgorithmTest.class);
 		suite.addTestSuite(MoneyTest.class);
+		suite.addTestSuite(MoneyFieldUtilTest.class);
 		suite.addTestSuite(NestedHashAlgorithmTest.class);
 		suite.addTestSuite(PartOfReverseTest.class);
 		suite.addTestSuite(PartOfContainerReuseTest.class);
