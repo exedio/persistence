@@ -23,6 +23,19 @@ import junit.framework.TestCase;
 
 public class MoneyFieldUtilTest extends TestCase
 {
+	public void testFixedCurrencyNull()
+	{
+		try
+		{
+			MoneyField.fixed(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("currency", e.getMessage());
+		}
+	}
+
 	public void testSharedCurrencyNull()
 	{
 		try
