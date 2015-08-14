@@ -42,18 +42,24 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 	public static <C extends Money.Currency> MoneyField<C> fixed(final C currency)
 	{
-		return new MoneyField<>(new PriceField(), new FixedCurrencySource<>(currency));
+		return create(new FixedCurrencySource<>(currency));
 	}
 
 	public static <C extends Money.Currency> MoneyField<C> shared(final FunctionField<C> currency)
 	{
-		return new MoneyField<>(new PriceField(), new SharedCurrencySource<>(currency));
+		return create(new SharedCurrencySource<>(currency));
 	}
 
 	public static <C extends Money.Currency> MoneyField<C> exclusive(final FunctionField<C> currency)
 	{
-		return new MoneyField<>(new PriceField(), new ExclusiveCurrencySource<>(currency));
+		return create(new ExclusiveCurrencySource<>(currency));
 	}
+
+	private static <C extends Money.Currency> MoneyField<C> create(final CurrencySource<C> currency)
+	{
+		return new MoneyField<>(new PriceField(), currency);
+	}
+
 
 	private final PriceField amount;
 	@SuppressFBWarnings("SE_BAD_FIELD")
