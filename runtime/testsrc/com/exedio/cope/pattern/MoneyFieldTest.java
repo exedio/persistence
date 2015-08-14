@@ -102,6 +102,11 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		i.setFixed(null);
 		assertEquals(null, i.getFixed());
 	}
+	public void testFixedConsistencyCreateNull()
+	{
+		final MoneyFieldItem i = fixed(null);
+		assertEquals(null , i.getFixed());
+	}
 	public void testFixedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
