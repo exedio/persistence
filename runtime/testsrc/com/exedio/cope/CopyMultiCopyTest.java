@@ -42,6 +42,19 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		assertContains(source, TYPE.search());
 	}
 
+	public void testOkNullValue()
+	{
+		final CopyMultiCopyTargetItem target =
+				new CopyMultiCopyTargetItem(null, null);
+		assertContains(TYPE.search());
+
+		final CopyMultiCopySourceItem source = new CopyMultiCopySourceItem(null, null, target);
+		assertEquals(null, source.getCopyA());
+		assertEquals(null, source.getCopyB());
+		assertEquals(target, source.getTarget());
+		assertContains(source, TYPE.search());
+	}
+
 	public void testWrongA()
 	{
 		final CopyMultiCopyTargetItem target =
