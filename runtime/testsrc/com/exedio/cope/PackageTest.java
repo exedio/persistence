@@ -177,8 +177,8 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CopyTest.class );
 		suite.addTestSuite( CopyMultiModelTest.class );
 		suite.addTestSuite( CopyMultiTest.class );
-		suite.addTestSuite( CopyMultiToModelTest.class );
-		suite.addTestSuite( CopyMultiToTest.class );
+		suite.addTestSuite( CopyMultiCopyModelTest.class );
+		suite.addTestSuite( CopyMultiCopyTest.class );
 		suite.addTestSuite( SchemaNamePolymorphicTest.class );
 		suite.addTestSuite( CheckTypeColumnTest.class );
 		suite.addTestSuite( CheckTypeColumnAbstractTest.class );

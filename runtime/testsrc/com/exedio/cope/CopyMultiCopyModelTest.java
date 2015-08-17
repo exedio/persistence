@@ -18,22 +18,22 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyMultiToSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiToSourceItem.copyA;
-import static com.exedio.cope.CopyMultiToSourceItem.copyB;
-import static com.exedio.cope.CopyMultiToSourceItem.target;
+import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
+import static com.exedio.cope.CopyMultiCopySourceItem.copyA;
+import static com.exedio.cope.CopyMultiCopySourceItem.copyB;
+import static com.exedio.cope.CopyMultiCopySourceItem.target;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 
-public class CopyMultiToModelTest extends CopeAssert
+public class CopyMultiCopyModelTest extends CopeAssert
 {
-	public static final Model MODEL = new Model(TYPE, CopyMultiToTargetItem.TYPE);
+	public static final Model MODEL = new Model(TYPE, CopyMultiCopyTargetItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(CopyMultiToModelTest.class, "MODEL");
+		MODEL.enableSerialization(CopyMultiCopyModelTest.class, "MODEL");
 	}
 
 	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
@@ -63,33 +63,33 @@ public class CopyMultiToModelTest extends CopeAssert
 		assertEquals(TYPE, target.getType());
 		assertEquals(TYPE, constraintA.getType());
 		assertEquals(TYPE, constraintB.getType());
-		assertEquals(CopyMultiToTargetItem.TYPE, CopyMultiToTargetItem.copyA.getType());
-		assertEquals(CopyMultiToTargetItem.TYPE, CopyMultiToTargetItem.copyB.getType());
+		assertEquals(CopyMultiCopyTargetItem.TYPE, CopyMultiCopyTargetItem.copyA.getType());
+		assertEquals(CopyMultiCopyTargetItem.TYPE, CopyMultiCopyTargetItem.copyB.getType());
 
 		assertEquals("copyA", copyA.getName());
 		assertEquals("copyB", copyB.getName());
 		assertEquals("target", target.getName());
 		assertEquals("copyACopyFromtarget", constraintA.getName());
 		assertEquals("copyBCopyFromtarget", constraintB.getName());
-		assertEquals("copyA", CopyMultiToTargetItem.copyA.getName());
-		assertEquals("copyB", CopyMultiToTargetItem.copyB.getName());
+		assertEquals("copyA", CopyMultiCopyTargetItem.copyA.getName());
+		assertEquals("copyB", CopyMultiCopyTargetItem.copyB.getName());
 
 		assertEqualsUnmodifiable(list(constraintA, constraintB), TYPE.getDeclaredCopyConstraints());
 		assertEqualsUnmodifiable(list(constraintA, constraintB), TYPE.getCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.TYPE.getDeclaredCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.TYPE.getCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiCopyTargetItem.TYPE.getDeclaredCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiCopyTargetItem.TYPE.getCopyConstraints());
 
 		assertSame(target, constraintA.getTarget());
 		assertSame(target, constraintB.getTarget());
 
-		assertSame(CopyMultiToTargetItem.copyA, constraintA.getTemplate());
-		assertSame(CopyMultiToTargetItem.copyB, constraintB.getTemplate());
+		assertSame(CopyMultiCopyTargetItem.copyA, constraintA.getTemplate());
+		assertSame(CopyMultiCopyTargetItem.copyB, constraintB.getTemplate());
 
 		assertSame(copyA, constraintA.getCopy());
 		assertSame(copyB, constraintB.getCopy());
 
-		assertSerializedSame(constraintA, 402);
-		assertSerializedSame(constraintB, 402);
+		assertSerializedSame(constraintA, 406);
+		assertSerializedSame(constraintB, 406);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -98,13 +98,13 @@ public class CopyMultiToModelTest extends CopeAssert
 		assertEqualsUnmodifiable(list(), copyA.getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(), copyB.getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(), target.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiToTargetItem.copyB.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiCopyTargetItem.copyA.getImplicitCopyConstraints());
+		assertEqualsUnmodifiable(list(), CopyMultiCopyTargetItem.copyB.getImplicitCopyConstraints());
 
 		assertEquals(null, target.getImplicitCopyConstraint());
 		assertEquals(null, copyA.getImplicitCopyConstraint());
 		assertEquals(null, copyB.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiToTargetItem.copyA.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiToTargetItem.copyB.getImplicitCopyConstraint());
+		assertEquals(null, CopyMultiCopyTargetItem.copyA.getImplicitCopyConstraint());
+		assertEquals(null, CopyMultiCopyTargetItem.copyB.getImplicitCopyConstraint());
 	}
 }
