@@ -18,22 +18,22 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyMultiSourceItem.TYPE;
-import static com.exedio.cope.CopyMultiSourceItem.copy;
-import static com.exedio.cope.CopyMultiSourceItem.targetA;
-import static com.exedio.cope.CopyMultiSourceItem.targetB;
+import static com.exedio.cope.CopyMultiTargetSourceItem.TYPE;
+import static com.exedio.cope.CopyMultiTargetSourceItem.copy;
+import static com.exedio.cope.CopyMultiTargetSourceItem.targetA;
+import static com.exedio.cope.CopyMultiTargetSourceItem.targetB;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 
-public class CopyMultiModelTest extends CopeAssert
+public class CopyMultiTargetModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE, CopyMultiTargetItemA.TYPE, CopyMultiTargetItemB.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(CopyMultiModelTest.class, "MODEL");
+		MODEL.enableSerialization(CopyMultiTargetModelTest.class, "MODEL");
 	}
 
 	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetA");
@@ -90,8 +90,8 @@ public class CopyMultiModelTest extends CopeAssert
 		assertSame(copy, constraintA.getCopy());
 		assertSame(copy, constraintB.getCopy());
 
-		assertSerializedSame(constraintA, 398);
-		assertSerializedSame(constraintB, 398);
+		assertSerializedSame(constraintA, 410);
+		assertSerializedSame(constraintB, 410);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -113,7 +113,7 @@ public class CopyMultiModelTest extends CopeAssert
 		catch(final RuntimeException e)
 		{
 			assertEquals(
-					"[CopyMultiSourceItem.copyCopyFromtargetA, CopyMultiSourceItem.copyCopyFromtargetB]",
+					"[CopyMultiTargetSourceItem.copyCopyFromtargetA, CopyMultiTargetSourceItem.copyCopyFromtargetB]",
 					e.getMessage());
 		}
 		assertEquals(null, CopyMultiTargetItemA.copy.getImplicitCopyConstraint());

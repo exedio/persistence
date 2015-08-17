@@ -18,15 +18,15 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyMultiModelTest.constraintA;
-import static com.exedio.cope.CopyMultiModelTest.constraintB;
-import static com.exedio.cope.CopyMultiSourceItem.TYPE;
+import static com.exedio.cope.CopyMultiTargetModelTest.constraintA;
+import static com.exedio.cope.CopyMultiTargetModelTest.constraintB;
+import static com.exedio.cope.CopyMultiTargetSourceItem.TYPE;
 
-public class CopyMultiTest extends AbstractRuntimeModelTest
+public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 {
-	public CopyMultiTest()
+	public CopyMultiTargetTest()
 	{
-		super(CopyMultiModelTest.MODEL);
+		super(CopyMultiTargetModelTest.MODEL);
 	}
 
 	CopyMultiTargetItemA targetA, targetAx;
@@ -46,7 +46,7 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 	{
 		assertContains(TYPE.search());
 
-		final CopyMultiSourceItem source = new CopyMultiSourceItem(targetA, targetB, "targetValue");
+		final CopyMultiTargetSourceItem source = new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
 		assertEquals(targetA, source.getTargetA());
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
@@ -57,7 +57,7 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopyMultiSourceItem(targetAx, targetB, "targetValue");
+			new CopyMultiTargetSourceItem(targetAx, targetB, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -81,7 +81,7 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopyMultiSourceItem(targetA, targetBx, "targetValue");
+			new CopyMultiTargetSourceItem(targetA, targetBx, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)
