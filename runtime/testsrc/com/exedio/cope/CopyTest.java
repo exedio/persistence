@@ -32,7 +32,6 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	CopyValueItem value1, value2, valueX;
 	CopyTargetItem target1, target2, targetN;
-	CopySourceItem self1, self2, selfN;
 
 	@Override
 	protected void setUp() throws Exception
@@ -44,59 +43,48 @@ public class CopyTest extends AbstractRuntimeModelTest
 		target1 = new CopyTargetItem("target1", "template1", "otherString1", value1, valueX);
 		target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
 		targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
-		self1 = new CopySourceItem(null, null, null, null, value1);
-		self2 = new CopySourceItem(null, null, null, null, value2);
-		selfN = new CopySourceItem(null, null, null, null, null);
 	}
 
 	public void testOk1()
 	{
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 
-		final CopySourceItem source = new CopySourceItem(target1, "template1", value1, self1, value1);
+		final CopySourceItem source = new CopySourceItem(target1, "template1", value1);
 		assertEquals(target1, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value1, source.getTemplateItem());
-		assertContains(self1, self2, selfN, source, TYPE.search());
-		assertEquals(self1, source.getSelfTargetItem());
-		assertEquals(value1, source.getSelfTemplateItem());
+		assertContains(source, TYPE.search());
 		check();
 	}
 
 	public void testOk2()
 	{
-		final CopySourceItem source = new CopySourceItem(target2, "template2", value2, self2, value2);
+		final CopySourceItem source = new CopySourceItem(target2, "template2", value2);
 		assertEquals(target2, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value2, source.getTemplateItem());
-		assertContains(self1, self2, selfN, source, TYPE.search());
-		assertEquals(self2, source.getSelfTargetItem());
-		assertEquals(value2, source.getSelfTemplateItem());
+		assertContains(source, TYPE.search());
 		check();
 	}
 
 	public void testOkNullValue()
 	{
-		final CopySourceItem source = new CopySourceItem(targetN, null, null, selfN, null);
+		final CopySourceItem source = new CopySourceItem(targetN, null, null);
 		assertEquals(targetN, source.getTargetItem());
 		assertEquals(null, source.getTemplateString());
 		assertEquals(null, source.getTemplateItem());
-		assertContains(self1, self2, selfN, source, TYPE.search());
-		assertEquals(selfN, source.getSelfTargetItem());
-		assertEquals(null, source.getSelfTemplateItem());
+		assertContains(source, TYPE.search());
 		check();
 	}
 
 	public void testOkNullTarget()
 	{
-		final CopySourceItem source = new CopySourceItem(null, "templateN", value2, null, value1);
+		final CopySourceItem source = new CopySourceItem(null, "templateN", value2);
 		assertEquals(null, source.getTargetItem());
 		assertEquals("templateN", source.getTemplateString());
 		assertEquals(value2, source.getTemplateItem());
-		assertContains(self1, self2, selfN, source, TYPE.search());
-		assertEquals(null, source.getSelfTargetItem());
-		assertEquals(value1, source.getSelfTemplateItem());
+		assertContains(source, TYPE.search());
 		check();
 	}
 
@@ -104,7 +92,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(target2, "template1", value2, null, null);
+			new CopySourceItem(target2, "template1", value2);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -121,7 +109,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was 'template1'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -129,7 +117,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(target2, null, value2, null, null);
+			new CopySourceItem(target2, null, value2);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -146,7 +134,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was null",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -154,7 +142,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(target2, "template2", value1, null, null);
+			new CopySourceItem(target2, "template2", value1);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -171,7 +159,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -179,7 +167,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(target2, "template2", null, null, null);
+			new CopySourceItem(target2, "template2", null);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -196,7 +184,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was null",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -204,7 +192,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(targetN, "template1", value2, null, null);
+			new CopySourceItem(targetN, "template1", value2);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -221,7 +209,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was 'template1'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -229,7 +217,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			new CopySourceItem(targetN, null, value1, null, null);
+			new CopySourceItem(targetN, null, value1);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -246,7 +234,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
@@ -271,7 +259,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 					"but was null",
 				e.getMessage());
 		}
-		assertContains(self1, self2, selfN, TYPE.search());
+		assertContains(TYPE.search());
 		check();
 	}
 
