@@ -36,17 +36,17 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		targetA  = deleteOnTearDown(new CopyMultiTargetItemA("targetValue"));
-		targetAx = deleteOnTearDown(new CopyMultiTargetItemA("targetValueAx"));
-		targetB  = deleteOnTearDown(new CopyMultiTargetItemB("targetValue"));
-		targetBx = deleteOnTearDown(new CopyMultiTargetItemB("targetValueBx"));
+		targetA  = new CopyMultiTargetItemA("targetValue");
+		targetAx = new CopyMultiTargetItemA("targetValueAx");
+		targetB  = new CopyMultiTargetItemB("targetValue");
+		targetBx = new CopyMultiTargetItemB("targetValueBx");
 	}
 
 	public void testIt()
 	{
 		assertContains(TYPE.search());
 
-		final CopyMultiSourceItem source1 = deleteOnTearDown(new CopyMultiSourceItem(targetA, targetB, "targetValue"));
+		final CopyMultiSourceItem source1 = new CopyMultiSourceItem(targetA, targetB, "targetValue");
 		assertEquals(targetA, source1.getTargetA());
 		assertEquals(targetB, source1.getTargetB());
 		assertEquals("targetValue", source1.getCopy());

@@ -38,15 +38,15 @@ public class CopyTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		value1 = deleteOnTearDown(new CopyValueItem("value1"));
-		value2 = deleteOnTearDown(new CopyValueItem("value2"));
-		valueX = deleteOnTearDown(new CopyValueItem("valueX"));
-		target1 = deleteOnTearDown(new CopyTargetItem("target1", "template1", "otherString1", value1, valueX));
-		target2 = deleteOnTearDown(new CopyTargetItem("target2", "template2", "otherString2", value2, valueX));
-		targetN = deleteOnTearDown(new CopyTargetItem("targetN", null, "otherString2", null, valueX));
-		self1 = deleteOnTearDown(new CopySourceItem(null, null, null, null, value1));
-		self2 = deleteOnTearDown(new CopySourceItem(null, null, null, null, value2));
-		selfN = deleteOnTearDown(new CopySourceItem(null, null, null, null, null));
+		value1 = new CopyValueItem("value1");
+		value2 = new CopyValueItem("value2");
+		valueX = new CopyValueItem("valueX");
+		target1 = new CopyTargetItem("target1", "template1", "otherString1", value1, valueX);
+		target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
+		targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
+		self1 = new CopySourceItem(null, null, null, null, value1);
+		self2 = new CopySourceItem(null, null, null, null, value2);
+		selfN = new CopySourceItem(null, null, null, null, null);
 	}
 
 	public void testIt()
@@ -54,7 +54,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		assertContains(self1, self2, selfN, TYPE.search());
 		check();
 
-		final CopySourceItem source1 = deleteOnTearDown(new CopySourceItem(target1, "template1", value1, self1, value1));
+		final CopySourceItem source1 = new CopySourceItem(target1, "template1", value1, self1, value1);
 		assertEquals(target1, source1.getTargetItem());
 		assertEquals("template1", source1.getTemplateString());
 		assertEquals(value1, source1.getTemplateItem());
@@ -63,7 +63,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		assertEquals(value1, source1.getSelfTemplateItem());
 		check();
 
-		final CopySourceItem source2 = deleteOnTearDown(new CopySourceItem(target2, "template2", value2, self2, value2));
+		final CopySourceItem source2 = new CopySourceItem(target2, "template2", value2, self2, value2);
 		assertEquals(target2, source2.getTargetItem());
 		assertEquals("template2", source2.getTemplateString());
 		assertEquals(value2, source2.getTemplateItem());
@@ -72,7 +72,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		assertEquals(value2, source2.getSelfTemplateItem());
 		check();
 
-		final CopySourceItem sourceN = deleteOnTearDown(new CopySourceItem(targetN, null, null, selfN, null));
+		final CopySourceItem sourceN = new CopySourceItem(targetN, null, null, selfN, null);
 		assertEquals(targetN, sourceN.getTargetItem());
 		assertEquals(null, sourceN.getTemplateString());
 		assertEquals(null, sourceN.getTemplateItem());
@@ -81,7 +81,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		assertEquals(null, sourceN.getSelfTemplateItem());
 		check();
 
-		final CopySourceItem sourceNT = deleteOnTearDown(new CopySourceItem(null, "templateN", value2, null, value1));
+		final CopySourceItem sourceNT = new CopySourceItem(null, "templateN", value2, null, value1);
 		assertEquals(null, sourceNT.getTargetItem());
 		assertEquals("templateN", sourceNT.getTemplateString());
 		assertEquals(value2, sourceNT.getTemplateItem());

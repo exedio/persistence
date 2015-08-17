@@ -35,14 +35,14 @@ public class CopyMultiToTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		target  = deleteOnTearDown(new CopyMultiToTargetItem("targetValueA", "targetValueB"));
+		target  = new CopyMultiToTargetItem("targetValueA", "targetValueB");
 	}
 
 	public void testIt()
 	{
 		assertContains(TYPE.search());
 
-		final CopyMultiToSourceItem source1 = deleteOnTearDown(new CopyMultiToSourceItem("targetValueA", "targetValueB", target));
+		final CopyMultiToSourceItem source1 = new CopyMultiToSourceItem("targetValueA", "targetValueB", target);
 		assertEquals("targetValueA", source1.getCopyA());
 		assertEquals("targetValueB", source1.getCopyB());
 		assertEquals(target, source1.getTarget());
