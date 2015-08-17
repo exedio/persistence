@@ -30,23 +30,13 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 		super(CopyModelTest.MODEL);
 	}
 
-	CopyValueItem value1, value2, valueX;
-	CopySelfSourceItem self1, self2, selfN;
-
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		value1 = new CopyValueItem("value1");
-		value2 = new CopyValueItem("value2");
-		valueX = new CopyValueItem("valueX");
-		self1 = new CopySelfSourceItem(null, value1);
-		self2 = new CopySelfSourceItem(null, value2);
-		selfN = new CopySelfSourceItem(null, null);
-	}
-
 	public void testOk1()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopySelfSourceItem self1 = new CopySelfSourceItem(null, value1);
+		final CopySelfSourceItem self2 = new CopySelfSourceItem(null, value2);
+		final CopySelfSourceItem selfN = new CopySelfSourceItem(null, null);
 		assertContains(self1, self2, selfN, TYPE.search());
 		check();
 
@@ -59,6 +49,12 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOk2()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopySelfSourceItem self1 = new CopySelfSourceItem(null, value1);
+		final CopySelfSourceItem self2 = new CopySelfSourceItem(null, value2);
+		final CopySelfSourceItem selfN = new CopySelfSourceItem(null, null);
+
 		final CopySelfSourceItem source = new CopySelfSourceItem(self2, value2);
 		assertContains(self1, self2, selfN, source, TYPE.search());
 		assertEquals(self2, source.getSelfTargetItem());
@@ -68,6 +64,12 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOkNullValue()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopySelfSourceItem self1 = new CopySelfSourceItem(null, value1);
+		final CopySelfSourceItem self2 = new CopySelfSourceItem(null, value2);
+		final CopySelfSourceItem selfN = new CopySelfSourceItem(null, null);
+
 		final CopySelfSourceItem source = new CopySelfSourceItem(selfN, null);
 		assertContains(self1, self2, selfN, source, TYPE.search());
 		assertEquals(selfN, source.getSelfTargetItem());
@@ -77,6 +79,12 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOkNullTarget()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopySelfSourceItem self1 = new CopySelfSourceItem(null, value1);
+		final CopySelfSourceItem self2 = new CopySelfSourceItem(null, value2);
+		final CopySelfSourceItem selfN = new CopySelfSourceItem(null, null);
+
 		final CopySelfSourceItem source = new CopySelfSourceItem(null, value1);
 		assertContains(self1, self2, selfN, source, TYPE.search());
 		assertEquals(null, source.getSelfTargetItem());
