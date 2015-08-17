@@ -54,49 +54,49 @@ public class CopyTest extends AbstractRuntimeModelTest
 		assertContains(self1, self2, selfN, TYPE.search());
 		check();
 
-		final CopySourceItem source1 = new CopySourceItem(target1, "template1", value1, self1, value1);
-		assertEquals(target1, source1.getTargetItem());
-		assertEquals("template1", source1.getTemplateString());
-		assertEquals(value1, source1.getTemplateItem());
-		assertContains(self1, self2, selfN, source1, TYPE.search());
-		assertEquals(self1, source1.getSelfTargetItem());
-		assertEquals(value1, source1.getSelfTemplateItem());
+		final CopySourceItem source = new CopySourceItem(target1, "template1", value1, self1, value1);
+		assertEquals(target1, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value1, source.getTemplateItem());
+		assertContains(self1, self2, selfN, source, TYPE.search());
+		assertEquals(self1, source.getSelfTargetItem());
+		assertEquals(value1, source.getSelfTemplateItem());
 		check();
 	}
 
 	public void testOk2()
 	{
-		final CopySourceItem source2 = new CopySourceItem(target2, "template2", value2, self2, value2);
-		assertEquals(target2, source2.getTargetItem());
-		assertEquals("template2", source2.getTemplateString());
-		assertEquals(value2, source2.getTemplateItem());
-		assertContains(self1, self2, selfN, source2, TYPE.search());
-		assertEquals(self2, source2.getSelfTargetItem());
-		assertEquals(value2, source2.getSelfTemplateItem());
+		final CopySourceItem source = new CopySourceItem(target2, "template2", value2, self2, value2);
+		assertEquals(target2, source.getTargetItem());
+		assertEquals("template2", source.getTemplateString());
+		assertEquals(value2, source.getTemplateItem());
+		assertContains(self1, self2, selfN, source, TYPE.search());
+		assertEquals(self2, source.getSelfTargetItem());
+		assertEquals(value2, source.getSelfTemplateItem());
 		check();
 	}
 
 	public void testOkNullValue()
 	{
-		final CopySourceItem sourceN = new CopySourceItem(targetN, null, null, selfN, null);
-		assertEquals(targetN, sourceN.getTargetItem());
-		assertEquals(null, sourceN.getTemplateString());
-		assertEquals(null, sourceN.getTemplateItem());
-		assertContains(self1, self2, selfN, sourceN, TYPE.search());
-		assertEquals(selfN, sourceN.getSelfTargetItem());
-		assertEquals(null, sourceN.getSelfTemplateItem());
+		final CopySourceItem source = new CopySourceItem(targetN, null, null, selfN, null);
+		assertEquals(targetN, source.getTargetItem());
+		assertEquals(null, source.getTemplateString());
+		assertEquals(null, source.getTemplateItem());
+		assertContains(self1, self2, selfN, source, TYPE.search());
+		assertEquals(selfN, source.getSelfTargetItem());
+		assertEquals(null, source.getSelfTemplateItem());
 		check();
 	}
 
 	public void testOkNullTarget()
 	{
-		final CopySourceItem sourceNT = new CopySourceItem(null, "templateN", value2, null, value1);
-		assertEquals(null, sourceNT.getTargetItem());
-		assertEquals("templateN", sourceNT.getTemplateString());
-		assertEquals(value2, sourceNT.getTemplateItem());
-		assertContains(self1, self2, selfN, sourceNT, TYPE.search());
-		assertEquals(null, sourceNT.getSelfTargetItem());
-		assertEquals(value1, sourceNT.getSelfTemplateItem());
+		final CopySourceItem source = new CopySourceItem(null, "templateN", value2, null, value1);
+		assertEquals(null, source.getTargetItem());
+		assertEquals("templateN", source.getTemplateString());
+		assertEquals(value2, source.getTemplateItem());
+		assertContains(self1, self2, selfN, source, TYPE.search());
+		assertEquals(null, source.getSelfTargetItem());
+		assertEquals(value1, source.getSelfTemplateItem());
 		check();
 	}
 
