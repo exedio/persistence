@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
+import java.util.Objects;
 
 public final class CopyConstraint extends Feature
 {
@@ -91,7 +92,7 @@ public final class CopyConstraint extends Feature
 		{
 			final Object expectedValue = getTemplate().get(targetItem);
 			final Object actualValue = fieldValues.get(copy);
-			if(expectedValue==null ? actualValue!=null : !expectedValue.equals(actualValue))
+			if(!Objects.equals(expectedValue, actualValue))
 				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 		}
 	}
