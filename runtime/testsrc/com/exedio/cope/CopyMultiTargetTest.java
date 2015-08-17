@@ -29,21 +29,10 @@ public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 		super(CopyMultiTargetModelTest.MODEL);
 	}
 
-	CopyMultiTargetItemA targetA, targetAx;
-	CopyMultiTargetItemB targetB, targetBx;
-
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		targetA  = new CopyMultiTargetItemA("targetValue");
-		targetAx = new CopyMultiTargetItemA("targetValueAx");
-		targetB  = new CopyMultiTargetItemB("targetValue");
-		targetBx = new CopyMultiTargetItemB("targetValueBx");
-	}
-
 	public void testOk()
 	{
+		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValue");
+		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValue");
 		assertContains(TYPE.search());
 
 		final CopyMultiTargetSourceItem source = new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
@@ -55,9 +44,11 @@ public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 
 	public void testWrongA()
 	{
+		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValueAx");
+		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValue");
 		try
 		{
-			new CopyMultiTargetSourceItem(targetAx, targetB, "targetValue");
+			new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -66,11 +57,11 @@ public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getItem());
 			assertEquals("targetValueAx", e.getExpectedValue());
 			assertEquals("targetValue", e.getActualValue());
-			assertEquals(targetAx, e.getTargetItem());
+			assertEquals(targetA, e.getTargetItem());
 			assertEquals(
 					"copy violation on " + constraintA + ", " +
 					"expected 'targetValueAx' " +
-					"from target " + targetAx.getCopeID() + ", " +
+					"from target " + targetA.getCopeID() + ", " +
 					"but was 'targetValue'",
 				e.getMessage());
 		}
@@ -79,9 +70,11 @@ public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 
 	public void testWrongB()
 	{
+		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValue");
+		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValueBx");
 		try
 		{
-			new CopyMultiTargetSourceItem(targetA, targetBx, "targetValue");
+			new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -90,11 +83,11 @@ public class CopyMultiTargetTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getItem());
 			assertEquals("targetValueBx", e.getExpectedValue());
 			assertEquals("targetValue", e.getActualValue());
-			assertEquals(targetBx, e.getTargetItem());
+			assertEquals(targetB, e.getTargetItem());
 			assertEquals(
 					"copy violation on " + constraintB + ", " +
 					"expected 'targetValueBx' " +
-					"from target " + targetBx.getCopeID() + ", " +
+					"from target " + targetB.getCopeID() + ", " +
 					"but was 'targetValue'",
 				e.getMessage());
 		}

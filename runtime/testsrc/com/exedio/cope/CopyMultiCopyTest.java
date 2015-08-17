@@ -29,17 +29,10 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		super(CopyMultiCopyModelTest.MODEL);
 	}
 
-	CopyMultiCopyTargetItem target;
-
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		target  = new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
-	}
-
 	public void testOk()
 	{
+		final CopyMultiCopyTargetItem target =
+				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
 		assertContains(TYPE.search());
 
 		final CopyMultiCopySourceItem source = new CopyMultiCopySourceItem("targetValueA", "targetValueB", target);
@@ -51,6 +44,8 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongA()
 	{
+		final CopyMultiCopyTargetItem target =
+				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
 		try
 		{
 			new CopyMultiCopySourceItem("targetValueAx", "targetValueB", target);
@@ -75,6 +70,8 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongB()
 	{
+		final CopyMultiCopyTargetItem target =
+				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
 		try
 		{
 			new CopyMultiCopySourceItem("targetValueA", "targetValueBx", target);
