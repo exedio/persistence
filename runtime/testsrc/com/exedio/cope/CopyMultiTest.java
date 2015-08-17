@@ -42,7 +42,7 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 		targetBx = new CopyMultiTargetItemB("targetValueBx");
 	}
 
-	public void testIt()
+	public void testOk()
 	{
 		assertContains(TYPE.search());
 
@@ -51,7 +51,10 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 		assertEquals(targetB, source1.getTargetB());
 		assertEquals("targetValue", source1.getCopy());
 		assertContains(source1, TYPE.search());
+	}
 
+	public void testWrongA()
+	{
 		try
 		{
 			new CopyMultiSourceItem(targetAx, targetB, "targetValue");
@@ -71,8 +74,11 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 					"but was 'targetValue'",
 				e.getMessage());
 		}
-		assertContains(source1, TYPE.search());
+		assertContains(TYPE.search());
+	}
 
+	public void testWrongB()
+	{
 		try
 		{
 			new CopyMultiSourceItem(targetA, targetBx, "targetValue");
@@ -92,6 +98,6 @@ public class CopyMultiTest extends AbstractRuntimeModelTest
 					"but was 'targetValue'",
 				e.getMessage());
 		}
-		assertContains(source1, TYPE.search());
+		assertContains(TYPE.search());
 	}
 }
