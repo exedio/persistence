@@ -156,7 +156,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		return pasteValue.getLocator(getPaste(item, key));
 	}
 
-	public final String getPasteURL( final Item item, final String key )
+	public final String getPasteURL(final Item item, final String key)
 	{
 		return pasteValue.getURL(getPaste(item, key));
 	}

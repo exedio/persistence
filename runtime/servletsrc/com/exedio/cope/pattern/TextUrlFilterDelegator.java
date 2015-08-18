@@ -85,7 +85,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		return delegate.getPasteLocator(item, key);
 	}
 
-	public final String getPasteURL( final Item item, final String key )
+	public final String getPasteURL(final Item item, final String key)
 	{
 		return delegate.getPasteURL(item, key);
 	}
