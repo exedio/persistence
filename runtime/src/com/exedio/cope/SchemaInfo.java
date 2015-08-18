@@ -224,7 +224,13 @@ public final class SchemaInfo
 	 * Defaults to 10 * ( {@link Enum#ordinal()} + 1 ),
 	 * but can be overridden by {@link CopeSchemaValue}.
 	 */
-	public static <E extends Enum<E>> int getColumnValue(final E value)
+	@SuppressWarnings({"rawtypes", "unchecked"}) // I have no idea why I have to do this stuff
+	public static int getColumnValue(final Enum<?> value)
+	{
+		return getColumnValueInternal((Enum)value);
+	}
+
+	private static <E extends Enum<E>> int getColumnValueInternal(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
 	}
