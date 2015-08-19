@@ -30,23 +30,11 @@ public class CopyTest extends AbstractRuntimeModelTest
 		super(CopyModelTest.MODEL);
 	}
 
-	CopyValueItem value1, value2, valueX;
-	CopyTargetItem target1, target2, targetN;
-
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		value1 = new CopyValueItem("value1");
-		value2 = new CopyValueItem("value2");
-		valueX = new CopyValueItem("valueX");
-		target1 = new CopyTargetItem("target1", "template1", "otherString1", value1, valueX);
-		target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
-		targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
-	}
-
 	public void testOk1()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target1 = new CopyTargetItem("target1", "template1", "otherString1", value1, valueX);
 		assertContains(TYPE.search());
 		check();
 
@@ -60,6 +48,10 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testOk2()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
+
 		final CopySourceItem source = new CopySourceItem(target2, "template2", value2);
 		assertEquals(target2, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
@@ -70,6 +62,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testOkNullValue()
 	{
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
+
 		final CopySourceItem source = new CopySourceItem(targetN, null, null);
 		assertEquals(targetN, source.getTargetItem());
 		assertEquals(null, source.getTemplateString());
@@ -80,6 +75,8 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testOkNullTarget()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+
 		final CopySourceItem source = new CopySourceItem(null, "templateN", value2);
 		assertEquals(null, source.getTargetItem());
 		assertEquals("templateN", source.getTemplateString());
@@ -90,6 +87,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongString()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
 		try
 		{
 			new CopySourceItem(target2, "template1", value2);
@@ -115,6 +115,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongStringNullCopy()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
 		try
 		{
 			new CopySourceItem(target2, null, value2);
@@ -140,6 +143,10 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongItem()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
 		try
 		{
 			new CopySourceItem(target2, "template2", value1);
@@ -165,6 +172,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongItemNullCopy()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target2 = new CopyTargetItem("target2", "template2", "otherString2", value2, valueX);
 		try
 		{
 			new CopySourceItem(target2, "template2", null);
@@ -190,6 +200,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongStringNullTemplate()
 	{
+		final CopyValueItem value2 = new CopyValueItem("value2");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
 		try
 		{
 			new CopySourceItem(targetN, "template1", value2);
@@ -215,6 +228,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongItemNullTemplate()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem targetN = new CopyTargetItem("targetN", null, "otherString2", null, valueX);
 		try
 		{
 			new CopySourceItem(targetN, null, value1);
@@ -240,6 +256,9 @@ public class CopyTest extends AbstractRuntimeModelTest
 
 	public void testWrongStringOmittedCopy()
 	{
+		final CopyValueItem value1 = new CopyValueItem("value1");
+		final CopyValueItem valueX = new CopyValueItem("valueX");
+		final CopyTargetItem target1 = new CopyTargetItem("target1", "template1", "otherString1", value1, valueX);
 		try
 		{
 			new CopySourceItem(target1);
