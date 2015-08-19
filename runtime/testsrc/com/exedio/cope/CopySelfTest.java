@@ -32,7 +32,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOk1()
 	{
-		final CopyValueItem value = new CopyValueItem("value1");
+		final CopyValueItem value = new CopyValueItem();
 		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
 		assertContains(self, TYPE.search());
 		check();
@@ -46,7 +46,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOk2()
 	{
-		final CopyValueItem value = new CopyValueItem("value2");
+		final CopyValueItem value = new CopyValueItem();
 		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
 
 		final CopySelfSourceItem source = new CopySelfSourceItem(self, value);
@@ -69,7 +69,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 
 	public void testOkNullTarget()
 	{
-		final CopyValueItem value = new CopyValueItem("value1");
+		final CopyValueItem value = new CopyValueItem();
 
 		final CopySelfSourceItem source = new CopySelfSourceItem(null, value);
 		assertContains(source, TYPE.search());
