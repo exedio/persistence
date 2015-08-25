@@ -855,23 +855,34 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public abstract Condition isNull();
+	public Condition isNull() { throw unsupportedCondition(); }
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 * @param join the join the returned condition should be bound to
+	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public abstract Condition isNull(final Join join);
+	public Condition isNull(final Join join) { throw unsupportedCondition(); }
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public abstract Condition isNotNull();
+	public Condition isNotNull() { throw unsupportedCondition(); }
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 * @param join the join the returned condition should be bound to
+	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public abstract Condition isNotNull(final Join join);
+	public Condition isNotNull(final Join join) { throw unsupportedCondition(); }
+
+	private  UnsupportedOperationException unsupportedCondition()
+	{
+		return new UnsupportedOperationException("condition not supported by " + getID() + " of " + getClass().getName());
+	}
 
 	// ------------------- deprecated stuff -------------------
 

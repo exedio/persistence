@@ -18,9 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,30 +54,6 @@ final class MediaCustom extends MediaPath
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public Condition isNull()
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public Condition isNull(final Join join)
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public Condition isNotNull()
-	{
-		throw new RuntimeException();
-	}
-
-	@Override
-	public Condition isNotNull(final Join join)
 	{
 		throw new RuntimeException();
 	}
