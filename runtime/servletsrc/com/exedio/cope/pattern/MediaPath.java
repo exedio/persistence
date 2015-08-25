@@ -290,6 +290,11 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
+	/**
+	 * Returns a locator the content of this media path is available under,
+	 * if a {@link MediaServlet} is properly installed.
+	 * Returns null, if there is no such content.
+	 */
 	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
 	public final Locator getLocator(final Item item)
 	{
