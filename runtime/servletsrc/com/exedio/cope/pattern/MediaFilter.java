@@ -114,7 +114,7 @@ public abstract class MediaFilter extends MediaPath
 	}
 
 	@Override
-	public Condition isNull(final Join join)
+	public final Condition isNull(final Join join)
 	{
 		return source.isNull(join); // TODO check for getSupportedSourceContentTypes
 	}
@@ -126,7 +126,7 @@ public abstract class MediaFilter extends MediaPath
 	}
 
 	@Override
-	public Condition isNotNull(final Join join)
+	public final Condition isNotNull(final Join join)
 	{
 		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
 	}

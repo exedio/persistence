@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaFilter#is[Not]Null(Join) becomes final as well.
+	This breaks backwards API compatibility, causes compiler error.
 * SchemaInfo#getColumnValue(Enum) simplified,
 	prevents unchecked warnings in client code.
 * ItemFunction#equalTarget(Join) does fail now, if target type does not conform to join.
