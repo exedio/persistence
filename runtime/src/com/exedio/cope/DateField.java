@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
@@ -32,68 +34,77 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
+	private final Precision precision;
+
 	private DateField(
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Date> defaultSource)
+			final DefaultSource<Date> defaultSource,
+			final Precision precision)
 	{
 		super(isfinal, optional, Date.class, unique, copyFrom, defaultSource);
 		mountDefaultSource();
+		this.precision = requireNonNull(precision, "precision");
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, null);
+		this(false, false, false, null, null, Precision.MilliSeconds);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultSource);
+		return new DateField(true, optional, unique, copyFrom, defaultSource, precision);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultSource);
+		return new DateField(isfinal, true, unique, copyFrom, defaultSource, precision);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultSource);
+		return new DateField(isfinal, optional, true, copyFrom, defaultSource, precision);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultSource);
+		return new DateField(isfinal, optional, false, copyFrom, defaultSource, precision);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, precision);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null);
+		return new DateField(isfinal, optional, unique, copyFrom, null, precision);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision);
+	}
+
+	private DateField precision(final Precision precision)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
 	}
 
 	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
@@ -119,13 +130,40 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW);
+		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW, precision);
 	}
 
 	public boolean isDefaultNow()
 	{
 		return defaultSource==DEFAULT_TO_NOW;
 	}
+
+
+	public DateField seconds()
+	{
+		return precision(Precision.Seconds);
+	}
+
+	public DateField minutes()
+	{
+		return precision(Precision.Minutes);
+	}
+
+	public DateField hours()
+	{
+		return precision(Precision.Hours);
+	}
+
+	enum Precision
+	{
+		MilliSeconds, Seconds, Minutes, Hours;
+	}
+
+	Precision getPrecision()
+	{
+		return precision;
+	}
+
 
 	public SelectType<Date> getValueType()
 	{
