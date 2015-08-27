@@ -86,6 +86,17 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
 		this.pasteKey   = requireNonNull (pasteKey,   "pasteKey");
 		this.pasteValue = requireNonNull (pasteValue, "pasteValue");
+
+		if(!pasteKey.isMandatory())
+			throw new IllegalArgumentException("pasteKey must be mandatory");
+		if(pasteKey.getImplicitUniqueConstraint()!=null)
+			throw new IllegalArgumentException("pasteKey must not be unique");
+
+		if(pasteValue.isFinal())
+			throw new IllegalArgumentException("pasteValue must not be final");
+		if(!pasteValue.isMandatory())
+			throw new IllegalArgumentException("pasteValue must be mandatory");
+
 		addSource(raw, "Raw", annotationProxy);
 	}
 

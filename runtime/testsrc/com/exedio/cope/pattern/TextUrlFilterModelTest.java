@@ -163,6 +163,34 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteKey", e.getMessage());
 		}
 	}
+	public void testPasteKeyOptional()
+	{
+		final StringField pasteKey = new StringField().optional();
+		final Media pasteValue = new Media();
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteKey must be mandatory", e.getMessage());
+		}
+	}
+	public void testPasteKeyUnique()
+	{
+		final StringField pasteKey = new StringField().unique();
+		final Media pasteValue = new Media();
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteKey must not be unique", e.getMessage());
+		}
+	}
 	public void testPasteValueNull()
 	{
 		try
@@ -173,6 +201,34 @@ public class TextUrlFilterModelTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals("pasteValue", e.getMessage());
+		}
+	}
+	public void testPasteValueFinal()
+	{
+		final StringField pasteKey = new StringField();
+		final Media pasteValue = new Media().toFinal();
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteValue must not be final", e.getMessage());
+		}
+	}
+	public void testPasteValueOptional()
+	{
+		final StringField pasteKey = new StringField();
+		final Media pasteValue = new Media().optional();
+		try
+		{
+			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("pasteValue must be mandatory", e.getMessage());
 		}
 	}
 }
