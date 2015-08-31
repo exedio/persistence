@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.CharSet.HEX_LOWER;
+
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.DataField;
@@ -36,7 +38,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.pattern.Media.Value;
-import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -94,11 +95,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.toFinal();
 		addSource(this.media, "media", new MediaPathAnnotationProxy(this, true));
-		final StringField hashField = new StringField().
-				toFinal().unique().
-				lengthExact(digestStringLength).
-				charSet(CharSet.HEX_LOWER);
-		hash = hashField;
+		this.hash = new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER);
 		addSource(hash, "hash", ComputedElement.get());
 	}
 
