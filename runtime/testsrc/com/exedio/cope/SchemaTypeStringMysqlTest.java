@@ -108,7 +108,7 @@ public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
 
 	private static String makeMax(final StringField field)
 	{
-		// TODO test with multi-byte characters, also 4 and 5 byte
+		// TODO test with multi-byte characters, also utf8mb4
 		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
 		final char[] buf = new char[length];
 
