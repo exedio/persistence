@@ -47,6 +47,11 @@ final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
 
+	/**
+	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
+	 */
+	private static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
+
 	private final String deleteTable;
 
 	MysqlDialect(final Probe probe)

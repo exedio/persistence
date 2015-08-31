@@ -714,7 +714,7 @@ public class StringTest extends AbstractRuntimeTest
 	// TODO should work without
 	private boolean searchEnabled(final StringField field)
 	{
-		return !oracle || field.getMaximumLength()<=com.exedio.cope.Dialect.ORACLE_VARCHAR_MAX_CHARS;
+		return !oracle || field.getMaximumLength()<=com.exedio.cope.OracleDialect.ORACLE_VARCHAR_MAX_CHARS;
 	}
 
 	public void testSchema()
