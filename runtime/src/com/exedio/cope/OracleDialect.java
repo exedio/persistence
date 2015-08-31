@@ -43,8 +43,8 @@ final class OracleDialect extends Dialect
 	 */
 	private static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
 
-	private static final int ORACLE_VARCHAR_MAX_BYTES = 4000;
-	        static final int ORACLE_VARCHAR_MAX_CHARS = ORACLE_VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
+	private static final int VARCHAR_MAX_BYTES = 4000;
+	        static final int VARCHAR_MAX_CHARS = VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 
 	OracleDialect(final Probe probe)
 	{
@@ -81,7 +81,7 @@ final class OracleDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		if(maxChars<=ORACLE_VARCHAR_MAX_CHARS)
+		if(maxChars<=VARCHAR_MAX_CHARS)
 			return "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)";
 		else
 			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
