@@ -22,18 +22,18 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringMysqlItem.TYPE;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.longMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.longMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMinExt;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMaxExt;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMinExt;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMaxExt;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMin;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.long3Max;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.long3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.medium3Max;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.medium3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumExt3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.text3Max;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.text3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textExt3Max;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.textExt3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varchar3Max;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varchar3Min;
+import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharExt3Max;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
@@ -52,18 +52,18 @@ public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
 		if(!mysql)
 			return;
 
-		assertType("varchar(1)" , varcharMin);
-		assertType("varchar(85)", varcharMax);
-		assertType("varchar(85)", varcharMaxExt);
-		assertType("varchar(86)", textMinExt);
-		assertType("text", textMin);
-		assertType("text", textMax);
-		assertType("varchar(20845)", textMaxExt);
-		assertType("mediumtext", mediumMin);
-		assertType("mediumtext", mediumMinExt);
-		assertType("mediumtext", mediumMax);
-		assertType("longtext", longMin);
-		assertType("longtext", longMax);
+		assertType("varchar(1)" , varchar3Min);
+		assertType("varchar(85)", varchar3Max);
+		assertType("varchar(85)", varcharExt3Max);
+		assertType("varchar(86)", textExt3Min);
+		assertType("text", text3Min);
+		assertType("text", text3Max);
+		assertType("varchar(20845)", textExt3Max);
+		assertType("mediumtext", medium3Min);
+		assertType("mediumtext", mediumExt3Min);
+		assertType("mediumtext", medium3Max);
+		assertType("longtext", long3Min);
+		assertType("longtext", long3Max);
 	}
 
 	private void assertType(final String type, final StringField field)
