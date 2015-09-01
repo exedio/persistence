@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MakeMaxStringTest.makeMax;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
+import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
@@ -81,12 +82,17 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax2(field)));
 		final SchemaTypeStringPostgresqlItem max2 = TYPE.newItem(sv);
+		sv.clear();
+		for(final StringField field : fields)
+			sv.add(field.map(makeMax3(field)));
+		final SchemaTypeStringPostgresqlItem max3 = TYPE.newItem(sv);
 
 		for(final StringField field : fields)
 		{
 			assertEquals("x"           , field.get(min));
 			assertEquals(makeMax(field), field.get(max));
 			assertEquals(makeMax2(field),field.get(max2));
+			assertEquals(makeMax3(field),field.get(max3));
 		}
 
 		restartTransaction();
@@ -95,6 +101,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			assertEquals("x"           , field.get(min));
 			assertEquals(makeMax(field), field.get(max));
 			assertEquals(makeMax2(field),field.get(max2));
+			assertEquals(makeMax3(field),field.get(max3));
 		}
 	}
 

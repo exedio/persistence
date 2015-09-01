@@ -28,6 +28,7 @@ public class MakeMaxStringTest extends CopeAssert
 		final StringField f = new StringField().lengthMax(40);
 		assertEquals(40, utf8len(makeMax(f)));
 		assertEquals(80, utf8len(makeMax2(f)));
+		assertEquals(120,utf8len(makeMax3(f)));
 
 		assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN", makeMax(f));
 		assertEquals(
@@ -39,6 +40,15 @@ public class MakeMaxStringTest extends CopeAssert
 				"\u0410\u0411\u0412\u0413\u0414\u0415" +
 				"\u0410\u0411\u0412\u0413",
 				makeMax2(f));
+		assertEquals(
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8\u8de9\u8dea" +
+				"\u8de5\u8de6\u8de7\u8de8",
+				makeMax3(f));
 	}
 
 	static String makeMax(final StringField field)
@@ -50,6 +60,11 @@ public class MakeMaxStringTest extends CopeAssert
 	static String makeMax2(final StringField field)
 	{
 		return makeMax(field, '\u0410', '\u0415');
+	}
+
+	static String makeMax3(final StringField field)
+	{
+		return makeMax(field, '\u8de5', '\u8dea');
 	}
 
 	private static String makeMax(final StringField field, final char from, final char to)
