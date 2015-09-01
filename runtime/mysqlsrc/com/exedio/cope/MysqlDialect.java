@@ -47,10 +47,13 @@ final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
 
+	private final boolean utf8mb4;
+
 	/**
 	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
 	 */
-	private static final long maxBytesPerChar = 3; // MUST be long to avoid overflow at multiply
+	private final long maxBytesPerChar; // MUST be long to avoid overflow at multiply
+	private final String charset;
 
 	private final String deleteTable;
 
@@ -59,6 +62,10 @@ final class MysqlDialect extends Dialect
 		super(
 				new com.exedio.dsmf.MysqlDialect(
 						probe.properties.mysqlRowFormat.sql));
+		this.utf8mb4 = probe.properties.mysqlUtf8mb4;
+		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
+		final String mb4 = utf8mb4 ? "mb4" : "";
+		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
@@ -152,7 +159,6 @@ final class MysqlDialect extends Dialect
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
-		final String charset = " CHARACTER SET utf8 COLLATE utf8_bin";
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
 			(maxBytes<TWOPOW16 && mysqlExtendedVarchar!=null))
 			return "varchar("+maxChars+")" + charset;
@@ -516,7 +522,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsUTF8mb4()
 	{
-		return false; // TODO add support
+		return utf8mb4;
 	}
 
 	@Override

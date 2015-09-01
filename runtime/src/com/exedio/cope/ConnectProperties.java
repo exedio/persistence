@@ -128,6 +128,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionPrimaryKeyName = value("schema.revision.unique", "protected"); // TODO rename key
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
+	final boolean         mysqlUtf8mb4             = value("schema.mysql.utf8mb4", false);
 	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.NONE);
 	final boolean         mysqlAvoidTruncate       = value("schema.mysql.avoidTruncate", false);
 
