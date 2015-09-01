@@ -514,6 +514,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	boolean supportsUTF8mb4()
+	{
+		return false; // TODO add support
+	}
+
+	@Override
 	boolean supportsNotNull()
 	{
 		return true;

@@ -127,6 +127,11 @@ abstract class Dialect
 		return true;
 	}
 
+	boolean supportsUTF8mb4()
+	{
+		return true;
+	}
+
 	boolean supportsNotNull()
 	{
 		return false;

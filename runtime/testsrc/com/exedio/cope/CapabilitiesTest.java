@@ -38,6 +38,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		final ConnectProperties props = model.getConnectProperties();
 
 		boolean emptyStrings = true;
+		boolean utf8mb4 = true;
 		boolean random = false;
 		boolean checkConstraints = true;
 		boolean nativeDate = true;
@@ -50,6 +51,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 				notNull = false;
 				break;
 			case mysql:
+				utf8mb4 = false;
 				random = true;
 				checkConstraints = false;
 				nativeDate = false;
@@ -66,6 +68,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		}
 
 		assertEquals(emptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
+		assertEquals(utf8mb4, model.supportsUTF8mb4());
 		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo

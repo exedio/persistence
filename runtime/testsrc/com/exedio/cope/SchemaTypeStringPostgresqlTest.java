@@ -89,7 +89,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			sv.add(field.map(makeMax3(field)));
 		final SchemaTypeStringPostgresqlItem max3 = TYPE.newItem(sv);
 		sv.clear();
-		final boolean mb4 = !mysql; // TODO add support on MySQL
+		final boolean mb4 = model.supportsUTF8mb4();
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax4(field)));
 		final SchemaTypeStringPostgresqlItem max4 = newItem(TYPE, sv, mb4);

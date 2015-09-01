@@ -307,6 +307,11 @@ public final class Model implements Serializable
 		return connect().supportsEmptyStrings();
 	}
 
+	public boolean supportsUTF8mb4()
+	{
+		return connect().dialect.supportsUTF8mb4();
+	}
+
 	/**
 	 * @see Random
 	 */
