@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MakeMaxStringTest.makeMax;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
@@ -104,24 +105,6 @@ public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
 			assertEquals("x"           , field.get(min));
 			assertEquals(makeMax(field), field.get(max));
 		}
-	}
-
-	private static String makeMax(final StringField field)
-	{
-		// TODO test with multi-byte characters, also utf8mb4
-		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
-		final char[] buf = new char[length];
-
-		char val = 'A';
-		for(int i = 0; i<length; i++)
-		{
-			buf[i] = val;
-			val++;
-			if(val>'Z')
-				val = 'A';
-		}
-
-		return new String(buf);
 	}
 
 	public void testSchema()
