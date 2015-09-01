@@ -102,10 +102,10 @@ final class PostgresqlDialect extends Dialect
 	 */
 	@Override
 	String getStringType(
-			final int maxBytes /* TODO should be maxChars*/,
+			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxBytes>VARCHAR_LIMIT) ? "text" : "varchar("+maxBytes+')';
+		return (maxChars>VARCHAR_LIMIT) ? "text" : "varchar("+maxChars+')';
 	}
 
 	@Override
