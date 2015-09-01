@@ -26,11 +26,11 @@ public class MakeMaxStringTest extends CopeAssert
 	public void testIt()
 	{
 		final StringField f = new StringField().lengthMax(40);
-		assertEquals(40, utf8len(makeMax(f)));
-		assertEquals(80, utf8len(makeMax2(f)));
-		assertEquals(120,utf8len(makeMax3(f)));
+		assertEquals( 40, utf8len(makeMax1(f)));
+		assertEquals( 80, utf8len(makeMax2(f)));
+		assertEquals(120, utf8len(makeMax3(f)));
 
-		assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN", makeMax(f));
+		assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN", makeMax1(f));
 		assertEquals(
 				"\u0410\u0411\u0412\u0413\u0414\u0415" +
 				"\u0410\u0411\u0412\u0413\u0414\u0415" +
@@ -51,7 +51,7 @@ public class MakeMaxStringTest extends CopeAssert
 				makeMax3(f));
 	}
 
-	static String makeMax(final StringField field)
+	static String makeMax1(final StringField field)
 	{
 		// TODO test with multi-byte characters, also utf8mb4
 		return makeMax(field, 'A', 'Z');
