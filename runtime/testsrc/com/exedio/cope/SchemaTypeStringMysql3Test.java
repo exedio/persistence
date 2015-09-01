@@ -26,28 +26,28 @@ import static com.exedio.cope.MakeMaxStringTest.newItem;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.TYPE;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.longMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.longMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumExtMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.mediumMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textExtMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textExtMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.textMin;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharExtMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMax;
-import static com.exedio.cope.SchemaTypeStringMysqlItem.varcharMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.longMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.longMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumExtMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.textExtMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.textExtMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.textMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.textMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharExtMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharMax;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharMin;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
 
-public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
+public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public SchemaTypeStringMysqlTest()
+	public SchemaTypeStringMysql3Test()
 	{
 		super(MODEL);
 	}
@@ -91,24 +91,24 @@ public class SchemaTypeStringMysqlTest extends AbstractRuntimeModelTest
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final StringField field : fields)
 			sv.add(field.map("x"));
-		final SchemaTypeStringMysqlItem min = TYPE.newItem(sv);
+		final SchemaTypeStringMysql3Item min = TYPE.newItem(sv);
 		sv.clear();
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax1(field)));
-		final SchemaTypeStringMysqlItem max1 = TYPE.newItem(sv);
+		final SchemaTypeStringMysql3Item max1 = TYPE.newItem(sv);
 		sv.clear();
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax2(field)));
-		final SchemaTypeStringMysqlItem max2 = TYPE.newItem(sv);
+		final SchemaTypeStringMysql3Item max2 = TYPE.newItem(sv);
 		sv.clear();
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax3(field)));
-		final SchemaTypeStringMysqlItem max3 = TYPE.newItem(sv);
+		final SchemaTypeStringMysql3Item max3 = TYPE.newItem(sv);
 		sv.clear();
 		final boolean mb4 = !mysql; // TODO add support on MySQL
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax4(field)));
-		final SchemaTypeStringMysqlItem max4 = newItem(TYPE, sv, mb4);
+		final SchemaTypeStringMysql3Item max4 = newItem(TYPE, sv, mb4);
 
 		for(final StringField field : fields)
 		{

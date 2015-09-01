@@ -22,7 +22,7 @@ package com.exedio.cope;
  * @cope.constructor none
  * @cope.generic.constructor none
  */
-public final class SchemaTypeStringMysqlItem extends Item
+public final class SchemaTypeStringMysql3Item extends Item
 {
 	static final StringField varcharMin = new StringField().lengthMax(1);
 	static final StringField varcharMax = new StringField().lengthMax(85);
@@ -49,7 +49,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getVarcharMin()
 	{
-		return SchemaTypeStringMysqlItem.varcharMin.get(this);
+		return SchemaTypeStringMysql3Item.varcharMin.get(this);
 	}/**
 
 	 **
@@ -63,7 +63,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.varcharMin.set(this,varcharMin);
+		SchemaTypeStringMysql3Item.varcharMin.set(this,varcharMin);
 	}/**
 
 	 **
@@ -74,7 +74,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getVarcharMax()
 	{
-		return SchemaTypeStringMysqlItem.varcharMax.get(this);
+		return SchemaTypeStringMysql3Item.varcharMax.get(this);
 	}/**
 
 	 **
@@ -88,7 +88,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.varcharMax.set(this,varcharMax);
+		SchemaTypeStringMysql3Item.varcharMax.set(this,varcharMax);
 	}/**
 
 	 **
@@ -99,7 +99,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getTextMin()
 	{
-		return SchemaTypeStringMysqlItem.textMin.get(this);
+		return SchemaTypeStringMysql3Item.textMin.get(this);
 	}/**
 
 	 **
@@ -113,7 +113,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.textMin.set(this,textMin);
+		SchemaTypeStringMysql3Item.textMin.set(this,textMin);
 	}/**
 
 	 **
@@ -124,7 +124,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getTextMax()
 	{
-		return SchemaTypeStringMysqlItem.textMax.get(this);
+		return SchemaTypeStringMysql3Item.textMax.get(this);
 	}/**
 
 	 **
@@ -138,7 +138,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.textMax.set(this,textMax);
+		SchemaTypeStringMysql3Item.textMax.set(this,textMax);
 	}/**
 
 	 **
@@ -149,7 +149,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getMediumMin()
 	{
-		return SchemaTypeStringMysqlItem.mediumMin.get(this);
+		return SchemaTypeStringMysql3Item.mediumMin.get(this);
 	}/**
 
 	 **
@@ -163,7 +163,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.mediumMin.set(this,mediumMin);
+		SchemaTypeStringMysql3Item.mediumMin.set(this,mediumMin);
 	}/**
 
 	 **
@@ -174,7 +174,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getMediumMax()
 	{
-		return SchemaTypeStringMysqlItem.mediumMax.get(this);
+		return SchemaTypeStringMysql3Item.mediumMax.get(this);
 	}/**
 
 	 **
@@ -188,7 +188,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.mediumMax.set(this,mediumMax);
+		SchemaTypeStringMysql3Item.mediumMax.set(this,mediumMax);
 	}/**
 
 	 **
@@ -199,7 +199,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getLongMin()
 	{
-		return SchemaTypeStringMysqlItem.longMin.get(this);
+		return SchemaTypeStringMysql3Item.longMin.get(this);
 	}/**
 
 	 **
@@ -213,7 +213,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.longMin.set(this,longMin);
+		SchemaTypeStringMysql3Item.longMin.set(this,longMin);
 	}/**
 
 	 **
@@ -224,7 +224,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final java.lang.String getLongMax()
 	{
-		return SchemaTypeStringMysqlItem.longMax.get(this);
+		return SchemaTypeStringMysql3Item.longMax.get(this);
 	}/**
 
 	 **
@@ -238,7 +238,7 @@ public final class SchemaTypeStringMysqlItem extends Item
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
-		SchemaTypeStringMysqlItem.longMax.set(this,longMax);
+		SchemaTypeStringMysql3Item.longMax.set(this,longMax);
 	}/**
 
 	 **
@@ -248,12 +248,12 @@ public final class SchemaTypeStringMysqlItem extends Item
 	private static final long serialVersionUID = 1l;/**
 
 	 **
-	 * The persistent type information for schemaTypeStringMysqlItem.
+	 * The persistent type information for schemaTypeStringMysql3Item.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final com.exedio.cope.Type<SchemaTypeStringMysqlItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringMysqlItem.class);/**
+	public static final com.exedio.cope.Type<SchemaTypeStringMysql3Item> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringMysql3Item.class);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
@@ -261,5 +261,5 @@ public final class SchemaTypeStringMysqlItem extends Item
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private SchemaTypeStringMysqlItem(final com.exedio.cope.ActivationParameters ap){super(ap);
+	@SuppressWarnings("unused") private SchemaTypeStringMysql3Item(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
