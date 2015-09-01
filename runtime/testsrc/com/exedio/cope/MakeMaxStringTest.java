@@ -27,14 +27,29 @@ public class MakeMaxStringTest extends CopeAssert
 	{
 		final StringField f = new StringField().lengthMax(40);
 		assertEquals(40, utf8len(makeMax(f)));
+		assertEquals(80, utf8len(makeMax2(f)));
 
 		assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN", makeMax(f));
+		assertEquals(
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413\u0414\u0415" +
+				"\u0410\u0411\u0412\u0413",
+				makeMax2(f));
 	}
 
 	static String makeMax(final StringField field)
 	{
 		// TODO test with multi-byte characters, also utf8mb4
 		return makeMax(field, 'A', 'Z');
+	}
+
+	static String makeMax2(final StringField field)
+	{
+		return makeMax(field, '\u0410', '\u0415');
 	}
 
 	private static String makeMax(final StringField field, final char from, final char to)
