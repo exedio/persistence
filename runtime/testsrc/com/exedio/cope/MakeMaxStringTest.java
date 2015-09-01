@@ -18,8 +18,9 @@
 
 package com.exedio.cope;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import com.exedio.cope.junit.CopeAssert;
-import java.nio.charset.StandardCharsets;
 
 public class MakeMaxStringTest extends CopeAssert
 {
@@ -87,6 +88,6 @@ public class MakeMaxStringTest extends CopeAssert
 
 	private static int utf8len(final String s)
 	{
-		return s.getBytes(StandardCharsets.UTF_8).length;
+		return s.getBytes(UTF_8).length;
 	}
 }
