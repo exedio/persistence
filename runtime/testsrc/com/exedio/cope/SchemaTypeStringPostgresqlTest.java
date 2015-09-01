@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
+import static com.exedio.cope.MakeMaxStringTest.makeMax4;
+import static com.exedio.cope.MakeMaxStringTest.newItem;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
@@ -86,6 +88,11 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		for(final StringField field : fields)
 			sv.add(field.map(makeMax3(field)));
 		final SchemaTypeStringPostgresqlItem max3 = TYPE.newItem(sv);
+		sv.clear();
+		final boolean mb4 = !mysql; // TODO add support on MySQL
+		for(final StringField field : fields)
+			sv.add(field.map(makeMax4(field)));
+		final SchemaTypeStringPostgresqlItem max4 = newItem(TYPE, sv, mb4);
 
 		for(final StringField field : fields)
 		{
@@ -93,6 +100,8 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1));
 			assertEquals(makeMax2(field), field.get(max2));
 			assertEquals(makeMax3(field), field.get(max3));
+			if(mb4)
+				assertEquals(makeMax4(field), field.get(max4));
 		}
 
 		restartTransaction();
@@ -102,6 +111,8 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1));
 			assertEquals(makeMax2(field), field.get(max2));
 			assertEquals(makeMax3(field), field.get(max3));
+			if(mb4)
+				assertEquals(makeMax4(field), field.get(max4));
 		}
 	}
 
