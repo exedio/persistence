@@ -19,12 +19,15 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import java.nio.charset.StandardCharsets;
 
 public class MakeMaxStringTest extends CopeAssert
 {
 	public void testIt()
 	{
 		final StringField f = new StringField().lengthMax(40);
+		assertEquals(40, utf8len(makeMax(f)));
+
 		assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN", makeMax(f));
 	}
 
@@ -44,5 +47,10 @@ public class MakeMaxStringTest extends CopeAssert
 		}
 
 		return new String(buf);
+	}
+
+	private static int utf8len(final String s)
+	{
+		return s.getBytes(StandardCharsets.UTF_8).length;
 	}
 }
