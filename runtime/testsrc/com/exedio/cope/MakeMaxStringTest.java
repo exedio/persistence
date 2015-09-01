@@ -34,16 +34,22 @@ public class MakeMaxStringTest extends CopeAssert
 	static String makeMax(final StringField field)
 	{
 		// TODO test with multi-byte characters, also utf8mb4
+		return makeMax(field, 'A', 'Z');
+	}
+
+	private static String makeMax(final StringField field, final char from, final char to)
+	{
+		assertTrue(from<to);
 		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
 		final char[] buf = new char[length];
 
-		char val = 'A';
+		char val = from;
 		for(int i = 0; i<length; i++)
 		{
 			buf[i] = val;
 			val++;
-			if(val>'Z')
-				val = 'A';
+			if(val>to)
+				val = from;
 		}
 
 		return new String(buf);
