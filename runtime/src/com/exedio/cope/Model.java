@@ -307,6 +307,9 @@ public final class Model implements Serializable
 		return connect().supportsEmptyStrings();
 	}
 
+	/**
+	 * https://dev.mysql.com/doc/refman/5.6/en/charset-unicode-utf8mb4.html
+	 */
 	public boolean supportsUTF8mb4()
 	{
 		return connect().dialect.supportsUTF8mb4();
