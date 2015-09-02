@@ -61,7 +61,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		}
 		catch(final SQLException ex)
 		{
-			throw new SQLRuntimeException(ex, "create");
+			throw new SQLRuntimeException(ex, "connect");
 		}
 	}
 
