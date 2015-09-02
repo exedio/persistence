@@ -153,7 +153,7 @@ final class MysqlDialect extends Dialect
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
 		final String charset = " CHARACTER SET utf8 COLLATE utf8_bin";
-		if(maxBytes<TWOPOW8 ||
+		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 bytes per character
 			(maxBytes<TWOPOW16 && mysqlExtendedVarchar!=null))
 			return "varchar("+maxChars+")" + charset;
 		else if(maxBytes<TWOPOW16)
