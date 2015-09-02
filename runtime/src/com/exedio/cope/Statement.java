@@ -394,6 +394,8 @@ final class Statement
 			((Item)o).appendCopeID(bf);
 		else if(o instanceof Date)
 			bf.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
+		else if(o instanceof String)
+			bf.append(StringField.truncateValue((String)o));
 		else if(o instanceof byte[])
 			Arrays.append(bf, (byte[])o, 30);
 		else
