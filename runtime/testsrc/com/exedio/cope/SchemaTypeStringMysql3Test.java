@@ -39,8 +39,8 @@ import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharMin;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 {
@@ -109,10 +109,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		if(oracle)
 			return;
 
-		final ArrayList<SchemaTypeStringField> fields = new ArrayList<>();
-		for(final Feature feature : TYPE.getFeatures())
-			if(feature instanceof SchemaTypeStringField)
-				fields.add((SchemaTypeStringField)feature);
+		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
 		assertEquals(12, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();

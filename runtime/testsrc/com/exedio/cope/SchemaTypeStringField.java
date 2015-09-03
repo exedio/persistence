@@ -27,6 +27,8 @@ import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Makes it easy to create a type with just one StringField for tests.
@@ -102,6 +104,15 @@ public final class SchemaTypeStringField extends Pattern
 				getType().getModel().getSchema().
 				getTable(getTableName(sourceType())).
 				getColumn(getColumnName(sourceField)).getType();
+	}
+
+	static List<SchemaTypeStringField> get(final Type<?> type)
+	{
+		final ArrayList<SchemaTypeStringField> result = new ArrayList<>();
+		for(final Feature feature : type.getFeatures())
+			if(feature instanceof SchemaTypeStringField)
+				result.add((SchemaTypeStringField)feature);
+		return result;
 	}
 
 	static final class AnnotationProxy implements AnnotatedElement

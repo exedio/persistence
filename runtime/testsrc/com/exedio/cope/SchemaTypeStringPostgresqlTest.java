@@ -31,8 +31,8 @@ import static com.exedio.cope.SchemaTypeStringPostgresqlItem.varcharMin;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 {
@@ -67,10 +67,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		if(oracle)
 			return;
 
-		final ArrayList<SchemaTypeStringField> fields = new ArrayList<>();
-		for(final Feature feature : TYPE.getFeatures())
-			if(feature instanceof SchemaTypeStringField)
-				fields.add((SchemaTypeStringField)feature);
+		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
 		assertEquals(4, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();
