@@ -473,6 +473,7 @@
 				<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="SchemaTypeStringField.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="EnumTest.java" /><!-- TODO remove -->
 				<exclude name="MakeMaxStringTest.java" /><!-- TODO remove -->
 				<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->

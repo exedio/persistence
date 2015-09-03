@@ -144,6 +144,26 @@ public class MakeMaxStringTest extends CopeAssert
 		return new String(buf);
 	}
 
+	static String makeMax1(final SchemaTypeStringField field)
+	{
+		return makeMax1(field.sourceField);
+	}
+
+	static String makeMax2(final SchemaTypeStringField field)
+	{
+		return makeMax2(field.sourceField);
+	}
+
+	static String makeMax3(final SchemaTypeStringField field)
+	{
+		return makeMax3(field.sourceField);
+	}
+
+	static String makeMax4(final SchemaTypeStringField field)
+	{
+		return makeMax4(field.sourceField);
+	}
+
 	private static int utf8len(final String s)
 	{
 		return s.getBytes(UTF_8).length;
