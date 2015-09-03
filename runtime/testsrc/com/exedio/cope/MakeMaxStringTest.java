@@ -160,7 +160,7 @@ public class MakeMaxStringTest extends CopeAssert
 		try
 		{
 			type.newItem(sv);
-			fail();
+			fail(type.getID());
 		}
 		catch(final SQLRuntimeException e)
 		{
