@@ -22,7 +22,6 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
-import static com.exedio.cope.MakeMaxStringTest.newItem;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
@@ -34,6 +33,7 @@ import static com.exedio.cope.SchemaTypeStringPostgresqlItem.varcharMin;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 {
@@ -55,12 +55,12 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		assertType("text", textMax);
 	}
 
-	private void assertType(final String type, final StringField field)
+	private void assertType(final String type, final SchemaTypeStringField field)
 	{
 		assertEquals(
 				field.getID(),
 				type + (supportsNotNull(model) ? NOT_NULL : ""),
-				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
+				model.getSchema().getTable(getTableName(field.sourceType())).getColumn(getColumnName(field.sourceField)).getType());
 	}
 
 	public void testValues()
@@ -68,51 +68,51 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		if(oracle)
 			return;
 
-		final ArrayList<StringField> fields = new ArrayList<>();
-		for(final Field<?> field : TYPE.getFields())
-			fields.add((StringField)field);
+		final ArrayList<SchemaTypeStringField> fields = new ArrayList<>();
+		for(final Feature feature : TYPE.getFeatures())
+			if(feature instanceof SchemaTypeStringField)
+				fields.add((SchemaTypeStringField)feature);
 
-		final ArrayList<SetValue<?>> sv = new ArrayList<>();
-		for(final StringField field : fields)
-			sv.add(field.map("x"));
-		final SchemaTypeStringPostgresqlItem min = TYPE.newItem(sv);
-		sv.clear();
-		for(final StringField field : fields)
-			sv.add(field.map(makeMax1(field)));
-		final SchemaTypeStringPostgresqlItem max1 = TYPE.newItem(sv);
-		sv.clear();
-		for(final StringField field : fields)
-			sv.add(field.map(makeMax2(field)));
-		final SchemaTypeStringPostgresqlItem max2 = TYPE.newItem(sv);
-		sv.clear();
-		for(final StringField field : fields)
-			sv.add(field.map(makeMax3(field)));
-		final SchemaTypeStringPostgresqlItem max3 = TYPE.newItem(sv);
-		sv.clear();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> min = new HashMap<>();
+		for(final SchemaTypeStringField field : fields)
+			min.put(field, field.add("x"));
+
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max1 = new HashMap<>();
+		for(final SchemaTypeStringField field : fields)
+			max1.put(field, field.add(makeMax1(field)));
+
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max2 = new HashMap<>();
+		for(final SchemaTypeStringField field : fields)
+			max2.put(field, field.add(makeMax2(field)));
+
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max3 = new HashMap<>();
+		for(final SchemaTypeStringField field : fields)
+			max3.put(field, field.add(makeMax3(field)));
+
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max4 = new HashMap<>();
 		final boolean mb4 = model.supportsUTF8mb4();
-		for(final StringField field : fields)
-			sv.add(field.map(makeMax4(field)));
-		final SchemaTypeStringPostgresqlItem max4 = newItem(TYPE, sv, mb4);
+		for(final SchemaTypeStringField field : fields)
+			max4.put(field, field.add(makeMax4(field), mb4 || (field==varcharMin))); // varcharMin works because surrogates do not fit into string of length 1
 
-		for(final StringField field : fields)
+		for(final SchemaTypeStringField field : fields)
 		{
-			assertEquals("x"            , field.get(min));
-			assertEquals(makeMax1(field), field.get(max1));
-			assertEquals(makeMax2(field), field.get(max2));
-			assertEquals(makeMax3(field), field.get(max3));
-			if(mb4)
-				assertEquals(makeMax4(field), field.get(max4));
+			assertEquals("x"            , field.get(min .get(field)));
+			assertEquals(makeMax1(field), field.get(max1.get(field)));
+			assertEquals(makeMax2(field), field.get(max2.get(field)));
+			assertEquals(makeMax3(field), field.get(max3.get(field)));
+			if(mb4 || (field==varcharMin))
+				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 
 		restartTransaction();
-		for(final StringField field : fields)
+		for(final SchemaTypeStringField field : fields)
 		{
-			assertEquals("x"            , field.get(min));
-			assertEquals(makeMax1(field), field.get(max1));
-			assertEquals(makeMax2(field), field.get(max2));
-			assertEquals(makeMax3(field), field.get(max3));
-			if(mb4)
-				assertEquals(makeMax4(field), field.get(max4));
+			assertEquals("x"            , field.get(min .get(field)));
+			assertEquals(makeMax1(field), field.get(max1.get(field)));
+			assertEquals(makeMax2(field), field.get(max2.get(field)));
+			assertEquals(makeMax3(field), field.get(max3.get(field)));
+			if(mb4 || (field==varcharMin))
+				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 	}
 

@@ -22,8 +22,6 @@ import static com.exedio.cope.util.Hex.encodeUpper;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.dsmf.SQLRuntimeException;
-import java.util.ArrayList;
 
 public class MakeMaxStringTest extends CopeAssert
 {
@@ -167,25 +165,5 @@ public class MakeMaxStringTest extends CopeAssert
 	private static int utf8len(final String s)
 	{
 		return s.getBytes(UTF_8).length;
-	}
-
-	static <I extends Item> I newItem(
-			final Type<I> type,
-			final ArrayList<SetValue<?>> sv,
-			final boolean mb4)
-	{
-		if(mb4)
-			return type.newItem(sv);
-
-		try
-		{
-			type.newItem(sv);
-			fail(type.getID());
-		}
-		catch(final SQLRuntimeException e)
-		{
-			// expected
-		}
-		return null;
 	}
 }
