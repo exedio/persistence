@@ -72,6 +72,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		for(final Feature feature : TYPE.getFeatures())
 			if(feature instanceof SchemaTypeStringField)
 				fields.add((SchemaTypeStringField)feature);
+		assertEquals(4, fields.size());
 
 		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
