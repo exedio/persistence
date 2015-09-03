@@ -22,8 +22,6 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.longMax;
@@ -103,7 +101,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		assertEquals(
 				field.getID(),
 				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : ""),
-				model.getSchema().getTable(getTableName(field.sourceType())).getColumn(getColumnName(field.sourceField)).getType());
+				field.getSchemaType());
 	}
 
 	public void testValues()

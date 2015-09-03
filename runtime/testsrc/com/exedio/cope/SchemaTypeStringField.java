@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.fail;
 
@@ -92,6 +94,14 @@ public final class SchemaTypeStringField extends Pattern
 			// expected
 		}
 		return null;
+	}
+
+	String getSchemaType()
+	{
+		return
+				getType().getModel().getSchema().
+				getTable(getTableName(sourceType())).
+				getColumn(getColumnName(sourceField)).getType();
 	}
 
 	static final class AnnotationProxy implements AnnotatedElement

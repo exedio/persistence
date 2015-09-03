@@ -22,8 +22,6 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringPostgresqlItem.TYPE;
 import static com.exedio.cope.SchemaTypeStringPostgresqlItem.textMax;
@@ -61,7 +59,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		assertEquals(
 				field.getID(),
 				type + (supportsNotNull(model) ? NOT_NULL : ""),
-				model.getSchema().getTable(getTableName(field.sourceType())).getColumn(getColumnName(field.sourceField)).getType());
+				field.getSchemaType());
 	}
 
 	public void testValues()
