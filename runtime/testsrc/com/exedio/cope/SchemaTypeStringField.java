@@ -36,7 +36,7 @@ public final class SchemaTypeStringField extends Pattern
 
 	final StringField sourceField;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Type<PatternItem> sourceTypeIfMounted = null;
+	private Type<StringItem> sourceTypeIfMounted = null;
 
 	public SchemaTypeStringField(final int maximumLength)
 	{
@@ -50,34 +50,34 @@ public final class SchemaTypeStringField extends Pattern
 
 		final Features features = new Features();
 		features.put("element", sourceField, new AnnotationProxy(this));
-		sourceTypeIfMounted = newSourceType(PatternItem.class, features);
+		sourceTypeIfMounted = newSourceType(StringItem.class, features);
 	}
 
-	static final class PatternItem extends Item
+	static final class StringItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
-		PatternItem(final ActivationParameters ap) { super(ap); }
+		StringItem(final ActivationParameters ap) { super(ap); }
 	}
 
-	Type<PatternItem> sourceType()
+	Type<StringItem> sourceType()
 	{
-		final Type<PatternItem> sourceType = this.sourceTypeIfMounted;
+		final Type<StringItem> sourceType = this.sourceTypeIfMounted;
 		if(sourceType==null)
 			throw new IllegalStateException("feature not mounted");
 		return sourceType;
 	}
 
-	String get(final PatternItem item)
+	String get(final StringItem item)
 	{
 		return sourceField.get(item);
 	}
 
-	PatternItem add(final String element)
+	StringItem add(final String element)
 	{
 		return sourceType().newItem(this.sourceField.map(element));
 	}
 
-	PatternItem add(final String element, final boolean mb4)
+	StringItem add(final String element, final boolean mb4)
 	{
 		if(mb4)
 			return add(element);

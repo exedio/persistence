@@ -116,23 +116,23 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 				fields.add((SchemaTypeStringField)feature);
 		assertEquals(12, fields.size());
 
-		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> min = new HashMap<>();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.StringItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
 			min.put(field, field.add("x"));
 
-		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max1 = new HashMap<>();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.StringItem> max1 = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
 			max1.put(field, field.add(makeMax1(field)));
 
-		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max2 = new HashMap<>();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.StringItem> max2 = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
 			max2.put(field, field.add(makeMax2(field)));
 
-		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max3 = new HashMap<>();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.StringItem> max3 = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
 			max3.put(field, field.add(makeMax3(field)));
 
-		final HashMap<SchemaTypeStringField, SchemaTypeStringField.PatternItem> max4 = new HashMap<>();
+		final HashMap<SchemaTypeStringField, SchemaTypeStringField.StringItem> max4 = new HashMap<>();
 		final boolean mb4 = model.supportsUTF8mb4();
 		for(final SchemaTypeStringField field : fields)
 			max4.put(field, field.add(makeMax4(field), mb4 || (field==varcharMin))); // varcharMin works because surrogates do not fit into string of length 1
