@@ -27,8 +27,11 @@ import static com.exedio.cope.SchemaTypeStringItem.TYPE;
 import static com.exedio.cope.SchemaTypeStringItem.f1;
 import static com.exedio.cope.SchemaTypeStringItem.f10485760;
 import static com.exedio.cope.SchemaTypeStringItem.f10485761;
+import static com.exedio.cope.SchemaTypeStringItem.f16382Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f16383;
+import static com.exedio.cope.SchemaTypeStringItem.f16383Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f16384;
+import static com.exedio.cope.SchemaTypeStringItem.f16384Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f2;
 import static com.exedio.cope.SchemaTypeStringItem.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f20846Ext;
@@ -105,18 +108,21 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 		}
 		else if(mysql && model.getConnectProperties().mysqlUtf8mb4)
 		{
-			assertType("varchar(1)" , f1);
-			assertType("varchar(85)", f85);
-			assertType("varchar(85)", f86);
-			assertType("varchar(86)", f86Ext);
-			assertType("text", f86);
-			assertType("text", f16383);
-			assertType("varchar(20845)", f16383);
-			assertType("mediumtext", f16384);
-			assertType("mediumtext", f16384);
+			assertType("varchar(1)",       f1);
+			assertType("varchar(2)",       f2);
+			assertType("varchar(85)",     f85);
+			assertType("text",            f86);
+			assertType("text",         f16383);
+			assertType("mediumtext",   f16384);
 			assertType("mediumtext", f4194303);
-			assertType("longtext", f4194304);
-			assertType("longtext", fMax);
+			assertType("longtext",   f4194304);
+			assertType("longtext",   fMax);
+			// @MysqlExtendedVarchar
+			assertType("varchar(85)",       f85Ext);
+			assertType("varchar(86)",       f86Ext);
+			assertType("varchar(16382)", f16382Ext);
+			assertType("text",           f16383Ext);
+			assertType("mediumtext",     f16384Ext);
 		}
 		else if(postgresql)
 		{
@@ -131,7 +137,10 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 	private void assertType(String type, final SchemaTypeStringField field)
 	{
 		if(mysql)
-			type = type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		{
+			final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
+			type = type + " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		}
 		else if(postgresql)
 			type = type + (supportsNotNull(model) ? NOT_NULL : "");
 		else
