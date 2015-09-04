@@ -84,28 +84,28 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 
 		if(mysql)
 		{
-			assertType("varchar(1)" , f1);
-			assertType("varchar(2)" , f2);
-			assertType("varchar(85)", f85);
-			assertType("text",        f86);
-			assertType("text",        f21845);
-			assertType("mediumtext",  f21846);
-			assertType("mediumtext",  f5592405);
-			assertType("longtext",    f5592406);
-			assertType("longtext",    fMax);
+			assertType("varchar(1)",       f1);
+			assertType("varchar(2)",       f2);
+			assertType("varchar(85)",     f85);
+			assertType("text",            f86);
+			assertType("text",         f21845);
+			assertType("mediumtext",   f21846);
+			assertType("mediumtext", f5592405);
+			assertType("longtext",   f5592406);
+			assertType("longtext",   fMax);
 			// @MysqlExtendedVarchar
-			assertType("varchar(85)",    f85Ext);
-			assertType("varchar(86)",    f86Ext);
+			assertType("varchar(85)",       f85Ext);
+			assertType("varchar(86)",       f86Ext);
 			assertType("varchar(20845)", f20845Ext);
 			assertType("mediumtext",     f20846Ext);
 		}
 		else if(postgresql)
 		{
-			assertType("varchar(1)" , f1);
-			assertType("varchar(2)" , f2);
+			assertType("varchar(1)", f1);
+			assertType("varchar(2)", f2);
 			assertType("varchar(10485760)", f10485760);
-			assertType("text", f10485761);
-			assertType("text", fMax);
+			assertType("text",              f10485761);
+			assertType("text",              fMax);
 		}
 	}
 
