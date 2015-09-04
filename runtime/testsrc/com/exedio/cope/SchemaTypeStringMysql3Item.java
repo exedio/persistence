@@ -25,6 +25,7 @@ package com.exedio.cope;
 public final class SchemaTypeStringMysql3Item extends Item
 {
 	static final SchemaTypeStringField f1       = new SchemaTypeStringField(      1);
+	static final SchemaTypeStringField f2       = new SchemaTypeStringField(      2);
 	static final SchemaTypeStringField f85      = new SchemaTypeStringField(     85);
 	static final SchemaTypeStringField f86      = new SchemaTypeStringField(     86);
 	static final SchemaTypeStringField f21845   = new SchemaTypeStringField(  21845);

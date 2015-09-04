@@ -27,6 +27,7 @@ import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f1;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485760;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485761;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f2;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f20846Ext;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f21845;
@@ -84,6 +85,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		if(mysql)
 		{
 			assertType("varchar(1)" , f1);
+			assertType("varchar(2)" , f2);
 			assertType("varchar(85)", f85);
 			assertType("text",        f86);
 			assertType("text",        f21845);
@@ -100,6 +102,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		else if(postgresql)
 		{
 			assertType("varchar(1)" , f1);
+			assertType("varchar(2)" , f2);
 			assertType("varchar(10485760)", f10485760);
 			assertType("text", f10485761);
 			assertType("text", fMax);
@@ -127,7 +130,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 			return;
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
-		assertEquals(14, fields.size());
+		assertEquals(15, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
