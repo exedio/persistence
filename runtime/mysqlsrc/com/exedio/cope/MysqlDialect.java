@@ -160,7 +160,7 @@ final class MysqlDialect extends Dialect
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
-			(maxBytes<TWOPOW16 && mysqlExtendedVarchar!=null))
+			(maxBytes<(TWOPOW16-4) && mysqlExtendedVarchar!=null))
 			return "varchar("+maxChars+")" + charset;
 		else if(maxBytes<TWOPOW16)
 			return "text" + charset;
