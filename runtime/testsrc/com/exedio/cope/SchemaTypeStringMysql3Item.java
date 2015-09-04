@@ -24,19 +24,19 @@ package com.exedio.cope;
  */
 public final class SchemaTypeStringMysql3Item extends Item
 {
-	static final SchemaTypeStringField varcharMin = new SchemaTypeStringField(1);
-	static final SchemaTypeStringField varcharMax = new SchemaTypeStringField(85);
-	static final SchemaTypeStringField textMin    = new SchemaTypeStringField(86);
-	static final SchemaTypeStringField textMax    = new SchemaTypeStringField(21845);
-	static final SchemaTypeStringField mediumMin  = new SchemaTypeStringField(21846);
-	static final SchemaTypeStringField mediumMax  = new SchemaTypeStringField(5592405);
-	static final SchemaTypeStringField longMin    = new SchemaTypeStringField(5592406);
-	static final SchemaTypeStringField longMax    = new SchemaTypeStringField(Integer.MAX_VALUE);
+	static final SchemaTypeStringField f1       = new SchemaTypeStringField(      1);
+	static final SchemaTypeStringField f85      = new SchemaTypeStringField(     85);
+	static final SchemaTypeStringField f86      = new SchemaTypeStringField(     86);
+	static final SchemaTypeStringField f21845   = new SchemaTypeStringField(  21845);
+	static final SchemaTypeStringField f21846   = new SchemaTypeStringField(  21846);
+	static final SchemaTypeStringField f5592405 = new SchemaTypeStringField(5592405);
+	static final SchemaTypeStringField f5592406 = new SchemaTypeStringField(5592406);
+	static final SchemaTypeStringField fMax     = new SchemaTypeStringField(Integer.MAX_VALUE);
 
-	@MysqlExtendedVarchar static final SchemaTypeStringField varcharExtMax = new SchemaTypeStringField(85);
-	@MysqlExtendedVarchar static final SchemaTypeStringField textExtMin    = new SchemaTypeStringField(86);
-	@MysqlExtendedVarchar static final SchemaTypeStringField textExtMax    = new SchemaTypeStringField(20845);
-	@MysqlExtendedVarchar static final SchemaTypeStringField mediumExtMin  = new SchemaTypeStringField(21846);
+	@MysqlExtendedVarchar static final SchemaTypeStringField f85Ext    = new SchemaTypeStringField(   85);
+	@MysqlExtendedVarchar static final SchemaTypeStringField f86Ext    = new SchemaTypeStringField(   86);
+	@MysqlExtendedVarchar static final SchemaTypeStringField f20845Ext = new SchemaTypeStringField(20845);
+	@MysqlExtendedVarchar static final SchemaTypeStringField f20846Ext = new SchemaTypeStringField(21846);
 
 
 	/**

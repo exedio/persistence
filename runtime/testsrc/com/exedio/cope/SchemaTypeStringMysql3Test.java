@@ -24,18 +24,18 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.longMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.longMin;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumExtMin;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.mediumMin;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.textExtMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.textExtMin;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.textMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.textMin;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharExtMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharMax;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.varcharMin;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f1;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f20845Ext;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f20846Ext;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f21845;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f21846;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f5592405;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f5592406;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f85;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f85Ext;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f86;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f86Ext;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
@@ -57,43 +57,43 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		// just the primary key and the StringField
 		try
 		{
-			SchemaInfo.getTypeColumnName(varcharMin.sourceType());
+			SchemaInfo.getTypeColumnName(f1.sourceType());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no type column for SchemaTypeStringMysql3Item-varcharMin", e.getMessage());
+			assertEquals("no type column for SchemaTypeStringMysql3Item-f1", e.getMessage());
 		}
 		try
 		{
-			SchemaInfo.getUpdateCounterColumnName(varcharMin.sourceType());
+			SchemaInfo.getUpdateCounterColumnName(f1.sourceType());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no update counter for SchemaTypeStringMysql3Item-varcharMin", e.getMessage());
+			assertEquals("no update counter for SchemaTypeStringMysql3Item-f1", e.getMessage());
 		}
 
-		assertEquals(false, varcharMax   .isAnnotationPresent(MysqlExtendedVarchar.class));
-		assertEquals(true,  varcharExtMax.isAnnotationPresent(MysqlExtendedVarchar.class));
-		assertEquals(false, varcharMax   .sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
-		assertEquals(true,  varcharExtMax.sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
+		assertEquals(false, f85   .isAnnotationPresent(MysqlExtendedVarchar.class));
+		assertEquals(true,  f85Ext.isAnnotationPresent(MysqlExtendedVarchar.class));
+		assertEquals(false, f85   .sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
+		assertEquals(true,  f85Ext.sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
 
 		if(!mysql)
 			return;
 
-		assertType("varchar(1)" , varcharMin);
-		assertType("varchar(85)", varcharMax);
-		assertType("varchar(85)", varcharExtMax);
-		assertType("varchar(86)", textExtMin);
-		assertType("text", textMin);
-		assertType("text", textMax);
-		assertType("varchar(20845)", textExtMax);
-		assertType("mediumtext", mediumMin);
-		assertType("mediumtext", mediumExtMin);
-		assertType("mediumtext", mediumMax);
-		assertType("longtext", longMin);
-		assertType("longtext", longMax);
+		assertType("varchar(1)" , f1);
+		assertType("varchar(85)", f85);
+		assertType("varchar(85)", f85Ext);
+		assertType("varchar(86)", f86Ext);
+		assertType("text", f86);
+		assertType("text", f21845);
+		assertType("varchar(20845)", f20845Ext);
+		assertType("mediumtext", f21846);
+		assertType("mediumtext", f20846Ext);
+		assertType("mediumtext", f5592405);
+		assertType("longtext", f5592406);
+		assertType("longtext", fMax);
 	}
 
 	private void assertType(final String type, final SchemaTypeStringField field)
@@ -131,7 +131,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		final HashMap<SchemaTypeStringField, StringItem> max4 = new HashMap<>();
 		final boolean mb4 = model.supportsUTF8mb4();
 		for(final SchemaTypeStringField field : fields)
-			max4.put(field, field.add(makeMax4(field), mb4 || (field==varcharMin))); // varcharMin works because surrogates do not fit into string of length 1
+			max4.put(field, field.add(makeMax4(field), mb4 || (field==f1))); // f1 works because surrogates do not fit into string of length 1
 
 		for(final SchemaTypeStringField field : fields)
 		{
@@ -139,7 +139,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==varcharMin))
+			if(mb4 || (field==f1))
 				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 
@@ -150,7 +150,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==varcharMin))
+			if(mb4 || (field==f1))
 				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 	}
