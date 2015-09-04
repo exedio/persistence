@@ -24,10 +24,10 @@ package com.exedio.cope;
  */
 public final class SchemaTypeStringPostgresqlItem extends Item
 {
-	static final SchemaTypeStringField varcharMin = new SchemaTypeStringField(1);
-	static final SchemaTypeStringField varcharMax = new SchemaTypeStringField(10485760);
-	static final SchemaTypeStringField textMin    = new SchemaTypeStringField(10485761);
-	static final SchemaTypeStringField textMax    = new SchemaTypeStringField(Integer.MAX_VALUE);
+	static final SchemaTypeStringField f1        = new SchemaTypeStringField(1);
+	static final SchemaTypeStringField f10485760 = new SchemaTypeStringField(10485760);
+	static final SchemaTypeStringField f10485761 = new SchemaTypeStringField(10485761);
+	static final SchemaTypeStringField fMax      = new SchemaTypeStringField(Integer.MAX_VALUE);
 
 
 	/**

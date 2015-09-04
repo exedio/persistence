@@ -24,10 +24,10 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringPostgresqlItem.TYPE;
-import static com.exedio.cope.SchemaTypeStringPostgresqlItem.textMax;
-import static com.exedio.cope.SchemaTypeStringPostgresqlItem.textMin;
-import static com.exedio.cope.SchemaTypeStringPostgresqlItem.varcharMax;
-import static com.exedio.cope.SchemaTypeStringPostgresqlItem.varcharMin;
+import static com.exedio.cope.SchemaTypeStringPostgresqlItem.f1;
+import static com.exedio.cope.SchemaTypeStringPostgresqlItem.f10485760;
+import static com.exedio.cope.SchemaTypeStringPostgresqlItem.f10485761;
+import static com.exedio.cope.SchemaTypeStringPostgresqlItem.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
@@ -48,10 +48,10 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		if(!postgresql)
 			return;
 
-		assertType("varchar(1)" , varcharMin);
-		assertType("varchar(10485760)", varcharMax);
-		assertType("text", textMin);
-		assertType("text", textMax);
+		assertType("varchar(1)" , f1);
+		assertType("varchar(10485760)", f10485760);
+		assertType("text", f10485761);
+		assertType("text", fMax);
 	}
 
 	private void assertType(final String type, final SchemaTypeStringField field)
@@ -89,7 +89,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 		final HashMap<SchemaTypeStringField, StringItem> max4 = new HashMap<>();
 		final boolean mb4 = model.supportsUTF8mb4();
 		for(final SchemaTypeStringField field : fields)
-			max4.put(field, field.add(makeMax4(field), mb4 || (field==varcharMin))); // varcharMin works because surrogates do not fit into string of length 1
+			max4.put(field, field.add(makeMax4(field), mb4 || (field==f1))); // f1 works because surrogates do not fit into string of length 1
 
 		for(final SchemaTypeStringField field : fields)
 		{
@@ -97,7 +97,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==varcharMin))
+			if(mb4 || (field==f1))
 				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 
@@ -108,7 +108,7 @@ public class SchemaTypeStringPostgresqlTest extends AbstractRuntimeModelTest
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==varcharMin))
+			if(mb4 || (field==f1))
 				assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 	}
