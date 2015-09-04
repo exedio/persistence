@@ -97,11 +97,16 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		}
 	}
 
-	private void assertType(final String type, final SchemaTypeStringField field)
+	private void assertType(String type, final SchemaTypeStringField field)
 	{
+		if(mysql)
+			type = type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		else
+			throw new RuntimeException();
+
 		assertEquals(
 				field.getID(),
-				type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : ""),
+				type,
 				field.getSchemaType());
 	}
 
