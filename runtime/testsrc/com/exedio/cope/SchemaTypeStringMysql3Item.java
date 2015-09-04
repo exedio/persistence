@@ -31,6 +31,8 @@ public final class SchemaTypeStringMysql3Item extends Item
 	static final SchemaTypeStringField f21846   = new SchemaTypeStringField(  21846);
 	static final SchemaTypeStringField f5592405 = new SchemaTypeStringField(5592405);
 	static final SchemaTypeStringField f5592406 = new SchemaTypeStringField(5592406);
+	static final SchemaTypeStringField f10485760= new SchemaTypeStringField(10485760);
+	static final SchemaTypeStringField f10485761= new SchemaTypeStringField(10485761);
 	static final SchemaTypeStringField fMax     = new SchemaTypeStringField(Integer.MAX_VALUE);
 
 	@MysqlExtendedVarchar static final SchemaTypeStringField f85Ext    = new SchemaTypeStringField(   85);

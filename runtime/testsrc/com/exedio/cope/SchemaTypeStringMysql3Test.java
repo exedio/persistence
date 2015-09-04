@@ -25,6 +25,8 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax4;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f1;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485760;
+import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485761;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f20846Ext;
 import static com.exedio.cope.SchemaTypeStringMysql3Item.f21845;
@@ -95,12 +97,21 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 			assertType("varchar(20845)", f20845Ext);
 			assertType("mediumtext",     f20846Ext);
 		}
+		else if(postgresql)
+		{
+			assertType("varchar(1)" , f1);
+			assertType("varchar(10485760)", f10485760);
+			assertType("text", f10485761);
+			assertType("text", fMax);
+		}
 	}
 
 	private void assertType(String type, final SchemaTypeStringField field)
 	{
 		if(mysql)
 			type = type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		else if(postgresql)
+			type = type + (supportsNotNull(model) ? NOT_NULL : "");
 		else
 			throw new RuntimeException();
 
@@ -116,7 +127,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 			return;
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
-		assertEquals(12, fields.size());
+		assertEquals(14, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)

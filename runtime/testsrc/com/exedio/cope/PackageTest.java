@@ -155,7 +155,6 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( SchemaModifyTest.class );
 		suite.addTestSuite( SchemaTypeIntegerTest.class );
 		suite.addTestSuite( SchemaTypeStringMysql3Test.class );
-		suite.addTestSuite( SchemaTypeStringPostgresqlTest.class );
 		suite.addTestSuite( QueryInfoTest.class );
 		suite.addTestSuite( TransactionTest.class );
 		suite.addTestSuite( TransactionEmptyTest.class );
