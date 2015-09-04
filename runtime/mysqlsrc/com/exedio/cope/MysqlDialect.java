@@ -50,7 +50,7 @@ final class MysqlDialect extends Dialect
 	/**
 	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
 	 */
-	private static final int MAX_BYTES_PER_CHARACTER_UTF8 = 3;
+	private static final long MAX_BYTES_PER_CHARACTER_UTF8 = 3; // MUST be long to avoid overflow at multiply
 
 	private final String deleteTable;
 
@@ -143,7 +143,7 @@ final class MysqlDialect extends Dialect
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
-		final int maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
+		final long maxBytes = maxChars * MAX_BYTES_PER_CHARACTER_UTF8;
 
 		// TODO 255 (TWOPOW8) is needed for unique columns only,
 		//      non-unique can have more,
