@@ -79,21 +79,21 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		assertEquals(false, f85   .sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
 		assertEquals(true,  f85Ext.sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
 
-		if(!mysql)
-			return;
-
-		assertType("varchar(1)" , f1);
-		assertType("varchar(85)", f85);
-		assertType("varchar(85)", f85Ext);
-		assertType("varchar(86)", f86Ext);
-		assertType("text", f86);
-		assertType("text", f21845);
-		assertType("varchar(20845)", f20845Ext);
-		assertType("mediumtext", f21846);
-		assertType("mediumtext", f20846Ext);
-		assertType("mediumtext", f5592405);
-		assertType("longtext", f5592406);
-		assertType("longtext", fMax);
+		if(mysql)
+		{
+			assertType("varchar(1)" , f1);
+			assertType("varchar(85)", f85);
+			assertType("varchar(85)", f85Ext);
+			assertType("varchar(86)", f86Ext);
+			assertType("text", f86);
+			assertType("text", f21845);
+			assertType("varchar(20845)", f20845Ext);
+			assertType("mediumtext", f21846);
+			assertType("mediumtext", f20846Ext);
+			assertType("mediumtext", f5592405);
+			assertType("longtext", f5592406);
+			assertType("longtext", fMax);
+		}
 	}
 
 	private void assertType(final String type, final SchemaTypeStringField field)
