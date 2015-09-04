@@ -23,33 +23,33 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
 import static com.exedio.cope.SchemaInfo.supportsNotNull;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.TYPE;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f1;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485760;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f10485761;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f2;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f20845Ext;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f20846Ext;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f21845;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f21846;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f5592405;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f5592406;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f85;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f85Ext;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f86;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.f86Ext;
-import static com.exedio.cope.SchemaTypeStringMysql3Item.fMax;
+import static com.exedio.cope.SchemaTypeStringItem.TYPE;
+import static com.exedio.cope.SchemaTypeStringItem.f1;
+import static com.exedio.cope.SchemaTypeStringItem.f10485760;
+import static com.exedio.cope.SchemaTypeStringItem.f10485761;
+import static com.exedio.cope.SchemaTypeStringItem.f2;
+import static com.exedio.cope.SchemaTypeStringItem.f20845Ext;
+import static com.exedio.cope.SchemaTypeStringItem.f20846Ext;
+import static com.exedio.cope.SchemaTypeStringItem.f21845;
+import static com.exedio.cope.SchemaTypeStringItem.f21846;
+import static com.exedio.cope.SchemaTypeStringItem.f5592405;
+import static com.exedio.cope.SchemaTypeStringItem.f5592406;
+import static com.exedio.cope.SchemaTypeStringItem.f85;
+import static com.exedio.cope.SchemaTypeStringItem.f85Ext;
+import static com.exedio.cope.SchemaTypeStringItem.f86;
+import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
+import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
 import java.util.HashMap;
 import java.util.List;
 
-public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
+public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public SchemaTypeStringMysql3Test()
+	public SchemaTypeStringTest()
 	{
 		super(MODEL);
 	}
@@ -65,7 +65,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no type column for SchemaTypeStringMysql3Item-f1", e.getMessage());
+			assertEquals("no type column for SchemaTypeStringItem-f1", e.getMessage());
 		}
 		try
 		{
@@ -74,7 +74,7 @@ public class SchemaTypeStringMysql3Test extends AbstractRuntimeModelTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no update counter for SchemaTypeStringMysql3Item-f1", e.getMessage());
+			assertEquals("no update counter for SchemaTypeStringItem-f1", e.getMessage());
 		}
 
 		assertEquals(false, f85   .isAnnotationPresent(MysqlExtendedVarchar.class));
