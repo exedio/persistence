@@ -47,10 +47,13 @@ final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
 
+	private final boolean utf8mb4;
+
 	/**
 	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
 	 */
-	private static final long maxBytesPerChar = 3; // MUST be long to avoid overflow at multiply
+	private final long maxBytesPerChar; // MUST be long to avoid overflow at multiply
+	private final String charset;
 
 	private final String deleteTable;
 
@@ -59,6 +62,10 @@ final class MysqlDialect extends Dialect
 		super(
 				new com.exedio.dsmf.MysqlDialect(
 						probe.properties.mysqlRowFormat.sql));
+		this.utf8mb4 = probe.properties.mysqlUtf8mb4;
+		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
+		final String mb4 = utf8mb4 ? "mb4" : "";
+		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 	}
 
@@ -103,6 +110,19 @@ final class MysqlDialect extends Dialect
 				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
 	}
 
+	@Override
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		if(utf8mb4)
+		{
+			// for some reason, jdbc parameters cannot be set to utf8mb4
+			try(java.sql.Statement st = connection.createStatement())
+			{
+				st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
+			}
+		}
+	}
+
 	private static final String CHARSET = "utf8";
 	private static final String SQL_MODE =
 			"STRICT_ALL_TABLES," +
@@ -145,6 +165,12 @@ final class MysqlDialect extends Dialect
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
 		final long maxBytes = maxChars * maxBytesPerChar;
 
+		// NOTE:
+		// for selecting text types we can calculate with 3 bytes per character even for utf8mb4
+		// as all Unicode code points encoded as 4 bytes in UTF-8 are represented by 2 characters
+		// in java strings.
+		final long maxBytes3 = maxChars * 3l;
+
 		// TODO 255 (TWOPOW8) is needed for unique columns only,
 		//      non-unique can have more,
 		//      and for longer unique columns you may specify a shorter key length
@@ -152,13 +178,12 @@ final class MysqlDialect extends Dialect
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
-		final String charset = " CHARACTER SET utf8 COLLATE utf8_bin";
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
-			(maxBytes<TWOPOW16 && mysqlExtendedVarchar!=null))
+			(maxBytes<(TWOPOW16-4) && mysqlExtendedVarchar!=null)) // minus 4 is for primary key column
 			return "varchar("+maxChars+")" + charset;
-		else if(maxBytes<TWOPOW16)
+		else if(maxBytes3<TWOPOW16)
 			return "text" + charset;
-		else if(maxBytes<TWOPOW24)
+		else if(maxBytes3<TWOPOW24)
 			return "mediumtext" + charset;
 		else
 			return "longtext" + charset;
@@ -516,7 +541,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsUTF8mb4()
 	{
-		return false; // TODO add support
+		return utf8mb4;
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 				notNull = false;
 				break;
 			case mysql:
-				utf8mb4 = false;
+				utf8mb4 = props.mysqlUtf8mb4;
 				random = true;
 				checkConstraints = false;
 				nativeDate = false;

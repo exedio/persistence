@@ -96,11 +96,12 @@ public class SchemaTest extends AbstractRuntimeTest
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
 
+		final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
 		final String string8;
 		switch(dialect)
 		{
 			case hsqldb:     string8 = "VARCHAR(8)"; break;
-			case mysql :     string8 = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin"; break;
+			case mysql :     string8 = "varchar(8) CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin"; break;
 			case oracle:     string8 = "VARCHAR2(24 BYTE)"; break; // varchar specifies bytes
 			case postgresql: string8 = "varchar(8)"; break;
 			default:

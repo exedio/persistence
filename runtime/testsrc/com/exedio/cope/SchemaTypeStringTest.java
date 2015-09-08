@@ -27,6 +27,8 @@ import static com.exedio.cope.SchemaTypeStringItem.TYPE;
 import static com.exedio.cope.SchemaTypeStringItem.f1;
 import static com.exedio.cope.SchemaTypeStringItem.f10485760;
 import static com.exedio.cope.SchemaTypeStringItem.f10485761;
+import static com.exedio.cope.SchemaTypeStringItem.f16382Ext;
+import static com.exedio.cope.SchemaTypeStringItem.f16383Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f2;
 import static com.exedio.cope.SchemaTypeStringItem.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f20846Ext;
@@ -96,7 +98,16 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			// @MysqlExtendedVarchar
 			assertType("varchar(85)",       f85Ext);
 			assertType("varchar(86)",       f86Ext);
-			assertType("varchar(20845)", f20845Ext);
+			if(!model.getConnectProperties().mysqlUtf8mb4)
+			{
+				assertType("varchar(20845)", f20845Ext);
+			}
+			else
+			{
+				assertType("varchar(16382)", f16382Ext);
+				assertType("text",           f16383Ext);
+				assertType("text",           f20845Ext);
+			}
 			assertType("mediumtext",     f20846Ext);
 		}
 		else if(postgresql)
@@ -112,7 +123,10 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 	private void assertType(String type, final SchemaTypeStringField field)
 	{
 		if(mysql)
-			type = type + " CHARACTER SET utf8 COLLATE utf8_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		{
+			final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
+			type = type + " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+		}
 		else if(postgresql)
 			type = type + (supportsNotNull(model) ? NOT_NULL : "");
 		else
@@ -130,7 +144,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			return;
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
-		assertEquals(21, fields.size());
+		assertEquals(22, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)

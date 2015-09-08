@@ -42,6 +42,7 @@ public final class SchemaTypeStringItem extends Item
 
 	@MysqlExtendedVarchar static final SchemaTypeStringField f85Ext    = new SchemaTypeStringField(   85);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f86Ext    = new SchemaTypeStringField(   86);
+	@MysqlExtendedVarchar static final SchemaTypeStringField f16382Ext = new SchemaTypeStringField(16382);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f16383Ext = new SchemaTypeStringField(16383);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f16384Ext = new SchemaTypeStringField(16384);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f20845Ext = new SchemaTypeStringField(20845);
