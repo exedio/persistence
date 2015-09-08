@@ -110,6 +110,19 @@ final class MysqlDialect extends Dialect
 				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
 	}
 
+	@Override
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		if(utf8mb4)
+		{
+			// for some reason, jdbc parameters cannot be set to utf8mb4
+			try(java.sql.Statement st = connection.createStatement())
+			{
+				st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
+			}
+		}
+	}
+
 	private static final String CHARSET = "utf8";
 	private static final String SQL_MODE =
 			"STRICT_ALL_TABLES," +
