@@ -71,7 +71,7 @@ public class MakeMaxStringTest extends CopeAssert
 	private static String makeMax(final StringField field, final char from, final char to)
 	{
 		assertTrue(from<to);
-		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
+		final int length = Math.min(field.getMaximumLength(), LENGTH_LIMIT);
 		final char[] buf = new char[length];
 
 		char val = from;
@@ -120,7 +120,7 @@ public class MakeMaxStringTest extends CopeAssert
 
 	static String makeMax4(final StringField field)
 	{
-		final int length = Math.min(field.getMaximumLength(), 3*1000*1000);
+		final int length = Math.min(field.getMaximumLength(), LENGTH_LIMIT);
 		final char[] buf = new char[length];
 
 		int i = 0;
@@ -141,6 +141,8 @@ public class MakeMaxStringTest extends CopeAssert
 		//System.out.println("--" + new String(buf) + "--");
 		return new String(buf);
 	}
+
+	private static final int LENGTH_LIMIT = 15*1000*1000;
 
 	static String makeMax1(final SchemaTypeStringField field)
 	{
