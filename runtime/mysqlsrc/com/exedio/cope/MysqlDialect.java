@@ -165,6 +165,12 @@ final class MysqlDialect extends Dialect
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
 		final long maxBytes = maxChars * maxBytesPerChar;
 
+		// NOTE:
+		// for selecting text types we can calculate with 3 bytes per character even for utf8mb4
+		// as all Unicode code points encoded as 4 bytes in UTF-8 are represented by 2 characters
+		// in java strings.
+		final long maxBytes3 = maxChars * 3l;
+
 		// TODO 255 (TWOPOW8) is needed for unique columns only,
 		//      non-unique can have more,
 		//      and for longer unique columns you may specify a shorter key length
@@ -175,9 +181,9 @@ final class MysqlDialect extends Dialect
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
 			(maxBytes<(TWOPOW16-4) && mysqlExtendedVarchar!=null))
 			return "varchar("+maxChars+")" + charset;
-		else if(maxBytes<TWOPOW16)
+		else if(maxBytes3<TWOPOW16)
 			return "text" + charset;
-		else if(maxBytes<TWOPOW24)
+		else if(maxBytes3<TWOPOW24)
 			return "mediumtext" + charset;
 		else
 			return "longtext" + charset;

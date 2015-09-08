@@ -28,17 +28,13 @@ import static com.exedio.cope.SchemaTypeStringItem.f1;
 import static com.exedio.cope.SchemaTypeStringItem.f10485760;
 import static com.exedio.cope.SchemaTypeStringItem.f10485761;
 import static com.exedio.cope.SchemaTypeStringItem.f16382Ext;
-import static com.exedio.cope.SchemaTypeStringItem.f16383;
 import static com.exedio.cope.SchemaTypeStringItem.f16383Ext;
-import static com.exedio.cope.SchemaTypeStringItem.f16384;
 import static com.exedio.cope.SchemaTypeStringItem.f16384Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f2;
 import static com.exedio.cope.SchemaTypeStringItem.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f20846Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f21845;
 import static com.exedio.cope.SchemaTypeStringItem.f21846;
-import static com.exedio.cope.SchemaTypeStringItem.f4194303;
-import static com.exedio.cope.SchemaTypeStringItem.f4194304;
 import static com.exedio.cope.SchemaTypeStringItem.f5592405;
 import static com.exedio.cope.SchemaTypeStringItem.f5592406;
 import static com.exedio.cope.SchemaTypeStringItem.f85;
@@ -112,17 +108,19 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			assertType("varchar(2)",       f2);
 			assertType("varchar(85)",     f85);
 			assertType("text",            f86);
-			assertType("text",         f16383);
-			assertType("mediumtext",   f16384);
-			assertType("mediumtext", f4194303);
-			assertType("longtext",   f4194304);
+			assertType("text",         f21845);
+			assertType("mediumtext",   f21846);
+			assertType("mediumtext", f5592405);
+			assertType("longtext",   f5592406);
 			assertType("longtext",   fMax);
 			// @MysqlExtendedVarchar
 			assertType("varchar(85)",       f85Ext);
 			assertType("varchar(86)",       f86Ext);
 			assertType("varchar(16382)", f16382Ext);
 			assertType("text",           f16383Ext);
-			assertType("mediumtext",     f16384Ext);
+			assertType("text",           f16384Ext);
+			assertType("text",           f20845Ext);
+			assertType("mediumtext",     f20846Ext);
 		}
 		else if(postgresql)
 		{
