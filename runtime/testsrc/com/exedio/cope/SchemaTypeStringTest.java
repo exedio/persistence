@@ -84,7 +84,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 		assertEquals(false, f85   .sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
 		assertEquals(true,  f85Ext.sourceField.isAnnotationPresent(MysqlExtendedVarchar.class));
 
-		if(mysql && !model.getConnectProperties().mysqlUtf8mb4)
+		if(mysql)
 		{
 			assertType("varchar(1)",       f1);
 			assertType("varchar(2)",       f2);
@@ -98,26 +98,16 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			// @MysqlExtendedVarchar
 			assertType("varchar(85)",       f85Ext);
 			assertType("varchar(86)",       f86Ext);
-			assertType("varchar(20845)", f20845Ext);
-			assertType("mediumtext",     f20846Ext);
-		}
-		else if(mysql && model.getConnectProperties().mysqlUtf8mb4)
-		{
-			assertType("varchar(1)",       f1);
-			assertType("varchar(2)",       f2);
-			assertType("varchar(85)",     f85);
-			assertType("text",            f86);
-			assertType("text",         f21845);
-			assertType("mediumtext",   f21846);
-			assertType("mediumtext", f5592405);
-			assertType("longtext",   f5592406);
-			assertType("longtext",   fMax);
-			// @MysqlExtendedVarchar
-			assertType("varchar(85)",       f85Ext);
-			assertType("varchar(86)",       f86Ext);
-			assertType("varchar(16382)", f16382Ext);
-			assertType("text",           f16383Ext);
-			assertType("text",           f20845Ext);
+			if(!model.getConnectProperties().mysqlUtf8mb4)
+			{
+				assertType("varchar(20845)", f20845Ext);
+			}
+			else
+			{
+				assertType("varchar(16382)", f16382Ext);
+				assertType("text",           f16383Ext);
+				assertType("text",           f20845Ext);
+			}
 			assertType("mediumtext",     f20846Ext);
 		}
 		else if(postgresql)
