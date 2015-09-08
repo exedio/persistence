@@ -29,7 +29,6 @@ import static com.exedio.cope.SchemaTypeStringItem.f10485760;
 import static com.exedio.cope.SchemaTypeStringItem.f10485761;
 import static com.exedio.cope.SchemaTypeStringItem.f16382Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f16383Ext;
-import static com.exedio.cope.SchemaTypeStringItem.f16384Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f2;
 import static com.exedio.cope.SchemaTypeStringItem.f20845Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f20846Ext;
@@ -118,7 +117,6 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			assertType("varchar(86)",       f86Ext);
 			assertType("varchar(16382)", f16382Ext);
 			assertType("text",           f16383Ext);
-			assertType("text",           f16384Ext);
 			assertType("text",           f20845Ext);
 			assertType("mediumtext",     f20846Ext);
 		}
