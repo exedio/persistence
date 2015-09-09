@@ -28,12 +28,8 @@ public final class SchemaTypeStringItem extends Item
 	static final SchemaTypeStringField f2        = new SchemaTypeStringField(      2);
 	static final SchemaTypeStringField f85       = new SchemaTypeStringField(     85);
 	static final SchemaTypeStringField f86       = new SchemaTypeStringField(     86);
-	static final SchemaTypeStringField f16383    = new SchemaTypeStringField(  16383);
-	static final SchemaTypeStringField f16384    = new SchemaTypeStringField(  16384);
 	static final SchemaTypeStringField f21845    = new SchemaTypeStringField(  21845);
 	static final SchemaTypeStringField f21846    = new SchemaTypeStringField(  21846);
-	static final SchemaTypeStringField f4194303  = new SchemaTypeStringField(4194303);
-	static final SchemaTypeStringField f4194304  = new SchemaTypeStringField(4194304);
 	static final SchemaTypeStringField f5592405  = new SchemaTypeStringField(5592405);
 	static final SchemaTypeStringField f5592406  = new SchemaTypeStringField(5592406);
 	static final SchemaTypeStringField f10485760 = new SchemaTypeStringField(10485760);
@@ -44,7 +40,6 @@ public final class SchemaTypeStringItem extends Item
 	@MysqlExtendedVarchar static final SchemaTypeStringField f86Ext    = new SchemaTypeStringField(   86);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f16382Ext = new SchemaTypeStringField(16382);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f16383Ext = new SchemaTypeStringField(16383);
-	@MysqlExtendedVarchar static final SchemaTypeStringField f16384Ext = new SchemaTypeStringField(16384);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f20845Ext = new SchemaTypeStringField(20845);
 	@MysqlExtendedVarchar static final SchemaTypeStringField f20846Ext = new SchemaTypeStringField(21846);
 

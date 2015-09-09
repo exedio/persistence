@@ -144,7 +144,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 			return;
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
-		assertEquals(22, fields.size());
+		assertEquals(17, fields.size());
 
 		final HashMap<SchemaTypeStringField, StringItem> min = new HashMap<>();
 		for(final SchemaTypeStringField field : fields)
