@@ -97,6 +97,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(QueryCopyTest.class);
 		suite.addTestSuite(SequenceCounterTest.class);
 		suite.addTestSuite(PostgresqlDoubleTest.class);
+		suite.addTestSuite(SQLRuntimeExceptionTest.class);
 		suite.addTestSuite(StringFieldTruncateTest.class);
 		suite.addTestSuite(ViewSerializeTest.class);
 		suite.addTest(com.exedio.cope.junit.PackageUtilTest.suite());
