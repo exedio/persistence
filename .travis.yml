@@ -25,13 +25,6 @@ before_script:
     "x-build.driver=mysql-connector-java.jar\n"\
     > conf/environment/mysql-seq.properties
   - echo -e -n \
-    "connection.url=jdbc:mysql://localhost/cope_test\n"\
-    "connection.username=travis\n"\
-    "connection.password=\n"\
-    "disableSupport.preparedStatements=true\n"\
-    "x-build.driver=mysql-connector-java.jar\n"\
-    > conf/environment/mysql-noPrep.properties
-  - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
