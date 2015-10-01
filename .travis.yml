@@ -9,6 +9,7 @@ addons:
 
 before_script:
   - rm conf/environment/hsqldb-extra.properties
+  - rm conf/environment/hsqldb-noPrep.properties
   - mysql -e 'create database cope_test;'
   - psql  -c 'create database cope_test;' -U postgres
   - echo -e -n \
