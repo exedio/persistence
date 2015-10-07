@@ -41,12 +41,27 @@ final class ConnectionPool
 			// we should avoid network roundtrip if autocommit
 			// mode is already as required:
 			// MySQL: useLocalSessionState=true in connection info
-			result.setAutoCommit(autoCommit);
+			boolean mustClose = true;
+			try
+			{
+				result.setAutoCommit(autoCommit);
+
+				mustClose = false;
+			}
+			finally
+			{
+				if(mustClose)
+					result.close();
+			}
+			// DO NOT WRITE ANYTHING HERE, BUT IN TRY BLOCK ONLY
+			// OTHERWISE Connections MAY BE LOST
 		}
 		catch(final SQLException e)
 		{
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
+		// DO NOT WRITE ANYTHING HERE, BUT IN TRY BLOCK ONLY
+		// OTHERWISE Connections MAY BE LOST
 		return result;
 	}
 
