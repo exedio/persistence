@@ -70,8 +70,22 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		final Connection result = driver.connect(url, info);
 		if(result==null)
 			throw new RuntimeException(driver.toString() + '/' + url);
-		result.setTransactionIsolation(transactionIsolation);
-		dialect.completeConnection(result);
+
+		boolean mustClose = true;
+		try
+		{
+			result.setTransactionIsolation(transactionIsolation);
+			dialect.completeConnection(result);
+
+			mustClose = false;
+		}
+		finally
+		{
+			if(mustClose)
+				result.close();
+		}
+		// DO NOT WRITE ANYTHING HERE, BUT IN TRY BLOCK ONLY
+		// OTHERWISE Connections MAY BE LOST
 		return result;
 	}
 
