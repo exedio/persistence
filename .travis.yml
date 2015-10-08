@@ -18,28 +18,28 @@ before_script:
     "connection.username=travis\n"\
     "connection.password=\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    > conf/environment/mysql.properties
+    | tee conf/environment/mysql.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test\n"\
     "connection.username=travis\n"\
     "connection.password=\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    > conf/environment/mysql-seq.properties
+    | tee conf/environment/mysql-seq.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test\n"\
     "connection.username=travis\n"\
     "connection.password=\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    > conf/environment/mysql-noPrep.properties
+    | tee conf/environment/mysql-noPrep.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "connection.postgresql.search_path=public\n"\
     "x-build.driver=postgresql.jar\n"\
-    > conf/environment/postgresql.properties
+    | tee conf/environment/postgresql.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
@@ -47,7 +47,7 @@ before_script:
     "connection.postgresql.search_path=public\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=postgresql.jar\n"\
-    > conf/environment/postgresql-seq.properties
+    | tee conf/environment/postgresql-seq.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
@@ -55,7 +55,7 @@ before_script:
     "connection.postgresql.search_path=public\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=postgresql.jar\n"\
-    > conf/environment/postgresql-noPrep.properties
+    | tee conf/environment/postgresql-noPrep.properties
 
 script: "ant jenkins"
 
