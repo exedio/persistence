@@ -16,7 +16,6 @@ TODO for cope runtime
 	* implement MediaAlias
 	* redundantly maintain width/height for images
 	* implement Accept-Ranges - needed for streaming video
-- CheckConstraints: make them work with conditions on fields of super type.
 - interface Deletable, to allow explicitly deleting items
 	otherwise its forbidden.
 - Global History / Undo facility for backoffice, that can undo deletes as well.
