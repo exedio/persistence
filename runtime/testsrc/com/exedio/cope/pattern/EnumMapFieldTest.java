@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.CANADA;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.UK;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -105,5 +107,12 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("key", e.getMessage());
 		}
+	}
+
+	public void testTerritorySubClass()
+	{
+		item.setTerritory(UK, "United Kingdom");
+		item.setTerritory(CANADA, "Canada");
+		assertEquals("United Kingdom", item.getTerritory(UK));
 	}
 }
