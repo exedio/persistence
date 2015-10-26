@@ -87,7 +87,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	private void assertElement(final E element)
 	{
 		requireNonNull(element, "element");
-		if(elementClass!=element.getClass())
+		if(!elementClass.isAssignableFrom(element.getClass()))
 			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
 	}
 

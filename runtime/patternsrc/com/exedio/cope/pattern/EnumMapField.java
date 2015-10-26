@@ -103,7 +103,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private void assertKey(final K key)
 	{
 		requireNonNull(key, "key");
-		if(keyClass!=key.getClass())
+		if(!keyClass.isAssignableFrom(key.getClass()))
 			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
 	}
 

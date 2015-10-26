@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
@@ -105,5 +106,13 @@ public class EnumMapFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("key", e.getMessage());
 		}
+	}
+
+	public void testSubClass()
+	{
+		assertEquals(null, item.getName(SUBCLASS));
+
+		item.setName(SUBCLASS, "withsubclass");
+		assertEquals("withsubclass", item.getName(SUBCLASS));
 	}
 }

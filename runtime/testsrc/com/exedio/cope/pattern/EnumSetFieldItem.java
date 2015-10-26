@@ -19,12 +19,22 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EnumSetFieldItem extends Item
 {
 	static enum Language
 	{
-		DE, EN, PL;
+		DE, EN, PL,
+		SUBCLASS
+		{
+			@SuppressWarnings("unused")
+			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
+			void zack()
+			{
+				// empty
+			}
+		};
 	}
 
 	/**
