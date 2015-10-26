@@ -23,13 +23,10 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.defaults;
 import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.nameLength;
-import static com.exedio.cope.pattern.EnumMapFieldItem.territory;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
-import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.CANADA;
-import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.UK;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
@@ -67,15 +64,13 @@ public class EnumMapFieldModelTest extends CopeAssert
 						TYPE.getThis(),
 						name, name.getField(DE), name.getField(EN), name.getField(PL), name.getField(SUBCLASS),
 						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL), nameLength.getField(SUBCLASS),
-						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS),
-						territory, territory.getField(UK), territory.getField(CANADA)),
+						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS)),
 				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
 						name.getField(DE), name.getField(EN), name.getField(PL), name.getField(SUBCLASS),
 						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL), nameLength.getField(SUBCLASS),
-						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS),
-						territory.getField(UK), territory.getField(CANADA)),
+						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS)),
 				TYPE.getFields());
 
 		assertEquals(String.class, name.getValueClass());
