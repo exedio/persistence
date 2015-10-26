@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EnumMapFieldItem extends Item
 {
@@ -30,6 +31,7 @@ public final class EnumMapFieldItem extends Item
 		SUBCLASS
 		{
 			@SuppressWarnings("unused")
+			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
 			void zack()
 			{
 				// empty
