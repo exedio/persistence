@@ -26,7 +26,15 @@ public final class EnumMapFieldItem extends Item
 {
 	static enum Language
 	{
-		DE, EN, PL;
+		DE, EN, PL,
+		SUBCLASS
+		{
+			@SuppressWarnings("unused")
+			void zack()
+			{
+				// empty
+			}
+		};
 	}
 
 	static enum Territory

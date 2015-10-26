@@ -28,7 +28,8 @@ public final class EnumMapFieldDefaultItem extends Item
 			EnumMapField.create(EnumMapFieldItem.Language.class, new StringField()).
 				defaultTo(EnumMapFieldItem.Language.DE, "defaultDE").
 				defaultTo(EnumMapFieldItem.Language.EN, "defaultEN").
-				defaultTo(EnumMapFieldItem.Language.PL, "defaultPL");
+				defaultTo(EnumMapFieldItem.Language.PL, "defaultPL").
+				defaultTo(EnumMapFieldItem.Language.SUBCLASS, "defaultSUBCLASS");
 
 	/**
 

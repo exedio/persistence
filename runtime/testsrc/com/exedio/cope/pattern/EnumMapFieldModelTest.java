@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.territory;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.CANADA;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Territory.UK;
 
@@ -55,7 +56,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		assertSame(TYPE, name.getField(DE).getType());
 		assertEquals(name, name.getField(DE).getPattern());
 		assertEquals(null, name.getField(DE).getDefaultConstant());
-		assertEqualsUnmodifiable(list(name.getField(DE), name.getField(EN), name.getField(PL)), name.getSourceFeatures());
+		assertEqualsUnmodifiable(list(name.getField(DE), name.getField(EN), name.getField(PL), name.getField(SUBCLASS)), name.getSourceFeatures());
 
 		assertEquals("defaultDE", defaults.getField(DE).getDefaultConstant());
 		assertEquals(null, defaults.getField(EN).getDefaultConstant());
@@ -64,16 +65,16 @@ public class EnumMapFieldModelTest extends CopeAssert
 		assertEqualsUnmodifiable(
 				list(
 						TYPE.getThis(),
-						name, name.getField(DE), name.getField(EN), name.getField(PL),
-						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
-						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL),
+						name, name.getField(DE), name.getField(EN), name.getField(PL), name.getField(SUBCLASS),
+						nameLength, nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL), nameLength.getField(SUBCLASS),
+						defaults, defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS),
 						territory, territory.getField(UK), territory.getField(CANADA)),
 				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
-						name.getField(DE), name.getField(EN), name.getField(PL),
-						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL),
-						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL),
+						name.getField(DE), name.getField(EN), name.getField(PL), name.getField(SUBCLASS),
+						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL), nameLength.getField(SUBCLASS),
+						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS),
 						territory.getField(UK), territory.getField(CANADA)),
 				TYPE.getFields());
 

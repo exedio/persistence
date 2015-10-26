@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.EnumMapFieldDefaultItem.text;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
@@ -37,6 +38,7 @@ public class EnumMapFieldDefaultTest extends CopeAssert
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());
 		assertEquals("defaultEN", text.getField(EN).getDefaultConstant());
 		assertEquals("defaultPL", text.getField(PL).getDefaultConstant());
+		assertEquals("defaultSUBCLASS", text.getField(SUBCLASS).getDefaultConstant());
 		assertEquals(false, text.isFinal());
 		assertEquals(true,  text.isMandatory());
 		assertEquals(false, text.isInitial());
