@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
@@ -179,6 +180,14 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		assertEquals(false, initialItem.containsActiveLanguage(DE));
 		assertEquals(true,  initialItem.containsActiveLanguage(EN));
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
+	}
+
+	public void testSubClass()
+	{
+		assertEquals(false, item.containsActiveLanguage(SUBCLASS));
+
+		item.addActiveLanguage(SUBCLASS);
+		assertEquals(true, item.containsActiveLanguage(SUBCLASS));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage

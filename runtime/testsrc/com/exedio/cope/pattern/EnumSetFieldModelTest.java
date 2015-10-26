@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
+import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
@@ -54,17 +55,17 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertEquals("activeLanguage-DE", activeLanguage.getField(DE).getName());
 		assertSame(TYPE, activeLanguage.getField(DE).getType());
 		assertEquals(activeLanguage, activeLanguage.getField(DE).getPattern());
-		assertEqualsUnmodifiable(list(activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)), activeLanguage.getSourceFeatures());
+		assertEqualsUnmodifiable(list(activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL), activeLanguage.getField(SUBCLASS)), activeLanguage.getSourceFeatures());
 
 		assertEqualsUnmodifiable(
 				list(
 						TYPE.getThis(),
 						activeLanguage,
-						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)),
+						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL), activeLanguage.getField(SUBCLASS)),
 				TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 				list(
-						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL)),
+						activeLanguage.getField(DE), activeLanguage.getField(EN), activeLanguage.getField(PL), activeLanguage.getField(SUBCLASS)),
 				TYPE.getFields());
 
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
