@@ -20,6 +20,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
@@ -44,7 +45,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 	private static void assertIt(final String expected, final Type<?> type)
 	{
 		assertEquals(
-				expected,
+				expected + NOT_NULL,
 				model.getSchema().
 					getTable(getTableName(type)).
 					getColumn(getTypeColumnName(type)).
@@ -54,7 +55,7 @@ public final class TypeColumnTypeTest extends CopeAssert
 	private static void assertIt(final String expected, final ItemField<?> field)
 	{
 		assertEquals(
-				expected,
+				expected + NOT_NULL,
 				model.getSchema().
 					getTable(getTableName(field.getType())).
 					getColumn(getTypeColumnName(field)).

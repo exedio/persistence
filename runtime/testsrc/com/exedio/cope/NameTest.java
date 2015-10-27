@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Schema;
 
@@ -143,8 +144,8 @@ public class NameTest extends AbstractRuntimeTest
 			assertEquals(null, nameSub.getColumn("uniqueY").getError());
 			if(hsqldb)
 			{
-				assertEquals("INTEGER", nameSub.getColumn("unique") .getType());
-				assertEquals("INTEGER", nameSub.getColumn("uniqueY").getType());
+				assertEquals("INTEGER" + NOT_NULL, nameSub.getColumn("unique") .getType());
+				assertEquals("INTEGER" + NOT_NULL, nameSub.getColumn("uniqueY").getType());
 			}
 		}
 

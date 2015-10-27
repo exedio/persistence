@@ -33,6 +33,27 @@ public final class HsqldbDialect extends Dialect
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
+		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
+		if(withoutNullable==null)
+			return null;
+
+		final String nullable = resultSet.getString("IS_NULLABLE");
+		if("YES".equals(nullable))
+			return withoutNullable;
+		else if("NO".equals(nullable))
+			return withoutNullable + NOT_NULL;
+		else
+			throw new RuntimeException(
+					resultSet.getString("TABLE_NAME") + '/' +
+					resultSet.getString("COLUMN_NAME") + '/' +
+					resultSet.getString("TYPE_NAME") + '/' +
+					dataType + '/' +
+					nullable + '/' +
+					resultSet.getString("NULLABLE"));
+	}
+
+	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
+	{
 		switch(dataType)
 		{
 			case Types.INTEGER:   return "INTEGER";
@@ -75,6 +96,9 @@ public final class HsqldbDialect extends Dialect
 
 						if("CHECK".equals(constraintType))
 						{
+							if(constraintName.startsWith("SYS_CT_"))
+								continue;
+
 							final String tablePrefix = quoteName(tableName)+'.';
 							String checkClause = resultSet.getString(4);
 							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))

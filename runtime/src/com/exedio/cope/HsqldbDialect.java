@@ -78,6 +78,12 @@ final class HsqldbDialect extends Dialect
 		return "TIMESTAMP(3) WITHOUT TIME ZONE";
 	}
 
+	@Override
+	boolean supportsNotNull()
+	{
+		return true;
+	}
+
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Override
 	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException

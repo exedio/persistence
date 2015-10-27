@@ -48,7 +48,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		switch(dialect)
 		{
 			case hsqldb:
-				notNull = false;
 				break;
 			case mysql:
 				utf8mb4 = props.mysqlUtf8mb4;
