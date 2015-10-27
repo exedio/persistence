@@ -45,7 +45,8 @@ public class QuoteTest extends SchemaReadyTest
 		new Column(table, FK_COLUMN, stringType);
 		new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, TABLE, PK_COLUMN);
 		new UniqueConstraint(table, UNQ_NAME, "("+p(FK_COLUMN)+")");
-		new CheckConstraint(table, CHK_NAME, p(FK_COLUMN)+" IS NOT NULL");
+		// Do not just use simple NOT NULL condition. Because then hsqldb discovers column type as not null.
+		new CheckConstraint(table, CHK_NAME, "(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)");
 
 		return result;
 	}
@@ -98,7 +99,7 @@ public class QuoteTest extends SchemaReadyTest
 		assertNotNull(ckc);
 		assertSame(table, ckc.getTable());
 		assertEquals(CHK_NAME, ckc.getName());
-		assertEquals(p(FK_COLUMN)+" IS NOT NULL", ckc.getRequiredCondition());
+		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredCondition());
 		assertEquals(supportsCheckConstraints ? null : "not supported", ckc.getError());
 
 		if(supportsCheckConstraints)
