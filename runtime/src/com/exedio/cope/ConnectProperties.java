@@ -68,17 +68,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return disableNativeDate;
 	}
 
-	/**
-	 * @deprecated not supported anymore.
-	 * This methods always returns {@code false}.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public boolean isSupportDisabledForNotNull()
-	{
-		return false;
-	}
-
 	boolean isSupportDisabledForUniqueViolation()
 	{
 		return disableUniqueViolation;
@@ -650,5 +639,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return isSupportDisabledForNativeDate();
+	}
+
+	/**
+	 * @deprecated not supported anymore.
+	 * This methods always returns {@code false}.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public boolean isSupportDisabledForNotNull()
+	{
+		return false;
 	}
 }
