@@ -76,7 +76,7 @@ final class Database
 
 	boolean supportsNotNull()
 	{
-		return !properties.isSupportDisabledForNotNull() && dialect.supportsNotNull();
+		return dialect.supportsNotNull();
 	}
 
 	SequenceImpl newSequenceImpl(final int start, final IntegerColumn column)

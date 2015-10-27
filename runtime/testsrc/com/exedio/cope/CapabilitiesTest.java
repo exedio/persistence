@@ -74,7 +74,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		// SchemaInfo
 		assertEquals(checkConstraints, supportsCheckConstraints(model));
 		assertEquals(nativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
-		assertEquals(notNull         && !props.isSupportDisabledForNotNull(),         supportsNotNull        (model));
+		assertEquals(notNull,                                                         supportsNotNull        (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 

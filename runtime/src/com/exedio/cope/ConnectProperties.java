@@ -50,7 +50,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", false);
-	private final boolean disableNotNull            = value("disableSupport.notNull", false);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 
@@ -67,11 +66,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean isSupportDisabledForNativeDate()
 	{
 		return disableNativeDate;
-	}
-
-	public boolean isSupportDisabledForNotNull()
-	{
-		return disableNotNull;
 	}
 
 	boolean isSupportDisabledForUniqueViolation()
@@ -645,5 +639,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public boolean getDatabaseDontSupportNativeDate()
 	{
 		return isSupportDisabledForNativeDate();
+	}
+
+	/**
+	 * @deprecated not supported anymore.
+	 * This methods always returns {@code false}.
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public boolean isSupportDisabledForNotNull()
+	{
+		return false;
 	}
 }
