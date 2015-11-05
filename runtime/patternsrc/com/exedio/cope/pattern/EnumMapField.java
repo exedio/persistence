@@ -188,11 +188,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final E enumValue)
 	{
 		requireNonNull(enumValue, name);
-		if(!enumClass.isAssignableFrom(enumValue.getClass()))
+		final Class<E> valueClass = enumValue.getDeclaringClass();
+		if(enumClass!=valueClass)
 			throw new ClassCastException(
 					"expected a " + enumClass.getName() +
 					", but was a " + enumValue.name() +
-					" of " + enumValue.getDeclaringClass().getName());
+					" of " + valueClass.getName());
 	}
 
 
