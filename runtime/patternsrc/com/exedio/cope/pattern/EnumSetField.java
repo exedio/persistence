@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumMapField.assertEnum;
 import static com.exedio.cope.pattern.EnumMapField.stripUnderline;
-import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
@@ -86,9 +86,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	private void assertElement(final E element)
 	{
-		requireNonNull(element, "element");
-		if(!elementClass.isAssignableFrom(element.getClass()))
-			throw new ClassCastException("expected a " + elementClass.getName() + ", but was a " + element.getClass().getName());
+		assertEnum("element", elementClass, element);
 	}
 
 	@Wrap(order=10)

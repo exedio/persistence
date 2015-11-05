@@ -102,9 +102,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	private void assertKey(final K key)
 	{
-		requireNonNull(key, "key");
-		if(!keyClass.isAssignableFrom(key.getClass()))
-			throw new ClassCastException("expected a " + keyClass.getName() + ", but was a " + key.getClass().getName());
+		assertEnum("key", keyClass, key);
 	}
 
 	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
@@ -180,6 +178,20 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			result.addAll(field.getInitialExceptions());
 		return result;
 	}
+
+
+	// helper methods for EnumMapField and EnumSetField
+
+	static <E extends Enum<E>> void assertEnum(
+			final String name,
+			final Class<E> enumClass,
+			final E enumValue)
+	{
+		requireNonNull(enumValue, name);
+		if(!enumClass.isAssignableFrom(enumValue.getClass()))
+			throw new ClassCastException("expected a " + enumClass.getName() + ", but was a " + enumValue.getClass().getName());
+	}
+
 
 	// ------------------- deprecated stuff -------------------
 
