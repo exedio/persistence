@@ -61,14 +61,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		}
 	}
 
-	static String stripUnderline(final String s)
-	{
-		if(s.indexOf('_')<0)
-			return s;
-
-		return s.replace("_", "");
-	}
-
 	public static final <K extends Enum<K>,V> EnumMapField<K,V> create(
 			final Class<K> keyClass,
 			final FunctionField<V> value)
@@ -181,6 +173,14 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 
 	// helper methods for EnumMapField and EnumSetField
+
+	static String stripUnderline(final String s)
+	{
+		if(s.indexOf('_')<0)
+			return s;
+
+		return s.replace("_", "");
+	}
 
 	static <E extends Enum<E>> void assertEnum(
 			final String name,
