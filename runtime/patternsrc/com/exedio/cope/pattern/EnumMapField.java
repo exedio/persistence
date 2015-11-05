@@ -191,7 +191,8 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		if(!enumClass.isAssignableFrom(enumValue.getClass()))
 			throw new ClassCastException(
 					"expected a " + enumClass.getName() +
-					", but was a " + enumValue.getClass().getName());
+					", but was a " + enumValue.name() +
+					" of " + enumValue.getDeclaringClass().getName());
 	}
 
 

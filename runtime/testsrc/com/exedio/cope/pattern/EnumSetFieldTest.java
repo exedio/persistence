@@ -203,7 +203,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumSetFieldTest$X",
 					e.getMessage());
 		}
 		try
@@ -215,7 +215,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumSetFieldTest$X",
 					e.getMessage());
 		}
 		try
@@ -227,7 +227,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumSetFieldTest$X",
 					e.getMessage());
 		}
 		try
@@ -239,7 +239,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumSetFieldTest$X",
 					e.getMessage());
 		}
 		try
@@ -251,7 +251,7 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X$1",
+					"but was a SUBCLASS of com.exedio.cope.pattern.EnumSetFieldTest$X",
 					e.getMessage());
 		}
 	}

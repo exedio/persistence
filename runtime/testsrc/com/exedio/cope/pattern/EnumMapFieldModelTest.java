@@ -103,7 +103,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumMapFieldModelTest$X",
 					e.getMessage());
 		}
 		try
@@ -115,7 +115,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X",
+					"but was a A of com.exedio.cope.pattern.EnumMapFieldModelTest$X",
 					e.getMessage());
 		}
 		try
@@ -127,7 +127,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		{
 			assertEquals(
 					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
-					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X$1",
+					"but was a SUBCLASS of com.exedio.cope.pattern.EnumMapFieldModelTest$X",
 					e.getMessage());
 		}
 	}
