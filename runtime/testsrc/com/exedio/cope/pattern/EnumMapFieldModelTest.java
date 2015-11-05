@@ -31,6 +31,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class EnumMapFieldModelTest extends CopeAssert
 {
@@ -111,10 +112,28 @@ public class EnumMapFieldModelTest extends CopeAssert
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X", e.getMessage());
 		}
+		try
+		{
+			((EnumMapField)name).get((EnumMapFieldItem)null, X.SUBCLASS);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X$1", e.getMessage());
+		}
 	}
 
 	enum X
 	{
-		A, B, C;
+		A, B, C,
+		SUBCLASS
+		{
+			@SuppressWarnings("unused")
+			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
+			void zack()
+			{
+				// empty
+			}
+		};
 	}
 }

@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
 
 public class EnumSetFieldTest extends AbstractRuntimeTest
@@ -229,10 +230,28 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		{
 			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
 		}
+		try
+		{
+			((EnumSetField)activeLanguage).contains(item, X.SUBCLASS);
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X$1", e.getMessage());
+		}
 	}
 
 	enum X
 	{
-		A, B, C;
+		A, B, C,
+		SUBCLASS
+		{
+			@SuppressWarnings("unused")
+			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
+			void zack()
+			{
+				// empty
+			}
+		};
 	}
 }
