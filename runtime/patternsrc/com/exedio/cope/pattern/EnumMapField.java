@@ -189,7 +189,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	{
 		requireNonNull(enumValue, name);
 		if(!enumClass.isAssignableFrom(enumValue.getClass()))
-			throw new ClassCastException("expected a " + enumClass.getName() + ", but was a " + enumValue.getClass().getName());
+			throw new ClassCastException(
+					"expected a " + enumClass.getName() +
+					", but was a " + enumValue.getClass().getName());
 	}
 
 
