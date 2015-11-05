@@ -101,7 +101,10 @@ public class EnumMapFieldModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -110,7 +113,10 @@ public class EnumMapFieldModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -119,7 +125,10 @@ public class EnumMapFieldModelTest extends CopeAssert
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X$1", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumMapFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumMapFieldModelTest$X$1",
+					e.getMessage());
 		}
 	}
 

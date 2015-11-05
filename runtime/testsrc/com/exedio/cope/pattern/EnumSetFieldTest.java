@@ -201,7 +201,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -210,7 +213,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -219,7 +225,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -228,7 +237,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X",
+					e.getMessage());
 		}
 		try
 		{
@@ -237,7 +249,10 @@ public class EnumSetFieldTest extends AbstractRuntimeTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, but was a com.exedio.cope.pattern.EnumSetFieldTest$X$1", e.getMessage());
+			assertEquals(
+					"expected a com.exedio.cope.pattern.EnumSetFieldItem$Language, " +
+					"but was a com.exedio.cope.pattern.EnumSetFieldTest$X$1",
+					e.getMessage());
 		}
 	}
 
