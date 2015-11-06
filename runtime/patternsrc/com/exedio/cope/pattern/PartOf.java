@@ -52,8 +52,6 @@ public final class PartOf<C extends Item> extends Pattern
 		if(!container.isSourceAlready())
 			addSourceFeature(container, "Container");
 		this.order = order;
-		if(order!=null && !order.isSourceAlready())
-			addSourceFeature(order, "Order");
 	}
 
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container)
@@ -64,6 +62,21 @@ public final class PartOf<C extends Item> extends Pattern
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
 	{
 		return new PartOf<>(container, requireNonNull(order, "order"));
+	}
+
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		if(order!=null)
+			check(order, "order");
+	}
+
+	private void check(final FunctionField<?> field, final String name)
+	{
+		if(!field.getType().isAssignableFrom(getType()))
+			throw new IllegalArgumentException(
+					name + ' ' + field + " of PartOf " + this + " must be declared on the same type or super type");
 	}
 
 	public ItemField<C> getContainer()

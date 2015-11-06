@@ -76,7 +76,7 @@ public class PasswordLimiterModelTest
 		assertEquals("date", passwordLimited.getDate().getName());
 
 		assertEquals(list(), passwordLimited.getSourceFeatures());
-		assertEquals(passwordLimited.getRefusals(), passwordLimited.getDate().getPattern());
+		assertEquals(null, passwordLimited.getDate().getPattern());
 
 		assertSame(password, passwordLimited.getPassword());
 		assertEquals(60*1000, passwordLimited.getPeriod());

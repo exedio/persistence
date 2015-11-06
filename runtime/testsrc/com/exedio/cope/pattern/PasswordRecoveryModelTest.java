@@ -79,7 +79,7 @@ public class PasswordRecoveryModelTest
 
 		assertEquals(list(), passwordRecovery.getSourceFeatures());
 		assertEquals(null, passwordRecovery.getSecret().getPattern());
-		assertEquals(passwordRecovery.getTokens(), passwordRecovery.getExpires().getPattern());
+		assertEquals(null, passwordRecovery.getExpires().getPattern());
 
 		assertSame(password, passwordRecovery.getPassword());
 

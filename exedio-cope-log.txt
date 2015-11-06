@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* PartOf does not add order as source anymore.
+	This breaks backwards API compatibility:
+	Result of partOf.getOrder().getPattern() becomes null and result of
+	partOf.getSourceFeatures() does not contain partOf.getOrder() anymore.
 * MediaType.STL added
 * ConnectProperties keys cluster.sendAddress and cluster.listenAddress change
 	their default from 230.0.0.1 to 224.0.0.50.
