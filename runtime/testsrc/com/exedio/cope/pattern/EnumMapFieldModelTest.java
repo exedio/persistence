@@ -92,6 +92,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS") // OK: test bad API usage
 	public void testUnchecked()
 	{
 		try
