@@ -92,9 +92,10 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	private static final String KEY = "k";
 
-	private void assertKey(final K key)
+	private FunctionField<V> field(final K key)
 	{
 		assertEnum("key", keyClass, key);
+		return fields.get(key);
 	}
 
 	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
@@ -102,8 +103,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final Item item,
 			@Parameter(KEY) final K key)
 	{
-		assertKey(key);
-		return fields.get(key).get(item);
+		return field(key).get(item);
 	}
 
 	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
@@ -112,8 +112,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			@Parameter(KEY) final K key,
 			final V value)
 	{
-		assertKey(key);
-		fields.get(key).set(item, value);
+		field(key).set(item, value);
 	}
 
 	@Override

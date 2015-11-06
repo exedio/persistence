@@ -84,30 +84,28 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		return fields.get(element);
 	}
 
-	private void assertElement(final E element)
+	private BooleanField field(final E element)
 	{
 		assertEnum("element", elementClass, element);
+		return fields.get(element);
 	}
 
 	@Wrap(order=10)
 	public boolean contains(final Item item, @Parameter("element") final E element)
 	{
-		assertElement(element);
-		return fields.get(element).get(item);
+		return field(element).get(item);
 	}
 
 	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void add(final Item item, @Parameter("element") final E element)
 	{
-		assertElement(element);
-		fields.get(element).set(item, true);
+		field(element).set(item, true);
 	}
 
 	@Wrap(order=30, hide=FinalSettableGetter.class)
 	public void remove(final Item item, @Parameter("element") final E element)
 	{
-		assertElement(element);
-		fields.get(element).set(item, false);
+		field(element).set(item, false);
 	}
 
 	/**
@@ -187,8 +185,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	public Condition contains(final E element)
 	{
-		assertElement(element);
-		return getField(element).equal(true);
+		return field(element).equal(true);
 	}
 
 	// ------------------- deprecated stuff -------------------
