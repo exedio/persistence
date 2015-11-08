@@ -13,25 +13,25 @@ before_script:
   - rm conf/environment/hsqldb-noPrep.properties
   - mysql -e 'create database cope_test_db;'
   - mysql -e 'show grants;'
-  - echo "grant select, insert, update, delete, create, drop, index, alter on cope_test_db.* to 'cope_test_user'@'localhost';" | sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
+  - echo "grant select, insert, update, delete, create, drop, index, alter on cope_test_db.* to 'cope_test_user'@'localhost' identified by 'pass';" | sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
   - psql  -c 'create database cope_test;' -U postgres
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
-    "connection.password=\n"\
+    "connection.password=pass\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
     | tee conf/environment/mysql.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
-    "connection.password=\n"\
+    "connection.password=pass\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
     | tee conf/environment/mysql-seq.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
-    "connection.password=\n"\
+    "connection.password=pass\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
     | tee conf/environment/mysql-noPrep.properties
