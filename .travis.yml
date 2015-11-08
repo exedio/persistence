@@ -13,8 +13,7 @@ before_script:
   - rm conf/environment/hsqldb-noPrep.properties
   - mysql -e 'create database cope_test_db;'
   - mysql -e 'show grants;'
-  - echo "show grants;" | sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
-  - mysql -e "grant select, insert, update, delete, create, drop, index, alter on cope_test_db.* to 'cope_test_user'@'localhost';"
+  - echo "grant select, insert, update, delete, create, drop, index, alter on cope_test_db.* to 'cope_test_user'@'localhost';" | sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
   - psql  -c 'create database cope_test;' -U postgres
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
