@@ -12,6 +12,7 @@ before_script:
   - sudo service mysql restart
   - rm conf/environment/hsqldb-noPrep.properties
   - mysql -e 'create database cope_test_db;'
+  - mysql -e 'show grants;'
   - mysql -e "grant select, insert, update, delete, create, drop, index, alter on cope_test_db.* to 'cope_test_user'@'localhost';"
   - psql  -c 'create database cope_test;' -U postgres
   - echo -e -n \
