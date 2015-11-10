@@ -36,7 +36,7 @@ public class PartOfTest extends AbstractRuntimeTest
 		container = deleteOnTearDown(new PartOfContainerItem("container"));
 	}
 
-	public void testIt()
+	public void testUnordered()
 	{
 		assertEquals(list(), container.getParts());
 
@@ -51,7 +51,13 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(list(part1, part2), container.getParts());
 		assertEquals(list(part1, part2), PartOfItem.parts.getParts(container));
 
+		// parts condition
+		assertEquals(list(part1, part2), container.getParts(null));
+		assertEquals(list(part1       ), container.getParts(PartOfItem.partString.equal("part1")));
+	}
 
+	public void testOrdered()
+	{
 		assertEquals(list(), container.getPartsOrdered());
 
 		final PartOfOrderedItem partOrdered1 = container.addToPartsOrdered(2, "part1", 1);
@@ -66,8 +72,6 @@ public class PartOfTest extends AbstractRuntimeTest
 		assertEquals(list(partOrdered2, partOrdered1), PartOfOrderedItem.partsOrdered.getParts(container));
 
 		// parts condition
-		assertEquals(list(part1, part2), container.getParts(null));
-		assertEquals(list(part1       ), container.getParts(PartOfItem.partString.equal("part1")));
 		assertEquals(list(partOrdered2, partOrdered1), container.getPartsOrdered(null));
 		assertEquals(list(partOrdered1              ), container.getPartsOrdered(PartOfOrderedItem.partString.equal("part1")));
 	}
