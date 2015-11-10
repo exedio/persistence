@@ -33,7 +33,7 @@ public class PartOfModelTest extends CopeAssert
 		MODEL.enableSerialization(PartOfModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	public void testTypes()
 	{
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
@@ -45,7 +45,10 @@ public class PartOfModelTest extends CopeAssert
 				PartOfOrderedItem.TYPE,
 				PartOfContainerItem.TYPE
 			), MODEL.getTypesSortedByHierarchy());
+	}
 
+	public void testFeatures()
+	{
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE.getThis(),
 				PartOfItem.container,
@@ -61,7 +64,10 @@ public class PartOfModelTest extends CopeAssert
 				PartOfOrderedItem.partString,
 				PartOfOrderedItem.partInteger
 			), PartOfOrderedItem.TYPE.getFeatures());
+	}
 
+	public void testPattern()
+	{
 		assertEquals(PartOfItem.TYPE, PartOfItem.parts.getType());
 		assertEquals("parts", PartOfItem.parts.getName());
 
@@ -75,14 +81,24 @@ public class PartOfModelTest extends CopeAssert
 		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
 		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
 		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
+	}
 
+	public void testGetPartOfs()
+	{
 		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
 		assertEqualsUnmodifiable(list(), PartOf.getPartOfs(PartOfItem.TYPE));
 		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
 		assertEqualsUnmodifiable(list(PartOfItem.parts, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.parts));
-		assertSerializedSame(PartOfItem.parts, 380);
+	}
 
+	public void testSerialization()
+	{
+		assertSerializedSame(PartOfItem.parts, 380);
+	}
+
+	public void testContainerNull()
+	{
 		try
 		{
 			PartOf.create(null);
@@ -92,6 +108,10 @@ public class PartOfModelTest extends CopeAssert
 		{
 			assertEquals("container", e.getMessage());
 		}
+	}
+
+	public void testContainerNullWithOrder()
+	{
 		try
 		{
 			PartOf.create(null, new IntegerField());
@@ -101,6 +121,10 @@ public class PartOfModelTest extends CopeAssert
 		{
 			assertEquals("container", e.getMessage());
 		}
+	}
+
+	public void testOrderNull()
+	{
 		try
 		{
 			PartOf.create(null, null);
