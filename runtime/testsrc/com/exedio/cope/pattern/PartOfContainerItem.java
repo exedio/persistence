@@ -28,17 +28,17 @@ public final class PartOfContainerItem extends Item
 
 	static final StringField containerString = new StringField();
 
-	List<PartOfItem> getParts() // TODO generate this
+	List<PartOfItem> getUnordered() // TODO generate this
 	{
-		return PartOfItem.getPartsParts(this);
+		return PartOfItem.getUnorderedParts(this);
 	}
 
-	List<PartOfItem> getParts(final Condition condition) // TODO generate this
+	List<PartOfItem> getUnordered(final Condition condition) // TODO generate this
 	{
-		return PartOfItem.getPartsParts(this, condition);
+		return PartOfItem.getUnorderedParts(this, condition);
 	}
 
-	PartOfItem addToParts(final String partString, final int partInteger) // TODO generate this
+	PartOfItem addToUnordered(final String partString, final int partInteger) // TODO generate this
 	{
 		return new PartOfItem(this, partString, partInteger);
 	}
