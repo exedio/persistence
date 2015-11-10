@@ -35,18 +35,16 @@ public class PartOfModelTest extends CopeAssert
 
 	public void testIt()
 	{
-		final Model model = MODEL;
-
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
 				PartOfOrderedItem.TYPE,
 				PartOfContainerItem.TYPE
-			), model.getTypes());
+			), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
 				PartOfOrderedItem.TYPE,
 				PartOfContainerItem.TYPE
-			), model.getTypesSortedByHierarchy());
+			), MODEL.getTypesSortedByHierarchy());
 
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE.getThis(),
