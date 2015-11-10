@@ -60,7 +60,7 @@ public class PartOfModelTest extends CopeAssert
 				PartOfOrderedItem.TYPE.getThis(),
 				PartOfOrderedItem.container,
 				PartOfOrderedItem.order,
-				PartOfOrderedItem.partsOrdered,
+				PartOfOrderedItem.ordered,
 				PartOfOrderedItem.partString,
 				PartOfOrderedItem.partInteger
 			), PartOfOrderedItem.TYPE.getFeatures());
@@ -76,19 +76,19 @@ public class PartOfModelTest extends CopeAssert
 		assertSame(PartOfItem.unordered, PartOfItem.container.getPattern());
 		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.unordered.getSourceFeatures());
 
-		assertSame(PartOfOrderedItem.container, PartOfOrderedItem.partsOrdered.getContainer());
-		assertSame(PartOfOrderedItem.order, PartOfOrderedItem.partsOrdered.getOrder());
-		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.container.getPattern());
-		assertSame(PartOfOrderedItem.partsOrdered, PartOfOrderedItem.order.getPattern());
-		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.partsOrdered.getSourceFeatures());
+		assertSame(PartOfOrderedItem.container, PartOfOrderedItem.ordered.getContainer());
+		assertSame(PartOfOrderedItem.order, PartOfOrderedItem.ordered.getOrder());
+		assertSame(PartOfOrderedItem.ordered, PartOfOrderedItem.container.getPattern());
+		assertSame(PartOfOrderedItem.ordered, PartOfOrderedItem.order.getPattern());
+		assertEqualsUnmodifiable(list(PartOfOrderedItem.container, PartOfOrderedItem.order), PartOfOrderedItem.ordered.getSourceFeatures());
 	}
 
 	public void testGetPartOfs()
 	{
 		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
 		assertEqualsUnmodifiable(list(), PartOf.getPartOfs(PartOfItem.TYPE));
-		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfOrderedItem.partsOrdered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
-		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfOrderedItem.partsOrdered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfOrderedItem.ordered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfOrderedItem.ordered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.unordered));
 	}
 

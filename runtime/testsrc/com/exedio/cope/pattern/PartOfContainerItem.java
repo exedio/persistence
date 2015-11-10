@@ -43,17 +43,17 @@ public final class PartOfContainerItem extends Item
 		return new PartOfItem(this, partString, partInteger);
 	}
 
-	List<PartOfOrderedItem> getPartsOrdered() // TODO generate this
+	List<PartOfOrderedItem> getOrdered() // TODO generate this
 	{
-		return PartOfOrderedItem.getPartsOrderedParts(this);
+		return PartOfOrderedItem.getOrderedParts(this);
 	}
 
-	List<PartOfOrderedItem> getPartsOrdered(final Condition condition) // TODO generate this
+	List<PartOfOrderedItem> getOrdered(final Condition condition) // TODO generate this
 	{
-		return PartOfOrderedItem.getPartsOrderedParts(this, condition);
+		return PartOfOrderedItem.getOrderedParts(this, condition);
 	}
 
-	PartOfOrderedItem addToPartsOrdered(final int order, final String partString, final int partInteger) // TODO generate this
+	PartOfOrderedItem addToOrdered(final int order, final String partString, final int partInteger) // TODO generate this
 	{
 		return new PartOfOrderedItem(this, order, partString, partInteger);
 	}
