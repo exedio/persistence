@@ -60,26 +60,26 @@ public class PartOfTest extends AbstractRuntimeTest
 	{
 		assertEquals(list(), container.getOrdered());
 
-		final PartOfOrderedItem part1 = container.addToOrdered(2, "part1", 1);
+		final PartOfItem part1 = container.addToOrdered(2, "part1", 1);
 		assertEquals(container, part1.getOrderedContainer());
 		assertEquals(list(part1), container.getOrdered());
-		assertEquals(list(part1), PartOfOrderedItem.ordered.getParts(container));
+		assertEquals(list(part1), PartOfItem.ordered.getParts(container));
 
-		final PartOfOrderedItem part2 = container.addToOrdered(1, "part2", 2);
+		final PartOfItem part2 = container.addToOrdered(1, "part2", 2);
 		assertEquals(container, part1.getOrderedContainer());
 		assertEquals(container, part2.getOrderedContainer());
 		assertEquals(list(part2, part1), container.getOrdered());
-		assertEquals(list(part2, part1), PartOfOrderedItem.ordered.getParts(container));
+		assertEquals(list(part2, part1), PartOfItem.ordered.getParts(container));
 
-		final PartOfOrderedItem part3 = container.addToOrdered(3, "part3", 3);
+		final PartOfItem part3 = container.addToOrdered(3, "part3", 3);
 		assertEquals(container, part1.getOrderedContainer());
 		assertEquals(container, part2.getOrderedContainer());
 		assertEquals(container, part3.getOrderedContainer());
 		assertEquals(list(part2, part1, part3), container.getOrdered());
-		assertEquals(list(part2, part1, part3), PartOfOrderedItem.ordered.getParts(container));
+		assertEquals(list(part2, part1, part3), PartOfItem.ordered.getParts(container));
 
 		// parts condition
 		assertEquals(list(part2, part1, part3), container.getOrdered(null));
-		assertEquals(list(part1              ), container.getOrdered(PartOfOrderedItem.partString.equal("part1")));
+		assertEquals(list(part1              ), container.getOrdered(PartOfItem.partString.equal("part1")));
 	}
 }
