@@ -173,7 +173,7 @@ public class EnviromentInfoTest extends TestCase
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.31", 5, 3, "14.18", 14, 18));
 
-		assertEquals("5.31", i.getDatabaseVersionDescription()); // TODO 5.31 (5.3)
+		assertEquals("5.31 (5.3)", i.getDatabaseVersionDescription());
 	}
 
 	public void testShortDescriptionDigitBefore() throws SQLException
@@ -197,6 +197,6 @@ public class EnviromentInfoTest extends TestCase
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("z5.3", 5, 3, "14.18", 14, 18));
 
-		assertEquals("z5.3 (5.3)", i.getDatabaseVersionDescription()); // TODO z5.3
+		assertEquals("z5.3", i.getDatabaseVersionDescription());
 	}
 }

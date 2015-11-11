@@ -22,6 +22,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public final class EnvironmentInfo
 {
@@ -137,11 +138,11 @@ public final class EnvironmentInfo
 
 		String getVersionDescription()
 		{
-			final String v = "" + majorVersion + '.' + minorVersion;
-			if(version.startsWith(v))
+			final String v = "(.*\\D|^)" + majorVersion + "\\." + minorVersion + "(\\D.*|$)";
+			if(Pattern.matches(v, version))
 				return version;
 
-			return version + ' ' + '(' + v + ')';
+			return version + ' ' + '(' + majorVersion + '.' + minorVersion + ')';
 		}
 
 		void asProperties(final String prefix, final Properties result)
