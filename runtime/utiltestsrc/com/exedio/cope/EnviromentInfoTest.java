@@ -127,4 +127,16 @@ public class EnviromentInfoTest extends TestCase
 			assertEquals(expected, actual);
 		}
 	}
+
+	public void testShortDescriptionDigit() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5.33", 5, 3, "14.18", 14, 18));
+
+		assertEquals("5.33", i.getDatabaseProductVersion());
+		assertEquals("14.18", i.getDriverVersion());
+
+		assertEquals("5.33", i.getDatabaseVersionDescription()); // TODO should be 5.33 (5.3)
+		assertEquals("14.18", i.getDriverVersionDescription());
+	}
 }
