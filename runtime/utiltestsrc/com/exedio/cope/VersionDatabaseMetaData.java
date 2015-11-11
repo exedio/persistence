@@ -21,11 +21,11 @@ package com.exedio.cope;
 final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 {
 	private final String databaseVersion;
-	private final int databaseMajor;
-	private final int databaseMinor;
+	private final int    databaseMajor;
+	private final int    databaseMinor;
 	private final String driverVersion;
-	private final int driverMajor;
-	private final int driverMinor;
+	private final int    driverMajor;
+	private final int    driverMinor;
 
 	VersionDatabaseMetaData(
 			final int databaseMajor,
@@ -40,18 +40,18 @@ final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 
 	VersionDatabaseMetaData(
 			final String databaseVersion,
-			final int databaseMajor,
-			final int databaseMinor,
+			final int    databaseMajor,
+			final int    databaseMinor,
 			final String driverVersion,
-			final int driverMajor,
-			final int driverMinor)
+			final int    driverMajor,
+			final int    driverMinor)
 	{
 		this.databaseVersion = databaseVersion;
-		this.databaseMajor = databaseMajor;
-		this.databaseMinor = databaseMinor;
-		this.driverVersion = driverVersion;
-		this.driverMajor = driverMajor;
-		this.driverMinor = driverMinor;
+		this.databaseMajor   = databaseMajor;
+		this.databaseMinor   = databaseMinor;
+		this.driverVersion   = driverVersion;
+		this.driverMajor     = driverMajor;
+		this.driverMinor     = driverMinor;
 	}
 
 	@Override
