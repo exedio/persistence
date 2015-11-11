@@ -85,4 +85,46 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals(false, i.isDriverVersionAtLeast(15, 18));
 		assertEquals(false, i.isDriverVersionAtLeast(15, 19));
 	}
+
+	public void testShortDescription() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5.3.1", 5, 3, "14.18a", 14, 18));
+
+		assertEquals("getDatabaseProductName", i.getDatabaseProductName());
+		assertEquals("5.3.1", i.getDatabaseProductVersion());
+		assertEquals("getDriverName", i.getDriverName());
+		assertEquals("14.18a", i.getDriverVersion());
+
+		assertEquals( 5, i.getDatabaseMajorVersion());
+		assertEquals( 3, i.getDatabaseMinorVersion());
+		assertEquals(14, i.getDriverMajorVersion());
+		assertEquals(18, i.getDriverMinorVersion());
+
+		assertEquals("5.3.1 (5.3)", i.getDatabaseVersionDescription()); // TODO
+		assertEquals("14.18a (14.18)", i.getDriverVersionDescription()); // TODO
+
+		{
+			final Properties expected = new Properties();
+			expected.setProperty("database.name", "getDatabaseProductName");
+			expected.setProperty("database.version", "5.3.1 (5.3)"); // TODO
+			expected.setProperty("driver.name", "getDriverName");
+			expected.setProperty("driver.version", "14.18a (14.18)"); // TODO
+			assertEquals(expected, i.asProperties());
+		}
+		{
+			final HashMap<String, String> expected = new HashMap<>();
+			expected.put("database.name", "getDatabaseProductName");
+			expected.put("database.version", "5.3.1");
+			expected.put("database.version.major", "5");
+			expected.put("database.version.minor", "3");
+			expected.put("driver.name", "getDriverName");
+			expected.put("driver.version", "14.18a");
+			expected.put("driver.version.major", "14");
+			expected.put("driver.version.minor", "18");
+			final HashMap<String, String> actual = new HashMap<>();
+			i.putRevisionEnvironment(actual);
+			assertEquals(expected, actual);
+		}
+	}
 }

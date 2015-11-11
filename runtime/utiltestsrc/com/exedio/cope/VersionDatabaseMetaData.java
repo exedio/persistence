@@ -20,8 +20,10 @@ package com.exedio.cope;
 
 final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 {
+	private final String databaseVersion;
 	private final int databaseMajor;
 	private final int databaseMinor;
+	private final String driverVersion;
 	private final int driverMajor;
 	private final int driverMinor;
 
@@ -31,8 +33,23 @@ final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 			final int driverMajor,
 			final int driverMinor)
 	{
+		this(
+				"getDatabaseProductVersion", databaseMajor, databaseMinor,
+				"getDriverVersion", driverMajor, driverMinor);
+	}
+
+	VersionDatabaseMetaData(
+			final String databaseVersion,
+			final int databaseMajor,
+			final int databaseMinor,
+			final String driverVersion,
+			final int driverMajor,
+			final int driverMinor)
+	{
+		this.databaseVersion = databaseVersion;
 		this.databaseMajor = databaseMajor;
 		this.databaseMinor = databaseMinor;
+		this.driverVersion = driverVersion;
 		this.driverMajor = driverMajor;
 		this.driverMinor = driverMinor;
 	}
@@ -46,7 +63,7 @@ final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 	@Override
 	public String getDatabaseProductVersion()
 	{
-		return "getDatabaseProductVersion";
+		return databaseVersion;
 	}
 
 	@Override
@@ -70,7 +87,7 @@ final class VersionDatabaseMetaData extends DummyDatabaseMetaData
 	@Override
 	public String getDriverVersion()
 	{
-		return "getDriverVersion";
+		return driverVersion;
 	}
 
 	@Override
