@@ -137,7 +137,11 @@ public final class EnvironmentInfo
 
 		String getVersionDescription()
 		{
-			return version + ' ' + '(' + majorVersion + '.' + minorVersion + ')';
+			final String v = "" + majorVersion + '.' + minorVersion;
+			if(version.startsWith(v))
+				return version;
+
+			return version + ' ' + '(' + v + ')';
 		}
 
 		void asProperties(final String prefix, final Properties result)

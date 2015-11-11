@@ -101,15 +101,15 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals(14, i.getDriverMajorVersion());
 		assertEquals(18, i.getDriverMinorVersion());
 
-		assertEquals("5.3.1 (5.3)", i.getDatabaseVersionDescription()); // TODO
-		assertEquals("14.18a (14.18)", i.getDriverVersionDescription()); // TODO
+		assertEquals("5.3.1", i.getDatabaseVersionDescription());
+		assertEquals("14.18a", i.getDriverVersionDescription());
 
 		{
 			final Properties expected = new Properties();
 			expected.setProperty("database.name", "getDatabaseProductName");
-			expected.setProperty("database.version", "5.3.1 (5.3)"); // TODO
+			expected.setProperty("database.version", "5.3.1");
 			expected.setProperty("driver.name", "getDriverName");
-			expected.setProperty("driver.version", "14.18a (14.18)"); // TODO
+			expected.setProperty("driver.version", "14.18a");
 			assertEquals(expected, i.asProperties());
 		}
 		{

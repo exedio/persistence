@@ -224,8 +224,8 @@ public class ConnectPropertiesTest extends TestCase
 
 		final Callable<?> test = p.getProbeTest();
 		assertEquals(
-				"HSQL Database Engine 2.2.9 (2.2) " +
-				"HSQL Database Engine Driver 2.2.9 (2.2)",
+				"HSQL Database Engine 2.2.9 " +
+				"HSQL Database Engine Driver 2.2.9",
 				test.call());
 		assertEquals("probe", test.toString());
 	}
