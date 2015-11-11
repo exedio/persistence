@@ -128,15 +128,75 @@ public class EnviromentInfoTest extends TestCase
 		}
 	}
 
-	public void testShortDescriptionDigit() throws SQLException
+	public void testShortDescriptionExact() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
-				new VersionDatabaseMetaData("5.33", 5, 3, "14.18", 14, 18));
+				new VersionDatabaseMetaData("5.3", 5, 3, "14.18", 14, 18));
 
-		assertEquals("5.33", i.getDatabaseProductVersion());
-		assertEquals("14.18", i.getDriverVersion());
+		assertEquals("5.3", i.getDatabaseVersionDescription());
+	}
 
-		assertEquals("5.33", i.getDatabaseVersionDescription()); // TODO should be 5.33 (5.3)
-		assertEquals("14.18", i.getDriverVersionDescription());
+	public void testShortDescriptionMismatchMajor() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("6.3", 5, 3, "14.18", 14, 18));
+
+		assertEquals("6.3 (5.3)", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionMismatchMinor() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5.4", 5, 3, "14.18", 14, 18));
+
+		assertEquals("5.4 (5.3)", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionDotMissing() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("53", 5, 3, "14.18", 14, 18));
+
+		assertEquals("53 (5.3)", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionDotOther() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5x3", 5, 3, "14.18", 14, 18));
+
+		assertEquals("5x3 (5.3)", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionDigitAfter() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5.31", 5, 3, "14.18", 14, 18));
+
+		assertEquals("5.31", i.getDatabaseVersionDescription()); // TODO 5.31 (5.3)
+	}
+
+	public void testShortDescriptionDigitBefore() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("15.3", 5, 3, "14.18", 14, 18));
+
+		assertEquals("15.3 (5.3)", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionOtherAfter() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("5.3z", 5, 3, "14.18", 14, 18));
+
+		assertEquals("5.3z", i.getDatabaseVersionDescription());
+	}
+
+	public void testShortDescriptionOtherBefore() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new VersionDatabaseMetaData("z5.3", 5, 3, "14.18", 14, 18));
+
+		assertEquals("z5.3 (5.3)", i.getDatabaseVersionDescription()); // TODO z5.3
 	}
 }
