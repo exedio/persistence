@@ -159,7 +159,6 @@ public class Sampler
 
 	private SamplerStep lastStep = null;
 
-	@SuppressFBWarnings({"NP_LOAD_OF_KNOWN_NULL_VALUE","RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE"}) // triggered by try-with-resource
 	SamplerModel sampleInternal(final long transactionDuration, final String buildTag)
 	{
 		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample environment"))

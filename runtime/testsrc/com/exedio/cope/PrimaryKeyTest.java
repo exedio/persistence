@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 public class PrimaryKeyTest extends AbstractRuntimeTest
 {
 	/**
@@ -56,7 +54,6 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
-	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE") // triggered by try-with-resource
 	private static final PrimaryKeyItem newPrimaryKeyItem(
 			final String field,
 			final int next)
@@ -69,7 +66,6 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 		}
 	}
 
-	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE") // triggered by try-with-resource
 	private static final PrimaryKeyItem newPrimaryKeyItem(
 			final String field)
 	{
