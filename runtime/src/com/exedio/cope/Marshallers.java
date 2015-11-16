@@ -28,7 +28,6 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Objects;
 
 final class Marshallers
 {
@@ -207,12 +206,6 @@ final class Marshallers
 			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final java.sql.Date cell = row.getDate(columnIndex);
-				{
-					final String s = row.getString(columnIndex);
-					final String d = Objects.toString(cell, null);
-					if(!Objects.equals(s, d))
-						System.out.println("MISMATCHING DATE string= >" + s + "<, date= >" + d + "<");
-				}
 				return (cell!=null) ? DayField.unmarshal(cell) : null;
 			}
 			@Override
