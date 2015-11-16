@@ -127,6 +127,12 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	boolean supportsNotNull()
+	{
+		return true;
+	}
+
+	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
 	{
 		statementText.append('\'');

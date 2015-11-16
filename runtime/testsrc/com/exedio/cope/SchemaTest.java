@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -71,7 +72,10 @@ public class SchemaTest extends AbstractRuntimeTest
 
 		assertCheckConstraint(table, "SchemaItem_string_Ck", notNull(q(string), "("+l(string)+">=1) AND (" + l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")"));
 		assertCheckConstraint(table, "SchemaItem_integ_Ck" , notNull(q(integ ), "("+q(integ )+">=-10) AND ("+q(integ)+"<=10)"));
-		assertCheckConstraint(table, "SchemaItem_doub_Ck"  , !oracle ? notNull(q(doub), "("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1)") : q(doub)+" IS NOT NULL"); // TODO
+		if(!oracle) // TODO
+			assertCheckConstraint(table, "SchemaItem_doub_Ck", notNull(q(doub),  "("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1)"));
+		else
+			assertNotExistsConstraint(table, "SchemaItem_doub_Ck");
 		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , notNull(q(bool  ), hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")"));
 		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", notNull(q(anEnum), hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")"));
 		assertCheckConstraint(table, "SchemaItem_item_Ck"  , notNull(q(item  ), "("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+")"));
