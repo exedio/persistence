@@ -325,7 +325,7 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @deprecated always returns true
+	 * @deprecated Always returns true, because all databases are required to support not-null columns.
 	 */
 	@Deprecated
 	public static boolean supportsNotNull(final Model model)
