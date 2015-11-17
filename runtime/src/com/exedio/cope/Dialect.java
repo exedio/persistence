@@ -132,11 +132,6 @@ abstract class Dialect
 		return true;
 	}
 
-	final boolean supportsNotNull()
-	{
-		return true;
-	}
-
 	boolean supportsRandom()
 	{
 		return false;

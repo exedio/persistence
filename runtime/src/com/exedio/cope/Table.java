@@ -208,12 +208,12 @@ final class Table
 		return database.makeName(id + '_' + suffix);
 	}
 
-	void makeSchema(final Schema schema, final boolean supportsNotNull)
+	void makeSchema(final Schema schema)
 	{
 		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower);
 
 		for(final Column c : getAllColumns())
-			c.makeSchema(result, supportsNotNull);
+			c.makeSchema(result);
 
 		for(final UniqueConstraint uc : getUniqueConstraints())
 			uc.makeSchema(result);

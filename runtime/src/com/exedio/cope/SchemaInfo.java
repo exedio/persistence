@@ -74,9 +74,14 @@ public final class SchemaInfo
 		return model.connect().supportsNativeDate();
 	}
 
+	/**
+	 * @deprecated always returns true
+	 */
+	@Deprecated
 	public static boolean supportsNotNull(final Model model)
 	{
-		return model.connect().database.supportsNotNull();
+		model.connect(); // make sure it works only when connected
+		return true;
 	}
 
 	/**
