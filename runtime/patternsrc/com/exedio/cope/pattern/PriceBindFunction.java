@@ -24,7 +24,7 @@ import com.exedio.cope.NumberFunction;
 
 final class PriceBindFunction implements PriceFunction
 {
-	final NumberFunction<Integer> integer;
+	final NumberFunction<Long> integer;
 
 	PriceBindFunction(final PriceField function, final Join join)
 	{
@@ -76,7 +76,7 @@ final class PriceBindFunction implements PriceFunction
 		return integer.between(lowerBound.store(), upperBound.store());
 	}
 
-	private static Integer store(final Price p)
+	private static Long store(final Price p)
 	{
 		return p!=null ? p.store() : null;
 	}

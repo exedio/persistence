@@ -24,11 +24,11 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -43,18 +43,18 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 {
 	private static final long serialVersionUID = 1l;
 
-	private final IntegerField integer;
+	private final LongField integer;
 	private final boolean isfinal;
 	private final boolean mandatory;
 
 	public PriceField()
 	{
-		this(new IntegerField().range(
+		this(new LongField().range(
 				Price.MIN_VALUE.store(),
 				Price.MAX_VALUE.store()));
 	}
 
-	private PriceField(final IntegerField integer)
+	private PriceField(final LongField integer)
 	{
 		this.integer = integer;
 		addSource(integer, "int", ComputedElement.get());
@@ -103,7 +103,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return new PriceField(integer.max(maximum.store()));
 	}
 
-	public IntegerField getInt()
+	public LongField getInt()
 	{
 		return integer;
 	}

@@ -38,7 +38,7 @@ public final class Money<C extends Money.Currency>
 	}
 
 
-	public static <C extends Currency> Money<C> storeOf(final int amountStore, final C currency)
+	public static <C extends Currency> Money<C> storeOf(final long amountStore, final C currency)
 	{
 		return valueOf(Price.storeOf(amountStore), currency);
 	}
@@ -59,7 +59,7 @@ public final class Money<C extends Money.Currency>
 		this.currency = requireNonNull(currency, "currency");
 	}
 
-	public int amountStore(final C currency)
+	public long amountStore(final C currency)
 	{
 		return getAmount(currency).store();
 	}
@@ -347,7 +347,7 @@ public final class Money<C extends Money.Currency>
 	 * @deprecated Use {@link #amountStore(Currency)} instead
 	 */
 	@Deprecated
-	public int store(final C currency)
+	public long store(final C currency)
 	{
 		return amountStore(currency);
 	}
