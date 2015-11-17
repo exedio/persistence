@@ -218,13 +218,14 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price add(final Price other)
 	{
-		if(other.store==0)
+		final int b = other.store;
+		if(b==0)
 			return this;
-		if(store==0)
-			return other;
 
 		final int a = store;
-		final int b = other.store;
+		if(a==0)
+			return other;
+
 		final int r = a + b;
 		if( (((a ^ r) & (b ^ r)) < 0) || r==NOT_A_STORE )
 		{
@@ -236,11 +237,11 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public Price subtract(final Price other)
 	{
-		if(other.store==0)
+		final int b = other.store;
+		if(b==0)
 			return this;
 
 		final int a = store;
-		final int b = other.store;
 		final int r = a - b;
 		if( (((a ^ b) & (a ^ r)) < 0) || r==NOT_A_STORE )
 		{
