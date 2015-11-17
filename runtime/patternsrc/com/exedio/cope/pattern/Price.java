@@ -222,16 +222,15 @@ public final class Price implements Serializable, Comparable<Price>
 		if(store==0)
 			return other;
 
-		if(
-			(store>0)
-			? (MAX_STORE-store<other.store)
-			: (MIN_STORE-store>other.store)
-			)
+		final int a = store;
+		final int b = other.store;
+		final int r = a + b;
+		if( (((a ^ r) & (b ^ r)) < 0) || r==Integer.MIN_VALUE )
 		{
 			throw new ArithmeticException("overflow " + this + " plus " + other);
 		}
 
-		return storeOf(store + other.store);
+		return storeOf(r);
 	}
 
 	public Price subtract(final Price other)
@@ -239,16 +238,15 @@ public final class Price implements Serializable, Comparable<Price>
 		if(other.store==0)
 			return this;
 
-		if(
-			(store<0)
-			? (MAX_STORE+store<other.store)
-			: (MIN_STORE+store>other.store)
-			)
+		final int a = store;
+		final int b = other.store;
+		final int r = a - b;
+		if( (((a ^ b) & (a ^ r)) < 0) || r==Integer.MIN_VALUE )
 		{
 			throw new ArithmeticException("overflow " + this + " minus " + other);
 		}
 
-		return storeOf(store - other.store);
+		return storeOf(r);
 	}
 
 	public Price multiply(final int other)
