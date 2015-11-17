@@ -42,7 +42,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		boolean random = false;
 		boolean checkConstraints = true;
 		boolean nativeDate = true;
-		boolean notNull = true;
+		final boolean notNull = true;
 		boolean uniqueViolation = false;
 
 		switch(dialect)
@@ -58,7 +58,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 				break;
 			case oracle:
 				emptyStrings = false;
-				notNull = false;
 				break;
 			case postgresql:
 				break;

@@ -279,6 +279,13 @@ final class RuntimeTester
 		return type.cast(constraint);
 	}
 
+	protected static void assertNotExistsConstraint(
+			final com.exedio.dsmf.Table table,
+			final String name)
+	{
+		assertNull(name, table.getConstraint(name));
+	}
+
 	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
 		assertEquals(types.length, limitWeigths.length);

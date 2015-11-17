@@ -42,6 +42,32 @@ public final class OracleDialect extends Dialect
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
+		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
+		if(withoutNullable==null)
+			return null;
+
+		final String nullable = resultSet.getString("IS_NULLABLE");
+		if("YES".equals(nullable))
+			return withoutNullable;
+		else if("NO".equals(nullable))
+		{
+			if("this".equals(resultSet.getString("COLUMN_NAME"))) // TODO does not work with primary key of table 'while'
+				return withoutNullable;
+
+			return withoutNullable + NOT_NULL;
+		}
+		else
+			throw new RuntimeException(
+					resultSet.getString("TABLE_NAME") + '/' +
+					resultSet.getString("COLUMN_NAME") + '/' +
+					resultSet.getString("TYPE_NAME") + '/' +
+					dataType + '/' +
+					nullable + '/' +
+					resultSet.getString("NULLABLE"));
+	}
+
+	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
+	{
 		final int columnSize = resultSet.getInt("COLUMN_SIZE");
 		switch(dataType)
 		{
@@ -146,6 +172,9 @@ public final class OracleDialect extends Dialect
 						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 						if("C".equals(constraintType))
 						{
+							if(constraintName.startsWith("SYS_"))
+								continue;
+
 							final String searchCondition = resultSet.getString(4);
 							//System.out.println("searchCondition:>"+constraintName+"< >"+searchCondition+"<");
 							final String duplicateCondition =
