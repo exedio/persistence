@@ -502,6 +502,27 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 2147483646, storeOf(1073741823).multiply(2).store());
 		assertMultiplyOverflows(  storeOf(1073741824), 2);
 		assertMultiplyOverflows(  storeOf(1073741825), 2);
+
+		assertEquals(-1073741823, storeOf( 1073741823).multiply(-1).store());
+		assertEquals(-1073741824, storeOf( 1073741824).multiply(-1).store());
+		assertEquals(-1073741825, storeOf( 1073741825).multiply(-1).store());
+		assertEquals(-2147483646, storeOf( 1073741823).multiply(-2).store());
+		assertMultiplyOverflows(  storeOf( 1073741824), -2);
+		assertMultiplyOverflows(  storeOf( 1073741825), -2);
+
+		assertEquals(-1073741823, storeOf(-1073741823).multiply(1).store());
+		assertEquals(-1073741824, storeOf(-1073741824).multiply(1).store());
+		assertEquals(-1073741825, storeOf(-1073741825).multiply(1).store());
+		assertEquals(-2147483646, storeOf(-1073741823).multiply(2).store());
+		assertMultiplyOverflows(  storeOf(-1073741824),  2);
+		assertMultiplyOverflows(  storeOf(-1073741825),  2);
+
+		assertEquals( 1073741823, storeOf(-1073741823).multiply(-1).store());
+		assertEquals( 1073741824, storeOf(-1073741824).multiply(-1).store());
+		assertEquals( 1073741825, storeOf(-1073741825).multiply(-1).store());
+		assertEquals( 2147483646, storeOf(-1073741823).multiply(-2).store());
+		assertMultiplyOverflows(  storeOf(-1073741824), -2);
+		assertMultiplyOverflows(  storeOf(-1073741825), -2);
 	}
 
 	private static void assertMultiplyOverflows(final Price left, final int right)
