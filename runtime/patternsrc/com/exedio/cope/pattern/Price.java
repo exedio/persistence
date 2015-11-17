@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 
-// TODO cache of common small values
 public final class Price implements Serializable, Comparable<Price>
 {
 	private static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_EVEN;
@@ -37,12 +36,35 @@ public final class Price implements Serializable, Comparable<Price>
 	public static final Price MIN_VALUE = new Price(MIN_STORE);
 	public static final Price MAX_VALUE = new Price(MAX_STORE);
 
+
+	// cache
+
+	private static int CACHE_MAX = 1001;
+
+	static Price[] newCache()
+	{
+		final Price[] result = new Price[CACHE_MAX];
+		result[0] = Price.ZERO;
+		for(int i = 1; i<CACHE_MAX; i++)
+			result[i] = new Price(i);
+		return result;
+	}
+
+	private static final class Cache
+	{
+		static Price[] value = newCache();
+	}
+
+
+	// store
+
 	public static Price storeOf(final int store)
 	{
-		// TODO reuse common small values
+		if(0<=store && store<CACHE_MAX)
+			return Cache.value[store];
+
 		switch(store)
 		{
-			case 0: return ZERO;
 			case MIN_STORE: return MIN_VALUE;
 			case MAX_STORE: return MAX_VALUE;
 			case NOT_A_STORE:
@@ -418,7 +440,6 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static Price valueOf(final double value, final RoundingMode roundingMode)
 	{
-		// TODO reuse common small values
 		if(Double.isNaN(value))
 			throw new IllegalArgumentException("NaN not allowed");
 		if(Double.isInfinite(value))
@@ -453,7 +474,6 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public static Price valueOf(final BigDecimal value, final RoundingMode roundingMode)
 	{
-		// TODO reuse common small values
 		if(value.compareTo(BIG_MIN_VALUE)<0)
 			throw new IllegalArgumentException("too small: " + value);
 		if(value.compareTo(BIG_MAX_VALUE)>0)

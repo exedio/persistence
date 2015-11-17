@@ -57,11 +57,11 @@ public final class PriceTest extends CopeAssert
 	public static void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
-		assertNotSame(storeOf(1), storeOf(1)); // TODO
+		assertSame  (storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertNotSame(storeOf(-1), storeOf(-1));
 		assertEquals(storeOf(1000), storeOf(1000)); // yet in cache
-		assertNotSame(storeOf(1000), storeOf(1000)); // TODO
+		assertSame  (storeOf(1000), storeOf(1000));
 		assertEquals(storeOf(1001), storeOf(1001)); // outside cache
 		assertNotSame(storeOf(1001), storeOf(1001));
 		assertSame(ZERO, storeOf(0));
@@ -641,7 +641,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-123), storeOf(-123));
 		assertFalse(storeOf(123).equals(storeOf( 124)));
 		assertFalse(storeOf(123).equals(storeOf(-123)));
-		assertNotSame(storeOf(123), storeOf(123)); // TODO
+		assertSame(storeOf(123), storeOf(123));
 	}
 
 	public static void testEqualsOther()
