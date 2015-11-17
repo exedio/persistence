@@ -25,6 +25,8 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 public final class Price implements Serializable, Comparable<Price>
 {
@@ -315,6 +317,25 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(-store);
 	}
 
+	private static Price operate(
+			final LongSupplier operation,
+			final Supplier<String> exceptionMessage)
+	{
+		final long r;
+		try
+		{
+			r = operation.getAsLong();
+		}
+		catch(final ArithmeticException ignored)
+		{
+			throw new ArithmeticException(exceptionMessage.get());
+		}
+		if(r==NOT_A_STORE)
+			throw new ArithmeticException(exceptionMessage.get());
+
+		return storeOf(r);
+	}
+
 	/**
 	 * @see BigDecimal#add(BigDecimal)
 	 */
@@ -328,13 +349,9 @@ public final class Price implements Serializable, Comparable<Price>
 		if(a==0)
 			return other;
 
-		final long r = a + b;
-		if( (((a ^ r) & (b ^ r)) < 0) || r==NOT_A_STORE )
-		{
-			throw new ArithmeticException("overflow " + this + " plus " + other);
-		}
-
-		return storeOf(r);
+		return operate(
+				() -> Math.addExact(a, b),
+				() -> "overflow " + this + " plus " + other);
 	}
 
 	/**
@@ -346,42 +363,22 @@ public final class Price implements Serializable, Comparable<Price>
 		if(b==0)
 			return this;
 
-		final long a = store;
-		final long r = a - b;
-		if( (((a ^ b) & (a ^ r)) < 0) || r==NOT_A_STORE )
-		{
-			throw new ArithmeticException("overflow " + this + " minus " + other);
-		}
-
-		return storeOf(r);
+		return operate(
+				() -> Math.subtractExact(store, b),
+				() -> "overflow " + this + " minus " + other);
 	}
 
 	/**
 	 * @see BigDecimal#multiply(BigDecimal)
 	 */
-	@SuppressWarnings("UnnecessaryLocalVariable")
 	public Price multiply(final int other)
 	{
 		if(other==1)
 			return this;
 
-		final long a = store;
-		final long b = other;
-
-		final long r = a * b;
-		final long aa = Math.abs(a);
-		final long ab = Math.abs(b);
-		if (((aa | ab) >>> 31 != 0))
-		{
-			if(((b!=0) && (r/b!=a)) ||
-				(a==Long.MIN_VALUE && b==-1) ||
-				(r==NOT_A_STORE) )
-			{
-				throw new ArithmeticException("overflow " + this + " multiply " + other);
-			}
-		}
-
-		return storeOf(r);
+		return operate(
+				() -> Math.multiplyExact(store, other),
+				() -> "overflow " + this + " multiply " + other);
 	}
 
 	/**
