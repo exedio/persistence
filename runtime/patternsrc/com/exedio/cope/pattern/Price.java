@@ -30,6 +30,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final int FACTOR_I = 100;
 
+	private static final int NOT_A_STORE = Integer.MIN_VALUE;
 	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
 	private static final int MAX_STORE = Integer.MAX_VALUE;
 
@@ -44,7 +45,7 @@ public final class Price implements Serializable, Comparable<Price>
 			case 0: return ZERO;
 			case MIN_STORE: return MIN_VALUE;
 			case MAX_STORE: return MAX_VALUE;
-			case Integer.MIN_VALUE:
+			case NOT_A_STORE:
 				throw new IllegalArgumentException("Integer.MIN_VALUE not allowed");
 		}
 
@@ -62,7 +63,7 @@ public final class Price implements Serializable, Comparable<Price>
 	private Price(final int store)
 	{
 		this.store = store;
-		assert store!=Integer.MIN_VALUE;
+		assert store!=NOT_A_STORE;
 	}
 
 	public int store()
@@ -225,7 +226,7 @@ public final class Price implements Serializable, Comparable<Price>
 		final int a = store;
 		final int b = other.store;
 		final int r = a + b;
-		if( (((a ^ r) & (b ^ r)) < 0) || r==Integer.MIN_VALUE )
+		if( (((a ^ r) & (b ^ r)) < 0) || r==NOT_A_STORE )
 		{
 			throw new ArithmeticException("overflow " + this + " plus " + other);
 		}
@@ -241,7 +242,7 @@ public final class Price implements Serializable, Comparable<Price>
 		final int a = store;
 		final int b = other.store;
 		final int r = a - b;
-		if( (((a ^ b) & (a ^ r)) < 0) || r==Integer.MIN_VALUE )
+		if( (((a ^ b) & (a ^ r)) < 0) || r==NOT_A_STORE )
 		{
 			throw new ArithmeticException("overflow " + this + " minus " + other);
 		}
