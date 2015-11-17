@@ -327,10 +327,4 @@ final class PostgresqlDialect extends Dialect
 			connectionPool.put(connection);
 		}
 	}
-
-	@Override
-	boolean supportsNotNull()
-	{
-		return true;
-	}
 }
