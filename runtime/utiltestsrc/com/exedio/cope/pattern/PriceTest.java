@@ -57,8 +57,13 @@ public final class PriceTest extends CopeAssert
 	public static void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
-		assertNotSame(storeOf(1), storeOf(1));
+		assertNotSame(storeOf(1), storeOf(1)); // TODO
 		assertEquals(storeOf(-1), storeOf(-1));
+		assertNotSame(storeOf(-1), storeOf(-1));
+		assertEquals(storeOf(1000), storeOf(1000)); // yet in cache
+		assertNotSame(storeOf(1000), storeOf(1000)); // TODO
+		assertEquals(storeOf(1001), storeOf(1001)); // outside cache
+		assertNotSame(storeOf(1001), storeOf(1001));
 		assertSame(ZERO, storeOf(0));
 		assertSame(MIN_VALUE, storeOf(MIN_STORE));
 		assertSame(MAX_VALUE, storeOf(MAX_STORE));
@@ -630,16 +635,29 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public static void testEquals()
+	public static void testEqualsSame()
 	{
 		assertEquals(storeOf( 123), storeOf( 123));
 		assertEquals(storeOf(-123), storeOf(-123));
 		assertFalse(storeOf(123).equals(storeOf( 124)));
 		assertFalse(storeOf(123).equals(storeOf(-123)));
-		assertNotSame(storeOf(123), storeOf(123));
+		assertNotSame(storeOf(123), storeOf(123)); // TODO
+	}
+
+	public static void testEqualsOther()
+	{
 		assertFalse(storeOf(123).equals(Integer.valueOf(123)));
 		assertFalse(storeOf(123).equals(Double.valueOf(1.23)));
 		assertFalse(storeOf(123).equals(null));
+	}
+
+	public static void testEqualsNotSame()
+	{
+		assertEquals(storeOf( 4123), storeOf( 4123));
+		assertEquals(storeOf(-4123), storeOf(-4123));
+		assertFalse(storeOf(4123).equals(storeOf( 124)));
+		assertFalse(storeOf(4123).equals(storeOf(-4123)));
+		assertNotSame(storeOf(4123), storeOf(4123));
 	}
 
 	public static void testHashCode()
