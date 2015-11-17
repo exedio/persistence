@@ -252,11 +252,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		tester.assertCause(e);
 	}
 
-	protected final String notNull(final String field, final String condition)
-	{
-		return tester.notNull(field, condition);
-	}
-
 	protected final CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,

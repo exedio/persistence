@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
-import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 
 import java.sql.SQLException;
@@ -42,7 +41,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		boolean random = false;
 		boolean checkConstraints = true;
 		boolean nativeDate = true;
-		final boolean notNull = true;
 		boolean uniqueViolation = false;
 
 		switch(dialect)
@@ -72,7 +70,6 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 		// SchemaInfo
 		assertEquals(checkConstraints, supportsCheckConstraints(model));
 		assertEquals(nativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
-		assertEquals(notNull,                                                         supportsNotNull        (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
@@ -110,6 +107,7 @@ public class CapabilitiesTest extends AbstractRuntimeTest
 	public void testDeprecated()
 	{
 		assertEquals(true, SchemaInfo.supportsSequences(model));
+		assertEquals(true, SchemaInfo.supportsNotNull(model));
 		assertEquals(true, model.nullsAreSortedLow());
 	}
 }

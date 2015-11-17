@@ -22,7 +22,6 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
-import static com.exedio.cope.SchemaInfo.supportsNotNull;
 import static com.exedio.cope.SchemaTypeStringItem.TYPE;
 import static com.exedio.cope.SchemaTypeStringItem.f1;
 import static com.exedio.cope.SchemaTypeStringItem.f10485760;
@@ -125,10 +124,10 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 		if(mysql)
 		{
 			final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
-			type = type + " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + (supportsNotNull(model) ? NOT_NULL : "");
+			type = type + " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + NOT_NULL;
 		}
 		else if(postgresql)
-			type = type + (supportsNotNull(model) ? NOT_NULL : "");
+			type = type + NOT_NULL;
 		else
 			throw new RuntimeException();
 

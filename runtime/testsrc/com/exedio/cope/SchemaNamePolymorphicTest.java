@@ -85,7 +85,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')"),
+					q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')",
 					model.getSchema().getTable(table).getConstraint("ScheNamePolySupeIte_cl_Ck").getRequiredCondition());
 		}
 		{
@@ -97,7 +97,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
 					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					notNull(q(column), q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')"),
+					q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')",
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
 		toModel();

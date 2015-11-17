@@ -209,16 +209,6 @@ final class RuntimeTester
 		}
 	}
 
-	protected final String notNull(final String field, final String condition)
-	{
-		if(SchemaInfo.supportsNotNull(model))
-			return condition;
-
-		return
-			"(" + field + " IS NOT NULL) AND " +
-			"(" + condition + ")";
-	}
-
 	protected final CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,

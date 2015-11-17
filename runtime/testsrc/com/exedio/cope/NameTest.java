@@ -126,9 +126,9 @@ public class NameTest extends AbstractRuntimeTest
 			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+q("unique")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+q("integer")+","+q("item")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    notNull(q("unique"), "("+q("unique")+">=-2147483648) AND ("+q("unique")+"<=2147483647)"));
-			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   notNull(q("integer"), "("+q("integer")+">=-2147483648) AND ("+q("integer")+"<=2147483647)"));
-			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      notNull(q("item"), "("+q("item")+">=0) AND ("+q("item")+"<=2147483647)"));
+			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+q("unique")+">=-2147483648) AND ("+q("unique")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+q("integer")+">=-2147483648) AND ("+q("integer")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+q("item")+">=0) AND ("+q("item")+"<=2147483647)");
 
 			assertEquals("uniqueY",  nameSub.getColumn("uniqueY") .getName());
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
@@ -136,9 +136,9 @@ public class NameTest extends AbstractRuntimeTest
 			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+q("uniqueY")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+q("integerY")+","+q("itemY")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   notNull(q("uniqueY"), "("+q("uniqueY")+">=-2147483648) AND ("+q("uniqueY")+"<=2147483647)"));
-			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  notNull(q("integerY"), "("+q("integerY")+">=-2147483648) AND ("+q("integerY")+"<=2147483647)"));
-			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     notNull(q("itemY"), "("+q("itemY")+">=0) AND ("+q("itemY")+"<=2147483647)"));
+			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+q("uniqueY")+">=-2147483648) AND ("+q("uniqueY")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+q("integerY")+">=-2147483648) AND ("+q("integerY")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     "("+q("itemY")+">=0) AND ("+q("itemY")+"<=2147483647)");
 
 			assertEquals(null, nameSub.getColumn("unique").getError());
 			assertEquals(null, nameSub.getColumn("uniqueY").getError());
