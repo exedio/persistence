@@ -128,11 +128,7 @@ abstract class Column
 			}
 			else
 			{
-				// TODO simplify
-				if(checkNotNull!=null)
-					checkConstraint = checkNotNull;
-				else
-					checkConstraint = null;
+				checkConstraint = checkNotNull;
 			}
 
 			if(checkConstraint!=null)
