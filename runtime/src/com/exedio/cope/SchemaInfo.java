@@ -75,16 +75,6 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @deprecated always returns true
-	 */
-	@Deprecated
-	public static boolean supportsNotNull(final Model model)
-	{
-		model.connect(); // make sure it works only when connected
-		return true;
-	}
-
-	/**
 	 * Returns whether detecting
 	 * {@link UniqueViolationException}s from
 	 * {@link SQLException}s is supported.
@@ -331,6 +321,16 @@ public final class SchemaInfo
 	@Deprecated
 	public static boolean supportsSequences(final Model model)
 	{
+		return true;
+	}
+
+	/**
+	 * @deprecated always returns true
+	 */
+	@Deprecated
+	public static boolean supportsNotNull(final Model model)
+	{
+		model.connect(); // make sure it works only when connected
 		return true;
 	}
 }
