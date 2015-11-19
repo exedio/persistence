@@ -261,8 +261,8 @@ public final class PriceTest extends CopeAssert
 	{
 		for (final RoundingMode rm : roundingModes)
 		{
-			assertEquals(    expected,   origin.divide(divisor, rm).store());
-			assertEquals(   -expected,   origin.divide(-divisor, rm).store());
+			assertEquals( expected, origin.divide( divisor, rm).store());
+			assertEquals(-expected, origin.divide(-divisor, rm).store());
 		}
 	}
 
@@ -670,9 +670,9 @@ public final class PriceTest extends CopeAssert
 
 	public static void testCompareTo()
 	{
-		assertEquals(-1, storeOf(122).compareTo(storeOf(123)));
-		assertEquals( 0, storeOf(123).compareTo(storeOf(123)));
-		assertEquals( 1, storeOf(124).compareTo(storeOf(123)));
+		assertEquals(-1, storeOf( 122).compareTo(storeOf( 123)));
+		assertEquals( 0, storeOf( 123).compareTo(storeOf( 123)));
+		assertEquals( 1, storeOf( 124).compareTo(storeOf( 123)));
 		assertEquals( 1, storeOf(-122).compareTo(storeOf(-123)));
 		assertEquals( 0, storeOf(-123).compareTo(storeOf(-123)));
 		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
@@ -736,37 +736,37 @@ public final class PriceTest extends CopeAssert
 
 	public static void testEqualsZero()
 	{
-		assertEquals(false, storeOf( -1).equalsZero());
-		assertEquals(true,  storeOf(  0).equalsZero());
-		assertEquals(false, storeOf(  1).equalsZero());
+		assertEquals(false, storeOf(-1).equalsZero());
+		assertEquals(true,  storeOf( 0).equalsZero());
+		assertEquals(false, storeOf( 1).equalsZero());
 	}
 
 	public static void testLessThanZero()
 	{
-		assertEquals(true,  storeOf( -1).lessThanZero());
-		assertEquals(false, storeOf(  0).lessThanZero());
-		assertEquals(false, storeOf(  1).lessThanZero());
+		assertEquals(true,  storeOf(-1).lessThanZero());
+		assertEquals(false, storeOf( 0).lessThanZero());
+		assertEquals(false, storeOf( 1).lessThanZero());
 	}
 
 	public static void testGreaterThanZero()
 	{
-		assertEquals(false, storeOf( -1).greaterThanZero());
-		assertEquals(false, storeOf(  0).greaterThanZero());
-		assertEquals(true,  storeOf(  1).greaterThanZero());
+		assertEquals(false, storeOf(-1).greaterThanZero());
+		assertEquals(false, storeOf( 0).greaterThanZero());
+		assertEquals(true,  storeOf( 1).greaterThanZero());
 	}
 
 	public static void testLessThanOrEqualZero()
 	{
-		assertEquals(true,  storeOf( -1).lessThanOrEqualZero());
-		assertEquals(true,  storeOf(  0).lessThanOrEqualZero());
-		assertEquals(false, storeOf(  1).lessThanOrEqualZero());
+		assertEquals(true,  storeOf(-1).lessThanOrEqualZero());
+		assertEquals(true,  storeOf( 0).lessThanOrEqualZero());
+		assertEquals(false, storeOf( 1).lessThanOrEqualZero());
 	}
 
 	public static void testGreaterThanOrEqualZero()
 	{
-		assertEquals(false, storeOf( -1).greaterThanOrEqualZero());
-		assertEquals(true,  storeOf(  0).greaterThanOrEqualZero());
-		assertEquals(true,  storeOf(  1).greaterThanOrEqualZero());
+		assertEquals(false, storeOf(-1).greaterThanOrEqualZero());
+		assertEquals(true,  storeOf( 0).greaterThanOrEqualZero());
+		assertEquals(true,  storeOf( 1).greaterThanOrEqualZero());
 	}
 
 	public static void testLessThan()
