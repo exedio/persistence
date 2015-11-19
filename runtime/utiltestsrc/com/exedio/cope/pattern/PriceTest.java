@@ -723,9 +723,9 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(1001), reserialize(storeOf( 1001), 62));
 
 		assertNotSame(storeOf(  -1), reserialize(storeOf(   -1), 62));
-		assertNotSame(storeOf(   0), reserialize(storeOf(    0), 62)); // TODO
-		assertNotSame(storeOf(   1), reserialize(storeOf(    1), 62)); // TODO
-		assertNotSame(storeOf(1000), reserialize(storeOf( 1000), 62)); // TODO
+		assertSame   (storeOf(   0), reserialize(storeOf(    0), 62));
+		assertSame   (storeOf(   1), reserialize(storeOf(    1), 62));
+		assertSame   (storeOf(1000), reserialize(storeOf( 1000), 62));
 		assertNotSame(storeOf(1001), reserialize(storeOf( 1001), 62));
 	}
 
