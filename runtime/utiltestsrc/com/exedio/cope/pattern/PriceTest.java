@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Price.MAX_VALUE;
-import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.storeOf;
@@ -38,9 +36,6 @@ public final class PriceTest extends CopeAssert
 {
 	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
 	private static final int MAX_STORE = Integer.MAX_VALUE;
-
-	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
-	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 
 	private static final Price p49 = storeOf(1073741823);
 	private static final Price p50 = storeOf(1073741824);
@@ -79,8 +74,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(1001), storeOf(1001)); // outside cache
 		assertNotSame(storeOf(1001), storeOf(1001));
 		assertSame(ZERO, storeOf(0));
-		assertSame(MIN_VALUE, storeOf(MIN_STORE));
-		assertSame(MAX_VALUE, storeOf(MAX_STORE));
+		assertSame(mp99, storeOf(MIN_STORE));
+		assertSame( p99, storeOf(MAX_STORE));
 	}
 
 	public static void testStoreOfIntOutOfRange()
@@ -388,50 +383,50 @@ public final class PriceTest extends CopeAssert
 
 	public static void testAddOverflow()
 	{
-		assertEquals( p98, MAX_VALUE.add(storeOf(-1)));
-		assertEquals( p99, MAX_VALUE.add(storeOf( 0)));
-		assertAddOverflows(MAX_VALUE,    storeOf( 1));
-		assertAddOverflows(MAX_VALUE,    storeOf( 2));
-		assertEquals(mp98, MIN_VALUE.add(storeOf( 1)));
-		assertEquals(mp99, MIN_VALUE.add(storeOf( 0)));
-		assertAddOverflows(MIN_VALUE,    storeOf(-1));
-		assertAddOverflows(MIN_VALUE,    storeOf(-2));
+		assertEquals( p98,  p99.add(storeOf(-1)));
+		assertEquals( p99,  p99.add(storeOf( 0)));
+		assertAddOverflows( p99,    storeOf( 1));
+		assertAddOverflows( p99,    storeOf( 2));
+		assertEquals(mp98, mp99.add(storeOf( 1)));
+		assertEquals(mp99, mp99.add(storeOf( 0)));
+		assertAddOverflows(mp99,    storeOf(-1));
+		assertAddOverflows(mp99,    storeOf(-2));
 
-		assertEquals( p97, MAX_VALUE_1.add(storeOf(-1)));
-		assertEquals( p98, MAX_VALUE_1.add(storeOf( 0)));
-		assertEquals( p99, MAX_VALUE_1.add(storeOf( 1)));
-		assertAddOverflows(MAX_VALUE_1,    storeOf( 2));
-		assertEquals(mp97, MIN_VALUE_1.add(storeOf( 1)));
-		assertEquals(mp98, MIN_VALUE_1.add(storeOf( 0)));
-		assertEquals(mp99, MIN_VALUE_1.add(storeOf(-1)));
-		assertAddOverflows(MIN_VALUE_1,    storeOf(-2));
+		assertEquals( p97,  p98.add(storeOf(-1)));
+		assertEquals( p98,  p98.add(storeOf( 0)));
+		assertEquals( p99,  p98.add(storeOf( 1)));
+		assertAddOverflows( p98,    storeOf( 2));
+		assertEquals(mp97, mp98.add(storeOf( 1)));
+		assertEquals(mp98, mp98.add(storeOf( 0)));
+		assertEquals(mp99, mp98.add(storeOf(-1)));
+		assertAddOverflows(mp98,    storeOf(-2));
 
-		assertEquals( p98, storeOf(-1).add(MAX_VALUE));
-		assertEquals( p99, storeOf( 0).add(MAX_VALUE));
-		assertAddOverflows(storeOf( 1),    MAX_VALUE);
-		assertAddOverflows(storeOf( 2),    MAX_VALUE);
-		assertEquals(mp98, storeOf( 1).add(MIN_VALUE));
-		assertEquals(mp99, storeOf( 0).add(MIN_VALUE));
-		assertAddOverflows(storeOf(-1),    MIN_VALUE);
-		assertAddOverflows(storeOf(-2),    MIN_VALUE);
+		assertEquals( p98, storeOf(-1).add( p99));
+		assertEquals( p99, storeOf( 0).add( p99));
+		assertAddOverflows(storeOf( 1),     p99);
+		assertAddOverflows(storeOf( 2),     p99);
+		assertEquals(mp98, storeOf( 1).add(mp99));
+		assertEquals(mp99, storeOf( 0).add(mp99));
+		assertAddOverflows(storeOf(-1),    mp99);
+		assertAddOverflows(storeOf(-2),    mp99);
 
-		assertEquals( p97, storeOf(-1).add(MAX_VALUE_1));
-		assertEquals( p98, storeOf( 0).add(MAX_VALUE_1));
-		assertEquals( p99, storeOf( 1).add(MAX_VALUE_1));
-		assertAddOverflows(storeOf( 2),    MAX_VALUE_1);
-		assertEquals(mp97, storeOf( 1).add(MIN_VALUE_1));
-		assertEquals(mp98, storeOf( 0).add(MIN_VALUE_1));
-		assertEquals(mp99, storeOf(-1).add(MIN_VALUE_1));
-		assertAddOverflows(storeOf(-2),    MIN_VALUE_1);
+		assertEquals( p97, storeOf(-1).add( p98));
+		assertEquals( p98, storeOf( 0).add( p98));
+		assertEquals( p99, storeOf( 1).add( p98));
+		assertAddOverflows(storeOf( 2),     p98);
+		assertEquals(mp97, storeOf( 1).add(mp98));
+		assertEquals(mp98, storeOf( 0).add(mp98));
+		assertEquals(mp99, storeOf(-1).add(mp98));
+		assertAddOverflows(storeOf(-2),    mp98);
 
-		assertAddOverflows(MAX_VALUE,   MAX_VALUE  );
-		assertAddOverflows(MAX_VALUE  , MAX_VALUE_1);
-		assertAddOverflows(MAX_VALUE_1, MAX_VALUE  );
-		assertAddOverflows(MAX_VALUE_1, MAX_VALUE_1);
-		assertAddOverflows(MIN_VALUE,   MIN_VALUE  );
-		assertAddOverflows(MIN_VALUE  , MIN_VALUE_1);
-		assertAddOverflows(MIN_VALUE_1, MIN_VALUE  );
-		assertAddOverflows(MIN_VALUE_1, MIN_VALUE_1);
+		assertAddOverflows( p99,  p99);
+		assertAddOverflows( p99,  p98);
+		assertAddOverflows( p98,  p99);
+		assertAddOverflows( p98,  p98);
+		assertAddOverflows(mp99, mp99);
+		assertAddOverflows(mp99, mp98);
+		assertAddOverflows(mp98, mp99);
+		assertAddOverflows(mp98, mp98);
 	}
 
 	private static void assertAddOverflows(final Price left, final Price right)
@@ -465,14 +460,14 @@ public final class PriceTest extends CopeAssert
 
 	public static void testSubtractOverflow()
 	{
-		assertEquals( p98,      MAX_VALUE.subtract(storeOf( 1)));
-		assertEquals( p99,      MAX_VALUE.subtract(storeOf( 0)));
-		assertSubtractOverflows(MAX_VALUE, storeOf(-1));
-		assertSubtractOverflows(MAX_VALUE, storeOf(-2));
-		assertEquals(mp98,      MIN_VALUE.subtract(storeOf(-1)));
-		assertEquals(mp99,      MIN_VALUE.subtract(storeOf( 0)));
-		assertSubtractOverflows(MIN_VALUE, storeOf( 1));
-		assertSubtractOverflows(MIN_VALUE, storeOf( 2));
+		assertEquals( p98,       p99.subtract(storeOf( 1)));
+		assertEquals( p99,       p99.subtract(storeOf( 0)));
+		assertSubtractOverflows( p99, storeOf(-1));
+		assertSubtractOverflows( p99, storeOf(-2));
+		assertEquals(mp98,      mp99.subtract(storeOf(-1)));
+		assertEquals(mp99,      mp99.subtract(storeOf( 0)));
+		assertSubtractOverflows(mp99, storeOf( 1));
+		assertSubtractOverflows(mp99, storeOf( 2));
 	}
 
 	private static void assertSubtractOverflows(final Price left, final Price right)
@@ -493,8 +488,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-555), storeOf( 555).negative());
 		assertEquals(storeOf( 555), storeOf(-555).negative());
 		assertSame(Price.ZERO, storeOf(0).negative());
-		assertEquals(storeOf(MIN_STORE), MAX_VALUE.negative());
-		assertEquals(storeOf(MAX_STORE), MIN_VALUE.negative());
+		assertEquals(storeOf(MIN_STORE),  p99.negative());
+		assertEquals(storeOf(MAX_STORE), mp99.negative());
 	}
 
 	public static void testMultiplyInt()
@@ -701,8 +696,8 @@ public final class PriceTest extends CopeAssert
 		assertToString("-1.20", storeOf(-120), "-1.2");
 		assertToString( "1.00", storeOf( 100),  "1"  );
 		assertToString("-1.00", storeOf(-100), "-1"  );
-		assertToString("-21474836.47", MIN_VALUE);
-		assertToString( "21474836.47", MAX_VALUE);
+		assertToString("-21474836.47", mp99);
+		assertToString( "21474836.47",  p99);
 	}
 
 	private static void assertToString(final String expected, final Price actual)
