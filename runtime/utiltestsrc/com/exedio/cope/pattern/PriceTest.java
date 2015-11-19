@@ -575,27 +575,24 @@ public final class PriceTest extends CopeAssert
 
 	public static void testMultiplyDoubleOverflow()
 	{
-		assertEquals(p49, p49.multiply(1d));
-		assertEquals(p50, p50.multiply(1d));
-		assertEquals(p51, p51.multiply(1d));
-		assertEquals(p98, p49.multiply(2d));
+		assertEquals(p49,  p49.multiply(1d));
+		assertEquals(p50,  p50.multiply(1d));
+		assertEquals(p51,  p51.multiply(1d));
+		assertEquals(p98,  p49.multiply(2d));
+		assertMultiplyOver(p50, 2d, "too big: 21474836.480");
+		assertMultiplyOver(p51, 2d, "too big: 21474836.500");
+	}
+
+	private static void assertMultiplyOver(final Price left, final double right, final String message)
+	{
 		try
 		{
-			p50.multiply(2d);
+			left.multiply(right);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 21474836.480", e.getMessage());
-		}
-		try
-		{
-			p51.multiply(2d);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too big: 21474836.500", e.getMessage());
+			assertEquals(message, e.getMessage());
 		}
 	}
 
