@@ -714,6 +714,21 @@ public final class PriceTest extends CopeAssert
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 62));
 	}
 
+	public static void testSerializationCache()
+	{
+		assertEquals(storeOf(  -1), reserialize(storeOf(   -1), 62));
+		assertEquals(storeOf(   0), reserialize(storeOf(    0), 62));
+		assertEquals(storeOf(   1), reserialize(storeOf(    1), 62));
+		assertEquals(storeOf(1000), reserialize(storeOf( 1000), 62));
+		assertEquals(storeOf(1001), reserialize(storeOf( 1001), 62));
+
+		assertNotSame(storeOf(  -1), reserialize(storeOf(   -1), 62));
+		assertNotSame(storeOf(   0), reserialize(storeOf(    0), 62)); // TODO
+		assertNotSame(storeOf(   1), reserialize(storeOf(    1), 62)); // TODO
+		assertNotSame(storeOf(1000), reserialize(storeOf( 1000), 62)); // TODO
+		assertNotSame(storeOf(1001), reserialize(storeOf( 1001), 62));
+	}
+
 	private static final BigDecimal bd(final long unscaledVal, final int scale)
 	{
 		return BigDecimal.valueOf(unscaledVal, scale);
