@@ -579,8 +579,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(p50,  p50.multiply(1d));
 		assertEquals(p51,  p51.multiply(1d));
 		assertEquals(p98,  p49.multiply(2d));
-		assertMultiplyOver(p50, 2d, "too big: 21474836.480");
-		assertMultiplyOver(p51, 2d, "too big: 21474836.500");
+		assertMultiplyOver(p50,         2d, "too big: 21474836.480");
+		assertMultiplyOver(p51,         2d, "too big: 21474836.500");
 	}
 
 	private static void assertMultiplyOver(final Price left, final double right, final String message)
@@ -626,8 +626,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(p50, p50.divide(1d ));
 		assertEquals(p51, p51.divide(1d ));
 		assertEquals(p98, p49.divide(0.5));
-		assertDivideOver( p50, 0.5, "too big: 21474836.48");
-		assertDivideOver( p51, 0.5, "too big: 21474836.50");
+		assertDivideOver( p50,       0.5, "too big: 21474836.48");
+		assertDivideOver( p51,       0.5, "too big: 21474836.50");
 	}
 
 	private static void assertDivideOver(final Price left, final double right, final String message)
