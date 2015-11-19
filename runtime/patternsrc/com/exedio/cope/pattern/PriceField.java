@@ -24,11 +24,11 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.LongField;
+import com.exedio.cope.LongRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -149,7 +149,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 		if(integer.getMinimum()==Price.MIN_VALUE.store() &&
 			integer.getMaximum()==Price.MAX_VALUE.store())
-			result.remove(IntegerRangeViolationException.class);
+			result.remove(LongRangeViolationException.class);
 
 		return result;
 	}
