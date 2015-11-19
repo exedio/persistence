@@ -30,7 +30,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.LongRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
@@ -100,7 +100,7 @@ public class PriceFieldModelTest
 		assertEquals(true, bigPrice.isInitial());
 		assertEquals(false, bigPrice.isFinal());
 		assertEquals(Price.class, bigPrice.getInitialType());
-		assertContains(MandatoryViolationException.class, IntegerRangeViolationException.class, bigPrice.getInitialExceptions());
+		assertContains(MandatoryViolationException.class, LongRangeViolationException.class, bigPrice.getInitialExceptions());
 
 		assertTrue(   finalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(optionalPrice.getInt().isAnnotationPresent(Computed.class));
@@ -122,13 +122,13 @@ public class PriceFieldModelTest
 		assertEquals(Price.MAX_VALUE, optionalPrice.getMaximum());
 		assertEquals(Price.MAX_VALUE,      bigPrice.getMaximum());
 
-		assertEquals(Integer.MIN_VALUE+1,    finalPrice.getInt().getMinimum());
-		assertEquals(Integer.MIN_VALUE+1, optionalPrice.getInt().getMinimum());
-		assertEquals(5000,                     bigPrice.getInt().getMinimum());
+		assertEquals(Long.MIN_VALUE+1,    finalPrice.getInt().getMinimum());
+		assertEquals(Long.MIN_VALUE+1, optionalPrice.getInt().getMinimum());
+		assertEquals(5000,                  bigPrice.getInt().getMinimum());
 
-		assertEquals(Integer.MAX_VALUE,    finalPrice.getInt().getMaximum());
-		assertEquals(Integer.MAX_VALUE, optionalPrice.getInt().getMaximum());
-		assertEquals(Integer.MAX_VALUE,      bigPrice.getInt().getMaximum());
+		assertEquals(Long.MAX_VALUE,    finalPrice.getInt().getMaximum());
+		assertEquals(Long.MAX_VALUE, optionalPrice.getInt().getMaximum());
+		assertEquals(Long.MAX_VALUE,      bigPrice.getInt().getMaximum());
 	}
 
 	@Test public void testDefault()
@@ -136,8 +136,8 @@ public class PriceFieldModelTest
 		final PriceField f = new PriceField();
 		assertEquals(Price.MIN_VALUE, f.getMinimum());
 		assertEquals(Price.MAX_VALUE, f.getMaximum());
-		assertEquals(Integer.MIN_VALUE+1, f.getInt().getMinimum());
-		assertEquals(Integer.MAX_VALUE  , f.getInt().getMaximum());
+		assertEquals(Long.MIN_VALUE+1, f.getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE  , f.getInt().getMaximum());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -146,8 +146,8 @@ public class PriceFieldModelTest
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
 		assertEquals(Price.storeOf(2000), f.getMinimum());
 		assertEquals(Price.MAX_VALUE,     f.getMaximum());
-		assertEquals(2000,              f.getInt().getMinimum());
-		assertEquals(Integer.MAX_VALUE, f.getInt().getMaximum());
+		assertEquals(2000,           f.getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE, f.getInt().getMaximum());
 
 		try
 		{
@@ -166,8 +166,8 @@ public class PriceFieldModelTest
 		final PriceField f = new PriceField().max(Price.storeOf(4000));
 		assertEquals(Price.MIN_VALUE,     f.getMinimum());
 		assertEquals(Price.storeOf(4000), f.getMaximum());
-		assertEquals(Integer.MIN_VALUE+1, f.getInt().getMinimum());
-		assertEquals(4000,                f.getInt().getMaximum());
+		assertEquals(Long.MIN_VALUE+1, f.getInt().getMinimum());
+		assertEquals(4000,             f.getInt().getMaximum());
 
 		try
 		{
