@@ -626,23 +626,20 @@ public final class PriceTest extends CopeAssert
 		assertEquals(p50, p50.divide(1d ));
 		assertEquals(p51, p51.divide(1d ));
 		assertEquals(p98, p49.divide(0.5));
+		assertDivideOver( p50, 0.5, "too big: 21474836.48");
+		assertDivideOver( p51, 0.5, "too big: 21474836.50");
+	}
+
+	private static void assertDivideOver(final Price left, final double right, final String message)
+	{
 		try
 		{
-			p50.divide(0.5);
+			left.divide(right);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 21474836.48", e.getMessage());
-		}
-		try
-		{
-			p51.divide(0.5);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too big: 21474836.50", e.getMessage());
+			assertEquals(message, e.getMessage());
 		}
 	}
 
