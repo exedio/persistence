@@ -82,7 +82,7 @@ public final class Price implements Serializable, Comparable<Price>
 		else if(store==MAX_STORE)
 			return MAX_VALUE;
 		else if(store==NOT_A_STORE)
-			throw new IllegalArgumentException("Integer.MIN_VALUE not allowed");
+			throw new IllegalArgumentException("Long.MIN_VALUE not allowed");
 
 		return new Price(store);
 	}

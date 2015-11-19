@@ -136,7 +136,7 @@ public class PriceTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("Integer.MIN_VALUE not allowed", e.getMessage());
+			assertEquals("Long.MIN_VALUE not allowed", e.getMessage());
 		}
 	}
 
