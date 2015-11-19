@@ -55,13 +55,24 @@ public final class Price implements Serializable, Comparable<Price>
 		static Price[] value = newCache();
 	}
 
+	private static Price fromCache(final int store)
+	{
+		return
+			(0<=store && store<CACHE_MAX)
+			? Cache.value[store]
+			: null;
+	}
+
 
 	// store
 
 	public static Price storeOf(final int store)
 	{
-		if(0<=store && store<CACHE_MAX)
-			return Cache.value[store];
+		{
+			final Price fromCache = fromCache(store);
+			if(fromCache!=null)
+				return fromCache;
+		}
 
 		switch(store)
 		{
