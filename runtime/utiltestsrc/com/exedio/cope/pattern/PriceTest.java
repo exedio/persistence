@@ -315,24 +315,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(MAX_STORE, valueOf(bd(MAX_STORE, 2)).store());
 		assertEquals(MIN_STORE, valueOf(bd(MIN_STORE, 2)).store());
 		assertSame(ZERO, valueOf(bd(0, 0)));
-		try
-		{
-			valueOf(bd(MAX_STORE, 2).add(bd(1, 2)));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too big: 21474836.48", e.getMessage());
-		}
-		try
-		{
-			valueOf(bd(MIN_STORE, 2).subtract(bd(1, 2)));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too small: -21474836.48", e.getMessage());
-		}
+		assertValueOfIllegal(bd(MAX_STORE, 2).add(     bd(1, 2)), "too big: 21474836.48");
+		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -21474836.48");
 		try
 		{
 			valueOf((BigDecimal)null);
@@ -341,6 +325,19 @@ public final class PriceTest extends CopeAssert
 		catch(final NullPointerException e)
 		{
 			assertEquals(null, e.getMessage());
+		}
+	}
+
+	private static void assertValueOfIllegal(final BigDecimal value, final String message)
+	{
+		try
+		{
+			valueOf(value);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(message, e.getMessage());
 		}
 	}
 
