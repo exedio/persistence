@@ -87,6 +87,11 @@ public final class Price implements Serializable, Comparable<Price>
 		return new Price(store);
 	}
 
+	public static Price storeOf(final Long store)
+	{
+		return store!=null ? storeOf(store.longValue()) : null;
+	}
+
 	public static Price storeOf(final Integer store)
 	{
 		return store!=null ? storeOf(store.intValue()) : null;

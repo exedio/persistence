@@ -140,6 +140,14 @@ public class PriceTest
 		}
 	}
 
+	@Test public void testStoreOfLong()
+	{
+		assertEquals( 5, storeOf(Long.valueOf( 5)).store());
+		assertEquals(-5, storeOf(Long.valueOf(-5)).store());
+		assertSame(ZERO, storeOf(Long.valueOf( 0)));
+		assertEquals(null, storeOf((Long)null));
+	}
+
 	@Test public void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
