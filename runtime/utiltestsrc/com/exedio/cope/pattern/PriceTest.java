@@ -42,6 +42,13 @@ public final class PriceTest extends CopeAssert
 	private static final Price MIN_VALUE_1 = Price.storeOf(Price.MIN_VALUE.store() + 1);
 	private static final Price MAX_VALUE_1 = Price.storeOf(Price.MAX_VALUE.store() - 1);
 
+	private static final int s49 = 1073741823;
+	private static final int s50 = 1073741824;
+	private static final int s51 = 1073741825;
+	private static final int s97 = 2147483645;
+	private static final int s98 = 2147483646;
+	private static final int s99 = 2147483647;
+
 	public static void testIt()
 	{
 		assertEquals(5, storeOf(5).store());
@@ -374,41 +381,41 @@ public final class PriceTest extends CopeAssert
 
 	public static void testAddOverflow()
 	{
-		assertEquals( 2147483646, MAX_VALUE.add(storeOf(-1)).store());
-		assertEquals( 2147483647, MAX_VALUE.add(storeOf( 0)).store());
-		assertAddOverflows(       MAX_VALUE,    storeOf( 1));
-		assertAddOverflows(       MAX_VALUE,    storeOf( 2));
-		assertEquals(-2147483646, MIN_VALUE.add(storeOf( 1)).store());
-		assertEquals(-2147483647, MIN_VALUE.add(storeOf( 0)).store());
-		assertAddOverflows(       MIN_VALUE,    storeOf(-1));
-		assertAddOverflows(       MIN_VALUE,    storeOf(-2));
+		assertEquals( s98, MAX_VALUE.add(storeOf(-1)).store());
+		assertEquals( s99, MAX_VALUE.add(storeOf( 0)).store());
+		assertAddOverflows(MAX_VALUE,    storeOf( 1));
+		assertAddOverflows(MAX_VALUE,    storeOf( 2));
+		assertEquals(-s98, MIN_VALUE.add(storeOf( 1)).store());
+		assertEquals(-s99, MIN_VALUE.add(storeOf( 0)).store());
+		assertAddOverflows(MIN_VALUE,    storeOf(-1));
+		assertAddOverflows(MIN_VALUE,    storeOf(-2));
 
-		assertEquals( 2147483645, MAX_VALUE_1.add(storeOf(-1)).store());
-		assertEquals( 2147483646, MAX_VALUE_1.add(storeOf( 0)).store());
-		assertEquals( 2147483647, MAX_VALUE_1.add(storeOf( 1)).store());
-		assertAddOverflows(       MAX_VALUE_1,    storeOf( 2));
-		assertEquals(-2147483645, MIN_VALUE_1.add(storeOf( 1)).store());
-		assertEquals(-2147483646, MIN_VALUE_1.add(storeOf( 0)).store());
-		assertEquals(-2147483647, MIN_VALUE_1.add(storeOf(-1)).store());
-		assertAddOverflows(       MIN_VALUE_1,    storeOf(-2));
+		assertEquals( s97, MAX_VALUE_1.add(storeOf(-1)).store());
+		assertEquals( s98, MAX_VALUE_1.add(storeOf( 0)).store());
+		assertEquals( s99, MAX_VALUE_1.add(storeOf( 1)).store());
+		assertAddOverflows(MAX_VALUE_1,    storeOf( 2));
+		assertEquals(-s97, MIN_VALUE_1.add(storeOf( 1)).store());
+		assertEquals(-s98, MIN_VALUE_1.add(storeOf( 0)).store());
+		assertEquals(-s99, MIN_VALUE_1.add(storeOf(-1)).store());
+		assertAddOverflows(MIN_VALUE_1,    storeOf(-2));
 
-		assertEquals( 2147483646, storeOf(-1).add(MAX_VALUE).store());
-		assertEquals( 2147483647, storeOf( 0).add(MAX_VALUE).store());
-		assertAddOverflows(       storeOf( 1),    MAX_VALUE);
-		assertAddOverflows(       storeOf( 2),    MAX_VALUE);
-		assertEquals(-2147483646, storeOf( 1).add(MIN_VALUE).store());
-		assertEquals(-2147483647, storeOf( 0).add(MIN_VALUE).store());
-		assertAddOverflows(       storeOf(-1),    MIN_VALUE);
-		assertAddOverflows(       storeOf(-2),    MIN_VALUE);
+		assertEquals( s98, storeOf(-1).add(MAX_VALUE).store());
+		assertEquals( s99, storeOf( 0).add(MAX_VALUE).store());
+		assertAddOverflows(storeOf( 1),    MAX_VALUE);
+		assertAddOverflows(storeOf( 2),    MAX_VALUE);
+		assertEquals(-s98, storeOf( 1).add(MIN_VALUE).store());
+		assertEquals(-s99, storeOf( 0).add(MIN_VALUE).store());
+		assertAddOverflows(storeOf(-1),    MIN_VALUE);
+		assertAddOverflows(storeOf(-2),    MIN_VALUE);
 
-		assertEquals( 2147483645, storeOf(-1).add(MAX_VALUE_1).store());
-		assertEquals( 2147483646, storeOf( 0).add(MAX_VALUE_1).store());
-		assertEquals( 2147483647, storeOf( 1).add(MAX_VALUE_1).store());
-		assertAddOverflows(       storeOf( 2),    MAX_VALUE_1);
-		assertEquals(-2147483645, storeOf( 1).add(MIN_VALUE_1).store());
-		assertEquals(-2147483646, storeOf( 0).add(MIN_VALUE_1).store());
-		assertEquals(-2147483647, storeOf(-1).add(MIN_VALUE_1).store());
-		assertAddOverflows(       storeOf(-2),    MIN_VALUE_1);
+		assertEquals( s97, storeOf(-1).add(MAX_VALUE_1).store());
+		assertEquals( s98, storeOf( 0).add(MAX_VALUE_1).store());
+		assertEquals( s99, storeOf( 1).add(MAX_VALUE_1).store());
+		assertAddOverflows(storeOf( 2),    MAX_VALUE_1);
+		assertEquals(-s97, storeOf( 1).add(MIN_VALUE_1).store());
+		assertEquals(-s98, storeOf( 0).add(MIN_VALUE_1).store());
+		assertEquals(-s99, storeOf(-1).add(MIN_VALUE_1).store());
+		assertAddOverflows(storeOf(-2),    MIN_VALUE_1);
 
 		assertAddOverflows(MAX_VALUE,   MAX_VALUE  );
 		assertAddOverflows(MAX_VALUE  , MAX_VALUE_1);
@@ -451,14 +458,14 @@ public final class PriceTest extends CopeAssert
 
 	public static void testSubtractOverflow()
 	{
-		assertEquals( 2147483646, MAX_VALUE.subtract(storeOf( 1)).store());
-		assertEquals( 2147483647, MAX_VALUE.subtract(storeOf( 0)).store());
-		assertSubtractOverflows(  MAX_VALUE, storeOf(-1));
-		assertSubtractOverflows(  MAX_VALUE, storeOf(-2));
-		assertEquals(-2147483646, MIN_VALUE.subtract(storeOf(-1)).store());
-		assertEquals(-2147483647, MIN_VALUE.subtract(storeOf( 0)).store());
-		assertSubtractOverflows(  MIN_VALUE, storeOf( 1));
-		assertSubtractOverflows(  MIN_VALUE, storeOf( 2));
+		assertEquals( s98,      MAX_VALUE.subtract(storeOf( 1)).store());
+		assertEquals( s99,      MAX_VALUE.subtract(storeOf( 0)).store());
+		assertSubtractOverflows(MAX_VALUE, storeOf(-1));
+		assertSubtractOverflows(MAX_VALUE, storeOf(-2));
+		assertEquals(-s98,      MIN_VALUE.subtract(storeOf(-1)).store());
+		assertEquals(-s99,      MIN_VALUE.subtract(storeOf( 0)).store());
+		assertSubtractOverflows(MIN_VALUE, storeOf( 1));
+		assertSubtractOverflows(MIN_VALUE, storeOf( 2));
 	}
 
 	private static void assertSubtractOverflows(final Price left, final Price right)
@@ -501,36 +508,36 @@ public final class PriceTest extends CopeAssert
 
 	public static void testMultiplyIntOverflow()
 	{
-		assertEquals( 1073741823, storeOf(1073741823).multiply(1).store());
-		assertEquals( 1073741824, storeOf(1073741824).multiply(1).store());
-		assertEquals( 1073741825, storeOf(1073741825).multiply(1).store());
-		assertEquals( 2147483646, storeOf(1073741823).multiply(2).store());
-		assertMultiplyOverflows(  storeOf(1073741824), 2);
-		assertMultiplyOverflows(  storeOf(1073741825), 2);
+		assertEquals( s49, storeOf( s49).multiply(1).store());
+		assertEquals( s50, storeOf( s50).multiply(1).store());
+		assertEquals( s51, storeOf( s51).multiply(1).store());
+		assertEquals( s98, storeOf( s49).multiply(2).store());
+		assertMultiplyOver(storeOf( s50), 2);
+		assertMultiplyOver(storeOf( s51), 2);
 
-		assertEquals(-1073741823, storeOf( 1073741823).multiply(-1).store());
-		assertEquals(-1073741824, storeOf( 1073741824).multiply(-1).store());
-		assertEquals(-1073741825, storeOf( 1073741825).multiply(-1).store());
-		assertEquals(-2147483646, storeOf( 1073741823).multiply(-2).store());
-		assertMultiplyOverflows(  storeOf( 1073741824), -2);
-		assertMultiplyOverflows(  storeOf( 1073741825), -2);
+		assertEquals(-s49, storeOf( s49).multiply(-1).store());
+		assertEquals(-s50, storeOf( s50).multiply(-1).store());
+		assertEquals(-s51, storeOf( s51).multiply(-1).store());
+		assertEquals(-s98, storeOf( s49).multiply(-2).store());
+		assertMultiplyOver(storeOf( s50), -2);
+		assertMultiplyOver(storeOf( s51), -2);
 
-		assertEquals(-1073741823, storeOf(-1073741823).multiply(1).store());
-		assertEquals(-1073741824, storeOf(-1073741824).multiply(1).store());
-		assertEquals(-1073741825, storeOf(-1073741825).multiply(1).store());
-		assertEquals(-2147483646, storeOf(-1073741823).multiply(2).store());
-		assertMultiplyOverflows(  storeOf(-1073741824),  2);
-		assertMultiplyOverflows(  storeOf(-1073741825),  2);
+		assertEquals(-s49, storeOf(-s49).multiply(1).store());
+		assertEquals(-s50, storeOf(-s50).multiply(1).store());
+		assertEquals(-s51, storeOf(-s51).multiply(1).store());
+		assertEquals(-s98, storeOf(-s49).multiply(2).store());
+		assertMultiplyOver(storeOf(-s50),  2);
+		assertMultiplyOver(storeOf(-s51),  2);
 
-		assertEquals( 1073741823, storeOf(-1073741823).multiply(-1).store());
-		assertEquals( 1073741824, storeOf(-1073741824).multiply(-1).store());
-		assertEquals( 1073741825, storeOf(-1073741825).multiply(-1).store());
-		assertEquals( 2147483646, storeOf(-1073741823).multiply(-2).store());
-		assertMultiplyOverflows(  storeOf(-1073741824), -2);
-		assertMultiplyOverflows(  storeOf(-1073741825), -2);
+		assertEquals( s49, storeOf(-s49).multiply(-1).store());
+		assertEquals( s50, storeOf(-s50).multiply(-1).store());
+		assertEquals( s51, storeOf(-s51).multiply(-1).store());
+		assertEquals( s98, storeOf(-s49).multiply(-2).store());
+		assertMultiplyOver(storeOf(-s50), -2);
+		assertMultiplyOver(storeOf(-s51), -2);
 	}
 
-	private static void assertMultiplyOverflows(final Price left, final int right)
+	private static void assertMultiplyOver(final Price left, final int right)
 	{
 		try
 		{
@@ -561,13 +568,13 @@ public final class PriceTest extends CopeAssert
 
 	public static void testMultiplyDoubleOverflow()
 	{
-		assertEquals( 1073741823, storeOf(1073741823).multiply(1d).store());
-		assertEquals( 1073741824, storeOf(1073741824).multiply(1d).store());
-		assertEquals( 1073741825, storeOf(1073741825).multiply(1d).store());
-		assertEquals( 2147483646, storeOf(1073741823).multiply(2d).store());
+		assertEquals(s49, storeOf(s49).multiply(1d).store());
+		assertEquals(s50, storeOf(s50).multiply(1d).store());
+		assertEquals(s51, storeOf(s51).multiply(1d).store());
+		assertEquals(s98, storeOf(s49).multiply(2d).store());
 		try
 		{
-			storeOf(1073741824).multiply(2d);
+			storeOf(s50).multiply(2d);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -576,7 +583,7 @@ public final class PriceTest extends CopeAssert
 		}
 		try
 		{
-			storeOf(1073741825).multiply(2d);
+			storeOf(s51).multiply(2d);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -611,13 +618,13 @@ public final class PriceTest extends CopeAssert
 
 	public static void testDivideDoubleOverflow()
 	{
-		assertEquals( 1073741823, storeOf(1073741823).divide(1d ).store());
-		assertEquals( 1073741824, storeOf(1073741824).divide(1d ).store());
-		assertEquals( 1073741825, storeOf(1073741825).divide(1d ).store());
-		assertEquals( 2147483646, storeOf(1073741823).divide(0.5).store());
+		assertEquals(s49, storeOf(s49).divide(1d ).store());
+		assertEquals(s50, storeOf(s50).divide(1d ).store());
+		assertEquals(s51, storeOf(s51).divide(1d ).store());
+		assertEquals(s98, storeOf(s49).divide(0.5).store());
 		try
 		{
-			storeOf(1073741824).divide(0.5);
+			storeOf(s50).divide(0.5);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -626,7 +633,7 @@ public final class PriceTest extends CopeAssert
 		}
 		try
 		{
-			storeOf(1073741825).divide(0.5);
+			storeOf(s51).divide(0.5);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
