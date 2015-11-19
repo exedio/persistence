@@ -70,6 +70,42 @@ public class PriceTest
 		assertEquals(0, storeOf(0).store());
 	}
 
+	@Test public void testStoreIntExact()
+	{
+		assertEquals(5, storeOf(5).storeIntExact());
+		assertEquals(0, storeOf(0).storeIntExact());
+		assertEquals(Integer.MAX_VALUE, storeOf(Integer.MAX_VALUE).storeIntExact());
+		assertEquals(Integer.MIN_VALUE, storeOf(Integer.MIN_VALUE).storeIntExact());
+	}
+
+	@Test public void testStoreIntExactOverflow()
+	{
+		final Price p = storeOf(Integer.MAX_VALUE + 1l);
+		try
+		{
+			p.storeIntExact();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("not an integer: 2147483648", e.getMessage());
+		}
+	}
+
+	@Test public void testStoreIntExactUnderflow()
+	{
+		final Price p = storeOf(Integer.MIN_VALUE - 1l);
+		try
+		{
+			p.storeIntExact();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("not an integer: -2147483649", e.getMessage());
+		}
+	}
+
 	@Test public void testZero()
 	{
 		assertEquals(0, ZERO.store());

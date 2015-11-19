@@ -106,6 +106,14 @@ public final class Price implements Serializable, Comparable<Price>
 		return store;
 	}
 
+	public int storeIntExact()
+	{
+		if(store<Integer.MIN_VALUE || store>Integer.MAX_VALUE)
+			throw new ArithmeticException("not an integer: " + store);
+
+		return (int)store;
+	}
+
 
 	// identity
 
