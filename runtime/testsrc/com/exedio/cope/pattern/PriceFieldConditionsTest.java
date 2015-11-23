@@ -51,7 +51,7 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 		i3  = PriceFieldItem.n(p3, p2);
 	}
 
-	public void testIt()
+	public void testSearch()
 	{
 		final PriceField f = optionalPrice;
 		final PriceField f2 = finalPrice;
@@ -83,5 +83,24 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 		final Query<PriceFieldItem> query = PriceFieldItem.TYPE.newQuery(condition);
 		query.setOrderBy(PriceFieldItem.TYPE.getThis(), true);
 		assertEquals(Arrays.asList(expected), query.search());
+	}
+
+	public void testCondition()
+	{
+		final PriceField f = optionalPrice;
+		final String s = f.getInt().getID();
+
+		assertEquals(s+" is null"    , f.isNull()    .toString());
+		assertEquals(s+" is not null", f.isNotNull() .toString());
+		assertEquals(s+" is null"    , f.equal(pN)   .toString());
+		assertEquals(s+" is not null", f.notEqual(pN).toString());
+		assertEquals(s+"='111'"      , f.equal(p1)   .toString());
+		assertEquals(s+"<>'111'"     , f.notEqual(p1).toString());
+
+		assertEquals(s+"<'222'" , f.less          (p2).toString());
+		assertEquals(s+"<='222'", f.lessOrEqual   (p2).toString());
+		assertEquals(s+">='222'", f.greaterOrEqual(p2).toString());
+		assertEquals(s+">'222'" , f.greater       (p2).toString());
+		assertEquals("("+s+">='222' AND "+s+"<='333')", f.between(p2, p3).toString());
 	}
 }
