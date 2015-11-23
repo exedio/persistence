@@ -191,12 +191,12 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public final IsNullCondition<?> isNull()
+	public IsNullCondition<?> isNull()
 	{
 		return integer.isNull();
 	}
 
-	public final IsNullCondition<?> isNotNull()
+	public IsNullCondition<?> isNotNull()
 	{
 		return integer.isNotNull();
 	}
@@ -211,22 +211,22 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return value!=null ? integer.notEqual(value.store()) : integer.isNotNull();
 	}
 
-	public final CompareCondition<?> less(final Price value)
+	public CompareCondition<?> less(final Price value)
 	{
 		return integer.less(value.store());
 	}
 
-	public final CompareCondition<?> lessOrEqual(final Price value)
+	public CompareCondition<?> lessOrEqual(final Price value)
 	{
 		return integer.lessOrEqual(value.store());
 	}
 
-	public final CompareCondition<?> greater(final Price value)
+	public CompareCondition<?> greater(final Price value)
 	{
 		return integer.greater(value.store());
 	}
 
-	public final CompareCondition<?> greaterOrEqual(final Price value)
+	public CompareCondition<?> greaterOrEqual(final Price value)
 	{
 		return integer.greaterOrEqual(value.store());
 	}
@@ -236,32 +236,32 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
-	public final CompareFunctionCondition<?> equal(final PriceField right)
+	public CompareFunctionCondition<?> equal(final PriceField right)
 	{
 		return integer.equal(right.integer);
 	}
 
-	public final CompareFunctionCondition<?> notEqual(final PriceField right)
+	public CompareFunctionCondition<?> notEqual(final PriceField right)
 	{
 		return integer.notEqual(right.integer);
 	}
 
-	public final CompareFunctionCondition<?> less(final PriceField right)
+	public CompareFunctionCondition<?> less(final PriceField right)
 	{
 		return integer.less(right.integer);
 	}
 
-	public final CompareFunctionCondition<?> lessOrEqual(final PriceField right)
+	public CompareFunctionCondition<?> lessOrEqual(final PriceField right)
 	{
 		return integer.lessOrEqual(right.integer);
 	}
 
-	public final CompareFunctionCondition<?> greater(final PriceField right)
+	public CompareFunctionCondition<?> greater(final PriceField right)
 	{
 		return integer.greater(right.integer);
 	}
 
-	public final CompareFunctionCondition<?> greaterOrEqual(final PriceField right)
+	public CompareFunctionCondition<?> greaterOrEqual(final PriceField right)
 	{
 		return integer.greaterOrEqual(right.integer);
 	}
