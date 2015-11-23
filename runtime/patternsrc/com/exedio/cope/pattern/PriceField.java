@@ -28,6 +28,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -38,7 +39,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.util.Set;
 
-public final class PriceField extends Pattern implements Settable<Price>, Copyable
+public final class PriceField extends Pattern implements Settable<Price>, Copyable, PriceFunction
 {
 	private static final long serialVersionUID = 1l;
 
@@ -190,6 +191,11 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	}
 
 	// convenience methods for conditions and views ---------------------------------
+
+	public PriceFunction bind(final Join join)
+	{
+		return new PriceBindFunction(this, join);
+	}
 
 	public IsNullCondition<?> isNull()
 	{
