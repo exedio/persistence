@@ -328,6 +328,11 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
+	private static final BigDecimal bd(final long unscaledVal, final int scale)
+	{
+		return BigDecimal.valueOf(unscaledVal, scale);
+	}
+
 	private static void assertValueOfIllegal(final BigDecimal value, final String message)
 	{
 		try
@@ -727,11 +732,6 @@ public final class PriceTest extends CopeAssert
 		assertSame   (storeOf(   1), reserialize(storeOf(    1), 62));
 		assertSame   (storeOf(1000), reserialize(storeOf( 1000), 62));
 		assertNotSame(storeOf(1001), reserialize(storeOf( 1001), 62));
-	}
-
-	private static final BigDecimal bd(final long unscaledVal, final int scale)
-	{
-		return BigDecimal.valueOf(unscaledVal, scale);
 	}
 
 	public static void testEqualsZero()
