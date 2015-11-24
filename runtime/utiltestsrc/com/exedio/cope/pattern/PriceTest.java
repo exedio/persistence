@@ -829,7 +829,7 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public static void testParseTooPrecise() throws ParseException
+	public static void testParseTooPrecise()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -838,9 +838,9 @@ public final class PriceTest extends CopeAssert
 			parse("1.101", df);
 			fail();
 		}
-		catch(final ArithmeticException e)
+		catch(final ParseException e)
 		{
-			assertEquals("Rounding necessary", e.getMessage());
+			assertEquals("Rounding necessary:1.101", e.getMessage());
 		}
 	}
 

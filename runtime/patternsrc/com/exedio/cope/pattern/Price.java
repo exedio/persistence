@@ -191,7 +191,16 @@ public final class Price implements Serializable, Comparable<Price>
 		if(!format.isParseBigDecimal())
 			throw new IllegalArgumentException("format does not support BigDecimal");
 
-		return valueOf((BigDecimal)format.parse(source), RoundingMode.UNNECESSARY);
+		final BigDecimal bd = (BigDecimal)format.parse(source);
+
+		try
+		{
+			return valueOf(bd, RoundingMode.UNNECESSARY);
+		}
+		catch(final ArithmeticException e)
+		{
+			throw new ParseException(e.getMessage() + ':' + bd, 0);
+		}
 	}
 
 
