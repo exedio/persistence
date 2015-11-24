@@ -799,7 +799,7 @@ public final class PriceTest extends CopeAssert
 		assertEquals("mp99",                 mp99, parse(sm99    , format));
 	}
 
-	public static void testParseTooBig() throws ParseException
+	public static void testParseTooBig()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -808,13 +808,13 @@ public final class PriceTest extends CopeAssert
 			parse("21474836.48", df);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final ParseException e)
 		{
 			assertEquals("too big: 21474836.48", e.getMessage());
 		}
 	}
 
-	public static void testParseTooSmall() throws ParseException
+	public static void testParseTooSmall()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -823,7 +823,7 @@ public final class PriceTest extends CopeAssert
 			parse("-21474836.48", df);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final ParseException e)
 		{
 			assertEquals("too small: -21474836.48", e.getMessage());
 		}

@@ -197,6 +197,10 @@ public final class Price implements Serializable, Comparable<Price>
 		{
 			return valueOf(bd, RoundingMode.UNNECESSARY);
 		}
+		catch(final IllegalArgumentException e)
+		{
+			throw new ParseException(e.getMessage(), 0);
+		}
 		catch(final ArithmeticException e)
 		{
 			throw new ParseException(e.getMessage() + ':' + bd, 0);
