@@ -21,6 +21,9 @@ package com.exedio.cope.pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Arrays;
 
 public final class Price implements Serializable, Comparable<Price>
@@ -173,6 +176,22 @@ public final class Price implements Serializable, Comparable<Price>
 	{
 		final Price fromCache = fromCache(store);
 		return (fromCache!=null) ? fromCache : this;
+	}
+
+
+	// format / parse
+
+	public String format(final NumberFormat format)
+	{
+		return format.format(bigValue());
+	}
+
+	public static Price parse(final String source, final DecimalFormat format) throws ParseException
+	{
+		if(!format.isParseBigDecimal())
+			throw new IllegalArgumentException("format does not support BigDecimal");
+
+		return valueOf((BigDecimal)format.parse(source), RoundingMode.UNNECESSARY);
 	}
 
 

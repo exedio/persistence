@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
+import static com.exedio.cope.pattern.Price.parse;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static java.math.RoundingMode.DOWN;
@@ -31,6 +32,11 @@ import static java.math.RoundingMode.UP;
 import com.exedio.cope.junit.CopeAssert;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 public final class PriceTest extends CopeAssert
 {
@@ -711,6 +717,173 @@ public final class PriceTest extends CopeAssert
 	{
 		assertEquals("toString", expected, actual.toString());
 		assertEquals("toStringShort", expectedShort, actual.toStringShort());
+	}
+
+	public static void testFormatReal() throws ParseException
+	{
+		final DecimalFormat en = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		final DecimalFormat de = (DecimalFormat)NumberFormat.getInstance(Locale.GERMAN);
+		en.setParseBigDecimal(true);
+		de.setParseBigDecimal(true);
+		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1", "1,234.5", "-1,234.5", "21,474,836.47", "-21,474,836.47");
+		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1", "1.234,5", "-1.234,5", "21.474.836,47", "-21.474.836,47");
+		en.setGroupingUsed(false);
+		de.setGroupingUsed(false);
+		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1",  "1234.5",  "-1234.5",   "21474836.47",   "-21474836.47");
+		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1",  "1234,5",  "-1234,5",   "21474836,47",   "-21474836,47");
+	}
+
+	public static void testFormatSynthetic() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		assertEquals('.', df.getDecimalFormatSymbols().getDecimalSeparator());
+		assertEquals('.', df.getDecimalFormatSymbols().getMonetaryDecimalSeparator());
+		assertEquals('-', df.getDecimalFormatSymbols().getMinusSign());
+		assertEquals(',', df.getDecimalFormatSymbols().getGroupingSeparator());
+
+		final DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+		dfs.setDecimalSeparator('d');
+		dfs.setGroupingSeparator('g');
+		dfs.setMinusSign('m');
+		df.setDecimalFormatSymbols(dfs);
+		assertEquals('d', df.getDecimalFormatSymbols().getDecimalSeparator());
+		assertEquals('.', df.getDecimalFormatSymbols().getMonetaryDecimalSeparator());
+		assertEquals('m', df.getDecimalFormatSymbols().getMinusSign());
+		assertEquals('g', df.getDecimalFormatSymbols().getGroupingSeparator());
+
+		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1", "1g234d5", "m1g234d5", "21g474g836d47", "m21g474g836d47");
+		df.setGroupingUsed(false);
+		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1",  "1234d5",  "m1234d5",   "21474836d47",   "m21474836d47");
+	}
+
+	private static void assertParse(
+			final DecimalFormat format,
+			final String zero,
+			final String fractPos,
+			final String fractNeg,
+			final String smallPos,
+			final String smallNeg,
+			final String groupPos,
+			final String groupNeg,
+			final String s99,
+			final String sm99) throws ParseException
+	{
+		// compare to double
+		assertEquals("zero"    , zero    , format.format(    0.0));
+		assertEquals("fractPos", fractPos, format.format(    0.1));
+		assertEquals("fractNeg", fractNeg, format.format(   -0.1));
+		assertEquals("smallPos", smallPos, format.format(    1.1));
+		assertEquals("smallNeg", smallNeg, format.format(   -1.1));
+		assertEquals("groupPos", groupPos, format.format( 1234.5));
+		assertEquals("groupNeg", groupNeg, format.format(-1234.5));
+
+		assertEquals("zero"    , zero    , storeOf(      0).format(format));
+		assertEquals("fractPos", fractPos, storeOf(     10).format(format));
+		assertEquals("fractNeg", fractNeg, storeOf(    -10).format(format));
+		assertEquals("smallPos", smallPos, storeOf(    110).format(format));
+		assertEquals("smallNeg", smallNeg, storeOf(   -110).format(format));
+		assertEquals("groupPos", groupPos, storeOf( 123450).format(format));
+		assertEquals("groupNeg", groupNeg, storeOf(-123450).format(format));
+		assertEquals("p99"     ,  s99,                  p99.format(format));
+		assertEquals("mp99"    , sm99,                 mp99.format(format));
+
+		assertEquals("zero"    , storeOf(      0), parse(zero    , format));
+		assertEquals("fractPos", storeOf(     10), parse(fractPos, format));
+		assertEquals("fractNeg", storeOf(    -10), parse(fractNeg, format));
+		assertEquals("smallPos", storeOf(    110), parse(smallPos, format));
+		assertEquals("smallNeg", storeOf(   -110), parse(smallNeg, format));
+		assertEquals("groupPos", storeOf( 123450), parse(groupPos, format));
+		assertEquals("groupNeg", storeOf(-123450), parse(groupNeg, format));
+		assertEquals( "p99",                  p99, parse( s99    , format));
+		assertEquals("mp99",                 mp99, parse(sm99    , format));
+	}
+
+	public static void testParseTooBig() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		try
+		{
+			parse("21474836.48", df);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too big: 21474836.48", e.getMessage());
+		}
+	}
+
+	public static void testParseTooSmall() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		try
+		{
+			parse("-21474836.48", df);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("too small: -21474836.48", e.getMessage());
+		}
+	}
+
+	public static void testParseTooPrecise() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		try
+		{
+			parse("1.101", df);
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("Rounding necessary", e.getMessage());
+		}
+	}
+
+	public static void testParseBigDecimalNotSupported() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		try
+		{
+			parse("1.00", df);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("format does not support BigDecimal", e.getMessage());
+		}
+	}
+
+	public static void testParseNullSource() throws ParseException
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		try
+		{
+			parse(null, df);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	public static void testParseNullFormat() throws ParseException
+	{
+		try
+		{
+			parse("1.00", null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 
 	public static void testSerialization()
