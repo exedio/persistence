@@ -715,23 +715,28 @@ public final class PriceTest extends CopeAssert
 
 	public static void testSerialization()
 	{
-		assertEquals(storeOf( 3456), reserialize(storeOf( 3456), 62));
-		assertEquals(storeOf(-3456), reserialize(storeOf(-3456), 62));
+		assertEquals(storeOf( 3456), reserialize(storeOf( 3456)));
+		assertEquals(storeOf(-3456), reserialize(storeOf(-3456)));
 	}
 
 	public static void testSerializationCache()
 	{
-		assertEquals(storeOf(  -1), reserialize(storeOf(   -1), 62));
-		assertEquals(storeOf(   0), reserialize(storeOf(    0), 62));
-		assertEquals(storeOf(   1), reserialize(storeOf(    1), 62));
-		assertEquals(storeOf(1000), reserialize(storeOf( 1000), 62));
-		assertEquals(storeOf(1001), reserialize(storeOf( 1001), 62));
+		assertEquals(storeOf(  -1), reserialize(storeOf(   -1)));
+		assertEquals(storeOf(   0), reserialize(storeOf(    0)));
+		assertEquals(storeOf(   1), reserialize(storeOf(    1)));
+		assertEquals(storeOf(1000), reserialize(storeOf( 1000)));
+		assertEquals(storeOf(1001), reserialize(storeOf( 1001)));
 
-		assertNotSame(storeOf(  -1), reserialize(storeOf(   -1), 62));
-		assertSame   (storeOf(   0), reserialize(storeOf(    0), 62));
-		assertSame   (storeOf(   1), reserialize(storeOf(    1), 62));
-		assertSame   (storeOf(1000), reserialize(storeOf( 1000), 62));
-		assertNotSame(storeOf(1001), reserialize(storeOf( 1001), 62));
+		assertNotSame(storeOf(  -1), reserialize(storeOf(   -1)));
+		assertSame   (storeOf(   0), reserialize(storeOf(    0)));
+		assertSame   (storeOf(   1), reserialize(storeOf(    1)));
+		assertSame   (storeOf(1000), reserialize(storeOf( 1000)));
+		assertNotSame(storeOf(1001), reserialize(storeOf( 1001)));
+	}
+
+	private static Price reserialize(final Price value)
+	{
+		return reserialize(value, 62);
 	}
 
 	public static void testEqualsZero()
