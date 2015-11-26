@@ -499,7 +499,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value.compareTo(BIG_MAX_VALUE)>0)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf(value.movePointRight(2).setScale(0, roundingMode).intValue());
+		return storeOf(value.movePointRight(2).setScale(0, roundingMode).intValueExact());
 	}
 
 	public BigDecimal bigValue()
