@@ -49,7 +49,6 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -235,9 +234,9 @@ public final class Dispatcher extends Pattern
 				if(!isPending(item))
 				{
 					if(logger.isInfoEnabled())
-						logger.info( MessageFormat.format(
-								"Already dispatched {1} by {0}, probably due to concurrent dispatching.",
-								id, itemID ) );
+						logger.info(
+								"Already dispatched {} by {}, probably due to concurrent dispatching.",
+								itemID, id);
 					continue;
 				}
 
