@@ -56,8 +56,6 @@ import org.slf4j.LoggerFactory;
 
 public final class Dispatcher extends Pattern
 {
-	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
-
 	private static final long serialVersionUID = 1l;
 
 	static final Charset ENCODING = StandardCharsets.UTF_8;
@@ -217,6 +215,7 @@ public final class Dispatcher extends Pattern
 		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
+		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		for(final P item : Iterables.once(
 				iterateTypeTransactionally(type, pending.equal(true), config.getSearchSize())))
@@ -235,8 +234,8 @@ public final class Dispatcher extends Pattern
 				{
 					if(logger.isWarnEnabled())
 						logger.warn(
-								"Already dispatched {} by {}, probably due to concurrent dispatching.",
-								itemID, id);
+								"Already dispatched {}, probably due to concurrent dispatching.",
+								itemID);
 					continue;
 				}
 
@@ -297,7 +296,7 @@ public final class Dispatcher extends Pattern
 					{
 						if(logger.isErrorEnabled())
 							logger.error(
-									"final failure for " + itemID + " on " + id + ", took " + elapsed + "ms",
+									"final failure for " + itemID + ", took " + elapsed + "ms",
 									cause);
 						item.notifyFinalFailure(this, cause);
 					}

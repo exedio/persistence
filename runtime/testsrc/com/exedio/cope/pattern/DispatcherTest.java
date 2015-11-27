@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
 
 public class DispatcherTest extends CopeModelTest
 {
-	private static final Logger logger = Logger.getLogger(Dispatcher.class);
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
 	public DispatcherTest()
@@ -51,6 +50,7 @@ public class DispatcherTest extends CopeModelTest
 	DispatcherItem item3;
 	DispatcherItem item4;
 	RelativeMockClockStrategy clock;
+	Logger logger;
 	TestLogAppender log = null;
 
 	@Override
@@ -64,6 +64,7 @@ public class DispatcherTest extends CopeModelTest
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 		log = new TestLogAppender();
+		logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
 		logger.addAppender(log);
 	}
 
@@ -71,6 +72,7 @@ public class DispatcherTest extends CopeModelTest
 	protected void tearDown() throws Exception
 	{
 		logger.removeAppender(log);
+		logger = null;
 		log = null;
 		Clock.clearOverride();
 		super.tearDown();
@@ -101,7 +103,7 @@ public class DispatcherTest extends CopeModelTest
 		DispatcherItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch(2);
 		log.assertError(
-				"final failure for " + item4 + " on DispatcherItem.toTarget, " +
+				"final failure for " + item4 + ", " +
 				"took " + last(item4.getToTargetFailures()).getElapsed() + "ms" );
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
