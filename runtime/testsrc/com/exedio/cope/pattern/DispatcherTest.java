@@ -102,9 +102,7 @@ public class DispatcherTest extends CopeModelTest
 
 		DispatcherItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch(2);
-		log.assertError(
-				"final failure for " + item4 + ", " +
-				"took " + last(item4.getToTargetFailures()).getElapsed() + "ms" );
+		log.assertError("final failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms" );
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
@@ -359,10 +357,5 @@ public class DispatcherTest extends CopeModelTest
 			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
-	}
-
-	private static <E> E last(final List<E> list)
-	{
-		return list.get(list.size()-1);
 	}
 }

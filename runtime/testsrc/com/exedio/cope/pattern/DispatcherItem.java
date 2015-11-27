@@ -28,6 +28,7 @@ import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.junit.Assert;
 
 public final class DispatcherItem extends Item implements Dispatchable
@@ -82,6 +83,12 @@ public final class DispatcherItem extends Item implements Dispatchable
 	{
 		this(body);
 		logs.put(this, new Log(fail));
+	}
+
+	long lastElapsed()
+	{
+		final List<Dispatcher.Run> runs = getToTargetRuns();
+		return runs.get(runs.size()-1).getElapsed();
 	}
 
 
