@@ -233,9 +233,7 @@ public final class Dispatcher extends Pattern
 				if(!isPending(item))
 				{
 					if(logger.isWarnEnabled())
-						logger.warn(
-								"Already dispatched {}, probably due to concurrent dispatching.",
-								itemID);
+						logger.warn("Already dispatched {}, probably due to concurrent dispatching.", itemID);
 					continue;
 				}
 
@@ -299,9 +297,7 @@ public final class Dispatcher extends Pattern
 					if(finalFailure)
 					{
 						if(logger.isErrorEnabled())
-							logger.error(
-									"final failure for " + itemID + ", took " + elapsed + "ms",
-									cause);
+							logger.error("final failure for " + itemID + ", took " + elapsed + "ms", cause);
 						item.notifyFinalFailure(this, cause);
 					}
 				}
