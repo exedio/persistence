@@ -300,6 +300,11 @@ public final class Dispatcher extends Pattern
 							logger.error("final failure for " + itemID + ", took " + elapsed + "ms", cause);
 						item.notifyFinalFailure(this, cause);
 					}
+					else
+					{
+						if(logger.isWarnEnabled())
+							logger.warn("temporary failure for " + itemID + ", took " + elapsed + "ms", cause);
+					}
 				}
 			}
 			ctx.incrementProgress();

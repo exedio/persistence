@@ -89,12 +89,16 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list());
 
 		final Date[] d1 = dispatch(4);
+		log.assertWarn("temporary failure for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
+		log.assertWarn("temporary failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertPending(item4, 0, list(d1[3]));
 
 		final Date[] d2 = dispatch(2);
+		log.assertWarn("temporary failure for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
+		log.assertWarn("temporary failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
