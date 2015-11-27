@@ -308,8 +308,8 @@ public final class Schedule extends Pattern
 		{
 			if(!isEnabled(item))
 			{
-				if(logger.isInfoEnabled())
-					logger.info(
+				if(logger.isWarnEnabled())
+					logger.warn(
 							"{} is not enabled anymore for {}, probably due to concurrent modification.",
 							item.getCopeID(), getID());
 				tx.commit();

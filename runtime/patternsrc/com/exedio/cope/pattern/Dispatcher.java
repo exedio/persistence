@@ -233,8 +233,8 @@ public final class Dispatcher extends Pattern
 			{
 				if(!isPending(item))
 				{
-					if(logger.isInfoEnabled())
-						logger.info(
+					if(logger.isWarnEnabled())
+						logger.warn(
 								"Already dispatched {} by {}, probably due to concurrent dispatching.",
 								itemID, id);
 					continue;
