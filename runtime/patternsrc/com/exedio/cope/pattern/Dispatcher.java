@@ -294,7 +294,13 @@ public final class Dispatcher extends Pattern
 					tx.commit();
 
 					if(finalFailure)
+					{
+						if(logger.isErrorEnabled())
+							logger.error(
+									"final failure for " + itemID + " on " + id + ", took " + elapsed + "ms",
+									cause);
 						item.notifyFinalFailure(this, cause);
+					}
 				}
 			}
 			ctx.incrementProgress();

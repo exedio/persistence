@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 
+import com.exedio.cope.TestLogAppender;
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
@@ -33,9 +34,11 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 public class DispatcherTest extends CopeModelTest
 {
+	private static final Logger logger = Logger.getLogger(Dispatcher.class);
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
 	public DispatcherTest()
@@ -48,6 +51,7 @@ public class DispatcherTest extends CopeModelTest
 	DispatcherItem item3;
 	DispatcherItem item4;
 	RelativeMockClockStrategy clock;
+	TestLogAppender log = null;
 
 	@Override
 	public void setUp() throws Exception
@@ -59,11 +63,15 @@ public class DispatcherTest extends CopeModelTest
 		item4 = new DispatcherItem("item4", true);
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
+		log = new TestLogAppender();
+		logger.addAppender(log);
 	}
 
 	@Override
 	protected void tearDown() throws Exception
 	{
+		logger.removeAppender(log);
+		log = null;
 		Clock.clearOverride();
 		super.tearDown();
 	}
@@ -92,6 +100,9 @@ public class DispatcherTest extends CopeModelTest
 
 		DispatcherItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch(2);
+		log.assertError(
+				"final failure for " + item4 + " on DispatcherItem.toTarget, " +
+				"took " + last(item4.getToTargetFailures()).getElapsed() + "ms" );
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
@@ -115,6 +126,8 @@ public class DispatcherTest extends CopeModelTest
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));
 		assertSuccess(item3, 1, d1[2], list());
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
+
+		log.assertEmpty();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
@@ -217,6 +230,7 @@ public class DispatcherTest extends CopeModelTest
 		final Date[] dates = new Date[expectedDates];
 		for(int i = 0; i<expectedDates; i++)
 			dates[i] = new Date(clock.addOffset(10));
+		log.assertEmpty();
 		try
 		{
 			DispatcherItem.dispatchToTarget(config, ctx);
@@ -343,5 +357,10 @@ public class DispatcherTest extends CopeModelTest
 			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
+	}
+
+	private static <E> E last(final List<E> list)
+	{
+		return list.get(list.size()-1);
 	}
 }

@@ -48,6 +48,11 @@ public class TestLogAppender extends AppenderSkeleton
 		assertMessage(Level.INFO, msg);
 	}
 
+	public void assertError(final String msg)
+	{
+		assertMessage(Level.ERROR, msg);
+	}
+
 	public void assertMessage(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());

@@ -493,6 +493,7 @@
 				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="sampler/*.java" /><!-- TODO remove -->
