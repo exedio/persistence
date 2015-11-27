@@ -242,9 +242,13 @@ public final class Dispatcher extends Pattern
 				if(isDeferred(item))
 				{
 					tx.commit();
+					if(logger.isDebugEnabled())
+						logger.debug("is deferred: {}", itemID);
 					continue;
 				}
 
+				if(logger.isDebugEnabled())
+					logger.debug("dispatching {}", itemID);
 				final long start = Clock.currentTimeMillis();
 				final long nanoStart = nanoTime();
 				try
