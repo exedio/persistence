@@ -164,6 +164,23 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals("namePL", item.getName(PL));
 	}
 
+	public void testGetSetMap()
+	{
+		item.setNameMap(map(DE, "NAMEde", EN, "NAMEen", PL, "NAMEpl", SUBCLASS, "NAMEsubclass"));
+		assertEquals("NAMEde", item.getName(DE));
+		assertEquals("NAMEen", item.getName(EN));
+		assertEquals("NAMEpl", item.getName(PL));
+		assertEquals("NAMEsubclass", item.getName(SUBCLASS));
+		assertEquals(map(DE, "NAMEde", EN, "NAMEen", PL, "NAMEpl", SUBCLASS, "NAMEsubclass"), item.getNameMap());
+
+		item.setNameMap(map(DE, "nameDE", EN, "nameEN", PL, null));
+		assertEquals("nameDE", item.getName(DE));
+		assertEquals("nameEN", item.getName(EN));
+		assertEquals(null, item.getName(PL));
+		assertEquals(null, item.getName(SUBCLASS));
+		assertEqualsUnmodifiable(map(DE, "nameDE", EN, "nameEN", PL, null, SUBCLASS, null), item.getNameMap());
+	}
+
 	public void testSubClass()
 	{
 		assertEquals(null, item.getName(SUBCLASS));

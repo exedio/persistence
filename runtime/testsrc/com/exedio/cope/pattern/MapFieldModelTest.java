@@ -108,6 +108,15 @@ public class MapFieldModelTest extends CopeAssert
 		assertTrue(string    .getRelationType().isAnnotationPresent(Computed.class));
 		assertTrue(integer   .getRelationType().isAnnotationPresent(Computed.class));
 
+		assertEquals(Language.class, name.getKeyClass());
+		assertEquals(String.class, name.getValueClass());
+		assertEquals(Language.class, nameLength.getKeyClass());
+		assertEquals(Integer.class, nameLength.getValueClass());
+		assertEquals(String.class, string.getKeyClass());
+		assertEquals(String.class, string.getValueClass());
+		assertEquals(String.class, integer.getKeyClass());
+		assertEquals(Integer.class, integer.getValueClass());
+
 		assertSerializedSame(name      , 383);
 		assertSerializedSame(nameLength, 389);
 		assertSerializedSame(string    , 385);

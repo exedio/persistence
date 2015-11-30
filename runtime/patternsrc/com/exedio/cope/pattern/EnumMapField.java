@@ -30,11 +30,13 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>
+public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -75,6 +77,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return new EnumMapField<>(keyClass, valueTemplate, defaultConstant);
 	}
 
+	@Override
 	public Class<K> getKeyClass()
 	{
 		return keyClass;
@@ -85,6 +88,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return fields.get(key);
 	}
 
+	@Override
 	public Class<V> getValueClass()
 	{
 		return valueTemplate.getValueClass();
@@ -98,6 +102,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return fields.get(key);
 	}
 
+	@Override
 	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
 			final Item item,
@@ -106,6 +111,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return field(key).get(item);
 	}
 
+	@Override
 	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
 			final Item item,
@@ -113,6 +119,32 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final V value)
 	{
 		field(key).set(item, value);
+	}
+
+	@Override
+	@Wrap(order=110)
+	public Map<K,V> getMap(final Item item)
+	{
+		final EnumMap<K,V> result = new EnumMap<>(keyClass);
+		for(final K key : keyClass.getEnumConstants())
+		{
+			result.put(key, fields.get(key).get(item));
+		}
+		return Collections.unmodifiableMap(result);
+	}
+
+	@Override
+	@Wrap(order=120)
+	public void setMap(final Item item, final Map<? extends K,? extends V> map)
+	{
+		final K[] enums = keyClass.getEnumConstants();
+		final SetValue<?>[] sv = new SetValue<?>[enums.length];
+
+		int i = 0;
+		for(final K key : enums)
+			sv[i++] = fields.get(key).map(map.get(key));
+
+		item.set(sv);
 	}
 
 	@Override
