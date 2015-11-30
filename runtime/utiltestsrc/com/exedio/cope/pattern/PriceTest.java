@@ -814,24 +814,24 @@ public final class PriceTest extends CopeAssert
 		assertEquals(false, storeOf(-124).greaterThanOrEqual(storeOf(-123)));
 	}
 
-	public static void testGetLower()
+	public static void testMin()
 	{
-		assertEquals(storeOf( 122), storeOf( 122).getLower(storeOf( 123)));
-		assertEquals(storeOf( 123), storeOf( 123).getLower(storeOf( 123)));
-		assertEquals(storeOf( 123), storeOf( 124).getLower(storeOf( 123)));
-		assertEquals(storeOf(-123), storeOf(-122).getLower(storeOf(-123)));
-		assertEquals(storeOf(-123), storeOf(-123).getLower(storeOf(-123)));
-		assertEquals(storeOf(-124), storeOf(-124).getLower(storeOf(-123)));
+		assertEquals(storeOf( 122), storeOf( 122).min(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 123).min(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 124).min(storeOf( 123)));
+		assertEquals(storeOf(-123), storeOf(-122).min(storeOf(-123)));
+		assertEquals(storeOf(-123), storeOf(-123).min(storeOf(-123)));
+		assertEquals(storeOf(-124), storeOf(-124).min(storeOf(-123)));
 	}
 
-	public static void testGetGreater()
+	public static void testMax()
 	{
-		assertEquals(storeOf( 123), storeOf( 122).getGreater(storeOf( 123)));
-		assertEquals(storeOf( 123), storeOf( 123).getGreater(storeOf( 123)));
-		assertEquals(storeOf( 124), storeOf( 124).getGreater(storeOf( 123)));
-		assertEquals(storeOf(-122), storeOf(-122).getGreater(storeOf(-123)));
-		assertEquals(storeOf(-123), storeOf(-123).getGreater(storeOf(-123)));
-		assertEquals(storeOf(-123), storeOf(-124).getGreater(storeOf(-123)));
+		assertEquals(storeOf( 123), storeOf( 122).max(storeOf( 123)));
+		assertEquals(storeOf( 123), storeOf( 123).max(storeOf( 123)));
+		assertEquals(storeOf( 124), storeOf( 124).max(storeOf( 123)));
+		assertEquals(storeOf(-122), storeOf(-122).max(storeOf(-123)));
+		assertEquals(storeOf(-123), storeOf(-123).max(storeOf(-123)));
+		assertEquals(storeOf(-123), storeOf(-124).max(storeOf(-123)));
 	}
 
 	public static void testGrossToNetPercent()

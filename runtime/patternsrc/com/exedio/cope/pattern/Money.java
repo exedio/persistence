@@ -200,14 +200,14 @@ public final class Money<C extends Money.Currency>
 		return amount.greaterThanOrEqual(unwrap(other));
 	}
 
-	public Money<C> getLower(final Money<C> other)
+	public Money<C> min(final Money<C> other)
 	{
-		return wrap( amount.getLower(unwrap(other)), other );
+		return wrap( amount.min(unwrap(other)), other );
 	}
 
-	public Money<C> getGreater(final Money<C> other)
+	public Money<C> max(final Money<C> other)
 	{
-		return wrap( amount.getGreater(unwrap(other)), other );
+		return wrap( amount.max(unwrap(other)), other );
 	}
 
 
@@ -368,6 +368,24 @@ public final class Money<C extends Money.Currency>
 	public BigDecimal bigValue(final C currency)
 	{
 		return bigAmount(currency);
+	}
+
+	/**
+	 * @deprecated Use {@link #min(Money)} instead
+	 */
+	@Deprecated
+	public Money<C> getLower(final Money<C> other)
+	{
+		return min(other);
+	}
+
+	/**
+	 * @deprecated Use {@link #max(Money)} instead
+	 */
+	@Deprecated
+	public Money<C> getGreater(final Money<C> other)
+	{
+		return max(other);
 	}
 
 	/**

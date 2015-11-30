@@ -245,7 +245,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 * @return this if this price is lower than the other one; otherwise the other one
 	 * @see BigDecimal#min(BigDecimal)
 	 */
-	public Price getLower(final Price other)
+	public Price min(final Price other)
 	{
 		return lessThan(other) ? this : other;
 	}
@@ -254,7 +254,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 * @return this if this price is greater than the other one; otherwise the other one
 	 * @see BigDecimal#max(BigDecimal)
 	 */
-	public Price getGreater(final Price other)
+	public Price max(final Price other)
 	{
 		return greaterThan(other) ? this : other;
 	}
@@ -566,6 +566,24 @@ public final class Price implements Serializable, Comparable<Price>
 
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #min(Price)} instead
+	 */
+	@Deprecated
+	public Price getLower(final Price other)
+	{
+		return min(other);
+	}
+
+	/**
+	 * @deprecated Use {@link #max(Price)} instead
+	 */
+	@Deprecated
+	public Price getGreater(final Price other)
+	{
+		return max(other);
+	}
 
 	/**
 	 * @deprecated Use {@link #negate()} instead
