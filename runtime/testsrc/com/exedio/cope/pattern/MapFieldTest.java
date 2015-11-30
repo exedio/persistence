@@ -229,4 +229,73 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		}
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
+
+	public void testGetAndCast()
+	{
+		item.setName(DE, "NAMEde");
+		Object o = DE;
+		assertEquals("NAMEde", name.getAndCast(item, o));
+		o = "DE";
+		try
+		{
+			name.getAndCast(item, o);
+			fail();
+		}
+		catch (final ClassCastException e)
+		{
+			assertEquals("expected a " + Language.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
+		}
+		try
+		{
+			name.getAndCast(item, null);
+			fail();
+		}
+		catch (final NullPointerException e)
+		{
+			assertEquals("key", e.getMessage());
+		}
+	}
+
+	public void testSetAndCast()
+	{
+		Object key = DE;
+		Object value = "NAMEde";
+		name.setAndCast(item, key, value);
+		assertEquals("NAMEde", item.getName(DE));
+		key = "DE";
+		value = "nameDE";
+		try
+		{
+			name.setAndCast(item, key, value);
+			fail();
+		}
+		catch (final ClassCastException e)
+		{
+			assertEquals("expected a " + Language.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
+		}
+		key = DE;
+		value = 1;
+		try
+		{
+			name.setAndCast(item, key, value);
+			fail();
+		}
+		catch (final ClassCastException e)
+		{
+			assertEquals("expected a " + String.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+			assertEquals("NAMEde", item.getName(DE));
+		}
+		value = "nameDE";
+		try
+		{
+			name.setAndCast(item, null, value);
+			fail();
+		}
+		catch (final NullPointerException e)
+		{
+			assertEquals("key", e.getMessage());
+		}
+		name.setAndCast(item, key, null);
+		assertEquals(null, item.getName(DE));
+	}
 }
