@@ -178,6 +178,9 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// zero
 
+	/**
+	 * @see BigDecimal#ZERO
+	 */
 	public static final Price ZERO = new Price(0);
 
 	public static Price nullToZero(final Price value)
@@ -238,13 +241,19 @@ public final class Price implements Serializable, Comparable<Price>
 		return store>=other.store;
 	}
 
-	/** @return this if this price is lower than the other one; otherwise the other one */
+	/**
+	 * @return this if this price is lower than the other one; otherwise the other one
+	 * @see BigDecimal#min(BigDecimal)
+	 */
 	public Price getLower(final Price other)
 	{
 		return lessThan(other) ? this : other;
 	}
 
-	/** @return this if this price is greater than the other one; otherwise the other one */
+	/**
+	 * @return this if this price is greater than the other one; otherwise the other one
+	 * @see BigDecimal#max(BigDecimal)
+	 */
 	public Price getGreater(final Price other)
 	{
 		return greaterThan(other) ? this : other;
@@ -253,11 +262,17 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// computation
 
+	/**
+	 * @see BigDecimal#negate()
+	 */
 	public Price negative()
 	{
 		return storeOf(-store);
 	}
 
+	/**
+	 * @see BigDecimal#add(BigDecimal)
+	 */
 	public Price add(final Price other)
 	{
 		final int b = other.store;
@@ -277,6 +292,9 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(r);
 	}
 
+	/**
+	 * @see BigDecimal#subtract(BigDecimal)
+	 */
 	public Price subtract(final Price other)
 	{
 		final int b = other.store;
@@ -293,6 +311,9 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(r);
 	}
 
+	/**
+	 * @see BigDecimal#multiply(BigDecimal)
+	 */
 	public Price multiply(final int other)
 	{
 		if(other==1)
@@ -309,11 +330,17 @@ public final class Price implements Serializable, Comparable<Price>
 		return storeOf(store * other);
 	}
 
+	/**
+	 * @see BigDecimal#multiply(BigDecimal)
+	 */
 	public Price multiply(final double other)
 	{
 		return multiply(other, DEFAULT_ROUNDING_MODE);
 	}
 
+	/**
+	 * @see BigDecimal#multiply(BigDecimal)
+	 */
 	public Price multiply(final double other, final RoundingMode roundingMode)
 	{
 		if(other==1.0)
@@ -322,11 +349,17 @@ public final class Price implements Serializable, Comparable<Price>
 		return valueOf(bigValue().multiply(BigDecimal.valueOf(other)), roundingMode);
 	}
 
+	/**
+	 * @see BigDecimal#divide(BigDecimal)
+	 */
 	public Price divide(final double other)
 	{
 		return divide(other, DEFAULT_ROUNDING_MODE);
 	}
 
+	/**
+	 * @see BigDecimal#divide(BigDecimal)
+	 */
 	public Price divide(final double other, final RoundingMode roundingMode)
 	{
 		if(other==1.0)
@@ -337,6 +370,9 @@ public final class Price implements Serializable, Comparable<Price>
 		return valueOf(bigValue().divide(BigDecimal.valueOf(other), 2, roundingMode), RoundingMode.UNNECESSARY);
 	}
 
+	/**
+	 * @see BigDecimal#divide(BigDecimal)
+	 */
 	private Price divide(final int other, final RoundingMode roundingMode)
 	{
 		if(other==1)
@@ -453,11 +489,17 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// conversion double
 
+	/**
+	 * @see BigDecimal#valueOf(double)
+	 */
 	public static Price valueOf(final double value)
 	{
 		return valueOf(value, DEFAULT_ROUNDING_MODE);
 	}
 
+	/**
+	 * @see BigDecimal#valueOf(double)
+	 */
 	public static Price valueOf(final double value, final RoundingMode roundingMode)
 	{
 		if(Double.isNaN(value))
@@ -476,6 +518,9 @@ public final class Price implements Serializable, Comparable<Price>
 				intValueExact());
 	}
 
+	/**
+	 * @see BigDecimal#doubleValue()
+	 */
 	public double doubleValue()
 	{
 		return store / DOUBLE_FACTOR;
