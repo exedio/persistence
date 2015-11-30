@@ -368,16 +368,6 @@ public class PriceTest
 		assertEqualBits( 0.0,  storeOf(   0).doubleValue());
 	}
 
-	@Test public void testDoubleValueAndValueOf()
-	{
-		assertEquals( p97, valueOf( p97.doubleValue()));
-		assertEquals( p98, valueOf( p98.doubleValue()));
-		assertEquals( p99, valueOf( p99.doubleValue()));
-		assertEquals(mp97, valueOf(mp97.doubleValue()));
-		assertEquals(mp98, valueOf(mp98.doubleValue()));
-		assertEquals(mp99, valueOf(mp99.doubleValue()));
-	}
-
 	@Test public void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
