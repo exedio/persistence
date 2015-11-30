@@ -355,6 +355,16 @@ public final class PriceTest extends CopeAssert
 		assertEquals( 0.0,  storeOf(   0).doubleValue());
 	}
 
+	public static void testDoubleValueAndValueOf()
+	{
+		assertEquals( p97, valueOf( p97.doubleValue()));
+		assertEquals( p98, valueOf( p98.doubleValue()));
+		assertEquals( p99, valueOf( p99.doubleValue()));
+		assertEquals(mp97, valueOf(mp97.doubleValue()));
+		assertEquals(mp98, valueOf(mp98.doubleValue()));
+		assertEquals(mp99, valueOf(mp99.doubleValue()));
+	}
+
 	public static void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
@@ -365,6 +375,16 @@ public final class PriceTest extends CopeAssert
 		assertEquals(bd(-2,   0), storeOf(-200).bigValue());
 		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
 		assertSame(BigDecimal.ZERO, storeOf(0).bigValue()); // relies on BigDecimal implementation
+	}
+
+	public static void testBigValueAndValueOf()
+	{
+		assertEquals( p97, valueOf( p97.bigValue()));
+		assertEquals( p98, valueOf( p98.bigValue()));
+		assertEquals( p99, valueOf( p99.bigValue()));
+		assertEquals(mp97, valueOf(mp97.bigValue()));
+		assertEquals(mp98, valueOf(mp98.bigValue()));
+		assertEquals(mp99, valueOf(mp99.bigValue()));
 	}
 
 	public static void testAdd()
