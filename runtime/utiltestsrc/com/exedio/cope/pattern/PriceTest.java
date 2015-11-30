@@ -385,6 +385,8 @@ public final class PriceTest extends CopeAssert
 		assertEquals(mp97, valueOf(mp97.bigValue()));
 		assertEquals(mp98, valueOf(mp98.bigValue()));
 		assertEquals(mp99, valueOf(mp99.bigValue()));
+		assertValueOfIllegal( p99.bigValue().subtract( p98.bigValue()).add( p99.bigValue()), "too big: 21474836.48");
+		assertValueOfIllegal(mp99.bigValue().subtract(mp98.bigValue()).add(mp99.bigValue()), "too small: -21474836.48");
 	}
 
 	public static void testAdd()
