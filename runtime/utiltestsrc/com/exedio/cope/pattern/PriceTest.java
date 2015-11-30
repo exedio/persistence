@@ -44,12 +44,12 @@ public final class PriceTest extends CopeAssert
 	private static final Price p98 = storeOf(2147483646);
 	private static final Price p99 = storeOf(2147483647);
 
-	private static final Price mp49 = p49.negative();
-	private static final Price mp50 = p50.negative();
-	private static final Price mp51 = p51.negative();
-	private static final Price mp97 = p97.negative();
-	private static final Price mp98 = p98.negative();
-	private static final Price mp99 = p99.negative();
+	private static final Price mp49 = p49.negate();
+	private static final Price mp50 = p50.negate();
+	private static final Price mp51 = p51.negate();
+	private static final Price mp97 = p97.negate();
+	private static final Price mp98 = p98.negate();
+	private static final Price mp99 = p99.negate();
 
 	public static void testIt()
 	{
@@ -485,13 +485,13 @@ public final class PriceTest extends CopeAssert
 		}
 	}
 
-	public static void testNegative()
+	public static void testNegate()
 	{
-		assertEquals(storeOf(-555), storeOf( 555).negative());
-		assertEquals(storeOf( 555), storeOf(-555).negative());
-		assertSame(Price.ZERO, storeOf(0).negative());
-		assertEquals(storeOf(MIN_STORE),  p99.negative());
-		assertEquals(storeOf(MAX_STORE), mp99.negative());
+		assertEquals(storeOf(-555), storeOf( 555).negate());
+		assertEquals(storeOf( 555), storeOf(-555).negate());
+		assertSame(Price.ZERO, storeOf(0).negate());
+		assertEquals(storeOf(MIN_STORE),  p99.negate());
+		assertEquals(storeOf(MAX_STORE), mp99.negate());
 	}
 
 	public static void testMultiplyInt()

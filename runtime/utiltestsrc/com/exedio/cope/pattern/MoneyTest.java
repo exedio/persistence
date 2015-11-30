@@ -64,12 +64,12 @@ public final class MoneyTest extends CopeAssert
 		}
 	}
 
-	public static void testNegativeReuse()
+	public static void testNegateReuse()
 	{
 		final Money<Cy> z = zero(eur);
 		final Money<Cy> a = storeOf(1, eur);
-		assertSame(z, z.negative());
-		assertEquals(storeOf(-1, eur), a.negative());
+		assertSame(z, z.negate());
+		assertEquals(storeOf(-1, eur), a.negate());
 	}
 
 	public static void testAddReuse()

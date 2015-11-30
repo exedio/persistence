@@ -265,7 +265,7 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * @see BigDecimal#negate()
 	 */
-	public Price negative()
+	public Price negate()
 	{
 		return storeOf(-store);
 	}
@@ -563,4 +563,16 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final BigDecimal BIG_MIN_VALUE = BigDecimal.valueOf(MIN_STORE, 2);
 	private static final BigDecimal BIG_MAX_VALUE = BigDecimal.valueOf(MAX_STORE, 2);
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #negate()} instead
+	 */
+	@Deprecated
+	public Price negative()
+	{
+		return negate();
+	}
 }

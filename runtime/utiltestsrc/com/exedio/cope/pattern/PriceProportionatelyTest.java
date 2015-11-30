@@ -103,8 +103,8 @@ public class PriceProportionatelyTest extends CopeAssert
 
 		final Price[] expectedNegative = new Price[expected.length];
 		for(int i = 0; i<expectedNegative.length; i++)
-			expectedNegative[i] = expected[i].negative();
-		assertEqualsArray(expectedNegative, splitProportionately(actualTotal.negative(), actualWeights));
+			expectedNegative[i] = expected[i].negate();
+		assertEqualsArray(expectedNegative, splitProportionately(actualTotal.negate(), actualWeights));
 	}
 
 

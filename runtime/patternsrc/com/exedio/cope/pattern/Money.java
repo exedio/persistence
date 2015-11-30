@@ -213,9 +213,9 @@ public final class Money<C extends Money.Currency>
 
 	// computation
 
-	public Money<C> negative()
+	public Money<C> negate()
 	{
-		return wrap( amount.negative() );
+		return wrap( amount.negate() );
 	}
 
 	public Money<C> add(final Money<C> other)
@@ -368,5 +368,14 @@ public final class Money<C extends Money.Currency>
 	public BigDecimal bigValue(final C currency)
 	{
 		return bigAmount(currency);
+	}
+
+	/**
+	 * @deprecated Use {@link #negate()} instead
+	 */
+	@Deprecated
+	public Money<C> negative()
+	{
+		return negate();
 	}
 }
