@@ -116,6 +116,25 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(null, itemX.getName(DE));
 		assertEqualsUnmodifiable(map(EN, "nameEN"), item.getNameMap());
 		assertEqualsUnmodifiable(map(DE, 6), item.getNameLengthMap());
+
+		try
+		{
+			item.getName(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("cannot search uniquely for null on MapFieldItem-name.uniqueConstraint for MapFieldItem-name.key", e.getMessage());
+		}
+		try
+		{
+			item.setName(null, "hallo");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("cannot search uniquely for null on MapFieldItem-name.uniqueConstraint for MapFieldItem-name.key", e.getMessage());
+		}
 	}
 
 	public void testMapSet()
