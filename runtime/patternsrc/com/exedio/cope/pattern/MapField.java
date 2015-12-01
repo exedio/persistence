@@ -155,6 +155,8 @@ public final class MapField<K,V> extends Pattern
 			final Item item,
 			@Parameter(KEY) final K key)
 	{
+		requireNonNull(key, "key");
+
 		final Item relationItem =
 			mount().uniqueConstraint.search(item, key);
 
@@ -171,6 +173,8 @@ public final class MapField<K,V> extends Pattern
 			@Parameter(KEY) final K key,
 			final V value)
 	{
+		requireNonNull(key, "key");
+
 		final Mount mount = mount();
 
 		final Item relationItem =

@@ -124,7 +124,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on MapFieldItem-name.uniqueConstraint for MapFieldItem-name.key", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 		try
 		{
@@ -133,7 +133,7 @@ public class MapFieldTest extends AbstractRuntimeTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("cannot search uniquely for null on MapFieldItem-name.uniqueConstraint for MapFieldItem-name.key", e.getMessage());
+			assertEquals("key", e.getMessage());
 		}
 	}
 
