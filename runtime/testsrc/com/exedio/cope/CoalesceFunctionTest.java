@@ -109,8 +109,8 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 
 		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, day(+1)), leftDay, rightDay, day(+1));
 		assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), rightDay, leftDay, day(+1));
-		//assertIt(listg(day(-2), day(-1), day(-2), day(-1), day, null), leftDay, rightDay); TODO
-		//assertIt(listg(day, day, day(-102), day(-101), day, null), rightDay, leftDay); TODO
+		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), leftDay, rightDay);
+		assertIt(asList(day, day, day(-102), day(-101), day, null), rightDay, leftDay);
 
 		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, XEnum.V5), leftEnum, rightEnum, XEnum.V5);
 		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), rightEnum, leftEnum, XEnum.V5);
