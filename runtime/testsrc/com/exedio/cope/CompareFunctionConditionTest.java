@@ -55,7 +55,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX;
+	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX, itemXa, itemXb;
 	final Date date = CompareFunctionConditionItem.date;
 	final Day day = CompareFunctionConditionItem.day;
 
@@ -78,7 +78,9 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3);
 		item4 = new CompareFunctionConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), XEnum.V4);
 		item5 = new CompareFunctionConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), XEnum.V5);
-		itemX = new CompareFunctionConditionItem(null, null, null, null, null, null, null);
+		itemX = new CompareFunctionConditionItem(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		itemXa= new CompareFunctionConditionItem(null, "string3", null, 3, null, 13l, null, 2.3, null, date(0), null, day(0), null, XEnum.V3);
+		itemXb= new CompareFunctionConditionItem("string3", null, 3, null, 13l, null, 2.3, null, date(0), null, day(0), null, XEnum.V3, null);
 		item1.setItemB(item3);
 		item2.setItemB(item3);
 		item3.setItemB(item3);
