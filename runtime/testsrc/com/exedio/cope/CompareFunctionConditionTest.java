@@ -38,10 +38,12 @@ import static com.exedio.cope.CompareFunctionConditionItem.stringB;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
+import java.util.List;
 
 public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 {
@@ -103,69 +105,88 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 
 
 		// equal
-		assertCondition(item3, TYPE, stringA.equal(stringB));
-		assertCondition(item3, TYPE, intA.equal(intB));
-		assertCondition(item3, TYPE, longA.equal(longB));
-		assertCondition(item3, TYPE, doubleA.equal(doubleB));
-		assertCondition(item3, TYPE, dateA.equal(dateB));
-		assertCondition(item3, TYPE, dayA.equal(dayB));
-		assertCondition(item3, TYPE, enumA.equal(enumB));
-		assertCondition(item3, TYPE, itemA.equal(itemB));
-		assertCondition(item3, TYPE, TYPE.getThis().equal(itemB));
-
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item3);
+			assertCondition(expected, TYPE, stringA.equal(stringB));
+			assertCondition(expected, TYPE, intA   .equal(intB));
+			assertCondition(expected, TYPE, longA  .equal(longB));
+			assertCondition(expected, TYPE, doubleA.equal(doubleB));
+			assertCondition(expected, TYPE, dateA  .equal(dateB));
+			assertCondition(expected, TYPE, dayA   .equal(dayB));
+			assertCondition(expected, TYPE, enumA  .equal(enumB));
+			assertCondition(expected, TYPE, itemA  .equal(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().equal(itemB));
+		}
 		// notEqual
-		assertCondition(item1, item2, item4, item5, TYPE, stringA.notEqual(stringB));
-		assertCondition(item1, item2, item4, item5, TYPE, intA   .notEqual(intB));
-		assertCondition(item1, item2, item4, item5, TYPE, longA  .notEqual(longB));
-		assertCondition(item1, item2, item4, item5, TYPE, doubleA.notEqual(doubleB));
-		assertCondition(item1, item2, item4, item5, TYPE, dateA  .notEqual(dateB));
-		assertCondition(item1, item2, item4, item5, TYPE, dayA   .notEqual(dayB));
-		assertCondition(item1, item2, item4, item5, TYPE, enumA  .notEqual(enumB));
-		assertCondition(item1, item2, item4, item5, TYPE, itemA  .notEqual(itemB));
-		assertCondition(item1, item2, item4, item5, TYPE, TYPE.getThis().notEqual(itemB));
-
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item1, item2, item4, item5);
+			assertCondition(expected, TYPE, stringA.notEqual(stringB));
+			assertCondition(expected, TYPE, intA   .notEqual(intB));
+			assertCondition(expected, TYPE, longA  .notEqual(longB));
+			assertCondition(expected, TYPE, doubleA.notEqual(doubleB));
+			assertCondition(expected, TYPE, dateA  .notEqual(dateB));
+			assertCondition(expected, TYPE, dayA   .notEqual(dayB));
+			assertCondition(expected, TYPE, enumA  .notEqual(enumB));
+			assertCondition(expected, TYPE, itemA  .notEqual(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().notEqual(itemB));
+		}
 		// less
-		assertCondition(item1, item2, TYPE, stringA.less(stringB));
-		assertCondition(item1, item2, TYPE, intA   .less(intB));
-		assertCondition(item1, item2, TYPE, longA  .less(longB));
-		assertCondition(item1, item2, TYPE, doubleA.less(doubleB));
-		assertCondition(item1, item2, TYPE, dateA  .less(dateB));
-		assertCondition(item1, item2, TYPE, dayA   .less(dayB));
-		assertCondition(item1, item2, TYPE, enumA  .less(enumB));
-		assertCondition(item1, item2, TYPE, itemA  .less(itemB));
-		assertCondition(item1, item2, TYPE, TYPE.getThis().less(itemB));
-
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item1, item2);
+			assertCondition(expected, TYPE, stringA.less(stringB));
+			assertCondition(expected, TYPE, intA   .less(intB));
+			assertCondition(expected, TYPE, longA  .less(longB));
+			assertCondition(expected, TYPE, doubleA.less(doubleB));
+			assertCondition(expected, TYPE, dateA  .less(dateB));
+			assertCondition(expected, TYPE, dayA   .less(dayB));
+			assertCondition(expected, TYPE, enumA  .less(enumB));
+			assertCondition(expected, TYPE, itemA  .less(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().less(itemB));
+		}
 		// lessOrEqual
-		assertCondition(item1, item2, item3, TYPE, stringA.lessOrEqual(stringB));
-		assertCondition(item1, item2, item3, TYPE, intA   .lessOrEqual(intB));
-		assertCondition(item1, item2, item3, TYPE, longA  .lessOrEqual(longB));
-		assertCondition(item1, item2, item3, TYPE, doubleA.lessOrEqual(doubleB));
-		assertCondition(item1, item2, item3, TYPE, dateA  .lessOrEqual(dateB));
-		assertCondition(item1, item2, item3, TYPE, dayA   .lessOrEqual(dayB));
-		assertCondition(item1, item2, item3, TYPE, enumA  .lessOrEqual(enumB));
-		assertCondition(item1, item2, item3, TYPE, itemA  .lessOrEqual(itemB));
-		assertCondition(item1, item2, item3, TYPE, TYPE.getThis().lessOrEqual(itemB));
-
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item1, item2, item3);
+			assertCondition(expected, TYPE, stringA.lessOrEqual(stringB));
+			assertCondition(expected, TYPE, intA   .lessOrEqual(intB));
+			assertCondition(expected, TYPE, longA  .lessOrEqual(longB));
+			assertCondition(expected, TYPE, doubleA.lessOrEqual(doubleB));
+			assertCondition(expected, TYPE, dateA  .lessOrEqual(dateB));
+			assertCondition(expected, TYPE, dayA   .lessOrEqual(dayB));
+			assertCondition(expected, TYPE, enumA  .lessOrEqual(enumB));
+			assertCondition(expected, TYPE, itemA  .lessOrEqual(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().lessOrEqual(itemB));
+		}
 		// greater
-		assertCondition(item4, item5, TYPE, stringA.greater(stringB));
-		assertCondition(item4, item5, TYPE, intA   .greater(intB));
-		assertCondition(item4, item5, TYPE, longA  .greater(longB));
-		assertCondition(item4, item5, TYPE, doubleA.greater(doubleB));
-		assertCondition(item4, item5, TYPE, dateA  .greater(dateB));
-		assertCondition(item4, item5, TYPE, dayA   .greater(dayB));
-		assertCondition(item4, item5, TYPE, enumA  .greater(enumB));
-		assertCondition(item4, item5, TYPE, itemA  .greater(itemB));
-		assertCondition(item4, item5, TYPE, TYPE.getThis().greater(itemB));
-
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item4, item5);
+			assertCondition(expected, TYPE, stringA.greater(stringB));
+			assertCondition(expected, TYPE, intA   .greater(intB));
+			assertCondition(expected, TYPE, longA  .greater(longB));
+			assertCondition(expected, TYPE, doubleA.greater(doubleB));
+			assertCondition(expected, TYPE, dateA  .greater(dateB));
+			assertCondition(expected, TYPE, dayA   .greater(dayB));
+			assertCondition(expected, TYPE, enumA  .greater(enumB));
+			assertCondition(expected, TYPE, itemA  .greater(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().greater(itemB));
+		}
 		// greaterOrEqual
-		assertCondition(item3, item4, item5, TYPE, stringA.greaterOrEqual(stringB));
-		assertCondition(item3, item4, item5, TYPE, intA   .greaterOrEqual(intB));
-		assertCondition(item3, item4, item5, TYPE, longA  .greaterOrEqual(longB));
-		assertCondition(item3, item4, item5, TYPE, doubleA.greaterOrEqual(doubleB));
-		assertCondition(item3, item4, item5, TYPE, dateA  .greaterOrEqual(dateB));
-		assertCondition(item3, item4, item5, TYPE, dayA   .greaterOrEqual(dayB));
-		assertCondition(item3, item4, item5, TYPE, enumA  .greaterOrEqual(enumB));
-		assertCondition(item3, item4, item5, TYPE, itemA  .greaterOrEqual(itemB));
-		assertCondition(item3, item4, item5, TYPE, TYPE.getThis().greaterOrEqual(itemB));
+		{
+			final List<CompareFunctionConditionItem> expected =
+					asList(item3, item4, item5);
+			assertCondition(expected, TYPE, stringA.greaterOrEqual(stringB));
+			assertCondition(expected, TYPE, intA   .greaterOrEqual(intB));
+			assertCondition(expected, TYPE, longA  .greaterOrEqual(longB));
+			assertCondition(expected, TYPE, doubleA.greaterOrEqual(doubleB));
+			assertCondition(expected, TYPE, dateA  .greaterOrEqual(dateB));
+			assertCondition(expected, TYPE, dayA   .greaterOrEqual(dayB));
+			assertCondition(expected, TYPE, enumA  .greaterOrEqual(enumB));
+			assertCondition(expected, TYPE, itemA  .greaterOrEqual(itemB));
+			assertCondition(expected, TYPE, TYPE.getThis().greaterOrEqual(itemB));
+		}
 	}
 }

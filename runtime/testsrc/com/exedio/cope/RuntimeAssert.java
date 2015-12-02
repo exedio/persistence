@@ -107,7 +107,7 @@ public final class RuntimeAssert
 		assertCondition(l, type, actual);
 	}
 
-	private static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
+	public static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
 		final List<T> actualResult = type.search(actual);
 		assertContainsList(expected, actualResult);
