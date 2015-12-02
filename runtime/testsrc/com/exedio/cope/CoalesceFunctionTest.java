@@ -21,23 +21,23 @@ package com.exedio.cope;
 import static com.exedio.cope.CoalesceView.coalesce;
 import static com.exedio.cope.CompareFunctionConditionItem.TYPE;
 import static com.exedio.cope.CompareFunctionConditionItem.date;
+import static com.exedio.cope.CompareFunctionConditionItem.dateA;
+import static com.exedio.cope.CompareFunctionConditionItem.dateB;
 import static com.exedio.cope.CompareFunctionConditionItem.day;
-import static com.exedio.cope.CompareFunctionConditionItem.leftDate;
-import static com.exedio.cope.CompareFunctionConditionItem.leftDay;
-import static com.exedio.cope.CompareFunctionConditionItem.leftDouble;
-import static com.exedio.cope.CompareFunctionConditionItem.leftEnum;
-import static com.exedio.cope.CompareFunctionConditionItem.leftInt;
-import static com.exedio.cope.CompareFunctionConditionItem.leftItem;
-import static com.exedio.cope.CompareFunctionConditionItem.leftLong;
-import static com.exedio.cope.CompareFunctionConditionItem.leftString;
-import static com.exedio.cope.CompareFunctionConditionItem.rightDate;
-import static com.exedio.cope.CompareFunctionConditionItem.rightDay;
-import static com.exedio.cope.CompareFunctionConditionItem.rightDouble;
-import static com.exedio.cope.CompareFunctionConditionItem.rightEnum;
-import static com.exedio.cope.CompareFunctionConditionItem.rightInt;
-import static com.exedio.cope.CompareFunctionConditionItem.rightItem;
-import static com.exedio.cope.CompareFunctionConditionItem.rightLong;
-import static com.exedio.cope.CompareFunctionConditionItem.rightString;
+import static com.exedio.cope.CompareFunctionConditionItem.dayA;
+import static com.exedio.cope.CompareFunctionConditionItem.dayB;
+import static com.exedio.cope.CompareFunctionConditionItem.doubleA;
+import static com.exedio.cope.CompareFunctionConditionItem.doubleB;
+import static com.exedio.cope.CompareFunctionConditionItem.enumA;
+import static com.exedio.cope.CompareFunctionConditionItem.enumB;
+import static com.exedio.cope.CompareFunctionConditionItem.intA;
+import static com.exedio.cope.CompareFunctionConditionItem.intB;
+import static com.exedio.cope.CompareFunctionConditionItem.itemA;
+import static com.exedio.cope.CompareFunctionConditionItem.itemB;
+import static com.exedio.cope.CompareFunctionConditionItem.longA;
+import static com.exedio.cope.CompareFunctionConditionItem.longB;
+import static com.exedio.cope.CompareFunctionConditionItem.stringA;
+import static com.exedio.cope.CompareFunctionConditionItem.stringB;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
@@ -76,51 +76,51 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 		itemf2 = new CompareFunctionConditionItem("string2l", "string2r", 2, 102, 12l, 112l, 2.2, 102.2, date(-1), date(-101), day(-1), day(-101), XEnum.V2, XEnum.V5);
 		itemX  = new CompareFunctionConditionItem(null, null, null, null, null, null, null);
 		itemY  = new CompareFunctionConditionItem(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-		item1.setLeftItem(item1);
-		item2.setLeftItem(item2);
+		item1.setItemA(item1);
+		item2.setItemA(item2);
 	}
 
 	public void testIt()
 	{
-		assertIt(asList("string1", "string2", "string1l", "string2l", "string3", "stringX"), leftString, rightString, "stringX");
-		assertIt(asList("string3", "string3", "string1r", "string2r", "string3", "stringX"), rightString, leftString, "stringX");
-		assertIt(asList("string1", "string2", "string1l", "string2l", "string3", null), leftString, rightString);
-		assertIt(asList("string3", "string3", "string1r", "string2r", "string3", null), rightString, leftString);
+		assertIt(asList("string1", "string2", "string1l", "string2l", "string3", "stringX"), stringA, stringB, "stringX");
+		assertIt(asList("string3", "string3", "string1r", "string2r", "string3", "stringX"), stringB, stringA, "stringX");
+		assertIt(asList("string1", "string2", "string1l", "string2l", "string3", null), stringA, stringB);
+		assertIt(asList("string3", "string3", "string1r", "string2r", "string3", null), stringB, stringA);
 
-		assertIt(asList(1, 2, 1, 2, 3, 55), leftInt, rightInt, 55);
-		assertIt(asList(3, 3, 101, 102, 3, 55), rightInt, leftInt, 55);
-		assertIt(asList(1, 2, 1, 2, 3, null), leftInt, rightInt);
-		assertIt(asList(3, 3, 101, 102, 3, null), rightInt, leftInt);
+		assertIt(asList(1, 2, 1, 2, 3, 55), intA, intB, 55);
+		assertIt(asList(3, 3, 101, 102, 3, 55), intB, intA, 55);
+		assertIt(asList(1, 2, 1, 2, 3, null), intA, intB);
+		assertIt(asList(3, 3, 101, 102, 3, null), intB, intA);
 
-		assertIt(asList(11l, 12l, 11l, 12l, 13l, 55l), leftLong, rightLong, 55l);
-		assertIt(asList(13l, 13l, 111l, 112l, 13l, 55l), rightLong, leftLong, 55l);
-		assertIt(asList(11l, 12l, 11l, 12l, 13l, null), leftLong, rightLong);
-		assertIt(asList(13l, 13l, 111l, 112l, 13l, null), rightLong, leftLong);
+		assertIt(asList(11l, 12l, 11l, 12l, 13l, 55l), longA, longB, 55l);
+		assertIt(asList(13l, 13l, 111l, 112l, 13l, 55l), longB, longA, 55l);
+		assertIt(asList(11l, 12l, 11l, 12l, 13l, null), longA, longB);
+		assertIt(asList(13l, 13l, 111l, 112l, 13l, null), longB, longA);
 
-		assertIt(asList(2.1, 2.2, 2.1, 2.2, 2.3, 55.5), leftDouble, rightDouble, 55.5);
-		assertIt(asList(2.3, 2.3, 102.1, 102.2, 2.3, 55.5), rightDouble, leftDouble, 55.5);
-		assertIt(asList(2.1, 2.2, 2.1, 2.2, 2.3, null), leftDouble, rightDouble);
-		assertIt(asList(2.3, 2.3, 102.1, 102.2, 2.3, null), rightDouble, leftDouble);
+		assertIt(asList(2.1, 2.2, 2.1, 2.2, 2.3, 55.5), doubleA, doubleB, 55.5);
+		assertIt(asList(2.3, 2.3, 102.1, 102.2, 2.3, 55.5), doubleB, doubleA, 55.5);
+		assertIt(asList(2.1, 2.2, 2.1, 2.2, 2.3, null), doubleA, doubleB);
+		assertIt(asList(2.3, 2.3, 102.1, 102.2, 2.3, null), doubleB, doubleA);
 
-		assertIt(asList(date(-2), date(-1), date(-2), date(-1), date, date(+1)), leftDate, rightDate, date(+1));
-		assertIt(asList(date, date, date(-102), date(-101), date, date(+1)), rightDate, leftDate, date(+1));
-		assertIt(asList(date(-2), date(-1), date(-2), date(-1), date, null), leftDate, rightDate);
-		assertIt(asList(date, date, date(-102), date(-101), date, null), rightDate, leftDate);
+		assertIt(asList(date(-2), date(-1), date(-2), date(-1), date, date(+1)), dateA, dateB, date(+1));
+		assertIt(asList(date, date, date(-102), date(-101), date, date(+1)), dateB, dateA, date(+1));
+		assertIt(asList(date(-2), date(-1), date(-2), date(-1), date, null), dateA, dateB);
+		assertIt(asList(date, date, date(-102), date(-101), date, null), dateB, dateA);
 
-		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, day(+1)), leftDay, rightDay, day(+1));
-		assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), rightDay, leftDay, day(+1));
-		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), leftDay, rightDay);
-		assertIt(asList(day, day, day(-102), day(-101), day, null), rightDay, leftDay);
+		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, day(+1)), dayA, dayB, day(+1));
+		assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), dayB, dayA, day(+1));
+		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), dayA, dayB);
+		assertIt(asList(day, day, day(-102), day(-101), day, null), dayB, dayA);
 
-		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, XEnum.V5), leftEnum, rightEnum, XEnum.V5);
-		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), rightEnum, leftEnum, XEnum.V5);
-		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, null), leftEnum, rightEnum);
-		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, null), rightEnum, leftEnum);
+		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, XEnum.V5), enumA, enumB, XEnum.V5);
+		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), enumB, enumA, XEnum.V5);
+		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, null), enumA, enumB);
+		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, null), enumB, enumA);
 
-		assertIt(asList(item1, item2, itemX, itemX, itemX, itemX), leftItem, rightItem, itemX);
-		assertIt(asList(item1, item2, itemX, itemX, itemX, itemX), rightItem, leftItem, itemX);
-		assertIt(asList(item1, item2, null, null, itemX, null), leftItem, rightItem);
-		assertIt(asList(item1, item2, null, null, itemX, null), rightItem, leftItem);
+		assertIt(asList(item1, item2, itemX, itemX, itemX, itemX), itemA, itemB, itemX);
+		assertIt(asList(item1, item2, itemX, itemX, itemX, itemX), itemB, itemA, itemX);
+		assertIt(asList(item1, item2, null, null, itemX, null), itemA, itemB);
+		assertIt(asList(item1, item2, null, null, itemX, null), itemB, itemA);
 	}
 
 	public <E> void assertIt(final List<E> expected, final FunctionField<E> function1, final FunctionField<E> function2, final E literal)

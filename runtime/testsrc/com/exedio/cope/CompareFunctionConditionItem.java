@@ -23,34 +23,34 @@ import java.util.Date;
 
 final class CompareFunctionConditionItem extends Item
 {
-	/** @cope.initial */ static final StringField leftString = new StringField().optional();
-	/** @cope.initial */ static final StringField rightString = new StringField().optional();
+	/** @cope.initial */ static final StringField stringA = new StringField().optional();
+	/** @cope.initial */ static final StringField stringB = new StringField().optional();
 
-	/** @cope.initial */ static final IntegerField leftInt = new IntegerField().optional();
-	/** @cope.initial */ static final IntegerField rightInt = new IntegerField().optional();
+	/** @cope.initial */ static final IntegerField intA = new IntegerField().optional();
+	/** @cope.initial */ static final IntegerField intB = new IntegerField().optional();
 
-	/** @cope.initial */ static final LongField leftLong = new LongField().optional();
-	/** @cope.initial */ static final LongField rightLong = new LongField().optional();
+	/** @cope.initial */ static final LongField longA = new LongField().optional();
+	/** @cope.initial */ static final LongField longB = new LongField().optional();
 
-	/** @cope.initial */ static final DoubleField leftDouble = new DoubleField().optional();
-	/** @cope.initial */ static final DoubleField rightDouble = new DoubleField().optional();
+	/** @cope.initial */ static final DoubleField doubleA = new DoubleField().optional();
+	/** @cope.initial */ static final DoubleField doubleB = new DoubleField().optional();
 
-	/** @cope.initial */ static final DateField leftDate = new DateField().optional();
-	/** @cope.initial */ static final DateField rightDate = new DateField().optional();
+	/** @cope.initial */ static final DateField dateA = new DateField().optional();
+	/** @cope.initial */ static final DateField dateB = new DateField().optional();
 
-	/** @cope.initial */ static final DayField leftDay = new DayField().optional();
-	/** @cope.initial */ static final DayField rightDay = new DayField().optional();
+	/** @cope.initial */ static final DayField dayA = new DayField().optional();
+	/** @cope.initial */ static final DayField dayB = new DayField().optional();
 
-	/** @cope.initial */ static final EnumField<XEnum> leftEnum = EnumField.create(XEnum.class).optional();
-	/** @cope.initial */ static final EnumField<XEnum> rightEnum = EnumField.create(XEnum.class).optional();
+	/** @cope.initial */ static final EnumField<XEnum> enumA = EnumField.create(XEnum.class).optional();
+	/** @cope.initial */ static final EnumField<XEnum> enumB = EnumField.create(XEnum.class).optional();
 
 	static enum XEnum
 	{
 		V1, V2, V3, V4, V5;
 	}
 
-	static final ItemField<CompareFunctionConditionItem> leftItem = ItemField.create(CompareFunctionConditionItem.class).nullify();
-	static final ItemField<CompareFunctionConditionItem> rightItem = ItemField.create(CompareFunctionConditionItem.class).nullify();
+	static final ItemField<CompareFunctionConditionItem> itemA = ItemField.create(CompareFunctionConditionItem.class).nullify();
+	static final ItemField<CompareFunctionConditionItem> itemB = ItemField.create(CompareFunctionConditionItem.class).nullify();
 
 	static final Date date = new Date(1087365298214l);
 	static final Day day = new Day(2007, 4, 28);
@@ -68,65 +68,65 @@ final class CompareFunctionConditionItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(leftString, "string3", leftInt, 3, leftLong, 13l, leftDouble, 2.3, leftDate, date, leftDay, day, leftEnum, XEnum.V3);
-		setLeftItem(this);
+		setItemA(this);
 	}
 
 	/**
 
 	 **
 	 * Creates a new CompareFunctionConditionItem with all the fields initially needed.
-	 * @param leftString the initial value for field {@link #leftString}.
-	 * @param rightString the initial value for field {@link #rightString}.
-	 * @param leftInt the initial value for field {@link #leftInt}.
-	 * @param rightInt the initial value for field {@link #rightInt}.
-	 * @param leftLong the initial value for field {@link #leftLong}.
-	 * @param rightLong the initial value for field {@link #rightLong}.
-	 * @param leftDouble the initial value for field {@link #leftDouble}.
-	 * @param rightDouble the initial value for field {@link #rightDouble}.
-	 * @param leftDate the initial value for field {@link #leftDate}.
-	 * @param rightDate the initial value for field {@link #rightDate}.
-	 * @param leftDay the initial value for field {@link #leftDay}.
-	 * @param rightDay the initial value for field {@link #rightDay}.
-	 * @param leftEnum the initial value for field {@link #leftEnum}.
-	 * @param rightEnum the initial value for field {@link #rightEnum}.
-	 * @throws com.exedio.cope.StringLengthViolationException if leftString, rightString violates its length constraint.
+	 * @param stringA the initial value for field {@link #stringA}.
+	 * @param stringB the initial value for field {@link #stringB}.
+	 * @param intA the initial value for field {@link #intA}.
+	 * @param intB the initial value for field {@link #intB}.
+	 * @param longA the initial value for field {@link #longA}.
+	 * @param longB the initial value for field {@link #longB}.
+	 * @param doubleA the initial value for field {@link #doubleA}.
+	 * @param doubleB the initial value for field {@link #doubleB}.
+	 * @param dateA the initial value for field {@link #dateA}.
+	 * @param dateB the initial value for field {@link #dateB}.
+	 * @param dayA the initial value for field {@link #dayA}.
+	 * @param dayB the initial value for field {@link #dayB}.
+	 * @param enumA the initial value for field {@link #enumA}.
+	 * @param enumB the initial value for field {@link #enumB}.
+	 * @throws com.exedio.cope.StringLengthViolationException if stringA, stringB violates its length constraint.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompareFunctionConditionItem(
-				final java.lang.String leftString,
-				final java.lang.String rightString,
-				final java.lang.Integer leftInt,
-				final java.lang.Integer rightInt,
-				final java.lang.Long leftLong,
-				final java.lang.Long rightLong,
-				final java.lang.Double leftDouble,
-				final java.lang.Double rightDouble,
-				final java.util.Date leftDate,
-				final java.util.Date rightDate,
-				final com.exedio.cope.util.Day leftDay,
-				final com.exedio.cope.util.Day rightDay,
-				final XEnum leftEnum,
-				final XEnum rightEnum)
+				final java.lang.String stringA,
+				final java.lang.String stringB,
+				final java.lang.Integer intA,
+				final java.lang.Integer intB,
+				final java.lang.Long longA,
+				final java.lang.Long longB,
+				final java.lang.Double doubleA,
+				final java.lang.Double doubleB,
+				final java.util.Date dateA,
+				final java.util.Date dateB,
+				final com.exedio.cope.util.Day dayA,
+				final com.exedio.cope.util.Day dayB,
+				final XEnum enumA,
+				final XEnum enumB)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompareFunctionConditionItem.leftString.map(leftString),
-			CompareFunctionConditionItem.rightString.map(rightString),
-			CompareFunctionConditionItem.leftInt.map(leftInt),
-			CompareFunctionConditionItem.rightInt.map(rightInt),
-			CompareFunctionConditionItem.leftLong.map(leftLong),
-			CompareFunctionConditionItem.rightLong.map(rightLong),
-			CompareFunctionConditionItem.leftDouble.map(leftDouble),
-			CompareFunctionConditionItem.rightDouble.map(rightDouble),
-			CompareFunctionConditionItem.leftDate.map(leftDate),
-			CompareFunctionConditionItem.rightDate.map(rightDate),
-			CompareFunctionConditionItem.leftDay.map(leftDay),
-			CompareFunctionConditionItem.rightDay.map(rightDay),
-			CompareFunctionConditionItem.leftEnum.map(leftEnum),
-			CompareFunctionConditionItem.rightEnum.map(rightEnum),
+			CompareFunctionConditionItem.stringA.map(stringA),
+			CompareFunctionConditionItem.stringB.map(stringB),
+			CompareFunctionConditionItem.intA.map(intA),
+			CompareFunctionConditionItem.intB.map(intB),
+			CompareFunctionConditionItem.longA.map(longA),
+			CompareFunctionConditionItem.longB.map(longB),
+			CompareFunctionConditionItem.doubleA.map(doubleA),
+			CompareFunctionConditionItem.doubleB.map(doubleB),
+			CompareFunctionConditionItem.dateA.map(dateA),
+			CompareFunctionConditionItem.dateB.map(dateB),
+			CompareFunctionConditionItem.dayA.map(dayA),
+			CompareFunctionConditionItem.dayB.map(dayB),
+			CompareFunctionConditionItem.enumA.map(enumA),
+			CompareFunctionConditionItem.enumB.map(enumB),
 		});
 	}/**
 
@@ -142,403 +142,403 @@ final class CompareFunctionConditionItem extends Item
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftString}.
+	 * Returns the value of {@link #stringA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.String getLeftString()
+	final java.lang.String getStringA()
 	{
-		return CompareFunctionConditionItem.leftString.get(this);
+		return CompareFunctionConditionItem.stringA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftString}.
+	 * Sets a new value for {@link #stringA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftString(final java.lang.String leftString)
+	final void setStringA(final java.lang.String stringA)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		CompareFunctionConditionItem.leftString.set(this,leftString);
+		CompareFunctionConditionItem.stringA.set(this,stringA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightString}.
+	 * Returns the value of {@link #stringB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.String getRightString()
+	final java.lang.String getStringB()
 	{
-		return CompareFunctionConditionItem.rightString.get(this);
+		return CompareFunctionConditionItem.stringB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightString}.
+	 * Sets a new value for {@link #stringB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightString(final java.lang.String rightString)
+	final void setStringB(final java.lang.String stringB)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		CompareFunctionConditionItem.rightString.set(this,rightString);
+		CompareFunctionConditionItem.stringB.set(this,stringB);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftInt}.
+	 * Returns the value of {@link #intA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Integer getLeftInt()
+	final java.lang.Integer getIntA()
 	{
-		return CompareFunctionConditionItem.leftInt.get(this);
+		return CompareFunctionConditionItem.intA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftInt}.
+	 * Sets a new value for {@link #intA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftInt(final java.lang.Integer leftInt)
+	final void setIntA(final java.lang.Integer intA)
 	{
-		CompareFunctionConditionItem.leftInt.set(this,leftInt);
+		CompareFunctionConditionItem.intA.set(this,intA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightInt}.
+	 * Returns the value of {@link #intB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Integer getRightInt()
+	final java.lang.Integer getIntB()
 	{
-		return CompareFunctionConditionItem.rightInt.get(this);
+		return CompareFunctionConditionItem.intB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightInt}.
+	 * Sets a new value for {@link #intB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightInt(final java.lang.Integer rightInt)
+	final void setIntB(final java.lang.Integer intB)
 	{
-		CompareFunctionConditionItem.rightInt.set(this,rightInt);
+		CompareFunctionConditionItem.intB.set(this,intB);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftLong}.
+	 * Returns the value of {@link #longA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Long getLeftLong()
+	final java.lang.Long getLongA()
 	{
-		return CompareFunctionConditionItem.leftLong.get(this);
+		return CompareFunctionConditionItem.longA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftLong}.
+	 * Sets a new value for {@link #longA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftLong(final java.lang.Long leftLong)
+	final void setLongA(final java.lang.Long longA)
 	{
-		CompareFunctionConditionItem.leftLong.set(this,leftLong);
+		CompareFunctionConditionItem.longA.set(this,longA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightLong}.
+	 * Returns the value of {@link #longB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Long getRightLong()
+	final java.lang.Long getLongB()
 	{
-		return CompareFunctionConditionItem.rightLong.get(this);
+		return CompareFunctionConditionItem.longB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightLong}.
+	 * Sets a new value for {@link #longB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightLong(final java.lang.Long rightLong)
+	final void setLongB(final java.lang.Long longB)
 	{
-		CompareFunctionConditionItem.rightLong.set(this,rightLong);
+		CompareFunctionConditionItem.longB.set(this,longB);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftDouble}.
+	 * Returns the value of {@link #doubleA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Double getLeftDouble()
+	final java.lang.Double getDoubleA()
 	{
-		return CompareFunctionConditionItem.leftDouble.get(this);
+		return CompareFunctionConditionItem.doubleA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftDouble}.
+	 * Sets a new value for {@link #doubleA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftDouble(final java.lang.Double leftDouble)
+	final void setDoubleA(final java.lang.Double doubleA)
 	{
-		CompareFunctionConditionItem.leftDouble.set(this,leftDouble);
+		CompareFunctionConditionItem.doubleA.set(this,doubleA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightDouble}.
+	 * Returns the value of {@link #doubleB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Double getRightDouble()
+	final java.lang.Double getDoubleB()
 	{
-		return CompareFunctionConditionItem.rightDouble.get(this);
+		return CompareFunctionConditionItem.doubleB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightDouble}.
+	 * Sets a new value for {@link #doubleB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightDouble(final java.lang.Double rightDouble)
+	final void setDoubleB(final java.lang.Double doubleB)
 	{
-		CompareFunctionConditionItem.rightDouble.set(this,rightDouble);
+		CompareFunctionConditionItem.doubleB.set(this,doubleB);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftDate}.
+	 * Returns the value of {@link #dateA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.util.Date getLeftDate()
+	final java.util.Date getDateA()
 	{
-		return CompareFunctionConditionItem.leftDate.get(this);
+		return CompareFunctionConditionItem.dateA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftDate}.
+	 * Sets a new value for {@link #dateA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftDate(final java.util.Date leftDate)
+	final void setDateA(final java.util.Date dateA)
 	{
-		CompareFunctionConditionItem.leftDate.set(this,leftDate);
+		CompareFunctionConditionItem.dateA.set(this,dateA);
 	}/**
 
 	 **
-	 * Sets the current date for the date field {@link #leftDate}.
+	 * Sets the current date for the date field {@link #dateA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchLeftDate()
+	final void touchDateA()
 	{
-		CompareFunctionConditionItem.leftDate.touch(this);
+		CompareFunctionConditionItem.dateA.touch(this);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightDate}.
+	 * Returns the value of {@link #dateB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.util.Date getRightDate()
+	final java.util.Date getDateB()
 	{
-		return CompareFunctionConditionItem.rightDate.get(this);
+		return CompareFunctionConditionItem.dateB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightDate}.
+	 * Sets a new value for {@link #dateB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightDate(final java.util.Date rightDate)
+	final void setDateB(final java.util.Date dateB)
 	{
-		CompareFunctionConditionItem.rightDate.set(this,rightDate);
+		CompareFunctionConditionItem.dateB.set(this,dateB);
 	}/**
 
 	 **
-	 * Sets the current date for the date field {@link #rightDate}.
+	 * Sets the current date for the date field {@link #dateB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchRightDate()
+	final void touchDateB()
 	{
-		CompareFunctionConditionItem.rightDate.touch(this);
+		CompareFunctionConditionItem.dateB.touch(this);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftDay}.
+	 * Returns the value of {@link #dayA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final com.exedio.cope.util.Day getLeftDay()
+	final com.exedio.cope.util.Day getDayA()
 	{
-		return CompareFunctionConditionItem.leftDay.get(this);
+		return CompareFunctionConditionItem.dayA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftDay}.
+	 * Sets a new value for {@link #dayA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftDay(final com.exedio.cope.util.Day leftDay)
+	final void setDayA(final com.exedio.cope.util.Day dayA)
 	{
-		CompareFunctionConditionItem.leftDay.set(this,leftDay);
+		CompareFunctionConditionItem.dayA.set(this,dayA);
 	}/**
 
 	 **
-	 * Sets today for the date field {@link #leftDay}.
+	 * Sets today for the date field {@link #dayA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchLeftDay(final java.util.TimeZone zone)
+	final void touchDayA(final java.util.TimeZone zone)
 	{
-		CompareFunctionConditionItem.leftDay.touch(this,zone);
+		CompareFunctionConditionItem.dayA.touch(this,zone);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightDay}.
+	 * Returns the value of {@link #dayB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final com.exedio.cope.util.Day getRightDay()
+	final com.exedio.cope.util.Day getDayB()
 	{
-		return CompareFunctionConditionItem.rightDay.get(this);
+		return CompareFunctionConditionItem.dayB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightDay}.
+	 * Sets a new value for {@link #dayB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightDay(final com.exedio.cope.util.Day rightDay)
+	final void setDayB(final com.exedio.cope.util.Day dayB)
 	{
-		CompareFunctionConditionItem.rightDay.set(this,rightDay);
+		CompareFunctionConditionItem.dayB.set(this,dayB);
 	}/**
 
 	 **
-	 * Sets today for the date field {@link #rightDay}.
+	 * Sets today for the date field {@link #dayB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchRightDay(final java.util.TimeZone zone)
+	final void touchDayB(final java.util.TimeZone zone)
 	{
-		CompareFunctionConditionItem.rightDay.touch(this,zone);
+		CompareFunctionConditionItem.dayB.touch(this,zone);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftEnum}.
+	 * Returns the value of {@link #enumA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final XEnum getLeftEnum()
+	final XEnum getEnumA()
 	{
-		return CompareFunctionConditionItem.leftEnum.get(this);
+		return CompareFunctionConditionItem.enumA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftEnum}.
+	 * Sets a new value for {@link #enumA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftEnum(final XEnum leftEnum)
+	final void setEnumA(final XEnum enumA)
 	{
-		CompareFunctionConditionItem.leftEnum.set(this,leftEnum);
+		CompareFunctionConditionItem.enumA.set(this,enumA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightEnum}.
+	 * Returns the value of {@link #enumB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final XEnum getRightEnum()
+	final XEnum getEnumB()
 	{
-		return CompareFunctionConditionItem.rightEnum.get(this);
+		return CompareFunctionConditionItem.enumB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightEnum}.
+	 * Sets a new value for {@link #enumB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightEnum(final XEnum rightEnum)
+	final void setEnumB(final XEnum enumB)
 	{
-		CompareFunctionConditionItem.rightEnum.set(this,rightEnum);
+		CompareFunctionConditionItem.enumB.set(this,enumB);
 	}/**
 
 	 **
-	 * Returns the value of {@link #leftItem}.
+	 * Returns the value of {@link #itemA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final CompareFunctionConditionItem getLeftItem()
+	final CompareFunctionConditionItem getItemA()
 	{
-		return CompareFunctionConditionItem.leftItem.get(this);
+		return CompareFunctionConditionItem.itemA.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #leftItem}.
+	 * Sets a new value for {@link #itemA}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLeftItem(final CompareFunctionConditionItem leftItem)
+	final void setItemA(final CompareFunctionConditionItem itemA)
 	{
-		CompareFunctionConditionItem.leftItem.set(this,leftItem);
+		CompareFunctionConditionItem.itemA.set(this,itemA);
 	}/**
 
 	 **
-	 * Returns the value of {@link #rightItem}.
+	 * Returns the value of {@link #itemB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final CompareFunctionConditionItem getRightItem()
+	final CompareFunctionConditionItem getItemB()
 	{
-		return CompareFunctionConditionItem.rightItem.get(this);
+		return CompareFunctionConditionItem.itemB.get(this);
 	}/**
 
 	 **
-	 * Sets a new value for {@link #rightItem}.
+	 * Sets a new value for {@link #itemB}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRightItem(final CompareFunctionConditionItem rightItem)
+	final void setItemB(final CompareFunctionConditionItem itemB)
 	{
-		CompareFunctionConditionItem.rightItem.set(this,rightItem);
+		CompareFunctionConditionItem.itemB.set(this,itemB);
 	}/**
 
 	 **
