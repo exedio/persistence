@@ -109,11 +109,18 @@ public final class RuntimeAssert
 
 	public static final <T extends Item> void assertCondition(final List<T> expected, final Type<T> type, final Condition actual)
 	{
+		assertCondition(expected, expected, type, actual);
+	}
+
+	public static final <T extends Item> void assertCondition(
+			final List<T> expectedSearch,  final List<T> expectedGet,
+			final Type<T> type, final Condition actual)
+	{
 		final List<T> actualResult = type.search(actual);
-		assertContainsList(expected, actualResult);
+		assertContainsList(expectedSearch, actualResult);
 		assertUnmodifiable(actualResult);
 		for(final T item : type.search())
-			assertEquals(item.getCopeID(), expected.contains(item), actual.get(item));
+			assertEquals(item.getCopeID(), expectedGet.contains(item), actual.get(item));
 	}
 
 
