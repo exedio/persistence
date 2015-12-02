@@ -70,12 +70,12 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1));
-		item2 = deleteOnTearDown(new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2));
-		itemf1 = deleteOnTearDown(new CompareFunctionConditionItem("string1l", "string1r", 1, 101, 11l, 111l, 2.1, 102.1, date(-2), date(-102), day(-2), day(-102), XEnum.V1, XEnum.V4));
-		itemf2 = deleteOnTearDown(new CompareFunctionConditionItem("string2l", "string2r", 2, 102, 12l, 112l, 2.2, 102.2, date(-1), date(-101), day(-1), day(-101), XEnum.V2, XEnum.V5));
-		itemX = deleteOnTearDown(new CompareFunctionConditionItem(null, null, null, null, null, null, null));
-		itemY = deleteOnTearDown(new CompareFunctionConditionItem(null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+		item1  = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1);
+		item2  = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2);
+		itemf1 = new CompareFunctionConditionItem("string1l", "string1r", 1, 101, 11l, 111l, 2.1, 102.1, date(-2), date(-102), day(-2), day(-102), XEnum.V1, XEnum.V4);
+		itemf2 = new CompareFunctionConditionItem("string2l", "string2r", 2, 102, 12l, 112l, 2.2, 102.2, date(-1), date(-101), day(-1), day(-101), XEnum.V2, XEnum.V5);
+		itemX  = new CompareFunctionConditionItem(null, null, null, null, null, null, null);
+		itemY  = new CompareFunctionConditionItem(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 		item1.setLeftItem(item1);
 		item2.setLeftItem(item2);
 	}

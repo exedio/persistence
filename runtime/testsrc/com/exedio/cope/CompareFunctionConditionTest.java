@@ -70,12 +70,12 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1));
-		item2 = deleteOnTearDown(new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2));
-		item3 = deleteOnTearDown(new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3));
-		item4 = deleteOnTearDown(new CompareFunctionConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), XEnum.V4));
-		item5 = deleteOnTearDown(new CompareFunctionConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), XEnum.V5));
-		itemX = deleteOnTearDown(new CompareFunctionConditionItem(null, null, null, null, null, null, null));
+		item1 = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1);
+		item2 = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2);
+		item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3);
+		item4 = new CompareFunctionConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), XEnum.V4);
+		item5 = new CompareFunctionConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), XEnum.V5);
+		itemX = new CompareFunctionConditionItem(null, null, null, null, null, null, null);
 		item1.setRightItem(item3);
 		item2.setRightItem(item3);
 		item3.setRightItem(item3);
