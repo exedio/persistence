@@ -48,6 +48,7 @@ import java.util.List;
 public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(CompareFunctionConditionItem.TYPE);
+	private static final This<CompareFunctionConditionItem> THIS = TYPE.getThis();
 
 	public CompareFunctionConditionTest()
 	{
@@ -116,7 +117,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .equal(dayB));
 			assertCondition(expected, TYPE, enumA  .equal(enumB));
 			assertCondition(expected, TYPE, itemA  .equal(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().equal(itemB));
+			assertCondition(expected, TYPE, THIS   .equal(itemB));
 		}
 		// notEqual
 		{
@@ -130,7 +131,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .notEqual(dayB));
 			assertCondition(expected, TYPE, enumA  .notEqual(enumB));
 			assertCondition(expected, TYPE, itemA  .notEqual(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().notEqual(itemB));
+			assertCondition(expected, TYPE, THIS   .notEqual(itemB));
 		}
 		// less
 		{
@@ -144,7 +145,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .less(dayB));
 			assertCondition(expected, TYPE, enumA  .less(enumB));
 			assertCondition(expected, TYPE, itemA  .less(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().less(itemB));
+			assertCondition(expected, TYPE, THIS   .less(itemB));
 		}
 		// lessOrEqual
 		{
@@ -158,7 +159,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .lessOrEqual(dayB));
 			assertCondition(expected, TYPE, enumA  .lessOrEqual(enumB));
 			assertCondition(expected, TYPE, itemA  .lessOrEqual(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().lessOrEqual(itemB));
+			assertCondition(expected, TYPE, THIS   .lessOrEqual(itemB));
 		}
 		// greater
 		{
@@ -172,7 +173,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .greater(dayB));
 			assertCondition(expected, TYPE, enumA  .greater(enumB));
 			assertCondition(expected, TYPE, itemA  .greater(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().greater(itemB));
+			assertCondition(expected, TYPE, THIS   .greater(itemB));
 		}
 		// greaterOrEqual
 		{
@@ -186,7 +187,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 			assertCondition(expected, TYPE, dayA   .greaterOrEqual(dayB));
 			assertCondition(expected, TYPE, enumA  .greaterOrEqual(enumB));
 			assertCondition(expected, TYPE, itemA  .greaterOrEqual(itemB));
-			assertCondition(expected, TYPE, TYPE.getThis().greaterOrEqual(itemB));
+			assertCondition(expected, TYPE, THIS   .greaterOrEqual(itemB));
 		}
 	}
 }
