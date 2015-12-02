@@ -43,7 +43,7 @@ import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 
-public class CompareFunctionConditionTest extends AbstractRuntimeTest
+public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(CompareFunctionConditionItem.TYPE);
 
