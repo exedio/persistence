@@ -23,6 +23,9 @@ import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StartsWithConditionTest extends AbstractRuntimeModelTest
 {
 	public StartsWithConditionTest()
@@ -59,17 +62,28 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 	{
 		// TODO wrong NotAndNull
 		assertCondition(
-				asList(item0, item6, item6x4),
+				reduce(asList(item0, item6, item6x4)),
 				asList(item0, item6, item6x4, itemX),
 				TYPE, data.startsWith(bytes4).not());
 		assertCondition(
-				asList(item0, item4, item6x4),
+				reduce(asList(item0, item4, item6x4)),
 				asList(item0, item4, item6x4, itemX),
 				TYPE, data.startsWith(bytes6).not());
 		assertCondition(
-				asList(item0, item4),
+				reduce(asList(item0, item4)),
 				asList(item0, item4, itemX),
 				TYPE, data.startsWith(bytes6x4).not());
+	}
+
+	private List<DataItem> reduce(final List<DataItem> list)
+	{
+		if(!oracle)
+			return list;
+
+		// TODO make oracle look like other databases
+		final ArrayList<DataItem> result = new ArrayList<>(list);
+		result.remove(item0);
+		return result;
 	}
 
 	private static final byte[] bytes0  = {};
