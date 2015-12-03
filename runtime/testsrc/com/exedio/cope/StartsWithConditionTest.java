@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static java.util.Arrays.asList;
 
 public class StartsWithConditionTest extends AbstractRuntimeModelTest
 {
@@ -29,7 +30,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item0, item4, item6, item6x4;
+	private DataItem item0, item4, item6, item6x4, itemX;
 
 	@Override
 	public void setUp() throws Exception
@@ -40,7 +41,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		item4 = new DataItem();
 		item6 = new DataItem();
 		item6x4 = new DataItem();
-		new DataItem(); // is null
+		itemX = new DataItem(); // is null
 		item0.setData(bytes0);
 		item4.setData(bytes4);
 		item6.setData(bytes6);
@@ -52,6 +53,23 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item4, TYPE, data.startsWith(bytes4));
 		assertCondition(item6, TYPE, data.startsWith(bytes6));
 		assertCondition(item6, item6x4, TYPE, data.startsWith(bytes6x4));
+	}
+
+	public void testNot()
+	{
+		// TODO wrong NotAndNull
+		assertCondition(
+				asList(item0, item6, item6x4),
+				asList(item0, item6, item6x4, itemX),
+				TYPE, data.startsWith(bytes4).not());
+		assertCondition(
+				asList(item0, item4, item6x4),
+				asList(item0, item4, item6x4, itemX),
+				TYPE, data.startsWith(bytes6).not());
+		assertCondition(
+				asList(item0, item4),
+				asList(item0, item4, itemX),
+				TYPE, data.startsWith(bytes6x4).not());
 	}
 
 	private static final byte[] bytes0  = {};
