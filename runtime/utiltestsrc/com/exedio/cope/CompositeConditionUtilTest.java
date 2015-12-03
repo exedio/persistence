@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CompositeConditionTest extends CopeAssert
+public class CompositeConditionUtilTest extends CopeAssert
 {
 	public void testIt()
 	{

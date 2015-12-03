@@ -72,7 +72,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(EnviromentInfoTest.class);
 		suite.addTestSuite(ArraysTest.class);
 		suite.addTestSuite(ByteAlgorithmTest.class);
-		suite.addTestSuite(CompositeConditionTest.class);
+		suite.addTestSuite(CompositeConditionUtilTest.class);
 		suite.addTestSuite(CompositeConditionCopeTest.class);
 		suite.addTestSuite(ItemCacheSummaryTest.class);
 		suite.addTestSuite(LongFieldTest.class);
