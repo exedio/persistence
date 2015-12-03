@@ -65,11 +65,14 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		reffN  = new InstanceOfRefItem(null);
 	}
 
-	public void testIt()
+	public void testAll()
 	{
 		assertContains(itema, itemb1, itemb2, itemc1,        TYPE_A.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffN, TYPE_REF.search(null));
+	}
 
+	public void testThis()
+	{
 		assertCondition(itema, itemb1, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_C1));
 		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1));
 		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1, TYPE_C1));
@@ -78,7 +81,10 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		assertCondition(TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_A));
 		assertCondition(TYPE_A, TYPE_A.getThis().notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
 		assertCondition(itemc1, TYPE_A, TYPE_A.getThis().instanceOf(TYPE_C1));
+	}
 
+	public void testRef()
+	{
 		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_C1));
 		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1));
 		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1, TYPE_C1));
@@ -87,10 +93,15 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		assertCondition(TYPE_REF, ref.notInstanceOf(TYPE_A));
 		assertCondition(TYPE_REF, ref.notInstanceOf(new Type<?>[]{TYPE_A, TYPE_B1, TYPE_B2, TYPE_C1}));
 		assertCondition(reffc1, TYPE_REF, ref.instanceOf(TYPE_C1));
+	}
 
+	public void testCheckTypeColumns()
+	{
 		model.checkTypeColumns();
+	}
 
-		// test self joins and inheritance
+	public void testSelfJoinsAndInheritance()
+	{
 		{
 			itemc1.setTextc1("textC1");
 			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
@@ -137,11 +148,18 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 			j.setCondition(TYPE_A.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
+	}
 
+	public void testToString()
+	{
 		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
 		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
 		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", TYPE_A.getThis().notInstanceOf(TYPE_C1).toString());
 		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
+	}
+
+	public void testFails()
+	{
 		try
 		{
 			TYPE_A.getThis().instanceOf((Type[])null);
