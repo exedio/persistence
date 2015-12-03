@@ -33,7 +33,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item0, item4, item6, item6x4, itemX;
+	private DataItem item0, item4, item6, item6x4;
 
 	@Override
 	public void setUp() throws Exception
@@ -44,7 +44,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		item4 = new DataItem();
 		item6 = new DataItem();
 		item6x4 = new DataItem();
-		itemX = new DataItem(); // is null
+		new DataItem(); // is null
 		item0.setData(bytes0);
 		item4.setData(bytes4);
 		item6.setData(bytes6);
