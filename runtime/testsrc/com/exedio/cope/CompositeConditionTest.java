@@ -31,7 +31,7 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		super(CompareConditionTest.MODEL);
 	}
 
-	CompareConditionItem item, itemA, itemB, itemAB, itemX;
+	CompareConditionItem item, itemA, itemB, itemAB, itemAX, itemXB, itemXX;
 
 	@Override
 	public void setUp() throws Exception
@@ -41,7 +41,9 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		itemA  = new CompareConditionItem(null,    2,   1l, null, null, null, null);
 		itemB  = new CompareConditionItem(null,    1,   2l, null, null, null, null);
 		itemAB = new CompareConditionItem(null,    2,   2l, null, null, null, null);
-		itemX  = new CompareConditionItem(null, null, null, null, null, null, null);
+		itemAX = new CompareConditionItem(null,    3, null, null, null, null, null);
+		itemXB = new CompareConditionItem(null, null,   3l, null, null, null, null);
+		itemXX = new CompareConditionItem(null, null, null, null, null, null, null);
 	}
 
 	public void testNot()
@@ -49,23 +51,23 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		final Condition conditionA = intx .greater(1);
 		final Condition conditionB = longx.greater(1l);
 
-		assertCondition(asList(itemA, itemAB), TYPE, conditionA);
-		assertCondition(asList(itemB, itemAB), TYPE, conditionB);
+		assertCondition(asList(itemA, itemAB, itemAX), TYPE, conditionA);
+		assertCondition(asList(itemB, itemAB, itemXB), TYPE, conditionB);
 
 		final Condition conditionAnd = conditionA.and(conditionB);
 		final Condition conditionOr  = conditionA.or (conditionB);
 
-		assertCondition(asList(              itemAB), TYPE, conditionAnd);
-		assertCondition(asList(itemA, itemB, itemAB), TYPE, conditionOr );
+		assertCondition(asList(              itemAB                ), TYPE, conditionAnd);
+		assertCondition(asList(itemA, itemB, itemAB, itemAX, itemXB), TYPE, conditionOr );
 
 		// TODO wrong NotAndNull
 		assertCondition(
 				asList(item, itemA, itemB),
-				asList(item, itemA, itemB, itemX),
+				asList(item, itemA, itemB, itemAX, itemXB, itemXX),
 				TYPE, conditionAnd.not());
 		assertCondition(
 				asList(item),
-				asList(item, itemX),
+				asList(item, itemXX),
 				TYPE, conditionOr.not());
 	}
 }
