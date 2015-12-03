@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.StringCharSetItem.TYPE;
 import static com.exedio.cope.StringCharSetItem.alpha;
 import static com.exedio.cope.StringCharSetItem.any;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.CharSet;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class StringCharSetTest extends AbstractRuntimeModelTest
@@ -110,7 +110,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 	{
 		assertEquals("isSubsetOfAscii", isSubsetOfAscii, cs.isSubsetOfAscii());
 		final CharSetCondition c = new CharSetCondition(any, cs);
-		final HashSet<StringCharSetItem> resultSet = new HashSet<>(Arrays.asList(result));
+		final HashSet<StringCharSetItem> resultSet = new HashSet<>(asList(result));
 		for(final StringCharSetItem i : TYPE.search(null, TYPE.getThis(), true))
 			assertEquals(i.getCode(), resultSet.contains(i), c.get(i));
 
@@ -118,7 +118,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		{
 			if(isSubsetOfAscii)
 			{
-				assertEquals(Arrays.asList(result), TYPE.search(c, TYPE.getThis(), true));
+				assertEquals(asList(result), TYPE.search(c, TYPE.getThis(), true));
 			}
 			else
 			{
@@ -153,7 +153,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 
 		if(mysql)
 		{
-			assertEquals(Arrays.asList(yes), TYPE.search(c, TYPE.getThis(), true));
+			assertEquals(asList(yes), TYPE.search(c, TYPE.getThis(), true));
 		}
 		else
 		{
