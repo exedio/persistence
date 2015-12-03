@@ -135,15 +135,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 		else
 		{
-			try
-			{
-				TYPE.search(c);
-				fail();
-			}
-			catch(final RuntimeException e)
-			{
-				assertEquals("CharSetCondition not yet implemented", e.getMessage());
-			}
+			assertNotYetImplemented(c);
 		}
 	}
 
@@ -165,15 +157,20 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 		else
 		{
-			try
-			{
-				TYPE.search(c);
-				fail();
-			}
-			catch(final RuntimeException e)
-			{
-				assertEquals("CharSetCondition not yet implemented", e.getMessage());
-			}
+			assertNotYetImplemented(c);
+		}
+	}
+
+	private static void assertNotYetImplemented(final Condition condition)
+	{
+		try
+		{
+			TYPE.search(condition);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("CharSetCondition not yet implemented", e.getMessage());
 		}
 	}
 
