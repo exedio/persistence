@@ -117,6 +117,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( HierarchyCompareTest.class );
 		suite.addTestSuite( SearchTest.class );
 		suite.addTestSuite( AsStringTest.class );
+		suite.addTestSuite( StartsWithConditionTest.class );
 		suite.addTestSuite( PlusIntegerTest.class );
 		suite.addTestSuite( PlusIntegerOrderTest.class );
 		suite.addTestSuite( PlusIntegerOrderNullTest.class );

@@ -19,10 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
-import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
-import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
@@ -122,28 +120,16 @@ public class DataTest extends AbstractRuntimeModelTest
 	public void testData() throws MandatoryViolationException, IOException
 	{
 		assertIt(null);
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		// set byte[]
 		item.setData(bytes4);
 		assertIt(bytes4);
-		assertCondition(item, TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes6);
 		assertIt(bytes6);
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(item, TYPE, data.startsWith(bytes6));
-		assertCondition(item, TYPE, data.startsWith(bytes6x4));
 
 		item.setData(bytes0);
 		assertIt(bytes0);
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
 
 		item.setData(dataBig);
 		assertIt(dataBig);
@@ -392,7 +378,6 @@ public class DataTest extends AbstractRuntimeModelTest
 	private static final byte[] bytes0  = {};
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
-	private static final byte[] bytes6x4= {-97,35,-126,86};
 	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
 	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
