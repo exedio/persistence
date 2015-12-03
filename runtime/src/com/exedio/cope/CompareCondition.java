@@ -61,7 +61,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
 		 // TODO do something nicer
 		if(!(left instanceof Function))

@@ -51,9 +51,9 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
-		return !argument.get(item);
+		return argument.getTri(item).not();
 	}
 
 	@Override

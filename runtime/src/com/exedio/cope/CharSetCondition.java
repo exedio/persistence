@@ -49,14 +49,14 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
 		final String s = function.get(item);
 		if(s==null)
-			return false;
+			return Trilean.Null;
 
 		final int i = value.indexOfNotContains(s);
-		return (i<0);
+		return Trilean.valueOf( i<0 );
 	}
 
 	@Override

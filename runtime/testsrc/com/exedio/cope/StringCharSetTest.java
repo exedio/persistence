@@ -175,7 +175,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 
 		assertEquals(false, conditionNot.get(itemTrue));
 		assertEquals(true,  conditionNot.get(itemFalse));
-		assertEquals(true,  conditionNot.get(itemNull)); // TODO wrong NotAndNull
+		assertEquals(false, conditionNot.get(itemNull));
 
 		if(mysql)
 		{

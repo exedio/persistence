@@ -60,18 +60,18 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO wrong NotAndNull
+		// TODO format NotAndNull
 		assertCondition(
 				reduce(asList(item0, item6, item6x4)),
-				asList(item0, item6, item6x4, itemX),
+				reduce(asList(item0, item6, item6x4)),
 				TYPE, data.startsWith(bytes4).not());
 		assertCondition(
 				reduce(asList(item0, item4, item6x4)),
-				asList(item0, item4, item6x4, itemX),
+				reduce(asList(item0, item4, item6x4)),
 				TYPE, data.startsWith(bytes6).not());
 		assertCondition(
 				reduce(asList(item0, item4)),
-				asList(item0, item4, itemX),
+				reduce(asList(item0, item4)),
 				TYPE, data.startsWith(bytes6x4).not());
 	}
 

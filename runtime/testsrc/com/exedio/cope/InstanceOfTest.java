@@ -98,14 +98,12 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO wrong NotAndNull
+		// TODO format NotAndNull
 		assertCondition(
 				asList(reffc1),
-				asList(reffc1, reffN),
 				TYPE_REF, ref.notInstanceOf(TYPE_C1).not());
 		assertCondition(
 				asList(reffa, reffb1, reffb2),
-				asList(reffa, reffb1, reffb2, reffN),
 				TYPE_REF, ref.instanceOf(TYPE_C1).not());
 	}
 

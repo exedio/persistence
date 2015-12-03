@@ -26,7 +26,12 @@ public abstract class Condition implements Serializable
 
 	abstract void append(Statement statment);
 
-	public abstract boolean get(Item item);
+	public final boolean get(final Item item)
+	{
+		return getTri(item).applies;
+	}
+
+	abstract Trilean getTri(Item item);
 
 	abstract void check(TC tc);
 
@@ -58,11 +63,13 @@ public abstract class Condition implements Serializable
 		private static final long serialVersionUID = 1l;
 
 		final boolean value;
+		final transient Trilean valueTri; // restored by readResolve
 		private final transient String name; // restored by readResolve
 
 		Literal(final boolean value, final String name)
 		{
 			this.value = value;
+			this.valueTri = Trilean.valueOf(value);
 			this.name = name;
 		}
 
@@ -73,7 +80,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		public boolean get(final Item item)
+		Trilean getTri(final Item item)
 		{
 			// NOTE
 			// all other implementations of get will fail when
@@ -82,7 +89,7 @@ public abstract class Condition implements Serializable
 			if(item==null)
 				throw new NullPointerException();
 
-			return value;
+			return valueTri;
 		}
 
 		@Override

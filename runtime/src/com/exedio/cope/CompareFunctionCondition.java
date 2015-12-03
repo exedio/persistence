@@ -58,7 +58,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
 		return operator.evaluate(left.get(item), right.get(item));
 	}
@@ -158,14 +158,15 @@ public final class CompareFunctionCondition<E> extends Condition
 		}
 
 		@SuppressWarnings("unchecked")
-		final boolean evaluate(final Object left, final Object right)
+		final Trilean evaluate(final Object left, final Object right)
 		{
+			if(left==null || right==null)
+				return Trilean.Null;
+
 			return
-				(left!=null) &&
-				(right!=null) &&
-				evaluateNotNull(
+					Trilean.valueOf(evaluateNotNull(
 						(Comparable<Comparable<?>>)left, // TODO make casts to Comparable redundant
-						(Comparable<Comparable<?>>)right);
+						(Comparable<Comparable<?>>)right));
 		}
 
 		abstract boolean evaluateNotNull(Comparable<Comparable<?>> left, Comparable<Comparable<?>> right);

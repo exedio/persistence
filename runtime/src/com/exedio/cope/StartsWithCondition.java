@@ -56,18 +56,20 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
 		// TODO wastes performance, fetch only the first bytes
 		final byte[] v = field.getArray(item);
-		if(v==null || v.length<value.length)
-			return false;
+		if(v==null)
+			return Trilean.Null;
+		if(v.length<value.length)
+			return Trilean.False;
 
 		for(int i = 0; i<value.length; i++)
 			if(v[i]!=value[i])
-				return false;
+				return Trilean.False;
 
-		return true;
+		return Trilean.True;
 	}
 
 	@Override
