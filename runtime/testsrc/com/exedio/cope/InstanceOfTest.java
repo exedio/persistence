@@ -53,16 +53,16 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 
-		itema = deleteOnTearDown(new InstanceOfAItem("itema"));
-		itemb1 = deleteOnTearDown(new InstanceOfB1Item("itemb1"));
-		itemb2 = deleteOnTearDown(new InstanceOfB2Item("itemb2"));
-		itemc1 = deleteOnTearDown(new InstanceOfC1Item("itemc1"));
+		itema  = new InstanceOfAItem("itema");
+		itemb1 = new InstanceOfB1Item("itemb1");
+		itemb2 = new InstanceOfB2Item("itemb2");
+		itemc1 = new InstanceOfC1Item("itemc1");
 
-		reffa = deleteOnTearDown(new InstanceOfRefItem(itema));
-		reffb1 = deleteOnTearDown(new InstanceOfRefItem(itemb1));
-		reffb2 = deleteOnTearDown(new InstanceOfRefItem(itemb2));
-		reffc1 = deleteOnTearDown(new InstanceOfRefItem(itemc1));
-		reffN = deleteOnTearDown(new InstanceOfRefItem(null));
+		reffa  = new InstanceOfRefItem(itema);
+		reffb1 = new InstanceOfRefItem(itemb1);
+		reffb2 = new InstanceOfRefItem(itemb2);
+		reffc1 = new InstanceOfRefItem(itemc1);
+		reffN  = new InstanceOfRefItem(null);
 	}
 
 	public void testIt()

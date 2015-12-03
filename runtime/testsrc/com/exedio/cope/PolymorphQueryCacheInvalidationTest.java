@@ -32,7 +32,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTes
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		itema = deleteOnTearDown(new InstanceOfAItem("itema"));
+		itema = new InstanceOfAItem("itema");
 	}
 
 	public void testIt()
@@ -40,13 +40,13 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTes
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		assertContains(itema, q.search());
 
-		final InstanceOfB1Item itemb1a = deleteOnTearDown(new InstanceOfB1Item("itemb1a"));
+		final InstanceOfB1Item itemb1a = new InstanceOfB1Item("itemb1a");
 
 		restartTransaction();
 
 		assertContains(itema, itemb1a, q.search());
 
-		final InstanceOfB1Item itemb1b = deleteOnTearDown(new InstanceOfB1Item("itemb1b"));
+		final InstanceOfB1Item itemb1b = new InstanceOfB1Item("itemb1b");
 
 		restartTransaction();
 
