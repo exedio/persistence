@@ -68,6 +68,11 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		model.commit();
 	}
 
+	protected final File file(final byte[] data)
+	{
+		return files.file(data);
+	}
+
 	protected final File deleteOnTearDown(final File file)
 	{
 		return files.deleteOnTearDown(file);

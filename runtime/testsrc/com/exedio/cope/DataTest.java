@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
@@ -33,7 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DataTest extends AbstractRuntimeTest
+public class DataTest extends AbstractRuntimeModelTest
 {
 	public DataTest()
 	{
