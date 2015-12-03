@@ -51,14 +51,14 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		final Condition conditionA = intx .greater(1);
 		final Condition conditionB = longx.greater(1l);
 
-		assertCondition(asList(itemA, itemAB, itemAX), TYPE, conditionA);
-		assertCondition(asList(itemB, itemAB, itemXB), TYPE, conditionB);
+		assertCondition(itemA, itemAB, itemAX, TYPE, conditionA);
+		assertCondition(itemB, itemAB, itemXB, TYPE, conditionB);
 
 		final Condition conditionAnd = conditionA.and(conditionB);
 		final Condition conditionOr  = conditionA.or (conditionB);
 
-		assertCondition(asList(              itemAB                ), TYPE, conditionAnd);
-		assertCondition(asList(itemA, itemB, itemAB, itemAX, itemXB), TYPE, conditionOr );
+		assertCondition(              itemAB                , TYPE, conditionAnd);
+		assertCondition(itemA, itemB, itemAB, itemAX, itemXB, TYPE, conditionOr );
 
 		// TODO wrong NotAndNull
 		assertCondition(
