@@ -171,6 +171,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		catch(final RuntimeException e)
 		{
 			assertEquals("CharSetCondition not yet implemented", e.getMessage());
+			assertEquals(RuntimeException.class, e.getClass());
 		}
 	}
 
