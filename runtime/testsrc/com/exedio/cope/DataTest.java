@@ -57,7 +57,7 @@ public class DataTest extends AbstractRuntimeModelTest
 		for(int i = 0; i<dataBigLength; i++)
 			dataBig[i] = bytes8[i % data8Length];
 
-		item = deleteOnTearDown(new DataItem());
+		item = new DataItem();
 	}
 
 	@Override
@@ -206,7 +206,7 @@ public class DataTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getMessage());
 		}
 
-		final DataSubItem subItem = deleteOnTearDown(new DataSubItem());
+		final DataSubItem subItem = new DataSubItem();
 
 		subItem.setData(stream(bytes4));
 		assertStreamClosed();
@@ -300,15 +300,15 @@ public class DataTest extends AbstractRuntimeModelTest
 		assertEquals("eins", item.getName());
 
 		{
-			final DataItem item2 = deleteOnTearDown(new DataItem(bytes4, bytes10));
+			final DataItem item2 = new DataItem(bytes4, bytes10);
 			assertData(bytes4, item2.getDataArray());
 			assertData(bytes10, item2.getData10Array());
 		}
 		{
-			final DataItem item3 = deleteOnTearDown(DataItem.TYPE.newItem(
+			final DataItem item3 = DataItem.TYPE.newItem(
 					DataItem.data.map(bytes6),
 					DataItem.data10.map(bytes10)
-			));
+			);
 			assertData(bytes6, item3.getDataArray());
 			assertData(bytes10, item3.getData10Array());
 		}
