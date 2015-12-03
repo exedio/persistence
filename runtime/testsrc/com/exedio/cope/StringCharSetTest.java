@@ -161,6 +161,34 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	public void testNot()
+	{
+		final CharSetCondition condition = new CharSetCondition(any, new CharSet('a', 'd'));
+		final Condition conditionNot = condition.not();
+		final StringCharSetItem itemTrue  = any("true",  "abcd");
+		final StringCharSetItem itemFalse = any("false", "abcX");
+		final StringCharSetItem itemNull  = any("null",  null);
+
+		assertEquals(true,  condition.get(itemTrue));
+		assertEquals(false, condition.get(itemFalse));
+		assertEquals(false, condition.get(itemNull));
+
+		assertEquals(false, conditionNot.get(itemTrue));
+		assertEquals(true,  conditionNot.get(itemFalse));
+		assertEquals(true,  conditionNot.get(itemNull)); // TODO wrong NotAndNull
+
+		if(mysql)
+		{
+			assertEquals(asList(itemTrue ), TYPE.search(condition,    TYPE.getThis(), true));
+			assertEquals(asList(itemFalse), TYPE.search(conditionNot, TYPE.getThis(), true));
+		}
+		else
+		{
+			assertNotYetImplemented(condition);
+			assertNotYetImplemented(conditionNot);
+		}
+	}
+
 	private static void assertNotYetImplemented(final Condition condition)
 	{
 		try
