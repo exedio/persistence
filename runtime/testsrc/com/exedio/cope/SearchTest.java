@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
@@ -157,9 +156,5 @@ public class SearchTest extends TestmodelTest
 		{
 			assertEquals(null, e.getMessage());
 		}
-
-		assertDelete(item);
-		assertDelete(item2);
-		assertDelete(someItem);
 	}
 }
