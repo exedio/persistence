@@ -141,6 +141,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite( CoalesceFunctionTest.class );
 		suite.addTestSuite( CompareConditionTest.class );
 		suite.addTestSuite( CompareFunctionConditionTest.class );
+		suite.addTestSuite( CompositeConditionTest.class );
 		suite.addTestSuite( InstanceOfModelTest.class );
 		suite.addTestSuite( InstanceOfTest.class );
 		suite.addTestSuite( JoinTest.class );
