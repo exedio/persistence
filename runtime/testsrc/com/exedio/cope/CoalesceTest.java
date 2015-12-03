@@ -35,7 +35,7 @@ import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
 
-public class CoalesceTest extends AbstractRuntimeTest
+public class CoalesceTest extends AbstractRuntimeModelTest
 {
 	public CoalesceTest()
 	{

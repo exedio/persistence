@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class SelectBindTest extends AbstractRuntimeTest
+public class SelectBindTest extends AbstractRuntimeModelTest
 {
 	public SelectBindTest()
 	{

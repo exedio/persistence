@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class RandomTest extends AbstractRuntimeTest
+public class RandomTest extends AbstractRuntimeModelTest
 {
 	public RandomTest()
 	{

@@ -41,7 +41,7 @@ import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
 
-public class CompareConditionTest extends AbstractRuntimeTest
+public class CompareConditionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 	private static final This<CompareConditionItem> THIS = TYPE.getThis();
