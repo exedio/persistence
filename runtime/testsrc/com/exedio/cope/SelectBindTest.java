@@ -40,8 +40,8 @@ public class SelectBindTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null));
-		item2 = deleteOnTearDown(new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null));
+		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
+		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 	}
 
 	public void testIt()

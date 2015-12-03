@@ -69,12 +69,12 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1));
-		item2 = deleteOnTearDown(new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2));
-		item3 = deleteOnTearDown(new CompareConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), YEnum.V3));
-		item4 = deleteOnTearDown(new CompareConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), YEnum.V4));
-		item5 = deleteOnTearDown(new CompareConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), YEnum.V5));
-		itemX = deleteOnTearDown(new CompareConditionItem(null, null, null, null, null, null, null));
+		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1);
+		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2);
+		item3 = new CompareConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), YEnum.V3);
+		item4 = new CompareConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), YEnum.V4);
+		item5 = new CompareConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), YEnum.V5);
+		itemX = new CompareConditionItem(null, null, null, null, null, null, null);
 		item1.setItem(item1);
 		item2.setItem(item2);
 		item3.setItem(item3);
@@ -381,8 +381,8 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 
 	public void testGroup()
 	{
-		deleteOnTearDown( new CompareConditionItem( "s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1 ) );
-		deleteOnTearDown( new CompareConditionItem( "s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1 ) );
+		new CompareConditionItem("s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1);
+		new CompareConditionItem("s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1);
 		final Query<List<Object>> q = Query.newQuery( new Selectable<?>[]{day, intx/*.sum()*/}, CompareConditionItem.TYPE, Condition.TRUE );
 
 		assertContainsList(

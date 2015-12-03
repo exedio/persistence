@@ -60,9 +60,9 @@ public class CoalesceTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1));
-		item2 = deleteOnTearDown(new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2));
-		itemX = deleteOnTearDown(new CompareConditionItem(null, null, null, null, null, null, null));
+		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1);
+		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2);
+		itemX = new CompareConditionItem(null, null, null, null, null, null, null);
 		item1.setItem(item1);
 		item2.setItem(item2);
 	}

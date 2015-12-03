@@ -42,11 +42,11 @@ public class RandomTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null));
-		item2 = deleteOnTearDown(new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null));
-		item3 = deleteOnTearDown(new CompareConditionItem("string3", 3, 13l, 2.3, null, null, null));
-		item4 = deleteOnTearDown(new CompareConditionItem("string4", 4, 14l, 2.4, null, null, null));
-		item5 = deleteOnTearDown(new CompareConditionItem("string5", 5, 15l, 2.5, null, null, null));
+		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
+		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
+		item3 = new CompareConditionItem("string3", 3, 13l, 2.3, null, null, null);
+		item4 = new CompareConditionItem("string4", 4, 14l, 2.4, null, null, null);
+		item5 = new CompareConditionItem("string5", 5, 15l, 2.5, null, null, null);
 		expected5 = asList(
 				406135974830l,
 				874543935874l,
