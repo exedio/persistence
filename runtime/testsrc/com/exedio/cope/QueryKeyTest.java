@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class QueryKeyTest extends AbstractRuntimeTest
+public class QueryKeyTest extends AbstractRuntimeModelTest
 {
 	public QueryKeyTest()
 	{

@@ -105,4 +105,19 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		model.commit();
 		model.startTransaction( oldName+"-restart" );
 	}
+
+	protected final String synthetic(final String name, final String global)
+	{
+		return tester.synthetic(name, global);
+	}
+
+	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
+	{
+		tester.assertPrimaryKeySequenceName(sequenceNameBase, type);
+	}
+
+	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
+	{
+		tester.assertCacheInfo(types, limitWeigths);
+	}
 }

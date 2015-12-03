@@ -24,7 +24,7 @@ import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 
-public class InstanceOfTest extends AbstractRuntimeTest
+public class InstanceOfTest extends AbstractRuntimeModelTest
 {
 	public InstanceOfTest()
 	{

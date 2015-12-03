@@ -30,12 +30,17 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class SchemaInfoConnectionTest extends AbstractRuntimeTest
+public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 {
 	public SchemaInfoConnectionTest()
 	{
 		super(InstanceOfModelTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private Connection c;

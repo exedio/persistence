@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeTest
+public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTest
 {
 	public PolymorphQueryCacheInvalidationTest()
 	{
