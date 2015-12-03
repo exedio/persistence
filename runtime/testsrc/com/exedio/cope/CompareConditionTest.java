@@ -208,6 +208,8 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
+		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
+		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
 		// TODO wrong NotAndNull
 		assertCondition(
 				asList(item1, item2, item4, item5),
