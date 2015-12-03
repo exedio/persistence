@@ -60,28 +60,18 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO format NotAndNull
-		assertCondition(
-				reduce(asList(item0, item6, item6x4)),
-				reduce(asList(item0, item6, item6x4)),
-				TYPE, data.startsWith(bytes4).not());
-		assertCondition(
-				reduce(asList(item0, item4, item6x4)),
-				reduce(asList(item0, item4, item6x4)),
-				TYPE, data.startsWith(bytes6).not());
-		assertCondition(
-				reduce(asList(item0, item4)),
-				reduce(asList(item0, item4)),
-				TYPE, data.startsWith(bytes6x4).not());
+		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWith(bytes4  ).not());
+		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWith(bytes6  ).not());
+		assertCondition(reduce(item0, item4         ), TYPE, data.startsWith(bytes6x4).not());
 	}
 
-	private List<DataItem> reduce(final List<DataItem> list)
+	private List<DataItem> reduce(final DataItem... list)
 	{
 		if(!oracle)
-			return list;
+			return asList(list);
 
 		// TODO make oracle look like other databases
-		final ArrayList<DataItem> result = new ArrayList<>(list);
+		final ArrayList<DataItem> result = new ArrayList<>(asList(list));
 		result.remove(item0);
 		return result;
 	}

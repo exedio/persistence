@@ -210,25 +210,12 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 	{
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
 		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
-		// TODO format NotAndNull
-		assertCondition(
-				asList(item1, item2, item4, item5),
-				TYPE, intx.equal(3).not());
-		assertCondition(
-				asList(item3),
-				TYPE, intx.notEqual(3).not());
-		assertCondition(
-				asList(item3, item4, item5),
-				TYPE, intx.less(3).not());
-		assertCondition(
-				asList(item4, item5),
-				TYPE, intx.lessOrEqual(3).not());
-		assertCondition(
-				asList(item1, item2, item3),
-				TYPE, intx.greater(3).not());
-		assertCondition(
-				asList(item1, item2),
-				TYPE, intx.greaterOrEqual(3).not());
+		assertCondition(item1, item2,        item4, item5, TYPE, intx.equal(3).not());
+		assertCondition(              item3,               TYPE, intx.notEqual(3).not());
+		assertCondition(              item3, item4, item5, TYPE, intx.less(3).not());
+		assertCondition(                     item4, item5, TYPE, intx.lessOrEqual(3).not());
+		assertCondition(item1, item2, item3,               TYPE, intx.greater(3).not());
+		assertCondition(item1, item2,                      TYPE, intx.greaterOrEqual(3).not());
 	}
 
 	public void testBetween()

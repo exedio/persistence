@@ -22,7 +22,6 @@ import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
-import static java.util.Arrays.asList;
 
 public class CompositeConditionTest extends AbstractRuntimeModelTest
 {
@@ -60,12 +59,7 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		assertCondition(              itemAB                , TYPE, conditionAnd);
 		assertCondition(itemA, itemB, itemAB, itemAX, itemXB, TYPE, conditionOr );
 
-		// TODO format NotAndNull
-		assertCondition(
-				asList(item, itemA, itemB),
-				TYPE, conditionAnd.not());
-		assertCondition(
-				asList(item),
-				TYPE, conditionOr.not());
+		assertCondition(item, itemA, itemB, TYPE, conditionAnd.not());
+		assertCondition(item,               TYPE, conditionOr .not());
 	}
 }

@@ -200,24 +200,11 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO format NotAndNull
-		assertCondition(
-				asList(item1, item2, item4, item5),
-				TYPE, intA.equal(intB).not());
-		assertCondition(
-				asList(item3),
-				TYPE, intA.notEqual(intB).not());
-		assertCondition(
-				asList(item3, item4, item5),
-				TYPE, intA.less(intB).not());
-		assertCondition(
-				asList(item4, item5),
-				TYPE, intA.lessOrEqual(intB).not());
-		assertCondition(
-				asList(item1, item2, item3),
-				TYPE, intA.greater(intB).not());
-		assertCondition(
-				asList(item1, item2),
-				TYPE, intA.greaterOrEqual(intB).not());
+		assertCondition(item1, item2,        item4, item5, TYPE, intA.equal(intB).not());
+		assertCondition(              item3,               TYPE, intA.notEqual(intB).not());
+		assertCondition(              item3, item4, item5, TYPE, intA.less(intB).not());
+		assertCondition(                     item4, item5, TYPE, intA.lessOrEqual(intB).not());
+		assertCondition(item1, item2, item3,               TYPE, intA.greater(intB).not());
+		assertCondition(item1, item2,                      TYPE, intA.greaterOrEqual(intB).not());
 	}
 }
