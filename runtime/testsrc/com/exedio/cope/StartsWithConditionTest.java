@@ -29,36 +29,27 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item;
+	private DataItem item0, item4, item6;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 
-		item = new DataItem();
+		item0 = new DataItem();
+		item4 = new DataItem();
+		item6 = new DataItem();
+		new DataItem(); // is null
+		item0.setData(bytes0);
+		item4.setData(bytes4);
+		item6.setData(bytes6);
 	}
 
 	public void testCondition()
 	{
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
-
-		item.setData(bytes4);
-		assertCondition(item, TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
-
-		item.setData(bytes6);
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(item, TYPE, data.startsWith(bytes6));
-		assertCondition(item, TYPE, data.startsWith(bytes6x4));
-
-		item.setData(bytes0);
-		assertCondition(TYPE, data.startsWith(bytes4));
-		assertCondition(TYPE, data.startsWith(bytes6));
-		assertCondition(TYPE, data.startsWith(bytes6x4));
+		assertCondition(item4, TYPE, data.startsWith(bytes4));
+		assertCondition(item6, TYPE, data.startsWith(bytes6));
+		assertCondition(item6, TYPE, data.startsWith(bytes6x4));
 	}
 
 	private static final byte[] bytes0  = {};
