@@ -29,7 +29,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item0, item4, item6;
+	private DataItem item0, item4, item6, item6x4;
 
 	@Override
 	public void setUp() throws Exception
@@ -39,17 +39,19 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		item0 = new DataItem();
 		item4 = new DataItem();
 		item6 = new DataItem();
+		item6x4 = new DataItem();
 		new DataItem(); // is null
 		item0.setData(bytes0);
 		item4.setData(bytes4);
 		item6.setData(bytes6);
+		item6x4.setData(bytes6x4);
 	}
 
 	public void testCondition()
 	{
 		assertCondition(item4, TYPE, data.startsWith(bytes4));
 		assertCondition(item6, TYPE, data.startsWith(bytes6));
-		assertCondition(item6, TYPE, data.startsWith(bytes6x4));
+		assertCondition(item6, item6x4, TYPE, data.startsWith(bytes6x4));
 	}
 
 	private static final byte[] bytes0  = {};
