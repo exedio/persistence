@@ -32,9 +32,8 @@ import com.exedio.cope.testmodel.EmptyItem;
 
 public class SearchTest extends TestmodelTest
 {
-	public void testSearch()
+	public void testEqualsAndHash()
 	{
-		// test conditions
 		assertEqualsAndHash(
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
@@ -44,8 +43,10 @@ public class SearchTest extends TestmodelTest
 				Cope.and(someString.equal("a"),someNotNullString.like("b")),
 				// not commutative
 				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
+	}
 
-		// test illegal searches
+	public void testIllegalSearch()
+	{
 		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
 		try
 		{
@@ -65,7 +66,10 @@ public class SearchTest extends TestmodelTest
 		{
 			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
 		}
+	}
 
+	public void testSearch()
+	{
 		final EmptyItem someItem = new EmptyItem();
 		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 		final AttributeItem item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
