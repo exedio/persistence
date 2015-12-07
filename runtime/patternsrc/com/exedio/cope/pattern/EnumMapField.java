@@ -144,7 +144,20 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 		int i = 0;
 		for(final K key : enums)
-			sv[i++] = fields.get(key).map(map.get(key));
+		{
+			final V value;
+			if(map.containsKey(key))
+			{
+				value = map.get(key);
+				if(value==null)
+					throw MandatoryViolationException.create(this, item);
+			}
+			else
+			{
+				value = null;
+			}
+			sv[i++] = fields.get(key).map(value);
+		}
 
 		item.set(sv);
 	}

@@ -232,7 +232,8 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals("zack", e.getFeature());
+			assertEquals(name, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
