@@ -128,7 +128,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		final EnumMap<K,V> result = new EnumMap<>(keyClass);
 		for(final K key : keyClass.getEnumConstants())
 		{
-			result.put(key, fields.get(key).get(item));
+			final V value = fields.get(key).get(item);
+			if(value!=null) // null value not allowed
+				result.put(key, value);
 		}
 		return Collections.unmodifiableMap(result);
 	}
