@@ -167,6 +167,26 @@ public class MapFieldTest extends AbstractRuntimeTest
 		assertEquals(map(), item.getNameMap());
 	}
 
+	public void testMapSetNull()
+	{
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		map.put(PL, "namePL");
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+
+		try
+		{
+			item.setNameMap(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+	}
+
 	public void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
