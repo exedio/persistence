@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import java.util.Collections;
 import java.util.HashMap;
@@ -163,5 +164,47 @@ public class MapFieldTest extends AbstractRuntimeTest
 		map.clear();
 		item.setNameMap(mapU);
 		assertEquals(map(), item.getNameMap());
+	}
+
+	public void testMapSetKeyNull()
+	{
+		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
+		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		map.put(PL, "namePL");
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+
+		map.put(null, "nameNull");
+		try
+		{
+			item.setNameMap(mapU);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(name.getKey(), e.getFeature());
+		}
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+	}
+
+	public void testMapSetValueNull()
+	{
+		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
+		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		map.put(PL, "namePL");
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+
+		map.put(PL, null);
+		try
+		{
+			item.setNameMap(mapU);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(name.getValue(), e.getFeature());
+		}
+		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 }
