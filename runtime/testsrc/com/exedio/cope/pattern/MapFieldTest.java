@@ -28,6 +28,7 @@ import static java.lang.Integer.valueOf;
 import com.exedio.cope.AbstractRuntimeTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.pattern.MapFieldItem.Language;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -140,8 +141,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testMapSet()
 	{
-		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
-		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
 		assertEquals(map(), item.getNameMap());
 
 		item.setNameMap(mapU);
@@ -168,8 +169,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testMapSetKeyNull()
 	{
-		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
-		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
@@ -189,8 +190,8 @@ public class MapFieldTest extends AbstractRuntimeTest
 
 	public void testMapSetValueNull()
 	{
-		final HashMap<MapFieldItem.Language, String> map = new HashMap<>();
-		final Map<MapFieldItem.Language, String> mapU = Collections.unmodifiableMap(map);
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
