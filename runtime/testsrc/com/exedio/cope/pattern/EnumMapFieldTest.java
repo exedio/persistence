@@ -24,9 +24,9 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static java.lang.Integer.valueOf;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 
-public class EnumMapFieldTest extends AbstractRuntimeTest
+public class EnumMapFieldTest extends AbstractRuntimeModelTest
 {
 	public EnumMapFieldTest()
 	{

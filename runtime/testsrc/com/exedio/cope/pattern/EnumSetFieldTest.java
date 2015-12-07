@@ -25,12 +25,12 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
 
-public class EnumSetFieldTest extends AbstractRuntimeTest
+public class EnumSetFieldTest extends AbstractRuntimeModelTest
 {
 	public EnumSetFieldTest()
 	{

@@ -25,13 +25,13 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.text;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.EnumMap;
 
-public class EnumMapFieldMandatoryTest extends AbstractRuntimeTest
+public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

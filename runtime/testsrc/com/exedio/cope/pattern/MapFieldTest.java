@@ -25,7 +25,7 @@ import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
 import static java.lang.Integer.valueOf;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.pattern.MapFieldItem.Language;
@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapFieldTest extends AbstractRuntimeTest
+public class MapFieldTest extends AbstractRuntimeModelTest
 {
 	public MapFieldTest()
 	{
