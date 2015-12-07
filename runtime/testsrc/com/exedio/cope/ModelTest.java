@@ -26,7 +26,7 @@ import java.util.EnumSet;
 /**
  * @author baumgaertel
  */
-public class ModelTest extends com.exedio.cope.junit.CopeTest
+public class ModelTest extends com.exedio.cope.junit.CopeModelTest
 {
 	static class ModelTestItem extends Item
 	{
@@ -48,7 +48,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeTest
 
 	public void testIt() throws Exception
 	{
-		final String expectedText = "must not be called within a transaction: CopeTest";
+		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest";
 		try
 		{
 			model.getVerifiedSchema();

@@ -25,10 +25,10 @@ import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.junit.CopeModelTest;
 import java.awt.Color;
 
-public class ColorFieldTest extends CopeTest
+public class ColorFieldTest extends CopeModelTest
 {
 	public ColorFieldTest()
 	{
