@@ -139,6 +139,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Wrap(order=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
+		if(map.containsKey(null))
+			throw MandatoryViolationException.create(this, item);
+
 		final K[] enums = keyClass.getEnumConstants();
 		final SetValue<?>[] sv = new SetValue<?>[enums.length];
 
