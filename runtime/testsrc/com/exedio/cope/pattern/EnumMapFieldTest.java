@@ -28,7 +28,10 @@ import static java.lang.Integer.valueOf;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnumMapFieldTest extends AbstractRuntimeModelTest
 {
@@ -164,21 +167,74 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals("namePL", item.getName(PL));
 	}
 
-	public void testGetSetMap()
+	public void testMapSet()
 	{
-		item.setNameMap(map(DE, "NAMEde", EN, "NAMEen", PL, "NAMEpl", SUBCLASS, "NAMEsubclass"));
-		assertEquals("NAMEde", item.getName(DE));
-		assertEquals("NAMEen", item.getName(EN));
-		assertEquals("NAMEpl", item.getName(PL));
-		assertEquals("NAMEsubclass", item.getName(SUBCLASS));
-		assertEquals(map(DE, "NAMEde", EN, "NAMEen", PL, "NAMEpl", SUBCLASS, "NAMEsubclass"), item.getNameMap());
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		assertEquals(map(), item.getNameMap());
 
-		item.setNameMap(map(DE, "nameDE", EN, "nameEN", PL, null));
-		assertEquals("nameDE", item.getName(DE));
-		assertEquals("nameEN", item.getName(EN));
-		assertEquals(null, item.getName(PL));
-		assertEquals(null, item.getName(SUBCLASS));
-		assertEqualsUnmodifiable(map(DE, "nameDE", EN, "nameEN", PL, null, SUBCLASS, null), item.getNameMap());
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
+
+		map.put(DE, "nameDE");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE"), item.getNameMap());
+
+		map.put(EN, "nameEN");
+		map.put(DE, "nameDE2");
+		item.setNameMap(mapU);
+		assertEquals(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+
+		map.put(PL, "namePL");
+		map.remove(DE);
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+
+		map.clear();
+		item.setNameMap(mapU);
+		assertEquals(map(), item.getNameMap());
+	}
+
+	public void testMapSetKeyNull()
+	{
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		map.put(PL, "namePL");
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+
+		map.put(null, "nameNull");
+		try
+		{
+			item.setNameMap(mapU);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("zack", e.getFeature());
+		}
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+	}
+
+	public void testMapSetValueNull()
+	{
+		final HashMap<Language, String> map = new HashMap<>();
+		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		map.put(PL, "namePL");
+		item.setNameMap(mapU);
+		assertEquals(map(PL, "namePL"), item.getNameMap());
+
+		map.put(PL, null);
+		try
+		{
+			item.setNameMap(mapU);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("zack", e.getFeature());
+		}
+		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
 	public void testSubClass()
