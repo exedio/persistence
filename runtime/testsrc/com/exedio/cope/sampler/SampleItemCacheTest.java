@@ -93,7 +93,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		}
 	}
 
-	private final void touch()
+	private static void touch()
 	{
 		MODEL.startTransaction("HistoryTest2");
 		SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack"));

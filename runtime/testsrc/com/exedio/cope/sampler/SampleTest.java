@@ -189,7 +189,7 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList(date66, date77  ), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 	}
 
-	private final void touch()
+	private static void touch()
 	{
 		SampledModelItem.TYPE.newItem(
 				SampledModelItem.code.map("zack"),

@@ -104,7 +104,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 	}
 
-	private final void touch()
+	private static void touch()
 	{
 		SampledModelItem .TYPE.newItem(
 				SampledModelItem .code.map("zack"),

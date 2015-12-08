@@ -44,7 +44,7 @@ public class ImporterTest extends AbstractRuntimeModelTest
 		doTest(true);
 	}
 
-	private void doTest(final boolean hintInitial)
+	private static void doTest(final boolean hintInitial)
 	{
 		ImporterItem.byCode.setHintInitialExerimental(hintInitial);
 

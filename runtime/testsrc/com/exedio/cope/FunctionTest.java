@@ -41,7 +41,7 @@ public class FunctionTest extends AbstractRuntimeModelTest
 	StringItem item1;
 	StringItem item2;
 
-	private final StringItem newItem(final String min4, final String max4) throws Exception
+	private static StringItem newItem(final String min4, final String max4) throws Exception
 	{
 		final StringItem result = new StringItem("FunctionTest");
 		result.setMin4(min4);

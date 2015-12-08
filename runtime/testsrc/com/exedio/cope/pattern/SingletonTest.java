@@ -32,7 +32,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 
-public final class SingletonTest extends AbstractRuntimeModelTest
+public class SingletonTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(SingletonItem.TYPE);
 
