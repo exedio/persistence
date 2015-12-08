@@ -20,14 +20,19 @@ package com.exedio.cope;
 
 import java.sql.SQLException;
 
-public class DeleteAfterUniqueViolationTest extends AbstractRuntimeTest
+public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(DeleteAfterUniqueViolationItem.TYPE);
 
 	public DeleteAfterUniqueViolationTest()
 	{
-		super(MODEL, true);
-		skipTransactionManagement();
+		super(MODEL);
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private boolean unq;

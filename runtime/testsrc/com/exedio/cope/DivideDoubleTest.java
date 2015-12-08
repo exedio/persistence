@@ -29,7 +29,7 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
-public class DivideDoubleTest extends AbstractRuntimeTest
+public class DivideDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

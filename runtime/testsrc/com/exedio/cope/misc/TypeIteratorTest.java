@@ -23,7 +23,7 @@ import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class TypeIteratorTest extends AbstractRuntimeTest
+public class TypeIteratorTest extends AbstractRuntimeModelTest
 {
 	public TypeIteratorTest()
 	{

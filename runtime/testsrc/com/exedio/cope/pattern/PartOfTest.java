@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 
-public class PartOfTest extends AbstractRuntimeTest
+public class PartOfTest extends AbstractRuntimeModelTest
 {
 	public PartOfTest()
 	{

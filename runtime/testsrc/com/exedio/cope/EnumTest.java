@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.EnumItem.Single;
 
-public class EnumTest extends AbstractRuntimeTest
+public class EnumTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
 

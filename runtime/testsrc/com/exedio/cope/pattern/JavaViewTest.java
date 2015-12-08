@@ -26,13 +26,13 @@ import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-public class JavaViewTest extends AbstractRuntimeTest
+public class JavaViewTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE, JavaViewItem2.TYPE);
 

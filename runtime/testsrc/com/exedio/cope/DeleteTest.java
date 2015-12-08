@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
+import static com.exedio.cope.AbstractRuntimeTest.assertDeleteFails;
 import static com.exedio.cope.DeleteItem.otherCascade;
 import static com.exedio.cope.DeleteItem.otherForbid;
 import static com.exedio.cope.DeleteItem.otherNullify;
@@ -33,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
 
-public class DeleteTest extends AbstractRuntimeTest
+public class DeleteTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
 

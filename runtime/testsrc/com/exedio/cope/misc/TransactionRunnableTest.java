@@ -20,12 +20,12 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class TransactionRunnableTest extends AbstractRuntimeTest
+public class TransactionRunnableTest extends AbstractRuntimeModelTest
 {
 	public TransactionRunnableTest()
 	{

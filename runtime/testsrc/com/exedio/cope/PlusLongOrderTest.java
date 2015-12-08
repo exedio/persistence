@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.l3;
+import static com.exedio.cope.AbstractRuntimeTest.l7;
+import static com.exedio.cope.AbstractRuntimeTest.l8;
 import static com.exedio.cope.PlusLongItem.TYPE;
 import static com.exedio.cope.PlusLongItem.multiplyBC;
 import static com.exedio.cope.PlusLongItem.numA;
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PlusLongOrderTest extends AbstractRuntimeTest
+public class PlusLongOrderTest extends AbstractRuntimeModelTest
 {
 	public PlusLongOrderTest()
 	{

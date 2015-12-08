@@ -18,14 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
 import static com.exedio.cope.pattern.RecursiveItem.TYPE;
 import static com.exedio.cope.pattern.RecursiveItem.testPattern;
 import static com.exedio.cope.pattern.RecursiveItem.testPattern2;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 
-public class RecursiveTest extends AbstractRuntimeTest
+public class RecursiveTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.dsmf.Constraint;
 import java.util.EnumSet;
 
-public class HierarchyEmptyTest extends AbstractRuntimeTest
+public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
 

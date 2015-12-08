@@ -35,7 +35,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 
-public class DoubleTest extends AbstractRuntimeTest
+public class DoubleTest extends AbstractRuntimeModelTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DoubleItem.TYPE);
 

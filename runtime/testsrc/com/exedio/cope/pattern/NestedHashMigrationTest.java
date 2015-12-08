@@ -22,12 +22,12 @@ import static com.exedio.cope.pattern.NestedHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.migratePassword;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.password;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
 
-public class NestedHashMigrationTest extends AbstractRuntimeTest
+public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

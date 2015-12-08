@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.d1;
+import static com.exedio.cope.AbstractRuntimeTest.d2;
+import static com.exedio.cope.AbstractRuntimeTest.d3;
+import static com.exedio.cope.AbstractRuntimeTest.d4;
+import static com.exedio.cope.AbstractRuntimeTest.d5;
+import static com.exedio.cope.AbstractRuntimeTest.d6;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusDoubleItem.TYPE;
@@ -34,7 +40,7 @@ import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
-public class PlusDoubleTest extends AbstractRuntimeTest
+public class PlusDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

@@ -22,7 +22,7 @@ import static com.exedio.cope.JoinFunctionItem.TYPE;
 import static com.exedio.cope.JoinFunctionItem.integer;
 import static com.exedio.cope.JoinFunctionItemSingle.name;
 
-public class JoinFunctionTest extends AbstractRuntimeTest
+public class JoinFunctionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE, JoinFunctionItemSingle.TYPE);
 

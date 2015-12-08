@@ -462,6 +462,7 @@
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
+				<exclude name="AbstractRuntimeModelTest.java" /><!-- TODO remove -->
 				<exclude name="SchemaTest.java" /><!-- TODO remove -->
 				<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->

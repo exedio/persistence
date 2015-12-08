@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class StringTest extends AbstractRuntimeTest
+public class StringTest extends AbstractRuntimeModelTest
 {
 	public StringTest()
 	{

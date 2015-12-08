@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.util.Iterator;
 import java.util.List;
 
-public class QueryInfoTest extends AbstractRuntimeTest
+public class QueryInfoTest extends AbstractRuntimeModelTest
 {
 	public QueryInfoTest()
 	{

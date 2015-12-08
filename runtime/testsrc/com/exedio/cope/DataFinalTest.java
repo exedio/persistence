@@ -23,7 +23,7 @@ import static com.exedio.cope.RuntimeAssert.assertData;
 
 import java.io.IOException;
 
-public class DataFinalTest extends AbstractRuntimeTest
+public class DataFinalTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(DataFinalItem.TYPE);
 	private static final DataField data = DataFinalItem.data;

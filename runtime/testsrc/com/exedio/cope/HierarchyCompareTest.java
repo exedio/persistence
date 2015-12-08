@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HierarchyCompareTest extends AbstractRuntimeTest
+public class HierarchyCompareTest extends AbstractRuntimeModelTest
 {
 	public HierarchyCompareTest()
 	{

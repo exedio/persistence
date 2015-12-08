@@ -27,7 +27,7 @@ import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -41,7 +41,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 
-public class SetFieldTest extends AbstractRuntimeTest
+public class SetFieldTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

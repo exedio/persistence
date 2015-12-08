@@ -32,12 +32,17 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.util.Iterator;
 
-public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeTest
+public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeModelTest
 {
 	public CheckConstraintHierarchySchemaTest()
 	{
 		super(CheckConstraintHierarchyTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testSchema()

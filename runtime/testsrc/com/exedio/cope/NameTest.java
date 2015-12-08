@@ -26,7 +26,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Schema;
 
-public class NameTest extends AbstractRuntimeTest
+public class NameTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(
 			NameLongItem.TYPE,

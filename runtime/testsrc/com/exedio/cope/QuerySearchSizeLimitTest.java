@@ -22,7 +22,7 @@ import static com.exedio.cope.DayItem.TYPE;
 
 import com.exedio.cope.util.Day;
 
-public class QuerySearchSizeLimitTest extends AbstractRuntimeTest
+public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 {
 	public QuerySearchSizeLimitTest()
 	{

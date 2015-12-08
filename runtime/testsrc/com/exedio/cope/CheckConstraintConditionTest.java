@@ -25,7 +25,7 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-public class CheckConstraintConditionTest extends AbstractRuntimeTest
+public class CheckConstraintConditionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(
 			TYPE,
@@ -41,7 +41,12 @@ public class CheckConstraintConditionTest extends AbstractRuntimeTest
 	public CheckConstraintConditionTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testIt()

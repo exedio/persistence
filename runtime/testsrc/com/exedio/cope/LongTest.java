@@ -28,7 +28,7 @@ import static java.lang.Long.valueOf;
 
 import java.util.Date;
 
-public class LongTest extends AbstractRuntimeTest
+public class LongTest extends AbstractRuntimeModelTest
 {
 	public LongTest()
 	{

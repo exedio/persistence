@@ -24,12 +24,17 @@ import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 
 import java.sql.SQLException;
 
-public class CapabilitiesTest extends AbstractRuntimeTest
+public class CapabilitiesTest extends AbstractRuntimeModelTest
 {
 	public CapabilitiesTest()
 	{
 		super(SchemaTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testSupports()

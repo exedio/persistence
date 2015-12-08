@@ -23,11 +23,11 @@ import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.SetValue;
 import java.util.ArrayList;
 
-public class ImporterTest extends AbstractRuntimeTest
+public class ImporterTest extends AbstractRuntimeModelTest
 {
 	public ImporterTest()
 	{

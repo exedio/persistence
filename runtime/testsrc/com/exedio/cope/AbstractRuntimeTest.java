@@ -44,15 +44,15 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	}
 
 	protected static final Integer i0 = Integer.valueOf(0);
-	protected static final Integer i1 = Integer.valueOf(1);
-	protected static final Integer i2 = Integer.valueOf(2);
-	protected static final Integer i3 = Integer.valueOf(3);
-	protected static final Integer i4 = Integer.valueOf(4);
-	protected static final Integer i5 = Integer.valueOf(5);
+	public    static final Integer i1 = Integer.valueOf(1);
+	public    static final Integer i2 = Integer.valueOf(2);
+	public    static final Integer i3 = Integer.valueOf(3);
+	public    static final Integer i4 = Integer.valueOf(4);
+	public    static final Integer i5 = Integer.valueOf(5);
 	protected static final Integer i6 = Integer.valueOf(6);
 	protected static final Integer i7 = Integer.valueOf(7);
-	protected static final Integer i8 = Integer.valueOf(8);
-	protected static final Integer i9 = Integer.valueOf(9);
+	public    static final Integer i8 = Integer.valueOf(8);
+	public    static final Integer i9 = Integer.valueOf(9);
 	protected static final Integer i10= Integer.valueOf(10);
 	protected static final Integer i18= Integer.valueOf(18);
 
@@ -161,7 +161,7 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		return files.file(data);
 	}
 
-	protected static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
+	public static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
 		if(expectedData==null)
 			assertFalse(actualFile.exists());

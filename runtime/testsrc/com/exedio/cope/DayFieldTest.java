@@ -29,7 +29,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
 
-public class DayFieldTest extends AbstractRuntimeTest
+public class DayFieldTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(DayItem.TYPE);
 

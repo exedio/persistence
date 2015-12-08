@@ -28,7 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SchemaNamePolymorphicTest extends AbstractRuntimeTest
+public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(
 			SchemaNamePolymorphicSuperItem.TYPE,

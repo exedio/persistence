@@ -31,7 +31,7 @@ import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -46,7 +46,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 
-public class ListFieldTest extends AbstractRuntimeTest
+public class ListFieldTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(ListFieldItem.TYPE);
 

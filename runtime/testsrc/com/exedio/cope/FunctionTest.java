@@ -31,7 +31,7 @@ import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 
 import com.exedio.cope.testmodel.StringItem;
 
-public class FunctionTest extends AbstractRuntimeTest
+public class FunctionTest extends AbstractRuntimeModelTest
 {
 	public FunctionTest()
 	{

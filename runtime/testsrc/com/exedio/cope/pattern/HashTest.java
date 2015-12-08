@@ -27,7 +27,7 @@ import static com.exedio.cope.pattern.HashItem.limited15;
 import static com.exedio.cope.pattern.HashItem.with3PinValidator;
 import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -39,7 +39,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-public class HashTest extends AbstractRuntimeTest
+public class HashTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(HashItem.TYPE, HashItemHolder.TYPE);
 

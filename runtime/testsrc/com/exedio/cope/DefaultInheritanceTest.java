@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class DefaultInheritanceTest extends AbstractRuntimeTest
+public class DefaultInheritanceTest extends AbstractRuntimeModelTest
 {
 	public DefaultInheritanceTest()
 	{

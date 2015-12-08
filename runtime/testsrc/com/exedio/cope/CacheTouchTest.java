@@ -23,7 +23,7 @@ import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
-public class CacheTouchTest extends AbstractRuntimeTest
+public class CacheTouchTest extends AbstractRuntimeModelTest
 {
 	public CacheTouchTest()
 	{

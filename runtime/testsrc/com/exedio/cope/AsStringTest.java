@@ -26,7 +26,7 @@ import static com.exedio.cope.AsStringItem.longx;
 import java.util.Iterator;
 import java.util.List;
 
-public class AsStringTest extends AbstractRuntimeTest
+public class AsStringTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

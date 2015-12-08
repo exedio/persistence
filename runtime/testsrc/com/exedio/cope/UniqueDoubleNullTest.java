@@ -25,7 +25,7 @@ import java.util.Arrays;
 /**
  * See http://bugs.mysql.com/bug.php?id=8173 as well.
  */
-public class UniqueDoubleNullTest extends AbstractRuntimeTest
+public class UniqueDoubleNullTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

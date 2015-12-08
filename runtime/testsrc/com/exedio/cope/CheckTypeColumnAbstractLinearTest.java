@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeTest
+public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(
 			Type0A.TYPE,

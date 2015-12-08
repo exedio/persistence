@@ -27,7 +27,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public final class UpdateCounterRecoverTest extends AbstractRuntimeTest
+public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 {
 	public UpdateCounterRecoverTest()
 	{

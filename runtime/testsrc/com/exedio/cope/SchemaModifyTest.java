@@ -25,12 +25,17 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 
-public class SchemaModifyTest extends AbstractRuntimeTest
+public class SchemaModifyTest extends AbstractRuntimeModelTest
 {
 	public SchemaModifyTest()
 	{
 		super(SchemaTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private static final String TABLE1X = "SchemaItemX";

@@ -28,7 +28,7 @@ import static java.lang.Integer.valueOf;
 
 import java.util.Date;
 
-public class IntegerTest extends AbstractRuntimeTest
+public class IntegerTest extends AbstractRuntimeModelTest
 {
 	public IntegerTest()
 	{

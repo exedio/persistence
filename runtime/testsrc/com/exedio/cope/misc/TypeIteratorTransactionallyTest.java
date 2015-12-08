@@ -23,7 +23,7 @@ import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.TransactionTry;
 import java.util.ArrayList;
@@ -31,12 +31,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class TypeIteratorTransactionallyTest extends AbstractRuntimeTest
+public class TypeIteratorTransactionallyTest extends AbstractRuntimeModelTest
 {
 	public TypeIteratorTransactionallyTest()
 	{
 		super(QueryAggregatorTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;

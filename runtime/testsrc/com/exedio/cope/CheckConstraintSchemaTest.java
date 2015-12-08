@@ -29,12 +29,17 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 
-public class CheckConstraintSchemaTest extends AbstractRuntimeTest
+public class CheckConstraintSchemaTest extends AbstractRuntimeModelTest
 {
 	public CheckConstraintSchemaTest()
 	{
 		super(CheckConstraintModelTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testMeta()

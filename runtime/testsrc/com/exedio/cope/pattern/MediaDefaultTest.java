@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.file;
@@ -25,7 +26,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
@@ -40,7 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
-public class MediaDefaultTest extends AbstractRuntimeTest
+public class MediaDefaultTest extends AbstractRuntimeModelTest
 {
 	public MediaDefaultTest()
 	{

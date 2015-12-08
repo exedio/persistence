@@ -18,12 +18,12 @@
 
 package com.exedio.cope.instanceOfQuery;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 
-public class InstanceOfQueryTest extends AbstractRuntimeTest
+public class InstanceOfQueryTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(
 			IoqSourceSuper.TYPE, IoqSourceSubA.TYPE, IoqSourceSubB.TYPE,

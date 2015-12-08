@@ -18,7 +18,7 @@
 
 package com.exedio.cope.serialize;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
@@ -30,7 +30,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SerializationSizeTest extends AbstractRuntimeTest
+public class SerializationSizeTest extends AbstractRuntimeModelTest
 {
 	public SerializationSizeTest()
 	{

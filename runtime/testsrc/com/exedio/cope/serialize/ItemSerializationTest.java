@@ -26,12 +26,12 @@ import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
 import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import java.util.Arrays;
 
-public class ItemSerializationTest extends AbstractRuntimeTest
+public class ItemSerializationTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(ItemSerializationItem.TYPE, ItemSerializationItem2.TYPE);
 

@@ -26,7 +26,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
 
-public class QueryTest extends AbstractRuntimeTest
+public class QueryTest extends AbstractRuntimeModelTest
 {
 	public QueryTest()
 	{

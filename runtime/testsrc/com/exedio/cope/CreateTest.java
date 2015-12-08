@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class CreateTest extends AbstractRuntimeTest
+public class CreateTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(CreateSuperItem.TYPE, CreateItem.TYPE);
 

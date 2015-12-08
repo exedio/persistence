@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class FindItemHierarchyEmptyTest extends AbstractRuntimeTest
+public class FindItemHierarchyEmptyTest extends AbstractRuntimeModelTest
 {
 	public FindItemHierarchyEmptyTest()
 	{

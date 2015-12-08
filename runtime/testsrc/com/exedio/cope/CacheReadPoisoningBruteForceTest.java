@@ -19,12 +19,17 @@
 package com.exedio.cope;
 
 
-public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeTest
+public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 {
 	public CacheReadPoisoningBruteForceTest()
 	{
 		super(CacheIsolationTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	boolean itemCacheStamps;

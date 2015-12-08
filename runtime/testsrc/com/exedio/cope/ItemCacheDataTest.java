@@ -24,7 +24,7 @@ import static java.lang.Integer.MIN_VALUE;
 
 import com.exedio.cope.util.Hex;
 
-public class ItemCacheDataTest extends AbstractRuntimeTest
+public class ItemCacheDataTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

@@ -18,12 +18,17 @@
 
 package com.exedio.cope;
 
-public class TransactionCountersTest extends AbstractRuntimeTest
+public class TransactionCountersTest extends AbstractRuntimeModelTest
 {
 	public TransactionCountersTest()
 	{
 		super(CacheIsolationTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private long commitWithoutConnectionStart;

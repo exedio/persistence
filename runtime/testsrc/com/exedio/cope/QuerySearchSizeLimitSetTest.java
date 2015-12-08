@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 import static java.lang.Integer.MIN_VALUE;
 
-public class QuerySearchSizeLimitSetTest extends AbstractRuntimeTest
+public class QuerySearchSizeLimitSetTest extends AbstractRuntimeModelTest
 {
 	public QuerySearchSizeLimitSetTest()
 	{

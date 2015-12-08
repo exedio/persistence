@@ -27,7 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DataMandatoryTest extends AbstractRuntimeTest
+public class DataMandatoryTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

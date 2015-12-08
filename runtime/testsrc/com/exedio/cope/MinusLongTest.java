@@ -29,7 +29,7 @@ import static com.exedio.cope.MinusLongItem.viewAC;
 import static com.exedio.cope.MinusLongItem.viewBC;
 import static java.lang.Long.valueOf;
 
-public class MinusLongTest extends AbstractRuntimeTest
+public class MinusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

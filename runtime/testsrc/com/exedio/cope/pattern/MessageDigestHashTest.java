@@ -29,14 +29,14 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
 import java.util.Arrays;
 
-public class MessageDigestHashTest extends AbstractRuntimeTest
+public class MessageDigestHashTest extends AbstractRuntimeModelTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 

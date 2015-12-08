@@ -18,20 +18,23 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AbstractRuntimeTest.i1;
+import static com.exedio.cope.AbstractRuntimeTest.i2;
+import static com.exedio.cope.AbstractRuntimeTest.i3;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static com.exedio.cope.pattern.LimitedListFieldItemFieldItem.limitedListFieldItem;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 
-public class LimitedListFieldTest extends AbstractRuntimeTest
+public class LimitedListFieldTest extends AbstractRuntimeModelTest
 {
 	public LimitedListFieldTest()
 	{

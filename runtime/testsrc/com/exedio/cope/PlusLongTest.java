@@ -18,6 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.l1;
+import static com.exedio.cope.AbstractRuntimeTest.l10;
+import static com.exedio.cope.AbstractRuntimeTest.l18;
+import static com.exedio.cope.AbstractRuntimeTest.l2;
+import static com.exedio.cope.AbstractRuntimeTest.l3;
+import static com.exedio.cope.AbstractRuntimeTest.l4;
+import static com.exedio.cope.AbstractRuntimeTest.l5;
+import static com.exedio.cope.AbstractRuntimeTest.l6;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusLongItem.TYPE;
@@ -33,7 +41,7 @@ import static com.exedio.cope.PlusLongItem.plusABaC;
 import static com.exedio.cope.PlusLongItem.plusAC;
 import static com.exedio.cope.PlusLongItem.plusBC;
 
-public class PlusLongTest extends AbstractRuntimeTest
+public class PlusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

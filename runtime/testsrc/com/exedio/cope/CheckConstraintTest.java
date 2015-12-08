@@ -22,7 +22,7 @@ import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 
-public class CheckConstraintTest extends AbstractRuntimeTest
+public class CheckConstraintTest extends AbstractRuntimeModelTest
 {
 	public CheckConstraintTest()
 	{

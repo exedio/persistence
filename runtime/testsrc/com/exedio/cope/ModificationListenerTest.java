@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import org.apache.log4j.Logger;
 
-public class ModificationListenerTest extends AbstractRuntimeTest
+public class ModificationListenerTest extends AbstractRuntimeModelTest
 {
 	@Deprecated
 	private static final Logger logger = Logger.getLogger(ModificationListeners.class);

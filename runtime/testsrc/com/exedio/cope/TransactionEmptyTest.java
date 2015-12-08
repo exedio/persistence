@@ -20,12 +20,17 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public class TransactionEmptyTest extends AbstractRuntimeTest
+public class TransactionEmptyTest extends AbstractRuntimeModelTest
 {
 	public TransactionEmptyTest()
 	{
 		super(CacheIsolationTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testEmptyTransaction()

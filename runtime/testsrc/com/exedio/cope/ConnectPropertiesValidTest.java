@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public class ConnectPropertiesValidTest extends AbstractRuntimeTest
+public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
 {
 	public ConnectPropertiesValidTest()
 	{

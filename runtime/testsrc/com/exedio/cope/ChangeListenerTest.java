@@ -25,7 +25,7 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-public class ChangeListenerTest extends AbstractRuntimeTest
+public class ChangeListenerTest extends AbstractRuntimeModelTest
 {
 	private static final Logger logger = Logger.getLogger(ChangeListeners.class);
 

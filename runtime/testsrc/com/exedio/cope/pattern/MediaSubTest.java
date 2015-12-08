@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -33,7 +33,7 @@ import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MediaSubTest extends AbstractRuntimeTest
+public class MediaSubTest extends AbstractRuntimeModelTest
 {
 	public MediaSubTest()
 	{

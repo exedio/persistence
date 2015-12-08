@@ -22,14 +22,14 @@ import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryIterators.iterateStableQuery;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Query;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class StableQueryIteratorTest extends AbstractRuntimeTest
+public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 {
 	public StableQueryIteratorTest()
 	{

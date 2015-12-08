@@ -29,7 +29,7 @@ import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-public final class MediaTest extends AbstractRuntimeTest
+public final class MediaTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE, MediaItemHolder.TYPE);
 

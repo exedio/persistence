@@ -23,14 +23,14 @@ import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MediaFixedTest extends AbstractRuntimeTest
+public class MediaFixedTest extends AbstractRuntimeModelTest
 {
 	public MediaFixedTest()
 	{

@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.forConstraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 
-public class UniqueDoubleTest extends AbstractRuntimeTest
+public class UniqueDoubleTest extends AbstractRuntimeModelTest
 {
 	public UniqueDoubleTest()
 	{

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
@@ -28,7 +28,7 @@ import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
 
-public class DynamicModelCastTest extends AbstractRuntimeTest
+public class DynamicModelCastTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(ModelItem.TYPE);
 

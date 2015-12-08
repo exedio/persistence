@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class QueryCacheTest extends AbstractRuntimeTest
+public class QueryCacheTest extends AbstractRuntimeModelTest
 {
 	public QueryCacheTest()
 	{

@@ -26,7 +26,7 @@ import java.util.Map;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-public class DeleteSchemaTest extends AbstractRuntimeTest
+public class DeleteSchemaTest extends AbstractRuntimeModelTest
 {
 	private static final Logger logger = Logger.getLogger(Database.class.getName() + "#deleteSchema");
 
@@ -40,8 +40,13 @@ public class DeleteSchemaTest extends AbstractRuntimeTest
 
 	public DeleteSchemaTest()
 	{
-		super(MODEL, true);
-		skipTransactionManagement();
+		super(MODEL);
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	TestLogAppender log = null;

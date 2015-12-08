@@ -51,14 +51,19 @@ import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import junit.framework.AssertionFailedError;
 
-public class SchemaTest extends AbstractRuntimeTest
+public class SchemaTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE);
 
 	public SchemaTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testSchema()

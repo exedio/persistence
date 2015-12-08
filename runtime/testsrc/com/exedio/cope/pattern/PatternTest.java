@@ -18,12 +18,15 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
+import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
+
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 
-public class PatternTest extends AbstractRuntimeTest
+public class PatternTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(PatternTestItem.TYPE);
 

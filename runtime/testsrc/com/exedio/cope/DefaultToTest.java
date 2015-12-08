@@ -52,7 +52,7 @@ import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 
-public class DefaultToTest extends AbstractRuntimeTest
+public class DefaultToTest extends AbstractRuntimeModelTest
 {
 	public DefaultToTest()
 	{

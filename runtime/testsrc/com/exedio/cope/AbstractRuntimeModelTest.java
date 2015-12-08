@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeModelTest;
+import com.exedio.dsmf.CheckConstraint;
 import java.io.File;
 
 public abstract class AbstractRuntimeModelTest extends CopeModelTest
@@ -32,9 +33,11 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	}
 
 	protected RuntimeTester.Dialect dialect = null;
+	protected boolean hsqldb;
 	protected boolean mysql;
 	protected boolean oracle;
 	protected boolean postgresql;
+	protected boolean cache;
 	private final FileFixture files = new FileFixture();
 
 	@Override
@@ -43,9 +46,11 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		super.setUp();
 		tester.setUp();
 		dialect = tester.dialect;
+		hsqldb = tester.hsqldb;
 		mysql  = tester.mysql;
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
+		cache = tester.cache;
 		files.setUp();
 	}
 
@@ -116,13 +121,87 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		return tester.synthetic(name, global);
 	}
 
+	final String primaryKeySequenceName(final String nameBase)
+	{
+		return tester.primaryKeySequenceName(nameBase);
+	}
+
 	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
 	{
 		tester.assertPrimaryKeySequenceName(sequenceNameBase, type);
 	}
 
+	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
+	{
+		tester.assertPrimaryKeySequenceName(sequenceNameBase, batchedSequenceNameBase, type);
+	}
+
+	protected final void assertPkConstraint(
+			final com.exedio.dsmf.Table table,
+			final String name,
+			final String condition,
+			final String column)
+	{
+		tester.assertPkConstraint(table, name, condition, column);
+	}
+
+	protected final void assertFkConstraint(
+			final com.exedio.dsmf.Table table,
+			final String name,
+			final String column,
+			final String targetTable,
+			final String targetColumn)
+	{
+		tester.assertFkConstraint(table, name, column, targetTable, targetColumn);
+	}
+
+	protected final void assertUniqueConstraint(
+			final com.exedio.dsmf.Table table,
+			final String name,
+			final String clause)
+	{
+		tester.assertUniqueConstraint(table, name, clause);
+	}
+
+	protected final CheckConstraint assertCheckConstraint(
+			final com.exedio.dsmf.Table table,
+			final String name,
+			final String condition)
+	{
+		return tester.assertCheckConstraint(table, name, condition);
+	}
+
+	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
+	{
+		tester.assertDefaultToNextSequenceName(name, field);
+	}
+
+	final void assertCheckUpdateCounters()
+	{
+		tester.assertCheckUpdateCounters();
+	}
+
+	void assertSameCache(final Object o1, final Object o2)
+	{
+		tester.assertSameCache(o1, o2);
+	}
+
+	protected final void assertCause(final UniqueViolationException e)
+	{
+		tester.assertCause(e);
+	}
+
 	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
 		tester.assertCacheInfo(types, limitWeigths);
+	}
+
+	/**
+	 * @see #deleteOnTearDown(Item)
+	 */
+	@Deprecated
+	protected final void dontDeleteOnTearDown(@SuppressWarnings("unused") final Item item)
+	{
+		// do nothing
 	}
 }

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 
-public class ItemCacheStampPurgeTest extends AbstractRuntimeTest
+public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 {
 	public ItemCacheStampPurgeTest()
 	{

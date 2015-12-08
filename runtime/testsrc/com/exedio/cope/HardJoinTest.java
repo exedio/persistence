@@ -25,7 +25,7 @@ import static com.exedio.cope.HardJoinB1Item.b1;
 import static com.exedio.cope.HardJoinB2Item.b2;
 import static com.exedio.cope.HardJoinB3Item.b3;
 
-public class HardJoinTest extends AbstractRuntimeTest
+public class HardJoinTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(
 			HardJoinA1Item.TYPE,

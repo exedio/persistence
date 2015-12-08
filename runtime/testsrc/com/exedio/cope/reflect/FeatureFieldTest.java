@@ -28,12 +28,12 @@ import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 
-public class FeatureFieldTest extends AbstractRuntimeTest
+public class FeatureFieldTest extends AbstractRuntimeModelTest
 {
 	public FeatureFieldTest()
 	{

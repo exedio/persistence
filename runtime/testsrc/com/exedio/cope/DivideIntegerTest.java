@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractRuntimeTest.i0;
+import static com.exedio.cope.AbstractRuntimeTest.i2;
+import static com.exedio.cope.AbstractRuntimeTest.i3;
+import static com.exedio.cope.AbstractRuntimeTest.i7;
+import static com.exedio.cope.AbstractRuntimeTest.i9;
 import static com.exedio.cope.DivideIntegerItem.TYPE;
 import static com.exedio.cope.DivideIntegerItem.divideAB;
 import static com.exedio.cope.DivideIntegerItem.divideAC;
@@ -28,7 +33,7 @@ import static com.exedio.cope.DivideIntegerItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
-public class DivideIntegerTest extends AbstractRuntimeTest
+public class DivideIntegerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

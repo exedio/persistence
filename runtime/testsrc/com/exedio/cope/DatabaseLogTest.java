@@ -24,7 +24,7 @@ import static com.exedio.cope.MatchItem.text;
 import com.exedio.cope.misc.DatabaseListener;
 import java.util.List;
 
-public class DatabaseLogTest extends AbstractRuntimeTest
+public class DatabaseLogTest extends AbstractRuntimeModelTest
 {
 	public DatabaseLogTest()
 	{

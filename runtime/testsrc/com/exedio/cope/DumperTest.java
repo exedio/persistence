@@ -29,14 +29,19 @@ import static com.exedio.cope.util.Hex.decodeLower;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 
-public class DumperTest extends AbstractRuntimeTest
+public class DumperTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE, DumperSubItem.TYPE);
 
 	public DumperTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private Dumper dumper = null;

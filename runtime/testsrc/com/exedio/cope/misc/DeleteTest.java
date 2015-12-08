@@ -20,7 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Query;
@@ -29,12 +29,17 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
 
-public class DeleteTest extends AbstractRuntimeTest
+public class DeleteTest extends AbstractRuntimeModelTest
 {
 	public DeleteTest()
 	{
 		super(CacheIsolationTest.MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testIt()

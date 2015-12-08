@@ -25,7 +25,7 @@ import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static java.lang.Integer.valueOf;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
@@ -35,7 +35,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SerializerTest extends AbstractRuntimeTest
+public class SerializerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

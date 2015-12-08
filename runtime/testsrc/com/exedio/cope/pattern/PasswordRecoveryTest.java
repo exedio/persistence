@@ -25,7 +25,7 @@ import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
@@ -36,7 +36,7 @@ import com.exedio.cope.util.Clock;
 import java.util.Arrays;
 import java.util.Date;
 
-public class PasswordRecoveryTest extends AbstractRuntimeTest
+public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

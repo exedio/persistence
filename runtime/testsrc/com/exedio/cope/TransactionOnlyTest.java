@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TransactionOnlyTest extends AbstractRuntimeTest
+public class TransactionOnlyTest extends AbstractRuntimeModelTest
 {
 	public TransactionOnlyTest()
 	{
@@ -42,7 +42,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 			assertEquals(
 					"tried to start a new transaction with name >nested<, " +
 					"but there is already a transaction CT." + model.currentTransaction().getID() +
-					" with name >CopeTest< " +
+					" with name >tx:com.exedio.cope.TransactionOnlyTest< " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
@@ -58,7 +58,7 @@ public class TransactionOnlyTest extends AbstractRuntimeTest
 			assertEquals(
 					"tried to start a new transaction without a name, " +
 					"but there is already a transaction CT." + model.currentTransaction().getID() +
-					" with name >CopeTest< " +
+					" with name >tx:com.exedio.cope.TransactionOnlyTest< " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());

@@ -36,14 +36,19 @@ import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import java.util.Iterator;
 
-public class RenamedSchemaTest extends AbstractRuntimeTest
+public class RenamedSchemaTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE, RenamedSchemaTargetItem.TYPE);
 
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	public void testSchema()

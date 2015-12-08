@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 
-public class ConnectTest extends AbstractRuntimeTest
+public class ConnectTest extends AbstractRuntimeModelTest
 {
 	private static final Date beforeModel = new Date();
 	private static final Model MODEL = new Model(ConnectItem.TYPE, ConnectItem2.TYPE);

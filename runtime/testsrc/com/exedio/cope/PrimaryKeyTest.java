@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
 
-public class PrimaryKeyTest extends AbstractRuntimeTest
+public class PrimaryKeyTest extends AbstractRuntimeModelTest
 {
 	/**
 	 * Do not use this model in any other test.
@@ -33,7 +33,12 @@ public class PrimaryKeyTest extends AbstractRuntimeTest
 	public PrimaryKeyTest()
 	{
 		super(MODEL);
-		skipTransactionManagement();
+	}
+
+	@Override
+	protected boolean doesManageTransactions()
+	{
+		return false;
 	}
 
 	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)

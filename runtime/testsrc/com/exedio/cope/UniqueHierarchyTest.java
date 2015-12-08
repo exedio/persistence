@@ -25,7 +25,7 @@ import static com.exedio.cope.UniqueHierarchySubItem.subField;
  *
  * @author Ralf Wiebicke
  */
-public class UniqueHierarchyTest extends AbstractRuntimeTest
+public class UniqueHierarchyTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(UniqueHierarchySuperItem.TYPE, UniqueHierarchySubItem.TYPE);
 

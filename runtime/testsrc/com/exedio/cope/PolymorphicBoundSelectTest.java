@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.List;
 
-public class PolymorphicBoundSelectTest extends AbstractRuntimeTest
+public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(PolymorphicBoundSelectSuperItem.TYPE, PolymorphicBoundSelectSubItem.TYPE);
 

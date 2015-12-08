@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 
-public class FindItemHierarchyTest extends AbstractRuntimeTest
+public class FindItemHierarchyTest extends AbstractRuntimeModelTest
 {
 	public FindItemHierarchyTest()
 	{

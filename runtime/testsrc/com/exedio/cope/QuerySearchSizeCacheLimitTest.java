@@ -24,7 +24,7 @@ import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeTest
+public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 {
 	public QuerySearchSizeCacheLimitTest()
 	{

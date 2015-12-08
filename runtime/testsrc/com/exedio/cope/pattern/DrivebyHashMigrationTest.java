@@ -21,11 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.password;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 
-public class DrivebyHashMigrationTest extends AbstractRuntimeTest
+public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 
