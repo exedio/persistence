@@ -22,16 +22,16 @@ import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
-import com.exedio.cope.AbstractRuntimeTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.Properties;
 import java.util.Collection;
 
-public abstract class ConnectedTest extends AbstractRuntimeTest
+public abstract class ConnectedTest extends AbstractRuntimeModelTest
 {
 	ConnectedTest()
 	{
-		super(MODEL, true);
+		super(MODEL);
 	}
 
 	boolean c;

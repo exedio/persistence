@@ -26,9 +26,10 @@ import com.exedio.cope.Type;
 
 public class SampleItemCacheTest extends ConnectedTest
 {
-	public SampleItemCacheTest()
+	@Override
+	protected boolean doesManageTransactions()
 	{
-		skipTransactionManagement();
+		return false;
 	}
 
 	public void testNormal() throws InterruptedException

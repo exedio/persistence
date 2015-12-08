@@ -25,9 +25,10 @@ import com.exedio.cope.pattern.Media;
 
 public class SampleMediaTest extends ConnectedTest
 {
-	public SampleMediaTest()
+	@Override
+	protected boolean doesManageTransactions()
 	{
-		skipTransactionManagement();
+		return false;
 	}
 
 	public void testNormal() throws InterruptedException
