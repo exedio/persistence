@@ -114,7 +114,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 
 		item.deleteCopeItem();
 		assertEquals(false, item.existsCopeItem());
-		dontDeleteOnTearDown(item);
 	}
 
 	public void testCommit() throws SQLException
@@ -194,7 +193,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 
 		item.deleteCopeItem();
 		assertEquals(false, item.existsCopeItem());
-		dontDeleteOnTearDown(item);
 	}
 
 	public void testRollback() throws SQLException
@@ -274,7 +272,6 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 
 		item.deleteCopeItem();
 		assertEquals(false, item.existsCopeItem());
-		dontDeleteOnTearDown(item);
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")

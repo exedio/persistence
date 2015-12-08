@@ -195,13 +195,4 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	{
 		tester.assertCacheInfo(types, limitWeigths);
 	}
-
-	/**
-	 * @see #deleteOnTearDown(Item)
-	 */
-	@Deprecated
-	protected final void dontDeleteOnTearDown(@SuppressWarnings("unused") final Item item)
-	{
-		// do nothing
-	}
 }
