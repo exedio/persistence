@@ -33,7 +33,7 @@ public class PartOfTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		container = deleteOnTearDown(new PartOfContainerItem("container"));
+		container = new PartOfContainerItem("container");
 	}
 
 	public void testUnordered()

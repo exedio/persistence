@@ -56,11 +56,11 @@ public final class ThumbnailTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		jpg = deleteOnTearDown(new ThumbnailItem());
-		png = deleteOnTearDown(new ThumbnailItem());
-		gif = deleteOnTearDown(new ThumbnailItem());
-		txt = deleteOnTearDown(new ThumbnailItem());
-		emp = deleteOnTearDown(new ThumbnailItem());
+		jpg = new ThumbnailItem();
+		png = new ThumbnailItem();
+		gif = new ThumbnailItem();
+		txt = new ThumbnailItem();
+		emp = new ThumbnailItem();
 		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test2.jpg"), "image/jpeg");
 		png.setFile(data, "image/png");
 		gif.setFile(data, "image/gif");

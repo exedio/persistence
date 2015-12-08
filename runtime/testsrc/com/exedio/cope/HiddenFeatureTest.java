@@ -112,10 +112,10 @@ public class HiddenFeatureTest extends AbstractRuntimeModelTest
 				HiddenFeatures.get(model));
 
 		// test persistence
-		final HiddenFeatureSuperItem sp = deleteOnTearDown(new HiddenFeatureSuperItem());
+		final HiddenFeatureSuperItem sp = new HiddenFeatureSuperItem();
 		sp.setHiddenSame("hiddenSameSuperSuper");
 		sp.setHiddenOther("hiddenOtherSuperSuper");
-		final HiddenFeatureSubItem sb = deleteOnTearDown(new HiddenFeatureSubItem());
+		final HiddenFeatureSubItem sb = new HiddenFeatureSubItem();
 		sb.setHiddenSame("hiddenSameSuperSub");
 		sb.setHiddenOther("hiddenOtherSuperSub");
 		HiddenFeatureSubItem.hiddenSame.set(sb, "hiddenSameSub");

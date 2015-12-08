@@ -46,8 +46,8 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MapFieldItem());
-		itemX = deleteOnTearDown(new MapFieldItem());
+		item = new MapFieldItem();
+		itemX = new MapFieldItem();
 	}
 
 	public void testIt()

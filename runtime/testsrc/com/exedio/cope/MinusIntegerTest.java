@@ -45,8 +45,8 @@ public class MinusIntegerTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MinusIntegerItem(7, 9, 3));
-		item2 = deleteOnTearDown(new MinusIntegerItem(30, 4, 5));
+		item = new MinusIntegerItem(7, 9, 3);
+		item2 = new MinusIntegerItem(30, 4, 5);
 	}
 
 	public void testSum()

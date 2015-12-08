@@ -52,8 +52,8 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DayItem(DEFAULT));
-		item2 = deleteOnTearDown(new DayItem(DEFAULT2));
+		item = new DayItem(DEFAULT);
+		item2 = new DayItem(DEFAULT2);
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 	}

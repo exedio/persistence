@@ -39,8 +39,8 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new EnumMapFieldItem());
-		itemX = deleteOnTearDown(new EnumMapFieldItem());
+		item = new EnumMapFieldItem();
+		itemX = new EnumMapFieldItem();
 	}
 
 	public void testIt()

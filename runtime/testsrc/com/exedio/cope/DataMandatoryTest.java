@@ -42,7 +42,7 @@ public class DataMandatoryTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataMandatoryItem(toValue(bytes4)));
+		item = new DataMandatoryItem(toValue(bytes4));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException

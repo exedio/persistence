@@ -54,7 +54,7 @@ public class HashTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new HashItem());
+		item = new HashItem();
 	}
 
 	public void testExplicitExternal()
@@ -169,14 +169,14 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertTrue(item.checkInternal("03affe08"));
 		assertFalse(item.isInternalNull());
 
-		final HashItem item2 = deleteOnTearDown(new HashItem(new SetValue<?>[]{internal.map("03affe09")}));
+		final HashItem item2 = new HashItem(new SetValue<?>[]{internal.map("03affe09")});
 		assertEquals("[03affe09]", item2.get(internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
 		assertFalse(item2.isInternalNull());
 
-		final HashItem item3 = deleteOnTearDown(HashItem.TYPE.newItem(internal.map("03affe10")));
+		final HashItem item3 = HashItem.TYPE.newItem(internal.map("03affe10"));
 		assertEquals("[03affe10]", item3.get(internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
@@ -235,10 +235,10 @@ public class HashTest extends AbstractRuntimeModelTest
 
 	public void testConditions()
 	{
-		final HashItem item2 = deleteOnTearDown(new HashItem());
+		final HashItem item2 = new HashItem();
 		item2.setImplicitExternal("123");
-		final HashItemHolder h1 = deleteOnTearDown(new HashItemHolder(item));
-		final HashItemHolder h2 = deleteOnTearDown(new HashItemHolder(item2));
+		final HashItemHolder h1 = new HashItemHolder(item);
+		final HashItemHolder h2 = new HashItemHolder(item2);
 
 		assertEquals(list(item), HashItem.TYPE.search(HashItem.implicitExternal.isNull()));
 		assertEquals(list(item2), HashItem.TYPE.search(HashItem.implicitExternal.isNotNull()));
@@ -332,7 +332,7 @@ public class HashTest extends AbstractRuntimeModelTest
 	public void testValidatorSingleSetValue()
 	{
 			// with success
-			final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue<?>[]{}));
+			final HashItem anItem = HashItem.TYPE.newItem(new SetValue<?>[]{});
 			anItem.setWith3PinValidator("452");
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap());
 
@@ -369,7 +369,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		// testing mass set
 
 		// with success
-		final HashItem anItem = deleteOnTearDown(HashItem.TYPE.newItem(new SetValue<?>[]{}));
+		final HashItem anItem = HashItem.TYPE.newItem(new SetValue<?>[]{});
 		assertNotNull(anItem);
 		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
 		assertEquals("[123]", anItem.getWith3PinValidatorwrap());
@@ -405,7 +405,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		// test with a validator which always throws an exception
 		try
 		{
-			deleteOnTearDown(HashItem.TYPE.newItem(withCorruptValidator.map("03affe10")));
+			HashItem.TYPE.newItem(withCorruptValidator.map("03affe10"));
 			fail();
 		}
 		catch (final IllegalStateException ise)
@@ -416,7 +416,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		// testing  with validator that discards the given pin string
 		try
 		{
-			deleteOnTearDown(HashItem.TYPE.newItem(with3PinValidator.map("99x")));
+			HashItem.TYPE.newItem(with3PinValidator.map("99x"));
 			fail();
 		}
 		catch (final Hash.InvalidPlainTextException e)
@@ -429,7 +429,7 @@ public class HashTest extends AbstractRuntimeModelTest
 
 		// test with validator that accepts the given pin string
 		final SetValue<?> setValue = with3PinValidator.map("978");
-		final HashItem anItem = deleteOnTearDown(TYPE.newItem(setValue));
+		final HashItem anItem = TYPE.newItem(setValue);
 		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));
 	}
 

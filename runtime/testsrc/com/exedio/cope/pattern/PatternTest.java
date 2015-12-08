@@ -208,7 +208,6 @@ public class PatternTest extends AbstractRuntimeModelTest
 				PatternTestItem.testPattern.superTypeString.map("string1"),
 				PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)),
 				PatternTestItem.testPattern.subTypeInteger.map(1));
-		deleteOnTearDown(item);
 
 		//casting
 		assertSame(item, superType.cast(item));

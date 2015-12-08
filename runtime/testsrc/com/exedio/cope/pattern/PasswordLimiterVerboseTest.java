@@ -43,8 +43,8 @@ public class PasswordLimiterVerboseTest extends CopeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		i = deleteOnTearDown(new PasswordLimiterItem(PASSWORD));
-		i2 = deleteOnTearDown(new PasswordLimiterItem(PASSWORD2));
+		i = new PasswordLimiterItem(PASSWORD);
+		i2 = new PasswordLimiterItem(PASSWORD2);
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}

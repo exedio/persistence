@@ -94,7 +94,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 		// test persistence
 		assertCheckUpdateCounters();
 
-		final HierarchyEmptySub subItem = deleteOnTearDown(new HierarchyEmptySub(0));
+		final HierarchyEmptySub subItem = new HierarchyEmptySub(0);
 		assertCheckUpdateCounters();
 		assertEquals(0, subItem.getSuperInt());
 
@@ -106,7 +106,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(null));
 		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 
-		final HierarchyEmptySuper superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
+		final HierarchyEmptySuper superItem = new HierarchyEmptySuper(3);
 		assertCheckUpdateCounters();
 		assertEquals(3, superItem.getSuperInt());
 

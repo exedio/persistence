@@ -37,9 +37,9 @@ public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
 
 	public void test()
 	{
-		final AnItem item1 = deleteOnTearDown(new AnItem());
-		final AnItem item2 = deleteOnTearDown(new AnItem());
-		final AnItem item3 = deleteOnTearDown(new AnItem());
+		final AnItem item1 = new AnItem();
+		final AnItem item2 = new AnItem();
+		final AnItem item3 = new AnItem();
 		assertIt(0, 0, 0, item1);
 		assertIt(0, 0, 0, item2);
 		assertIt(0, 0, 0, item3);

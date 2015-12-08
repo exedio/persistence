@@ -39,11 +39,11 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		i1 = deleteOnTearDown(new DayItem(d1));
-		i2 = deleteOnTearDown(new DayItem(d2));
-		i3 = deleteOnTearDown(new DayItem(d3));
-		i4 = deleteOnTearDown(new DayItem(d1));
-		i5 = deleteOnTearDown(new DayItem(d2));
+		i1 = new DayItem(d1);
+		i2 = new DayItem(d2);
+		i3 = new DayItem(d3);
+		i4 = new DayItem(d1);
+		i5 = new DayItem(d2);
 	}
 
 	public void testIt()

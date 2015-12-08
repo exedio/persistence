@@ -50,8 +50,8 @@ public class DivideDoubleTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DivideDoubleItem(8.5, 2.5, 4.0));
-		item2 = deleteOnTearDown(new DivideDoubleItem(30.3, 4.4, 5.5));
+		item = new DivideDoubleItem(8.5, 2.5, 4.0);
+		item2 = new DivideDoubleItem(30.3, 4.4, 5.5);
 	}
 
 	private static final double EPS = 0.000000000000005d;

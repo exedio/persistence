@@ -37,7 +37,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 
 	public void testSet()
 	{
-		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
+		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		try
@@ -78,7 +78,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 
 	public void testSetSuper()
 	{
-		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
+		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		try
@@ -119,7 +119,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 
 	public void testSetMulti()
 	{
-		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
+		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		try
@@ -160,7 +160,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 
 	public void testSetMultiSuper()
 	{
-		final CheckConstraintItem item = deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7));
+		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		try
@@ -203,7 +203,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 	{
 		try
 		{
-			deleteOnTearDown(new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7));
+			new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7);
 			fail();
 		}
 		catch(final CheckViolationException e)

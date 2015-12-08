@@ -133,7 +133,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		// test persistence
 		assertCheckUpdateCounters();
 
-		final HierarchyFirstSub firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
+		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
 		assertCheckUpdateCounters();
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
@@ -154,15 +154,15 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		firstItem.setSuperInt(0);
 
-		final HierarchySecondSub secondItem = deleteOnTearDown(new HierarchySecondSub(2));
+		final HierarchySecondSub secondItem = new HierarchySecondSub(2);
 		assertCheckUpdateCounters();
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
-		final HierarchySecondSub secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
+		final HierarchySecondSub secondItem2 = new HierarchySecondSub(3);
 		assertCheckUpdateCounters();
 
-		final HierarchyFirstSub firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
+		final HierarchyFirstSub firstItem2 = new HierarchyFirstSub(4);
 		assertCheckUpdateCounters();
 
 		assertEquals(list(firstItem), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.equal("firstSubString")));
@@ -179,15 +179,15 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertTrue(HierarchySingleSuper.TYPE.isAbstract());
 		assertFalse(HierarchySingleSub.TYPE.isAbstract());
 
-		final HierarchySingleSub singleSub1a = deleteOnTearDown(new HierarchySingleSub());
+		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
 		assertCheckUpdateCounters();
 		singleSub1a.setSubString("a");
 		assertCheckUpdateCounters();
 		singleSub1a.setSuperInt(Integer.valueOf(1));
 		assertCheckUpdateCounters();
-		final HierarchySingleSub singleSub1b = deleteOnTearDown(new HierarchySingleSub(1, "b"));
+		final HierarchySingleSub singleSub1b = new HierarchySingleSub(1, "b");
 		assertCheckUpdateCounters();
-		final HierarchySingleSub singleSub2a = deleteOnTearDown(new HierarchySingleSub(2, "a"));
+		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
 		assertCheckUpdateCounters();
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
@@ -293,7 +293,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 
 	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
-		final HierarchyFirstSub item = deleteOnTearDown(new HierarchyFirstSub(10));
+		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 
 		final Query<?> q1 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(10));
 		final Query<?> q2 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(20));
@@ -390,21 +390,21 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 
-		deleteOnTearDown(new HierarchyFirstSub(0));
+		new HierarchyFirstSub(0);
 		assertInfo(HierarchySuper.TYPE, 1, 0, 0, HierarchySuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 1, 0, 0, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 1, 0, 0, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 
-		deleteOnTearDown(new HierarchyFirstSub(1));
+		new HierarchyFirstSub(1);
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchySuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchySecondSub.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE.getPrimaryKeyInfo());
 
-		deleteOnTearDown(new HierarchySingleSub());
+		new HierarchySingleSub();
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchySuper.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchyFirstSub.TYPE.getPrimaryKeyInfo());
 		assertInfo(HierarchySuper.TYPE, 2, 0, 1, HierarchySecondSub.TYPE.getPrimaryKeyInfo());

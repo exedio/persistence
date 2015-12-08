@@ -98,7 +98,7 @@ public class MediaMandatoryTest extends AbstractRuntimeModelTest
 		assertEquals(list(), TYPE.search());
 
 		final Date before = new Date();
-		final MediaMandatoryItem item = deleteOnTearDown(new MediaMandatoryItem(data20, "major/minor"));
+		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major/minor");
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
 		assertEquals(list(item), TYPE.search());

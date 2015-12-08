@@ -53,8 +53,8 @@ public class ItemSerializationTest extends AbstractRuntimeModelTest
 		super.setUp();
 
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
-		deleteOnTearDown(new ItemSerializationItem("nullus"));
-		item = deleteOnTearDown(new ItemSerializationItem("eins"));
+		new ItemSerializationItem("nullus");
+		item = new ItemSerializationItem("eins");
 	}
 
 	public void testItem()

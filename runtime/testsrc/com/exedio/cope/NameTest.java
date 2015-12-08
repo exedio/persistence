@@ -46,9 +46,9 @@ public class NameTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new NameLongItem("long name item"));
-		itemca = deleteOnTearDown(new NameCollisionlongaItem("collision A"));
-		itemcb = deleteOnTearDown(new NameCollisionlongaItem("collision B"));
+		item = new NameLongItem("long name item");
+		itemca = new NameCollisionlongaItem("collision A");
+		itemcb = new NameCollisionlongaItem("collision B");
 	}
 
 	public void test()

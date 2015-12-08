@@ -48,15 +48,15 @@ public class DynamicModelCastTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new ModelItem("item"));
+		item = new ModelItem("item");
 	}
 
 	public void testIt()
 	{
-		final Type<Locale> alpha1 = deleteOnTearDown(ModelItem.alpha.createType("alpha1"));
-		final Type<Locale> alpha2 = deleteOnTearDown(ModelItem.alpha.createType("alpha2"));
-		final Type<Locale> alfax  = deleteOnTearDown(ModelItem.alfa .createType("alfax"));
-		final Type<String> betax  = deleteOnTearDown(ModelItem.beta .createType("betax"));
+		final Type<Locale> alpha1 = ModelItem.alpha.createType("alpha1");
+		final Type<Locale> alpha2 = ModelItem.alpha.createType("alpha2");
+		final Type<Locale> alfax  = ModelItem.alfa .createType("alfax");
+		final Type<String> betax  = ModelItem.beta .createType("betax");
 		final Field<Locale> alphaS  = alpha1.addStringField("alphaS");
 		final Field<Locale> alpha1a = alpha1.addEnumField("alpha1a");
 		final Field<Locale> alpha1b = alpha1.addEnumField("alpha1b");

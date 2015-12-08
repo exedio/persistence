@@ -55,8 +55,8 @@ public class StringTest extends AbstractRuntimeModelTest
 		super.setUp();
 		supports = model.supportsEmptyStrings();
 		emptyString = supports ? "" : null;
-		item = deleteOnTearDown(new StringItem("StringTest"));
-		item2 = deleteOnTearDown(new StringItem("StringTest2"));
+		item = new StringItem("StringTest");
+		item2 = new StringItem("StringTest2");
 		numberOfItems = 2;
 	}
 
@@ -121,7 +121,7 @@ public class StringTest extends AbstractRuntimeModelTest
 		assertStringSet(item, max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
 
 		{
-			final StringItem itemEmptyInit = deleteOnTearDown(new StringItem("", false));
+			final StringItem itemEmptyInit = new StringItem("", false);
 			numberOfItems++;
 			assertEquals(emptyString, itemEmptyInit.getAny());
 			restartTransaction();
@@ -201,7 +201,7 @@ public class StringTest extends AbstractRuntimeModelTest
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			item3 = deleteOnTearDown(new StringItem("", 0.0));
+			item3 = new StringItem("", 0.0);
 			numberOfItems++;
 			if(supports)
 				assertEquals("", item3.getMandatory());

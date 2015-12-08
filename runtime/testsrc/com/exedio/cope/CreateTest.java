@@ -30,15 +30,15 @@ public class CreateTest extends AbstractRuntimeModelTest
 	public void test()
 	{
 		{
-			final CreateItem item = deleteOnTearDown(new CreateItem("normal"));
+			final CreateItem item = new CreateItem("normal");
 			assertEquals("normal.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final CreateItem item = deleteOnTearDown(new CreateItem(CreateSuperItem.text.map("generic")));
+			final CreateItem item = new CreateItem(CreateSuperItem.text.map("generic"));
 			assertEquals("generic.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final CreateItem item = deleteOnTearDown(CreateItem.TYPE.newItem(CreateSuperItem.text.map("type")));
+			final CreateItem item = CreateItem.TYPE.newItem(CreateSuperItem.text.map("type"));
 			assertEquals("type.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		try
@@ -73,15 +73,15 @@ public class CreateTest extends AbstractRuntimeModelTest
 		}
 		// super
 		{
-			final CreateSuperItem item = deleteOnTearDown(new CreateSuperItem("normal"));
+			final CreateSuperItem item = new CreateSuperItem("normal");
 			assertEquals("normal.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final CreateSuperItem item = deleteOnTearDown(new CreateSuperItem(CreateSuperItem.text.map("generic")));
+			final CreateSuperItem item = new CreateSuperItem(CreateSuperItem.text.map("generic"));
 			assertEquals("generic.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final CreateSuperItem item = deleteOnTearDown(CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("type")));
+			final CreateSuperItem item = CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("type"));
 			assertEquals("type.preCreateSuper.postCreateSuper", item.getText());
 		}
 		try

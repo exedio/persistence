@@ -49,8 +49,8 @@ public class DivideIntegerTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DivideIntegerItem(7, 9, 3));
-		item2 = deleteOnTearDown(new DivideIntegerItem(30, 4, 5));
+		item = new DivideIntegerItem(7, 9, 3);
+		item2 = new DivideIntegerItem(30, 4, 5);
 	}
 
 	public void testSum()

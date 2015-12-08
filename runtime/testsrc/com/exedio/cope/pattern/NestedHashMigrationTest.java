@@ -38,7 +38,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 
 	public void testSetNull()
 	{
-		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
+		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 
 		try
 		{
@@ -81,7 +81,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 
 	public void testMigratePasswordOnChange()
 	{
-		final NestedHashMigrationItem item = deleteOnTearDown(new NestedHashMigrationItem("111111", 1.1));
+		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 		assertLegacy(item);
 
 		assertTrue(item.checkPassword("111111"));
@@ -99,9 +99,9 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 
 	public void testMigratePasswordAutomatically()
 	{
-		final NestedHashMigrationItem itemA = deleteOnTearDown(new NestedHashMigrationItem("111111A", 1.1));
-		final NestedHashMigrationItem itemB = deleteOnTearDown(new NestedHashMigrationItem("111111B", 1.1));
-		final NestedHashMigrationItem itemX = deleteOnTearDown(new NestedHashMigrationItem("111111X"));
+		final NestedHashMigrationItem itemA = new NestedHashMigrationItem("111111A", 1.1);
+		final NestedHashMigrationItem itemB = new NestedHashMigrationItem("111111B", 1.1);
+		final NestedHashMigrationItem itemX = new NestedHashMigrationItem("111111X");
 		assertLegacy(itemA);
 		assertLegacy(itemB);
 		assertTarget(itemX);

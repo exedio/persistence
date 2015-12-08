@@ -50,15 +50,15 @@ public class ImporterTest extends AbstractRuntimeModelTest
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
-		final ImporterItem itemA = deleteOnTearDown(
-			importByCode("codeA", description.map("descA"), description2.map("desc2A")));
+		final ImporterItem itemA =
+			importByCode("codeA", description.map("descA"), description2.map("desc2A"));
 		assertEquals(list(itemA), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
 		assertEquals("desc2A", itemA.getDescription2());
 
-		final ImporterItem itemB = deleteOnTearDown(
-			importByCode("codeB", description.map("descB"), description2.map("desc2B")));
+		final ImporterItem itemB =
+			importByCode("codeB", description.map("descB"), description2.map("desc2B"));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());

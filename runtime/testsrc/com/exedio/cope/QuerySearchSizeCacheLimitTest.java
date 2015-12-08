@@ -45,11 +45,11 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 		super.setUp();
 		cacheEnabled = model.getConnectProperties().getQueryCacheLimit()>0;
 		q = TYPE.newQuery();
-		i1 = deleteOnTearDown(new DayItem(d1));
-		i2 = deleteOnTearDown(new DayItem(d2));
-		i3 = deleteOnTearDown(new DayItem(d3));
-		i4 = deleteOnTearDown(new DayItem(d1));
-		i5 = deleteOnTearDown(new DayItem(d2));
+		i1 = new DayItem(d1);
+		i2 = new DayItem(d2);
+		i3 = new DayItem(d3);
+		i4 = new DayItem(d1);
+		i5 = new DayItem(d2);
 
 		// allows testing influence of query cache
 		restartTransaction();

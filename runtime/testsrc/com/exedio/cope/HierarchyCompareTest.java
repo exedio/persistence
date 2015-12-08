@@ -40,12 +40,12 @@ public class HierarchyCompareTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		items = new ArrayList<>();
-		final HierarchySingleSub c1 = deleteOnTearDown(new HierarchySingleSub(2, "x"));
-		final HierarchyFirstSub a1 = deleteOnTearDown(new HierarchyFirstSub(0));
-		final HierarchySecondSub b1 = deleteOnTearDown(new HierarchySecondSub(1));
-		final HierarchyFirstSub a2 = deleteOnTearDown(new HierarchyFirstSub(3));
-		final HierarchySecondSub b2 = deleteOnTearDown(new HierarchySecondSub(4));
-		final HierarchySingleSub c2 = deleteOnTearDown(new HierarchySingleSub(2, "x"));
+		final HierarchySingleSub c1 = new HierarchySingleSub(2, "x");
+		final HierarchyFirstSub a1 = new HierarchyFirstSub(0);
+		final HierarchySecondSub b1 = new HierarchySecondSub(1);
+		final HierarchyFirstSub a2 = new HierarchyFirstSub(3);
+		final HierarchySecondSub b2 = new HierarchySecondSub(4);
+		final HierarchySingleSub c2 = new HierarchySingleSub(2, "x");
 		items   = Arrays.asList(      a1, b1, a2, b2, c1, c2);
 		orderby = Arrays.asList((Item)a1, b1, a2, b2);
 	}

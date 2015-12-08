@@ -63,7 +63,7 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
 		assertInfo(1, 0, 0, 0);
 
-		final MatchItem item1 = deleteOnTearDown(new MatchItem("item1"));
+		final MatchItem item1 = new MatchItem("item1");
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.currentTransaction();
 		model.commit();
@@ -79,7 +79,7 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
-		final MatchItem item2 = deleteOnTearDown(new MatchItem("item2"));
+		final MatchItem item2 = new MatchItem("item2");
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();

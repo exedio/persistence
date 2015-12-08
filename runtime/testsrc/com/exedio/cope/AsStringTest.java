@@ -41,12 +41,12 @@ public class AsStringTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new AsStringItem( 13,  15l,  1.9));
-		item10= deleteOnTearDown(new AsStringItem( 13,  15l,  0.9));
-		item2 = deleteOnTearDown(new AsStringItem( 23,  25l, 29.0));
-		itemN = deleteOnTearDown(new AsStringItem(-33, -35l, -3.9));
-		item0 = deleteOnTearDown(new AsStringItem(  0,   0l,  0.0));
-		itemX = deleteOnTearDown(new AsStringItem(null, null, null));
+		item1 = new AsStringItem( 13,  15l,  1.9);
+		item10= new AsStringItem( 13,  15l,  0.9);
+		item2 = new AsStringItem( 23,  25l, 29.0);
+		itemN = new AsStringItem(-33, -35l, -3.9);
+		item0 = new AsStringItem(  0,   0l,  0.0);
+		itemX = new AsStringItem(null, null, null);
 	}
 
 	public void testIt()

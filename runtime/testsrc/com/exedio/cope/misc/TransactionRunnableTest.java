@@ -78,7 +78,6 @@ public class TransactionRunnableTest extends AbstractRuntimeModelTest
 		assertFalse(model.hasCurrentTransaction());
 		tr1.run();
 		assertFalse(model.hasCurrentTransaction());
-		deleteOnTearDown(item);
 
 		model.startTransaction("TransactionRunnableTest");
 		assertContains(item, TYPE.search());

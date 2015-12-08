@@ -53,7 +53,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 
 	public void testTop()
 	{
-		final CheckConstraintHierarchyItemBottom item = deleteOnTearDown(new CheckConstraintHierarchyItemBottom());
+		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
 		try
@@ -71,7 +71,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 
 	public void testUp()
 	{
-		final CheckConstraintHierarchyItemBottom item = deleteOnTearDown(new CheckConstraintHierarchyItemBottom());
+		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
 		try
@@ -89,7 +89,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 
 	public void testBottom()
 	{
-		final CheckConstraintHierarchyItemBottom item = deleteOnTearDown(new CheckConstraintHierarchyItemBottom());
+		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
 		try
@@ -108,7 +108,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 
 	public void testCross()
 	{
-		final CheckConstraintHierarchyItemBottom item = deleteOnTearDown(new CheckConstraintHierarchyItemBottom());
+		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
 		try

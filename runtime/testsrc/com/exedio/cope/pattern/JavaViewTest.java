@@ -55,8 +55,8 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new JavaViewItem());
-		item2 = deleteOnTearDown(new JavaViewItem2());
+		item = new JavaViewItem();
+		item2 = new JavaViewItem2();
 	}
 
 	public void testNumber()

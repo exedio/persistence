@@ -57,7 +57,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		i = deleteOnTearDown(new PasswordRecoveryItem("oldpass"));
+		i = new PasswordRecoveryItem("oldpass");
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}

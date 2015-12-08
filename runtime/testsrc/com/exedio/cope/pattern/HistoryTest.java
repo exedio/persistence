@@ -57,7 +57,7 @@ public class HistoryTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new HistoryItem());
+		item = new HistoryItem();
 	}
 
 	public void testIt()

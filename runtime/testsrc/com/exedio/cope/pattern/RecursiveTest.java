@@ -122,7 +122,7 @@ public class RecursiveTest extends AbstractRuntimeModelTest
 		assertTestAnnotation("ownIntAnn",  PatternTestItem.testPattern2.ownInt);
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
 
-		final RecursiveItem item = deleteOnTearDown(new RecursiveItem());
+		final RecursiveItem item = new RecursiveItem();
 		assertEquals(null, testPattern.getLocator(item));
 
 		assertFalse(item.fetch());

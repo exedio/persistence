@@ -47,9 +47,9 @@ public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusDoubleItem(1.1, 6.6, -1000.99));
-		item2 = deleteOnTearDown(new PlusDoubleItem(2.2, 1.1, -1000.99));
-		item3 = deleteOnTearDown(new PlusDoubleItem(6.6, 2.2, -1000.99));
+		item1 = new PlusDoubleItem(1.1, 6.6, -1000.99);
+		item2 = new PlusDoubleItem(2.2, 1.1, -1000.99);
+		item3 = new PlusDoubleItem(6.6, 2.2, -1000.99);
 	}
 
 	private static final double EPS = 0.000000000000001d;

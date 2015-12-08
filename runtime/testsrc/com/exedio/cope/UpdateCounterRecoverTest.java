@@ -40,7 +40,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new CacheIsolationItem("name0"));
+		item = new CacheIsolationItem("name0");
 	}
 
 	public void testSameTransaction() throws SQLException

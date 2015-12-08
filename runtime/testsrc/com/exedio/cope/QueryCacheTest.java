@@ -40,7 +40,7 @@ public class QueryCacheTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MatchItem());
+		item = new MatchItem();
 	}
 
 	private static final String Q1 = "select this from MatchItem where text='someString'";

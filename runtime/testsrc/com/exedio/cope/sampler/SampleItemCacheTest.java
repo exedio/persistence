@@ -96,7 +96,7 @@ public class SampleItemCacheTest extends ConnectedTest
 	private final void touch()
 	{
 		MODEL.startTransaction("HistoryTest2");
-		deleteOnTearDown(SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack")));
+		SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack"));
 		MODEL.commit();
 	}
 

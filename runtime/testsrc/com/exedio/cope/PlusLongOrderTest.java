@@ -47,9 +47,9 @@ public class PlusLongOrderTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = deleteOnTearDown(new PlusLongItem(1l, 6l, -1000l));
-		item2 = deleteOnTearDown(new PlusLongItem(2l, 1l, -1000l));
-		item3 = deleteOnTearDown(new PlusLongItem(6l, 2l, -1000l));
+		item1 = new PlusLongItem(1l, 6l, -1000l);
+		item2 = new PlusLongItem(2l, 1l, -1000l);
+		item3 = new PlusLongItem(6l, 2l, -1000l);
 	}
 
 	public void testSumOrder()

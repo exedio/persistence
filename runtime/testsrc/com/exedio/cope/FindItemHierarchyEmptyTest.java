@@ -32,8 +32,8 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		subItem = deleteOnTearDown(new HierarchyEmptySub(0));
-		superItem = deleteOnTearDown(new HierarchyEmptySuper(3));
+		subItem = new HierarchyEmptySub(0);
+		superItem = new HierarchyEmptySuper(3);
 	}
 
 	public void test() throws NoSuchIDException

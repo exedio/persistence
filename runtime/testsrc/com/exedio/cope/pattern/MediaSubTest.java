@@ -46,7 +46,7 @@ public class MediaSubTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MediaItem("test media item"));
+		item = new MediaItem("test media item");
 	}
 
 	public void testIt() throws IOException

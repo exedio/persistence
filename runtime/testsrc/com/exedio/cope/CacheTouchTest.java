@@ -36,7 +36,7 @@ public class CacheTouchTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new CacheIsolationItem("itemName"));
+		item = new CacheIsolationItem("itemName");
 	}
 
 	public void testIt()

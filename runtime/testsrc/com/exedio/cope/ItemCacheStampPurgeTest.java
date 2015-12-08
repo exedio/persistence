@@ -43,9 +43,9 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 		if(quit)
 			return;
 
-		item1 = deleteOnTearDown(new CacheIsolationItem("item1"));
-		item2 = deleteOnTearDown(new CacheIsolationItem("item2"));
-		itemX = deleteOnTearDown(new CacheIsolationItem("itemX"));
+		item1 = new CacheIsolationItem("item1");
+		item2 = new CacheIsolationItem("item2");
+		itemX = new CacheIsolationItem("itemX");
 		model.commit();
 		clearStamps(model.connect().itemCache);
 		model.startTransaction("ItemCacheStampPurgeTest");

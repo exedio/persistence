@@ -45,11 +45,11 @@ public class TypeIteratorTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item0 = deleteOnTearDown(new QueryAggregatorItem(0));
-		item1 = deleteOnTearDown(new QueryAggregatorItem(1));
-		item2 = deleteOnTearDown(new QueryAggregatorItem(2));
-		item3 = deleteOnTearDown(new QueryAggregatorItem(3));
-		item4 = deleteOnTearDown(new QueryAggregatorItem(4));
+		item0 = new QueryAggregatorItem(0);
+		item1 = new QueryAggregatorItem(1);
+		item2 = new QueryAggregatorItem(2);
+		item3 = new QueryAggregatorItem(3);
+		item4 = new QueryAggregatorItem(4);
 	}
 
 	public void testIt()

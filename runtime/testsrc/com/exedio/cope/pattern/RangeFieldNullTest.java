@@ -40,10 +40,10 @@ public class RangeFieldNullTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		final Range<String> s = valueOf("a", "b");
-		ab = deleteOnTearDown(new RangeFieldItem(valueOf(10,   20), s));
-		nb = deleteOnTearDown(new RangeFieldItem(valueOf(null, 20), s));
-		an = deleteOnTearDown(new RangeFieldItem(valueOf(10, null), s));
-		nn = deleteOnTearDown(new RangeFieldItem(valueOf((Integer)null, null), s));
+		ab = new RangeFieldItem(valueOf(10,   20), s);
+		nb = new RangeFieldItem(valueOf(null, 20), s);
+		an = new RangeFieldItem(valueOf(10, null), s);
+		nn = new RangeFieldItem(valueOf((Integer)null, null), s);
 	}
 
 	public void testIt()

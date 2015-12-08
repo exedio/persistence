@@ -39,8 +39,8 @@ public class EnumTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new EnumItem(EnumItem.Status.status1));
-		item2 = deleteOnTearDown(new EnumItem2(EnumItem2.Status.state1));
+		item = new EnumItem(EnumItem.Status.status1);
+		item2 = new EnumItem2(EnumItem2.Status.state1);
 	}
 
 	public void testIt()

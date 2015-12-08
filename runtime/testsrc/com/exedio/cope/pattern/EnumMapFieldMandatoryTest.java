@@ -63,7 +63,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 
 	public void testSet()
 	{
-		final EnumMapFieldMandatoryItem item = deleteOnTearDown(new EnumMapFieldMandatoryItem(FULL));
+		final EnumMapFieldMandatoryItem item = new EnumMapFieldMandatoryItem(FULL);
 
 		assertEquals("full-de", item.getText(DE));
 		assertEquals("full-en", item.getText(EN));

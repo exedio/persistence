@@ -49,13 +49,13 @@ public class DefaultInheritanceTest extends AbstractRuntimeModelTest
 
 	public void testBeta()
 	{
-		final Beta item = deleteOnTearDown(new Beta());
+		final Beta item = new Beta();
 		assertEquals(false, item.getField());
 	}
 
 	public void testGamma()
 	{
-		final Gamma item = deleteOnTearDown(new Gamma());
+		final Gamma item = new Gamma();
 		assertEquals(false, item.getField());
 	}
 

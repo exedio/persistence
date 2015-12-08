@@ -50,8 +50,8 @@ public class MinusDoubleTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MinusDoubleItem(8.5, 2.5, 4.0));
-		item2 = deleteOnTearDown(new MinusDoubleItem(30.3, 4.4, 5.5));
+		item = new MinusDoubleItem(8.5, 2.5, 4.0);
+		item2 = new MinusDoubleItem(30.3, 4.4, 5.5);
 	}
 
 	private static final double EPS = 0.000000000000005d;

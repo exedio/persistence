@@ -47,7 +47,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new LimitedListFieldItem(1, 2, 3));
+		item = new LimitedListFieldItem(1, 2, 3);
 	}
 
 	public void testNum()
@@ -162,7 +162,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		final LimitedListFieldItem item2 = deleteOnTearDown(new LimitedListFieldItem(strings.map(asList("lets1", "lets2", "lets3", "lets4"))));
+		final LimitedListFieldItem item2 = new LimitedListFieldItem(strings.map(asList("lets1", "lets2", "lets3", "lets4")));
 		assertEqualsUnmodifiable(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.getString0());
 		assertEquals("lets2", item2.getString1());
@@ -170,7 +170,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals("lets4", item2.getString3());
 		assertEquals(4, item2.getStringLength());
 
-		final LimitedListFieldItem item3 = deleteOnTearDown(LimitedListFieldItem.TYPE.newItem(strings.map(asList("fetz1", null, null, null))));
+		final LimitedListFieldItem item3 = LimitedListFieldItem.TYPE.newItem(strings.map(asList("fetz1", null, null, null)));
 		assertEqualsUnmodifiable(list("fetz1", null, null, null), item3.getStrings());
 		assertEquals("fetz1", item3.getString0());
 		assertEquals(null, item3.getString1());

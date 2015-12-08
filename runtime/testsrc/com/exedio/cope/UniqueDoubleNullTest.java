@@ -46,24 +46,24 @@ public class UniqueDoubleNullTest extends AbstractRuntimeModelTest
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
-		final UniqueDoubleNullItem aN1 = deleteOnTearDown(new UniqueDoubleNullItem("a", null));
+		final UniqueDoubleNullItem aN1 = new UniqueDoubleNullItem("a", null);
 		assertEquals("a", aN1.getString());
 		assertAll(aN1);
 
-		final UniqueDoubleNullItem aN2 = deleteOnTearDown(new UniqueDoubleNullItem("a", null));
+		final UniqueDoubleNullItem aN2 = new UniqueDoubleNullItem("a", null);
 		assertEquals("a", aN2.getString());
 		assertAll(aN1, aN2);
 
-		final UniqueDoubleNullItem N11 = deleteOnTearDown(new UniqueDoubleNullItem(null, 1));
+		final UniqueDoubleNullItem N11 = new UniqueDoubleNullItem(null, 1);
 		assertAll(aN1, aN2, N11);
 
-		final UniqueDoubleNullItem N12 = deleteOnTearDown(new UniqueDoubleNullItem(null, 1));
+		final UniqueDoubleNullItem N12 = new UniqueDoubleNullItem(null, 1);
 		assertAll(aN1, aN2, N11, N12);
 
-		final UniqueDoubleNullItem NN1 = deleteOnTearDown(new UniqueDoubleNullItem(null, null));
+		final UniqueDoubleNullItem NN1 = new UniqueDoubleNullItem(null, null);
 		assertAll(aN1, aN2, N11, N12, NN1);
 
-		final UniqueDoubleNullItem NN2 = deleteOnTearDown(new UniqueDoubleNullItem(null, null));
+		final UniqueDoubleNullItem NN2 = new UniqueDoubleNullItem(null, null);
 		assertAll(aN1, aN2, N11, N12, NN1, NN2);
 
 		aN1.setString("b");

@@ -85,7 +85,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
 
 		// create two items with null, that must not interfere with uniqueness
-		final UniqueSingleItem nullItem1 = deleteOnTearDown(new UniqueSingleItem());
+		final UniqueSingleItem nullItem1 = new UniqueSingleItem();
 		assertEquals(null, nullItem1.getUniqueString());
 		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
 		try
@@ -98,7 +98,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
 		}
 
-		final UniqueSingleItem nullItem2 = deleteOnTearDown(new UniqueSingleItem());
+		final UniqueSingleItem nullItem2 = new UniqueSingleItem();
 		assertEquals(null, nullItem2.getUniqueString());
 		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
 		try
@@ -274,8 +274,8 @@ public class UniqueTest extends AbstractRuntimeModelTest
 
 	public void testMultipleSet()
 	{
-		final UniqueSingleItem item1 = deleteOnTearDown(new UniqueSingleItem());
-		final UniqueSingleItem item2 = deleteOnTearDown(new UniqueSingleItem());
+		final UniqueSingleItem item1 = new UniqueSingleItem();
+		final UniqueSingleItem item2 = new UniqueSingleItem();
 
 		item1.set(
 				UniqueSingleItem.uniqueString.map("uniqueString1"),

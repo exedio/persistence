@@ -37,8 +37,8 @@ public class CacheIsolationTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new CacheIsolationItem("blub"));
-		collisionItem = deleteOnTearDown(new CacheIsolationItem("collision"));
+		item = new CacheIsolationItem("blub");
+		collisionItem = new CacheIsolationItem("collision");
 		collisionItem.setUniqueString( "unique" );
 
 		unq = model.connect().executor.supportsUniqueViolation;

@@ -43,8 +43,8 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new EnumSetFieldItem());
-		itemX = deleteOnTearDown(new EnumSetFieldItem());
+		item = new EnumSetFieldItem();
+		itemX = new EnumSetFieldItem();
 	}
 
 	public void testIt()
@@ -170,7 +170,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		final EnumSet<Language> value = EnumSet.noneOf(EnumSetFieldItem.Language.class);
 
 		value.add(PL);
-		final EnumSetFieldItem initialItem = deleteOnTearDown(new EnumSetFieldItem(value));
+		final EnumSetFieldItem initialItem = new EnumSetFieldItem(value);
 		assertEquals(false, initialItem.containsActiveLanguage(DE));
 		assertEquals(false, initialItem.containsActiveLanguage(EN));
 		assertEquals(true,  initialItem.containsActiveLanguage(PL));

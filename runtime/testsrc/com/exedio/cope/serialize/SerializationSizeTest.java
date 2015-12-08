@@ -50,10 +50,10 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 
 	public void testModel()
 	{
-		final ItemSerializationItem itemA = deleteOnTearDown(new ItemSerializationItem("nameA"));
-		final ItemSerializationItem itemB = deleteOnTearDown(new ItemSerializationItem("nameB"));
-		final ItemSerializationItem2 item2A = deleteOnTearDown(new ItemSerializationItem2());
-		final ItemSerializationItem2 item2B = deleteOnTearDown(new ItemSerializationItem2());
+		final ItemSerializationItem itemA = new ItemSerializationItem("nameA");
+		final ItemSerializationItem itemB = new ItemSerializationItem("nameB");
+		final ItemSerializationItem2 item2A = new ItemSerializationItem2();
+		final ItemSerializationItem2 item2B = new ItemSerializationItem2();
 
 		assertAccu(176, ItemSerializationTest.MODEL);
 		assertAccu(  5, ItemSerializationTest.MODEL);
@@ -119,17 +119,17 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 
 	public void testItems()
 	{
-		assertAccu(108, deleteOnTearDown(new ItemSerializationItem("name")));
-		assertAccu( 10, deleteOnTearDown(new ItemSerializationItem("name")));
-		assertAccu( 10, deleteOnTearDown(new ItemSerializationItem("name")));
-		assertAccu( 73, deleteOnTearDown(new ItemSerializationItem2()));
-		assertAccu( 10, deleteOnTearDown(new ItemSerializationItem2()));
+		assertAccu(108, new ItemSerializationItem("name"));
+		assertAccu( 10, new ItemSerializationItem("name"));
+		assertAccu( 10, new ItemSerializationItem("name"));
+		assertAccu( 73, new ItemSerializationItem2());
+		assertAccu( 10, new ItemSerializationItem2());
 	}
 
 	public void testUnboundItems()
 	{
-		final ItemSerializationItem  item1 = deleteOnTearDown(new ItemSerializationItem("name"));
-		final ItemSerializationItem2 item2 = deleteOnTearDown(new ItemSerializationItem2());
+		final ItemSerializationItem  item1 = new ItemSerializationItem("name");
+		final ItemSerializationItem2 item2 = new ItemSerializationItem2();
 		item1.addToList("listItem0");
 		item1.addToList("listItem1");
 		item1.addToList("listItem2");

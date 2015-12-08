@@ -44,7 +44,7 @@ public class ListFieldTest2 extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new ListFieldItem());
+		item = new ListFieldItem();
 	}
 
 	public void testIt()

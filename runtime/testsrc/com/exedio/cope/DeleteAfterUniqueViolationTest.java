@@ -48,7 +48,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 	{
 		model.startTransaction(getClass().getName());
 
-		deleteOnTearDown(new DeleteAfterUniqueViolationItem("commit", 1.0));
+		new DeleteAfterUniqueViolationItem("commit", 1.0);
 
 		try
 		{
@@ -84,7 +84,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 	{
 		model.startTransaction(getClass().getName());
 
-		deleteOnTearDown(new DeleteAfterUniqueViolationItem("rollback", 1.0));
+		new DeleteAfterUniqueViolationItem("rollback", 1.0);
 
 		try
 		{

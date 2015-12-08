@@ -31,8 +31,8 @@ public final class FinalTest extends AbstractRuntimeModelTest
 
 	public void test()
 	{
-		deleteOnTearDown(new FinalSubItem(1, 11));
-		deleteOnTearDown(new FinalSubNoneItem(2, 22));
+		new FinalSubItem(1, 11);
+		new FinalSubNoneItem(2, 22);
 
 		restartTransaction();
 		model.clearCache();

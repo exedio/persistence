@@ -63,7 +63,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 
 	public void testEmpty()
 	{
-		final EnumMapFieldFinalItem item = deleteOnTearDown(new EnumMapFieldFinalItem(EMPTY));
+		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem(EMPTY);
 		assertEquals(null, item.getText(DE));
 		assertEquals(null, item.getText(EN));
 		assertEquals(null, item.getText(PL));
@@ -93,7 +93,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 
 	public void testCreateWithoutMapping()
 	{
-		final EnumMapFieldFinalItem item = deleteOnTearDown(new EnumMapFieldFinalItem());
+		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem();
 		assertEquals(null, item.getText(DE));
 		assertEquals(null, item.getText(EN));
 		assertEquals(null, item.getText(PL));

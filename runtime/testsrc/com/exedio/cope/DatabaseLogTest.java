@@ -37,7 +37,7 @@ public class DatabaseLogTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MatchItem());
+		item = new MatchItem();
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class ColorFieldTest extends CopeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		i = deleteOnTearDown(new ColorFieldItem(new Color(1, 2, 3)));
+		i = new ColorFieldItem(new Color(1, 2, 3));
 	}
 
 	public void testMandatory()

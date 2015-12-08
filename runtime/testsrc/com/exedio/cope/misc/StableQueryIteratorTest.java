@@ -43,16 +43,16 @@ public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item0 = deleteOnTearDown(new QueryAggregatorItem(0));
-		item1 = deleteOnTearDown(new QueryAggregatorItem(1));
-		item2 = deleteOnTearDown(new QueryAggregatorItem(2));
-		item3 = deleteOnTearDown(new QueryAggregatorItem(3));
-		item4 = deleteOnTearDown(new QueryAggregatorItem(4));
-		item5 = deleteOnTearDown(new QueryAggregatorItem(5));
-		item6 = deleteOnTearDown(new QueryAggregatorItem(6));
-		item7 = deleteOnTearDown(new QueryAggregatorItem(7));
-		item8 = deleteOnTearDown(new QueryAggregatorItem(8));
-		item9 = deleteOnTearDown(new QueryAggregatorItem(9));
+		item0 = new QueryAggregatorItem(0);
+		item1 = new QueryAggregatorItem(1);
+		item2 = new QueryAggregatorItem(2);
+		item3 = new QueryAggregatorItem(3);
+		item4 = new QueryAggregatorItem(4);
+		item5 = new QueryAggregatorItem(5);
+		item6 = new QueryAggregatorItem(6);
+		item7 = new QueryAggregatorItem(7);
+		item8 = new QueryAggregatorItem(8);
+		item9 = new QueryAggregatorItem(9);
 
 		q = TYPE.newQuery();
 		q.setOrderBy(TYPE.getThis(), true);

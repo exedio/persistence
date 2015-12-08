@@ -60,7 +60,7 @@ public class MessageDigestHashTest extends AbstractRuntimeModelTest
 		super.setUp();
 		expectSalt(passwordFinal, "885406ef34cef302");
 		expectSalt(passwordMandatory, "885406ef34cef302");
-		item = deleteOnTearDown(new MessageDigestHashItem("finalo", "musso"));
+		item = new MessageDigestHashItem("finalo", "musso");
 	}
 
 	private static final void expectSalt(final Hash hash, final String bytes)

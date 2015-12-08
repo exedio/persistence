@@ -61,7 +61,7 @@ public final class MediaTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MediaItem("test media item"));
+		item = new MediaItem("test media item");
 	}
 
 	public void testData() throws IOException
@@ -138,9 +138,9 @@ public final class MediaTest extends AbstractRuntimeModelTest
 
 	public void testConditions()
 	{
-		final MediaItem item2 = deleteOnTearDown(new MediaItem("other media item"));
-		deleteOnTearDown(new MediaItemHolder(item));
-		final MediaItemHolder m2 = deleteOnTearDown(new MediaItemHolder(item2));
+		final MediaItem item2 = new MediaItem("other media item");
+		new MediaItemHolder(item);
+		final MediaItemHolder m2 = new MediaItemHolder(item2);
 
 		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull(), MediaItem.TYPE.getThis(), true));
 		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));

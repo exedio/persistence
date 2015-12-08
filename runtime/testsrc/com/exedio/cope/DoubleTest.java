@@ -59,8 +59,8 @@ public class DoubleTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DoubleItem(2201.01));
-		item2 = deleteOnTearDown(new DoubleItem(2202.02));
+		item = new DoubleItem(2201.01);
+		item2 = new DoubleItem(2202.02);
 		numberOfItems = 2;
 	}
 

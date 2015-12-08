@@ -39,7 +39,7 @@ public class DataFinalTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DataFinalItem(toValue(bytes4)));
+		item = new DataFinalItem(toValue(bytes4));
 	}
 
 	public void testData() throws MandatoryViolationException, IOException

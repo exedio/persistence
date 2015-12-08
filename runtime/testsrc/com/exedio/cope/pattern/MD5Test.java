@@ -49,7 +49,7 @@ public class MD5Test extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MD5Item(FRANK));
+		item = new MD5Item(FRANK);
 	}
 
 	// reference example from http://de.wikipedia.org/wiki/MD5

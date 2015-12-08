@@ -44,8 +44,8 @@ public class LongTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new LongItem(2201l));
-		item2 = deleteOnTearDown(new LongItem(2202l));
+		item = new LongItem(2201l);
+		item2 = new LongItem(2202l);
 		numberOfItems = 2;
 	}
 

@@ -191,12 +191,12 @@ public class SampleTest extends ConnectedTest
 
 	private final void touch()
 	{
-		deleteOnTearDown(SampledModelItem.TYPE.newItem(
+		SampledModelItem.TYPE.newItem(
 				SampledModelItem.code.map("zack"),
 				SampledModelItem.mediaA.map(Media.toValue(new byte[]{1,2,3}, "zick/zack")),
 				SampledModelItem.mediaB.map(Media.toValue(new byte[]{1,2,3}, "zick/zack"))
-		));
-		deleteOnTearDown(SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack")));
+		);
+		SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack"));
 		MODEL.commit();
 		SampledModelItem.mediaA.incrementDelivered();
 		SampledModelItem.mediaB.incrementDelivered();

@@ -39,7 +39,7 @@ public class FindItemPatternTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new ListFieldItem());
+		item = new ListFieldItem();
 		item.addToStrings("xxzero");
 		item.addToStrings("xxone");
 		item.addToStrings("xxtwo");

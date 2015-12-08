@@ -41,14 +41,14 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 
-		leftX = deleteOnTearDown(new QueryItem("leftX"));
-		left1 = deleteOnTearDown(new QueryItem("left1"));
-		left2 = deleteOnTearDown(new QueryItem("left2"));
-		middleX = deleteOnTearDown(new SuperContainer("middleX", leftX, false));
-		middle1 = deleteOnTearDown(new SuperContainer("middle1", left1, false));
-		middle2 = deleteOnTearDown(new SubContainer("middle2", left2, false, middleX));
-		right1 = deleteOnTearDown(new SubContainer("right1", leftX, false, middle1));
-		right2 = deleteOnTearDown(new SubContainer("right2", leftX, false, middle2));
+		leftX = new QueryItem("leftX");
+		left1 = new QueryItem("left1");
+		left2 = new QueryItem("left2");
+		middleX = new SuperContainer("middleX", leftX, false);
+		middle1 = new SuperContainer("middle1", left1, false);
+		middle2 = new SubContainer("middle2", left2, false, middleX);
+		right1 = new SubContainer("right1", leftX, false, middle1);
+		right2 = new SubContainer("right2", leftX, false, middle2);
 	}
 
 	public void testWithSpecifyingjoin()

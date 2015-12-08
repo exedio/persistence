@@ -47,7 +47,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 
 		try(TransactionTry tx = model.startTransactionTry("CacheBadReadTest setUp"))
 		{
-			item = deleteOnTearDown(new CacheIsolationItem("itemName"));
+			item = new CacheIsolationItem("itemName");
 			tx.commit();
 		}
 	}

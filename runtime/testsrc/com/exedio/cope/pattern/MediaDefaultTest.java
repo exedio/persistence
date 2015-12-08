@@ -57,7 +57,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 		super.setUp();
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
-		item = deleteOnTearDown(new MediaItem("test media item"));
+		item = new MediaItem("test media item");
 	}
 
 	@Override

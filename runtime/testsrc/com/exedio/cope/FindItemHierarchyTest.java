@@ -35,10 +35,10 @@ public class FindItemHierarchyTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		firstItem = deleteOnTearDown(new HierarchyFirstSub(0));
-		secondItem = deleteOnTearDown(new HierarchySecondSub(2));
-		secondItem2 = deleteOnTearDown(new HierarchySecondSub(3));
-		firstItem2 = deleteOnTearDown(new HierarchyFirstSub(4));
+		firstItem = new HierarchyFirstSub(0);
+		secondItem = new HierarchySecondSub(2);
+		secondItem2 = new HierarchySecondSub(3);
+		firstItem2 = new HierarchyFirstSub(4);
 	}
 
 	public void testHierarchy()

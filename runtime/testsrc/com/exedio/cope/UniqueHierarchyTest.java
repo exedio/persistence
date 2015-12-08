@@ -39,7 +39,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeModelTest
 		assertEquals(list(), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());
 
-		final UniqueHierarchySubItem item = deleteOnTearDown(new UniqueHierarchySubItem("super1", "sub1"));
+		final UniqueHierarchySubItem item = new UniqueHierarchySubItem("super1", "sub1");
 		assertEquals(list(item), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
 
@@ -58,7 +58,6 @@ public class UniqueHierarchyTest extends AbstractRuntimeModelTest
 		assertEquals(list(item), UniqueHierarchySubItem.TYPE.search());
 
 		final UniqueHierarchySubItem item2 = new UniqueHierarchySubItem("super2", "sub2");
-		deleteOnTearDown(item2);
 		assertEquals(list(item, item2), UniqueHierarchySuperItem.TYPE.search(null, UniqueHierarchySuperItem.TYPE.getThis(), true));
 		assertEquals(list(item, item2), UniqueHierarchySubItem.TYPE.search(null, UniqueHierarchySubItem.TYPE.getThis(), true));
 

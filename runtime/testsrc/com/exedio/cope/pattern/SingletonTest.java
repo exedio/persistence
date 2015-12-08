@@ -85,7 +85,7 @@ public final class SingletonTest extends AbstractRuntimeModelTest
 
 		assertEquals(list(), TYPE.search());
 
-		final SingletonItem theOne = deleteOnTearDown(SingletonItem.instance());
+		final SingletonItem theOne = SingletonItem.instance();
 		assertEquals(list(theOne), TYPE.search());
 		assertEquals(null, theOne.getInteger());
 		assertEquals(55, theOne.getInteger55());

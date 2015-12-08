@@ -55,7 +55,7 @@ public class SerializerTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new SerializerItem());
+		item = new SerializerItem();
 	}
 
 	public void testSerializer()
@@ -147,18 +147,18 @@ public class SerializerTest extends AbstractRuntimeModelTest
 		assertNull(item.getInteger());
 		assertNull(item.getMap());
 
-		final SerializerItem item2 = deleteOnTearDown(new SerializerItem(new SetValue<?>[]{
+		final SerializerItem item2 = new SerializerItem(new SetValue<?>[]{
 				integer.map(33),
 				map.map(map1),
-		}));
+		});
 		assertEquals(valueOf(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
 
-		final SerializerItem item3 = deleteOnTearDown(SerializerItem.TYPE.newItem(
+		final SerializerItem item3 = SerializerItem.TYPE.newItem(
 				integer.map(44),
 				map.map(map2)
-		));
+		);
 		assertEquals(valueOf(44), item3.getInteger());
 		assertEquals(map2, item3.getMap());
 		assertNotSame(map2, item3.getMap());

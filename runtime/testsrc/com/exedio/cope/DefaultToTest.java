@@ -87,9 +87,9 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date now = clock.add(1111);
-			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
+			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
-			));
+			);
 			clock.assertEmpty();
 
 			assertEquals(TRUE, item.getBooleanTrue());
@@ -118,9 +118,9 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date now = clock.add(2222);
-			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
+			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
-			));
+			);
 			clock.assertEmpty();
 
 			assertEquals(TRUE, item.getBooleanTrue());
@@ -148,7 +148,7 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			clock.assertEmpty();
-			final DefaultToItem item = deleteOnTearDown(new DefaultToItem(
+			final DefaultToItem item = new DefaultToItem(
 					booleanTrue.map(false),
 					booleanNone.map(true),
 					integerFive.map(6),
@@ -167,7 +167,7 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 					enumOne.map(THREE),
 					enumTwo.map(ONE),
 					enumNone.map(TWO)
-			));
+			);
 			clock.assertEmpty();
 
 			assertEquals(FALSE, item.getBooleanTrue());
@@ -213,7 +213,6 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 			);
 			clock.assertEmpty();
 
-			deleteOnTearDown(item);
 			assertEquals(null, item.getBooleanTrue());
 			assertEquals(true, item.getBooleanNone());
 			assertEquals(5, item.getIntegerFive());

@@ -65,22 +65,22 @@ public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
 		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 
-		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type01C(1))));
+		new TypeRef(new Type01C(1));
 		assertEquals(0, this01C.checkTypeColumn());
 		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 
-		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type01C(2))));
+		new TypeRef(new Type01C(2));
 		assertEquals(0, this01C.checkTypeColumn());
 		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 
-		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type021C(5))));
+		new TypeRef(new Type021C(5));
 		assertEquals(0, this01C.checkTypeColumn());
 		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());
 
-		deleteOnTearDown(new TypeRef(deleteOnTearDown(new Type021C(5))));
+		new TypeRef(new Type021C(5));
 		assertEquals(0, this01C.checkTypeColumn());
 		assertEquals(0, this02A.checkTypeColumn());
 		assertEquals(0, ref0A  .checkTypeColumn());

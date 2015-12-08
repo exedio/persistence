@@ -47,7 +47,7 @@ public class FeatureFieldTest extends AbstractRuntimeModelTest
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
 
-		item = deleteOnTearDown(new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2));
+		item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());

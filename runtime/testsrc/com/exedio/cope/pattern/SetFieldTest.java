@@ -62,8 +62,8 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new SetFieldItem());
-		otherItem = deleteOnTearDown(new SetFieldItem());
+		item = new SetFieldItem();
+		otherItem = new SetFieldItem();
 	}
 
 	public void testIt()

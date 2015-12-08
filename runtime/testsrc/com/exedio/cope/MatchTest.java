@@ -36,7 +36,7 @@ public class MatchTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new MatchItem());
+		item = new MatchItem();
 	}
 
 	public void testStrings() throws StringLengthViolationException

@@ -44,8 +44,8 @@ public class IntegerTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new IntegerItem(2201));
-		item2 = deleteOnTearDown(new IntegerItem(2202));
+		item = new IntegerItem(2201);
+		item2 = new IntegerItem(2202);
 		numberOfItems = 2;
 	}
 

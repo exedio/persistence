@@ -61,10 +61,10 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new DynamicModelItem("item1"));
-		item2 = deleteOnTearDown(new DynamicModelItem("item2"));
-		de = deleteOnTearDown(new DynamicModelLocalizationItem("de"));
-		en = deleteOnTearDown(new DynamicModelLocalizationItem("en"));
+		item = new DynamicModelItem("item1");
+		item2 = new DynamicModelItem("item2");
+		de = new DynamicModelLocalizationItem("de");
+		en = new DynamicModelLocalizationItem("en");
 	}
 
 	private static final void assertIt(final Pattern pattern, final Field<?> field, final String postfix)
@@ -134,7 +134,7 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 		// test persistence
 		assertContains(features.getTypes());
 
-		final DynamicModel.Type<DynamicModelLocalizationItem> cellPhone = deleteOnTearDown(features.createType("cellPhone"));
+		final DynamicModel.Type<DynamicModelLocalizationItem> cellPhone = features.createType("cellPhone");
 		assertEquals(TYPE, cellPhone.getParentType());
 		assertEquals(features, cellPhone.getModel());
 		assertEquals("cellPhone", cellPhone.getCode());
@@ -190,7 +190,7 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 		assertEquals("80TB", item.getFeatures(memory));
 		assertEquals("80TB", memory.get(item));
 
-		final DynamicModel.Type<DynamicModelLocalizationItem> organizer = deleteOnTearDown(features.createType("organizer"));
+		final DynamicModel.Type<DynamicModelLocalizationItem> organizer = features.createType("organizer");
 		assertEquals(TYPE, organizer.getParentType());
 		assertEquals(features, organizer.getModel());
 		assertEquals("organizer", organizer.getCode());
@@ -439,8 +439,8 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 		assertEquals(null, item2.getFeaturesType());
 
 		// test very small model without enums
-		final DynamicModel.Type<DynamicModelLocalizationItem> smallType1 = deleteOnTearDown(small.createType("small1"));
-		final DynamicModelItem item3 = deleteOnTearDown(new DynamicModelItem("item3"));
+		final DynamicModel.Type<DynamicModelLocalizationItem> smallType1 = small.createType("small1");
+		final DynamicModelItem item3 = new DynamicModelItem("item3");
 		item3.setSmallType(smallType1);
 		final DynamicModel.Field<DynamicModelLocalizationItem> smallField1 = smallType1.addStringField("smallStringField1");
 		item3.setSmall(smallField1, "hallo");

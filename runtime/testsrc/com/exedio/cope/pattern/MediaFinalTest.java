@@ -107,7 +107,7 @@ public class MediaFinalTest extends AbstractRuntimeModelTest
 		assertEquals(list(), TYPE.search());
 
 		final Date before = new Date();
-		final MediaFinalItem item = deleteOnTearDown(new MediaFinalItem(data20, "major/minor"));
+		final MediaFinalItem item = new MediaFinalItem(data20, "major/minor");
 		final Date after = new Date();
 		assertContent(item, data20, before, after, "major/minor", "");
 		assertEquals(list(item), TYPE.search());
@@ -149,11 +149,11 @@ public class MediaFinalTest extends AbstractRuntimeModelTest
 		assertContent(item, data20, before, after, "major/minor", "");
 
 		final Date before19 = new Date();
-		final MediaFinalItem item2 = deleteOnTearDown(new MediaFinalItem(data19, "major19/minor19"));
+		final MediaFinalItem item2 = new MediaFinalItem(data19, "major19/minor19");
 		final Date after19 = new Date();
 		assertContent(item2, data19, before19, after19, "major19/minor19", "");
 
-		final MediaFinalItem itemNull = deleteOnTearDown(new MediaFinalItem(null, null));
+		final MediaFinalItem itemNull = new MediaFinalItem(null, null);
 		assertContentNull(itemNull);
 	}
 

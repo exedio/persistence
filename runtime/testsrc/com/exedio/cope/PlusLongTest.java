@@ -57,8 +57,8 @@ public class PlusLongTest extends AbstractRuntimeModelTest
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new PlusLongItem(1l, 2l, 3l));
-		item2 = deleteOnTearDown(new PlusLongItem(3l, 4l, 5l));
+		item = new PlusLongItem(1l, 2l, 3l);
+		item2 = new PlusLongItem(3l, 4l, 5l);
 	}
 
 	public void testSum()

@@ -59,8 +59,8 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 				"SchemaNamePolymorphicSubItemRenamed",
 				getTypeColumnValue(SchemaNamePolymorphicSubItem.TYPE));
 
-		final SchemaNamePolymorphicSuperItem item = deleteOnTearDown(new SchemaNamePolymorphicSubItem());
-		final SchemaNamePolymorphicRefItem refItem = deleteOnTearDown(new SchemaNamePolymorphicRefItem(item));
+		final SchemaNamePolymorphicSuperItem item = new SchemaNamePolymorphicSubItem();
+		final SchemaNamePolymorphicRefItem refItem = new SchemaNamePolymorphicRefItem(item);
 
 		assertEquals(item, refItem.getRef());
 		assertEquals(list(item), new Query<>(SchemaNamePolymorphicRefItem.ref).search());

@@ -39,7 +39,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		item = deleteOnTearDown(new ItemCacheDataItem());
+		item = new ItemCacheDataItem();
 	}
 
 	public void testNull()

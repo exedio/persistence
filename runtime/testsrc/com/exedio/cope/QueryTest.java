@@ -141,12 +141,12 @@ public class QueryTest extends AbstractRuntimeModelTest
 		assertEquals(Query.Result.empty(), Query.Result.empty());
 		assertEquals(Query.Result.empty().hashCode(), Query.Result.empty().hashCode());
 
-		deleteOnTearDown(new DayItem(d1));
-		deleteOnTearDown(new DayItem(d2));
-		deleteOnTearDown(new DayItem(d3));
-		deleteOnTearDown(new DayItem(d1));
-		deleteOnTearDown(new DayItem(d2));
-		deleteOnTearDown(new DayItem(d3));
+		new DayItem(d1);
+		new DayItem(d2);
+		new DayItem(d3);
+		new DayItem(d1);
+		new DayItem(d2);
+		new DayItem(d3);
 		assertEquals(list(d2, d3, d1, d2), r(1, 4).getData());
 		assertEquals(6, r(1, 4).getTotal());
 		assertEquals(1, r(1, 4).getOffset());
@@ -275,10 +275,10 @@ public class QueryTest extends AbstractRuntimeModelTest
 
 	public void testGroupBy()
 	{
-		final DayItem item1 = deleteOnTearDown( new DayItem(d1) );
-		final DayItem item2a = deleteOnTearDown( new DayItem(d2) );
-		final DayItem item2b = deleteOnTearDown( new DayItem(d2) );
-		final DayItem item3 = deleteOnTearDown( new DayItem(d3) );
+		final DayItem item1 =  new DayItem(d1) ;
+		final DayItem item2a =  new DayItem(d2) ;
+		final DayItem item2b =  new DayItem(d2) ;
+		final DayItem item3 =  new DayItem(d3) ;
 
 		assertContains(
 			item1, item2a, item2b, item3,

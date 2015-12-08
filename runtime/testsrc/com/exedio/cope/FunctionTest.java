@@ -43,7 +43,7 @@ public class FunctionTest extends AbstractRuntimeModelTest
 
 	private final StringItem newItem(final String min4, final String max4) throws Exception
 	{
-		final StringItem result = deleteOnTearDown(new StringItem("FunctionTest"));
+		final StringItem result = new StringItem("FunctionTest");
 		result.setMin4(min4);
 		result.setMax4(max4);
 		return result;
