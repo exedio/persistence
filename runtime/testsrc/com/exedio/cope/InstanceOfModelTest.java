@@ -81,7 +81,7 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
 	}
 
-	public void testEqualsHashcode()
+	public void testEqualsHashCode()
 	{
 		assertNotEqualsAndHash(
 				TYPE_A.getThis().instanceOf(TYPE_B1),
