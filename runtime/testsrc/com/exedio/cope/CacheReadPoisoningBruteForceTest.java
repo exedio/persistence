@@ -82,6 +82,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 	{
 		if(hsqldb||oracle) return; // TODO
 
+		final Model model = this.model; // avoid warning about synthetic-access
 		for(int i = 0; i<threads.length; i++)
 		{
 			threads[i] = new ThreadStoppable(){

@@ -95,6 +95,7 @@ public class TransactionOnlyTest extends AbstractRuntimeModelTest
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 
 		final Thread t2 = new Thread(new Runnable(){
+			@SuppressWarnings("synthetic-access")
 			public void run()
 			{
 				try

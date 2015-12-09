@@ -153,6 +153,7 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 			// make constructor non-private
 		}
 
+		@SuppressWarnings("synthetic-access")
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();
