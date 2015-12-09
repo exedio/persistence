@@ -164,45 +164,6 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testToString()
-	{
-		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
-		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
-		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", TYPE_A.getThis().notInstanceOf(TYPE_C1).toString());
-		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
-	}
-
-	public void testFails()
-	{
-		try
-		{
-			TYPE_A.getThis().instanceOf((Type[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("types", e.getMessage());
-		}
-		try
-		{
-			TYPE_A.getThis().instanceOf(new Type<?>[]{});
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("types must not be empty", e.getMessage());
-		}
-		try
-		{
-			TYPE_A.getThis().instanceOf(new Type<?>[]{null});
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("types[0]", e.getMessage());
-		}
-	}
-
 	public void testPolymorphicJoinCondition()
 	{
 		{

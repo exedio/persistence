@@ -29,6 +29,10 @@ public class InstanceOfModelTest extends CopeAssert
 			InstanceOfC1Item.TYPE,
 			InstanceOfRefItem.TYPE);
 
+	private final Type<InstanceOfAItem > TYPE_A  = InstanceOfAItem .TYPE;
+	private final Type<InstanceOfB1Item> TYPE_B1 = InstanceOfB1Item.TYPE;
+	private final Type<InstanceOfC1Item> TYPE_C1 = InstanceOfC1Item.TYPE;
+
 	public void testFeatures()
 	{
 		final Type<InstanceOfAItem > a  = InstanceOfAItem .TYPE;
@@ -70,6 +74,45 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals(list(codeUnq), b1.getUniqueConstraints());
 		assertEquals(list(codeUnq), b2.getUniqueConstraints());
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
+	}
+
+	public void testToString()
+	{
+		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
+		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
+		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", TYPE_A.getThis().notInstanceOf(TYPE_C1).toString());
+		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
+	}
+
+	public void testFails()
+	{
+		try
+		{
+			TYPE_A.getThis().instanceOf((Type[])null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("types", e.getMessage());
+		}
+		try
+		{
+			TYPE_A.getThis().instanceOf(new Type<?>[]{});
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("types must not be empty", e.getMessage());
+		}
+		try
+		{
+			TYPE_A.getThis().instanceOf(new Type<?>[]{null});
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("types[0]", e.getMessage());
+		}
 	}
 
 	public void testAsSame()
